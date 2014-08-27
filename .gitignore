@@ -212,3 +212,6 @@ $RECYCLE.BIN/
 *.msi
 *.msm
 *.msp
+PriemLib.sln
+PriemLib/App.Config
+PriemLib/PriemLib.csproj
