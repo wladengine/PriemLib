@@ -12744,7 +12744,7 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="PriemModel" ZoomLevel="32">
+      <Diagram Name="PriemModel" ZoomLevel="24">
         <EntityTypeShape EntityType="Priem2012Model.C_SettingRoles" Width="1.5" PointX="0.75" PointY="0.75" Height="1.9210009765624996" IsExpanded="true" />
         <EntityTypeShape EntityType="Priem2012Model.Age" Width="1.5" PointX="2.75" PointY="0.75" Height="1.4279589843749996" IsExpanded="true" />
         <EntityTypeShape EntityType="Priem2012Model.AttMarks" Width="1.5" PointX="6" PointY="18.375" Height="1.9210009765624996" IsExpanded="true" />
