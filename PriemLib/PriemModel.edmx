@@ -696,6 +696,102 @@
       [extPersonAspirant].[RegionEducId] AS [RegionEducId]
       FROM [ed].[extPersonAspirant] AS [extPersonAspirant]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="extPersonSPO" EntityType="Priem2012Model.Store.extPersonSPO" store:Type="Views" store:Schema="ed" store:Name="extPersonSPO">
+            <DefiningQuery>SELECT 
+      [extPersonSPO].[Id] AS [Id], 
+      [extPersonSPO].[Barcode] AS [Barcode], 
+      [extPersonSPO].[Num] AS [Num], 
+      [extPersonSPO].[Name] AS [Name], 
+      [extPersonSPO].[SecondName] AS [SecondName], 
+      [extPersonSPO].[Surname] AS [Surname], 
+      [extPersonSPO].[BirthDate] AS [BirthDate], 
+      [extPersonSPO].[BirthPlace] AS [BirthPlace], 
+      [extPersonSPO].[PassportTypeId] AS [PassportTypeId], 
+      [extPersonSPO].[PassportSeries] AS [PassportSeries], 
+      [extPersonSPO].[PassportNumber] AS [PassportNumber], 
+      [extPersonSPO].[PassportAuthor] AS [PassportAuthor], 
+      [extPersonSPO].[PassportDate] AS [PassportDate], 
+      [extPersonSPO].[Sex] AS [Sex], 
+      [extPersonSPO].[CountryId] AS [CountryId], 
+      [extPersonSPO].[NationalityId] AS [NationalityId], 
+      [extPersonSPO].[RegionId] AS [RegionId], 
+      [extPersonSPO].[Phone] AS [Phone], 
+      [extPersonSPO].[Mobiles] AS [Mobiles], 
+      [extPersonSPO].[Email] AS [Email], 
+      [extPersonSPO].[Code] AS [Code], 
+      [extPersonSPO].[City] AS [City], 
+      [extPersonSPO].[Street] AS [Street], 
+      [extPersonSPO].[House] AS [House], 
+      [extPersonSPO].[Flat] AS [Flat], 
+      [extPersonSPO].[CodeReal] AS [CodeReal], 
+      [extPersonSPO].[Korpus] AS [Korpus], 
+      [extPersonSPO].[CityReal] AS [CityReal], 
+      [extPersonSPO].[StreetReal] AS [StreetReal], 
+      [extPersonSPO].[HouseReal] AS [HouseReal], 
+      [extPersonSPO].[KorpusReal] AS [KorpusReal], 
+      [extPersonSPO].[FlatReal] AS [FlatReal], 
+      [extPersonSPO].[HostelAbit] AS [HostelAbit], 
+      [extPersonSPO].[HasAssignToHostel] AS [HasAssignToHostel], 
+      [extPersonSPO].[HostelFacultyId] AS [HostelFacultyId], 
+      [extPersonSPO].[ExamPassFacultyId] AS [ExamPassFacultyId], 
+      [extPersonSPO].[HasExamPass] AS [HasExamPass], 
+      [extPersonSPO].[IsExcellent] AS [IsExcellent], 
+      [extPersonSPO].[LanguageId] AS [LanguageId], 
+      [extPersonSPO].[SchoolTypeId] AS [SchoolTypeId], 
+      [extPersonSPO].[SchoolCity] AS [SchoolCity], 
+      [extPersonSPO].[SchoolName] AS [SchoolName], 
+      [extPersonSPO].[SchoolNum] AS [SchoolNum], 
+      [extPersonSPO].[SchoolExitYear] AS [SchoolExitYear], 
+      [extPersonSPO].[CountryEducId] AS [CountryEducId], 
+      [extPersonSPO].[IsEqual] AS [IsEqual], 
+      [extPersonSPO].[AttestatRegion] AS [AttestatRegion], 
+      [extPersonSPO].[AttestatSeries] AS [AttestatSeries], 
+      [extPersonSPO].[AttestatNum] AS [AttestatNum], 
+      [extPersonSPO].[DiplomSeries] AS [DiplomSeries], 
+      [extPersonSPO].[DiplomNum] AS [DiplomNum], 
+      [extPersonSPO].[SchoolAVG] AS [SchoolAVG], 
+      [extPersonSPO].[HighEducation] AS [HighEducation], 
+      [extPersonSPO].[HEProfession] AS [HEProfession], 
+      [extPersonSPO].[HEQualification] AS [HEQualification], 
+      [extPersonSPO].[HEStudyFormId] AS [HEStudyFormId], 
+      [extPersonSPO].[HEEntryYear] AS [HEEntryYear], 
+      [extPersonSPO].[HEExitYear] AS [HEExitYear], 
+      [extPersonSPO].[HEWork] AS [HEWork], 
+      [extPersonSPO].[SportQualificationId] AS [SportQualificationId], 
+      [extPersonSPO].[SportQualificationLevel] AS [SportQualificationLevel], 
+      [extPersonSPO].[OtherSportQualification] AS [OtherSportQualification], 
+      [extPersonSPO].[SchoolExitClassId] AS [SchoolExitClassId], 
+      [extPersonSPO].[Stag] AS [Stag], 
+      [extPersonSPO].[WorkPlace] AS [WorkPlace], 
+      [extPersonSPO].[Privileges] AS [Privileges], 
+      [extPersonSPO].[PassportCode] AS [PassportCode], 
+      [extPersonSPO].[PersonalCode] AS [PersonalCode], 
+      [extPersonSPO].[PersonInfo] AS [PersonInfo], 
+      [extPersonSPO].[ExtraInfo] AS [ExtraInfo], 
+      [extPersonSPO].[ScienceWork] AS [ScienceWork], 
+      [extPersonSPO].[PersonNum] AS [PersonNum], 
+      [extPersonSPO].[FIO] AS [FIO], 
+      [extPersonSPO].[PassportData] AS [PassportData], 
+      [extPersonSPO].[EducDocument] AS [EducDocument], 
+      [extPersonSPO].[HostelFacultyAcr] AS [HostelFacultyAcr], 
+      [extPersonSPO].[CountryName] AS [CountryName], 
+      [extPersonSPO].[NationalityName] AS [NationalityName], 
+      [extPersonSPO].[RegionName] AS [RegionName], 
+      [extPersonSPO].[HostelFacultyName] AS [HostelFacultyName], 
+      [extPersonSPO].[StartEnglish] AS [StartEnglish], 
+      [extPersonSPO].[EnglishMark] AS [EnglishMark], 
+      [extPersonSPO].[EgeInSPbgu] AS [EgeInSPbgu], 
+      [extPersonSPO].[SportQualificationName] AS [SportQualificationName], 
+      [extPersonSPO].[HostelEduc] AS [HostelEduc], 
+      [extPersonSPO].[SNILS] AS [SNILS], 
+      [extPersonSPO].[Expr1] AS [Expr1], 
+      [extPersonSPO].[KladrCode] AS [KladrCode], 
+      [extPersonSPO].[HasTRKI] AS [HasTRKI], 
+      [extPersonSPO].[EqualDocumentNumber] AS [EqualDocumentNumber], 
+      [extPersonSPO].[TRKICertificateNumber] AS [TRKICertificateNumber], 
+      [extPersonSPO].[RegionEducId] AS [RegionEducId]
+      FROM [ed].[extPersonSPO] AS [extPersonSPO]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="extProtocol" EntityType="Priem2012Model.Store.extProtocol" store:Type="Views" store:Schema="ed" store:Name="extProtocol">
             <DefiningQuery>SELECT 
       [extProtocol].[Id] AS [Id], 
@@ -3188,6 +3284,115 @@
           <Property Name="TRKICertificateNumber" Type="nvarchar" MaxLength="50" />
           <Property Name="SNILS" Type="nvarchar" MaxLength="50" />
           <Property Name="KladrCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="RegionEducId" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'Priem.ed.extPersonSPO' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="extPersonSPO">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Num" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="Surname" />
+            <PropertyRef Name="BirthDate" />
+            <PropertyRef Name="BirthPlace" />
+            <PropertyRef Name="PassportTypeId" />
+            <PropertyRef Name="Sex" />
+            <PropertyRef Name="NationalityId" />
+            <PropertyRef Name="FIO" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Barcode" Type="int" />
+          <Property Name="Num" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="SecondName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Surname" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="BirthDate" Type="date" Nullable="false" />
+          <Property Name="BirthPlace" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="PassportTypeId" Type="int" Nullable="false" />
+          <Property Name="PassportSeries" Type="nvarchar" MaxLength="10" />
+          <Property Name="PassportNumber" Type="nvarchar" MaxLength="20" />
+          <Property Name="PassportAuthor" Type="nvarchar" MaxLength="350" />
+          <Property Name="PassportDate" Type="date" />
+          <Property Name="Sex" Type="bit" Nullable="false" />
+          <Property Name="CountryId" Type="int" />
+          <Property Name="NationalityId" Type="int" Nullable="false" />
+          <Property Name="RegionId" Type="int" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="100" />
+          <Property Name="Mobiles" Type="nvarchar" MaxLength="200" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" />
+          <Property Name="Code" Type="nvarchar" MaxLength="20" />
+          <Property Name="City" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Street" Type="nvarchar" MaxLength="100" />
+          <Property Name="House" Type="nvarchar" MaxLength="20" />
+          <Property Name="Flat" Type="nvarchar" MaxLength="10" />
+          <Property Name="CodeReal" Type="nvarchar" MaxLength="20" />
+          <Property Name="Korpus" Type="nvarchar" MaxLength="10" />
+          <Property Name="CityReal" Type="nvarchar" MaxLength="1000" />
+          <Property Name="StreetReal" Type="nvarchar" MaxLength="100" />
+          <Property Name="HouseReal" Type="nvarchar" MaxLength="10" />
+          <Property Name="KorpusReal" Type="nvarchar" MaxLength="10" />
+          <Property Name="FlatReal" Type="nvarchar" MaxLength="10" />
+          <Property Name="HostelAbit" Type="bit" />
+          <Property Name="HasAssignToHostel" Type="bit" />
+          <Property Name="HostelFacultyId" Type="int" />
+          <Property Name="ExamPassFacultyId" Type="int" />
+          <Property Name="HasExamPass" Type="bit" />
+          <Property Name="IsExcellent" Type="bit" />
+          <Property Name="LanguageId" Type="int" />
+          <Property Name="SchoolTypeId" Type="int" />
+          <Property Name="SchoolCity" Type="nvarchar" MaxLength="100" />
+          <Property Name="SchoolName" Type="nvarchar" MaxLength="500" />
+          <Property Name="SchoolNum" Type="nvarchar" MaxLength="50" />
+          <Property Name="SchoolExitYear" Type="int" />
+          <Property Name="CountryEducId" Type="int" />
+          <Property Name="IsEqual" Type="bit" />
+          <Property Name="AttestatRegion" Type="nvarchar" MaxLength="10" />
+          <Property Name="AttestatSeries" Type="nvarchar" MaxLength="10" />
+          <Property Name="AttestatNum" Type="nvarchar" MaxLength="20" />
+          <Property Name="DiplomSeries" Type="nvarchar" MaxLength="20" />
+          <Property Name="DiplomNum" Type="nvarchar" MaxLength="20" />
+          <Property Name="SchoolAVG" Type="float" />
+          <Property Name="HighEducation" Type="nvarchar" MaxLength="1000" />
+          <Property Name="HEProfession" Type="nvarchar" MaxLength="500" />
+          <Property Name="HEQualification" Type="nvarchar" MaxLength="50" />
+          <Property Name="HEStudyFormId" Type="int" />
+          <Property Name="HEEntryYear" Type="int" />
+          <Property Name="HEExitYear" Type="int" />
+          <Property Name="HEWork" Type="nvarchar" MaxLength="500" />
+          <Property Name="SportQualificationId" Type="int" />
+          <Property Name="SportQualificationLevel" Type="nvarchar" MaxLength="50" />
+          <Property Name="OtherSportQualification" Type="nvarchar" MaxLength="500" />
+          <Property Name="SchoolExitClassId" Type="int" />
+          <Property Name="Stag" Type="nvarchar" MaxLength="100" />
+          <Property Name="WorkPlace" Type="nvarchar(max)" />
+          <Property Name="Privileges" Type="int" />
+          <Property Name="PassportCode" Type="nvarchar" MaxLength="10" />
+          <Property Name="PersonalCode" Type="nvarchar" MaxLength="10" />
+          <Property Name="PersonInfo" Type="nvarchar(max)" />
+          <Property Name="ExtraInfo" Type="nvarchar(max)" />
+          <Property Name="ScienceWork" Type="nvarchar(max)" />
+          <Property Name="PersonNum" Type="nvarchar" MaxLength="7" />
+          <Property Name="FIO" Type="nvarchar" Nullable="false" MaxLength="152" />
+          <Property Name="PassportData" Type="nvarchar" MaxLength="532" />
+          <Property Name="EducDocument" Type="nvarchar" MaxLength="44" />
+          <Property Name="HostelFacultyAcr" Type="nvarchar" MaxLength="50" />
+          <Property Name="CountryName" Type="nvarchar" MaxLength="100" />
+          <Property Name="NationalityName" Type="nvarchar" MaxLength="100" />
+          <Property Name="RegionName" Type="nvarchar" MaxLength="100" />
+          <Property Name="HostelFacultyName" Type="nvarchar" MaxLength="100" />
+          <Property Name="StartEnglish" Type="bit" />
+          <Property Name="EnglishMark" Type="int" />
+          <Property Name="EgeInSPbgu" Type="bit" />
+          <Property Name="SportQualificationName" Type="nvarchar" MaxLength="50" />
+          <Property Name="HostelEduc" Type="bit" />
+          <Property Name="SNILS" Type="nvarchar" MaxLength="50" />
+          <Property Name="Expr1" Type="bit" />
+          <Property Name="KladrCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="HasTRKI" Type="bit" />
+          <Property Name="EqualDocumentNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="TRKICertificateNumber" Type="nvarchar" MaxLength="50" />
           <Property Name="RegionEducId" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
@@ -7262,6 +7467,7 @@
             <End Role="PersonBenefitDocument" EntitySet="PersonBenefitDocument" />
           </AssociationSet>
           <EntitySet Name="Signer" EntityType="Priem2012Model.Signer" />
+          <EntitySet Name="extPersonSPO" EntityType="Priem2012Model.extPersonSPO" />
           </EntityContainer>
         <EntityType Name="C_SettingRoles">
           <Key>
@@ -10605,6 +10811,112 @@
           <Property Type="String" Name="Name" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Position" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="extPersonSPO">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Num" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="Surname" />
+            <PropertyRef Name="BirthDate" />
+            <PropertyRef Name="BirthPlace" />
+            <PropertyRef Name="PassportTypeId" />
+            <PropertyRef Name="Sex" />
+            <PropertyRef Name="NationalityId" />
+            <PropertyRef Name="FIO" />
+          </Key>
+          <Property Type="Guid" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="Barcode" />
+          <Property Type="Int32" Name="Num" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="SecondName" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Surname" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="BirthDate" Nullable="false" Precision="0" />
+          <Property Type="String" Name="BirthPlace" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="PassportTypeId" Nullable="false" />
+          <Property Type="String" Name="PassportSeries" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="PassportNumber" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="PassportAuthor" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="PassportDate" Precision="0" />
+          <Property Type="Boolean" Name="Sex" Nullable="false" />
+          <Property Type="Int32" Name="CountryId" />
+          <Property Type="Int32" Name="NationalityId" Nullable="false" />
+          <Property Type="Int32" Name="RegionId" />
+          <Property Type="String" Name="Phone" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Mobiles" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Email" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Code" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="City" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Street" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="House" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Flat" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="CodeReal" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Korpus" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="CityReal" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="StreetReal" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="HouseReal" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="KorpusReal" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="FlatReal" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="HostelAbit" />
+          <Property Type="Boolean" Name="HasAssignToHostel" />
+          <Property Type="Int32" Name="HostelFacultyId" />
+          <Property Type="Int32" Name="ExamPassFacultyId" />
+          <Property Type="Boolean" Name="HasExamPass" />
+          <Property Type="Boolean" Name="IsExcellent" />
+          <Property Type="Int32" Name="LanguageId" />
+          <Property Type="Int32" Name="SchoolTypeId" />
+          <Property Type="String" Name="SchoolCity" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="SchoolName" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="SchoolNum" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="SchoolExitYear" />
+          <Property Type="Int32" Name="CountryEducId" />
+          <Property Type="Boolean" Name="IsEqual" />
+          <Property Type="String" Name="AttestatRegion" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="AttestatSeries" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="AttestatNum" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="DiplomSeries" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="DiplomNum" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="Double" Name="SchoolAVG" />
+          <Property Type="String" Name="HighEducation" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="HEProfession" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="HEQualification" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="HEStudyFormId" />
+          <Property Type="Int32" Name="HEEntryYear" />
+          <Property Type="Int32" Name="HEExitYear" />
+          <Property Type="String" Name="HEWork" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="SportQualificationId" />
+          <Property Type="String" Name="SportQualificationLevel" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="OtherSportQualification" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="SchoolExitClassId" />
+          <Property Type="String" Name="Stag" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="WorkPlace" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="Privileges" />
+          <Property Type="String" Name="PassportCode" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="PersonalCode" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="PersonInfo" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ExtraInfo" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ScienceWork" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="PersonNum" MaxLength="7" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="FIO" Nullable="false" MaxLength="152" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="PassportData" MaxLength="532" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="EducDocument" MaxLength="44" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="HostelFacultyAcr" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="CountryName" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="NationalityName" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="RegionName" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="HostelFacultyName" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="StartEnglish" />
+          <Property Type="Int32" Name="EnglishMark" />
+          <Property Type="Boolean" Name="EgeInSPbgu" />
+          <Property Type="String" Name="SportQualificationName" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="HostelEduc" />
+          <Property Type="String" Name="SNILS" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="Expr1" />
+          <Property Type="String" Name="KladrCode" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="HasTRKI" />
+          <Property Type="String" Name="EqualDocumentNumber" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="TRKICertificateNumber" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="RegionEducId" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -12724,6 +13036,104 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="extPersonSPO">
+            <EntityTypeMapping TypeName="Priem2012Model.extPersonSPO">
+              <MappingFragment StoreEntitySet="extPersonSPO">
+                <ScalarProperty Name="RegionEducId" ColumnName="RegionEducId" />
+                <ScalarProperty Name="TRKICertificateNumber" ColumnName="TRKICertificateNumber" />
+                <ScalarProperty Name="EqualDocumentNumber" ColumnName="EqualDocumentNumber" />
+                <ScalarProperty Name="HasTRKI" ColumnName="HasTRKI" />
+                <ScalarProperty Name="KladrCode" ColumnName="KladrCode" />
+                <ScalarProperty Name="Expr1" ColumnName="Expr1" />
+                <ScalarProperty Name="SNILS" ColumnName="SNILS" />
+                <ScalarProperty Name="HostelEduc" ColumnName="HostelEduc" />
+                <ScalarProperty Name="SportQualificationName" ColumnName="SportQualificationName" />
+                <ScalarProperty Name="EgeInSPbgu" ColumnName="EgeInSPbgu" />
+                <ScalarProperty Name="EnglishMark" ColumnName="EnglishMark" />
+                <ScalarProperty Name="StartEnglish" ColumnName="StartEnglish" />
+                <ScalarProperty Name="HostelFacultyName" ColumnName="HostelFacultyName" />
+                <ScalarProperty Name="RegionName" ColumnName="RegionName" />
+                <ScalarProperty Name="NationalityName" ColumnName="NationalityName" />
+                <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+                <ScalarProperty Name="HostelFacultyAcr" ColumnName="HostelFacultyAcr" />
+                <ScalarProperty Name="EducDocument" ColumnName="EducDocument" />
+                <ScalarProperty Name="PassportData" ColumnName="PassportData" />
+                <ScalarProperty Name="FIO" ColumnName="FIO" />
+                <ScalarProperty Name="PersonNum" ColumnName="PersonNum" />
+                <ScalarProperty Name="ScienceWork" ColumnName="ScienceWork" />
+                <ScalarProperty Name="ExtraInfo" ColumnName="ExtraInfo" />
+                <ScalarProperty Name="PersonInfo" ColumnName="PersonInfo" />
+                <ScalarProperty Name="PersonalCode" ColumnName="PersonalCode" />
+                <ScalarProperty Name="PassportCode" ColumnName="PassportCode" />
+                <ScalarProperty Name="Privileges" ColumnName="Privileges" />
+                <ScalarProperty Name="WorkPlace" ColumnName="WorkPlace" />
+                <ScalarProperty Name="Stag" ColumnName="Stag" />
+                <ScalarProperty Name="SchoolExitClassId" ColumnName="SchoolExitClassId" />
+                <ScalarProperty Name="OtherSportQualification" ColumnName="OtherSportQualification" />
+                <ScalarProperty Name="SportQualificationLevel" ColumnName="SportQualificationLevel" />
+                <ScalarProperty Name="SportQualificationId" ColumnName="SportQualificationId" />
+                <ScalarProperty Name="HEWork" ColumnName="HEWork" />
+                <ScalarProperty Name="HEExitYear" ColumnName="HEExitYear" />
+                <ScalarProperty Name="HEEntryYear" ColumnName="HEEntryYear" />
+                <ScalarProperty Name="HEStudyFormId" ColumnName="HEStudyFormId" />
+                <ScalarProperty Name="HEQualification" ColumnName="HEQualification" />
+                <ScalarProperty Name="HEProfession" ColumnName="HEProfession" />
+                <ScalarProperty Name="HighEducation" ColumnName="HighEducation" />
+                <ScalarProperty Name="SchoolAVG" ColumnName="SchoolAVG" />
+                <ScalarProperty Name="DiplomNum" ColumnName="DiplomNum" />
+                <ScalarProperty Name="DiplomSeries" ColumnName="DiplomSeries" />
+                <ScalarProperty Name="AttestatNum" ColumnName="AttestatNum" />
+                <ScalarProperty Name="AttestatSeries" ColumnName="AttestatSeries" />
+                <ScalarProperty Name="AttestatRegion" ColumnName="AttestatRegion" />
+                <ScalarProperty Name="IsEqual" ColumnName="IsEqual" />
+                <ScalarProperty Name="CountryEducId" ColumnName="CountryEducId" />
+                <ScalarProperty Name="SchoolExitYear" ColumnName="SchoolExitYear" />
+                <ScalarProperty Name="SchoolNum" ColumnName="SchoolNum" />
+                <ScalarProperty Name="SchoolName" ColumnName="SchoolName" />
+                <ScalarProperty Name="SchoolCity" ColumnName="SchoolCity" />
+                <ScalarProperty Name="SchoolTypeId" ColumnName="SchoolTypeId" />
+                <ScalarProperty Name="LanguageId" ColumnName="LanguageId" />
+                <ScalarProperty Name="IsExcellent" ColumnName="IsExcellent" />
+                <ScalarProperty Name="HasExamPass" ColumnName="HasExamPass" />
+                <ScalarProperty Name="ExamPassFacultyId" ColumnName="ExamPassFacultyId" />
+                <ScalarProperty Name="HostelFacultyId" ColumnName="HostelFacultyId" />
+                <ScalarProperty Name="HasAssignToHostel" ColumnName="HasAssignToHostel" />
+                <ScalarProperty Name="HostelAbit" ColumnName="HostelAbit" />
+                <ScalarProperty Name="FlatReal" ColumnName="FlatReal" />
+                <ScalarProperty Name="KorpusReal" ColumnName="KorpusReal" />
+                <ScalarProperty Name="HouseReal" ColumnName="HouseReal" />
+                <ScalarProperty Name="StreetReal" ColumnName="StreetReal" />
+                <ScalarProperty Name="CityReal" ColumnName="CityReal" />
+                <ScalarProperty Name="Korpus" ColumnName="Korpus" />
+                <ScalarProperty Name="CodeReal" ColumnName="CodeReal" />
+                <ScalarProperty Name="Flat" ColumnName="Flat" />
+                <ScalarProperty Name="House" ColumnName="House" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Mobiles" ColumnName="Mobiles" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="RegionId" ColumnName="RegionId" />
+                <ScalarProperty Name="NationalityId" ColumnName="NationalityId" />
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="PassportDate" ColumnName="PassportDate" />
+                <ScalarProperty Name="PassportAuthor" ColumnName="PassportAuthor" />
+                <ScalarProperty Name="PassportNumber" ColumnName="PassportNumber" />
+                <ScalarProperty Name="PassportSeries" ColumnName="PassportSeries" />
+                <ScalarProperty Name="PassportTypeId" ColumnName="PassportTypeId" />
+                <ScalarProperty Name="BirthPlace" ColumnName="BirthPlace" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="SecondName" ColumnName="SecondName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Num" ColumnName="Num" />
+                <ScalarProperty Name="Barcode" ColumnName="Barcode" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -13725,6 +14135,7 @@
           <ConnectorPoint PointX="16" PointY="14.090019972656199" />
         </AssociationConnector>
         <EntityTypeShape EntityType="Priem2012Model.Signer" Width="1.5" PointX="2.9953525434226504" PointY="26.116112184764869" />
+        <EntityTypeShape EntityType="Priem2012Model.extPersonSPO" Width="1.5" PointX="5.6547576140867353" PointY="13.15297866480098" />
         </Diagram>
     </Diagrams>
   </Designer>
