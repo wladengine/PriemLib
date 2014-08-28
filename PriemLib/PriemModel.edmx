@@ -8478,6 +8478,107 @@
             <End Role="Signer" EntitySet="Signer" />
             <End Role="OrderNumbers" EntitySet="OrderNumbers" />
           </AssociationSet>
+          <FunctionImport Name="Person_SPO_insert">
+            <Parameter Name="Barcode" Mode="In" Type="Int32" />
+            <Parameter Name="Name" Mode="In" Type="String" />
+            <Parameter Name="SecondName" Mode="In" Type="String" />
+            <Parameter Name="Surname" Mode="In" Type="String" />
+            <Parameter Name="BirthDate" Mode="In" Type="DateTime" />
+            <Parameter Name="BirthPlace" Mode="In" Type="String" />
+            <Parameter Name="PassportTypeId" Mode="In" Type="Int32" />
+            <Parameter Name="PassportSeries" Mode="In" Type="String" />
+            <Parameter Name="PassportNumber" Mode="In" Type="String" />
+            <Parameter Name="PassportAuthor" Mode="In" Type="String" />
+            <Parameter Name="PassportDate" Mode="In" Type="DateTime" />
+            <Parameter Name="SNILS" Mode="In" Type="String" />
+            <Parameter Name="Sex" Mode="In" Type="Boolean" />
+            <Parameter Name="CountryId" Mode="In" Type="Int32" />
+            <Parameter Name="NationalityId" Mode="In" Type="Int32" />
+            <Parameter Name="RegionId" Mode="In" Type="Int32" />
+            <Parameter Name="Phone" Mode="In" Type="String" />
+            <Parameter Name="Mobiles" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="KladrCode" Mode="In" Type="String" />
+            <Parameter Name="Code" Mode="In" Type="String" />
+            <Parameter Name="City" Mode="In" Type="String" />
+            <Parameter Name="Street" Mode="In" Type="String" />
+            <Parameter Name="House" Mode="In" Type="String" />
+            <Parameter Name="Korpus" Mode="In" Type="String" />
+            <Parameter Name="Flat" Mode="In" Type="String" />
+            <Parameter Name="CodeReal" Mode="In" Type="String" />
+            <Parameter Name="CityReal" Mode="In" Type="String" />
+            <Parameter Name="StreetReal" Mode="In" Type="String" />
+            <Parameter Name="HouseReal" Mode="In" Type="String" />
+            <Parameter Name="KorpusReal" Mode="In" Type="String" />
+            <Parameter Name="FlatReal" Mode="In" Type="String" />
+            <Parameter Name="HostelAbit" Mode="In" Type="Boolean" />
+            <Parameter Name="HostelEduc" Mode="In" Type="Boolean" />
+            <Parameter Name="HasAssignToHostel" Mode="In" Type="Boolean" />
+            <Parameter Name="HostelFacultyId" Mode="In" Type="Int32" />
+            <Parameter Name="HasExamPass" Mode="In" Type="Boolean" />
+            <Parameter Name="ExamPassFacultyId" Mode="In" Type="Int32" />
+            <Parameter Name="IsExcellent" Mode="In" Type="Boolean" />
+            <Parameter Name="LanguageId" Mode="In" Type="Int32" />
+            <Parameter Name="SchoolCity" Mode="In" Type="String" />
+            <Parameter Name="SchoolTypeId" Mode="In" Type="Int32" />
+            <Parameter Name="SchoolExitClassId" Mode="In" Type="Int32" />
+            <Parameter Name="SchoolName" Mode="In" Type="String" />
+            <Parameter Name="SchoolNum" Mode="In" Type="String" />
+            <Parameter Name="SchoolExitYear" Mode="In" Type="Int32" />
+            <Parameter Name="SchoolAVG" Mode="In" Type="Double" />
+            <Parameter Name="CountryEducId" Mode="In" Type="Int32" />
+            <Parameter Name="RegionEducId" Mode="In" Type="Int32" />
+            <Parameter Name="IsEqual" Mode="In" Type="Boolean" />
+            <Parameter Name="EqualDocumentNumber" Mode="In" Type="String" />
+            <Parameter Name="AttestatRegion" Mode="In" Type="String" />
+            <Parameter Name="AttestatSeries" Mode="In" Type="String" />
+            <Parameter Name="AttestatNum" Mode="In" Type="String" />
+            <Parameter Name="DiplomSeries" Mode="In" Type="String" />
+            <Parameter Name="DiplomNum" Mode="In" Type="String" />
+            <Parameter Name="HighEducation" Mode="In" Type="String" />
+            <Parameter Name="HEProfession" Mode="In" Type="String" />
+            <Parameter Name="HEQualification" Mode="In" Type="String" />
+            <Parameter Name="HEEntryYear" Mode="In" Type="Int32" />
+            <Parameter Name="HEExitYear" Mode="In" Type="Int32" />
+            <Parameter Name="HEStudyFormId" Mode="In" Type="Int32" />
+            <Parameter Name="HEWork" Mode="In" Type="String" />
+            <Parameter Name="Stag" Mode="In" Type="String" />
+            <Parameter Name="WorkPlace" Mode="In" Type="String" />
+            <Parameter Name="Privileges" Mode="In" Type="Int32" />
+            <Parameter Name="PassportCode" Mode="In" Type="String" />
+            <Parameter Name="PersonalCode" Mode="In" Type="String" />
+            <Parameter Name="PersonInfo" Mode="In" Type="String" />
+            <Parameter Name="ExtraInfo" Mode="In" Type="String" />
+            <Parameter Name="ScienceWork" Mode="In" Type="String" />
+            <Parameter Name="StartEnglish" Mode="In" Type="Boolean" />
+            <Parameter Name="EnglishMark" Mode="In" Type="Int32" />
+            <Parameter Name="EgeInSpbgu" Mode="In" Type="Boolean" />
+            <Parameter Name="id" Mode="InOut" Type="Guid" />
+          </FunctionImport>
+          <FunctionImport Name="PersonSportQualification_insert">
+            <Parameter Name="PersonId" Mode="In" Type="Guid" />
+            <Parameter Name="SportQualificationId" Mode="In" Type="Int32" />
+            <Parameter Name="SportQualificationLevel" Mode="In" Type="String" />
+            <Parameter Name="OtherSportQualification" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PersonSportQualification_update">
+            <Parameter Name="PersonId" Mode="In" Type="Guid" />
+            <Parameter Name="SportQualificationId" Mode="In" Type="Int32" />
+            <Parameter Name="SportQualificationLevel" Mode="In" Type="String" />
+            <Parameter Name="OtherSportQualification" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="FirstWave_INSERTQUOTA">
+            <Parameter Name="AbiturientId" Mode="In" Type="Guid" />
+            <Parameter Name="SortNum" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="FirstWave_INSERTCRIMEA">
+            <Parameter Name="AbiturientId" Mode="In" Type="Guid" />
+            <Parameter Name="SortNum" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="FirstWave_INSERTCEL">
+            <Parameter Name="AbiturientId" Mode="In" Type="Guid" />
+            <Parameter Name="SortNum" Mode="In" Type="Int32" />
+          </FunctionImport>
           </EntityContainer>
         <EntityType Name="C_SettingRoles">
           <Key>
@@ -15047,6 +15148,12 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Person_SPO_insert" FunctionName="Priem2012Model.Store.Person_SPO_insert" />
+          <FunctionImportMapping FunctionImportName="PersonSportQualification_insert" FunctionName="Priem2012Model.Store.PersonSportQualification_insert" />
+          <FunctionImportMapping FunctionImportName="PersonSportQualification_update" FunctionName="Priem2012Model.Store.PersonSportQualification_update" />
+          <FunctionImportMapping FunctionImportName="FirstWave_INSERTQUOTA" FunctionName="Priem2012Model.Store.FirstWave_INSERTQUOTA" />
+          <FunctionImportMapping FunctionImportName="FirstWave_INSERTCRIMEA" FunctionName="Priem2012Model.Store.FirstWave_INSERTCRIMEA" />
+          <FunctionImportMapping FunctionImportName="FirstWave_INSERTCEL" FunctionName="Priem2012Model.Store.FirstWave_INSERTCEL" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
