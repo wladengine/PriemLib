@@ -5,8 +5,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Data;
 using System.IO;
-using System.ComponentModel;
-using System.Linq;
+using System.ComponentModel; 
 using System.DirectoryServices.AccountManagement;
 
 using BaseFormsLib;

@@ -21,6 +21,8 @@ namespace PriemLib
     public enum PriemType
     {
         Priem,
-        PriemAspirant
+        PriemAspirant,
+        PriemMag,
+        PriemSPO
     }
 }
