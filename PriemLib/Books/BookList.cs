@@ -16,7 +16,7 @@ namespace PriemLib
     public partial class BookList : BaseList
     {
         protected string _orderBy;
-        protected MainClass.DataRefreshHandler _drh;
+        protected DataRefreshHandler _drh;
         protected DBPriem _bdc; 
 
         public BookList()
@@ -35,7 +35,7 @@ namespace PriemLib
             this.MdiParent = MainClass.mainform;           
             _bdc = MainClass.Bdc;
 
-            _drh = new MainClass.DataRefreshHandler(UpdateDataGrid);
+            _drh = new DataRefreshHandler(UpdateDataGrid);
             MainClass.AddHandler(_drh);           
 
             Dgv.ReadOnly = true;

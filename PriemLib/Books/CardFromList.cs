@@ -20,7 +20,7 @@ namespace PriemLib
         public CardFromList()
             : base()
         {
-            InitializeComponent();  
+            InitializeComponent();
         }
 
         public CardFromList(string id)

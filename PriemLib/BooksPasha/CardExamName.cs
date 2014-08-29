@@ -10,7 +10,7 @@ using System.Data.Objects;
 
 using EducServLib;
 
-namespace Priem
+namespace PriemLib
 {
     public partial class CardExamName : BookCardInt
     {
@@ -51,7 +51,7 @@ namespace Priem
 
         protected override bool IsForReadOnly()
         {
-            return !MainClass.RightsPashaOlia();
+            return !(MainClass.IsPasha() || MainClass.IsOwner());
         }
 
         protected override void FillCard()

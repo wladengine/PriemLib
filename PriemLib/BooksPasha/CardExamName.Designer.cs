@@ -1,4 +1,4 @@
-﻿namespace Priem
+﻿namespace PriemLib
 {
     partial class CardExamName
     {

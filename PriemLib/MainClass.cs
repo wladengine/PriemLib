@@ -13,12 +13,11 @@ using EducServLib;
 
 namespace PriemLib
 {
+    //public delegate void DataRefreshHandler();
+    //public delegate void ProtocolRefreshHandler();
+
     public static partial class MainClass
     {
-        //test
-        public delegate void DataRefreshHandler();
-        public delegate void ProtocolRefreshHandler();
-
         public static Form mainform;
         private static DBPriem _bdc = null;
 
@@ -250,12 +249,10 @@ namespace PriemLib
         {
             _drHandler += drh;
         }
-
         public static void RemoveHandler(DataRefreshHandler drh)
         {
             _drHandler -= drh;
         }
-
         public static void DataRefresh()
         {
             if (_drHandler != null)
@@ -266,12 +263,10 @@ namespace PriemLib
         {
             _prHandler += prh;
         }
-
         public static void RemoveProtocolHandler(ProtocolRefreshHandler prh)
         {
             _prHandler -= prh;
         }
-
         public static void ProtocolRefresh()
         {
             if (_prHandler != null)
