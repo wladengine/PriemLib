@@ -99,8 +99,14 @@ namespace PriemLib
                     bMagCheckProtocolsEnabled = bool.Parse(tmp);
                 }
 
-                //4 для аспирантуры
-                studyLevelGroupId = 4;
+                switch (dbType)
+                {
+                    case PriemType.Priem: { studyLevelGroupId = 1; break; }
+                    case PriemType.PriemMag: { studyLevelGroupId = 2; break; }
+                    case PriemType.PriemSPO: { studyLevelGroupId = 3; break; }
+                    case PriemType.PriemAspirant: { studyLevelGroupId = 4; break; }
+                    default: { studyLevelGroupId = 1; break; }
+                }
 
                 directory = string.Format(@"{0}\Priem", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData));
                 saveTempFolder = string.Format(@"{0}\DocTempFiles\", Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments));

@@ -11,7 +11,7 @@ using EducServLib;
 
 namespace PriemLib
 {
-    class ChangeCompBEProtocolList : ProtocolList
+    public class ChangeCompBEProtocolList : ProtocolList
     {
         public ChangeCompBEProtocolList() : base(ProtocolTypes.ChangeCompBEProtocol)
         {
