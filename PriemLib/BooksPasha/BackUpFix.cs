@@ -70,7 +70,8 @@ namespace PriemLib
 
                             //Fixieren
                             IEnumerable<Fixieren> fixs = from fx in context.Fixieren
-                                                         join ab in context.extAbitAspirant
+                                                         //join ab in context.extAbitAspirant
+                                                         join ab in context.extAbit
                                                          on fx.AbiturientId equals ab.Id  
                                                          where ab.StudyLevelGroupId == 1 && ab.StudyBasisId == 2
                                                          && (lstEntry.Contains(ab.Id) || ab.BackDoc)
@@ -90,7 +91,8 @@ namespace PriemLib
 
                             //_FirstWave
                             IEnumerable<C_FirstWave> firstW = from fx in context.C_FirstWave
-                                                              join ab in context.extAbitAspirant
+                                                              //join ab in context.extAbitAspirant
+                                                              join ab in context.extAbit
                                                               on fx.AbiturientId equals ab.Id
                                                               where ab.StudyLevelGroupId == 1 && ab.StudyBasisId == 2
                                                               && (lstEntry.Contains(ab.Id) || ab.BackDoc)
@@ -112,7 +114,8 @@ namespace PriemLib
                         {
                             //Fixieren
                             IEnumerable<Fixieren> fixs = from fx in context.Fixieren
-                                                         join ab in context.extAbitAspirant
+                                                         //join ab in context.extAbitAspirant
+                                                         join ab in context.extAbit
                                                          on fx.AbiturientId equals ab.Id
                                                          where ab.StudyLevelGroupId == StudyLevelGroupId && ab.StudyBasisId == StudyBasisId
                                                          select fx;
@@ -150,7 +153,8 @@ namespace PriemLib
 
                             //_FirstWave
                             IEnumerable<C_FirstWave> firstW = from fx in context.C_FirstWave
-                                                              join ab in context.extAbitAspirant
+                                                              //join ab in context.extAbitAspirant
+                                                              join ab in context.extAbit
                                                               on fx.AbiturientId equals ab.Id
                                                               where ab.StudyLevelGroupId == StudyLevelGroupId && ab.StudyBasisId == StudyBasisId
                                                               select fx;
@@ -168,7 +172,8 @@ namespace PriemLib
 
                             //_FirstWaveGreen
                             IEnumerable<C_FirstWaveGreen> firstWGr = from fx in context.C_FirstWaveGreen
-                                                                     join ab in context.extAbitAspirant
+                                                                     //join ab in context.extAbitAspirant
+                                                                     join ab in context.extAbit
                                                                      on fx.AbiturientId equals ab.Id
                                                                      where ab.StudyLevelGroupId == StudyLevelGroupId && ab.StudyBasisId == StudyBasisId
                                                                      select fx;

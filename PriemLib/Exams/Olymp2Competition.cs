@@ -378,10 +378,22 @@ namespace PriemLib
         //сбор фильтров 
         private string GetQuery()
         {
-            string sQuery = @"SELECT ed.qAbiturient.Id as Id, ed.qAbiturient.RegNum as Рег_Номер, ed.extPersonAspirant.FIO as ФИО, 
+            string extAbitTable = "";
+            switch (MainClass.dbType)
+            {
+                case PriemType.Priem: { extAbitTable = ""; break; }
+                case PriemType.PriemMag: { extAbitTable = ""; break; }
+                case PriemType.PriemSPO: { extAbitTable = "SPO"; break; }
+                case PriemType.PriemAspirant: { extAbitTable = "Aspirant"; break; }
+                default: { extAbitTable = ""; break; }
+            }
+
+            string sQuery = @"SELECT ed.qAbiturient.Id as Id, ed.qAbiturient.RegNum as Рег_Номер, extPersonTable.FIO as ФИО, 
                         ed.Competition.Name as Тип_конкурса, OlympTypeName as Вид, OlympName AS Название, OlympLevelName AS Уровень, OlympSubjectName as Предмет,
                         OlympValueName as Степень
-                        FROM ed.qAbiturient LEFT JOIN ed.extPersonAspirant ON ed.qAbiturient.PersonId = ed.extPersonAspirant.Id INNER JOIN ed.extOlympiads ON ed.extOlympiads.AbiturientId = ed.qAbiturient.Id 
+                        FROM ed.qAbiturient 
+                        LEFT JOIN ed.extPerson" +extAbitTable+@" as extPersonTable ON ed.qAbiturient.PersonId = extPersonTable.Id 
+                        INNER JOIN ed.extOlympiads ON ed.extOlympiads.AbiturientId = ed.qAbiturient.Id 
                         LEFT JOIN ed.Competition ON ed.Competition.Id = ed.qAbiturient.CompetitionId ";
 
             sQuery += " WHERE ed.qAbiturient.BackDoc=0 AND ed.qAbiturient.CompetitionId <> 1 ";
@@ -509,21 +521,30 @@ namespace PriemLib
 
             //обработали факультет
             if (FacultyId != null)
-                s1 += " AND ed.extAbitAspirant.FacultyId = " + FacultyId;
+                s1 += " AND extAbitTable.FacultyId = " + FacultyId;
 
             //обработали Направление
             if (LicenseProgramId != null)
-                s1 += " AND ed.extAbitAspirant.LicenseProgramId = " + LicenseProgramId;
+                s1 += " AND extAbitTable.LicenseProgramId = " + LicenseProgramId;
 
             //обработали Образ программу
             if (ObrazProgramId != null)
-                s1 += " AND ed.extAbitAspirant.ObrazProgramId = " + ObrazProgramId;
-            
-            string query = string.Format(@"SELECT ed.extPersonAspirant.PersonNum AS PerNum, ed.extAbitAspirant.RegNum,  LicenseProgramName, ObrazProgramName, 
-                    StudyFormName, ed.extAbitAspirant.FIO as fio, ed.Competition.Name as Competition
-                    FROM ed.extAbitAspirant INNER JOIN ed.extPersonAspirant ON ed.extAbitAspirant.PersonId = ed.extPersonAspirant.Id 
-                    LEFT JOIN ed.Competition ON ed.extAbitAspirant.CompetitionId = ed.Competition.Id
-                    WHERE extAbitAspirant.CompFromOlymp = 1 AND extAbitAspirant.CompetitionId = 1 {0} ORDER BY 1", s1);           
+                s1 += " AND extAbitTable.ObrazProgramId = " + ObrazProgramId;
+            string extAbitTable = "";
+            switch (MainClass.dbType)
+            {
+                case PriemType.Priem: { extAbitTable = ""; break; }
+                case PriemType.PriemMag: { extAbitTable = ""; break; }
+                case PriemType.PriemSPO: { extAbitTable = "SPO"; break; }
+                case PriemType.PriemAspirant: { extAbitTable = "Aspirant"; break; }
+                default: { extAbitTable = ""; break; }
+            }
+            string query = string.Format(@"SELECT extPersonTable.PersonNum AS PerNum, extAbitTable.RegNum,  LicenseProgramName, ObrazProgramName, 
+                    StudyFormName, extAbitTable.FIO as fio, ed.Competition.Name as Competition
+                    FROM ed.extAbit"+extAbitTable+@" as extAbitTable
+                    INNER JOIN ed.extPerson" + extAbitTable + @" as extPersonTable ON extAbitTable.PersonId = extPersonTable.Id 
+                    LEFT JOIN ed.Competition ON extAbitTable.CompetitionId = ed.Competition.Id
+                    WHERE extAbitTable.CompFromOlymp = 1 AND extAbitTable.CompetitionId = 1 {0} ORDER BY 1", s1);           
             try
             {
                 DataSet ds = _bdc.GetDataSet(query);

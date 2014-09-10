@@ -61,8 +61,16 @@ namespace PriemLib
             //flt_hasEge = string.Format(" OR Person.Id NOT IN (SELECT PersonId FROM EgeCertificate LEFT JOIN EgeMark ON egeMArk.EgeCertificateId = EgeCertificate.Id LEFT JOIN EgeToExam ON EgeMArk.EgeExamNameId = EgeToExam.EgeExamNameId LEFT JOIN ExamInProgram ON EgeToExam.ExamNameId = ExamInProgram.ExamNameId WHERE ExamInProgram.Id IN (SELECT Id FROM extExamInProgram WHERE ExamNameId = {0} AND FacultyId = {1}))", examId, facultyId);
 
             //return " AND (" + flt_privil + flt_ssuz + flt_underPrevYear + flt_foreignEduc + flt_second + flt_hasEge + ")";
-
-            flt_hasEge = string.Format(" ed.extPersonAspirant.Id NOT IN (SELECT PersonId FROM ed.extEgeMark LEFT JOIN ed.EgeToExam ON ed.extEgeMark.EgeExamNameId = ed.EgeToExam.EgeExamNameId LEFT JOIN ed.extExamInEntry ON ed.EgeToExam.ExamId = ed.extExamInEntry.ExamId WHERE ed.extExamInEntry.Id IN (SELECT Id FROM ed.extExamInEntry WHERE ExamId = {0} AND FacultyId = {1}) AND ed.extEgeMark.[Year] = 2012 )", examId, facultyId);
+            string extAbitTable = "";
+            switch (MainClass.dbType)
+            {
+                case PriemType.Priem: { extAbitTable = ""; break; }
+                case PriemType.PriemMag: { extAbitTable = ""; break; }
+                case PriemType.PriemSPO: { extAbitTable = "SPO"; break; }
+                case PriemType.PriemAspirant: { extAbitTable = "Aspirant"; break; }
+                default: { extAbitTable = ""; break; }
+            }
+            flt_hasEge = string.Format(" ed.extPerson" + extAbitTable + @".Id NOT IN (SELECT PersonId FROM ed.extEgeMark LEFT JOIN ed.EgeToExam ON ed.extEgeMark.EgeExamNameId = ed.EgeToExam.EgeExamNameId LEFT JOIN ed.extExamInEntry ON ed.EgeToExam.ExamId = ed.extExamInEntry.ExamId WHERE ed.extExamInEntry.Id IN (SELECT Id FROM ed.extExamInEntry WHERE ExamId = {0} AND FacultyId = {1}) AND ed.extEgeMark.[Year] = 2012 )", examId, facultyId);
             //flt_hasEge = " 1=1 ";
             //flt_privil = " OR (Person.Privileges & 512 > 0 OR Person.Privileges & 32 > 0) ";
             return " AND (" + flt_hasEge + flt_privil + " ) ";

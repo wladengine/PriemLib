@@ -221,7 +221,7 @@ namespace PriemLib
 
             using (PriemEntities context = new PriemEntities())
             {
-                int cnt = (from abit in context.extAbitAspirant
+                int cnt = (from abit in context.extAbit
                            where abit.Barcode == barcode
                            select abit).Count();
 

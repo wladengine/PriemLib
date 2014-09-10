@@ -390,25 +390,36 @@ namespace Priem
 //                        FROM ed.extAbitAspirant LEFT JOIN ed.extPersonAspirant ON ed.extAbitAspirant.PersonId = ed.extPersonAspirant.Id 
 //                        LEFT JOIN ed.Competition ON ed.extAbitAspirant.CompetitionId = ed.Competition.Id LEFT JOIN ed.extAbitMarksSum ON ed.extAbitMarksSum.Id = ed.extAbitAspirant.Id 
 //                        {1} ORDER BY ФИО ", examsFields, abitFilters);
-            
+
+            string extAbitTable = "";
+            switch (MainClass.dbType)
+            {
+                case PriemType.Priem: { extAbitTable = "";  break; }
+                case PriemType.PriemMag: { extAbitTable = ""; break; }
+                case PriemType.PriemSPO: { extAbitTable = "SPO"; break; }
+                case PriemType.PriemAspirant: { extAbitTable = "Aspirant"; break; }
+                default: { extAbitTable = ""; break; }
+            }
+
+
             NewWatch wc = new NewWatch();
             wc.Show();
             wc.SetText("Получение данных по абитуриентам...");
             sQueryAbit = string.Format(@"SELECT DISTINCT 
-ed.extAbitAspirant.Id as Id, 
-extPersonAspirant.PersonNum as Ид_номер, 
-ed.extAbitAspirant.RegNum as Рег_номер, 
+extAbitTable.Id as Id, 
+extPersonTable.PersonNum as Ид_номер, 
+extAbitTable.RegNum as Рег_номер, 
 ed.extAbitMarksSum.TotalSum AS Sum, 
-ed.extPersonAspirant.FIO as ФИО, 
-ed.extAbitAspirant.ObrazProgramCrypt + ' ' +(Case when NOT ed.extAbitAspirant.ProfileId IS NULL then ed.extAbitAspirant.ProfileName else ed.extAbitAspirant.ObrazProgramName end) as Spec, 
-ed.extAbitAspirant.StudyFormName AS StudyForm, 
-ed.extAbitAspirant.StudyBasisName AS StudyBasis,
+extAbitTable.FIO as ФИО, 
+extAbitTable.ObrazProgramCrypt + ' ' +(Case when NOT extAbitTable.ProfileId IS NULL then extAbitTable.ProfileName else extAbitTable.ObrazProgramName end) as Spec, 
+extAbitTable.StudyFormName AS StudyForm, 
+extAbitTable.StudyBasisName AS StudyBasis,
 Competition.Name AS CompName
-FROM ed.extAbitAspirant 
-LEFT JOIN ed.extPersonAspirant ON ed.extAbitAspirant.PersonId = ed.extPersonAspirant.Id 
-LEFT JOIN ed.Competition ON ed.extAbitAspirant.CompetitionId = ed.Competition.Id 
-LEFT JOIN ed.extAbitMarksSum ON ed.extAbitMarksSum.Id = ed.extAbitAspirant.Id 
---LEFT JOIN ed.qMark ON qMark.AbiturientId = extAbitAspirant.Id
+FROM ed.extAbit" + extAbitTable + @"  as extAbitTable
+LEFT JOIN ed.extPerson" + extAbitTable + @"  as extPersonTable ON extAbitTable.PersonId = extPersonTable.Id 
+LEFT JOIN ed.Competition ON extAbitTable.CompetitionId = ed.Competition.Id 
+LEFT JOIN ed.extAbitMarksSum ON ed.extAbitMarksSum.Id = extAbitTable.Id 
+--LEFT JOIN ed.qMark ON qMark.AbiturientId = extAbitTable.Id
 {0}
 ORDER BY ФИО", abitFilters);
                         
@@ -439,7 +450,7 @@ ORDER BY ФИО", abitFilters);
                 case when qMark.IsFromEge IS NULL OR qMark.IsFromEge = 'False' then 0 else 1 end AS IsFromEge,
                 case when qMark.IsFromOlymp IS NULL OR qMark.IsFromOlymp = 'False' then 0 else 1 end AS IsFromOlymp
                 FROM ed.qMark
-                INNER JOIN ed.extAbitAspirant ON extAbitAspirant.Id = qMark.AbiturientId
+                INNER JOIN ed.extAbit" + extAbitTable + @"  as extAbitTable ON extAbitTable.Id = qMark.AbiturientId
                 {0}", abitFilters);
             ds = _bdc.GetDataSet(query);
 
@@ -555,35 +566,35 @@ ORDER BY ФИО", abitFilters);
         {
             string s = " WHERE 1=1 ";
 
-            s += " AND ed.extAbitAspirant.StudyLevelGroupId = " + MainClass.studyLevelGroupId;
+            s += " AND extAbitTable.StudyLevelGroupId = " + MainClass.studyLevelGroupId;
 
             //обработали форму обучения  
             if (StudyFormId != null)
-                s += " AND ed.extAbitAspirant.StudyFormId = " + StudyFormId;
+                s += " AND extAbitTable.StudyFormId = " + StudyFormId;
 
             //обработали основу обучения  
             if (StudyBasisId != null)
-                s += " AND ed.extAbitAspirant.StudyBasisId = " + StudyBasisId;   
+                s += " AND extAbitTable.StudyBasisId = " + StudyBasisId;   
 
             //обработали факультет
             if (FacultyId != null)
-                s += " AND ed.extAbitAspirant.FacultyId = " + FacultyId;
+                s += " AND extAbitTable.FacultyId = " + FacultyId;
 
             //обработали тип конкурса          
             if (CompetitionId != null)
-                s += " AND ed.extAbitAspirant.CompetitionId = " + CompetitionId;
+                s += " AND extAbitTable.CompetitionId = " + CompetitionId;
             
             //обработали Направление
             if (LicenseProgramId != null)
-                s += " AND ed.extAbitAspirant.LicenseProgramId = " + LicenseProgramId;
+                s += " AND extAbitTable.LicenseProgramId = " + LicenseProgramId;
 
             //обработали Образ программу
             if (ObrazProgramId != null)
-                s += " AND ed.extAbitAspirant.ObrazProgramId = " + ObrazProgramId;
+                s += " AND extAbitTable.ObrazProgramId = " + ObrazProgramId;
 
             //обработали специализацию 
             if (ProfileId != null)
-                s += string.Format(" AND ed.extAbitAspirant.ProfileId = '{0}'", ProfileId);
+                s += string.Format(" AND extAbitTable.ProfileId = '{0}'", ProfileId);
           
             return s;
         }

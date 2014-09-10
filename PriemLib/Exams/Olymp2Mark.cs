@@ -439,10 +439,21 @@ namespace PriemLib
         //сбор фильтров 
         private string GetQuery()
         {
-            string sQuery = @"SELECT extOlympiads.Id AS OlympiadId, ed.qAbiturient.Id as Id, ed.qAbiturient.RegNum as Рег_Номер, ed.extPersonAspirant.FIO as ФИО, 
+            string extAbitTable = "";
+            switch (MainClass.dbType)
+            {
+                case PriemType.Priem: { extAbitTable = ""; break; }
+                case PriemType.PriemMag: { extAbitTable = ""; break; }
+                case PriemType.PriemSPO: { extAbitTable = "SPO"; break; }
+                case PriemType.PriemAspirant: { extAbitTable = "Aspirant"; break; }
+                default: { extAbitTable = ""; break; }
+            }
+            string sQuery = @"SELECT extOlympiads.Id AS OlympiadId, ed.qAbiturient.Id as Id, ed.qAbiturient.RegNum as Рег_Номер, extPersonTable.FIO as ФИО, 
                         ed.Competition.Name as Тип_конкурса, OlympTypeName as Вид, OlympName AS Название, OlympLevelName AS Уровень, OlympSubjectName as Предмет,
                         OlympValueName as Степень, ed.extExamInEntry.Id AS ExamInEntryId 
-                        FROM ed.qAbiturient LEFT JOIN ed.extPersonAspirant ON ed.qAbiturient.PersonId = ed.extPersonAspirant.Id INNER JOIN ed.extOlympiads ON ed.extOlympiads.AbiturientId = ed.qAbiturient.Id 
+                        FROM ed.qAbiturient 
+                        LEFT JOIN ed.extPerson"+extAbitTable+@" as extPersonTable ON ed.qAbiturient.PersonId = extPersonTable.Id 
+                        INNER JOIN ed.extOlympiads ON ed.extOlympiads.AbiturientId = ed.qAbiturient.Id 
                         LEFT JOIN ed.Competition ON ed.Competition.Id = ed.qAbiturient.CompetitionId 
                         INNER JOIN ed.extExamInEntry ON qAbiturient.EntryId = ed.extExamInEntry.EntryId ";
 
@@ -579,19 +590,29 @@ namespace PriemLib
 
             //обработали факультет
             if (FacultyId != null)
-                s1 += " AND ed.extAbitAspirant.FacultyId = " + FacultyId;
+                s1 += " AND extAbitTable.FacultyId = " + FacultyId;
 
             //обработали Направление
             if (LicenseProgramId != null)
-                s1 += " AND ed.extAbitAspirant.LicenseProgramId = " + LicenseProgramId;
+                s1 += " AND extAbitTable.LicenseProgramId = " + LicenseProgramId;
 
             //обработали Образ программу
             if (ObrazProgramId != null)
-                s1 += " AND ed.extAbitAspirant.ObrazProgramId = " + ObrazProgramId;
+                s1 += " AND extAbitTable.ObrazProgramId = " + ObrazProgramId;
 
-            string query = string.Format(@"SELECT ed.extPersonAspirant.PersonNum AS PerNum, ed.extAbitAspirant.RegNum,  LicenseProgramName, ObrazProgramName, 
-                    StudyFormName, ed.extAbitAspirant.FIO as fio, ed.qMark.Value as markval 
-                    FROM ed.extAbitAspirant INNER JOIN ed.qMark ON ed.qMark.AbiturientId = ed.extAbitAspirant.Id 
+            string extAbitTable = "";
+            switch (MainClass.dbType)
+            {
+                case PriemType.Priem: { extAbitTable = ""; break; }
+                case PriemType.PriemMag: { extAbitTable = ""; break; }
+                case PriemType.PriemSPO: { extAbitTable = "SPO"; break; }
+                case PriemType.PriemAspirant: { extAbitTable = "Aspirant"; break; }
+                default: { extAbitTable = ""; break; }
+            }
+            string query = string.Format(@"SELECT extAbitTable.PersonNum AS PerNum, extAbitTable.RegNum,  LicenseProgramName, ObrazProgramName, 
+                    StudyFormName, extAbitTable.FIO as fio, ed.qMark.Value as markval 
+                    FROM ed.extAbit" + extAbitTable+ @" as extAbitTable
+                    INNER JOIN ed.qMark ON ed.qMark.AbiturientId = extAbitTable.Id 
                     INNER JOIN ed.extExamInEntry ON ed.qMark.ExamInEntryId = ed.extExamInEntry.Id 
                     WHERE ed.extExamInEntry.ExamId={0} AND ed.qMark.IsFromOlymp>0 {1} ORDER BY 1", ExamId, s1);
             try
