@@ -107,6 +107,10 @@ namespace PriemLib
             {
                 extPerson = "ed.extPersonAspirant";
             }
+            else if (MainClass.dbType == PriemType.PriemSPO)
+            {
+                extPerson = "ed.extPersonSPO";
+            }
             qBuilder = new QueryBuilder("ed.qAbiturient");
 
             qBuilder.AddQueryItem(new QueryItem(extPerson, extPerson+".PersonNum", "Ид_номер"));
