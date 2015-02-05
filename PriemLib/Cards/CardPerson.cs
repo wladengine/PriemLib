@@ -1656,9 +1656,17 @@ namespace PriemLib
 
         private void btnDeleteBenefitDocument_Click(object sender, EventArgs e)
         {
+            if (dgvBenefitDocument.SelectedCells.Count == 0)
+                return;
+
+            Guid gId = ((Guid?)dgvBenefitDocument["Id", dgvBenefitDocument.SelectedCells[0].RowIndex].Value) ?? Guid.Empty;
+
             if (MessageBox.Show("Удалить запись?", "Внимание", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
             {
-                
+                using (PriemEntities context = new PriemEntities())
+                {
+                    context.PersonBenefitDocument_delete(gId);
+                }
             }
         }
     }
