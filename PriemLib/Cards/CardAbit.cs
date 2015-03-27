@@ -182,9 +182,9 @@ namespace PriemLib
 
                     if (_Id == null)
                     {
-                        extPerson pers = (from per in context.extPerson
-                                          where per.Id == _personId
-                                          select per).FirstOrDefault();
+                        var pers = (from per in context.Person_AdditionalInfo
+                                    where per.PersonId == _personId
+                                    select per).FirstOrDefault();
 
                         int? lanId = pers.LanguageId;
                         ComboServ.SetComboId(cbLanguage, lanId);
@@ -310,10 +310,10 @@ namespace PriemLib
 
                     GetHasInnerPriorities(context);
 
-                    if (ObrazProgramInEntryId.HasValue)
-                        ObrazProgramInEntryId = abit.ObrazProgramInEntryId;
-                    if (ProfileInObrazProgramInEntryId.HasValue)
-                        ProfileInObrazProgramInEntryId = abit.ProfileInObrazProgramInEntryId;
+                    //if (ObrazProgramInEntryId.HasValue)
+                    //    ObrazProgramInEntryId = abit.ObrazProgramInEntryId;
+                    //if (ProfileInObrazProgramInEntryId.HasValue)
+                    //    ProfileInObrazProgramInEntryId = abit.ProfileInObrazProgramInEntryId;
                 }
             }
             catch (Exception ex)
@@ -1024,7 +1024,7 @@ namespace PriemLib
                 return;
             using (PriemEntities context = new PriemEntities())
             {
-                var opInEntry = context.ObrazProgramInEntry
+                var opInEntry = context.InnerEntryInEntry
                     .Where(x => x.EntryId == EntId);
 
                 if (opInEntry.Count() > 0)
@@ -1344,7 +1344,6 @@ namespace PriemLib
                              select ent.IsClosed || ent.DateOfClose < DateTime.Now).FirstOrDefault();
             return !isClosed;
         }
-
         private string CheckCompetition(PriemEntities context)
         {
             if (StudyBasisId == 2)
@@ -1407,12 +1406,9 @@ namespace PriemLib
 
             context.Abiturient_UpdateIsCommonRussianCompetition(IsCommonRussianCompetition, id);
 
-            // set ObrazProgramInEntryId
-            if (ObrazProgramInEntryId.HasValue)
-                context.Abiturient_UpdateObrazProgramInEntryId(ObrazProgramInEntryId, GuidId);
-            // set ProfileInObrazProgramId
-            if (ProfileInObrazProgramInEntryId.HasValue)
-                context.Abiturient_UpdateProfileInObrazProgramInEntryId(ProfileInObrazProgramInEntryId, GuidId);
+            // set InnerEntryInEntryId
+            if (InnerEntryInEntryId.HasValue)
+                context.Abiturient_UpdateInnerEntryInEntryId(InnerEntryInEntryId, GuidId);
         }
 
         protected override void OnSave()
@@ -1895,7 +1891,7 @@ namespace PriemLib
                 if (persBarcode == null || persBarcode == 0)
                     return;
 
-                new DocCard(persBarcode.Value, abitBarcode.Value).Show();
+                new DocCard(persBarcode.Value, abitBarcode.Value, true).Show();
             }
         }
         private void btnDocInventory_Click(object sender, EventArgs e)
@@ -1919,7 +1915,7 @@ namespace PriemLib
 
         private void GetHasInnerPriorities(PriemEntities context)
         {
-            var OPs = context.ObrazProgramInEntry.Where(x => x.EntryId == EntryId).Count();
+            var OPs = context.InnerEntryInEntry.Where(x => x.EntryId == EntryId).Count();
 
             if (OPs > 0)
             {
@@ -1941,7 +1937,7 @@ namespace PriemLib
         {
             if (GuidId.HasValue)
             {
-                var crd = new CardApplication_ObrazProgramInEntryPriorities(GuidId.Value);
+                var crd = new CardApplication_InnerEntryInEntryPriorities(GuidId.Value);
                 crd.Show();
             }
         }
@@ -1951,7 +1947,7 @@ namespace PriemLib
             using (PriemEntities context = new PriemEntities())
             {
                 List<KeyValuePair<string, string>> ObrazProgramInEntryList =
-                                (from ent in context.ObrazProgramInEntry
+                                (from ent in context.InnerEntryInEntry
                                  join SP_ObrazProgr in context.SP_ObrazProgram on ent.ObrazProgramId equals SP_ObrazProgr.Id
                                  where ent.EntryId == EntryId
                                  select new { ent.Id, SP_ObrazProgr.Name }).ToList()
@@ -1966,14 +1962,14 @@ namespace PriemLib
             using (PriemEntities context = new PriemEntities())
             {
                 List<KeyValuePair<string, string>> ProfileInObrazProgramInEntryList =
-                                (from ent in context.ProfileInObrazProgramInEntry
+                                (from ent in context.InnerEntryInEntry
                                  join SP_Prof in context.SP_Profile on ent.ProfileId equals SP_Prof.Id
-                                 where ent.ObrazProgramInEntryId == ObrazProgramInEntryId
+                                 where ent.EntryId == EntryId
                                  select new { ent.Id, SP_Prof.Name }).ToList()
                                  .Select(x => new KeyValuePair<string, string>(x.Id.ToString(), x.Name))
                                  .ToList();
 
-                ComboServ.FillCombo(cbProfileInObrazProgramInEntry, ProfileInObrazProgramInEntryList, false, false);
+                ComboServ.FillCombo(cbProfileInEntry, ProfileInObrazProgramInEntryList, false, false);
             }
         }
 

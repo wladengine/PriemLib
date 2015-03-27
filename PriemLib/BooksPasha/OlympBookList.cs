@@ -22,7 +22,7 @@ namespace PriemLib
             _tableName = "ed.OlympBook";
             _title = "Список олимпиад";
 
-            InitControls();           
+            InitControls();
         }
 
         //дополнительная инициализация контролов
@@ -46,7 +46,17 @@ namespace PriemLib
 
         protected override void OpenCard(string id, BaseFormEx formOwner, int? index)
         {
-            new CardOlympBook(id).Show();           
+            new CardOlympBook(id).Show();
+        }
+
+        public override void InitHandlers()
+        {
+            MainClass.AddHandler(UpdateDataGrid);
+        }
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
+            MainClass.RemoveHandler(UpdateDataGrid);
         }
 
         protected override void GetSource()

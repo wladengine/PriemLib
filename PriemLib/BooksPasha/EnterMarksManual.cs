@@ -107,18 +107,9 @@ namespace PriemLib
             clm.ColumnName = "Баллы";
             examTable.Columns.Add(clm);
 
-            string extAbitTable = "";
-            switch (MainClass.dbType)
-            {
-                case PriemType.Priem: { extAbitTable = ""; break; }
-                case PriemType.PriemMag: { extAbitTable = ""; break; }
-                case PriemType.PriemSPO: { extAbitTable = "SPO"; break; }
-                case PriemType.PriemAspirant: { extAbitTable = "Aspirant"; break; }
-                default: { extAbitTable = ""; break; }
-            }
-            sQuery = @"SELECT DISTINCT extAbitTable.Id, RegNum as Рег_номер, extPersonTable.FIO as ФИО
-                     FROM ed.extAbit" + extAbitTable + @" as extAbitTable 
-                     LEFT JOIN ed.extPerson" + extAbitTable + " as extPersonTable ON extAbitTable.PersonId = extPersonTable.Id ";
+
+            sQuery = @"SELECT DISTINCT ed.extAbit.Id, RegNum as Рег_номер, ed.extPerson.FIO as ФИО
+                     FROM ed.extAbit LEFT JOIN ed.extPerson ON ed.extAbit.PersonId = ed.extPerson.Id ";
 
             string flt_where = "";
             string flt_backDoc = "";
@@ -129,13 +120,13 @@ namespace PriemLib
             string flt_notInVed = "";
             string flt_notAdd = "";
 
-            flt_backDoc = " AND extAbitTable.BackDoc = 0 ";
-            flt_enable = " AND extAbitTable.NotEnabled = 0 ";
-            flt_protocol = " AND extAbitTable.Id IN (SELECT AbiturientId FROM ed.extProtocol WHERE ProtocolTypeId = 1 AND IsOld = 0 AND Excluded = 0) ";
-            flt_existMark = string.Format(" AND extAbitTable.Id NOT IN (SELECT ed.qMark.abiturientId FROM ed.qMark INNER JOIN ed.extExamInEntry ON ed.qMark.ExamInEntryId = ed.extExamInEntry.Id WHERE ed.extExamInEntry.ExamId = {0} AND ed.extExamInEntry.FacultyId = {1}) ", _examId, _facultyId);
-            flt_hasExam = string.Format(" AND extAbitTable.EntryId IN (SELECT ed.extExamInEntry.EntryId FROM ed.extExamInEntry WHERE ed.extExamInEntry.ExamId = {0})", _examId);
+            flt_backDoc = " AND ed.extAbit.BackDoc = 0 ";
+            flt_enable = " AND ed.extAbit.NotEnabled = 0 ";
+            flt_protocol = " AND ed.extAbit.Id IN (SELECT AbiturientId FROM ed.extProtocol WHERE ProtocolTypeId = 1 AND IsOld = 0 AND Excluded = 0) ";
+            flt_existMark = string.Format(" AND ed.extAbit.Id NOT IN (SELECT ed.qMark.abiturientId FROM ed.qMark INNER JOIN ed.extExamInEntry ON ed.qMark.ExamInEntryId = ed.extExamInEntry.Id WHERE ed.extExamInEntry.ExamId = {0} AND ed.extExamInEntry.FacultyId = {1}) ", _examId, _facultyId);
+            flt_hasExam = string.Format(" AND ed.extAbit.EntryId IN (SELECT ed.extExamInEntry.EntryId FROM ed.extExamInEntry WHERE ed.extExamInEntry.ExamId = {0})", _examId);
 
-            flt_where = string.Format(" WHERE extAbitTable.FacultyId = {0} {1}", _facultyId, (_studybasisId == null) ? "" : " AND StudyBasisId = " + _studybasisId);
+            flt_where = string.Format(" WHERE ed.extAbit.FacultyId = {0} {1}", _facultyId, (_studybasisId == null) ? "" : " AND StudyBasisId = " + _studybasisId);
                         
             if (_isAdditional)           
                 flt_notAdd = Exams.GetFilterForNotAddExam(_examId, _facultyId);

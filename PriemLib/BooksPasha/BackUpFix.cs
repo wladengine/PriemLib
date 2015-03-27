@@ -13,6 +13,7 @@ using System.Data.Objects;
 using BaseFormsLib;
 using EducServLib;
 
+
 namespace PriemLib
 {
     public partial class BackUpFix : BaseForm
@@ -70,7 +71,6 @@ namespace PriemLib
 
                             //Fixieren
                             IEnumerable<Fixieren> fixs = from fx in context.Fixieren
-                                                         //join ab in context.extAbitAspirant
                                                          join ab in context.extAbit
                                                          on fx.AbiturientId equals ab.Id  
                                                          where ab.StudyLevelGroupId == 1 && ab.StudyBasisId == 2
@@ -91,7 +91,6 @@ namespace PriemLib
 
                             //_FirstWave
                             IEnumerable<C_FirstWave> firstW = from fx in context.C_FirstWave
-                                                              //join ab in context.extAbitAspirant
                                                               join ab in context.extAbit
                                                               on fx.AbiturientId equals ab.Id
                                                               where ab.StudyLevelGroupId == 1 && ab.StudyBasisId == 2
@@ -114,7 +113,6 @@ namespace PriemLib
                         {
                             //Fixieren
                             IEnumerable<Fixieren> fixs = from fx in context.Fixieren
-                                                         //join ab in context.extAbitAspirant
                                                          join ab in context.extAbit
                                                          on fx.AbiturientId equals ab.Id
                                                          where ab.StudyLevelGroupId == StudyLevelGroupId && ab.StudyBasisId == StudyBasisId
@@ -153,7 +151,6 @@ namespace PriemLib
 
                             //_FirstWave
                             IEnumerable<C_FirstWave> firstW = from fx in context.C_FirstWave
-                                                              //join ab in context.extAbitAspirant
                                                               join ab in context.extAbit
                                                               on fx.AbiturientId equals ab.Id
                                                               where ab.StudyLevelGroupId == StudyLevelGroupId && ab.StudyBasisId == StudyBasisId
@@ -172,7 +169,6 @@ namespace PriemLib
 
                             //_FirstWaveGreen
                             IEnumerable<C_FirstWaveGreen> firstWGr = from fx in context.C_FirstWaveGreen
-                                                                     //join ab in context.extAbitAspirant
                                                                      join ab in context.extAbit
                                                                      on fx.AbiturientId equals ab.Id
                                                                      where ab.StudyLevelGroupId == StudyLevelGroupId && ab.StudyBasisId == StudyBasisId

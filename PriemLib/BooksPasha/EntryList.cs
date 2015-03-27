@@ -10,6 +10,7 @@ using System.Data.Objects;
 
 using BaseFormsLib;
 using EducServLib;
+using System.Transactions;
 
 namespace PriemLib
 {
@@ -39,7 +40,7 @@ namespace PriemLib
                 {
                     List<KeyValuePair<string, string>> lst = (from f in context.qFaculty
                                                               orderby f.Acronym
-                                                              select new { f.Id, f.Name }).ToList().Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name)).ToList();
+                                                              select new { f.Id, f.Name }).ToList().OrderBy(x => x.Name).Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name)).ToList();
                     ComboServ.FillCombo(cbFaculty, lst, false, true);
 
                     lst = (from f in context.StudyLevel
@@ -72,10 +73,10 @@ namespace PriemLib
 
             InitHandlers();
 
-            btnAdd.Visible = btnRemove.Visible = false;
+            //btnAdd.Visible = btnRemove.Visible = false;
         }
 
-        public override void  InitHandlers()       
+        public override void  InitHandlers()
         {            
             cbFaculty.SelectedIndexChanged += new EventHandler(UpdateDataGrid);           
             cbStudyBasis.SelectedIndexChanged += new EventHandler(UpdateDataGrid);
@@ -171,14 +172,14 @@ namespace PriemLib
                         query = context.qEntry.OrderBy(_orderBy);                    
 
                     GetFilters(ref query);
-                    Dgv.DataSource = query;
+                    Dgv.DataSource = Converter.ConvertToDataTable(query.ToArray());
 
                     SetVisibleColumnsAndNameColumns();
                 }
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error(exc.Message);
+                WinFormsServ.Error(exc);
             }
         }
 
@@ -208,9 +209,19 @@ namespace PriemLib
 
         protected override void OpenCard(string itemId)
         {
-            CardEntry crd = new CardEntry(itemId);
-            crd.ToUpdateList += new UpdateListHandler(UpdateDataGrid);
-            crd.Show();
+            int? iSLId = ComboServ.GetComboIdInt(cbStudyLevel);
+            if (string.IsNullOrEmpty(itemId) && iSLId.HasValue)
+            {
+                CardEntry crd = new CardEntry(iSLId.Value);
+                crd.ToUpdateList += new UpdateListHandler(UpdateDataGrid);
+                crd.Show();
+            }
+            else
+            {
+                CardEntry crd = new CardEntry(itemId);
+                crd.ToUpdateList += new UpdateListHandler(UpdateDataGrid);
+                crd.Show();
+            }
         }
 
         protected override void Delete(string tableName, string id)
@@ -221,6 +232,51 @@ namespace PriemLib
         private void tbPlanNumSearch_TextChanged(object sender, EventArgs e)
         {
             WinFormsServ.SearchInsideValue(this.Dgv, "ObrazProgramName", tbPlanNumSearch.Text);
+        }
+
+        private void btnLoadEntry_Click(object sender, EventArgs e)
+        {
+            new CardLoadEntry().Show();
+        }
+
+        private void btnToExcel_Click(object sender, EventArgs e)
+        {
+            EducServLib.PrintClass.PrintAllToExcel(Dgv);
+        }
+
+        protected override void DeleteSelectedRows(string sId)
+        {
+            if (!MainClass.IsPasha() || !MainClass.IsOwner())
+                return;
+
+            Guid gId = Guid.Empty;
+            if (!Guid.TryParse(sId, out gId))
+            {
+                WinFormsServ.Error("Некорректный идентификатор");
+                return;
+            }
+
+            using (TransactionScope tran = new TransactionScope())
+            using (PriemEntities context = new PriemEntities())
+            {
+                var Ent = context.Entry.Where(x => x.Id == gId).FirstOrDefault();
+                if (Ent == null)
+                {
+                    WinFormsServ.Error("Не найдена запись в базе");
+                    return;
+                }
+                context.Entry.DeleteObject(Ent);
+                context.SaveChanges();
+
+                string query = "DELETE FROM _Entry WHERE Id=@Id";
+                SortedList<string, object> sl = new SortedList<string, object>();
+                sl.AddVal("@Id", gId);
+                MainClass.BdcOnlineReadWrite.ExecuteQuery(query, sl);
+
+                tran.Complete();
+            }
+
+            UpdateDataGrid();
         }
     }
 }

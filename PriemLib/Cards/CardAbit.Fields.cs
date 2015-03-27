@@ -53,15 +53,16 @@ namespace PriemLib
             set { ComboServ.SetComboId(cbObrazProgram, value); }
         }
 
-        public Guid? ProfileId
+        public int? ProfileId
         {
             get 
             {
-                string prId = ComboServ.GetComboId(cbProfile);
-                if(string.IsNullOrEmpty(prId))
-                    return null;
-                else
-                    return new Guid(prId);               
+                return ComboServ.GetComboIdInt(cbProfile);
+                //string prId = ComboServ.GetComboId(cbProfile);
+                //if(string.IsNullOrEmpty(prId))
+                //    return null;
+                //else
+                //    return new Guid(prId);
             }
             set 
             { 
@@ -297,15 +298,40 @@ namespace PriemLib
             }
             set { tbPriority.Text = Util.ToStr(value); }
         }
-        public Guid? ObrazProgramInEntryId
+        public Guid? InnerEntryInEntryId
         {
-            get { return ComboServ.GetComboIdGuid(cbObrazProgramInEntry); }
+            get 
+            {
+                Guid gId = Guid.Empty;
+                return gId;
+            }
+            set 
+            {
+                if (!value.HasValue)
+                    return;
+
+                using (PriemEntities context = new PriemEntities())
+                {
+                    var InEntInEnt = context.InnerEntryInEntry.Where(x => x.Id == value).FirstOrDefault();
+                    if (InEntInEnt != null)
+                    {
+                        ObrazProgramInEntryId = InEntInEnt.ObrazProgramId;
+                        ProfileInEntryId = InEntInEnt.ProfileId;
+                    }
+                }
+            }
+        }
+
+        public int? ObrazProgramInEntryId
+        {
+            get { return ComboServ.GetComboIdInt(cbObrazProgramInEntry); }
             set { ComboServ.SetComboId(cbObrazProgramInEntry, value); }
         }
-        public Guid? ProfileInObrazProgramInEntryId
+
+        public int? ProfileInEntryId
         {
-            get { return ComboServ.GetComboIdGuid(cbProfileInObrazProgramInEntry); }
-            set { ComboServ.SetComboId(cbProfileInObrazProgramInEntry, value); }
+            get { return ComboServ.GetComboIdInt(cbProfileInEntry); }
+            set { ComboServ.SetComboId(cbProfileInEntry, value); }
         }
     }
 }

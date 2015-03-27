@@ -83,32 +83,36 @@ namespace PriemLib
             p.Show();
         }
 
-        //public static void AddHandler(DataRefreshHandler drh)
-        //{
-        //    _drHandler += drh;
-        //}
-        //public static void RemoveHandler(DataRefreshHandler drh)
-        //{
-        //    _drHandler -= drh;
-        //}
-        //public static void DataRefresh()
-        //{
-        //    if (_drHandler != null)
-        //        _drHandler();
-        //}
+        public static void AddHandler(DataRefreshHandler drh)
+        {
+            _drHandler += drh;
+        }
 
-        //public static void AddProtocolHandler(ProtocolRefreshHandler prh)
-        //{
-        //    _prHandler += prh;
-        //}
-        //public static void RemoveProtocolHandler(ProtocolRefreshHandler prh)
-        //{
-        //    _prHandler -= prh;
-        //}
-        //public static void ProtocolRefresh()
-        //{
-        //    if (_prHandler != null)
-        //        _prHandler();
-        //}
+        public static void RemoveHandler(DataRefreshHandler drh)
+        {
+            _drHandler -= drh;
+        }
+
+        public static void DataRefresh()
+        {
+            if (_drHandler != null)
+                _drHandler();
+        }
+
+        public static void AddProtocolHandler(ProtocolRefreshHandler prh)
+        {
+            _prHandler += prh;
+        }
+
+        public static void RemoveProtocolHandler(ProtocolRefreshHandler prh)
+        {
+            _prHandler -= prh;
+        }
+
+        public static void ProtocolRefresh()
+        {
+            if (_prHandler != null)
+                _prHandler();
+        }
     }
 }

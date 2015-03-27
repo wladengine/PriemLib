@@ -45,11 +45,11 @@ namespace PriemLib
                             x.Priority,
                             LicenseProgram = x.Entry.SP_LicenseProgram.Code + " " + x.Entry.SP_LicenseProgram.Name,
                             ObrazProgram = x.Entry.StudyLevel.Acronym + "." + x.Entry.SP_ObrazProgram.Number + "." + MainClass.sPriemYear + " " + x.Entry.SP_ObrazProgram.Name,
-                            Profile = x.Entry.ProfileName,
+                            Profile = x.Entry.SP_Profile.Name,
                             StudyForm = x.Entry.StudyForm.Name,
                         }).OrderBy(x => x.Priority).ToArray();
 
-                    tblPrior = Util.ConvertToDataTable(data);
+                    tblPrior = Converter.ConvertToDataTable(data);
 
                     for (int i = 0; i < tblPrior.Rows.Count; i++)
                     {

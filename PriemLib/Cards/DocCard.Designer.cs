@@ -28,29 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.chlbFile = new System.Windows.Forms.CheckedListBox();
             this.btnOpenFile = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
+            this.dgvFiles = new System.Windows.Forms.DataGridView();
+            this.btnCheckNone = new System.Windows.Forms.Button();
+            this.btnCheckAll = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvFiles)).BeginInit();
             this.SuspendLayout();
-            // 
-            // chlbFile
-            // 
-            this.chlbFile.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.chlbFile.BackColor = System.Drawing.SystemColors.Control;
-            this.chlbFile.CheckOnClick = true;
-            this.chlbFile.FormattingEnabled = true;
-            this.chlbFile.HorizontalScrollbar = true;
-            this.chlbFile.Location = new System.Drawing.Point(12, 12);
-            this.chlbFile.Name = "chlbFile";
-            this.chlbFile.Size = new System.Drawing.Size(371, 199);
-            this.chlbFile.TabIndex = 9;
             // 
             // btnOpenFile
             // 
             this.btnOpenFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnOpenFile.Location = new System.Drawing.Point(12, 228);
+            this.btnOpenFile.Location = new System.Drawing.Point(12, 478);
             this.btnOpenFile.Name = "btnOpenFile";
             this.btnOpenFile.Size = new System.Drawing.Size(100, 23);
             this.btnOpenFile.TabIndex = 10;
@@ -60,8 +49,8 @@
             // 
             // btnClose
             // 
-            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnClose.Location = new System.Drawing.Point(283, 228);
+            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnClose.Location = new System.Drawing.Point(526, 478);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(100, 23);
             this.btnClose.TabIndex = 11;
@@ -69,26 +58,64 @@
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
+            // dgvFiles
+            // 
+            this.dgvFiles.AllowUserToAddRows = false;
+            this.dgvFiles.AllowUserToDeleteRows = false;
+            this.dgvFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvFiles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvFiles.Location = new System.Drawing.Point(14, 38);
+            this.dgvFiles.Name = "dgvFiles";
+            this.dgvFiles.Size = new System.Drawing.Size(611, 426);
+            this.dgvFiles.TabIndex = 12;
+            // 
+            // btnCheckNone
+            // 
+            this.btnCheckNone.Location = new System.Drawing.Point(131, 12);
+            this.btnCheckNone.Name = "btnCheckNone";
+            this.btnCheckNone.Size = new System.Drawing.Size(114, 23);
+            this.btnCheckNone.TabIndex = 13;
+            this.btnCheckNone.Text = "Снять выбор";
+            this.btnCheckNone.UseVisualStyleBackColor = true;
+            this.btnCheckNone.Click += new System.EventHandler(this.btnCheckNone_Click);
+            // 
+            // btnCheckAll
+            // 
+            this.btnCheckAll.Location = new System.Drawing.Point(14, 12);
+            this.btnCheckAll.Name = "btnCheckAll";
+            this.btnCheckAll.Size = new System.Drawing.Size(111, 23);
+            this.btnCheckAll.TabIndex = 14;
+            this.btnCheckAll.Text = "Выбрать все";
+            this.btnCheckAll.UseVisualStyleBackColor = true;
+            this.btnCheckAll.Click += new System.EventHandler(this.btnCheckAll_Click);
+            // 
             // DocCard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(401, 263);
+            this.ClientSize = new System.Drawing.Size(644, 513);
+            this.Controls.Add(this.btnCheckAll);
+            this.Controls.Add(this.btnCheckNone);
+            this.Controls.Add(this.dgvFiles);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnOpenFile);
-            this.Controls.Add(this.chlbFile);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "DocCard";
             this.Text = "Документы";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DocCard_FormClosing);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvFiles)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        protected System.Windows.Forms.CheckedListBox chlbFile;
         protected System.Windows.Forms.Button btnOpenFile;
         protected System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.DataGridView dgvFiles;
+        protected System.Windows.Forms.Button btnCheckNone;
+        protected System.Windows.Forms.Button btnCheckAll;
     }
 }

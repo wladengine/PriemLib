@@ -1,42 +1,43 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Collections;
 using System.Text;
 using System.Windows.Forms;
 using System.Data;
 using System.IO;
-using System.ComponentModel; 
+using System.ComponentModel;
+using System.Linq;
 using System.DirectoryServices.AccountManagement;
+
 
 using BaseFormsLib;
 using EducServLib;
 
 namespace PriemLib
-{
-    //public delegate void DataRefreshHandler();
-    //public delegate void ProtocolRefreshHandler();
-
+{    
     public static partial class MainClass
-    {
+    {  
+        //test
         public static Form mainform;
         private static DBPriem _bdc = null;
+        private static DBPriem _bdcOnlineReadWrite = null;
+
+        public static bool IsTestDB { get; set; }
 
         public static PriemType dbType;
         public static string connString;
-        public static string connStringOnline;
-
+        public static string connStringOnline;        
+        
         public static string directory;
         public static string dirTemplates;
         public static string saveTempFolder;
         public static string userName;
-
+       
         public static int studyLevelGroupId;
         public static int countryRussiaId;
         public static int educSchoolId;
         public static int pasptypeRFId;
         public static int olympSpbguId;
-
-        public static bool IsTestDB { get; private set; }
 
         //GLOBALS
         //-----------------------------------------------------
@@ -45,21 +46,25 @@ namespace PriemLib
 
         public static bool b1kCheckProtocolsEnabled;
         public static bool bMagCheckProtocolsEnabled;
-        //-----------------------------------------------------
 
-        public const string PriemYear = "2014";
+        public static bool bMagImportApplicationsEnabled;
+        //-----------------------------------------------------
 
         public static QueryBuilder qBuilder;
 
         //пользовательские настройки
         public static ConfigFile _config;
-
+        
         private static DataRefreshHandler _drHandler;
         private static ProtocolRefreshHandler _prHandler;
-
+        
         public static DBPriem Bdc
         {
-            get { return _bdc; }
+            get { return _bdc; }          
+        }
+        public static DBPriem BdcOnlineReadWrite
+        {
+            get { return _bdcOnlineReadWrite; }
         }
 
         /// <summary>
@@ -73,9 +78,18 @@ namespace PriemLib
                 _bdc = new DBPriem();
                 _bdc.OpenDatabase(connString);
 
-                mainform = mf;
-                userName = System.Environment.UserName;
+                //открываем коннект
+                try
+                {
+                    _bdcOnlineReadWrite = new DBPriem();
+                    _bdcOnlineReadWrite.OpenDatabase(DBConstants.CS_PriemONLINE_ReadWrite);
+                }
+                catch { }
 
+
+                mainform = mf;            
+                userName = System.Environment.UserName;
+                
                 // database constant id
                 using (PriemEntities context = new PriemEntities())
                 {
@@ -88,7 +102,10 @@ namespace PriemLib
                     //постоянный id олимпиады СПбГУ
                     olympSpbguId = 3;
 
-                    var dicSettings = context.C_AppSettings.Select(x => new { x.ParamKey, x.ParamValue }).ToList().ToDictionary(x => x.ParamKey, y => y.ParamValue);
+
+                    Dictionary<string, string> dicSettings = context.C_AppSettings
+                        .Select(x => new { x.ParamKey, x.ParamValue }).ToList().ToDictionary(x => x.ParamKey, y => y.ParamValue);
+
                     sPriemYear = dicSettings.ContainsKey("PriemYear") ? dicSettings["PriemYear"] : DateTime.Now.Year.ToString();
                     iPriemYear = int.Parse(sPriemYear);
 
@@ -97,18 +114,19 @@ namespace PriemLib
 
                     tmp = dicSettings.ContainsKey("bMagCheckProtocolsEnabled") ? dicSettings["bMagCheckProtocolsEnabled"] : "False";
                     bMagCheckProtocolsEnabled = bool.Parse(tmp);
+
+                    tmp = dicSettings.ContainsKey("bMagImportApplicationsEnabled") ? dicSettings["bMagImportApplicationsEnabled"] : "False";
+                    bMagImportApplicationsEnabled = bool.Parse(tmp);
                 }
 
-                switch (dbType)
-                {
-                    case PriemType.Priem: { studyLevelGroupId = 1; break; }
-                    case PriemType.PriemMag: { studyLevelGroupId = 2; break; }
-                    case PriemType.PriemSPO: { studyLevelGroupId = 3; break; }
-                    case PriemType.PriemAspirant: { studyLevelGroupId = 4; break; }
-                    default: { studyLevelGroupId = 1; break; }
-                }
-
-                directory = string.Format(@"{0}\Priem", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData));
+                if(dbType == PriemType.Priem)
+                    studyLevelGroupId = 1;
+                else
+                    studyLevelGroupId = 2;
+              /* 
+               %APPDATA%/Priem
+              */
+                directory = string.Format(@"{0}\Priem", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData));               
                 saveTempFolder = string.Format(@"{0}\DocTempFiles\", Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments));
                 try
                 {
@@ -122,13 +140,13 @@ namespace PriemLib
                 }
                 catch (Exception e)
                 {
-                    WinFormsServ.Error("Ошибка при загрузке файла конфигурации: " + e.Message + (e.InnerException == null ? "" : "\nВнутреннее исключение: " + e.InnerException.Message));
-                }
-
+                    WinFormsServ.Error(e);
+                }      
+                
                 //взяли конфиг
                 _config = GetConfig();
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 throw e;
             }
@@ -186,10 +204,24 @@ namespace PriemLib
             }
         }
 
+        public static void SaveParameters()
+        {
+            if (MainClass.IsOwner() || MainClass.IsPasha())
+            {
+                using (PriemEntities context = new PriemEntities())
+                {
+                    context.SetApplicationValue("bMagCheckProtocolsEnabled", bMagCheckProtocolsEnabled.ToString());
+                    context.SetApplicationValue("b1kCheckProtocolsEnabled", b1kCheckProtocolsEnabled.ToString());
+                    context.SetApplicationValue("PriemYear", sPriemYear);
+                    context.SetApplicationValue("bMagImportApplicationsEnabled", bMagImportApplicationsEnabled.ToString());
+                }
+            }
+        }
+
         public static string GetAbitNum(string abNum, string perNum)
         {
-            return perNum + @"\" + abNum;
-        }
+            return perNum + @"\"+ abNum;           
+        }       
 
         public static string GetStringAbitNumber(string abitView)
         {
@@ -214,18 +246,23 @@ namespace PriemLib
             }
         }
 
-        public static bool CheckAbitBarcode(int? barcode)
+        /// <summary>
+        /// Возвращает факт, наличия в рабочей базе заявлений с данным номером коммита
+        /// </summary>
+        /// <param name="commitNumber"></param>
+        /// <returns></returns>
+        public static bool CheckExistenseAbitCommitNumberInWorkBase(int? commitNumber)
         {
-            if (barcode == null)
+            if (commitNumber == null)
                 return true;
 
             using (PriemEntities context = new PriemEntities())
             {
-                int cnt = (from abit in context.extAbit
-                           where abit.Barcode == barcode
+                int cnt = (from abit in context.Abiturient
+                           where abit.CommitNumber == commitNumber
                            select abit).Count();
 
-                if (cnt > 0)
+                if (cnt == 0)
                     return false;
                 else
                     return true;
@@ -243,40 +280,12 @@ namespace PriemLib
             {
                 WinFormsServ.Error("Ошибка qEntry " + exc.Message);
                 return null;
-            }
+            }      
         }
 
         public static string GetStLevelFilter(string tableName)
         {
-            return string.Format(" AND {1}.StudyLevelGroupId = {0} ", studyLevelGroupId, tableName);
-        }
-
-        public static void AddHandler(DataRefreshHandler drh)
-        {
-            _drHandler += drh;
-        }
-        public static void RemoveHandler(DataRefreshHandler drh)
-        {
-            _drHandler -= drh;
-        }
-        public static void DataRefresh()
-        {
-            if (_drHandler != null)
-                _drHandler();
-        }
-
-        public static void AddProtocolHandler(ProtocolRefreshHandler prh)
-        {
-            _prHandler += prh;
-        }
-        public static void RemoveProtocolHandler(ProtocolRefreshHandler prh)
-        {
-            _prHandler -= prh;
-        }
-        public static void ProtocolRefresh()
-        {
-            if (_prHandler != null)
-                _prHandler();
+            return string.Format(" AND {1}.StudyLevelGroupId = {0} ", studyLevelGroupId, tableName);          
         }
     }
 }

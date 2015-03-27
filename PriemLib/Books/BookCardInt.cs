@@ -92,12 +92,8 @@ namespace PriemLib
         {
         }
 
-        protected virtual void InsertRec(PriemEntities context, ObjectParameter idParam)
-        {
-        }
-
         protected virtual void UpdateRec(PriemEntities context, int id)
         {
-        } 
+        }
     }
 }

@@ -92,6 +92,18 @@ namespace PriemLib
             set { chbIsProfil.Checked = value; }
         }
 
+        protected bool IsGosLine
+        {
+            get { return chbGosLine.Checked; }
+            set { chbGosLine.Checked = value; }
+        }
+
+        protected bool IsCrimea
+        {
+            get { return chbCrimea.Checked; }
+            set { chbCrimea.Checked = value; }
+        }
+
         protected int? EgeMin
         {
             get
@@ -103,6 +115,19 @@ namespace PriemLib
                     return null;                 
             }
             set { tbEgeMin.Text = value.ToString(); }           
+        }
+
+        protected byte? OrderNumber
+        {
+            get
+            {
+                byte j;
+                if (byte.TryParse(tbOrderNumber.Text.Trim(), out j))
+                    return j;
+                else
+                    return null;
+            }
+            set { tbOrderNumber.Text = value.ToString(); }
         }
 
         protected override void FillCard()
@@ -121,7 +146,10 @@ namespace PriemLib
 
                     ExamId = ent.ExamId;
                     IsProfil = ent.IsProfil;
-                    EgeMin = ent.EgeMin;                    
+                    IsGosLine = ent.IsGosLine;
+                    IsCrimea = ent.IsCrimea;
+                    EgeMin = ent.EgeMin;
+                    OrderNumber = ent.OrderNumber;
                 }
             }
             catch (Exception exc)
@@ -153,7 +181,7 @@ namespace PriemLib
                             try
                             {
                                 exId = new ObjectParameter("id", typeof(Int32));
-                                //context.ExamInEntry_Insert(ExamId, _entryId, IsProfil, EgeMin, exId);
+                                context.ExamInEntry_Insert(ExamId, _entryId, IsProfil, EgeMin, IsCrimea, IsGosLine, OrderNumber, exId);
 
                                 Entry curEnt = (from ent in context.Entry
                                               where ent.Id == _entryId
@@ -174,7 +202,7 @@ namespace PriemLib
                                 foreach (Entry e in ents)
                                 {
                                     exId = new ObjectParameter("id", typeof(Int32));
-                                    //context.ExamInEntry_Insert(ExamId, e.Id, IsProfil, EgeMin, exId);
+                                    context.ExamInEntry_Insert(ExamId, e.Id, IsProfil, EgeMin, IsCrimea, IsGosLine, OrderNumber, exId);
                                 }
 
                                 transaction.Complete();
@@ -189,7 +217,7 @@ namespace PriemLib
                     }
                     else
                     {
-                        //context.ExamInEntry_Update(ExamId, IsProfil, EgeMin, IntId);
+                        context.ExamInEntry_Update(ExamId, IsProfil, EgeMin, IsCrimea, IsGosLine, OrderNumber, IntId);
                         return _Id;
                     }
                 }

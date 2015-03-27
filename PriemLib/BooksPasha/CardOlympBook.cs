@@ -32,19 +32,16 @@ namespace PriemLib
             get { return ComboServ.GetComboIdInt(cbOlympType); }
             set { ComboServ.SetComboId(cbOlympType, value); }
         }
-
         public int? OlympNameId
         {
             get { return ComboServ.GetComboIdInt(cbOlympName); }
             set { ComboServ.SetComboId(cbOlympName, value); }
         }
-
         public int? OlympSubjectId
         {
             get { return ComboServ.GetComboIdInt(cbOlympSubject); }
             set { ComboServ.SetComboId(cbOlympSubject, value); }
         }
-
         public int? OlympLevelId
         {
             get { return ComboServ.GetComboIdInt(cbOlympLevel); }
@@ -114,11 +111,27 @@ namespace PriemLib
         protected override void InsertRec(PriemEntities context, System.Data.Objects.ObjectParameter idParam)
         {
             context.OlympBook_Insert(OlympTypeId, OlympNameId, OlympSubjectId, OlympLevelId, idParam);
+            string query = "INSERT INTO OlympBook (Id, OlympTypeId, OlympNameId, OlympSubjectId, OlympLevelId) VALUES (@Id, @OlympTypeId, @OlympNameId, @OlympSubjectId, @OlympLevelId)";
+            SortedList<string, object> slParams = new SortedList<string,object>();
+            slParams.Add("@Id", idParam.Value);
+            slParams.Add("@OlympTypeId", OlympTypeId);
+            slParams.Add("@OlympNameId", OlympNameId);
+            slParams.Add("@OlympSubjectId", OlympSubjectId);
+            slParams.Add("@OlympLevelId", OlympLevelId);
+            MainClass.BdcOnlineReadWrite.ExecuteQuery(query, slParams);
         }
 
         protected override void UpdateRec(PriemEntities context, Guid id)
         {
-            return;
+            context.OlympBook_Update(OlympTypeId, OlympNameId, OlympSubjectId, OlympLevelId, id);
+            string query = "UPDATE OlympBook SET [OlympTypeId]=@OlympTypeId, [OlympNameId]=@OlympNameId, [OlympSubjectId]=@OlympSubjectId, [OlympLevelId]=@OlympLevelId WHERE Id=@id";
+            SortedList<string, object> slParams = new SortedList<string, object>();
+            slParams.Add("@Id", id);
+            slParams.Add("@OlympTypeId", OlympTypeId);
+            slParams.Add("@OlympNameId", OlympNameId);
+            slParams.Add("@OlympSubjectId", OlympSubjectId);
+            slParams.Add("@OlympLevelId", OlympLevelId);
+            MainClass.BdcOnlineReadWrite.ExecuteQuery(query, slParams);
         }
 
         protected override void OnSave()

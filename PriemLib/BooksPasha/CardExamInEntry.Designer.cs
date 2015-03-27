@@ -34,6 +34,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.chbToAllStudyBasis = new System.Windows.Forms.CheckBox();
+            this.chbCrimea = new System.Windows.Forms.CheckBox();
+            this.chbGosLine = new System.Windows.Forms.CheckBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.tbOrderNumber = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.epError)).BeginInit();
             this.SuspendLayout();
             // 
@@ -97,18 +101,58 @@
             // 
             this.chbToAllStudyBasis.AutoSize = true;
             this.chbToAllStudyBasis.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chbToAllStudyBasis.Location = new System.Drawing.Point(215, 75);
+            this.chbToAllStudyBasis.Location = new System.Drawing.Point(215, 59);
             this.chbToAllStudyBasis.Name = "chbToAllStudyBasis";
             this.chbToAllStudyBasis.Size = new System.Drawing.Size(128, 30);
             this.chbToAllStudyBasis.TabIndex = 35;
             this.chbToAllStudyBasis.Text = "размножить \r\nна основы обучения";
             this.chbToAllStudyBasis.UseVisualStyleBackColor = true;
             // 
+            // chbCrimea
+            // 
+            this.chbCrimea.AutoSize = true;
+            this.chbCrimea.Location = new System.Drawing.Point(12, 82);
+            this.chbCrimea.Name = "chbCrimea";
+            this.chbCrimea.Size = new System.Drawing.Size(55, 17);
+            this.chbCrimea.TabIndex = 36;
+            this.chbCrimea.Text = "Крым";
+            this.chbCrimea.UseVisualStyleBackColor = true;
+            // 
+            // chbGosLine
+            // 
+            this.chbGosLine.AutoSize = true;
+            this.chbGosLine.Location = new System.Drawing.Point(73, 82);
+            this.chbGosLine.Name = "chbGosLine";
+            this.chbGosLine.Size = new System.Drawing.Size(74, 17);
+            this.chbGosLine.TabIndex = 37;
+            this.chbGosLine.Text = "Гослиния";
+            this.chbGosLine.UseVisualStyleBackColor = true;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(212, 107);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(106, 13);
+            this.label3.TabIndex = 39;
+            this.label3.Text = "Порядковый номер";
+            // 
+            // tbOrderNumber
+            // 
+            this.tbOrderNumber.Location = new System.Drawing.Point(215, 123);
+            this.tbOrderNumber.Name = "tbOrderNumber";
+            this.tbOrderNumber.Size = new System.Drawing.Size(100, 20);
+            this.tbOrderNumber.TabIndex = 38;
+            // 
             // CardExamInEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(355, 198);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.tbOrderNumber);
+            this.Controls.Add(this.chbGosLine);
+            this.Controls.Add(this.chbCrimea);
             this.Controls.Add(this.chbToAllStudyBasis);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -126,6 +170,10 @@
             this.Controls.SetChildIndex(this.label1, 0);
             this.Controls.SetChildIndex(this.label2, 0);
             this.Controls.SetChildIndex(this.chbToAllStudyBasis, 0);
+            this.Controls.SetChildIndex(this.chbCrimea, 0);
+            this.Controls.SetChildIndex(this.chbGosLine, 0);
+            this.Controls.SetChildIndex(this.tbOrderNumber, 0);
+            this.Controls.SetChildIndex(this.label3, 0);
             ((System.ComponentModel.ISupportInitialize)(this.epError)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -140,5 +188,9 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.CheckBox chbToAllStudyBasis;
+        private System.Windows.Forms.CheckBox chbCrimea;
+        private System.Windows.Forms.CheckBox chbGosLine;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox tbOrderNumber;
     }
 }

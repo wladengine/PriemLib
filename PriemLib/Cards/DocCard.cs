@@ -17,14 +17,16 @@ namespace PriemLib
         private DocsClass _docs;
         private int _personBarc;
         private int? _abitBarc;
+        private bool _upd;
 
-        public DocCard(int perBarcode, int? abitBarcode)
+        public DocCard(int perBarcode, int? abitBarcode, bool upd)
         {
             InitializeComponent();
             _personBarc = perBarcode;
             _abitBarc = abitBarcode;
             _docs = new DocsClass(_personBarc, _abitBarc);
-
+            _upd = upd;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
             InitControls();
         }
 
@@ -34,23 +36,58 @@ namespace PriemLib
 
             this.CenterToParent();
 
-            List<KeyValuePair<string, string>> lstFiles = _docs.UpdateFiles();
-            if (lstFiles == null || lstFiles.Count == 0)
-                return;
+            dgvFiles.DataSource = _docs.UpdateFilesTable();
+            if (dgvFiles.Rows.Count > 0)
+            {
+                foreach (DataGridViewColumn clm in dgvFiles.Columns)
+                    clm.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                
+                if (!dgvFiles.Columns.Contains("Открыть"))
+                {
+                    DataGridViewCheckBoxCell cl = new DataGridViewCheckBoxCell();
+                    cl.TrueValue = true;
+                    cl.FalseValue = false;
 
-            chlbFile.DataSource = new BindingSource(lstFiles, null);
-            chlbFile.ValueMember = "Key";
-            chlbFile.DisplayMember = "Value";
+                    DataGridViewCheckBoxColumn clm = new DataGridViewCheckBoxColumn();
+                    clm.CellTemplate = cl;
+                    clm.Name = "Открыть";
+                    dgvFiles.Columns.Add(clm);
+                    dgvFiles.Columns["Открыть"].DisplayIndex = 0;
+                    dgvFiles.Columns["Открыть"].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader; 
+                }
+                if (dgvFiles.Columns.Contains("Id"))
+                    dgvFiles.Columns["Id"].Visible = false;
+                if (dgvFiles.Columns.Contains("FileExtention"))
+                    dgvFiles.Columns["FileExtention"].Visible = false;
+                dgvFiles.Columns["FileName"].HeaderText = "Файл";
+                dgvFiles.Columns["FileName"].ReadOnly = true;
+                
+                dgvFiles.Columns["Comment"].HeaderText = "Комментарий";
+                dgvFiles.Columns["Comment"].ReadOnly = true;
+
+                dgvFiles.Columns["FileTypeName"].HeaderText = "Тип файла";
+                dgvFiles.Columns["FileTypeName"].ReadOnly = true;
+
+            } 
         }
 
         private void btnOpenFile_Click(object sender, EventArgs e)
         {
             List<KeyValuePair<string, string>> lstFiles = new List<KeyValuePair<string, string>>();
-            foreach (KeyValuePair<string, string> file in chlbFile.CheckedItems)
+            lstFiles = new List<KeyValuePair<string, string>>();
+            foreach (DataGridViewRow rw in dgvFiles.Rows)
             {
-                lstFiles.Add(file);
+                DataGridViewCheckBoxCell cell = rw.Cells["Открыть"] as DataGridViewCheckBoxCell;
+                if (cell.Value == cell.TrueValue)
+                {
+                    if (dgvFiles.Columns.Contains("FileName"))
+                    {
+                        string fileName = rw.Cells["FileName"].Value.ToString();
+                        KeyValuePair<string, string> file = new KeyValuePair<string, string>(rw.Cells["Id"].Value.ToString(), fileName);
+                        lstFiles.Add(file);
+                    }
+                }
             }
-
             _docs.OpenFile(lstFiles);
         }
 
@@ -61,13 +98,32 @@ namespace PriemLib
 
         private void DocCard_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (_docs != null)
-            {
-                _docs.BDCInet.ExecuteQuery(string.Format("UPDATE Person SET DateReviewDocs = '{0}' WHERE Person.Barcode = {1}", DateTime.Now.ToString(), _personBarc));
-                if(_abitBarc != null)
-                    _docs.BDCInet.ExecuteQuery(string.Format("UPDATE Application SET DateReviewDocs = '{0}' WHERE Application.Barcode = {1}", DateTime.Now.ToString(), _abitBarc));
+            if (_upd)
+                if (_docs != null)
+                {
+                    _docs.BDCInet.ExecuteQuery(string.Format("UPDATE Person SET DateReviewDocs = '{0}' WHERE Person.Barcode = {1}", DateTime.Now.ToString(), _personBarc));
+                    if(_abitBarc != null)
+                        _docs.BDCInet.ExecuteQuery(string.Format("UPDATE Application SET DateReviewDocs = '{0}' WHERE Application.Barcode = {1}", DateTime.Now.ToString(), _abitBarc));
                 
-                _docs.CloseDB();
+                    _docs.CloseDB();
+                }
+        }
+
+        private void btnCheckAll_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow rw in dgvFiles.Rows)
+            {
+                DataGridViewCheckBoxCell cell = rw.Cells["Открыть"] as DataGridViewCheckBoxCell;
+                cell.Value = cell.TrueValue;
+            }
+        }
+
+        private void btnCheckNone_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow rw in dgvFiles.Rows)
+            {
+                DataGridViewCheckBoxCell cell = rw.Cells["Открыть"] as DataGridViewCheckBoxCell;
+                cell.Value = cell.FalseValue;
             }
         }
     }

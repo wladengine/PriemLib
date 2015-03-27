@@ -46,6 +46,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
+            this.btnToExcel = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEntry)).BeginInit();
             this.SuspendLayout();
             // 
@@ -175,15 +176,16 @@
             this.btnLoadEntry.TabIndex = 105;
             this.btnLoadEntry.Text = "Обновить данные";
             this.btnLoadEntry.UseVisualStyleBackColor = true;
+            this.btnLoadEntry.Click += new System.EventHandler(this.btnLoadEntry_Click);
             // 
             // dgvEntry
             // 
             this.dgvEntry.AllowUserToAddRows = false;
             this.dgvEntry.AllowUserToDeleteRows = false;
             this.dgvEntry.AllowUserToResizeRows = false;
-            this.dgvEntry.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvEntry.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvEntry.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvEntry.Location = new System.Drawing.Point(12, 172);
             this.dgvEntry.MultiSelect = false;
@@ -253,11 +255,23 @@
             this.label7.TabIndex = 112;
             this.label7.Text = "Параллельные";
             // 
+            // btnToExcel
+            // 
+            this.btnToExcel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnToExcel.Location = new System.Drawing.Point(93, 448);
+            this.btnToExcel.Name = "btnToExcel";
+            this.btnToExcel.Size = new System.Drawing.Size(75, 23);
+            this.btnToExcel.TabIndex = 113;
+            this.btnToExcel.Text = "B Excel";
+            this.btnToExcel.UseVisualStyleBackColor = true;
+            this.btnToExcel.Click += new System.EventHandler(this.btnToExcel_Click);
+            // 
             // EntryList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1055, 512);
+            this.Controls.Add(this.btnToExcel);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label3);
@@ -301,6 +315,7 @@
             this.Controls.SetChildIndex(this.label3, 0);
             this.Controls.SetChildIndex(this.label5, 0);
             this.Controls.SetChildIndex(this.label7, 0);
+            this.Controls.SetChildIndex(this.btnToExcel, 0);
             ((System.ComponentModel.ISupportInitialize)(this.dgvEntry)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -327,5 +342,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button btnToExcel;
     }
 }

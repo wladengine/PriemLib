@@ -6,8 +6,8 @@ using System.Data.Objects;
 
 namespace PriemLib
 {
-    public static partial class MainClass
-    {
+	public static partial class MainClass
+	{
         public static bool IsRoleMember(string roleName)
         {
             using (PriemEntities context = new PriemEntities())
@@ -27,7 +27,7 @@ namespace PriemLib
         public static bool IsReadOnly()
         {
             return IsRoleMember("readOnly");
-        }
+        }       
 
         public static bool IsFaculty()
         {
@@ -41,7 +41,8 @@ namespace PriemLib
 
         public static bool IsSovetnik()
         {
-            return IsRoleMember("sovetnik");
+            return IsRoleMember("sovetnik") //|| System.Environment.UserName == "v.chikhira"
+                ;
         }
 
         public static bool IsSovetnikMain()
@@ -83,7 +84,11 @@ namespace PriemLib
 
         public static bool IsOwner()
         {
-            if (System.Environment.UserName == "o.belenog" || System.Environment.UserName == "v.chikhira" || System.Environment.UserName == "st021085")
+            if (
+                System.Environment.UserName == "o.belenog" 
+                || System.Environment.UserName == "v.chikhira"
+                || System.Environment.UserName == "st021085"
+                )
                 return true;
             else
                 return false;
@@ -94,7 +99,7 @@ namespace PriemLib
         {
             if (IsPasha() || IsFaculty() || IsFacMain() || IsOwner())
                 return true;
-
+            
             return false;
         }
 
@@ -106,7 +111,7 @@ namespace PriemLib
 
                 return false;
         }
-
+       
         public static bool RightsFaculty()
         {
             if (IsFaculty() && !IsFacMain() && !IsSovetnik())
@@ -196,21 +201,21 @@ namespace PriemLib
             if (IsOwner())
                 return true;
             // Медколледж открываем
-            //            if (facultyId == "11")
-            //                return true;
+//            if (facultyId == "11")
+//                return true;
 
-            //            string flt = GetFilter("hlpStudyPlan", facultyId, professionId, obrazProgramId, specializationId, studyFormId, studyBasisId);
-            //            int kc = (int)MainClass.Bdc.GetValue(string.Format(@"SELECT Sum(Value) FROM hlpStudyPlan WHERE 1=1 {0} ", flt));
+//            string flt = GetFilter("hlpStudyPlan", facultyId, professionId, obrazProgramId, specializationId, studyFormId, studyBasisId);
+//            int kc = (int)MainClass.Bdc.GetValue(string.Format(@"SELECT Sum(Value) FROM hlpStudyPlan WHERE 1=1 {0} ", flt));
 
-            //            flt = GetFilter("extAbitAspirant", facultyId, professionId, obrazProgramId, specializationId, studyFormId, studyBasisId);
-            //            int entry = (int)MainClass.Bdc.GetValue(string.Format(@"SELECT Count(extAbitAspirant.Id) FROM extAbitAspirant 
-            //                         INNER JOIN extEntryView ON extAbitAspirant.Id=extEntryView.AbiturientId 
-            //                         WHERE Excluded=0 {0} ", flt));
+//            flt = GetFilter("extAbit", facultyId, professionId, obrazProgramId, specializationId, studyFormId, studyBasisId);
+//            int entry = (int)MainClass.Bdc.GetValue(string.Format(@"SELECT Count(extAbit.Id) FROM extAbit 
+//                         INNER JOIN extEntryView ON extAbit.Id=extEntryView.AbiturientId 
+//                         WHERE Excluded=0 {0} ", flt));
 
-            //            int kcRest = kc - entry;
+//            int kcRest = kc - entry;
 
-            //            if (kcRest > 0)
-            //                return true;
+//            if (kcRest > 0)
+//                return true;
 
             return false;
         }
@@ -225,41 +230,41 @@ namespace PriemLib
         //}
 
         //        public static bool HasAddRightsForPriem(string facultyId, string professionId, string obrazProgramId, string specializationId, string studyFormId, string studyBasisId)
-        //        {
-        //            string flt = GetFilter("hlpStudyPlan", facultyId, professionId, obrazProgramId, specializationId, studyFormId, studyBasisId);
-        //            int kc = (int)MainClass.Bdc.GetValue(string.Format(@"SELECT Sum(Value) FROM hlpStudyPlan WHERE 1=1 {0} ", flt));
+//        {
+//            string flt = GetFilter("hlpStudyPlan", facultyId, professionId, obrazProgramId, specializationId, studyFormId, studyBasisId);
+//            int kc = (int)MainClass.Bdc.GetValue(string.Format(@"SELECT Sum(Value) FROM hlpStudyPlan WHERE 1=1 {0} ", flt));
 
-        //            flt = GetFilter("extAbitAspirant", facultyId, professionId, obrazProgramId, specializationId, studyFormId, studyBasisId);
-        //            int entry = (int)MainClass.Bdc.GetValue(string.Format(@"SELECT Count(extAbitAspirant.Id) FROM extAbitAspirant 
-        //                         INNER JOIN extEntryView ON extAbitAspirant.Id=extEntryView.AbiturientId 
-        //                         WHERE Excluded=0 {0} ", flt));
+//            flt = GetFilter("extAbit", facultyId, professionId, obrazProgramId, specializationId, studyFormId, studyBasisId);
+//            int entry = (int)MainClass.Bdc.GetValue(string.Format(@"SELECT Count(extAbit.Id) FROM extAbit 
+//                         INNER JOIN extEntryView ON extAbit.Id=extEntryView.AbiturientId 
+//                         WHERE Excluded=0 {0} ", flt));
 
-        //            int kcRest = kc - entry;
+//            int kcRest = kc - entry;
 
-        //            if (kcRest > 0)
-        //                return true;
+//            if (kcRest > 0)
+//                return true;
 
-        //            return false;
-        //        }
+//            return false;
+//        }
 
         //        private static string GetFilter(string tablename, string facultyId, string professionId, string obrazProgramId, string specializationId, string studyFormId, string studyBasisId)
-        //        {
-        //            string filter = string.Empty;
+//        {
+//            string filter = string.Empty;
 
-        //            if (!string.IsNullOrEmpty(facultyId))
-        //                filter += string.Format(" AND {0}.FacultyId={1}", tablename, facultyId);
-        //            if (!string.IsNullOrEmpty(professionId))
-        //                filter += string.Format(" AND {0}.ProfessionId={1}", tablename, professionId);
-        //            if (!string.IsNullOrEmpty(obrazProgramId))
-        //                filter += string.Format(" AND {0}.ObrazProgramId={1}", tablename, obrazProgramId);
-        //            if (!string.IsNullOrEmpty(specializationId))
-        //                filter += string.Format(" AND {0}.SpecializationId={1}", tablename, specializationId);
-        //            if (!string.IsNullOrEmpty(studyFormId))
-        //                filter += string.Format(" AND {0}.StudyFormId={1}", tablename, studyFormId);
-        //            if (!string.IsNullOrEmpty(studyBasisId))
-        //                filter += string.Format(" AND {0}.StudyBasisId={1}", tablename, studyBasisId);
+//            if (!string.IsNullOrEmpty(facultyId))
+//                filter += string.Format(" AND {0}.FacultyId={1}", tablename, facultyId);
+//            if (!string.IsNullOrEmpty(professionId))
+//                filter += string.Format(" AND {0}.ProfessionId={1}", tablename, professionId);
+//            if (!string.IsNullOrEmpty(obrazProgramId))
+//                filter += string.Format(" AND {0}.ObrazProgramId={1}", tablename, obrazProgramId);
+//            if (!string.IsNullOrEmpty(specializationId))
+//                filter += string.Format(" AND {0}.SpecializationId={1}", tablename, specializationId);
+//            if (!string.IsNullOrEmpty(studyFormId))
+//                filter += string.Format(" AND {0}.StudyFormId={1}", tablename, studyFormId);
+//            if (!string.IsNullOrEmpty(studyBasisId))
+//                filter += string.Format(" AND {0}.StudyBasisId={1}", tablename, studyBasisId);
 
-        //            return filter;
-        //        }
-    }
+//            return filter;
+//        }
+	}
 }

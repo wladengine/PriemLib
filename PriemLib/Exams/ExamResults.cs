@@ -12,9 +12,8 @@ using WordOut;
 using EducServLib;
 using BDClassLib;
 using BaseFormsLib;
-using PriemLib;
 
-namespace Priem
+namespace PriemLib
 {
     public partial class ExamResults : BookList
     {       
@@ -61,7 +60,7 @@ namespace Priem
                     chbEGE.Checked = false;
                     chbOlymps.Checked = false;
 
-                    if (MainClass.dbType == PriemType.PriemAspirant)
+                    if (MainClass.dbType == PriemType.PriemMag)
                     {
                         chbEGE.Visible = false;
                         chbOlymps.Visible = false;
@@ -91,15 +90,16 @@ namespace Priem
             get { return ComboServ.GetComboIdInt(cbObrazProgram); }
             set { ComboServ.SetComboId(cbObrazProgram, value); }
         }
-        public Guid? ProfileId
+        public int? ProfileId
         {
             get
             {
-                string prId = ComboServ.GetComboId(cbProfile);
-                if (string.IsNullOrEmpty(prId))
-                    return null;
-                else
-                    return new Guid(prId);
+                return ComboServ.GetComboIdInt(cbProfile);
+                //string prId = ComboServ.GetComboId(cbProfile);
+                //if (string.IsNullOrEmpty(prId))
+                //    return null;
+                //else
+                //    return new Guid(prId);
             }
             set
             {
@@ -306,7 +306,6 @@ namespace Priem
             DataTable examTable = new DataTable();
             DataSet ds;
             string sQueryAbit;
-            string sQuery;
             List<ListItem> egeList = new List<ListItem>();
             List<ListItem> olympList = new List<ListItem>();
 
@@ -376,50 +375,26 @@ namespace Priem
                 clm = new DataColumn();
                 clm.ColumnName = de.Value.ToString() + "IsOlymp";
                 examTable.Columns.Add(clm);
-
-//                examsFields += string.Format(@"
-//                        , (SELECT SUM(Value) FROM ed.qMark INNER JOIN ed.extExamInEntry ON qMark.ExamInEntryId = ed.extExamInEntry.Id WHERE ed.extExamInEntry.ExamId={0} AND ed.qMark.AbiturientId=ed.extAbitAspirant.Id AND ed.extExamInEntry.FacultyId = {1}) as '{2}'
-//                        , (SELECT Top 1 IsFromEge FROM ed.qMark INNER JOIN ed.extExamInEntry ON qMark.ExamInEntryId = ed.extExamInEntry.Id WHERE ed.extExamInEntry.ExamId={0} AND ed.qMark.AbiturientId=ed.extAbitAspirant.Id AND ed.extExamInEntry.FacultyId = {1}) as '{2}IsEge'
-//                        , (SELECT Top 1 IsFromOlymp FROM ed.qMark INNER JOIN ed.extExamInEntry ON qMark.ExamInEntryId = ed.extExamInEntry.Id WHERE ed.extExamInEntry.ExamId={0} AND ed.qMark.AbiturientId=ed.extAbitAspirant.Id AND ed.extExamInEntry.FacultyId = {1}) as '{2}IsOlymp'",
-//                    de.Key, FacultyId, de.Key);
             }
-
-//            sQueryAbit = string.Format(@"SELECT DISTINCT ed.extAbitAspirant.Id as Id, extPersonAspirant.PersonNum as Ид_номер, ed.extAbitAspirant.RegNum as Рег_номер, ed.extAbitMarksSum.TotalSum AS Sum, ed.extPersonAspirant.FIO as ФИО, 
-//                        ed.extAbitAspirant.StudyFormName AS StudyForm, ed.extAbitAspirant.StudyBasisName AS StudyBasis, ed.extAbitAspirant.ObrazProgramCrypt + ' ' +(Case when NOT ed.extAbitAspirant.ProfileId IS NULL then ed.extAbitAspirant.ProfileName else ed.extAbitAspirant.ObrazProgramName end) as Spec, 
-//                        Competition.Name AS CompName {0} 
-//                        FROM ed.extAbitAspirant LEFT JOIN ed.extPersonAspirant ON ed.extAbitAspirant.PersonId = ed.extPersonAspirant.Id 
-//                        LEFT JOIN ed.Competition ON ed.extAbitAspirant.CompetitionId = ed.Competition.Id LEFT JOIN ed.extAbitMarksSum ON ed.extAbitMarksSum.Id = ed.extAbitAspirant.Id 
-//                        {1} ORDER BY ФИО ", examsFields, abitFilters);
-
-            string extAbitTable = "";
-            switch (MainClass.dbType)
-            {
-                case PriemType.Priem: { extAbitTable = "";  break; }
-                case PriemType.PriemMag: { extAbitTable = ""; break; }
-                case PriemType.PriemSPO: { extAbitTable = "SPO"; break; }
-                case PriemType.PriemAspirant: { extAbitTable = "Aspirant"; break; }
-                default: { extAbitTable = ""; break; }
-            }
-
 
             NewWatch wc = new NewWatch();
             wc.Show();
             wc.SetText("Получение данных по абитуриентам...");
             sQueryAbit = string.Format(@"SELECT DISTINCT 
-extAbitTable.Id as Id, 
-extPersonTable.PersonNum as Ид_номер, 
-extAbitTable.RegNum as Рег_номер, 
+ed.extAbit.Id as Id, 
+extPerson.PersonNum as Ид_номер, 
+ed.extAbit.RegNum as Рег_номер, 
 ed.extAbitMarksSum.TotalSum AS Sum, 
-extAbitTable.FIO as ФИО, 
-extAbitTable.ObrazProgramCrypt + ' ' +(Case when NOT extAbitTable.ProfileId IS NULL then extAbitTable.ProfileName else extAbitTable.ObrazProgramName end) as Spec, 
-extAbitTable.StudyFormName AS StudyForm, 
-extAbitTable.StudyBasisName AS StudyBasis,
+ed.extPerson.FIO as ФИО, 
+ed.extAbit.ObrazProgramCrypt + ' ' +(Case when NOT ed.extAbit.ProfileId IS NULL then ed.extAbit.ProfileName else ed.extAbit.ObrazProgramName end) as Spec, 
+ed.extAbit.StudyFormName AS StudyForm, 
+ed.extAbit.StudyBasisName AS StudyBasis,
 Competition.Name AS CompName
-FROM ed.extAbit" + extAbitTable + @"  as extAbitTable
-LEFT JOIN ed.extPerson" + extAbitTable + @"  as extPersonTable ON extAbitTable.PersonId = extPersonTable.Id 
-LEFT JOIN ed.Competition ON extAbitTable.CompetitionId = ed.Competition.Id 
-LEFT JOIN ed.extAbitMarksSum ON ed.extAbitMarksSum.Id = extAbitTable.Id 
---LEFT JOIN ed.qMark ON qMark.AbiturientId = extAbitTable.Id
+FROM ed.extAbit 
+LEFT JOIN ed.extPerson ON ed.extAbit.PersonId = ed.extPerson.Id 
+LEFT JOIN ed.Competition ON ed.extAbit.CompetitionId = ed.Competition.Id 
+LEFT JOIN ed.extAbitMarksSum ON ed.extAbitMarksSum.Id = ed.extAbit.Id 
+--LEFT JOIN ed.qMark ON qMark.AbiturientId = extAbit.Id
 {0}
 ORDER BY ФИО", abitFilters);
                         
@@ -440,9 +415,8 @@ ORDER BY ФИО", abitFilters);
                             };
 
             List<Guid> ids = abit_data.Select(x => x.Id).Distinct().ToList();
-            //NewWatch wc = new NewWatch(ids.Count); 
-            wc.SetText("Получение баллов из базы...");
             
+            wc.SetText("Получение баллов из базы...");
 
             string query = string.Format(@"SELECT AbiturientId, 
                 qMark.ExamId,
@@ -450,7 +424,7 @@ ORDER BY ФИО", abitFilters);
                 case when qMark.IsFromEge IS NULL OR qMark.IsFromEge = 'False' then 0 else 1 end AS IsFromEge,
                 case when qMark.IsFromOlymp IS NULL OR qMark.IsFromOlymp = 'False' then 0 else 1 end AS IsFromOlymp
                 FROM ed.qMark
-                INNER JOIN ed.extAbit" + extAbitTable + @"  as extAbitTable ON extAbitTable.Id = qMark.AbiturientId
+                INNER JOIN ed.extAbit ON extAbit.Id = qMark.AbiturientId
                 {0}", abitFilters);
             ds = _bdc.GetDataSet(query);
 
@@ -469,21 +443,20 @@ ORDER BY ФИО", abitFilters);
             List<string> lstIds = new List<string>();
             int iCntAbits = ids.Count();
             wc.SetMax(iCntAbits);
-            //foreach (DataRow dsRow in ds.Tables[0].Rows)
             foreach (Guid abitId in ids)
             {
                 DataRow newRow;
                 newRow = examTable.NewRow();
                 var abit = abit_data.Where(x => x.Id == abitId).First();
-                newRow["Ид_номер"] = abit.PersonNum.ToString(); // dsRow["Ид_номер"].ToString();
-                newRow["ФИО"] = abit.FIO; //dsRow["ФИО"].ToString();
-                newRow["Рег_номер"] = abit.RegNum.ToString(); //dsRow["Рег_номер"].ToString();
-                newRow["Направление"] = abit.Spec; //dsRow["Spec"].ToString();
-                newRow["Основа обучения"] = abit.StudyBasis; //dsRow["StudyBasis"].ToString();
-                newRow["Форма обучения"] = abit.StudyForm; //dsRow["StudyForm"].ToString();
-                newRow["Id"] = abit.Id.ToString(); //dsRow["Id"].ToString();
-                newRow["Конкурс"] = abit.Competition; //dsRow["CompName"].ToString();
-                newRow["Сумма баллов"] = abit.Sum.HasValue ? abit.Sum.Value : 0; //dsRow["CompName"].ToString();
+                newRow["Ид_номер"] = abit.PersonNum.ToString();
+                newRow["ФИО"] = abit.FIO;
+                newRow["Рег_номер"] = abit.RegNum.ToString();
+                newRow["Направление"] = abit.Spec;
+                newRow["Основа обучения"] = abit.StudyBasis;
+                newRow["Форма обучения"] = abit.StudyForm;
+                newRow["Id"] = abit.Id.ToString();
+                newRow["Конкурс"] = abit.Competition;
+                newRow["Сумма баллов"] = abit.Sum.HasValue ? abit.Sum.Value : 0;
                 foreach (DictionaryEntry de in examsId)
                 {
                     int iExamId = 0;
@@ -494,43 +467,18 @@ ORDER BY ФИО", abitFilters);
                     bool isFromEge = mark_data.Select(x => x.IsFromEge).DefaultIfEmpty(false).First();
                     bool isFromOlymp = mark_data.Select(x => x.IsFromOlymp).DefaultIfEmpty(false).First();
                     
-                    newRow[de.Value.ToString()] = markSum == 0 ? "" : markSum.ToString(); //dsRow[de.Key.ToString()].ToString();
-                    newRow[de.Value.ToString() + "IsEge"] = isFromEge.ToString(); //dsRow[de.Key.ToString() + "IsEge"].ToString();
-                    newRow[de.Value.ToString() + "IsOlymp"] = isFromOlymp.ToString(); //dsRow[de.Key.ToString() + "IsOlymp"].ToString();
+                    newRow[de.Value.ToString()] = markSum == 0 ? "" : markSum.ToString();
+                    newRow[de.Value.ToString() + "IsEge"] = isFromEge.ToString();
+                    newRow[de.Value.ToString() + "IsOlymp"] = isFromOlymp.ToString();
                 }
 
                 examTable.Rows.Add(newRow);
                 wc.PerformStep();
                 
                 lstIds.Add(string.Format("'{0}'", abitId.ToString()));
-                //lstIds.Add(string.Format("'{0}'", dsRow["Id"].ToString()));
             }
 
             wc.Close();
-            /*
-            if (ds.Tables[0].Rows.Count > 0)
-            {
-                string colName;
-                sQuery = string.Format("SELECT qMark.Id, qMark.AbiturientId AS AbitId, qMark.Value AS Mark, extExamInProgram.ExamNameId AS ExamId, qMark.IsFromEge, qMark.IsFromOlymp FROM qMark LEFT JOIN extExamInProgram ON qMark.ExamInProgramId = extExamInProgram.Id WHERE qMark.AbiturientId IN ({0}) {1}", Util.BuildStringWithCollection(lstIds), examFilters);
-                ds = _bdc.GetDataSet(sQuery);
-
-                foreach (DataRow dsRow in ds.Tables[0].Rows)
-                {
-                    for (int i = 0; i < examTable.Rows.Count; i++)
-                    {
-                        if (examTable.Rows[i]["Id"].ToString() == dsRow["AbitId"].ToString())
-                        {
-                            colName = dsRow["ExamId"].ToString();
-                            if (dsRow["Mark"] != null && dsRow["Mark"].ToString() != "")
-                                examTable.Rows[i][colName] = dsRow["Mark"].ToString();
-                            if (bool.Parse(dsRow["IsFromEge"].ToString()))
-                                egeList.Add(new ListItem(i, colName));
-                            if (bool.Parse(dsRow["IsFromOlymp"].ToString()))
-                                olympList.Add(new ListItem(i, colName));
-                        }
-                    }
-                }
-            } */      
 
             DataView dv = new DataView(examTable);
             dv.AllowNew = false;
@@ -566,35 +514,35 @@ ORDER BY ФИО", abitFilters);
         {
             string s = " WHERE 1=1 ";
 
-            s += " AND extAbitTable.StudyLevelGroupId = " + MainClass.studyLevelGroupId;
+            s += " AND ed.extAbit.StudyLevelGroupId = " + MainClass.studyLevelGroupId;
 
             //обработали форму обучения  
             if (StudyFormId != null)
-                s += " AND extAbitTable.StudyFormId = " + StudyFormId;
+                s += " AND ed.extAbit.StudyFormId = " + StudyFormId;
 
             //обработали основу обучения  
             if (StudyBasisId != null)
-                s += " AND extAbitTable.StudyBasisId = " + StudyBasisId;   
+                s += " AND ed.extAbit.StudyBasisId = " + StudyBasisId;   
 
             //обработали факультет
             if (FacultyId != null)
-                s += " AND extAbitTable.FacultyId = " + FacultyId;
+                s += " AND ed.extAbit.FacultyId = " + FacultyId;
 
             //обработали тип конкурса          
             if (CompetitionId != null)
-                s += " AND extAbitTable.CompetitionId = " + CompetitionId;
+                s += " AND ed.extAbit.CompetitionId = " + CompetitionId;
             
             //обработали Направление
             if (LicenseProgramId != null)
-                s += " AND extAbitTable.LicenseProgramId = " + LicenseProgramId;
+                s += " AND ed.extAbit.LicenseProgramId = " + LicenseProgramId;
 
             //обработали Образ программу
             if (ObrazProgramId != null)
-                s += " AND extAbitTable.ObrazProgramId = " + ObrazProgramId;
+                s += " AND ed.extAbit.ObrazProgramId = " + ObrazProgramId;
 
             //обработали специализацию 
             if (ProfileId != null)
-                s += string.Format(" AND extAbitTable.ProfileId = '{0}'", ProfileId);
+                s += string.Format(" AND ed.extAbit.ProfileId = '{0}'", ProfileId);
           
             return s;
         }
@@ -829,6 +777,65 @@ ORDER BY ФИО", abitFilters);
                 _orderBy = null;
             else
                 _orderBy = "it." + Dgv.Columns[e.ColumnIndex].Name;
+        }
+
+        private void btnPrintToCSV_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "CSV files (*.csv)|*.csv";
+
+            if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.Cancel)
+                return;
+
+            List<string> FieldsNotToUse = new List<string>() { "Рег_номер", "Направление", "Основа обучения", "Id", "Конкурс", "Форма обучения" };
+            
+            StringBuilder sb = new StringBuilder();
+            int i = 1;
+            int j;
+            string str = "";
+
+            NewWatch wc = new NewWatch(dgvMarks.Rows.Count);
+            wc.Show();
+
+            i = 0;
+            foreach (DataGridViewColumn clm in dgvMarks.Columns)
+            {
+                if (clm.Visible && !FieldsNotToUse.Contains(clm.Name))
+                {
+                    str += clm.HeaderText + ";";
+                    i++;
+                }
+            }
+            sb.AppendLine(str);
+            List<string> lstVals = new List<string>();
+            foreach (DataGridViewRow dgvr in dgvMarks.Rows)
+            {
+                str = "";
+                j = 0;
+                foreach (DataGridViewColumn clm in dgvMarks.Columns)
+                {
+                    if (clm.Visible && !FieldsNotToUse.Contains(clm.Name))
+                    {
+                        str += dgvr.Cells[clm.Index].Value.ToString() + ";";
+                        j++;
+                    }
+                }
+                i++;
+                if (!lstVals.Contains(str))
+                {
+                    sb.AppendLine(str);
+                    lstVals.Add(str);
+                }
+                wc.PerformStep();
+            }
+            wc.SetText("Сохранение файла на диск...");
+            using (System.IO.StreamWriter sw = new System.IO.StreamWriter(sfd.FileName, false, Encoding.GetEncoding(1251)))
+            {
+                sw.Write(sb.ToString());
+                sw.Flush();
+            }
+            wc.Close();
+            MessageBox.Show("Done");
         }
     }
 }

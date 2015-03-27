@@ -50,9 +50,12 @@
             // btnSaveAsNew
             // 
             this.btnSaveAsNew.Location = new System.Drawing.Point(380, 149);
+            this.btnSaveAsNew.Visible = true;
             // 
             // cbOlympType
             // 
+            this.cbOlympType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cbOlympType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbOlympType.FormattingEnabled = true;
             this.cbOlympType.Location = new System.Drawing.Point(133, 17);
@@ -62,6 +65,8 @@
             // 
             // cbOlympSubject
             // 
+            this.cbOlympSubject.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cbOlympSubject.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbOlympSubject.FormattingEnabled = true;
             this.cbOlympSubject.Location = new System.Drawing.Point(133, 77);
@@ -71,6 +76,8 @@
             // 
             // cbOlympLevel
             // 
+            this.cbOlympLevel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cbOlympLevel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbOlympLevel.FormattingEnabled = true;
             this.cbOlympLevel.Location = new System.Drawing.Point(133, 106);
@@ -80,6 +87,8 @@
             // 
             // cbOlympName
             // 
+            this.cbOlympName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cbOlympName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbOlympName.FormattingEnabled = true;
             this.cbOlympName.Location = new System.Drawing.Point(133, 47);
@@ -136,6 +145,7 @@
             this.Controls.Add(this.cbOlympLevel);
             this.Controls.Add(this.cbOlympSubject);
             this.Controls.Add(this.cbOlympType);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
             this.Name = "CardOlympBook";
             this.Text = "Form1";
             this.Controls.SetChildIndex(this.cbOlympType, 0);

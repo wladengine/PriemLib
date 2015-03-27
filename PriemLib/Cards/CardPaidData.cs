@@ -245,7 +245,7 @@ namespace PriemLib
             }
         }
 
-        private bool CheckFields()
+        protected override bool CheckFields()
         {
             SetFielsOfDogovorType();
             

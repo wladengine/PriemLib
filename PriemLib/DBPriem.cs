@@ -8,7 +8,6 @@ using System.Transactions;
 using BDClassLib;
 using EducServLib;
 
-
 namespace PriemLib
 {
     public partial class DBPriem : SQLClass

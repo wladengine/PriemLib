@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.Data.Objects;
 
 using EducServLib;
+
 namespace PriemLib
 {
     public partial class CardExam : BookCard
@@ -56,12 +57,12 @@ namespace PriemLib
             {
                 using (PriemEntities context = new PriemEntities())
                 {                   
-                    List<KeyValuePair<string, string>> lst = ((from f in context.ExamName                                                             
+                    List<KeyValuePair<string, string>> lst = ((from f in context.ExamName
                                                               select new 
                                                               {
                                                                   Id = f.Id,
                                                                   Name = f.Name                                                                 
-                                                              }).Distinct()).ToList().Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name)).ToList();                                                                 
+                                                              }).Distinct()).ToList().OrderBy(x => x.Name).Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name)).ToList();                                                                 
                                                                    
                     ComboServ.FillCombo(cbExamName, lst, false, false);                   
                 }
