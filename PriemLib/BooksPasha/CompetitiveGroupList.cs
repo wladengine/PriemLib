@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using EducServLib;
 using BaseFormsLib;
 
-namespace Priem
+namespace PriemLib
 {
     public partial class CompetitiveGroupList : Form
     {

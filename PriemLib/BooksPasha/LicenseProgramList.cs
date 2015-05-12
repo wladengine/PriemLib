@@ -9,7 +9,7 @@ using System.Text;
 using System.Transactions;
 using System.Windows.Forms;
 
-namespace Priem
+namespace PriemLib
 {
     public partial class LicenseProgramList : BookList
     {

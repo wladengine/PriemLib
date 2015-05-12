@@ -17,10 +17,13 @@ namespace PriemLib
         private string _personId;
         private string _abitId;
         private string _commitId;
+        private bool _bShowAllFiles;
 
-        public DocsClass(int personBarcode, int? abitCommitBarcode)
+        public DocsClass(int personBarcode, int? abitCommitBarcode, bool bShowAllFiles)
         {
             _bdcInet = new DBPriem();
+            _bShowAllFiles = bShowAllFiles;
+
             try
             {
                 _bdcInet.OpenDatabase(MainClass.connStringOnline);
@@ -57,7 +60,7 @@ namespace PriemLib
             {
                 foreach (KeyValuePair<string, string> file in lstFiles)
                 {
-                    byte[] bt = _bdcInet.ReadFile(string.Format("SELECT FileData FROM extAbitFiles WHERE Id = '{0}'", file.Key));
+                    byte[] bt = _bdcInet.ReadFile(string.Format("SELECT FileData FROM extAbitFiles_All WHERE Id = '{0}'", file.Key));
 
                     string filename = file.Value.Replace(@"\", "-").Replace(@":", "-");
 
@@ -84,9 +87,10 @@ namespace PriemLib
 
                 List<KeyValuePair<string, string>> lstFiles = new List<KeyValuePair<string, string>>();
 
-                string query = string.Format("SELECT Id, FileName + ' (' + convert(nvarchar, extAbitFiles.LoadDate, 104) + ' ' + convert(nvarchar, extAbitFiles.LoadDate, 108) + ')' + FileExtention AS FileName FROM extAbitFiles WHERE extAbitFiles.PersonId = '{0}' {1} {2}", _personId,
+                string query = string.Format("SELECT Id, FileName + ' (' + convert(nvarchar, extAbitFiles.LoadDate, 104) + ' ' + convert(nvarchar, extAbitFiles.LoadDate, 108) + ')' + FileExtention AS FileName FROM {3} AS extAbitFiles WHERE extAbitFiles.PersonId = '{0}' {1} {2}", _personId,
                     !string.IsNullOrEmpty(_abitId) ? " AND (extAbitFiles.ApplicationId = '" + _abitId + "' OR extAbitFiles.ApplicationId IS NULL)" : "",
-                    !string.IsNullOrEmpty(_commitId) ? " AND (extAbitFiles.CommitId = '" + _commitId + "' OR extAbitFiles.CommitId IS NULL)" : "");
+                    !string.IsNullOrEmpty(_commitId) ? " AND (extAbitFiles.CommitId = '" + _commitId + "' OR extAbitFiles.CommitId IS NULL)" : "",
+                    _bShowAllFiles ? "extAbitFiles_All" : "extAbitFiles");
 
                 DataSet ds = _bdcInet.GetDataSet(query + " ORDER BY extAbitFiles.LoadDate DESC");
                 foreach (DataRow dRow in ds.Tables[0].Rows)
@@ -111,10 +115,11 @@ namespace PriemLib
 
                 List<KeyValuePair<string, string>> lstFiles = new List<KeyValuePair<string, string>>();
 
-                string query = string.Format("SELECT Id, FileName + ' (' + convert(nvarchar, extAbitFiles.LoadDate, 104) + ' ' + convert(nvarchar, extAbitFiles.LoadDate, 108) + ')' + FileExtention AS FileName FROM extAbitFileNames AS extAbitFiles WHERE extAbitFiles.PersonId = '{0}' {1} {2} {3}", _personId,
+                string query = string.Format("SELECT Id, FileName + ' (' + convert(nvarchar, extAbitFiles.LoadDate, 104) + ' ' + convert(nvarchar, extAbitFiles.LoadDate, 108) + ')' + FileExtention AS FileName FROM {4} AS extAbitFiles WHERE extAbitFiles.PersonId = '{0}' {1} {2} {3}", _personId,
                     !string.IsNullOrEmpty(_abitId) ? " AND (extAbitFiles.ApplicationId = '" + _abitId + "' OR extAbitFiles.ApplicationId IS NULL)" : "",
                     !string.IsNullOrEmpty(_commitId) ? " AND (extAbitFiles.CommitId = '" + _commitId + "' OR extAbitFiles.CommitId IS NULL)" : "",
-                    !string.IsNullOrEmpty(sFilters) ? sFilters : "");
+                    !string.IsNullOrEmpty(sFilters) ? sFilters : "",
+                    _bShowAllFiles ? "extAbitFileNames_All" : "extAbitFileNames");
                 DataSet ds = _bdcInet.GetDataSet(query + " ORDER BY extAbitFiles.LoadDate DESC");
                 foreach (DataRow dRow in ds.Tables[0].Rows)
                 {
@@ -139,9 +144,10 @@ namespace PriemLib
                 DataTable tbl = new DataTable();
 
 
-                string query = string.Format("SELECT Id, FileName + ' (' + convert(nvarchar, extAbitFiles.LoadDate, 104) + ' ' + convert(nvarchar, extAbitFiles.LoadDate, 108) + ')' + FileExtention AS FileName, Comment, FileTypeName, FileExtention  FROM extAbitFileNames extAbitFiles WHERE extAbitFiles.PersonId = '{0}' {1} {2}", _personId,
+                string query = string.Format("SELECT Id, FileName + ' (' + convert(nvarchar, extAbitFiles.LoadDate, 104) + ' ' + convert(nvarchar, extAbitFiles.LoadDate, 108) + ')' + FileExtention AS FileName, Comment, FileTypeName, FileExtention  FROM {3} extAbitFiles WHERE extAbitFiles.PersonId = '{0}' {1} {2}", _personId,
                     !string.IsNullOrEmpty(_abitId) ? " AND (extAbitFiles.ApplicationId = '" + _abitId + "' OR extAbitFiles.ApplicationId IS NULL)" : "",
-                    !string.IsNullOrEmpty(_commitId) ? " AND (extAbitFiles.CommitId = '" + _commitId + "' OR extAbitFiles.CommitId IS NULL)" : "");
+                    !string.IsNullOrEmpty(_commitId) ? " AND (extAbitFiles.CommitId = '" + _commitId + "' OR extAbitFiles.CommitId IS NULL)" : "",
+                    _bShowAllFiles ? "extAbitFileNames_All" : "extAbitFileNames");
 
                 DataSet ds = _bdcInet.GetDataSet(query + (sFilters ?? "") + " ORDER BY extAbitFiles.LoadDate DESC");
 

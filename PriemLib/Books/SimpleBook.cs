@@ -18,15 +18,15 @@ namespace PriemLib
         protected DataTable dataTable;
         protected DBPriem _bdc;
         protected string Title = "Name";
-        
+
         /// <summary>
         /// constructor
         /// </summary>
         public SimpleBook()
         {
             InitializeComponent();
-            
-            InitControls();            
+
+            InitControls();
         }
 
         protected virtual void InitControls()
@@ -41,8 +41,8 @@ namespace PriemLib
             SetReadOnly(true);
 
             ExtraInit();
-            
-            return; 
+
+            return;
         }
 
         protected virtual void ExtraInit()
@@ -69,7 +69,7 @@ namespace PriemLib
         protected virtual void SetReadOnly(bool val)
         {
             dgv.ReadOnly = val;
-            dgv.AllowUserToAddRows = 
+            dgv.AllowUserToAddRows =
                 dgv.AllowUserToDeleteRows = !val;
 
             return;
@@ -106,7 +106,7 @@ namespace PriemLib
         /// <param name="e"></param>
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if (_modified==false)
+            if (_modified == false)
             {
                 btnSave.Text = BaseFormsLib.Constants.BTN_SAVE_TITLE;
                 this.Text = Title + BaseFormsLib.Constants.CARD_MODIFIED;
@@ -142,13 +142,12 @@ namespace PriemLib
         private void dgv_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
             dgv.Rows[e.RowIndex].Cells[e.ColumnIndex].ErrorText = "Неверные данные";
-            e.Cancel = true;            
+            e.Cancel = true;
         }
 
         private void dgv_CellLeave(object sender, DataGridViewCellEventArgs e)
         {
             dgv.Rows[e.RowIndex].Cells[e.ColumnIndex].ErrorText = null;
-        }      
-
+        }
     }
 }

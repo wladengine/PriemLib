@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using EducServLib;
 using BaseFormsLib;
 
-namespace Priem
+namespace PriemLib
 {
     public partial class CardLicenseProgram : BookCardInt
     {
@@ -115,6 +115,7 @@ namespace Priem
             slParams.Add("@NameEng", EntityNameEng);
             slParams.Add("@Code", Code);
             slParams.Add("@StudyLevelId", StudyLevelId);
+            slParams.Add("@AggregateGroupId", AggregateGroupId);
             MainClass.BdcOnlineReadWrite.ExecuteQuery(query, slParams);
         }
     }

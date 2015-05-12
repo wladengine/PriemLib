@@ -7,7 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Linq;
 
-using BDClassLib;
+//using BDClassLib;
 using EducServLib;
 using BaseFormsLib;
 
@@ -30,8 +30,6 @@ namespace PriemLib
         //конструктор
         public ProtocolList(ProtocolTypes protocolType)
         {
-            InitializeComponent();
-
             this.CenterToParent();
             this.MdiParent = MainClass.mainform;
             this._protocolType = protocolType;
@@ -40,7 +38,7 @@ namespace PriemLib
                 ed.extAbit.BAckDoc, ed.extAbit.RegNum as Рег_Номер,
                 ed.extAbit.FIO as ФИО, 
                 ed.extPerson.AttestatSeries as AttSer, ed.extPerson.AttestatNum as AttNum, 
-                (case when ed.extPerson.SchoolTypeId = 1 then ISNULL(ed.extPerson.AttestatRegion + ' ', '') + ISNULL(ed.extPerson.AttestatSeries, '') + '  №' + ed.extPerson.AttestatNum else ISNULL(ed.extPerson.DiplomSeries, '') + '  №' + ed.extPerson.DiplomNum end) as Документ_об_образовании, 
+                (case when ed.extPerson.SchoolTypeId = 1 then ed.extPerson.AttestatSeries + '  №' + ed.extPerson.AttestatNum else ed.extPerson.DiplomSeries + '  №' + ed.extPerson.DiplomNum end) as Документ_об_образовании, 
                 ed.extAbit.ObrazProgramNameEx + ' ' +(Case when ed.extAbit.ProfileId IS NULL then '' else ed.extAbit.ProfileName end) as Направление,
                 ed.Competition.Name as Конкурс, 
                 0 as Black,
@@ -56,6 +54,8 @@ namespace PriemLib
 
             this.sWhere = string.Format(" WHERE 1=1 AND ed.extAbit.StudyLevelGroupId = {1} AND ed.qProtocol.ProtocolTypeId = {0}", TypeToInt(_protocolType), MainClass.studyLevelGroupId);
             this.sOrderby = " ORDER BY ed.extAbit.RegNum, ed.extAbit.BAckDoc ";
+
+            InitializeComponent();
 
             InitControls();
         }
@@ -305,7 +305,7 @@ namespace PriemLib
         }
 
         //изменение - только для супер
-        protected void btnMake_Click(object sender, EventArgs e)
+        private void btnMake_Click(object sender, EventArgs e)
         {
             if (MainClass.IsOwner())
             {

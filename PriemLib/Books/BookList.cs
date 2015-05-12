@@ -17,7 +17,7 @@ namespace PriemLib
     {
         protected string _orderBy;
         protected DataRefreshHandler _drh;
-        protected DBPriem _bdc; 
+        protected DBPriem _bdc;
 
         public BookList()
         {
@@ -32,21 +32,21 @@ namespace PriemLib
         protected override void ExtraInit()
         {
             this.CenterToParent();
-            this.MdiParent = MainClass.mainform;           
+            this.MdiParent = MainClass.mainform;
             _bdc = MainClass.Bdc;
 
             _drh = new DataRefreshHandler(UpdateDataGrid);
-            MainClass.AddHandler(_drh);           
+            MainClass.AddHandler(_drh);
 
             Dgv.ReadOnly = true;
             Dgv.AllowUserToAddRows = Dgv.AllowUserToDeleteRows = false;
             Dgv.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(Dgv_CellDoubleClick);
-            Dgv.ColumnHeaderMouseClick += new DataGridViewCellMouseEventHandler(Dgv_ColumnHeaderMouseClick);          
+            Dgv.ColumnHeaderMouseClick += new DataGridViewCellMouseEventHandler(Dgv_ColumnHeaderMouseClick);
 
             if (MainClass.IsOwner())
                 btnRemove.Visible = true;
             else
-                btnRemove.Visible = false; 
+                btnRemove.Visible = false;
         }
 
         protected virtual void Dgv_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -65,10 +65,10 @@ namespace PriemLib
 
             if (Dgv.Columns.Contains("Id"))
                 Dgv.Columns["Id"].Visible = false;
-                   
+
             lblCount.Text = "Всего: " + Dgv.Rows.Count.ToString();
             btnCard.Enabled = !(Dgv.RowCount == 0);
-        }        
+        }
 
         protected virtual void GetSource()
         {
@@ -76,7 +76,7 @@ namespace PriemLib
         }
 
         protected void SetVisibleColumnsAndNameColumns(string ColumnName, string ColumnTitle)
-        {           
+        {
             if (Dgv.Columns.Contains(ColumnName))
             {
                 Dgv.Columns[ColumnName].Visible = true;
@@ -109,11 +109,11 @@ namespace PriemLib
         protected override void OnClosed()
         {
             MainClass.RemoveHandler(_drh);
-        }         
-      
+        }
+
         protected override void btnRemove_Click(object sender, EventArgs e)
         {
-            if (MainClass.IsPasha())
+            if (MainClass.IsPasha() || MainClass.IsEntryChanger())
             {
                 if (MessageBox.Show("Удалить записи?", "Удаление", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
@@ -135,7 +135,7 @@ namespace PriemLib
                 }
             }
         }
-               
+
         protected virtual void DeleteSelectedRows(string sId)
         {
             WinFormsServ.Error("Удаление недоступно");

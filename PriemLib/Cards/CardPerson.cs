@@ -1376,7 +1376,7 @@ namespace PriemLib
             }
 
             if(personBarc != null)
-                new DocCard(personBarc.Value, null, true).Show();
+                new DocCard(personBarc.Value, null, true, MainClass.dbType == PriemType.PriemForeigners).Show();
         }
 
         private void btnGetAssignToHostel_Click(object sender, EventArgs e)

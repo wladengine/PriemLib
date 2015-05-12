@@ -71,16 +71,28 @@
             this.dgvExams = new System.Windows.Forms.DataGridView();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label31 = new System.Windows.Forms.Label();
+            this.label32 = new System.Windows.Forms.Label();
+            this.label33 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
             this.dtpDateOfStart_GosLine = new System.Windows.Forms.DateTimePicker();
             this.label17 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.dtpDateOfClose_GosLine = new System.Windows.Forms.DateTimePicker();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label28 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
+            this.label30 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
             this.dtpDateOfStart_Foreign = new System.Windows.Forms.DateTimePicker();
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.dtpDateOfClose_Foreign = new System.Windows.Forms.DateTimePicker();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
             this.dtpDateOfStart = new System.Windows.Forms.DateTimePicker();
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
@@ -89,6 +101,7 @@
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
             this.dgvInnerEntryInEntry = new System.Windows.Forms.DataGridView();
+            this.chbIsForeign = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.epError)).BeginInit();
             this.tcCard.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -266,7 +279,7 @@
             this.gbEntry.Controls.Add(this.label5);
             this.gbEntry.Controls.Add(this.label11);
             this.gbEntry.Controls.Add(this.label12);
-            this.gbEntry.Location = new System.Drawing.Point(6, 6);
+            this.gbEntry.Location = new System.Drawing.Point(6, 3);
             this.gbEntry.Name = "gbEntry";
             this.gbEntry.Size = new System.Drawing.Size(409, 492);
             this.gbEntry.TabIndex = 56;
@@ -293,12 +306,13 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.chbIsForeign);
             this.groupBox4.Controls.Add(this.chbIsSecond);
             this.groupBox4.Controls.Add(this.chbIsParallel);
             this.groupBox4.Controls.Add(this.chbIsReduced);
-            this.groupBox4.Location = new System.Drawing.Point(262, 19);
+            this.groupBox4.Location = new System.Drawing.Point(255, 6);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(141, 87);
+            this.groupBox4.Size = new System.Drawing.Size(141, 115);
             this.groupBox4.TabIndex = 79;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Реализация";
@@ -550,16 +564,56 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.label31);
+            this.groupBox3.Controls.Add(this.label32);
+            this.groupBox3.Controls.Add(this.label33);
+            this.groupBox3.Controls.Add(this.label24);
             this.groupBox3.Controls.Add(this.dtpDateOfStart_GosLine);
             this.groupBox3.Controls.Add(this.label17);
             this.groupBox3.Controls.Add(this.label18);
             this.groupBox3.Controls.Add(this.dtpDateOfClose_GosLine);
-            this.groupBox3.Location = new System.Drawing.Point(6, 166);
+            this.groupBox3.Location = new System.Drawing.Point(6, 193);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(409, 74);
+            this.groupBox3.Size = new System.Drawing.Size(409, 82);
             this.groupBox3.TabIndex = 69;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Иностранцы - гослиния";
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(19, 62);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(160, 13);
+            this.label31.TabIndex = 74;
+            this.label31.Text = "Время устанавливается 10:00";
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(19, 62);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(160, 13);
+            this.label32.TabIndex = 73;
+            this.label32.Text = "Время устанавливается 10:00";
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(19, 62);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(160, 13);
+            this.label33.TabIndex = 72;
+            this.label33.Text = "Время устанавливается 10:00";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(211, 62);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(160, 13);
+            this.label24.TabIndex = 68;
+            this.label24.Text = "Время устанавливается 18:00";
             // 
             // dtpDateOfStart_GosLine
             // 
@@ -597,16 +651,56 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.label28);
+            this.groupBox2.Controls.Add(this.label29);
+            this.groupBox2.Controls.Add(this.label30);
+            this.groupBox2.Controls.Add(this.label23);
             this.groupBox2.Controls.Add(this.dtpDateOfStart_Foreign);
             this.groupBox2.Controls.Add(this.label15);
             this.groupBox2.Controls.Add(this.label16);
             this.groupBox2.Controls.Add(this.dtpDateOfClose_Foreign);
-            this.groupBox2.Location = new System.Drawing.Point(6, 86);
+            this.groupBox2.Location = new System.Drawing.Point(6, 102);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(409, 74);
+            this.groupBox2.Size = new System.Drawing.Size(409, 85);
             this.groupBox2.TabIndex = 68;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Иностранцы - иностранный приём";
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(19, 62);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(160, 13);
+            this.label28.TabIndex = 74;
+            this.label28.Text = "Время устанавливается 10:00";
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(19, 62);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(160, 13);
+            this.label29.TabIndex = 73;
+            this.label29.Text = "Время устанавливается 10:00";
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(19, 62);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(160, 13);
+            this.label30.TabIndex = 72;
+            this.label30.Text = "Время устанавливается 10:00";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(211, 62);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(160, 13);
+            this.label23.TabIndex = 68;
+            this.label23.Text = "Время устанавливается 18:00";
             // 
             // dtpDateOfStart_Foreign
             // 
@@ -644,16 +738,56 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label25);
+            this.groupBox1.Controls.Add(this.label26);
+            this.groupBox1.Controls.Add(this.label27);
+            this.groupBox1.Controls.Add(this.label22);
             this.groupBox1.Controls.Add(this.dtpDateOfStart);
             this.groupBox1.Controls.Add(this.label14);
             this.groupBox1.Controls.Add(this.label13);
             this.groupBox1.Controls.Add(this.dtpDateOfClose);
             this.groupBox1.Location = new System.Drawing.Point(6, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(409, 74);
+            this.groupBox1.Size = new System.Drawing.Size(409, 90);
             this.groupBox1.TabIndex = 67;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Основной приём";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(19, 62);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(160, 13);
+            this.label25.TabIndex = 71;
+            this.label25.Text = "Время устанавливается 10:00";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(19, 62);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(160, 13);
+            this.label26.TabIndex = 70;
+            this.label26.Text = "Время устанавливается 10:00";
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(19, 62);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(160, 13);
+            this.label27.TabIndex = 69;
+            this.label27.Text = "Время устанавливается 10:00";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(211, 62);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(160, 13);
+            this.label22.TabIndex = 67;
+            this.label22.Text = "Время устанавливается 18:00";
             // 
             // dtpDateOfStart
             // 
@@ -731,6 +865,16 @@
             this.dgvInnerEntryInEntry.Size = new System.Drawing.Size(409, 252);
             this.dgvInnerEntryInEntry.TabIndex = 0;
             this.dgvInnerEntryInEntry.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvObrazProgramInEntry_CellDoubleClick);
+            // 
+            // cbIsForeign
+            // 
+            this.chbIsForeign.AutoSize = true;
+            this.chbIsForeign.Location = new System.Drawing.Point(6, 88);
+            this.chbIsForeign.Name = "cbIsForeign";
+            this.chbIsForeign.Size = new System.Drawing.Size(110, 17);
+            this.chbIsForeign.TabIndex = 70;
+            this.chbIsForeign.Text = "Иностр. конкурс";
+            this.chbIsForeign.UseVisualStyleBackColor = true;
             // 
             // CardEntry
             // 
@@ -829,5 +973,18 @@
         private System.Windows.Forms.ComboBox cbAggregateGroup;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.CheckBox chbIsForeign;
     }
 }

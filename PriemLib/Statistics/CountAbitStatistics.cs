@@ -7,8 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-//using Excel = Microsoft.Office.Interop.Excel;
-
 using BaseFormsLib;
 using EducServLib;
 

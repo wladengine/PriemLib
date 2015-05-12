@@ -609,7 +609,7 @@ AND qAbiturient.IsImported = 1 ";
                         // новые документы
                         case 4:
                             {
-                                new DocCard(persBarcode, abitBarcode, true).ShowDialog();
+                                new DocCard(persBarcode, abitBarcode, true, MainClass.dbType == PriemType.PriemForeigners).ShowDialog();
                                 break;
                             }
                     }

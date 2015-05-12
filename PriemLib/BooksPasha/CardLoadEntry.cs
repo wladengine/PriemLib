@@ -86,7 +86,7 @@ namespace PriemLib
                         context.Entry_Insert(entryId, (int)dr["FacultyId"], (int)dr["LicenseProgramId"],
                                 (int)dr["ObrazProgramId"], dr.Field<int?>("ProfileId") ?? 0, (int)dr["StudyBasisId"],
                                 (int)dr["StudyFormId"], (int)dr["StudyLevelId"], (Guid)dr["StudyPlanId"], dr["StudyPlanNumber"].ToString(),
-                                dr["ProgramModeShortName"].ToString(), (bool)dr["IsSecond"], (bool)dr["IsReduced"], (bool)dr["IsParallel"], dr.Field<int?>("KCP"), null, null);
+                                dr["ProgramModeShortName"].ToString(), (bool)dr["IsSecond"], (bool)dr["IsReduced"], (bool)dr["IsParallel"], dr.Field<int?>("KCP"), null, null, false);
                     }
 
                     //inner profiles
@@ -294,7 +294,7 @@ namespace PriemLib
                             context.Entry_Insert(entryId, (int)dr["FacultyId"], (int)dr["LicenseProgramId"], (int)dr["ObrazProgramId"], 
                                 dr.Field<int?>("ProfileId") ?? 0, (int)dr["StudyBasisId"],
                                     (int)dr["StudyFormId"], (int)dr["StudyLevelId"], (Guid)dr["StudyPlanId"], dr["StudyPlanNumber"].ToString(),
-                                    dr["ProgramModeShortName"].ToString(), (bool)dr["IsSecond"], (bool)dr["IsReduced"], (bool)dr["IsParallel"], dr.Field<int?>("KCP"), null, null);
+                                    dr["ProgramModeShortName"].ToString(), (bool)dr["IsSecond"], (bool)dr["IsReduced"], (bool)dr["IsParallel"], dr.Field<int?>("KCP"), null, null, false);
                         }
 
                         string query = "SELECT COUNT(*) FROM Entry WHERE Id=@Id";
@@ -342,7 +342,7 @@ DateOfClose, DateOfStart, IsUsedForPriem) VALUES
 
                             context.Entry_Insert(entryId, (int)dr["FacultyId"], (int)dr["LicenseProgramId"], (int)dr["ObrazProgramId"], dr.Field<int?>("ProfileId") ?? 0, 
                                 (int)dr["StudyBasisId"], (int)dr["StudyFormId"], (int)dr["StudyLevelId"], (Guid)dr["StudyPlanId"], dr["StudyPlanNumber"].ToString(),
-                                    dr["ProgramModeShortName"].ToString(), (bool)dr["IsSecond"], (bool)dr["IsReduced"], (bool)dr["IsParallel"], dr.Field<int?>("KCP"), null, null);
+                                    dr["ProgramModeShortName"].ToString(), (bool)dr["IsSecond"], (bool)dr["IsReduced"], (bool)dr["IsParallel"], dr.Field<int?>("KCP"), null, null, false);
 
                             MainClass.BdcOnlineReadWrite.ExecuteQuery(query, slParams);
                         }

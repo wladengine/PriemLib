@@ -1,13 +1,13 @@
-﻿using System;
+﻿using BDClassLib;
+using EducServLib;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using System.Configuration;
 
-using EducServLib;
-using BDClassLib;
 namespace PriemLib
 {
     public static class HelpClass
@@ -233,7 +233,7 @@ namespace PriemLib
             }
             catch (Exception ex)
             {
-                WinFormsServ.Error("Ошибка сервера: " + ex.Message);
+                WinFormsServ.Error("Ошибка сервера: ", ex);
             }
         }
     }

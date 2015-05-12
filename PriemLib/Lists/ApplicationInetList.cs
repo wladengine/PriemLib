@@ -99,7 +99,6 @@ namespace PriemLib
                     FillObrazProgram();
                     FillProfile();
 
-                    //UpdateDataGrid();
                     bw = new BackgroundWorker();
                     bw.WorkerSupportsCancellation = true;
                     bw.DoWork += bw_DoWork;
@@ -125,13 +124,14 @@ namespace PriemLib
         {
             using (PriemEntities context = new PriemEntities())
             {
-                List<KeyValuePair<string, string>> lst = ((from ent in MainClass.GetEntry(context)
-                                                           where ent.FacultyId == FacultyId
-                                                           select new
-                                                           {
-                                                               Id = ent.LicenseProgramId,
-                                                               Name = ent.LicenseProgramName
-                                                           }).Distinct()).ToList().Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name)).ToList();
+                List<KeyValuePair<string, string>> lst =
+                    ((from ent in MainClass.GetEntry(context)
+                      where ent.FacultyId == FacultyId
+                      select new
+                      {
+                          Id = ent.LicenseProgramId,
+                          Name = ent.LicenseProgramName
+                      }).Distinct()).ToList().Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name)).ToList();
 
                 ComboServ.FillCombo(cbLicenseProgram, lst, false, true);
                 cbLicenseProgram.SelectedIndex = 0;
@@ -141,15 +141,16 @@ namespace PriemLib
         {
             using (PriemEntities context = new PriemEntities())
             {
-                List<KeyValuePair<string, string>> lst = ((from ent in MainClass.GetEntry(context)
-                                                           where ent.FacultyId == FacultyId
-                                                           && (LicenseProgramId.HasValue ? ent.LicenseProgramId == LicenseProgramId : true)
-                                                           select new
-                                                           {
-                                                               Id = ent.ObrazProgramId,
-                                                               Name = ent.ObrazProgramName,
-                                                               Crypt = ent.ObrazProgramCrypt
-                                                           }).Distinct()).ToList().Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name + ' ' + u.Crypt)).ToList();
+                List<KeyValuePair<string, string>> lst =
+                    ((from ent in MainClass.GetEntry(context)
+                      where ent.FacultyId == FacultyId
+                      && (LicenseProgramId.HasValue ? ent.LicenseProgramId == LicenseProgramId : true)
+                      select new
+                      {
+                          Id = ent.ObrazProgramId,
+                          Name = ent.ObrazProgramName,
+                          Crypt = ent.ObrazProgramCrypt
+                      }).Distinct()).ToList().Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name + ' ' + u.Crypt)).ToList();
 
                 ComboServ.FillCombo(cbObrazProgram, lst, false, true);
             }
@@ -158,16 +159,17 @@ namespace PriemLib
         {
             using (PriemEntities context = new PriemEntities())
             {
-                List<KeyValuePair<string, string>> lst = ((from ent in MainClass.GetEntry(context)
-                                                           where ent.FacultyId == FacultyId
-                                                           && (LicenseProgramId.HasValue ? ent.LicenseProgramId == LicenseProgramId : true)
-                                                           && (ObrazProgramId.HasValue ? ent.ObrazProgramId == ObrazProgramId : true)
-                                                           && ent.ProfileId != null
-                                                           select new
-                                                           {
-                                                               Id = ent.ProfileId,
-                                                               Name = ent.ProfileName
-                                                           }).Distinct()).ToList().Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name)).ToList();
+                List<KeyValuePair<string, string>> lst =
+                    ((from ent in MainClass.GetEntry(context)
+                      where ent.FacultyId == FacultyId
+                      && (LicenseProgramId.HasValue ? ent.LicenseProgramId == LicenseProgramId : true)
+                      && (ObrazProgramId.HasValue ? ent.ObrazProgramId == ObrazProgramId : true)
+                      && ent.ProfileId != null
+                      select new
+                      {
+                          Id = ent.ProfileId,
+                          Name = ent.ProfileName
+                      }).Distinct()).ToList().Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name)).ToList();
 
                 if (lst.Count() > 0)
                 {
@@ -220,8 +222,7 @@ namespace PriemLib
         //строим запрос фильтров
         private string GetFilterString()
         {
-            string s = string.Format("AND qAbiturient.StudyLevelId {0}", MainClass.dbType == PriemType.PriemMag ? " = 17 " : " IN (16,18) ");
-
+            string s = string.Format("AND qAbiturient.StudyLevelGroupId = {0}", MainClass.studyLevelGroupId);
 
             //обработали основу обучения 
             if (StudyBasisId != null)

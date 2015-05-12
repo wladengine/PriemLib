@@ -11,8 +11,6 @@ using EducServLib;
 using BaseFormsLib;
 using RtfWriter;
 
-//using Excel = Microsoft.Office.Interop.Excel;
-
 namespace PriemLib
 {
     public partial class AbitFacultyIntersection : BaseFormEx

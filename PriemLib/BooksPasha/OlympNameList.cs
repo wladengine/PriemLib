@@ -8,9 +8,9 @@ using System.Text;
 using System.Windows.Forms;
 
 using EducServLib;
-using BaseFormsLib; 
+using BaseFormsLib;
 
-namespace Priem
+namespace PriemLib
 {
     public partial class OlympNameList : BookList
     {

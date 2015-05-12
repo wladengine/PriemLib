@@ -35,16 +35,24 @@ namespace PriemLib
 
         protected Guid? GuidId
         {
-            get { return new Guid(_Id); }
+            get
+            {
+                Guid gRet = Guid.Empty;
+                if (string.IsNullOrEmpty(_Id) || !Guid.TryParse(_Id, out gRet))
+                    return null;
+                else
+                    return gRet;
+                //return new Guid(_Id); 
+            }
         }
 
         protected override void ExtraInit()
         {
             this.MdiParent = MainClass.mainform;
             _isModified = false;
-            this.CenterToParent();          
+            this.CenterToParent();
 
-            _bdc = MainClass.Bdc;          
+            _bdc = MainClass.Bdc;
             CardTitle = string.Empty;
         }
 
@@ -98,7 +106,7 @@ namespace PriemLib
             }
             catch (Exception de)
             {
-                WinFormsServ.Error("Ошибка обновления данных" + de.Message);
+                WinFormsServ.Error("Ошибка обновления данных", de);
                 return false;
             }
         }
@@ -116,7 +124,7 @@ namespace PriemLib
                         {
                             try
                             {
-                                InsertRec(context, entId);                               
+                                InsertRec(context, entId);
                                 SaveManyToMany(context, (Guid)entId.Value);
 
                                 transaction.Complete();
@@ -164,13 +172,13 @@ namespace PriemLib
         }
 
         protected virtual void UpdateRec(PriemEntities context, Guid id)
-        {            
-        }       
-  
+        {
+        }
+
         protected override void OnSave()
         {
             if (ToUpdateList != null)
                 ToUpdateList();
-        } 
+        }
     }
 }

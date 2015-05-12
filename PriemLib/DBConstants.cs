@@ -21,6 +21,7 @@ namespace PriemLib
         Priem,
         PriemAspirant,
         PriemMag,
-        PriemSPO
+        PriemSPO,
+        PriemForeigners
     }
 }

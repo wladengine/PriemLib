@@ -18,7 +18,7 @@ namespace PriemLib
             InitializeComponent();
             _Id = null;
         }
-        
+
         public BookCardInt(string id)
         {
             InitializeComponent();
@@ -27,12 +27,12 @@ namespace PriemLib
 
         protected int? IntId
         {
-            get 
+            get
             {
                 if (_Id == null)
                     return null;
                 else
-                    return int.Parse(_Id); 
+                    return int.Parse(_Id);
             }
         }
 
@@ -92,8 +92,14 @@ namespace PriemLib
         {
         }
 
+        protected override void InsertRec(PriemEntities context, ObjectParameter idParam)
+        {
+            throw new NotImplementedException("Метод не реализован");
+        }
+
         protected virtual void UpdateRec(PriemEntities context, int id)
         {
+            throw new NotImplementedException("Метод не реализован");
         }
     }
 }

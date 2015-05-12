@@ -11,7 +11,7 @@ using BaseFormsLib;
 using System.IO;
 using System.Data.Objects;
 
-namespace Priem
+namespace PriemLib
 {
     public partial class VuzNameList : BaseList
     {

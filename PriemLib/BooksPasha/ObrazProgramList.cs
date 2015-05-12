@@ -11,7 +11,7 @@ using EducServLib;
 using BaseFormsLib;
 using System.Transactions;
 
-namespace Priem
+namespace PriemLib
 {
     public partial class ObrazProgramList : BookList
     {

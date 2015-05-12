@@ -154,8 +154,11 @@ namespace PriemLib
                 {
                     bool h = QueryServ.ToBoolValue(ComboServ.GetComboIdInt(cbIsSecond));
                     query = query.Where(c => c.IsSecond == h);
-                }                              
-            }           
+                }
+
+                //иностранцы    
+                query = query.Where(c => c.IsForeign == chbIsForeign.Checked);
+            }
         }
 
         protected override void GetSource()
@@ -276,6 +279,11 @@ namespace PriemLib
                 tran.Complete();
             }
 
+            UpdateDataGrid();
+        }
+
+        private void chbIsForeign_CheckedChanged(object sender, EventArgs e)
+        {
             UpdateDataGrid();
         }
     }

@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using BaseFormsLib;
 using EducServLib;
 
-namespace Priem
+namespace PriemLib
 {
     public partial class VuzNameCard : BookCardInt
     {

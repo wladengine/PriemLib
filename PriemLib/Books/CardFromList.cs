@@ -8,15 +8,16 @@ using System.Text;
 using System.Windows.Forms;
 
 using BaseFormsLib;
+using EducServLib;
 
 namespace PriemLib
 {
     public partial class CardFromList : BookCard
-    {      
-        protected TabControl tcCard;       
+    {
+        protected TabControl tcCard;
         protected BaseFormEx formOwner;
         protected int ownerRowIndex = 0;
-        
+
         public CardFromList()
             : base()
         {
@@ -35,12 +36,12 @@ namespace PriemLib
 
             btnPrev.Enabled = false;
             btnNext.Enabled = false;
-            
+
             if (formOwner != null)
             {
                 btnPrev.Enabled = true;
                 btnNext.Enabled = true;
-            }                             
+            }
         }
 
         protected override void InitFocusHandlers()
@@ -53,10 +54,10 @@ namespace PriemLib
                 foreach (Control crl in control.Controls)
                     crl.Click += new EventHandler(FocusForm);
             }
-        }    
+        }
 
         // карточка открывается в режиме read-only
-        protected override void  SetAllFieldsNotEnabled()
+        protected override void SetAllFieldsNotEnabled()
         {
             base.SetAllFieldsNotEnabled();
             tcCard.Enabled = true;
@@ -71,11 +72,11 @@ namespace PriemLib
             {
                 btnPrev.Enabled = true;
                 btnNext.Enabled = true;
-            }            
+            }
         }
 
         //убрать режим read-only
-        protected override void  SetAllFieldsEnabled()
+        protected override void SetAllFieldsEnabled()
         {
             base.SetAllFieldsEnabled();
 
@@ -104,10 +105,9 @@ namespace PriemLib
             }
             catch (Exception exc)
             {
-                MessageBox.Show("Ошибка при загрузке следующей карточки: " + exc.Message + (exc.InnerException == null ? "" : "\nВнутреннее исключение: " + exc.InnerException.Message));
+                WinFormsServ.Error(exc);
             }
         }
-
         protected virtual void btnPrev_Click(object sender, EventArgs e)
         {
             try
@@ -122,7 +122,7 @@ namespace PriemLib
             }
             catch (Exception exc)
             {
-                MessageBox.Show("Ошибка при загрузке предыдущей карточки: " + exc.Message + (exc.InnerException == null ? "" : "\nВнутреннее исключение: " + exc.InnerException.Message));
+                WinFormsServ.Error(exc);
             }
         }
     }

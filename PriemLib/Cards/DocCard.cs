@@ -19,12 +19,12 @@ namespace PriemLib
         private int? _abitBarc;
         private bool _upd;
 
-        public DocCard(int perBarcode, int? abitBarcode, bool upd)
+        public DocCard(int perBarcode, int? abitBarcode, bool upd, bool bShowAllFiles)
         {
             InitializeComponent();
             _personBarc = perBarcode;
             _abitBarc = abitBarcode;
-            _docs = new DocsClass(_personBarc, _abitBarc);
+            _docs = new DocsClass(_personBarc, _abitBarc, bShowAllFiles);
             _upd = upd;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
             InitControls();
@@ -90,7 +90,6 @@ namespace PriemLib
             }
             _docs.OpenFile(lstFiles);
         }
-
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -117,7 +116,6 @@ namespace PriemLib
                 cell.Value = cell.TrueValue;
             }
         }
-
         private void btnCheckNone_Click(object sender, EventArgs e)
         {
             foreach (DataGridViewRow rw in dgvFiles.Rows)

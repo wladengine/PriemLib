@@ -119,10 +119,15 @@ namespace PriemLib
                     bMagImportApplicationsEnabled = bool.Parse(tmp);
                 }
 
-                if(dbType == PriemType.Priem)
-                    studyLevelGroupId = 1;
-                else
-                    studyLevelGroupId = 2;
+                switch (MainClass.dbType)
+                {
+                    case PriemType.Priem: { studyLevelGroupId = 1; break; }
+                    case PriemType.PriemMag: { studyLevelGroupId = 2; break; }
+                    case PriemType.PriemSPO: { studyLevelGroupId = 3; break; }
+                    case PriemType.PriemAspirant: { studyLevelGroupId = 4; break; }
+                    default: { studyLevelGroupId = 1; break; }
+                }
+                
               /* 
                %APPDATA%/Priem
               */

@@ -50,6 +50,11 @@ namespace PriemLib
             get { return chbIsReduced.Checked; }
             set { chbIsReduced.Checked = value; }
         }
+        public bool IsForeign
+        {
+            get { return chbIsForeign.Checked; }
+            set { chbIsForeign.Checked = value; }
+        }
         public int? AggregateGroupId
         {
             get { return ComboServ.GetComboIdInt(cbAggregateGroup); }
@@ -78,12 +83,12 @@ namespace PriemLib
 
         public DateTime DateOfStart
         {
-            get { return dtpDateOfStart.Value; }
+            get { return dtpDateOfStart.Value.Date.AddHours(10); }
             set { dtpDateOfStart.Value = value; }
         }
         public DateTime DateOfClose
         {
-            get { return dtpDateOfClose.Value; }
+            get { return dtpDateOfClose.Value.Date.AddHours(18); }
             set { dtpDateOfClose.Value = value; }
         }
 
@@ -92,7 +97,7 @@ namespace PriemLib
             get 
             {
                 if (dtpDateOfStart_Foreign.Checked)
-                    return dtpDateOfStart_Foreign.Value;
+                    return dtpDateOfStart_Foreign.Value.Date.AddHours(10);
                 else
                     return null;
             }
@@ -109,7 +114,7 @@ namespace PriemLib
             get 
             {
                 if (dtpDateOfClose_Foreign.Checked)
-                    return dtpDateOfClose_Foreign.Value;
+                    return dtpDateOfClose_Foreign.Value.Date.AddHours(18);
                 else
                     return null;
             }
@@ -127,7 +132,7 @@ namespace PriemLib
             get 
             {
                 if (dtpDateOfStart_GosLine.Checked)
-                    return dtpDateOfStart_GosLine.Value;
+                    return dtpDateOfStart_GosLine.Value.Date.AddHours(10);
                 else
                     return null;
             }
@@ -144,7 +149,7 @@ namespace PriemLib
             get 
             {
                 if (dtpDateOfClose_GosLine.Checked)
-                    return dtpDateOfClose_GosLine.Value;
+                    return dtpDateOfClose_GosLine.Value.Date.AddHours(10);
                 else
                     return null;
             }
@@ -392,6 +397,7 @@ namespace PriemLib
                     IsSecond = ent.IsSecond;
                     IsReduced = ent.IsReduced;
                     IsParallel = ent.IsParallel;
+                    IsForeign = ent.IsForeign;
                     tbKCPCel.Text = ent.KCPCel.ToString();
                     tbKCPCrimea.Text = ent.KCPCrimea.ToString();
                     KCPQuota = ent.KCPQuota;
@@ -504,6 +510,7 @@ namespace PriemLib
             Entry.DateOfStart_GosLine = DateOfStart_GosLine;
             Entry.DateOfClose_GosLine = DateOfClose_GosLine;
             Entry.CommissionId = ComissionId;
+            Entry.IsForeign = IsForeign;
             context.Entry.AddObject(Entry);
             context.SaveChanges();
 
@@ -511,9 +518,9 @@ namespace PriemLib
 
             string query = @"INSERT INTO [_Entry] 
 (Id, StudyLevelId, LicenseProgramId, ObrazProgramId, ProfileId, StudyFormId, StudyBasisId, FacultyId, SemesterId, CampaignYear,
-DateOfStart, DateOfClose, DateOfStart_Foreign, DateOfClose_Foreign, DateOfStart_GosLine, DateOfClose_GosLine, ComissionId) VALUES
+DateOfStart, DateOfClose, DateOfStart_Foreign, DateOfClose_Foreign, DateOfStart_GosLine, DateOfClose_GosLine, ComissionId, IsForeign) VALUES
 (@Id, @StudyLevelId, @LicenseProgramId, @ObrazProgramId, @ProfileId, @StudyFormId, @StudyBasisId, @FacultyId, @SemesterId, @CampaignYear,
-@DateOfStart, @DateOfClose, @DateOfStart_Foreign, @DateOfClose_Foreign, @DateOfStart_GosLine, @DateOfClose_GosLine, @ComissionId)";
+@DateOfStart, @DateOfClose, @DateOfStart_Foreign, @DateOfClose_Foreign, @DateOfStart_GosLine, @DateOfClose_GosLine, @ComissionId, @IsForeign)";
             SortedList<string, object> sl = new SortedList<string, object>();
             sl.Add("@Id", Id);
 
@@ -530,6 +537,7 @@ DateOfStart, DateOfClose, DateOfStart_Foreign, DateOfClose_Foreign, DateOfStart_
             sl.Add("@IsParallel", IsParallel);
             sl.Add("@IsReduced", IsReduced);
             sl.Add("@IsSecond", IsSecond);
+            sl.Add("@IsForeign", IsForeign);
 
             sl.AddVal("@DateOfStart_Foreign", DateOfStart_Foreign);
             sl.AddVal("@DateOfClose_Foreign", DateOfClose_Foreign);
@@ -547,7 +555,7 @@ DateOfStart, DateOfClose, DateOfStart_Foreign, DateOfClose_Foreign, DateOfStart_
             context.Entry_UpdateCEl(GuidId, KCPCel);
             context.Entry_UpdateKC(GuidId, KCP, KCPCrimea, KCPQuota);
             context.Entry_Update(GuidId, StudyLevelId, StudyFormId, StudyBasisId, FacultyId, false, IsParallel, IsReduced, IsSecond, tbStudyPlan.Text.Trim(),
-                DateOfStart_Foreign, DateOfClose_Foreign, DateOfStart_GosLine, DateOfClose_GosLine, DateOfStart, DateOfClose, ComissionId);
+                DateOfStart_Foreign, DateOfClose_Foreign, DateOfStart_GosLine, DateOfClose_GosLine, DateOfStart, DateOfClose, ComissionId, IsForeign);
 
             try
             {
@@ -567,7 +575,8 @@ SET
 	DateOfStart=@DateOfStart,
 	DateOfClose=@DateOfClose,
     CampaignYear=@CampaignYear,
-    ComissionId=@ComissionId
+    ComissionId=@ComissionId,
+    IsForeign=@IsForeign
 WHERE Id=@Id";
                 SortedList<string, object> sl = new SortedList<string, object>();
                 sl.Add("@Id", GuidId.Value);
@@ -589,6 +598,7 @@ WHERE Id=@Id";
                 sl.AddVal("@DateOfClose", DateOfClose);
 
                 sl.AddVal("@ComissionId", ComissionId);
+                sl.AddVal("@IsForeign", IsForeign);
 
                 MainClass.BdcOnlineReadWrite.ExecuteQuery(query, sl);
             }
@@ -789,11 +799,5 @@ WHERE Id=@Id";
         {
             UpdateAfterAggregateGroup();
         }
-
-        //private void DoSmth()
-        //{
-        //    DevelopmentStudentService.SQL_StudentSoapClient client = new DevelopmentStudentService.SQL_StudentSoapClient();
-        //    var students = client.GetStudents("FIO", new System.Data.SqlTypes.SqlDateTime(DateTime.Now), 111);
-        //}
     }
 }

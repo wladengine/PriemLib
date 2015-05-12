@@ -47,6 +47,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.btnToExcel = new System.Windows.Forms.Button();
+            this.chbIsForeign = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEntry)).BeginInit();
             this.SuspendLayout();
             // 
@@ -266,11 +267,23 @@
             this.btnToExcel.UseVisualStyleBackColor = true;
             this.btnToExcel.Click += new System.EventHandler(this.btnToExcel_Click);
             // 
+            // chbIsForeign
+            // 
+            this.chbIsForeign.AutoSize = true;
+            this.chbIsForeign.Location = new System.Drawing.Point(411, 84);
+            this.chbIsForeign.Name = "chbIsForeign";
+            this.chbIsForeign.Size = new System.Drawing.Size(118, 17);
+            this.chbIsForeign.TabIndex = 114;
+            this.chbIsForeign.Text = "Иностр. конкурсы";
+            this.chbIsForeign.UseVisualStyleBackColor = true;
+            this.chbIsForeign.CheckedChanged += new System.EventHandler(this.chbIsForeign_CheckedChanged);
+            // 
             // EntryList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1055, 512);
+            this.Controls.Add(this.chbIsForeign);
             this.Controls.Add(this.btnToExcel);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label5);
@@ -316,6 +329,7 @@
             this.Controls.SetChildIndex(this.label5, 0);
             this.Controls.SetChildIndex(this.label7, 0);
             this.Controls.SetChildIndex(this.btnToExcel, 0);
+            this.Controls.SetChildIndex(this.chbIsForeign, 0);
             ((System.ComponentModel.ISupportInitialize)(this.dgvEntry)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -343,5 +357,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button btnToExcel;
+        private System.Windows.Forms.CheckBox chbIsForeign;
     }
 }

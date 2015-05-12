@@ -11,7 +11,6 @@ using System.IO;
 using EducServLib;
 using BDClassLib;
 using WordOut;
-//using Excel = Microsoft.Office.Interop.Excel;
 
 namespace PriemLib
 {

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Priem.BooksPasha
+namespace PriemLib
 {
     public partial class ParametersForm : Form
     {

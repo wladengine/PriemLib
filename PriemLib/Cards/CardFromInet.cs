@@ -68,7 +68,7 @@ namespace PriemLib
             if (_abitBarc != null)
                 lblBarcode.Text += @"\" + _abitBarc.ToString();
 
-            _docs = new DocsClass(_personBarc.Value, _abitBarc);
+            _docs = new DocsClass(_personBarc.Value, _abitBarc, MainClass.dbType == PriemType.PriemForeigners);
 
             tbNum.Enabled = false;
 
@@ -108,14 +108,12 @@ namespace PriemLib
                     ComboServ.FillCombo(cbLanguage, HelpClass.GetComboListByTable("ed.Language"), true, false);
                 }
 
-                // магистратура!
-                if (MainClass.dbType == PriemType.PriemMag)
+                // ЕГЭ только для 1 курса!
+                if (MainClass.dbType != PriemType.Priem)
                 {
                     tpEge.Parent = null;
                     tpSecond.Parent = null;
                 }
-                else
-                    tpDocs.Parent = null;
 
                 if (_closeAbit)
                     tpApplication.Parent = null;
@@ -127,8 +125,6 @@ namespace PriemLib
         }
         protected override bool IsForReadOnly()
         {
-            
-
             return !MainClass.RightsToEditCards();
         }
         protected override void SetReadOnlyFieldsAfterFill()
@@ -522,7 +518,7 @@ namespace PriemLib
         private void btnDocCardOpen_Click(object sender, EventArgs e)
         {
             if (_personBarc != null)
-                new DocCard(_personBarc.Value, null, false).Show();
+                new DocCard(_personBarc.Value, null, false, MainClass.dbType == PriemType.PriemForeigners).Show();
         }
 
         #region Applications

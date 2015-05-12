@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 using EducServLib;
 
-namespace Priem
+namespace PriemLib
 {
     public partial class PayDataEntryList : Form
     {

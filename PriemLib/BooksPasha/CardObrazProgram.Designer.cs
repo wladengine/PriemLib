@@ -1,4 +1,4 @@
-﻿namespace Priem
+﻿namespace PriemLib
 {
     partial class CardObrazProgram
     {
@@ -64,25 +64,31 @@
             // 
             // tbName
             // 
+            this.tbName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbName.Location = new System.Drawing.Point(126, 12);
             this.tbName.Name = "tbName";
-            this.tbName.Size = new System.Drawing.Size(304, 20);
+            this.tbName.Size = new System.Drawing.Size(489, 20);
             this.tbName.TabIndex = 26;
             // 
             // tbNameEng
             // 
+            this.tbNameEng.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbNameEng.Location = new System.Drawing.Point(126, 38);
             this.tbNameEng.Name = "tbNameEng";
-            this.tbNameEng.Size = new System.Drawing.Size(304, 20);
+            this.tbNameEng.Size = new System.Drawing.Size(489, 20);
             this.tbNameEng.TabIndex = 27;
             // 
             // cbFaculty
             // 
+            this.cbFaculty.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cbFaculty.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbFaculty.FormattingEnabled = true;
             this.cbFaculty.Location = new System.Drawing.Point(126, 90);
             this.cbFaculty.Name = "cbFaculty";
-            this.cbFaculty.Size = new System.Drawing.Size(304, 21);
+            this.cbFaculty.Size = new System.Drawing.Size(489, 21);
             this.cbFaculty.TabIndex = 28;
             // 
             // label2
@@ -130,11 +136,13 @@
             // 
             // cbLicenseProgram
             // 
+            this.cbLicenseProgram.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cbLicenseProgram.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbLicenseProgram.FormattingEnabled = true;
             this.cbLicenseProgram.Location = new System.Drawing.Point(126, 117);
             this.cbLicenseProgram.Name = "cbLicenseProgram";
-            this.cbLicenseProgram.Size = new System.Drawing.Size(304, 21);
+            this.cbLicenseProgram.Size = new System.Drawing.Size(489, 21);
             this.cbLicenseProgram.TabIndex = 33;
             // 
             // CardObrazProgram

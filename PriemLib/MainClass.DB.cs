@@ -65,7 +65,7 @@ namespace PriemLib
                 using (PriemEntities context = new PriemEntities())
                 {
                     context.Delete(tableName, itemId);
-                }                
+                }
             }
         }
 
@@ -204,7 +204,7 @@ namespace PriemLib
             qBuilder.AddQueryItem(new QueryItem("ed.StudyBasis", "ed.StudyBasis.Name", "Основа_обучения"));
             qBuilder.AddQueryItem(new QueryItem("ed.Competition", "ed.Competition.Name", "Тип_конкурса"));
             qBuilder.AddQueryItem(new QueryItem("OtherCompetition", "OtherCompetition.Name", "Доп_тип_конкурса"));
-            qBuilder.AddQueryItem(new QueryItem("ed.CelCompetition", "ed.CelCompetition.Name", "Целевик_тип"));            
+            qBuilder.AddQueryItem(new QueryItem("ed.CelCompetition", "ed.CelCompetition.Name", "Целевик_тип"));
 
             // ЕГЭ
             qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select Top(1) ed.EgeCertificate.Number as Number FROM ed.EgeCertificate WHERE ed.EgeCertificate.PersonId = ed.extPerson.Id AND Year=2010 ) ", "Свидетельство_ЕГЭ_2010"));
@@ -247,7 +247,7 @@ namespace PriemLib
             qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "case when (ed.extPerson.Privileges & 128)>0 then 'Да' else 'Нет' end", "стажник"));
             qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "case when (ed.extPerson.Privileges & 256)>0 then 'Да' else 'Нет' end", "реб.-сирота"));
             qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "case when (ed.extPerson.Privileges & 512)>0 then 'Да' else 'Нет' end", "огр.возможности"));
-             
+
             //Протоколы
             qBuilder.AddQueryItem(new QueryItem("ed.extEnableProtocol", "ed.extEnableProtocol.Number", "Протокол_о_допуске"));
             qBuilder.AddQueryItem(new QueryItem("ed.extEntryView", "ed.extEntryView.Number", "Представление"));
@@ -269,7 +269,7 @@ namespace PriemLib
 
             foreach (DataRow dr in dsExams.Tables[0].Rows)
                 qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", string.Format("(select Sum(qMark.Value) FROM ed.qMark INNER JOIN ed.extExamInEntry ON ed.qMark.ExamInEntryId =ed.extExamInEntry.Id WHERE AbiturientId = ed.qAbiturient.Id AND ed.extExamInEntry.ExamId={0})", dr["Id"]), dr["Name"].ToString()));
-            
+
             // Оценки из аттестата
             //
             qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select Min (ed.AttMarks.value) as mark FROM ed.AttMarks WHERE ed.AttMarks.PersonId = ed.extPerson.Id AND AttSubjectId=	1)", "Аттестат_алгебра"));
@@ -322,9 +322,9 @@ namespace PriemLib
             qBuilder.AddTableJoint("ed.Competition", " LEFT JOIN ed.Competition ON ed.Competition.Id = ed.qAbiturient.CompetitionId ");
             qBuilder.AddTableJoint("OtherCompetition", " LEFT JOIN ed.Competition AS OtherCompetition ON ed.qAbiturient.OtherCompetitionId = OtherCompetition.Id ");
             qBuilder.AddTableJoint("ed.CelCompetition", " LEFT JOIN ed.CelCompetition ON ed.qAbiturient.CelCompetitionId = ed.CelCompetition.Id ");
-           
+
             qBuilder.AddTableJoint("ed.extEnableProtocol", " LEFT JOIN ed.extEnableProtocol ON ed.extEnableProtocol.AbiturientId = ed.qAbiturient.Id ");
-            qBuilder.AddTableJoint("ed.extEntryView", " LEFT JOIN ed.extEntryView ON ed.extEntryView.AbiturientId = ed.qAbiturient.Id ");            
+            qBuilder.AddTableJoint("ed.extEntryView", " LEFT JOIN ed.extEntryView ON ed.extEntryView.AbiturientId = ed.qAbiturient.Id ");
             qBuilder.AddTableJoint("ed.extAbitMarksSum", " LEFT JOIN ed.extAbitMarksSum ON ed.extAbitMarksSum.Id = ed.qAbiturient.Id ");
         }
     }

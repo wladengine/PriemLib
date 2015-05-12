@@ -1,4 +1,4 @@
-﻿namespace Priem.BooksPasha
+﻿namespace PriemLib
 {
     partial class ParametersForm
     {
