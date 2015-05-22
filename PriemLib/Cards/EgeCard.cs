@@ -10,6 +10,7 @@ using System.Text.RegularExpressions;
 using System.Linq;
 
 using EducServLib;
+using System.Data.Entity.Core.Objects;
 
 namespace PriemLib
 {
@@ -171,7 +172,7 @@ namespace PriemLib
             }
             catch (DataException de)
             {
-                WinFormsServ.Error("Ошибка при заполнении формы " + de.Message);
+                WinFormsServ.Error("Ошибка при заполнении формы ", de);
             }
 
         }
@@ -322,7 +323,7 @@ namespace PriemLib
             }
             catch (Exception de)
             {
-                WinFormsServ.Error("Ошибка обновления данных" + de.Message);
+                WinFormsServ.Error("Ошибка обновления данных", de);
                 return false;
             }
         }
@@ -405,7 +406,7 @@ namespace PriemLib
                 return false;
         }
 
-        protected override void InsertRec(PriemEntities context, System.Data.Objects.ObjectParameter idParam)
+        protected override void InsertRec(PriemEntities context, ObjectParameter idParam)
         {
             context.EgeCertificate_Insert(Number, PrintNumber, Year, _personId, NewFIO, false, idParam);
         }

@@ -8,11 +8,11 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
-using System.Data.Objects;
 using System.Transactions;
 
 using BaseFormsLib;
 using EducServLib;
+using System.Data.Entity.Core.Objects;
 
 namespace PriemLib
 {
@@ -20,7 +20,9 @@ namespace PriemLib
     { 
         private int? personBarc;
         private int _currentEducRow;
-     
+
+        private int _currentEgeRequestId;
+
         private bool inEnableProtocol;
         private bool inEntryView;
         private List<Person_EducationInfo> lstEducationInfo;
@@ -51,7 +53,12 @@ namespace PriemLib
         }
 
         protected override void ExtraInit()
-        { 
+        {
+            bw_EgeRequestCheck = new BackgroundWorker();
+            bw_EgeRequestCheck.DoWork += bw_EgeRequestCheck_DoWork;
+            bw_EgeRequestCheck.RunWorkerCompleted += bw_EgeRequestCheck_RunWorkerCompleted;
+            bw_EgeRequestCheck.WorkerSupportsCancellation = true;
+
             base.ExtraInit();                        
             _tableName = "ed.Person";
             
@@ -95,8 +102,6 @@ namespace PriemLib
                     ComboServ.FillCombo(cbCountry, HelpClass.GetComboListByTable("ed.Country", "ORDER BY Distance, Name"), false, false);
                     ComboServ.FillCombo(cbNationality, HelpClass.GetComboListByTable("ed.Country", "ORDER BY Distance, Name"), false, false);
                     UpdateAfterCountry();
-                    //ComboServ.FillCombo(cbRegion, HelpClass.GetComboListByTable("ed.Region", "ORDER BY Distance, Name"), false, false);
-                    //ComboServ.FillCombo(cbRegionEduc, HelpClass.GetComboListByTable("ed.Region", "ORDER BY Distance, Name"), false, false);
                     ComboServ.FillCombo(cbLanguage, HelpClass.GetComboListByTable("ed.Language"), false, false);
                     ComboServ.FillCombo(cbCountryEduc, HelpClass.GetComboListByTable("ed.Country", "ORDER BY Distance, Name"), false, false);
                     ComboServ.FillCombo(cbMSStudyForm, HelpClass.GetComboListByTable("ed.StudyForm"), true, false);
@@ -112,25 +117,23 @@ namespace PriemLib
                     cbHEQualification.SelectedIndex = -1;
                 }
 
+                btnDocs.Visible = true;
+
                 // магистратура!
-                if (MainClass.dbType == PriemType.PriemMag)
+                if (MainClass.dbType != PriemType.Priem)
                 {
                     tpEge.Parent = null;
                     tpSecond.Parent = null;
-                    btnDocs.Visible = true;
-                    
-                    chbIsExcellent.Text = "Диплом с отличием";
-                    btnAttMarks.Visible = false;
                 }
-                else
+                else if (MainClass.dbType == PriemType.Priem)
                 {
                     gbMainStudy.Visible = true;
-                    btnDocs.Visible = false;        
+                    btnDocs.Visible = false;
                 }
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error("Ошибка при инициализации формы " + exc.Message);
+                WinFormsServ.Error("Ошибка при инициализации формы ", exc);
             }
         }
 
@@ -323,15 +326,25 @@ namespace PriemLib
                         inEnableProtocol = PersonDataProvider.GetInEnableProtocol(GuidId.Value);
                         inEntryView = PersonDataProvider.GetInEntryView(GuidId.Value);
                     }
+
+                    var EgeCheck = context.PersonEgeRequest.Where(x => x.PersonId == GuidId.Value && !x.IsChecked).FirstOrDefault();
+                    if (EgeCheck != null)
+                    {
+                        btnRequestEge.Enabled = false;
+                        btnRequestEge.Visible = false;
+                        lblHasRequest.Visible = true;
+
+                        bw_EgeRequestCheck.RunWorkerAsync();
+                    }
                 }
             }
             catch (DataException de)
             {
-                WinFormsServ.Error("Ошибка при заполнении формы (DataException)" + de.Message);
+                WinFormsServ.Error("Ошибка при заполнении формы (DataException)", de);
             }
             catch (Exception ex)
             {
-                WinFormsServ.Error("Ошибка при заполнении формы " + ex.Message);
+                WinFormsServ.Error("Ошибка при заполнении формы ", ex);
             }
         }
         public void FillApplications()
@@ -354,7 +367,7 @@ namespace PriemLib
 
                     var sourceOwn = from abit in context.qAbiturient
                                     where !abit.BackDoc && abit.PersonId == GuidId
-                                    && abit.StudyLevelGroupId == MainClass.studyLevelGroupId
+                                    && MainClass.lstStudyLevelGroupId.Contains(abit.StudyLevelGroupId)
                                     && abit.IsGosLine == false
                                     orderby abit.FacultyAcr, abit.ObrazProgramCrypt
                                     select new
@@ -372,7 +385,7 @@ namespace PriemLib
 
                     var sourceAll = (from abit in context.qAbitAll
                                     where !abit.BackDoc && abit.PersonId == GuidId
-                                    && abit.StudyLevelGroupId == MainClass.studyLevelGroupId
+                                    && MainClass.lstStudyLevelGroupId.Contains(abit.StudyLevelGroupId)
                                     orderby abit.FacultyAcr, abit.LicenseProgramName
                                     select new
                                     {
@@ -387,7 +400,7 @@ namespace PriemLib
                                     }).Except
                                     (from abit in context.qAbiturient
                                      where !abit.BackDoc && abit.PersonId == GuidId
-                                     && abit.StudyLevelGroupId == MainClass.studyLevelGroupId
+                                     &&  MainClass.lstStudyLevelGroupId.Contains(abit.StudyLevelGroupId)
                                      orderby abit.FacultyAcr, abit.ObrazProgramCrypt
                                      select new
                                      {
@@ -1129,7 +1142,7 @@ namespace PriemLib
         // Грид ЕГЭ
         #region EGE
 
-        public void FillEgeMarks()
+        private void FillEgeMarks()
         {           
             try
             {
@@ -1198,23 +1211,25 @@ namespace PriemLib
 
                     DataView dv = new DataView(examTable);
                     dv.AllowNew = false;
-
-                    dgvExams.DataSource = dv;
-                    dgvExams.Columns["Баллы"].ValueType = typeof(int);
-                    dgvExams.Columns["ExamId"].Visible = false;
-                    dgvExams.ReadOnly = true;
+                    dgvExams.DataSource = examTable;
+                    dgvExams.DataBindingComplete += ((sender, e) => UpdateDGVExam());
                     dgvExams.Update();
                 }
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error("Ошибка  заполения грида Ege: " + exc.Message);
+                WinFormsServ.Error("Ошибка заполения грида Ege: ", exc);
             }
         }
-
-        public void UpdateDataGridEge()
+        private void UpdateDGVExam()
         {
-            if (MainClass.dbType == PriemType.PriemMag)
+            dgvExams.Columns["Баллы"].ValueType = typeof(int);
+            dgvExams.Columns["ExamId"].Visible = false;
+            dgvExams.ReadOnly = true;
+        }
+        private void UpdateDataGridEge()
+        {
+            if (MainClass.dbType == PriemType.PriemMag || MainClass.dbType == PriemType.PriemAspirant || MainClass.dbType == PriemType.PriemForeigners)
                 return;
 
             try
@@ -1229,10 +1244,13 @@ namespace PriemLib
                                      ec.Number
                                  };
 
-                    dgvEGE.DataSource = source;
-                    dgvEGE.Columns["Id"].Visible = false;
-                    dgvEGE.Columns["Number"].HeaderText = "Номер_сертификата";
-                    dgvEGE.Columns["Number"].Width = 110;
+                    dgvEGE.DataSource = Converter.ConvertToDataTable(source.ToArray());
+                    dgvEGE.DataBindingComplete += ((sender, e) =>
+                    {
+                        dgvEGE.Columns["Id"].Visible = false;
+                        dgvEGE.Columns["Number"].HeaderText = "Номер_сертификата";
+                        dgvEGE.Columns["Number"].Width = 110;
+                    });
 
                     btnCardE.Enabled = dgvEGE.RowCount != 0;
                     if (MainClass.RightsSov_SovMain_FacMain())
@@ -1245,7 +1263,7 @@ namespace PriemLib
             }
             catch(Exception exc)
             {
-                WinFormsServ.Error("Ошибка  заполения грида Ege: " + exc.Message);
+                WinFormsServ.Error("Ошибка заполения грида Ege: ", exc);
             }
         }
 
@@ -1281,7 +1299,6 @@ namespace PriemLib
                 }
             }
         }
-
         private bool GetReadOnlyEge()
         {
             if (!_isModified)
@@ -1317,14 +1334,12 @@ namespace PriemLib
                 }
                 catch (Exception ex)
                 {
-                    WinFormsServ.Error("Ошибка удаления данных" + ex.Message);
+                    WinFormsServ.Error("Ошибка удаления данных", ex);
                 }
 
                 UpdateDataGridEge();
             }
         }
-        #endregion
-        
         private void btnSetStatusPasha_Click(object sender, EventArgs e)
         {
             if (MainClass.IsPasha() || MainClass.IsOwner())
@@ -1344,14 +1359,14 @@ namespace PriemLib
                 using (PriemEntities context = new PriemEntities())
                 {
                     var cert = (from ec in context.EgeCertificate
-                                where ec.PersonId == GuidId && ec.Id == egeCertId && (ec.FBSStatusId == 0 || ec.FBSStatusId == 2) //&& (ec.Number.EndsWith("-00") || ec.Number.EndsWith("-10") || ec.Number.EndsWith("-11"))
+                                where ec.PersonId == GuidId && ec.Id == egeCertId && (ec.FBSStatusId == 0 || ec.FBSStatusId == 2)
                                 select ec).FirstOrDefault();
 
                     if (cert != null)
                     {
                         if (MessageBox.Show(string.Format("Проставить статус 'Проверено' для свидетельства {0}?", cert.Number), "Внимание", MessageBoxButtons.YesNo) == DialogResult.Yes)
                         {
-                            context.EgeCertificate_UpdateFBSStatus(4, tbCommentFBSPasha.Text.Trim(), cert.Id);                           
+                            context.EgeCertificate_UpdateFBSStatus(4, tbCommentFBSPasha.Text.Trim(), cert.Id);
                             MessageBox.Show("Выполнено");
                             FBSStatus = GetFBSStatus(GuidId);
                         }
@@ -1363,7 +1378,8 @@ namespace PriemLib
                 }
             }
         }
-
+        #endregion
+        
         private void btnDocs_Click(object sender, EventArgs e)
         {
             if (_Id == null)
@@ -1378,6 +1394,8 @@ namespace PriemLib
             if(personBarc != null)
                 new DocCard(personBarc.Value, null, true, MainClass.dbType == PriemType.PriemForeigners).Show();
         }
+
+        #region Print
 
         private void btnGetAssignToHostel_Click(object sender, EventArgs e)
         {
@@ -1459,6 +1477,8 @@ namespace PriemLib
                 Print.PrintExamPass(GuidId, sfdPrint.FileName, chbPrint.Checked);
         }
 
+        #endregion
+
         #region Benefits
         private void btnAddBenefitDocument_Click(object sender, EventArgs e)
         {
@@ -1506,6 +1526,8 @@ namespace PriemLib
         }
         #endregion
 
+        #region EducationInfo
+
         private void dgvEducationDocuments_CurrentCellChanged(object sender, EventArgs e)
         {
             if (dgvEducationDocuments.CurrentRow != null)
@@ -1521,7 +1543,6 @@ namespace PriemLib
         {
             FillEducationData(PersonDataProvider.GetPersonEducationDocumentsById(GuidId.Value));
         }
-
         private void FillEducationData(List<Person_EducationInfo> lstVals)
         {
             lstEducationInfo = lstVals;
@@ -1547,7 +1568,6 @@ namespace PriemLib
 
             _currentEducRow = 0;
         }
-
         private void ViewEducationInfo(int id)
         {
             int ind = lstEducationInfo.FindIndex(x => x.Id == id);
@@ -1652,7 +1672,7 @@ namespace PriemLib
                     lstEducationInfo[ind].IsEqual = IsEqual;
                     lstEducationInfo[ind].IsExcellent = IsExcellent;
                     lstEducationInfo[ind].EqualDocumentNumber = EqualDocumentNumber;
-                    PersonDataProvider.SaveEducationDocument(lstEducationInfo[ind]);
+                    PersonDataProvider.SaveEducationDocument(lstEducationInfo[ind], false);
 
                     dgvEducationDocuments["School", ind].Value = SchoolName;
                     dgvEducationDocuments["Series", ind].Value = SchoolTypeId.Value == 1 ? AttestatSeries : DiplomSeries;
@@ -1681,7 +1701,6 @@ namespace PriemLib
         {
             UpdateAfterCountryEduc();
         }
-
         private void UpdateAfterCountryEduc()
         {
             tbEqualityDocumentNumber.Visible = CountryEducId != MainClass.countryRussiaId;
@@ -1704,11 +1723,12 @@ namespace PriemLib
             }
         }
 
+        #endregion
+
         private void cbCountry_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateAfterCountry();
         }
-
         private void UpdateAfterCountry()
         {
             if (CountryId.HasValue)
@@ -1725,6 +1745,88 @@ namespace PriemLib
                 }
                 catch { }
             }
+        }
+
+        private void btnRequestEge_Click(object sender, EventArgs e)
+        {
+            if (!GuidId.HasValue)
+                return;
+            try
+            {
+
+                using (PriemEntities context = new PriemEntities())
+                {
+                    int reqId = context.PersonEgeRequest.Where(x => x.PersonId == GuidId.Value && !x.IsChecked).Select(x => x.IntId).DefaultIfEmpty(0).FirstOrDefault();
+                    if (reqId != 0)
+                        return;
+
+                    ObjectParameter idParam = new ObjectParameter("id", typeof(int));
+                    context.PersonEgeRequest_insert(GuidId.Value, idParam);
+
+                    _currentEgeRequestId = (int)idParam.Value;
+                    lblHasRequest.Visible = true;
+                    lblHasRequestFinished.Visible = false;
+
+                    bw_EgeRequestCheck.RunWorkerAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                WinFormsServ.Error(ex);
+            }
+        }
+
+        private BackgroundWorker bw_EgeRequestCheck;
+        void bw_EgeRequestCheck_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            lblHasRequest.Visible = false;
+            lblHasRequestFinished.Visible = true;
+            UpdateDataGridEge();
+        }
+        void bw_EgeRequestCheck_DoWork(object sender, DoWorkEventArgs e)
+        {
+            bool bFlag = true;
+            using (PriemEntities context = new PriemEntities())
+            {
+                while (bFlag)
+                {
+                    if (e.Cancel)
+                        return;
+
+                    System.Threading.Thread.Sleep(1000);
+
+                    if (context.PersonEgeRequest.Where(x => x.IntId == _currentEgeRequestId && x.IsChecked).Count() == 0)
+                        continue;
+                    else
+                        return;
+                }
+            }
+        }
+
+        protected override void OnClosed()
+        {
+            base.OnClosed();
+            try
+            {
+                bw_EgeRequestCheck.CancelAsync();
+            }
+            catch (Exception ex)
+            {
+                WinFormsServ.Error(ex);
+            }
+        }
+
+        private void btnAddPersonAchievement_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void btnDeletePersonAchievement_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void dgvIndividualAchievements_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

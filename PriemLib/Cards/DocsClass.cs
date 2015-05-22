@@ -30,7 +30,7 @@ namespace PriemLib
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error(exc.Message);
+                WinFormsServ.Error(exc);
             }
 
             _personId = _bdcInet.GetStringValue("SELECT Person.Id FROM Person WHERE Person.Barcode = " + personBarcode);
@@ -74,7 +74,7 @@ namespace PriemLib
             }
             catch (System.Exception exc)
             {
-                WinFormsServ.Error("Ошибка открытия файла: " + exc.Message);
+                WinFormsServ.Error("Ошибка открытия файла: ", exc);
             }
         }
 
@@ -102,7 +102,7 @@ namespace PriemLib
             }
             catch (System.Exception exc)
             {
-                WinFormsServ.Error("Ошибка обновления данных о приложениях: " + exc.Message);
+                WinFormsServ.Error("Ошибка обновления данных о приложениях: ", exc);
                 return null;
             }
         }
@@ -130,7 +130,7 @@ namespace PriemLib
             }
             catch (System.Exception exc)
             {
-                WinFormsServ.Error("Ошибка обновления данных о приложениях: " + exc.Message);
+                WinFormsServ.Error("Ошибка обновления данных о приложениях: ", exc);
                 return null;
             }
         }
@@ -158,7 +158,7 @@ namespace PriemLib
             }
             catch (System.Exception exc)
             {
-                WinFormsServ.Error("Ошибка обновления данных о приложениях: " + exc.Message);
+                WinFormsServ.Error("Ошибка обновления данных о приложениях: ", exc);
                 return null;
             }
         }

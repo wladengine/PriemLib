@@ -75,7 +75,7 @@ WHERE qAbitAll.StudyLevelGroupId=@StudyLevelGroupId AND extPerson.RegionId=@Regi
 ";
             SortedList<string, object> sl = new SortedList<string, object>();
             sl.Add("@RegionId", ComboServ.GetComboIdInt(cbRegion));
-            sl.Add("@StudyLevelGroupId", MainClass.studyLevelGroupId);
+            sl.Add("@StudyLevelGroupId", MainClass.lstStudyLevelGroupId.First());
 
             if (cbEntered.Checked)
                 query += " AND extEntryView.Id IS NOT NULL";

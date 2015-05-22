@@ -6,23 +6,24 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using System.Data.Objects;
+using System.Data.Entity.Core.Objects;
 using System.Transactions;
 using System.Linq;
+using EducServLib;
 
 namespace PriemLib
 {
     public class ChangeCompCelProtocol : ProtocolCard
     {
         //конструктор 
-        public ChangeCompCelProtocol(ProtocolList owner, int iFacultyId, int iStudyBasisId, int iStudyFormId)
-            : this(owner, iFacultyId, iStudyBasisId, iStudyFormId, null)
+        public ChangeCompCelProtocol(ProtocolList owner, int iStudyLevelGroupId, int iFacultyId, int iStudyBasisId, int iStudyFormId)
+            : this(owner, iStudyLevelGroupId, iFacultyId, iStudyBasisId, iStudyFormId, null)
         {
         }
 
         //конструктор 
-        public ChangeCompCelProtocol(ProtocolList owner, int iFacultyId, int iStudyBasisId, int iStudyFormId, Guid? ProtocolId)
-            : base(owner, iFacultyId, iStudyBasisId, iStudyFormId, ProtocolId)
+        public ChangeCompCelProtocol(ProtocolList owner, int iStudyLevelGroupId, int iFacultyId, int iStudyBasisId, int iStudyFormId, Guid? ProtocolId)
+            : base(owner, iStudyLevelGroupId, iFacultyId, iStudyBasisId, iStudyFormId, ProtocolId)
         {
             _type = ProtocolTypes.ChangeCompCelProtocol;
             base.sQuery = this.sQuery;
@@ -31,7 +32,7 @@ namespace PriemLib
         //дополнительная инициализация
         protected override void InitControls()
         {
-            sQuery = @"SELECT DISTINCT ed.extAbit.Sum, ed.extPerson.AttestatSeries, ed.extPerson.AttestatNum, ed.extAbit.Id as Id, ed.extAbit.BAckDoc as backdoc, 
+            sQuery = @"SELECT DISTINCT ed.extAbit.Sum, ed.extPerson.EducDocument, ed.extAbit.Id as Id, ed.extAbit.BAckDoc as backdoc, 
              (ed.extAbit.BAckDoc | ed.extAbit.NotEnabled) as Red, ed.extAbit.RegNum as Рег_Номер, 
              ed.extPerson.FIO as ФИО, 
              ed.extPerson.EducDocument as Документ_об_образовании, 
@@ -113,7 +114,7 @@ namespace PriemLib
                         }
                         catch (Exception exc)
                         {
-                            throw new Exception("Ошибка при сохранении данных: " + exc.Message);
+                            WinFormsServ.Error("Ошибка при сохранении данных: ", exc);
                         }
                     }
                 }               
@@ -122,7 +123,7 @@ namespace PriemLib
 
             catch (Exception ex)
             {
-                MessageBox.Show("Ошибка при изменении типа конкурса: " + ex.Message);
+                WinFormsServ.Error("Ошибка при изменении типа конкурса: ", ex);
                 return false;
             }
         }

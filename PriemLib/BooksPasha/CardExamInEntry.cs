@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using System.Data.Objects;
+using System.Data.Entity.Core.Objects;
 using System.Transactions;
 
 using EducServLib;
@@ -60,23 +60,24 @@ namespace PriemLib
                 chbToAllStudyBasis.Checked = true;
 
                 using (PriemEntities context = new PriemEntities())
-                {                   
-                    List<KeyValuePair<string, string>> lst = ((from f in context.Exam
-                                                              join en in context.ExamName
-                                                              on f.ExamNameId equals en.Id 
-                                                              select new 
-                                                              {
-                                                                  Id = f.Id,
-                                                                  Name = en.Name,
-                                                                  IsAdd = f.IsAdditional
-                                                              }).Distinct()).ToList().Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name + (u.IsAdd ? " (доп)" : ""))).ToList();                                                                 
+                {
+                    List<KeyValuePair<string, string>> lst =
+                        ((from f in context.Exam
+                          join en in context.ExamName
+                          on f.ExamNameId equals en.Id
+                          select new
+                          {
+                              Id = f.Id,
+                              Name = en.Name,
+                              IsAdd = f.IsAdditional
+                          }).Distinct()).ToList().Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name + (u.IsAdd ? " (доп)" : ""))).ToList();
                                                                    
                     ComboServ.FillCombo(cbExam, lst, false, false);                   
                 }
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error("Ошибка при инициализации формы " + exc.Message);
+                WinFormsServ.Error("Ошибка при инициализации формы ", exc);
             }
         }
 
@@ -154,7 +155,7 @@ namespace PriemLib
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error("Ошибка при заполнении формы " + exc.Message);
+                WinFormsServ.Error("Ошибка при заполнении формы ", exc);
             }
         }
 
@@ -209,7 +210,7 @@ namespace PriemLib
                             }
                             catch (Exception exc)
                             {
-                                throw new Exception("Ошибка при сохранении данных: " + exc.Message);
+                                throw exc;
                             }
                         }
 
@@ -224,7 +225,7 @@ namespace PriemLib
             }
             catch (Exception exc)
             {
-                throw new Exception("Ошибка при сохранении данных: " + exc.Message);
+                throw exc;
             }
         }
 

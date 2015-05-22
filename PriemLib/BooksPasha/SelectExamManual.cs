@@ -66,8 +66,14 @@ namespace PriemLib
         {
             using (PriemEntities context = new PriemEntities())
             {
-                var ent = Exams.GetExamsWithFilters(context, MainClass.studyLevelGroupId, FacultyId, null, null, null, null, StudyBasisId, null, null, null);
-                List<KeyValuePair<string, string>> lst = ent.ToList().Select(u => new KeyValuePair<string, string>(u.ExamId.ToString(), u.ExamName)).Distinct().ToList();
+                List<KeyValuePair<string, string>> lst = new List<KeyValuePair<string,string>>();
+                
+                foreach (int iSLGId in MainClass.lstStudyLevelGroupId)
+                {
+                    var ent = Exams.GetExamsWithFilters(context, iSLGId, FacultyId, null, null, null, null, StudyBasisId, null, null, null);
+                    lst.AddRange(ent.ToList().Select(u => new KeyValuePair<string, string>(u.ExamId.ToString(), u.ExamName)).Distinct().ToList());
+                }
+
                 ComboServ.FillCombo(cbExam, lst, false, true);
             }             
         } 

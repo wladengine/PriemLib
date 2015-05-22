@@ -45,6 +45,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.lblBase = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.cbStudyLevelGroup = new System.Windows.Forms.ComboBox();
             this.groupBox9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProtocols)).BeginInit();
             this.SuspendLayout();
@@ -72,7 +74,7 @@
             // 
             this.cbStudyBasis.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbStudyBasis.FormattingEnabled = true;
-            this.cbStudyBasis.Location = new System.Drawing.Point(339, 24);
+            this.cbStudyBasis.Location = new System.Drawing.Point(322, 24);
             this.cbStudyBasis.Name = "cbStudyBasis";
             this.cbStudyBasis.Size = new System.Drawing.Size(121, 21);
             this.cbStudyBasis.TabIndex = 2;
@@ -179,9 +181,9 @@
             this.dgvProtocols.AllowUserToDeleteRows = false;
             this.dgvProtocols.AllowUserToOrderColumns = true;
             this.dgvProtocols.AllowUserToResizeRows = false;
-            this.dgvProtocols.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvProtocols.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvProtocols.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dgvProtocols.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvProtocols.Location = new System.Drawing.Point(16, 95);
@@ -212,7 +214,7 @@
             // lblBase
             // 
             this.lblBase.AutoSize = true;
-            this.lblBase.Location = new System.Drawing.Point(340, 10);
+            this.lblBase.Location = new System.Drawing.Point(323, 10);
             this.lblBase.Name = "lblBase";
             this.lblBase.Size = new System.Drawing.Size(94, 13);
             this.lblBase.TabIndex = 36;
@@ -227,11 +229,31 @@
             this.label1.TabIndex = 37;
             this.label1.Text = "Факультет";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(487, 10);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(51, 13);
+            this.label2.TabIndex = 47;
+            this.label2.Text = "Уровень";
+            // 
+            // cbStudyLevelGroup
+            // 
+            this.cbStudyLevelGroup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbStudyLevelGroup.FormattingEnabled = true;
+            this.cbStudyLevelGroup.Location = new System.Drawing.Point(486, 24);
+            this.cbStudyLevelGroup.Name = "cbStudyLevelGroup";
+            this.cbStudyLevelGroup.Size = new System.Drawing.Size(208, 21);
+            this.cbStudyLevelGroup.TabIndex = 46;
+            // 
             // ProtocolList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(706, 544);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.cbStudyLevelGroup);
             this.Controls.Add(this.groupBox9);
             this.Controls.Add(this.btnCreate);
             this.Controls.Add(this.btnMake);
@@ -276,5 +298,7 @@
         protected System.Windows.Forms.Label lblBase;
         protected System.Windows.Forms.Label label1;
         protected System.Windows.Forms.ComboBox cbProtocolNum;
+        protected System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox cbStudyLevelGroup;
     }
 }

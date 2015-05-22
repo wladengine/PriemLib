@@ -33,7 +33,7 @@ namespace PriemLib
         public static string saveTempFolder;
         public static string userName;
        
-        public static int studyLevelGroupId;
+        public static List<int> lstStudyLevelGroupId = new List<int>();
         public static int countryRussiaId;
         public static int educSchoolId;
         public static int pasptypeRFId;
@@ -84,6 +84,7 @@ namespace PriemLib
                     _bdcOnlineReadWrite = new DBPriem();
                     _bdcOnlineReadWrite.OpenDatabase(DBConstants.CS_PriemONLINE_ReadWrite);
                 }
+                //если не открывается, то и пёс с ним
                 catch { }
 
 
@@ -121,11 +122,20 @@ namespace PriemLib
 
                 switch (MainClass.dbType)
                 {
-                    case PriemType.Priem: { studyLevelGroupId = 1; break; }
-                    case PriemType.PriemMag: { studyLevelGroupId = 2; break; }
-                    case PriemType.PriemSPO: { studyLevelGroupId = 3; break; }
-                    case PriemType.PriemAspirant: { studyLevelGroupId = 4; break; }
-                    default: { studyLevelGroupId = 1; break; }
+                    case PriemType.Priem: { lstStudyLevelGroupId.Add(1); break; }
+                    case PriemType.PriemMag: { lstStudyLevelGroupId.Add(2); break; }
+                    case PriemType.PriemSPO: { lstStudyLevelGroupId.Add(3); break; }
+                    case PriemType.PriemAspirant: { lstStudyLevelGroupId.Add(4); lstStudyLevelGroupId.Add(5); break; }
+                    case PriemType.PriemForeigners: 
+                        { 
+                            lstStudyLevelGroupId.Add(1);
+                            lstStudyLevelGroupId.Add(2);
+                            lstStudyLevelGroupId.Add(3);
+                            lstStudyLevelGroupId.Add(4);
+                            lstStudyLevelGroupId.Add(5);
+                            break;
+                        }
+                    default: { lstStudyLevelGroupId.Add(1); break; }
                 }
                 
               /* 
@@ -145,15 +155,15 @@ namespace PriemLib
                 }
                 catch (Exception e)
                 {
-                    WinFormsServ.Error(e);
-                }      
+                    WinFormsServ.Error("Ошибка при создании временного/служебного каталога", e);
+                }
                 
                 //взяли конфиг
                 _config = GetConfig();
             }
             catch(Exception e)
             {
-                throw e;
+                WinFormsServ.Error("Ошибка в MainClass.Init()", e);
             }
         }
 
@@ -204,22 +214,30 @@ namespace PriemLib
                         File.Delete(file.FullName);
                 }
             }
-            catch
+            catch (Exception exc) 
             {
+                WinFormsServ.Error("Ошибка в MainClass.DeleteTempFiles()", exc);
             }
         }
 
         public static void SaveParameters()
         {
-            if (MainClass.IsOwner() || MainClass.IsPasha())
+            try
             {
-                using (PriemEntities context = new PriemEntities())
+                if (MainClass.IsOwner() || MainClass.IsPasha())
                 {
-                    context.SetApplicationValue("bMagCheckProtocolsEnabled", bMagCheckProtocolsEnabled.ToString());
-                    context.SetApplicationValue("b1kCheckProtocolsEnabled", b1kCheckProtocolsEnabled.ToString());
-                    context.SetApplicationValue("PriemYear", sPriemYear);
-                    context.SetApplicationValue("bMagImportApplicationsEnabled", bMagImportApplicationsEnabled.ToString());
+                    using (PriemEntities context = new PriemEntities())
+                    {
+                        context.SetApplicationValue("bMagCheckProtocolsEnabled", bMagCheckProtocolsEnabled.ToString());
+                        context.SetApplicationValue("b1kCheckProtocolsEnabled", b1kCheckProtocolsEnabled.ToString());
+                        context.SetApplicationValue("PriemYear", sPriemYear);
+                        context.SetApplicationValue("bMagImportApplicationsEnabled", bMagImportApplicationsEnabled.ToString());
+                    }
                 }
+            }
+            catch (Exception exc)
+            {
+                WinFormsServ.Error("Ошибка при сохранении параметров приложения в MainClass.SaveParameters()", exc);
             }
         }
 
@@ -227,7 +245,6 @@ namespace PriemLib
         {
             return perNum + @"\"+ abNum;           
         }       
-
         public static string GetStringAbitNumber(string abitView)
         {
             return string.Format(" substring('000' + Convert(nvarchar(2), {0}.FacultyId), len('000' + Convert(nvarchar(2), {0}.FacultyId))-1, 2) + substring('000000' + Convert(nvarchar(5), {0}.RegNum), len('000000' + Convert(nvarchar(5), {0}.RegNum))-4, 5)", abitView);
@@ -279,18 +296,18 @@ namespace PriemLib
             try
             {
                 IEnumerable<qEntry> entry = context.qEntry;
-                return entry.Where(c => c.StudyLevelGroupId == studyLevelGroupId);
+                return entry.Where(c => lstStudyLevelGroupId.Contains(c.StudyLevelGroupId));
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error("Ошибка qEntry " + exc.Message);
+                WinFormsServ.Error("Ошибка в MainClass.GetEntry() ", exc);
                 return null;
             }      
         }
 
         public static string GetStLevelFilter(string tableName)
         {
-            return string.Format(" AND {1}.StudyLevelGroupId = {0} ", studyLevelGroupId, tableName);          
+            return string.Format(" AND {1}.StudyLevelGroupId IN ({0}) ", Util.BuildStringWithCollection(lstStudyLevelGroupId), tableName);          
         }
     }
 }

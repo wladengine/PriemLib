@@ -1,0 +1,911 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <edmx:Designer>
+    <edmx:Diagrams>
+      <edmx:Diagram Name="PriemModel" ZoomLevel="55">
+        <edmx:EntityTypeShape EntityType="Priem2012Model.AttMarks" Width="1.5" PointX="6" PointY="36.375" Height="1.9210009765624996" IsExpanded="true" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.AttSubject" Width="1.5" PointX="3.75" PointY="40.75" Height="1.4279589843750031" IsExpanded="true" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.CelCompetition" Width="1.5" PointX="17.25" PointY="26.625" Height="1.5923063151041674" IsExpanded="true" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.ChangeType" Width="1.5" PointX="0.75" PointY="4.75" Height="1.2636116536458317" IsExpanded="true" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.Competition" Width="1.5" PointX="17.25" PointY="34.125" Height="2.0853483072916674" IsExpanded="true" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.Country" Width="1.5" PointX="1.5" PointY="45.375" Height="2.0853483072916674" IsExpanded="true" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.DogovorType" Width="1.5" PointX="25.5" PointY="36" Height="1.4279589843750031" IsExpanded="true" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.EgeCertificate" Width="1.5" PointX="19.5" PointY="45.125" Height="3.4001269531249996" IsExpanded="true" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.EgeExamName" Width="1.5" PointX="19.5" PointY="55" Height="2.0853483072916674" IsExpanded="true" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.EgeMark" Width="1.5" PointX="21.75" PointY="46" Height="2.24969563802083" IsExpanded="true" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.FBSStatus" Width="1.5" PointX="17.25" PointY="46.5" Height="1.427958984374996" IsExpanded="true" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.Language" Width="1.5" PointX="0.75" PointY="26.125" Height="1.7566536458333317" IsExpanded="true" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.PassportType" Width="1.5" PointX="1.5" PointY="42.875" Height="1.4279589843749996" IsExpanded="true" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.PayPeriod" Width="1.5" PointX="25.5" PointY="21.375" Height="1.5923063151041674" IsExpanded="true" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.Prorektor" Width="1.5" PointX="11.25" PointY="23" Height="2.0853483072916674" IsExpanded="true" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.Region" Width="1.5" PointX="12" PointY="48.875" Height="1.9210009765624996" IsExpanded="true" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.SchoolType" Width="1.5" PointX="9" PointY="45.75" Height="1.5923063151041674" IsExpanded="true" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.SP_Faculty" Width="1.5" PointX="0.75" PointY="29.5" Height="2.414042968749996" IsExpanded="true" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.StudyBasis" Width="1.5" PointX="9" PointY="34.875" Height="1.7566536458333388" IsExpanded="true" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.StudyForm" Width="1.5" PointX="9" PointY="38" Height="2.0853483072916674" IsExpanded="true" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.qFaculty" Width="1.5" PointX="2.75" PointY="4.75" Height="1.9210009765625014" IsExpanded="true" />
+        <edmx:AssociationConnector Association="Priem2012Model.fk_AttMarks_AttSubject" ManuallyRouted="false">
+          <edmx:ConnectorPoint PointX="7.96875" PointY="29.75" />
+          <edmx:ConnectorPoint PointX="7.96875" PointY="4.73520301513672" />
+          <edmx:ConnectorPoint PointX="8.6666666666666661" PointY="4.7352030151367188" />
+          <edmx:ConnectorPoint PointX="8.8333333333333339" PointY="4.73520301513672" />
+          <edmx:ConnectorPoint PointX="9" PointY="4.73520301513672" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="Priem2012Model.fk_ed_Competition_StudyBasis" ManuallyRouted="false">
+          <edmx:ConnectorPoint PointX="3" PointY="34.292674153645834" />
+          <edmx:ConnectorPoint PointX="3.1041641666666666" PointY="34.292674153645834" />
+          <edmx:ConnectorPoint PointX="3.2708308333333336" PointY="34.292674153645834" />
+          <edmx:ConnectorPoint PointX="3.2916666666666665" PointY="34.292674153645834" />
+          <edmx:ConnectorPoint PointX="3.4583333333333335" PointY="34.292674153645834" />
+          <edmx:ConnectorPoint PointX="3.75" PointY="34.292674153645834" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="Priem2012Model.fk_ed_EgeCertificate_FBSStatus" ManuallyRouted="false">
+          <edmx:ConnectorPoint PointX="5.25" PointY="41.626097429987986" />
+          <edmx:ConnectorPoint PointX="5.625" PointY="41.251097429987986" />
+          <edmx:ConnectorPoint PointX="5.625" PointY="2.2424247578124703" />
+          <edmx:ConnectorPoint PointX="6" PointY="2.2424247578124703" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="Priem2012Model.fk_ed_EgeMark_EgeCertificate" ManuallyRouted="false">
+          <edmx:ConnectorPoint PointX="7.5" PointY="2.8361006673176661" />
+          <edmx:ConnectorPoint PointX="13.510416666666666" PointY="2.8361006673176656" />
+          <edmx:ConnectorPoint PointX="13.677083333333334" PointY="2.8361006673176661" />
+          <edmx:ConnectorPoint PointX="15.65625" PointY="2.8361006673176661" />
+          <edmx:ConnectorPoint PointX="15.65625" PointY="8.5" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="Priem2012Model.fk_ed_EgeMark_EgeExamName" ManuallyRouted="false">
+          <edmx:ConnectorPoint PointX="2.25" PointY="13.170931188151043" />
+          <edmx:ConnectorPoint PointX="2.6666961564222689" PointY="13.182019769604803" />
+          <edmx:ConnectorPoint PointX="2.8958038435777311" PointY="13.188116488308712" />
+          <edmx:ConnectorPoint PointX="4.6666961564222689" PointY="13.235241193814558" />
+          <edmx:ConnectorPoint PointX="4.8333038435777311" PointY="13.239674743011912" />
+          <edmx:ConnectorPoint PointX="5.2916961564222689" PointY="13.251872888880106" />
+          <edmx:ConnectorPoint PointX="5.4583038435777311" PointY="13.256306438077461" />
+          <edmx:ConnectorPoint PointX="5.5416961564222689" PointY="13.258525566906325" />
+          <edmx:ConnectorPoint PointX="5.8020538435777311" PointY="13.265453870363512" />
+          <edmx:ConnectorPoint PointX="5.875" PointY="13.267395019531222" />
+          <edmx:ConnectorPoint PointX="5.875" PointY="13.267395019531222" />
+          <edmx:ConnectorPoint PointX="7.67482214819703" PointY="12.406610513871772" />
+          <edmx:ConnectorPoint PointX="7.82517785180297" PointY="12.334701264321105" />
+          <edmx:ConnectorPoint PointX="7.89357214819703" PointY="12.301990948654382" />
+          <edmx:ConnectorPoint PointX="8.0439278518029713" PointY="12.230081699103714" />
+          <edmx:ConnectorPoint PointX="8.75" PointY="11.892395019531222" />
+          <edmx:ConnectorPoint PointX="8.75" PointY="11.892395019531222" />
+          <edmx:ConnectorPoint PointX="10.487131497420556" PointY="11.840319467214695" />
+          <edmx:ConnectorPoint PointX="10.653723324990484" PointY="11.835325394258788" />
+          <edmx:ConnectorPoint PointX="10.854204086215036" PointY="11.829315402277691" />
+          <edmx:ConnectorPoint PointX="11.146221630399458" PointY="11.820561329876092" />
+          <edmx:ConnectorPoint PointX="13.5" PointY="11.75" />
+          <edmx:ConnectorPoint PointX="13.5" PointY="11.5" />
+          <edmx:ConnectorPoint PointX="13.510416666666666" PointY="11.5" />
+          <edmx:ConnectorPoint PointX="13.677083333333334" PointY="11.5" />
+          <edmx:ConnectorPoint PointX="15" PointY="11.5" />
+          <edmx:ConnectorPoint PointX="15" PointY="10.74969563802083" />
+        </edmx:AssociationConnector>
+        <edmx:EntityTypeShape EntityType="Priem2012Model.qLicenseProgram" Width="1.5" PointX="4.75" PointY="4.75" Height="1.4279589843749996" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.qProfile" Width="1.5" PointX="5" PointY="2.625" Height="1.2636116536458317" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.OlympLevel" Width="1.5" PointX="19.5" PointY="20.5" Height="1.5923063151041674" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.OlympSubject" Width="1.5" PointX="18.625" PointY="14.125" Height="1.7566536458333388" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.OlympValue" Width="1.5" PointX="19.5" PointY="38.125" Height="1.7566536458333246" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.PaidData" Width="1.5" PointX="27.75" PointY="27.5" Height="5.8653369140625031" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_PaidData_DogovorType">
+          <edmx:ConnectorPoint PointX="10.5" PointY="28.751097429987979" />
+          <edmx:ConnectorPoint PointX="10.875" PointY="28.376097429987979" />
+          <edmx:ConnectorPoint PointX="10.875" PointY="20.057668457031252" />
+          <edmx:ConnectorPoint PointX="11.25" PointY="20.057668457031252" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="Priem2012Model.FK_PaidData_PayPeriod">
+          <edmx:ConnectorPoint PointX="10.5" PointY="31.06230669230769" />
+          <edmx:ConnectorPoint PointX="10.878036335802621" PointY="30.691143744428746" />
+          <edmx:ConnectorPoint PointX="10.996963664197377" PointY="30.574378731095713" />
+          <edmx:ConnectorPoint PointX="11.072916666666666" PointY="30.499806692307686" />
+          <edmx:ConnectorPoint PointX="11.072916666666666" PointY="21.555254685546871" />
+          <edmx:ConnectorPoint PointX="11.25" PointY="21.555254685546871" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="Priem2012Model.FK_PaidData_Prorektor">
+          <edmx:ConnectorPoint PointX="10.5" PointY="33.437306692307693" />
+          <edmx:ConnectorPoint PointX="10.9375" PointY="32.999806692307693" />
+          <edmx:ConnectorPoint PointX="10.9375" PointY="18.560082228515633" />
+          <edmx:ConnectorPoint PointX="11.25" PointY="18.560082228515633" />
+        </edmx:AssociationConnector>
+        <edmx:EntityTypeShape EntityType="Priem2012Model.PayDataEntry" Width="1.5" PointX="13.5" PointY="24" Height="3.0714322916666674" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_PayDataStudyPlan_Prorektor">
+          <edmx:ConnectorPoint PointX="10.5" PointY="34.480079999799671" />
+          <edmx:ConnectorPoint PointX="12" PointY="34.480079999799671" />
+          <edmx:ConnectorPoint PointX="12" PointY="31.571432291666667" />
+        </edmx:AssociationConnector>
+        <edmx:EntityTypeShape EntityType="Priem2012Model.Exam" Width="1.5" PointX="14.25" PointY="36.625" Height="2.4140429687499978" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.Mark" Width="1.5" PointX="21.75" PointY="29.125" Height="2.7427376302083317" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.qStudyLevel" Width="1.5" PointX="6.75" PointY="0.75" Height="1.7566536458333388" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.ExamName" Width="1.5" PointX="12" PointY="37.125" Height="1.7566536458333353" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.StudyLevel" Width="1.5" PointX="1.5" PointY="17.875" Height="1.7566536458333388" />
+        <edmx:AssociationConnector Association="Priem2012Model.fk_Exam_ExamName">
+          <edmx:ConnectorPoint PointX="5.25" PointY="38.524215901692713" />
+          <edmx:ConnectorPoint PointX="5.604166666666667" PointY="38.524215901692713" />
+          <edmx:ConnectorPoint PointX="5.770833333333333" PointY="38.524215901692713" />
+          <edmx:ConnectorPoint PointX="6" PointY="38.524215901692713" />
+        </edmx:AssociationConnector>
+        <edmx:EntityTypeShape EntityType="Priem2012Model.ProtocolType" Width="1.5" PointX="6.75" PointY="26.375" Height="1.427958984374996" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.extEgeMark" Width="1.5" PointX="6.75" PointY="6.75" Height="2.5783902994791674" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.EgeToExam" Width="1.5" PointX="24.75" PointY="46.125" Height="1.7566536458333388" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_EgeToExam_EgeExamName">
+          <edmx:ConnectorPoint PointX="2.25" PointY="13.790363113606745" />
+          <edmx:ConnectorPoint PointX="2.6666666666666665" PointY="13.790363113606745" />
+          <edmx:ConnectorPoint PointX="2.8958333333333335" PointY="13.790363113606745" />
+          <edmx:ConnectorPoint PointX="4.666666666666667" PointY="13.790363113606745" />
+          <edmx:ConnectorPoint PointX="4.833333333333333" PointY="13.790363113606745" />
+          <edmx:ConnectorPoint PointX="5.291666666666667" PointY="13.790363113606745" />
+          <edmx:ConnectorPoint PointX="5.458333333333333" PointY="13.790363113606745" />
+          <edmx:ConnectorPoint PointX="5.541666666666667" PointY="13.790363113606743" />
+          <edmx:ConnectorPoint PointX="5.802083333333333" PointY="13.790363113606745" />
+          <edmx:ConnectorPoint PointX="5.875" PointY="13.790363113606745" />
+          <edmx:ConnectorPoint PointX="5.875" PointY="15.195354003906218" />
+          <edmx:ConnectorPoint PointX="7.7916988135785052" PointY="15.142099688785244" />
+          <edmx:ConnectorPoint PointX="8.0520511864214956" PointY="15.134865955865054" />
+          <edmx:ConnectorPoint PointX="8.5104488135785044" PointY="15.122129655558304" />
+          <edmx:ConnectorPoint PointX="8.6770511864214956" PointY="15.117500709580758" />
+          <edmx:ConnectorPoint PointX="10.822948813578504" PointY="15.057878244306412" />
+          <edmx:ConnectorPoint PointX="10.989551186421496" PointY="15.053249298328867" />
+          <edmx:ConnectorPoint PointX="11" PointY="15.052958984374996" />
+          <edmx:ConnectorPoint PointX="11" PointY="16.5181689453125" />
+          <edmx:ConnectorPoint PointX="14.260815459637628" PointY="16.1972001145605" />
+          <edmx:ConnectorPoint PointX="14.426680540362371" PointY="16.180873670552312" />
+          <edmx:ConnectorPoint PointX="14.75" PointY="16.14904866536456" />
+          <edmx:ConnectorPoint PointX="14.75" PointY="16.660563964843721" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="Priem2012Model.FK_EgeToExam_Exam">
+          <edmx:ConnectorPoint PointX="2.25" PointY="16.591691372070304" />
+          <edmx:ConnectorPoint PointX="2.5416666666666665" PointY="16.591691372070304" />
+          <edmx:ConnectorPoint PointX="2.8333333333333335" PointY="16.591691372070304" />
+          <edmx:ConnectorPoint PointX="4.666666666666667" PointY="16.591691372070304" />
+          <edmx:ConnectorPoint PointX="4.833333333333333" PointY="16.591691372070304" />
+          <edmx:ConnectorPoint PointX="4.9511281407502059" PointY="16.591691372070304" />
+          <edmx:ConnectorPoint PointX="5.117794807416872" PointY="16.591691372070304" />
+          <edmx:ConnectorPoint PointX="5.291666666666667" PointY="16.591691372070304" />
+          <edmx:ConnectorPoint PointX="5.770833333333333" PointY="16.591691372070304" />
+          <edmx:ConnectorPoint PointX="5.875" PointY="16.591691372070304" />
+          <edmx:ConnectorPoint PointX="5.875" PointY="15.75" />
+          <edmx:ConnectorPoint PointX="7.7917012999236785" PointY="15.805276702590005" />
+          <edmx:ConnectorPoint PointX="8.0520487000763215" PointY="15.812784990818793" />
+          <edmx:ConnectorPoint PointX="8.5104512999236785" PointY="15.826005091509106" />
+          <edmx:ConnectorPoint PointX="8.6770487000763215" PointY="15.830809676835404" />
+          <edmx:ConnectorPoint PointX="10.8125" PointY="15.892395019531222" />
+          <edmx:ConnectorPoint PointX="10.8125" PointY="16.7681689453125" />
+          <edmx:ConnectorPoint PointX="10.822916666666666" PointY="16.7681689453125" />
+          <edmx:ConnectorPoint PointX="10.989583333333334" PointY="16.7681689453125" />
+          <edmx:ConnectorPoint PointX="14.343748" PointY="16.7681689453125" />
+          <edmx:ConnectorPoint PointX="14.343748" PointY="16.006653645833339" />
+        </edmx:AssociationConnector>
+        <edmx:EntityTypeShape EntityType="Priem2012Model.OlympBook" Width="1.5" PointX="27.75" PointY="23" Height="2.5783902994791674" />
+        <edmx:AssociationConnector Association="Priem2012Model.fk_OlympBook_OlympLevel">
+          <edmx:ConnectorPoint PointX="10.5" PointY="10.421153157552084" />
+          <edmx:ConnectorPoint PointX="10.932291666666666" PointY="10.421153157552084" />
+          <edmx:ConnectorPoint PointX="11.098958333333334" PointY="10.421153157552084" />
+          <edmx:ConnectorPoint PointX="11.25" PointY="10.421153157552084" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="Priem2012Model.fk_OlympBook_OlympSubject">
+          <edmx:ConnectorPoint PointX="10.5" PointY="11.767395019531222" />
+          <edmx:ConnectorPoint PointX="10.875" PointY="11.767395019531222" />
+          <edmx:ConnectorPoint PointX="10.875" PointY="11.635132649739553" />
+          <edmx:ConnectorPoint PointX="10.878574434901122" PointY="11.638707084640673" />
+          <edmx:ConnectorPoint PointX="11.074550565098878" PointY="11.834683214838432" />
+          <edmx:ConnectorPoint PointX="11.25" PointY="12.010132649739553" />
+        </edmx:AssociationConnector>
+        <edmx:EntityTypeShape EntityType="Priem2012Model.Olympiads" Width="1.5" PointX="21.75" PointY="22.75" Height="3.4001269531249996" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.OlympType" Width="1.5" PointX="19.5" PointY="17.625" Height="1.5923063151041674" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_OlympBook_OlympType">
+          <edmx:ConnectorPoint PointX="10.5" PointY="7.233746311398245" />
+          <edmx:ConnectorPoint PointX="12" PointY="7.233746311398245" />
+          <edmx:ConnectorPoint PointX="12" PointY="8.75" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="Priem2012Model.fk_Olympiads_OlympLevel">
+          <edmx:ConnectorPoint PointX="15.750000000000002" PointY="33.375" />
+          <edmx:ConnectorPoint PointX="16.125" PointY="33" />
+          <edmx:ConnectorPoint PointX="16.125" PointY="26.807403971354169" />
+          <edmx:ConnectorPoint PointX="16.322916666666668" PointY="26.807403971354169" />
+          <edmx:ConnectorPoint PointX="16.489583333333332" PointY="26.807403971354169" />
+          <edmx:ConnectorPoint PointX="16.5" PointY="26.807403971354169" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="Priem2012Model.fk_Olympiads_OlympSubject">
+          <edmx:ConnectorPoint PointX="15.75" PointY="36.031152846153844" />
+          <edmx:ConnectorPoint PointX="15.81607443490112" PointY="35.965078411252726" />
+          <edmx:ConnectorPoint PointX="15.933925565098878" PointY="35.847227281054963" />
+          <edmx:ConnectorPoint PointX="16.097324434901122" PointY="35.683828411252726" />
+          <edmx:ConnectorPoint PointX="16.246425565098878" PointY="35.534727281054963" />
+          <edmx:ConnectorPoint PointX="16.34375" PointY="35.437402846153844" />
+          <edmx:ConnectorPoint PointX="16.34375" PointY="28.054857957031246" />
+          <edmx:ConnectorPoint PointX="16.5" PointY="28.054857957031246" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="Priem2012Model.FK_Olympiads_OlympType">
+          <edmx:ConnectorPoint PointX="15.40625" PointY="30.875" />
+          <edmx:ConnectorPoint PointX="15.40625" PointY="24.46875" />
+          <edmx:ConnectorPoint PointX="16.5" PointY="24.46875" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="Priem2012Model.fk_Olympiads_OlympValue">
+          <edmx:ConnectorPoint PointX="15.75" PointY="38.656152846153844" />
+          <edmx:ConnectorPoint PointX="15.81607443490112" PointY="38.590078411252726" />
+          <edmx:ConnectorPoint PointX="15.933925565098878" PointY="38.472227281054963" />
+          <edmx:ConnectorPoint PointX="16.066074434901122" PointY="38.340078411252726" />
+          <edmx:ConnectorPoint PointX="16.246425565098878" PointY="38.159727281054963" />
+          <edmx:ConnectorPoint PointX="16.40625" PointY="37.999902846153844" />
+          <edmx:ConnectorPoint PointX="16.40625" PointY="25.638076985677085" />
+          <edmx:ConnectorPoint PointX="16.5" PointY="25.638076985677085" />
+        </edmx:AssociationConnector>
+        <edmx:EntityTypeShape EntityType="Priem2012Model.extOlympBook" Width="1.5" PointX="0.75" PointY="7.75" Height="2.5783902994791674" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.extEgeMarkMax" Width="1.5" PointX="2.75" PointY="7.75" Height="2.4140429687499996" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.extOlympiads" Width="1.5" PointX="8.75" PointY="0.75" Height="3.5644742838541674" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.ProtocolNumbers" Width="1.5" PointX="8.75" PointY="5.75" Height="1.7566536458333317" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.PersonChanges" Width="1.5" PointX="8.75" PointY="8.75" Height="2.2496956380208282" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.OlympName" Width="1.5" PointX="19.5" PointY="41.25" Height="1.4279589843750031" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.ExamsVed" Width="1.5" PointX="10.75" PointY="0.75" Height="2.7427376302083388" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.ExamsVedHistory" Width="1.5" PointX="10.75" PointY="5.75" Height="2.0853483072916656" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.ExamsVedRoom" Width="1.5" PointX="10.75" PointY="9.75" Height="1.5923063151041674" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.ExamsVedRoomHistory" Width="1.5" PointX="0.75" PointY="11.75" Height="1.2636116536458246" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.Abiturient" Width="1.5" PointX="19.5" PointY="25.75" Height="8.1661995442708317" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.Protocol" Width="1.5" PointX="9" PointY="28.625" Height="4.2218636067708388" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.extExamInEntry" Width="1.5" PointX="3.75" PointY="11.75" Height="4.2218636067708388" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.qAbitAll" Width="1.5" PointX="5.75" PointY="11.75" Height="10.138367513020832" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.qProtocol" Width="1.5" PointX="12.75" PointY="0.75" Height="3.2357796223958317" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.qProtocolHistory" Width="1.5" PointX="12.75" PointY="5.75" Height="3.893168945312496" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_Abiturient_CelCompetition">
+          <edmx:ConnectorPoint PointX="5.25" PointY="30.907306692307689" />
+          <edmx:ConnectorPoint PointX="5.65625" PointY="30.501056692307685" />
+          <edmx:ConnectorPoint PointX="5.65625" PointY="22.692503739803769" />
+          <edmx:ConnectorPoint PointX="5.682291666666667" PointY="22.692503739803769" />
+          <edmx:ConnectorPoint PointX="5.848958333333333" PointY="22.692503739803769" />
+          <edmx:ConnectorPoint PointX="6" PointY="22.692503739803769" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="Priem2012Model.FK_Abiturient_Competition">
+          <edmx:ConnectorPoint PointX="5.25" PointY="33.150383615384619" />
+          <edmx:ConnectorPoint PointX="5.5660744349011209" PointY="32.8343091804835" />
+          <edmx:ConnectorPoint PointX="5.6839255650988791" PointY="32.716458050285738" />
+          <edmx:ConnectorPoint PointX="5.734375" PointY="32.666008615384619" />
+          <edmx:ConnectorPoint PointX="5.734375" PointY="20.047461593658781" />
+          <edmx:ConnectorPoint PointX="6" PointY="20.047461593658781" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="Priem2012Model.fk_Mark_Abiturient">
+          <edmx:ConnectorPoint PointX="6.75" PointY="24.494894205729167" />
+          <edmx:ConnectorPoint PointX="6.75" PointY="24.887289225260389" />
+          <edmx:ConnectorPoint PointX="7.8229583562288969" PointY="24.853337241684521" />
+          <edmx:ConnectorPoint PointX="8.0520416437711031" PointY="24.846088281861444" />
+          <edmx:ConnectorPoint PointX="8.5417083562288969" PointY="24.830593592731617" />
+          <edmx:ConnectorPoint PointX="8.7082916437711031" PointY="24.825322341513143" />
+          <edmx:ConnectorPoint PointX="10.791708356228897" PointY="24.759396082966006" />
+          <edmx:ConnectorPoint PointX="11.156208310437767" PointY="24.747862087832964" />
+          <edmx:ConnectorPoint PointX="11.25" PointY="24.744894205729167" />
+          <edmx:ConnectorPoint PointX="11.25" PointY="23.240336914062503" />
+          <edmx:ConnectorPoint PointX="13.875" PointY="23.240336914062503" />
+          <edmx:ConnectorPoint PointX="13.875" PointY="20.428111165364555" />
+          <edmx:ConnectorPoint PointX="14.25" PointY="20.428111165364555" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="Priem2012Model.fk_Olympiads_Person">
+          <edmx:ConnectorPoint PointX="12.75" PointY="28.558540794270783" />
+          <edmx:ConnectorPoint PointX="12.916666666666666" PointY="28.558540794270783" />
+          <edmx:ConnectorPoint PointX="13.145833333333334" PointY="28.558540794270783" />
+          <edmx:ConnectorPoint PointX="13.25" PointY="28.558540794270783" />
+          <edmx:ConnectorPoint PointX="13.25" PointY="26.960836588541667" />
+          <edmx:ConnectorPoint PointX="13.375" PointY="26.960836588541667" />
+          <edmx:ConnectorPoint PointX="13.375" PointY="24.125" />
+          <edmx:ConnectorPoint PointX="14.166666666666666" PointY="24.125" />
+          <edmx:ConnectorPoint PointX="14.333333333333334" PointY="24.125" />
+          <edmx:ConnectorPoint PointX="15.216666666666667" PointY="24.125" />
+          <edmx:ConnectorPoint PointX="15.383333333333335" PointY="24.125" />
+          <edmx:ConnectorPoint PointX="16.166666666666668" PointY="24.125" />
+          <edmx:ConnectorPoint PointX="16.333333333333332" PointY="24.125" />
+          <edmx:ConnectorPoint PointX="17.25" PointY="24.125" />
+          <edmx:ConnectorPoint PointX="17.25" PointY="24.375" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="Priem2012Model.FK_PaidData_Abiturient">
+          <edmx:ConnectorPoint PointX="12.75" PointY="29.898793945312498" />
+          <edmx:ConnectorPoint PointX="12.916666666666666" PointY="29.898793945312494" />
+          <edmx:ConnectorPoint PointX="13.552613333333332" PointY="29.898793945312498" />
+          <edmx:ConnectorPoint PointX="15.322916666666666" PointY="29.898793945312498" />
+          <edmx:ConnectorPoint PointX="15.489583333333334" PointY="29.898793945312498" />
+          <edmx:ConnectorPoint PointX="16.041666666666668" PointY="29.898793945312498" />
+          <edmx:ConnectorPoint PointX="16.239583333333332" PointY="29.898793945312498" />
+          <edmx:ConnectorPoint PointX="16.260416666666668" PointY="29.898793945312498" />
+          <edmx:ConnectorPoint PointX="16.489583333333332" PointY="29.898793945312498" />
+          <edmx:ConnectorPoint PointX="18.151041666666668" PointY="29.898793945312498" />
+          <edmx:ConnectorPoint PointX="18.458333333333332" PointY="29.898793945312498" />
+          <edmx:ConnectorPoint PointX="19.166666666666668" PointY="29.898793945312498" />
+          <edmx:ConnectorPoint PointX="19.333333333333332" PointY="29.898793945312498" />
+          <edmx:ConnectorPoint PointX="19.5" PointY="29.898793945312498" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="Priem2012Model.fk_Protocol_ProtocolType">
+          <edmx:ConnectorPoint PointX="5.25" PointY="36.9639794921875" />
+          <edmx:ConnectorPoint PointX="5.541666666666667" PointY="36.9639794921875" />
+          <edmx:ConnectorPoint PointX="5.708333333333333" PointY="36.9639794921875" />
+          <edmx:ConnectorPoint PointX="6" PointY="36.9639794921875" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="Priem2012Model.fk_Protocol_StudyBasis">
+          <edmx:ConnectorPoint PointX="4.5" PointY="30.25" />
+          <edmx:ConnectorPoint PointX="4.5" PointY="29.422506510416667" />
+          <edmx:ConnectorPoint PointX="4.8229186666666672" PointY="29.422506510416667" />
+          <edmx:ConnectorPoint PointX="4.9895853333333333" PointY="29.422506510416667" />
+          <edmx:ConnectorPoint PointX="5.479166666666667" PointY="29.422506510416667" />
+          <edmx:ConnectorPoint PointX="5.864583333333333" PointY="29.422506510416667" />
+          <edmx:ConnectorPoint PointX="7.072916666666667" PointY="29.422506510416667" />
+          <edmx:ConnectorPoint PointX="7.239583333333333" PointY="29.422506510416667" />
+          <edmx:ConnectorPoint PointX="7.75" PointY="29.422506510416667" />
+          <edmx:ConnectorPoint PointX="7.75" PointY="14.557190755208332" />
+          <edmx:ConnectorPoint PointX="8.4166666666666661" PointY="14.55719075520833" />
+          <edmx:ConnectorPoint PointX="8.7083358333333347" PointY="14.557190755208332" />
+          <edmx:ConnectorPoint PointX="11.75" PointY="14.557190755208332" />
+          <edmx:ConnectorPoint PointX="11.75" PointY="13.125" />
+          <edmx:ConnectorPoint PointX="11.788666666666666" PointY="13.125" />
+          <edmx:ConnectorPoint PointX="11.955333333333334" PointY="13.125" />
+          <edmx:ConnectorPoint PointX="13.875" PointY="13.125" />
+          <edmx:ConnectorPoint PointX="13.875" PointY="12.930168898437506" />
+          <edmx:ConnectorPoint PointX="13.966666666666667" PointY="12.930168898437506" />
+          <edmx:ConnectorPoint PointX="14.133333333333335" PointY="12.930168898437506" />
+          <edmx:ConnectorPoint PointX="14.25" PointY="12.930168898437506" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="Priem2012Model.fk_Protocol_StudyForm">
+          <edmx:ConnectorPoint PointX="4.5" PointY="33.375" />
+          <edmx:ConnectorPoint PointX="4.5" PointY="33.225485026041667" />
+          <edmx:ConnectorPoint PointX="5.5625" PointY="33.225485026041667" />
+          <edmx:ConnectorPoint PointX="5.5625" PointY="14.369690755208332" />
+          <edmx:ConnectorPoint PointX="8.4166666666666661" PointY="14.36969075520833" />
+          <edmx:ConnectorPoint PointX="8.7083358333333347" PointY="14.369690755208332" />
+          <edmx:ConnectorPoint PointX="11.666666666666666" PointY="14.369690755208332" />
+          <edmx:ConnectorPoint PointX="11.833333333333334" PointY="14.369690755208332" />
+          <edmx:ConnectorPoint PointX="11.9375" PointY="14.369690755208332" />
+          <edmx:ConnectorPoint PointX="11.9375" PointY="13.3125" />
+          <edmx:ConnectorPoint PointX="13.966666666666667" PointY="13.3125" />
+          <edmx:ConnectorPoint PointX="14.133333333333335" PointY="13.3125" />
+          <edmx:ConnectorPoint PointX="14.15625" PointY="13.3125" />
+          <edmx:ConnectorPoint PointX="14.15625" PointY="15.328926153645828" />
+          <edmx:ConnectorPoint PointX="14.25" PointY="15.328926153645828" />
+        </edmx:AssociationConnector>
+        <edmx:EntityTypeShape EntityType="Priem2012Model.extOlympiadsAll" Width="1.5" PointX="7.75" PointY="12.75" Height="3.2357796223958388" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.AbitDoc" Width="1.5" PointX="22.5" PointY="20.375" Height="1.427958984374996" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.DocInventory" Width="1.5" PointX="24.75" PointY="30" Height="1.9210009765624996" />
+        <edmx:AssociationConnector Association="Priem2012Model.fk_DocInventory_AbitDoc">
+          <edmx:ConnectorPoint PointX="7.5" PointY="14.292123316080726" />
+          <edmx:ConnectorPoint PointX="7.791666666666667" PointY="14.292123316080724" />
+          <edmx:ConnectorPoint PointX="8.0520833333333339" PointY="14.292123316080726" />
+          <edmx:ConnectorPoint PointX="8.59375" PointY="14.292123316080726" />
+          <edmx:ConnectorPoint PointX="8.59375" PointY="16.125" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="Priem2012Model.fk_DocInventory_Abiturient" ManuallyRouted="false">
+          <edmx:ConnectorPoint PointX="7.5" PointY="17.085500488281248" />
+          <edmx:ConnectorPoint PointX="7.5937500000000009" PointY="17.085500488281248" />
+          <edmx:ConnectorPoint PointX="7.760416666666667" PointY="17.085500488281248" />
+          <edmx:ConnectorPoint PointX="7.979166666666667" PointY="17.085500488281248" />
+          <edmx:ConnectorPoint PointX="8.1458333333333339" PointY="17.085500488281248" />
+          <edmx:ConnectorPoint PointX="8.25" PointY="17.085500488281248" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="Priem2012Model.FK_Abiturient_Competition1">
+          <edmx:ConnectorPoint PointX="5.2407692307692315" PointY="33.125" />
+          <edmx:ConnectorPoint PointX="5.5660744349011209" PointY="32.799694795868113" />
+          <edmx:ConnectorPoint PointX="5.6839255650988791" PointY="32.68184366567035" />
+          <edmx:ConnectorPoint PointX="5.765625" PointY="32.600144230769232" />
+          <edmx:ConnectorPoint PointX="5.765625" PointY="18.922106835585328" />
+          <edmx:ConnectorPoint PointX="6" PointY="18.922106835585328" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="Priem2012Model.FK_Abiturient_Language">
+          <edmx:ConnectorPoint PointX="9.4062504999999987" PointY="15" />
+          <edmx:ConnectorPoint PointX="9.4062504999999987" PointY="14.7" />
+          <edmx:ConnectorPoint PointX="11.565000000000001" PointY="14.7" />
+          <edmx:ConnectorPoint PointX="11.565000000000001" PointY="15.070683593749996" />
+          <edmx:ConnectorPoint PointX="11.788666666666666" PointY="15.070683593749996" />
+          <edmx:ConnectorPoint PointX="11.955333333333334" PointY="15.070683593749996" />
+          <edmx:ConnectorPoint PointX="13.559999999999999" PointY="15.070683593749996" />
+          <edmx:ConnectorPoint PointX="13.559999999999999" PointY="21.959999999999997" />
+          <edmx:ConnectorPoint PointX="13.309999999999999" PointY="21.959999999999997" />
+          <edmx:ConnectorPoint PointX="13.309999999999999" PointY="33.00115234375" />
+          <edmx:ConnectorPoint PointX="13.208333333333334" PointY="33.00115234375" />
+          <edmx:ConnectorPoint PointX="12.979166666666666" PointY="33.00115234375" />
+          <edmx:ConnectorPoint PointX="12" PointY="33.00115234375" />
+          <edmx:ConnectorPoint PointX="12" PointY="32.70115234375" />
+        </edmx:AssociationConnector>
+        <edmx:EntityTypeShape EntityType="Priem2012Model.extFBSStatus" Width="1.5" PointX="9.75" PointY="12.75" Height="1.5923063151041674" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.extExamsVed" Width="1.5" PointX="12.75" PointY="11.75" Height="3.8931689453125031" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.extEgeMarkMaxAbit" Width="1.5" PointX="14.75" PointY="0.75" Height="2.5783902994791674" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.EgeToLanguage" Width="1.5" PointX="21.75" PointY="40.75" Height="1.921000976562512" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_EgeToLanguage_EgeExamName">
+          <edmx:ConnectorPoint PointX="2.25" PointY="14.437347819010416" />
+          <edmx:ConnectorPoint PointX="2.6666666666666665" PointY="14.437347819010416" />
+          <edmx:ConnectorPoint PointX="2.8958333333333335" PointY="14.437347819010416" />
+          <edmx:ConnectorPoint PointX="3" PointY="14.437347819010416" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="Priem2012Model.FK_EgeToLanguage_Exam">
+          <edmx:ConnectorPoint PointX="2.25" PointY="15.648000488281255" />
+          <edmx:ConnectorPoint PointX="2.5416666666666665" PointY="15.648000488281253" />
+          <edmx:ConnectorPoint PointX="2.8958333333333335" PointY="15.648000488281255" />
+          <edmx:ConnectorPoint PointX="3" PointY="15.648000488281255" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="Priem2012Model.FK_EgeToLanguage_Language">
+          <edmx:ConnectorPoint PointX="9.75" PointY="16.980286458333335" />
+          <edmx:ConnectorPoint PointX="9.75" PointY="17.074036458333335" />
+          <edmx:ConnectorPoint PointX="10.538666666666666" PointY="17.074036458333335" />
+          <edmx:ConnectorPoint PointX="10.830333333333334" PointY="17.074036458333335" />
+          <edmx:ConnectorPoint PointX="13.419666666666666" PointY="17.074036458333335" />
+          <edmx:ConnectorPoint PointX="13.643333333333333" PointY="17.074036458333335" />
+          <edmx:ConnectorPoint PointX="15.216666666666667" PointY="17.074036458333335" />
+          <edmx:ConnectorPoint PointX="15.383333333333335" PointY="17.074036458333335" />
+          <edmx:ConnectorPoint PointX="16.166666666666668" PointY="17.074036458333335" />
+          <edmx:ConnectorPoint PointX="16.333333333333332" PointY="17.074036458333335" />
+          <edmx:ConnectorPoint PointX="17.010416666666668" PointY="17.074036458333335" />
+          <edmx:ConnectorPoint PointX="17.177083333333332" PointY="17.074036458333335" />
+          <edmx:ConnectorPoint PointX="17.666666666666668" PointY="17.074036458333335" />
+          <edmx:ConnectorPoint PointX="17.833333333333332" PointY="17.074036458333335" />
+          <edmx:ConnectorPoint PointX="19.15625" PointY="17.074036458333335" />
+          <edmx:ConnectorPoint PointX="19.15625" PointY="21.011894972656258" />
+          <edmx:ConnectorPoint PointX="19.25" PointY="21.011894972656258" />
+        </edmx:AssociationConnector>
+        <edmx:EntityTypeShape EntityType="Priem2012Model.Fixieren" Width="1.5" PointX="24.75" PointY="27.125" Height="1.7566536458333388" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_Fixieren_Abiturient" ManuallyRouted="false">
+          <edmx:ConnectorPoint PointX="7.5" PointY="19.861871117187498" />
+          <edmx:ConnectorPoint PointX="7.5937500000000009" PointY="19.861871117187498" />
+          <edmx:ConnectorPoint PointX="7.760416666666667" PointY="19.861871117187498" />
+          <edmx:ConnectorPoint PointX="7.979166666666667" PointY="19.861871117187498" />
+          <edmx:ConnectorPoint PointX="8.1458333333333339" PointY="19.861871117187498" />
+          <edmx:ConnectorPoint PointX="8.25" PointY="19.861871117187498" />
+        </edmx:AssociationConnector>
+        <edmx:EntityTypeShape EntityType="Priem2012Model.FixierenView" Width="1.5" PointX="22.5" PointY="34" Height="3.4001269531250031" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_Fixieren_FixierenView">
+          <edmx:ConnectorPoint PointX="7.5" PointY="25.407306692307692" />
+          <edmx:ConnectorPoint PointX="7.90625" PointY="25.001056692307692" />
+          <edmx:ConnectorPoint PointX="7.90625" PointY="20.598742234374996" />
+          <edmx:ConnectorPoint PointX="8.25" PointY="20.598742234374996" />
+        </edmx:AssociationConnector>
+        <edmx:EntityTypeShape EntityType="Priem2012Model.extAbitMarksSum" Width="1.5" PointX="14.75" PointY="4.75" Height="1.7566536458333317" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.extEntryView" Width="1.5" PointX="14.75" PointY="7.75" Height="5.0436002604166656" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.extProtocol" Width="1.5" PointX="16.75" PointY="0.75" Height="5.7009895833333317" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.extEnableProtocol" Width="1.5" PointX="9.75" PointY="15.75" Height="4.0575162760416674" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.extDisEntryView" Width="1.5" PointX="16.75" PointY="8.75" Height="4.3862109375" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.qEntry" Width="1.5" PointX="16.75" PointY="14.75" Height="5.86533691406251" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.C_FirstWaveGreen" Width="1.5" PointX="11.75" PointY="17.75" Height="1.2636116536458317" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.extEntryProtocols" Width="1.5" PointX="13.75" PointY="17.75" Height="4.2218636067708317" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.CompetitiveGroup" Width="1.5" PointX="18.75" PointY="0.75" Height="1.4279589843749818" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.Person" Width="1.5" PointX="0.75" PointY="33.75" Height="5.0436002604166106" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.Person_AdditionalInfo" Width="1.5" PointX="3" PointY="28.125" Height="3.0714322916666674" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.Person_Contacts" Width="1.5" PointX="14.25" PointY="41" Height="4.3862109374999818" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.Person_EducationInfo" Width="1.5" PointX="11.25" PointY="40.625" Height="6.0296842447916674" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_Abiturient_Person">
+          <edmx:ConnectorPoint PointX="2.25" PointY="29.617503255208334" />
+          <edmx:ConnectorPoint PointX="4.416666666666667" PointY="29.617503255208334" />
+          <edmx:ConnectorPoint PointX="4.583333333333333" PointY="29.617503255208334" />
+          <edmx:ConnectorPoint PointX="4.8229186666666672" PointY="29.617503255208334" />
+          <edmx:ConnectorPoint PointX="4.9895853333333333" PointY="29.617503255208334" />
+          <edmx:ConnectorPoint PointX="5.479166666666667" PointY="29.617503255208334" />
+          <edmx:ConnectorPoint PointX="5.864583333333333" PointY="29.617503255208334" />
+          <edmx:ConnectorPoint PointX="7.072916666666667" PointY="29.617503255208334" />
+          <edmx:ConnectorPoint PointX="7.239583333333333" PointY="29.617503255208334" />
+          <edmx:ConnectorPoint PointX="10.822916666666666" PointY="29.617503255208334" />
+          <edmx:ConnectorPoint PointX="11.145833333333334" PointY="29.617503255208334" />
+          <edmx:ConnectorPoint PointX="11.25" PointY="29.617503255208334" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="Priem2012Model.FK_AttMarks_Person">
+          <edmx:ConnectorPoint PointX="1.09375" PointY="36.6147265625" />
+          <edmx:ConnectorPoint PointX="1.09375" PointY="42.745888613281259" />
+          <edmx:ConnectorPoint PointX="1.2135441666666667" PointY="42.745888613281259" />
+          <edmx:ConnectorPoint PointX="1.3802108333333332" PointY="42.745888613281259" />
+          <edmx:ConnectorPoint PointX="4" PointY="42.745888613281259" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="Priem2012Model.FK_Person_Contacts_Country">
+          <edmx:ConnectorPoint PointX="2.25" PointY="23.048097270039882" />
+          <edmx:ConnectorPoint PointX="2.4166666666666665" PointY="23.048097270039882" />
+          <edmx:ConnectorPoint PointX="2.5833333333333335" PointY="23.048097270039882" />
+          <edmx:ConnectorPoint PointX="2.6875" PointY="23.048097270039882" />
+          <edmx:ConnectorPoint PointX="2.6875" PointY="16.875" />
+          <edmx:ConnectorPoint PointX="4.666666666666667" PointY="16.875" />
+          <edmx:ConnectorPoint PointX="4.8344861794871763" PointY="16.875" />
+          <edmx:ConnectorPoint PointX="5.375" PointY="16.875" />
+          <edmx:ConnectorPoint PointX="5.375" PointY="10.339905598958334" />
+          <edmx:ConnectorPoint PointX="5.541666666666667" PointY="10.339905598958332" />
+          <edmx:ConnectorPoint PointX="5.802083333333333" PointY="10.339905598958334" />
+          <edmx:ConnectorPoint PointX="6.75" PointY="10.339905598958334" />
+          <edmx:ConnectorPoint PointX="6.75" PointY="9.9649055989583335" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="Priem2012Model.FK_Person_EducationInfo_Country">
+          <edmx:ConnectorPoint PointX="2.25" PointY="39.625" />
+          <edmx:ConnectorPoint PointX="2.25" PointY="39.162985026041667" />
+          <edmx:ConnectorPoint PointX="3.5" PointY="39.162985026041667" />
+          <edmx:ConnectorPoint PointX="3.5" PointY="36.710999348958339" />
+          <edmx:ConnectorPoint PointX="5.541666666666667" PointY="36.710999348958339" />
+          <edmx:ConnectorPoint PointX="5.864583333333333" PointY="36.710999348958339" />
+          <edmx:ConnectorPoint PointX="6.666666666666667" PointY="36.710999348958339" />
+          <edmx:ConnectorPoint PointX="6.833333333333333" PointY="36.710999348958339" />
+          <edmx:ConnectorPoint PointX="8.5416666666666661" PointY="36.710999348958339" />
+          <edmx:ConnectorPoint PointX="8.7083333333333339" PointY="36.710999348958339" />
+          <edmx:ConnectorPoint PointX="8.75" PointY="36.710999348958339" />
+          <edmx:ConnectorPoint PointX="8.75" PointY="35" />
+          <edmx:ConnectorPoint PointX="10.673588743589741" PointY="35" />
+          <edmx:ConnectorPoint PointX="10.858716948717953" PointY="35" />
+          <edmx:ConnectorPoint PointX="11.125" PointY="35" />
+          <edmx:ConnectorPoint PointX="11.125" PointY="37.287903645833325" />
+          <edmx:ConnectorPoint PointX="13.041666666666666" PointY="37.287903645833325" />
+          <edmx:ConnectorPoint PointX="13.208333333333334" PointY="37.287903645833325" />
+          <edmx:ConnectorPoint PointX="13.666666666666666" PointY="37.287903645833325" />
+          <edmx:ConnectorPoint PointX="14.083333333333334" PointY="37.287903645833325" />
+          <edmx:ConnectorPoint PointX="14.125" PointY="37.287903645833325" />
+          <edmx:ConnectorPoint PointX="14.125" PointY="35.67258789062501" />
+          <edmx:ConnectorPoint PointX="15.791666666666666" PointY="35.67258789062501" />
+          <edmx:ConnectorPoint PointX="15.959488179487179" PointY="35.67258789062501" />
+          <edmx:ConnectorPoint PointX="16.025231622195502" PointY="35.67258789062501" />
+          <edmx:ConnectorPoint PointX="16.270833333333332" PointY="35.67258789062501" />
+          <edmx:ConnectorPoint PointX="16.322916666666668" PointY="35.67258789062501" />
+          <edmx:ConnectorPoint PointX="16.489583333333332" PointY="35.67258789062501" />
+          <edmx:ConnectorPoint PointX="17" PointY="35.67258789062501" />
+          <edmx:ConnectorPoint PointX="17" PointY="34.75" />
+          <edmx:ConnectorPoint PointX="17.041666666666668" PointY="34.75" />
+          <edmx:ConnectorPoint PointX="17.208333333333332" PointY="34.75" />
+          <edmx:ConnectorPoint PointX="18.151041666666668" PointY="34.75" />
+          <edmx:ConnectorPoint PointX="18.317708333333332" PointY="34.75" />
+          <edmx:ConnectorPoint PointX="20.416666666666668" PointY="34.75" />
+          <edmx:ConnectorPoint PointX="20.583333333333332" PointY="34.75" />
+          <edmx:ConnectorPoint PointX="20.666666666666668" PointY="34.75" />
+          <edmx:ConnectorPoint PointX="20.833333333333332" PointY="34.75" />
+          <edmx:ConnectorPoint PointX="20.875" PointY="34.75" />
+          <edmx:ConnectorPoint PointX="20.875" PointY="34.3125005" />
+          <edmx:ConnectorPoint PointX="20.916666666666668" PointY="34.3125005" />
+          <edmx:ConnectorPoint PointX="21.083333333333332" PointY="34.3125005" />
+          <edmx:ConnectorPoint PointX="21.25" PointY="34.3125005" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="Priem2012Model.FK_EgeCertificate_Person">
+          <edmx:ConnectorPoint PointX="1.2968775" PointY="36.6147265625" />
+          <edmx:ConnectorPoint PointX="1.2968775" PointY="44.879506835937505" />
+          <edmx:ConnectorPoint PointX="3.0729166666666665" PointY="44.879506835937505" />
+          <edmx:ConnectorPoint PointX="3.2395833333333335" PointY="44.879506835937505" />
+          <edmx:ConnectorPoint PointX="5.604166666666667" PointY="44.879506835937505" />
+          <edmx:ConnectorPoint PointX="5.770833333333333" PointY="44.879506835937505" />
+          <edmx:ConnectorPoint PointX="11" PointY="44.879506835937505" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="Priem2012Model.FK_Person_PassportType">
+          <edmx:ConnectorPoint PointX="1.875" PointY="37.125" />
+          <edmx:ConnectorPoint PointX="1.875" PointY="36.6147265625" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="Priem2012Model.FK_Person_AdditionalInfo_Person">
+          <edmx:ConnectorPoint PointX="5.25" PointY="5.9596690272008512" />
+          <edmx:ConnectorPoint PointX="5.5815107050506532" PointY="5.4177988621965865" />
+          <edmx:ConnectorPoint PointX="5.6684892949493459" PointY="5.2756281807006724" />
+          <edmx:ConnectorPoint PointX="5.75" PointY="5.1423950195312216" />
+          <edmx:ConnectorPoint PointX="5.75" PointY="5" />
+          <edmx:ConnectorPoint PointX="7.885416666666667" PointY="4.9999999999999991" />
+          <edmx:ConnectorPoint PointX="8.0520833333333339" PointY="5" />
+          <edmx:ConnectorPoint PointX="8.75" PointY="5" />
+          <edmx:ConnectorPoint PointX="8.75" PointY="3.2673950195312216" />
+          <edmx:ConnectorPoint PointX="13.510416666666666" PointY="3.2673950195312211" />
+          <edmx:ConnectorPoint PointX="13.677083333333334" PointY="3.2673950195312216" />
+          <edmx:ConnectorPoint PointX="14.75" PointY="3.2673950195312216" />
+          <edmx:ConnectorPoint PointX="14.75" PointY="4.0173950195312216" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="Priem2012Model.FK_Person_Contacts_Person">
+          <edmx:ConnectorPoint PointX="0.89062250000000009" PointY="36.6147265625" />
+          <edmx:ConnectorPoint PointX="0.89062250000000009" PointY="44.37205078125" />
+          <edmx:ConnectorPoint PointX="1.2135441666666667" PointY="44.37205078125" />
+          <edmx:ConnectorPoint PointX="1.3802108333333332" PointY="44.37205078125" />
+          <edmx:ConnectorPoint PointX="3.0729166666666665" PointY="44.37205078125" />
+          <edmx:ConnectorPoint PointX="3.2395833333333335" PointY="44.37205078125" />
+          <edmx:ConnectorPoint PointX="5.604166666666667" PointY="44.37205078125" />
+          <edmx:ConnectorPoint PointX="5.770833333333333" PointY="44.37205078125" />
+          <edmx:ConnectorPoint PointX="8.75" PointY="44.37205078125" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="Priem2012Model.FK_Person_EducationInfo_Person">
+          <edmx:ConnectorPoint PointX="1.9062519999999998" PointY="29.25" />
+          <edmx:ConnectorPoint PointX="1.9062519999999998" PointY="29" />
+          <edmx:ConnectorPoint PointX="2.5" PointY="29" />
+          <edmx:ConnectorPoint PointX="2.5" PointY="29.5" />
+          <edmx:ConnectorPoint PointX="4.8229186666666672" PointY="29.5" />
+          <edmx:ConnectorPoint PointX="4.9895853333333333" PointY="29.5" />
+          <edmx:ConnectorPoint PointX="5.479166666666667" PointY="29.5" />
+          <edmx:ConnectorPoint PointX="5.645833333333333" PointY="29.5" />
+          <edmx:ConnectorPoint PointX="5.75" PointY="29.5" />
+          <edmx:ConnectorPoint PointX="5.75" PointY="36.898499348958339" />
+          <edmx:ConnectorPoint PointX="6.2916671666666675" PointY="36.898499348958339" />
+          <edmx:ConnectorPoint PointX="6.4583338333333336" PointY="36.898499348958339" />
+          <edmx:ConnectorPoint PointX="8.875" PointY="36.898499348958339" />
+          <edmx:ConnectorPoint PointX="8.875" PointY="35.125" />
+          <edmx:ConnectorPoint PointX="10.548588743589741" PointY="35.125" />
+          <edmx:ConnectorPoint PointX="10.733716948717953" PointY="35.125" />
+          <edmx:ConnectorPoint PointX="11" PointY="35.125" />
+          <edmx:ConnectorPoint PointX="11" PointY="37.412903645833325" />
+          <edmx:ConnectorPoint PointX="13.041666666666666" PointY="37.412903645833325" />
+          <edmx:ConnectorPoint PointX="13.208333333333334" PointY="37.412903645833325" />
+          <edmx:ConnectorPoint PointX="13.666666666666666" PointY="37.412903645833325" />
+          <edmx:ConnectorPoint PointX="13.833333333333334" PointY="37.412903645833325" />
+          <edmx:ConnectorPoint PointX="13.875" PointY="37.412903645833325" />
+          <edmx:ConnectorPoint PointX="13.875" PointY="35.61008789062501" />
+          <edmx:ConnectorPoint PointX="15.730321512820511" PointY="35.61008789062501" />
+          <edmx:ConnectorPoint PointX="15.958333333333334" PointY="35.61008789062501" />
+          <edmx:ConnectorPoint PointX="16.072916666666668" PointY="35.61008789062501" />
+          <edmx:ConnectorPoint PointX="16.270833333333332" PointY="35.61008789062501" />
+          <edmx:ConnectorPoint PointX="16.322916666666668" PointY="35.61008789062501" />
+          <edmx:ConnectorPoint PointX="16.489583333333332" PointY="35.61008789062501" />
+          <edmx:ConnectorPoint PointX="16.75" PointY="35.61008789062501" />
+          <edmx:ConnectorPoint PointX="16.75" PointY="34.875" />
+          <edmx:ConnectorPoint PointX="16.916666666666668" PointY="34.875" />
+          <edmx:ConnectorPoint PointX="17.208333333333332" PointY="34.875" />
+          <edmx:ConnectorPoint PointX="18.151041666666668" PointY="34.875" />
+          <edmx:ConnectorPoint PointX="18.317708333333332" PointY="34.875" />
+          <edmx:ConnectorPoint PointX="20.416666666666668" PointY="34.875" />
+          <edmx:ConnectorPoint PointX="20.583333333333332" PointY="34.875" />
+          <edmx:ConnectorPoint PointX="20.75" PointY="34.875" />
+          <edmx:ConnectorPoint PointX="20.75" PointY="32.687498250000061" />
+          <edmx:ConnectorPoint PointX="20.916666666666668" PointY="32.687498250000061" />
+          <edmx:ConnectorPoint PointX="21.083333333333332" PointY="32.687498250000061" />
+          <edmx:ConnectorPoint PointX="21.25" PointY="32.687498250000061" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="Priem2012Model.FK_Person_AdditionalInfo_SP_ExamPassFaculty">
+          <edmx:ConnectorPoint PointX="13.25" PointY="5.1025268554687475" />
+          <edmx:ConnectorPoint PointX="13.510416666666666" PointY="5.1025268554687466" />
+          <edmx:ConnectorPoint PointX="13.677083333333334" PointY="5.1025268554687475" />
+          <edmx:ConnectorPoint PointX="14" PointY="5.1025268554687475" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="Priem2012Model.FK_Person_AdditionalInfo_SP_HostelFaculty">
+          <edmx:ConnectorPoint PointX="13.25" PointY="4.4262634277343738" />
+          <edmx:ConnectorPoint PointX="13.510416666666666" PointY="4.4262634277343729" />
+          <edmx:ConnectorPoint PointX="13.677083333333334" PointY="4.4262634277343738" />
+          <edmx:ConnectorPoint PointX="14" PointY="4.4262634277343738" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="Priem2012Model.FK_Person_Contacts_Region">
+          <edmx:ConnectorPoint PointX="5.25" PointY="9.6502791341145837" />
+          <edmx:ConnectorPoint PointX="5.541666666666667" PointY="9.6502791341145819" />
+          <edmx:ConnectorPoint PointX="5.802083333333333" PointY="9.6502791341145837" />
+          <edmx:ConnectorPoint PointX="6" PointY="9.6502791341145837" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="Priem2012Model.FK_Person_EducationInfo_SchoolType">
+          <edmx:ConnectorPoint PointX="2.25" PointY="30.662994791666669" />
+          <edmx:ConnectorPoint PointX="3.1041641666666666" PointY="30.662994791666669" />
+          <edmx:ConnectorPoint PointX="3.2708308333333336" PointY="30.662994791666669" />
+          <edmx:ConnectorPoint PointX="3.375" PointY="30.662994791666669" />
+          <edmx:ConnectorPoint PointX="3.375" PointY="23.319031575520835" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="Priem2012Model.FK_Person_EducationInfo_StudyForm_HE_">
+          <edmx:ConnectorPoint PointX="4.5" PointY="36.316793619791667" />
+          <edmx:ConnectorPoint PointX="4.5" PointY="36.773499348958339" />
+          <edmx:ConnectorPoint PointX="5.666666666666667" PointY="36.773499348958339" />
+          <edmx:ConnectorPoint PointX="5.864583333333333" PointY="36.773499348958339" />
+          <edmx:ConnectorPoint PointX="6.666666666666667" PointY="36.773499348958339" />
+          <edmx:ConnectorPoint PointX="6.833333333333333" PointY="36.773499348958339" />
+          <edmx:ConnectorPoint PointX="8.5" PointY="36.773499348958339" />
+          <edmx:ConnectorPoint PointX="8.5" PointY="34.875" />
+          <edmx:ConnectorPoint PointX="10.817050282051286" PointY="34.875" />
+          <edmx:ConnectorPoint PointX="10.983716948717953" PointY="34.875" />
+          <edmx:ConnectorPoint PointX="11.1875" PointY="34.875" />
+          <edmx:ConnectorPoint PointX="11.1875" PointY="37.350403645833325" />
+          <edmx:ConnectorPoint PointX="13.041666666666666" PointY="37.350403645833325" />
+          <edmx:ConnectorPoint PointX="13.208333333333334" PointY="37.350403645833325" />
+          <edmx:ConnectorPoint PointX="13.625" PointY="37.350403645833325" />
+          <edmx:ConnectorPoint PointX="13.625" PointY="35.79758789062501" />
+          <edmx:ConnectorPoint PointX="13.791666666666666" PointY="35.79758789062501" />
+          <edmx:ConnectorPoint PointX="13.958333333333334" PointY="35.79758789062501" />
+          <edmx:ConnectorPoint PointX="14.041666666666666" PointY="35.79758789062501" />
+          <edmx:ConnectorPoint PointX="14.208333333333334" PointY="35.79758789062501" />
+          <edmx:ConnectorPoint PointX="15.791666666666666" PointY="35.79758789062501" />
+          <edmx:ConnectorPoint PointX="16.270833333333332" PointY="35.79758789062501" />
+          <edmx:ConnectorPoint PointX="16.322916666666668" PointY="35.79758789062501" />
+          <edmx:ConnectorPoint PointX="16.489583333333332" PointY="35.79758789062501" />
+          <edmx:ConnectorPoint PointX="17.125" PointY="35.79758789062501" />
+          <edmx:ConnectorPoint PointX="17.125" PointY="34.625" />
+          <edmx:ConnectorPoint PointX="18.151041666666668" PointY="34.625" />
+          <edmx:ConnectorPoint PointX="18.317708333333332" PointY="34.625" />
+          <edmx:ConnectorPoint PointX="20.416666666666668" PointY="34.625" />
+          <edmx:ConnectorPoint PointX="20.583333333333332" PointY="34.625" />
+          <edmx:ConnectorPoint PointX="20.666666666666668" PointY="34.625" />
+          <edmx:ConnectorPoint PointX="21.083333333333332" PointY="34.625" />
+          <edmx:ConnectorPoint PointX="21.125" PointY="34.625" />
+          <edmx:ConnectorPoint PointX="21.125" PointY="36.125" />
+          <edmx:ConnectorPoint PointX="21.25" PointY="36.125" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="Priem2012Model.FK_Person_Nationality">
+          <edmx:ConnectorPoint PointX="1.5" PointY="40.999746093750005" />
+          <edmx:ConnectorPoint PointX="1.3802108333333332" PointY="40.999746093750005" />
+          <edmx:ConnectorPoint PointX="1.2135441666666667" PointY="40.999746093750005" />
+          <edmx:ConnectorPoint PointX="1.19531375" PointY="40.999746093750005" />
+          <edmx:ConnectorPoint PointX="1.19531375" PointY="36.6147265625" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="Priem2012Model.FK_OlympBook_OlympName">
+          <edmx:ConnectorPoint PointX="23.5" PointY="10.342306315104166" />
+          <edmx:ConnectorPoint PointX="23.5" PointY="11.246216634114582" />
+          <edmx:ConnectorPoint PointX="15.083333333333334" PointY="11.246216634114582" />
+          <edmx:ConnectorPoint PointX="14.916666666666666" PointY="11.246216634114582" />
+          <edmx:ConnectorPoint PointX="13.677083333333334" PointY="11.246216634114582" />
+          <edmx:ConnectorPoint PointX="13.510416666666666" PointY="11.246216634114582" />
+          <edmx:ConnectorPoint PointX="13.083333333333334" PointY="11.246216634114582" />
+          <edmx:ConnectorPoint PointX="12.916666666666666" PointY="11.246216634114582" />
+          <edmx:ConnectorPoint PointX="12.75" PointY="11.246216634114582" />
+        </edmx:AssociationConnector>
+        <edmx:EntityTypeShape EntityType="Priem2012Model.BenefitDocumentType" Width="1.5" PointX="0.75" PointY="49.75" Height="1.263611653645853" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.PersonBenefitDocument" Width="1.5" PointX="3" PointY="35.625" Height="2.4140429687499818" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_PersonBenefitDocument_BenefitDocumentType">
+          <edmx:ConnectorPoint PointX="5.25" PointY="45.797841796875" />
+          <edmx:ConnectorPoint PointX="5.6875" PointY="45.797841796875" />
+          <edmx:ConnectorPoint PointX="5.6875" PointY="36.960999348958339" />
+          <edmx:ConnectorPoint PointX="5.697916666666667" PointY="36.960999348958339" />
+          <edmx:ConnectorPoint PointX="5.864583333333333" PointY="36.960999348958339" />
+          <edmx:ConnectorPoint PointX="6.2916671666666675" PointY="36.960999348958339" />
+          <edmx:ConnectorPoint PointX="6.4583338333333336" PointY="36.960999348958339" />
+          <edmx:ConnectorPoint PointX="6.75" PointY="36.960999348958339" />
+          <edmx:ConnectorPoint PointX="6.75" PointY="36.585999348958339" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="Priem2012Model.FK_PersonBenefitDocument_Person">
+          <edmx:ConnectorPoint PointX="2.25" PointY="36.482646484375" />
+          <edmx:ConnectorPoint PointX="4.416666666666667" PointY="36.482646484375" />
+          <edmx:ConnectorPoint PointX="4.583333333333333" PointY="36.482646484375" />
+          <edmx:ConnectorPoint PointX="5.541666666666667" PointY="36.482646484375" />
+          <edmx:ConnectorPoint PointX="5.864583333333333" PointY="36.482646484375" />
+          <edmx:ConnectorPoint PointX="6" PointY="36.482646484375" />
+        </edmx:AssociationConnector>
+        <edmx:EntityTypeShape EntityType="Priem2012Model.extPersonAll" Width="1.5" PointX="24.75" PointY="0.75" Height="14.411398111979167" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.StudyLevelGroup" Width="1.5" PointX="1.5" PointY="14.5" Height="1.4279589843749818" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.OlympiadCheckedByRectorat" Width="1.5" PointX="24" PointY="24.25" Height="1.5923063151041106" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_OlympiadCheckedByRectorat_Olympiads">
+          <edmx:ConnectorPoint PointX="12.75" PointY="13.7139794921875" />
+          <edmx:ConnectorPoint PointX="13.59375" PointY="13.7139794921875" />
+          <edmx:ConnectorPoint PointX="13.59375" PointY="2.3423063151041106" />
+        </edmx:AssociationConnector>
+        <edmx:EntityTypeShape EntityType="Priem2012Model.qMark" Width="1.5" PointX="18.75" PointY="4.75" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.hlpAbiturientProf" Width="1.5" PointX="18.75" PointY="10.75" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.hlpAbiturientProfAdd" Width="1.5" PointX="20.75" PointY="0.75" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.OrderNumbers" Width="1.5" PointX="3" PointY="1" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.extEntryView_ForDisEntered" Width="1.5" PointX="20.75" PointY="3.75" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.C_FirstWave" Width="1.5" PointX="20.75" PointY="10.625" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_StudyLevel_StudyLevelGroup" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.SchoolNames" Width="1.5" PointX="21" PointY="14.125" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.C_AppSettings" Width="1.5" PointX="7.75" PointY="21.75" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.SP_LicenseProgram" Width="1.5" PointX="3.75" PointY="18.75" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.SP_ObrazProgram" PointX="6" PointY="29.25" Width="1.5" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.SP_Profile" Width="1.5" PointX="9" PointY="24.375" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_SP_LicenseProgram_StudyLevel" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_SP_ObrazProgram_SP_LicenseProgram" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_SP_ObrazProgram_SP_Faculty" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.qObrazProgram" Width="1.5" PointX="3.75" PointY="24.75" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.ApplicationDetails" Width="1.5" PointX="24.75" PointY="33" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.ApplicationVersion" Width="1.5" PointX="21.75" PointY="51.25" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.ApplicationVersionDetails" Width="1.5" PointX="24" PointY="40.375" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.Comission" Width="1.5" PointX="21.75" PointY="17.75" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_ApplicationDetails_Abiturient" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_ApplicationVersion_Abiturient" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_ApplicationVersionDetails_ApplicationVersion" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.Entry" Width="1.5" PointX="11.25" PointY="26.625" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_Abiturient_Entry" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_Entry_SP_Faculty" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_Entry_StudyBasis" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_Entry_StudyForm" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_Entry_StudyLevel" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_PayDataStudyPlan_Entry" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_Olympiads_OlympName">
+          <edmx:ConnectorPoint PointX="15.75" PointY="41.531152846153844" />
+          <edmx:ConnectorPoint PointX="16.15625" PointY="41.124902846153844" />
+          <edmx:ConnectorPoint PointX="16.15625" PointY="28.678584949869787" />
+          <edmx:ConnectorPoint PointX="16.260416666666668" PointY="28.678584949869787" />
+          <edmx:ConnectorPoint PointX="16.489583333333332" PointY="28.678584949869787" />
+          <edmx:ConnectorPoint PointX="16.5" PointY="28.678584949869787" />
+        </edmx:AssociationConnector>
+        <edmx:EntityTypeShape EntityType="Priem2012Model.ExamInEntry" Width="1.5" PointX="16.5" PointY="29.25" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_ExamInEntry_Entry">
+          <edmx:ConnectorPoint PointX="13.125" PointY="18.046871875000093" />
+          <edmx:ConnectorPoint PointX="13.317" PointY="18.046871875000093" />
+          <edmx:ConnectorPoint PointX="13.317" PointY="21.435190755208339" />
+          <edmx:ConnectorPoint PointX="13.504953125" PointY="21.435190755208339" />
+          <edmx:ConnectorPoint PointX="13.504953125" PointY="15.22368359375" />
+          <edmx:ConnectorPoint PointX="11.872" PointY="15.22368359375" />
+          <edmx:ConnectorPoint PointX="11.872" PointY="11.435190755208332" />
+          <edmx:ConnectorPoint PointX="10.622" PointY="11.435190755208332" />
+          <edmx:ConnectorPoint PointX="10.622" PointY="2.47368359375" />
+          <edmx:ConnectorPoint PointX="2.817" PointY="2.47368359375" />
+          <edmx:ConnectorPoint PointX="2.817" PointY="1.7499995" />
+          <edmx:ConnectorPoint PointX="2.625" PointY="1.7499995" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="Priem2012Model.FK_ExamInEntry_Exam">
+          <edmx:ConnectorPoint PointX="6.3750005000000005" PointY="37.375" />
+          <edmx:ConnectorPoint PointX="6.3750005000000005" PointY="36.774726562500007" />
+          <edmx:ConnectorPoint PointX="5.864583333333333" PointY="36.774726562500007" />
+          <edmx:ConnectorPoint PointX="5.666666666666667" PointY="36.774726562500007" />
+          <edmx:ConnectorPoint PointX="1.9583333333333333" PointY="36.774726562500007" />
+          <edmx:ConnectorPoint PointX="1.7916666666666667" PointY="36.774726562500007" />
+          <edmx:ConnectorPoint PointX="1.3802108333333332" PointY="36.774726562500007" />
+          <edmx:ConnectorPoint PointX="1.0104166666666667" PointY="36.774726562500007" />
+          <edmx:ConnectorPoint PointX="0.97395583333333346" PointY="36.774726562500007" />
+          <edmx:ConnectorPoint PointX="0.80728916666666672" PointY="36.774726562500007" />
+          <edmx:ConnectorPoint PointX="0.59" PointY="36.774726562500007" />
+          <edmx:ConnectorPoint PointX="0.59" PointY="0.25999999999999995" />
+          <edmx:ConnectorPoint PointX="1.875" PointY="0.25999999999999995" />
+          <edmx:ConnectorPoint PointX="1.875" PointY="0.5" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="Priem2012Model.fk_Mark_ExamInEntry">
+          <edmx:ConnectorPoint PointX="2.625" PointY="2.8485611227964736" />
+          <edmx:ConnectorPoint PointX="7.5" PointY="2.8485611227964736" />
+          <edmx:ConnectorPoint PointX="7.5" PointY="2.59568359375" />
+          <edmx:ConnectorPoint PointX="10.5" PointY="2.59568359375" />
+          <edmx:ConnectorPoint PointX="10.5" PointY="5.0956022135416656" />
+          <edmx:ConnectorPoint PointX="10.538666666666666" PointY="5.0956022135416648" />
+          <edmx:ConnectorPoint PointX="10.705333333333334" PointY="5.0956022135416656" />
+          <edmx:ConnectorPoint PointX="12.5" PointY="5.0956022135416656" />
+          <edmx:ConnectorPoint PointX="12.5" PointY="6.7879850260416674" />
+          <edmx:ConnectorPoint PointX="16.25" PointY="6.7879850260416674" />
+          <edmx:ConnectorPoint PointX="16.25" PointY="29.625" />
+          <edmx:ConnectorPoint PointX="16.260416666666668" PointY="29.625" />
+          <edmx:ConnectorPoint PointX="16.489583333333332" PointY="29.625" />
+          <edmx:ConnectorPoint PointX="17.25" PointY="29.625" />
+          <edmx:ConnectorPoint PointX="17.25" PointY="30" />
+        </edmx:AssociationConnector>
+        <edmx:EntityTypeShape EntityType="Priem2012Model.qAbiturient" Width="1.5" PointX="26.75" PointY="0.75" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_Entry_SP_LicenseProgram" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_Entry_SP_ObrazProgram" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.qAbiturient_WhoSetHasOriginals" Width="1.5" PointX="26.75" PointY="14.75" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.qAbiturient_WhoSetBackDoc" Width="1.5" PointX="28.75" PointY="0.75" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.hlpAbiturientActionLog" Width="1.5" PointX="28.75" PointY="4.75" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.qAbiturientForeignApplicationsOnly" Width="1.5" PointX="15.75" PointY="23.75" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.ExaminerAccount" Width="1.5" PointX="28.75" PointY="10.75" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.ExaminerInExamsVed" Width="1.5" PointX="28.75" PointY="13.75" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_Mark_EgeCertificate" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.EntryHeader" Width="1.5" PointX="28.75" PointY="16.75" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.hlpStatistics" Width="1.5" PointX="29.75" PointY="19.75" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.qEntryToCompetitiveGroup" Width="1.5" PointX="29.75" PointY="25.75" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.OlympSubjectToExam" Width="1.5" PointX="27.75" PointY="19.5" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_OlympSubjectToExam_Exam">
+          <edmx:ConnectorPoint PointX="6" PointY="37.918355950846362" />
+          <edmx:ConnectorPoint PointX="5.78125" PointY="37.918355950846362" />
+          <edmx:ConnectorPoint PointX="5.78125" PointY="18.10448838141026" />
+          <edmx:ConnectorPoint PointX="7.666666666666667" PointY="18.10448838141026" />
+          <edmx:ConnectorPoint PointX="7.833333333333333" PointY="18.10448838141026" />
+          <edmx:ConnectorPoint PointX="7.854166666666667" PointY="18.10448838141026" />
+          <edmx:ConnectorPoint PointX="8.0983333333333345" PointY="18.10448838141026" />
+          <edmx:ConnectorPoint PointX="10.875" PointY="18.10448838141026" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="Priem2012Model.FK_OlympSubjectToExam_OlympSubject">
+          <edmx:ConnectorPoint PointX="15" PointY="36" />
+          <edmx:ConnectorPoint PointX="15" PointY="35.9375" />
+          <edmx:ConnectorPoint PointX="14.208333333333334" PointY="35.9375" />
+          <edmx:ConnectorPoint PointX="13.791666666666666" PointY="35.9375" />
+          <edmx:ConnectorPoint PointX="13.708333333333334" PointY="35.9375" />
+          <edmx:ConnectorPoint PointX="13.541666666666666" PointY="35.9375" />
+          <edmx:ConnectorPoint PointX="13.0625" PointY="35.9375" />
+          <edmx:ConnectorPoint PointX="13.0625" PointY="26.960836588541667" />
+          <edmx:ConnectorPoint PointX="13.104166666666666" PointY="26.960836588541667" />
+          <edmx:ConnectorPoint PointX="13.400333333333334" PointY="26.960836588541667" />
+          <edmx:ConnectorPoint PointX="13.40625" PointY="26.960836588541667" />
+          <edmx:ConnectorPoint PointX="13.40625" PointY="23.980286458333339" />
+          <edmx:ConnectorPoint PointX="13.25" PointY="23.980286458333339" />
+          <edmx:ConnectorPoint PointX="13.25" PointY="21.557190755208339" />
+          <edmx:ConnectorPoint PointX="13.625" PointY="21.557190755208339" />
+          <edmx:ConnectorPoint PointX="13.625" PointY="17.505768229166669" />
+          <edmx:ConnectorPoint PointX="13.588286458333334" PointY="17.505768229166669" />
+          <edmx:ConnectorPoint PointX="13.419666666666666" PointY="17.505768229166669" />
+          <edmx:ConnectorPoint PointX="12.375" PointY="17.505768229166669" />
+        </edmx:AssociationConnector>
+        <edmx:EntityTypeShape EntityType="Priem2012Model.qAbiturient_WhoSetIsPaid" Width="1.5" PointX="29.75" PointY="28.75" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.Signer" Width="1.5" PointX="0.75" PointY="1.5" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_OrderNumbers_Signer" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.extEntry" Width="1.5" PointX="30.75" PointY="0.75" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.ForeignCountry" Width="1.5" PointX="9" PointY="42.25" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_Person_Contacts_ForeignCountry" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_Person_EducationInfo_ForeignCountry" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_Entry_SP_Profile" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.SP_AggregateGroup" Width="1.5" PointX="1.5" PointY="21.625" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_SP_LicenseProgram_SP_AggregateGroup" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_Person_AdditionalInfo_Language" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.InnerEntryInEntry" Width="1.5" PointX="13.5" PointY="29.5" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_ApplicationDetails_ObrazProgramInEntry" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_ApplicationVersionDetails_ObrazProgramInEntry" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_ObrazProgramInEntry_Entry" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_ObrazProgramInEntry_SP_ObrazProgram" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_InnerEntryInEntry_SP_Profile" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.extAbit" Width="1.5" PointX="31.75" PointY="9.75" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.extPerson" Width="1.5" PointX="31.75" PointY="25.75" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.extPerson_EducationInfo" Width="1.5" PointX="32.75" PointY="0.75" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.extPerson_EducationInfo_Current" Width="1.5" PointX="33.75" PointY="9.75" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_Protocol_SP_Faculty" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_Protocol_SP_LicenseProgram" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.extApplicationDetails" Width="1.5" PointX="1.7454591904512884" PointY="29.135059310651876" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_Entry_Comission" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.hlpPersonMaxEducationInfoId" Width="1.5" PointX="5.0530107603655248" PointY="0.71549055013595642" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.extAbitAspirant" Width="1.5" PointX="0.64590330638266324" PointY="2.7614979160770297" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.extAbitSPO" Width="1.5" PointX="2.2358376133422544" PointY="4.4423518946591543" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.PersonSportQualification" Width="1.5" PointX="4.4095504881858592" PointY="6.2666183292244648" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.SportQualification" Width="1.5" PointX="5.8737563033931686" PointY="17.986643799574413" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_PersonSportQualification_SportQualification" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_PersonSportQualification_Person" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.extForeignPerson" Width="1.5" PointX="22.75" PointY="0.75" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.PersonEgeRequest" Width="1.5" PointX="6.75" PointY="3.375" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.AchievementType" Width="1.5" PointX="2.5434756775123422" PointY="20.318694779797781" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.PersonAchievement" Width="1.5" PointX="11.638815952296749" PointY="14.423401466767956" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_PersonAchievement_AchievementType" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_PersonAchievement_Person" />
+        </edmx:Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

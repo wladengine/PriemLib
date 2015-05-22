@@ -7,7 +7,7 @@ using System.Transactions;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using System.Data.Objects;
+using System.Data.Entity.Core.Objects;
 
 using BDClassLib;
 using EducServLib;
@@ -18,15 +18,15 @@ namespace PriemLib
     public class EntryViewProtocol : ProtocolCard
     {
         Dictionary<int?, List<string>> lstSelected;
-  
-        public EntryViewProtocol(ProtocolList owner, int sFac, int sSection, int sForm, int? sProf, bool? isSec, bool? isReduced, bool? isParal, bool? isList, bool isCel)
-            : this(owner, sFac, sSection, sForm, sProf, isSec, isReduced, isParal, isList, isCel, null)
+
+        public EntryViewProtocol(ProtocolList owner, int iStudyLevelGroup, int sFac, int sSection, int sForm, int? sProf, bool? isSec, bool? isReduced, bool? isParal, bool? isList, bool isCel)
+            : this(owner, iStudyLevelGroup, sFac, sSection, sForm, sProf, isSec, isReduced, isParal, isList, isCel, null)
         {
         }
 
         //конструктор 
-        public EntryViewProtocol(ProtocolList owner, int sFac, int sSection, int sForm, int? sProf, bool? isSec, bool? isReduced, bool? isParal, bool? isList, bool isCel, Guid? sProtocol)
-            : base(owner,sFac,sSection,sForm,sProf, isSec, isReduced, isParal, isList, isCel, sProtocol)
+        public EntryViewProtocol(ProtocolList owner, int iStudyLevelGroup, int sFac, int sSection, int sForm, int? sProf, bool? isSec, bool? isReduced, bool? isParal, bool? isList, bool isCel, Guid? sProtocol)
+            : base(owner, iStudyLevelGroup, sFac, sSection, sForm, sProf, isSec, isReduced, isParal, isList, isCel, sProtocol)
         {
             _type = ProtocolTypes.EntryView;                      
         }
@@ -66,10 +66,10 @@ namespace PriemLib
 
                 this.chbFilter.Visible = false;
 
-                sQuery = "SELECT DISTINCT ed.extAbitMarksSum.TotalSum as Sum, ed.extPerson.AttestatSeries, ed.extPerson.AttestatNum, ed.qAbiturient.Id as Id, ed.qAbiturient.BAckDoc as backdoc, " +
+                sQuery = "SELECT DISTINCT ed.extAbitMarksSum.TotalSum as Sum, ed.extPerson.EducDocument, ed.qAbiturient.Id as Id, ed.qAbiturient.BAckDoc as backdoc, " +
                     " 'false' as Red, ed.qAbiturient.RegNum as Рег_Номер, " +
                     " ed.extPerson.FIO as ФИО, " +
-                    " (case when ed.extPerson.SchoolTypeId = 1 then ed.extPerson.AttestatRegion + ' ' + ed.extPerson.AttestatSeries + '  №' + ed.extPerson.AttestatNum else ed.extPerson.DiplomSeries + '  №' + ed.extPerson.DiplomNum end) as Документ_об_образовании, " +
+                    " ed.extPerson.EducDocument as Документ_об_образовании, " +
                     " ed.extPerson.PassportSeries + ' №' + ed.extPerson.PassportNumber as Паспорт, " +
                     " LicenseProgramCode + ' ' + LicenseProgramName + ' ' +(Case when NOT ed.qAbiturient.ProfileId IS NULL then ProfileName else ObrazProgramName end) as Направление, " +
                     " Competition.NAme as Конкурс, ed.qAbiturient.BackDoc, _FirstWave.SortNum " +
@@ -122,7 +122,7 @@ namespace PriemLib
             sFilter += " AND ed.qAbiturient.Id NOT IN (SELECT AbiturientId FROM ed.extEntryView) ";
 
             if (_studyBasisId == 1)
-                sFilter += string.Format(" AND ed.qAbiturient.PersonId NOT IN (SELECT PersonId FROM ed.extEntryView WHERE StudyLevelGroupId = {0} AND StudyBasisId = 1)", MainClass.studyLevelGroupId);
+                sFilter += string.Format(" AND ed.qAbiturient.PersonId NOT IN (SELECT PersonId FROM ed.extEntryView WHERE StudyLevelGroupId IN ({0}) AND StudyBasisId = 1)", Util.BuildStringWithCollection(MainClass.lstStudyLevelGroupId));
 
             sFilter += "AND ((ed.qAbiturient.IsListener = 0 AND ed.qAbiturient.IsSecond = 0 AND ed.qAbiturient.IsReduced = 0 AND ed.qAbiturient.IsParallel = 0 AND EXISTS (SELECT * FROM ed.Abiturient AB WHERE AB.HasOriginals > 0 AND AB.PersonId = qAbiturient.PersonId)) OR ed.qAbiturient.IsListener = 1 OR ed.qAbiturient.IsSecond = 1 OR ed.qAbiturient.IsReduced = 1 OR ed.qAbiturient.IsParallel = 1 OR ed.qAbiturient.IsPaid = 1)";
       
@@ -145,15 +145,12 @@ namespace PriemLib
                         sFilter += " AND PersonId IN (SELECT PersonId FROM ed.Olympiads WHERE OlympValueId=6 AND OlympTypeId=2) ";
                         break;
                     case 3:
-                        //sFilter += " AND ed.qAbiturient.CompetitionId=1 ";
                         sFilter += " AND PersonId IN (SELECT PersonId FROM ed.Olympiads WHERE OlympValueId=5 AND OlympTypeId=2) ";
                         break;
                     case 4:
-                        //sFilter += " AND ed.qAbiturient.CompetitionId=1 ";
                         sFilter += " AND PersonId IN (SELECT PersonId FROM ed.Olympiads WHERE OlympValueId=6 AND OlympTypeId IN (3,4)) ";
                         break;
                     case 5:
-                        //sFilter += " AND ed.qAbiturient.CompetitionId=1 ";
                         sFilter += " AND PersonId IN (SELECT PersonId FROM ed.Olympiads WHERE OlympValueId=5 AND OlympTypeId IN (3,4)) ";
                         break;
                     case 6:
@@ -264,9 +261,9 @@ namespace PriemLib
 
             DataSet dsPrograms = MainClass.Bdc.GetDataSet(string.Format(@"SELECT DISTINCT ObrazProgramId, ProfileId, KCP AS Value, KCPCel AS ValueCel, KCPCrimea 
                     FROM ed.qEntry 
-                    WHERE ed.qEntry.StudyLevelGroupId = {7} AND ed.qEntry.FacultyId={0} AND ed.qEntry.StudyFormId={1} AND
-                    ed.qEntry.StudyBasisId={2} AND ed.qEntry.LicenseProgramId={3} AND ed.qEntry.IsSEcond = {4} AND ed.qEntry.IsReduced = {5} AND ed.qEntry.IsParallel = {6}", _facultyId, _studyFormId, _studyBasisId, _licenseProgramId, 
-                    QueryServ.StringParseFromBool(_isSecond.Value), QueryServ.StringParseFromBool(_isReduced.Value), QueryServ.StringParseFromBool(_isParallel.Value), MainClass.studyLevelGroupId));
+                    WHERE ed.qEntry.StudyLevelGroupId={7} AND ed.qEntry.FacultyId={0} AND ed.qEntry.StudyFormId={1} AND
+                    ed.qEntry.StudyBasisId={2} AND ed.qEntry.LicenseProgramId={3} AND ed.qEntry.IsSEcond = {4} AND ed.qEntry.IsReduced = {5} AND ed.qEntry.IsParallel = {6}", _facultyId, _studyFormId, _studyBasisId, _licenseProgramId,
+                    QueryServ.StringParseFromBool(_isSecond.Value), QueryServ.StringParseFromBool(_isReduced.Value), QueryServ.StringParseFromBool(_isParallel.Value), _studyLevelGroupId));
 
             //по каждой программе-профилю смотрим КЦ и оставшиеся места и зачисляем подавших подлинники
             foreach (DataRow dr in dsPrograms.Tables[0].Rows)
@@ -279,7 +276,7 @@ namespace PriemLib
                         WHERE Excluded=0 AND ed.extAbit.StudyLevelGroupId = {9}
                         AND ed.extAbit.FacultyId={0} AND ed.extAbit.StudyFormId={1} AND ed.extAbit.StudyBasisId={2} 
                         AND ed.extAbit.LicenseProgramId={3} AND ed.extAbit.IsSEcond = {4} AND ed.extAbit.IsReduced = {5} AND ed.extAbit.IsParallel = {6} AND ed.extAbit.ObrazProgramId={7} {8}", _facultyId, _studyFormId, _studyBasisId, _licenseProgramId, QueryServ.StringParseFromBool(_isSecond.Value), QueryServ.StringParseFromBool(_isReduced.Value), QueryServ.StringParseFromBool(_isParallel.Value),
-                        obProg, string.IsNullOrEmpty(spec) ? " AND ed.extAbit.ProfileId IS NULL " : " AND ed.extAbit.ProfileId='" + spec + "'", MainClass.studyLevelGroupId);
+                        obProg, string.IsNullOrEmpty(spec) ? " AND ed.extAbit.ProfileId IS NULL " : " AND ed.extAbit.ProfileId='" + spec + "'", _studyLevelGroupId);
 
                 if (_isCel.Value)
                     enteredQuery += " AND ed.extAbit.CompetitionId=6 ";
@@ -331,18 +328,6 @@ namespace PriemLib
                 DataTable dtProg = MainClass.Bdc.GetDataSet(sQueryBody + sQueryJoinFW + sFilter + orderBy).Tables[0];
 
                 dtAbits.Merge(dtProg);
-
-                //// на вторую волну сделать так же и для бакалавров
-                //if (MainClass.dbType == PriemType.PriemMag)
-                //{
-                //    int cntRestAfterGreen = kcRest - dtProg.Rows.Count;
-                //    if (cntRestAfterGreen > 0)
-                //    {
-                //        kcRest = cntRestAfterGreen;                    
-                //        DataTable dtProgAdd = MainClass.Bdc.GetDataSet(sQueryBody + sFilter + orderBy).Tables[0];
-                //        dtAbits.Merge(dtProgAdd);
-                //    }
-                //}
             }
 
             FillGrid(dgvRight, dtAbits);
@@ -401,7 +386,7 @@ namespace PriemLib
                         ObjectParameter paramId = new ObjectParameter("id", typeof(Guid));
                         int iProtocolTypeId = ProtocolList.TypeToInt(_type);
 
-                        context.Protocol_InsertAll(MainClass.studyLevelGroupId,
+                        context.Protocol_InsertAll(_studyLevelGroupId,
                                   _facultyId, _licenseProgramId, _studyFormId, _studyBasisId, tbNum.Text, dtpDate.Value, iProtocolTypeId,
                                   string.Empty, !isNew, null, _isSecond, _isReduced, _isParallel, _isListener, paramId);
 
@@ -423,7 +408,7 @@ namespace PriemLib
             }
             catch (Exception ex)
             {
-                WinFormsServ.Error("Ошибка при сохранении протокола: " + ex.Message);
+                WinFormsServ.Error("Ошибка при сохранении протокола: ", ex);
             }
 
             return true;
@@ -481,7 +466,7 @@ namespace PriemLib
             }
             catch (Exception ex)
             {
-                WinFormsServ.Error("Ошибка при выводе в Word протокола о допуске: " + ex.Message);
+                WinFormsServ.Error("Ошибка при выводе в Word протокола о допуске: ", ex);
             }
         }
    }

@@ -28,6 +28,12 @@ namespace PriemLib
             set { _protocolReason = value; }
         }
 
+        public int? StudyLevelGroupId
+        {
+            get { return ComboServ.GetComboIdInt(cbStudyLevelGroup); }
+            set { ComboServ.SetComboId(cbStudyLevelGroup, value); }
+        }
+
         public int? FacultyId
         {
             get { return ComboServ.GetComboIdInt(cbFaculty); }

@@ -7,7 +7,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Linq;
-using System.Data.Objects;
+using System.Data.Entity.Core.Objects;
 using System.Transactions;
 
 using BDClassLib;
@@ -24,6 +24,8 @@ namespace PriemLib
         protected int _studyFormId;
         protected int _studyBasisId;
         protected int? _licenseProgramId;
+        protected int _studyLevelGroupId;
+
         protected Guid? _id;
         protected ProtocolTypes _type;
                 
@@ -65,33 +67,34 @@ namespace PriemLib
         }
 
         //конструктор
-        public ProtocolCard(ProtocolList owner, int facultyId, int studyBasisId, int studyFormId)
-            : this(owner, facultyId, studyBasisId, studyFormId, null, null)
+        public ProtocolCard(ProtocolList owner, int studyLevelGroupId, int facultyId, int studyBasisId, int studyFormId)
+            : this(owner, studyLevelGroupId, facultyId, studyBasisId, studyFormId, null, null)
         {
         }
 
         //конструктор 
-        public ProtocolCard(ProtocolList owner, int facultyId, int studyBasisId, int studyFormId, Guid? id) :
-            this(owner, facultyId, studyBasisId, studyFormId, null, id)
+        public ProtocolCard(ProtocolList owner, int studyLevelGroupId, int facultyId, int studyBasisId, int studyFormId, Guid? id) :
+            this(owner, studyLevelGroupId, facultyId, studyBasisId, studyFormId, null, id)
         {
         }
 
         //конструктор 
-        public ProtocolCard(ProtocolList owner, int facultyId, int studyBasisId, int studyFormId, int? licenseProgramId, Guid? id) :
-            this(owner, facultyId, studyBasisId, studyFormId, licenseProgramId, null, null, null, null, id)
+        public ProtocolCard(ProtocolList owner, int studyLevelGroupId, int facultyId, int studyBasisId, int studyFormId, int? licenseProgramId, Guid? id) :
+            this(owner, studyLevelGroupId, facultyId, studyBasisId, studyFormId, licenseProgramId, null, null, null, null, id)
         {
         }
 
-        public ProtocolCard(ProtocolList owner, int facultyId, int studyBasisId, int studyFormId, int? licenseProgramId, bool? isSecond, bool? isReduced, bool? isParallel, bool? isListener, Guid? id)
-            : this(owner, facultyId, studyBasisId, studyFormId, licenseProgramId, isSecond, isReduced, isParallel, isListener, null, id)
+        public ProtocolCard(ProtocolList owner, int studyLevelGroupId, int facultyId, int studyBasisId, int studyFormId, int? licenseProgramId, bool? isSecond, bool? isReduced, bool? isParallel, bool? isListener, Guid? id)
+            : this(owner, studyLevelGroupId, facultyId, studyBasisId, studyFormId, licenseProgramId, isSecond, isReduced, isParallel, isListener, null, id)
         { }
 
         //конструктор 
-        public ProtocolCard(ProtocolList owner, int facultyId, int studyBasisId, int studyFormId, int? licenseProgramId, bool? isSecond, bool? isReduced, bool? isParallel, bool? isListener, bool? isCel, Guid? id)
+        public ProtocolCard(ProtocolList owner, int studyLevelGroupId, int facultyId, int studyBasisId, int studyFormId, int? licenseProgramId, bool? isSecond, bool? isReduced, bool? isParallel, bool? isListener, bool? isCel, Guid? id)
         {
             InitializeComponent();
 
             _facultyId = facultyId;
+            _studyLevelGroupId = studyLevelGroupId;
             _licenseProgramId = licenseProgramId;
             _studyBasisId = studyBasisId;
             _studyFormId = studyFormId;           
@@ -130,7 +133,7 @@ namespace PriemLib
             if (isNew)
             {
                 //строим номер протокола
-                string sProtNum = MainClass.studyLevelGroupId.ToString();
+                string sProtNum = MainClass.lstStudyLevelGroupId.First().ToString();
 
                 sProtNum += (_facultyId > 9 ? "" : "0") + _facultyId.ToString();//номер факультета
                 sProtNum += DateTime.Now.Year.ToString().Substring(2);//год
@@ -138,13 +141,13 @@ namespace PriemLib
                 try
                 {
                     string sNum = MainClass.Bdc.GetStringValue(string.Format("SELECT ProtocolNum FROM ed.ProtocolNumbers WHERE FacultyId = {0} AND StudyLevelGroupId = {1}", 
-                        _facultyId, MainClass.studyLevelGroupId));
+                        _facultyId, _studyLevelGroupId));
                     sNum = "0000" + sNum;
                     sProtNum += sNum.Substring(sNum.Length - 4);
                 }
                 catch (Exception ex)
                 {
-                    WinFormsServ.Error("Ошибка при присвоении номера протокола: " + ex.Message);
+                    WinFormsServ.Error("Ошибка при присвоении номера протокола: ", ex);
                 }
 
                 ProtocolName = sProtNum;
@@ -158,12 +161,11 @@ namespace PriemLib
                         var protocolInfo = context.qProtocol.Where(x => x.Id == _id.Value).Select(x => new { x.Number, x.Date }).FirstOrDefault();
                         ProtocolName = protocolInfo.Number;
                         dtpDate.Value = protocolInfo.Date.Value;
-
-                    }                    
+                    }
                 }
                 catch (Exception ex)
                 {
-                    WinFormsServ.Error("Ошибка взятия данных протокола: " + ex.Message);
+                    WinFormsServ.Error("Ошибка взятия данных протокола: ", ex);
                 }
             }
 
@@ -246,7 +248,7 @@ namespace PriemLib
             //}
             //catch (Exception ex)
             //{
-            //    WinFormsServ.Error("Ошибка при заполнении грида данными протокола: " + ex.Message);
+            //    WinFormsServ.Error("Ошибка при заполнении грида данными протокола: ", ex);
             //}
         }
 
@@ -261,7 +263,7 @@ namespace PriemLib
             foreach (DataGridViewRow row in dgv.Rows)
                 idList.Add(string.Format("'{0}'", row.Cells["Id"].Value.ToString()));
 
-            whereString = string.Format(" WHERE ed.extAbit.StudyLevelGroupId = {1} AND ed.extAbit.Id IN ({0}) ", Util.BuildStringWithCollection(idList), MainClass.studyLevelGroupId);
+            whereString = string.Format(" WHERE ed.extAbit.StudyLevelGroupId = {1} AND ed.extAbit.Id IN ({0}) ", Util.BuildStringWithCollection(idList), _studyLevelGroupId);
             dgv.Rows.Clear();
             FillGrid(dgvRight, sQuery, whereString, sOrderby);
         }
@@ -274,8 +276,8 @@ namespace PriemLib
         //возвращает строку фильтров
         protected virtual string GetWhereClause(string sTable)
         {
-            string rez = string.Format(" WHERE {3}.StudyLevelGroupId = {4} AND {3}.FacultyId = {0} AND {3}.StudyFormId = {1} AND {3}.StudyBasisId = {2}  ", 
-                _facultyId.ToString(), _studyFormId.ToString(), _studyBasisId.ToString(), sTable, MainClass.studyLevelGroupId);
+            string rez = string.Format(" WHERE {3}.StudyLevelGroupId = {4} AND {3}.FacultyId = {0} AND {3}.StudyFormId = {1} AND {3}.StudyBasisId = {2}  ",
+                _facultyId.ToString(), _studyFormId.ToString(), _studyBasisId.ToString(), sTable, _studyLevelGroupId);
 
             return rez;
         }
@@ -421,7 +423,7 @@ namespace PriemLib
                             ObjectParameter paramId = new ObjectParameter("id", typeof(Guid));
                             int iProtocolTypeId = ProtocolList.TypeToInt(_type);
 
-                            context.Protocol_InsertAll(MainClass.studyLevelGroupId,
+                            context.Protocol_InsertAll(_studyLevelGroupId,
                                 _facultyId, _licenseProgramId, _studyFormId, _studyBasisId, tbNum.Text, dtpDate.Value, iProtocolTypeId,
                                 string.Empty, !isNew, null, _isSecond, _isReduced, _isParallel, _isListener, paramId);
 
@@ -437,14 +439,14 @@ namespace PriemLib
                         }
                         catch (Exception exc)
                         {
-                            throw new Exception("Ошибка при сохранении данных: " + exc.Message);
+                            WinFormsServ.Error("Ошибка при сохранении данных: ", exc);
                         }
                     }
                 }                
             }
             catch (Exception ex)
             {
-                WinFormsServ.Error("Ошибка при сохранении протокола: " + ex.Message);
+                WinFormsServ.Error("Ошибка при сохранении протокола: ", ex);
                 return false;
             }
 
@@ -504,7 +506,7 @@ namespace PriemLib
             }
             catch (Exception ex)
             {
-                WinFormsServ.Error("Ошибка при выводе в Word протокола о допуске: " + ex.Message);
+                WinFormsServ.Error("Ошибка при выводе в Word протокола о допуске: ", ex);
             }
         }
 
@@ -543,7 +545,7 @@ namespace PriemLib
             }
             catch (Exception ex)
             {
-                WinFormsServ.Error("Ошибка при удалении протокола: " + ex.Message);
+                WinFormsServ.Error("Ошибка при удалении протокола: ", ex);
             }
             this.Close();
         }

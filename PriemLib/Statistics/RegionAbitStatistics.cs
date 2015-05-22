@@ -63,7 +63,7 @@ namespace PriemLib
             using (PriemEntities context = new PriemEntities())
             {
                 var src = (from x in context.qEntry
-                           where x.StudyLevelGroupId == MainClass.studyLevelGroupId
+                           where MainClass.lstStudyLevelGroupId.Contains(x.StudyLevelGroupId)
                            select new
                            {
                                x.FacultyId,
@@ -79,7 +79,7 @@ namespace PriemLib
             using (PriemEntities context = new PriemEntities())
             {
                 var src = (from x in context.qEntry
-                           where x.StudyLevelGroupId == MainClass.studyLevelGroupId
+                           where MainClass.lstStudyLevelGroupId.Contains(x.StudyLevelGroupId)
                            select new
                            {
                                x.FacultyId,
@@ -101,7 +101,7 @@ namespace PriemLib
             using (PriemEntities context = new PriemEntities())
             {
                 var src = (from x in context.qEntry
-                           where x.StudyLevelGroupId == MainClass.studyLevelGroupId
+                           where MainClass.lstStudyLevelGroupId.Contains(x.StudyLevelGroupId)
                            select new
                            {
                                x.FacultyId,
@@ -126,7 +126,7 @@ namespace PriemLib
             using (PriemEntities context = new PriemEntities())
             {
                 var src = (from x in context.qEntry
-                           where x.StudyLevelGroupId == MainClass.studyLevelGroupId
+                           where MainClass.lstStudyLevelGroupId.Contains(x.StudyLevelGroupId)
                            select new
                            {
                                x.FacultyId,
@@ -181,7 +181,7 @@ namespace PriemLib
             string groupby = " GROUP BY extPerson.RegionName, extAbit.StudyBasisId ";
             
             SortedList<string, object> sl = new SortedList<string, object>();
-            sl.Add("@StudyLevelGroupId", MainClass.studyLevelGroupId);
+            sl.Add("@StudyLevelGroupId", MainClass.lstStudyLevelGroupId.First());
 
             if (FacultyId.HasValue)
             {
@@ -224,7 +224,7 @@ INNER JOIN ed.extEntryView ON extEntryView.AbiturientId = extAbit.Id
 LEFT JOIN ed.hlpStatMarksSum ON hlpStatMarksSum.AbiturientId = extAbit.Id
 WHERE RegionId IS NOT NULL AND extAbit.StudyLevelGroupId=@StudyLevelGroupId";
             sl.Clear();
-            sl.Add("@StudyLevelGroupId", MainClass.studyLevelGroupId);
+            sl.Add("@StudyLevelGroupId", MainClass.lstStudyLevelGroupId.First());
 
             if (FacultyId.HasValue)
             {
@@ -431,7 +431,7 @@ WHERE RegionId IS NOT NULL AND extAbit.StudyLevelGroupId=@StudyLevelGroupId";
             }
             catch (Exception ex)
             {
-                WinFormsServ.Error(ex.Message);
+                WinFormsServ.Error(ex);
             }
         }
     }

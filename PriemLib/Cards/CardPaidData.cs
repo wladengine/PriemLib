@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using EducServLib;
 using BDClassLib;
 using BaseFormsLib;
+using System.Data.Entity.Core.Objects;
 
 namespace PriemLib
 {
@@ -65,7 +66,7 @@ namespace PriemLib
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error("Ошибка при инициализации формы " + exc.Message);
+                WinFormsServ.Error("Ошибка при инициализации формы ", exc);
             }    
         }
 
@@ -136,7 +137,7 @@ namespace PriemLib
             }
             catch (DataException de)
             {
-                WinFormsServ.Error("Ошибка при заполнении формы " + de.Message);
+                WinFormsServ.Error("Ошибка при заполнении формы ", de);
             }            
         }
 
@@ -168,7 +169,7 @@ namespace PriemLib
             }
             catch (DataException de)
             {
-                WinFormsServ.Error("Ошибка при заполнении формы " + de.Message);
+                WinFormsServ.Error("Ошибка при заполнении формы ", de);
             }
         }
 
@@ -297,7 +298,7 @@ namespace PriemLib
             }
         }
 
-        protected override void InsertRec(PriemEntities context, System.Data.Objects.ObjectParameter idParam)
+        protected override void InsertRec(PriemEntities context, ObjectParameter idParam)
         {
             context.PaidData_Insert(DogovorNum, DogovorDate, DogovorTypeId, ProrektorId, Qualification, Srok, 
                 DateStart, DateFinish, SumFirstYear, PayPeriodId, SumFirstPeriod, AbitFIORod, AbitParent, null, 

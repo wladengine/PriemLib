@@ -87,7 +87,7 @@ namespace PriemLib
             }
             catch (Exception ex)
             {
-                WinFormsServ.Error("Ошибка при добавлении оценки: "+ ex.Message);
+                WinFormsServ.Error("Ошибка при добавлении оценки: ", ex);
             }
         }
 
@@ -181,7 +181,7 @@ namespace PriemLib
                 }
                 catch (Exception ex)
                 {
-                    WinFormsServ.Error("Ошибка при удалении оценки: " + ex.Message);
+                    WinFormsServ.Error("Ошибка при удалении оценки: ", ex);
                 }
 
             }

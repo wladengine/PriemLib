@@ -34,7 +34,7 @@ namespace PriemLib
         {
             InitializeComponent();
             this.MdiParent = MainClass.mainform;
-            iStudyLevelGroupId = MainClass.studyLevelGroupId;
+            iStudyLevelGroupId = MainClass.lstStudyLevelGroupId.First();
 
             InitGrid();
             LoadFaculties();
@@ -49,7 +49,7 @@ namespace PriemLib
                             join sl in context.StudyLevel
                             on ent.StudyLevelId equals sl.Id
 
-                            where sl.LevelGroupId == MainClass.studyLevelGroupId
+                            where sl.LevelGroupId == iStudyLevelGroupId
                             select new
                             {
                                 ent.StudyBasisId,
@@ -539,11 +539,11 @@ namespace PriemLib
             }
             catch (WordException we)
             {
-                WinFormsServ.Error(we.Message);
+                WinFormsServ.Error(we);
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error(exc.Message);
+                WinFormsServ.Error(exc);
             }
         }
         //private void CPK_Rtf()

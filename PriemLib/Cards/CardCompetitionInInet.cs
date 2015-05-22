@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Data.Objects;
+using System.Data.Entity.Core.Objects;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -147,7 +147,7 @@ namespace PriemLib
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error("Ошибка при инициализации формы FillStudyLevel" + exc.Message);
+                WinFormsServ.Error("Ошибка при инициализации формы FillStudyLevel", exc);
             }
         }
         private void FillLicenseProgram()
@@ -169,7 +169,7 @@ namespace PriemLib
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error("Ошибка при инициализации формы FillLicenseProgram" + exc.Message);
+                WinFormsServ.Error("Ошибка при инициализации формы FillLicenseProgram", exc);
             }
         }
         private void FillObrazProgram()
@@ -192,7 +192,7 @@ namespace PriemLib
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error("Ошибка при инициализации формы FillObrazProgram" + exc.Message);
+                WinFormsServ.Error("Ошибка при инициализации формы FillObrazProgram", exc);
             }
         }
         private void FillProfile()
@@ -225,7 +225,7 @@ namespace PriemLib
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error("Ошибка при инициализации формы FillProfile" + exc.Message);
+                WinFormsServ.Error("Ошибка при инициализации формы FillProfile", exc);
             }
         }
         private void FillFaculty()
@@ -250,7 +250,7 @@ namespace PriemLib
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error("Ошибка при инициализации формы FillFaculty" + exc.Message);
+                WinFormsServ.Error("Ошибка при инициализации формы FillFaculty", exc);
             }
         }
         private void FillStudyForm()
@@ -276,7 +276,7 @@ namespace PriemLib
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error("Ошибка при инициализации формы FillStudyForm" + exc.Message);
+                WinFormsServ.Error("Ошибка при инициализации формы FillStudyForm", exc);
             }
         }
         private void FillStudyBasis()
@@ -303,7 +303,7 @@ namespace PriemLib
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error("Ошибка при инициализации формы FillStudyBasis" + exc.Message);
+                WinFormsServ.Error("Ошибка при инициализации формы FillStudyBasis", exc);
             }
         }
         private void FillCompetition()
@@ -347,7 +347,7 @@ namespace PriemLib
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error("Ошибка при инициализации формы FillCompetition" + exc.Message);
+                WinFormsServ.Error("Ошибка при инициализации формы FillCompetition", exc);
             }
         }
 

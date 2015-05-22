@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 using BaseFormsLib;
 using System.IO;
-using System.Data.Objects;
+using System.Data.Entity.Core.Objects;
 
 namespace PriemLib
 {

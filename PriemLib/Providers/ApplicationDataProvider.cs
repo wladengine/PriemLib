@@ -14,7 +14,7 @@ namespace PriemLib
                 List<ApplicationData> abitList =
                     (from x in context.Abiturient
                      join Ent in context.Entry on x.EntryId equals Ent.Id
-                     where Ent.StudyLevel.StudyLevelGroup.Id == MainClass.studyLevelGroupId
+                     where MainClass.lstStudyLevelGroupId.Contains(Ent.StudyLevel.StudyLevelGroup.Id)
                      && x.IsGosLine == false
                      && x.PersonId == PersonId
                      && x.BackDoc == false
@@ -50,7 +50,7 @@ namespace PriemLib
                     (from x in context.Abiturient
                      join Ad in context.extApplicationDetails on x.Id equals Ad.ApplicationId
                      join Ent in context.Entry on x.EntryId equals Ent.Id
-                     where Ent.StudyLevel.StudyLevelGroup.Id == MainClass.studyLevelGroupId
+                     where MainClass.lstStudyLevelGroupId.Contains(Ent.StudyLevel.StudyLevelGroup.Id)
                      && x.IsGosLine == false
                      && x.PersonId == PersonId
                      && x.BackDoc == false

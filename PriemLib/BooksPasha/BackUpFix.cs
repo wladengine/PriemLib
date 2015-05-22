@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Transactions;
 using System.Collections;
-using System.Data.Objects;
+using System.Data.Entity.Core.Objects;
 
 using BaseFormsLib;
 using EducServLib;

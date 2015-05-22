@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using EducServLib;
 using BDClassLib;
 using BaseFormsLib;
+using System.Threading.Tasks;
 
 namespace PriemLib
 {
@@ -116,7 +117,7 @@ namespace PriemLib
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error("Ошибка при инициализации формы " + exc.Message);
+                WinFormsServ.Error("Ошибка при инициализации формы ", exc);
             } 
         }
 
@@ -164,7 +165,6 @@ namespace PriemLib
                       where ent.FacultyId == FacultyId
                       && (LicenseProgramId.HasValue ? ent.LicenseProgramId == LicenseProgramId : true)
                       && (ObrazProgramId.HasValue ? ent.ObrazProgramId == ObrazProgramId : true)
-                      && ent.ProfileId != null
                       select new
                       {
                           Id = ent.ProfileId,
@@ -222,7 +222,15 @@ namespace PriemLib
         //строим запрос фильтров
         private string GetFilterString()
         {
-            string s = string.Format("AND qAbiturient.StudyLevelGroupId = {0}", MainClass.studyLevelGroupId);
+            string s = string.Format("AND qAbiturient.StudyLevelGroupId IN ({0})", Util.BuildStringWithCollection(MainClass.lstStudyLevelGroupId));
+
+            //ограничение
+            using (PriemEntities context = new PriemEntities())
+            {
+                List<int> lstFacs = context.qFaculty.Select(x => x.Id).ToList();
+                if (lstFacs.Count > 0)
+                    s += "AND qAbiturient.FacultyId IN (" + lstFacs.Select(x => x.ToString()).Aggregate((x, tail) => x + "," + tail) + ") ";
+            }
 
             //обработали основу обучения 
             if (StudyBasisId != null)
@@ -268,14 +276,15 @@ namespace PriemLib
 
                 lblCount.Text = "Всего: " + dgvAbiturients.RowCount.ToString();
                 btnCard.Enabled = (dgvAbiturients.RowCount != 0);
+
+
+                SetControlsEnableStatus(true);
+
+                DataGridViewButtonColumn col = new DataGridViewButtonColumn();
+
+                dgvAbiturients.Columns["ФИО"].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
+                btnLoad.Enabled = !(dgvAbiturients.RowCount == 0);
             }
-
-            SetControlsEnableStatus(true);
-
-            DataGridViewButtonColumn col = new DataGridViewButtonColumn();
-
-            dgvAbiturients.Columns["ФИО"].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
-            btnLoad.Enabled = !(dgvAbiturients.RowCount == 0);
         }
 
         private void SetControlsEnableStatus(bool status)
@@ -295,7 +304,7 @@ namespace PriemLib
             gbWait.Visible = !status;
         }
 
-        void bw_DoWork(object sender, DoWorkEventArgs e)
+        async void bw_DoWork(object sender, DoWorkEventArgs e)
         {
             BackgroundWorker _bw = sender as BackgroundWorker;
 
@@ -309,9 +318,20 @@ namespace PriemLib
                        FROM qAbiturient INNER JOIN extPerson ON qAbiturient.PersonId = extPerson.Id
                        WHERE qAbiturient.IsImported = 0 AND Enabled = 1 AND qAbiturient.Id NOT IN (SELECT Id FROM qForeignApplicationOnly)";
 
-            e.Result = HelpClass.GetDataView(((dynamic)e.Argument).dgv, ((dynamic)e.Argument)._bdc, _sQuery, ((dynamic)e.Argument).filters, _orderBy);
-            if (_bw.CancellationPending)
-                e.Cancel = true;
+            Task<DataView> task = HelpClass.GetDataViewAsync((DataGridView)((dynamic)e.Argument).dgv, (BDClass)((dynamic)e.Argument)._bdc, _sQuery, (string)((dynamic)e.Argument).filters, _orderBy, false);
+
+            while (!task.IsCompleted)
+            {
+                if (_bw.CancellationPending)
+                {
+                    e.Cancel = true;
+                    return;
+                }
+
+                System.Threading.Thread.Sleep(25);
+            }
+
+            e.Result = await task;
         }
 
         //поле поиска
@@ -391,10 +411,9 @@ namespace PriemLib
             }            
             catch (Exception ex)
             {
-                WinFormsServ.Error("Ошибка при заполнении формы " + ex.Message);
+                WinFormsServ.Error("Ошибка при заполнении формы ", ex);
             }
         }
-
         private void btnUpdate_Click(object sender, EventArgs e)
         {
             UpdateDataGrid();            
@@ -402,7 +421,13 @@ namespace PriemLib
 
         protected override void OnClosed()
         {
-            loadClass.CloseDB();
+            if (bw.IsBusy)
+            {
+                bw.CancelAsync();
+                System.Threading.Thread.Sleep(25);
+            }
+            base.OnClosed();
+            //loadClass.CloseDB();
         }
 
         private void dgvAbiturients_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -432,7 +457,7 @@ namespace PriemLib
                     }
                     catch (Exception ex)
                     {
-                        WinFormsServ.Error("Ошибка обновления данных" + ex.Message);
+                        WinFormsServ.Error("Ошибка обновления данных", ex);
                         goto Next;
                     }
                 Next: ;

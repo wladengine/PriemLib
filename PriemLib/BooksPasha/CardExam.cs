@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using System.Data.Objects;
+using System.Data.Entity.Core.Objects;
 
 using EducServLib;
 
@@ -56,20 +56,21 @@ namespace PriemLib
             try
             {
                 using (PriemEntities context = new PriemEntities())
-                {                   
-                    List<KeyValuePair<string, string>> lst = ((from f in context.ExamName
-                                                              select new 
-                                                              {
-                                                                  Id = f.Id,
-                                                                  Name = f.Name                                                                 
-                                                              }).Distinct()).ToList().OrderBy(x => x.Name).Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name)).ToList();                                                                 
+                {
+                    List<KeyValuePair<string, string>> lst =
+                        ((from f in context.ExamName
+                          select new
+                          {
+                              Id = f.Id,
+                              Name = f.Name
+                          }).Distinct()).ToList().OrderBy(x => x.Name).Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name)).ToList();                                                                
                                                                    
                     ComboServ.FillCombo(cbExamName, lst, false, false);                   
                 }
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error("Ошибка при инициализации формы " + exc.Message);
+                WinFormsServ.Error("Ошибка при инициализации формы ", exc);
             }
         }
 
@@ -105,7 +106,7 @@ namespace PriemLib
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error("Ошибка при заполнении формы " + exc.Message);
+                WinFormsServ.Error("Ошибка при заполнении формы ", exc);
             }
         }
 
@@ -126,7 +127,7 @@ namespace PriemLib
                         }
                         catch (Exception exc)
                         {
-                            throw new Exception("Ошибка при сохранении данных: " + exc.Message);
+                            throw exc;
                         }
 
                         return exId.Value.ToString();
@@ -140,7 +141,7 @@ namespace PriemLib
             }
             catch (Exception exc)
             {
-                throw new Exception("Ошибка при сохранении данных: " + exc.Message);
+                throw exc;
             }
         }
 

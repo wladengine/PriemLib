@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using System.Data.Objects;
+using System.Data.Entity.Core.Objects;
 
 using BaseFormsLib;
 using EducServLib;
@@ -68,7 +68,7 @@ namespace PriemLib
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error("Ошибка при инициализации формы " + exc.Message);
+                WinFormsServ.Error("Ошибка при инициализации формы ", exc);
             }
 
             InitHandlers();
@@ -158,6 +158,9 @@ namespace PriemLib
 
                 //иностранцы    
                 query = query.Where(c => c.IsForeign == chbIsForeign.Checked);
+
+                //Крым    
+                query = query.Where(c => c.IsCrimea == chbIsCrimea.Checked);
             }
         }
 
@@ -207,7 +210,7 @@ namespace PriemLib
             SetVisibleColumnsAndNameColumnsOrdered("StudyPlanNumber", "Номер плана", 9);            
             SetVisibleColumnsAndNameColumnsOrdered("SecondType", "Реализуется как ВВ", 10);
             SetVisibleColumnsAndNameColumnsOrdered("KCP", "Контрольные цифры приема", 11);
-            SetVisibleColumnsAndNameColumnsOrdered("KCPCel", "КЦП целевикки", 12);
+            SetVisibleColumnsAndNameColumnsOrdered("KCPCel", "КЦП целевики", 12);
         }
 
         protected override void OpenCard(string itemId)
@@ -283,6 +286,11 @@ namespace PriemLib
         }
 
         private void chbIsForeign_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateDataGrid();
+        }
+
+        private void chbIsCrimea_CheckedChanged(object sender, EventArgs e)
         {
             UpdateDataGrid();
         }

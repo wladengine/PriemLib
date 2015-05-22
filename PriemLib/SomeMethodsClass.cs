@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
-using System.Data.Objects;
+using System.Data.Entity.Core.Objects;
 using System.Data;
 using System.Transactions;
 
@@ -128,9 +128,7 @@ namespace PriemLib
             var concurses = (from allab in context.Abiturient
                              where allab.PersonId == personId
                                  && allab.Entry.LicenseProgramId != LicenseProgramId
-                                 //&& allab.ObrazProgramId != ObrazProgramId
-                                 //&& (ProfileId == null ? allab.ProfileId != null : allab.ProfileId != ProfileId)
-                             && allab.Entry.StudyLevel.LevelGroupId == MainClass.studyLevelGroupId
+                             && MainClass.lstStudyLevelGroupId.Contains(allab.Entry.StudyLevel.LevelGroupId)
                              && allab.BackDoc != true
                              && !allab.IsGosLine //считать гослинию нам не надо, только не-гослинию
                              select new { allab.Entry.LicenseProgramId }).Distinct();
@@ -274,7 +272,7 @@ namespace PriemLib
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error(exc.Message + (exc.InnerException == null ? "" : "\nINNER EXCEPTION: " + exc.InnerException.Message));
+                WinFormsServ.Error(exc);
             }
         }
 

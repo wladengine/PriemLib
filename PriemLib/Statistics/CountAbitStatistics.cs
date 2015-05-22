@@ -119,7 +119,7 @@ namespace PriemLib
                 var bind = (from ab in context.qAbitAll
                             join p in context.Person
                             on ab.PersonId equals p.Id
-                            where ab.StudyLevelGroupId == MainClass.studyLevelGroupId
+                            where MainClass.lstStudyLevelGroupId.Contains(ab.StudyLevelGroupId)
                             && FacultyId.HasValue ? ab.FacultyId == FacultyId.Value : true
                             && StudyBasisId.HasValue ? ab.StudyBasisId == StudyBasisId.Value : true
                             && p.Person_Contacts.RegionId != null
@@ -142,7 +142,7 @@ namespace PriemLib
 
                 var dates = (from ab in context.qAbitAll
                              where ab.DocInsertDate != null && ab.DocInsertDate > dtpStart.Value && ab.DocInsertDate <= dtpEnd.Value
-                             && ab.StudyLevelGroupId == MainClass.studyLevelGroupId && (FacultyId.HasValue ? (ab.FacultyId == FacultyId.Value) : (true))
+                             && MainClass.lstStudyLevelGroupId.Contains(ab.StudyLevelGroupId) && (FacultyId.HasValue ? (ab.FacultyId == FacultyId.Value) : (true))
                             select ab.DocInsertDate).ToList().Select(x => x.Date).Distinct().OrderBy(x => x);
 
                 string query = string.Format(@"SELECT DISTINCT LicenseProgramId, LicenseProgramCode + ' ' + LicenseProgramName AS Profession, 

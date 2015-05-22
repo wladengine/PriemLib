@@ -162,6 +162,7 @@ namespace PriemLib
                 sortedColumn = dgvAbitList.SortedColumn.Name;
                 order = dgvAbitList.SortOrder == SortOrder.Ascending ? ListSortDirection.Ascending : ListSortDirection.Descending;
             }
+
             HelpClass.FillDataGrid(this.dgvAbitList, this._bdc, MainClass.qBuilder.GetQuery(MainClass._config.ColumnListPerson, lTables, "ed.Person"), filters, orderby);
 
             if (_groupList == null)
@@ -175,7 +176,7 @@ namespace PriemLib
                 }
             }
             else
-                _groupList = null;            
+                _groupList = null;
             
             lblCount.Text = dgvAbitList.RowCount.ToString();
             btnCard.Enabled = (dgvAbitList.RowCount != 0);  
@@ -333,7 +334,7 @@ namespace PriemLib
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error("Ошибка вывода в Word: \n" + exc.Message);
+                WinFormsServ.Error("Ошибка вывода в Word: \n", exc);
             }
         }
 
@@ -380,7 +381,7 @@ namespace PriemLib
                 }
                 catch (Exception ex)
                 {
-                    WinFormsServ.Error("Ошибка при записи файла: " + ex.Message);
+                    WinFormsServ.Error("Ошибка при записи файла: ", ex);
                 }
 
             }

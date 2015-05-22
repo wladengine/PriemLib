@@ -6,8 +6,8 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using System.Data.Objects;
 using System.Transactions;
+using System.Data.Entity.Core.Objects;
 
 namespace PriemLib
 {
@@ -56,7 +56,7 @@ namespace PriemLib
                             }
                             catch (Exception exc)
                             {
-                                throw new Exception("Ошибка при сохранении данных: " + exc.Message);
+                                throw exc;
                             }
                         }
                         return entId.Value.ToString();
@@ -75,7 +75,7 @@ namespace PriemLib
                             }
                             catch (Exception exc)
                             {
-                                throw new Exception("Ошибка при сохранении данных: " + exc.Message);
+                                throw exc;
                             }
                         }
                         return entId.ToString();
@@ -84,7 +84,7 @@ namespace PriemLib
             }
             catch (Exception exc)
             {
-                throw new Exception("Ошибка при сохранении данных: " + exc.Message);
+                throw exc;
             }
         }
 

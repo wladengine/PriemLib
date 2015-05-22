@@ -22,7 +22,7 @@ namespace PriemLib
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error(exc.Message);                
+                WinFormsServ.Error(exc);                
             }
         }
 
@@ -44,7 +44,7 @@ namespace PriemLib
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error(exc.Message);
+                WinFormsServ.Error(exc);
             }
         }
 
@@ -376,7 +376,7 @@ FROM [extApplicationDetails] WHERE [ApplicationId]=@AppId";
             }
             catch (Exception ex)
             {
-                WinFormsServ.Error("Ошибка при заполнении формы заявления" + ex.Message);
+                WinFormsServ.Error("Ошибка при заполнении формы заявления", ex);
             }
 
             return LstCompetitions;

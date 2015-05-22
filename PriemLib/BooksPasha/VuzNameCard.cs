@@ -9,6 +9,7 @@ using System.Windows.Forms;
 
 using BaseFormsLib;
 using EducServLib;
+using System.Data.Entity.Core.Objects;
 
 namespace PriemLib
 {
@@ -57,7 +58,7 @@ namespace PriemLib
             }
         }
 
-        protected override void InsertRec(PriemEntities context, System.Data.Objects.ObjectParameter idParam)
+        protected override void InsertRec(PriemEntities context, ObjectParameter idParam)
         {
             context.SchoolNames_Insert(RegionId, 4, EntityName, idParam);
         }

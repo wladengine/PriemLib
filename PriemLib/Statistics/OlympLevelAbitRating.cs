@@ -102,7 +102,7 @@ INNER JOIN ed.extOlympiads ON extOlympiads.AbiturientId=extAbit.Id
 LEFT JOIN ed.extEntryView ON extEntryView.AbiturientId=extAbit.Id
 WHERE extAbit.StudyLevelGroupId=@StudyLevelGroupId ";
             SortedList<string, object> sl = new SortedList<string, object>();
-            sl.Add("@StudyLevelGroupId", MainClass.studyLevelGroupId);
+            sl.Add("@StudyLevelGroupId", MainClass.lstStudyLevelGroupId.First());
             
             if (FacultyId.HasValue)
             {

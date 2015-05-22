@@ -45,9 +45,8 @@ namespace PriemLib
                 var src = (from x in context.qAbitAll
                            join p in context.Person
                            on x.PersonId equals p.Id
-                           where x.StudyLevelGroupId == MainClass.studyLevelGroupId
+                           where MainClass.lstStudyLevelGroupId.Contains(x.StudyLevelGroupId)
                            && p.Person_Contacts.RegionId != null
-                           
                            select new
                            {
                                p.Person_Contacts.Region.Id,
@@ -66,7 +65,7 @@ namespace PriemLib
                 var src = (from x in context.qAbitAll
                            join p in context.Person
                            on x.PersonId equals p.Id
-                           where x.StudyLevelGroupId == MainClass.studyLevelGroupId
+                           where MainClass.lstStudyLevelGroupId.Contains(x.StudyLevelGroupId)
                            && p.Person_Contacts.RegionId == RegionId
                            select new
                            {
@@ -105,7 +104,7 @@ namespace PriemLib
             string groupby = " GROUP BY extAbit.FacultyName, extAbit.StudyBasisId ";
 
             SortedList<string, object> sl = new SortedList<string, object>();
-            sl.Add("@StudyLevelGroupId", MainClass.studyLevelGroupId);
+            sl.Add("@StudyLevelGroupId", MainClass.lstStudyLevelGroupId.First());
             sl.Add("@RegionId", RegionId);
 
             if (StudyFormId.HasValue)
@@ -134,7 +133,7 @@ LEFT JOIN ed.extEntryView ON extEntryView.AbiturientId = extAbit.Id
 LEFT JOIN ed.hlpStatMarksSum ON hlpStatMarksSum.AbiturientId = extAbit.Id
 WHERE extPerson.RegionId=@RegionId AND extAbit.StudyLevelGroupId=@StudyLevelGroupId";
             sl.Clear();
-            sl.Add("@StudyLevelGroupId", MainClass.studyLevelGroupId);
+            sl.Add("@StudyLevelGroupId", MainClass.lstStudyLevelGroupId.First());
             sl.Add("@RegionId", RegionId);
 
             if (StudyFormId.HasValue)
@@ -309,7 +308,7 @@ WHERE extPerson.RegionId=@RegionId AND extAbit.StudyLevelGroupId=@StudyLevelGrou
             }
             catch (Exception ex)
             {
-                WinFormsServ.Error(ex.Message);
+                WinFormsServ.Error(ex);
             }
         }
     }

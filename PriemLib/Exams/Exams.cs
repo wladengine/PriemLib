@@ -2,13 +2,25 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Data.Objects;
+using System.Data.Entity.Core.Objects;
 using System.Data;
+using EducServLib;
 
 namespace PriemLib
 {
     public static class Exams
     {
+        public static IEnumerable<extExamInEntry> GetExamsWithFilters(PriemEntities context, List<int> lstStudyLevelGroupId, int? facultyId, int? licenseProgramId, int? obrazProgramId, int? profileId, int? stFormId, int? stBasisId, bool? isSecond, bool? isReduced, bool? isParallel)
+        {
+            List<extExamInEntry> lst = new List<extExamInEntry>();
+            foreach (int iStudyLevelGroupId in lstStudyLevelGroupId)
+            {
+                lst.AddRange(GetExamsWithFilters(context, iStudyLevelGroupId, facultyId, licenseProgramId, obrazProgramId, profileId, stFormId, stBasisId, isSecond, isReduced, isParallel));
+            }
+
+            return lst;
+        }        
+
         public static IEnumerable<extExamInEntry> GetExamsWithFilters(PriemEntities context, int iStudyLevelGroupId, int? facultyId, int? licenseProgramId, int? obrazProgramId, int? profileId, int? stFormId, int? stBasisId, bool? isSecond, bool? isReduced, bool? isParallel)
         {            
             IEnumerable<extExamInEntry> exams = from ex in context.extExamInEntry where ex.StudyLevelGroupId == iStudyLevelGroupId select ex;
@@ -70,7 +82,7 @@ namespace PriemLib
 
         public static string GetExamInEntryId(string examId, string facultyId, string licenseProgramId, string obrazProgramId, string profileId, string stFormId, string stBasisId, bool? isSecond, bool? isParallel, bool? isReduced)
         {
-            string fltStLevelGroup = " AND ed.qEntry.StudyLevelGroupId = " + MainClass.studyLevelGroupId.ToString();
+            string fltStLevelGroup = " AND ed.qEntry.StudyLevelGroupId IN (" + Util.BuildStringWithCollection(MainClass.lstStudyLevelGroupId) + ")";
             string fltFaculty = facultyId == null || facultyId == string.Empty || facultyId == "0" ? "" : " AND ed.qEntry.FacultyId = " + facultyId;
             string fltProfession = licenseProgramId == null || licenseProgramId == string.Empty || licenseProgramId == "0" ? "" : " AND ed.qEntry.LicenseProgramId = " + licenseProgramId;
             string fltObrazProgram = obrazProgramId == null || obrazProgramId == string.Empty || obrazProgramId == "0" ? "" : " AND ed.qEntry.ObrazProgramId = " + obrazProgramId;
@@ -98,7 +110,7 @@ namespace PriemLib
 
         public static List<string> GetExamIdsInEntry(string facultyId, string licenseProgramId, string obrazProgramId, string profileId, string stFormId, string stBasisId, bool isSecond, bool isParallel, bool isReduced)
         {
-            string fltStLevelGroup = " AND ed.qEntry.StudyLevelGroupId = " + MainClass.studyLevelGroupId.ToString();
+            string fltStLevelGroup = " AND ed.qEntry.StudyLevelGroupId IN (" + Util.BuildStringWithCollection(MainClass.lstStudyLevelGroupId) + ")";
             string fltSpecialization = (profileId == null || profileId == "") ? " AND ed.qEntry.ProfileId IS NULL" : " AND ed.qEntry.ProfileId = '" + profileId + "'";
             string entryId = MainClass.Bdc.GetStringValue(string.Format("SELECT DISTINCT ed.qEntry.Id FROM ed.qEntry WHERE {9} AND FacultyId = {0} AND LicenseProgramId = {1} AND ObrazProgramId = {2} {3} AND StudyFormId = {4} AND StudyBasisId = {5} AND IsSecond = {6} AND IsParallel = {7} AND IsReduced = {8}", facultyId, licenseProgramId, obrazProgramId, fltSpecialization, stFormId, stBasisId, (isSecond ? "1" : "0"), (isParallel ? "1" : "0"), (isReduced ? "1" : "0"), fltStLevelGroup));
 

@@ -9,6 +9,7 @@ using System.Windows.Forms;
 
 using EducServLib;
 using BaseFormsLib;
+using System.Data.Entity.Core.Objects;
 
 namespace PriemLib
 {
@@ -90,7 +91,7 @@ namespace PriemLib
             }
         }
 
-        protected override void InsertRec(PriemEntities context, System.Data.Objects.ObjectParameter idParam)
+        protected override void InsertRec(PriemEntities context, ObjectParameter idParam)
         {
             context.SP_LicenseProgram_Insert(EntityName, EntityNameEng, Code, StudyLevelId, AggregateGroupId, GSGUCode, idParam);
             int iVal = (int)idParam.Value;

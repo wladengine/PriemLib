@@ -5,19 +5,20 @@ using System.Text;
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
+using EducServLib;
 
 namespace PriemLib
 {
     public class DisEnableProtocol : ProtocolCard
     {
-        public DisEnableProtocol(ProtocolList owner, int iFacultyId, int iStudyFormId, int iStudyBasisId)
-            : this(owner, iFacultyId, iStudyBasisId, iStudyFormId, null)
+        public DisEnableProtocol(ProtocolList owner, int iStudyLevelGroupId, int iFacultyId, int iStudyFormId, int iStudyBasisId)
+            : this(owner, iStudyLevelGroupId, iFacultyId, iStudyBasisId, iStudyFormId, null)
         {
         }
 
         //конструктор 
-        public DisEnableProtocol(ProtocolList owner, int iFacultyId, int iStudyFormId, int iStudyBasisId, Guid? id)
-            : base(owner, iFacultyId, iStudyBasisId, iStudyFormId, id)
+        public DisEnableProtocol(ProtocolList owner, int iStudyLevelGroupId, int iFacultyId, int iStudyFormId, int iStudyBasisId, Guid? id)
+            : base(owner, iStudyLevelGroupId, iFacultyId, iStudyBasisId, iStudyFormId, id)
         {
             _type = ProtocolTypes.DisEnableProtocol;
             base.sQuery = this.sQuery;
@@ -26,7 +27,7 @@ namespace PriemLib
         //дополнительная инициализация
         protected override void InitControls()
         {
-            sQuery = @"SELECT DISTINCT ed.extAbit.Sum, ed.extPerson.AttestatSeries, ed.extPerson.AttestatNum, ed.extAbit.Id as Id, ed.extAbit.BAckDoc as backdoc, 
+            sQuery = @"SELECT DISTINCT ed.extAbit.Sum, ed.extPerson.EducDocument, ed.extAbit.Id as Id, ed.extAbit.BAckDoc as backdoc, 
              (ed.extAbit.BAckDoc | ed.extAbit.NotEnabled ) as Red, ed.extAbit.RegNum as Рег_Номер,
              ed.extPerson.FIO as ФИО, 
              ed.extPerson.EducDocument as Документ_об_образовании, 
@@ -113,7 +114,7 @@ namespace PriemLib
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ошибка при заполнении грида данными протокола: " + ex.Message);
+                WinFormsServ.Error("Ошибка при заполнении грида данными протокола: ", ex);
             }
         }
     }

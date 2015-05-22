@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Entity.Core.Objects;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -125,7 +126,7 @@ namespace PriemLib
             }
         }
 
-        protected override void InsertRec(PriemEntities context, System.Data.Objects.ObjectParameter idParam)
+        protected override void InsertRec(PriemEntities context, ObjectParameter idParam)
         {
             context.CompetitiveGroup_Insert(CompGroupName, KCP, idParam);
             _Id = ((Guid)idParam.Value).ToString();

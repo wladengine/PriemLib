@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 
 using EducServLib;
+using System.Data.Entity.Core.Objects;
 
 namespace PriemLib
 {
@@ -68,7 +69,7 @@ namespace PriemLib
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error("Ошибка при инициализации формы " + exc.Message);
+                WinFormsServ.Error("Ошибка при инициализации формы ", exc);
             }
         }
 
@@ -96,7 +97,7 @@ namespace PriemLib
             }
             catch (DataException de)
             {
-                WinFormsServ.Error("Ошибка при заполнении формы " + de.Message);
+                WinFormsServ.Error("Ошибка при заполнении формы ", de);
             }
         }
 
@@ -108,7 +109,7 @@ namespace PriemLib
                 btnSaveChange.Enabled = false;
         }        
 
-        protected override void InsertRec(PriemEntities context, System.Data.Objects.ObjectParameter idParam)
+        protected override void InsertRec(PriemEntities context, ObjectParameter idParam)
         {
             context.OlympBook_Insert(OlympTypeId, OlympNameId, OlympSubjectId, OlympLevelId, idParam);
             string query = "INSERT INTO OlympBook (Id, OlympTypeId, OlympNameId, OlympSubjectId, OlympLevelId) VALUES (@Id, @OlympTypeId, @OlympNameId, @OlympSubjectId, @OlympLevelId)";

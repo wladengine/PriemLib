@@ -9,6 +9,7 @@ using System.Windows.Forms;
 
 using EducServLib;
 using BaseFormsLib;
+using System.Data.Entity.Core.Objects;
 
 namespace PriemLib
 {
@@ -59,7 +60,7 @@ namespace PriemLib
             }
         }
 
-        protected override void InsertRec(PriemEntities context, System.Data.Objects.ObjectParameter idParam)
+        protected override void InsertRec(PriemEntities context, ObjectParameter idParam)
         {
             context.OlympName_Insert(OlympName, OlympNumber, idParam);
             string query = "INSERT INTO OlympName(Id, Name, Number) VALUES (@Id, @Name, @Number)";

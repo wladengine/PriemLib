@@ -175,6 +175,7 @@
             this.tbHEEntryYear = new System.Windows.Forms.TextBox();
             this.tbHEProfession = new System.Windows.Forms.TextBox();
             this.tpEge = new System.Windows.Forms.TabPage();
+            this.lblHasRequestFinished = new System.Windows.Forms.Label();
             this.lblHasRequest = new System.Windows.Forms.Label();
             this.btnRequestEge = new System.Windows.Forms.Button();
             this.chbEgeInSpbgu = new System.Windows.Forms.CheckBox();
@@ -199,6 +200,10 @@
             this.tbMSCourse = new System.Windows.Forms.TextBox();
             this.tbMSVuz = new System.Windows.Forms.TextBox();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.btnDeletePersonAchievement = new System.Windows.Forms.Button();
+            this.btnAddPersonAchievement = new System.Windows.Forms.Button();
+            this.dgvIndividualAchievements = new System.Windows.Forms.DataGridView();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.btnDeleteBenefitDocument = new System.Windows.Forms.Button();
             this.btnAddBenefitDocument = new System.Windows.Forms.Button();
@@ -288,6 +293,8 @@
             this.tpSecond.SuspendLayout();
             this.gbMainStudy.SuspendLayout();
             this.tabPage5.SuspendLayout();
+            this.groupBox6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvIndividualAchievements)).BeginInit();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvBenefitDocument)).BeginInit();
             this.gbPrivileges.SuspendLayout();
@@ -1712,6 +1719,7 @@
             // 
             // tpEge
             // 
+            this.tpEge.Controls.Add(this.lblHasRequestFinished);
             this.tpEge.Controls.Add(this.lblHasRequest);
             this.tpEge.Controls.Add(this.btnRequestEge);
             this.tpEge.Controls.Add(this.chbEgeInSpbgu);
@@ -1728,6 +1736,15 @@
             this.tpEge.TabIndex = 4;
             this.tpEge.Text = "ЕГЭ";
             this.tpEge.UseVisualStyleBackColor = true;
+            // 
+            // lblHasRequestFinished
+            // 
+            this.lblHasRequestFinished.Location = new System.Drawing.Point(520, 107);
+            this.lblHasRequestFinished.Name = "lblHasRequestFinished";
+            this.lblHasRequestFinished.Size = new System.Drawing.Size(90, 31);
+            this.lblHasRequestFinished.TabIndex = 96;
+            this.lblHasRequestFinished.Text = "Запрос в ФИС ЕГЭ выполнен";
+            this.lblHasRequestFinished.Visible = false;
             // 
             // lblHasRequest
             // 
@@ -1746,6 +1763,7 @@
             this.btnRequestEge.TabIndex = 94;
             this.btnRequestEge.Text = "Запросить данные ФИС ЕГЭ";
             this.btnRequestEge.UseVisualStyleBackColor = true;
+            this.btnRequestEge.Click += new System.EventHandler(this.btnRequestEge_Click);
             // 
             // chbEgeInSpbgu
             // 
@@ -1993,14 +2011,65 @@
             // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.groupBox6);
             this.tabPage5.Controls.Add(this.groupBox3);
             this.tabPage5.Controls.Add(this.gbPrivileges);
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Size = new System.Drawing.Size(624, 531);
             this.tabPage5.TabIndex = 2;
-            this.tabPage5.Text = "Льготы";
+            this.tabPage5.Text = "Льготы/инд. достижения";
             this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.btnDeletePersonAchievement);
+            this.groupBox6.Controls.Add(this.btnAddPersonAchievement);
+            this.groupBox6.Controls.Add(this.dgvIndividualAchievements);
+            this.groupBox6.Location = new System.Drawing.Point(313, 12);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(308, 384);
+            this.groupBox6.TabIndex = 13;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Индивидуальные достижения";
+            // 
+            // btnDeletePersonAchievement
+            // 
+            this.btnDeletePersonAchievement.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDeletePersonAchievement.Location = new System.Drawing.Point(227, 355);
+            this.btnDeletePersonAchievement.Name = "btnDeletePersonAchievement";
+            this.btnDeletePersonAchievement.Size = new System.Drawing.Size(75, 23);
+            this.btnDeletePersonAchievement.TabIndex = 2;
+            this.btnDeletePersonAchievement.Text = "Удалить";
+            this.btnDeletePersonAchievement.UseVisualStyleBackColor = true;
+            this.btnDeletePersonAchievement.Click += new System.EventHandler(this.btnDeletePersonAchievement_Click);
+            // 
+            // btnAddPersonAchievement
+            // 
+            this.btnAddPersonAchievement.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnAddPersonAchievement.Location = new System.Drawing.Point(6, 355);
+            this.btnAddPersonAchievement.Name = "btnAddPersonAchievement";
+            this.btnAddPersonAchievement.Size = new System.Drawing.Size(65, 23);
+            this.btnAddPersonAchievement.TabIndex = 1;
+            this.btnAddPersonAchievement.Text = "Добавить";
+            this.btnAddPersonAchievement.UseVisualStyleBackColor = true;
+            this.btnAddPersonAchievement.Click += new System.EventHandler(this.btnAddPersonAchievement_Click);
+            // 
+            // dgvIndividualAchievements
+            // 
+            this.dgvIndividualAchievements.AllowUserToAddRows = false;
+            this.dgvIndividualAchievements.AllowUserToDeleteRows = false;
+            this.dgvIndividualAchievements.AllowUserToResizeRows = false;
+            this.dgvIndividualAchievements.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvIndividualAchievements.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvIndividualAchievements.Location = new System.Drawing.Point(6, 19);
+            this.dgvIndividualAchievements.Name = "dgvIndividualAchievements";
+            this.dgvIndividualAchievements.ReadOnly = true;
+            this.dgvIndividualAchievements.Size = new System.Drawing.Size(296, 330);
+            this.dgvIndividualAchievements.TabIndex = 0;
+            this.dgvIndividualAchievements.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvIndividualAchievements_CellDoubleClick);
             // 
             // groupBox3
             // 
@@ -2009,14 +2078,15 @@
             this.groupBox3.Controls.Add(this.dgvBenefitDocument);
             this.groupBox3.Location = new System.Drawing.Point(8, 155);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(506, 268);
+            this.groupBox3.Size = new System.Drawing.Size(299, 241);
             this.groupBox3.TabIndex = 12;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Реквизиты документов";
             // 
             // btnDeleteBenefitDocument
             // 
-            this.btnDeleteBenefitDocument.Location = new System.Drawing.Point(425, 48);
+            this.btnDeleteBenefitDocument.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDeleteBenefitDocument.Location = new System.Drawing.Point(218, 212);
             this.btnDeleteBenefitDocument.Name = "btnDeleteBenefitDocument";
             this.btnDeleteBenefitDocument.Size = new System.Drawing.Size(75, 23);
             this.btnDeleteBenefitDocument.TabIndex = 2;
@@ -2026,9 +2096,10 @@
             // 
             // btnAddBenefitDocument
             // 
-            this.btnAddBenefitDocument.Location = new System.Drawing.Point(425, 19);
+            this.btnAddBenefitDocument.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnAddBenefitDocument.Location = new System.Drawing.Point(6, 212);
             this.btnAddBenefitDocument.Name = "btnAddBenefitDocument";
-            this.btnAddBenefitDocument.Size = new System.Drawing.Size(75, 23);
+            this.btnAddBenefitDocument.Size = new System.Drawing.Size(67, 23);
             this.btnAddBenefitDocument.TabIndex = 1;
             this.btnAddBenefitDocument.Text = "Добавить";
             this.btnAddBenefitDocument.UseVisualStyleBackColor = true;
@@ -2039,11 +2110,14 @@
             this.dgvBenefitDocument.AllowUserToAddRows = false;
             this.dgvBenefitDocument.AllowUserToDeleteRows = false;
             this.dgvBenefitDocument.AllowUserToResizeRows = false;
+            this.dgvBenefitDocument.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvBenefitDocument.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvBenefitDocument.Location = new System.Drawing.Point(6, 19);
             this.dgvBenefitDocument.Name = "dgvBenefitDocument";
             this.dgvBenefitDocument.ReadOnly = true;
-            this.dgvBenefitDocument.Size = new System.Drawing.Size(413, 243);
+            this.dgvBenefitDocument.Size = new System.Drawing.Size(287, 187);
             this.dgvBenefitDocument.TabIndex = 0;
             // 
             // gbPrivileges
@@ -2059,7 +2133,7 @@
             this.gbPrivileges.Controls.Add(this.chbSir);
             this.gbPrivileges.Location = new System.Drawing.Point(8, 12);
             this.gbPrivileges.Name = "gbPrivileges";
-            this.gbPrivileges.Size = new System.Drawing.Size(288, 137);
+            this.gbPrivileges.Size = new System.Drawing.Size(299, 137);
             this.gbPrivileges.TabIndex = 11;
             this.gbPrivileges.TabStop = false;
             this.gbPrivileges.Text = "Льготы";
@@ -2807,6 +2881,8 @@
             this.gbMainStudy.ResumeLayout(false);
             this.gbMainStudy.PerformLayout();
             this.tabPage5.ResumeLayout(false);
+            this.groupBox6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvIndividualAchievements)).EndInit();
             this.groupBox3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvBenefitDocument)).EndInit();
             this.gbPrivileges.ResumeLayout(false);
@@ -3065,6 +3141,11 @@
         private System.Windows.Forms.Button btnAddEducDoc;
         private System.Windows.Forms.Button btnRequestEge;
         private System.Windows.Forms.Label lblHasRequest;
+        private System.Windows.Forms.Label lblHasRequestFinished;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.Button btnDeletePersonAchievement;
+        private System.Windows.Forms.Button btnAddPersonAchievement;
+        private System.Windows.Forms.DataGridView dgvIndividualAchievements;
 
     }
 }

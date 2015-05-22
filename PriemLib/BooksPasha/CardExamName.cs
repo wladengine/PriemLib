@@ -6,9 +6,9 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using System.Data.Objects;
 
 using EducServLib;
+using System.Data.Entity.Core.Objects;
 
 namespace PriemLib
 {
@@ -74,7 +74,7 @@ namespace PriemLib
             }
             catch (Exception ex)
             {
-                WinFormsServ.Error("Ошибка при заполнении формы " + ex.Message);
+                WinFormsServ.Error("Ошибка при заполнении формы ", ex);
             }
         }
 

@@ -76,7 +76,7 @@ namespace PriemLib
             {
                 var src = (from x in context.qEntry
                            orderby x.LicenseProgramCode
-                           where x.FacultyId == FacultyId && x.StudyLevelGroupId == MainClass.studyLevelGroupId
+                           where x.FacultyId == FacultyId && MainClass.lstStudyLevelGroupId.Contains(x.StudyLevelGroupId)
                            select new
                            {
                                x.LicenseProgramId,
@@ -127,7 +127,7 @@ namespace PriemLib
                 GROUP BY qq.FacultyId, qq.FacultyName", LicenseProgramId == null ? "" : "AND q.LicenseProgramId=@LicenseProgramId ");
             SortedList<string, object> sl = new SortedList<string, object>();
             sl.Add("@FacultyId", iFacultyId);
-            sl.Add("@StudyLevelGroupId", MainClass.studyLevelGroupId);
+            sl.Add("@StudyLevelGroupId", MainClass.lstStudyLevelGroupId.First());
             if (LicenseProgramId != null)
                 sl.Add("@LicenseProgramId", LicenseProgramId);
             

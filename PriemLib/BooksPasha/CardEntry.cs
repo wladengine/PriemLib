@@ -6,9 +6,9 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using System.Data.Objects;
 
 using EducServLib;
+using System.Data.Entity.Core.Objects;
 
 namespace PriemLib
 {
@@ -55,6 +55,11 @@ namespace PriemLib
             get { return chbIsForeign.Checked; }
             set { chbIsForeign.Checked = value; }
         }
+        public bool IsCrimea
+        {
+            get { return chbIsCrimea.Checked; }
+            set { chbIsCrimea.Checked = value; }
+        }
         public int? AggregateGroupId
         {
             get { return ComboServ.GetComboIdInt(cbAggregateGroup); }
@@ -92,76 +97,6 @@ namespace PriemLib
             set { dtpDateOfClose.Value = value; }
         }
 
-        public DateTime? DateOfStart_Foreign
-        {
-            get 
-            {
-                if (dtpDateOfStart_Foreign.Checked)
-                    return dtpDateOfStart_Foreign.Value.Date.AddHours(10);
-                else
-                    return null;
-            }
-            set 
-            { 
-                if (value.HasValue)
-                    dtpDateOfStart_Foreign.Value = value.Value;
-
-                dtpDateOfStart_Foreign.Checked = value.HasValue;
-            }
-        }
-        public DateTime? DateOfClose_Foreign
-        {
-            get 
-            {
-                if (dtpDateOfClose_Foreign.Checked)
-                    return dtpDateOfClose_Foreign.Value.Date.AddHours(18);
-                else
-                    return null;
-            }
-            set 
-            {
-                if (value.HasValue)
-                    dtpDateOfClose_Foreign.Value = value.Value;
-
-                dtpDateOfClose_Foreign.Checked = value.HasValue;
-            }
-        }
-
-        public DateTime? DateOfStart_GosLine
-        {
-            get 
-            {
-                if (dtpDateOfStart_GosLine.Checked)
-                    return dtpDateOfStart_GosLine.Value.Date.AddHours(10);
-                else
-                    return null;
-            }
-            set 
-            { 
-                if (value.HasValue)
-                    dtpDateOfStart_GosLine.Value = value.Value;
-
-                dtpDateOfStart_GosLine.Checked = value.HasValue;
-            }
-        }
-        public DateTime? DateOfClose_GosLine
-        {
-            get 
-            {
-                if (dtpDateOfClose_GosLine.Checked)
-                    return dtpDateOfClose_GosLine.Value.Date.AddHours(10);
-                else
-                    return null;
-            }
-            set 
-            { 
-                if (value.HasValue)
-                    dtpDateOfClose_GosLine.Value = value.Value;
-
-                dtpDateOfClose_GosLine.Checked = value.HasValue;
-            }
-        }
-
         public int KCP
         {
             get
@@ -173,19 +108,6 @@ namespace PriemLib
             set 
             {
                 tbKC.Text = value.ToString();
-            }
-        }
-        public int KCPCrimea
-        {
-            get
-            {
-                int j;
-                int.TryParse(tbKCPCrimea.Text.Trim(), out j);
-                return j;
-            }
-            set
-            {
-                tbKCPCrimea.Text = value.ToString();
             }
         }
         public int? KCPCel
@@ -399,7 +321,6 @@ namespace PriemLib
                     IsParallel = ent.IsParallel;
                     IsForeign = ent.IsForeign;
                     tbKCPCel.Text = ent.KCPCel.ToString();
-                    tbKCPCrimea.Text = ent.KCPCrimea.ToString();
                     KCPQuota = ent.KCPQuota;
 
                     ComissionId = ent.CommissionId;
@@ -407,19 +328,13 @@ namespace PriemLib
                     DateOfStart = ent.DateOfStart;
                     DateOfClose = ent.DateOfClose;
 
-                    DateOfStart_Foreign = ent.DateOfStart_Foreign;
-                    DateOfClose_Foreign = ent.DateOfClose_Foreign;
-
-                    DateOfStart_GosLine = ent.DateOfStart_GosLine;
-                    DateOfClose_GosLine = ent.DateOfClose_GosLine;
-
                     UpdateExams();
                     UpdateInnerEntryInEntry();
                 }
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error("Ошибка при заполнении формы " + exc.Message);
+                WinFormsServ.Error("Ошибка при заполнении формы ", exc);
             }
         }        
 
@@ -451,7 +366,6 @@ namespace PriemLib
             WinFormsServ.SetSubControlsEnabled(gbEntry, GetIsCanChangeEntry());
             tbKCPCel.Enabled = true;
             tbKC.Enabled = true;
-            tbKCPCrimea.Enabled = true;
             tbKCPQuota.Enabled = true;
             cbComission.Enabled = true;
             cbFaculty.Enabled = true;
@@ -505,10 +419,6 @@ namespace PriemLib
             Entry.KCPQuota = KCPQuota;
             Entry.DateOfStart = DateOfStart;
             Entry.DateOfClose = DateOfClose;
-            Entry.DateOfStart_Foreign = DateOfStart_Foreign;
-            Entry.DateOfClose_Foreign = DateOfClose_Foreign;
-            Entry.DateOfStart_GosLine = DateOfStart_GosLine;
-            Entry.DateOfClose_GosLine = DateOfClose_GosLine;
             Entry.CommissionId = ComissionId;
             Entry.IsForeign = IsForeign;
             context.Entry.AddObject(Entry);
@@ -518,9 +428,9 @@ namespace PriemLib
 
             string query = @"INSERT INTO [_Entry] 
 (Id, StudyLevelId, LicenseProgramId, ObrazProgramId, ProfileId, StudyFormId, StudyBasisId, FacultyId, SemesterId, CampaignYear,
-DateOfStart, DateOfClose, DateOfStart_Foreign, DateOfClose_Foreign, DateOfStart_GosLine, DateOfClose_GosLine, ComissionId, IsForeign) VALUES
+DateOfStart, DateOfClose, ComissionId, IsForeign, IsCrimea) VALUES
 (@Id, @StudyLevelId, @LicenseProgramId, @ObrazProgramId, @ProfileId, @StudyFormId, @StudyBasisId, @FacultyId, @SemesterId, @CampaignYear,
-@DateOfStart, @DateOfClose, @DateOfStart_Foreign, @DateOfClose_Foreign, @DateOfStart_GosLine, @DateOfClose_GosLine, @ComissionId, @IsForeign)";
+@DateOfStart, @DateOfClose, @ComissionId, @IsForeign, @IsCrimea)";
             SortedList<string, object> sl = new SortedList<string, object>();
             sl.Add("@Id", Id);
 
@@ -538,11 +448,8 @@ DateOfStart, DateOfClose, DateOfStart_Foreign, DateOfClose_Foreign, DateOfStart_
             sl.Add("@IsReduced", IsReduced);
             sl.Add("@IsSecond", IsSecond);
             sl.Add("@IsForeign", IsForeign);
+            sl.Add("@IsCrimea", IsCrimea);
 
-            sl.AddVal("@DateOfStart_Foreign", DateOfStart_Foreign);
-            sl.AddVal("@DateOfClose_Foreign", DateOfClose_Foreign);
-            sl.AddVal("@DateOfStart_GosLine", DateOfStart_GosLine);
-            sl.AddVal("@DateOfClose_GosLine", DateOfClose_GosLine);
             sl.AddVal("@DateOfStart", DateOfStart);
             sl.AddVal("@DateOfClose", DateOfClose);
 
@@ -553,9 +460,9 @@ DateOfStart, DateOfClose, DateOfStart_Foreign, DateOfClose_Foreign, DateOfStart_
         protected override void UpdateRec(PriemEntities context, Guid id)
         {
             context.Entry_UpdateCEl(GuidId, KCPCel);
-            context.Entry_UpdateKC(GuidId, KCP, KCPCrimea, KCPQuota);
+            context.Entry_UpdateKC(GuidId, KCP, KCPQuota);
             context.Entry_Update(GuidId, StudyLevelId, StudyFormId, StudyBasisId, FacultyId, false, IsParallel, IsReduced, IsSecond, tbStudyPlan.Text.Trim(),
-                DateOfStart_Foreign, DateOfClose_Foreign, DateOfStart_GosLine, DateOfClose_GosLine, DateOfStart, DateOfClose, ComissionId, IsForeign);
+                DateOfStart, DateOfClose, ComissionId, IsForeign, IsCrimea);
 
             try
             {
@@ -568,15 +475,12 @@ SET
     IsParallel=@IsParallel,
     IsReduced=@IsReduced,
     IsSecond=@IsSecond,
-    DateOfStart_Foreign=@DateOfStart_Foreign,
-	DateOfClose_Foreign=@DateOfClose_Foreign,
-	DateOfStart_GosLine=@DateOfStart_GosLine,
-	DateOfClose_GosLine=@DateOfClose_GosLine,
 	DateOfStart=@DateOfStart,
 	DateOfClose=@DateOfClose,
     CampaignYear=@CampaignYear,
     ComissionId=@ComissionId,
-    IsForeign=@IsForeign
+    IsForeign=@IsForeign,
+    IsCrimea=@IsCrimea
 WHERE Id=@Id";
                 SortedList<string, object> sl = new SortedList<string, object>();
                 sl.Add("@Id", GuidId.Value);
@@ -590,15 +494,12 @@ WHERE Id=@Id";
                 sl.Add("@IsReduced", IsReduced);
                 sl.Add("@IsSecond", IsSecond);
 
-                sl.AddVal("@DateOfStart_Foreign", DateOfStart_Foreign);
-                sl.AddVal("@DateOfClose_Foreign", DateOfClose_Foreign);
-                sl.AddVal("@DateOfStart_GosLine", DateOfStart_GosLine);
-                sl.AddVal("@DateOfClose_GosLine", DateOfClose_GosLine);
                 sl.AddVal("@DateOfStart", DateOfStart);
                 sl.AddVal("@DateOfClose", DateOfClose);
 
                 sl.AddVal("@ComissionId", ComissionId);
                 sl.AddVal("@IsForeign", IsForeign);
+                sl.AddVal("@IsCrimea", IsCrimea);
 
                 MainClass.BdcOnlineReadWrite.ExecuteQuery(query, sl);
             }
@@ -679,7 +580,7 @@ WHERE Id=@Id";
                     }
                     catch (Exception ex)
                     {
-                        WinFormsServ.Error("Каскадное удаление запрещено: " + ex.Message);
+                        WinFormsServ.Error("Каскадное удаление запрещено: ", ex);
                     }
 
                     UpdateExams();

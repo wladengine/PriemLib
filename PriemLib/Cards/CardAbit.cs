@@ -10,10 +10,10 @@ using System.Collections;
 using System.IO;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
-using System.Data.Objects;
 
 using BaseFormsLib;
 using EducServLib;
+using System.Data.Entity.Core.Objects;
 
 namespace PriemLib
 {
@@ -168,7 +168,7 @@ namespace PriemLib
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error("Ошибка при инициализации формы " + exc.Message);
+                WinFormsServ.Error("Ошибка при инициализации формы ", exc);
             }
         }
 
@@ -318,7 +318,7 @@ namespace PriemLib
             }
             catch (Exception ex)
             {
-                WinFormsServ.Error("Ошибка при заполнении формы " + ex.Message);
+                WinFormsServ.Error("Ошибка при заполнении формы ", ex);
             }
         }
 
@@ -429,7 +429,7 @@ namespace PriemLib
 
             using (PriemEntities context = new PriemEntities())
             {
-                return context.ExecuteStoreQuery<int?>(string.Format("SELECT TotalSum FROM ed.extAbitMarksSum WHERE Id = '{0}'", abitId)).FirstOrDefault().ToString();
+                return context.extAbitMarksSum.Where(x => x.Id == GuidId).Select(x => x.TotalSum).DefaultIfEmpty(0).First().ToString();
             }
         }
 
@@ -532,7 +532,7 @@ namespace PriemLib
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error("Данное заявление находится одновременно в нескольких протоколах \n " + exc.Message);
+                WinFormsServ.Error("Данное заявление находится одновременно в нескольких протоколах \n ", exc);
             }
         }
 
@@ -877,7 +877,7 @@ namespace PriemLib
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error("Ошибка при инициализации формы FillLicenseProgram" + exc.Message);
+                WinFormsServ.Error("Ошибка при инициализации формы FillLicenseProgram", exc);
             }
         }
         private void FillObrazProgram()
@@ -901,7 +901,7 @@ namespace PriemLib
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error("Ошибка при инициализации формы FillObrazProgram" + exc.Message);
+                WinFormsServ.Error("Ошибка при инициализации формы FillObrazProgram", exc);
             }
         }
         private void FillProfile()
@@ -936,7 +936,7 @@ namespace PriemLib
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error("Ошибка при инициализации формы FillProfile" + exc.Message);
+                WinFormsServ.Error("Ошибка при инициализации формы FillProfile", exc);
             }
         }
         private void FillFaculty()
@@ -960,7 +960,7 @@ namespace PriemLib
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error("Ошибка при инициализации формы FillFaculty" + exc.Message);
+                WinFormsServ.Error("Ошибка при инициализации формы FillFaculty", exc);
             }
         }
         private void FillStudyForm()
@@ -987,7 +987,7 @@ namespace PriemLib
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error("Ошибка при инициализации формы FillStudyForm" + exc.Message);
+                WinFormsServ.Error("Ошибка при инициализации формы FillStudyForm", exc);
             }
         }
         private void FillStudyBasis()
@@ -1014,7 +1014,7 @@ namespace PriemLib
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error("Ошибка при инициализации формы FillStudyBasis" + exc.Message);
+                WinFormsServ.Error("Ошибка при инициализации формы FillStudyBasis", exc);
             }
         }
         private void UpdateInnerPrioritiesAfterStudyBasis()
@@ -1088,7 +1088,7 @@ namespace PriemLib
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error("Ошибка при инициализации формы FillCompetition" + exc.Message);
+                WinFormsServ.Error("Ошибка при инициализации формы FillCompetition", exc);
             }
         }
         private void UpdateAfterCompetition()
@@ -1150,7 +1150,7 @@ namespace PriemLib
             }
             catch (Exception ex)
             {
-                WinFormsServ.Error("Ошибка при обращении к базе" + ex.Message);
+                WinFormsServ.Error("Ошибка при обращении к базе", ex);
             }
         }
 
@@ -1304,7 +1304,7 @@ namespace PriemLib
                     {
                         if (!BackDoc)
                         {
-                            var priorcnt = context.Abiturient.Where(x => x.PersonId == _personId && !x.BackDoc && x.IsGosLine == IsGosLine && x.Entry.StudyLevel.LevelGroupId == MainClass.studyLevelGroupId && x.Priority == Priority && (GuidId.HasValue ? x.Id != GuidId.Value : true)).Count();
+                            var priorcnt = context.Abiturient.Where(x => x.PersonId == _personId && !x.BackDoc && x.IsGosLine == IsGosLine && MainClass.lstStudyLevelGroupId.Contains(x.Entry.StudyLevel.LevelGroupId) && x.Priority == Priority && (GuidId.HasValue ? x.Id != GuidId.Value : true)).Count();
                             if (priorcnt > 0)
                             {
                                 epErrorInput.SetError(tbPriority, "У абитуриента уже имеется заявление с заданным приоритетом");
@@ -1332,7 +1332,7 @@ namespace PriemLib
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error("Ошибка при CheckFields" + exc.Message);
+                WinFormsServ.Error("Ошибка при CheckFields", exc);
                 return false;
             }
         }
@@ -1472,7 +1472,7 @@ namespace PriemLib
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error("Ошибка  заполения грида Olymps: " + exc.Message);
+                WinFormsServ.Error("Ошибка  заполения грида Olymps: ", exc);
             }
         }
 
@@ -1493,7 +1493,7 @@ namespace PriemLib
                     }
                     catch (Exception exc)
                     {
-                        WinFormsServ.Error("Ошибка сохранения данных" + exc.Message);
+                        WinFormsServ.Error("Ошибка сохранения данных", exc);
                     }
                 }
             }
@@ -1561,7 +1561,7 @@ namespace PriemLib
                 }
                 catch (Exception ex)
                 {
-                    WinFormsServ.Error("Ошибка удаления данных" + ex.Message);
+                    WinFormsServ.Error("Ошибка удаления данных", ex);
                 }
                 UpdateDataGridOlymp();
             }
@@ -1646,7 +1646,7 @@ namespace PriemLib
             }
             catch (DataException de)
             {
-                WinFormsServ.Error("Ошибка при заполнении формы " + de.Message);
+                WinFormsServ.Error("Ошибка при заполнении формы ", de);
             }
         }
 
@@ -1789,7 +1789,7 @@ namespace PriemLib
                             }
                             catch (Exception ex)
                             {
-                                WinFormsServ.Error("Ошибка удаления данных" + ex.Message);
+                                WinFormsServ.Error("Ошибка удаления данных", ex);
                                 goto Next;
                             }
                         Next: ;

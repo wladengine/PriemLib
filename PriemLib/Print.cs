@@ -6,7 +6,7 @@ using System.IO;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.Data;
-using System.Data.Objects;
+using System.Data.Entity.Core.Objects;
 using WordOut;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
@@ -89,7 +89,7 @@ namespace PriemLib
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error(exc.Message);
+                WinFormsServ.Error(exc);
             }
         }
 
@@ -169,7 +169,7 @@ namespace PriemLib
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error(exc.Message);
+                WinFormsServ.Error(exc);
             }
         }
 
@@ -234,11 +234,11 @@ namespace PriemLib
             }
             catch (WordException we)
             {
-                WinFormsServ.Error(we.Message);
+                WinFormsServ.Error(we);
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error(exc.Message);
+                WinFormsServ.Error(exc);
             }
         }
 
@@ -352,7 +352,7 @@ namespace PriemLib
 
             catch (Exception exc)
             {
-                WinFormsServ.Error(exc.Message);
+                WinFormsServ.Error(exc);
             }
             finally
             {
@@ -430,11 +430,11 @@ namespace PriemLib
             }
             catch (WordException we)
             {
-                WinFormsServ.Error(we.Message);
+                WinFormsServ.Error(we);
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error(exc.Message);
+                WinFormsServ.Error(exc);
             }
         }
 
@@ -548,11 +548,11 @@ namespace PriemLib
             }
             catch (WordException we)
             {
-                WinFormsServ.Error(we.Message);
+                WinFormsServ.Error(we);
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error(exc.Message);
+                WinFormsServ.Error(exc);
             }
         }
         public static void PrintStikerAll(Guid? personId, Guid? abitId, bool forPrint)
@@ -643,11 +643,11 @@ namespace PriemLib
             }
             catch (WordException we)
             {
-                WinFormsServ.Error(we.Message);
+                WinFormsServ.Error(we);
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error(exc.Message);
+                WinFormsServ.Error(exc);
             }
         }
 
@@ -795,7 +795,7 @@ namespace PriemLib
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error(exc.Message);
+                WinFormsServ.Error(exc);
             }
             finally
             {
@@ -1000,7 +1000,7 @@ namespace PriemLib
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error(exc.Message);
+                WinFormsServ.Error(exc);
             }
             finally
             {
@@ -1138,7 +1138,7 @@ namespace PriemLib
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error(exc.Message);
+                WinFormsServ.Error(exc);
             }
             finally
             {
@@ -1277,7 +1277,7 @@ namespace PriemLib
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error(exc.Message);
+                WinFormsServ.Error(exc);
             }
             finally
             {
@@ -1509,7 +1509,7 @@ namespace PriemLib
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error(exc.Message);
+                WinFormsServ.Error(exc);
             }
             finally
             {
@@ -1895,11 +1895,11 @@ namespace PriemLib
             }
             catch (WordException we)
             {
-                WinFormsServ.Error(we.Message);
+                WinFormsServ.Error(we);
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error(exc.Message);
+                WinFormsServ.Error(exc);
             }
         }
         private static void AddRowInTableOrder(string text, ref TableDoc td, ref int curRow)
@@ -1989,19 +1989,19 @@ namespace PriemLib
                     string LicenseProgramName =
                         (from entry in ctx.extEntry
                          join extdisEntryView in ctx.extDisEntryView on entry.LicenseProgramId equals extdisEntryView.LicenseProgramId
-                         where extdisEntryView.Id == gProtocolId && extdisEntryView.StudyLevelGroupId == MainClass.studyLevelGroupId
+                         where extdisEntryView.Id == gProtocolId && MainClass.lstStudyLevelGroupId.Contains(extdisEntryView.StudyLevelGroupId)
                          select entry.LicenseProgramName).FirstOrDefault();
 
                     string LicenseProgramCode =
                         (from entry in ctx.extEntry
                          join extdisEntryView in ctx.extDisEntryView on entry.LicenseProgramId equals extdisEntryView.LicenseProgramId
-                         where extdisEntryView.Id == gProtocolId && extdisEntryView.StudyLevelGroupId == MainClass.studyLevelGroupId
+                         where extdisEntryView.Id == gProtocolId && MainClass.lstStudyLevelGroupId.Contains(extdisEntryView.StudyLevelGroupId)
                          select entry.LicenseProgramCode).FirstOrDefault();
 
                     string StudyLevelName =
                         (from entry in ctx.extEntry
                          join extdisEntryView in ctx.extDisEntryView on entry.LicenseProgramId equals extdisEntryView.LicenseProgramId
-                         where extdisEntryView.Id == gProtocolId && extdisEntryView.StudyLevelGroupId == MainClass.studyLevelGroupId
+                         where extdisEntryView.Id == gProtocolId && MainClass.lstStudyLevelGroupId.Contains(extdisEntryView.StudyLevelGroupId)
                          select entry.StudyLevelName).FirstOrDefault();
 
                     string basis = string.Empty;
@@ -2042,7 +2042,7 @@ namespace PriemLib
                                join competition in ctx.Competition on extabit.CompetitionId equals competition.Id
                                join extabitMarksSum in ctx.extAbitMarksSum on extabit.Id equals extabitMarksSum.Id into extabitMarksSum2
                                from extabitMarksSum in extabitMarksSum2.DefaultIfEmpty()
-                               where extdisEntryView.Id == gProtocolId && extdisEntryView.StudyLevelGroupId == MainClass.studyLevelGroupId && (isRus ? extperson.NationalityId == 1 : extperson.NationalityId != 1)
+                               where extdisEntryView.Id == gProtocolId && MainClass.lstStudyLevelGroupId.Contains(extdisEntryView.StudyLevelGroupId) && (isRus ? extperson.NationalityId == 1 : extperson.NationalityId != 1)
                                orderby extabit.ProfileName, country.NameRod, extperson.FIO
                                select new
                                {
@@ -2066,11 +2066,11 @@ namespace PriemLib
             }
             catch (WordException we)
             {
-                WinFormsServ.Error(we.Message);
+                WinFormsServ.Error(we);
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error(exc.Message);
+                WinFormsServ.Error(exc);
             }
         }
         public static void PrintDisEntryView(string protocolId)
@@ -2114,19 +2114,19 @@ namespace PriemLib
                     string LicenseProgramName =
                         (from entry in ctx.extEntry
                          join extdisEntryView in ctx.extDisEntryView on entry.LicenseProgramId equals extdisEntryView.LicenseProgramId
-                         where extdisEntryView.Id == gProtocolId && extdisEntryView.StudyLevelGroupId == MainClass.studyLevelGroupId
+                         where extdisEntryView.Id == gProtocolId && MainClass.lstStudyLevelGroupId.Contains(extdisEntryView.StudyLevelGroupId)
                          select entry.LicenseProgramName).FirstOrDefault();
 
                     string LicenseProgramCode =
                         (from entry in ctx.extEntry
                          join extdisEntryView in ctx.extDisEntryView on entry.LicenseProgramId equals extdisEntryView.LicenseProgramId
-                         where extdisEntryView.Id == gProtocolId && extdisEntryView.StudyLevelGroupId == MainClass.studyLevelGroupId
+                         where extdisEntryView.Id == gProtocolId && MainClass.lstStudyLevelGroupId.Contains(extdisEntryView.StudyLevelGroupId)
                          select entry.LicenseProgramCode).FirstOrDefault();
 
                     string StudyLevelName =
                         (from entry in ctx.extEntry
                          join extdisEntryView in ctx.extDisEntryView on entry.LicenseProgramId equals extdisEntryView.LicenseProgramId
-                         where extdisEntryView.Id == gProtocolId && extdisEntryView.StudyLevelGroupId == MainClass.studyLevelGroupId
+                         where extdisEntryView.Id == gProtocolId && MainClass.lstStudyLevelGroupId.Contains(extdisEntryView.StudyLevelGroupId)
                          select entry.StudyLevelName).FirstOrDefault();
 
                     string basis = string.Empty;
@@ -2151,7 +2151,7 @@ namespace PriemLib
                                join competition in ctx.Competition on extabit.CompetitionId equals competition.Id
                                join extabitMarksSum in ctx.extAbitMarksSum on extabit.Id equals extabitMarksSum.Id into extabitMarksSum2
                                from extabitMarksSum in extabitMarksSum2.DefaultIfEmpty()
-                               where extdisEntryView.Id == gProtocolId && extdisEntryView.StudyLevelGroupId == MainClass.studyLevelGroupId
+                               where extdisEntryView.Id == gProtocolId && MainClass.lstStudyLevelGroupId.Contains(extdisEntryView.StudyLevelGroupId)
                                orderby extabit.ProfileName, country.NameRod, extperson.FIO
                                select new
                                {
@@ -2197,11 +2197,11 @@ namespace PriemLib
             }
             catch (WordException we)
             {
-                WinFormsServ.Error(we.Message);
+                WinFormsServ.Error(we);
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error(exc.Message);
+                WinFormsServ.Error(exc);
             }
         }
 
@@ -2676,7 +2676,7 @@ namespace PriemLib
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error(exc.Message);
+                WinFormsServ.Error(exc);
             }
             finally
             {

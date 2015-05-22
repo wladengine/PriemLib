@@ -15,15 +15,15 @@ using WordOut;
 namespace PriemLib
 {
     public partial class DisEntryViewProtocol : ProtocolCard
-    { 
-        public DisEntryViewProtocol(ProtocolList owner, int sFac, int sSection, int sForm, int? sProf, bool? isSec, bool? isReduced, bool? isParal, bool? isList)
-            : this(owner, sFac, sSection, sForm, sProf, isSec, isReduced, isParal, isList, null)
+    {
+        public DisEntryViewProtocol(ProtocolList owner, int iStudyLevelGroupId, int sFac, int sSection, int sForm, int? sProf, bool? isSec, bool? isReduced, bool? isParal, bool? isList)
+            : this(owner, iStudyLevelGroupId, sFac, sSection, sForm, sProf, isSec, isReduced, isParal, isList, null)
         {
         }
 
         //конструктор 
-        public DisEntryViewProtocol(ProtocolList owner, int sFac, int sSection, int sForm, int? sProf, bool? isSec, bool? isReduced, bool? isParal, bool? isList, Guid? sProtocol)
-            : base(owner,sFac,sSection,sForm,sProf, isSec, isReduced, isParal, isList, sProtocol)
+        public DisEntryViewProtocol(ProtocolList owner, int iStudyLevelGroupId, int sFac, int sSection, int sForm, int? sProf, bool? isSec, bool? isReduced, bool? isParal, bool? isList, Guid? sProtocol)
+            : base(owner, iStudyLevelGroupId, sFac, sSection, sForm, sProf, isSec, isReduced, isParal, isList, sProtocol)
         {
             _type = ProtocolTypes.DisEntryView;                      
         }
@@ -31,10 +31,10 @@ namespace PriemLib
         //дополнительная инициализация
         protected override void  InitControls()
         {
-            sQuery = string.Format("SELECT DISTINCT ed.extAbitMarksSum.TotalSum as Sum, ed.extPerson.AttestatSeries, ed.extPerson.AttestatNum, ed.extAbit.Id as Id, ed.extAbit.BAckDoc as backdoc, " +
+            sQuery = string.Format("SELECT DISTINCT ed.extAbitMarksSum.TotalSum as Sum, ed.extPerson.EducDocument, ed.extAbit.Id as Id, ed.extAbit.BAckDoc as backdoc, " +
             " 'false' as Red, ed.extAbit.RegNum as Рег_Номер, " +
             " ed.extPerson.FIO as ФИО, " +
-            " (case when ed.extPerson.SchoolTypeId = 1 then ed.extPerson.AttestatRegion + ' ' + ed.extPerson.AttestatSeries + '  №' + ed.extPerson.AttestatNum else ed.extPerson.DiplomSeries + '  №' + ed.extPerson.DiplomNum end) as Документ_об_образовании, " +
+            " ed.extPerson.EducDocument as Документ_об_образовании, " +
             " ed.extPerson.PassportSeries + ' №' + ed.extPerson.PassportNumber as Паспорт, " +
             " ed.extAbit.ObrazProgramName + ' ' +(Case when ed.extAbit.ProfileName IS NULL then '' else ed.extAbit.ProfileName end) as Направление, " +
             " ed.Competition.NAme as Конкурс, ed.extAbit.BackDoc " +

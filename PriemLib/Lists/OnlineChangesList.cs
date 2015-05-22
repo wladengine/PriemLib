@@ -111,7 +111,7 @@ namespace PriemLib
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error("Ошибка при инициализации формы " + exc.Message);
+                WinFormsServ.Error("Ошибка при инициализации формы ", exc);
             } 
         }
 
@@ -449,7 +449,7 @@ AND qAbiturient.IsImported = 1 ";
             }
             catch(Exception exc)
             {
-                WinFormsServ.Error(exc.Message);
+                WinFormsServ.Error(exc);
             }
 
             btnLoad.Enabled = !(dgvAbiturients.RowCount == 0);           
@@ -616,7 +616,7 @@ AND qAbiturient.IsImported = 1 ";
                 }
                 catch (Exception ex)
                 {
-                    WinFormsServ.Error("Ошибка обновления данных: " + code + ":" + ex.Message);
+                    WinFormsServ.Error("Ошибка обновления данных: " + code + ":", ex);
                     goto Next;
                 }
             Next: ;

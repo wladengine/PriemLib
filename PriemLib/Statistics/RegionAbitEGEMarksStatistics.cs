@@ -97,7 +97,7 @@ namespace PriemLib
             using (PriemEntities context = new PriemEntities())
             {
                 var src = (from x in context.qEntry
-                           where x.StudyLevelGroupId == MainClass.studyLevelGroupId
+                           where MainClass.lstStudyLevelGroupId.Contains(x.StudyLevelGroupId)
                            select new
                            {
                                x.FacultyId,
@@ -112,7 +112,7 @@ namespace PriemLib
             using (PriemEntities context = new PriemEntities())
             {
                 var src = (from x in context.qEntry
-                           where x.StudyLevelGroupId == MainClass.studyLevelGroupId && x.FacultyId == FacultyId
+                           where MainClass.lstStudyLevelGroupId.Contains(x.StudyLevelGroupId) && x.FacultyId == FacultyId
                            select new
                            {
                                x.LicenseProgramId,
@@ -129,7 +129,7 @@ namespace PriemLib
             using (PriemEntities context = new PriemEntities())
             {
                 var src = (from x in context.qEntry
-                           where x.StudyLevelGroupId == MainClass.studyLevelGroupId && x.FacultyId == FacultyId
+                           where MainClass.lstStudyLevelGroupId.Contains(x.StudyLevelGroupId) && x.FacultyId == FacultyId
                            && LicenseProgramId.HasValue ? x.LicenseProgramId == LicenseProgramId.Value : true
                            select new
                            {
@@ -150,7 +150,7 @@ namespace PriemLib
             using (PriemEntities context = new PriemEntities())
             {
                 var src = (from x in context.qEntry
-                           where x.StudyLevelGroupId == MainClass.studyLevelGroupId && x.FacultyId == FacultyId
+                           where MainClass.lstStudyLevelGroupId.Contains(x.StudyLevelGroupId) && x.FacultyId == FacultyId
                            && LicenseProgramId.HasValue ? x.LicenseProgramId == LicenseProgramId.Value : true
                            && ObrazProgramId.HasValue ? x.ObrazProgramId == ObrazProgramId.Value : true
                            select new
@@ -170,7 +170,7 @@ namespace PriemLib
             using (PriemEntities context = new PriemEntities())
             {
                 var src = (from x in context.qEntry
-                           where x.StudyLevelGroupId == MainClass.studyLevelGroupId && x.FacultyId == FacultyId
+                           where MainClass.lstStudyLevelGroupId.Contains(x.StudyLevelGroupId) && x.FacultyId == FacultyId
                            && LicenseProgramId.HasValue ? x.LicenseProgramId == LicenseProgramId.Value : true
                            && ObrazProgramId.HasValue ? x.ObrazProgramId == ObrazProgramId.Value : true
                            && StudyFormId.HasValue ? x.StudyFormId == StudyFormId.Value : true
@@ -198,7 +198,7 @@ namespace PriemLib
                 WHERE StudyLevel.LevelGroupId = @LevelGroupId";
 
             SortedList<string, object> sl = new SortedList<string, object>();
-            sl.Add("@LevelGroupId", MainClass.studyLevelGroupId);
+            sl.Add("@LevelGroupId", MainClass.lstStudyLevelGroupId.First());
 
             if (FacultyId.HasValue)
             {
@@ -260,7 +260,7 @@ namespace PriemLib
                 WHERE StudyLevel.LevelGroupId = @LevelGroupId AND extPerson.RegionId=@RegionId ";
 
             SortedList<string, object> sl = new SortedList<string, object>();
-            sl.Add("@LevelGroupId", MainClass.studyLevelGroupId);
+            sl.Add("@LevelGroupId", MainClass.lstStudyLevelGroupId.First());
             sl.Add("@RegionId", RegionId);
 
             if (FacultyId.HasValue)
@@ -367,7 +367,7 @@ namespace PriemLib
                 WHERE StudyLevel.LevelGroupId=@LevelGroupId AND extPerson.RegionId=@RegionId ";
 
             SortedList<string, object> sl = new SortedList<string, object>();
-            sl.Add("@LevelGroupId", MainClass.studyLevelGroupId);
+            sl.Add("@LevelGroupId", MainClass.lstStudyLevelGroupId.First());
             sl.Add("@RegionId", RegionId);
 
             if (FacultyId.HasValue)
@@ -523,7 +523,7 @@ namespace PriemLib
             }
             catch (Exception ex)
             {
-                WinFormsServ.Error(ex.Message);
+                WinFormsServ.Error(ex);
             }
         }
     }

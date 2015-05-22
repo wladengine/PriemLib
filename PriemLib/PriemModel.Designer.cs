@@ -9,9 +9,9 @@
 
 using System;
 using System.ComponentModel;
-using System.Data.EntityClient;
-using System.Data.Objects;
-using System.Data.Objects.DataClasses;
+using System.Data.Entity.Core.EntityClient;
+using System.Data.Entity.Core.Objects;
+using System.Data.Entity.Core.Objects.DataClasses;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
@@ -19,99 +19,101 @@ using System.Xml.Serialization;
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
 
-[assembly: EdmRelationshipAttribute("Priem2012Model", "fk_AttMarks_AttSubject", "AttSubject", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.AttSubject), "AttMarks", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.AttMarks), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "fk_ed_Competition_StudyBasis", "StudyBasis", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.StudyBasis), "Competition", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Competition), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "fk_ed_EgeCertificate_FBSStatus", "FBSStatus", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.FBSStatus), "EgeCertificate", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.EgeCertificate), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "fk_ed_EgeMark_EgeCertificate", "EgeCertificate", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.EgeCertificate), "EgeMark", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.EgeMark), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "fk_ed_EgeMark_EgeExamName", "EgeExamName", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.EgeExamName), "EgeMark", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.EgeMark), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_PaidData_DogovorType", "DogovorType", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.DogovorType), "PaidData", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.PaidData), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_PaidData_PayPeriod", "PayPeriod", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.PayPeriod), "PaidData", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.PaidData), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_PaidData_Prorektor", "Prorektor", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.Prorektor), "PaidData", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.PaidData), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_PayDataStudyPlan_Prorektor", "Prorektor", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Prorektor), "PayDataEntry", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.PayDataEntry), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "fk_Exam_ExamName", "ExamName", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.ExamName), "Exam", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Exam), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_EgeToExam_EgeExamName", "EgeExamName", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.EgeExamName), "EgeToExam", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.EgeToExam), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_EgeToExam_Exam", "Exam", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.Exam), "EgeToExam", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.EgeToExam), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "fk_OlympBook_OlympLevel", "OlympLevel", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.OlympLevel), "OlympBook", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.OlympBook), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "fk_OlympBook_OlympSubject", "OlympSubject", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.OlympSubject), "OlympBook", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.OlympBook), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_OlympBook_OlympType", "OlympType", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.OlympType), "OlympBook", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.OlympBook), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "fk_Olympiads_OlympLevel", "OlympLevel", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.OlympLevel), "Olympiads", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Olympiads), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "fk_Olympiads_OlympSubject", "OlympSubject", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.OlympSubject), "Olympiads", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Olympiads), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Olympiads_OlympType", "OlympType", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.OlympType), "Olympiads", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Olympiads), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "fk_Olympiads_OlympValue", "OlympValue", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.OlympValue), "Olympiads", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Olympiads), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Abiturient_CelCompetition", "CelCompetition", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.CelCompetition), "Abiturient", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Abiturient), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Abiturient_Competition", "Competition", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Competition), "Abiturient", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Abiturient), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "fk_Mark_Abiturient", "Abiturient", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Abiturient), "Mark", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Mark), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "fk_Olympiads_Person", "Abiturient", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.Abiturient), "Olympiads", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Olympiads), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_PaidData_Abiturient", "Abiturient", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Abiturient), "PaidData", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.PaidData), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "fk_Protocol_ProtocolType", "ProtocolType", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.ProtocolType), "Protocol", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Protocol), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "fk_Protocol_StudyBasis", "StudyBasis", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.StudyBasis), "Protocol", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Protocol), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "fk_Protocol_StudyForm", "StudyForm", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.StudyForm), "Protocol", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Protocol), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "fk_DocInventory_AbitDoc", "AbitDoc", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.AbitDoc), "DocInventory", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.DocInventory), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "fk_DocInventory_Abiturient", "Abiturient", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Abiturient), "DocInventory", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.DocInventory), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Abiturient_Competition1", "Competition", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.Competition), "Abiturient", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Abiturient), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Abiturient_Language", "Language", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Language), "Abiturient", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Abiturient), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_EgeToLanguage_EgeExamName", "EgeExamName", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.EgeExamName), "EgeToLanguage", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.EgeToLanguage), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_EgeToLanguage_Exam", "Exam", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Exam), "EgeToLanguage", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.EgeToLanguage), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_EgeToLanguage_Language", "Language", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Language), "EgeToLanguage", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.EgeToLanguage), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Fixieren_Abiturient", "Abiturient", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Abiturient), "Fixieren", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Fixieren), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Fixieren_FixierenView", "FixierenView", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.FixierenView), "Fixieren", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Fixieren), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Abiturient_Person", "Person", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Person), "Abiturient", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Abiturient), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_AttMarks_Person", "Person", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Person), "AttMarks", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.AttMarks), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Person_Contacts_Country", "Country", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Country), "Person_Contacts", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Person_Contacts), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Person_EducationInfo_Country", "Country", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Country), "Person_EducationInfo", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Person_EducationInfo), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_EgeCertificate_Person", "Person", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Person), "EgeCertificate", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.EgeCertificate), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Person_PassportType", "PassportType", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.PassportType), "Person", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Person), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Person_AdditionalInfo_Person", "Person", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Person), "Person_AdditionalInfo", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.Person_AdditionalInfo), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Person_Contacts_Person", "Person", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Person), "Person_Contacts", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.Person_Contacts), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Person_EducationInfo_Person", "Person", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Person), "Person_EducationInfo", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Person_EducationInfo), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Person_AdditionalInfo_SP_ExamPassFaculty", "SP_Faculty", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.SP_Faculty), "Person_AdditionalInfo", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Person_AdditionalInfo), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Person_AdditionalInfo_SP_HostelFaculty", "SP_Faculty", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.SP_Faculty), "Person_AdditionalInfo", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Person_AdditionalInfo), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Person_Contacts_Region", "Region", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Region), "Person_Contacts", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Person_Contacts), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Person_EducationInfo_SchoolType", "SchoolType", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.SchoolType), "Person_EducationInfo", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Person_EducationInfo), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Person_EducationInfo_StudyForm_HE_", "StudyForm", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.StudyForm), "Person_EducationInfo", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Person_EducationInfo), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Person_Nationality", "Country", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Country), "Person", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Person), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_OlympBook_OlympName", "OlympName", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.OlympName), "OlympBook", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.OlympBook), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_PersonBenefitDocument_BenefitDocumentType", "BenefitDocumentType", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.BenefitDocumentType), "PersonBenefitDocument", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.PersonBenefitDocument), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_PersonBenefitDocument_Person", "Person", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Person), "PersonBenefitDocument", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.PersonBenefitDocument), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_OlympiadCheckedByRectorat_Olympiads", "Olympiads", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Olympiads), "OlympiadCheckedByRectorat", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.OlympiadCheckedByRectorat), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_StudyLevel_StudyLevelGroup", "StudyLevelGroup", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.StudyLevelGroup), "StudyLevel", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.StudyLevel), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_SP_LicenseProgram_StudyLevel", "StudyLevel", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.StudyLevel), "SP_LicenseProgram", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.SP_LicenseProgram), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_SP_ObrazProgram_SP_LicenseProgram", "SP_LicenseProgram", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.SP_LicenseProgram), "SP_ObrazProgram", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.SP_ObrazProgram), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_SP_ObrazProgram_SP_Faculty", "SP_Faculty", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.SP_Faculty), "SP_ObrazProgram", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.SP_ObrazProgram), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_ApplicationDetails_Abiturient", "Abiturient", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Abiturient), "ApplicationDetails", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.ApplicationDetails), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_ApplicationVersion_Abiturient", "Abiturient", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Abiturient), "ApplicationVersion", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.ApplicationVersion), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_ApplicationVersionDetails_ApplicationVersion", "ApplicationVersion", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.ApplicationVersion), "ApplicationVersionDetails", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.ApplicationVersionDetails), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Abiturient_Entry", "Entry", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Entry), "Abiturient", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Abiturient), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Entry_SP_Faculty", "SP_Faculty", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.SP_Faculty), "Entry", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Entry), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Entry_StudyBasis", "StudyBasis", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.StudyBasis), "Entry", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Entry), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Entry_StudyForm", "StudyForm", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.StudyForm), "Entry", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Entry), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Entry_StudyLevel", "StudyLevel", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.StudyLevel), "Entry", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Entry), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_PayDataStudyPlan_Entry", "Entry", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Entry), "PayDataEntry", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.PayDataEntry), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Olympiads_OlympName", "OlympName", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.OlympName), "Olympiads", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Olympiads), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_ExamInEntry_Entry", "Entry", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Entry), "ExamInEntry", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.ExamInEntry), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_ExamInEntry_Exam", "Exam", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Exam), "ExamInEntry", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.ExamInEntry), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "fk_Mark_ExamInEntry", "ExamInEntry", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.ExamInEntry), "Mark", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Mark), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Entry_SP_LicenseProgram", "SP_LicenseProgram", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.SP_LicenseProgram), "Entry", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Entry), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Entry_SP_ObrazProgram", "SP_ObrazProgram", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.SP_ObrazProgram), "Entry", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Entry), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Mark_EgeCertificate", "EgeCertificate", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.EgeCertificate), "Mark", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Mark), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_OlympSubjectToExam_Exam", "Exam", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Exam), "OlympSubjectToExam", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.OlympSubjectToExam), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_OlympSubjectToExam_OlympSubject", "OlympSubject", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.OlympSubject), "OlympSubjectToExam", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.OlympSubjectToExam), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_OrderNumbers_Signer", "Signer", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Signer), "OrderNumbers", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.OrderNumbers), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Person_Contacts_ForeignCountry", "ForeignCountry", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.ForeignCountry), "Person_Contacts", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Person_Contacts), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Person_EducationInfo_ForeignCountry", "ForeignCountry", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.ForeignCountry), "Person_EducationInfo", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Person_EducationInfo), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Entry_SP_Profile", "SP_Profile", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.SP_Profile), "Entry", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Entry), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_SP_LicenseProgram_SP_AggregateGroup", "SP_AggregateGroup", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.SP_AggregateGroup), "SP_LicenseProgram", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.SP_LicenseProgram), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Person_AdditionalInfo_Language", "Language", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Language), "Person_AdditionalInfo", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Person_AdditionalInfo), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_ApplicationDetails_ObrazProgramInEntry", "InnerEntryInEntry", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.InnerEntryInEntry), "ApplicationDetails", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.ApplicationDetails), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_ApplicationVersionDetails_ObrazProgramInEntry", "InnerEntryInEntry", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.InnerEntryInEntry), "ApplicationVersionDetails", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.ApplicationVersionDetails), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_ObrazProgramInEntry_Entry", "Entry", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Entry), "InnerEntryInEntry", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.InnerEntryInEntry), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_ObrazProgramInEntry_SP_ObrazProgram", "SP_ObrazProgram", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.SP_ObrazProgram), "InnerEntryInEntry", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.InnerEntryInEntry), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_InnerEntryInEntry_SP_Profile", "SP_Profile", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.SP_Profile), "InnerEntryInEntry", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.InnerEntryInEntry), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Protocol_SP_Faculty", "SP_Faculty", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.SP_Faculty), "Protocol", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Protocol), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Protocol_SP_LicenseProgram", "SP_LicenseProgram", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.SP_LicenseProgram), "Protocol", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Protocol), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Entry_Comission", "Comission", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.Comission), "Entry", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Entry), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_PersonSportQualification_SportQualification", "SportQualification", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.SportQualification), "PersonSportQualification", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.PersonSportQualification), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_PersonSportQualification_Person", "Person", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Person), "PersonSportQualification", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.PersonSportQualification), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "fk_AttMarks_AttSubject", "AttSubject", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.AttSubject), "AttMarks", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.AttMarks), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "fk_ed_Competition_StudyBasis", "StudyBasis", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.StudyBasis), "Competition", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Competition), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "fk_ed_EgeCertificate_FBSStatus", "FBSStatus", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.FBSStatus), "EgeCertificate", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.EgeCertificate), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "fk_ed_EgeMark_EgeCertificate", "EgeCertificate", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.EgeCertificate), "EgeMark", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.EgeMark), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "fk_ed_EgeMark_EgeExamName", "EgeExamName", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.EgeExamName), "EgeMark", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.EgeMark), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_PaidData_DogovorType", "DogovorType", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.DogovorType), "PaidData", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.PaidData), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_PaidData_PayPeriod", "PayPeriod", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.PayPeriod), "PaidData", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.PaidData), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_PaidData_Prorektor", "Prorektor", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.Prorektor), "PaidData", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.PaidData), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_PayDataStudyPlan_Prorektor", "Prorektor", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Prorektor), "PayDataEntry", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.PayDataEntry), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "fk_Exam_ExamName", "ExamName", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.ExamName), "Exam", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Exam), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_EgeToExam_EgeExamName", "EgeExamName", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.EgeExamName), "EgeToExam", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.EgeToExam), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_EgeToExam_Exam", "Exam", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.Exam), "EgeToExam", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.EgeToExam), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "fk_OlympBook_OlympLevel", "OlympLevel", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.OlympLevel), "OlympBook", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.OlympBook), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "fk_OlympBook_OlympSubject", "OlympSubject", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.OlympSubject), "OlympBook", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.OlympBook), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_OlympBook_OlympType", "OlympType", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.OlympType), "OlympBook", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.OlympBook), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "fk_Olympiads_OlympLevel", "OlympLevel", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.OlympLevel), "Olympiads", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Olympiads), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "fk_Olympiads_OlympSubject", "OlympSubject", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.OlympSubject), "Olympiads", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Olympiads), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Olympiads_OlympType", "OlympType", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.OlympType), "Olympiads", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Olympiads), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "fk_Olympiads_OlympValue", "OlympValue", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.OlympValue), "Olympiads", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Olympiads), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Abiturient_CelCompetition", "CelCompetition", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.CelCompetition), "Abiturient", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Abiturient), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Abiturient_Competition", "Competition", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Competition), "Abiturient", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Abiturient), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "fk_Mark_Abiturient", "Abiturient", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Abiturient), "Mark", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Mark), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "fk_Olympiads_Person", "Abiturient", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.Abiturient), "Olympiads", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Olympiads), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_PaidData_Abiturient", "Abiturient", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Abiturient), "PaidData", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.PaidData), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "fk_Protocol_ProtocolType", "ProtocolType", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.ProtocolType), "Protocol", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Protocol), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "fk_Protocol_StudyBasis", "StudyBasis", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.StudyBasis), "Protocol", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Protocol), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "fk_Protocol_StudyForm", "StudyForm", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.StudyForm), "Protocol", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Protocol), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "fk_DocInventory_AbitDoc", "AbitDoc", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.AbitDoc), "DocInventory", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.DocInventory), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "fk_DocInventory_Abiturient", "Abiturient", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Abiturient), "DocInventory", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.DocInventory), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Abiturient_Competition1", "Competition", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.Competition), "Abiturient", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Abiturient), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Abiturient_Language", "Language", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Language), "Abiturient", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Abiturient), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_EgeToLanguage_EgeExamName", "EgeExamName", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.EgeExamName), "EgeToLanguage", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.EgeToLanguage), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_EgeToLanguage_Exam", "Exam", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Exam), "EgeToLanguage", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.EgeToLanguage), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_EgeToLanguage_Language", "Language", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Language), "EgeToLanguage", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.EgeToLanguage), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Fixieren_Abiturient", "Abiturient", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Abiturient), "Fixieren", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Fixieren), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Fixieren_FixierenView", "FixierenView", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.FixierenView), "Fixieren", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Fixieren), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Abiturient_Person", "Person", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Person), "Abiturient", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Abiturient), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_AttMarks_Person", "Person", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Person), "AttMarks", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.AttMarks), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Person_Contacts_Country", "Country", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Country), "Person_Contacts", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Person_Contacts), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Person_EducationInfo_Country", "Country", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Country), "Person_EducationInfo", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Person_EducationInfo), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_EgeCertificate_Person", "Person", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Person), "EgeCertificate", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.EgeCertificate), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Person_PassportType", "PassportType", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.PassportType), "Person", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Person), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Person_AdditionalInfo_Person", "Person", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Person), "Person_AdditionalInfo", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.Person_AdditionalInfo), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Person_Contacts_Person", "Person", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Person), "Person_Contacts", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.Person_Contacts), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Person_EducationInfo_Person", "Person", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Person), "Person_EducationInfo", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Person_EducationInfo), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Person_AdditionalInfo_SP_ExamPassFaculty", "SP_Faculty", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.SP_Faculty), "Person_AdditionalInfo", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Person_AdditionalInfo), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Person_AdditionalInfo_SP_HostelFaculty", "SP_Faculty", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.SP_Faculty), "Person_AdditionalInfo", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Person_AdditionalInfo), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Person_Contacts_Region", "Region", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Region), "Person_Contacts", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Person_Contacts), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Person_EducationInfo_SchoolType", "SchoolType", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.SchoolType), "Person_EducationInfo", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Person_EducationInfo), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Person_EducationInfo_StudyForm_HE_", "StudyForm", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.StudyForm), "Person_EducationInfo", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Person_EducationInfo), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Person_Nationality", "Country", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Country), "Person", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Person), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_OlympBook_OlympName", "OlympName", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.OlympName), "OlympBook", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.OlympBook), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_PersonBenefitDocument_BenefitDocumentType", "BenefitDocumentType", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.BenefitDocumentType), "PersonBenefitDocument", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.PersonBenefitDocument), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_PersonBenefitDocument_Person", "Person", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Person), "PersonBenefitDocument", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.PersonBenefitDocument), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_OlympiadCheckedByRectorat_Olympiads", "Olympiads", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Olympiads), "OlympiadCheckedByRectorat", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.OlympiadCheckedByRectorat), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_StudyLevel_StudyLevelGroup", "StudyLevelGroup", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.StudyLevelGroup), "StudyLevel", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.StudyLevel), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_SP_LicenseProgram_StudyLevel", "StudyLevel", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.StudyLevel), "SP_LicenseProgram", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.SP_LicenseProgram), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_SP_ObrazProgram_SP_LicenseProgram", "SP_LicenseProgram", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.SP_LicenseProgram), "SP_ObrazProgram", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.SP_ObrazProgram), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_SP_ObrazProgram_SP_Faculty", "SP_Faculty", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.SP_Faculty), "SP_ObrazProgram", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.SP_ObrazProgram), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_ApplicationDetails_Abiturient", "Abiturient", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Abiturient), "ApplicationDetails", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.ApplicationDetails), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_ApplicationVersion_Abiturient", "Abiturient", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Abiturient), "ApplicationVersion", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.ApplicationVersion), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_ApplicationVersionDetails_ApplicationVersion", "ApplicationVersion", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.ApplicationVersion), "ApplicationVersionDetails", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.ApplicationVersionDetails), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Abiturient_Entry", "Entry", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Entry), "Abiturient", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Abiturient), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Entry_SP_Faculty", "SP_Faculty", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.SP_Faculty), "Entry", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Entry), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Entry_StudyBasis", "StudyBasis", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.StudyBasis), "Entry", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Entry), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Entry_StudyForm", "StudyForm", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.StudyForm), "Entry", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Entry), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Entry_StudyLevel", "StudyLevel", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.StudyLevel), "Entry", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Entry), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_PayDataStudyPlan_Entry", "Entry", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Entry), "PayDataEntry", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.PayDataEntry), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Olympiads_OlympName", "OlympName", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.OlympName), "Olympiads", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Olympiads), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_ExamInEntry_Entry", "Entry", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Entry), "ExamInEntry", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.ExamInEntry), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_ExamInEntry_Exam", "Exam", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Exam), "ExamInEntry", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.ExamInEntry), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "fk_Mark_ExamInEntry", "ExamInEntry", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.ExamInEntry), "Mark", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Mark), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Entry_SP_LicenseProgram", "SP_LicenseProgram", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.SP_LicenseProgram), "Entry", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Entry), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Entry_SP_ObrazProgram", "SP_ObrazProgram", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.SP_ObrazProgram), "Entry", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Entry), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Mark_EgeCertificate", "EgeCertificate", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.EgeCertificate), "Mark", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Mark), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_OlympSubjectToExam_Exam", "Exam", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Exam), "OlympSubjectToExam", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.OlympSubjectToExam), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_OlympSubjectToExam_OlympSubject", "OlympSubject", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.OlympSubject), "OlympSubjectToExam", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.OlympSubjectToExam), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_OrderNumbers_Signer", "Signer", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Signer), "OrderNumbers", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.OrderNumbers), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Person_Contacts_ForeignCountry", "ForeignCountry", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.ForeignCountry), "Person_Contacts", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Person_Contacts), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Person_EducationInfo_ForeignCountry", "ForeignCountry", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.ForeignCountry), "Person_EducationInfo", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Person_EducationInfo), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Entry_SP_Profile", "SP_Profile", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.SP_Profile), "Entry", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Entry), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_SP_LicenseProgram_SP_AggregateGroup", "SP_AggregateGroup", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.SP_AggregateGroup), "SP_LicenseProgram", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.SP_LicenseProgram), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Person_AdditionalInfo_Language", "Language", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Language), "Person_AdditionalInfo", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Person_AdditionalInfo), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_ApplicationDetails_ObrazProgramInEntry", "InnerEntryInEntry", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.InnerEntryInEntry), "ApplicationDetails", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.ApplicationDetails), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_ApplicationVersionDetails_ObrazProgramInEntry", "InnerEntryInEntry", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.InnerEntryInEntry), "ApplicationVersionDetails", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.ApplicationVersionDetails), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_ObrazProgramInEntry_Entry", "Entry", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Entry), "InnerEntryInEntry", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.InnerEntryInEntry), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_ObrazProgramInEntry_SP_ObrazProgram", "SP_ObrazProgram", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.SP_ObrazProgram), "InnerEntryInEntry", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.InnerEntryInEntry), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_InnerEntryInEntry_SP_Profile", "SP_Profile", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.SP_Profile), "InnerEntryInEntry", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.InnerEntryInEntry), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Protocol_SP_Faculty", "SP_Faculty", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.SP_Faculty), "Protocol", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Protocol), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Protocol_SP_LicenseProgram", "SP_LicenseProgram", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.SP_LicenseProgram), "Protocol", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Protocol), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Entry_Comission", "Comission", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.Comission), "Entry", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Entry), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_PersonSportQualification_SportQualification", "SportQualification", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.SportQualification), "PersonSportQualification", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.PersonSportQualification), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_PersonSportQualification_Person", "Person", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Person), "PersonSportQualification", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.PersonSportQualification), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_PersonAchievement_AchievementType", "AchievementType", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.AchievementType), "PersonAchievement", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.PersonAchievement), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_PersonAchievement_Person", "Person", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Person), "PersonAchievement", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.PersonAchievement), true)]
 
 #endregion
 
@@ -2210,6 +2212,54 @@ namespace PriemLib
             }
         }
         private ObjectSet<extForeignPerson> _extForeignPerson;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<PersonEgeRequest> PersonEgeRequest
+        {
+            get
+            {
+                if ((_PersonEgeRequest == null))
+                {
+                    _PersonEgeRequest = base.CreateObjectSet<PersonEgeRequest>("PersonEgeRequest");
+                }
+                return _PersonEgeRequest;
+            }
+        }
+        private ObjectSet<PersonEgeRequest> _PersonEgeRequest;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<AchievementType> AchievementType
+        {
+            get
+            {
+                if ((_AchievementType == null))
+                {
+                    _AchievementType = base.CreateObjectSet<AchievementType>("AchievementType");
+                }
+                return _AchievementType;
+            }
+        }
+        private ObjectSet<AchievementType> _AchievementType;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<PersonAchievement> PersonAchievement
+        {
+            get
+            {
+                if ((_PersonAchievement == null))
+                {
+                    _PersonAchievement = base.CreateObjectSet<PersonAchievement>("PersonAchievement");
+                }
+                return _PersonAchievement;
+            }
+        }
+        private ObjectSet<PersonAchievement> _PersonAchievement;
 
         #endregion
 
@@ -3237,6 +3287,30 @@ namespace PriemLib
         public void AddToextForeignPerson(extForeignPerson extForeignPerson)
         {
             base.AddObject("extForeignPerson", extForeignPerson);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the PersonEgeRequest EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToPersonEgeRequest(PersonEgeRequest personEgeRequest)
+        {
+            base.AddObject("PersonEgeRequest", personEgeRequest);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the AchievementType EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToAchievementType(AchievementType achievementType)
+        {
+            base.AddObject("AchievementType", achievementType);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the PersonAchievement EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToPersonAchievement(PersonAchievement personAchievement)
+        {
+            base.AddObject("PersonAchievement", personAchievement);
         }
 
         #endregion
@@ -8259,7 +8333,8 @@ namespace PriemLib
         /// <param name="kCPCrimea">No Metadata Documentation available.</param>
         /// <param name="comissionId">No Metadata Documentation available.</param>
         /// <param name="isForeign">No Metadata Documentation available.</param>
-        public int Entry_Insert(Nullable<global::System.Guid> id, Nullable<global::System.Int32> facultyId, Nullable<global::System.Int32> licenseProgramId, Nullable<global::System.Int32> obrazProgramId, Nullable<global::System.Int32> profileId, Nullable<global::System.Int32> studyBasisId, Nullable<global::System.Int32> studyFormId, Nullable<global::System.Int32> studyLevelId, Nullable<global::System.Guid> studyPlanId, global::System.String studyPlanNumber, global::System.String programModeShortName, Nullable<global::System.Boolean> isSecond, Nullable<global::System.Boolean> isReduced, Nullable<global::System.Boolean> isParallel, Nullable<global::System.Int32> kCP, Nullable<global::System.Int32> kCPCrimea, Nullable<global::System.Int32> comissionId, Nullable<global::System.Boolean> isForeign)
+        /// <param name="isCrimea">No Metadata Documentation available.</param>
+        public int Entry_Insert(Nullable<global::System.Guid> id, Nullable<global::System.Int32> facultyId, Nullable<global::System.Int32> licenseProgramId, Nullable<global::System.Int32> obrazProgramId, Nullable<global::System.Int32> profileId, Nullable<global::System.Int32> studyBasisId, Nullable<global::System.Int32> studyFormId, Nullable<global::System.Int32> studyLevelId, Nullable<global::System.Guid> studyPlanId, global::System.String studyPlanNumber, global::System.String programModeShortName, Nullable<global::System.Boolean> isSecond, Nullable<global::System.Boolean> isReduced, Nullable<global::System.Boolean> isParallel, Nullable<global::System.Int32> kCP, Nullable<global::System.Int32> kCPCrimea, Nullable<global::System.Int32> comissionId, Nullable<global::System.Boolean> isForeign, Nullable<global::System.Boolean> isCrimea)
         {
             ObjectParameter idParameter;
             if (id.HasValue)
@@ -8441,7 +8516,17 @@ namespace PriemLib
                 isForeignParameter = new ObjectParameter("IsForeign", typeof(global::System.Boolean));
             }
     
-            return base.ExecuteFunction("Entry_Insert", idParameter, facultyIdParameter, licenseProgramIdParameter, obrazProgramIdParameter, profileIdParameter, studyBasisIdParameter, studyFormIdParameter, studyLevelIdParameter, studyPlanIdParameter, studyPlanNumberParameter, programModeShortNameParameter, isSecondParameter, isReducedParameter, isParallelParameter, kCPParameter, kCPCrimeaParameter, comissionIdParameter, isForeignParameter);
+            ObjectParameter isCrimeaParameter;
+            if (isCrimea.HasValue)
+            {
+                isCrimeaParameter = new ObjectParameter("IsCrimea", isCrimea);
+            }
+            else
+            {
+                isCrimeaParameter = new ObjectParameter("IsCrimea", typeof(global::System.Boolean));
+            }
+    
+            return base.ExecuteFunction("Entry_Insert", idParameter, facultyIdParameter, licenseProgramIdParameter, obrazProgramIdParameter, profileIdParameter, studyBasisIdParameter, studyFormIdParameter, studyLevelIdParameter, studyPlanIdParameter, studyPlanNumberParameter, programModeShortNameParameter, isSecondParameter, isReducedParameter, isParallelParameter, kCPParameter, kCPCrimeaParameter, comissionIdParameter, isForeignParameter, isCrimeaParameter);
         }
     
         /// <summary>
@@ -8601,9 +8686,8 @@ namespace PriemLib
         /// </summary>
         /// <param name="id">No Metadata Documentation available.</param>
         /// <param name="kCP">No Metadata Documentation available.</param>
-        /// <param name="kCPCrimea">No Metadata Documentation available.</param>
         /// <param name="kCPQuota">No Metadata Documentation available.</param>
-        public int Entry_UpdateKC(Nullable<global::System.Guid> id, Nullable<global::System.Int32> kCP, Nullable<global::System.Int32> kCPCrimea, Nullable<global::System.Int32> kCPQuota)
+        public int Entry_UpdateKC(Nullable<global::System.Guid> id, Nullable<global::System.Int32> kCP, Nullable<global::System.Int32> kCPQuota)
         {
             ObjectParameter idParameter;
             if (id.HasValue)
@@ -8625,16 +8709,6 @@ namespace PriemLib
                 kCPParameter = new ObjectParameter("KCP", typeof(global::System.Int32));
             }
     
-            ObjectParameter kCPCrimeaParameter;
-            if (kCPCrimea.HasValue)
-            {
-                kCPCrimeaParameter = new ObjectParameter("KCPCrimea", kCPCrimea);
-            }
-            else
-            {
-                kCPCrimeaParameter = new ObjectParameter("KCPCrimea", typeof(global::System.Int32));
-            }
-    
             ObjectParameter kCPQuotaParameter;
             if (kCPQuota.HasValue)
             {
@@ -8645,7 +8719,7 @@ namespace PriemLib
                 kCPQuotaParameter = new ObjectParameter("KCPQuota", typeof(global::System.Int32));
             }
     
-            return base.ExecuteFunction("Entry_UpdateKC", idParameter, kCPParameter, kCPCrimeaParameter, kCPQuotaParameter);
+            return base.ExecuteFunction("Entry_UpdateKC", idParameter, kCPParameter, kCPQuotaParameter);
         }
     
         /// <summary>
@@ -11162,15 +11236,12 @@ namespace PriemLib
         /// <param name="isReduced">No Metadata Documentation available.</param>
         /// <param name="isSecond">No Metadata Documentation available.</param>
         /// <param name="studyPlanNumber">No Metadata Documentation available.</param>
-        /// <param name="dateOfStart_Foreign">No Metadata Documentation available.</param>
-        /// <param name="dateOfClose_Foreign">No Metadata Documentation available.</param>
-        /// <param name="dateOfStart_GosLine">No Metadata Documentation available.</param>
-        /// <param name="dateOfClose_GosLine">No Metadata Documentation available.</param>
         /// <param name="dateOfStart">No Metadata Documentation available.</param>
         /// <param name="dateOfClose">No Metadata Documentation available.</param>
         /// <param name="comissionId">No Metadata Documentation available.</param>
         /// <param name="isForeign">No Metadata Documentation available.</param>
-        public int Entry_Update(Nullable<global::System.Guid> id, Nullable<global::System.Int32> studyLevelId, Nullable<global::System.Int32> studyFormId, Nullable<global::System.Int32> studyBasisId, Nullable<global::System.Int32> facultyId, Nullable<global::System.Boolean> isClosed, Nullable<global::System.Boolean> isParallel, Nullable<global::System.Boolean> isReduced, Nullable<global::System.Boolean> isSecond, global::System.String studyPlanNumber, Nullable<global::System.DateTime> dateOfStart_Foreign, Nullable<global::System.DateTime> dateOfClose_Foreign, Nullable<global::System.DateTime> dateOfStart_GosLine, Nullable<global::System.DateTime> dateOfClose_GosLine, Nullable<global::System.DateTime> dateOfStart, Nullable<global::System.DateTime> dateOfClose, Nullable<global::System.Int32> comissionId, Nullable<global::System.Boolean> isForeign)
+        /// <param name="isCrimea">No Metadata Documentation available.</param>
+        public int Entry_Update(Nullable<global::System.Guid> id, Nullable<global::System.Int32> studyLevelId, Nullable<global::System.Int32> studyFormId, Nullable<global::System.Int32> studyBasisId, Nullable<global::System.Int32> facultyId, Nullable<global::System.Boolean> isClosed, Nullable<global::System.Boolean> isParallel, Nullable<global::System.Boolean> isReduced, Nullable<global::System.Boolean> isSecond, global::System.String studyPlanNumber, Nullable<global::System.DateTime> dateOfStart, Nullable<global::System.DateTime> dateOfClose, Nullable<global::System.Int32> comissionId, Nullable<global::System.Boolean> isForeign, Nullable<global::System.Boolean> isCrimea)
         {
             ObjectParameter idParameter;
             if (id.HasValue)
@@ -11272,46 +11343,6 @@ namespace PriemLib
                 studyPlanNumberParameter = new ObjectParameter("StudyPlanNumber", typeof(global::System.String));
             }
     
-            ObjectParameter dateOfStart_ForeignParameter;
-            if (dateOfStart_Foreign.HasValue)
-            {
-                dateOfStart_ForeignParameter = new ObjectParameter("DateOfStart_Foreign", dateOfStart_Foreign);
-            }
-            else
-            {
-                dateOfStart_ForeignParameter = new ObjectParameter("DateOfStart_Foreign", typeof(global::System.DateTime));
-            }
-    
-            ObjectParameter dateOfClose_ForeignParameter;
-            if (dateOfClose_Foreign.HasValue)
-            {
-                dateOfClose_ForeignParameter = new ObjectParameter("DateOfClose_Foreign", dateOfClose_Foreign);
-            }
-            else
-            {
-                dateOfClose_ForeignParameter = new ObjectParameter("DateOfClose_Foreign", typeof(global::System.DateTime));
-            }
-    
-            ObjectParameter dateOfStart_GosLineParameter;
-            if (dateOfStart_GosLine.HasValue)
-            {
-                dateOfStart_GosLineParameter = new ObjectParameter("DateOfStart_GosLine", dateOfStart_GosLine);
-            }
-            else
-            {
-                dateOfStart_GosLineParameter = new ObjectParameter("DateOfStart_GosLine", typeof(global::System.DateTime));
-            }
-    
-            ObjectParameter dateOfClose_GosLineParameter;
-            if (dateOfClose_GosLine.HasValue)
-            {
-                dateOfClose_GosLineParameter = new ObjectParameter("DateOfClose_GosLine", dateOfClose_GosLine);
-            }
-            else
-            {
-                dateOfClose_GosLineParameter = new ObjectParameter("DateOfClose_GosLine", typeof(global::System.DateTime));
-            }
-    
             ObjectParameter dateOfStartParameter;
             if (dateOfStart.HasValue)
             {
@@ -11352,7 +11383,17 @@ namespace PriemLib
                 isForeignParameter = new ObjectParameter("IsForeign", typeof(global::System.Boolean));
             }
     
-            return base.ExecuteFunction("Entry_Update", idParameter, studyLevelIdParameter, studyFormIdParameter, studyBasisIdParameter, facultyIdParameter, isClosedParameter, isParallelParameter, isReducedParameter, isSecondParameter, studyPlanNumberParameter, dateOfStart_ForeignParameter, dateOfClose_ForeignParameter, dateOfStart_GosLineParameter, dateOfClose_GosLineParameter, dateOfStartParameter, dateOfCloseParameter, comissionIdParameter, isForeignParameter);
+            ObjectParameter isCrimeaParameter;
+            if (isCrimea.HasValue)
+            {
+                isCrimeaParameter = new ObjectParameter("IsCrimea", isCrimea);
+            }
+            else
+            {
+                isCrimeaParameter = new ObjectParameter("IsCrimea", typeof(global::System.Boolean));
+            }
+    
+            return base.ExecuteFunction("Entry_Update", idParameter, studyLevelIdParameter, studyFormIdParameter, studyBasisIdParameter, facultyIdParameter, isClosedParameter, isParallelParameter, isReducedParameter, isSecondParameter, studyPlanNumberParameter, dateOfStartParameter, dateOfCloseParameter, comissionIdParameter, isForeignParameter, isCrimeaParameter);
         }
     
         /// <summary>
@@ -13143,6 +13184,106 @@ namespace PriemLib
     
             return base.ExecuteFunction("Person_deleteAllInfo", idParameter);
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="personId">No Metadata Documentation available.</param>
+        /// <param name="id">No Metadata Documentation available.</param>
+        public int PersonEgeRequest_insert(Nullable<global::System.Guid> personId, ObjectParameter id)
+        {
+            ObjectParameter personIdParameter;
+            if (personId.HasValue)
+            {
+                personIdParameter = new ObjectParameter("PersonId", personId);
+            }
+            else
+            {
+                personIdParameter = new ObjectParameter("PersonId", typeof(global::System.Guid));
+            }
+    
+            return base.ExecuteFunction("PersonEgeRequest_insert", personIdParameter, id);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="id">No Metadata Documentation available.</param>
+        public int PersonAchievement_delete(Nullable<global::System.Guid> id)
+        {
+            ObjectParameter idParameter;
+            if (id.HasValue)
+            {
+                idParameter = new ObjectParameter("Id", id);
+            }
+            else
+            {
+                idParameter = new ObjectParameter("Id", typeof(global::System.Guid));
+            }
+    
+            return base.ExecuteFunction("PersonAchievement_delete", idParameter);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="personId">No Metadata Documentation available.</param>
+        /// <param name="achievementTypeId">No Metadata Documentation available.</param>
+        /// <param name="id">No Metadata Documentation available.</param>
+        public int PersonAchievement_insert(Nullable<global::System.Guid> personId, Nullable<global::System.Int32> achievementTypeId, ObjectParameter id)
+        {
+            ObjectParameter personIdParameter;
+            if (personId.HasValue)
+            {
+                personIdParameter = new ObjectParameter("PersonId", personId);
+            }
+            else
+            {
+                personIdParameter = new ObjectParameter("PersonId", typeof(global::System.Guid));
+            }
+    
+            ObjectParameter achievementTypeIdParameter;
+            if (achievementTypeId.HasValue)
+            {
+                achievementTypeIdParameter = new ObjectParameter("AchievementTypeId", achievementTypeId);
+            }
+            else
+            {
+                achievementTypeIdParameter = new ObjectParameter("AchievementTypeId", typeof(global::System.Int32));
+            }
+    
+            return base.ExecuteFunction("PersonAchievement_insert", personIdParameter, achievementTypeIdParameter, id);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="achievementTypeId">No Metadata Documentation available.</param>
+        /// <param name="id">No Metadata Documentation available.</param>
+        public int PersonAchievement_update(Nullable<global::System.Int32> achievementTypeId, Nullable<global::System.Guid> id)
+        {
+            ObjectParameter achievementTypeIdParameter;
+            if (achievementTypeId.HasValue)
+            {
+                achievementTypeIdParameter = new ObjectParameter("AchievementTypeId", achievementTypeId);
+            }
+            else
+            {
+                achievementTypeIdParameter = new ObjectParameter("AchievementTypeId", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter idParameter;
+            if (id.HasValue)
+            {
+                idParameter = new ObjectParameter("Id", id);
+            }
+            else
+            {
+                idParameter = new ObjectParameter("Id", typeof(global::System.Guid));
+            }
+    
+            return base.ExecuteFunction("PersonAchievement_update", achievementTypeIdParameter, idParameter);
+        }
 
         #endregion
 
@@ -13177,7 +13318,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -13196,7 +13337,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -13221,7 +13362,7 @@ namespace PriemLib
             {
                 OnNameChanging(value);
                 ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, false);
+                _Name = StructuralObject.SetValidValue(value, false, "Name");
                 ReportPropertyChanged("Name");
                 OnNameChanged();
             }
@@ -13232,7 +13373,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -13320,7 +13460,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -13339,7 +13479,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -13364,7 +13504,7 @@ namespace PriemLib
             {
                 OnPersonIdChanging(value);
                 ReportPropertyChanging("PersonId");
-                _PersonId = StructuralObject.SetValidValue(value);
+                _PersonId = StructuralObject.SetValidValue(value, "PersonId");
                 ReportPropertyChanged("PersonId");
                 OnPersonIdChanged();
             }
@@ -13388,7 +13528,7 @@ namespace PriemLib
             {
                 OnRegNumChanging(value);
                 ReportPropertyChanging("RegNum");
-                _RegNum = StructuralObject.SetValidValue(value, true);
+                _RegNum = StructuralObject.SetValidValue(value, true, "RegNum");
                 ReportPropertyChanged("RegNum");
                 OnRegNumChanged();
             }
@@ -13412,7 +13552,7 @@ namespace PriemLib
             {
                 OnEntryIdChanging(value);
                 ReportPropertyChanging("EntryId");
-                _EntryId = StructuralObject.SetValidValue(value);
+                _EntryId = StructuralObject.SetValidValue(value, "EntryId");
                 ReportPropertyChanged("EntryId");
                 OnEntryIdChanged();
             }
@@ -13436,7 +13576,7 @@ namespace PriemLib
             {
                 OnCompetitionIdChanging(value);
                 ReportPropertyChanging("CompetitionId");
-                _CompetitionId = StructuralObject.SetValidValue(value);
+                _CompetitionId = StructuralObject.SetValidValue(value, "CompetitionId");
                 ReportPropertyChanged("CompetitionId");
                 OnCompetitionIdChanged();
             }
@@ -13460,7 +13600,7 @@ namespace PriemLib
             {
                 OnIsListenerChanging(value);
                 ReportPropertyChanging("IsListener");
-                _IsListener = StructuralObject.SetValidValue(value);
+                _IsListener = StructuralObject.SetValidValue(value, "IsListener");
                 ReportPropertyChanged("IsListener");
                 OnIsListenerChanged();
             }
@@ -13484,7 +13624,7 @@ namespace PriemLib
             {
                 OnIsPaidChanging(value);
                 ReportPropertyChanging("IsPaid");
-                _IsPaid = StructuralObject.SetValidValue(value);
+                _IsPaid = StructuralObject.SetValidValue(value, "IsPaid");
                 ReportPropertyChanged("IsPaid");
                 OnIsPaidChanged();
             }
@@ -13508,7 +13648,7 @@ namespace PriemLib
             {
                 OnBackDocChanging(value);
                 ReportPropertyChanging("BackDoc");
-                _BackDoc = StructuralObject.SetValidValue(value);
+                _BackDoc = StructuralObject.SetValidValue(value, "BackDoc");
                 ReportPropertyChanged("BackDoc");
                 OnBackDocChanged();
             }
@@ -13532,7 +13672,7 @@ namespace PriemLib
             {
                 OnBackDocDateChanging(value);
                 ReportPropertyChanging("BackDocDate");
-                _BackDocDate = StructuralObject.SetValidValue(value);
+                _BackDocDate = StructuralObject.SetValidValue(value, "BackDocDate");
                 ReportPropertyChanged("BackDocDate");
                 OnBackDocDateChanged();
             }
@@ -13556,7 +13696,7 @@ namespace PriemLib
             {
                 OnDocDateChanging(value);
                 ReportPropertyChanging("DocDate");
-                _DocDate = StructuralObject.SetValidValue(value);
+                _DocDate = StructuralObject.SetValidValue(value, "DocDate");
                 ReportPropertyChanged("DocDate");
                 OnDocDateChanged();
             }
@@ -13580,7 +13720,7 @@ namespace PriemLib
             {
                 OnDocInsertDateChanging(value);
                 ReportPropertyChanging("DocInsertDate");
-                _DocInsertDate = StructuralObject.SetValidValue(value);
+                _DocInsertDate = StructuralObject.SetValidValue(value, "DocInsertDate");
                 ReportPropertyChanged("DocInsertDate");
                 OnDocInsertDateChanged();
             }
@@ -13604,7 +13744,7 @@ namespace PriemLib
             {
                 OnCheckedChanging(value);
                 ReportPropertyChanging("Checked");
-                _Checked = StructuralObject.SetValidValue(value);
+                _Checked = StructuralObject.SetValidValue(value, "Checked");
                 ReportPropertyChanged("Checked");
                 OnCheckedChanged();
             }
@@ -13628,7 +13768,7 @@ namespace PriemLib
             {
                 OnNotEnabledChanging(value);
                 ReportPropertyChanging("NotEnabled");
-                _NotEnabled = StructuralObject.SetValidValue(value);
+                _NotEnabled = StructuralObject.SetValidValue(value, "NotEnabled");
                 ReportPropertyChanged("NotEnabled");
                 OnNotEnabledChanged();
             }
@@ -13652,7 +13792,7 @@ namespace PriemLib
             {
                 OnSumChanging(value);
                 ReportPropertyChanging("Sum");
-                _Sum = StructuralObject.SetValidValue(value);
+                _Sum = StructuralObject.SetValidValue(value, "Sum");
                 ReportPropertyChanged("Sum");
                 OnSumChanged();
             }
@@ -13676,7 +13816,7 @@ namespace PriemLib
             {
                 OnCoefficientChanging(value);
                 ReportPropertyChanging("Coefficient");
-                _Coefficient = StructuralObject.SetValidValue(value);
+                _Coefficient = StructuralObject.SetValidValue(value, "Coefficient");
                 ReportPropertyChanged("Coefficient");
                 OnCoefficientChanged();
             }
@@ -13700,7 +13840,7 @@ namespace PriemLib
             {
                 OnOtherCompetitionIdChanging(value);
                 ReportPropertyChanging("OtherCompetitionId");
-                _OtherCompetitionId = StructuralObject.SetValidValue(value);
+                _OtherCompetitionId = StructuralObject.SetValidValue(value, "OtherCompetitionId");
                 ReportPropertyChanged("OtherCompetitionId");
                 OnOtherCompetitionIdChanged();
             }
@@ -13724,7 +13864,7 @@ namespace PriemLib
             {
                 OnCelCompetitionIdChanging(value);
                 ReportPropertyChanging("CelCompetitionId");
-                _CelCompetitionId = StructuralObject.SetValidValue(value);
+                _CelCompetitionId = StructuralObject.SetValidValue(value, "CelCompetitionId");
                 ReportPropertyChanged("CelCompetitionId");
                 OnCelCompetitionIdChanged();
             }
@@ -13748,7 +13888,7 @@ namespace PriemLib
             {
                 OnCelCompetitionTextChanging(value);
                 ReportPropertyChanging("CelCompetitionText");
-                _CelCompetitionText = StructuralObject.SetValidValue(value, true);
+                _CelCompetitionText = StructuralObject.SetValidValue(value, true, "CelCompetitionText");
                 ReportPropertyChanged("CelCompetitionText");
                 OnCelCompetitionTextChanged();
             }
@@ -13772,7 +13912,7 @@ namespace PriemLib
             {
                 OnCompFromOlympChanging(value);
                 ReportPropertyChanging("CompFromOlymp");
-                _CompFromOlymp = StructuralObject.SetValidValue(value);
+                _CompFromOlymp = StructuralObject.SetValidValue(value, "CompFromOlymp");
                 ReportPropertyChanged("CompFromOlymp");
                 OnCompFromOlympChanged();
             }
@@ -13796,7 +13936,7 @@ namespace PriemLib
             {
                 OnLanguageIdChanging(value);
                 ReportPropertyChanging("LanguageId");
-                _LanguageId = StructuralObject.SetValidValue(value);
+                _LanguageId = StructuralObject.SetValidValue(value, "LanguageId");
                 ReportPropertyChanged("LanguageId");
                 OnLanguageIdChanged();
             }
@@ -13820,7 +13960,7 @@ namespace PriemLib
             {
                 OnHasOriginalsChanging(value);
                 ReportPropertyChanging("HasOriginals");
-                _HasOriginals = StructuralObject.SetValidValue(value);
+                _HasOriginals = StructuralObject.SetValidValue(value, "HasOriginals");
                 ReportPropertyChanged("HasOriginals");
                 OnHasOriginalsChanged();
             }
@@ -13844,7 +13984,7 @@ namespace PriemLib
             {
                 OnStudyNumberChanging(value);
                 ReportPropertyChanging("StudyNumber");
-                _StudyNumber = StructuralObject.SetValidValue(value, true);
+                _StudyNumber = StructuralObject.SetValidValue(value, true, "StudyNumber");
                 ReportPropertyChanged("StudyNumber");
                 OnStudyNumberChanged();
             }
@@ -13868,7 +14008,7 @@ namespace PriemLib
             {
                 OnSessionAVGChanging(value);
                 ReportPropertyChanging("SessionAVG");
-                _SessionAVG = StructuralObject.SetValidValue(value);
+                _SessionAVG = StructuralObject.SetValidValue(value, "SessionAVG");
                 ReportPropertyChanged("SessionAVG");
                 OnSessionAVGChanged();
             }
@@ -13892,7 +14032,7 @@ namespace PriemLib
             {
                 OnStudentStatusChanging(value);
                 ReportPropertyChanging("StudentStatus");
-                _StudentStatus = StructuralObject.SetValidValue(value);
+                _StudentStatus = StructuralObject.SetValidValue(value, "StudentStatus");
                 ReportPropertyChanged("StudentStatus");
                 OnStudentStatusChanged();
             }
@@ -13916,7 +14056,7 @@ namespace PriemLib
             {
                 OnPriorityChanging(value);
                 ReportPropertyChanging("Priority");
-                _Priority = StructuralObject.SetValidValue(value);
+                _Priority = StructuralObject.SetValidValue(value, "Priority");
                 ReportPropertyChanged("Priority");
                 OnPriorityChanged();
             }
@@ -13940,7 +14080,7 @@ namespace PriemLib
             {
                 OnBarcodeChanging(value);
                 ReportPropertyChanging("Barcode");
-                _Barcode = StructuralObject.SetValidValue(value);
+                _Barcode = StructuralObject.SetValidValue(value, "Barcode");
                 ReportPropertyChanged("Barcode");
                 OnBarcodeChanged();
             }
@@ -13964,7 +14104,7 @@ namespace PriemLib
             {
                 OnWithHEChanging(value);
                 ReportPropertyChanging("WithHE");
-                _WithHE = StructuralObject.SetValidValue(value);
+                _WithHE = StructuralObject.SetValidValue(value, "WithHE");
                 ReportPropertyChanged("WithHE");
                 OnWithHEChanged();
             }
@@ -13988,7 +14128,7 @@ namespace PriemLib
             {
                 OnIsOpenChanging(value);
                 ReportPropertyChanging("IsOpen");
-                _IsOpen = StructuralObject.SetValidValue(value);
+                _IsOpen = StructuralObject.SetValidValue(value, "IsOpen");
                 ReportPropertyChanged("IsOpen");
                 OnIsOpenChanged();
             }
@@ -14012,7 +14152,7 @@ namespace PriemLib
             {
                 OnHolderChanging(value);
                 ReportPropertyChanging("Holder");
-                _Holder = StructuralObject.SetValidValue(value, true);
+                _Holder = StructuralObject.SetValidValue(value, true, "Holder");
                 ReportPropertyChanged("Holder");
                 OnHolderChanged();
             }
@@ -14036,7 +14176,7 @@ namespace PriemLib
             {
                 OnIsImportedToFISChanging(value);
                 ReportPropertyChanging("IsImportedToFIS");
-                _IsImportedToFIS = StructuralObject.SetValidValue(value);
+                _IsImportedToFIS = StructuralObject.SetValidValue(value, "IsImportedToFIS");
                 ReportPropertyChanged("IsImportedToFIS");
                 OnIsImportedToFISChanged();
             }
@@ -14060,7 +14200,7 @@ namespace PriemLib
             {
                 OnIsCommitedToFISChanging(value);
                 ReportPropertyChanging("IsCommitedToFIS");
-                _IsCommitedToFIS = StructuralObject.SetValidValue(value);
+                _IsCommitedToFIS = StructuralObject.SetValidValue(value, "IsCommitedToFIS");
                 ReportPropertyChanged("IsCommitedToFIS");
                 OnIsCommitedToFISChanged();
             }
@@ -14084,7 +14224,7 @@ namespace PriemLib
             {
                 OnCommitIdChanging(value);
                 ReportPropertyChanging("CommitId");
-                _CommitId = StructuralObject.SetValidValue(value);
+                _CommitId = StructuralObject.SetValidValue(value, "CommitId");
                 ReportPropertyChanged("CommitId");
                 OnCommitIdChanged();
             }
@@ -14108,7 +14248,7 @@ namespace PriemLib
             {
                 OnCommitNumberChanging(value);
                 ReportPropertyChanging("CommitNumber");
-                _CommitNumber = StructuralObject.SetValidValue(value);
+                _CommitNumber = StructuralObject.SetValidValue(value, "CommitNumber");
                 ReportPropertyChanged("CommitNumber");
                 OnCommitNumberChanged();
             }
@@ -14132,7 +14272,7 @@ namespace PriemLib
             {
                 OnIsGosLineChanging(value);
                 ReportPropertyChanging("IsGosLine");
-                _IsGosLine = StructuralObject.SetValidValue(value);
+                _IsGosLine = StructuralObject.SetValidValue(value, "IsGosLine");
                 ReportPropertyChanged("IsGosLine");
                 OnIsGosLineChanged();
             }
@@ -14156,7 +14296,7 @@ namespace PriemLib
             {
                 OnIsViewedChanging(value);
                 ReportPropertyChanging("IsViewed");
-                _IsViewed = StructuralObject.SetValidValue(value);
+                _IsViewed = StructuralObject.SetValidValue(value, "IsViewed");
                 ReportPropertyChanged("IsViewed");
                 OnIsViewedChanged();
             }
@@ -14180,7 +14320,7 @@ namespace PriemLib
             {
                 OnIsCommonRussianCompetitionChanging(value);
                 ReportPropertyChanging("IsCommonRussianCompetition");
-                _IsCommonRussianCompetition = StructuralObject.SetValidValue(value);
+                _IsCommonRussianCompetition = StructuralObject.SetValidValue(value, "IsCommonRussianCompetition");
                 ReportPropertyChanged("IsCommonRussianCompetition");
                 OnIsCommonRussianCompetitionChanged();
             }
@@ -14204,7 +14344,7 @@ namespace PriemLib
             {
                 OnInnerEntryInEntryIdChanging(value);
                 ReportPropertyChanging("InnerEntryInEntryId");
-                _InnerEntryInEntryId = StructuralObject.SetValidValue(value);
+                _InnerEntryInEntryId = StructuralObject.SetValidValue(value, "InnerEntryInEntryId");
                 ReportPropertyChanged("InnerEntryInEntryId");
                 OnInnerEntryInEntryIdChanged();
             }
@@ -14215,7 +14355,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -14607,6 +14746,164 @@ namespace PriemLib
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="Priem2012Model", Name="AchievementType")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class AchievementType : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new AchievementType object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="name">Initial value of the Name property.</param>
+        /// <param name="isOpen">Initial value of the IsOpen property.</param>
+        public static AchievementType CreateAchievementType(global::System.Int32 id, global::System.String name, global::System.Boolean isOpen)
+        {
+            AchievementType achievementType = new AchievementType();
+            achievementType.Id = id;
+            achievementType.Name = name;
+            achievementType.IsOpen = isOpen;
+            return achievementType;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value, "Id");
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Name
+        {
+            get
+            {
+                return _Name;
+            }
+            set
+            {
+                OnNameChanging(value);
+                ReportPropertyChanging("Name");
+                _Name = StructuralObject.SetValidValue(value, false, "Name");
+                ReportPropertyChanged("Name");
+                OnNameChanged();
+            }
+        }
+        private global::System.String _Name;
+        partial void OnNameChanging(global::System.String value);
+        partial void OnNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean IsOpen
+        {
+            get
+            {
+                return _IsOpen;
+            }
+            set
+            {
+                OnIsOpenChanging(value);
+                ReportPropertyChanging("IsOpen");
+                _IsOpen = StructuralObject.SetValidValue(value, "IsOpen");
+                ReportPropertyChanged("IsOpen");
+                OnIsOpenChanged();
+            }
+        }
+        private global::System.Boolean _IsOpen;
+        partial void OnIsOpenChanging(global::System.Boolean value);
+        partial void OnIsOpenChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Holder
+        {
+            get
+            {
+                return _Holder;
+            }
+            set
+            {
+                OnHolderChanging(value);
+                ReportPropertyChanging("Holder");
+                _Holder = StructuralObject.SetValidValue(value, true, "Holder");
+                ReportPropertyChanged("Holder");
+                OnHolderChanged();
+            }
+        }
+        private global::System.String _Holder;
+        partial void OnHolderChanging(global::System.String value);
+        partial void OnHolderChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Priem2012Model", "FK_PersonAchievement_AchievementType", "PersonAchievement")]
+        public EntityCollection<PersonAchievement> PersonAchievement
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<PersonAchievement>("Priem2012Model.FK_PersonAchievement_AchievementType", "PersonAchievement");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<PersonAchievement>("Priem2012Model.FK_PersonAchievement_AchievementType", "PersonAchievement", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="Priem2012Model", Name="ApplicationDetails")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -14633,7 +14930,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -14652,7 +14949,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -14677,7 +14974,7 @@ namespace PriemLib
             {
                 OnApplicationIdChanging(value);
                 ReportPropertyChanging("ApplicationId");
-                _ApplicationId = StructuralObject.SetValidValue(value);
+                _ApplicationId = StructuralObject.SetValidValue(value, "ApplicationId");
                 ReportPropertyChanged("ApplicationId");
                 OnApplicationIdChanged();
             }
@@ -14701,7 +14998,7 @@ namespace PriemLib
             {
                 OnInnerEntryInEntryIdChanging(value);
                 ReportPropertyChanging("InnerEntryInEntryId");
-                _InnerEntryInEntryId = StructuralObject.SetValidValue(value);
+                _InnerEntryInEntryId = StructuralObject.SetValidValue(value, "InnerEntryInEntryId");
                 ReportPropertyChanged("InnerEntryInEntryId");
                 OnInnerEntryInEntryIdChanged();
             }
@@ -14725,7 +15022,7 @@ namespace PriemLib
             {
                 OnInnerEntryInEntryPriorityChanging(value);
                 ReportPropertyChanging("InnerEntryInEntryPriority");
-                _InnerEntryInEntryPriority = StructuralObject.SetValidValue(value);
+                _InnerEntryInEntryPriority = StructuralObject.SetValidValue(value, "InnerEntryInEntryPriority");
                 ReportPropertyChanged("InnerEntryInEntryPriority");
                 OnInnerEntryInEntryPriorityChanged();
             }
@@ -14736,7 +15033,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -14848,7 +15144,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -14867,7 +15163,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -14892,7 +15188,7 @@ namespace PriemLib
             {
                 OnIntNumberChanging(value);
                 ReportPropertyChanging("IntNumber");
-                _IntNumber = StructuralObject.SetValidValue(value);
+                _IntNumber = StructuralObject.SetValidValue(value, "IntNumber");
                 ReportPropertyChanged("IntNumber");
                 OnIntNumberChanged();
             }
@@ -14916,7 +15212,7 @@ namespace PriemLib
             {
                 OnApplicationIdChanging(value);
                 ReportPropertyChanging("ApplicationId");
-                _ApplicationId = StructuralObject.SetValidValue(value);
+                _ApplicationId = StructuralObject.SetValidValue(value, "ApplicationId");
                 ReportPropertyChanged("ApplicationId");
                 OnApplicationIdChanged();
             }
@@ -14940,7 +15236,7 @@ namespace PriemLib
             {
                 OnVersionDateChanging(value);
                 ReportPropertyChanging("VersionDate");
-                _VersionDate = StructuralObject.SetValidValue(value);
+                _VersionDate = StructuralObject.SetValidValue(value, "VersionDate");
                 ReportPropertyChanged("VersionDate");
                 OnVersionDateChanged();
             }
@@ -14951,7 +15247,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -15047,7 +15342,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -15066,7 +15361,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -15091,7 +15386,7 @@ namespace PriemLib
             {
                 OnApplicationVersionIdChanging(value);
                 ReportPropertyChanging("ApplicationVersionId");
-                _ApplicationVersionId = StructuralObject.SetValidValue(value);
+                _ApplicationVersionId = StructuralObject.SetValidValue(value, "ApplicationVersionId");
                 ReportPropertyChanged("ApplicationVersionId");
                 OnApplicationVersionIdChanged();
             }
@@ -15115,7 +15410,7 @@ namespace PriemLib
             {
                 OnInnerEntryInEntryIdChanging(value);
                 ReportPropertyChanging("InnerEntryInEntryId");
-                _InnerEntryInEntryId = StructuralObject.SetValidValue(value);
+                _InnerEntryInEntryId = StructuralObject.SetValidValue(value, "InnerEntryInEntryId");
                 ReportPropertyChanged("InnerEntryInEntryId");
                 OnInnerEntryInEntryIdChanged();
             }
@@ -15139,7 +15434,7 @@ namespace PriemLib
             {
                 OnInnerEntryInEntryPriorityChanging(value);
                 ReportPropertyChanging("InnerEntryInEntryPriority");
-                _InnerEntryInEntryPriority = StructuralObject.SetValidValue(value);
+                _InnerEntryInEntryPriority = StructuralObject.SetValidValue(value, "InnerEntryInEntryPriority");
                 ReportPropertyChanged("InnerEntryInEntryPriority");
                 OnInnerEntryInEntryPriorityChanged();
             }
@@ -15150,7 +15445,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -15266,7 +15560,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -15285,7 +15579,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -15310,7 +15604,7 @@ namespace PriemLib
             {
                 OnPersonIdChanging(value);
                 ReportPropertyChanging("PersonId");
-                _PersonId = StructuralObject.SetValidValue(value);
+                _PersonId = StructuralObject.SetValidValue(value, "PersonId");
                 ReportPropertyChanged("PersonId");
                 OnPersonIdChanged();
             }
@@ -15334,7 +15628,7 @@ namespace PriemLib
             {
                 OnAttSubjectIdChanging(value);
                 ReportPropertyChanging("AttSubjectId");
-                _AttSubjectId = StructuralObject.SetValidValue(value);
+                _AttSubjectId = StructuralObject.SetValidValue(value, "AttSubjectId");
                 ReportPropertyChanged("AttSubjectId");
                 OnAttSubjectIdChanged();
             }
@@ -15358,7 +15652,7 @@ namespace PriemLib
             {
                 OnValueChanging(value);
                 ReportPropertyChanging("Value");
-                _Value = StructuralObject.SetValidValue(value);
+                _Value = StructuralObject.SetValidValue(value, "Value");
                 ReportPropertyChanged("Value");
                 OnValueChanged();
             }
@@ -15382,7 +15676,7 @@ namespace PriemLib
             {
                 OnAuthorChanging(value);
                 ReportPropertyChanging("Author");
-                _Author = StructuralObject.SetValidValue(value, false);
+                _Author = StructuralObject.SetValidValue(value, false, "Author");
                 ReportPropertyChanged("Author");
                 OnAuthorChanged();
             }
@@ -15406,7 +15700,7 @@ namespace PriemLib
             {
                 OnDateCreatedChanging(value);
                 ReportPropertyChanging("DateCreated");
-                _DateCreated = StructuralObject.SetValidValue(value);
+                _DateCreated = StructuralObject.SetValidValue(value, "DateCreated");
                 ReportPropertyChanged("DateCreated");
                 OnDateCreatedChanged();
             }
@@ -15417,7 +15711,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -15525,7 +15818,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -15544,7 +15837,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -15569,7 +15862,7 @@ namespace PriemLib
             {
                 OnNameChanging(value);
                 ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, false);
+                _Name = StructuralObject.SetValidValue(value, false, "Name");
                 ReportPropertyChanged("Name");
                 OnNameChanged();
             }
@@ -15580,7 +15873,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -15632,7 +15924,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -15651,7 +15943,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -15676,7 +15968,7 @@ namespace PriemLib
             {
                 OnNameChanging(value);
                 ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, true);
+                _Name = StructuralObject.SetValidValue(value, true, "Name");
                 ReportPropertyChanged("Name");
                 OnNameChanged();
             }
@@ -15687,7 +15979,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -15741,7 +16032,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -15760,7 +16051,7 @@ namespace PriemLib
                 {
                     OnParamKeyChanging(value);
                     ReportPropertyChanging("ParamKey");
-                    _ParamKey = StructuralObject.SetValidValue(value, false);
+                    _ParamKey = StructuralObject.SetValidValue(value, false, "ParamKey");
                     ReportPropertyChanged("ParamKey");
                     OnParamKeyChanged();
                 }
@@ -15785,7 +16076,7 @@ namespace PriemLib
             {
                 OnParamValueChanging(value);
                 ReportPropertyChanging("ParamValue");
-                _ParamValue = StructuralObject.SetValidValue(value, false);
+                _ParamValue = StructuralObject.SetValidValue(value, false, "ParamValue");
                 ReportPropertyChanged("ParamValue");
                 OnParamValueChanged();
             }
@@ -15796,7 +16087,6 @@ namespace PriemLib
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -15830,7 +16120,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -15849,7 +16139,7 @@ namespace PriemLib
                 {
                     OnAbiturientIdChanging(value);
                     ReportPropertyChanging("AbiturientId");
-                    _AbiturientId = StructuralObject.SetValidValue(value);
+                    _AbiturientId = StructuralObject.SetValidValue(value, "AbiturientId");
                     ReportPropertyChanged("AbiturientId");
                     OnAbiturientIdChanged();
                 }
@@ -15874,7 +16164,7 @@ namespace PriemLib
             {
                 OnSortNumChanging(value);
                 ReportPropertyChanging("SortNum");
-                _SortNum = StructuralObject.SetValidValue(value);
+                _SortNum = StructuralObject.SetValidValue(value, "SortNum");
                 ReportPropertyChanged("SortNum");
                 OnSortNumChanged();
             }
@@ -15898,7 +16188,7 @@ namespace PriemLib
             {
                 OnIsCelChanging(value);
                 ReportPropertyChanging("IsCel");
-                _IsCel = StructuralObject.SetValidValue(value);
+                _IsCel = StructuralObject.SetValidValue(value, "IsCel");
                 ReportPropertyChanged("IsCel");
                 OnIsCelChanged();
             }
@@ -15922,7 +16212,7 @@ namespace PriemLib
             {
                 OnIsCrimeaChanging(value);
                 ReportPropertyChanging("IsCrimea");
-                _IsCrimea = StructuralObject.SetValidValue(value);
+                _IsCrimea = StructuralObject.SetValidValue(value, "IsCrimea");
                 ReportPropertyChanged("IsCrimea");
                 OnIsCrimeaChanged();
             }
@@ -15946,7 +16236,7 @@ namespace PriemLib
             {
                 OnIsQuotaChanging(value);
                 ReportPropertyChanging("IsQuota");
-                _IsQuota = StructuralObject.SetValidValue(value);
+                _IsQuota = StructuralObject.SetValidValue(value, "IsQuota");
                 ReportPropertyChanged("IsQuota");
                 OnIsQuotaChanged();
             }
@@ -15957,7 +16247,6 @@ namespace PriemLib
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -15985,7 +16274,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -16004,7 +16293,7 @@ namespace PriemLib
                 {
                     OnAbiturientIdChanging(value);
                     ReportPropertyChanging("AbiturientId");
-                    _AbiturientId = StructuralObject.SetValidValue(value);
+                    _AbiturientId = StructuralObject.SetValidValue(value, "AbiturientId");
                     ReportPropertyChanged("AbiturientId");
                     OnAbiturientIdChanged();
                 }
@@ -16031,7 +16320,7 @@ namespace PriemLib
                 {
                     OnIsNewChanging(value);
                     ReportPropertyChanging("IsNew");
-                    _IsNew = StructuralObject.SetValidValue(value);
+                    _IsNew = StructuralObject.SetValidValue(value, "IsNew");
                     ReportPropertyChanged("IsNew");
                     OnIsNewChanged();
                 }
@@ -16043,7 +16332,6 @@ namespace PriemLib
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -16071,7 +16359,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -16090,7 +16378,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -16115,7 +16403,7 @@ namespace PriemLib
             {
                 OnNameChanging(value);
                 ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, false);
+                _Name = StructuralObject.SetValidValue(value, false, "Name");
                 ReportPropertyChanged("Name");
                 OnNameChanged();
             }
@@ -16139,7 +16427,7 @@ namespace PriemLib
             {
                 OnTvorNameChanging(value);
                 ReportPropertyChanging("TvorName");
-                _TvorName = StructuralObject.SetValidValue(value, true);
+                _TvorName = StructuralObject.SetValidValue(value, true, "TvorName");
                 ReportPropertyChanged("TvorName");
                 OnTvorNameChanged();
             }
@@ -16150,7 +16438,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -16204,7 +16491,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -16223,7 +16510,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -16248,7 +16535,7 @@ namespace PriemLib
             {
                 OnNameChanging(value);
                 ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, false);
+                _Name = StructuralObject.SetValidValue(value, false, "Name");
                 ReportPropertyChanged("Name");
                 OnNameChanged();
             }
@@ -16272,7 +16559,7 @@ namespace PriemLib
             {
                 OnPriorityChanging(value);
                 ReportPropertyChanging("Priority");
-                _Priority = StructuralObject.SetValidValue(value);
+                _Priority = StructuralObject.SetValidValue(value, "Priority");
                 ReportPropertyChanged("Priority");
                 OnPriorityChanged();
             }
@@ -16283,7 +16570,6 @@ namespace PriemLib
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -16309,7 +16595,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -16328,7 +16614,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -16353,7 +16639,7 @@ namespace PriemLib
             {
                 OnNameChanging(value);
                 ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, true);
+                _Name = StructuralObject.SetValidValue(value, true, "Name");
                 ReportPropertyChanged("Name");
                 OnNameChanged();
             }
@@ -16364,7 +16650,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -16424,7 +16709,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -16443,7 +16728,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -16468,7 +16753,7 @@ namespace PriemLib
             {
                 OnNameChanging(value);
                 ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, false);
+                _Name = StructuralObject.SetValidValue(value, false, "Name");
                 ReportPropertyChanged("Name");
                 OnNameChanged();
             }
@@ -16492,7 +16777,7 @@ namespace PriemLib
             {
                 OnStudyBasisIdChanging(value);
                 ReportPropertyChanging("StudyBasisId");
-                _StudyBasisId = StructuralObject.SetValidValue(value);
+                _StudyBasisId = StructuralObject.SetValidValue(value, "StudyBasisId");
                 ReportPropertyChanged("StudyBasisId");
                 OnStudyBasisIdChanged();
             }
@@ -16516,7 +16801,7 @@ namespace PriemLib
             {
                 OnSortOrderChanging(value);
                 ReportPropertyChanging("SortOrder");
-                _SortOrder = StructuralObject.SetValidValue(value);
+                _SortOrder = StructuralObject.SetValidValue(value, "SortOrder");
                 ReportPropertyChanged("SortOrder");
                 OnSortOrderChanged();
             }
@@ -16540,7 +16825,7 @@ namespace PriemLib
             {
                 OnNeedOriginalsChanging(value);
                 ReportPropertyChanging("NeedOriginals");
-                _NeedOriginals = StructuralObject.SetValidValue(value);
+                _NeedOriginals = StructuralObject.SetValidValue(value, "NeedOriginals");
                 ReportPropertyChanged("NeedOriginals");
                 OnNeedOriginalsChanged();
             }
@@ -16551,7 +16836,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -16677,7 +16961,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -16696,7 +16980,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -16721,7 +17005,7 @@ namespace PriemLib
             {
                 OnNameChanging(value);
                 ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, false);
+                _Name = StructuralObject.SetValidValue(value, false, "Name");
                 ReportPropertyChanged("Name");
                 OnNameChanged();
             }
@@ -16745,7 +17029,7 @@ namespace PriemLib
             {
                 OnKCPChanging(value);
                 ReportPropertyChanging("KCP");
-                _KCP = StructuralObject.SetValidValue(value);
+                _KCP = StructuralObject.SetValidValue(value, "KCP");
                 ReportPropertyChanged("KCP");
                 OnKCPChanged();
             }
@@ -16769,7 +17053,7 @@ namespace PriemLib
             {
                 OnIsOpenChanging(value);
                 ReportPropertyChanging("IsOpen");
-                _IsOpen = StructuralObject.SetValidValue(value);
+                _IsOpen = StructuralObject.SetValidValue(value, "IsOpen");
                 ReportPropertyChanged("IsOpen");
                 OnIsOpenChanged();
             }
@@ -16793,7 +17077,7 @@ namespace PriemLib
             {
                 OnHolderChanging(value);
                 ReportPropertyChanging("Holder");
-                _Holder = StructuralObject.SetValidValue(value, true);
+                _Holder = StructuralObject.SetValidValue(value, true, "Holder");
                 ReportPropertyChanged("Holder");
                 OnHolderChanged();
             }
@@ -16817,7 +17101,7 @@ namespace PriemLib
             {
                 OnLicenseProgramIdChanging(value);
                 ReportPropertyChanging("LicenseProgramId");
-                _LicenseProgramId = StructuralObject.SetValidValue(value);
+                _LicenseProgramId = StructuralObject.SetValidValue(value, "LicenseProgramId");
                 ReportPropertyChanged("LicenseProgramId");
                 OnLicenseProgramIdChanged();
             }
@@ -16841,7 +17125,7 @@ namespace PriemLib
             {
                 OnObrazProgramIdChanging(value);
                 ReportPropertyChanging("ObrazProgramId");
-                _ObrazProgramId = StructuralObject.SetValidValue(value);
+                _ObrazProgramId = StructuralObject.SetValidValue(value, "ObrazProgramId");
                 ReportPropertyChanged("ObrazProgramId");
                 OnObrazProgramIdChanged();
             }
@@ -16865,7 +17149,7 @@ namespace PriemLib
             {
                 OnProfileIdChanging(value);
                 ReportPropertyChanging("ProfileId");
-                _ProfileId = StructuralObject.SetValidValue(value);
+                _ProfileId = StructuralObject.SetValidValue(value, "ProfileId");
                 ReportPropertyChanged("ProfileId");
                 OnProfileIdChanged();
             }
@@ -16889,7 +17173,7 @@ namespace PriemLib
             {
                 OnIsReducedChanging(value);
                 ReportPropertyChanging("IsReduced");
-                _IsReduced = StructuralObject.SetValidValue(value);
+                _IsReduced = StructuralObject.SetValidValue(value, "IsReduced");
                 ReportPropertyChanged("IsReduced");
                 OnIsReducedChanged();
             }
@@ -16913,7 +17197,7 @@ namespace PriemLib
             {
                 OnIsSecondChanging(value);
                 ReportPropertyChanging("IsSecond");
-                _IsSecond = StructuralObject.SetValidValue(value);
+                _IsSecond = StructuralObject.SetValidValue(value, "IsSecond");
                 ReportPropertyChanged("IsSecond");
                 OnIsSecondChanged();
             }
@@ -16937,7 +17221,7 @@ namespace PriemLib
             {
                 OnIsParallelChanging(value);
                 ReportPropertyChanging("IsParallel");
-                _IsParallel = StructuralObject.SetValidValue(value);
+                _IsParallel = StructuralObject.SetValidValue(value, "IsParallel");
                 ReportPropertyChanged("IsParallel");
                 OnIsParallelChanged();
             }
@@ -16948,7 +17232,6 @@ namespace PriemLib
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -16974,7 +17257,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -16993,7 +17276,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -17018,7 +17301,7 @@ namespace PriemLib
             {
                 OnNameChanging(value);
                 ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, true);
+                _Name = StructuralObject.SetValidValue(value, true, "Name");
                 ReportPropertyChanged("Name");
                 OnNameChanged();
             }
@@ -17042,7 +17325,7 @@ namespace PriemLib
             {
                 OnDistanceChanging(value);
                 ReportPropertyChanging("Distance");
-                _Distance = StructuralObject.SetValidValue(value);
+                _Distance = StructuralObject.SetValidValue(value, "Distance");
                 ReportPropertyChanged("Distance");
                 OnDistanceChanged();
             }
@@ -17066,7 +17349,7 @@ namespace PriemLib
             {
                 OnNameRodChanging(value);
                 ReportPropertyChanging("NameRod");
-                _NameRod = StructuralObject.SetValidValue(value, true);
+                _NameRod = StructuralObject.SetValidValue(value, true, "NameRod");
                 ReportPropertyChanged("NameRod");
                 OnNameRodChanged();
             }
@@ -17090,7 +17373,7 @@ namespace PriemLib
             {
                 OnOSKMCodeChanging(value);
                 ReportPropertyChanging("OSKMCode");
-                _OSKMCode = StructuralObject.SetValidValue(value, true);
+                _OSKMCode = StructuralObject.SetValidValue(value, true, "OSKMCode");
                 ReportPropertyChanged("OSKMCode");
                 OnOSKMCodeChanged();
             }
@@ -17114,7 +17397,7 @@ namespace PriemLib
             {
                 OnFISNameChanging(value);
                 ReportPropertyChanging("FISName");
-                _FISName = StructuralObject.SetValidValue(value, true);
+                _FISName = StructuralObject.SetValidValue(value, true, "FISName");
                 ReportPropertyChanged("FISName");
                 OnFISNameChanged();
             }
@@ -17125,7 +17408,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -17225,7 +17507,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -17244,7 +17526,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -17269,7 +17551,7 @@ namespace PriemLib
             {
                 OnAbiturientIdChanging(value);
                 ReportPropertyChanging("AbiturientId");
-                _AbiturientId = StructuralObject.SetValidValue(value);
+                _AbiturientId = StructuralObject.SetValidValue(value, "AbiturientId");
                 ReportPropertyChanged("AbiturientId");
                 OnAbiturientIdChanged();
             }
@@ -17293,7 +17575,7 @@ namespace PriemLib
             {
                 OnAbitDocIdChanging(value);
                 ReportPropertyChanging("AbitDocId");
-                _AbitDocId = StructuralObject.SetValidValue(value);
+                _AbitDocId = StructuralObject.SetValidValue(value, "AbitDocId");
                 ReportPropertyChanged("AbitDocId");
                 OnAbitDocIdChanged();
             }
@@ -17317,7 +17599,7 @@ namespace PriemLib
             {
                 OnCommentChanging(value);
                 ReportPropertyChanging("Comment");
-                _Comment = StructuralObject.SetValidValue(value, true);
+                _Comment = StructuralObject.SetValidValue(value, true, "Comment");
                 ReportPropertyChanged("Comment");
                 OnCommentChanged();
             }
@@ -17328,7 +17610,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -17436,7 +17717,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -17455,7 +17736,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -17480,7 +17761,7 @@ namespace PriemLib
             {
                 OnNameChanging(value);
                 ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, false);
+                _Name = StructuralObject.SetValidValue(value, false, "Name");
                 ReportPropertyChanged("Name");
                 OnNameChanged();
             }
@@ -17491,7 +17772,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -17555,7 +17835,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -17574,7 +17854,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -17599,7 +17879,7 @@ namespace PriemLib
             {
                 OnNumberChanging(value);
                 ReportPropertyChanging("Number");
-                _Number = StructuralObject.SetValidValue(value, false);
+                _Number = StructuralObject.SetValidValue(value, false, "Number");
                 ReportPropertyChanged("Number");
                 OnNumberChanged();
             }
@@ -17623,7 +17903,7 @@ namespace PriemLib
             {
                 OnPrintNumberChanging(value);
                 ReportPropertyChanging("PrintNumber");
-                _PrintNumber = StructuralObject.SetValidValue(value, true);
+                _PrintNumber = StructuralObject.SetValidValue(value, true, "PrintNumber");
                 ReportPropertyChanged("PrintNumber");
                 OnPrintNumberChanged();
             }
@@ -17647,7 +17927,7 @@ namespace PriemLib
             {
                 OnYearChanging(value);
                 ReportPropertyChanging("Year");
-                _Year = StructuralObject.SetValidValue(value, true);
+                _Year = StructuralObject.SetValidValue(value, true, "Year");
                 ReportPropertyChanged("Year");
                 OnYearChanged();
             }
@@ -17671,7 +17951,7 @@ namespace PriemLib
             {
                 OnPersonIdChanging(value);
                 ReportPropertyChanging("PersonId");
-                _PersonId = StructuralObject.SetValidValue(value);
+                _PersonId = StructuralObject.SetValidValue(value, "PersonId");
                 ReportPropertyChanged("PersonId");
                 OnPersonIdChanged();
             }
@@ -17695,7 +17975,7 @@ namespace PriemLib
             {
                 OnNewFIOChanging(value);
                 ReportPropertyChanging("NewFIO");
-                _NewFIO = StructuralObject.SetValidValue(value, true);
+                _NewFIO = StructuralObject.SetValidValue(value, true, "NewFIO");
                 ReportPropertyChanged("NewFIO");
                 OnNewFIOChanged();
             }
@@ -17719,7 +17999,7 @@ namespace PriemLib
             {
                 OnFBSStatusIdChanging(value);
                 ReportPropertyChanging("FBSStatusId");
-                _FBSStatusId = StructuralObject.SetValidValue(value);
+                _FBSStatusId = StructuralObject.SetValidValue(value, "FBSStatusId");
                 ReportPropertyChanged("FBSStatusId");
                 OnFBSStatusIdChanged();
             }
@@ -17743,7 +18023,7 @@ namespace PriemLib
             {
                 OnFBSCommentChanging(value);
                 ReportPropertyChanging("FBSComment");
-                _FBSComment = StructuralObject.SetValidValue(value, true);
+                _FBSComment = StructuralObject.SetValidValue(value, true, "FBSComment");
                 ReportPropertyChanged("FBSComment");
                 OnFBSCommentChanged();
             }
@@ -17767,7 +18047,7 @@ namespace PriemLib
             {
                 OnIsImportedChanging(value);
                 ReportPropertyChanging("IsImported");
-                _IsImported = StructuralObject.SetValidValue(value);
+                _IsImported = StructuralObject.SetValidValue(value, "IsImported");
                 ReportPropertyChanged("IsImported");
                 OnIsImportedChanged();
             }
@@ -17791,7 +18071,7 @@ namespace PriemLib
             {
                 OnIsOpenChanging(value);
                 ReportPropertyChanging("IsOpen");
-                _IsOpen = StructuralObject.SetValidValue(value);
+                _IsOpen = StructuralObject.SetValidValue(value, "IsOpen");
                 ReportPropertyChanged("IsOpen");
                 OnIsOpenChanged();
             }
@@ -17815,7 +18095,7 @@ namespace PriemLib
             {
                 OnHolderChanging(value);
                 ReportPropertyChanging("Holder");
-                _Holder = StructuralObject.SetValidValue(value, true);
+                _Holder = StructuralObject.SetValidValue(value, true, "Holder");
                 ReportPropertyChanged("Holder");
                 OnHolderChanged();
             }
@@ -17839,7 +18119,7 @@ namespace PriemLib
             {
                 OnNoNumberChanging(value);
                 ReportPropertyChanging("NoNumber");
-                _NoNumber = StructuralObject.SetValidValue(value);
+                _NoNumber = StructuralObject.SetValidValue(value, "NoNumber");
                 ReportPropertyChanged("NoNumber");
                 OnNoNumberChanged();
             }
@@ -17863,7 +18143,7 @@ namespace PriemLib
             {
                 OnImportDateChanging(value);
                 ReportPropertyChanging("ImportDate");
-                _ImportDate = StructuralObject.SetValidValue(value);
+                _ImportDate = StructuralObject.SetValidValue(value, "ImportDate");
                 ReportPropertyChanged("ImportDate");
                 OnImportDateChanged();
             }
@@ -17874,7 +18154,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -18030,7 +18309,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -18049,7 +18328,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -18074,7 +18353,7 @@ namespace PriemLib
             {
                 OnNameChanging(value);
                 ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, false);
+                _Name = StructuralObject.SetValidValue(value, false, "Name");
                 ReportPropertyChanged("Name");
                 OnNameChanged();
             }
@@ -18098,7 +18377,7 @@ namespace PriemLib
             {
                 OnFBSnumberChanging(value);
                 ReportPropertyChanging("FBSnumber");
-                _FBSnumber = StructuralObject.SetValidValue(value);
+                _FBSnumber = StructuralObject.SetValidValue(value, "FBSnumber");
                 ReportPropertyChanged("FBSnumber");
                 OnFBSnumberChanged();
             }
@@ -18122,7 +18401,7 @@ namespace PriemLib
             {
                 OnEgeMinChanging(value);
                 ReportPropertyChanging("EgeMin");
-                _EgeMin = StructuralObject.SetValidValue(value);
+                _EgeMin = StructuralObject.SetValidValue(value, "EgeMin");
                 ReportPropertyChanged("EgeMin");
                 OnEgeMinChanged();
             }
@@ -18146,7 +18425,7 @@ namespace PriemLib
             {
                 OnFISNameChanging(value);
                 ReportPropertyChanging("FISName");
-                _FISName = StructuralObject.SetValidValue(value, true);
+                _FISName = StructuralObject.SetValidValue(value, true, "FISName");
                 ReportPropertyChanged("FISName");
                 OnFISNameChanged();
             }
@@ -18157,7 +18436,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -18263,7 +18541,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -18282,7 +18560,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -18307,7 +18585,7 @@ namespace PriemLib
             {
                 OnValueChanging(value);
                 ReportPropertyChanging("Value");
-                _Value = StructuralObject.SetValidValue(value);
+                _Value = StructuralObject.SetValidValue(value, "Value");
                 ReportPropertyChanged("Value");
                 OnValueChanged();
             }
@@ -18331,7 +18609,7 @@ namespace PriemLib
             {
                 OnEgeExamNameIdChanging(value);
                 ReportPropertyChanging("EgeExamNameId");
-                _EgeExamNameId = StructuralObject.SetValidValue(value);
+                _EgeExamNameId = StructuralObject.SetValidValue(value, "EgeExamNameId");
                 ReportPropertyChanged("EgeExamNameId");
                 OnEgeExamNameIdChanged();
             }
@@ -18355,7 +18633,7 @@ namespace PriemLib
             {
                 OnEgeCertificateIdChanging(value);
                 ReportPropertyChanging("EgeCertificateId");
-                _EgeCertificateId = StructuralObject.SetValidValue(value);
+                _EgeCertificateId = StructuralObject.SetValidValue(value, "EgeCertificateId");
                 ReportPropertyChanged("EgeCertificateId");
                 OnEgeCertificateIdChanged();
             }
@@ -18379,7 +18657,7 @@ namespace PriemLib
             {
                 OnIsAppealChanging(value);
                 ReportPropertyChanging("IsAppeal");
-                _IsAppeal = StructuralObject.SetValidValue(value);
+                _IsAppeal = StructuralObject.SetValidValue(value, "IsAppeal");
                 ReportPropertyChanged("IsAppeal");
                 OnIsAppealChanged();
             }
@@ -18403,7 +18681,7 @@ namespace PriemLib
             {
                 OnIsCurrentChanging(value);
                 ReportPropertyChanging("IsCurrent");
-                _IsCurrent = StructuralObject.SetValidValue(value);
+                _IsCurrent = StructuralObject.SetValidValue(value, "IsCurrent");
                 ReportPropertyChanged("IsCurrent");
                 OnIsCurrentChanged();
             }
@@ -18414,7 +18692,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -18522,7 +18799,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -18541,7 +18818,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -18566,7 +18843,7 @@ namespace PriemLib
             {
                 OnEgeExamNameIdChanging(value);
                 ReportPropertyChanging("EgeExamNameId");
-                _EgeExamNameId = StructuralObject.SetValidValue(value);
+                _EgeExamNameId = StructuralObject.SetValidValue(value, "EgeExamNameId");
                 ReportPropertyChanged("EgeExamNameId");
                 OnEgeExamNameIdChanged();
             }
@@ -18590,7 +18867,7 @@ namespace PriemLib
             {
                 OnExamIdChanging(value);
                 ReportPropertyChanging("ExamId");
-                _ExamId = StructuralObject.SetValidValue(value);
+                _ExamId = StructuralObject.SetValidValue(value, "ExamId");
                 ReportPropertyChanged("ExamId");
                 OnExamIdChanged();
             }
@@ -18601,7 +18878,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -18711,7 +18987,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -18730,7 +19006,7 @@ namespace PriemLib
                 {
                     OnExamIdChanging(value);
                     ReportPropertyChanging("ExamId");
-                    _ExamId = StructuralObject.SetValidValue(value);
+                    _ExamId = StructuralObject.SetValidValue(value, "ExamId");
                     ReportPropertyChanged("ExamId");
                     OnExamIdChanged();
                 }
@@ -18757,7 +19033,7 @@ namespace PriemLib
                 {
                     OnEgeExamNameIdChanging(value);
                     ReportPropertyChanging("EgeExamNameId");
-                    _EgeExamNameId = StructuralObject.SetValidValue(value);
+                    _EgeExamNameId = StructuralObject.SetValidValue(value, "EgeExamNameId");
                     ReportPropertyChanged("EgeExamNameId");
                     OnEgeExamNameIdChanged();
                 }
@@ -18784,7 +19060,7 @@ namespace PriemLib
                 {
                     OnLanguageIdChanging(value);
                     ReportPropertyChanging("LanguageId");
-                    _LanguageId = StructuralObject.SetValidValue(value);
+                    _LanguageId = StructuralObject.SetValidValue(value, "LanguageId");
                     ReportPropertyChanged("LanguageId");
                     OnLanguageIdChanged();
                 }
@@ -18796,7 +19072,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -18945,7 +19220,8 @@ namespace PriemLib
         /// <param name="dateOfClose">Initial value of the DateOfClose property.</param>
         /// <param name="dateOfStart">Initial value of the DateOfStart property.</param>
         /// <param name="isForeign">Initial value of the IsForeign property.</param>
-        public static Entry CreateEntry(global::System.Guid id, global::System.Int32 facultyId, global::System.Int32 licenseProgramId, global::System.Int32 obrazProgramId, global::System.Int32 profileId, global::System.Int32 studyBasisId, global::System.Int32 studyFormId, global::System.Int32 studyLevelId, global::System.Boolean isSecond, global::System.Boolean isReduced, global::System.Boolean isParallel, global::System.Boolean isClosed, global::System.DateTime dateOfClose, global::System.DateTime dateOfStart, global::System.Boolean isForeign)
+        /// <param name="isCrimea">Initial value of the IsCrimea property.</param>
+        public static Entry CreateEntry(global::System.Guid id, global::System.Int32 facultyId, global::System.Int32 licenseProgramId, global::System.Int32 obrazProgramId, global::System.Int32 profileId, global::System.Int32 studyBasisId, global::System.Int32 studyFormId, global::System.Int32 studyLevelId, global::System.Boolean isSecond, global::System.Boolean isReduced, global::System.Boolean isParallel, global::System.Boolean isClosed, global::System.DateTime dateOfClose, global::System.DateTime dateOfStart, global::System.Boolean isForeign, global::System.Boolean isCrimea)
         {
             Entry entry = new Entry();
             entry.Id = id;
@@ -18963,12 +19239,13 @@ namespace PriemLib
             entry.DateOfClose = dateOfClose;
             entry.DateOfStart = dateOfStart;
             entry.IsForeign = isForeign;
+            entry.IsCrimea = isCrimea;
             return entry;
         }
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -18987,7 +19264,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -19012,7 +19289,7 @@ namespace PriemLib
             {
                 OnFacultyIdChanging(value);
                 ReportPropertyChanging("FacultyId");
-                _FacultyId = StructuralObject.SetValidValue(value);
+                _FacultyId = StructuralObject.SetValidValue(value, "FacultyId");
                 ReportPropertyChanged("FacultyId");
                 OnFacultyIdChanged();
             }
@@ -19036,7 +19313,7 @@ namespace PriemLib
             {
                 OnLicenseProgramIdChanging(value);
                 ReportPropertyChanging("LicenseProgramId");
-                _LicenseProgramId = StructuralObject.SetValidValue(value);
+                _LicenseProgramId = StructuralObject.SetValidValue(value, "LicenseProgramId");
                 ReportPropertyChanged("LicenseProgramId");
                 OnLicenseProgramIdChanged();
             }
@@ -19060,7 +19337,7 @@ namespace PriemLib
             {
                 OnObrazProgramIdChanging(value);
                 ReportPropertyChanging("ObrazProgramId");
-                _ObrazProgramId = StructuralObject.SetValidValue(value);
+                _ObrazProgramId = StructuralObject.SetValidValue(value, "ObrazProgramId");
                 ReportPropertyChanged("ObrazProgramId");
                 OnObrazProgramIdChanged();
             }
@@ -19084,7 +19361,7 @@ namespace PriemLib
             {
                 OnProfileIdChanging(value);
                 ReportPropertyChanging("ProfileId");
-                _ProfileId = StructuralObject.SetValidValue(value);
+                _ProfileId = StructuralObject.SetValidValue(value, "ProfileId");
                 ReportPropertyChanged("ProfileId");
                 OnProfileIdChanged();
             }
@@ -19108,7 +19385,7 @@ namespace PriemLib
             {
                 OnStudyBasisIdChanging(value);
                 ReportPropertyChanging("StudyBasisId");
-                _StudyBasisId = StructuralObject.SetValidValue(value);
+                _StudyBasisId = StructuralObject.SetValidValue(value, "StudyBasisId");
                 ReportPropertyChanged("StudyBasisId");
                 OnStudyBasisIdChanged();
             }
@@ -19132,7 +19409,7 @@ namespace PriemLib
             {
                 OnStudyFormIdChanging(value);
                 ReportPropertyChanging("StudyFormId");
-                _StudyFormId = StructuralObject.SetValidValue(value);
+                _StudyFormId = StructuralObject.SetValidValue(value, "StudyFormId");
                 ReportPropertyChanged("StudyFormId");
                 OnStudyFormIdChanged();
             }
@@ -19156,7 +19433,7 @@ namespace PriemLib
             {
                 OnStudyLevelIdChanging(value);
                 ReportPropertyChanging("StudyLevelId");
-                _StudyLevelId = StructuralObject.SetValidValue(value);
+                _StudyLevelId = StructuralObject.SetValidValue(value, "StudyLevelId");
                 ReportPropertyChanged("StudyLevelId");
                 OnStudyLevelIdChanged();
             }
@@ -19180,7 +19457,7 @@ namespace PriemLib
             {
                 OnStudyPlanIdChanging(value);
                 ReportPropertyChanging("StudyPlanId");
-                _StudyPlanId = StructuralObject.SetValidValue(value);
+                _StudyPlanId = StructuralObject.SetValidValue(value, "StudyPlanId");
                 ReportPropertyChanged("StudyPlanId");
                 OnStudyPlanIdChanged();
             }
@@ -19204,7 +19481,7 @@ namespace PriemLib
             {
                 OnStudyPlanNumberChanging(value);
                 ReportPropertyChanging("StudyPlanNumber");
-                _StudyPlanNumber = StructuralObject.SetValidValue(value, true);
+                _StudyPlanNumber = StructuralObject.SetValidValue(value, true, "StudyPlanNumber");
                 ReportPropertyChanged("StudyPlanNumber");
                 OnStudyPlanNumberChanged();
             }
@@ -19228,7 +19505,7 @@ namespace PriemLib
             {
                 OnProgramModeShortNameChanging(value);
                 ReportPropertyChanging("ProgramModeShortName");
-                _ProgramModeShortName = StructuralObject.SetValidValue(value, true);
+                _ProgramModeShortName = StructuralObject.SetValidValue(value, true, "ProgramModeShortName");
                 ReportPropertyChanged("ProgramModeShortName");
                 OnProgramModeShortNameChanged();
             }
@@ -19252,7 +19529,7 @@ namespace PriemLib
             {
                 OnIsSecondChanging(value);
                 ReportPropertyChanging("IsSecond");
-                _IsSecond = StructuralObject.SetValidValue(value);
+                _IsSecond = StructuralObject.SetValidValue(value, "IsSecond");
                 ReportPropertyChanged("IsSecond");
                 OnIsSecondChanged();
             }
@@ -19276,7 +19553,7 @@ namespace PriemLib
             {
                 OnIsReducedChanging(value);
                 ReportPropertyChanging("IsReduced");
-                _IsReduced = StructuralObject.SetValidValue(value);
+                _IsReduced = StructuralObject.SetValidValue(value, "IsReduced");
                 ReportPropertyChanged("IsReduced");
                 OnIsReducedChanged();
             }
@@ -19300,7 +19577,7 @@ namespace PriemLib
             {
                 OnIsParallelChanging(value);
                 ReportPropertyChanging("IsParallel");
-                _IsParallel = StructuralObject.SetValidValue(value);
+                _IsParallel = StructuralObject.SetValidValue(value, "IsParallel");
                 ReportPropertyChanged("IsParallel");
                 OnIsParallelChanged();
             }
@@ -19324,7 +19601,7 @@ namespace PriemLib
             {
                 OnKCPChanging(value);
                 ReportPropertyChanging("KCP");
-                _KCP = StructuralObject.SetValidValue(value);
+                _KCP = StructuralObject.SetValidValue(value, "KCP");
                 ReportPropertyChanged("KCP");
                 OnKCPChanged();
             }
@@ -19348,7 +19625,7 @@ namespace PriemLib
             {
                 OnKCPCelChanging(value);
                 ReportPropertyChanging("KCPCel");
-                _KCPCel = StructuralObject.SetValidValue(value);
+                _KCPCel = StructuralObject.SetValidValue(value, "KCPCel");
                 ReportPropertyChanged("KCPCel");
                 OnKCPCelChanged();
             }
@@ -19372,7 +19649,7 @@ namespace PriemLib
             {
                 OnIsClosedChanging(value);
                 ReportPropertyChanging("IsClosed");
-                _IsClosed = StructuralObject.SetValidValue(value);
+                _IsClosed = StructuralObject.SetValidValue(value, "IsClosed");
                 ReportPropertyChanged("IsClosed");
                 OnIsClosedChanged();
             }
@@ -19396,7 +19673,7 @@ namespace PriemLib
             {
                 OnQualificationCodeChanging(value);
                 ReportPropertyChanging("QualificationCode");
-                _QualificationCode = StructuralObject.SetValidValue(value, true);
+                _QualificationCode = StructuralObject.SetValidValue(value, true, "QualificationCode");
                 ReportPropertyChanged("QualificationCode");
                 OnQualificationCodeChanged();
             }
@@ -19420,7 +19697,7 @@ namespace PriemLib
             {
                 OnThreeAbitsCompetitionIdChanging(value);
                 ReportPropertyChanging("ThreeAbitsCompetitionId");
-                _ThreeAbitsCompetitionId = StructuralObject.SetValidValue(value);
+                _ThreeAbitsCompetitionId = StructuralObject.SetValidValue(value, "ThreeAbitsCompetitionId");
                 ReportPropertyChanged("ThreeAbitsCompetitionId");
                 OnThreeAbitsCompetitionIdChanged();
             }
@@ -19444,7 +19721,7 @@ namespace PriemLib
             {
                 OnObrazProgramPrintNameChanging(value);
                 ReportPropertyChanging("ObrazProgramPrintName");
-                _ObrazProgramPrintName = StructuralObject.SetValidValue(value, true);
+                _ObrazProgramPrintName = StructuralObject.SetValidValue(value, true, "ObrazProgramPrintName");
                 ReportPropertyChanged("ObrazProgramPrintName");
                 OnObrazProgramPrintNameChanged();
             }
@@ -19452,102 +19729,6 @@ namespace PriemLib
         private global::System.String _ObrazProgramPrintName;
         partial void OnObrazProgramPrintNameChanging(global::System.String value);
         partial void OnObrazProgramPrintNameChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> DateOfClose_Foreign
-        {
-            get
-            {
-                return _DateOfClose_Foreign;
-            }
-            set
-            {
-                OnDateOfClose_ForeignChanging(value);
-                ReportPropertyChanging("DateOfClose_Foreign");
-                _DateOfClose_Foreign = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("DateOfClose_Foreign");
-                OnDateOfClose_ForeignChanged();
-            }
-        }
-        private Nullable<global::System.DateTime> _DateOfClose_Foreign;
-        partial void OnDateOfClose_ForeignChanging(Nullable<global::System.DateTime> value);
-        partial void OnDateOfClose_ForeignChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> DateOfStart_Foreign
-        {
-            get
-            {
-                return _DateOfStart_Foreign;
-            }
-            set
-            {
-                OnDateOfStart_ForeignChanging(value);
-                ReportPropertyChanging("DateOfStart_Foreign");
-                _DateOfStart_Foreign = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("DateOfStart_Foreign");
-                OnDateOfStart_ForeignChanged();
-            }
-        }
-        private Nullable<global::System.DateTime> _DateOfStart_Foreign;
-        partial void OnDateOfStart_ForeignChanging(Nullable<global::System.DateTime> value);
-        partial void OnDateOfStart_ForeignChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> DateOfClose_GosLine
-        {
-            get
-            {
-                return _DateOfClose_GosLine;
-            }
-            set
-            {
-                OnDateOfClose_GosLineChanging(value);
-                ReportPropertyChanging("DateOfClose_GosLine");
-                _DateOfClose_GosLine = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("DateOfClose_GosLine");
-                OnDateOfClose_GosLineChanged();
-            }
-        }
-        private Nullable<global::System.DateTime> _DateOfClose_GosLine;
-        partial void OnDateOfClose_GosLineChanging(Nullable<global::System.DateTime> value);
-        partial void OnDateOfClose_GosLineChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> DateOfStart_GosLine
-        {
-            get
-            {
-                return _DateOfStart_GosLine;
-            }
-            set
-            {
-                OnDateOfStart_GosLineChanging(value);
-                ReportPropertyChanging("DateOfStart_GosLine");
-                _DateOfStart_GosLine = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("DateOfStart_GosLine");
-                OnDateOfStart_GosLineChanged();
-            }
-        }
-        private Nullable<global::System.DateTime> _DateOfStart_GosLine;
-        partial void OnDateOfStart_GosLineChanging(Nullable<global::System.DateTime> value);
-        partial void OnDateOfStart_GosLineChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -19564,7 +19745,7 @@ namespace PriemLib
             {
                 OnDateOfCloseChanging(value);
                 ReportPropertyChanging("DateOfClose");
-                _DateOfClose = StructuralObject.SetValidValue(value);
+                _DateOfClose = StructuralObject.SetValidValue(value, "DateOfClose");
                 ReportPropertyChanged("DateOfClose");
                 OnDateOfCloseChanged();
             }
@@ -19588,7 +19769,7 @@ namespace PriemLib
             {
                 OnDateOfStartChanging(value);
                 ReportPropertyChanging("DateOfStart");
-                _DateOfStart = StructuralObject.SetValidValue(value);
+                _DateOfStart = StructuralObject.SetValidValue(value, "DateOfStart");
                 ReportPropertyChanged("DateOfStart");
                 OnDateOfStartChanged();
             }
@@ -19612,7 +19793,7 @@ namespace PriemLib
             {
                 OnCommissionIdChanging(value);
                 ReportPropertyChanging("CommissionId");
-                _CommissionId = StructuralObject.SetValidValue(value);
+                _CommissionId = StructuralObject.SetValidValue(value, "CommissionId");
                 ReportPropertyChanged("CommissionId");
                 OnCommissionIdChanged();
             }
@@ -19620,30 +19801,6 @@ namespace PriemLib
         private Nullable<global::System.Int32> _CommissionId;
         partial void OnCommissionIdChanging(Nullable<global::System.Int32> value);
         partial void OnCommissionIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int32> KCPCrimea
-        {
-            get
-            {
-                return _KCPCrimea;
-            }
-            set
-            {
-                OnKCPCrimeaChanging(value);
-                ReportPropertyChanging("KCPCrimea");
-                _KCPCrimea = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("KCPCrimea");
-                OnKCPCrimeaChanged();
-            }
-        }
-        private Nullable<global::System.Int32> _KCPCrimea;
-        partial void OnKCPCrimeaChanging(Nullable<global::System.Int32> value);
-        partial void OnKCPCrimeaChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -19660,7 +19817,7 @@ namespace PriemLib
             {
                 OnKCPQuotaChanging(value);
                 ReportPropertyChanging("KCPQuota");
-                _KCPQuota = StructuralObject.SetValidValue(value);
+                _KCPQuota = StructuralObject.SetValidValue(value, "KCPQuota");
                 ReportPropertyChanged("KCPQuota");
                 OnKCPQuotaChanged();
             }
@@ -19684,7 +19841,7 @@ namespace PriemLib
             {
                 OnDateFinishEducChanging(value);
                 ReportPropertyChanging("DateFinishEduc");
-                _DateFinishEduc = StructuralObject.SetValidValue(value);
+                _DateFinishEduc = StructuralObject.SetValidValue(value, "DateFinishEduc");
                 ReportPropertyChanged("DateFinishEduc");
                 OnDateFinishEducChanged();
             }
@@ -19708,7 +19865,7 @@ namespace PriemLib
             {
                 OnDateStartEducChanging(value);
                 ReportPropertyChanging("DateStartEduc");
-                _DateStartEduc = StructuralObject.SetValidValue(value);
+                _DateStartEduc = StructuralObject.SetValidValue(value, "DateStartEduc");
                 ReportPropertyChanged("DateStartEduc");
                 OnDateStartEducChanged();
             }
@@ -19732,7 +19889,7 @@ namespace PriemLib
             {
                 OnIsForeignChanging(value);
                 ReportPropertyChanging("IsForeign");
-                _IsForeign = StructuralObject.SetValidValue(value);
+                _IsForeign = StructuralObject.SetValidValue(value, "IsForeign");
                 ReportPropertyChanged("IsForeign");
                 OnIsForeignChanged();
             }
@@ -19740,10 +19897,33 @@ namespace PriemLib
         private global::System.Boolean _IsForeign;
         partial void OnIsForeignChanging(global::System.Boolean value);
         partial void OnIsForeignChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean IsCrimea
+        {
+            get
+            {
+                return _IsCrimea;
+            }
+            set
+            {
+                OnIsCrimeaChanging(value);
+                ReportPropertyChanging("IsCrimea");
+                _IsCrimea = StructuralObject.SetValidValue(value, "IsCrimea");
+                ReportPropertyChanged("IsCrimea");
+                OnIsCrimeaChanged();
+            }
+        }
+        private global::System.Boolean _IsCrimea;
+        partial void OnIsCrimeaChanging(global::System.Boolean value);
+        partial void OnIsCrimeaChanged();
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -20167,7 +20347,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -20186,7 +20366,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -20211,7 +20391,7 @@ namespace PriemLib
             {
                 OnNameChanging(value);
                 ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, true);
+                _Name = StructuralObject.SetValidValue(value, true, "Name");
                 ReportPropertyChanged("Name");
                 OnNameChanged();
             }
@@ -20235,7 +20415,7 @@ namespace PriemLib
             {
                 OnAcronymChanging(value);
                 ReportPropertyChanging("Acronym");
-                _Acronym = StructuralObject.SetValidValue(value, true);
+                _Acronym = StructuralObject.SetValidValue(value, true, "Acronym");
                 ReportPropertyChanged("Acronym");
                 OnAcronymChanged();
             }
@@ -20259,7 +20439,7 @@ namespace PriemLib
             {
                 OnSortNumChanging(value);
                 ReportPropertyChanging("SortNum");
-                _SortNum = StructuralObject.SetValidValue(value);
+                _SortNum = StructuralObject.SetValidValue(value, "SortNum");
                 ReportPropertyChanged("SortNum");
                 OnSortNumChanged();
             }
@@ -20270,7 +20450,6 @@ namespace PriemLib
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -20302,7 +20481,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -20321,7 +20500,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -20346,7 +20525,7 @@ namespace PriemLib
             {
                 OnExamNameIdChanging(value);
                 ReportPropertyChanging("ExamNameId");
-                _ExamNameId = StructuralObject.SetValidValue(value);
+                _ExamNameId = StructuralObject.SetValidValue(value, "ExamNameId");
                 ReportPropertyChanged("ExamNameId");
                 OnExamNameIdChanged();
             }
@@ -20370,7 +20549,7 @@ namespace PriemLib
             {
                 OnIsAdditionalChanging(value);
                 ReportPropertyChanging("IsAdditional");
-                _IsAdditional = StructuralObject.SetValidValue(value);
+                _IsAdditional = StructuralObject.SetValidValue(value, "IsAdditional");
                 ReportPropertyChanged("IsAdditional");
                 OnIsAdditionalChanged();
             }
@@ -20394,7 +20573,7 @@ namespace PriemLib
             {
                 OnIsOpenChanging(value);
                 ReportPropertyChanging("IsOpen");
-                _IsOpen = StructuralObject.SetValidValue(value);
+                _IsOpen = StructuralObject.SetValidValue(value, "IsOpen");
                 ReportPropertyChanged("IsOpen");
                 OnIsOpenChanged();
             }
@@ -20418,7 +20597,7 @@ namespace PriemLib
             {
                 OnHolderChanging(value);
                 ReportPropertyChanging("Holder");
-                _Holder = StructuralObject.SetValidValue(value, true);
+                _Holder = StructuralObject.SetValidValue(value, true, "Holder");
                 ReportPropertyChanged("Holder");
                 OnHolderChanged();
             }
@@ -20429,7 +20608,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -20582,7 +20760,8 @@ namespace PriemLib
         /// <param name="isOpen">Initial value of the IsOpen property.</param>
         /// <param name="isGosLine">Initial value of the IsGosLine property.</param>
         /// <param name="isCrimea">Initial value of the IsCrimea property.</param>
-        public static ExamInEntry CreateExamInEntry(global::System.Int32 id, global::System.Guid entryId, global::System.Int32 examId, global::System.Boolean isProfil, global::System.Boolean isOpen, global::System.Boolean isGosLine, global::System.Boolean isCrimea)
+        /// <param name="orderNumber">Initial value of the OrderNumber property.</param>
+        public static ExamInEntry CreateExamInEntry(global::System.Int32 id, global::System.Guid entryId, global::System.Int32 examId, global::System.Boolean isProfil, global::System.Boolean isOpen, global::System.Boolean isGosLine, global::System.Boolean isCrimea, global::System.Byte orderNumber)
         {
             ExamInEntry examInEntry = new ExamInEntry();
             examInEntry.Id = id;
@@ -20592,12 +20771,13 @@ namespace PriemLib
             examInEntry.IsOpen = isOpen;
             examInEntry.IsGosLine = isGosLine;
             examInEntry.IsCrimea = isCrimea;
+            examInEntry.OrderNumber = orderNumber;
             return examInEntry;
         }
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -20616,7 +20796,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -20641,7 +20821,7 @@ namespace PriemLib
             {
                 OnEntryIdChanging(value);
                 ReportPropertyChanging("EntryId");
-                _EntryId = StructuralObject.SetValidValue(value);
+                _EntryId = StructuralObject.SetValidValue(value, "EntryId");
                 ReportPropertyChanged("EntryId");
                 OnEntryIdChanged();
             }
@@ -20665,7 +20845,7 @@ namespace PriemLib
             {
                 OnExamIdChanging(value);
                 ReportPropertyChanging("ExamId");
-                _ExamId = StructuralObject.SetValidValue(value);
+                _ExamId = StructuralObject.SetValidValue(value, "ExamId");
                 ReportPropertyChanged("ExamId");
                 OnExamIdChanged();
             }
@@ -20689,7 +20869,7 @@ namespace PriemLib
             {
                 OnIsProfilChanging(value);
                 ReportPropertyChanging("IsProfil");
-                _IsProfil = StructuralObject.SetValidValue(value);
+                _IsProfil = StructuralObject.SetValidValue(value, "IsProfil");
                 ReportPropertyChanged("IsProfil");
                 OnIsProfilChanged();
             }
@@ -20713,7 +20893,7 @@ namespace PriemLib
             {
                 OnEgeMinChanging(value);
                 ReportPropertyChanging("EgeMin");
-                _EgeMin = StructuralObject.SetValidValue(value);
+                _EgeMin = StructuralObject.SetValidValue(value, "EgeMin");
                 ReportPropertyChanged("EgeMin");
                 OnEgeMinChanged();
             }
@@ -20737,7 +20917,7 @@ namespace PriemLib
             {
                 OnIsOpenChanging(value);
                 ReportPropertyChanging("IsOpen");
-                _IsOpen = StructuralObject.SetValidValue(value);
+                _IsOpen = StructuralObject.SetValidValue(value, "IsOpen");
                 ReportPropertyChanged("IsOpen");
                 OnIsOpenChanged();
             }
@@ -20761,7 +20941,7 @@ namespace PriemLib
             {
                 OnHolderChanging(value);
                 ReportPropertyChanging("Holder");
-                _Holder = StructuralObject.SetValidValue(value, true);
+                _Holder = StructuralObject.SetValidValue(value, true, "Holder");
                 ReportPropertyChanged("Holder");
                 OnHolderChanged();
             }
@@ -20785,7 +20965,7 @@ namespace PriemLib
             {
                 OnExamInEntryToCompetitiveGroupIdChanging(value);
                 ReportPropertyChanging("ExamInEntryToCompetitiveGroupId");
-                _ExamInEntryToCompetitiveGroupId = StructuralObject.SetValidValue(value);
+                _ExamInEntryToCompetitiveGroupId = StructuralObject.SetValidValue(value, "ExamInEntryToCompetitiveGroupId");
                 ReportPropertyChanged("ExamInEntryToCompetitiveGroupId");
                 OnExamInEntryToCompetitiveGroupIdChanged();
             }
@@ -20809,7 +20989,7 @@ namespace PriemLib
             {
                 OnIsGosLineChanging(value);
                 ReportPropertyChanging("IsGosLine");
-                _IsGosLine = StructuralObject.SetValidValue(value);
+                _IsGosLine = StructuralObject.SetValidValue(value, "IsGosLine");
                 ReportPropertyChanged("IsGosLine");
                 OnIsGosLineChanged();
             }
@@ -20833,7 +21013,7 @@ namespace PriemLib
             {
                 OnIsCrimeaChanging(value);
                 ReportPropertyChanging("IsCrimea");
-                _IsCrimea = StructuralObject.SetValidValue(value);
+                _IsCrimea = StructuralObject.SetValidValue(value, "IsCrimea");
                 ReportPropertyChanged("IsCrimea");
                 OnIsCrimeaChanged();
             }
@@ -20845,9 +21025,9 @@ namespace PriemLib
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Byte> OrderNumber
+        public global::System.Byte OrderNumber
         {
             get
             {
@@ -20857,18 +21037,17 @@ namespace PriemLib
             {
                 OnOrderNumberChanging(value);
                 ReportPropertyChanging("OrderNumber");
-                _OrderNumber = StructuralObject.SetValidValue(value);
+                _OrderNumber = StructuralObject.SetValidValue(value, "OrderNumber");
                 ReportPropertyChanged("OrderNumber");
                 OnOrderNumberChanged();
             }
         }
-        private Nullable<global::System.Byte> _OrderNumber;
-        partial void OnOrderNumberChanging(Nullable<global::System.Byte> value);
+        private global::System.Byte _OrderNumber;
+        partial void OnOrderNumberChanging(global::System.Byte value);
         partial void OnOrderNumberChanged();
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -20996,7 +21175,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -21015,7 +21194,7 @@ namespace PriemLib
                 {
                     OnAccountNameChanging(value);
                     ReportPropertyChanging("AccountName");
-                    _AccountName = StructuralObject.SetValidValue(value, false);
+                    _AccountName = StructuralObject.SetValidValue(value, false, "AccountName");
                     ReportPropertyChanged("AccountName");
                     OnAccountNameChanged();
                 }
@@ -21040,7 +21219,7 @@ namespace PriemLib
             {
                 OnDisplayNameChanging(value);
                 ReportPropertyChanging("DisplayName");
-                _DisplayName = StructuralObject.SetValidValue(value, true);
+                _DisplayName = StructuralObject.SetValidValue(value, true, "DisplayName");
                 ReportPropertyChanged("DisplayName");
                 OnDisplayNameChanged();
             }
@@ -21051,7 +21230,6 @@ namespace PriemLib
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -21079,7 +21257,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -21098,7 +21276,7 @@ namespace PriemLib
                 {
                     OnExamsVedIdChanging(value);
                     ReportPropertyChanging("ExamsVedId");
-                    _ExamsVedId = StructuralObject.SetValidValue(value);
+                    _ExamsVedId = StructuralObject.SetValidValue(value, "ExamsVedId");
                     ReportPropertyChanged("ExamsVedId");
                     OnExamsVedIdChanged();
                 }
@@ -21125,7 +21303,7 @@ namespace PriemLib
                 {
                     OnExaminerAccountChanging(value);
                     ReportPropertyChanging("ExaminerAccount");
-                    _ExaminerAccount = StructuralObject.SetValidValue(value, false);
+                    _ExaminerAccount = StructuralObject.SetValidValue(value, false, "ExaminerAccount");
                     ReportPropertyChanged("ExaminerAccount");
                     OnExaminerAccountChanged();
                 }
@@ -21137,7 +21315,6 @@ namespace PriemLib
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -21163,7 +21340,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -21182,7 +21359,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -21207,7 +21384,7 @@ namespace PriemLib
             {
                 OnNameChanging(value);
                 ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, true);
+                _Name = StructuralObject.SetValidValue(value, true, "Name");
                 ReportPropertyChanged("Name");
                 OnNameChanged();
             }
@@ -21231,7 +21408,7 @@ namespace PriemLib
             {
                 OnAcronymChanging(value);
                 ReportPropertyChanging("Acronym");
-                _Acronym = StructuralObject.SetValidValue(value, true);
+                _Acronym = StructuralObject.SetValidValue(value, true, "Acronym");
                 ReportPropertyChanged("Acronym");
                 OnAcronymChanged();
             }
@@ -21255,7 +21432,7 @@ namespace PriemLib
             {
                 OnNamePadChanging(value);
                 ReportPropertyChanging("NamePad");
-                _NamePad = StructuralObject.SetValidValue(value, true);
+                _NamePad = StructuralObject.SetValidValue(value, true, "NamePad");
                 ReportPropertyChanged("NamePad");
                 OnNamePadChanged();
             }
@@ -21266,7 +21443,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -21334,7 +21510,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -21353,7 +21529,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -21378,7 +21554,7 @@ namespace PriemLib
             {
                 OnNumberChanging(value);
                 ReportPropertyChanging("Number");
-                _Number = StructuralObject.SetValidValue(value);
+                _Number = StructuralObject.SetValidValue(value, "Number");
                 ReportPropertyChanged("Number");
                 OnNumberChanged();
             }
@@ -21402,7 +21578,7 @@ namespace PriemLib
             {
                 OnStudyLevelGroupIdChanging(value);
                 ReportPropertyChanging("StudyLevelGroupId");
-                _StudyLevelGroupId = StructuralObject.SetValidValue(value);
+                _StudyLevelGroupId = StructuralObject.SetValidValue(value, "StudyLevelGroupId");
                 ReportPropertyChanged("StudyLevelGroupId");
                 OnStudyLevelGroupIdChanged();
             }
@@ -21426,7 +21602,7 @@ namespace PriemLib
             {
                 OnFacultyIdChanging(value);
                 ReportPropertyChanging("FacultyId");
-                _FacultyId = StructuralObject.SetValidValue(value);
+                _FacultyId = StructuralObject.SetValidValue(value, "FacultyId");
                 ReportPropertyChanged("FacultyId");
                 OnFacultyIdChanged();
             }
@@ -21450,7 +21626,7 @@ namespace PriemLib
             {
                 OnStudyBasisIdChanging(value);
                 ReportPropertyChanging("StudyBasisId");
-                _StudyBasisId = StructuralObject.SetValidValue(value);
+                _StudyBasisId = StructuralObject.SetValidValue(value, "StudyBasisId");
                 ReportPropertyChanged("StudyBasisId");
                 OnStudyBasisIdChanged();
             }
@@ -21474,7 +21650,7 @@ namespace PriemLib
             {
                 OnDateChanging(value);
                 ReportPropertyChanging("Date");
-                _Date = StructuralObject.SetValidValue(value);
+                _Date = StructuralObject.SetValidValue(value, "Date");
                 ReportPropertyChanged("Date");
                 OnDateChanged();
             }
@@ -21498,7 +21674,7 @@ namespace PriemLib
             {
                 OnExamIdChanging(value);
                 ReportPropertyChanging("ExamId");
-                _ExamId = StructuralObject.SetValidValue(value);
+                _ExamId = StructuralObject.SetValidValue(value, "ExamId");
                 ReportPropertyChanged("ExamId");
                 OnExamIdChanged();
             }
@@ -21522,7 +21698,7 @@ namespace PriemLib
             {
                 OnIsLockedChanging(value);
                 ReportPropertyChanging("IsLocked");
-                _IsLocked = StructuralObject.SetValidValue(value);
+                _IsLocked = StructuralObject.SetValidValue(value, "IsLocked");
                 ReportPropertyChanged("IsLocked");
                 OnIsLockedChanged();
             }
@@ -21546,7 +21722,7 @@ namespace PriemLib
             {
                 OnIsLoadChanging(value);
                 ReportPropertyChanging("IsLoad");
-                _IsLoad = StructuralObject.SetValidValue(value);
+                _IsLoad = StructuralObject.SetValidValue(value, "IsLoad");
                 ReportPropertyChanged("IsLoad");
                 OnIsLoadChanged();
             }
@@ -21570,7 +21746,7 @@ namespace PriemLib
             {
                 OnIsAddChanging(value);
                 ReportPropertyChanging("IsAdd");
-                _IsAdd = StructuralObject.SetValidValue(value);
+                _IsAdd = StructuralObject.SetValidValue(value, "IsAdd");
                 ReportPropertyChanged("IsAdd");
                 OnIsAddChanged();
             }
@@ -21594,7 +21770,7 @@ namespace PriemLib
             {
                 OnAddCountChanging(value);
                 ReportPropertyChanging("AddCount");
-                _AddCount = StructuralObject.SetValidValue(value);
+                _AddCount = StructuralObject.SetValidValue(value, "AddCount");
                 ReportPropertyChanged("AddCount");
                 OnAddCountChanged();
             }
@@ -21618,7 +21794,7 @@ namespace PriemLib
             {
                 OnExaminerAccountChanging(value);
                 ReportPropertyChanging("ExaminerAccount");
-                _ExaminerAccount = StructuralObject.SetValidValue(value, true);
+                _ExaminerAccount = StructuralObject.SetValidValue(value, true, "ExaminerAccount");
                 ReportPropertyChanged("ExaminerAccount");
                 OnExaminerAccountChanged();
             }
@@ -21629,7 +21805,6 @@ namespace PriemLib
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -21657,7 +21832,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -21676,7 +21851,7 @@ namespace PriemLib
                 {
                     OnExamsVedIdChanging(value);
                     ReportPropertyChanging("ExamsVedId");
-                    _ExamsVedId = StructuralObject.SetValidValue(value);
+                    _ExamsVedId = StructuralObject.SetValidValue(value, "ExamsVedId");
                     ReportPropertyChanged("ExamsVedId");
                     OnExamsVedIdChanged();
                 }
@@ -21703,7 +21878,7 @@ namespace PriemLib
                 {
                     OnPersonIdChanging(value);
                     ReportPropertyChanging("PersonId");
-                    _PersonId = StructuralObject.SetValidValue(value);
+                    _PersonId = StructuralObject.SetValidValue(value, "PersonId");
                     ReportPropertyChanged("PersonId");
                     OnPersonIdChanged();
                 }
@@ -21728,7 +21903,7 @@ namespace PriemLib
             {
                 OnPersonVedNumberChanging(value);
                 ReportPropertyChanging("PersonVedNumber");
-                _PersonVedNumber = StructuralObject.SetValidValue(value);
+                _PersonVedNumber = StructuralObject.SetValidValue(value, "PersonVedNumber");
                 ReportPropertyChanged("PersonVedNumber");
                 OnPersonVedNumberChanged();
             }
@@ -21752,7 +21927,7 @@ namespace PriemLib
             {
                 OnMarkChanging(value);
                 ReportPropertyChanging("Mark");
-                _Mark = StructuralObject.SetValidValue(value);
+                _Mark = StructuralObject.SetValidValue(value, "Mark");
                 ReportPropertyChanged("Mark");
                 OnMarkChanged();
             }
@@ -21776,7 +21951,7 @@ namespace PriemLib
             {
                 OnOralMarkChanging(value);
                 ReportPropertyChanging("OralMark");
-                _OralMark = StructuralObject.SetValidValue(value);
+                _OralMark = StructuralObject.SetValidValue(value, "OralMark");
                 ReportPropertyChanged("OralMark");
                 OnOralMarkChanged();
             }
@@ -21800,7 +21975,7 @@ namespace PriemLib
             {
                 OnAppealMarkChanging(value);
                 ReportPropertyChanging("AppealMark");
-                _AppealMark = StructuralObject.SetValidValue(value);
+                _AppealMark = StructuralObject.SetValidValue(value, "AppealMark");
                 ReportPropertyChanged("AppealMark");
                 OnAppealMarkChanged();
             }
@@ -21824,7 +21999,7 @@ namespace PriemLib
             {
                 OnOralAppealMarkChanging(value);
                 ReportPropertyChanging("OralAppealMark");
-                _OralAppealMark = StructuralObject.SetValidValue(value);
+                _OralAppealMark = StructuralObject.SetValidValue(value, "OralAppealMark");
                 ReportPropertyChanged("OralAppealMark");
                 OnOralAppealMarkChanged();
             }
@@ -21848,7 +22023,7 @@ namespace PriemLib
             {
                 OnExaminerNameChanging(value);
                 ReportPropertyChanging("ExaminerName");
-                _ExaminerName = StructuralObject.SetValidValue(value, true);
+                _ExaminerName = StructuralObject.SetValidValue(value, true, "ExaminerName");
                 ReportPropertyChanged("ExaminerName");
                 OnExaminerNameChanged();
             }
@@ -21859,7 +22034,6 @@ namespace PriemLib
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -21891,7 +22065,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -21910,7 +22084,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -21935,7 +22109,7 @@ namespace PriemLib
             {
                 OnExamsVedIdChanging(value);
                 ReportPropertyChanging("ExamsVedId");
-                _ExamsVedId = StructuralObject.SetValidValue(value);
+                _ExamsVedId = StructuralObject.SetValidValue(value, "ExamsVedId");
                 ReportPropertyChanged("ExamsVedId");
                 OnExamsVedIdChanged();
             }
@@ -21959,7 +22133,7 @@ namespace PriemLib
             {
                 OnRoomNumberChanging(value);
                 ReportPropertyChanging("RoomNumber");
-                _RoomNumber = StructuralObject.SetValidValue(value, false);
+                _RoomNumber = StructuralObject.SetValidValue(value, false, "RoomNumber");
                 ReportPropertyChanged("RoomNumber");
                 OnRoomNumberChanged();
             }
@@ -21983,7 +22157,7 @@ namespace PriemLib
             {
                 OnNumberChanging(value);
                 ReportPropertyChanging("Number");
-                _Number = StructuralObject.SetValidValue(value);
+                _Number = StructuralObject.SetValidValue(value, "Number");
                 ReportPropertyChanged("Number");
                 OnNumberChanged();
             }
@@ -21994,7 +22168,6 @@ namespace PriemLib
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -22022,7 +22195,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -22041,7 +22214,7 @@ namespace PriemLib
                 {
                     OnExamsVedRoomIdChanging(value);
                     ReportPropertyChanging("ExamsVedRoomId");
-                    _ExamsVedRoomId = StructuralObject.SetValidValue(value);
+                    _ExamsVedRoomId = StructuralObject.SetValidValue(value, "ExamsVedRoomId");
                     ReportPropertyChanged("ExamsVedRoomId");
                     OnExamsVedRoomIdChanged();
                 }
@@ -22068,7 +22241,7 @@ namespace PriemLib
                 {
                     OnPersonIdChanging(value);
                     ReportPropertyChanging("PersonId");
-                    _PersonId = StructuralObject.SetValidValue(value);
+                    _PersonId = StructuralObject.SetValidValue(value, "PersonId");
                     ReportPropertyChanged("PersonId");
                     OnPersonIdChanged();
                 }
@@ -22080,7 +22253,6 @@ namespace PriemLib
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -22174,7 +22346,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -22193,7 +22365,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -22220,7 +22392,7 @@ namespace PriemLib
                 {
                     OnPersonIdChanging(value);
                     ReportPropertyChanging("PersonId");
-                    _PersonId = StructuralObject.SetValidValue(value);
+                    _PersonId = StructuralObject.SetValidValue(value, "PersonId");
                     ReportPropertyChanged("PersonId");
                     OnPersonIdChanged();
                 }
@@ -22245,7 +22417,7 @@ namespace PriemLib
             {
                 OnRegNumChanging(value);
                 ReportPropertyChanging("RegNum");
-                _RegNum = StructuralObject.SetValidValue(value, true);
+                _RegNum = StructuralObject.SetValidValue(value, true, "RegNum");
                 ReportPropertyChanged("RegNum");
                 OnRegNumChanged();
             }
@@ -22271,7 +22443,7 @@ namespace PriemLib
                 {
                     OnEntryIdChanging(value);
                     ReportPropertyChanging("EntryId");
-                    _EntryId = StructuralObject.SetValidValue(value);
+                    _EntryId = StructuralObject.SetValidValue(value, "EntryId");
                     ReportPropertyChanged("EntryId");
                     OnEntryIdChanged();
                 }
@@ -22296,7 +22468,7 @@ namespace PriemLib
             {
                 OnCompetitionIdChanging(value);
                 ReportPropertyChanging("CompetitionId");
-                _CompetitionId = StructuralObject.SetValidValue(value);
+                _CompetitionId = StructuralObject.SetValidValue(value, "CompetitionId");
                 ReportPropertyChanged("CompetitionId");
                 OnCompetitionIdChanged();
             }
@@ -22322,7 +22494,7 @@ namespace PriemLib
                 {
                     OnIsListenerChanging(value);
                     ReportPropertyChanging("IsListener");
-                    _IsListener = StructuralObject.SetValidValue(value);
+                    _IsListener = StructuralObject.SetValidValue(value, "IsListener");
                     ReportPropertyChanged("IsListener");
                     OnIsListenerChanged();
                 }
@@ -22349,7 +22521,7 @@ namespace PriemLib
                 {
                     OnIsPaidChanging(value);
                     ReportPropertyChanging("IsPaid");
-                    _IsPaid = StructuralObject.SetValidValue(value);
+                    _IsPaid = StructuralObject.SetValidValue(value, "IsPaid");
                     ReportPropertyChanged("IsPaid");
                     OnIsPaidChanged();
                 }
@@ -22376,7 +22548,7 @@ namespace PriemLib
                 {
                     OnBackDocChanging(value);
                     ReportPropertyChanging("BackDoc");
-                    _BackDoc = StructuralObject.SetValidValue(value);
+                    _BackDoc = StructuralObject.SetValidValue(value, "BackDoc");
                     ReportPropertyChanged("BackDoc");
                     OnBackDocChanged();
                 }
@@ -22401,7 +22573,7 @@ namespace PriemLib
             {
                 OnBackDocDateChanging(value);
                 ReportPropertyChanging("BackDocDate");
-                _BackDocDate = StructuralObject.SetValidValue(value);
+                _BackDocDate = StructuralObject.SetValidValue(value, "BackDocDate");
                 ReportPropertyChanged("BackDocDate");
                 OnBackDocDateChanged();
             }
@@ -22427,7 +22599,7 @@ namespace PriemLib
                 {
                     OnDocDateChanging(value);
                     ReportPropertyChanging("DocDate");
-                    _DocDate = StructuralObject.SetValidValue(value);
+                    _DocDate = StructuralObject.SetValidValue(value, "DocDate");
                     ReportPropertyChanged("DocDate");
                     OnDocDateChanged();
                 }
@@ -22454,7 +22626,7 @@ namespace PriemLib
                 {
                     OnDocInsertDateChanging(value);
                     ReportPropertyChanging("DocInsertDate");
-                    _DocInsertDate = StructuralObject.SetValidValue(value);
+                    _DocInsertDate = StructuralObject.SetValidValue(value, "DocInsertDate");
                     ReportPropertyChanged("DocInsertDate");
                     OnDocInsertDateChanged();
                 }
@@ -22481,7 +22653,7 @@ namespace PriemLib
                 {
                     OnCheckedChanging(value);
                     ReportPropertyChanging("Checked");
-                    _Checked = StructuralObject.SetValidValue(value);
+                    _Checked = StructuralObject.SetValidValue(value, "Checked");
                     ReportPropertyChanged("Checked");
                     OnCheckedChanged();
                 }
@@ -22508,7 +22680,7 @@ namespace PriemLib
                 {
                     OnNotEnabledChanging(value);
                     ReportPropertyChanging("NotEnabled");
-                    _NotEnabled = StructuralObject.SetValidValue(value);
+                    _NotEnabled = StructuralObject.SetValidValue(value, "NotEnabled");
                     ReportPropertyChanged("NotEnabled");
                     OnNotEnabledChanged();
                 }
@@ -22533,7 +22705,7 @@ namespace PriemLib
             {
                 OnCoefficientChanging(value);
                 ReportPropertyChanging("Coefficient");
-                _Coefficient = StructuralObject.SetValidValue(value);
+                _Coefficient = StructuralObject.SetValidValue(value, "Coefficient");
                 ReportPropertyChanged("Coefficient");
                 OnCoefficientChanged();
             }
@@ -22557,7 +22729,7 @@ namespace PriemLib
             {
                 OnSumChanging(value);
                 ReportPropertyChanging("Sum");
-                _Sum = StructuralObject.SetValidValue(value);
+                _Sum = StructuralObject.SetValidValue(value, "Sum");
                 ReportPropertyChanged("Sum");
                 OnSumChanged();
             }
@@ -22581,7 +22753,7 @@ namespace PriemLib
             {
                 OnOtherCompetitionIdChanging(value);
                 ReportPropertyChanging("OtherCompetitionId");
-                _OtherCompetitionId = StructuralObject.SetValidValue(value);
+                _OtherCompetitionId = StructuralObject.SetValidValue(value, "OtherCompetitionId");
                 ReportPropertyChanged("OtherCompetitionId");
                 OnOtherCompetitionIdChanged();
             }
@@ -22605,7 +22777,7 @@ namespace PriemLib
             {
                 OnCelCompetitionIdChanging(value);
                 ReportPropertyChanging("CelCompetitionId");
-                _CelCompetitionId = StructuralObject.SetValidValue(value);
+                _CelCompetitionId = StructuralObject.SetValidValue(value, "CelCompetitionId");
                 ReportPropertyChanged("CelCompetitionId");
                 OnCelCompetitionIdChanged();
             }
@@ -22629,7 +22801,7 @@ namespace PriemLib
             {
                 OnCelCompetitionTextChanging(value);
                 ReportPropertyChanging("CelCompetitionText");
-                _CelCompetitionText = StructuralObject.SetValidValue(value, true);
+                _CelCompetitionText = StructuralObject.SetValidValue(value, true, "CelCompetitionText");
                 ReportPropertyChanged("CelCompetitionText");
                 OnCelCompetitionTextChanged();
             }
@@ -22655,7 +22827,7 @@ namespace PriemLib
                 {
                     OnCompFromOlympChanging(value);
                     ReportPropertyChanging("CompFromOlymp");
-                    _CompFromOlymp = StructuralObject.SetValidValue(value);
+                    _CompFromOlymp = StructuralObject.SetValidValue(value, "CompFromOlymp");
                     ReportPropertyChanged("CompFromOlymp");
                     OnCompFromOlympChanged();
                 }
@@ -22680,7 +22852,7 @@ namespace PriemLib
             {
                 OnLanguageIdChanging(value);
                 ReportPropertyChanging("LanguageId");
-                _LanguageId = StructuralObject.SetValidValue(value);
+                _LanguageId = StructuralObject.SetValidValue(value, "LanguageId");
                 ReportPropertyChanged("LanguageId");
                 OnLanguageIdChanged();
             }
@@ -22706,7 +22878,7 @@ namespace PriemLib
                 {
                     OnHasOriginalsChanging(value);
                     ReportPropertyChanging("HasOriginals");
-                    _HasOriginals = StructuralObject.SetValidValue(value);
+                    _HasOriginals = StructuralObject.SetValidValue(value, "HasOriginals");
                     ReportPropertyChanged("HasOriginals");
                     OnHasOriginalsChanged();
                 }
@@ -22731,7 +22903,7 @@ namespace PriemLib
             {
                 OnStudyNumberChanging(value);
                 ReportPropertyChanging("StudyNumber");
-                _StudyNumber = StructuralObject.SetValidValue(value, true);
+                _StudyNumber = StructuralObject.SetValidValue(value, true, "StudyNumber");
                 ReportPropertyChanged("StudyNumber");
                 OnStudyNumberChanged();
             }
@@ -22755,7 +22927,7 @@ namespace PriemLib
             {
                 OnStudentStatusChanging(value);
                 ReportPropertyChanging("StudentStatus");
-                _StudentStatus = StructuralObject.SetValidValue(value);
+                _StudentStatus = StructuralObject.SetValidValue(value, "StudentStatus");
                 ReportPropertyChanged("StudentStatus");
                 OnStudentStatusChanged();
             }
@@ -22779,7 +22951,7 @@ namespace PriemLib
             {
                 OnSessionAVGChanging(value);
                 ReportPropertyChanging("SessionAVG");
-                _SessionAVG = StructuralObject.SetValidValue(value);
+                _SessionAVG = StructuralObject.SetValidValue(value, "SessionAVG");
                 ReportPropertyChanged("SessionAVG");
                 OnSessionAVGChanged();
             }
@@ -22803,7 +22975,7 @@ namespace PriemLib
             {
                 OnPriorityChanging(value);
                 ReportPropertyChanging("Priority");
-                _Priority = StructuralObject.SetValidValue(value);
+                _Priority = StructuralObject.SetValidValue(value, "Priority");
                 ReportPropertyChanged("Priority");
                 OnPriorityChanged();
             }
@@ -22827,7 +22999,7 @@ namespace PriemLib
             {
                 OnBarcodeChanging(value);
                 ReportPropertyChanging("Barcode");
-                _Barcode = StructuralObject.SetValidValue(value);
+                _Barcode = StructuralObject.SetValidValue(value, "Barcode");
                 ReportPropertyChanged("Barcode");
                 OnBarcodeChanged();
             }
@@ -22853,7 +23025,7 @@ namespace PriemLib
                 {
                     OnFacultyIdChanging(value);
                     ReportPropertyChanging("FacultyId");
-                    _FacultyId = StructuralObject.SetValidValue(value);
+                    _FacultyId = StructuralObject.SetValidValue(value, "FacultyId");
                     ReportPropertyChanged("FacultyId");
                     OnFacultyIdChanged();
                 }
@@ -22878,7 +23050,7 @@ namespace PriemLib
             {
                 OnFacultyAcrChanging(value);
                 ReportPropertyChanging("FacultyAcr");
-                _FacultyAcr = StructuralObject.SetValidValue(value, true);
+                _FacultyAcr = StructuralObject.SetValidValue(value, true, "FacultyAcr");
                 ReportPropertyChanged("FacultyAcr");
                 OnFacultyAcrChanged();
             }
@@ -22904,7 +23076,7 @@ namespace PriemLib
                 {
                     OnLicenseProgramIdChanging(value);
                     ReportPropertyChanging("LicenseProgramId");
-                    _LicenseProgramId = StructuralObject.SetValidValue(value);
+                    _LicenseProgramId = StructuralObject.SetValidValue(value, "LicenseProgramId");
                     ReportPropertyChanged("LicenseProgramId");
                     OnLicenseProgramIdChanged();
                 }
@@ -22931,7 +23103,7 @@ namespace PriemLib
                 {
                     OnLicenseProgramNameChanging(value);
                     ReportPropertyChanging("LicenseProgramName");
-                    _LicenseProgramName = StructuralObject.SetValidValue(value, false);
+                    _LicenseProgramName = StructuralObject.SetValidValue(value, false, "LicenseProgramName");
                     ReportPropertyChanged("LicenseProgramName");
                     OnLicenseProgramNameChanged();
                 }
@@ -22956,7 +23128,7 @@ namespace PriemLib
             {
                 OnFacultyNameChanging(value);
                 ReportPropertyChanging("FacultyName");
-                _FacultyName = StructuralObject.SetValidValue(value, true);
+                _FacultyName = StructuralObject.SetValidValue(value, true, "FacultyName");
                 ReportPropertyChanged("FacultyName");
                 OnFacultyNameChanged();
             }
@@ -22980,7 +23152,7 @@ namespace PriemLib
             {
                 OnLicenseProgramCodeChanging(value);
                 ReportPropertyChanging("LicenseProgramCode");
-                _LicenseProgramCode = StructuralObject.SetValidValue(value, true);
+                _LicenseProgramCode = StructuralObject.SetValidValue(value, true, "LicenseProgramCode");
                 ReportPropertyChanged("LicenseProgramCode");
                 OnLicenseProgramCodeChanged();
             }
@@ -23006,7 +23178,7 @@ namespace PriemLib
                 {
                     OnObrazProgramIdChanging(value);
                     ReportPropertyChanging("ObrazProgramId");
-                    _ObrazProgramId = StructuralObject.SetValidValue(value);
+                    _ObrazProgramId = StructuralObject.SetValidValue(value, "ObrazProgramId");
                     ReportPropertyChanged("ObrazProgramId");
                     OnObrazProgramIdChanged();
                 }
@@ -23033,7 +23205,7 @@ namespace PriemLib
                 {
                     OnObrazProgramNameChanging(value);
                     ReportPropertyChanging("ObrazProgramName");
-                    _ObrazProgramName = StructuralObject.SetValidValue(value, false);
+                    _ObrazProgramName = StructuralObject.SetValidValue(value, false, "ObrazProgramName");
                     ReportPropertyChanged("ObrazProgramName");
                     OnObrazProgramNameChanged();
                 }
@@ -23058,7 +23230,7 @@ namespace PriemLib
             {
                 OnObrazProgramNumberChanging(value);
                 ReportPropertyChanging("ObrazProgramNumber");
-                _ObrazProgramNumber = StructuralObject.SetValidValue(value, true);
+                _ObrazProgramNumber = StructuralObject.SetValidValue(value, true, "ObrazProgramNumber");
                 ReportPropertyChanged("ObrazProgramNumber");
                 OnObrazProgramNumberChanged();
             }
@@ -23082,7 +23254,7 @@ namespace PriemLib
             {
                 OnObrazProgramCryptChanging(value);
                 ReportPropertyChanging("ObrazProgramCrypt");
-                _ObrazProgramCrypt = StructuralObject.SetValidValue(value, true);
+                _ObrazProgramCrypt = StructuralObject.SetValidValue(value, true, "ObrazProgramCrypt");
                 ReportPropertyChanged("ObrazProgramCrypt");
                 OnObrazProgramCryptChanged();
             }
@@ -23108,7 +23280,7 @@ namespace PriemLib
                 {
                     OnProfileIdChanging(value);
                     ReportPropertyChanging("ProfileId");
-                    _ProfileId = StructuralObject.SetValidValue(value);
+                    _ProfileId = StructuralObject.SetValidValue(value, "ProfileId");
                     ReportPropertyChanged("ProfileId");
                     OnProfileIdChanged();
                 }
@@ -23133,7 +23305,7 @@ namespace PriemLib
             {
                 OnProfileNameChanging(value);
                 ReportPropertyChanging("ProfileName");
-                _ProfileName = StructuralObject.SetValidValue(value, true);
+                _ProfileName = StructuralObject.SetValidValue(value, true, "ProfileName");
                 ReportPropertyChanged("ProfileName");
                 OnProfileNameChanged();
             }
@@ -23159,7 +23331,7 @@ namespace PriemLib
                 {
                     OnStudyBasisIdChanging(value);
                     ReportPropertyChanging("StudyBasisId");
-                    _StudyBasisId = StructuralObject.SetValidValue(value);
+                    _StudyBasisId = StructuralObject.SetValidValue(value, "StudyBasisId");
                     ReportPropertyChanged("StudyBasisId");
                     OnStudyBasisIdChanged();
                 }
@@ -23186,7 +23358,7 @@ namespace PriemLib
                 {
                     OnStudyBasisNameChanging(value);
                     ReportPropertyChanging("StudyBasisName");
-                    _StudyBasisName = StructuralObject.SetValidValue(value, false);
+                    _StudyBasisName = StructuralObject.SetValidValue(value, false, "StudyBasisName");
                     ReportPropertyChanged("StudyBasisName");
                     OnStudyBasisNameChanged();
                 }
@@ -23213,7 +23385,7 @@ namespace PriemLib
                 {
                     OnStudyFormIdChanging(value);
                     ReportPropertyChanging("StudyFormId");
-                    _StudyFormId = StructuralObject.SetValidValue(value);
+                    _StudyFormId = StructuralObject.SetValidValue(value, "StudyFormId");
                     ReportPropertyChanged("StudyFormId");
                     OnStudyFormIdChanged();
                 }
@@ -23240,7 +23412,7 @@ namespace PriemLib
                 {
                     OnStudyFormNameChanging(value);
                     ReportPropertyChanging("StudyFormName");
-                    _StudyFormName = StructuralObject.SetValidValue(value, false);
+                    _StudyFormName = StructuralObject.SetValidValue(value, false, "StudyFormName");
                     ReportPropertyChanged("StudyFormName");
                     OnStudyFormNameChanged();
                 }
@@ -23267,7 +23439,7 @@ namespace PriemLib
                 {
                     OnStudyLevelIdChanging(value);
                     ReportPropertyChanging("StudyLevelId");
-                    _StudyLevelId = StructuralObject.SetValidValue(value);
+                    _StudyLevelId = StructuralObject.SetValidValue(value, "StudyLevelId");
                     ReportPropertyChanged("StudyLevelId");
                     OnStudyLevelIdChanged();
                 }
@@ -23294,7 +23466,7 @@ namespace PriemLib
                 {
                     OnStudyLevelNameChanging(value);
                     ReportPropertyChanging("StudyLevelName");
-                    _StudyLevelName = StructuralObject.SetValidValue(value, false);
+                    _StudyLevelName = StructuralObject.SetValidValue(value, false, "StudyLevelName");
                     ReportPropertyChanged("StudyLevelName");
                     OnStudyLevelNameChanged();
                 }
@@ -23319,7 +23491,7 @@ namespace PriemLib
             {
                 OnStudyPlanIdChanging(value);
                 ReportPropertyChanging("StudyPlanId");
-                _StudyPlanId = StructuralObject.SetValidValue(value);
+                _StudyPlanId = StructuralObject.SetValidValue(value, "StudyPlanId");
                 ReportPropertyChanged("StudyPlanId");
                 OnStudyPlanIdChanged();
             }
@@ -23343,7 +23515,7 @@ namespace PriemLib
             {
                 OnStudyPlanNumberChanging(value);
                 ReportPropertyChanging("StudyPlanNumber");
-                _StudyPlanNumber = StructuralObject.SetValidValue(value, true);
+                _StudyPlanNumber = StructuralObject.SetValidValue(value, true, "StudyPlanNumber");
                 ReportPropertyChanged("StudyPlanNumber");
                 OnStudyPlanNumberChanged();
             }
@@ -23367,7 +23539,7 @@ namespace PriemLib
             {
                 OnProgramModeShortNameChanging(value);
                 ReportPropertyChanging("ProgramModeShortName");
-                _ProgramModeShortName = StructuralObject.SetValidValue(value, true);
+                _ProgramModeShortName = StructuralObject.SetValidValue(value, true, "ProgramModeShortName");
                 ReportPropertyChanged("ProgramModeShortName");
                 OnProgramModeShortNameChanged();
             }
@@ -23393,7 +23565,7 @@ namespace PriemLib
                 {
                     OnIsSecondChanging(value);
                     ReportPropertyChanging("IsSecond");
-                    _IsSecond = StructuralObject.SetValidValue(value);
+                    _IsSecond = StructuralObject.SetValidValue(value, "IsSecond");
                     ReportPropertyChanged("IsSecond");
                     OnIsSecondChanged();
                 }
@@ -23418,7 +23590,7 @@ namespace PriemLib
             {
                 OnPersonNumChanging(value);
                 ReportPropertyChanging("PersonNum");
-                _PersonNum = StructuralObject.SetValidValue(value, true);
+                _PersonNum = StructuralObject.SetValidValue(value, true, "PersonNum");
                 ReportPropertyChanged("PersonNum");
                 OnPersonNumChanged();
             }
@@ -23444,7 +23616,7 @@ namespace PriemLib
                 {
                     OnNameChanging(value);
                     ReportPropertyChanging("Name");
-                    _Name = StructuralObject.SetValidValue(value, false);
+                    _Name = StructuralObject.SetValidValue(value, false, "Name");
                     ReportPropertyChanged("Name");
                     OnNameChanged();
                 }
@@ -23469,7 +23641,7 @@ namespace PriemLib
             {
                 OnSecondNameChanging(value);
                 ReportPropertyChanging("SecondName");
-                _SecondName = StructuralObject.SetValidValue(value, true);
+                _SecondName = StructuralObject.SetValidValue(value, true, "SecondName");
                 ReportPropertyChanged("SecondName");
                 OnSecondNameChanged();
             }
@@ -23495,7 +23667,7 @@ namespace PriemLib
                 {
                     OnSurnameChanging(value);
                     ReportPropertyChanging("Surname");
-                    _Surname = StructuralObject.SetValidValue(value, false);
+                    _Surname = StructuralObject.SetValidValue(value, false, "Surname");
                     ReportPropertyChanged("Surname");
                     OnSurnameChanged();
                 }
@@ -23520,7 +23692,7 @@ namespace PriemLib
             {
                 OnStudyFormOldNameChanging(value);
                 ReportPropertyChanging("StudyFormOldName");
-                _StudyFormOldName = StructuralObject.SetValidValue(value, true);
+                _StudyFormOldName = StructuralObject.SetValidValue(value, true, "StudyFormOldName");
                 ReportPropertyChanged("StudyFormOldName");
                 OnStudyFormOldNameChanged();
             }
@@ -23544,7 +23716,7 @@ namespace PriemLib
             {
                 OnLanguageNameChanging(value);
                 ReportPropertyChanging("LanguageName");
-                _LanguageName = StructuralObject.SetValidValue(value, true);
+                _LanguageName = StructuralObject.SetValidValue(value, true, "LanguageName");
                 ReportPropertyChanged("LanguageName");
                 OnLanguageNameChanged();
             }
@@ -23570,7 +23742,7 @@ namespace PriemLib
                 {
                     OnStudyLevelGroupIdChanging(value);
                     ReportPropertyChanging("StudyLevelGroupId");
-                    _StudyLevelGroupId = StructuralObject.SetValidValue(value);
+                    _StudyLevelGroupId = StructuralObject.SetValidValue(value, "StudyLevelGroupId");
                     ReportPropertyChanged("StudyLevelGroupId");
                     OnStudyLevelGroupIdChanged();
                 }
@@ -23597,7 +23769,7 @@ namespace PriemLib
                 {
                     OnFIOChanging(value);
                     ReportPropertyChanging("FIO");
-                    _FIO = StructuralObject.SetValidValue(value, false);
+                    _FIO = StructuralObject.SetValidValue(value, false, "FIO");
                     ReportPropertyChanged("FIO");
                     OnFIOChanged();
                 }
@@ -23622,7 +23794,7 @@ namespace PriemLib
             {
                 OnPassportDataChanging(value);
                 ReportPropertyChanging("PassportData");
-                _PassportData = StructuralObject.SetValidValue(value, true);
+                _PassportData = StructuralObject.SetValidValue(value, true, "PassportData");
                 ReportPropertyChanged("PassportData");
                 OnPassportDataChanged();
             }
@@ -23648,7 +23820,7 @@ namespace PriemLib
                 {
                     OnObrazProgramNameExChanging(value);
                     ReportPropertyChanging("ObrazProgramNameEx");
-                    _ObrazProgramNameEx = StructuralObject.SetValidValue(value, false);
+                    _ObrazProgramNameEx = StructuralObject.SetValidValue(value, false, "ObrazProgramNameEx");
                     ReportPropertyChanged("ObrazProgramNameEx");
                     OnObrazProgramNameExChanged();
                 }
@@ -23675,7 +23847,7 @@ namespace PriemLib
                 {
                     OnWithHEChanging(value);
                     ReportPropertyChanging("WithHE");
-                    _WithHE = StructuralObject.SetValidValue(value);
+                    _WithHE = StructuralObject.SetValidValue(value, "WithHE");
                     ReportPropertyChanged("WithHE");
                     OnWithHEChanged();
                 }
@@ -23702,7 +23874,7 @@ namespace PriemLib
                 {
                     OnIsReducedChanging(value);
                     ReportPropertyChanging("IsReduced");
-                    _IsReduced = StructuralObject.SetValidValue(value);
+                    _IsReduced = StructuralObject.SetValidValue(value, "IsReduced");
                     ReportPropertyChanged("IsReduced");
                     OnIsReducedChanged();
                 }
@@ -23729,7 +23901,7 @@ namespace PriemLib
                 {
                     OnIsParallelChanging(value);
                     ReportPropertyChanging("IsParallel");
-                    _IsParallel = StructuralObject.SetValidValue(value);
+                    _IsParallel = StructuralObject.SetValidValue(value, "IsParallel");
                     ReportPropertyChanged("IsParallel");
                     OnIsParallelChanged();
                 }
@@ -23754,7 +23926,7 @@ namespace PriemLib
             {
                 OnStudyBasisFISNameChanging(value);
                 ReportPropertyChanging("StudyBasisFISName");
-                _StudyBasisFISName = StructuralObject.SetValidValue(value, true);
+                _StudyBasisFISName = StructuralObject.SetValidValue(value, true, "StudyBasisFISName");
                 ReportPropertyChanged("StudyBasisFISName");
                 OnStudyBasisFISNameChanged();
             }
@@ -23778,7 +23950,7 @@ namespace PriemLib
             {
                 OnStudyFormFISNameChanging(value);
                 ReportPropertyChanging("StudyFormFISName");
-                _StudyFormFISName = StructuralObject.SetValidValue(value, true);
+                _StudyFormFISName = StructuralObject.SetValidValue(value, true, "StudyFormFISName");
                 ReportPropertyChanged("StudyFormFISName");
                 OnStudyFormFISNameChanged();
             }
@@ -23802,7 +23974,7 @@ namespace PriemLib
             {
                 OnCommitIdChanging(value);
                 ReportPropertyChanging("CommitId");
-                _CommitId = StructuralObject.SetValidValue(value);
+                _CommitId = StructuralObject.SetValidValue(value, "CommitId");
                 ReportPropertyChanged("CommitId");
                 OnCommitIdChanged();
             }
@@ -23826,7 +23998,7 @@ namespace PriemLib
             {
                 OnCommitNumberChanging(value);
                 ReportPropertyChanging("CommitNumber");
-                _CommitNumber = StructuralObject.SetValidValue(value);
+                _CommitNumber = StructuralObject.SetValidValue(value, "CommitNumber");
                 ReportPropertyChanged("CommitNumber");
                 OnCommitNumberChanged();
             }
@@ -23852,7 +24024,7 @@ namespace PriemLib
                 {
                     OnIsGosLineChanging(value);
                     ReportPropertyChanging("IsGosLine");
-                    _IsGosLine = StructuralObject.SetValidValue(value);
+                    _IsGosLine = StructuralObject.SetValidValue(value, "IsGosLine");
                     ReportPropertyChanged("IsGosLine");
                     OnIsGosLineChanged();
                 }
@@ -23877,7 +24049,7 @@ namespace PriemLib
             {
                 OnInnerEntryInEntryIdChanging(value);
                 ReportPropertyChanging("InnerEntryInEntryId");
-                _InnerEntryInEntryId = StructuralObject.SetValidValue(value);
+                _InnerEntryInEntryId = StructuralObject.SetValidValue(value, "InnerEntryInEntryId");
                 ReportPropertyChanged("InnerEntryInEntryId");
                 OnInnerEntryInEntryIdChanged();
             }
@@ -23901,7 +24073,7 @@ namespace PriemLib
             {
                 OnInnerEntryInEntryObrazProgramIdChanging(value);
                 ReportPropertyChanging("InnerEntryInEntryObrazProgramId");
-                _InnerEntryInEntryObrazProgramId = StructuralObject.SetValidValue(value);
+                _InnerEntryInEntryObrazProgramId = StructuralObject.SetValidValue(value, "InnerEntryInEntryObrazProgramId");
                 ReportPropertyChanged("InnerEntryInEntryObrazProgramId");
                 OnInnerEntryInEntryObrazProgramIdChanged();
             }
@@ -23925,7 +24097,7 @@ namespace PriemLib
             {
                 OnInnerEntryInEntryProfileNameChanging(value);
                 ReportPropertyChanging("InnerEntryInEntryProfileName");
-                _InnerEntryInEntryProfileName = StructuralObject.SetValidValue(value, true);
+                _InnerEntryInEntryProfileName = StructuralObject.SetValidValue(value, true, "InnerEntryInEntryProfileName");
                 ReportPropertyChanged("InnerEntryInEntryProfileName");
                 OnInnerEntryInEntryProfileNameChanged();
             }
@@ -23949,7 +24121,7 @@ namespace PriemLib
             {
                 OnInnerEntryInEntryObrazProgramCryptChanging(value);
                 ReportPropertyChanging("InnerEntryInEntryObrazProgramCrypt");
-                _InnerEntryInEntryObrazProgramCrypt = StructuralObject.SetValidValue(value, true);
+                _InnerEntryInEntryObrazProgramCrypt = StructuralObject.SetValidValue(value, true, "InnerEntryInEntryObrazProgramCrypt");
                 ReportPropertyChanged("InnerEntryInEntryObrazProgramCrypt");
                 OnInnerEntryInEntryObrazProgramCryptChanged();
             }
@@ -23973,7 +24145,7 @@ namespace PriemLib
             {
                 OnInnerEntryInEntryObrazProgramNameChanging(value);
                 ReportPropertyChanging("InnerEntryInEntryObrazProgramName");
-                _InnerEntryInEntryObrazProgramName = StructuralObject.SetValidValue(value, true);
+                _InnerEntryInEntryObrazProgramName = StructuralObject.SetValidValue(value, true, "InnerEntryInEntryObrazProgramName");
                 ReportPropertyChanged("InnerEntryInEntryObrazProgramName");
                 OnInnerEntryInEntryObrazProgramNameChanged();
             }
@@ -23984,7 +24156,6 @@ namespace PriemLib
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -24078,7 +24249,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -24097,7 +24268,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -24124,7 +24295,7 @@ namespace PriemLib
                 {
                     OnPersonIdChanging(value);
                     ReportPropertyChanging("PersonId");
-                    _PersonId = StructuralObject.SetValidValue(value);
+                    _PersonId = StructuralObject.SetValidValue(value, "PersonId");
                     ReportPropertyChanged("PersonId");
                     OnPersonIdChanged();
                 }
@@ -24149,7 +24320,7 @@ namespace PriemLib
             {
                 OnRegNumChanging(value);
                 ReportPropertyChanging("RegNum");
-                _RegNum = StructuralObject.SetValidValue(value, true);
+                _RegNum = StructuralObject.SetValidValue(value, true, "RegNum");
                 ReportPropertyChanged("RegNum");
                 OnRegNumChanged();
             }
@@ -24175,7 +24346,7 @@ namespace PriemLib
                 {
                     OnEntryIdChanging(value);
                     ReportPropertyChanging("EntryId");
-                    _EntryId = StructuralObject.SetValidValue(value);
+                    _EntryId = StructuralObject.SetValidValue(value, "EntryId");
                     ReportPropertyChanged("EntryId");
                     OnEntryIdChanged();
                 }
@@ -24202,7 +24373,7 @@ namespace PriemLib
                 {
                     OnCompetitionIdChanging(value);
                     ReportPropertyChanging("CompetitionId");
-                    _CompetitionId = StructuralObject.SetValidValue(value);
+                    _CompetitionId = StructuralObject.SetValidValue(value, "CompetitionId");
                     ReportPropertyChanged("CompetitionId");
                     OnCompetitionIdChanged();
                 }
@@ -24229,7 +24400,7 @@ namespace PriemLib
                 {
                     OnIsListenerChanging(value);
                     ReportPropertyChanging("IsListener");
-                    _IsListener = StructuralObject.SetValidValue(value);
+                    _IsListener = StructuralObject.SetValidValue(value, "IsListener");
                     ReportPropertyChanged("IsListener");
                     OnIsListenerChanged();
                 }
@@ -24256,7 +24427,7 @@ namespace PriemLib
                 {
                     OnIsPaidChanging(value);
                     ReportPropertyChanging("IsPaid");
-                    _IsPaid = StructuralObject.SetValidValue(value);
+                    _IsPaid = StructuralObject.SetValidValue(value, "IsPaid");
                     ReportPropertyChanged("IsPaid");
                     OnIsPaidChanged();
                 }
@@ -24283,7 +24454,7 @@ namespace PriemLib
                 {
                     OnBackDocChanging(value);
                     ReportPropertyChanging("BackDoc");
-                    _BackDoc = StructuralObject.SetValidValue(value);
+                    _BackDoc = StructuralObject.SetValidValue(value, "BackDoc");
                     ReportPropertyChanged("BackDoc");
                     OnBackDocChanged();
                 }
@@ -24308,7 +24479,7 @@ namespace PriemLib
             {
                 OnBackDocDateChanging(value);
                 ReportPropertyChanging("BackDocDate");
-                _BackDocDate = StructuralObject.SetValidValue(value);
+                _BackDocDate = StructuralObject.SetValidValue(value, "BackDocDate");
                 ReportPropertyChanged("BackDocDate");
                 OnBackDocDateChanged();
             }
@@ -24334,7 +24505,7 @@ namespace PriemLib
                 {
                     OnDocDateChanging(value);
                     ReportPropertyChanging("DocDate");
-                    _DocDate = StructuralObject.SetValidValue(value);
+                    _DocDate = StructuralObject.SetValidValue(value, "DocDate");
                     ReportPropertyChanged("DocDate");
                     OnDocDateChanged();
                 }
@@ -24361,7 +24532,7 @@ namespace PriemLib
                 {
                     OnDocInsertDateChanging(value);
                     ReportPropertyChanging("DocInsertDate");
-                    _DocInsertDate = StructuralObject.SetValidValue(value);
+                    _DocInsertDate = StructuralObject.SetValidValue(value, "DocInsertDate");
                     ReportPropertyChanged("DocInsertDate");
                     OnDocInsertDateChanged();
                 }
@@ -24388,7 +24559,7 @@ namespace PriemLib
                 {
                     OnCheckedChanging(value);
                     ReportPropertyChanging("Checked");
-                    _Checked = StructuralObject.SetValidValue(value);
+                    _Checked = StructuralObject.SetValidValue(value, "Checked");
                     ReportPropertyChanged("Checked");
                     OnCheckedChanged();
                 }
@@ -24415,7 +24586,7 @@ namespace PriemLib
                 {
                     OnNotEnabledChanging(value);
                     ReportPropertyChanging("NotEnabled");
-                    _NotEnabled = StructuralObject.SetValidValue(value);
+                    _NotEnabled = StructuralObject.SetValidValue(value, "NotEnabled");
                     ReportPropertyChanged("NotEnabled");
                     OnNotEnabledChanged();
                 }
@@ -24440,7 +24611,7 @@ namespace PriemLib
             {
                 OnCoefficientChanging(value);
                 ReportPropertyChanging("Coefficient");
-                _Coefficient = StructuralObject.SetValidValue(value);
+                _Coefficient = StructuralObject.SetValidValue(value, "Coefficient");
                 ReportPropertyChanged("Coefficient");
                 OnCoefficientChanged();
             }
@@ -24464,7 +24635,7 @@ namespace PriemLib
             {
                 OnSumChanging(value);
                 ReportPropertyChanging("Sum");
-                _Sum = StructuralObject.SetValidValue(value);
+                _Sum = StructuralObject.SetValidValue(value, "Sum");
                 ReportPropertyChanged("Sum");
                 OnSumChanged();
             }
@@ -24488,7 +24659,7 @@ namespace PriemLib
             {
                 OnOtherCompetitionIdChanging(value);
                 ReportPropertyChanging("OtherCompetitionId");
-                _OtherCompetitionId = StructuralObject.SetValidValue(value);
+                _OtherCompetitionId = StructuralObject.SetValidValue(value, "OtherCompetitionId");
                 ReportPropertyChanged("OtherCompetitionId");
                 OnOtherCompetitionIdChanged();
             }
@@ -24512,7 +24683,7 @@ namespace PriemLib
             {
                 OnCelCompetitionIdChanging(value);
                 ReportPropertyChanging("CelCompetitionId");
-                _CelCompetitionId = StructuralObject.SetValidValue(value);
+                _CelCompetitionId = StructuralObject.SetValidValue(value, "CelCompetitionId");
                 ReportPropertyChanged("CelCompetitionId");
                 OnCelCompetitionIdChanged();
             }
@@ -24536,7 +24707,7 @@ namespace PriemLib
             {
                 OnCelCompetitionTextChanging(value);
                 ReportPropertyChanging("CelCompetitionText");
-                _CelCompetitionText = StructuralObject.SetValidValue(value, true);
+                _CelCompetitionText = StructuralObject.SetValidValue(value, true, "CelCompetitionText");
                 ReportPropertyChanged("CelCompetitionText");
                 OnCelCompetitionTextChanged();
             }
@@ -24562,7 +24733,7 @@ namespace PriemLib
                 {
                     OnCompFromOlympChanging(value);
                     ReportPropertyChanging("CompFromOlymp");
-                    _CompFromOlymp = StructuralObject.SetValidValue(value);
+                    _CompFromOlymp = StructuralObject.SetValidValue(value, "CompFromOlymp");
                     ReportPropertyChanged("CompFromOlymp");
                     OnCompFromOlympChanged();
                 }
@@ -24589,7 +24760,7 @@ namespace PriemLib
                 {
                     OnLanguageIdChanging(value);
                     ReportPropertyChanging("LanguageId");
-                    _LanguageId = StructuralObject.SetValidValue(value);
+                    _LanguageId = StructuralObject.SetValidValue(value, "LanguageId");
                     ReportPropertyChanged("LanguageId");
                     OnLanguageIdChanged();
                 }
@@ -24616,7 +24787,7 @@ namespace PriemLib
                 {
                     OnHasOriginalsChanging(value);
                     ReportPropertyChanging("HasOriginals");
-                    _HasOriginals = StructuralObject.SetValidValue(value);
+                    _HasOriginals = StructuralObject.SetValidValue(value, "HasOriginals");
                     ReportPropertyChanged("HasOriginals");
                     OnHasOriginalsChanged();
                 }
@@ -24641,7 +24812,7 @@ namespace PriemLib
             {
                 OnStudyNumberChanging(value);
                 ReportPropertyChanging("StudyNumber");
-                _StudyNumber = StructuralObject.SetValidValue(value, true);
+                _StudyNumber = StructuralObject.SetValidValue(value, true, "StudyNumber");
                 ReportPropertyChanged("StudyNumber");
                 OnStudyNumberChanged();
             }
@@ -24665,7 +24836,7 @@ namespace PriemLib
             {
                 OnStudentStatusChanging(value);
                 ReportPropertyChanging("StudentStatus");
-                _StudentStatus = StructuralObject.SetValidValue(value);
+                _StudentStatus = StructuralObject.SetValidValue(value, "StudentStatus");
                 ReportPropertyChanged("StudentStatus");
                 OnStudentStatusChanged();
             }
@@ -24689,7 +24860,7 @@ namespace PriemLib
             {
                 OnSessionAVGChanging(value);
                 ReportPropertyChanging("SessionAVG");
-                _SessionAVG = StructuralObject.SetValidValue(value);
+                _SessionAVG = StructuralObject.SetValidValue(value, "SessionAVG");
                 ReportPropertyChanged("SessionAVG");
                 OnSessionAVGChanged();
             }
@@ -24713,7 +24884,7 @@ namespace PriemLib
             {
                 OnPriorityChanging(value);
                 ReportPropertyChanging("Priority");
-                _Priority = StructuralObject.SetValidValue(value);
+                _Priority = StructuralObject.SetValidValue(value, "Priority");
                 ReportPropertyChanged("Priority");
                 OnPriorityChanged();
             }
@@ -24737,7 +24908,7 @@ namespace PriemLib
             {
                 OnBarcodeChanging(value);
                 ReportPropertyChanging("Barcode");
-                _Barcode = StructuralObject.SetValidValue(value);
+                _Barcode = StructuralObject.SetValidValue(value, "Barcode");
                 ReportPropertyChanged("Barcode");
                 OnBarcodeChanged();
             }
@@ -24763,7 +24934,7 @@ namespace PriemLib
                 {
                     OnFacultyIdChanging(value);
                     ReportPropertyChanging("FacultyId");
-                    _FacultyId = StructuralObject.SetValidValue(value);
+                    _FacultyId = StructuralObject.SetValidValue(value, "FacultyId");
                     ReportPropertyChanged("FacultyId");
                     OnFacultyIdChanged();
                 }
@@ -24788,7 +24959,7 @@ namespace PriemLib
             {
                 OnFacultyAcrChanging(value);
                 ReportPropertyChanging("FacultyAcr");
-                _FacultyAcr = StructuralObject.SetValidValue(value, true);
+                _FacultyAcr = StructuralObject.SetValidValue(value, true, "FacultyAcr");
                 ReportPropertyChanged("FacultyAcr");
                 OnFacultyAcrChanged();
             }
@@ -24814,7 +24985,7 @@ namespace PriemLib
                 {
                     OnLicenseProgramIdChanging(value);
                     ReportPropertyChanging("LicenseProgramId");
-                    _LicenseProgramId = StructuralObject.SetValidValue(value);
+                    _LicenseProgramId = StructuralObject.SetValidValue(value, "LicenseProgramId");
                     ReportPropertyChanged("LicenseProgramId");
                     OnLicenseProgramIdChanged();
                 }
@@ -24841,7 +25012,7 @@ namespace PriemLib
                 {
                     OnLicenseProgramNameChanging(value);
                     ReportPropertyChanging("LicenseProgramName");
-                    _LicenseProgramName = StructuralObject.SetValidValue(value, false);
+                    _LicenseProgramName = StructuralObject.SetValidValue(value, false, "LicenseProgramName");
                     ReportPropertyChanged("LicenseProgramName");
                     OnLicenseProgramNameChanged();
                 }
@@ -24866,7 +25037,7 @@ namespace PriemLib
             {
                 OnFacultyNameChanging(value);
                 ReportPropertyChanging("FacultyName");
-                _FacultyName = StructuralObject.SetValidValue(value, true);
+                _FacultyName = StructuralObject.SetValidValue(value, true, "FacultyName");
                 ReportPropertyChanged("FacultyName");
                 OnFacultyNameChanged();
             }
@@ -24890,7 +25061,7 @@ namespace PriemLib
             {
                 OnLicenseProgramCodeChanging(value);
                 ReportPropertyChanging("LicenseProgramCode");
-                _LicenseProgramCode = StructuralObject.SetValidValue(value, true);
+                _LicenseProgramCode = StructuralObject.SetValidValue(value, true, "LicenseProgramCode");
                 ReportPropertyChanged("LicenseProgramCode");
                 OnLicenseProgramCodeChanged();
             }
@@ -24916,7 +25087,7 @@ namespace PriemLib
                 {
                     OnObrazProgramIdChanging(value);
                     ReportPropertyChanging("ObrazProgramId");
-                    _ObrazProgramId = StructuralObject.SetValidValue(value);
+                    _ObrazProgramId = StructuralObject.SetValidValue(value, "ObrazProgramId");
                     ReportPropertyChanged("ObrazProgramId");
                     OnObrazProgramIdChanged();
                 }
@@ -24943,7 +25114,7 @@ namespace PriemLib
                 {
                     OnObrazProgramNameChanging(value);
                     ReportPropertyChanging("ObrazProgramName");
-                    _ObrazProgramName = StructuralObject.SetValidValue(value, false);
+                    _ObrazProgramName = StructuralObject.SetValidValue(value, false, "ObrazProgramName");
                     ReportPropertyChanged("ObrazProgramName");
                     OnObrazProgramNameChanged();
                 }
@@ -24968,7 +25139,7 @@ namespace PriemLib
             {
                 OnObrazProgramNumberChanging(value);
                 ReportPropertyChanging("ObrazProgramNumber");
-                _ObrazProgramNumber = StructuralObject.SetValidValue(value, true);
+                _ObrazProgramNumber = StructuralObject.SetValidValue(value, true, "ObrazProgramNumber");
                 ReportPropertyChanged("ObrazProgramNumber");
                 OnObrazProgramNumberChanged();
             }
@@ -24992,7 +25163,7 @@ namespace PriemLib
             {
                 OnObrazProgramCryptChanging(value);
                 ReportPropertyChanging("ObrazProgramCrypt");
-                _ObrazProgramCrypt = StructuralObject.SetValidValue(value, true);
+                _ObrazProgramCrypt = StructuralObject.SetValidValue(value, true, "ObrazProgramCrypt");
                 ReportPropertyChanged("ObrazProgramCrypt");
                 OnObrazProgramCryptChanged();
             }
@@ -25018,7 +25189,7 @@ namespace PriemLib
                 {
                     OnProfileIdChanging(value);
                     ReportPropertyChanging("ProfileId");
-                    _ProfileId = StructuralObject.SetValidValue(value);
+                    _ProfileId = StructuralObject.SetValidValue(value, "ProfileId");
                     ReportPropertyChanged("ProfileId");
                     OnProfileIdChanged();
                 }
@@ -25043,7 +25214,7 @@ namespace PriemLib
             {
                 OnProfileNameChanging(value);
                 ReportPropertyChanging("ProfileName");
-                _ProfileName = StructuralObject.SetValidValue(value, true);
+                _ProfileName = StructuralObject.SetValidValue(value, true, "ProfileName");
                 ReportPropertyChanged("ProfileName");
                 OnProfileNameChanged();
             }
@@ -25069,7 +25240,7 @@ namespace PriemLib
                 {
                     OnStudyBasisIdChanging(value);
                     ReportPropertyChanging("StudyBasisId");
-                    _StudyBasisId = StructuralObject.SetValidValue(value);
+                    _StudyBasisId = StructuralObject.SetValidValue(value, "StudyBasisId");
                     ReportPropertyChanged("StudyBasisId");
                     OnStudyBasisIdChanged();
                 }
@@ -25096,7 +25267,7 @@ namespace PriemLib
                 {
                     OnStudyBasisNameChanging(value);
                     ReportPropertyChanging("StudyBasisName");
-                    _StudyBasisName = StructuralObject.SetValidValue(value, false);
+                    _StudyBasisName = StructuralObject.SetValidValue(value, false, "StudyBasisName");
                     ReportPropertyChanged("StudyBasisName");
                     OnStudyBasisNameChanged();
                 }
@@ -25123,7 +25294,7 @@ namespace PriemLib
                 {
                     OnStudyFormIdChanging(value);
                     ReportPropertyChanging("StudyFormId");
-                    _StudyFormId = StructuralObject.SetValidValue(value);
+                    _StudyFormId = StructuralObject.SetValidValue(value, "StudyFormId");
                     ReportPropertyChanged("StudyFormId");
                     OnStudyFormIdChanged();
                 }
@@ -25150,7 +25321,7 @@ namespace PriemLib
                 {
                     OnStudyFormNameChanging(value);
                     ReportPropertyChanging("StudyFormName");
-                    _StudyFormName = StructuralObject.SetValidValue(value, false);
+                    _StudyFormName = StructuralObject.SetValidValue(value, false, "StudyFormName");
                     ReportPropertyChanged("StudyFormName");
                     OnStudyFormNameChanged();
                 }
@@ -25177,7 +25348,7 @@ namespace PriemLib
                 {
                     OnStudyLevelIdChanging(value);
                     ReportPropertyChanging("StudyLevelId");
-                    _StudyLevelId = StructuralObject.SetValidValue(value);
+                    _StudyLevelId = StructuralObject.SetValidValue(value, "StudyLevelId");
                     ReportPropertyChanged("StudyLevelId");
                     OnStudyLevelIdChanged();
                 }
@@ -25204,7 +25375,7 @@ namespace PriemLib
                 {
                     OnStudyLevelNameChanging(value);
                     ReportPropertyChanging("StudyLevelName");
-                    _StudyLevelName = StructuralObject.SetValidValue(value, false);
+                    _StudyLevelName = StructuralObject.SetValidValue(value, false, "StudyLevelName");
                     ReportPropertyChanged("StudyLevelName");
                     OnStudyLevelNameChanged();
                 }
@@ -25229,7 +25400,7 @@ namespace PriemLib
             {
                 OnStudyPlanIdChanging(value);
                 ReportPropertyChanging("StudyPlanId");
-                _StudyPlanId = StructuralObject.SetValidValue(value);
+                _StudyPlanId = StructuralObject.SetValidValue(value, "StudyPlanId");
                 ReportPropertyChanged("StudyPlanId");
                 OnStudyPlanIdChanged();
             }
@@ -25253,7 +25424,7 @@ namespace PriemLib
             {
                 OnStudyPlanNumberChanging(value);
                 ReportPropertyChanging("StudyPlanNumber");
-                _StudyPlanNumber = StructuralObject.SetValidValue(value, true);
+                _StudyPlanNumber = StructuralObject.SetValidValue(value, true, "StudyPlanNumber");
                 ReportPropertyChanged("StudyPlanNumber");
                 OnStudyPlanNumberChanged();
             }
@@ -25277,7 +25448,7 @@ namespace PriemLib
             {
                 OnProgramModeShortNameChanging(value);
                 ReportPropertyChanging("ProgramModeShortName");
-                _ProgramModeShortName = StructuralObject.SetValidValue(value, true);
+                _ProgramModeShortName = StructuralObject.SetValidValue(value, true, "ProgramModeShortName");
                 ReportPropertyChanged("ProgramModeShortName");
                 OnProgramModeShortNameChanged();
             }
@@ -25303,7 +25474,7 @@ namespace PriemLib
                 {
                     OnIsSecondChanging(value);
                     ReportPropertyChanging("IsSecond");
-                    _IsSecond = StructuralObject.SetValidValue(value);
+                    _IsSecond = StructuralObject.SetValidValue(value, "IsSecond");
                     ReportPropertyChanged("IsSecond");
                     OnIsSecondChanged();
                 }
@@ -25328,7 +25499,7 @@ namespace PriemLib
             {
                 OnPersonNumChanging(value);
                 ReportPropertyChanging("PersonNum");
-                _PersonNum = StructuralObject.SetValidValue(value, true);
+                _PersonNum = StructuralObject.SetValidValue(value, true, "PersonNum");
                 ReportPropertyChanged("PersonNum");
                 OnPersonNumChanged();
             }
@@ -25354,7 +25525,7 @@ namespace PriemLib
                 {
                     OnNameChanging(value);
                     ReportPropertyChanging("Name");
-                    _Name = StructuralObject.SetValidValue(value, false);
+                    _Name = StructuralObject.SetValidValue(value, false, "Name");
                     ReportPropertyChanged("Name");
                     OnNameChanged();
                 }
@@ -25379,7 +25550,7 @@ namespace PriemLib
             {
                 OnSecondNameChanging(value);
                 ReportPropertyChanging("SecondName");
-                _SecondName = StructuralObject.SetValidValue(value, true);
+                _SecondName = StructuralObject.SetValidValue(value, true, "SecondName");
                 ReportPropertyChanged("SecondName");
                 OnSecondNameChanged();
             }
@@ -25405,7 +25576,7 @@ namespace PriemLib
                 {
                     OnSurnameChanging(value);
                     ReportPropertyChanging("Surname");
-                    _Surname = StructuralObject.SetValidValue(value, false);
+                    _Surname = StructuralObject.SetValidValue(value, false, "Surname");
                     ReportPropertyChanged("Surname");
                     OnSurnameChanged();
                 }
@@ -25430,7 +25601,7 @@ namespace PriemLib
             {
                 OnStudyFormOldNameChanging(value);
                 ReportPropertyChanging("StudyFormOldName");
-                _StudyFormOldName = StructuralObject.SetValidValue(value, true);
+                _StudyFormOldName = StructuralObject.SetValidValue(value, true, "StudyFormOldName");
                 ReportPropertyChanged("StudyFormOldName");
                 OnStudyFormOldNameChanged();
             }
@@ -25454,7 +25625,7 @@ namespace PriemLib
             {
                 OnLanguageNameChanging(value);
                 ReportPropertyChanging("LanguageName");
-                _LanguageName = StructuralObject.SetValidValue(value, true);
+                _LanguageName = StructuralObject.SetValidValue(value, true, "LanguageName");
                 ReportPropertyChanged("LanguageName");
                 OnLanguageNameChanged();
             }
@@ -25480,7 +25651,7 @@ namespace PriemLib
                 {
                     OnStudyLevelGroupIdChanging(value);
                     ReportPropertyChanging("StudyLevelGroupId");
-                    _StudyLevelGroupId = StructuralObject.SetValidValue(value);
+                    _StudyLevelGroupId = StructuralObject.SetValidValue(value, "StudyLevelGroupId");
                     ReportPropertyChanged("StudyLevelGroupId");
                     OnStudyLevelGroupIdChanged();
                 }
@@ -25505,7 +25676,7 @@ namespace PriemLib
             {
                 OnFIOChanging(value);
                 ReportPropertyChanging("FIO");
-                _FIO = StructuralObject.SetValidValue(value, true);
+                _FIO = StructuralObject.SetValidValue(value, true, "FIO");
                 ReportPropertyChanged("FIO");
                 OnFIOChanged();
             }
@@ -25529,7 +25700,7 @@ namespace PriemLib
             {
                 OnPassportDataChanging(value);
                 ReportPropertyChanging("PassportData");
-                _PassportData = StructuralObject.SetValidValue(value, true);
+                _PassportData = StructuralObject.SetValidValue(value, true, "PassportData");
                 ReportPropertyChanged("PassportData");
                 OnPassportDataChanged();
             }
@@ -25555,7 +25726,7 @@ namespace PriemLib
                 {
                     OnObrazProgramNameExChanging(value);
                     ReportPropertyChanging("ObrazProgramNameEx");
-                    _ObrazProgramNameEx = StructuralObject.SetValidValue(value, false);
+                    _ObrazProgramNameEx = StructuralObject.SetValidValue(value, false, "ObrazProgramNameEx");
                     ReportPropertyChanged("ObrazProgramNameEx");
                     OnObrazProgramNameExChanged();
                 }
@@ -25582,7 +25753,7 @@ namespace PriemLib
                 {
                     OnWithHEChanging(value);
                     ReportPropertyChanging("WithHE");
-                    _WithHE = StructuralObject.SetValidValue(value);
+                    _WithHE = StructuralObject.SetValidValue(value, "WithHE");
                     ReportPropertyChanged("WithHE");
                     OnWithHEChanged();
                 }
@@ -25609,7 +25780,7 @@ namespace PriemLib
                 {
                     OnIsReducedChanging(value);
                     ReportPropertyChanging("IsReduced");
-                    _IsReduced = StructuralObject.SetValidValue(value);
+                    _IsReduced = StructuralObject.SetValidValue(value, "IsReduced");
                     ReportPropertyChanged("IsReduced");
                     OnIsReducedChanged();
                 }
@@ -25636,7 +25807,7 @@ namespace PriemLib
                 {
                     OnIsParallelChanging(value);
                     ReportPropertyChanging("IsParallel");
-                    _IsParallel = StructuralObject.SetValidValue(value);
+                    _IsParallel = StructuralObject.SetValidValue(value, "IsParallel");
                     ReportPropertyChanged("IsParallel");
                     OnIsParallelChanged();
                 }
@@ -25661,7 +25832,7 @@ namespace PriemLib
             {
                 OnStudyBasisFISNameChanging(value);
                 ReportPropertyChanging("StudyBasisFISName");
-                _StudyBasisFISName = StructuralObject.SetValidValue(value, true);
+                _StudyBasisFISName = StructuralObject.SetValidValue(value, true, "StudyBasisFISName");
                 ReportPropertyChanged("StudyBasisFISName");
                 OnStudyBasisFISNameChanged();
             }
@@ -25685,7 +25856,7 @@ namespace PriemLib
             {
                 OnStudyFormFISNameChanging(value);
                 ReportPropertyChanging("StudyFormFISName");
-                _StudyFormFISName = StructuralObject.SetValidValue(value, true);
+                _StudyFormFISName = StructuralObject.SetValidValue(value, true, "StudyFormFISName");
                 ReportPropertyChanged("StudyFormFISName");
                 OnStudyFormFISNameChanged();
             }
@@ -25709,7 +25880,7 @@ namespace PriemLib
             {
                 OnCommitIdChanging(value);
                 ReportPropertyChanging("CommitId");
-                _CommitId = StructuralObject.SetValidValue(value);
+                _CommitId = StructuralObject.SetValidValue(value, "CommitId");
                 ReportPropertyChanged("CommitId");
                 OnCommitIdChanged();
             }
@@ -25733,7 +25904,7 @@ namespace PriemLib
             {
                 OnCommitNumberChanging(value);
                 ReportPropertyChanging("CommitNumber");
-                _CommitNumber = StructuralObject.SetValidValue(value);
+                _CommitNumber = StructuralObject.SetValidValue(value, "CommitNumber");
                 ReportPropertyChanged("CommitNumber");
                 OnCommitNumberChanged();
             }
@@ -25759,7 +25930,7 @@ namespace PriemLib
                 {
                     OnIsGosLineChanging(value);
                     ReportPropertyChanging("IsGosLine");
-                    _IsGosLine = StructuralObject.SetValidValue(value);
+                    _IsGosLine = StructuralObject.SetValidValue(value, "IsGosLine");
                     ReportPropertyChanged("IsGosLine");
                     OnIsGosLineChanged();
                 }
@@ -25771,7 +25942,6 @@ namespace PriemLib
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -25801,7 +25971,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -25820,7 +25990,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -25845,7 +26015,7 @@ namespace PriemLib
             {
                 OnTotalSumChanging(value);
                 ReportPropertyChanging("TotalSum");
-                _TotalSum = StructuralObject.SetValidValue(value);
+                _TotalSum = StructuralObject.SetValidValue(value, "TotalSum");
                 ReportPropertyChanged("TotalSum");
                 OnTotalSumChanged();
             }
@@ -25869,7 +26039,7 @@ namespace PriemLib
             {
                 OnTotalCountChanging(value);
                 ReportPropertyChanging("TotalCount");
-                _TotalCount = StructuralObject.SetValidValue(value);
+                _TotalCount = StructuralObject.SetValidValue(value, "TotalCount");
                 ReportPropertyChanged("TotalCount");
                 OnTotalCountChanged();
             }
@@ -25895,7 +26065,7 @@ namespace PriemLib
                 {
                     OnStudyFormIdChanging(value);
                     ReportPropertyChanging("StudyFormId");
-                    _StudyFormId = StructuralObject.SetValidValue(value);
+                    _StudyFormId = StructuralObject.SetValidValue(value, "StudyFormId");
                     ReportPropertyChanged("StudyFormId");
                     OnStudyFormIdChanged();
                 }
@@ -25922,7 +26092,7 @@ namespace PriemLib
                 {
                     OnStudyBasisIdChanging(value);
                     ReportPropertyChanging("StudyBasisId");
-                    _StudyBasisId = StructuralObject.SetValidValue(value);
+                    _StudyBasisId = StructuralObject.SetValidValue(value, "StudyBasisId");
                     ReportPropertyChanged("StudyBasisId");
                     OnStudyBasisIdChanged();
                 }
@@ -25947,7 +26117,7 @@ namespace PriemLib
             {
                 OnTotalSumFiveGradeChanging(value);
                 ReportPropertyChanging("TotalSumFiveGrade");
-                _TotalSumFiveGrade = StructuralObject.SetValidValue(value);
+                _TotalSumFiveGrade = StructuralObject.SetValidValue(value, "TotalSumFiveGrade");
                 ReportPropertyChanged("TotalSumFiveGrade");
                 OnTotalSumFiveGradeChanged();
             }
@@ -25958,7 +26128,6 @@ namespace PriemLib
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -26046,7 +26215,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -26065,7 +26234,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -26092,7 +26261,7 @@ namespace PriemLib
                 {
                     OnPersonIdChanging(value);
                     ReportPropertyChanging("PersonId");
-                    _PersonId = StructuralObject.SetValidValue(value);
+                    _PersonId = StructuralObject.SetValidValue(value, "PersonId");
                     ReportPropertyChanged("PersonId");
                     OnPersonIdChanged();
                 }
@@ -26117,7 +26286,7 @@ namespace PriemLib
             {
                 OnRegNumChanging(value);
                 ReportPropertyChanging("RegNum");
-                _RegNum = StructuralObject.SetValidValue(value, true);
+                _RegNum = StructuralObject.SetValidValue(value, true, "RegNum");
                 ReportPropertyChanged("RegNum");
                 OnRegNumChanged();
             }
@@ -26143,7 +26312,7 @@ namespace PriemLib
                 {
                     OnEntryIdChanging(value);
                     ReportPropertyChanging("EntryId");
-                    _EntryId = StructuralObject.SetValidValue(value);
+                    _EntryId = StructuralObject.SetValidValue(value, "EntryId");
                     ReportPropertyChanged("EntryId");
                     OnEntryIdChanged();
                 }
@@ -26168,7 +26337,7 @@ namespace PriemLib
             {
                 OnCompetitionIdChanging(value);
                 ReportPropertyChanging("CompetitionId");
-                _CompetitionId = StructuralObject.SetValidValue(value);
+                _CompetitionId = StructuralObject.SetValidValue(value, "CompetitionId");
                 ReportPropertyChanged("CompetitionId");
                 OnCompetitionIdChanged();
             }
@@ -26194,7 +26363,7 @@ namespace PriemLib
                 {
                     OnIsListenerChanging(value);
                     ReportPropertyChanging("IsListener");
-                    _IsListener = StructuralObject.SetValidValue(value);
+                    _IsListener = StructuralObject.SetValidValue(value, "IsListener");
                     ReportPropertyChanged("IsListener");
                     OnIsListenerChanged();
                 }
@@ -26221,7 +26390,7 @@ namespace PriemLib
                 {
                     OnIsPaidChanging(value);
                     ReportPropertyChanging("IsPaid");
-                    _IsPaid = StructuralObject.SetValidValue(value);
+                    _IsPaid = StructuralObject.SetValidValue(value, "IsPaid");
                     ReportPropertyChanged("IsPaid");
                     OnIsPaidChanged();
                 }
@@ -26248,7 +26417,7 @@ namespace PriemLib
                 {
                     OnBackDocChanging(value);
                     ReportPropertyChanging("BackDoc");
-                    _BackDoc = StructuralObject.SetValidValue(value);
+                    _BackDoc = StructuralObject.SetValidValue(value, "BackDoc");
                     ReportPropertyChanged("BackDoc");
                     OnBackDocChanged();
                 }
@@ -26273,7 +26442,7 @@ namespace PriemLib
             {
                 OnBackDocDateChanging(value);
                 ReportPropertyChanging("BackDocDate");
-                _BackDocDate = StructuralObject.SetValidValue(value);
+                _BackDocDate = StructuralObject.SetValidValue(value, "BackDocDate");
                 ReportPropertyChanged("BackDocDate");
                 OnBackDocDateChanged();
             }
@@ -26299,7 +26468,7 @@ namespace PriemLib
                 {
                     OnDocDateChanging(value);
                     ReportPropertyChanging("DocDate");
-                    _DocDate = StructuralObject.SetValidValue(value);
+                    _DocDate = StructuralObject.SetValidValue(value, "DocDate");
                     ReportPropertyChanged("DocDate");
                     OnDocDateChanged();
                 }
@@ -26326,7 +26495,7 @@ namespace PriemLib
                 {
                     OnDocInsertDateChanging(value);
                     ReportPropertyChanging("DocInsertDate");
-                    _DocInsertDate = StructuralObject.SetValidValue(value);
+                    _DocInsertDate = StructuralObject.SetValidValue(value, "DocInsertDate");
                     ReportPropertyChanged("DocInsertDate");
                     OnDocInsertDateChanged();
                 }
@@ -26353,7 +26522,7 @@ namespace PriemLib
                 {
                     OnCheckedChanging(value);
                     ReportPropertyChanging("Checked");
-                    _Checked = StructuralObject.SetValidValue(value);
+                    _Checked = StructuralObject.SetValidValue(value, "Checked");
                     ReportPropertyChanged("Checked");
                     OnCheckedChanged();
                 }
@@ -26380,7 +26549,7 @@ namespace PriemLib
                 {
                     OnNotEnabledChanging(value);
                     ReportPropertyChanging("NotEnabled");
-                    _NotEnabled = StructuralObject.SetValidValue(value);
+                    _NotEnabled = StructuralObject.SetValidValue(value, "NotEnabled");
                     ReportPropertyChanged("NotEnabled");
                     OnNotEnabledChanged();
                 }
@@ -26405,7 +26574,7 @@ namespace PriemLib
             {
                 OnCoefficientChanging(value);
                 ReportPropertyChanging("Coefficient");
-                _Coefficient = StructuralObject.SetValidValue(value);
+                _Coefficient = StructuralObject.SetValidValue(value, "Coefficient");
                 ReportPropertyChanged("Coefficient");
                 OnCoefficientChanged();
             }
@@ -26429,7 +26598,7 @@ namespace PriemLib
             {
                 OnSumChanging(value);
                 ReportPropertyChanging("Sum");
-                _Sum = StructuralObject.SetValidValue(value);
+                _Sum = StructuralObject.SetValidValue(value, "Sum");
                 ReportPropertyChanged("Sum");
                 OnSumChanged();
             }
@@ -26453,7 +26622,7 @@ namespace PriemLib
             {
                 OnOtherCompetitionIdChanging(value);
                 ReportPropertyChanging("OtherCompetitionId");
-                _OtherCompetitionId = StructuralObject.SetValidValue(value);
+                _OtherCompetitionId = StructuralObject.SetValidValue(value, "OtherCompetitionId");
                 ReportPropertyChanged("OtherCompetitionId");
                 OnOtherCompetitionIdChanged();
             }
@@ -26477,7 +26646,7 @@ namespace PriemLib
             {
                 OnCelCompetitionIdChanging(value);
                 ReportPropertyChanging("CelCompetitionId");
-                _CelCompetitionId = StructuralObject.SetValidValue(value);
+                _CelCompetitionId = StructuralObject.SetValidValue(value, "CelCompetitionId");
                 ReportPropertyChanged("CelCompetitionId");
                 OnCelCompetitionIdChanged();
             }
@@ -26501,7 +26670,7 @@ namespace PriemLib
             {
                 OnCelCompetitionTextChanging(value);
                 ReportPropertyChanging("CelCompetitionText");
-                _CelCompetitionText = StructuralObject.SetValidValue(value, true);
+                _CelCompetitionText = StructuralObject.SetValidValue(value, true, "CelCompetitionText");
                 ReportPropertyChanged("CelCompetitionText");
                 OnCelCompetitionTextChanged();
             }
@@ -26527,7 +26696,7 @@ namespace PriemLib
                 {
                     OnCompFromOlympChanging(value);
                     ReportPropertyChanging("CompFromOlymp");
-                    _CompFromOlymp = StructuralObject.SetValidValue(value);
+                    _CompFromOlymp = StructuralObject.SetValidValue(value, "CompFromOlymp");
                     ReportPropertyChanged("CompFromOlymp");
                     OnCompFromOlympChanged();
                 }
@@ -26552,7 +26721,7 @@ namespace PriemLib
             {
                 OnLanguageIdChanging(value);
                 ReportPropertyChanging("LanguageId");
-                _LanguageId = StructuralObject.SetValidValue(value);
+                _LanguageId = StructuralObject.SetValidValue(value, "LanguageId");
                 ReportPropertyChanged("LanguageId");
                 OnLanguageIdChanged();
             }
@@ -26578,7 +26747,7 @@ namespace PriemLib
                 {
                     OnHasOriginalsChanging(value);
                     ReportPropertyChanging("HasOriginals");
-                    _HasOriginals = StructuralObject.SetValidValue(value);
+                    _HasOriginals = StructuralObject.SetValidValue(value, "HasOriginals");
                     ReportPropertyChanged("HasOriginals");
                     OnHasOriginalsChanged();
                 }
@@ -26603,7 +26772,7 @@ namespace PriemLib
             {
                 OnStudyNumberChanging(value);
                 ReportPropertyChanging("StudyNumber");
-                _StudyNumber = StructuralObject.SetValidValue(value, true);
+                _StudyNumber = StructuralObject.SetValidValue(value, true, "StudyNumber");
                 ReportPropertyChanged("StudyNumber");
                 OnStudyNumberChanged();
             }
@@ -26627,7 +26796,7 @@ namespace PriemLib
             {
                 OnStudentStatusChanging(value);
                 ReportPropertyChanging("StudentStatus");
-                _StudentStatus = StructuralObject.SetValidValue(value);
+                _StudentStatus = StructuralObject.SetValidValue(value, "StudentStatus");
                 ReportPropertyChanged("StudentStatus");
                 OnStudentStatusChanged();
             }
@@ -26651,7 +26820,7 @@ namespace PriemLib
             {
                 OnSessionAVGChanging(value);
                 ReportPropertyChanging("SessionAVG");
-                _SessionAVG = StructuralObject.SetValidValue(value);
+                _SessionAVG = StructuralObject.SetValidValue(value, "SessionAVG");
                 ReportPropertyChanged("SessionAVG");
                 OnSessionAVGChanged();
             }
@@ -26675,7 +26844,7 @@ namespace PriemLib
             {
                 OnPriorityChanging(value);
                 ReportPropertyChanging("Priority");
-                _Priority = StructuralObject.SetValidValue(value);
+                _Priority = StructuralObject.SetValidValue(value, "Priority");
                 ReportPropertyChanged("Priority");
                 OnPriorityChanged();
             }
@@ -26699,7 +26868,7 @@ namespace PriemLib
             {
                 OnBarcodeChanging(value);
                 ReportPropertyChanging("Barcode");
-                _Barcode = StructuralObject.SetValidValue(value);
+                _Barcode = StructuralObject.SetValidValue(value, "Barcode");
                 ReportPropertyChanged("Barcode");
                 OnBarcodeChanged();
             }
@@ -26725,7 +26894,7 @@ namespace PriemLib
                 {
                     OnFacultyIdChanging(value);
                     ReportPropertyChanging("FacultyId");
-                    _FacultyId = StructuralObject.SetValidValue(value);
+                    _FacultyId = StructuralObject.SetValidValue(value, "FacultyId");
                     ReportPropertyChanged("FacultyId");
                     OnFacultyIdChanged();
                 }
@@ -26750,7 +26919,7 @@ namespace PriemLib
             {
                 OnFacultyAcrChanging(value);
                 ReportPropertyChanging("FacultyAcr");
-                _FacultyAcr = StructuralObject.SetValidValue(value, true);
+                _FacultyAcr = StructuralObject.SetValidValue(value, true, "FacultyAcr");
                 ReportPropertyChanged("FacultyAcr");
                 OnFacultyAcrChanged();
             }
@@ -26776,7 +26945,7 @@ namespace PriemLib
                 {
                     OnLicenseProgramIdChanging(value);
                     ReportPropertyChanging("LicenseProgramId");
-                    _LicenseProgramId = StructuralObject.SetValidValue(value);
+                    _LicenseProgramId = StructuralObject.SetValidValue(value, "LicenseProgramId");
                     ReportPropertyChanged("LicenseProgramId");
                     OnLicenseProgramIdChanged();
                 }
@@ -26803,7 +26972,7 @@ namespace PriemLib
                 {
                     OnLicenseProgramNameChanging(value);
                     ReportPropertyChanging("LicenseProgramName");
-                    _LicenseProgramName = StructuralObject.SetValidValue(value, false);
+                    _LicenseProgramName = StructuralObject.SetValidValue(value, false, "LicenseProgramName");
                     ReportPropertyChanged("LicenseProgramName");
                     OnLicenseProgramNameChanged();
                 }
@@ -26828,7 +26997,7 @@ namespace PriemLib
             {
                 OnFacultyNameChanging(value);
                 ReportPropertyChanging("FacultyName");
-                _FacultyName = StructuralObject.SetValidValue(value, true);
+                _FacultyName = StructuralObject.SetValidValue(value, true, "FacultyName");
                 ReportPropertyChanged("FacultyName");
                 OnFacultyNameChanged();
             }
@@ -26852,7 +27021,7 @@ namespace PriemLib
             {
                 OnLicenseProgramCodeChanging(value);
                 ReportPropertyChanging("LicenseProgramCode");
-                _LicenseProgramCode = StructuralObject.SetValidValue(value, true);
+                _LicenseProgramCode = StructuralObject.SetValidValue(value, true, "LicenseProgramCode");
                 ReportPropertyChanged("LicenseProgramCode");
                 OnLicenseProgramCodeChanged();
             }
@@ -26878,7 +27047,7 @@ namespace PriemLib
                 {
                     OnObrazProgramIdChanging(value);
                     ReportPropertyChanging("ObrazProgramId");
-                    _ObrazProgramId = StructuralObject.SetValidValue(value);
+                    _ObrazProgramId = StructuralObject.SetValidValue(value, "ObrazProgramId");
                     ReportPropertyChanged("ObrazProgramId");
                     OnObrazProgramIdChanged();
                 }
@@ -26905,7 +27074,7 @@ namespace PriemLib
                 {
                     OnObrazProgramNameChanging(value);
                     ReportPropertyChanging("ObrazProgramName");
-                    _ObrazProgramName = StructuralObject.SetValidValue(value, false);
+                    _ObrazProgramName = StructuralObject.SetValidValue(value, false, "ObrazProgramName");
                     ReportPropertyChanged("ObrazProgramName");
                     OnObrazProgramNameChanged();
                 }
@@ -26930,7 +27099,7 @@ namespace PriemLib
             {
                 OnObrazProgramNumberChanging(value);
                 ReportPropertyChanging("ObrazProgramNumber");
-                _ObrazProgramNumber = StructuralObject.SetValidValue(value, true);
+                _ObrazProgramNumber = StructuralObject.SetValidValue(value, true, "ObrazProgramNumber");
                 ReportPropertyChanged("ObrazProgramNumber");
                 OnObrazProgramNumberChanged();
             }
@@ -26954,7 +27123,7 @@ namespace PriemLib
             {
                 OnObrazProgramCryptChanging(value);
                 ReportPropertyChanging("ObrazProgramCrypt");
-                _ObrazProgramCrypt = StructuralObject.SetValidValue(value, true);
+                _ObrazProgramCrypt = StructuralObject.SetValidValue(value, true, "ObrazProgramCrypt");
                 ReportPropertyChanged("ObrazProgramCrypt");
                 OnObrazProgramCryptChanged();
             }
@@ -26978,7 +27147,7 @@ namespace PriemLib
             {
                 OnProfileIdChanging(value);
                 ReportPropertyChanging("ProfileId");
-                _ProfileId = StructuralObject.SetValidValue(value);
+                _ProfileId = StructuralObject.SetValidValue(value, "ProfileId");
                 ReportPropertyChanged("ProfileId");
                 OnProfileIdChanged();
             }
@@ -27002,7 +27171,7 @@ namespace PriemLib
             {
                 OnProfileNameChanging(value);
                 ReportPropertyChanging("ProfileName");
-                _ProfileName = StructuralObject.SetValidValue(value, true);
+                _ProfileName = StructuralObject.SetValidValue(value, true, "ProfileName");
                 ReportPropertyChanged("ProfileName");
                 OnProfileNameChanged();
             }
@@ -27028,7 +27197,7 @@ namespace PriemLib
                 {
                     OnStudyBasisIdChanging(value);
                     ReportPropertyChanging("StudyBasisId");
-                    _StudyBasisId = StructuralObject.SetValidValue(value);
+                    _StudyBasisId = StructuralObject.SetValidValue(value, "StudyBasisId");
                     ReportPropertyChanged("StudyBasisId");
                     OnStudyBasisIdChanged();
                 }
@@ -27055,7 +27224,7 @@ namespace PriemLib
                 {
                     OnStudyBasisNameChanging(value);
                     ReportPropertyChanging("StudyBasisName");
-                    _StudyBasisName = StructuralObject.SetValidValue(value, false);
+                    _StudyBasisName = StructuralObject.SetValidValue(value, false, "StudyBasisName");
                     ReportPropertyChanged("StudyBasisName");
                     OnStudyBasisNameChanged();
                 }
@@ -27082,7 +27251,7 @@ namespace PriemLib
                 {
                     OnStudyFormIdChanging(value);
                     ReportPropertyChanging("StudyFormId");
-                    _StudyFormId = StructuralObject.SetValidValue(value);
+                    _StudyFormId = StructuralObject.SetValidValue(value, "StudyFormId");
                     ReportPropertyChanged("StudyFormId");
                     OnStudyFormIdChanged();
                 }
@@ -27109,7 +27278,7 @@ namespace PriemLib
                 {
                     OnStudyFormNameChanging(value);
                     ReportPropertyChanging("StudyFormName");
-                    _StudyFormName = StructuralObject.SetValidValue(value, false);
+                    _StudyFormName = StructuralObject.SetValidValue(value, false, "StudyFormName");
                     ReportPropertyChanged("StudyFormName");
                     OnStudyFormNameChanged();
                 }
@@ -27136,7 +27305,7 @@ namespace PriemLib
                 {
                     OnStudyLevelIdChanging(value);
                     ReportPropertyChanging("StudyLevelId");
-                    _StudyLevelId = StructuralObject.SetValidValue(value);
+                    _StudyLevelId = StructuralObject.SetValidValue(value, "StudyLevelId");
                     ReportPropertyChanged("StudyLevelId");
                     OnStudyLevelIdChanged();
                 }
@@ -27163,7 +27332,7 @@ namespace PriemLib
                 {
                     OnStudyLevelNameChanging(value);
                     ReportPropertyChanging("StudyLevelName");
-                    _StudyLevelName = StructuralObject.SetValidValue(value, false);
+                    _StudyLevelName = StructuralObject.SetValidValue(value, false, "StudyLevelName");
                     ReportPropertyChanged("StudyLevelName");
                     OnStudyLevelNameChanged();
                 }
@@ -27188,7 +27357,7 @@ namespace PriemLib
             {
                 OnStudyPlanIdChanging(value);
                 ReportPropertyChanging("StudyPlanId");
-                _StudyPlanId = StructuralObject.SetValidValue(value);
+                _StudyPlanId = StructuralObject.SetValidValue(value, "StudyPlanId");
                 ReportPropertyChanged("StudyPlanId");
                 OnStudyPlanIdChanged();
             }
@@ -27212,7 +27381,7 @@ namespace PriemLib
             {
                 OnStudyPlanNumberChanging(value);
                 ReportPropertyChanging("StudyPlanNumber");
-                _StudyPlanNumber = StructuralObject.SetValidValue(value, true);
+                _StudyPlanNumber = StructuralObject.SetValidValue(value, true, "StudyPlanNumber");
                 ReportPropertyChanged("StudyPlanNumber");
                 OnStudyPlanNumberChanged();
             }
@@ -27236,7 +27405,7 @@ namespace PriemLib
             {
                 OnProgramModeShortNameChanging(value);
                 ReportPropertyChanging("ProgramModeShortName");
-                _ProgramModeShortName = StructuralObject.SetValidValue(value, true);
+                _ProgramModeShortName = StructuralObject.SetValidValue(value, true, "ProgramModeShortName");
                 ReportPropertyChanged("ProgramModeShortName");
                 OnProgramModeShortNameChanged();
             }
@@ -27262,7 +27431,7 @@ namespace PriemLib
                 {
                     OnIsSecondChanging(value);
                     ReportPropertyChanging("IsSecond");
-                    _IsSecond = StructuralObject.SetValidValue(value);
+                    _IsSecond = StructuralObject.SetValidValue(value, "IsSecond");
                     ReportPropertyChanged("IsSecond");
                     OnIsSecondChanged();
                 }
@@ -27287,7 +27456,7 @@ namespace PriemLib
             {
                 OnPersonNumChanging(value);
                 ReportPropertyChanging("PersonNum");
-                _PersonNum = StructuralObject.SetValidValue(value, true);
+                _PersonNum = StructuralObject.SetValidValue(value, true, "PersonNum");
                 ReportPropertyChanged("PersonNum");
                 OnPersonNumChanged();
             }
@@ -27313,7 +27482,7 @@ namespace PriemLib
                 {
                     OnNameChanging(value);
                     ReportPropertyChanging("Name");
-                    _Name = StructuralObject.SetValidValue(value, false);
+                    _Name = StructuralObject.SetValidValue(value, false, "Name");
                     ReportPropertyChanged("Name");
                     OnNameChanged();
                 }
@@ -27338,7 +27507,7 @@ namespace PriemLib
             {
                 OnSecondNameChanging(value);
                 ReportPropertyChanging("SecondName");
-                _SecondName = StructuralObject.SetValidValue(value, true);
+                _SecondName = StructuralObject.SetValidValue(value, true, "SecondName");
                 ReportPropertyChanged("SecondName");
                 OnSecondNameChanged();
             }
@@ -27364,7 +27533,7 @@ namespace PriemLib
                 {
                     OnSurnameChanging(value);
                     ReportPropertyChanging("Surname");
-                    _Surname = StructuralObject.SetValidValue(value, false);
+                    _Surname = StructuralObject.SetValidValue(value, false, "Surname");
                     ReportPropertyChanged("Surname");
                     OnSurnameChanged();
                 }
@@ -27389,7 +27558,7 @@ namespace PriemLib
             {
                 OnStudyFormOldNameChanging(value);
                 ReportPropertyChanging("StudyFormOldName");
-                _StudyFormOldName = StructuralObject.SetValidValue(value, true);
+                _StudyFormOldName = StructuralObject.SetValidValue(value, true, "StudyFormOldName");
                 ReportPropertyChanged("StudyFormOldName");
                 OnStudyFormOldNameChanged();
             }
@@ -27413,7 +27582,7 @@ namespace PriemLib
             {
                 OnLanguageNameChanging(value);
                 ReportPropertyChanging("LanguageName");
-                _LanguageName = StructuralObject.SetValidValue(value, true);
+                _LanguageName = StructuralObject.SetValidValue(value, true, "LanguageName");
                 ReportPropertyChanged("LanguageName");
                 OnLanguageNameChanged();
             }
@@ -27439,7 +27608,7 @@ namespace PriemLib
                 {
                     OnStudyLevelGroupIdChanging(value);
                     ReportPropertyChanging("StudyLevelGroupId");
-                    _StudyLevelGroupId = StructuralObject.SetValidValue(value);
+                    _StudyLevelGroupId = StructuralObject.SetValidValue(value, "StudyLevelGroupId");
                     ReportPropertyChanged("StudyLevelGroupId");
                     OnStudyLevelGroupIdChanged();
                 }
@@ -27466,7 +27635,7 @@ namespace PriemLib
                 {
                     OnFIOChanging(value);
                     ReportPropertyChanging("FIO");
-                    _FIO = StructuralObject.SetValidValue(value, false);
+                    _FIO = StructuralObject.SetValidValue(value, false, "FIO");
                     ReportPropertyChanged("FIO");
                     OnFIOChanged();
                 }
@@ -27491,7 +27660,7 @@ namespace PriemLib
             {
                 OnPassportDataChanging(value);
                 ReportPropertyChanging("PassportData");
-                _PassportData = StructuralObject.SetValidValue(value, true);
+                _PassportData = StructuralObject.SetValidValue(value, true, "PassportData");
                 ReportPropertyChanged("PassportData");
                 OnPassportDataChanged();
             }
@@ -27517,7 +27686,7 @@ namespace PriemLib
                 {
                     OnObrazProgramNameExChanging(value);
                     ReportPropertyChanging("ObrazProgramNameEx");
-                    _ObrazProgramNameEx = StructuralObject.SetValidValue(value, false);
+                    _ObrazProgramNameEx = StructuralObject.SetValidValue(value, false, "ObrazProgramNameEx");
                     ReportPropertyChanged("ObrazProgramNameEx");
                     OnObrazProgramNameExChanged();
                 }
@@ -27544,7 +27713,7 @@ namespace PriemLib
                 {
                     OnWithHEChanging(value);
                     ReportPropertyChanging("WithHE");
-                    _WithHE = StructuralObject.SetValidValue(value);
+                    _WithHE = StructuralObject.SetValidValue(value, "WithHE");
                     ReportPropertyChanged("WithHE");
                     OnWithHEChanged();
                 }
@@ -27571,7 +27740,7 @@ namespace PriemLib
                 {
                     OnIsReducedChanging(value);
                     ReportPropertyChanging("IsReduced");
-                    _IsReduced = StructuralObject.SetValidValue(value);
+                    _IsReduced = StructuralObject.SetValidValue(value, "IsReduced");
                     ReportPropertyChanged("IsReduced");
                     OnIsReducedChanged();
                 }
@@ -27598,7 +27767,7 @@ namespace PriemLib
                 {
                     OnIsParallelChanging(value);
                     ReportPropertyChanging("IsParallel");
-                    _IsParallel = StructuralObject.SetValidValue(value);
+                    _IsParallel = StructuralObject.SetValidValue(value, "IsParallel");
                     ReportPropertyChanged("IsParallel");
                     OnIsParallelChanged();
                 }
@@ -27623,7 +27792,7 @@ namespace PriemLib
             {
                 OnObrazProgramPrintNameChanging(value);
                 ReportPropertyChanging("ObrazProgramPrintName");
-                _ObrazProgramPrintName = StructuralObject.SetValidValue(value, true);
+                _ObrazProgramPrintName = StructuralObject.SetValidValue(value, true, "ObrazProgramPrintName");
                 ReportPropertyChanged("ObrazProgramPrintName");
                 OnObrazProgramPrintNameChanged();
             }
@@ -27647,7 +27816,7 @@ namespace PriemLib
             {
                 OnHostelEducChanging(value);
                 ReportPropertyChanging("HostelEduc");
-                _HostelEduc = StructuralObject.SetValidValue(value);
+                _HostelEduc = StructuralObject.SetValidValue(value, "HostelEduc");
                 ReportPropertyChanged("HostelEduc");
                 OnHostelEducChanged();
             }
@@ -27658,7 +27827,6 @@ namespace PriemLib
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -27694,7 +27862,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -27713,7 +27881,7 @@ namespace PriemLib
                 {
                     OnApplicationIdChanging(value);
                     ReportPropertyChanging("ApplicationId");
-                    _ApplicationId = StructuralObject.SetValidValue(value);
+                    _ApplicationId = StructuralObject.SetValidValue(value, "ApplicationId");
                     ReportPropertyChanged("ApplicationId");
                     OnApplicationIdChanged();
                 }
@@ -27740,7 +27908,7 @@ namespace PriemLib
                 {
                     OnInnerEntryInEntryIdChanging(value);
                     ReportPropertyChanging("InnerEntryInEntryId");
-                    _InnerEntryInEntryId = StructuralObject.SetValidValue(value);
+                    _InnerEntryInEntryId = StructuralObject.SetValidValue(value, "InnerEntryInEntryId");
                     ReportPropertyChanged("InnerEntryInEntryId");
                     OnInnerEntryInEntryIdChanged();
                 }
@@ -27767,7 +27935,7 @@ namespace PriemLib
                 {
                     OnInnerEntryInEntryPriorityChanging(value);
                     ReportPropertyChanging("InnerEntryInEntryPriority");
-                    _InnerEntryInEntryPriority = StructuralObject.SetValidValue(value);
+                    _InnerEntryInEntryPriority = StructuralObject.SetValidValue(value, "InnerEntryInEntryPriority");
                     ReportPropertyChanged("InnerEntryInEntryPriority");
                     OnInnerEntryInEntryPriorityChanged();
                 }
@@ -27794,7 +27962,7 @@ namespace PriemLib
                 {
                     OnObrazProgramIdChanging(value);
                     ReportPropertyChanging("ObrazProgramId");
-                    _ObrazProgramId = StructuralObject.SetValidValue(value);
+                    _ObrazProgramId = StructuralObject.SetValidValue(value, "ObrazProgramId");
                     ReportPropertyChanged("ObrazProgramId");
                     OnObrazProgramIdChanged();
                 }
@@ -27819,7 +27987,7 @@ namespace PriemLib
             {
                 OnObrazProgramCryptChanging(value);
                 ReportPropertyChanging("ObrazProgramCrypt");
-                _ObrazProgramCrypt = StructuralObject.SetValidValue(value, true);
+                _ObrazProgramCrypt = StructuralObject.SetValidValue(value, true, "ObrazProgramCrypt");
                 ReportPropertyChanged("ObrazProgramCrypt");
                 OnObrazProgramCryptChanged();
             }
@@ -27845,7 +28013,7 @@ namespace PriemLib
                 {
                     OnObrazProgramNameChanging(value);
                     ReportPropertyChanging("ObrazProgramName");
-                    _ObrazProgramName = StructuralObject.SetValidValue(value, false);
+                    _ObrazProgramName = StructuralObject.SetValidValue(value, false, "ObrazProgramName");
                     ReportPropertyChanged("ObrazProgramName");
                     OnObrazProgramNameChanged();
                 }
@@ -27872,7 +28040,7 @@ namespace PriemLib
                 {
                     OnProfileIdChanging(value);
                     ReportPropertyChanging("ProfileId");
-                    _ProfileId = StructuralObject.SetValidValue(value);
+                    _ProfileId = StructuralObject.SetValidValue(value, "ProfileId");
                     ReportPropertyChanged("ProfileId");
                     OnProfileIdChanged();
                 }
@@ -27897,7 +28065,7 @@ namespace PriemLib
             {
                 OnProfileNameChanging(value);
                 ReportPropertyChanging("ProfileName");
-                _ProfileName = StructuralObject.SetValidValue(value, true);
+                _ProfileName = StructuralObject.SetValidValue(value, true, "ProfileName");
                 ReportPropertyChanged("ProfileName");
                 OnProfileNameChanged();
             }
@@ -27908,7 +28076,6 @@ namespace PriemLib
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -27956,7 +28123,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -27975,7 +28142,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -28002,7 +28169,7 @@ namespace PriemLib
                 {
                     OnAbiturientIdChanging(value);
                     ReportPropertyChanging("AbiturientId");
-                    _AbiturientId = StructuralObject.SetValidValue(value);
+                    _AbiturientId = StructuralObject.SetValidValue(value, "AbiturientId");
                     ReportPropertyChanged("AbiturientId");
                     OnAbiturientIdChanged();
                 }
@@ -28029,7 +28196,7 @@ namespace PriemLib
                 {
                     OnExcludedChanging(value);
                     ReportPropertyChanging("Excluded");
-                    _Excluded = StructuralObject.SetValidValue(value);
+                    _Excluded = StructuralObject.SetValidValue(value, "Excluded");
                     ReportPropertyChanged("Excluded");
                     OnExcludedChanged();
                 }
@@ -28054,7 +28221,7 @@ namespace PriemLib
             {
                 OnExcludeProtocolIdChanging(value);
                 ReportPropertyChanging("ExcludeProtocolId");
-                _ExcludeProtocolId = StructuralObject.SetValidValue(value);
+                _ExcludeProtocolId = StructuralObject.SetValidValue(value, "ExcludeProtocolId");
                 ReportPropertyChanged("ExcludeProtocolId");
                 OnExcludeProtocolIdChanged();
             }
@@ -28078,7 +28245,7 @@ namespace PriemLib
             {
                 OnEntryHeaderIdChanging(value);
                 ReportPropertyChanging("EntryHeaderId");
-                _EntryHeaderId = StructuralObject.SetValidValue(value);
+                _EntryHeaderId = StructuralObject.SetValidValue(value, "EntryHeaderId");
                 ReportPropertyChanged("EntryHeaderId");
                 OnEntryHeaderIdChanged();
             }
@@ -28102,7 +28269,7 @@ namespace PriemLib
             {
                 OnStudyLevelGroupIdChanging(value);
                 ReportPropertyChanging("StudyLevelGroupId");
-                _StudyLevelGroupId = StructuralObject.SetValidValue(value);
+                _StudyLevelGroupId = StructuralObject.SetValidValue(value, "StudyLevelGroupId");
                 ReportPropertyChanged("StudyLevelGroupId");
                 OnStudyLevelGroupIdChanged();
             }
@@ -28126,7 +28293,7 @@ namespace PriemLib
             {
                 OnLicenseProgramIdChanging(value);
                 ReportPropertyChanging("LicenseProgramId");
-                _LicenseProgramId = StructuralObject.SetValidValue(value);
+                _LicenseProgramId = StructuralObject.SetValidValue(value, "LicenseProgramId");
                 ReportPropertyChanged("LicenseProgramId");
                 OnLicenseProgramIdChanged();
             }
@@ -28150,7 +28317,7 @@ namespace PriemLib
             {
                 OnFacultyIdChanging(value);
                 ReportPropertyChanging("FacultyId");
-                _FacultyId = StructuralObject.SetValidValue(value);
+                _FacultyId = StructuralObject.SetValidValue(value, "FacultyId");
                 ReportPropertyChanged("FacultyId");
                 OnFacultyIdChanged();
             }
@@ -28174,7 +28341,7 @@ namespace PriemLib
             {
                 OnStudyFormIdChanging(value);
                 ReportPropertyChanging("StudyFormId");
-                _StudyFormId = StructuralObject.SetValidValue(value);
+                _StudyFormId = StructuralObject.SetValidValue(value, "StudyFormId");
                 ReportPropertyChanged("StudyFormId");
                 OnStudyFormIdChanged();
             }
@@ -28198,7 +28365,7 @@ namespace PriemLib
             {
                 OnStudyBasisIdChanging(value);
                 ReportPropertyChanging("StudyBasisId");
-                _StudyBasisId = StructuralObject.SetValidValue(value);
+                _StudyBasisId = StructuralObject.SetValidValue(value, "StudyBasisId");
                 ReportPropertyChanged("StudyBasisId");
                 OnStudyBasisIdChanged();
             }
@@ -28222,7 +28389,7 @@ namespace PriemLib
             {
                 OnNumberChanging(value);
                 ReportPropertyChanging("Number");
-                _Number = StructuralObject.SetValidValue(value, true);
+                _Number = StructuralObject.SetValidValue(value, true, "Number");
                 ReportPropertyChanged("Number");
                 OnNumberChanged();
             }
@@ -28246,7 +28413,7 @@ namespace PriemLib
             {
                 OnDateChanging(value);
                 ReportPropertyChanging("Date");
-                _Date = StructuralObject.SetValidValue(value);
+                _Date = StructuralObject.SetValidValue(value, "Date");
                 ReportPropertyChanged("Date");
                 OnDateChanged();
             }
@@ -28270,7 +28437,7 @@ namespace PriemLib
             {
                 OnProtocolTypeIdChanging(value);
                 ReportPropertyChanging("ProtocolTypeId");
-                _ProtocolTypeId = StructuralObject.SetValidValue(value);
+                _ProtocolTypeId = StructuralObject.SetValidValue(value, "ProtocolTypeId");
                 ReportPropertyChanged("ProtocolTypeId");
                 OnProtocolTypeIdChanged();
             }
@@ -28294,7 +28461,7 @@ namespace PriemLib
             {
                 OnReasonChanging(value);
                 ReportPropertyChanging("Reason");
-                _Reason = StructuralObject.SetValidValue(value, true);
+                _Reason = StructuralObject.SetValidValue(value, true, "Reason");
                 ReportPropertyChanged("Reason");
                 OnReasonChanged();
             }
@@ -28320,7 +28487,7 @@ namespace PriemLib
                 {
                     OnIsOldChanging(value);
                     ReportPropertyChanging("IsOld");
-                    _IsOld = StructuralObject.SetValidValue(value);
+                    _IsOld = StructuralObject.SetValidValue(value, "IsOld");
                     ReportPropertyChanged("IsOld");
                     OnIsOldChanged();
                 }
@@ -28345,7 +28512,7 @@ namespace PriemLib
             {
                 OnParentProtocolIdChanging(value);
                 ReportPropertyChanging("ParentProtocolId");
-                _ParentProtocolId = StructuralObject.SetValidValue(value);
+                _ParentProtocolId = StructuralObject.SetValidValue(value, "ParentProtocolId");
                 ReportPropertyChanged("ParentProtocolId");
                 OnParentProtocolIdChanged();
             }
@@ -28369,7 +28536,7 @@ namespace PriemLib
             {
                 OnIsSecondChanging(value);
                 ReportPropertyChanging("IsSecond");
-                _IsSecond = StructuralObject.SetValidValue(value);
+                _IsSecond = StructuralObject.SetValidValue(value, "IsSecond");
                 ReportPropertyChanged("IsSecond");
                 OnIsSecondChanged();
             }
@@ -28393,7 +28560,7 @@ namespace PriemLib
             {
                 OnIsListenerChanging(value);
                 ReportPropertyChanging("IsListener");
-                _IsListener = StructuralObject.SetValidValue(value);
+                _IsListener = StructuralObject.SetValidValue(value, "IsListener");
                 ReportPropertyChanged("IsListener");
                 OnIsListenerChanged();
             }
@@ -28419,7 +28586,7 @@ namespace PriemLib
                 {
                     OnProtocolTypeNameChanging(value);
                     ReportPropertyChanging("ProtocolTypeName");
-                    _ProtocolTypeName = StructuralObject.SetValidValue(value, false);
+                    _ProtocolTypeName = StructuralObject.SetValidValue(value, false, "ProtocolTypeName");
                     ReportPropertyChanged("ProtocolTypeName");
                     OnProtocolTypeNameChanged();
                 }
@@ -28444,7 +28611,7 @@ namespace PriemLib
             {
                 OnIsParallelChanging(value);
                 ReportPropertyChanging("IsParallel");
-                _IsParallel = StructuralObject.SetValidValue(value);
+                _IsParallel = StructuralObject.SetValidValue(value, "IsParallel");
                 ReportPropertyChanged("IsParallel");
                 OnIsParallelChanged();
             }
@@ -28468,7 +28635,7 @@ namespace PriemLib
             {
                 OnIsReducedChanging(value);
                 ReportPropertyChanging("IsReduced");
-                _IsReduced = StructuralObject.SetValidValue(value);
+                _IsReduced = StructuralObject.SetValidValue(value, "IsReduced");
                 ReportPropertyChanged("IsReduced");
                 OnIsReducedChanged();
             }
@@ -28479,7 +28646,6 @@ namespace PriemLib
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -28523,7 +28689,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -28542,7 +28708,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -28569,7 +28735,7 @@ namespace PriemLib
                 {
                     OnValueChanging(value);
                     ReportPropertyChanging("Value");
-                    _Value = StructuralObject.SetValidValue(value);
+                    _Value = StructuralObject.SetValidValue(value, "Value");
                     ReportPropertyChanged("Value");
                     OnValueChanged();
                 }
@@ -28596,7 +28762,7 @@ namespace PriemLib
                 {
                     OnEgeExamNameIdChanging(value);
                     ReportPropertyChanging("EgeExamNameId");
-                    _EgeExamNameId = StructuralObject.SetValidValue(value);
+                    _EgeExamNameId = StructuralObject.SetValidValue(value, "EgeExamNameId");
                     ReportPropertyChanged("EgeExamNameId");
                     OnEgeExamNameIdChanged();
                 }
@@ -28623,7 +28789,7 @@ namespace PriemLib
                 {
                     OnEgeCertificateIdChanging(value);
                     ReportPropertyChanging("EgeCertificateId");
-                    _EgeCertificateId = StructuralObject.SetValidValue(value);
+                    _EgeCertificateId = StructuralObject.SetValidValue(value, "EgeCertificateId");
                     ReportPropertyChanged("EgeCertificateId");
                     OnEgeCertificateIdChanged();
                 }
@@ -28650,7 +28816,7 @@ namespace PriemLib
                 {
                     OnIsAppealChanging(value);
                     ReportPropertyChanging("IsAppeal");
-                    _IsAppeal = StructuralObject.SetValidValue(value);
+                    _IsAppeal = StructuralObject.SetValidValue(value, "IsAppeal");
                     ReportPropertyChanged("IsAppeal");
                     OnIsAppealChanged();
                 }
@@ -28677,7 +28843,7 @@ namespace PriemLib
                 {
                     OnIsCurrentChanging(value);
                     ReportPropertyChanging("IsCurrent");
-                    _IsCurrent = StructuralObject.SetValidValue(value);
+                    _IsCurrent = StructuralObject.SetValidValue(value, "IsCurrent");
                     ReportPropertyChanged("IsCurrent");
                     OnIsCurrentChanged();
                 }
@@ -28704,7 +28870,7 @@ namespace PriemLib
                 {
                     OnEgeExamNameChanging(value);
                     ReportPropertyChanging("EgeExamName");
-                    _EgeExamName = StructuralObject.SetValidValue(value, false);
+                    _EgeExamName = StructuralObject.SetValidValue(value, false, "EgeExamName");
                     ReportPropertyChanged("EgeExamName");
                     OnEgeExamNameChanged();
                 }
@@ -28731,7 +28897,7 @@ namespace PriemLib
                 {
                     OnNumberChanging(value);
                     ReportPropertyChanging("Number");
-                    _Number = StructuralObject.SetValidValue(value, false);
+                    _Number = StructuralObject.SetValidValue(value, false, "Number");
                     ReportPropertyChanged("Number");
                     OnNumberChanged();
                 }
@@ -28758,7 +28924,7 @@ namespace PriemLib
                 {
                     OnPersonIdChanging(value);
                     ReportPropertyChanging("PersonId");
-                    _PersonId = StructuralObject.SetValidValue(value);
+                    _PersonId = StructuralObject.SetValidValue(value, "PersonId");
                     ReportPropertyChanged("PersonId");
                     OnPersonIdChanged();
                 }
@@ -28783,7 +28949,7 @@ namespace PriemLib
             {
                 OnYearChanging(value);
                 ReportPropertyChanging("Year");
-                _Year = StructuralObject.SetValidValue(value, true);
+                _Year = StructuralObject.SetValidValue(value, true, "Year");
                 ReportPropertyChanged("Year");
                 OnYearChanged();
             }
@@ -28807,7 +28973,7 @@ namespace PriemLib
             {
                 OnFISNameChanging(value);
                 ReportPropertyChanging("FISName");
-                _FISName = StructuralObject.SetValidValue(value, true);
+                _FISName = StructuralObject.SetValidValue(value, true, "FISName");
                 ReportPropertyChanged("FISName");
                 OnFISNameChanged();
             }
@@ -28833,7 +28999,7 @@ namespace PriemLib
                 {
                     OnFBSStatusIdChanging(value);
                     ReportPropertyChanging("FBSStatusId");
-                    _FBSStatusId = StructuralObject.SetValidValue(value);
+                    _FBSStatusId = StructuralObject.SetValidValue(value, "FBSStatusId");
                     ReportPropertyChanged("FBSStatusId");
                     OnFBSStatusIdChanged();
                 }
@@ -28845,7 +29011,6 @@ namespace PriemLib
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -28887,7 +29052,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -28906,7 +29071,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -28933,7 +29098,7 @@ namespace PriemLib
                 {
                     OnValueChanging(value);
                     ReportPropertyChanging("Value");
-                    _Value = StructuralObject.SetValidValue(value);
+                    _Value = StructuralObject.SetValidValue(value, "Value");
                     ReportPropertyChanged("Value");
                     OnValueChanged();
                 }
@@ -28960,7 +29125,7 @@ namespace PriemLib
                 {
                     OnEgeExamNameIdChanging(value);
                     ReportPropertyChanging("EgeExamNameId");
-                    _EgeExamNameId = StructuralObject.SetValidValue(value);
+                    _EgeExamNameId = StructuralObject.SetValidValue(value, "EgeExamNameId");
                     ReportPropertyChanged("EgeExamNameId");
                     OnEgeExamNameIdChanged();
                 }
@@ -28987,7 +29152,7 @@ namespace PriemLib
                 {
                     OnEgeCertificateIdChanging(value);
                     ReportPropertyChanging("EgeCertificateId");
-                    _EgeCertificateId = StructuralObject.SetValidValue(value);
+                    _EgeCertificateId = StructuralObject.SetValidValue(value, "EgeCertificateId");
                     ReportPropertyChanged("EgeCertificateId");
                     OnEgeCertificateIdChanged();
                 }
@@ -29014,7 +29179,7 @@ namespace PriemLib
                 {
                     OnIsAppealChanging(value);
                     ReportPropertyChanging("IsAppeal");
-                    _IsAppeal = StructuralObject.SetValidValue(value);
+                    _IsAppeal = StructuralObject.SetValidValue(value, "IsAppeal");
                     ReportPropertyChanged("IsAppeal");
                     OnIsAppealChanged();
                 }
@@ -29041,7 +29206,7 @@ namespace PriemLib
                 {
                     OnIsCurrentChanging(value);
                     ReportPropertyChanging("IsCurrent");
-                    _IsCurrent = StructuralObject.SetValidValue(value);
+                    _IsCurrent = StructuralObject.SetValidValue(value, "IsCurrent");
                     ReportPropertyChanged("IsCurrent");
                     OnIsCurrentChanged();
                 }
@@ -29068,7 +29233,7 @@ namespace PriemLib
                 {
                     OnEgeExamNameChanging(value);
                     ReportPropertyChanging("EgeExamName");
-                    _EgeExamName = StructuralObject.SetValidValue(value, false);
+                    _EgeExamName = StructuralObject.SetValidValue(value, false, "EgeExamName");
                     ReportPropertyChanged("EgeExamName");
                     OnEgeExamNameChanged();
                 }
@@ -29095,7 +29260,7 @@ namespace PriemLib
                 {
                     OnNumberChanging(value);
                     ReportPropertyChanging("Number");
-                    _Number = StructuralObject.SetValidValue(value, false);
+                    _Number = StructuralObject.SetValidValue(value, false, "Number");
                     ReportPropertyChanged("Number");
                     OnNumberChanged();
                 }
@@ -29122,7 +29287,7 @@ namespace PriemLib
                 {
                     OnPersonIdChanging(value);
                     ReportPropertyChanging("PersonId");
-                    _PersonId = StructuralObject.SetValidValue(value);
+                    _PersonId = StructuralObject.SetValidValue(value, "PersonId");
                     ReportPropertyChanged("PersonId");
                     OnPersonIdChanged();
                 }
@@ -29134,7 +29299,6 @@ namespace PriemLib
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -29178,7 +29342,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -29197,7 +29361,7 @@ namespace PriemLib
                 {
                     OnAbiturientIdChanging(value);
                     ReportPropertyChanging("AbiturientId");
-                    _AbiturientId = StructuralObject.SetValidValue(value);
+                    _AbiturientId = StructuralObject.SetValidValue(value, "AbiturientId");
                     ReportPropertyChanged("AbiturientId");
                     OnAbiturientIdChanged();
                 }
@@ -29224,7 +29388,7 @@ namespace PriemLib
                 {
                     OnEgeMarkIdChanging(value);
                     ReportPropertyChanging("EgeMarkId");
-                    _EgeMarkId = StructuralObject.SetValidValue(value);
+                    _EgeMarkId = StructuralObject.SetValidValue(value, "EgeMarkId");
                     ReportPropertyChanged("EgeMarkId");
                     OnEgeMarkIdChanged();
                 }
@@ -29251,7 +29415,7 @@ namespace PriemLib
                 {
                     OnValueChanging(value);
                     ReportPropertyChanging("Value");
-                    _Value = StructuralObject.SetValidValue(value);
+                    _Value = StructuralObject.SetValidValue(value, "Value");
                     ReportPropertyChanged("Value");
                     OnValueChanged();
                 }
@@ -29278,7 +29442,7 @@ namespace PriemLib
                 {
                     OnEgeExamNameIdChanging(value);
                     ReportPropertyChanging("EgeExamNameId");
-                    _EgeExamNameId = StructuralObject.SetValidValue(value);
+                    _EgeExamNameId = StructuralObject.SetValidValue(value, "EgeExamNameId");
                     ReportPropertyChanged("EgeExamNameId");
                     OnEgeExamNameIdChanged();
                 }
@@ -29305,7 +29469,7 @@ namespace PriemLib
                 {
                     OnEgeCertificateIdChanging(value);
                     ReportPropertyChanging("EgeCertificateId");
-                    _EgeCertificateId = StructuralObject.SetValidValue(value);
+                    _EgeCertificateId = StructuralObject.SetValidValue(value, "EgeCertificateId");
                     ReportPropertyChanged("EgeCertificateId");
                     OnEgeCertificateIdChanged();
                 }
@@ -29332,7 +29496,7 @@ namespace PriemLib
                 {
                     OnIsAppealChanging(value);
                     ReportPropertyChanging("IsAppeal");
-                    _IsAppeal = StructuralObject.SetValidValue(value);
+                    _IsAppeal = StructuralObject.SetValidValue(value, "IsAppeal");
                     ReportPropertyChanged("IsAppeal");
                     OnIsAppealChanged();
                 }
@@ -29359,7 +29523,7 @@ namespace PriemLib
                 {
                     OnIsCurrentChanging(value);
                     ReportPropertyChanging("IsCurrent");
-                    _IsCurrent = StructuralObject.SetValidValue(value);
+                    _IsCurrent = StructuralObject.SetValidValue(value, "IsCurrent");
                     ReportPropertyChanged("IsCurrent");
                     OnIsCurrentChanged();
                 }
@@ -29386,7 +29550,7 @@ namespace PriemLib
                 {
                     OnEgeExamNameChanging(value);
                     ReportPropertyChanging("EgeExamName");
-                    _EgeExamName = StructuralObject.SetValidValue(value, false);
+                    _EgeExamName = StructuralObject.SetValidValue(value, false, "EgeExamName");
                     ReportPropertyChanged("EgeExamName");
                     OnEgeExamNameChanged();
                 }
@@ -29413,7 +29577,7 @@ namespace PriemLib
                 {
                     OnNumberChanging(value);
                     ReportPropertyChanging("Number");
-                    _Number = StructuralObject.SetValidValue(value, false);
+                    _Number = StructuralObject.SetValidValue(value, false, "Number");
                     ReportPropertyChanged("Number");
                     OnNumberChanged();
                 }
@@ -29440,7 +29604,7 @@ namespace PriemLib
                 {
                     OnPersonIdChanging(value);
                     ReportPropertyChanging("PersonId");
-                    _PersonId = StructuralObject.SetValidValue(value);
+                    _PersonId = StructuralObject.SetValidValue(value, "PersonId");
                     ReportPropertyChanged("PersonId");
                     OnPersonIdChanged();
                 }
@@ -29452,7 +29616,6 @@ namespace PriemLib
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -29496,7 +29659,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -29515,7 +29678,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -29542,7 +29705,7 @@ namespace PriemLib
                 {
                     OnAbiturientIdChanging(value);
                     ReportPropertyChanging("AbiturientId");
-                    _AbiturientId = StructuralObject.SetValidValue(value);
+                    _AbiturientId = StructuralObject.SetValidValue(value, "AbiturientId");
                     ReportPropertyChanged("AbiturientId");
                     OnAbiturientIdChanged();
                 }
@@ -29569,7 +29732,7 @@ namespace PriemLib
                 {
                     OnExcludedChanging(value);
                     ReportPropertyChanging("Excluded");
-                    _Excluded = StructuralObject.SetValidValue(value);
+                    _Excluded = StructuralObject.SetValidValue(value, "Excluded");
                     ReportPropertyChanged("Excluded");
                     OnExcludedChanged();
                 }
@@ -29594,7 +29757,7 @@ namespace PriemLib
             {
                 OnExcludeProtocolIdChanging(value);
                 ReportPropertyChanging("ExcludeProtocolId");
-                _ExcludeProtocolId = StructuralObject.SetValidValue(value);
+                _ExcludeProtocolId = StructuralObject.SetValidValue(value, "ExcludeProtocolId");
                 ReportPropertyChanged("ExcludeProtocolId");
                 OnExcludeProtocolIdChanged();
             }
@@ -29618,7 +29781,7 @@ namespace PriemLib
             {
                 OnEntryHeaderIdChanging(value);
                 ReportPropertyChanging("EntryHeaderId");
-                _EntryHeaderId = StructuralObject.SetValidValue(value);
+                _EntryHeaderId = StructuralObject.SetValidValue(value, "EntryHeaderId");
                 ReportPropertyChanged("EntryHeaderId");
                 OnEntryHeaderIdChanged();
             }
@@ -29642,7 +29805,7 @@ namespace PriemLib
             {
                 OnStudyLevelGroupIdChanging(value);
                 ReportPropertyChanging("StudyLevelGroupId");
-                _StudyLevelGroupId = StructuralObject.SetValidValue(value);
+                _StudyLevelGroupId = StructuralObject.SetValidValue(value, "StudyLevelGroupId");
                 ReportPropertyChanged("StudyLevelGroupId");
                 OnStudyLevelGroupIdChanged();
             }
@@ -29666,7 +29829,7 @@ namespace PriemLib
             {
                 OnLicenseProgramIdChanging(value);
                 ReportPropertyChanging("LicenseProgramId");
-                _LicenseProgramId = StructuralObject.SetValidValue(value);
+                _LicenseProgramId = StructuralObject.SetValidValue(value, "LicenseProgramId");
                 ReportPropertyChanged("LicenseProgramId");
                 OnLicenseProgramIdChanged();
             }
@@ -29690,7 +29853,7 @@ namespace PriemLib
             {
                 OnFacultyIdChanging(value);
                 ReportPropertyChanging("FacultyId");
-                _FacultyId = StructuralObject.SetValidValue(value);
+                _FacultyId = StructuralObject.SetValidValue(value, "FacultyId");
                 ReportPropertyChanged("FacultyId");
                 OnFacultyIdChanged();
             }
@@ -29714,7 +29877,7 @@ namespace PriemLib
             {
                 OnStudyFormIdChanging(value);
                 ReportPropertyChanging("StudyFormId");
-                _StudyFormId = StructuralObject.SetValidValue(value);
+                _StudyFormId = StructuralObject.SetValidValue(value, "StudyFormId");
                 ReportPropertyChanged("StudyFormId");
                 OnStudyFormIdChanged();
             }
@@ -29738,7 +29901,7 @@ namespace PriemLib
             {
                 OnStudyBasisIdChanging(value);
                 ReportPropertyChanging("StudyBasisId");
-                _StudyBasisId = StructuralObject.SetValidValue(value);
+                _StudyBasisId = StructuralObject.SetValidValue(value, "StudyBasisId");
                 ReportPropertyChanged("StudyBasisId");
                 OnStudyBasisIdChanged();
             }
@@ -29762,7 +29925,7 @@ namespace PriemLib
             {
                 OnNumberChanging(value);
                 ReportPropertyChanging("Number");
-                _Number = StructuralObject.SetValidValue(value, true);
+                _Number = StructuralObject.SetValidValue(value, true, "Number");
                 ReportPropertyChanged("Number");
                 OnNumberChanged();
             }
@@ -29786,7 +29949,7 @@ namespace PriemLib
             {
                 OnDateChanging(value);
                 ReportPropertyChanging("Date");
-                _Date = StructuralObject.SetValidValue(value);
+                _Date = StructuralObject.SetValidValue(value, "Date");
                 ReportPropertyChanged("Date");
                 OnDateChanged();
             }
@@ -29810,7 +29973,7 @@ namespace PriemLib
             {
                 OnProtocolTypeIdChanging(value);
                 ReportPropertyChanging("ProtocolTypeId");
-                _ProtocolTypeId = StructuralObject.SetValidValue(value);
+                _ProtocolTypeId = StructuralObject.SetValidValue(value, "ProtocolTypeId");
                 ReportPropertyChanged("ProtocolTypeId");
                 OnProtocolTypeIdChanged();
             }
@@ -29834,7 +29997,7 @@ namespace PriemLib
             {
                 OnReasonChanging(value);
                 ReportPropertyChanging("Reason");
-                _Reason = StructuralObject.SetValidValue(value, true);
+                _Reason = StructuralObject.SetValidValue(value, true, "Reason");
                 ReportPropertyChanged("Reason");
                 OnReasonChanged();
             }
@@ -29860,7 +30023,7 @@ namespace PriemLib
                 {
                     OnIsOldChanging(value);
                     ReportPropertyChanging("IsOld");
-                    _IsOld = StructuralObject.SetValidValue(value);
+                    _IsOld = StructuralObject.SetValidValue(value, "IsOld");
                     ReportPropertyChanged("IsOld");
                     OnIsOldChanged();
                 }
@@ -29885,7 +30048,7 @@ namespace PriemLib
             {
                 OnParentProtocolIdChanging(value);
                 ReportPropertyChanging("ParentProtocolId");
-                _ParentProtocolId = StructuralObject.SetValidValue(value);
+                _ParentProtocolId = StructuralObject.SetValidValue(value, "ParentProtocolId");
                 ReportPropertyChanged("ParentProtocolId");
                 OnParentProtocolIdChanged();
             }
@@ -29909,7 +30072,7 @@ namespace PriemLib
             {
                 OnIsSecondChanging(value);
                 ReportPropertyChanging("IsSecond");
-                _IsSecond = StructuralObject.SetValidValue(value);
+                _IsSecond = StructuralObject.SetValidValue(value, "IsSecond");
                 ReportPropertyChanged("IsSecond");
                 OnIsSecondChanged();
             }
@@ -29933,7 +30096,7 @@ namespace PriemLib
             {
                 OnIsListenerChanging(value);
                 ReportPropertyChanging("IsListener");
-                _IsListener = StructuralObject.SetValidValue(value);
+                _IsListener = StructuralObject.SetValidValue(value, "IsListener");
                 ReportPropertyChanged("IsListener");
                 OnIsListenerChanged();
             }
@@ -29959,7 +30122,7 @@ namespace PriemLib
                 {
                     OnProtocolTypeNameChanging(value);
                     ReportPropertyChanging("ProtocolTypeName");
-                    _ProtocolTypeName = StructuralObject.SetValidValue(value, false);
+                    _ProtocolTypeName = StructuralObject.SetValidValue(value, false, "ProtocolTypeName");
                     ReportPropertyChanged("ProtocolTypeName");
                     OnProtocolTypeNameChanged();
                 }
@@ -29971,7 +30134,6 @@ namespace PriemLib
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -30008,7 +30170,9 @@ namespace PriemLib
         /// <param name="isParallel">Initial value of the IsParallel property.</param>
         /// <param name="aggregateGroupId">Initial value of the AggregateGroupId property.</param>
         /// <param name="isForeign">Initial value of the IsForeign property.</param>
-        public static extEntry CreateextEntry(global::System.Guid id, global::System.Int32 facultyId, global::System.Int32 licenseProgramId, global::System.String licenseProgramName, global::System.Int32 obrazProgramId, global::System.String obrazProgramName, global::System.Int32 profileId, global::System.Int32 studyBasisId, global::System.Int32 studyFormId, global::System.Int32 studyLevelId, global::System.Boolean isSecond, global::System.String studyBasisName, global::System.String studyFormName, global::System.String studyLevelName, global::System.Boolean isClosed, global::System.Int32 studyLevelGroupId, global::System.String obrazProgramNameEx, global::System.Boolean isReduced, global::System.Boolean isParallel, global::System.Int32 aggregateGroupId, global::System.Boolean isForeign)
+        /// <param name="isCrimea">Initial value of the IsCrimea property.</param>
+        /// <param name="studyLevelGroupName">Initial value of the StudyLevelGroupName property.</param>
+        public static extEntry CreateextEntry(global::System.Guid id, global::System.Int32 facultyId, global::System.Int32 licenseProgramId, global::System.String licenseProgramName, global::System.Int32 obrazProgramId, global::System.String obrazProgramName, global::System.Int32 profileId, global::System.Int32 studyBasisId, global::System.Int32 studyFormId, global::System.Int32 studyLevelId, global::System.Boolean isSecond, global::System.String studyBasisName, global::System.String studyFormName, global::System.String studyLevelName, global::System.Boolean isClosed, global::System.Int32 studyLevelGroupId, global::System.String obrazProgramNameEx, global::System.Boolean isReduced, global::System.Boolean isParallel, global::System.Int32 aggregateGroupId, global::System.Boolean isForeign, global::System.Boolean isCrimea, global::System.String studyLevelGroupName)
         {
             extEntry extEntry = new extEntry();
             extEntry.Id = id;
@@ -30032,12 +30196,14 @@ namespace PriemLib
             extEntry.IsParallel = isParallel;
             extEntry.AggregateGroupId = aggregateGroupId;
             extEntry.IsForeign = isForeign;
+            extEntry.IsCrimea = isCrimea;
+            extEntry.StudyLevelGroupName = studyLevelGroupName;
             return extEntry;
         }
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -30056,7 +30222,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -30083,7 +30249,7 @@ namespace PriemLib
                 {
                     OnFacultyIdChanging(value);
                     ReportPropertyChanging("FacultyId");
-                    _FacultyId = StructuralObject.SetValidValue(value);
+                    _FacultyId = StructuralObject.SetValidValue(value, "FacultyId");
                     ReportPropertyChanged("FacultyId");
                     OnFacultyIdChanged();
                 }
@@ -30110,7 +30276,7 @@ namespace PriemLib
                 {
                     OnLicenseProgramIdChanging(value);
                     ReportPropertyChanging("LicenseProgramId");
-                    _LicenseProgramId = StructuralObject.SetValidValue(value);
+                    _LicenseProgramId = StructuralObject.SetValidValue(value, "LicenseProgramId");
                     ReportPropertyChanged("LicenseProgramId");
                     OnLicenseProgramIdChanged();
                 }
@@ -30137,7 +30303,7 @@ namespace PriemLib
                 {
                     OnLicenseProgramNameChanging(value);
                     ReportPropertyChanging("LicenseProgramName");
-                    _LicenseProgramName = StructuralObject.SetValidValue(value, false);
+                    _LicenseProgramName = StructuralObject.SetValidValue(value, false, "LicenseProgramName");
                     ReportPropertyChanged("LicenseProgramName");
                     OnLicenseProgramNameChanged();
                 }
@@ -30162,7 +30328,7 @@ namespace PriemLib
             {
                 OnLicenseProgramCodeChanging(value);
                 ReportPropertyChanging("LicenseProgramCode");
-                _LicenseProgramCode = StructuralObject.SetValidValue(value, true);
+                _LicenseProgramCode = StructuralObject.SetValidValue(value, true, "LicenseProgramCode");
                 ReportPropertyChanged("LicenseProgramCode");
                 OnLicenseProgramCodeChanged();
             }
@@ -30188,7 +30354,7 @@ namespace PriemLib
                 {
                     OnObrazProgramIdChanging(value);
                     ReportPropertyChanging("ObrazProgramId");
-                    _ObrazProgramId = StructuralObject.SetValidValue(value);
+                    _ObrazProgramId = StructuralObject.SetValidValue(value, "ObrazProgramId");
                     ReportPropertyChanged("ObrazProgramId");
                     OnObrazProgramIdChanged();
                 }
@@ -30215,7 +30381,7 @@ namespace PriemLib
                 {
                     OnObrazProgramNameChanging(value);
                     ReportPropertyChanging("ObrazProgramName");
-                    _ObrazProgramName = StructuralObject.SetValidValue(value, false);
+                    _ObrazProgramName = StructuralObject.SetValidValue(value, false, "ObrazProgramName");
                     ReportPropertyChanged("ObrazProgramName");
                     OnObrazProgramNameChanged();
                 }
@@ -30240,7 +30406,7 @@ namespace PriemLib
             {
                 OnObrazProgramNumberChanging(value);
                 ReportPropertyChanging("ObrazProgramNumber");
-                _ObrazProgramNumber = StructuralObject.SetValidValue(value, true);
+                _ObrazProgramNumber = StructuralObject.SetValidValue(value, true, "ObrazProgramNumber");
                 ReportPropertyChanged("ObrazProgramNumber");
                 OnObrazProgramNumberChanged();
             }
@@ -30264,7 +30430,7 @@ namespace PriemLib
             {
                 OnObrazProgramCryptChanging(value);
                 ReportPropertyChanging("ObrazProgramCrypt");
-                _ObrazProgramCrypt = StructuralObject.SetValidValue(value, true);
+                _ObrazProgramCrypt = StructuralObject.SetValidValue(value, true, "ObrazProgramCrypt");
                 ReportPropertyChanged("ObrazProgramCrypt");
                 OnObrazProgramCryptChanged();
             }
@@ -30288,7 +30454,7 @@ namespace PriemLib
             {
                 OnProfileIdChanging(value);
                 ReportPropertyChanging("ProfileId");
-                _ProfileId = StructuralObject.SetValidValue(value);
+                _ProfileId = StructuralObject.SetValidValue(value, "ProfileId");
                 ReportPropertyChanged("ProfileId");
                 OnProfileIdChanged();
             }
@@ -30312,7 +30478,7 @@ namespace PriemLib
             {
                 OnProfileNameChanging(value);
                 ReportPropertyChanging("ProfileName");
-                _ProfileName = StructuralObject.SetValidValue(value, true);
+                _ProfileName = StructuralObject.SetValidValue(value, true, "ProfileName");
                 ReportPropertyChanged("ProfileName");
                 OnProfileNameChanged();
             }
@@ -30338,7 +30504,7 @@ namespace PriemLib
                 {
                     OnStudyBasisIdChanging(value);
                     ReportPropertyChanging("StudyBasisId");
-                    _StudyBasisId = StructuralObject.SetValidValue(value);
+                    _StudyBasisId = StructuralObject.SetValidValue(value, "StudyBasisId");
                     ReportPropertyChanged("StudyBasisId");
                     OnStudyBasisIdChanged();
                 }
@@ -30365,7 +30531,7 @@ namespace PriemLib
                 {
                     OnStudyFormIdChanging(value);
                     ReportPropertyChanging("StudyFormId");
-                    _StudyFormId = StructuralObject.SetValidValue(value);
+                    _StudyFormId = StructuralObject.SetValidValue(value, "StudyFormId");
                     ReportPropertyChanged("StudyFormId");
                     OnStudyFormIdChanged();
                 }
@@ -30392,7 +30558,7 @@ namespace PriemLib
                 {
                     OnStudyLevelIdChanging(value);
                     ReportPropertyChanging("StudyLevelId");
-                    _StudyLevelId = StructuralObject.SetValidValue(value);
+                    _StudyLevelId = StructuralObject.SetValidValue(value, "StudyLevelId");
                     ReportPropertyChanged("StudyLevelId");
                     OnStudyLevelIdChanged();
                 }
@@ -30417,7 +30583,7 @@ namespace PriemLib
             {
                 OnStudyPlanIdChanging(value);
                 ReportPropertyChanging("StudyPlanId");
-                _StudyPlanId = StructuralObject.SetValidValue(value);
+                _StudyPlanId = StructuralObject.SetValidValue(value, "StudyPlanId");
                 ReportPropertyChanged("StudyPlanId");
                 OnStudyPlanIdChanged();
             }
@@ -30441,7 +30607,7 @@ namespace PriemLib
             {
                 OnStudyPlanNumberChanging(value);
                 ReportPropertyChanging("StudyPlanNumber");
-                _StudyPlanNumber = StructuralObject.SetValidValue(value, true);
+                _StudyPlanNumber = StructuralObject.SetValidValue(value, true, "StudyPlanNumber");
                 ReportPropertyChanged("StudyPlanNumber");
                 OnStudyPlanNumberChanged();
             }
@@ -30465,7 +30631,7 @@ namespace PriemLib
             {
                 OnProgramModeShortNameChanging(value);
                 ReportPropertyChanging("ProgramModeShortName");
-                _ProgramModeShortName = StructuralObject.SetValidValue(value, true);
+                _ProgramModeShortName = StructuralObject.SetValidValue(value, true, "ProgramModeShortName");
                 ReportPropertyChanged("ProgramModeShortName");
                 OnProgramModeShortNameChanged();
             }
@@ -30491,7 +30657,7 @@ namespace PriemLib
                 {
                     OnIsSecondChanging(value);
                     ReportPropertyChanging("IsSecond");
-                    _IsSecond = StructuralObject.SetValidValue(value);
+                    _IsSecond = StructuralObject.SetValidValue(value, "IsSecond");
                     ReportPropertyChanged("IsSecond");
                     OnIsSecondChanged();
                 }
@@ -30516,7 +30682,7 @@ namespace PriemLib
             {
                 OnKCPChanging(value);
                 ReportPropertyChanging("KCP");
-                _KCP = StructuralObject.SetValidValue(value);
+                _KCP = StructuralObject.SetValidValue(value, "KCP");
                 ReportPropertyChanged("KCP");
                 OnKCPChanged();
             }
@@ -30540,7 +30706,7 @@ namespace PriemLib
             {
                 OnFacultyNameChanging(value);
                 ReportPropertyChanging("FacultyName");
-                _FacultyName = StructuralObject.SetValidValue(value, true);
+                _FacultyName = StructuralObject.SetValidValue(value, true, "FacultyName");
                 ReportPropertyChanged("FacultyName");
                 OnFacultyNameChanged();
             }
@@ -30566,7 +30732,7 @@ namespace PriemLib
                 {
                     OnStudyBasisNameChanging(value);
                     ReportPropertyChanging("StudyBasisName");
-                    _StudyBasisName = StructuralObject.SetValidValue(value, false);
+                    _StudyBasisName = StructuralObject.SetValidValue(value, false, "StudyBasisName");
                     ReportPropertyChanged("StudyBasisName");
                     OnStudyBasisNameChanged();
                 }
@@ -30593,7 +30759,7 @@ namespace PriemLib
                 {
                     OnStudyFormNameChanging(value);
                     ReportPropertyChanging("StudyFormName");
-                    _StudyFormName = StructuralObject.SetValidValue(value, false);
+                    _StudyFormName = StructuralObject.SetValidValue(value, false, "StudyFormName");
                     ReportPropertyChanged("StudyFormName");
                     OnStudyFormNameChanged();
                 }
@@ -30620,7 +30786,7 @@ namespace PriemLib
                 {
                     OnStudyLevelNameChanging(value);
                     ReportPropertyChanging("StudyLevelName");
-                    _StudyLevelName = StructuralObject.SetValidValue(value, false);
+                    _StudyLevelName = StructuralObject.SetValidValue(value, false, "StudyLevelName");
                     ReportPropertyChanged("StudyLevelName");
                     OnStudyLevelNameChanged();
                 }
@@ -30647,7 +30813,7 @@ namespace PriemLib
                 {
                     OnIsClosedChanging(value);
                     ReportPropertyChanging("IsClosed");
-                    _IsClosed = StructuralObject.SetValidValue(value);
+                    _IsClosed = StructuralObject.SetValidValue(value, "IsClosed");
                     ReportPropertyChanged("IsClosed");
                     OnIsClosedChanged();
                 }
@@ -30674,7 +30840,7 @@ namespace PriemLib
                 {
                     OnStudyLevelGroupIdChanging(value);
                     ReportPropertyChanging("StudyLevelGroupId");
-                    _StudyLevelGroupId = StructuralObject.SetValidValue(value);
+                    _StudyLevelGroupId = StructuralObject.SetValidValue(value, "StudyLevelGroupId");
                     ReportPropertyChanged("StudyLevelGroupId");
                     OnStudyLevelGroupIdChanged();
                 }
@@ -30701,7 +30867,7 @@ namespace PriemLib
                 {
                     OnObrazProgramNameExChanging(value);
                     ReportPropertyChanging("ObrazProgramNameEx");
-                    _ObrazProgramNameEx = StructuralObject.SetValidValue(value, false);
+                    _ObrazProgramNameEx = StructuralObject.SetValidValue(value, false, "ObrazProgramNameEx");
                     ReportPropertyChanged("ObrazProgramNameEx");
                     OnObrazProgramNameExChanged();
                 }
@@ -30726,7 +30892,7 @@ namespace PriemLib
             {
                 OnFacultyAcrChanging(value);
                 ReportPropertyChanging("FacultyAcr");
-                _FacultyAcr = StructuralObject.SetValidValue(value, true);
+                _FacultyAcr = StructuralObject.SetValidValue(value, true, "FacultyAcr");
                 ReportPropertyChanged("FacultyAcr");
                 OnFacultyAcrChanged();
             }
@@ -30750,7 +30916,7 @@ namespace PriemLib
             {
                 OnKCPCelChanging(value);
                 ReportPropertyChanging("KCPCel");
-                _KCPCel = StructuralObject.SetValidValue(value);
+                _KCPCel = StructuralObject.SetValidValue(value, "KCPCel");
                 ReportPropertyChanged("KCPCel");
                 OnKCPCelChanged();
             }
@@ -30776,7 +30942,7 @@ namespace PriemLib
                 {
                     OnIsReducedChanging(value);
                     ReportPropertyChanging("IsReduced");
-                    _IsReduced = StructuralObject.SetValidValue(value);
+                    _IsReduced = StructuralObject.SetValidValue(value, "IsReduced");
                     ReportPropertyChanged("IsReduced");
                     OnIsReducedChanged();
                 }
@@ -30803,7 +30969,7 @@ namespace PriemLib
                 {
                     OnIsParallelChanging(value);
                     ReportPropertyChanging("IsParallel");
-                    _IsParallel = StructuralObject.SetValidValue(value);
+                    _IsParallel = StructuralObject.SetValidValue(value, "IsParallel");
                     ReportPropertyChanged("IsParallel");
                     OnIsParallelChanged();
                 }
@@ -30828,7 +30994,7 @@ namespace PriemLib
             {
                 OnQualificationCodeChanging(value);
                 ReportPropertyChanging("QualificationCode");
-                _QualificationCode = StructuralObject.SetValidValue(value, true);
+                _QualificationCode = StructuralObject.SetValidValue(value, true, "QualificationCode");
                 ReportPropertyChanged("QualificationCode");
                 OnQualificationCodeChanged();
             }
@@ -30852,7 +31018,7 @@ namespace PriemLib
             {
                 OnStudyLevelFISNameChanging(value);
                 ReportPropertyChanging("StudyLevelFISName");
-                _StudyLevelFISName = StructuralObject.SetValidValue(value, true);
+                _StudyLevelFISName = StructuralObject.SetValidValue(value, true, "StudyLevelFISName");
                 ReportPropertyChanged("StudyLevelFISName");
                 OnStudyLevelFISNameChanged();
             }
@@ -30876,7 +31042,7 @@ namespace PriemLib
             {
                 OnObrazProgramPrintNameChanging(value);
                 ReportPropertyChanging("ObrazProgramPrintName");
-                _ObrazProgramPrintName = StructuralObject.SetValidValue(value, true);
+                _ObrazProgramPrintName = StructuralObject.SetValidValue(value, true, "ObrazProgramPrintName");
                 ReportPropertyChanged("ObrazProgramPrintName");
                 OnObrazProgramPrintNameChanged();
             }
@@ -30884,30 +31050,6 @@ namespace PriemLib
         private global::System.String _ObrazProgramPrintName;
         partial void OnObrazProgramPrintNameChanging(global::System.String value);
         partial void OnObrazProgramPrintNameChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int32> KCPCrimea
-        {
-            get
-            {
-                return _KCPCrimea;
-            }
-            set
-            {
-                OnKCPCrimeaChanging(value);
-                ReportPropertyChanging("KCPCrimea");
-                _KCPCrimea = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("KCPCrimea");
-                OnKCPCrimeaChanged();
-            }
-        }
-        private Nullable<global::System.Int32> _KCPCrimea;
-        partial void OnKCPCrimeaChanging(Nullable<global::System.Int32> value);
-        partial void OnKCPCrimeaChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -30924,7 +31066,7 @@ namespace PriemLib
             {
                 OnKCPQuotaChanging(value);
                 ReportPropertyChanging("KCPQuota");
-                _KCPQuota = StructuralObject.SetValidValue(value);
+                _KCPQuota = StructuralObject.SetValidValue(value, "KCPQuota");
                 ReportPropertyChanged("KCPQuota");
                 OnKCPQuotaChanged();
             }
@@ -30950,7 +31092,7 @@ namespace PriemLib
                 {
                     OnAggregateGroupIdChanging(value);
                     ReportPropertyChanging("AggregateGroupId");
-                    _AggregateGroupId = StructuralObject.SetValidValue(value);
+                    _AggregateGroupId = StructuralObject.SetValidValue(value, "AggregateGroupId");
                     ReportPropertyChanged("AggregateGroupId");
                     OnAggregateGroupIdChanged();
                 }
@@ -30975,7 +31117,7 @@ namespace PriemLib
             {
                 OnAggregateGroupNameChanging(value);
                 ReportPropertyChanging("AggregateGroupName");
-                _AggregateGroupName = StructuralObject.SetValidValue(value, true);
+                _AggregateGroupName = StructuralObject.SetValidValue(value, true, "AggregateGroupName");
                 ReportPropertyChanged("AggregateGroupName");
                 OnAggregateGroupNameChanged();
             }
@@ -31001,7 +31143,7 @@ namespace PriemLib
                 {
                     OnIsForeignChanging(value);
                     ReportPropertyChanging("IsForeign");
-                    _IsForeign = StructuralObject.SetValidValue(value);
+                    _IsForeign = StructuralObject.SetValidValue(value, "IsForeign");
                     ReportPropertyChanged("IsForeign");
                     OnIsForeignChanged();
                 }
@@ -31010,10 +31152,63 @@ namespace PriemLib
         private global::System.Boolean _IsForeign;
         partial void OnIsForeignChanging(global::System.Boolean value);
         partial void OnIsForeignChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean IsCrimea
+        {
+            get
+            {
+                return _IsCrimea;
+            }
+            set
+            {
+                if (_IsCrimea != value)
+                {
+                    OnIsCrimeaChanging(value);
+                    ReportPropertyChanging("IsCrimea");
+                    _IsCrimea = StructuralObject.SetValidValue(value, "IsCrimea");
+                    ReportPropertyChanged("IsCrimea");
+                    OnIsCrimeaChanged();
+                }
+            }
+        }
+        private global::System.Boolean _IsCrimea;
+        partial void OnIsCrimeaChanging(global::System.Boolean value);
+        partial void OnIsCrimeaChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String StudyLevelGroupName
+        {
+            get
+            {
+                return _StudyLevelGroupName;
+            }
+            set
+            {
+                if (_StudyLevelGroupName != value)
+                {
+                    OnStudyLevelGroupNameChanging(value);
+                    ReportPropertyChanging("StudyLevelGroupName");
+                    _StudyLevelGroupName = StructuralObject.SetValidValue(value, false, "StudyLevelGroupName");
+                    ReportPropertyChanged("StudyLevelGroupName");
+                    OnStudyLevelGroupNameChanged();
+                }
+            }
+        }
+        private global::System.String _StudyLevelGroupName;
+        partial void OnStudyLevelGroupNameChanging(global::System.String value);
+        partial void OnStudyLevelGroupNameChanged();
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -31059,7 +31254,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -31078,7 +31273,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -31105,7 +31300,7 @@ namespace PriemLib
                 {
                     OnAbiturientIdChanging(value);
                     ReportPropertyChanging("AbiturientId");
-                    _AbiturientId = StructuralObject.SetValidValue(value);
+                    _AbiturientId = StructuralObject.SetValidValue(value, "AbiturientId");
                     ReportPropertyChanged("AbiturientId");
                     OnAbiturientIdChanged();
                 }
@@ -31132,7 +31327,7 @@ namespace PriemLib
                 {
                     OnExcludedChanging(value);
                     ReportPropertyChanging("Excluded");
-                    _Excluded = StructuralObject.SetValidValue(value);
+                    _Excluded = StructuralObject.SetValidValue(value, "Excluded");
                     ReportPropertyChanged("Excluded");
                     OnExcludedChanged();
                 }
@@ -31157,7 +31352,7 @@ namespace PriemLib
             {
                 OnExcludeProtocolIdChanging(value);
                 ReportPropertyChanging("ExcludeProtocolId");
-                _ExcludeProtocolId = StructuralObject.SetValidValue(value);
+                _ExcludeProtocolId = StructuralObject.SetValidValue(value, "ExcludeProtocolId");
                 ReportPropertyChanged("ExcludeProtocolId");
                 OnExcludeProtocolIdChanged();
             }
@@ -31181,7 +31376,7 @@ namespace PriemLib
             {
                 OnEntryHeaderIdChanging(value);
                 ReportPropertyChanging("EntryHeaderId");
-                _EntryHeaderId = StructuralObject.SetValidValue(value);
+                _EntryHeaderId = StructuralObject.SetValidValue(value, "EntryHeaderId");
                 ReportPropertyChanged("EntryHeaderId");
                 OnEntryHeaderIdChanged();
             }
@@ -31205,7 +31400,7 @@ namespace PriemLib
             {
                 OnStudyLevelGroupIdChanging(value);
                 ReportPropertyChanging("StudyLevelGroupId");
-                _StudyLevelGroupId = StructuralObject.SetValidValue(value);
+                _StudyLevelGroupId = StructuralObject.SetValidValue(value, "StudyLevelGroupId");
                 ReportPropertyChanged("StudyLevelGroupId");
                 OnStudyLevelGroupIdChanged();
             }
@@ -31229,7 +31424,7 @@ namespace PriemLib
             {
                 OnLicenseProgramIdChanging(value);
                 ReportPropertyChanging("LicenseProgramId");
-                _LicenseProgramId = StructuralObject.SetValidValue(value);
+                _LicenseProgramId = StructuralObject.SetValidValue(value, "LicenseProgramId");
                 ReportPropertyChanged("LicenseProgramId");
                 OnLicenseProgramIdChanged();
             }
@@ -31253,7 +31448,7 @@ namespace PriemLib
             {
                 OnFacultyIdChanging(value);
                 ReportPropertyChanging("FacultyId");
-                _FacultyId = StructuralObject.SetValidValue(value);
+                _FacultyId = StructuralObject.SetValidValue(value, "FacultyId");
                 ReportPropertyChanged("FacultyId");
                 OnFacultyIdChanged();
             }
@@ -31277,7 +31472,7 @@ namespace PriemLib
             {
                 OnStudyFormIdChanging(value);
                 ReportPropertyChanging("StudyFormId");
-                _StudyFormId = StructuralObject.SetValidValue(value);
+                _StudyFormId = StructuralObject.SetValidValue(value, "StudyFormId");
                 ReportPropertyChanged("StudyFormId");
                 OnStudyFormIdChanged();
             }
@@ -31301,7 +31496,7 @@ namespace PriemLib
             {
                 OnStudyBasisIdChanging(value);
                 ReportPropertyChanging("StudyBasisId");
-                _StudyBasisId = StructuralObject.SetValidValue(value);
+                _StudyBasisId = StructuralObject.SetValidValue(value, "StudyBasisId");
                 ReportPropertyChanged("StudyBasisId");
                 OnStudyBasisIdChanged();
             }
@@ -31325,7 +31520,7 @@ namespace PriemLib
             {
                 OnNumberChanging(value);
                 ReportPropertyChanging("Number");
-                _Number = StructuralObject.SetValidValue(value, true);
+                _Number = StructuralObject.SetValidValue(value, true, "Number");
                 ReportPropertyChanged("Number");
                 OnNumberChanged();
             }
@@ -31349,7 +31544,7 @@ namespace PriemLib
             {
                 OnDateChanging(value);
                 ReportPropertyChanging("Date");
-                _Date = StructuralObject.SetValidValue(value);
+                _Date = StructuralObject.SetValidValue(value, "Date");
                 ReportPropertyChanged("Date");
                 OnDateChanged();
             }
@@ -31373,7 +31568,7 @@ namespace PriemLib
             {
                 OnProtocolTypeIdChanging(value);
                 ReportPropertyChanging("ProtocolTypeId");
-                _ProtocolTypeId = StructuralObject.SetValidValue(value);
+                _ProtocolTypeId = StructuralObject.SetValidValue(value, "ProtocolTypeId");
                 ReportPropertyChanged("ProtocolTypeId");
                 OnProtocolTypeIdChanged();
             }
@@ -31397,7 +31592,7 @@ namespace PriemLib
             {
                 OnReasonChanging(value);
                 ReportPropertyChanging("Reason");
-                _Reason = StructuralObject.SetValidValue(value, true);
+                _Reason = StructuralObject.SetValidValue(value, true, "Reason");
                 ReportPropertyChanged("Reason");
                 OnReasonChanged();
             }
@@ -31423,7 +31618,7 @@ namespace PriemLib
                 {
                     OnIsOldChanging(value);
                     ReportPropertyChanging("IsOld");
-                    _IsOld = StructuralObject.SetValidValue(value);
+                    _IsOld = StructuralObject.SetValidValue(value, "IsOld");
                     ReportPropertyChanged("IsOld");
                     OnIsOldChanged();
                 }
@@ -31448,7 +31643,7 @@ namespace PriemLib
             {
                 OnParentProtocolIdChanging(value);
                 ReportPropertyChanging("ParentProtocolId");
-                _ParentProtocolId = StructuralObject.SetValidValue(value);
+                _ParentProtocolId = StructuralObject.SetValidValue(value, "ParentProtocolId");
                 ReportPropertyChanged("ParentProtocolId");
                 OnParentProtocolIdChanged();
             }
@@ -31472,7 +31667,7 @@ namespace PriemLib
             {
                 OnIsSecondChanging(value);
                 ReportPropertyChanging("IsSecond");
-                _IsSecond = StructuralObject.SetValidValue(value);
+                _IsSecond = StructuralObject.SetValidValue(value, "IsSecond");
                 ReportPropertyChanged("IsSecond");
                 OnIsSecondChanged();
             }
@@ -31496,7 +31691,7 @@ namespace PriemLib
             {
                 OnIsListenerChanging(value);
                 ReportPropertyChanging("IsListener");
-                _IsListener = StructuralObject.SetValidValue(value);
+                _IsListener = StructuralObject.SetValidValue(value, "IsListener");
                 ReportPropertyChanged("IsListener");
                 OnIsListenerChanged();
             }
@@ -31520,7 +31715,7 @@ namespace PriemLib
             {
                 OnIsParallelChanging(value);
                 ReportPropertyChanging("IsParallel");
-                _IsParallel = StructuralObject.SetValidValue(value);
+                _IsParallel = StructuralObject.SetValidValue(value, "IsParallel");
                 ReportPropertyChanged("IsParallel");
                 OnIsParallelChanged();
             }
@@ -31544,7 +31739,7 @@ namespace PriemLib
             {
                 OnIsReducedChanging(value);
                 ReportPropertyChanging("IsReduced");
-                _IsReduced = StructuralObject.SetValidValue(value);
+                _IsReduced = StructuralObject.SetValidValue(value, "IsReduced");
                 ReportPropertyChanged("IsReduced");
                 OnIsReducedChanged();
             }
@@ -31555,7 +31750,6 @@ namespace PriemLib
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -31617,7 +31811,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -31636,7 +31830,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -31663,7 +31857,7 @@ namespace PriemLib
                 {
                     OnAbiturientIdChanging(value);
                     ReportPropertyChanging("AbiturientId");
-                    _AbiturientId = StructuralObject.SetValidValue(value);
+                    _AbiturientId = StructuralObject.SetValidValue(value, "AbiturientId");
                     ReportPropertyChanged("AbiturientId");
                     OnAbiturientIdChanged();
                 }
@@ -31690,7 +31884,7 @@ namespace PriemLib
                 {
                     OnExcludedChanging(value);
                     ReportPropertyChanging("Excluded");
-                    _Excluded = StructuralObject.SetValidValue(value);
+                    _Excluded = StructuralObject.SetValidValue(value, "Excluded");
                     ReportPropertyChanged("Excluded");
                     OnExcludedChanged();
                 }
@@ -31715,7 +31909,7 @@ namespace PriemLib
             {
                 OnExcludeProtocolIdChanging(value);
                 ReportPropertyChanging("ExcludeProtocolId");
-                _ExcludeProtocolId = StructuralObject.SetValidValue(value);
+                _ExcludeProtocolId = StructuralObject.SetValidValue(value, "ExcludeProtocolId");
                 ReportPropertyChanged("ExcludeProtocolId");
                 OnExcludeProtocolIdChanged();
             }
@@ -31739,7 +31933,7 @@ namespace PriemLib
             {
                 OnEntryHeaderIdChanging(value);
                 ReportPropertyChanging("EntryHeaderId");
-                _EntryHeaderId = StructuralObject.SetValidValue(value);
+                _EntryHeaderId = StructuralObject.SetValidValue(value, "EntryHeaderId");
                 ReportPropertyChanged("EntryHeaderId");
                 OnEntryHeaderIdChanged();
             }
@@ -31763,7 +31957,7 @@ namespace PriemLib
             {
                 OnStudyLevelGroupIdChanging(value);
                 ReportPropertyChanging("StudyLevelGroupId");
-                _StudyLevelGroupId = StructuralObject.SetValidValue(value);
+                _StudyLevelGroupId = StructuralObject.SetValidValue(value, "StudyLevelGroupId");
                 ReportPropertyChanged("StudyLevelGroupId");
                 OnStudyLevelGroupIdChanged();
             }
@@ -31787,7 +31981,7 @@ namespace PriemLib
             {
                 OnLicenseProgramIdChanging(value);
                 ReportPropertyChanging("LicenseProgramId");
-                _LicenseProgramId = StructuralObject.SetValidValue(value);
+                _LicenseProgramId = StructuralObject.SetValidValue(value, "LicenseProgramId");
                 ReportPropertyChanged("LicenseProgramId");
                 OnLicenseProgramIdChanged();
             }
@@ -31811,7 +32005,7 @@ namespace PriemLib
             {
                 OnFacultyIdChanging(value);
                 ReportPropertyChanging("FacultyId");
-                _FacultyId = StructuralObject.SetValidValue(value);
+                _FacultyId = StructuralObject.SetValidValue(value, "FacultyId");
                 ReportPropertyChanged("FacultyId");
                 OnFacultyIdChanged();
             }
@@ -31835,7 +32029,7 @@ namespace PriemLib
             {
                 OnStudyFormIdChanging(value);
                 ReportPropertyChanging("StudyFormId");
-                _StudyFormId = StructuralObject.SetValidValue(value);
+                _StudyFormId = StructuralObject.SetValidValue(value, "StudyFormId");
                 ReportPropertyChanged("StudyFormId");
                 OnStudyFormIdChanged();
             }
@@ -31859,7 +32053,7 @@ namespace PriemLib
             {
                 OnStudyBasisIdChanging(value);
                 ReportPropertyChanging("StudyBasisId");
-                _StudyBasisId = StructuralObject.SetValidValue(value);
+                _StudyBasisId = StructuralObject.SetValidValue(value, "StudyBasisId");
                 ReportPropertyChanged("StudyBasisId");
                 OnStudyBasisIdChanged();
             }
@@ -31883,7 +32077,7 @@ namespace PriemLib
             {
                 OnNumberChanging(value);
                 ReportPropertyChanging("Number");
-                _Number = StructuralObject.SetValidValue(value, true);
+                _Number = StructuralObject.SetValidValue(value, true, "Number");
                 ReportPropertyChanged("Number");
                 OnNumberChanged();
             }
@@ -31907,7 +32101,7 @@ namespace PriemLib
             {
                 OnDateChanging(value);
                 ReportPropertyChanging("Date");
-                _Date = StructuralObject.SetValidValue(value);
+                _Date = StructuralObject.SetValidValue(value, "Date");
                 ReportPropertyChanged("Date");
                 OnDateChanged();
             }
@@ -31931,7 +32125,7 @@ namespace PriemLib
             {
                 OnProtocolTypeIdChanging(value);
                 ReportPropertyChanging("ProtocolTypeId");
-                _ProtocolTypeId = StructuralObject.SetValidValue(value);
+                _ProtocolTypeId = StructuralObject.SetValidValue(value, "ProtocolTypeId");
                 ReportPropertyChanged("ProtocolTypeId");
                 OnProtocolTypeIdChanged();
             }
@@ -31955,7 +32149,7 @@ namespace PriemLib
             {
                 OnReasonChanging(value);
                 ReportPropertyChanging("Reason");
-                _Reason = StructuralObject.SetValidValue(value, true);
+                _Reason = StructuralObject.SetValidValue(value, true, "Reason");
                 ReportPropertyChanged("Reason");
                 OnReasonChanged();
             }
@@ -31981,7 +32175,7 @@ namespace PriemLib
                 {
                     OnIsOldChanging(value);
                     ReportPropertyChanging("IsOld");
-                    _IsOld = StructuralObject.SetValidValue(value);
+                    _IsOld = StructuralObject.SetValidValue(value, "IsOld");
                     ReportPropertyChanged("IsOld");
                     OnIsOldChanged();
                 }
@@ -32006,7 +32200,7 @@ namespace PriemLib
             {
                 OnParentProtocolIdChanging(value);
                 ReportPropertyChanging("ParentProtocolId");
-                _ParentProtocolId = StructuralObject.SetValidValue(value);
+                _ParentProtocolId = StructuralObject.SetValidValue(value, "ParentProtocolId");
                 ReportPropertyChanged("ParentProtocolId");
                 OnParentProtocolIdChanged();
             }
@@ -32030,7 +32224,7 @@ namespace PriemLib
             {
                 OnIsSecondChanging(value);
                 ReportPropertyChanging("IsSecond");
-                _IsSecond = StructuralObject.SetValidValue(value);
+                _IsSecond = StructuralObject.SetValidValue(value, "IsSecond");
                 ReportPropertyChanged("IsSecond");
                 OnIsSecondChanged();
             }
@@ -32054,7 +32248,7 @@ namespace PriemLib
             {
                 OnIsListenerChanging(value);
                 ReportPropertyChanging("IsListener");
-                _IsListener = StructuralObject.SetValidValue(value);
+                _IsListener = StructuralObject.SetValidValue(value, "IsListener");
                 ReportPropertyChanged("IsListener");
                 OnIsListenerChanged();
             }
@@ -32080,7 +32274,7 @@ namespace PriemLib
                 {
                     OnProtocolTypeNameChanging(value);
                     ReportPropertyChanging("ProtocolTypeName");
-                    _ProtocolTypeName = StructuralObject.SetValidValue(value, false);
+                    _ProtocolTypeName = StructuralObject.SetValidValue(value, false, "ProtocolTypeName");
                     ReportPropertyChanged("ProtocolTypeName");
                     OnProtocolTypeNameChanged();
                 }
@@ -32105,7 +32299,7 @@ namespace PriemLib
             {
                 OnIsParallelChanging(value);
                 ReportPropertyChanging("IsParallel");
-                _IsParallel = StructuralObject.SetValidValue(value);
+                _IsParallel = StructuralObject.SetValidValue(value, "IsParallel");
                 ReportPropertyChanged("IsParallel");
                 OnIsParallelChanged();
             }
@@ -32129,7 +32323,7 @@ namespace PriemLib
             {
                 OnIsReducedChanging(value);
                 ReportPropertyChanging("IsReduced");
-                _IsReduced = StructuralObject.SetValidValue(value);
+                _IsReduced = StructuralObject.SetValidValue(value, "IsReduced");
                 ReportPropertyChanged("IsReduced");
                 OnIsReducedChanged();
             }
@@ -32153,7 +32347,7 @@ namespace PriemLib
             {
                 OnOrderDateChanging(value);
                 ReportPropertyChanging("OrderDate");
-                _OrderDate = StructuralObject.SetValidValue(value);
+                _OrderDate = StructuralObject.SetValidValue(value, "OrderDate");
                 ReportPropertyChanged("OrderDate");
                 OnOrderDateChanged();
             }
@@ -32177,7 +32371,7 @@ namespace PriemLib
             {
                 OnOrderNumChanging(value);
                 ReportPropertyChanging("OrderNum");
-                _OrderNum = StructuralObject.SetValidValue(value, true);
+                _OrderNum = StructuralObject.SetValidValue(value, true, "OrderNum");
                 ReportPropertyChanged("OrderNum");
                 OnOrderNumChanged();
             }
@@ -32201,7 +32395,7 @@ namespace PriemLib
             {
                 OnOrderNumForChanging(value);
                 ReportPropertyChanging("OrderNumFor");
-                _OrderNumFor = StructuralObject.SetValidValue(value, true);
+                _OrderNumFor = StructuralObject.SetValidValue(value, true, "OrderNumFor");
                 ReportPropertyChanged("OrderNumFor");
                 OnOrderNumForChanged();
             }
@@ -32225,7 +32419,7 @@ namespace PriemLib
             {
                 OnOrderDateForChanging(value);
                 ReportPropertyChanging("OrderDateFor");
-                _OrderDateFor = StructuralObject.SetValidValue(value);
+                _OrderDateFor = StructuralObject.SetValidValue(value, "OrderDateFor");
                 ReportPropertyChanged("OrderDateFor");
                 OnOrderDateForChanged();
             }
@@ -32249,7 +32443,7 @@ namespace PriemLib
             {
                 OnSignerNameChanging(value);
                 ReportPropertyChanging("SignerName");
-                _SignerName = StructuralObject.SetValidValue(value, true);
+                _SignerName = StructuralObject.SetValidValue(value, true, "SignerName");
                 ReportPropertyChanged("SignerName");
                 OnSignerNameChanged();
             }
@@ -32273,7 +32467,7 @@ namespace PriemLib
             {
                 OnSignerPositionChanging(value);
                 ReportPropertyChanging("SignerPosition");
-                _SignerPosition = StructuralObject.SetValidValue(value, true);
+                _SignerPosition = StructuralObject.SetValidValue(value, true, "SignerPosition");
                 ReportPropertyChanged("SignerPosition");
                 OnSignerPositionChanged();
             }
@@ -32299,7 +32493,7 @@ namespace PriemLib
                 {
                     OnEntryIdChanging(value);
                     ReportPropertyChanging("EntryId");
-                    _EntryId = StructuralObject.SetValidValue(value);
+                    _EntryId = StructuralObject.SetValidValue(value, "EntryId");
                     ReportPropertyChanged("EntryId");
                     OnEntryIdChanged();
                 }
@@ -32326,7 +32520,7 @@ namespace PriemLib
                 {
                     OnProtocolHistoryIdChanging(value);
                     ReportPropertyChanging("ProtocolHistoryId");
-                    _ProtocolHistoryId = StructuralObject.SetValidValue(value);
+                    _ProtocolHistoryId = StructuralObject.SetValidValue(value, "ProtocolHistoryId");
                     ReportPropertyChanged("ProtocolHistoryId");
                     OnProtocolHistoryIdChanged();
                 }
@@ -32353,7 +32547,7 @@ namespace PriemLib
                 {
                     OnPersonIdChanging(value);
                     ReportPropertyChanging("PersonId");
-                    _PersonId = StructuralObject.SetValidValue(value);
+                    _PersonId = StructuralObject.SetValidValue(value, "PersonId");
                     ReportPropertyChanged("PersonId");
                     OnPersonIdChanged();
                 }
@@ -32380,7 +32574,7 @@ namespace PriemLib
                 {
                     OnIsCrimeaChanging(value);
                     ReportPropertyChanging("IsCrimea");
-                    _IsCrimea = StructuralObject.SetValidValue(value);
+                    _IsCrimea = StructuralObject.SetValidValue(value, "IsCrimea");
                     ReportPropertyChanged("IsCrimea");
                     OnIsCrimeaChanged();
                 }
@@ -32407,7 +32601,7 @@ namespace PriemLib
                 {
                     OnIsQuotaChanging(value);
                     ReportPropertyChanging("IsQuota");
-                    _IsQuota = StructuralObject.SetValidValue(value);
+                    _IsQuota = StructuralObject.SetValidValue(value, "IsQuota");
                     ReportPropertyChanged("IsQuota");
                     OnIsQuotaChanged();
                 }
@@ -32434,7 +32628,7 @@ namespace PriemLib
                 {
                     OnIsCelChanging(value);
                     ReportPropertyChanging("IsCel");
-                    _IsCel = StructuralObject.SetValidValue(value);
+                    _IsCel = StructuralObject.SetValidValue(value, "IsCel");
                     ReportPropertyChanged("IsCel");
                     OnIsCelChanged();
                 }
@@ -32461,7 +32655,7 @@ namespace PriemLib
                 {
                     OnIsBEChanging(value);
                     ReportPropertyChanging("IsBE");
-                    _IsBE = StructuralObject.SetValidValue(value);
+                    _IsBE = StructuralObject.SetValidValue(value, "IsBE");
                     ReportPropertyChanged("IsBE");
                     OnIsBEChanged();
                 }
@@ -32473,7 +32667,6 @@ namespace PriemLib
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -32521,7 +32714,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -32540,7 +32733,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -32567,7 +32760,7 @@ namespace PriemLib
                 {
                     OnAbiturientIdChanging(value);
                     ReportPropertyChanging("AbiturientId");
-                    _AbiturientId = StructuralObject.SetValidValue(value);
+                    _AbiturientId = StructuralObject.SetValidValue(value, "AbiturientId");
                     ReportPropertyChanged("AbiturientId");
                     OnAbiturientIdChanged();
                 }
@@ -32594,7 +32787,7 @@ namespace PriemLib
                 {
                     OnExcludedChanging(value);
                     ReportPropertyChanging("Excluded");
-                    _Excluded = StructuralObject.SetValidValue(value);
+                    _Excluded = StructuralObject.SetValidValue(value, "Excluded");
                     ReportPropertyChanged("Excluded");
                     OnExcludedChanged();
                 }
@@ -32619,7 +32812,7 @@ namespace PriemLib
             {
                 OnExcludeProtocolIdChanging(value);
                 ReportPropertyChanging("ExcludeProtocolId");
-                _ExcludeProtocolId = StructuralObject.SetValidValue(value);
+                _ExcludeProtocolId = StructuralObject.SetValidValue(value, "ExcludeProtocolId");
                 ReportPropertyChanged("ExcludeProtocolId");
                 OnExcludeProtocolIdChanged();
             }
@@ -32643,7 +32836,7 @@ namespace PriemLib
             {
                 OnEntryHeaderIdChanging(value);
                 ReportPropertyChanging("EntryHeaderId");
-                _EntryHeaderId = StructuralObject.SetValidValue(value);
+                _EntryHeaderId = StructuralObject.SetValidValue(value, "EntryHeaderId");
                 ReportPropertyChanged("EntryHeaderId");
                 OnEntryHeaderIdChanged();
             }
@@ -32667,7 +32860,7 @@ namespace PriemLib
             {
                 OnStudyLevelGroupIdChanging(value);
                 ReportPropertyChanging("StudyLevelGroupId");
-                _StudyLevelGroupId = StructuralObject.SetValidValue(value);
+                _StudyLevelGroupId = StructuralObject.SetValidValue(value, "StudyLevelGroupId");
                 ReportPropertyChanged("StudyLevelGroupId");
                 OnStudyLevelGroupIdChanged();
             }
@@ -32691,7 +32884,7 @@ namespace PriemLib
             {
                 OnLicenseProgramIdChanging(value);
                 ReportPropertyChanging("LicenseProgramId");
-                _LicenseProgramId = StructuralObject.SetValidValue(value);
+                _LicenseProgramId = StructuralObject.SetValidValue(value, "LicenseProgramId");
                 ReportPropertyChanged("LicenseProgramId");
                 OnLicenseProgramIdChanged();
             }
@@ -32715,7 +32908,7 @@ namespace PriemLib
             {
                 OnFacultyIdChanging(value);
                 ReportPropertyChanging("FacultyId");
-                _FacultyId = StructuralObject.SetValidValue(value);
+                _FacultyId = StructuralObject.SetValidValue(value, "FacultyId");
                 ReportPropertyChanged("FacultyId");
                 OnFacultyIdChanged();
             }
@@ -32739,7 +32932,7 @@ namespace PriemLib
             {
                 OnStudyFormIdChanging(value);
                 ReportPropertyChanging("StudyFormId");
-                _StudyFormId = StructuralObject.SetValidValue(value);
+                _StudyFormId = StructuralObject.SetValidValue(value, "StudyFormId");
                 ReportPropertyChanged("StudyFormId");
                 OnStudyFormIdChanged();
             }
@@ -32763,7 +32956,7 @@ namespace PriemLib
             {
                 OnStudyBasisIdChanging(value);
                 ReportPropertyChanging("StudyBasisId");
-                _StudyBasisId = StructuralObject.SetValidValue(value);
+                _StudyBasisId = StructuralObject.SetValidValue(value, "StudyBasisId");
                 ReportPropertyChanged("StudyBasisId");
                 OnStudyBasisIdChanged();
             }
@@ -32787,7 +32980,7 @@ namespace PriemLib
             {
                 OnNumberChanging(value);
                 ReportPropertyChanging("Number");
-                _Number = StructuralObject.SetValidValue(value, true);
+                _Number = StructuralObject.SetValidValue(value, true, "Number");
                 ReportPropertyChanged("Number");
                 OnNumberChanged();
             }
@@ -32811,7 +33004,7 @@ namespace PriemLib
             {
                 OnDateChanging(value);
                 ReportPropertyChanging("Date");
-                _Date = StructuralObject.SetValidValue(value);
+                _Date = StructuralObject.SetValidValue(value, "Date");
                 ReportPropertyChanged("Date");
                 OnDateChanged();
             }
@@ -32835,7 +33028,7 @@ namespace PriemLib
             {
                 OnProtocolTypeIdChanging(value);
                 ReportPropertyChanging("ProtocolTypeId");
-                _ProtocolTypeId = StructuralObject.SetValidValue(value);
+                _ProtocolTypeId = StructuralObject.SetValidValue(value, "ProtocolTypeId");
                 ReportPropertyChanged("ProtocolTypeId");
                 OnProtocolTypeIdChanged();
             }
@@ -32859,7 +33052,7 @@ namespace PriemLib
             {
                 OnReasonChanging(value);
                 ReportPropertyChanging("Reason");
-                _Reason = StructuralObject.SetValidValue(value, true);
+                _Reason = StructuralObject.SetValidValue(value, true, "Reason");
                 ReportPropertyChanged("Reason");
                 OnReasonChanged();
             }
@@ -32885,7 +33078,7 @@ namespace PriemLib
                 {
                     OnIsOldChanging(value);
                     ReportPropertyChanging("IsOld");
-                    _IsOld = StructuralObject.SetValidValue(value);
+                    _IsOld = StructuralObject.SetValidValue(value, "IsOld");
                     ReportPropertyChanged("IsOld");
                     OnIsOldChanged();
                 }
@@ -32910,7 +33103,7 @@ namespace PriemLib
             {
                 OnParentProtocolIdChanging(value);
                 ReportPropertyChanging("ParentProtocolId");
-                _ParentProtocolId = StructuralObject.SetValidValue(value);
+                _ParentProtocolId = StructuralObject.SetValidValue(value, "ParentProtocolId");
                 ReportPropertyChanged("ParentProtocolId");
                 OnParentProtocolIdChanged();
             }
@@ -32934,7 +33127,7 @@ namespace PriemLib
             {
                 OnIsSecondChanging(value);
                 ReportPropertyChanging("IsSecond");
-                _IsSecond = StructuralObject.SetValidValue(value);
+                _IsSecond = StructuralObject.SetValidValue(value, "IsSecond");
                 ReportPropertyChanged("IsSecond");
                 OnIsSecondChanged();
             }
@@ -32958,7 +33151,7 @@ namespace PriemLib
             {
                 OnIsListenerChanging(value);
                 ReportPropertyChanging("IsListener");
-                _IsListener = StructuralObject.SetValidValue(value);
+                _IsListener = StructuralObject.SetValidValue(value, "IsListener");
                 ReportPropertyChanged("IsListener");
                 OnIsListenerChanged();
             }
@@ -32984,7 +33177,7 @@ namespace PriemLib
                 {
                     OnProtocolTypeNameChanging(value);
                     ReportPropertyChanging("ProtocolTypeName");
-                    _ProtocolTypeName = StructuralObject.SetValidValue(value, false);
+                    _ProtocolTypeName = StructuralObject.SetValidValue(value, false, "ProtocolTypeName");
                     ReportPropertyChanged("ProtocolTypeName");
                     OnProtocolTypeNameChanged();
                 }
@@ -33009,7 +33202,7 @@ namespace PriemLib
             {
                 OnIsParallelChanging(value);
                 ReportPropertyChanging("IsParallel");
-                _IsParallel = StructuralObject.SetValidValue(value);
+                _IsParallel = StructuralObject.SetValidValue(value, "IsParallel");
                 ReportPropertyChanged("IsParallel");
                 OnIsParallelChanged();
             }
@@ -33033,7 +33226,7 @@ namespace PriemLib
             {
                 OnIsReducedChanging(value);
                 ReportPropertyChanging("IsReduced");
-                _IsReduced = StructuralObject.SetValidValue(value);
+                _IsReduced = StructuralObject.SetValidValue(value, "IsReduced");
                 ReportPropertyChanged("IsReduced");
                 OnIsReducedChanged();
             }
@@ -33057,7 +33250,7 @@ namespace PriemLib
             {
                 OnOrderDateChanging(value);
                 ReportPropertyChanging("OrderDate");
-                _OrderDate = StructuralObject.SetValidValue(value);
+                _OrderDate = StructuralObject.SetValidValue(value, "OrderDate");
                 ReportPropertyChanged("OrderDate");
                 OnOrderDateChanged();
             }
@@ -33081,7 +33274,7 @@ namespace PriemLib
             {
                 OnOrderNumChanging(value);
                 ReportPropertyChanging("OrderNum");
-                _OrderNum = StructuralObject.SetValidValue(value, true);
+                _OrderNum = StructuralObject.SetValidValue(value, true, "OrderNum");
                 ReportPropertyChanged("OrderNum");
                 OnOrderNumChanged();
             }
@@ -33105,7 +33298,7 @@ namespace PriemLib
             {
                 OnOrderNumForChanging(value);
                 ReportPropertyChanging("OrderNumFor");
-                _OrderNumFor = StructuralObject.SetValidValue(value, true);
+                _OrderNumFor = StructuralObject.SetValidValue(value, true, "OrderNumFor");
                 ReportPropertyChanged("OrderNumFor");
                 OnOrderNumForChanged();
             }
@@ -33129,7 +33322,7 @@ namespace PriemLib
             {
                 OnOrderDateForChanging(value);
                 ReportPropertyChanging("OrderDateFor");
-                _OrderDateFor = StructuralObject.SetValidValue(value);
+                _OrderDateFor = StructuralObject.SetValidValue(value, "OrderDateFor");
                 ReportPropertyChanged("OrderDateFor");
                 OnOrderDateForChanged();
             }
@@ -33153,7 +33346,7 @@ namespace PriemLib
             {
                 OnSignerNameChanging(value);
                 ReportPropertyChanging("SignerName");
-                _SignerName = StructuralObject.SetValidValue(value, true);
+                _SignerName = StructuralObject.SetValidValue(value, true, "SignerName");
                 ReportPropertyChanged("SignerName");
                 OnSignerNameChanged();
             }
@@ -33177,7 +33370,7 @@ namespace PriemLib
             {
                 OnSignerPositionChanging(value);
                 ReportPropertyChanging("SignerPosition");
-                _SignerPosition = StructuralObject.SetValidValue(value, true);
+                _SignerPosition = StructuralObject.SetValidValue(value, true, "SignerPosition");
                 ReportPropertyChanged("SignerPosition");
                 OnSignerPositionChanged();
             }
@@ -33188,7 +33381,6 @@ namespace PriemLib
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -33246,7 +33438,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -33265,7 +33457,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -33292,7 +33484,7 @@ namespace PriemLib
                 {
                     OnEntryIdChanging(value);
                     ReportPropertyChanging("EntryId");
-                    _EntryId = StructuralObject.SetValidValue(value);
+                    _EntryId = StructuralObject.SetValidValue(value, "EntryId");
                     ReportPropertyChanged("EntryId");
                     OnEntryIdChanged();
                 }
@@ -33317,7 +33509,7 @@ namespace PriemLib
             {
                 OnExamIdChanging(value);
                 ReportPropertyChanging("ExamId");
-                _ExamId = StructuralObject.SetValidValue(value);
+                _ExamId = StructuralObject.SetValidValue(value, "ExamId");
                 ReportPropertyChanged("ExamId");
                 OnExamIdChanged();
             }
@@ -33343,7 +33535,7 @@ namespace PriemLib
                 {
                     OnIsProfilChanging(value);
                     ReportPropertyChanging("IsProfil");
-                    _IsProfil = StructuralObject.SetValidValue(value);
+                    _IsProfil = StructuralObject.SetValidValue(value, "IsProfil");
                     ReportPropertyChanged("IsProfil");
                     OnIsProfilChanged();
                 }
@@ -33368,7 +33560,7 @@ namespace PriemLib
             {
                 OnEgeMinChanging(value);
                 ReportPropertyChanging("EgeMin");
-                _EgeMin = StructuralObject.SetValidValue(value);
+                _EgeMin = StructuralObject.SetValidValue(value, "EgeMin");
                 ReportPropertyChanged("EgeMin");
                 OnEgeMinChanged();
             }
@@ -33394,7 +33586,7 @@ namespace PriemLib
                 {
                     OnExamNameIdChanging(value);
                     ReportPropertyChanging("ExamNameId");
-                    _ExamNameId = StructuralObject.SetValidValue(value);
+                    _ExamNameId = StructuralObject.SetValidValue(value, "ExamNameId");
                     ReportPropertyChanged("ExamNameId");
                     OnExamNameIdChanged();
                 }
@@ -33421,7 +33613,7 @@ namespace PriemLib
                 {
                     OnIsAdditionalChanging(value);
                     ReportPropertyChanging("IsAdditional");
-                    _IsAdditional = StructuralObject.SetValidValue(value);
+                    _IsAdditional = StructuralObject.SetValidValue(value, "IsAdditional");
                     ReportPropertyChanged("IsAdditional");
                     OnIsAdditionalChanged();
                 }
@@ -33446,7 +33638,7 @@ namespace PriemLib
             {
                 OnExamNameChanging(value);
                 ReportPropertyChanging("ExamName");
-                _ExamName = StructuralObject.SetValidValue(value, true);
+                _ExamName = StructuralObject.SetValidValue(value, true, "ExamName");
                 ReportPropertyChanged("ExamName");
                 OnExamNameChanged();
             }
@@ -33472,7 +33664,7 @@ namespace PriemLib
                 {
                     OnFacultyIdChanging(value);
                     ReportPropertyChanging("FacultyId");
-                    _FacultyId = StructuralObject.SetValidValue(value);
+                    _FacultyId = StructuralObject.SetValidValue(value, "FacultyId");
                     ReportPropertyChanged("FacultyId");
                     OnFacultyIdChanged();
                 }
@@ -33499,7 +33691,7 @@ namespace PriemLib
                 {
                     OnLicenseProgramIdChanging(value);
                     ReportPropertyChanging("LicenseProgramId");
-                    _LicenseProgramId = StructuralObject.SetValidValue(value);
+                    _LicenseProgramId = StructuralObject.SetValidValue(value, "LicenseProgramId");
                     ReportPropertyChanged("LicenseProgramId");
                     OnLicenseProgramIdChanged();
                 }
@@ -33526,7 +33718,7 @@ namespace PriemLib
                 {
                     OnObrazProgramIdChanging(value);
                     ReportPropertyChanging("ObrazProgramId");
-                    _ObrazProgramId = StructuralObject.SetValidValue(value);
+                    _ObrazProgramId = StructuralObject.SetValidValue(value, "ObrazProgramId");
                     ReportPropertyChanged("ObrazProgramId");
                     OnObrazProgramIdChanged();
                 }
@@ -33551,7 +33743,7 @@ namespace PriemLib
             {
                 OnProfileIdChanging(value);
                 ReportPropertyChanging("ProfileId");
-                _ProfileId = StructuralObject.SetValidValue(value);
+                _ProfileId = StructuralObject.SetValidValue(value, "ProfileId");
                 ReportPropertyChanged("ProfileId");
                 OnProfileIdChanged();
             }
@@ -33577,7 +33769,7 @@ namespace PriemLib
                 {
                     OnStudyBasisIdChanging(value);
                     ReportPropertyChanging("StudyBasisId");
-                    _StudyBasisId = StructuralObject.SetValidValue(value);
+                    _StudyBasisId = StructuralObject.SetValidValue(value, "StudyBasisId");
                     ReportPropertyChanged("StudyBasisId");
                     OnStudyBasisIdChanged();
                 }
@@ -33604,7 +33796,7 @@ namespace PriemLib
                 {
                     OnStudyFormIdChanging(value);
                     ReportPropertyChanging("StudyFormId");
-                    _StudyFormId = StructuralObject.SetValidValue(value);
+                    _StudyFormId = StructuralObject.SetValidValue(value, "StudyFormId");
                     ReportPropertyChanged("StudyFormId");
                     OnStudyFormIdChanged();
                 }
@@ -33631,7 +33823,7 @@ namespace PriemLib
                 {
                     OnStudyLevelIdChanging(value);
                     ReportPropertyChanging("StudyLevelId");
-                    _StudyLevelId = StructuralObject.SetValidValue(value);
+                    _StudyLevelId = StructuralObject.SetValidValue(value, "StudyLevelId");
                     ReportPropertyChanged("StudyLevelId");
                     OnStudyLevelIdChanged();
                 }
@@ -33658,7 +33850,7 @@ namespace PriemLib
                 {
                     OnStudyLevelGroupIdChanging(value);
                     ReportPropertyChanging("StudyLevelGroupId");
-                    _StudyLevelGroupId = StructuralObject.SetValidValue(value);
+                    _StudyLevelGroupId = StructuralObject.SetValidValue(value, "StudyLevelGroupId");
                     ReportPropertyChanged("StudyLevelGroupId");
                     OnStudyLevelGroupIdChanged();
                 }
@@ -33683,7 +33875,7 @@ namespace PriemLib
             {
                 OnExamDefNameChanging(value);
                 ReportPropertyChanging("ExamDefName");
-                _ExamDefName = StructuralObject.SetValidValue(value, true);
+                _ExamDefName = StructuralObject.SetValidValue(value, true, "ExamDefName");
                 ReportPropertyChanged("ExamDefName");
                 OnExamDefNameChanged();
             }
@@ -33709,7 +33901,7 @@ namespace PriemLib
                 {
                     OnIsSecondChanging(value);
                     ReportPropertyChanging("IsSecond");
-                    _IsSecond = StructuralObject.SetValidValue(value);
+                    _IsSecond = StructuralObject.SetValidValue(value, "IsSecond");
                     ReportPropertyChanged("IsSecond");
                     OnIsSecondChanged();
                 }
@@ -33736,7 +33928,7 @@ namespace PriemLib
                 {
                     OnIsReducedChanging(value);
                     ReportPropertyChanging("IsReduced");
-                    _IsReduced = StructuralObject.SetValidValue(value);
+                    _IsReduced = StructuralObject.SetValidValue(value, "IsReduced");
                     ReportPropertyChanged("IsReduced");
                     OnIsReducedChanged();
                 }
@@ -33763,7 +33955,7 @@ namespace PriemLib
                 {
                     OnIsParallelChanging(value);
                     ReportPropertyChanging("IsParallel");
-                    _IsParallel = StructuralObject.SetValidValue(value);
+                    _IsParallel = StructuralObject.SetValidValue(value, "IsParallel");
                     ReportPropertyChanged("IsParallel");
                     OnIsParallelChanged();
                 }
@@ -33788,7 +33980,7 @@ namespace PriemLib
             {
                 OnExamInEntryToCompetitiveGroupIdChanging(value);
                 ReportPropertyChanging("ExamInEntryToCompetitiveGroupId");
-                _ExamInEntryToCompetitiveGroupId = StructuralObject.SetValidValue(value);
+                _ExamInEntryToCompetitiveGroupId = StructuralObject.SetValidValue(value, "ExamInEntryToCompetitiveGroupId");
                 ReportPropertyChanged("ExamInEntryToCompetitiveGroupId");
                 OnExamInEntryToCompetitiveGroupIdChanged();
             }
@@ -33812,7 +34004,7 @@ namespace PriemLib
             {
                 OnOrderNumberChanging(value);
                 ReportPropertyChanging("OrderNumber");
-                _OrderNumber = StructuralObject.SetValidValue(value);
+                _OrderNumber = StructuralObject.SetValidValue(value, "OrderNumber");
                 ReportPropertyChanged("OrderNumber");
                 OnOrderNumberChanged();
             }
@@ -33823,7 +34015,6 @@ namespace PriemLib
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -33869,7 +34060,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -33888,7 +34079,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -33915,7 +34106,7 @@ namespace PriemLib
                 {
                     OnNumberChanging(value);
                     ReportPropertyChanging("Number");
-                    _Number = StructuralObject.SetValidValue(value);
+                    _Number = StructuralObject.SetValidValue(value, "Number");
                     ReportPropertyChanged("Number");
                     OnNumberChanged();
                 }
@@ -33942,7 +34133,7 @@ namespace PriemLib
                 {
                     OnStudyLevelGroupIdChanging(value);
                     ReportPropertyChanging("StudyLevelGroupId");
-                    _StudyLevelGroupId = StructuralObject.SetValidValue(value);
+                    _StudyLevelGroupId = StructuralObject.SetValidValue(value, "StudyLevelGroupId");
                     ReportPropertyChanged("StudyLevelGroupId");
                     OnStudyLevelGroupIdChanged();
                 }
@@ -33969,7 +34160,7 @@ namespace PriemLib
                 {
                     OnFacultyIdChanging(value);
                     ReportPropertyChanging("FacultyId");
-                    _FacultyId = StructuralObject.SetValidValue(value);
+                    _FacultyId = StructuralObject.SetValidValue(value, "FacultyId");
                     ReportPropertyChanged("FacultyId");
                     OnFacultyIdChanged();
                 }
@@ -33994,7 +34185,7 @@ namespace PriemLib
             {
                 OnStudyBasisIdChanging(value);
                 ReportPropertyChanging("StudyBasisId");
-                _StudyBasisId = StructuralObject.SetValidValue(value);
+                _StudyBasisId = StructuralObject.SetValidValue(value, "StudyBasisId");
                 ReportPropertyChanged("StudyBasisId");
                 OnStudyBasisIdChanged();
             }
@@ -34020,7 +34211,7 @@ namespace PriemLib
                 {
                     OnDateChanging(value);
                     ReportPropertyChanging("Date");
-                    _Date = StructuralObject.SetValidValue(value);
+                    _Date = StructuralObject.SetValidValue(value, "Date");
                     ReportPropertyChanged("Date");
                     OnDateChanged();
                 }
@@ -34047,7 +34238,7 @@ namespace PriemLib
                 {
                     OnExamIdChanging(value);
                     ReportPropertyChanging("ExamId");
-                    _ExamId = StructuralObject.SetValidValue(value);
+                    _ExamId = StructuralObject.SetValidValue(value, "ExamId");
                     ReportPropertyChanged("ExamId");
                     OnExamIdChanged();
                 }
@@ -34074,7 +34265,7 @@ namespace PriemLib
                 {
                     OnIsLockedChanging(value);
                     ReportPropertyChanging("IsLocked");
-                    _IsLocked = StructuralObject.SetValidValue(value);
+                    _IsLocked = StructuralObject.SetValidValue(value, "IsLocked");
                     ReportPropertyChanged("IsLocked");
                     OnIsLockedChanged();
                 }
@@ -34101,7 +34292,7 @@ namespace PriemLib
                 {
                     OnIsLoadChanging(value);
                     ReportPropertyChanging("IsLoad");
-                    _IsLoad = StructuralObject.SetValidValue(value);
+                    _IsLoad = StructuralObject.SetValidValue(value, "IsLoad");
                     ReportPropertyChanged("IsLoad");
                     OnIsLoadChanged();
                 }
@@ -34128,7 +34319,7 @@ namespace PriemLib
                 {
                     OnIsAddVedChanging(value);
                     ReportPropertyChanging("IsAddVed");
-                    _IsAddVed = StructuralObject.SetValidValue(value);
+                    _IsAddVed = StructuralObject.SetValidValue(value, "IsAddVed");
                     ReportPropertyChanged("IsAddVed");
                     OnIsAddVedChanged();
                 }
@@ -34153,7 +34344,7 @@ namespace PriemLib
             {
                 OnAddCountChanging(value);
                 ReportPropertyChanging("AddCount");
-                _AddCount = StructuralObject.SetValidValue(value);
+                _AddCount = StructuralObject.SetValidValue(value, "AddCount");
                 ReportPropertyChanged("AddCount");
                 OnAddCountChanged();
             }
@@ -34179,7 +34370,7 @@ namespace PriemLib
                 {
                     OnExamNameIdChanging(value);
                     ReportPropertyChanging("ExamNameId");
-                    _ExamNameId = StructuralObject.SetValidValue(value);
+                    _ExamNameId = StructuralObject.SetValidValue(value, "ExamNameId");
                     ReportPropertyChanged("ExamNameId");
                     OnExamNameIdChanged();
                 }
@@ -34206,7 +34397,7 @@ namespace PriemLib
                 {
                     OnIsAdditionalChanging(value);
                     ReportPropertyChanging("IsAdditional");
-                    _IsAdditional = StructuralObject.SetValidValue(value);
+                    _IsAdditional = StructuralObject.SetValidValue(value, "IsAdditional");
                     ReportPropertyChanged("IsAdditional");
                     OnIsAdditionalChanged();
                 }
@@ -34231,7 +34422,7 @@ namespace PriemLib
             {
                 OnExamNameChanging(value);
                 ReportPropertyChanging("ExamName");
-                _ExamName = StructuralObject.SetValidValue(value, true);
+                _ExamName = StructuralObject.SetValidValue(value, true, "ExamName");
                 ReportPropertyChanged("ExamName");
                 OnExamNameChanged();
             }
@@ -34255,7 +34446,7 @@ namespace PriemLib
             {
                 OnExamAcronymChanging(value);
                 ReportPropertyChanging("ExamAcronym");
-                _ExamAcronym = StructuralObject.SetValidValue(value, true);
+                _ExamAcronym = StructuralObject.SetValidValue(value, true, "ExamAcronym");
                 ReportPropertyChanged("ExamAcronym");
                 OnExamAcronymChanged();
             }
@@ -34279,7 +34470,7 @@ namespace PriemLib
             {
                 OnStudyBasisNameChanging(value);
                 ReportPropertyChanging("StudyBasisName");
-                _StudyBasisName = StructuralObject.SetValidValue(value, true);
+                _StudyBasisName = StructuralObject.SetValidValue(value, true, "StudyBasisName");
                 ReportPropertyChanged("StudyBasisName");
                 OnStudyBasisNameChanged();
             }
@@ -34303,7 +34494,7 @@ namespace PriemLib
             {
                 OnStudyBasisAcrChanging(value);
                 ReportPropertyChanging("StudyBasisAcr");
-                _StudyBasisAcr = StructuralObject.SetValidValue(value, true);
+                _StudyBasisAcr = StructuralObject.SetValidValue(value, true, "StudyBasisAcr");
                 ReportPropertyChanged("StudyBasisAcr");
                 OnStudyBasisAcrChanged();
             }
@@ -34327,7 +34518,7 @@ namespace PriemLib
             {
                 OnFacultyNameChanging(value);
                 ReportPropertyChanging("FacultyName");
-                _FacultyName = StructuralObject.SetValidValue(value, true);
+                _FacultyName = StructuralObject.SetValidValue(value, true, "FacultyName");
                 ReportPropertyChanged("FacultyName");
                 OnFacultyNameChanged();
             }
@@ -34338,7 +34529,6 @@ namespace PriemLib
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -34366,7 +34556,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -34385,7 +34575,7 @@ namespace PriemLib
                 {
                     OnFBSStatusChanging(value);
                     ReportPropertyChanging("FBSStatus");
-                    _FBSStatus = StructuralObject.SetValidValue(value, false);
+                    _FBSStatus = StructuralObject.SetValidValue(value, false, "FBSStatus");
                     ReportPropertyChanged("FBSStatus");
                     OnFBSStatusChanged();
                 }
@@ -34410,7 +34600,7 @@ namespace PriemLib
             {
                 OnFBSStatusIdChanging(value);
                 ReportPropertyChanging("FBSStatusId");
-                _FBSStatusId = StructuralObject.SetValidValue(value);
+                _FBSStatusId = StructuralObject.SetValidValue(value, "FBSStatusId");
                 ReportPropertyChanged("FBSStatusId");
                 OnFBSStatusIdChanged();
             }
@@ -34436,7 +34626,7 @@ namespace PriemLib
                 {
                     OnPersonIdChanging(value);
                     ReportPropertyChanging("PersonId");
-                    _PersonId = StructuralObject.SetValidValue(value);
+                    _PersonId = StructuralObject.SetValidValue(value, "PersonId");
                     ReportPropertyChanged("PersonId");
                     OnPersonIdChanged();
                 }
@@ -34461,7 +34651,7 @@ namespace PriemLib
             {
                 OnSurnameChanging(value);
                 ReportPropertyChanging("Surname");
-                _Surname = StructuralObject.SetValidValue(value, true);
+                _Surname = StructuralObject.SetValidValue(value, true, "Surname");
                 ReportPropertyChanged("Surname");
                 OnSurnameChanged();
             }
@@ -34472,7 +34662,6 @@ namespace PriemLib
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -34514,7 +34703,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -34531,7 +34720,7 @@ namespace PriemLib
             {
                 OnPersonTypeIdChanging(value);
                 ReportPropertyChanging("PersonTypeId");
-                _PersonTypeId = StructuralObject.SetValidValue(value);
+                _PersonTypeId = StructuralObject.SetValidValue(value, "PersonTypeId");
                 ReportPropertyChanged("PersonTypeId");
                 OnPersonTypeIdChanged();
             }
@@ -34557,7 +34746,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -34582,7 +34771,7 @@ namespace PriemLib
             {
                 OnBarcodeChanging(value);
                 ReportPropertyChanging("Barcode");
-                _Barcode = StructuralObject.SetValidValue(value);
+                _Barcode = StructuralObject.SetValidValue(value, "Barcode");
                 ReportPropertyChanged("Barcode");
                 OnBarcodeChanged();
             }
@@ -34608,7 +34797,7 @@ namespace PriemLib
                 {
                     OnNumChanging(value);
                     ReportPropertyChanging("Num");
-                    _Num = StructuralObject.SetValidValue(value);
+                    _Num = StructuralObject.SetValidValue(value, "Num");
                     ReportPropertyChanged("Num");
                     OnNumChanged();
                 }
@@ -34635,7 +34824,7 @@ namespace PriemLib
                 {
                     OnNameChanging(value);
                     ReportPropertyChanging("Name");
-                    _Name = StructuralObject.SetValidValue(value, false);
+                    _Name = StructuralObject.SetValidValue(value, false, "Name");
                     ReportPropertyChanged("Name");
                     OnNameChanged();
                 }
@@ -34660,7 +34849,7 @@ namespace PriemLib
             {
                 OnSecondNameChanging(value);
                 ReportPropertyChanging("SecondName");
-                _SecondName = StructuralObject.SetValidValue(value, true);
+                _SecondName = StructuralObject.SetValidValue(value, true, "SecondName");
                 ReportPropertyChanged("SecondName");
                 OnSecondNameChanged();
             }
@@ -34686,7 +34875,7 @@ namespace PriemLib
                 {
                     OnSurnameChanging(value);
                     ReportPropertyChanging("Surname");
-                    _Surname = StructuralObject.SetValidValue(value, false);
+                    _Surname = StructuralObject.SetValidValue(value, false, "Surname");
                     ReportPropertyChanged("Surname");
                     OnSurnameChanged();
                 }
@@ -34713,7 +34902,7 @@ namespace PriemLib
                 {
                     OnBirthDateChanging(value);
                     ReportPropertyChanging("BirthDate");
-                    _BirthDate = StructuralObject.SetValidValue(value);
+                    _BirthDate = StructuralObject.SetValidValue(value, "BirthDate");
                     ReportPropertyChanged("BirthDate");
                     OnBirthDateChanged();
                 }
@@ -34740,7 +34929,7 @@ namespace PriemLib
                 {
                     OnBirthPlaceChanging(value);
                     ReportPropertyChanging("BirthPlace");
-                    _BirthPlace = StructuralObject.SetValidValue(value, false);
+                    _BirthPlace = StructuralObject.SetValidValue(value, false, "BirthPlace");
                     ReportPropertyChanged("BirthPlace");
                     OnBirthPlaceChanged();
                 }
@@ -34767,7 +34956,7 @@ namespace PriemLib
                 {
                     OnPassportTypeIdChanging(value);
                     ReportPropertyChanging("PassportTypeId");
-                    _PassportTypeId = StructuralObject.SetValidValue(value);
+                    _PassportTypeId = StructuralObject.SetValidValue(value, "PassportTypeId");
                     ReportPropertyChanged("PassportTypeId");
                     OnPassportTypeIdChanged();
                 }
@@ -34792,7 +34981,7 @@ namespace PriemLib
             {
                 OnPassportSeriesChanging(value);
                 ReportPropertyChanging("PassportSeries");
-                _PassportSeries = StructuralObject.SetValidValue(value, true);
+                _PassportSeries = StructuralObject.SetValidValue(value, true, "PassportSeries");
                 ReportPropertyChanged("PassportSeries");
                 OnPassportSeriesChanged();
             }
@@ -34816,7 +35005,7 @@ namespace PriemLib
             {
                 OnPassportNumberChanging(value);
                 ReportPropertyChanging("PassportNumber");
-                _PassportNumber = StructuralObject.SetValidValue(value, true);
+                _PassportNumber = StructuralObject.SetValidValue(value, true, "PassportNumber");
                 ReportPropertyChanged("PassportNumber");
                 OnPassportNumberChanged();
             }
@@ -34840,7 +35029,7 @@ namespace PriemLib
             {
                 OnPassportAuthorChanging(value);
                 ReportPropertyChanging("PassportAuthor");
-                _PassportAuthor = StructuralObject.SetValidValue(value, true);
+                _PassportAuthor = StructuralObject.SetValidValue(value, true, "PassportAuthor");
                 ReportPropertyChanged("PassportAuthor");
                 OnPassportAuthorChanged();
             }
@@ -34864,7 +35053,7 @@ namespace PriemLib
             {
                 OnPassportDateChanging(value);
                 ReportPropertyChanging("PassportDate");
-                _PassportDate = StructuralObject.SetValidValue(value);
+                _PassportDate = StructuralObject.SetValidValue(value, "PassportDate");
                 ReportPropertyChanged("PassportDate");
                 OnPassportDateChanged();
             }
@@ -34890,7 +35079,7 @@ namespace PriemLib
                 {
                     OnSexChanging(value);
                     ReportPropertyChanging("Sex");
-                    _Sex = StructuralObject.SetValidValue(value);
+                    _Sex = StructuralObject.SetValidValue(value, "Sex");
                     ReportPropertyChanged("Sex");
                     OnSexChanged();
                 }
@@ -34915,7 +35104,7 @@ namespace PriemLib
             {
                 OnCountryIdChanging(value);
                 ReportPropertyChanging("CountryId");
-                _CountryId = StructuralObject.SetValidValue(value);
+                _CountryId = StructuralObject.SetValidValue(value, "CountryId");
                 ReportPropertyChanged("CountryId");
                 OnCountryIdChanged();
             }
@@ -34939,7 +35128,7 @@ namespace PriemLib
             {
                 OnForeignCountryIdChanging(value);
                 ReportPropertyChanging("ForeignCountryId");
-                _ForeignCountryId = StructuralObject.SetValidValue(value);
+                _ForeignCountryId = StructuralObject.SetValidValue(value, "ForeignCountryId");
                 ReportPropertyChanged("ForeignCountryId");
                 OnForeignCountryIdChanged();
             }
@@ -34965,7 +35154,7 @@ namespace PriemLib
                 {
                     OnNationalityIdChanging(value);
                     ReportPropertyChanging("NationalityId");
-                    _NationalityId = StructuralObject.SetValidValue(value);
+                    _NationalityId = StructuralObject.SetValidValue(value, "NationalityId");
                     ReportPropertyChanged("NationalityId");
                     OnNationalityIdChanged();
                 }
@@ -34990,7 +35179,7 @@ namespace PriemLib
             {
                 OnForeignNationalityIdChanging(value);
                 ReportPropertyChanging("ForeignNationalityId");
-                _ForeignNationalityId = StructuralObject.SetValidValue(value);
+                _ForeignNationalityId = StructuralObject.SetValidValue(value, "ForeignNationalityId");
                 ReportPropertyChanged("ForeignNationalityId");
                 OnForeignNationalityIdChanged();
             }
@@ -35014,7 +35203,7 @@ namespace PriemLib
             {
                 OnRegionIdChanging(value);
                 ReportPropertyChanging("RegionId");
-                _RegionId = StructuralObject.SetValidValue(value);
+                _RegionId = StructuralObject.SetValidValue(value, "RegionId");
                 ReportPropertyChanged("RegionId");
                 OnRegionIdChanged();
             }
@@ -35038,7 +35227,7 @@ namespace PriemLib
             {
                 OnPhoneChanging(value);
                 ReportPropertyChanging("Phone");
-                _Phone = StructuralObject.SetValidValue(value, true);
+                _Phone = StructuralObject.SetValidValue(value, true, "Phone");
                 ReportPropertyChanged("Phone");
                 OnPhoneChanged();
             }
@@ -35062,7 +35251,7 @@ namespace PriemLib
             {
                 OnMobilesChanging(value);
                 ReportPropertyChanging("Mobiles");
-                _Mobiles = StructuralObject.SetValidValue(value, true);
+                _Mobiles = StructuralObject.SetValidValue(value, true, "Mobiles");
                 ReportPropertyChanged("Mobiles");
                 OnMobilesChanged();
             }
@@ -35086,7 +35275,7 @@ namespace PriemLib
             {
                 OnEmailChanging(value);
                 ReportPropertyChanging("Email");
-                _Email = StructuralObject.SetValidValue(value, true);
+                _Email = StructuralObject.SetValidValue(value, true, "Email");
                 ReportPropertyChanged("Email");
                 OnEmailChanged();
             }
@@ -35110,7 +35299,7 @@ namespace PriemLib
             {
                 OnHostelAbitChanging(value);
                 ReportPropertyChanging("HostelAbit");
-                _HostelAbit = StructuralObject.SetValidValue(value);
+                _HostelAbit = StructuralObject.SetValidValue(value, "HostelAbit");
                 ReportPropertyChanged("HostelAbit");
                 OnHostelAbitChanged();
             }
@@ -35134,7 +35323,7 @@ namespace PriemLib
             {
                 OnHasAssignToHostelChanging(value);
                 ReportPropertyChanging("HasAssignToHostel");
-                _HasAssignToHostel = StructuralObject.SetValidValue(value);
+                _HasAssignToHostel = StructuralObject.SetValidValue(value, "HasAssignToHostel");
                 ReportPropertyChanged("HasAssignToHostel");
                 OnHasAssignToHostelChanged();
             }
@@ -35158,7 +35347,7 @@ namespace PriemLib
             {
                 OnHostelFacultyIdChanging(value);
                 ReportPropertyChanging("HostelFacultyId");
-                _HostelFacultyId = StructuralObject.SetValidValue(value);
+                _HostelFacultyId = StructuralObject.SetValidValue(value, "HostelFacultyId");
                 ReportPropertyChanged("HostelFacultyId");
                 OnHostelFacultyIdChanged();
             }
@@ -35182,7 +35371,7 @@ namespace PriemLib
             {
                 OnExamPassFacultyIdChanging(value);
                 ReportPropertyChanging("ExamPassFacultyId");
-                _ExamPassFacultyId = StructuralObject.SetValidValue(value);
+                _ExamPassFacultyId = StructuralObject.SetValidValue(value, "ExamPassFacultyId");
                 ReportPropertyChanged("ExamPassFacultyId");
                 OnExamPassFacultyIdChanged();
             }
@@ -35206,7 +35395,7 @@ namespace PriemLib
             {
                 OnHasExamPassChanging(value);
                 ReportPropertyChanging("HasExamPass");
-                _HasExamPass = StructuralObject.SetValidValue(value);
+                _HasExamPass = StructuralObject.SetValidValue(value, "HasExamPass");
                 ReportPropertyChanged("HasExamPass");
                 OnHasExamPassChanged();
             }
@@ -35230,7 +35419,7 @@ namespace PriemLib
             {
                 OnPersonVisaStartChanging(value);
                 ReportPropertyChanging("PersonVisaStart");
-                _PersonVisaStart = StructuralObject.SetValidValue(value);
+                _PersonVisaStart = StructuralObject.SetValidValue(value, "PersonVisaStart");
                 ReportPropertyChanged("PersonVisaStart");
                 OnPersonVisaStartChanged();
             }
@@ -35254,7 +35443,7 @@ namespace PriemLib
             {
                 OnPersonVisaEndChanging(value);
                 ReportPropertyChanging("PersonVisaEnd");
-                _PersonVisaEnd = StructuralObject.SetValidValue(value);
+                _PersonVisaEnd = StructuralObject.SetValidValue(value, "PersonVisaEnd");
                 ReportPropertyChanged("PersonVisaEnd");
                 OnPersonVisaEndChanged();
             }
@@ -35278,7 +35467,7 @@ namespace PriemLib
             {
                 OnEnterInRussiaDateChanging(value);
                 ReportPropertyChanging("EnterInRussiaDate");
-                _EnterInRussiaDate = StructuralObject.SetValidValue(value);
+                _EnterInRussiaDate = StructuralObject.SetValidValue(value, "EnterInRussiaDate");
                 ReportPropertyChanged("EnterInRussiaDate");
                 OnEnterInRussiaDateChanged();
             }
@@ -35302,7 +35491,7 @@ namespace PriemLib
             {
                 OnEducationDirectionDateChanging(value);
                 ReportPropertyChanging("EducationDirectionDate");
-                _EducationDirectionDate = StructuralObject.SetValidValue(value);
+                _EducationDirectionDate = StructuralObject.SetValidValue(value, "EducationDirectionDate");
                 ReportPropertyChanged("EducationDirectionDate");
                 OnEducationDirectionDateChanged();
             }
@@ -35326,7 +35515,7 @@ namespace PriemLib
             {
                 OnEducationDirectionNumberChanging(value);
                 ReportPropertyChanging("EducationDirectionNumber");
-                _EducationDirectionNumber = StructuralObject.SetValidValue(value, true);
+                _EducationDirectionNumber = StructuralObject.SetValidValue(value, true, "EducationDirectionNumber");
                 ReportPropertyChanged("EducationDirectionNumber");
                 OnEducationDirectionNumberChanged();
             }
@@ -35350,7 +35539,7 @@ namespace PriemLib
             {
                 OnStagChanging(value);
                 ReportPropertyChanging("Stag");
-                _Stag = StructuralObject.SetValidValue(value, true);
+                _Stag = StructuralObject.SetValidValue(value, true, "Stag");
                 ReportPropertyChanged("Stag");
                 OnStagChanged();
             }
@@ -35374,7 +35563,7 @@ namespace PriemLib
             {
                 OnWorkPlaceChanging(value);
                 ReportPropertyChanging("WorkPlace");
-                _WorkPlace = StructuralObject.SetValidValue(value, true);
+                _WorkPlace = StructuralObject.SetValidValue(value, true, "WorkPlace");
                 ReportPropertyChanged("WorkPlace");
                 OnWorkPlaceChanged();
             }
@@ -35398,7 +35587,7 @@ namespace PriemLib
             {
                 OnPrivilegesChanging(value);
                 ReportPropertyChanging("Privileges");
-                _Privileges = StructuralObject.SetValidValue(value);
+                _Privileges = StructuralObject.SetValidValue(value, "Privileges");
                 ReportPropertyChanged("Privileges");
                 OnPrivilegesChanged();
             }
@@ -35422,7 +35611,7 @@ namespace PriemLib
             {
                 OnPassportCodeChanging(value);
                 ReportPropertyChanging("PassportCode");
-                _PassportCode = StructuralObject.SetValidValue(value, true);
+                _PassportCode = StructuralObject.SetValidValue(value, true, "PassportCode");
                 ReportPropertyChanged("PassportCode");
                 OnPassportCodeChanged();
             }
@@ -35446,7 +35635,7 @@ namespace PriemLib
             {
                 OnPersonalCodeChanging(value);
                 ReportPropertyChanging("PersonalCode");
-                _PersonalCode = StructuralObject.SetValidValue(value, true);
+                _PersonalCode = StructuralObject.SetValidValue(value, true, "PersonalCode");
                 ReportPropertyChanged("PersonalCode");
                 OnPersonalCodeChanged();
             }
@@ -35470,7 +35659,7 @@ namespace PriemLib
             {
                 OnPersonInfoChanging(value);
                 ReportPropertyChanging("PersonInfo");
-                _PersonInfo = StructuralObject.SetValidValue(value, true);
+                _PersonInfo = StructuralObject.SetValidValue(value, true, "PersonInfo");
                 ReportPropertyChanged("PersonInfo");
                 OnPersonInfoChanged();
             }
@@ -35494,7 +35683,7 @@ namespace PriemLib
             {
                 OnExtraInfoChanging(value);
                 ReportPropertyChanging("ExtraInfo");
-                _ExtraInfo = StructuralObject.SetValidValue(value, true);
+                _ExtraInfo = StructuralObject.SetValidValue(value, true, "ExtraInfo");
                 ReportPropertyChanged("ExtraInfo");
                 OnExtraInfoChanged();
             }
@@ -35518,7 +35707,7 @@ namespace PriemLib
             {
                 OnScienceWorkChanging(value);
                 ReportPropertyChanging("ScienceWork");
-                _ScienceWork = StructuralObject.SetValidValue(value, true);
+                _ScienceWork = StructuralObject.SetValidValue(value, true, "ScienceWork");
                 ReportPropertyChanged("ScienceWork");
                 OnScienceWorkChanged();
             }
@@ -35542,7 +35731,7 @@ namespace PriemLib
             {
                 OnPersonNumChanging(value);
                 ReportPropertyChanging("PersonNum");
-                _PersonNum = StructuralObject.SetValidValue(value, true);
+                _PersonNum = StructuralObject.SetValidValue(value, true, "PersonNum");
                 ReportPropertyChanged("PersonNum");
                 OnPersonNumChanged();
             }
@@ -35566,7 +35755,7 @@ namespace PriemLib
             {
                 OnFIOChanging(value);
                 ReportPropertyChanging("FIO");
-                _FIO = StructuralObject.SetValidValue(value, true);
+                _FIO = StructuralObject.SetValidValue(value, true, "FIO");
                 ReportPropertyChanged("FIO");
                 OnFIOChanged();
             }
@@ -35590,7 +35779,7 @@ namespace PriemLib
             {
                 OnPassportDataChanging(value);
                 ReportPropertyChanging("PassportData");
-                _PassportData = StructuralObject.SetValidValue(value, true);
+                _PassportData = StructuralObject.SetValidValue(value, true, "PassportData");
                 ReportPropertyChanged("PassportData");
                 OnPassportDataChanged();
             }
@@ -35614,7 +35803,7 @@ namespace PriemLib
             {
                 OnEducDocumentChanging(value);
                 ReportPropertyChanging("EducDocument");
-                _EducDocument = StructuralObject.SetValidValue(value, true);
+                _EducDocument = StructuralObject.SetValidValue(value, true, "EducDocument");
                 ReportPropertyChanged("EducDocument");
                 OnEducDocumentChanged();
             }
@@ -35638,7 +35827,7 @@ namespace PriemLib
             {
                 OnHostelFacultyAcrChanging(value);
                 ReportPropertyChanging("HostelFacultyAcr");
-                _HostelFacultyAcr = StructuralObject.SetValidValue(value, true);
+                _HostelFacultyAcr = StructuralObject.SetValidValue(value, true, "HostelFacultyAcr");
                 ReportPropertyChanged("HostelFacultyAcr");
                 OnHostelFacultyAcrChanged();
             }
@@ -35662,7 +35851,7 @@ namespace PriemLib
             {
                 OnForeignCountryNameChanging(value);
                 ReportPropertyChanging("ForeignCountryName");
-                _ForeignCountryName = StructuralObject.SetValidValue(value, true);
+                _ForeignCountryName = StructuralObject.SetValidValue(value, true, "ForeignCountryName");
                 ReportPropertyChanged("ForeignCountryName");
                 OnForeignCountryNameChanged();
             }
@@ -35686,7 +35875,7 @@ namespace PriemLib
             {
                 OnCountryNameChanging(value);
                 ReportPropertyChanging("CountryName");
-                _CountryName = StructuralObject.SetValidValue(value, true);
+                _CountryName = StructuralObject.SetValidValue(value, true, "CountryName");
                 ReportPropertyChanged("CountryName");
                 OnCountryNameChanged();
             }
@@ -35710,7 +35899,7 @@ namespace PriemLib
             {
                 OnNationalityNameChanging(value);
                 ReportPropertyChanging("NationalityName");
-                _NationalityName = StructuralObject.SetValidValue(value, true);
+                _NationalityName = StructuralObject.SetValidValue(value, true, "NationalityName");
                 ReportPropertyChanged("NationalityName");
                 OnNationalityNameChanged();
             }
@@ -35734,7 +35923,7 @@ namespace PriemLib
             {
                 OnForeignNationalityNameChanging(value);
                 ReportPropertyChanging("ForeignNationalityName");
-                _ForeignNationalityName = StructuralObject.SetValidValue(value, true);
+                _ForeignNationalityName = StructuralObject.SetValidValue(value, true, "ForeignNationalityName");
                 ReportPropertyChanged("ForeignNationalityName");
                 OnForeignNationalityNameChanged();
             }
@@ -35758,7 +35947,7 @@ namespace PriemLib
             {
                 OnRegionNameChanging(value);
                 ReportPropertyChanging("RegionName");
-                _RegionName = StructuralObject.SetValidValue(value, true);
+                _RegionName = StructuralObject.SetValidValue(value, true, "RegionName");
                 ReportPropertyChanged("RegionName");
                 OnRegionNameChanged();
             }
@@ -35782,7 +35971,7 @@ namespace PriemLib
             {
                 OnHostelFacultyNameChanging(value);
                 ReportPropertyChanging("HostelFacultyName");
-                _HostelFacultyName = StructuralObject.SetValidValue(value, true);
+                _HostelFacultyName = StructuralObject.SetValidValue(value, true, "HostelFacultyName");
                 ReportPropertyChanged("HostelFacultyName");
                 OnHostelFacultyNameChanged();
             }
@@ -35806,7 +35995,7 @@ namespace PriemLib
             {
                 OnCodeChanging(value);
                 ReportPropertyChanging("Code");
-                _Code = StructuralObject.SetValidValue(value, true);
+                _Code = StructuralObject.SetValidValue(value, true, "Code");
                 ReportPropertyChanged("Code");
                 OnCodeChanged();
             }
@@ -35830,7 +36019,7 @@ namespace PriemLib
             {
                 OnCityChanging(value);
                 ReportPropertyChanging("City");
-                _City = StructuralObject.SetValidValue(value, true);
+                _City = StructuralObject.SetValidValue(value, true, "City");
                 ReportPropertyChanged("City");
                 OnCityChanged();
             }
@@ -35854,7 +36043,7 @@ namespace PriemLib
             {
                 OnStreetChanging(value);
                 ReportPropertyChanging("Street");
-                _Street = StructuralObject.SetValidValue(value, true);
+                _Street = StructuralObject.SetValidValue(value, true, "Street");
                 ReportPropertyChanged("Street");
                 OnStreetChanged();
             }
@@ -35878,7 +36067,7 @@ namespace PriemLib
             {
                 OnHouseChanging(value);
                 ReportPropertyChanging("House");
-                _House = StructuralObject.SetValidValue(value, true);
+                _House = StructuralObject.SetValidValue(value, true, "House");
                 ReportPropertyChanged("House");
                 OnHouseChanged();
             }
@@ -35902,7 +36091,7 @@ namespace PriemLib
             {
                 OnKorpusChanging(value);
                 ReportPropertyChanging("Korpus");
-                _Korpus = StructuralObject.SetValidValue(value, true);
+                _Korpus = StructuralObject.SetValidValue(value, true, "Korpus");
                 ReportPropertyChanged("Korpus");
                 OnKorpusChanged();
             }
@@ -35926,7 +36115,7 @@ namespace PriemLib
             {
                 OnFlatChanging(value);
                 ReportPropertyChanging("Flat");
-                _Flat = StructuralObject.SetValidValue(value, true);
+                _Flat = StructuralObject.SetValidValue(value, true, "Flat");
                 ReportPropertyChanged("Flat");
                 OnFlatChanged();
             }
@@ -35950,7 +36139,7 @@ namespace PriemLib
             {
                 OnHostelEducChanging(value);
                 ReportPropertyChanging("HostelEduc");
-                _HostelEduc = StructuralObject.SetValidValue(value);
+                _HostelEduc = StructuralObject.SetValidValue(value, "HostelEduc");
                 ReportPropertyChanged("HostelEduc");
                 OnHostelEducChanged();
             }
@@ -35974,7 +36163,7 @@ namespace PriemLib
             {
                 OnCodeRealChanging(value);
                 ReportPropertyChanging("CodeReal");
-                _CodeReal = StructuralObject.SetValidValue(value, true);
+                _CodeReal = StructuralObject.SetValidValue(value, true, "CodeReal");
                 ReportPropertyChanged("CodeReal");
                 OnCodeRealChanged();
             }
@@ -35998,7 +36187,7 @@ namespace PriemLib
             {
                 OnCityRealChanging(value);
                 ReportPropertyChanging("CityReal");
-                _CityReal = StructuralObject.SetValidValue(value, true);
+                _CityReal = StructuralObject.SetValidValue(value, true, "CityReal");
                 ReportPropertyChanged("CityReal");
                 OnCityRealChanged();
             }
@@ -36022,7 +36211,7 @@ namespace PriemLib
             {
                 OnStreetRealChanging(value);
                 ReportPropertyChanging("StreetReal");
-                _StreetReal = StructuralObject.SetValidValue(value, true);
+                _StreetReal = StructuralObject.SetValidValue(value, true, "StreetReal");
                 ReportPropertyChanged("StreetReal");
                 OnStreetRealChanged();
             }
@@ -36046,7 +36235,7 @@ namespace PriemLib
             {
                 OnHouseRealChanging(value);
                 ReportPropertyChanging("HouseReal");
-                _HouseReal = StructuralObject.SetValidValue(value, true);
+                _HouseReal = StructuralObject.SetValidValue(value, true, "HouseReal");
                 ReportPropertyChanged("HouseReal");
                 OnHouseRealChanged();
             }
@@ -36070,7 +36259,7 @@ namespace PriemLib
             {
                 OnKorpusRealChanging(value);
                 ReportPropertyChanging("KorpusReal");
-                _KorpusReal = StructuralObject.SetValidValue(value, true);
+                _KorpusReal = StructuralObject.SetValidValue(value, true, "KorpusReal");
                 ReportPropertyChanged("KorpusReal");
                 OnKorpusRealChanged();
             }
@@ -36094,7 +36283,7 @@ namespace PriemLib
             {
                 OnFlatRealChanging(value);
                 ReportPropertyChanging("FlatReal");
-                _FlatReal = StructuralObject.SetValidValue(value, true);
+                _FlatReal = StructuralObject.SetValidValue(value, true, "FlatReal");
                 ReportPropertyChanged("FlatReal");
                 OnFlatRealChanged();
             }
@@ -36118,7 +36307,7 @@ namespace PriemLib
             {
                 OnKladrCodeChanging(value);
                 ReportPropertyChanging("KladrCode");
-                _KladrCode = StructuralObject.SetValidValue(value, true);
+                _KladrCode = StructuralObject.SetValidValue(value, true, "KladrCode");
                 ReportPropertyChanged("KladrCode");
                 OnKladrCodeChanged();
             }
@@ -36142,7 +36331,7 @@ namespace PriemLib
             {
                 OnHasTRKIChanging(value);
                 ReportPropertyChanging("HasTRKI");
-                _HasTRKI = StructuralObject.SetValidValue(value);
+                _HasTRKI = StructuralObject.SetValidValue(value, "HasTRKI");
                 ReportPropertyChanged("HasTRKI");
                 OnHasTRKIChanged();
             }
@@ -36166,7 +36355,7 @@ namespace PriemLib
             {
                 OnTRKICertificateNumberChanging(value);
                 ReportPropertyChanging("TRKICertificateNumber");
-                _TRKICertificateNumber = StructuralObject.SetValidValue(value, true);
+                _TRKICertificateNumber = StructuralObject.SetValidValue(value, true, "TRKICertificateNumber");
                 ReportPropertyChanged("TRKICertificateNumber");
                 OnTRKICertificateNumberChanged();
             }
@@ -36177,7 +36366,6 @@ namespace PriemLib
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -36203,7 +36391,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -36222,7 +36410,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -36247,7 +36435,7 @@ namespace PriemLib
             {
                 OnOlympTypeIdChanging(value);
                 ReportPropertyChanging("OlympTypeId");
-                _OlympTypeId = StructuralObject.SetValidValue(value);
+                _OlympTypeId = StructuralObject.SetValidValue(value, "OlympTypeId");
                 ReportPropertyChanged("OlympTypeId");
                 OnOlympTypeIdChanged();
             }
@@ -36271,7 +36459,7 @@ namespace PriemLib
             {
                 OnOlympNameIdChanging(value);
                 ReportPropertyChanging("OlympNameId");
-                _OlympNameId = StructuralObject.SetValidValue(value);
+                _OlympNameId = StructuralObject.SetValidValue(value, "OlympNameId");
                 ReportPropertyChanged("OlympNameId");
                 OnOlympNameIdChanged();
             }
@@ -36295,7 +36483,7 @@ namespace PriemLib
             {
                 OnOlympSubjectIdChanging(value);
                 ReportPropertyChanging("OlympSubjectId");
-                _OlympSubjectId = StructuralObject.SetValidValue(value);
+                _OlympSubjectId = StructuralObject.SetValidValue(value, "OlympSubjectId");
                 ReportPropertyChanged("OlympSubjectId");
                 OnOlympSubjectIdChanged();
             }
@@ -36319,7 +36507,7 @@ namespace PriemLib
             {
                 OnOlympLevelIdChanging(value);
                 ReportPropertyChanging("OlympLevelId");
-                _OlympLevelId = StructuralObject.SetValidValue(value);
+                _OlympLevelId = StructuralObject.SetValidValue(value, "OlympLevelId");
                 ReportPropertyChanged("OlympLevelId");
                 OnOlympLevelIdChanged();
             }
@@ -36343,7 +36531,7 @@ namespace PriemLib
             {
                 OnOlympNameNameChanging(value);
                 ReportPropertyChanging("OlympNameName");
-                _OlympNameName = StructuralObject.SetValidValue(value, true);
+                _OlympNameName = StructuralObject.SetValidValue(value, true, "OlympNameName");
                 ReportPropertyChanged("OlympNameName");
                 OnOlympNameNameChanged();
             }
@@ -36367,7 +36555,7 @@ namespace PriemLib
             {
                 OnOlympLevelNameChanging(value);
                 ReportPropertyChanging("OlympLevelName");
-                _OlympLevelName = StructuralObject.SetValidValue(value, true);
+                _OlympLevelName = StructuralObject.SetValidValue(value, true, "OlympLevelName");
                 ReportPropertyChanged("OlympLevelName");
                 OnOlympLevelNameChanged();
             }
@@ -36391,7 +36579,7 @@ namespace PriemLib
             {
                 OnOlympSubjectNameChanging(value);
                 ReportPropertyChanging("OlympSubjectName");
-                _OlympSubjectName = StructuralObject.SetValidValue(value, true);
+                _OlympSubjectName = StructuralObject.SetValidValue(value, true, "OlympSubjectName");
                 ReportPropertyChanged("OlympSubjectName");
                 OnOlympSubjectNameChanged();
             }
@@ -36415,7 +36603,7 @@ namespace PriemLib
             {
                 OnOlympTypeNameChanging(value);
                 ReportPropertyChanging("OlympTypeName");
-                _OlympTypeName = StructuralObject.SetValidValue(value, true);
+                _OlympTypeName = StructuralObject.SetValidValue(value, true, "OlympTypeName");
                 ReportPropertyChanged("OlympTypeName");
                 OnOlympTypeNameChanged();
             }
@@ -36439,7 +36627,7 @@ namespace PriemLib
             {
                 OnNumberChanging(value);
                 ReportPropertyChanging("Number");
-                _Number = StructuralObject.SetValidValue(value);
+                _Number = StructuralObject.SetValidValue(value, "Number");
                 ReportPropertyChanged("Number");
                 OnNumberChanged();
             }
@@ -36450,7 +36638,6 @@ namespace PriemLib
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -36488,7 +36675,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -36507,7 +36694,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -36532,7 +36719,7 @@ namespace PriemLib
             {
                 OnOlympTypeIdChanging(value);
                 ReportPropertyChanging("OlympTypeId");
-                _OlympTypeId = StructuralObject.SetValidValue(value);
+                _OlympTypeId = StructuralObject.SetValidValue(value, "OlympTypeId");
                 ReportPropertyChanged("OlympTypeId");
                 OnOlympTypeIdChanged();
             }
@@ -36556,7 +36743,7 @@ namespace PriemLib
             {
                 OnOlympNameIdChanging(value);
                 ReportPropertyChanging("OlympNameId");
-                _OlympNameId = StructuralObject.SetValidValue(value);
+                _OlympNameId = StructuralObject.SetValidValue(value, "OlympNameId");
                 ReportPropertyChanged("OlympNameId");
                 OnOlympNameIdChanged();
             }
@@ -36580,7 +36767,7 @@ namespace PriemLib
             {
                 OnOlympSubjectIdChanging(value);
                 ReportPropertyChanging("OlympSubjectId");
-                _OlympSubjectId = StructuralObject.SetValidValue(value);
+                _OlympSubjectId = StructuralObject.SetValidValue(value, "OlympSubjectId");
                 ReportPropertyChanged("OlympSubjectId");
                 OnOlympSubjectIdChanged();
             }
@@ -36604,7 +36791,7 @@ namespace PriemLib
             {
                 OnOlympLevelIdChanging(value);
                 ReportPropertyChanging("OlympLevelId");
-                _OlympLevelId = StructuralObject.SetValidValue(value);
+                _OlympLevelId = StructuralObject.SetValidValue(value, "OlympLevelId");
                 ReportPropertyChanged("OlympLevelId");
                 OnOlympLevelIdChanged();
             }
@@ -36628,7 +36815,7 @@ namespace PriemLib
             {
                 OnOlympValueIdChanging(value);
                 ReportPropertyChanging("OlympValueId");
-                _OlympValueId = StructuralObject.SetValidValue(value);
+                _OlympValueId = StructuralObject.SetValidValue(value, "OlympValueId");
                 ReportPropertyChanged("OlympValueId");
                 OnOlympValueIdChanged();
             }
@@ -36652,7 +36839,7 @@ namespace PriemLib
             {
                 OnAbiturientIdChanging(value);
                 ReportPropertyChanging("AbiturientId");
-                _AbiturientId = StructuralObject.SetValidValue(value);
+                _AbiturientId = StructuralObject.SetValidValue(value, "AbiturientId");
                 ReportPropertyChanged("AbiturientId");
                 OnAbiturientIdChanged();
             }
@@ -36678,7 +36865,7 @@ namespace PriemLib
                 {
                     OnOlympLevelNameChanging(value);
                     ReportPropertyChanging("OlympLevelName");
-                    _OlympLevelName = StructuralObject.SetValidValue(value, false);
+                    _OlympLevelName = StructuralObject.SetValidValue(value, false, "OlympLevelName");
                     ReportPropertyChanged("OlympLevelName");
                     OnOlympLevelNameChanged();
                 }
@@ -36705,7 +36892,7 @@ namespace PriemLib
                 {
                     OnOlympValueNameChanging(value);
                     ReportPropertyChanging("OlympValueName");
-                    _OlympValueName = StructuralObject.SetValidValue(value, false);
+                    _OlympValueName = StructuralObject.SetValidValue(value, false, "OlympValueName");
                     ReportPropertyChanged("OlympValueName");
                     OnOlympValueNameChanged();
                 }
@@ -36732,7 +36919,7 @@ namespace PriemLib
                 {
                     OnOlympNameChanging(value);
                     ReportPropertyChanging("OlympName");
-                    _OlympName = StructuralObject.SetValidValue(value, false);
+                    _OlympName = StructuralObject.SetValidValue(value, false, "OlympName");
                     ReportPropertyChanged("OlympName");
                     OnOlympNameChanged();
                 }
@@ -36759,7 +36946,7 @@ namespace PriemLib
                 {
                     OnOlympSubjectNameChanging(value);
                     ReportPropertyChanging("OlympSubjectName");
-                    _OlympSubjectName = StructuralObject.SetValidValue(value, false);
+                    _OlympSubjectName = StructuralObject.SetValidValue(value, false, "OlympSubjectName");
                     ReportPropertyChanged("OlympSubjectName");
                     OnOlympSubjectNameChanged();
                 }
@@ -36786,7 +36973,7 @@ namespace PriemLib
                 {
                     OnOlympTypeNameChanging(value);
                     ReportPropertyChanging("OlympTypeName");
-                    _OlympTypeName = StructuralObject.SetValidValue(value, false);
+                    _OlympTypeName = StructuralObject.SetValidValue(value, false, "OlympTypeName");
                     ReportPropertyChanged("OlympTypeName");
                     OnOlympTypeNameChanged();
                 }
@@ -36811,7 +36998,7 @@ namespace PriemLib
             {
                 OnPersonIdChanging(value);
                 ReportPropertyChanging("PersonId");
-                _PersonId = StructuralObject.SetValidValue(value);
+                _PersonId = StructuralObject.SetValidValue(value, "PersonId");
                 ReportPropertyChanged("PersonId");
                 OnPersonIdChanged();
             }
@@ -36837,7 +37024,7 @@ namespace PriemLib
                 {
                     OnOriginDocChanging(value);
                     ReportPropertyChanging("OriginDoc");
-                    _OriginDoc = StructuralObject.SetValidValue(value);
+                    _OriginDoc = StructuralObject.SetValidValue(value, "OriginDoc");
                     ReportPropertyChanged("OriginDoc");
                     OnOriginDocChanged();
                 }
@@ -36862,7 +37049,7 @@ namespace PriemLib
             {
                 OnSortOrderChanging(value);
                 ReportPropertyChanging("SortOrder");
-                _SortOrder = StructuralObject.SetValidValue(value);
+                _SortOrder = StructuralObject.SetValidValue(value, "SortOrder");
                 ReportPropertyChanged("SortOrder");
                 OnSortOrderChanged();
             }
@@ -36886,7 +37073,7 @@ namespace PriemLib
             {
                 OnOlympValueAcrChanging(value);
                 ReportPropertyChanging("OlympValueAcr");
-                _OlympValueAcr = StructuralObject.SetValidValue(value, true);
+                _OlympValueAcr = StructuralObject.SetValidValue(value, true, "OlympValueAcr");
                 ReportPropertyChanged("OlympValueAcr");
                 OnOlympValueAcrChanged();
             }
@@ -36897,7 +37084,6 @@ namespace PriemLib
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -36927,7 +37113,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -36946,7 +37132,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -36971,7 +37157,7 @@ namespace PriemLib
             {
                 OnOlympTypeIdChanging(value);
                 ReportPropertyChanging("OlympTypeId");
-                _OlympTypeId = StructuralObject.SetValidValue(value);
+                _OlympTypeId = StructuralObject.SetValidValue(value, "OlympTypeId");
                 ReportPropertyChanged("OlympTypeId");
                 OnOlympTypeIdChanged();
             }
@@ -36995,7 +37181,7 @@ namespace PriemLib
             {
                 OnOlympNameIdChanging(value);
                 ReportPropertyChanging("OlympNameId");
-                _OlympNameId = StructuralObject.SetValidValue(value);
+                _OlympNameId = StructuralObject.SetValidValue(value, "OlympNameId");
                 ReportPropertyChanged("OlympNameId");
                 OnOlympNameIdChanged();
             }
@@ -37019,7 +37205,7 @@ namespace PriemLib
             {
                 OnOlympSubjectIdChanging(value);
                 ReportPropertyChanging("OlympSubjectId");
-                _OlympSubjectId = StructuralObject.SetValidValue(value);
+                _OlympSubjectId = StructuralObject.SetValidValue(value, "OlympSubjectId");
                 ReportPropertyChanged("OlympSubjectId");
                 OnOlympSubjectIdChanged();
             }
@@ -37043,7 +37229,7 @@ namespace PriemLib
             {
                 OnOlympLevelIdChanging(value);
                 ReportPropertyChanging("OlympLevelId");
-                _OlympLevelId = StructuralObject.SetValidValue(value);
+                _OlympLevelId = StructuralObject.SetValidValue(value, "OlympLevelId");
                 ReportPropertyChanged("OlympLevelId");
                 OnOlympLevelIdChanged();
             }
@@ -37067,7 +37253,7 @@ namespace PriemLib
             {
                 OnOlympValueIdChanging(value);
                 ReportPropertyChanging("OlympValueId");
-                _OlympValueId = StructuralObject.SetValidValue(value);
+                _OlympValueId = StructuralObject.SetValidValue(value, "OlympValueId");
                 ReportPropertyChanged("OlympValueId");
                 OnOlympValueIdChanged();
             }
@@ -37091,7 +37277,7 @@ namespace PriemLib
             {
                 OnAbiturientIdChanging(value);
                 ReportPropertyChanging("AbiturientId");
-                _AbiturientId = StructuralObject.SetValidValue(value);
+                _AbiturientId = StructuralObject.SetValidValue(value, "AbiturientId");
                 ReportPropertyChanged("AbiturientId");
                 OnAbiturientIdChanged();
             }
@@ -37115,7 +37301,7 @@ namespace PriemLib
             {
                 OnOlympLevelNameChanging(value);
                 ReportPropertyChanging("OlympLevelName");
-                _OlympLevelName = StructuralObject.SetValidValue(value, true);
+                _OlympLevelName = StructuralObject.SetValidValue(value, true, "OlympLevelName");
                 ReportPropertyChanged("OlympLevelName");
                 OnOlympLevelNameChanged();
             }
@@ -37139,7 +37325,7 @@ namespace PriemLib
             {
                 OnOlympValueNameChanging(value);
                 ReportPropertyChanging("OlympValueName");
-                _OlympValueName = StructuralObject.SetValidValue(value, true);
+                _OlympValueName = StructuralObject.SetValidValue(value, true, "OlympValueName");
                 ReportPropertyChanged("OlympValueName");
                 OnOlympValueNameChanged();
             }
@@ -37163,7 +37349,7 @@ namespace PriemLib
             {
                 OnOlympNameChanging(value);
                 ReportPropertyChanging("OlympName");
-                _OlympName = StructuralObject.SetValidValue(value, true);
+                _OlympName = StructuralObject.SetValidValue(value, true, "OlympName");
                 ReportPropertyChanged("OlympName");
                 OnOlympNameChanged();
             }
@@ -37187,7 +37373,7 @@ namespace PriemLib
             {
                 OnOlympSubjectNameChanging(value);
                 ReportPropertyChanging("OlympSubjectName");
-                _OlympSubjectName = StructuralObject.SetValidValue(value, true);
+                _OlympSubjectName = StructuralObject.SetValidValue(value, true, "OlympSubjectName");
                 ReportPropertyChanged("OlympSubjectName");
                 OnOlympSubjectNameChanged();
             }
@@ -37211,7 +37397,7 @@ namespace PriemLib
             {
                 OnOlympTypeNameChanging(value);
                 ReportPropertyChanging("OlympTypeName");
-                _OlympTypeName = StructuralObject.SetValidValue(value, true);
+                _OlympTypeName = StructuralObject.SetValidValue(value, true, "OlympTypeName");
                 ReportPropertyChanged("OlympTypeName");
                 OnOlympTypeNameChanged();
             }
@@ -37235,7 +37421,7 @@ namespace PriemLib
             {
                 OnPersonIdChanging(value);
                 ReportPropertyChanging("PersonId");
-                _PersonId = StructuralObject.SetValidValue(value);
+                _PersonId = StructuralObject.SetValidValue(value, "PersonId");
                 ReportPropertyChanged("PersonId");
                 OnPersonIdChanged();
             }
@@ -37261,7 +37447,7 @@ namespace PriemLib
                 {
                     OnOriginDocChanging(value);
                     ReportPropertyChanging("OriginDoc");
-                    _OriginDoc = StructuralObject.SetValidValue(value);
+                    _OriginDoc = StructuralObject.SetValidValue(value, "OriginDoc");
                     ReportPropertyChanged("OriginDoc");
                     OnOriginDocChanged();
                 }
@@ -37286,7 +37472,7 @@ namespace PriemLib
             {
                 OnNumberChanging(value);
                 ReportPropertyChanging("Number");
-                _Number = StructuralObject.SetValidValue(value);
+                _Number = StructuralObject.SetValidValue(value, "Number");
                 ReportPropertyChanged("Number");
                 OnNumberChanged();
             }
@@ -37310,7 +37496,7 @@ namespace PriemLib
             {
                 OnDocumentSeriesChanging(value);
                 ReportPropertyChanging("DocumentSeries");
-                _DocumentSeries = StructuralObject.SetValidValue(value, true);
+                _DocumentSeries = StructuralObject.SetValidValue(value, true, "DocumentSeries");
                 ReportPropertyChanged("DocumentSeries");
                 OnDocumentSeriesChanged();
             }
@@ -37334,7 +37520,7 @@ namespace PriemLib
             {
                 OnDocumentNumberChanging(value);
                 ReportPropertyChanging("DocumentNumber");
-                _DocumentNumber = StructuralObject.SetValidValue(value, true);
+                _DocumentNumber = StructuralObject.SetValidValue(value, true, "DocumentNumber");
                 ReportPropertyChanged("DocumentNumber");
                 OnDocumentNumberChanged();
             }
@@ -37358,7 +37544,7 @@ namespace PriemLib
             {
                 OnDocumentDateChanging(value);
                 ReportPropertyChanging("DocumentDate");
-                _DocumentDate = StructuralObject.SetValidValue(value);
+                _DocumentDate = StructuralObject.SetValidValue(value, "DocumentDate");
                 ReportPropertyChanged("DocumentDate");
                 OnDocumentDateChanged();
             }
@@ -37382,7 +37568,7 @@ namespace PriemLib
             {
                 OnOlympValueSortOrderChanging(value);
                 ReportPropertyChanging("OlympValueSortOrder");
-                _OlympValueSortOrder = StructuralObject.SetValidValue(value);
+                _OlympValueSortOrder = StructuralObject.SetValidValue(value, "OlympValueSortOrder");
                 ReportPropertyChanged("OlympValueSortOrder");
                 OnOlympValueSortOrderChanged();
             }
@@ -37393,7 +37579,6 @@ namespace PriemLib
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -37463,7 +37648,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -37482,7 +37667,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -37507,7 +37692,7 @@ namespace PriemLib
             {
                 OnBarcodeChanging(value);
                 ReportPropertyChanging("Barcode");
-                _Barcode = StructuralObject.SetValidValue(value);
+                _Barcode = StructuralObject.SetValidValue(value, "Barcode");
                 ReportPropertyChanged("Barcode");
                 OnBarcodeChanged();
             }
@@ -37533,7 +37718,7 @@ namespace PriemLib
                 {
                     OnNumChanging(value);
                     ReportPropertyChanging("Num");
-                    _Num = StructuralObject.SetValidValue(value);
+                    _Num = StructuralObject.SetValidValue(value, "Num");
                     ReportPropertyChanged("Num");
                     OnNumChanged();
                 }
@@ -37560,7 +37745,7 @@ namespace PriemLib
                 {
                     OnNameChanging(value);
                     ReportPropertyChanging("Name");
-                    _Name = StructuralObject.SetValidValue(value, false);
+                    _Name = StructuralObject.SetValidValue(value, false, "Name");
                     ReportPropertyChanged("Name");
                     OnNameChanged();
                 }
@@ -37585,7 +37770,7 @@ namespace PriemLib
             {
                 OnSecondNameChanging(value);
                 ReportPropertyChanging("SecondName");
-                _SecondName = StructuralObject.SetValidValue(value, true);
+                _SecondName = StructuralObject.SetValidValue(value, true, "SecondName");
                 ReportPropertyChanged("SecondName");
                 OnSecondNameChanged();
             }
@@ -37611,7 +37796,7 @@ namespace PriemLib
                 {
                     OnSurnameChanging(value);
                     ReportPropertyChanging("Surname");
-                    _Surname = StructuralObject.SetValidValue(value, false);
+                    _Surname = StructuralObject.SetValidValue(value, false, "Surname");
                     ReportPropertyChanged("Surname");
                     OnSurnameChanged();
                 }
@@ -37638,7 +37823,7 @@ namespace PriemLib
                 {
                     OnBirthDateChanging(value);
                     ReportPropertyChanging("BirthDate");
-                    _BirthDate = StructuralObject.SetValidValue(value);
+                    _BirthDate = StructuralObject.SetValidValue(value, "BirthDate");
                     ReportPropertyChanged("BirthDate");
                     OnBirthDateChanged();
                 }
@@ -37665,7 +37850,7 @@ namespace PriemLib
                 {
                     OnBirthPlaceChanging(value);
                     ReportPropertyChanging("BirthPlace");
-                    _BirthPlace = StructuralObject.SetValidValue(value, false);
+                    _BirthPlace = StructuralObject.SetValidValue(value, false, "BirthPlace");
                     ReportPropertyChanged("BirthPlace");
                     OnBirthPlaceChanged();
                 }
@@ -37692,7 +37877,7 @@ namespace PriemLib
                 {
                     OnPassportTypeIdChanging(value);
                     ReportPropertyChanging("PassportTypeId");
-                    _PassportTypeId = StructuralObject.SetValidValue(value);
+                    _PassportTypeId = StructuralObject.SetValidValue(value, "PassportTypeId");
                     ReportPropertyChanged("PassportTypeId");
                     OnPassportTypeIdChanged();
                 }
@@ -37717,7 +37902,7 @@ namespace PriemLib
             {
                 OnPassportSeriesChanging(value);
                 ReportPropertyChanging("PassportSeries");
-                _PassportSeries = StructuralObject.SetValidValue(value, true);
+                _PassportSeries = StructuralObject.SetValidValue(value, true, "PassportSeries");
                 ReportPropertyChanged("PassportSeries");
                 OnPassportSeriesChanged();
             }
@@ -37741,7 +37926,7 @@ namespace PriemLib
             {
                 OnPassportNumberChanging(value);
                 ReportPropertyChanging("PassportNumber");
-                _PassportNumber = StructuralObject.SetValidValue(value, true);
+                _PassportNumber = StructuralObject.SetValidValue(value, true, "PassportNumber");
                 ReportPropertyChanged("PassportNumber");
                 OnPassportNumberChanged();
             }
@@ -37765,7 +37950,7 @@ namespace PriemLib
             {
                 OnPassportAuthorChanging(value);
                 ReportPropertyChanging("PassportAuthor");
-                _PassportAuthor = StructuralObject.SetValidValue(value, true);
+                _PassportAuthor = StructuralObject.SetValidValue(value, true, "PassportAuthor");
                 ReportPropertyChanged("PassportAuthor");
                 OnPassportAuthorChanged();
             }
@@ -37789,7 +37974,7 @@ namespace PriemLib
             {
                 OnPassportDateChanging(value);
                 ReportPropertyChanging("PassportDate");
-                _PassportDate = StructuralObject.SetValidValue(value);
+                _PassportDate = StructuralObject.SetValidValue(value, "PassportDate");
                 ReportPropertyChanged("PassportDate");
                 OnPassportDateChanged();
             }
@@ -37815,7 +38000,7 @@ namespace PriemLib
                 {
                     OnSexChanging(value);
                     ReportPropertyChanging("Sex");
-                    _Sex = StructuralObject.SetValidValue(value);
+                    _Sex = StructuralObject.SetValidValue(value, "Sex");
                     ReportPropertyChanged("Sex");
                     OnSexChanged();
                 }
@@ -37840,7 +38025,7 @@ namespace PriemLib
             {
                 OnCountryIdChanging(value);
                 ReportPropertyChanging("CountryId");
-                _CountryId = StructuralObject.SetValidValue(value);
+                _CountryId = StructuralObject.SetValidValue(value, "CountryId");
                 ReportPropertyChanged("CountryId");
                 OnCountryIdChanged();
             }
@@ -37866,7 +38051,7 @@ namespace PriemLib
                 {
                     OnNationalityIdChanging(value);
                     ReportPropertyChanging("NationalityId");
-                    _NationalityId = StructuralObject.SetValidValue(value);
+                    _NationalityId = StructuralObject.SetValidValue(value, "NationalityId");
                     ReportPropertyChanged("NationalityId");
                     OnNationalityIdChanged();
                 }
@@ -37891,7 +38076,7 @@ namespace PriemLib
             {
                 OnRegionIdChanging(value);
                 ReportPropertyChanging("RegionId");
-                _RegionId = StructuralObject.SetValidValue(value);
+                _RegionId = StructuralObject.SetValidValue(value, "RegionId");
                 ReportPropertyChanged("RegionId");
                 OnRegionIdChanged();
             }
@@ -37915,7 +38100,7 @@ namespace PriemLib
             {
                 OnPhoneChanging(value);
                 ReportPropertyChanging("Phone");
-                _Phone = StructuralObject.SetValidValue(value, true);
+                _Phone = StructuralObject.SetValidValue(value, true, "Phone");
                 ReportPropertyChanged("Phone");
                 OnPhoneChanged();
             }
@@ -37939,7 +38124,7 @@ namespace PriemLib
             {
                 OnMobilesChanging(value);
                 ReportPropertyChanging("Mobiles");
-                _Mobiles = StructuralObject.SetValidValue(value, true);
+                _Mobiles = StructuralObject.SetValidValue(value, true, "Mobiles");
                 ReportPropertyChanged("Mobiles");
                 OnMobilesChanged();
             }
@@ -37963,7 +38148,7 @@ namespace PriemLib
             {
                 OnEmailChanging(value);
                 ReportPropertyChanging("Email");
-                _Email = StructuralObject.SetValidValue(value, true);
+                _Email = StructuralObject.SetValidValue(value, true, "Email");
                 ReportPropertyChanged("Email");
                 OnEmailChanged();
             }
@@ -37987,7 +38172,7 @@ namespace PriemLib
             {
                 OnCodeChanging(value);
                 ReportPropertyChanging("Code");
-                _Code = StructuralObject.SetValidValue(value, true);
+                _Code = StructuralObject.SetValidValue(value, true, "Code");
                 ReportPropertyChanged("Code");
                 OnCodeChanged();
             }
@@ -38011,7 +38196,7 @@ namespace PriemLib
             {
                 OnCityChanging(value);
                 ReportPropertyChanging("City");
-                _City = StructuralObject.SetValidValue(value, true);
+                _City = StructuralObject.SetValidValue(value, true, "City");
                 ReportPropertyChanged("City");
                 OnCityChanged();
             }
@@ -38035,7 +38220,7 @@ namespace PriemLib
             {
                 OnStreetChanging(value);
                 ReportPropertyChanging("Street");
-                _Street = StructuralObject.SetValidValue(value, true);
+                _Street = StructuralObject.SetValidValue(value, true, "Street");
                 ReportPropertyChanged("Street");
                 OnStreetChanged();
             }
@@ -38059,7 +38244,7 @@ namespace PriemLib
             {
                 OnHouseChanging(value);
                 ReportPropertyChanging("House");
-                _House = StructuralObject.SetValidValue(value, true);
+                _House = StructuralObject.SetValidValue(value, true, "House");
                 ReportPropertyChanged("House");
                 OnHouseChanged();
             }
@@ -38083,7 +38268,7 @@ namespace PriemLib
             {
                 OnFlatChanging(value);
                 ReportPropertyChanging("Flat");
-                _Flat = StructuralObject.SetValidValue(value, true);
+                _Flat = StructuralObject.SetValidValue(value, true, "Flat");
                 ReportPropertyChanged("Flat");
                 OnFlatChanged();
             }
@@ -38107,7 +38292,7 @@ namespace PriemLib
             {
                 OnCodeRealChanging(value);
                 ReportPropertyChanging("CodeReal");
-                _CodeReal = StructuralObject.SetValidValue(value, true);
+                _CodeReal = StructuralObject.SetValidValue(value, true, "CodeReal");
                 ReportPropertyChanged("CodeReal");
                 OnCodeRealChanged();
             }
@@ -38131,7 +38316,7 @@ namespace PriemLib
             {
                 OnKorpusChanging(value);
                 ReportPropertyChanging("Korpus");
-                _Korpus = StructuralObject.SetValidValue(value, true);
+                _Korpus = StructuralObject.SetValidValue(value, true, "Korpus");
                 ReportPropertyChanged("Korpus");
                 OnKorpusChanged();
             }
@@ -38155,7 +38340,7 @@ namespace PriemLib
             {
                 OnCityRealChanging(value);
                 ReportPropertyChanging("CityReal");
-                _CityReal = StructuralObject.SetValidValue(value, true);
+                _CityReal = StructuralObject.SetValidValue(value, true, "CityReal");
                 ReportPropertyChanged("CityReal");
                 OnCityRealChanged();
             }
@@ -38179,7 +38364,7 @@ namespace PriemLib
             {
                 OnStreetRealChanging(value);
                 ReportPropertyChanging("StreetReal");
-                _StreetReal = StructuralObject.SetValidValue(value, true);
+                _StreetReal = StructuralObject.SetValidValue(value, true, "StreetReal");
                 ReportPropertyChanged("StreetReal");
                 OnStreetRealChanged();
             }
@@ -38203,7 +38388,7 @@ namespace PriemLib
             {
                 OnHouseRealChanging(value);
                 ReportPropertyChanging("HouseReal");
-                _HouseReal = StructuralObject.SetValidValue(value, true);
+                _HouseReal = StructuralObject.SetValidValue(value, true, "HouseReal");
                 ReportPropertyChanged("HouseReal");
                 OnHouseRealChanged();
             }
@@ -38227,7 +38412,7 @@ namespace PriemLib
             {
                 OnKorpusRealChanging(value);
                 ReportPropertyChanging("KorpusReal");
-                _KorpusReal = StructuralObject.SetValidValue(value, true);
+                _KorpusReal = StructuralObject.SetValidValue(value, true, "KorpusReal");
                 ReportPropertyChanged("KorpusReal");
                 OnKorpusRealChanged();
             }
@@ -38251,7 +38436,7 @@ namespace PriemLib
             {
                 OnFlatRealChanging(value);
                 ReportPropertyChanging("FlatReal");
-                _FlatReal = StructuralObject.SetValidValue(value, true);
+                _FlatReal = StructuralObject.SetValidValue(value, true, "FlatReal");
                 ReportPropertyChanged("FlatReal");
                 OnFlatRealChanged();
             }
@@ -38275,7 +38460,7 @@ namespace PriemLib
             {
                 OnHostelAbitChanging(value);
                 ReportPropertyChanging("HostelAbit");
-                _HostelAbit = StructuralObject.SetValidValue(value);
+                _HostelAbit = StructuralObject.SetValidValue(value, "HostelAbit");
                 ReportPropertyChanged("HostelAbit");
                 OnHostelAbitChanged();
             }
@@ -38299,7 +38484,7 @@ namespace PriemLib
             {
                 OnHasAssignToHostelChanging(value);
                 ReportPropertyChanging("HasAssignToHostel");
-                _HasAssignToHostel = StructuralObject.SetValidValue(value);
+                _HasAssignToHostel = StructuralObject.SetValidValue(value, "HasAssignToHostel");
                 ReportPropertyChanged("HasAssignToHostel");
                 OnHasAssignToHostelChanged();
             }
@@ -38323,7 +38508,7 @@ namespace PriemLib
             {
                 OnHostelFacultyIdChanging(value);
                 ReportPropertyChanging("HostelFacultyId");
-                _HostelFacultyId = StructuralObject.SetValidValue(value);
+                _HostelFacultyId = StructuralObject.SetValidValue(value, "HostelFacultyId");
                 ReportPropertyChanged("HostelFacultyId");
                 OnHostelFacultyIdChanged();
             }
@@ -38347,7 +38532,7 @@ namespace PriemLib
             {
                 OnExamPassFacultyIdChanging(value);
                 ReportPropertyChanging("ExamPassFacultyId");
-                _ExamPassFacultyId = StructuralObject.SetValidValue(value);
+                _ExamPassFacultyId = StructuralObject.SetValidValue(value, "ExamPassFacultyId");
                 ReportPropertyChanged("ExamPassFacultyId");
                 OnExamPassFacultyIdChanged();
             }
@@ -38371,7 +38556,7 @@ namespace PriemLib
             {
                 OnHasExamPassChanging(value);
                 ReportPropertyChanging("HasExamPass");
-                _HasExamPass = StructuralObject.SetValidValue(value);
+                _HasExamPass = StructuralObject.SetValidValue(value, "HasExamPass");
                 ReportPropertyChanged("HasExamPass");
                 OnHasExamPassChanged();
             }
@@ -38395,7 +38580,7 @@ namespace PriemLib
             {
                 OnLanguageIdChanging(value);
                 ReportPropertyChanging("LanguageId");
-                _LanguageId = StructuralObject.SetValidValue(value);
+                _LanguageId = StructuralObject.SetValidValue(value, "LanguageId");
                 ReportPropertyChanged("LanguageId");
                 OnLanguageIdChanged();
             }
@@ -38419,7 +38604,7 @@ namespace PriemLib
             {
                 OnMSVuzChanging(value);
                 ReportPropertyChanging("MSVuz");
-                _MSVuz = StructuralObject.SetValidValue(value, true);
+                _MSVuz = StructuralObject.SetValidValue(value, true, "MSVuz");
                 ReportPropertyChanged("MSVuz");
                 OnMSVuzChanged();
             }
@@ -38443,7 +38628,7 @@ namespace PriemLib
             {
                 OnMSStudyFormIdChanging(value);
                 ReportPropertyChanging("MSStudyFormId");
-                _MSStudyFormId = StructuralObject.SetValidValue(value);
+                _MSStudyFormId = StructuralObject.SetValidValue(value, "MSStudyFormId");
                 ReportPropertyChanged("MSStudyFormId");
                 OnMSStudyFormIdChanged();
             }
@@ -38467,7 +38652,7 @@ namespace PriemLib
             {
                 OnMSCourseChanging(value);
                 ReportPropertyChanging("MSCourse");
-                _MSCourse = StructuralObject.SetValidValue(value, true);
+                _MSCourse = StructuralObject.SetValidValue(value, true, "MSCourse");
                 ReportPropertyChanged("MSCourse");
                 OnMSCourseChanged();
             }
@@ -38491,7 +38676,7 @@ namespace PriemLib
             {
                 OnStagChanging(value);
                 ReportPropertyChanging("Stag");
-                _Stag = StructuralObject.SetValidValue(value, true);
+                _Stag = StructuralObject.SetValidValue(value, true, "Stag");
                 ReportPropertyChanged("Stag");
                 OnStagChanged();
             }
@@ -38515,7 +38700,7 @@ namespace PriemLib
             {
                 OnWorkPlaceChanging(value);
                 ReportPropertyChanging("WorkPlace");
-                _WorkPlace = StructuralObject.SetValidValue(value, true);
+                _WorkPlace = StructuralObject.SetValidValue(value, true, "WorkPlace");
                 ReportPropertyChanged("WorkPlace");
                 OnWorkPlaceChanged();
             }
@@ -38539,7 +38724,7 @@ namespace PriemLib
             {
                 OnPrivilegesChanging(value);
                 ReportPropertyChanging("Privileges");
-                _Privileges = StructuralObject.SetValidValue(value);
+                _Privileges = StructuralObject.SetValidValue(value, "Privileges");
                 ReportPropertyChanged("Privileges");
                 OnPrivilegesChanged();
             }
@@ -38563,7 +38748,7 @@ namespace PriemLib
             {
                 OnPassportCodeChanging(value);
                 ReportPropertyChanging("PassportCode");
-                _PassportCode = StructuralObject.SetValidValue(value, true);
+                _PassportCode = StructuralObject.SetValidValue(value, true, "PassportCode");
                 ReportPropertyChanged("PassportCode");
                 OnPassportCodeChanged();
             }
@@ -38587,7 +38772,7 @@ namespace PriemLib
             {
                 OnPersonalCodeChanging(value);
                 ReportPropertyChanging("PersonalCode");
-                _PersonalCode = StructuralObject.SetValidValue(value, true);
+                _PersonalCode = StructuralObject.SetValidValue(value, true, "PersonalCode");
                 ReportPropertyChanged("PersonalCode");
                 OnPersonalCodeChanged();
             }
@@ -38611,7 +38796,7 @@ namespace PriemLib
             {
                 OnPersonInfoChanging(value);
                 ReportPropertyChanging("PersonInfo");
-                _PersonInfo = StructuralObject.SetValidValue(value, true);
+                _PersonInfo = StructuralObject.SetValidValue(value, true, "PersonInfo");
                 ReportPropertyChanged("PersonInfo");
                 OnPersonInfoChanged();
             }
@@ -38635,7 +38820,7 @@ namespace PriemLib
             {
                 OnExtraInfoChanging(value);
                 ReportPropertyChanging("ExtraInfo");
-                _ExtraInfo = StructuralObject.SetValidValue(value, true);
+                _ExtraInfo = StructuralObject.SetValidValue(value, true, "ExtraInfo");
                 ReportPropertyChanged("ExtraInfo");
                 OnExtraInfoChanged();
             }
@@ -38659,7 +38844,7 @@ namespace PriemLib
             {
                 OnScienceWorkChanging(value);
                 ReportPropertyChanging("ScienceWork");
-                _ScienceWork = StructuralObject.SetValidValue(value, true);
+                _ScienceWork = StructuralObject.SetValidValue(value, true, "ScienceWork");
                 ReportPropertyChanged("ScienceWork");
                 OnScienceWorkChanged();
             }
@@ -38683,7 +38868,7 @@ namespace PriemLib
             {
                 OnPersonNumChanging(value);
                 ReportPropertyChanging("PersonNum");
-                _PersonNum = StructuralObject.SetValidValue(value, true);
+                _PersonNum = StructuralObject.SetValidValue(value, true, "PersonNum");
                 ReportPropertyChanged("PersonNum");
                 OnPersonNumChanged();
             }
@@ -38709,7 +38894,7 @@ namespace PriemLib
                 {
                     OnFIOChanging(value);
                     ReportPropertyChanging("FIO");
-                    _FIO = StructuralObject.SetValidValue(value, false);
+                    _FIO = StructuralObject.SetValidValue(value, false, "FIO");
                     ReportPropertyChanged("FIO");
                     OnFIOChanged();
                 }
@@ -38734,7 +38919,7 @@ namespace PriemLib
             {
                 OnPassportDataChanging(value);
                 ReportPropertyChanging("PassportData");
-                _PassportData = StructuralObject.SetValidValue(value, true);
+                _PassportData = StructuralObject.SetValidValue(value, true, "PassportData");
                 ReportPropertyChanged("PassportData");
                 OnPassportDataChanged();
             }
@@ -38758,7 +38943,7 @@ namespace PriemLib
             {
                 OnEducDocumentChanging(value);
                 ReportPropertyChanging("EducDocument");
-                _EducDocument = StructuralObject.SetValidValue(value, true);
+                _EducDocument = StructuralObject.SetValidValue(value, true, "EducDocument");
                 ReportPropertyChanged("EducDocument");
                 OnEducDocumentChanged();
             }
@@ -38782,7 +38967,7 @@ namespace PriemLib
             {
                 OnHostelFacultyAcrChanging(value);
                 ReportPropertyChanging("HostelFacultyAcr");
-                _HostelFacultyAcr = StructuralObject.SetValidValue(value, true);
+                _HostelFacultyAcr = StructuralObject.SetValidValue(value, true, "HostelFacultyAcr");
                 ReportPropertyChanged("HostelFacultyAcr");
                 OnHostelFacultyAcrChanged();
             }
@@ -38806,7 +38991,7 @@ namespace PriemLib
             {
                 OnCountryNameChanging(value);
                 ReportPropertyChanging("CountryName");
-                _CountryName = StructuralObject.SetValidValue(value, true);
+                _CountryName = StructuralObject.SetValidValue(value, true, "CountryName");
                 ReportPropertyChanged("CountryName");
                 OnCountryNameChanged();
             }
@@ -38830,7 +39015,7 @@ namespace PriemLib
             {
                 OnNationalityNameChanging(value);
                 ReportPropertyChanging("NationalityName");
-                _NationalityName = StructuralObject.SetValidValue(value, true);
+                _NationalityName = StructuralObject.SetValidValue(value, true, "NationalityName");
                 ReportPropertyChanged("NationalityName");
                 OnNationalityNameChanged();
             }
@@ -38854,7 +39039,7 @@ namespace PriemLib
             {
                 OnRegionNameChanging(value);
                 ReportPropertyChanging("RegionName");
-                _RegionName = StructuralObject.SetValidValue(value, true);
+                _RegionName = StructuralObject.SetValidValue(value, true, "RegionName");
                 ReportPropertyChanged("RegionName");
                 OnRegionNameChanged();
             }
@@ -38878,7 +39063,7 @@ namespace PriemLib
             {
                 OnHostelFacultyNameChanging(value);
                 ReportPropertyChanging("HostelFacultyName");
-                _HostelFacultyName = StructuralObject.SetValidValue(value, true);
+                _HostelFacultyName = StructuralObject.SetValidValue(value, true, "HostelFacultyName");
                 ReportPropertyChanged("HostelFacultyName");
                 OnHostelFacultyNameChanged();
             }
@@ -38902,7 +39087,7 @@ namespace PriemLib
             {
                 OnHostelEducChanging(value);
                 ReportPropertyChanging("HostelEduc");
-                _HostelEduc = StructuralObject.SetValidValue(value);
+                _HostelEduc = StructuralObject.SetValidValue(value, "HostelEduc");
                 ReportPropertyChanged("HostelEduc");
                 OnHostelEducChanged();
             }
@@ -38926,7 +39111,7 @@ namespace PriemLib
             {
                 OnKladrCodeChanging(value);
                 ReportPropertyChanging("KladrCode");
-                _KladrCode = StructuralObject.SetValidValue(value, true);
+                _KladrCode = StructuralObject.SetValidValue(value, true, "KladrCode");
                 ReportPropertyChanged("KladrCode");
                 OnKladrCodeChanged();
             }
@@ -38950,7 +39135,7 @@ namespace PriemLib
             {
                 OnSNILSChanging(value);
                 ReportPropertyChanging("SNILS");
-                _SNILS = StructuralObject.SetValidValue(value, true);
+                _SNILS = StructuralObject.SetValidValue(value, true, "SNILS");
                 ReportPropertyChanged("SNILS");
                 OnSNILSChanged();
             }
@@ -38974,7 +39159,7 @@ namespace PriemLib
             {
                 OnRegionNumberChanging(value);
                 ReportPropertyChanging("RegionNumber");
-                _RegionNumber = StructuralObject.SetValidValue(value, true);
+                _RegionNumber = StructuralObject.SetValidValue(value, true, "RegionNumber");
                 ReportPropertyChanged("RegionNumber");
                 OnRegionNumberChanged();
             }
@@ -38998,7 +39183,7 @@ namespace PriemLib
             {
                 OnForeignNationalityChanging(value);
                 ReportPropertyChanging("ForeignNationality");
-                _ForeignNationality = StructuralObject.SetValidValue(value, true);
+                _ForeignNationality = StructuralObject.SetValidValue(value, true, "ForeignNationality");
                 ReportPropertyChanged("ForeignNationality");
                 OnForeignNationalityChanged();
             }
@@ -39022,7 +39207,7 @@ namespace PriemLib
             {
                 OnForeignNationalityIdChanging(value);
                 ReportPropertyChanging("ForeignNationalityId");
-                _ForeignNationalityId = StructuralObject.SetValidValue(value);
+                _ForeignNationalityId = StructuralObject.SetValidValue(value, "ForeignNationalityId");
                 ReportPropertyChanged("ForeignNationalityId");
                 OnForeignNationalityIdChanged();
             }
@@ -39046,7 +39231,7 @@ namespace PriemLib
             {
                 OnForeignCountryChanging(value);
                 ReportPropertyChanging("ForeignCountry");
-                _ForeignCountry = StructuralObject.SetValidValue(value, true);
+                _ForeignCountry = StructuralObject.SetValidValue(value, true, "ForeignCountry");
                 ReportPropertyChanged("ForeignCountry");
                 OnForeignCountryChanged();
             }
@@ -39070,7 +39255,7 @@ namespace PriemLib
             {
                 OnForeignCountryIdChanging(value);
                 ReportPropertyChanging("ForeignCountryId");
-                _ForeignCountryId = StructuralObject.SetValidValue(value);
+                _ForeignCountryId = StructuralObject.SetValidValue(value, "ForeignCountryId");
                 ReportPropertyChanged("ForeignCountryId");
                 OnForeignCountryIdChanged();
             }
@@ -39094,7 +39279,7 @@ namespace PriemLib
             {
                 OnStartEnglishChanging(value);
                 ReportPropertyChanging("StartEnglish");
-                _StartEnglish = StructuralObject.SetValidValue(value);
+                _StartEnglish = StructuralObject.SetValidValue(value, "StartEnglish");
                 ReportPropertyChanged("StartEnglish");
                 OnStartEnglishChanged();
             }
@@ -39118,7 +39303,7 @@ namespace PriemLib
             {
                 OnEnglishMarkChanging(value);
                 ReportPropertyChanging("EnglishMark");
-                _EnglishMark = StructuralObject.SetValidValue(value);
+                _EnglishMark = StructuralObject.SetValidValue(value, "EnglishMark");
                 ReportPropertyChanged("EnglishMark");
                 OnEnglishMarkChanged();
             }
@@ -39142,7 +39327,7 @@ namespace PriemLib
             {
                 OnEgeInSPbguChanging(value);
                 ReportPropertyChanging("EgeInSPbgu");
-                _EgeInSPbgu = StructuralObject.SetValidValue(value);
+                _EgeInSPbgu = StructuralObject.SetValidValue(value, "EgeInSPbgu");
                 ReportPropertyChanged("EgeInSPbgu");
                 OnEgeInSPbguChanged();
             }
@@ -39166,7 +39351,7 @@ namespace PriemLib
             {
                 OnHasTRKIChanging(value);
                 ReportPropertyChanging("HasTRKI");
-                _HasTRKI = StructuralObject.SetValidValue(value);
+                _HasTRKI = StructuralObject.SetValidValue(value, "HasTRKI");
                 ReportPropertyChanged("HasTRKI");
                 OnHasTRKIChanged();
             }
@@ -39190,7 +39375,7 @@ namespace PriemLib
             {
                 OnTRKICertificateNumberChanging(value);
                 ReportPropertyChanging("TRKICertificateNumber");
-                _TRKICertificateNumber = StructuralObject.SetValidValue(value, true);
+                _TRKICertificateNumber = StructuralObject.SetValidValue(value, true, "TRKICertificateNumber");
                 ReportPropertyChanged("TRKICertificateNumber");
                 OnTRKICertificateNumberChanged();
             }
@@ -39216,7 +39401,7 @@ namespace PriemLib
                 {
                     OnHasRussianNationalityChanging(value);
                     ReportPropertyChanging("HasRussianNationality");
-                    _HasRussianNationality = StructuralObject.SetValidValue(value);
+                    _HasRussianNationality = StructuralObject.SetValidValue(value, "HasRussianNationality");
                     ReportPropertyChanged("HasRussianNationality");
                     OnHasRussianNationalityChanged();
                 }
@@ -39241,7 +39426,7 @@ namespace PriemLib
             {
                 OnPassportTypeNameChanging(value);
                 ReportPropertyChanging("PassportTypeName");
-                _PassportTypeName = StructuralObject.SetValidValue(value, true);
+                _PassportTypeName = StructuralObject.SetValidValue(value, true, "PassportTypeName");
                 ReportPropertyChanged("PassportTypeName");
                 OnPassportTypeNameChanged();
             }
@@ -39265,7 +39450,7 @@ namespace PriemLib
             {
                 OnPassportTypeFISNameChanging(value);
                 ReportPropertyChanging("PassportTypeFISName");
-                _PassportTypeFISName = StructuralObject.SetValidValue(value, true);
+                _PassportTypeFISName = StructuralObject.SetValidValue(value, true, "PassportTypeFISName");
                 ReportPropertyChanged("PassportTypeFISName");
                 OnPassportTypeFISNameChanged();
             }
@@ -39289,7 +39474,7 @@ namespace PriemLib
             {
                 OnLanguageNameChanging(value);
                 ReportPropertyChanging("LanguageName");
-                _LanguageName = StructuralObject.SetValidValue(value, false);
+                _LanguageName = StructuralObject.SetValidValue(value, false, "LanguageName");
                 ReportPropertyChanged("LanguageName");
                 OnLanguageNameChanged();
             }
@@ -39300,7 +39485,6 @@ namespace PriemLib
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -39346,7 +39530,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -39365,7 +39549,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -39392,7 +39576,7 @@ namespace PriemLib
                 {
                     OnPersonIdChanging(value);
                     ReportPropertyChanging("PersonId");
-                    _PersonId = StructuralObject.SetValidValue(value);
+                    _PersonId = StructuralObject.SetValidValue(value, "PersonId");
                     ReportPropertyChanged("PersonId");
                     OnPersonIdChanged();
                 }
@@ -39419,7 +39603,7 @@ namespace PriemLib
                 {
                     OnSchoolTypeIdChanging(value);
                     ReportPropertyChanging("SchoolTypeId");
-                    _SchoolTypeId = StructuralObject.SetValidValue(value);
+                    _SchoolTypeId = StructuralObject.SetValidValue(value, "SchoolTypeId");
                     ReportPropertyChanged("SchoolTypeId");
                     OnSchoolTypeIdChanged();
                 }
@@ -39446,7 +39630,7 @@ namespace PriemLib
                 {
                     OnSchoolTypeNameChanging(value);
                     ReportPropertyChanging("SchoolTypeName");
-                    _SchoolTypeName = StructuralObject.SetValidValue(value, false);
+                    _SchoolTypeName = StructuralObject.SetValidValue(value, false, "SchoolTypeName");
                     ReportPropertyChanged("SchoolTypeName");
                     OnSchoolTypeNameChanged();
                 }
@@ -39471,7 +39655,7 @@ namespace PriemLib
             {
                 OnSchoolTypeFullNameChanging(value);
                 ReportPropertyChanging("SchoolTypeFullName");
-                _SchoolTypeFullName = StructuralObject.SetValidValue(value, true);
+                _SchoolTypeFullName = StructuralObject.SetValidValue(value, true, "SchoolTypeFullName");
                 ReportPropertyChanged("SchoolTypeFullName");
                 OnSchoolTypeFullNameChanged();
             }
@@ -39497,7 +39681,7 @@ namespace PriemLib
                 {
                     OnCountryEducIdChanging(value);
                     ReportPropertyChanging("CountryEducId");
-                    _CountryEducId = StructuralObject.SetValidValue(value);
+                    _CountryEducId = StructuralObject.SetValidValue(value, "CountryEducId");
                     ReportPropertyChanged("CountryEducId");
                     OnCountryEducIdChanged();
                 }
@@ -39522,7 +39706,7 @@ namespace PriemLib
             {
                 OnCountryEducNameChanging(value);
                 ReportPropertyChanging("CountryEducName");
-                _CountryEducName = StructuralObject.SetValidValue(value, true);
+                _CountryEducName = StructuralObject.SetValidValue(value, true, "CountryEducName");
                 ReportPropertyChanged("CountryEducName");
                 OnCountryEducNameChanged();
             }
@@ -39546,7 +39730,7 @@ namespace PriemLib
             {
                 OnCountryEducOSKMCodeChanging(value);
                 ReportPropertyChanging("CountryEducOSKMCode");
-                _CountryEducOSKMCode = StructuralObject.SetValidValue(value, true);
+                _CountryEducOSKMCode = StructuralObject.SetValidValue(value, true, "CountryEducOSKMCode");
                 ReportPropertyChanged("CountryEducOSKMCode");
                 OnCountryEducOSKMCodeChanged();
             }
@@ -39572,7 +39756,7 @@ namespace PriemLib
                 {
                     OnRegionEducIdChanging(value);
                     ReportPropertyChanging("RegionEducId");
-                    _RegionEducId = StructuralObject.SetValidValue(value);
+                    _RegionEducId = StructuralObject.SetValidValue(value, "RegionEducId");
                     ReportPropertyChanged("RegionEducId");
                     OnRegionEducIdChanged();
                 }
@@ -39597,7 +39781,7 @@ namespace PriemLib
             {
                 OnRegionEducNameChanging(value);
                 ReportPropertyChanging("RegionEducName");
-                _RegionEducName = StructuralObject.SetValidValue(value, true);
+                _RegionEducName = StructuralObject.SetValidValue(value, true, "RegionEducName");
                 ReportPropertyChanged("RegionEducName");
                 OnRegionEducNameChanged();
             }
@@ -39621,7 +39805,7 @@ namespace PriemLib
             {
                 OnRegionEducNumberChanging(value);
                 ReportPropertyChanging("RegionEducNumber");
-                _RegionEducNumber = StructuralObject.SetValidValue(value, true);
+                _RegionEducNumber = StructuralObject.SetValidValue(value, true, "RegionEducNumber");
                 ReportPropertyChanged("RegionEducNumber");
                 OnRegionEducNumberChanged();
             }
@@ -39647,7 +39831,7 @@ namespace PriemLib
                 {
                     OnForeignCountryEducIdChanging(value);
                     ReportPropertyChanging("ForeignCountryEducId");
-                    _ForeignCountryEducId = StructuralObject.SetValidValue(value);
+                    _ForeignCountryEducId = StructuralObject.SetValidValue(value, "ForeignCountryEducId");
                     ReportPropertyChanged("ForeignCountryEducId");
                     OnForeignCountryEducIdChanged();
                 }
@@ -39672,7 +39856,7 @@ namespace PriemLib
             {
                 OnForeignCountryEducNameChanging(value);
                 ReportPropertyChanging("ForeignCountryEducName");
-                _ForeignCountryEducName = StructuralObject.SetValidValue(value, true);
+                _ForeignCountryEducName = StructuralObject.SetValidValue(value, true, "ForeignCountryEducName");
                 ReportPropertyChanged("ForeignCountryEducName");
                 OnForeignCountryEducNameChanged();
             }
@@ -39696,7 +39880,7 @@ namespace PriemLib
             {
                 OnForeignCountryEducOSKMCodeChanging(value);
                 ReportPropertyChanging("ForeignCountryEducOSKMCode");
-                _ForeignCountryEducOSKMCode = StructuralObject.SetValidValue(value, true);
+                _ForeignCountryEducOSKMCode = StructuralObject.SetValidValue(value, true, "ForeignCountryEducOSKMCode");
                 ReportPropertyChanged("ForeignCountryEducOSKMCode");
                 OnForeignCountryEducOSKMCodeChanged();
             }
@@ -39720,7 +39904,7 @@ namespace PriemLib
             {
                 OnForeignCountryEducPriemDictionaryIdChanging(value);
                 ReportPropertyChanging("ForeignCountryEducPriemDictionaryId");
-                _ForeignCountryEducPriemDictionaryId = StructuralObject.SetValidValue(value);
+                _ForeignCountryEducPriemDictionaryId = StructuralObject.SetValidValue(value, "ForeignCountryEducPriemDictionaryId");
                 ReportPropertyChanged("ForeignCountryEducPriemDictionaryId");
                 OnForeignCountryEducPriemDictionaryIdChanged();
             }
@@ -39744,7 +39928,7 @@ namespace PriemLib
             {
                 OnSchoolCityChanging(value);
                 ReportPropertyChanging("SchoolCity");
-                _SchoolCity = StructuralObject.SetValidValue(value, true);
+                _SchoolCity = StructuralObject.SetValidValue(value, true, "SchoolCity");
                 ReportPropertyChanged("SchoolCity");
                 OnSchoolCityChanged();
             }
@@ -39770,7 +39954,7 @@ namespace PriemLib
                 {
                     OnSchoolNameChanging(value);
                     ReportPropertyChanging("SchoolName");
-                    _SchoolName = StructuralObject.SetValidValue(value, false);
+                    _SchoolName = StructuralObject.SetValidValue(value, false, "SchoolName");
                     ReportPropertyChanged("SchoolName");
                     OnSchoolNameChanged();
                 }
@@ -39795,7 +39979,7 @@ namespace PriemLib
             {
                 OnSchoolNumChanging(value);
                 ReportPropertyChanging("SchoolNum");
-                _SchoolNum = StructuralObject.SetValidValue(value, true);
+                _SchoolNum = StructuralObject.SetValidValue(value, true, "SchoolNum");
                 ReportPropertyChanged("SchoolNum");
                 OnSchoolNumChanged();
             }
@@ -39821,7 +40005,7 @@ namespace PriemLib
                 {
                     OnSchoolExitYearChanging(value);
                     ReportPropertyChanging("SchoolExitYear");
-                    _SchoolExitYear = StructuralObject.SetValidValue(value);
+                    _SchoolExitYear = StructuralObject.SetValidValue(value, "SchoolExitYear");
                     ReportPropertyChanged("SchoolExitYear");
                     OnSchoolExitYearChanged();
                 }
@@ -39846,7 +40030,7 @@ namespace PriemLib
             {
                 OnAttestatSeriesChanging(value);
                 ReportPropertyChanging("AttestatSeries");
-                _AttestatSeries = StructuralObject.SetValidValue(value, true);
+                _AttestatSeries = StructuralObject.SetValidValue(value, true, "AttestatSeries");
                 ReportPropertyChanged("AttestatSeries");
                 OnAttestatSeriesChanged();
             }
@@ -39870,7 +40054,7 @@ namespace PriemLib
             {
                 OnAttestatNumChanging(value);
                 ReportPropertyChanging("AttestatNum");
-                _AttestatNum = StructuralObject.SetValidValue(value, true);
+                _AttestatNum = StructuralObject.SetValidValue(value, true, "AttestatNum");
                 ReportPropertyChanged("AttestatNum");
                 OnAttestatNumChanged();
             }
@@ -39894,7 +40078,7 @@ namespace PriemLib
             {
                 OnDiplomSeriesChanging(value);
                 ReportPropertyChanging("DiplomSeries");
-                _DiplomSeries = StructuralObject.SetValidValue(value, true);
+                _DiplomSeries = StructuralObject.SetValidValue(value, true, "DiplomSeries");
                 ReportPropertyChanged("DiplomSeries");
                 OnDiplomSeriesChanged();
             }
@@ -39918,7 +40102,7 @@ namespace PriemLib
             {
                 OnDiplomNumChanging(value);
                 ReportPropertyChanging("DiplomNum");
-                _DiplomNum = StructuralObject.SetValidValue(value, true);
+                _DiplomNum = StructuralObject.SetValidValue(value, true, "DiplomNum");
                 ReportPropertyChanged("DiplomNum");
                 OnDiplomNumChanged();
             }
@@ -39942,7 +40126,7 @@ namespace PriemLib
             {
                 OnSchoolAVGChanging(value);
                 ReportPropertyChanging("SchoolAVG");
-                _SchoolAVG = StructuralObject.SetValidValue(value);
+                _SchoolAVG = StructuralObject.SetValidValue(value, "SchoolAVG");
                 ReportPropertyChanged("SchoolAVG");
                 OnSchoolAVGChanged();
             }
@@ -39968,7 +40152,7 @@ namespace PriemLib
                 {
                     OnIsExcellentChanging(value);
                     ReportPropertyChanging("IsExcellent");
-                    _IsExcellent = StructuralObject.SetValidValue(value);
+                    _IsExcellent = StructuralObject.SetValidValue(value, "IsExcellent");
                     ReportPropertyChanged("IsExcellent");
                     OnIsExcellentChanged();
                 }
@@ -39995,7 +40179,7 @@ namespace PriemLib
                 {
                     OnIsEqualChanging(value);
                     ReportPropertyChanging("IsEqual");
-                    _IsEqual = StructuralObject.SetValidValue(value);
+                    _IsEqual = StructuralObject.SetValidValue(value, "IsEqual");
                     ReportPropertyChanged("IsEqual");
                     OnIsEqualChanged();
                 }
@@ -40020,7 +40204,7 @@ namespace PriemLib
             {
                 OnEqualDocumentNumberChanging(value);
                 ReportPropertyChanging("EqualDocumentNumber");
-                _EqualDocumentNumber = StructuralObject.SetValidValue(value, true);
+                _EqualDocumentNumber = StructuralObject.SetValidValue(value, true, "EqualDocumentNumber");
                 ReportPropertyChanged("EqualDocumentNumber");
                 OnEqualDocumentNumberChanged();
             }
@@ -40044,7 +40228,7 @@ namespace PriemLib
             {
                 OnHighEducationChanging(value);
                 ReportPropertyChanging("HighEducation");
-                _HighEducation = StructuralObject.SetValidValue(value, true);
+                _HighEducation = StructuralObject.SetValidValue(value, true, "HighEducation");
                 ReportPropertyChanged("HighEducation");
                 OnHighEducationChanged();
             }
@@ -40068,7 +40252,7 @@ namespace PriemLib
             {
                 OnHEProfessionChanging(value);
                 ReportPropertyChanging("HEProfession");
-                _HEProfession = StructuralObject.SetValidValue(value, true);
+                _HEProfession = StructuralObject.SetValidValue(value, true, "HEProfession");
                 ReportPropertyChanged("HEProfession");
                 OnHEProfessionChanged();
             }
@@ -40092,7 +40276,7 @@ namespace PriemLib
             {
                 OnHEQualificationChanging(value);
                 ReportPropertyChanging("HEQualification");
-                _HEQualification = StructuralObject.SetValidValue(value, true);
+                _HEQualification = StructuralObject.SetValidValue(value, true, "HEQualification");
                 ReportPropertyChanged("HEQualification");
                 OnHEQualificationChanged();
             }
@@ -40116,7 +40300,7 @@ namespace PriemLib
             {
                 OnHEStudyFormIdChanging(value);
                 ReportPropertyChanging("HEStudyFormId");
-                _HEStudyFormId = StructuralObject.SetValidValue(value);
+                _HEStudyFormId = StructuralObject.SetValidValue(value, "HEStudyFormId");
                 ReportPropertyChanged("HEStudyFormId");
                 OnHEStudyFormIdChanged();
             }
@@ -40140,7 +40324,7 @@ namespace PriemLib
             {
                 OnHEStudyFormNameChanging(value);
                 ReportPropertyChanging("HEStudyFormName");
-                _HEStudyFormName = StructuralObject.SetValidValue(value, true);
+                _HEStudyFormName = StructuralObject.SetValidValue(value, true, "HEStudyFormName");
                 ReportPropertyChanged("HEStudyFormName");
                 OnHEStudyFormNameChanged();
             }
@@ -40164,7 +40348,7 @@ namespace PriemLib
             {
                 OnHEStudyFormFISNameChanging(value);
                 ReportPropertyChanging("HEStudyFormFISName");
-                _HEStudyFormFISName = StructuralObject.SetValidValue(value, true);
+                _HEStudyFormFISName = StructuralObject.SetValidValue(value, true, "HEStudyFormFISName");
                 ReportPropertyChanged("HEStudyFormFISName");
                 OnHEStudyFormFISNameChanged();
             }
@@ -40188,7 +40372,7 @@ namespace PriemLib
             {
                 OnHEEntryYearChanging(value);
                 ReportPropertyChanging("HEEntryYear");
-                _HEEntryYear = StructuralObject.SetValidValue(value);
+                _HEEntryYear = StructuralObject.SetValidValue(value, "HEEntryYear");
                 ReportPropertyChanged("HEEntryYear");
                 OnHEEntryYearChanged();
             }
@@ -40212,7 +40396,7 @@ namespace PriemLib
             {
                 OnHEExitYearChanging(value);
                 ReportPropertyChanging("HEExitYear");
-                _HEExitYear = StructuralObject.SetValidValue(value);
+                _HEExitYear = StructuralObject.SetValidValue(value, "HEExitYear");
                 ReportPropertyChanged("HEExitYear");
                 OnHEExitYearChanged();
             }
@@ -40236,7 +40420,7 @@ namespace PriemLib
             {
                 OnHEWorkChanging(value);
                 ReportPropertyChanging("HEWork");
-                _HEWork = StructuralObject.SetValidValue(value, true);
+                _HEWork = StructuralObject.SetValidValue(value, true, "HEWork");
                 ReportPropertyChanged("HEWork");
                 OnHEWorkChanged();
             }
@@ -40247,7 +40431,6 @@ namespace PriemLib
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -40293,7 +40476,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -40312,7 +40495,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -40339,7 +40522,7 @@ namespace PriemLib
                 {
                     OnPersonIdChanging(value);
                     ReportPropertyChanging("PersonId");
-                    _PersonId = StructuralObject.SetValidValue(value);
+                    _PersonId = StructuralObject.SetValidValue(value, "PersonId");
                     ReportPropertyChanged("PersonId");
                     OnPersonIdChanged();
                 }
@@ -40366,7 +40549,7 @@ namespace PriemLib
                 {
                     OnSchoolTypeIdChanging(value);
                     ReportPropertyChanging("SchoolTypeId");
-                    _SchoolTypeId = StructuralObject.SetValidValue(value);
+                    _SchoolTypeId = StructuralObject.SetValidValue(value, "SchoolTypeId");
                     ReportPropertyChanged("SchoolTypeId");
                     OnSchoolTypeIdChanged();
                 }
@@ -40393,7 +40576,7 @@ namespace PriemLib
                 {
                     OnSchoolTypeNameChanging(value);
                     ReportPropertyChanging("SchoolTypeName");
-                    _SchoolTypeName = StructuralObject.SetValidValue(value, false);
+                    _SchoolTypeName = StructuralObject.SetValidValue(value, false, "SchoolTypeName");
                     ReportPropertyChanged("SchoolTypeName");
                     OnSchoolTypeNameChanged();
                 }
@@ -40418,7 +40601,7 @@ namespace PriemLib
             {
                 OnSchoolTypeFullNameChanging(value);
                 ReportPropertyChanging("SchoolTypeFullName");
-                _SchoolTypeFullName = StructuralObject.SetValidValue(value, true);
+                _SchoolTypeFullName = StructuralObject.SetValidValue(value, true, "SchoolTypeFullName");
                 ReportPropertyChanged("SchoolTypeFullName");
                 OnSchoolTypeFullNameChanged();
             }
@@ -40444,7 +40627,7 @@ namespace PriemLib
                 {
                     OnCountryEducIdChanging(value);
                     ReportPropertyChanging("CountryEducId");
-                    _CountryEducId = StructuralObject.SetValidValue(value);
+                    _CountryEducId = StructuralObject.SetValidValue(value, "CountryEducId");
                     ReportPropertyChanged("CountryEducId");
                     OnCountryEducIdChanged();
                 }
@@ -40469,7 +40652,7 @@ namespace PriemLib
             {
                 OnCountryEducNameChanging(value);
                 ReportPropertyChanging("CountryEducName");
-                _CountryEducName = StructuralObject.SetValidValue(value, true);
+                _CountryEducName = StructuralObject.SetValidValue(value, true, "CountryEducName");
                 ReportPropertyChanged("CountryEducName");
                 OnCountryEducNameChanged();
             }
@@ -40493,7 +40676,7 @@ namespace PriemLib
             {
                 OnCountryEducOSKMCodeChanging(value);
                 ReportPropertyChanging("CountryEducOSKMCode");
-                _CountryEducOSKMCode = StructuralObject.SetValidValue(value, true);
+                _CountryEducOSKMCode = StructuralObject.SetValidValue(value, true, "CountryEducOSKMCode");
                 ReportPropertyChanged("CountryEducOSKMCode");
                 OnCountryEducOSKMCodeChanged();
             }
@@ -40519,7 +40702,7 @@ namespace PriemLib
                 {
                     OnRegionEducIdChanging(value);
                     ReportPropertyChanging("RegionEducId");
-                    _RegionEducId = StructuralObject.SetValidValue(value);
+                    _RegionEducId = StructuralObject.SetValidValue(value, "RegionEducId");
                     ReportPropertyChanged("RegionEducId");
                     OnRegionEducIdChanged();
                 }
@@ -40544,7 +40727,7 @@ namespace PriemLib
             {
                 OnRegionEducNameChanging(value);
                 ReportPropertyChanging("RegionEducName");
-                _RegionEducName = StructuralObject.SetValidValue(value, true);
+                _RegionEducName = StructuralObject.SetValidValue(value, true, "RegionEducName");
                 ReportPropertyChanged("RegionEducName");
                 OnRegionEducNameChanged();
             }
@@ -40568,7 +40751,7 @@ namespace PriemLib
             {
                 OnRegionEducNumberChanging(value);
                 ReportPropertyChanging("RegionEducNumber");
-                _RegionEducNumber = StructuralObject.SetValidValue(value, true);
+                _RegionEducNumber = StructuralObject.SetValidValue(value, true, "RegionEducNumber");
                 ReportPropertyChanged("RegionEducNumber");
                 OnRegionEducNumberChanged();
             }
@@ -40594,7 +40777,7 @@ namespace PriemLib
                 {
                     OnForeignCountryEducIdChanging(value);
                     ReportPropertyChanging("ForeignCountryEducId");
-                    _ForeignCountryEducId = StructuralObject.SetValidValue(value);
+                    _ForeignCountryEducId = StructuralObject.SetValidValue(value, "ForeignCountryEducId");
                     ReportPropertyChanged("ForeignCountryEducId");
                     OnForeignCountryEducIdChanged();
                 }
@@ -40619,7 +40802,7 @@ namespace PriemLib
             {
                 OnForeignCountryEducNameChanging(value);
                 ReportPropertyChanging("ForeignCountryEducName");
-                _ForeignCountryEducName = StructuralObject.SetValidValue(value, true);
+                _ForeignCountryEducName = StructuralObject.SetValidValue(value, true, "ForeignCountryEducName");
                 ReportPropertyChanged("ForeignCountryEducName");
                 OnForeignCountryEducNameChanged();
             }
@@ -40643,7 +40826,7 @@ namespace PriemLib
             {
                 OnForeignCountryEducOSKMCodeChanging(value);
                 ReportPropertyChanging("ForeignCountryEducOSKMCode");
-                _ForeignCountryEducOSKMCode = StructuralObject.SetValidValue(value, true);
+                _ForeignCountryEducOSKMCode = StructuralObject.SetValidValue(value, true, "ForeignCountryEducOSKMCode");
                 ReportPropertyChanged("ForeignCountryEducOSKMCode");
                 OnForeignCountryEducOSKMCodeChanged();
             }
@@ -40667,7 +40850,7 @@ namespace PriemLib
             {
                 OnForeignCountryEducPriemDictionaryIdChanging(value);
                 ReportPropertyChanging("ForeignCountryEducPriemDictionaryId");
-                _ForeignCountryEducPriemDictionaryId = StructuralObject.SetValidValue(value);
+                _ForeignCountryEducPriemDictionaryId = StructuralObject.SetValidValue(value, "ForeignCountryEducPriemDictionaryId");
                 ReportPropertyChanged("ForeignCountryEducPriemDictionaryId");
                 OnForeignCountryEducPriemDictionaryIdChanged();
             }
@@ -40691,7 +40874,7 @@ namespace PriemLib
             {
                 OnSchoolCityChanging(value);
                 ReportPropertyChanging("SchoolCity");
-                _SchoolCity = StructuralObject.SetValidValue(value, true);
+                _SchoolCity = StructuralObject.SetValidValue(value, true, "SchoolCity");
                 ReportPropertyChanged("SchoolCity");
                 OnSchoolCityChanged();
             }
@@ -40717,7 +40900,7 @@ namespace PriemLib
                 {
                     OnSchoolNameChanging(value);
                     ReportPropertyChanging("SchoolName");
-                    _SchoolName = StructuralObject.SetValidValue(value, false);
+                    _SchoolName = StructuralObject.SetValidValue(value, false, "SchoolName");
                     ReportPropertyChanged("SchoolName");
                     OnSchoolNameChanged();
                 }
@@ -40742,7 +40925,7 @@ namespace PriemLib
             {
                 OnSchoolNumChanging(value);
                 ReportPropertyChanging("SchoolNum");
-                _SchoolNum = StructuralObject.SetValidValue(value, true);
+                _SchoolNum = StructuralObject.SetValidValue(value, true, "SchoolNum");
                 ReportPropertyChanged("SchoolNum");
                 OnSchoolNumChanged();
             }
@@ -40768,7 +40951,7 @@ namespace PriemLib
                 {
                     OnSchoolExitYearChanging(value);
                     ReportPropertyChanging("SchoolExitYear");
-                    _SchoolExitYear = StructuralObject.SetValidValue(value);
+                    _SchoolExitYear = StructuralObject.SetValidValue(value, "SchoolExitYear");
                     ReportPropertyChanged("SchoolExitYear");
                     OnSchoolExitYearChanged();
                 }
@@ -40793,7 +40976,7 @@ namespace PriemLib
             {
                 OnAttestatSeriesChanging(value);
                 ReportPropertyChanging("AttestatSeries");
-                _AttestatSeries = StructuralObject.SetValidValue(value, true);
+                _AttestatSeries = StructuralObject.SetValidValue(value, true, "AttestatSeries");
                 ReportPropertyChanged("AttestatSeries");
                 OnAttestatSeriesChanged();
             }
@@ -40817,7 +41000,7 @@ namespace PriemLib
             {
                 OnAttestatNumChanging(value);
                 ReportPropertyChanging("AttestatNum");
-                _AttestatNum = StructuralObject.SetValidValue(value, true);
+                _AttestatNum = StructuralObject.SetValidValue(value, true, "AttestatNum");
                 ReportPropertyChanged("AttestatNum");
                 OnAttestatNumChanged();
             }
@@ -40841,7 +41024,7 @@ namespace PriemLib
             {
                 OnDiplomSeriesChanging(value);
                 ReportPropertyChanging("DiplomSeries");
-                _DiplomSeries = StructuralObject.SetValidValue(value, true);
+                _DiplomSeries = StructuralObject.SetValidValue(value, true, "DiplomSeries");
                 ReportPropertyChanged("DiplomSeries");
                 OnDiplomSeriesChanged();
             }
@@ -40865,7 +41048,7 @@ namespace PriemLib
             {
                 OnDiplomNumChanging(value);
                 ReportPropertyChanging("DiplomNum");
-                _DiplomNum = StructuralObject.SetValidValue(value, true);
+                _DiplomNum = StructuralObject.SetValidValue(value, true, "DiplomNum");
                 ReportPropertyChanged("DiplomNum");
                 OnDiplomNumChanged();
             }
@@ -40889,7 +41072,7 @@ namespace PriemLib
             {
                 OnSchoolAVGChanging(value);
                 ReportPropertyChanging("SchoolAVG");
-                _SchoolAVG = StructuralObject.SetValidValue(value);
+                _SchoolAVG = StructuralObject.SetValidValue(value, "SchoolAVG");
                 ReportPropertyChanged("SchoolAVG");
                 OnSchoolAVGChanged();
             }
@@ -40915,7 +41098,7 @@ namespace PriemLib
                 {
                     OnIsExcellentChanging(value);
                     ReportPropertyChanging("IsExcellent");
-                    _IsExcellent = StructuralObject.SetValidValue(value);
+                    _IsExcellent = StructuralObject.SetValidValue(value, "IsExcellent");
                     ReportPropertyChanged("IsExcellent");
                     OnIsExcellentChanged();
                 }
@@ -40942,7 +41125,7 @@ namespace PriemLib
                 {
                     OnIsEqualChanging(value);
                     ReportPropertyChanging("IsEqual");
-                    _IsEqual = StructuralObject.SetValidValue(value);
+                    _IsEqual = StructuralObject.SetValidValue(value, "IsEqual");
                     ReportPropertyChanged("IsEqual");
                     OnIsEqualChanged();
                 }
@@ -40967,7 +41150,7 @@ namespace PriemLib
             {
                 OnEqualDocumentNumberChanging(value);
                 ReportPropertyChanging("EqualDocumentNumber");
-                _EqualDocumentNumber = StructuralObject.SetValidValue(value, true);
+                _EqualDocumentNumber = StructuralObject.SetValidValue(value, true, "EqualDocumentNumber");
                 ReportPropertyChanged("EqualDocumentNumber");
                 OnEqualDocumentNumberChanged();
             }
@@ -40991,7 +41174,7 @@ namespace PriemLib
             {
                 OnHighEducationChanging(value);
                 ReportPropertyChanging("HighEducation");
-                _HighEducation = StructuralObject.SetValidValue(value, true);
+                _HighEducation = StructuralObject.SetValidValue(value, true, "HighEducation");
                 ReportPropertyChanged("HighEducation");
                 OnHighEducationChanged();
             }
@@ -41015,7 +41198,7 @@ namespace PriemLib
             {
                 OnHEProfessionChanging(value);
                 ReportPropertyChanging("HEProfession");
-                _HEProfession = StructuralObject.SetValidValue(value, true);
+                _HEProfession = StructuralObject.SetValidValue(value, true, "HEProfession");
                 ReportPropertyChanged("HEProfession");
                 OnHEProfessionChanged();
             }
@@ -41039,7 +41222,7 @@ namespace PriemLib
             {
                 OnHEQualificationChanging(value);
                 ReportPropertyChanging("HEQualification");
-                _HEQualification = StructuralObject.SetValidValue(value, true);
+                _HEQualification = StructuralObject.SetValidValue(value, true, "HEQualification");
                 ReportPropertyChanged("HEQualification");
                 OnHEQualificationChanged();
             }
@@ -41063,7 +41246,7 @@ namespace PriemLib
             {
                 OnHEStudyFormIdChanging(value);
                 ReportPropertyChanging("HEStudyFormId");
-                _HEStudyFormId = StructuralObject.SetValidValue(value);
+                _HEStudyFormId = StructuralObject.SetValidValue(value, "HEStudyFormId");
                 ReportPropertyChanged("HEStudyFormId");
                 OnHEStudyFormIdChanged();
             }
@@ -41087,7 +41270,7 @@ namespace PriemLib
             {
                 OnHEStudyFormNameChanging(value);
                 ReportPropertyChanging("HEStudyFormName");
-                _HEStudyFormName = StructuralObject.SetValidValue(value, true);
+                _HEStudyFormName = StructuralObject.SetValidValue(value, true, "HEStudyFormName");
                 ReportPropertyChanged("HEStudyFormName");
                 OnHEStudyFormNameChanged();
             }
@@ -41111,7 +41294,7 @@ namespace PriemLib
             {
                 OnHEStudyFormFISNameChanging(value);
                 ReportPropertyChanging("HEStudyFormFISName");
-                _HEStudyFormFISName = StructuralObject.SetValidValue(value, true);
+                _HEStudyFormFISName = StructuralObject.SetValidValue(value, true, "HEStudyFormFISName");
                 ReportPropertyChanged("HEStudyFormFISName");
                 OnHEStudyFormFISNameChanged();
             }
@@ -41135,7 +41318,7 @@ namespace PriemLib
             {
                 OnHEEntryYearChanging(value);
                 ReportPropertyChanging("HEEntryYear");
-                _HEEntryYear = StructuralObject.SetValidValue(value);
+                _HEEntryYear = StructuralObject.SetValidValue(value, "HEEntryYear");
                 ReportPropertyChanged("HEEntryYear");
                 OnHEEntryYearChanged();
             }
@@ -41159,7 +41342,7 @@ namespace PriemLib
             {
                 OnHEExitYearChanging(value);
                 ReportPropertyChanging("HEExitYear");
-                _HEExitYear = StructuralObject.SetValidValue(value);
+                _HEExitYear = StructuralObject.SetValidValue(value, "HEExitYear");
                 ReportPropertyChanged("HEExitYear");
                 OnHEExitYearChanged();
             }
@@ -41183,7 +41366,7 @@ namespace PriemLib
             {
                 OnHEWorkChanging(value);
                 ReportPropertyChanging("HEWork");
-                _HEWork = StructuralObject.SetValidValue(value, true);
+                _HEWork = StructuralObject.SetValidValue(value, true, "HEWork");
                 ReportPropertyChanged("HEWork");
                 OnHEWorkChanged();
             }
@@ -41207,7 +41390,7 @@ namespace PriemLib
             {
                 OnEducDocumentChanging(value);
                 ReportPropertyChanging("EducDocument");
-                _EducDocument = StructuralObject.SetValidValue(value, true);
+                _EducDocument = StructuralObject.SetValidValue(value, true, "EducDocument");
                 ReportPropertyChanged("EducDocument");
                 OnEducDocumentChanged();
             }
@@ -41218,7 +41401,6 @@ namespace PriemLib
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -41262,7 +41444,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -41281,7 +41463,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -41306,7 +41488,7 @@ namespace PriemLib
             {
                 OnBarcodeChanging(value);
                 ReportPropertyChanging("Barcode");
-                _Barcode = StructuralObject.SetValidValue(value);
+                _Barcode = StructuralObject.SetValidValue(value, "Barcode");
                 ReportPropertyChanged("Barcode");
                 OnBarcodeChanged();
             }
@@ -41332,7 +41514,7 @@ namespace PriemLib
                 {
                     OnNumChanging(value);
                     ReportPropertyChanging("Num");
-                    _Num = StructuralObject.SetValidValue(value);
+                    _Num = StructuralObject.SetValidValue(value, "Num");
                     ReportPropertyChanged("Num");
                     OnNumChanged();
                 }
@@ -41357,7 +41539,7 @@ namespace PriemLib
             {
                 OnNameChanging(value);
                 ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, false);
+                _Name = StructuralObject.SetValidValue(value, false, "Name");
                 ReportPropertyChanged("Name");
                 OnNameChanged();
             }
@@ -41381,7 +41563,7 @@ namespace PriemLib
             {
                 OnSecondNameChanging(value);
                 ReportPropertyChanging("SecondName");
-                _SecondName = StructuralObject.SetValidValue(value, true);
+                _SecondName = StructuralObject.SetValidValue(value, true, "SecondName");
                 ReportPropertyChanged("SecondName");
                 OnSecondNameChanged();
             }
@@ -41405,7 +41587,7 @@ namespace PriemLib
             {
                 OnSurnameChanging(value);
                 ReportPropertyChanging("Surname");
-                _Surname = StructuralObject.SetValidValue(value, false);
+                _Surname = StructuralObject.SetValidValue(value, false, "Surname");
                 ReportPropertyChanged("Surname");
                 OnSurnameChanged();
             }
@@ -41429,7 +41611,7 @@ namespace PriemLib
             {
                 OnBirthDateChanging(value);
                 ReportPropertyChanging("BirthDate");
-                _BirthDate = StructuralObject.SetValidValue(value);
+                _BirthDate = StructuralObject.SetValidValue(value, "BirthDate");
                 ReportPropertyChanged("BirthDate");
                 OnBirthDateChanged();
             }
@@ -41453,7 +41635,7 @@ namespace PriemLib
             {
                 OnBirthPlaceChanging(value);
                 ReportPropertyChanging("BirthPlace");
-                _BirthPlace = StructuralObject.SetValidValue(value, false);
+                _BirthPlace = StructuralObject.SetValidValue(value, false, "BirthPlace");
                 ReportPropertyChanged("BirthPlace");
                 OnBirthPlaceChanged();
             }
@@ -41477,7 +41659,7 @@ namespace PriemLib
             {
                 OnPassportTypeIdChanging(value);
                 ReportPropertyChanging("PassportTypeId");
-                _PassportTypeId = StructuralObject.SetValidValue(value);
+                _PassportTypeId = StructuralObject.SetValidValue(value, "PassportTypeId");
                 ReportPropertyChanged("PassportTypeId");
                 OnPassportTypeIdChanged();
             }
@@ -41501,7 +41683,7 @@ namespace PriemLib
             {
                 OnPassportSeriesChanging(value);
                 ReportPropertyChanging("PassportSeries");
-                _PassportSeries = StructuralObject.SetValidValue(value, true);
+                _PassportSeries = StructuralObject.SetValidValue(value, true, "PassportSeries");
                 ReportPropertyChanged("PassportSeries");
                 OnPassportSeriesChanged();
             }
@@ -41525,7 +41707,7 @@ namespace PriemLib
             {
                 OnPassportNumberChanging(value);
                 ReportPropertyChanging("PassportNumber");
-                _PassportNumber = StructuralObject.SetValidValue(value, true);
+                _PassportNumber = StructuralObject.SetValidValue(value, true, "PassportNumber");
                 ReportPropertyChanged("PassportNumber");
                 OnPassportNumberChanged();
             }
@@ -41549,7 +41731,7 @@ namespace PriemLib
             {
                 OnPassportAuthorChanging(value);
                 ReportPropertyChanging("PassportAuthor");
-                _PassportAuthor = StructuralObject.SetValidValue(value, true);
+                _PassportAuthor = StructuralObject.SetValidValue(value, true, "PassportAuthor");
                 ReportPropertyChanged("PassportAuthor");
                 OnPassportAuthorChanged();
             }
@@ -41573,7 +41755,7 @@ namespace PriemLib
             {
                 OnPassportDateChanging(value);
                 ReportPropertyChanging("PassportDate");
-                _PassportDate = StructuralObject.SetValidValue(value);
+                _PassportDate = StructuralObject.SetValidValue(value, "PassportDate");
                 ReportPropertyChanged("PassportDate");
                 OnPassportDateChanged();
             }
@@ -41597,7 +41779,7 @@ namespace PriemLib
             {
                 OnSexChanging(value);
                 ReportPropertyChanging("Sex");
-                _Sex = StructuralObject.SetValidValue(value);
+                _Sex = StructuralObject.SetValidValue(value, "Sex");
                 ReportPropertyChanged("Sex");
                 OnSexChanged();
             }
@@ -41621,7 +41803,7 @@ namespace PriemLib
             {
                 OnCountryIdChanging(value);
                 ReportPropertyChanging("CountryId");
-                _CountryId = StructuralObject.SetValidValue(value);
+                _CountryId = StructuralObject.SetValidValue(value, "CountryId");
                 ReportPropertyChanged("CountryId");
                 OnCountryIdChanged();
             }
@@ -41645,7 +41827,7 @@ namespace PriemLib
             {
                 OnNationalityIdChanging(value);
                 ReportPropertyChanging("NationalityId");
-                _NationalityId = StructuralObject.SetValidValue(value);
+                _NationalityId = StructuralObject.SetValidValue(value, "NationalityId");
                 ReportPropertyChanged("NationalityId");
                 OnNationalityIdChanged();
             }
@@ -41669,7 +41851,7 @@ namespace PriemLib
             {
                 OnRegionIdChanging(value);
                 ReportPropertyChanging("RegionId");
-                _RegionId = StructuralObject.SetValidValue(value);
+                _RegionId = StructuralObject.SetValidValue(value, "RegionId");
                 ReportPropertyChanged("RegionId");
                 OnRegionIdChanged();
             }
@@ -41693,7 +41875,7 @@ namespace PriemLib
             {
                 OnPhoneChanging(value);
                 ReportPropertyChanging("Phone");
-                _Phone = StructuralObject.SetValidValue(value, true);
+                _Phone = StructuralObject.SetValidValue(value, true, "Phone");
                 ReportPropertyChanged("Phone");
                 OnPhoneChanged();
             }
@@ -41717,7 +41899,7 @@ namespace PriemLib
             {
                 OnMobilesChanging(value);
                 ReportPropertyChanging("Mobiles");
-                _Mobiles = StructuralObject.SetValidValue(value, true);
+                _Mobiles = StructuralObject.SetValidValue(value, true, "Mobiles");
                 ReportPropertyChanged("Mobiles");
                 OnMobilesChanged();
             }
@@ -41741,7 +41923,7 @@ namespace PriemLib
             {
                 OnEmailChanging(value);
                 ReportPropertyChanging("Email");
-                _Email = StructuralObject.SetValidValue(value, true);
+                _Email = StructuralObject.SetValidValue(value, true, "Email");
                 ReportPropertyChanged("Email");
                 OnEmailChanged();
             }
@@ -41765,7 +41947,7 @@ namespace PriemLib
             {
                 OnCodeChanging(value);
                 ReportPropertyChanging("Code");
-                _Code = StructuralObject.SetValidValue(value, true);
+                _Code = StructuralObject.SetValidValue(value, true, "Code");
                 ReportPropertyChanged("Code");
                 OnCodeChanged();
             }
@@ -41789,7 +41971,7 @@ namespace PriemLib
             {
                 OnCityChanging(value);
                 ReportPropertyChanging("City");
-                _City = StructuralObject.SetValidValue(value, true);
+                _City = StructuralObject.SetValidValue(value, true, "City");
                 ReportPropertyChanged("City");
                 OnCityChanged();
             }
@@ -41813,7 +41995,7 @@ namespace PriemLib
             {
                 OnStreetChanging(value);
                 ReportPropertyChanging("Street");
-                _Street = StructuralObject.SetValidValue(value, true);
+                _Street = StructuralObject.SetValidValue(value, true, "Street");
                 ReportPropertyChanged("Street");
                 OnStreetChanged();
             }
@@ -41837,7 +42019,7 @@ namespace PriemLib
             {
                 OnHouseChanging(value);
                 ReportPropertyChanging("House");
-                _House = StructuralObject.SetValidValue(value, true);
+                _House = StructuralObject.SetValidValue(value, true, "House");
                 ReportPropertyChanged("House");
                 OnHouseChanged();
             }
@@ -41861,7 +42043,7 @@ namespace PriemLib
             {
                 OnFlatChanging(value);
                 ReportPropertyChanging("Flat");
-                _Flat = StructuralObject.SetValidValue(value, true);
+                _Flat = StructuralObject.SetValidValue(value, true, "Flat");
                 ReportPropertyChanged("Flat");
                 OnFlatChanged();
             }
@@ -41885,7 +42067,7 @@ namespace PriemLib
             {
                 OnCodeRealChanging(value);
                 ReportPropertyChanging("CodeReal");
-                _CodeReal = StructuralObject.SetValidValue(value, true);
+                _CodeReal = StructuralObject.SetValidValue(value, true, "CodeReal");
                 ReportPropertyChanged("CodeReal");
                 OnCodeRealChanged();
             }
@@ -41909,7 +42091,7 @@ namespace PriemLib
             {
                 OnKorpusChanging(value);
                 ReportPropertyChanging("Korpus");
-                _Korpus = StructuralObject.SetValidValue(value, true);
+                _Korpus = StructuralObject.SetValidValue(value, true, "Korpus");
                 ReportPropertyChanged("Korpus");
                 OnKorpusChanged();
             }
@@ -41933,7 +42115,7 @@ namespace PriemLib
             {
                 OnCityRealChanging(value);
                 ReportPropertyChanging("CityReal");
-                _CityReal = StructuralObject.SetValidValue(value, true);
+                _CityReal = StructuralObject.SetValidValue(value, true, "CityReal");
                 ReportPropertyChanged("CityReal");
                 OnCityRealChanged();
             }
@@ -41957,7 +42139,7 @@ namespace PriemLib
             {
                 OnStreetRealChanging(value);
                 ReportPropertyChanging("StreetReal");
-                _StreetReal = StructuralObject.SetValidValue(value, true);
+                _StreetReal = StructuralObject.SetValidValue(value, true, "StreetReal");
                 ReportPropertyChanged("StreetReal");
                 OnStreetRealChanged();
             }
@@ -41981,7 +42163,7 @@ namespace PriemLib
             {
                 OnHouseRealChanging(value);
                 ReportPropertyChanging("HouseReal");
-                _HouseReal = StructuralObject.SetValidValue(value, true);
+                _HouseReal = StructuralObject.SetValidValue(value, true, "HouseReal");
                 ReportPropertyChanged("HouseReal");
                 OnHouseRealChanged();
             }
@@ -42005,7 +42187,7 @@ namespace PriemLib
             {
                 OnKorpusRealChanging(value);
                 ReportPropertyChanging("KorpusReal");
-                _KorpusReal = StructuralObject.SetValidValue(value, true);
+                _KorpusReal = StructuralObject.SetValidValue(value, true, "KorpusReal");
                 ReportPropertyChanged("KorpusReal");
                 OnKorpusRealChanged();
             }
@@ -42029,7 +42211,7 @@ namespace PriemLib
             {
                 OnFlatRealChanging(value);
                 ReportPropertyChanging("FlatReal");
-                _FlatReal = StructuralObject.SetValidValue(value, true);
+                _FlatReal = StructuralObject.SetValidValue(value, true, "FlatReal");
                 ReportPropertyChanged("FlatReal");
                 OnFlatRealChanged();
             }
@@ -42053,7 +42235,7 @@ namespace PriemLib
             {
                 OnHostelAbitChanging(value);
                 ReportPropertyChanging("HostelAbit");
-                _HostelAbit = StructuralObject.SetValidValue(value);
+                _HostelAbit = StructuralObject.SetValidValue(value, "HostelAbit");
                 ReportPropertyChanged("HostelAbit");
                 OnHostelAbitChanged();
             }
@@ -42077,7 +42259,7 @@ namespace PriemLib
             {
                 OnHasAssignToHostelChanging(value);
                 ReportPropertyChanging("HasAssignToHostel");
-                _HasAssignToHostel = StructuralObject.SetValidValue(value);
+                _HasAssignToHostel = StructuralObject.SetValidValue(value, "HasAssignToHostel");
                 ReportPropertyChanged("HasAssignToHostel");
                 OnHasAssignToHostelChanged();
             }
@@ -42101,7 +42283,7 @@ namespace PriemLib
             {
                 OnHostelFacultyIdChanging(value);
                 ReportPropertyChanging("HostelFacultyId");
-                _HostelFacultyId = StructuralObject.SetValidValue(value);
+                _HostelFacultyId = StructuralObject.SetValidValue(value, "HostelFacultyId");
                 ReportPropertyChanged("HostelFacultyId");
                 OnHostelFacultyIdChanged();
             }
@@ -42125,7 +42307,7 @@ namespace PriemLib
             {
                 OnExamPassFacultyIdChanging(value);
                 ReportPropertyChanging("ExamPassFacultyId");
-                _ExamPassFacultyId = StructuralObject.SetValidValue(value);
+                _ExamPassFacultyId = StructuralObject.SetValidValue(value, "ExamPassFacultyId");
                 ReportPropertyChanged("ExamPassFacultyId");
                 OnExamPassFacultyIdChanged();
             }
@@ -42149,7 +42331,7 @@ namespace PriemLib
             {
                 OnHasExamPassChanging(value);
                 ReportPropertyChanging("HasExamPass");
-                _HasExamPass = StructuralObject.SetValidValue(value);
+                _HasExamPass = StructuralObject.SetValidValue(value, "HasExamPass");
                 ReportPropertyChanged("HasExamPass");
                 OnHasExamPassChanged();
             }
@@ -42173,7 +42355,7 @@ namespace PriemLib
             {
                 OnIsExcellentChanging(value);
                 ReportPropertyChanging("IsExcellent");
-                _IsExcellent = StructuralObject.SetValidValue(value);
+                _IsExcellent = StructuralObject.SetValidValue(value, "IsExcellent");
                 ReportPropertyChanged("IsExcellent");
                 OnIsExcellentChanged();
             }
@@ -42197,7 +42379,7 @@ namespace PriemLib
             {
                 OnLanguageIdChanging(value);
                 ReportPropertyChanging("LanguageId");
-                _LanguageId = StructuralObject.SetValidValue(value);
+                _LanguageId = StructuralObject.SetValidValue(value, "LanguageId");
                 ReportPropertyChanged("LanguageId");
                 OnLanguageIdChanged();
             }
@@ -42221,7 +42403,7 @@ namespace PriemLib
             {
                 OnSchoolTypeIdChanging(value);
                 ReportPropertyChanging("SchoolTypeId");
-                _SchoolTypeId = StructuralObject.SetValidValue(value);
+                _SchoolTypeId = StructuralObject.SetValidValue(value, "SchoolTypeId");
                 ReportPropertyChanged("SchoolTypeId");
                 OnSchoolTypeIdChanged();
             }
@@ -42245,7 +42427,7 @@ namespace PriemLib
             {
                 OnSchoolCityChanging(value);
                 ReportPropertyChanging("SchoolCity");
-                _SchoolCity = StructuralObject.SetValidValue(value, true);
+                _SchoolCity = StructuralObject.SetValidValue(value, true, "SchoolCity");
                 ReportPropertyChanged("SchoolCity");
                 OnSchoolCityChanged();
             }
@@ -42269,7 +42451,7 @@ namespace PriemLib
             {
                 OnSchoolNameChanging(value);
                 ReportPropertyChanging("SchoolName");
-                _SchoolName = StructuralObject.SetValidValue(value, true);
+                _SchoolName = StructuralObject.SetValidValue(value, true, "SchoolName");
                 ReportPropertyChanged("SchoolName");
                 OnSchoolNameChanged();
             }
@@ -42293,7 +42475,7 @@ namespace PriemLib
             {
                 OnSchoolNumChanging(value);
                 ReportPropertyChanging("SchoolNum");
-                _SchoolNum = StructuralObject.SetValidValue(value, true);
+                _SchoolNum = StructuralObject.SetValidValue(value, true, "SchoolNum");
                 ReportPropertyChanged("SchoolNum");
                 OnSchoolNumChanged();
             }
@@ -42317,7 +42499,7 @@ namespace PriemLib
             {
                 OnSchoolExitYearChanging(value);
                 ReportPropertyChanging("SchoolExitYear");
-                _SchoolExitYear = StructuralObject.SetValidValue(value);
+                _SchoolExitYear = StructuralObject.SetValidValue(value, "SchoolExitYear");
                 ReportPropertyChanged("SchoolExitYear");
                 OnSchoolExitYearChanged();
             }
@@ -42341,7 +42523,7 @@ namespace PriemLib
             {
                 OnCountryEducIdChanging(value);
                 ReportPropertyChanging("CountryEducId");
-                _CountryEducId = StructuralObject.SetValidValue(value);
+                _CountryEducId = StructuralObject.SetValidValue(value, "CountryEducId");
                 ReportPropertyChanged("CountryEducId");
                 OnCountryEducIdChanged();
             }
@@ -42365,7 +42547,7 @@ namespace PriemLib
             {
                 OnAttestatSeriesChanging(value);
                 ReportPropertyChanging("AttestatSeries");
-                _AttestatSeries = StructuralObject.SetValidValue(value, true);
+                _AttestatSeries = StructuralObject.SetValidValue(value, true, "AttestatSeries");
                 ReportPropertyChanged("AttestatSeries");
                 OnAttestatSeriesChanged();
             }
@@ -42389,7 +42571,7 @@ namespace PriemLib
             {
                 OnAttestatNumChanging(value);
                 ReportPropertyChanging("AttestatNum");
-                _AttestatNum = StructuralObject.SetValidValue(value, true);
+                _AttestatNum = StructuralObject.SetValidValue(value, true, "AttestatNum");
                 ReportPropertyChanged("AttestatNum");
                 OnAttestatNumChanged();
             }
@@ -42413,7 +42595,7 @@ namespace PriemLib
             {
                 OnDiplomSeriesChanging(value);
                 ReportPropertyChanging("DiplomSeries");
-                _DiplomSeries = StructuralObject.SetValidValue(value, true);
+                _DiplomSeries = StructuralObject.SetValidValue(value, true, "DiplomSeries");
                 ReportPropertyChanged("DiplomSeries");
                 OnDiplomSeriesChanged();
             }
@@ -42437,7 +42619,7 @@ namespace PriemLib
             {
                 OnDiplomNumChanging(value);
                 ReportPropertyChanging("DiplomNum");
-                _DiplomNum = StructuralObject.SetValidValue(value, true);
+                _DiplomNum = StructuralObject.SetValidValue(value, true, "DiplomNum");
                 ReportPropertyChanged("DiplomNum");
                 OnDiplomNumChanged();
             }
@@ -42461,7 +42643,7 @@ namespace PriemLib
             {
                 OnSchoolAVGChanging(value);
                 ReportPropertyChanging("SchoolAVG");
-                _SchoolAVG = StructuralObject.SetValidValue(value);
+                _SchoolAVG = StructuralObject.SetValidValue(value, "SchoolAVG");
                 ReportPropertyChanged("SchoolAVG");
                 OnSchoolAVGChanged();
             }
@@ -42485,7 +42667,7 @@ namespace PriemLib
             {
                 OnHighEducationChanging(value);
                 ReportPropertyChanging("HighEducation");
-                _HighEducation = StructuralObject.SetValidValue(value, true);
+                _HighEducation = StructuralObject.SetValidValue(value, true, "HighEducation");
                 ReportPropertyChanged("HighEducation");
                 OnHighEducationChanged();
             }
@@ -42509,7 +42691,7 @@ namespace PriemLib
             {
                 OnHEProfessionChanging(value);
                 ReportPropertyChanging("HEProfession");
-                _HEProfession = StructuralObject.SetValidValue(value, true);
+                _HEProfession = StructuralObject.SetValidValue(value, true, "HEProfession");
                 ReportPropertyChanged("HEProfession");
                 OnHEProfessionChanged();
             }
@@ -42533,7 +42715,7 @@ namespace PriemLib
             {
                 OnHEQualificationChanging(value);
                 ReportPropertyChanging("HEQualification");
-                _HEQualification = StructuralObject.SetValidValue(value, true);
+                _HEQualification = StructuralObject.SetValidValue(value, true, "HEQualification");
                 ReportPropertyChanged("HEQualification");
                 OnHEQualificationChanged();
             }
@@ -42557,7 +42739,7 @@ namespace PriemLib
             {
                 OnHEStudyFormIdChanging(value);
                 ReportPropertyChanging("HEStudyFormId");
-                _HEStudyFormId = StructuralObject.SetValidValue(value);
+                _HEStudyFormId = StructuralObject.SetValidValue(value, "HEStudyFormId");
                 ReportPropertyChanged("HEStudyFormId");
                 OnHEStudyFormIdChanged();
             }
@@ -42581,7 +42763,7 @@ namespace PriemLib
             {
                 OnHEEntryYearChanging(value);
                 ReportPropertyChanging("HEEntryYear");
-                _HEEntryYear = StructuralObject.SetValidValue(value);
+                _HEEntryYear = StructuralObject.SetValidValue(value, "HEEntryYear");
                 ReportPropertyChanged("HEEntryYear");
                 OnHEEntryYearChanged();
             }
@@ -42605,7 +42787,7 @@ namespace PriemLib
             {
                 OnHEExitYearChanging(value);
                 ReportPropertyChanging("HEExitYear");
-                _HEExitYear = StructuralObject.SetValidValue(value);
+                _HEExitYear = StructuralObject.SetValidValue(value, "HEExitYear");
                 ReportPropertyChanged("HEExitYear");
                 OnHEExitYearChanged();
             }
@@ -42629,7 +42811,7 @@ namespace PriemLib
             {
                 OnHEWorkChanging(value);
                 ReportPropertyChanging("HEWork");
-                _HEWork = StructuralObject.SetValidValue(value, true);
+                _HEWork = StructuralObject.SetValidValue(value, true, "HEWork");
                 ReportPropertyChanged("HEWork");
                 OnHEWorkChanged();
             }
@@ -42653,7 +42835,7 @@ namespace PriemLib
             {
                 OnMSVuzChanging(value);
                 ReportPropertyChanging("MSVuz");
-                _MSVuz = StructuralObject.SetValidValue(value, true);
+                _MSVuz = StructuralObject.SetValidValue(value, true, "MSVuz");
                 ReportPropertyChanged("MSVuz");
                 OnMSVuzChanged();
             }
@@ -42677,7 +42859,7 @@ namespace PriemLib
             {
                 OnMSStudyFormIdChanging(value);
                 ReportPropertyChanging("MSStudyFormId");
-                _MSStudyFormId = StructuralObject.SetValidValue(value);
+                _MSStudyFormId = StructuralObject.SetValidValue(value, "MSStudyFormId");
                 ReportPropertyChanged("MSStudyFormId");
                 OnMSStudyFormIdChanged();
             }
@@ -42701,7 +42883,7 @@ namespace PriemLib
             {
                 OnMSCourseChanging(value);
                 ReportPropertyChanging("MSCourse");
-                _MSCourse = StructuralObject.SetValidValue(value, true);
+                _MSCourse = StructuralObject.SetValidValue(value, true, "MSCourse");
                 ReportPropertyChanged("MSCourse");
                 OnMSCourseChanged();
             }
@@ -42725,7 +42907,7 @@ namespace PriemLib
             {
                 OnStagChanging(value);
                 ReportPropertyChanging("Stag");
-                _Stag = StructuralObject.SetValidValue(value, true);
+                _Stag = StructuralObject.SetValidValue(value, true, "Stag");
                 ReportPropertyChanged("Stag");
                 OnStagChanged();
             }
@@ -42749,7 +42931,7 @@ namespace PriemLib
             {
                 OnWorkPlaceChanging(value);
                 ReportPropertyChanging("WorkPlace");
-                _WorkPlace = StructuralObject.SetValidValue(value, true);
+                _WorkPlace = StructuralObject.SetValidValue(value, true, "WorkPlace");
                 ReportPropertyChanged("WorkPlace");
                 OnWorkPlaceChanged();
             }
@@ -42773,7 +42955,7 @@ namespace PriemLib
             {
                 OnPrivilegesChanging(value);
                 ReportPropertyChanging("Privileges");
-                _Privileges = StructuralObject.SetValidValue(value);
+                _Privileges = StructuralObject.SetValidValue(value, "Privileges");
                 ReportPropertyChanged("Privileges");
                 OnPrivilegesChanged();
             }
@@ -42797,7 +42979,7 @@ namespace PriemLib
             {
                 OnPassportCodeChanging(value);
                 ReportPropertyChanging("PassportCode");
-                _PassportCode = StructuralObject.SetValidValue(value, true);
+                _PassportCode = StructuralObject.SetValidValue(value, true, "PassportCode");
                 ReportPropertyChanged("PassportCode");
                 OnPassportCodeChanged();
             }
@@ -42821,7 +43003,7 @@ namespace PriemLib
             {
                 OnPersonalCodeChanging(value);
                 ReportPropertyChanging("PersonalCode");
-                _PersonalCode = StructuralObject.SetValidValue(value, true);
+                _PersonalCode = StructuralObject.SetValidValue(value, true, "PersonalCode");
                 ReportPropertyChanged("PersonalCode");
                 OnPersonalCodeChanged();
             }
@@ -42845,7 +43027,7 @@ namespace PriemLib
             {
                 OnPersonInfoChanging(value);
                 ReportPropertyChanging("PersonInfo");
-                _PersonInfo = StructuralObject.SetValidValue(value, true);
+                _PersonInfo = StructuralObject.SetValidValue(value, true, "PersonInfo");
                 ReportPropertyChanged("PersonInfo");
                 OnPersonInfoChanged();
             }
@@ -42869,7 +43051,7 @@ namespace PriemLib
             {
                 OnExtraInfoChanging(value);
                 ReportPropertyChanging("ExtraInfo");
-                _ExtraInfo = StructuralObject.SetValidValue(value, true);
+                _ExtraInfo = StructuralObject.SetValidValue(value, true, "ExtraInfo");
                 ReportPropertyChanged("ExtraInfo");
                 OnExtraInfoChanged();
             }
@@ -42893,7 +43075,7 @@ namespace PriemLib
             {
                 OnScienceWorkChanging(value);
                 ReportPropertyChanging("ScienceWork");
-                _ScienceWork = StructuralObject.SetValidValue(value, true);
+                _ScienceWork = StructuralObject.SetValidValue(value, true, "ScienceWork");
                 ReportPropertyChanged("ScienceWork");
                 OnScienceWorkChanged();
             }
@@ -42917,7 +43099,7 @@ namespace PriemLib
             {
                 OnPersonNumChanging(value);
                 ReportPropertyChanging("PersonNum");
-                _PersonNum = StructuralObject.SetValidValue(value, true);
+                _PersonNum = StructuralObject.SetValidValue(value, true, "PersonNum");
                 ReportPropertyChanged("PersonNum");
                 OnPersonNumChanged();
             }
@@ -42941,7 +43123,7 @@ namespace PriemLib
             {
                 OnFIOChanging(value);
                 ReportPropertyChanging("FIO");
-                _FIO = StructuralObject.SetValidValue(value, false);
+                _FIO = StructuralObject.SetValidValue(value, false, "FIO");
                 ReportPropertyChanged("FIO");
                 OnFIOChanged();
             }
@@ -42965,7 +43147,7 @@ namespace PriemLib
             {
                 OnPassportDataChanging(value);
                 ReportPropertyChanging("PassportData");
-                _PassportData = StructuralObject.SetValidValue(value, true);
+                _PassportData = StructuralObject.SetValidValue(value, true, "PassportData");
                 ReportPropertyChanged("PassportData");
                 OnPassportDataChanged();
             }
@@ -42989,7 +43171,7 @@ namespace PriemLib
             {
                 OnEducDocumentChanging(value);
                 ReportPropertyChanging("EducDocument");
-                _EducDocument = StructuralObject.SetValidValue(value, true);
+                _EducDocument = StructuralObject.SetValidValue(value, true, "EducDocument");
                 ReportPropertyChanged("EducDocument");
                 OnEducDocumentChanged();
             }
@@ -43013,7 +43195,7 @@ namespace PriemLib
             {
                 OnHostelFacultyAcrChanging(value);
                 ReportPropertyChanging("HostelFacultyAcr");
-                _HostelFacultyAcr = StructuralObject.SetValidValue(value, true);
+                _HostelFacultyAcr = StructuralObject.SetValidValue(value, true, "HostelFacultyAcr");
                 ReportPropertyChanged("HostelFacultyAcr");
                 OnHostelFacultyAcrChanged();
             }
@@ -43037,7 +43219,7 @@ namespace PriemLib
             {
                 OnCountryNameChanging(value);
                 ReportPropertyChanging("CountryName");
-                _CountryName = StructuralObject.SetValidValue(value, true);
+                _CountryName = StructuralObject.SetValidValue(value, true, "CountryName");
                 ReportPropertyChanged("CountryName");
                 OnCountryNameChanged();
             }
@@ -43061,7 +43243,7 @@ namespace PriemLib
             {
                 OnNationalityNameChanging(value);
                 ReportPropertyChanging("NationalityName");
-                _NationalityName = StructuralObject.SetValidValue(value, true);
+                _NationalityName = StructuralObject.SetValidValue(value, true, "NationalityName");
                 ReportPropertyChanged("NationalityName");
                 OnNationalityNameChanged();
             }
@@ -43085,7 +43267,7 @@ namespace PriemLib
             {
                 OnRegionNameChanging(value);
                 ReportPropertyChanging("RegionName");
-                _RegionName = StructuralObject.SetValidValue(value, true);
+                _RegionName = StructuralObject.SetValidValue(value, true, "RegionName");
                 ReportPropertyChanged("RegionName");
                 OnRegionNameChanged();
             }
@@ -43109,7 +43291,7 @@ namespace PriemLib
             {
                 OnHostelFacultyNameChanging(value);
                 ReportPropertyChanging("HostelFacultyName");
-                _HostelFacultyName = StructuralObject.SetValidValue(value, true);
+                _HostelFacultyName = StructuralObject.SetValidValue(value, true, "HostelFacultyName");
                 ReportPropertyChanged("HostelFacultyName");
                 OnHostelFacultyNameChanged();
             }
@@ -43133,7 +43315,7 @@ namespace PriemLib
             {
                 OnStartEnglishChanging(value);
                 ReportPropertyChanging("StartEnglish");
-                _StartEnglish = StructuralObject.SetValidValue(value);
+                _StartEnglish = StructuralObject.SetValidValue(value, "StartEnglish");
                 ReportPropertyChanged("StartEnglish");
                 OnStartEnglishChanged();
             }
@@ -43157,7 +43339,7 @@ namespace PriemLib
             {
                 OnEnglishMarkChanging(value);
                 ReportPropertyChanging("EnglishMark");
-                _EnglishMark = StructuralObject.SetValidValue(value);
+                _EnglishMark = StructuralObject.SetValidValue(value, "EnglishMark");
                 ReportPropertyChanged("EnglishMark");
                 OnEnglishMarkChanged();
             }
@@ -43181,7 +43363,7 @@ namespace PriemLib
             {
                 OnEgeInSPbguChanging(value);
                 ReportPropertyChanging("EgeInSPbgu");
-                _EgeInSPbgu = StructuralObject.SetValidValue(value);
+                _EgeInSPbgu = StructuralObject.SetValidValue(value, "EgeInSPbgu");
                 ReportPropertyChanged("EgeInSPbgu");
                 OnEgeInSPbguChanged();
             }
@@ -43205,7 +43387,7 @@ namespace PriemLib
             {
                 OnVAKPublCountChanging(value);
                 ReportPropertyChanging("VAKPublCount");
-                _VAKPublCount = StructuralObject.SetValidValue(value);
+                _VAKPublCount = StructuralObject.SetValidValue(value, "VAKPublCount");
                 ReportPropertyChanged("VAKPublCount");
                 OnVAKPublCountChanged();
             }
@@ -43229,7 +43411,7 @@ namespace PriemLib
             {
                 OnTotalPublCountChanging(value);
                 ReportPropertyChanging("TotalPublCount");
-                _TotalPublCount = StructuralObject.SetValidValue(value);
+                _TotalPublCount = StructuralObject.SetValidValue(value, "TotalPublCount");
                 ReportPropertyChanged("TotalPublCount");
                 OnTotalPublCountChanged();
             }
@@ -43253,7 +43435,7 @@ namespace PriemLib
             {
                 OnCompetitionWinnerChanging(value);
                 ReportPropertyChanging("CompetitionWinner");
-                _CompetitionWinner = StructuralObject.SetValidValue(value);
+                _CompetitionWinner = StructuralObject.SetValidValue(value, "CompetitionWinner");
                 ReportPropertyChanged("CompetitionWinner");
                 OnCompetitionWinnerChanged();
             }
@@ -43277,7 +43459,7 @@ namespace PriemLib
             {
                 OnHasGrantChanging(value);
                 ReportPropertyChanging("HasGrant");
-                _HasGrant = StructuralObject.SetValidValue(value);
+                _HasGrant = StructuralObject.SetValidValue(value, "HasGrant");
                 ReportPropertyChanged("HasGrant");
                 OnHasGrantChanged();
             }
@@ -43301,7 +43483,7 @@ namespace PriemLib
             {
                 OnIsEqualChanging(value);
                 ReportPropertyChanging("IsEqual");
-                _IsEqual = StructuralObject.SetValidValue(value);
+                _IsEqual = StructuralObject.SetValidValue(value, "IsEqual");
                 ReportPropertyChanged("IsEqual");
                 OnIsEqualChanged();
             }
@@ -43325,7 +43507,7 @@ namespace PriemLib
             {
                 OnHostelEducChanging(value);
                 ReportPropertyChanging("HostelEduc");
-                _HostelEduc = StructuralObject.SetValidValue(value);
+                _HostelEduc = StructuralObject.SetValidValue(value, "HostelEduc");
                 ReportPropertyChanged("HostelEduc");
                 OnHostelEducChanged();
             }
@@ -43349,7 +43531,7 @@ namespace PriemLib
             {
                 OnSNILSChanging(value);
                 ReportPropertyChanging("SNILS");
-                _SNILS = StructuralObject.SetValidValue(value, true);
+                _SNILS = StructuralObject.SetValidValue(value, true, "SNILS");
                 ReportPropertyChanged("SNILS");
                 OnSNILSChanged();
             }
@@ -43373,7 +43555,7 @@ namespace PriemLib
             {
                 OnRegionEducIdChanging(value);
                 ReportPropertyChanging("RegionEducId");
-                _RegionEducId = StructuralObject.SetValidValue(value);
+                _RegionEducId = StructuralObject.SetValidValue(value, "RegionEducId");
                 ReportPropertyChanged("RegionEducId");
                 OnRegionEducIdChanged();
             }
@@ -43397,7 +43579,7 @@ namespace PriemLib
             {
                 OnKladrCodeChanging(value);
                 ReportPropertyChanging("KladrCode");
-                _KladrCode = StructuralObject.SetValidValue(value, true);
+                _KladrCode = StructuralObject.SetValidValue(value, true, "KladrCode");
                 ReportPropertyChanged("KladrCode");
                 OnKladrCodeChanged();
             }
@@ -43421,7 +43603,7 @@ namespace PriemLib
             {
                 OnEqualDocumentNumberChanging(value);
                 ReportPropertyChanging("EqualDocumentNumber");
-                _EqualDocumentNumber = StructuralObject.SetValidValue(value, true);
+                _EqualDocumentNumber = StructuralObject.SetValidValue(value, true, "EqualDocumentNumber");
                 ReportPropertyChanged("EqualDocumentNumber");
                 OnEqualDocumentNumberChanged();
             }
@@ -43445,7 +43627,7 @@ namespace PriemLib
             {
                 OnForeignNationalityIdChanging(value);
                 ReportPropertyChanging("ForeignNationalityId");
-                _ForeignNationalityId = StructuralObject.SetValidValue(value);
+                _ForeignNationalityId = StructuralObject.SetValidValue(value, "ForeignNationalityId");
                 ReportPropertyChanged("ForeignNationalityId");
                 OnForeignNationalityIdChanged();
             }
@@ -43469,7 +43651,7 @@ namespace PriemLib
             {
                 OnForeignCountryIdChanging(value);
                 ReportPropertyChanging("ForeignCountryId");
-                _ForeignCountryId = StructuralObject.SetValidValue(value);
+                _ForeignCountryId = StructuralObject.SetValidValue(value, "ForeignCountryId");
                 ReportPropertyChanged("ForeignCountryId");
                 OnForeignCountryIdChanged();
             }
@@ -43493,7 +43675,7 @@ namespace PriemLib
             {
                 OnHasTRKIChanging(value);
                 ReportPropertyChanging("HasTRKI");
-                _HasTRKI = StructuralObject.SetValidValue(value);
+                _HasTRKI = StructuralObject.SetValidValue(value, "HasTRKI");
                 ReportPropertyChanged("HasTRKI");
                 OnHasTRKIChanged();
             }
@@ -43517,7 +43699,7 @@ namespace PriemLib
             {
                 OnTRKICertificateNumberChanging(value);
                 ReportPropertyChanging("TRKICertificateNumber");
-                _TRKICertificateNumber = StructuralObject.SetValidValue(value, true);
+                _TRKICertificateNumber = StructuralObject.SetValidValue(value, true, "TRKICertificateNumber");
                 ReportPropertyChanged("TRKICertificateNumber");
                 OnTRKICertificateNumberChanged();
             }
@@ -43541,7 +43723,7 @@ namespace PriemLib
             {
                 OnForeignCountryEducIdChanging(value);
                 ReportPropertyChanging("ForeignCountryEducId");
-                _ForeignCountryEducId = StructuralObject.SetValidValue(value);
+                _ForeignCountryEducId = StructuralObject.SetValidValue(value, "ForeignCountryEducId");
                 ReportPropertyChanged("ForeignCountryEducId");
                 OnForeignCountryEducIdChanged();
             }
@@ -43552,7 +43734,6 @@ namespace PriemLib
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -43606,7 +43787,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -43625,7 +43806,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -43652,7 +43833,7 @@ namespace PriemLib
                 {
                     OnAbiturientIdChanging(value);
                     ReportPropertyChanging("AbiturientId");
-                    _AbiturientId = StructuralObject.SetValidValue(value);
+                    _AbiturientId = StructuralObject.SetValidValue(value, "AbiturientId");
                     ReportPropertyChanged("AbiturientId");
                     OnAbiturientIdChanged();
                 }
@@ -43679,7 +43860,7 @@ namespace PriemLib
                 {
                     OnExcludedChanging(value);
                     ReportPropertyChanging("Excluded");
-                    _Excluded = StructuralObject.SetValidValue(value);
+                    _Excluded = StructuralObject.SetValidValue(value, "Excluded");
                     ReportPropertyChanged("Excluded");
                     OnExcludedChanged();
                 }
@@ -43704,7 +43885,7 @@ namespace PriemLib
             {
                 OnExcludeProtocolIdChanging(value);
                 ReportPropertyChanging("ExcludeProtocolId");
-                _ExcludeProtocolId = StructuralObject.SetValidValue(value);
+                _ExcludeProtocolId = StructuralObject.SetValidValue(value, "ExcludeProtocolId");
                 ReportPropertyChanged("ExcludeProtocolId");
                 OnExcludeProtocolIdChanged();
             }
@@ -43728,7 +43909,7 @@ namespace PriemLib
             {
                 OnEntryHeaderIdChanging(value);
                 ReportPropertyChanging("EntryHeaderId");
-                _EntryHeaderId = StructuralObject.SetValidValue(value);
+                _EntryHeaderId = StructuralObject.SetValidValue(value, "EntryHeaderId");
                 ReportPropertyChanged("EntryHeaderId");
                 OnEntryHeaderIdChanged();
             }
@@ -43752,7 +43933,7 @@ namespace PriemLib
             {
                 OnStudyLevelGroupIdChanging(value);
                 ReportPropertyChanging("StudyLevelGroupId");
-                _StudyLevelGroupId = StructuralObject.SetValidValue(value);
+                _StudyLevelGroupId = StructuralObject.SetValidValue(value, "StudyLevelGroupId");
                 ReportPropertyChanged("StudyLevelGroupId");
                 OnStudyLevelGroupIdChanged();
             }
@@ -43776,7 +43957,7 @@ namespace PriemLib
             {
                 OnFacultyIdChanging(value);
                 ReportPropertyChanging("FacultyId");
-                _FacultyId = StructuralObject.SetValidValue(value);
+                _FacultyId = StructuralObject.SetValidValue(value, "FacultyId");
                 ReportPropertyChanged("FacultyId");
                 OnFacultyIdChanged();
             }
@@ -43800,7 +43981,7 @@ namespace PriemLib
             {
                 OnLicenseProgramIdChanging(value);
                 ReportPropertyChanging("LicenseProgramId");
-                _LicenseProgramId = StructuralObject.SetValidValue(value);
+                _LicenseProgramId = StructuralObject.SetValidValue(value, "LicenseProgramId");
                 ReportPropertyChanged("LicenseProgramId");
                 OnLicenseProgramIdChanged();
             }
@@ -43824,7 +44005,7 @@ namespace PriemLib
             {
                 OnStudyFormIdChanging(value);
                 ReportPropertyChanging("StudyFormId");
-                _StudyFormId = StructuralObject.SetValidValue(value);
+                _StudyFormId = StructuralObject.SetValidValue(value, "StudyFormId");
                 ReportPropertyChanged("StudyFormId");
                 OnStudyFormIdChanged();
             }
@@ -43848,7 +44029,7 @@ namespace PriemLib
             {
                 OnStudyBasisIdChanging(value);
                 ReportPropertyChanging("StudyBasisId");
-                _StudyBasisId = StructuralObject.SetValidValue(value);
+                _StudyBasisId = StructuralObject.SetValidValue(value, "StudyBasisId");
                 ReportPropertyChanged("StudyBasisId");
                 OnStudyBasisIdChanged();
             }
@@ -43872,7 +44053,7 @@ namespace PriemLib
             {
                 OnNumberChanging(value);
                 ReportPropertyChanging("Number");
-                _Number = StructuralObject.SetValidValue(value, true);
+                _Number = StructuralObject.SetValidValue(value, true, "Number");
                 ReportPropertyChanged("Number");
                 OnNumberChanged();
             }
@@ -43896,7 +44077,7 @@ namespace PriemLib
             {
                 OnDateChanging(value);
                 ReportPropertyChanging("Date");
-                _Date = StructuralObject.SetValidValue(value);
+                _Date = StructuralObject.SetValidValue(value, "Date");
                 ReportPropertyChanged("Date");
                 OnDateChanged();
             }
@@ -43920,7 +44101,7 @@ namespace PriemLib
             {
                 OnProtocolTypeIdChanging(value);
                 ReportPropertyChanging("ProtocolTypeId");
-                _ProtocolTypeId = StructuralObject.SetValidValue(value);
+                _ProtocolTypeId = StructuralObject.SetValidValue(value, "ProtocolTypeId");
                 ReportPropertyChanged("ProtocolTypeId");
                 OnProtocolTypeIdChanged();
             }
@@ -43944,7 +44125,7 @@ namespace PriemLib
             {
                 OnReasonChanging(value);
                 ReportPropertyChanging("Reason");
-                _Reason = StructuralObject.SetValidValue(value, true);
+                _Reason = StructuralObject.SetValidValue(value, true, "Reason");
                 ReportPropertyChanged("Reason");
                 OnReasonChanged();
             }
@@ -43970,7 +44151,7 @@ namespace PriemLib
                 {
                     OnIsOldChanging(value);
                     ReportPropertyChanging("IsOld");
-                    _IsOld = StructuralObject.SetValidValue(value);
+                    _IsOld = StructuralObject.SetValidValue(value, "IsOld");
                     ReportPropertyChanged("IsOld");
                     OnIsOldChanged();
                 }
@@ -43995,7 +44176,7 @@ namespace PriemLib
             {
                 OnParentProtocolIdChanging(value);
                 ReportPropertyChanging("ParentProtocolId");
-                _ParentProtocolId = StructuralObject.SetValidValue(value);
+                _ParentProtocolId = StructuralObject.SetValidValue(value, "ParentProtocolId");
                 ReportPropertyChanged("ParentProtocolId");
                 OnParentProtocolIdChanged();
             }
@@ -44019,7 +44200,7 @@ namespace PriemLib
             {
                 OnIsSecondChanging(value);
                 ReportPropertyChanging("IsSecond");
-                _IsSecond = StructuralObject.SetValidValue(value);
+                _IsSecond = StructuralObject.SetValidValue(value, "IsSecond");
                 ReportPropertyChanged("IsSecond");
                 OnIsSecondChanged();
             }
@@ -44043,7 +44224,7 @@ namespace PriemLib
             {
                 OnIsListenerChanging(value);
                 ReportPropertyChanging("IsListener");
-                _IsListener = StructuralObject.SetValidValue(value);
+                _IsListener = StructuralObject.SetValidValue(value, "IsListener");
                 ReportPropertyChanged("IsListener");
                 OnIsListenerChanged();
             }
@@ -44069,7 +44250,7 @@ namespace PriemLib
                 {
                     OnProtocolTypeNameChanging(value);
                     ReportPropertyChanging("ProtocolTypeName");
-                    _ProtocolTypeName = StructuralObject.SetValidValue(value, false);
+                    _ProtocolTypeName = StructuralObject.SetValidValue(value, false, "ProtocolTypeName");
                     ReportPropertyChanged("ProtocolTypeName");
                     OnProtocolTypeNameChanged();
                 }
@@ -44094,7 +44275,7 @@ namespace PriemLib
             {
                 OnIsParallelChanging(value);
                 ReportPropertyChanging("IsParallel");
-                _IsParallel = StructuralObject.SetValidValue(value);
+                _IsParallel = StructuralObject.SetValidValue(value, "IsParallel");
                 ReportPropertyChanged("IsParallel");
                 OnIsParallelChanged();
             }
@@ -44118,7 +44299,7 @@ namespace PriemLib
             {
                 OnIsReducedChanging(value);
                 ReportPropertyChanging("IsReduced");
-                _IsReduced = StructuralObject.SetValidValue(value);
+                _IsReduced = StructuralObject.SetValidValue(value, "IsReduced");
                 ReportPropertyChanged("IsReduced");
                 OnIsReducedChanged();
             }
@@ -44142,7 +44323,7 @@ namespace PriemLib
             {
                 OnFacultyChanging(value);
                 ReportPropertyChanging("Faculty");
-                _Faculty = StructuralObject.SetValidValue(value, true);
+                _Faculty = StructuralObject.SetValidValue(value, true, "Faculty");
                 ReportPropertyChanged("Faculty");
                 OnFacultyChanged();
             }
@@ -44168,7 +44349,7 @@ namespace PriemLib
                 {
                     OnStudyBasisChanging(value);
                     ReportPropertyChanging("StudyBasis");
-                    _StudyBasis = StructuralObject.SetValidValue(value, false);
+                    _StudyBasis = StructuralObject.SetValidValue(value, false, "StudyBasis");
                     ReportPropertyChanged("StudyBasis");
                     OnStudyBasisChanged();
                 }
@@ -44195,7 +44376,7 @@ namespace PriemLib
                 {
                     OnStudyFormChanging(value);
                     ReportPropertyChanging("StudyForm");
-                    _StudyForm = StructuralObject.SetValidValue(value, false);
+                    _StudyForm = StructuralObject.SetValidValue(value, false, "StudyForm");
                     ReportPropertyChanged("StudyForm");
                     OnStudyFormChanged();
                 }
@@ -44220,7 +44401,7 @@ namespace PriemLib
             {
                 OnFacultyAcrChanging(value);
                 ReportPropertyChanging("FacultyAcr");
-                _FacultyAcr = StructuralObject.SetValidValue(value, true);
+                _FacultyAcr = StructuralObject.SetValidValue(value, true, "FacultyAcr");
                 ReportPropertyChanged("FacultyAcr");
                 OnFacultyAcrChanged();
             }
@@ -44244,7 +44425,7 @@ namespace PriemLib
             {
                 OnFacultyRodNameChanging(value);
                 ReportPropertyChanging("FacultyRodName");
-                _FacultyRodName = StructuralObject.SetValidValue(value, true);
+                _FacultyRodName = StructuralObject.SetValidValue(value, true, "FacultyRodName");
                 ReportPropertyChanged("FacultyRodName");
                 OnFacultyRodNameChanged();
             }
@@ -44268,7 +44449,7 @@ namespace PriemLib
             {
                 OnFacultyDatNameChanging(value);
                 ReportPropertyChanging("FacultyDatName");
-                _FacultyDatName = StructuralObject.SetValidValue(value, true);
+                _FacultyDatName = StructuralObject.SetValidValue(value, true, "FacultyDatName");
                 ReportPropertyChanged("FacultyDatName");
                 OnFacultyDatNameChanged();
             }
@@ -44292,7 +44473,7 @@ namespace PriemLib
             {
                 OnStudyFormAcrChanging(value);
                 ReportPropertyChanging("StudyFormAcr");
-                _StudyFormAcr = StructuralObject.SetValidValue(value, true);
+                _StudyFormAcr = StructuralObject.SetValidValue(value, true, "StudyFormAcr");
                 ReportPropertyChanged("StudyFormAcr");
                 OnStudyFormAcrChanged();
             }
@@ -44316,7 +44497,7 @@ namespace PriemLib
             {
                 OnStudyFormRodNameChanging(value);
                 ReportPropertyChanging("StudyFormRodName");
-                _StudyFormRodName = StructuralObject.SetValidValue(value, true);
+                _StudyFormRodName = StructuralObject.SetValidValue(value, true, "StudyFormRodName");
                 ReportPropertyChanged("StudyFormRodName");
                 OnStudyFormRodNameChanged();
             }
@@ -44342,7 +44523,7 @@ namespace PriemLib
                 {
                     OnProtocolHistoryIdChanging(value);
                     ReportPropertyChanging("ProtocolHistoryId");
-                    _ProtocolHistoryId = StructuralObject.SetValidValue(value);
+                    _ProtocolHistoryId = StructuralObject.SetValidValue(value, "ProtocolHistoryId");
                     ReportPropertyChanged("ProtocolHistoryId");
                     OnProtocolHistoryIdChanged();
                 }
@@ -44354,7 +44535,6 @@ namespace PriemLib
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -44382,7 +44562,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -44401,7 +44581,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -44426,7 +44606,7 @@ namespace PriemLib
             {
                 OnNameChanging(value);
                 ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, false);
+                _Name = StructuralObject.SetValidValue(value, false, "Name");
                 ReportPropertyChanged("Name");
                 OnNameChanged();
             }
@@ -44437,7 +44617,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -44493,7 +44672,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -44512,7 +44691,7 @@ namespace PriemLib
                 {
                     OnNumberChanging(value);
                     ReportPropertyChanging("Number");
-                    _Number = StructuralObject.SetValidValue(value);
+                    _Number = StructuralObject.SetValidValue(value, "Number");
                     ReportPropertyChanged("Number");
                     OnNumberChanged();
                 }
@@ -44539,7 +44718,7 @@ namespace PriemLib
                 {
                     OnAbiturientIdChanging(value);
                     ReportPropertyChanging("AbiturientId");
-                    _AbiturientId = StructuralObject.SetValidValue(value);
+                    _AbiturientId = StructuralObject.SetValidValue(value, "AbiturientId");
                     ReportPropertyChanged("AbiturientId");
                     OnAbiturientIdChanged();
                 }
@@ -44566,7 +44745,7 @@ namespace PriemLib
                 {
                     OnFixierenViewIdChanging(value);
                     ReportPropertyChanging("FixierenViewId");
-                    _FixierenViewId = StructuralObject.SetValidValue(value);
+                    _FixierenViewId = StructuralObject.SetValidValue(value, "FixierenViewId");
                     ReportPropertyChanged("FixierenViewId");
                     OnFixierenViewIdChanged();
                 }
@@ -44578,7 +44757,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -44712,7 +44890,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -44731,7 +44909,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -44756,7 +44934,7 @@ namespace PriemLib
             {
                 OnStudyLevelGroupIdChanging(value);
                 ReportPropertyChanging("StudyLevelGroupId");
-                _StudyLevelGroupId = StructuralObject.SetValidValue(value);
+                _StudyLevelGroupId = StructuralObject.SetValidValue(value, "StudyLevelGroupId");
                 ReportPropertyChanged("StudyLevelGroupId");
                 OnStudyLevelGroupIdChanged();
             }
@@ -44780,7 +44958,7 @@ namespace PriemLib
             {
                 OnFacultyIdChanging(value);
                 ReportPropertyChanging("FacultyId");
-                _FacultyId = StructuralObject.SetValidValue(value);
+                _FacultyId = StructuralObject.SetValidValue(value, "FacultyId");
                 ReportPropertyChanged("FacultyId");
                 OnFacultyIdChanged();
             }
@@ -44804,7 +44982,7 @@ namespace PriemLib
             {
                 OnLicenseProgramIdChanging(value);
                 ReportPropertyChanging("LicenseProgramId");
-                _LicenseProgramId = StructuralObject.SetValidValue(value);
+                _LicenseProgramId = StructuralObject.SetValidValue(value, "LicenseProgramId");
                 ReportPropertyChanged("LicenseProgramId");
                 OnLicenseProgramIdChanged();
             }
@@ -44828,7 +45006,7 @@ namespace PriemLib
             {
                 OnObrazProgramIdChanging(value);
                 ReportPropertyChanging("ObrazProgramId");
-                _ObrazProgramId = StructuralObject.SetValidValue(value);
+                _ObrazProgramId = StructuralObject.SetValidValue(value, "ObrazProgramId");
                 ReportPropertyChanged("ObrazProgramId");
                 OnObrazProgramIdChanged();
             }
@@ -44852,7 +45030,7 @@ namespace PriemLib
             {
                 OnProfileIdChanging(value);
                 ReportPropertyChanging("ProfileId");
-                _ProfileId = StructuralObject.SetValidValue(value);
+                _ProfileId = StructuralObject.SetValidValue(value, "ProfileId");
                 ReportPropertyChanged("ProfileId");
                 OnProfileIdChanged();
             }
@@ -44876,7 +45054,7 @@ namespace PriemLib
             {
                 OnStudyFormIdChanging(value);
                 ReportPropertyChanging("StudyFormId");
-                _StudyFormId = StructuralObject.SetValidValue(value);
+                _StudyFormId = StructuralObject.SetValidValue(value, "StudyFormId");
                 ReportPropertyChanged("StudyFormId");
                 OnStudyFormIdChanged();
             }
@@ -44900,7 +45078,7 @@ namespace PriemLib
             {
                 OnStudyBasisIdChanging(value);
                 ReportPropertyChanging("StudyBasisId");
-                _StudyBasisId = StructuralObject.SetValidValue(value);
+                _StudyBasisId = StructuralObject.SetValidValue(value, "StudyBasisId");
                 ReportPropertyChanged("StudyBasisId");
                 OnStudyBasisIdChanged();
             }
@@ -44924,7 +45102,7 @@ namespace PriemLib
             {
                 OnIsSecondChanging(value);
                 ReportPropertyChanging("IsSecond");
-                _IsSecond = StructuralObject.SetValidValue(value);
+                _IsSecond = StructuralObject.SetValidValue(value, "IsSecond");
                 ReportPropertyChanged("IsSecond");
                 OnIsSecondChanged();
             }
@@ -44948,7 +45126,7 @@ namespace PriemLib
             {
                 OnIsReducedChanging(value);
                 ReportPropertyChanging("IsReduced");
-                _IsReduced = StructuralObject.SetValidValue(value);
+                _IsReduced = StructuralObject.SetValidValue(value, "IsReduced");
                 ReportPropertyChanged("IsReduced");
                 OnIsReducedChanged();
             }
@@ -44972,7 +45150,7 @@ namespace PriemLib
             {
                 OnIsParallelChanging(value);
                 ReportPropertyChanging("IsParallel");
-                _IsParallel = StructuralObject.SetValidValue(value);
+                _IsParallel = StructuralObject.SetValidValue(value, "IsParallel");
                 ReportPropertyChanged("IsParallel");
                 OnIsParallelChanged();
             }
@@ -44996,7 +45174,7 @@ namespace PriemLib
             {
                 OnIsCelChanging(value);
                 ReportPropertyChanging("IsCel");
-                _IsCel = StructuralObject.SetValidValue(value);
+                _IsCel = StructuralObject.SetValidValue(value, "IsCel");
                 ReportPropertyChanged("IsCel");
                 OnIsCelChanged();
             }
@@ -45020,7 +45198,7 @@ namespace PriemLib
             {
                 OnDocNumChanging(value);
                 ReportPropertyChanging("DocNum");
-                _DocNum = StructuralObject.SetValidValue(value);
+                _DocNum = StructuralObject.SetValidValue(value, "DocNum");
                 ReportPropertyChanged("DocNum");
                 OnDocNumChanged();
             }
@@ -45044,7 +45222,7 @@ namespace PriemLib
             {
                 OnLockedChanging(value);
                 ReportPropertyChanging("Locked");
-                _Locked = StructuralObject.SetValidValue(value);
+                _Locked = StructuralObject.SetValidValue(value, "Locked");
                 ReportPropertyChanged("Locked");
                 OnLockedChanged();
             }
@@ -45068,7 +45246,7 @@ namespace PriemLib
             {
                 OnIsCrimeaChanging(value);
                 ReportPropertyChanging("IsCrimea");
-                _IsCrimea = StructuralObject.SetValidValue(value);
+                _IsCrimea = StructuralObject.SetValidValue(value, "IsCrimea");
                 ReportPropertyChanged("IsCrimea");
                 OnIsCrimeaChanged();
             }
@@ -45092,7 +45270,7 @@ namespace PriemLib
             {
                 OnIsQuotaChanging(value);
                 ReportPropertyChanging("IsQuota");
-                _IsQuota = StructuralObject.SetValidValue(value);
+                _IsQuota = StructuralObject.SetValidValue(value, "IsQuota");
                 ReportPropertyChanged("IsQuota");
                 OnIsQuotaChanged();
             }
@@ -45103,7 +45281,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -45157,7 +45334,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -45176,7 +45353,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -45201,7 +45378,7 @@ namespace PriemLib
             {
                 OnNameChanging(value);
                 ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, true);
+                _Name = StructuralObject.SetValidValue(value, true, "Name");
                 ReportPropertyChanged("Name");
                 OnNameChanged();
             }
@@ -45225,7 +45402,7 @@ namespace PriemLib
             {
                 OnDistanceChanging(value);
                 ReportPropertyChanging("Distance");
-                _Distance = StructuralObject.SetValidValue(value);
+                _Distance = StructuralObject.SetValidValue(value, "Distance");
                 ReportPropertyChanged("Distance");
                 OnDistanceChanged();
             }
@@ -45249,7 +45426,7 @@ namespace PriemLib
             {
                 OnNameRodChanging(value);
                 ReportPropertyChanging("NameRod");
-                _NameRod = StructuralObject.SetValidValue(value, true);
+                _NameRod = StructuralObject.SetValidValue(value, true, "NameRod");
                 ReportPropertyChanged("NameRod");
                 OnNameRodChanged();
             }
@@ -45273,7 +45450,7 @@ namespace PriemLib
             {
                 OnLevelOfUsingChanging(value);
                 ReportPropertyChanging("LevelOfUsing");
-                _LevelOfUsing = StructuralObject.SetValidValue(value);
+                _LevelOfUsing = StructuralObject.SetValidValue(value, "LevelOfUsing");
                 ReportPropertyChanged("LevelOfUsing");
                 OnLevelOfUsingChanged();
             }
@@ -45297,7 +45474,7 @@ namespace PriemLib
             {
                 OnPriemDictionaryIdChanging(value);
                 ReportPropertyChanging("PriemDictionaryId");
-                _PriemDictionaryId = StructuralObject.SetValidValue(value);
+                _PriemDictionaryId = StructuralObject.SetValidValue(value, "PriemDictionaryId");
                 ReportPropertyChanged("PriemDictionaryId");
                 OnPriemDictionaryIdChanged();
             }
@@ -45321,7 +45498,7 @@ namespace PriemLib
             {
                 OnOSKMCodeChanging(value);
                 ReportPropertyChanging("OSKMCode");
-                _OSKMCode = StructuralObject.SetValidValue(value, true);
+                _OSKMCode = StructuralObject.SetValidValue(value, true, "OSKMCode");
                 ReportPropertyChanged("OSKMCode");
                 OnOSKMCodeChanged();
             }
@@ -45345,7 +45522,7 @@ namespace PriemLib
             {
                 OnIsRussiaChanging(value);
                 ReportPropertyChanging("IsRussia");
-                _IsRussia = StructuralObject.SetValidValue(value);
+                _IsRussia = StructuralObject.SetValidValue(value, "IsRussia");
                 ReportPropertyChanged("IsRussia");
                 OnIsRussiaChanged();
             }
@@ -45356,7 +45533,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -45454,7 +45630,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -45471,7 +45647,7 @@ namespace PriemLib
             {
                 OnPersonNumChanging(value);
                 ReportPropertyChanging("PersonNum");
-                _PersonNum = StructuralObject.SetValidValue(value, true);
+                _PersonNum = StructuralObject.SetValidValue(value, true, "PersonNum");
                 ReportPropertyChanged("PersonNum");
                 OnPersonNumChanged();
             }
@@ -45495,7 +45671,7 @@ namespace PriemLib
             {
                 OnFIOChanging(value);
                 ReportPropertyChanging("FIO");
-                _FIO = StructuralObject.SetValidValue(value, false);
+                _FIO = StructuralObject.SetValidValue(value, false, "FIO");
                 ReportPropertyChanged("FIO");
                 OnFIOChanged();
             }
@@ -45519,7 +45695,7 @@ namespace PriemLib
             {
                 OnRegNumChanging(value);
                 ReportPropertyChanging("RegNum");
-                _RegNum = StructuralObject.SetValidValue(value, true);
+                _RegNum = StructuralObject.SetValidValue(value, true, "RegNum");
                 ReportPropertyChanged("RegNum");
                 OnRegNumChanged();
             }
@@ -45545,7 +45721,7 @@ namespace PriemLib
                 {
                     OnLicenseProgramIdChanging(value);
                     ReportPropertyChanging("LicenseProgramId");
-                    _LicenseProgramId = StructuralObject.SetValidValue(value);
+                    _LicenseProgramId = StructuralObject.SetValidValue(value, "LicenseProgramId");
                     ReportPropertyChanged("LicenseProgramId");
                     OnLicenseProgramIdChanged();
                 }
@@ -45570,7 +45746,7 @@ namespace PriemLib
             {
                 OnLicenseProgramCodeChanging(value);
                 ReportPropertyChanging("LicenseProgramCode");
-                _LicenseProgramCode = StructuralObject.SetValidValue(value, true);
+                _LicenseProgramCode = StructuralObject.SetValidValue(value, true, "LicenseProgramCode");
                 ReportPropertyChanged("LicenseProgramCode");
                 OnLicenseProgramCodeChanged();
             }
@@ -45596,7 +45772,7 @@ namespace PriemLib
                 {
                     OnLicenseProgramNameChanging(value);
                     ReportPropertyChanging("LicenseProgramName");
-                    _LicenseProgramName = StructuralObject.SetValidValue(value, false);
+                    _LicenseProgramName = StructuralObject.SetValidValue(value, false, "LicenseProgramName");
                     ReportPropertyChanged("LicenseProgramName");
                     OnLicenseProgramNameChanged();
                 }
@@ -45623,7 +45799,7 @@ namespace PriemLib
                 {
                     OnObrazProgramIdChanging(value);
                     ReportPropertyChanging("ObrazProgramId");
-                    _ObrazProgramId = StructuralObject.SetValidValue(value);
+                    _ObrazProgramId = StructuralObject.SetValidValue(value, "ObrazProgramId");
                     ReportPropertyChanged("ObrazProgramId");
                     OnObrazProgramIdChanged();
                 }
@@ -45648,7 +45824,7 @@ namespace PriemLib
             {
                 OnObrazProgramCryptChanging(value);
                 ReportPropertyChanging("ObrazProgramCrypt");
-                _ObrazProgramCrypt = StructuralObject.SetValidValue(value, true);
+                _ObrazProgramCrypt = StructuralObject.SetValidValue(value, true, "ObrazProgramCrypt");
                 ReportPropertyChanged("ObrazProgramCrypt");
                 OnObrazProgramCryptChanged();
             }
@@ -45674,7 +45850,7 @@ namespace PriemLib
                 {
                     OnObrazProgramNameChanging(value);
                     ReportPropertyChanging("ObrazProgramName");
-                    _ObrazProgramName = StructuralObject.SetValidValue(value, false);
+                    _ObrazProgramName = StructuralObject.SetValidValue(value, false, "ObrazProgramName");
                     ReportPropertyChanged("ObrazProgramName");
                     OnObrazProgramNameChanged();
                 }
@@ -45699,7 +45875,7 @@ namespace PriemLib
             {
                 OnProfileNameChanging(value);
                 ReportPropertyChanging("ProfileName");
-                _ProfileName = StructuralObject.SetValidValue(value, true);
+                _ProfileName = StructuralObject.SetValidValue(value, true, "ProfileName");
                 ReportPropertyChanged("ProfileName");
                 OnProfileNameChanged();
             }
@@ -45725,7 +45901,7 @@ namespace PriemLib
                 {
                     OnStudyFormIdChanging(value);
                     ReportPropertyChanging("StudyFormId");
-                    _StudyFormId = StructuralObject.SetValidValue(value);
+                    _StudyFormId = StructuralObject.SetValidValue(value, "StudyFormId");
                     ReportPropertyChanged("StudyFormId");
                     OnStudyFormIdChanged();
                 }
@@ -45752,7 +45928,7 @@ namespace PriemLib
                 {
                     OnStudyFormNameChanging(value);
                     ReportPropertyChanging("StudyFormName");
-                    _StudyFormName = StructuralObject.SetValidValue(value, false);
+                    _StudyFormName = StructuralObject.SetValidValue(value, false, "StudyFormName");
                     ReportPropertyChanged("StudyFormName");
                     OnStudyFormNameChanged();
                 }
@@ -45779,7 +45955,7 @@ namespace PriemLib
                 {
                     OnStudyBasisIdChanging(value);
                     ReportPropertyChanging("StudyBasisId");
-                    _StudyBasisId = StructuralObject.SetValidValue(value);
+                    _StudyBasisId = StructuralObject.SetValidValue(value, "StudyBasisId");
                     ReportPropertyChanged("StudyBasisId");
                     OnStudyBasisIdChanged();
                 }
@@ -45806,7 +45982,7 @@ namespace PriemLib
                 {
                     OnStudyBasisNameChanging(value);
                     ReportPropertyChanging("StudyBasisName");
-                    _StudyBasisName = StructuralObject.SetValidValue(value, false);
+                    _StudyBasisName = StructuralObject.SetValidValue(value, false, "StudyBasisName");
                     ReportPropertyChanged("StudyBasisName");
                     OnStudyBasisNameChanged();
                 }
@@ -45831,7 +46007,7 @@ namespace PriemLib
             {
                 OnActionTimeChanging(value);
                 ReportPropertyChanging("ActionTime");
-                _ActionTime = StructuralObject.SetValidValue(value);
+                _ActionTime = StructuralObject.SetValidValue(value, "ActionTime");
                 ReportPropertyChanged("ActionTime");
                 OnActionTimeChanged();
             }
@@ -45855,7 +46031,7 @@ namespace PriemLib
             {
                 OnActionAuthorChanging(value);
                 ReportPropertyChanging("ActionAuthor");
-                _ActionAuthor = StructuralObject.SetValidValue(value, true);
+                _ActionAuthor = StructuralObject.SetValidValue(value, true, "ActionAuthor");
                 ReportPropertyChanged("ActionAuthor");
                 OnActionAuthorChanged();
             }
@@ -45881,7 +46057,7 @@ namespace PriemLib
                 {
                     OnActionTypeChanging(value);
                     ReportPropertyChanging("ActionType");
-                    _ActionType = StructuralObject.SetValidValue(value, false);
+                    _ActionType = StructuralObject.SetValidValue(value, false, "ActionType");
                     ReportPropertyChanged("ActionType");
                     OnActionTypeChanged();
                 }
@@ -45908,7 +46084,7 @@ namespace PriemLib
                 {
                     OnFacultyIdChanging(value);
                     ReportPropertyChanging("FacultyId");
-                    _FacultyId = StructuralObject.SetValidValue(value);
+                    _FacultyId = StructuralObject.SetValidValue(value, "FacultyId");
                     ReportPropertyChanged("FacultyId");
                     OnFacultyIdChanged();
                 }
@@ -45935,7 +46111,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -45962,7 +46138,7 @@ namespace PriemLib
                 {
                     OnStudyLevelGroupIdChanging(value);
                     ReportPropertyChanging("StudyLevelGroupId");
-                    _StudyLevelGroupId = StructuralObject.SetValidValue(value);
+                    _StudyLevelGroupId = StructuralObject.SetValidValue(value, "StudyLevelGroupId");
                     ReportPropertyChanged("StudyLevelGroupId");
                     OnStudyLevelGroupIdChanged();
                 }
@@ -45974,7 +46150,6 @@ namespace PriemLib
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -46000,7 +46175,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -46019,7 +46194,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -46044,7 +46219,7 @@ namespace PriemLib
             {
                 OnProfChanging(value);
                 ReportPropertyChanging("Prof");
-                _Prof = StructuralObject.SetValidValue(value);
+                _Prof = StructuralObject.SetValidValue(value, "Prof");
                 ReportPropertyChanged("Prof");
                 OnProfChanged();
             }
@@ -46068,7 +46243,7 @@ namespace PriemLib
             {
                 OnProfFiveGradeChanging(value);
                 ReportPropertyChanging("ProfFiveGrade");
-                _ProfFiveGrade = StructuralObject.SetValidValue(value);
+                _ProfFiveGrade = StructuralObject.SetValidValue(value, "ProfFiveGrade");
                 ReportPropertyChanged("ProfFiveGrade");
                 OnProfFiveGradeChanged();
             }
@@ -46079,7 +46254,6 @@ namespace PriemLib
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -46105,7 +46279,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -46124,7 +46298,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -46149,7 +46323,7 @@ namespace PriemLib
             {
                 OnProfAddChanging(value);
                 ReportPropertyChanging("ProfAdd");
-                _ProfAdd = StructuralObject.SetValidValue(value);
+                _ProfAdd = StructuralObject.SetValidValue(value, "ProfAdd");
                 ReportPropertyChanged("ProfAdd");
                 OnProfAddChanged();
             }
@@ -46160,7 +46334,6 @@ namespace PriemLib
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -46186,7 +46359,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -46205,7 +46378,7 @@ namespace PriemLib
                 {
                     OnPersonIdChanging(value);
                     ReportPropertyChanging("PersonId");
-                    _PersonId = StructuralObject.SetValidValue(value);
+                    _PersonId = StructuralObject.SetValidValue(value, "PersonId");
                     ReportPropertyChanged("PersonId");
                     OnPersonIdChanged();
                 }
@@ -46230,7 +46403,7 @@ namespace PriemLib
             {
                 OnIdChanging(value);
                 ReportPropertyChanging("Id");
-                _Id = StructuralObject.SetValidValue(value);
+                _Id = StructuralObject.SetValidValue(value, "Id");
                 ReportPropertyChanged("Id");
                 OnIdChanged();
             }
@@ -46241,7 +46414,6 @@ namespace PriemLib
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -46287,7 +46459,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -46306,7 +46478,7 @@ namespace PriemLib
                 {
                     OnEntryIdChanging(value);
                     ReportPropertyChanging("EntryId");
-                    _EntryId = StructuralObject.SetValidValue(value);
+                    _EntryId = StructuralObject.SetValidValue(value, "EntryId");
                     ReportPropertyChanged("EntryId");
                     OnEntryIdChanged();
                 }
@@ -46333,7 +46505,7 @@ namespace PriemLib
                 {
                     OnStudyLevelGroupIdChanging(value);
                     ReportPropertyChanging("StudyLevelGroupId");
-                    _StudyLevelGroupId = StructuralObject.SetValidValue(value);
+                    _StudyLevelGroupId = StructuralObject.SetValidValue(value, "StudyLevelGroupId");
                     ReportPropertyChanged("StudyLevelGroupId");
                     OnStudyLevelGroupIdChanged();
                 }
@@ -46360,7 +46532,7 @@ namespace PriemLib
                 {
                     OnFacultyIdChanging(value);
                     ReportPropertyChanging("FacultyId");
-                    _FacultyId = StructuralObject.SetValidValue(value);
+                    _FacultyId = StructuralObject.SetValidValue(value, "FacultyId");
                     ReportPropertyChanged("FacultyId");
                     OnFacultyIdChanged();
                 }
@@ -46387,7 +46559,7 @@ namespace PriemLib
                 {
                     OnLicenseProgramIdChanging(value);
                     ReportPropertyChanging("LicenseProgramId");
-                    _LicenseProgramId = StructuralObject.SetValidValue(value);
+                    _LicenseProgramId = StructuralObject.SetValidValue(value, "LicenseProgramId");
                     ReportPropertyChanged("LicenseProgramId");
                     OnLicenseProgramIdChanged();
                 }
@@ -46412,7 +46584,7 @@ namespace PriemLib
             {
                 OnLicenseProgramCodeChanging(value);
                 ReportPropertyChanging("LicenseProgramCode");
-                _LicenseProgramCode = StructuralObject.SetValidValue(value, true);
+                _LicenseProgramCode = StructuralObject.SetValidValue(value, true, "LicenseProgramCode");
                 ReportPropertyChanged("LicenseProgramCode");
                 OnLicenseProgramCodeChanged();
             }
@@ -46438,7 +46610,7 @@ namespace PriemLib
                 {
                     OnLicenseProgramNameChanging(value);
                     ReportPropertyChanging("LicenseProgramName");
-                    _LicenseProgramName = StructuralObject.SetValidValue(value, false);
+                    _LicenseProgramName = StructuralObject.SetValidValue(value, false, "LicenseProgramName");
                     ReportPropertyChanged("LicenseProgramName");
                     OnLicenseProgramNameChanged();
                 }
@@ -46465,7 +46637,7 @@ namespace PriemLib
                 {
                     OnObrazProgramIdChanging(value);
                     ReportPropertyChanging("ObrazProgramId");
-                    _ObrazProgramId = StructuralObject.SetValidValue(value);
+                    _ObrazProgramId = StructuralObject.SetValidValue(value, "ObrazProgramId");
                     ReportPropertyChanged("ObrazProgramId");
                     OnObrazProgramIdChanged();
                 }
@@ -46490,7 +46662,7 @@ namespace PriemLib
             {
                 OnObrazProgramCryptChanging(value);
                 ReportPropertyChanging("ObrazProgramCrypt");
-                _ObrazProgramCrypt = StructuralObject.SetValidValue(value, true);
+                _ObrazProgramCrypt = StructuralObject.SetValidValue(value, true, "ObrazProgramCrypt");
                 ReportPropertyChanged("ObrazProgramCrypt");
                 OnObrazProgramCryptChanged();
             }
@@ -46516,7 +46688,7 @@ namespace PriemLib
                 {
                     OnObrazProgramNameChanging(value);
                     ReportPropertyChanging("ObrazProgramName");
-                    _ObrazProgramName = StructuralObject.SetValidValue(value, false);
+                    _ObrazProgramName = StructuralObject.SetValidValue(value, false, "ObrazProgramName");
                     ReportPropertyChanged("ObrazProgramName");
                     OnObrazProgramNameChanged();
                 }
@@ -46541,7 +46713,7 @@ namespace PriemLib
             {
                 OnProfileIdChanging(value);
                 ReportPropertyChanging("ProfileId");
-                _ProfileId = StructuralObject.SetValidValue(value);
+                _ProfileId = StructuralObject.SetValidValue(value, "ProfileId");
                 ReportPropertyChanged("ProfileId");
                 OnProfileIdChanged();
             }
@@ -46565,7 +46737,7 @@ namespace PriemLib
             {
                 OnProfileNameChanging(value);
                 ReportPropertyChanging("ProfileName");
-                _ProfileName = StructuralObject.SetValidValue(value, true);
+                _ProfileName = StructuralObject.SetValidValue(value, true, "ProfileName");
                 ReportPropertyChanged("ProfileName");
                 OnProfileNameChanged();
             }
@@ -46591,7 +46763,7 @@ namespace PriemLib
                 {
                     OnStudyFormIdChanging(value);
                     ReportPropertyChanging("StudyFormId");
-                    _StudyFormId = StructuralObject.SetValidValue(value);
+                    _StudyFormId = StructuralObject.SetValidValue(value, "StudyFormId");
                     ReportPropertyChanged("StudyFormId");
                     OnStudyFormIdChanged();
                 }
@@ -46618,7 +46790,7 @@ namespace PriemLib
                 {
                     OnStudyFormNameChanging(value);
                     ReportPropertyChanging("StudyFormName");
-                    _StudyFormName = StructuralObject.SetValidValue(value, false);
+                    _StudyFormName = StructuralObject.SetValidValue(value, false, "StudyFormName");
                     ReportPropertyChanged("StudyFormName");
                     OnStudyFormNameChanged();
                 }
@@ -46645,7 +46817,7 @@ namespace PriemLib
                 {
                     OnStudyBasisIdChanging(value);
                     ReportPropertyChanging("StudyBasisId");
-                    _StudyBasisId = StructuralObject.SetValidValue(value);
+                    _StudyBasisId = StructuralObject.SetValidValue(value, "StudyBasisId");
                     ReportPropertyChanged("StudyBasisId");
                     OnStudyBasisIdChanged();
                 }
@@ -46672,7 +46844,7 @@ namespace PriemLib
                 {
                     OnStudyBasisNameChanging(value);
                     ReportPropertyChanging("StudyBasisName");
-                    _StudyBasisName = StructuralObject.SetValidValue(value, false);
+                    _StudyBasisName = StructuralObject.SetValidValue(value, false, "StudyBasisName");
                     ReportPropertyChanged("StudyBasisName");
                     OnStudyBasisNameChanged();
                 }
@@ -46697,7 +46869,7 @@ namespace PriemLib
             {
                 OnKCPChanging(value);
                 ReportPropertyChanging("KCP");
-                _KCP = StructuralObject.SetValidValue(value);
+                _KCP = StructuralObject.SetValidValue(value, "KCP");
                 ReportPropertyChanged("KCP");
                 OnKCPChanged();
             }
@@ -46721,7 +46893,7 @@ namespace PriemLib
             {
                 OnDateChanging(value);
                 ReportPropertyChanging("Date");
-                _Date = StructuralObject.SetValidValue(value);
+                _Date = StructuralObject.SetValidValue(value, "Date");
                 ReportPropertyChanged("Date");
                 OnDateChanged();
             }
@@ -46745,7 +46917,7 @@ namespace PriemLib
             {
                 OnCNTChanging(value);
                 ReportPropertyChanging("CNT");
-                _CNT = StructuralObject.SetValidValue(value);
+                _CNT = StructuralObject.SetValidValue(value, "CNT");
                 ReportPropertyChanged("CNT");
                 OnCNTChanged();
             }
@@ -46756,7 +46928,6 @@ namespace PriemLib
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -46790,7 +46961,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -46809,7 +46980,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -46834,7 +47005,7 @@ namespace PriemLib
             {
                 OnEntryIdChanging(value);
                 ReportPropertyChanging("EntryId");
-                _EntryId = StructuralObject.SetValidValue(value);
+                _EntryId = StructuralObject.SetValidValue(value, "EntryId");
                 ReportPropertyChanged("EntryId");
                 OnEntryIdChanged();
             }
@@ -46858,7 +47029,7 @@ namespace PriemLib
             {
                 OnObrazProgramIdChanging(value);
                 ReportPropertyChanging("ObrazProgramId");
-                _ObrazProgramId = StructuralObject.SetValidValue(value);
+                _ObrazProgramId = StructuralObject.SetValidValue(value, "ObrazProgramId");
                 ReportPropertyChanged("ObrazProgramId");
                 OnObrazProgramIdChanged();
             }
@@ -46882,7 +47053,7 @@ namespace PriemLib
             {
                 OnProfileIdChanging(value);
                 ReportPropertyChanging("ProfileId");
-                _ProfileId = StructuralObject.SetValidValue(value);
+                _ProfileId = StructuralObject.SetValidValue(value, "ProfileId");
                 ReportPropertyChanged("ProfileId");
                 OnProfileIdChanged();
             }
@@ -46906,7 +47077,7 @@ namespace PriemLib
             {
                 OnKCPChanging(value);
                 ReportPropertyChanging("KCP");
-                _KCP = StructuralObject.SetValidValue(value);
+                _KCP = StructuralObject.SetValidValue(value, "KCP");
                 ReportPropertyChanged("KCP");
                 OnKCPChanged();
             }
@@ -46930,7 +47101,7 @@ namespace PriemLib
             {
                 OnEgeExamNameIdChanging(value);
                 ReportPropertyChanging("EgeExamNameId");
-                _EgeExamNameId = StructuralObject.SetValidValue(value);
+                _EgeExamNameId = StructuralObject.SetValidValue(value, "EgeExamNameId");
                 ReportPropertyChanged("EgeExamNameId");
                 OnEgeExamNameIdChanged();
             }
@@ -46954,7 +47125,7 @@ namespace PriemLib
             {
                 OnEgeMinChanging(value);
                 ReportPropertyChanging("EgeMin");
-                _EgeMin = StructuralObject.SetValidValue(value);
+                _EgeMin = StructuralObject.SetValidValue(value, "EgeMin");
                 ReportPropertyChanged("EgeMin");
                 OnEgeMinChanged();
             }
@@ -46965,7 +47136,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -47155,7 +47325,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -47174,7 +47344,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -47199,7 +47369,7 @@ namespace PriemLib
             {
                 OnNameChanging(value);
                 ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, false);
+                _Name = StructuralObject.SetValidValue(value, false, "Name");
                 ReportPropertyChanged("Name");
                 OnNameChanged();
             }
@@ -47210,7 +47380,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -47318,7 +47487,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -47337,7 +47506,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -47362,7 +47531,7 @@ namespace PriemLib
             {
                 OnAbiturientIdChanging(value);
                 ReportPropertyChanging("AbiturientId");
-                _AbiturientId = StructuralObject.SetValidValue(value);
+                _AbiturientId = StructuralObject.SetValidValue(value, "AbiturientId");
                 ReportPropertyChanged("AbiturientId");
                 OnAbiturientIdChanged();
             }
@@ -47386,7 +47555,7 @@ namespace PriemLib
             {
                 OnExamInEntryIdChanging(value);
                 ReportPropertyChanging("ExamInEntryId");
-                _ExamInEntryId = StructuralObject.SetValidValue(value);
+                _ExamInEntryId = StructuralObject.SetValidValue(value, "ExamInEntryId");
                 ReportPropertyChanged("ExamInEntryId");
                 OnExamInEntryIdChanged();
             }
@@ -47410,7 +47579,7 @@ namespace PriemLib
             {
                 OnValueChanging(value);
                 ReportPropertyChanging("Value");
-                _Value = StructuralObject.SetValidValue(value);
+                _Value = StructuralObject.SetValidValue(value, "Value");
                 ReportPropertyChanged("Value");
                 OnValueChanged();
             }
@@ -47434,7 +47603,7 @@ namespace PriemLib
             {
                 OnPassDateChanging(value);
                 ReportPropertyChanging("PassDate");
-                _PassDate = StructuralObject.SetValidValue(value);
+                _PassDate = StructuralObject.SetValidValue(value, "PassDate");
                 ReportPropertyChanged("PassDate");
                 OnPassDateChanged();
             }
@@ -47458,7 +47627,7 @@ namespace PriemLib
             {
                 OnIsFromEgeChanging(value);
                 ReportPropertyChanging("IsFromEge");
-                _IsFromEge = StructuralObject.SetValidValue(value);
+                _IsFromEge = StructuralObject.SetValidValue(value, "IsFromEge");
                 ReportPropertyChanged("IsFromEge");
                 OnIsFromEgeChanged();
             }
@@ -47482,7 +47651,7 @@ namespace PriemLib
             {
                 OnIsFromOlympChanging(value);
                 ReportPropertyChanging("IsFromOlymp");
-                _IsFromOlymp = StructuralObject.SetValidValue(value);
+                _IsFromOlymp = StructuralObject.SetValidValue(value, "IsFromOlymp");
                 ReportPropertyChanged("IsFromOlymp");
                 OnIsFromOlympChanged();
             }
@@ -47506,7 +47675,7 @@ namespace PriemLib
             {
                 OnIsManualChanging(value);
                 ReportPropertyChanging("IsManual");
-                _IsManual = StructuralObject.SetValidValue(value);
+                _IsManual = StructuralObject.SetValidValue(value, "IsManual");
                 ReportPropertyChanged("IsManual");
                 OnIsManualChanged();
             }
@@ -47530,7 +47699,7 @@ namespace PriemLib
             {
                 OnExamVedIdChanging(value);
                 ReportPropertyChanging("ExamVedId");
-                _ExamVedId = StructuralObject.SetValidValue(value);
+                _ExamVedId = StructuralObject.SetValidValue(value, "ExamVedId");
                 ReportPropertyChanged("ExamVedId");
                 OnExamVedIdChanged();
             }
@@ -47554,7 +47723,7 @@ namespace PriemLib
             {
                 OnOlympiadIdChanging(value);
                 ReportPropertyChanging("OlympiadId");
-                _OlympiadId = StructuralObject.SetValidValue(value);
+                _OlympiadId = StructuralObject.SetValidValue(value, "OlympiadId");
                 ReportPropertyChanged("OlympiadId");
                 OnOlympiadIdChanged();
             }
@@ -47578,7 +47747,7 @@ namespace PriemLib
             {
                 OnEgeCertificateIdChanging(value);
                 ReportPropertyChanging("EgeCertificateId");
-                _EgeCertificateId = StructuralObject.SetValidValue(value);
+                _EgeCertificateId = StructuralObject.SetValidValue(value, "EgeCertificateId");
                 ReportPropertyChanged("EgeCertificateId");
                 OnEgeCertificateIdChanged();
             }
@@ -47602,7 +47771,7 @@ namespace PriemLib
             {
                 OnFiveGradeValueChanging(value);
                 ReportPropertyChanging("FiveGradeValue");
-                _FiveGradeValue = StructuralObject.SetValidValue(value);
+                _FiveGradeValue = StructuralObject.SetValidValue(value, "FiveGradeValue");
                 ReportPropertyChanged("FiveGradeValue");
                 OnFiveGradeValueChanged();
             }
@@ -47613,7 +47782,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -47759,7 +47927,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -47778,7 +47946,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -47803,7 +47971,7 @@ namespace PriemLib
             {
                 OnOlympTypeIdChanging(value);
                 ReportPropertyChanging("OlympTypeId");
-                _OlympTypeId = StructuralObject.SetValidValue(value);
+                _OlympTypeId = StructuralObject.SetValidValue(value, "OlympTypeId");
                 ReportPropertyChanged("OlympTypeId");
                 OnOlympTypeIdChanged();
             }
@@ -47827,7 +47995,7 @@ namespace PriemLib
             {
                 OnOlympNameIdChanging(value);
                 ReportPropertyChanging("OlympNameId");
-                _OlympNameId = StructuralObject.SetValidValue(value);
+                _OlympNameId = StructuralObject.SetValidValue(value, "OlympNameId");
                 ReportPropertyChanged("OlympNameId");
                 OnOlympNameIdChanged();
             }
@@ -47851,7 +48019,7 @@ namespace PriemLib
             {
                 OnOlympSubjectIdChanging(value);
                 ReportPropertyChanging("OlympSubjectId");
-                _OlympSubjectId = StructuralObject.SetValidValue(value);
+                _OlympSubjectId = StructuralObject.SetValidValue(value, "OlympSubjectId");
                 ReportPropertyChanged("OlympSubjectId");
                 OnOlympSubjectIdChanged();
             }
@@ -47875,7 +48043,7 @@ namespace PriemLib
             {
                 OnOlympLevelIdChanging(value);
                 ReportPropertyChanging("OlympLevelId");
-                _OlympLevelId = StructuralObject.SetValidValue(value);
+                _OlympLevelId = StructuralObject.SetValidValue(value, "OlympLevelId");
                 ReportPropertyChanged("OlympLevelId");
                 OnOlympLevelIdChanged();
             }
@@ -47899,7 +48067,7 @@ namespace PriemLib
             {
                 OnIsOpenChanging(value);
                 ReportPropertyChanging("IsOpen");
-                _IsOpen = StructuralObject.SetValidValue(value);
+                _IsOpen = StructuralObject.SetValidValue(value, "IsOpen");
                 ReportPropertyChanged("IsOpen");
                 OnIsOpenChanged();
             }
@@ -47923,7 +48091,7 @@ namespace PriemLib
             {
                 OnHolderChanging(value);
                 ReportPropertyChanging("Holder");
-                _Holder = StructuralObject.SetValidValue(value, true);
+                _Holder = StructuralObject.SetValidValue(value, true, "Holder");
                 ReportPropertyChanged("Holder");
                 OnHolderChanged();
             }
@@ -47934,7 +48102,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -48120,7 +48287,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -48139,7 +48306,7 @@ namespace PriemLib
                 {
                     OnOlympIdChanging(value);
                     ReportPropertyChanging("OlympId");
-                    _OlympId = StructuralObject.SetValidValue(value);
+                    _OlympId = StructuralObject.SetValidValue(value, "OlympId");
                     ReportPropertyChanged("OlympId");
                     OnOlympIdChanged();
                 }
@@ -48164,7 +48331,7 @@ namespace PriemLib
             {
                 OnCheckedUserChanging(value);
                 ReportPropertyChanging("CheckedUser");
-                _CheckedUser = StructuralObject.SetValidValue(value, false);
+                _CheckedUser = StructuralObject.SetValidValue(value, false, "CheckedUser");
                 ReportPropertyChanged("CheckedUser");
                 OnCheckedUserChanged();
             }
@@ -48188,7 +48355,7 @@ namespace PriemLib
             {
                 OnDateChanging(value);
                 ReportPropertyChanging("Date");
-                _Date = StructuralObject.SetValidValue(value);
+                _Date = StructuralObject.SetValidValue(value, "Date");
                 ReportPropertyChanged("Date");
                 OnDateChanged();
             }
@@ -48199,7 +48366,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -48275,7 +48441,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -48294,7 +48460,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -48319,7 +48485,7 @@ namespace PriemLib
             {
                 OnOlympTypeIdChanging(value);
                 ReportPropertyChanging("OlympTypeId");
-                _OlympTypeId = StructuralObject.SetValidValue(value);
+                _OlympTypeId = StructuralObject.SetValidValue(value, "OlympTypeId");
                 ReportPropertyChanged("OlympTypeId");
                 OnOlympTypeIdChanged();
             }
@@ -48343,7 +48509,7 @@ namespace PriemLib
             {
                 OnOlympNameIdChanging(value);
                 ReportPropertyChanging("OlympNameId");
-                _OlympNameId = StructuralObject.SetValidValue(value);
+                _OlympNameId = StructuralObject.SetValidValue(value, "OlympNameId");
                 ReportPropertyChanged("OlympNameId");
                 OnOlympNameIdChanged();
             }
@@ -48367,7 +48533,7 @@ namespace PriemLib
             {
                 OnOlympSubjectIdChanging(value);
                 ReportPropertyChanging("OlympSubjectId");
-                _OlympSubjectId = StructuralObject.SetValidValue(value);
+                _OlympSubjectId = StructuralObject.SetValidValue(value, "OlympSubjectId");
                 ReportPropertyChanged("OlympSubjectId");
                 OnOlympSubjectIdChanged();
             }
@@ -48391,7 +48557,7 @@ namespace PriemLib
             {
                 OnOlympLevelIdChanging(value);
                 ReportPropertyChanging("OlympLevelId");
-                _OlympLevelId = StructuralObject.SetValidValue(value);
+                _OlympLevelId = StructuralObject.SetValidValue(value, "OlympLevelId");
                 ReportPropertyChanged("OlympLevelId");
                 OnOlympLevelIdChanged();
             }
@@ -48415,7 +48581,7 @@ namespace PriemLib
             {
                 OnOlympValueIdChanging(value);
                 ReportPropertyChanging("OlympValueId");
-                _OlympValueId = StructuralObject.SetValidValue(value);
+                _OlympValueId = StructuralObject.SetValidValue(value, "OlympValueId");
                 ReportPropertyChanged("OlympValueId");
                 OnOlympValueIdChanged();
             }
@@ -48439,7 +48605,7 @@ namespace PriemLib
             {
                 OnAbiturientIdChanging(value);
                 ReportPropertyChanging("AbiturientId");
-                _AbiturientId = StructuralObject.SetValidValue(value);
+                _AbiturientId = StructuralObject.SetValidValue(value, "AbiturientId");
                 ReportPropertyChanged("AbiturientId");
                 OnAbiturientIdChanged();
             }
@@ -48463,7 +48629,7 @@ namespace PriemLib
             {
                 OnIsOpenChanging(value);
                 ReportPropertyChanging("IsOpen");
-                _IsOpen = StructuralObject.SetValidValue(value);
+                _IsOpen = StructuralObject.SetValidValue(value, "IsOpen");
                 ReportPropertyChanged("IsOpen");
                 OnIsOpenChanged();
             }
@@ -48487,7 +48653,7 @@ namespace PriemLib
             {
                 OnHolderChanging(value);
                 ReportPropertyChanging("Holder");
-                _Holder = StructuralObject.SetValidValue(value, true);
+                _Holder = StructuralObject.SetValidValue(value, true, "Holder");
                 ReportPropertyChanged("Holder");
                 OnHolderChanged();
             }
@@ -48511,7 +48677,7 @@ namespace PriemLib
             {
                 OnOriginDocChanging(value);
                 ReportPropertyChanging("OriginDoc");
-                _OriginDoc = StructuralObject.SetValidValue(value);
+                _OriginDoc = StructuralObject.SetValidValue(value, "OriginDoc");
                 ReportPropertyChanged("OriginDoc");
                 OnOriginDocChanged();
             }
@@ -48535,7 +48701,7 @@ namespace PriemLib
             {
                 OnDocumentSeriesChanging(value);
                 ReportPropertyChanging("DocumentSeries");
-                _DocumentSeries = StructuralObject.SetValidValue(value, true);
+                _DocumentSeries = StructuralObject.SetValidValue(value, true, "DocumentSeries");
                 ReportPropertyChanged("DocumentSeries");
                 OnDocumentSeriesChanged();
             }
@@ -48559,7 +48725,7 @@ namespace PriemLib
             {
                 OnDocumentNumberChanging(value);
                 ReportPropertyChanging("DocumentNumber");
-                _DocumentNumber = StructuralObject.SetValidValue(value, true);
+                _DocumentNumber = StructuralObject.SetValidValue(value, true, "DocumentNumber");
                 ReportPropertyChanged("DocumentNumber");
                 OnDocumentNumberChanged();
             }
@@ -48583,7 +48749,7 @@ namespace PriemLib
             {
                 OnDocumentDateChanging(value);
                 ReportPropertyChanging("DocumentDate");
-                _DocumentDate = StructuralObject.SetValidValue(value);
+                _DocumentDate = StructuralObject.SetValidValue(value, "DocumentDate");
                 ReportPropertyChanged("DocumentDate");
                 OnDocumentDateChanged();
             }
@@ -48607,7 +48773,7 @@ namespace PriemLib
             {
                 OnAuthorChanging(value);
                 ReportPropertyChanging("Author");
-                _Author = StructuralObject.SetValidValue(value, false);
+                _Author = StructuralObject.SetValidValue(value, false, "Author");
                 ReportPropertyChanged("Author");
                 OnAuthorChanged();
             }
@@ -48631,7 +48797,7 @@ namespace PriemLib
             {
                 OnDateCreatedChanging(value);
                 ReportPropertyChanging("DateCreated");
-                _DateCreated = StructuralObject.SetValidValue(value);
+                _DateCreated = StructuralObject.SetValidValue(value, "DateCreated");
                 ReportPropertyChanged("DateCreated");
                 OnDateCreatedChanged();
             }
@@ -48642,7 +48808,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -48942,7 +49107,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -48961,7 +49126,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -48986,7 +49151,7 @@ namespace PriemLib
             {
                 OnNameChanging(value);
                 ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, false);
+                _Name = StructuralObject.SetValidValue(value, false, "Name");
                 ReportPropertyChanged("Name");
                 OnNameChanged();
             }
@@ -49010,7 +49175,7 @@ namespace PriemLib
             {
                 OnIsOpenChanging(value);
                 ReportPropertyChanging("IsOpen");
-                _IsOpen = StructuralObject.SetValidValue(value);
+                _IsOpen = StructuralObject.SetValidValue(value, "IsOpen");
                 ReportPropertyChanged("IsOpen");
                 OnIsOpenChanged();
             }
@@ -49034,7 +49199,7 @@ namespace PriemLib
             {
                 OnHolderChanging(value);
                 ReportPropertyChanging("Holder");
-                _Holder = StructuralObject.SetValidValue(value, true);
+                _Holder = StructuralObject.SetValidValue(value, true, "Holder");
                 ReportPropertyChanged("Holder");
                 OnHolderChanged();
             }
@@ -49045,7 +49210,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -49123,7 +49287,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -49142,7 +49306,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -49167,7 +49331,7 @@ namespace PriemLib
             {
                 OnNameChanging(value);
                 ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, false);
+                _Name = StructuralObject.SetValidValue(value, false, "Name");
                 ReportPropertyChanged("Name");
                 OnNameChanged();
             }
@@ -49191,7 +49355,7 @@ namespace PriemLib
             {
                 OnNumberChanging(value);
                 ReportPropertyChanging("Number");
-                _Number = StructuralObject.SetValidValue(value);
+                _Number = StructuralObject.SetValidValue(value, "Number");
                 ReportPropertyChanged("Number");
                 OnNumberChanged();
             }
@@ -49215,7 +49379,7 @@ namespace PriemLib
             {
                 OnIsOpenChanging(value);
                 ReportPropertyChanging("IsOpen");
-                _IsOpen = StructuralObject.SetValidValue(value);
+                _IsOpen = StructuralObject.SetValidValue(value, "IsOpen");
                 ReportPropertyChanged("IsOpen");
                 OnIsOpenChanged();
             }
@@ -49239,7 +49403,7 @@ namespace PriemLib
             {
                 OnHolderChanging(value);
                 ReportPropertyChanging("Holder");
-                _Holder = StructuralObject.SetValidValue(value, true);
+                _Holder = StructuralObject.SetValidValue(value, true, "Holder");
                 ReportPropertyChanged("Holder");
                 OnHolderChanged();
             }
@@ -49250,7 +49414,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -49328,7 +49491,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -49347,7 +49510,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -49372,7 +49535,7 @@ namespace PriemLib
             {
                 OnNameChanging(value);
                 ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, false);
+                _Name = StructuralObject.SetValidValue(value, false, "Name");
                 ReportPropertyChanged("Name");
                 OnNameChanged();
             }
@@ -49396,7 +49559,7 @@ namespace PriemLib
             {
                 OnNameDativeChanging(value);
                 ReportPropertyChanging("NameDative");
-                _NameDative = StructuralObject.SetValidValue(value, true);
+                _NameDative = StructuralObject.SetValidValue(value, true, "NameDative");
                 ReportPropertyChanged("NameDative");
                 OnNameDativeChanged();
             }
@@ -49420,7 +49583,7 @@ namespace PriemLib
             {
                 OnIsOpenChanging(value);
                 ReportPropertyChanging("IsOpen");
-                _IsOpen = StructuralObject.SetValidValue(value);
+                _IsOpen = StructuralObject.SetValidValue(value, "IsOpen");
                 ReportPropertyChanged("IsOpen");
                 OnIsOpenChanged();
             }
@@ -49444,7 +49607,7 @@ namespace PriemLib
             {
                 OnHolderChanging(value);
                 ReportPropertyChanging("Holder");
-                _Holder = StructuralObject.SetValidValue(value, true);
+                _Holder = StructuralObject.SetValidValue(value, true, "Holder");
                 ReportPropertyChanged("Holder");
                 OnHolderChanged();
             }
@@ -49468,7 +49631,7 @@ namespace PriemLib
             {
                 OnExamIdChanging(value);
                 ReportPropertyChanging("ExamId");
-                _ExamId = StructuralObject.SetValidValue(value);
+                _ExamId = StructuralObject.SetValidValue(value, "ExamId");
                 ReportPropertyChanged("ExamId");
                 OnExamIdChanged();
             }
@@ -49492,7 +49655,7 @@ namespace PriemLib
             {
                 OnIsInVserossChanging(value);
                 ReportPropertyChanging("IsInVseross");
-                _IsInVseross = StructuralObject.SetValidValue(value);
+                _IsInVseross = StructuralObject.SetValidValue(value, "IsInVseross");
                 ReportPropertyChanged("IsInVseross");
                 OnIsInVserossChanged();
             }
@@ -49503,7 +49666,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -49603,7 +49765,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -49622,7 +49784,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -49647,7 +49809,7 @@ namespace PriemLib
             {
                 OnOlympSubjectIdChanging(value);
                 ReportPropertyChanging("OlympSubjectId");
-                _OlympSubjectId = StructuralObject.SetValidValue(value);
+                _OlympSubjectId = StructuralObject.SetValidValue(value, "OlympSubjectId");
                 ReportPropertyChanged("OlympSubjectId");
                 OnOlympSubjectIdChanged();
             }
@@ -49671,7 +49833,7 @@ namespace PriemLib
             {
                 OnExamIdChanging(value);
                 ReportPropertyChanging("ExamId");
-                _ExamId = StructuralObject.SetValidValue(value);
+                _ExamId = StructuralObject.SetValidValue(value, "ExamId");
                 ReportPropertyChanged("ExamId");
                 OnExamIdChanged();
             }
@@ -49682,7 +49844,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -49794,7 +49955,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -49813,7 +49974,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -49838,7 +49999,7 @@ namespace PriemLib
             {
                 OnNameChanging(value);
                 ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, false);
+                _Name = StructuralObject.SetValidValue(value, false, "Name");
                 ReportPropertyChanged("Name");
                 OnNameChanged();
             }
@@ -49862,7 +50023,7 @@ namespace PriemLib
             {
                 OnIsOpenChanging(value);
                 ReportPropertyChanging("IsOpen");
-                _IsOpen = StructuralObject.SetValidValue(value);
+                _IsOpen = StructuralObject.SetValidValue(value, "IsOpen");
                 ReportPropertyChanged("IsOpen");
                 OnIsOpenChanged();
             }
@@ -49886,7 +50047,7 @@ namespace PriemLib
             {
                 OnHolderChanging(value);
                 ReportPropertyChanging("Holder");
-                _Holder = StructuralObject.SetValidValue(value, true);
+                _Holder = StructuralObject.SetValidValue(value, true, "Holder");
                 ReportPropertyChanged("Holder");
                 OnHolderChanged();
             }
@@ -49910,7 +50071,7 @@ namespace PriemLib
             {
                 OnIsVserossChanging(value);
                 ReportPropertyChanging("IsVseross");
-                _IsVseross = StructuralObject.SetValidValue(value);
+                _IsVseross = StructuralObject.SetValidValue(value, "IsVseross");
                 ReportPropertyChanged("IsVseross");
                 OnIsVserossChanged();
             }
@@ -49921,7 +50082,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -49999,7 +50159,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -50018,7 +50178,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -50043,7 +50203,7 @@ namespace PriemLib
             {
                 OnNameChanging(value);
                 ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, false);
+                _Name = StructuralObject.SetValidValue(value, false, "Name");
                 ReportPropertyChanged("Name");
                 OnNameChanged();
             }
@@ -50067,7 +50227,7 @@ namespace PriemLib
             {
                 OnSortOrderChanging(value);
                 ReportPropertyChanging("SortOrder");
-                _SortOrder = StructuralObject.SetValidValue(value);
+                _SortOrder = StructuralObject.SetValidValue(value, "SortOrder");
                 ReportPropertyChanged("SortOrder");
                 OnSortOrderChanged();
             }
@@ -50091,7 +50251,7 @@ namespace PriemLib
             {
                 OnAcronymChanging(value);
                 ReportPropertyChanging("Acronym");
-                _Acronym = StructuralObject.SetValidValue(value, true);
+                _Acronym = StructuralObject.SetValidValue(value, true, "Acronym");
                 ReportPropertyChanged("Acronym");
                 OnAcronymChanged();
             }
@@ -50115,7 +50275,7 @@ namespace PriemLib
             {
                 OnIsOpenChanging(value);
                 ReportPropertyChanging("IsOpen");
-                _IsOpen = StructuralObject.SetValidValue(value);
+                _IsOpen = StructuralObject.SetValidValue(value, "IsOpen");
                 ReportPropertyChanged("IsOpen");
                 OnIsOpenChanged();
             }
@@ -50139,7 +50299,7 @@ namespace PriemLib
             {
                 OnHolderChanging(value);
                 ReportPropertyChanging("Holder");
-                _Holder = StructuralObject.SetValidValue(value, true);
+                _Holder = StructuralObject.SetValidValue(value, true, "Holder");
                 ReportPropertyChanged("Holder");
                 OnHolderChanged();
             }
@@ -50150,7 +50310,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -50208,7 +50367,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -50227,7 +50386,7 @@ namespace PriemLib
                 {
                     OnProtocolIdChanging(value);
                     ReportPropertyChanging("ProtocolId");
-                    _ProtocolId = StructuralObject.SetValidValue(value);
+                    _ProtocolId = StructuralObject.SetValidValue(value, "ProtocolId");
                     ReportPropertyChanged("ProtocolId");
                     OnProtocolIdChanged();
                 }
@@ -50252,7 +50411,7 @@ namespace PriemLib
             {
                 OnOrderDateChanging(value);
                 ReportPropertyChanging("OrderDate");
-                _OrderDate = StructuralObject.SetValidValue(value);
+                _OrderDate = StructuralObject.SetValidValue(value, "OrderDate");
                 ReportPropertyChanged("OrderDate");
                 OnOrderDateChanged();
             }
@@ -50276,7 +50435,7 @@ namespace PriemLib
             {
                 OnOrderNumChanging(value);
                 ReportPropertyChanging("OrderNum");
-                _OrderNum = StructuralObject.SetValidValue(value, true);
+                _OrderNum = StructuralObject.SetValidValue(value, true, "OrderNum");
                 ReportPropertyChanged("OrderNum");
                 OnOrderNumChanged();
             }
@@ -50300,7 +50459,7 @@ namespace PriemLib
             {
                 OnOrderNumForChanging(value);
                 ReportPropertyChanging("OrderNumFor");
-                _OrderNumFor = StructuralObject.SetValidValue(value, true);
+                _OrderNumFor = StructuralObject.SetValidValue(value, true, "OrderNumFor");
                 ReportPropertyChanged("OrderNumFor");
                 OnOrderNumForChanged();
             }
@@ -50324,7 +50483,7 @@ namespace PriemLib
             {
                 OnOrderDateForChanging(value);
                 ReportPropertyChanging("OrderDateFor");
-                _OrderDateFor = StructuralObject.SetValidValue(value);
+                _OrderDateFor = StructuralObject.SetValidValue(value, "OrderDateFor");
                 ReportPropertyChanged("OrderDateFor");
                 OnOrderDateForChanged();
             }
@@ -50348,7 +50507,7 @@ namespace PriemLib
             {
                 OnSignerIdChanging(value);
                 ReportPropertyChanging("SignerId");
-                _SignerId = StructuralObject.SetValidValue(value);
+                _SignerId = StructuralObject.SetValidValue(value, "SignerId");
                 ReportPropertyChanged("SignerId");
                 OnSignerIdChanged();
             }
@@ -50372,7 +50531,7 @@ namespace PriemLib
             {
                 OnComissionDateChanging(value);
                 ReportPropertyChanging("ComissionDate");
-                _ComissionDate = StructuralObject.SetValidValue(value);
+                _ComissionDate = StructuralObject.SetValidValue(value, "ComissionDate");
                 ReportPropertyChanged("ComissionDate");
                 OnComissionDateChanged();
             }
@@ -50396,7 +50555,7 @@ namespace PriemLib
             {
                 OnComissionNumberChanging(value);
                 ReportPropertyChanging("ComissionNumber");
-                _ComissionNumber = StructuralObject.SetValidValue(value, false);
+                _ComissionNumber = StructuralObject.SetValidValue(value, false, "ComissionNumber");
                 ReportPropertyChanged("ComissionNumber");
                 OnComissionNumberChanged();
             }
@@ -50407,7 +50566,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -50497,7 +50655,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -50516,7 +50674,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -50541,7 +50699,7 @@ namespace PriemLib
             {
                 OnDogovorNumChanging(value);
                 ReportPropertyChanging("DogovorNum");
-                _DogovorNum = StructuralObject.SetValidValue(value, false);
+                _DogovorNum = StructuralObject.SetValidValue(value, false, "DogovorNum");
                 ReportPropertyChanged("DogovorNum");
                 OnDogovorNumChanged();
             }
@@ -50565,7 +50723,7 @@ namespace PriemLib
             {
                 OnDogovorDateChanging(value);
                 ReportPropertyChanging("DogovorDate");
-                _DogovorDate = StructuralObject.SetValidValue(value);
+                _DogovorDate = StructuralObject.SetValidValue(value, "DogovorDate");
                 ReportPropertyChanged("DogovorDate");
                 OnDogovorDateChanged();
             }
@@ -50589,7 +50747,7 @@ namespace PriemLib
             {
                 OnDogovorTypeIdChanging(value);
                 ReportPropertyChanging("DogovorTypeId");
-                _DogovorTypeId = StructuralObject.SetValidValue(value);
+                _DogovorTypeId = StructuralObject.SetValidValue(value, "DogovorTypeId");
                 ReportPropertyChanged("DogovorTypeId");
                 OnDogovorTypeIdChanged();
             }
@@ -50613,7 +50771,7 @@ namespace PriemLib
             {
                 OnProrektorIdChanging(value);
                 ReportPropertyChanging("ProrektorId");
-                _ProrektorId = StructuralObject.SetValidValue(value);
+                _ProrektorId = StructuralObject.SetValidValue(value, "ProrektorId");
                 ReportPropertyChanged("ProrektorId");
                 OnProrektorIdChanged();
             }
@@ -50637,7 +50795,7 @@ namespace PriemLib
             {
                 OnQualificationChanging(value);
                 ReportPropertyChanging("Qualification");
-                _Qualification = StructuralObject.SetValidValue(value, true);
+                _Qualification = StructuralObject.SetValidValue(value, true, "Qualification");
                 ReportPropertyChanged("Qualification");
                 OnQualificationChanged();
             }
@@ -50661,7 +50819,7 @@ namespace PriemLib
             {
                 OnSrokChanging(value);
                 ReportPropertyChanging("Srok");
-                _Srok = StructuralObject.SetValidValue(value, false);
+                _Srok = StructuralObject.SetValidValue(value, false, "Srok");
                 ReportPropertyChanged("Srok");
                 OnSrokChanged();
             }
@@ -50685,7 +50843,7 @@ namespace PriemLib
             {
                 OnDateStartChanging(value);
                 ReportPropertyChanging("DateStart");
-                _DateStart = StructuralObject.SetValidValue(value);
+                _DateStart = StructuralObject.SetValidValue(value, "DateStart");
                 ReportPropertyChanged("DateStart");
                 OnDateStartChanged();
             }
@@ -50709,7 +50867,7 @@ namespace PriemLib
             {
                 OnDateFinishChanging(value);
                 ReportPropertyChanging("DateFinish");
-                _DateFinish = StructuralObject.SetValidValue(value);
+                _DateFinish = StructuralObject.SetValidValue(value, "DateFinish");
                 ReportPropertyChanged("DateFinish");
                 OnDateFinishChanged();
             }
@@ -50733,7 +50891,7 @@ namespace PriemLib
             {
                 OnSumFirstYearChanging(value);
                 ReportPropertyChanging("SumFirstYear");
-                _SumFirstYear = StructuralObject.SetValidValue(value, true);
+                _SumFirstYear = StructuralObject.SetValidValue(value, true, "SumFirstYear");
                 ReportPropertyChanged("SumFirstYear");
                 OnSumFirstYearChanged();
             }
@@ -50757,7 +50915,7 @@ namespace PriemLib
             {
                 OnPayPeriodIdChanging(value);
                 ReportPropertyChanging("PayPeriodId");
-                _PayPeriodId = StructuralObject.SetValidValue(value);
+                _PayPeriodId = StructuralObject.SetValidValue(value, "PayPeriodId");
                 ReportPropertyChanged("PayPeriodId");
                 OnPayPeriodIdChanged();
             }
@@ -50781,7 +50939,7 @@ namespace PriemLib
             {
                 OnSumFirstPeriodChanging(value);
                 ReportPropertyChanging("SumFirstPeriod");
-                _SumFirstPeriod = StructuralObject.SetValidValue(value, true);
+                _SumFirstPeriod = StructuralObject.SetValidValue(value, true, "SumFirstPeriod");
                 ReportPropertyChanged("SumFirstPeriod");
                 OnSumFirstPeriodChanged();
             }
@@ -50805,7 +50963,7 @@ namespace PriemLib
             {
                 OnAbitFIORodChanging(value);
                 ReportPropertyChanging("AbitFIORod");
-                _AbitFIORod = StructuralObject.SetValidValue(value, true);
+                _AbitFIORod = StructuralObject.SetValidValue(value, true, "AbitFIORod");
                 ReportPropertyChanged("AbitFIORod");
                 OnAbitFIORodChanged();
             }
@@ -50829,7 +50987,7 @@ namespace PriemLib
             {
                 OnParentChanging(value);
                 ReportPropertyChanging("Parent");
-                _Parent = StructuralObject.SetValidValue(value, true);
+                _Parent = StructuralObject.SetValidValue(value, true, "Parent");
                 ReportPropertyChanged("Parent");
                 OnParentChanged();
             }
@@ -50853,7 +51011,7 @@ namespace PriemLib
             {
                 OnParentPassportChanging(value);
                 ReportPropertyChanging("ParentPassport");
-                _ParentPassport = StructuralObject.SetValidValue(value, true);
+                _ParentPassport = StructuralObject.SetValidValue(value, true, "ParentPassport");
                 ReportPropertyChanged("ParentPassport");
                 OnParentPassportChanged();
             }
@@ -50877,7 +51035,7 @@ namespace PriemLib
             {
                 OnCustomerChanging(value);
                 ReportPropertyChanging("Customer");
-                _Customer = StructuralObject.SetValidValue(value, true);
+                _Customer = StructuralObject.SetValidValue(value, true, "Customer");
                 ReportPropertyChanged("Customer");
                 OnCustomerChanged();
             }
@@ -50901,7 +51059,7 @@ namespace PriemLib
             {
                 OnCustomerAddressChanging(value);
                 ReportPropertyChanging("CustomerAddress");
-                _CustomerAddress = StructuralObject.SetValidValue(value, true);
+                _CustomerAddress = StructuralObject.SetValidValue(value, true, "CustomerAddress");
                 ReportPropertyChanged("CustomerAddress");
                 OnCustomerAddressChanged();
             }
@@ -50925,7 +51083,7 @@ namespace PriemLib
             {
                 OnCustomerPassportChanging(value);
                 ReportPropertyChanging("CustomerPassport");
-                _CustomerPassport = StructuralObject.SetValidValue(value, true);
+                _CustomerPassport = StructuralObject.SetValidValue(value, true, "CustomerPassport");
                 ReportPropertyChanged("CustomerPassport");
                 OnCustomerPassportChanged();
             }
@@ -50949,7 +51107,7 @@ namespace PriemLib
             {
                 OnCustomerPassportAuthorChanging(value);
                 ReportPropertyChanging("CustomerPassportAuthor");
-                _CustomerPassportAuthor = StructuralObject.SetValidValue(value, true);
+                _CustomerPassportAuthor = StructuralObject.SetValidValue(value, true, "CustomerPassportAuthor");
                 ReportPropertyChanged("CustomerPassportAuthor");
                 OnCustomerPassportAuthorChanged();
             }
@@ -50973,7 +51131,7 @@ namespace PriemLib
             {
                 OnCustomerLicoChanging(value);
                 ReportPropertyChanging("CustomerLico");
-                _CustomerLico = StructuralObject.SetValidValue(value, true);
+                _CustomerLico = StructuralObject.SetValidValue(value, true, "CustomerLico");
                 ReportPropertyChanged("CustomerLico");
                 OnCustomerLicoChanged();
             }
@@ -50997,7 +51155,7 @@ namespace PriemLib
             {
                 OnCustomerReasonChanging(value);
                 ReportPropertyChanging("CustomerReason");
-                _CustomerReason = StructuralObject.SetValidValue(value, true);
+                _CustomerReason = StructuralObject.SetValidValue(value, true, "CustomerReason");
                 ReportPropertyChanged("CustomerReason");
                 OnCustomerReasonChanged();
             }
@@ -51021,7 +51179,7 @@ namespace PriemLib
             {
                 OnCustomerINNChanging(value);
                 ReportPropertyChanging("CustomerINN");
-                _CustomerINN = StructuralObject.SetValidValue(value, true);
+                _CustomerINN = StructuralObject.SetValidValue(value, true, "CustomerINN");
                 ReportPropertyChanged("CustomerINN");
                 OnCustomerINNChanged();
             }
@@ -51045,7 +51203,7 @@ namespace PriemLib
             {
                 OnCustomerRSChanging(value);
                 ReportPropertyChanging("CustomerRS");
-                _CustomerRS = StructuralObject.SetValidValue(value, true);
+                _CustomerRS = StructuralObject.SetValidValue(value, true, "CustomerRS");
                 ReportPropertyChanged("CustomerRS");
                 OnCustomerRSChanged();
             }
@@ -51069,7 +51227,7 @@ namespace PriemLib
             {
                 OnAbiturientIdChanging(value);
                 ReportPropertyChanging("AbiturientId");
-                _AbiturientId = StructuralObject.SetValidValue(value);
+                _AbiturientId = StructuralObject.SetValidValue(value, "AbiturientId");
                 ReportPropertyChanged("AbiturientId");
                 OnAbiturientIdChanged();
             }
@@ -51093,7 +51251,7 @@ namespace PriemLib
             {
                 OnIsOpenChanging(value);
                 ReportPropertyChanging("IsOpen");
-                _IsOpen = StructuralObject.SetValidValue(value);
+                _IsOpen = StructuralObject.SetValidValue(value, "IsOpen");
                 ReportPropertyChanged("IsOpen");
                 OnIsOpenChanged();
             }
@@ -51117,7 +51275,7 @@ namespace PriemLib
             {
                 OnHolderChanging(value);
                 ReportPropertyChanging("Holder");
-                _Holder = StructuralObject.SetValidValue(value, true);
+                _Holder = StructuralObject.SetValidValue(value, true, "Holder");
                 ReportPropertyChanged("Holder");
                 OnHolderChanged();
             }
@@ -51141,7 +51299,7 @@ namespace PriemLib
             {
                 OnSumTotalChanging(value);
                 ReportPropertyChanging("SumTotal");
-                _SumTotal = StructuralObject.SetValidValue(value, true);
+                _SumTotal = StructuralObject.SetValidValue(value, true, "SumTotal");
                 ReportPropertyChanged("SumTotal");
                 OnSumTotalChanged();
             }
@@ -51165,7 +51323,7 @@ namespace PriemLib
             {
                 OnSrokIndividualChanging(value);
                 ReportPropertyChanging("SrokIndividual");
-                _SrokIndividual = StructuralObject.SetValidValue(value, true);
+                _SrokIndividual = StructuralObject.SetValidValue(value, true, "SrokIndividual");
                 ReportPropertyChanged("SrokIndividual");
                 OnSrokIndividualChanged();
             }
@@ -51189,7 +51347,7 @@ namespace PriemLib
             {
                 OnAuthorChanging(value);
                 ReportPropertyChanging("Author");
-                _Author = StructuralObject.SetValidValue(value, false);
+                _Author = StructuralObject.SetValidValue(value, false, "Author");
                 ReportPropertyChanged("Author");
                 OnAuthorChanged();
             }
@@ -51213,7 +51371,7 @@ namespace PriemLib
             {
                 OnDateCreatedChanging(value);
                 ReportPropertyChanging("DateCreated");
-                _DateCreated = StructuralObject.SetValidValue(value);
+                _DateCreated = StructuralObject.SetValidValue(value, "DateCreated");
                 ReportPropertyChanged("DateCreated");
                 OnDateCreatedChanged();
             }
@@ -51224,7 +51382,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -51406,7 +51563,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -51425,7 +51582,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -51450,7 +51607,7 @@ namespace PriemLib
             {
                 OnNameChanging(value);
                 ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, true);
+                _Name = StructuralObject.SetValidValue(value, true, "Name");
                 ReportPropertyChanged("Name");
                 OnNameChanged();
             }
@@ -51474,7 +51631,7 @@ namespace PriemLib
             {
                 OnFISNameChanging(value);
                 ReportPropertyChanging("FISName");
-                _FISName = StructuralObject.SetValidValue(value, true);
+                _FISName = StructuralObject.SetValidValue(value, true, "FISName");
                 ReportPropertyChanged("FISName");
                 OnFISNameChanged();
             }
@@ -51485,7 +51642,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -51563,7 +51719,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -51582,7 +51738,7 @@ namespace PriemLib
                 {
                     OnEntryIdChanging(value);
                     ReportPropertyChanging("EntryId");
-                    _EntryId = StructuralObject.SetValidValue(value);
+                    _EntryId = StructuralObject.SetValidValue(value, "EntryId");
                     ReportPropertyChanged("EntryId");
                     OnEntryIdChanged();
                 }
@@ -51609,7 +51765,7 @@ namespace PriemLib
                 {
                     OnUniverNameChanging(value);
                     ReportPropertyChanging("UniverName");
-                    _UniverName = StructuralObject.SetValidValue(value, false);
+                    _UniverName = StructuralObject.SetValidValue(value, false, "UniverName");
                     ReportPropertyChanged("UniverName");
                     OnUniverNameChanged();
                 }
@@ -51636,7 +51792,7 @@ namespace PriemLib
                 {
                     OnUniverAddressChanging(value);
                     ReportPropertyChanging("UniverAddress");
-                    _UniverAddress = StructuralObject.SetValidValue(value, false);
+                    _UniverAddress = StructuralObject.SetValidValue(value, false, "UniverAddress");
                     ReportPropertyChanged("UniverAddress");
                     OnUniverAddressChanged();
                 }
@@ -51663,7 +51819,7 @@ namespace PriemLib
                 {
                     OnUniverINNChanging(value);
                     ReportPropertyChanging("UniverINN");
-                    _UniverINN = StructuralObject.SetValidValue(value, false);
+                    _UniverINN = StructuralObject.SetValidValue(value, false, "UniverINN");
                     ReportPropertyChanged("UniverINN");
                     OnUniverINNChanged();
                 }
@@ -51690,7 +51846,7 @@ namespace PriemLib
                 {
                     OnUniverRSChanging(value);
                     ReportPropertyChanging("UniverRS");
-                    _UniverRS = StructuralObject.SetValidValue(value, false);
+                    _UniverRS = StructuralObject.SetValidValue(value, false, "UniverRS");
                     ReportPropertyChanged("UniverRS");
                     OnUniverRSChanged();
                 }
@@ -51717,7 +51873,7 @@ namespace PriemLib
                 {
                     OnUniverDopChanging(value);
                     ReportPropertyChanging("UniverDop");
-                    _UniverDop = StructuralObject.SetValidValue(value, false);
+                    _UniverDop = StructuralObject.SetValidValue(value, false, "UniverDop");
                     ReportPropertyChanged("UniverDop");
                     OnUniverDopChanged();
                 }
@@ -51744,7 +51900,7 @@ namespace PriemLib
                 {
                     OnProrektorIdChanging(value);
                     ReportPropertyChanging("ProrektorId");
-                    _ProrektorId = StructuralObject.SetValidValue(value);
+                    _ProrektorId = StructuralObject.SetValidValue(value, "ProrektorId");
                     ReportPropertyChanged("ProrektorId");
                     OnProrektorIdChanged();
                 }
@@ -51771,7 +51927,7 @@ namespace PriemLib
                 {
                     OnQualificationChanging(value);
                     ReportPropertyChanging("Qualification");
-                    _Qualification = StructuralObject.SetValidValue(value, false);
+                    _Qualification = StructuralObject.SetValidValue(value, false, "Qualification");
                     ReportPropertyChanged("Qualification");
                     OnQualificationChanged();
                 }
@@ -51798,7 +51954,7 @@ namespace PriemLib
                 {
                     OnEducPeriodChanging(value);
                     ReportPropertyChanging("EducPeriod");
-                    _EducPeriod = StructuralObject.SetValidValue(value, false);
+                    _EducPeriod = StructuralObject.SetValidValue(value, false, "EducPeriod");
                     ReportPropertyChanged("EducPeriod");
                     OnEducPeriodChanged();
                 }
@@ -51825,7 +51981,7 @@ namespace PriemLib
                 {
                     OnDateStartChanging(value);
                     ReportPropertyChanging("DateStart");
-                    _DateStart = StructuralObject.SetValidValue(value);
+                    _DateStart = StructuralObject.SetValidValue(value, "DateStart");
                     ReportPropertyChanged("DateStart");
                     OnDateStartChanged();
                 }
@@ -51852,7 +52008,7 @@ namespace PriemLib
                 {
                     OnDateFinishChanging(value);
                     ReportPropertyChanging("DateFinish");
-                    _DateFinish = StructuralObject.SetValidValue(value);
+                    _DateFinish = StructuralObject.SetValidValue(value, "DateFinish");
                     ReportPropertyChanged("DateFinish");
                     OnDateFinishChanged();
                 }
@@ -51879,7 +52035,7 @@ namespace PriemLib
                 {
                     OnPropsChanging(value);
                     ReportPropertyChanging("Props");
-                    _Props = StructuralObject.SetValidValue(value, false);
+                    _Props = StructuralObject.SetValidValue(value, false, "Props");
                     ReportPropertyChanged("Props");
                     OnPropsChanged();
                 }
@@ -51906,7 +52062,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -51933,7 +52089,7 @@ namespace PriemLib
                 {
                     OnIsOpenChanging(value);
                     ReportPropertyChanging("IsOpen");
-                    _IsOpen = StructuralObject.SetValidValue(value);
+                    _IsOpen = StructuralObject.SetValidValue(value, "IsOpen");
                     ReportPropertyChanged("IsOpen");
                     OnIsOpenChanged();
                 }
@@ -51958,7 +52114,7 @@ namespace PriemLib
             {
                 OnHolderChanging(value);
                 ReportPropertyChanging("Holder");
-                _Holder = StructuralObject.SetValidValue(value, true);
+                _Holder = StructuralObject.SetValidValue(value, true, "Holder");
                 ReportPropertyChanged("Holder");
                 OnHolderChanged();
             }
@@ -51969,7 +52125,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -52077,7 +52232,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -52096,7 +52251,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -52121,7 +52276,7 @@ namespace PriemLib
             {
                 OnNameChanging(value);
                 ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, false);
+                _Name = StructuralObject.SetValidValue(value, false, "Name");
                 ReportPropertyChanged("Name");
                 OnNameChanged();
             }
@@ -52145,7 +52300,7 @@ namespace PriemLib
             {
                 OnNamePadChanging(value);
                 ReportPropertyChanging("NamePad");
-                _NamePad = StructuralObject.SetValidValue(value, true);
+                _NamePad = StructuralObject.SetValidValue(value, true, "NamePad");
                 ReportPropertyChanged("NamePad");
                 OnNamePadChanged();
             }
@@ -52156,7 +52311,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -52232,7 +52386,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -52251,7 +52405,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -52276,7 +52430,7 @@ namespace PriemLib
             {
                 OnBarcodeChanging(value);
                 ReportPropertyChanging("Barcode");
-                _Barcode = StructuralObject.SetValidValue(value);
+                _Barcode = StructuralObject.SetValidValue(value, "Barcode");
                 ReportPropertyChanged("Barcode");
                 OnBarcodeChanged();
             }
@@ -52300,7 +52454,7 @@ namespace PriemLib
             {
                 OnNumChanging(value);
                 ReportPropertyChanging("Num");
-                _Num = StructuralObject.SetValidValue(value);
+                _Num = StructuralObject.SetValidValue(value, "Num");
                 ReportPropertyChanged("Num");
                 OnNumChanged();
             }
@@ -52324,7 +52478,7 @@ namespace PriemLib
             {
                 OnSurnameChanging(value);
                 ReportPropertyChanging("Surname");
-                _Surname = StructuralObject.SetValidValue(value, false);
+                _Surname = StructuralObject.SetValidValue(value, false, "Surname");
                 ReportPropertyChanged("Surname");
                 OnSurnameChanged();
             }
@@ -52348,7 +52502,7 @@ namespace PriemLib
             {
                 OnNameChanging(value);
                 ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, false);
+                _Name = StructuralObject.SetValidValue(value, false, "Name");
                 ReportPropertyChanged("Name");
                 OnNameChanged();
             }
@@ -52372,7 +52526,7 @@ namespace PriemLib
             {
                 OnSecondNameChanging(value);
                 ReportPropertyChanging("SecondName");
-                _SecondName = StructuralObject.SetValidValue(value, true);
+                _SecondName = StructuralObject.SetValidValue(value, true, "SecondName");
                 ReportPropertyChanged("SecondName");
                 OnSecondNameChanged();
             }
@@ -52396,7 +52550,7 @@ namespace PriemLib
             {
                 OnBirthDateChanging(value);
                 ReportPropertyChanging("BirthDate");
-                _BirthDate = StructuralObject.SetValidValue(value);
+                _BirthDate = StructuralObject.SetValidValue(value, "BirthDate");
                 ReportPropertyChanged("BirthDate");
                 OnBirthDateChanged();
             }
@@ -52420,7 +52574,7 @@ namespace PriemLib
             {
                 OnBirthPlaceChanging(value);
                 ReportPropertyChanging("BirthPlace");
-                _BirthPlace = StructuralObject.SetValidValue(value, false);
+                _BirthPlace = StructuralObject.SetValidValue(value, false, "BirthPlace");
                 ReportPropertyChanged("BirthPlace");
                 OnBirthPlaceChanged();
             }
@@ -52444,7 +52598,7 @@ namespace PriemLib
             {
                 OnPassportTypeIdChanging(value);
                 ReportPropertyChanging("PassportTypeId");
-                _PassportTypeId = StructuralObject.SetValidValue(value);
+                _PassportTypeId = StructuralObject.SetValidValue(value, "PassportTypeId");
                 ReportPropertyChanged("PassportTypeId");
                 OnPassportTypeIdChanged();
             }
@@ -52468,7 +52622,7 @@ namespace PriemLib
             {
                 OnPassportSeriesChanging(value);
                 ReportPropertyChanging("PassportSeries");
-                _PassportSeries = StructuralObject.SetValidValue(value, true);
+                _PassportSeries = StructuralObject.SetValidValue(value, true, "PassportSeries");
                 ReportPropertyChanged("PassportSeries");
                 OnPassportSeriesChanged();
             }
@@ -52492,7 +52646,7 @@ namespace PriemLib
             {
                 OnPassportNumberChanging(value);
                 ReportPropertyChanging("PassportNumber");
-                _PassportNumber = StructuralObject.SetValidValue(value, true);
+                _PassportNumber = StructuralObject.SetValidValue(value, true, "PassportNumber");
                 ReportPropertyChanged("PassportNumber");
                 OnPassportNumberChanged();
             }
@@ -52516,7 +52670,7 @@ namespace PriemLib
             {
                 OnPassportAuthorChanging(value);
                 ReportPropertyChanging("PassportAuthor");
-                _PassportAuthor = StructuralObject.SetValidValue(value, true);
+                _PassportAuthor = StructuralObject.SetValidValue(value, true, "PassportAuthor");
                 ReportPropertyChanged("PassportAuthor");
                 OnPassportAuthorChanged();
             }
@@ -52540,7 +52694,7 @@ namespace PriemLib
             {
                 OnPassportDateChanging(value);
                 ReportPropertyChanging("PassportDate");
-                _PassportDate = StructuralObject.SetValidValue(value);
+                _PassportDate = StructuralObject.SetValidValue(value, "PassportDate");
                 ReportPropertyChanged("PassportDate");
                 OnPassportDateChanged();
             }
@@ -52564,7 +52718,7 @@ namespace PriemLib
             {
                 OnPassportCodeChanging(value);
                 ReportPropertyChanging("PassportCode");
-                _PassportCode = StructuralObject.SetValidValue(value, true);
+                _PassportCode = StructuralObject.SetValidValue(value, true, "PassportCode");
                 ReportPropertyChanged("PassportCode");
                 OnPassportCodeChanged();
             }
@@ -52588,7 +52742,7 @@ namespace PriemLib
             {
                 OnPersonalCodeChanging(value);
                 ReportPropertyChanging("PersonalCode");
-                _PersonalCode = StructuralObject.SetValidValue(value, true);
+                _PersonalCode = StructuralObject.SetValidValue(value, true, "PersonalCode");
                 ReportPropertyChanged("PersonalCode");
                 OnPersonalCodeChanged();
             }
@@ -52612,7 +52766,7 @@ namespace PriemLib
             {
                 OnSexChanging(value);
                 ReportPropertyChanging("Sex");
-                _Sex = StructuralObject.SetValidValue(value);
+                _Sex = StructuralObject.SetValidValue(value, "Sex");
                 ReportPropertyChanged("Sex");
                 OnSexChanged();
             }
@@ -52636,7 +52790,7 @@ namespace PriemLib
             {
                 OnIsOpenChanging(value);
                 ReportPropertyChanging("IsOpen");
-                _IsOpen = StructuralObject.SetValidValue(value);
+                _IsOpen = StructuralObject.SetValidValue(value, "IsOpen");
                 ReportPropertyChanged("IsOpen");
                 OnIsOpenChanged();
             }
@@ -52660,7 +52814,7 @@ namespace PriemLib
             {
                 OnHolderChanging(value);
                 ReportPropertyChanging("Holder");
-                _Holder = StructuralObject.SetValidValue(value, true);
+                _Holder = StructuralObject.SetValidValue(value, true, "Holder");
                 ReportPropertyChanged("Holder");
                 OnHolderChanged();
             }
@@ -52684,7 +52838,7 @@ namespace PriemLib
             {
                 OnNationalityIdChanging(value);
                 ReportPropertyChanging("NationalityId");
-                _NationalityId = StructuralObject.SetValidValue(value);
+                _NationalityId = StructuralObject.SetValidValue(value, "NationalityId");
                 ReportPropertyChanged("NationalityId");
                 OnNationalityIdChanged();
             }
@@ -52708,7 +52862,7 @@ namespace PriemLib
             {
                 OnPersonTypeIdChanging(value);
                 ReportPropertyChanging("PersonTypeId");
-                _PersonTypeId = StructuralObject.SetValidValue(value);
+                _PersonTypeId = StructuralObject.SetValidValue(value, "PersonTypeId");
                 ReportPropertyChanged("PersonTypeId");
                 OnPersonTypeIdChanged();
             }
@@ -52732,7 +52886,7 @@ namespace PriemLib
             {
                 OnForeignNationalityIdChanging(value);
                 ReportPropertyChanging("ForeignNationalityId");
-                _ForeignNationalityId = StructuralObject.SetValidValue(value);
+                _ForeignNationalityId = StructuralObject.SetValidValue(value, "ForeignNationalityId");
                 ReportPropertyChanged("ForeignNationalityId");
                 OnForeignNationalityIdChanged();
             }
@@ -52756,7 +52910,7 @@ namespace PriemLib
             {
                 OnAdditionalPersonTypeIdChanging(value);
                 ReportPropertyChanging("AdditionalPersonTypeId");
-                _AdditionalPersonTypeId = StructuralObject.SetValidValue(value);
+                _AdditionalPersonTypeId = StructuralObject.SetValidValue(value, "AdditionalPersonTypeId");
                 ReportPropertyChanged("AdditionalPersonTypeId");
                 OnAdditionalPersonTypeIdChanged();
             }
@@ -52780,7 +52934,7 @@ namespace PriemLib
             {
                 OnSNILSChanging(value);
                 ReportPropertyChanging("SNILS");
-                _SNILS = StructuralObject.SetValidValue(value, true);
+                _SNILS = StructuralObject.SetValidValue(value, true, "SNILS");
                 ReportPropertyChanged("SNILS");
                 OnSNILSChanged();
             }
@@ -52804,7 +52958,7 @@ namespace PriemLib
             {
                 OnHasRussianNationalityChanging(value);
                 ReportPropertyChanging("HasRussianNationality");
-                _HasRussianNationality = StructuralObject.SetValidValue(value);
+                _HasRussianNationality = StructuralObject.SetValidValue(value, "HasRussianNationality");
                 ReportPropertyChanged("HasRussianNationality");
                 OnHasRussianNationalityChanged();
             }
@@ -52828,7 +52982,7 @@ namespace PriemLib
             {
                 OnAuthorChanging(value);
                 ReportPropertyChanging("Author");
-                _Author = StructuralObject.SetValidValue(value, false);
+                _Author = StructuralObject.SetValidValue(value, false, "Author");
                 ReportPropertyChanged("Author");
                 OnAuthorChanged();
             }
@@ -52852,7 +53006,7 @@ namespace PriemLib
             {
                 OnDateCreatedChanging(value);
                 ReportPropertyChanging("DateCreated");
-                _DateCreated = StructuralObject.SetValidValue(value);
+                _DateCreated = StructuralObject.SetValidValue(value, "DateCreated");
                 ReportPropertyChanged("DateCreated");
                 OnDateCreatedChanged();
             }
@@ -52863,7 +53017,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -53165,6 +53318,28 @@ namespace PriemLib
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Priem2012Model", "FK_PersonAchievement_Person", "PersonAchievement")]
+        public EntityCollection<PersonAchievement> PersonAchievement
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<PersonAchievement>("Priem2012Model.FK_PersonAchievement_Person", "PersonAchievement");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<PersonAchievement>("Priem2012Model.FK_PersonAchievement_Person", "PersonAchievement", value);
+                }
+            }
+        }
 
         #endregion
 
@@ -53215,7 +53390,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -53234,7 +53409,7 @@ namespace PriemLib
                 {
                     OnPersonIdChanging(value);
                     ReportPropertyChanging("PersonId");
-                    _PersonId = StructuralObject.SetValidValue(value);
+                    _PersonId = StructuralObject.SetValidValue(value, "PersonId");
                     ReportPropertyChanged("PersonId");
                     OnPersonIdChanged();
                 }
@@ -53259,7 +53434,7 @@ namespace PriemLib
             {
                 OnHostelAbitChanging(value);
                 ReportPropertyChanging("HostelAbit");
-                _HostelAbit = StructuralObject.SetValidValue(value);
+                _HostelAbit = StructuralObject.SetValidValue(value, "HostelAbit");
                 ReportPropertyChanged("HostelAbit");
                 OnHostelAbitChanged();
             }
@@ -53283,7 +53458,7 @@ namespace PriemLib
             {
                 OnHasAssignToHostelChanging(value);
                 ReportPropertyChanging("HasAssignToHostel");
-                _HasAssignToHostel = StructuralObject.SetValidValue(value);
+                _HasAssignToHostel = StructuralObject.SetValidValue(value, "HasAssignToHostel");
                 ReportPropertyChanged("HasAssignToHostel");
                 OnHasAssignToHostelChanged();
             }
@@ -53307,7 +53482,7 @@ namespace PriemLib
             {
                 OnHostelFacultyIdChanging(value);
                 ReportPropertyChanging("HostelFacultyId");
-                _HostelFacultyId = StructuralObject.SetValidValue(value);
+                _HostelFacultyId = StructuralObject.SetValidValue(value, "HostelFacultyId");
                 ReportPropertyChanged("HostelFacultyId");
                 OnHostelFacultyIdChanged();
             }
@@ -53331,7 +53506,7 @@ namespace PriemLib
             {
                 OnHasExamPassChanging(value);
                 ReportPropertyChanging("HasExamPass");
-                _HasExamPass = StructuralObject.SetValidValue(value);
+                _HasExamPass = StructuralObject.SetValidValue(value, "HasExamPass");
                 ReportPropertyChanged("HasExamPass");
                 OnHasExamPassChanged();
             }
@@ -53355,7 +53530,7 @@ namespace PriemLib
             {
                 OnExamPassFacultyIdChanging(value);
                 ReportPropertyChanging("ExamPassFacultyId");
-                _ExamPassFacultyId = StructuralObject.SetValidValue(value);
+                _ExamPassFacultyId = StructuralObject.SetValidValue(value, "ExamPassFacultyId");
                 ReportPropertyChanged("ExamPassFacultyId");
                 OnExamPassFacultyIdChanged();
             }
@@ -53379,7 +53554,7 @@ namespace PriemLib
             {
                 OnPrivilegesChanging(value);
                 ReportPropertyChanging("Privileges");
-                _Privileges = StructuralObject.SetValidValue(value);
+                _Privileges = StructuralObject.SetValidValue(value, "Privileges");
                 ReportPropertyChanged("Privileges");
                 OnPrivilegesChanged();
             }
@@ -53403,7 +53578,7 @@ namespace PriemLib
             {
                 OnPersonInfoChanging(value);
                 ReportPropertyChanging("PersonInfo");
-                _PersonInfo = StructuralObject.SetValidValue(value, true);
+                _PersonInfo = StructuralObject.SetValidValue(value, true, "PersonInfo");
                 ReportPropertyChanged("PersonInfo");
                 OnPersonInfoChanged();
             }
@@ -53427,7 +53602,7 @@ namespace PriemLib
             {
                 OnExtraInfoChanging(value);
                 ReportPropertyChanging("ExtraInfo");
-                _ExtraInfo = StructuralObject.SetValidValue(value, true);
+                _ExtraInfo = StructuralObject.SetValidValue(value, true, "ExtraInfo");
                 ReportPropertyChanged("ExtraInfo");
                 OnExtraInfoChanged();
             }
@@ -53451,7 +53626,7 @@ namespace PriemLib
             {
                 OnScienceWorkChanging(value);
                 ReportPropertyChanging("ScienceWork");
-                _ScienceWork = StructuralObject.SetValidValue(value, true);
+                _ScienceWork = StructuralObject.SetValidValue(value, true, "ScienceWork");
                 ReportPropertyChanged("ScienceWork");
                 OnScienceWorkChanged();
             }
@@ -53475,7 +53650,7 @@ namespace PriemLib
             {
                 OnMSStudyFormIdChanging(value);
                 ReportPropertyChanging("MSStudyFormId");
-                _MSStudyFormId = StructuralObject.SetValidValue(value);
+                _MSStudyFormId = StructuralObject.SetValidValue(value, "MSStudyFormId");
                 ReportPropertyChanged("MSStudyFormId");
                 OnMSStudyFormIdChanged();
             }
@@ -53499,7 +53674,7 @@ namespace PriemLib
             {
                 OnMSVuzChanging(value);
                 ReportPropertyChanging("MSVuz");
-                _MSVuz = StructuralObject.SetValidValue(value, true);
+                _MSVuz = StructuralObject.SetValidValue(value, true, "MSVuz");
                 ReportPropertyChanged("MSVuz");
                 OnMSVuzChanged();
             }
@@ -53523,7 +53698,7 @@ namespace PriemLib
             {
                 OnMSCourseChanging(value);
                 ReportPropertyChanging("MSCourse");
-                _MSCourse = StructuralObject.SetValidValue(value, true);
+                _MSCourse = StructuralObject.SetValidValue(value, true, "MSCourse");
                 ReportPropertyChanged("MSCourse");
                 OnMSCourseChanged();
             }
@@ -53547,7 +53722,7 @@ namespace PriemLib
             {
                 OnStagChanging(value);
                 ReportPropertyChanging("Stag");
-                _Stag = StructuralObject.SetValidValue(value, true);
+                _Stag = StructuralObject.SetValidValue(value, true, "Stag");
                 ReportPropertyChanged("Stag");
                 OnStagChanged();
             }
@@ -53571,7 +53746,7 @@ namespace PriemLib
             {
                 OnWorkPlaceChanging(value);
                 ReportPropertyChanging("WorkPlace");
-                _WorkPlace = StructuralObject.SetValidValue(value, true);
+                _WorkPlace = StructuralObject.SetValidValue(value, true, "WorkPlace");
                 ReportPropertyChanged("WorkPlace");
                 OnWorkPlaceChanged();
             }
@@ -53595,7 +53770,7 @@ namespace PriemLib
             {
                 OnHostelEducChanging(value);
                 ReportPropertyChanging("HostelEduc");
-                _HostelEduc = StructuralObject.SetValidValue(value);
+                _HostelEduc = StructuralObject.SetValidValue(value, "HostelEduc");
                 ReportPropertyChanged("HostelEduc");
                 OnHostelEducChanged();
             }
@@ -53619,7 +53794,7 @@ namespace PriemLib
             {
                 OnHasTRKIChanging(value);
                 ReportPropertyChanging("HasTRKI");
-                _HasTRKI = StructuralObject.SetValidValue(value);
+                _HasTRKI = StructuralObject.SetValidValue(value, "HasTRKI");
                 ReportPropertyChanged("HasTRKI");
                 OnHasTRKIChanged();
             }
@@ -53643,7 +53818,7 @@ namespace PriemLib
             {
                 OnTRKICertificateNumberChanging(value);
                 ReportPropertyChanging("TRKICertificateNumber");
-                _TRKICertificateNumber = StructuralObject.SetValidValue(value, true);
+                _TRKICertificateNumber = StructuralObject.SetValidValue(value, true, "TRKICertificateNumber");
                 ReportPropertyChanged("TRKICertificateNumber");
                 OnTRKICertificateNumberChanged();
             }
@@ -53667,7 +53842,7 @@ namespace PriemLib
             {
                 OnStartEnglishChanging(value);
                 ReportPropertyChanging("StartEnglish");
-                _StartEnglish = StructuralObject.SetValidValue(value);
+                _StartEnglish = StructuralObject.SetValidValue(value, "StartEnglish");
                 ReportPropertyChanged("StartEnglish");
                 OnStartEnglishChanged();
             }
@@ -53691,7 +53866,7 @@ namespace PriemLib
             {
                 OnEnglishMarkChanging(value);
                 ReportPropertyChanging("EnglishMark");
-                _EnglishMark = StructuralObject.SetValidValue(value);
+                _EnglishMark = StructuralObject.SetValidValue(value, "EnglishMark");
                 ReportPropertyChanged("EnglishMark");
                 OnEnglishMarkChanged();
             }
@@ -53715,7 +53890,7 @@ namespace PriemLib
             {
                 OnLanguageIdChanging(value);
                 ReportPropertyChanging("LanguageId");
-                _LanguageId = StructuralObject.SetValidValue(value);
+                _LanguageId = StructuralObject.SetValidValue(value, "LanguageId");
                 ReportPropertyChanged("LanguageId");
                 OnLanguageIdChanged();
             }
@@ -53739,7 +53914,7 @@ namespace PriemLib
             {
                 OnEgeInSPbguChanging(value);
                 ReportPropertyChanging("EgeInSPbgu");
-                _EgeInSPbgu = StructuralObject.SetValidValue(value);
+                _EgeInSPbgu = StructuralObject.SetValidValue(value, "EgeInSPbgu");
                 ReportPropertyChanged("EgeInSPbgu");
                 OnEgeInSPbguChanged();
             }
@@ -53763,7 +53938,7 @@ namespace PriemLib
             {
                 OnAuthorChanging(value);
                 ReportPropertyChanging("Author");
-                _Author = StructuralObject.SetValidValue(value, false);
+                _Author = StructuralObject.SetValidValue(value, false, "Author");
                 ReportPropertyChanged("Author");
                 OnAuthorChanged();
             }
@@ -53787,7 +53962,7 @@ namespace PriemLib
             {
                 OnDateCreatedChanging(value);
                 ReportPropertyChanging("DateCreated");
-                _DateCreated = StructuralObject.SetValidValue(value);
+                _DateCreated = StructuralObject.SetValidValue(value, "DateCreated");
                 ReportPropertyChanged("DateCreated");
                 OnDateCreatedChanged();
             }
@@ -53798,7 +53973,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -53988,7 +54162,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -54007,7 +54181,7 @@ namespace PriemLib
                 {
                     OnPersonIdChanging(value);
                     ReportPropertyChanging("PersonId");
-                    _PersonId = StructuralObject.SetValidValue(value);
+                    _PersonId = StructuralObject.SetValidValue(value, "PersonId");
                     ReportPropertyChanged("PersonId");
                     OnPersonIdChanged();
                 }
@@ -54032,7 +54206,7 @@ namespace PriemLib
             {
                 OnCountryIdChanging(value);
                 ReportPropertyChanging("CountryId");
-                _CountryId = StructuralObject.SetValidValue(value);
+                _CountryId = StructuralObject.SetValidValue(value, "CountryId");
                 ReportPropertyChanged("CountryId");
                 OnCountryIdChanged();
             }
@@ -54056,7 +54230,7 @@ namespace PriemLib
             {
                 OnRegionIdChanging(value);
                 ReportPropertyChanging("RegionId");
-                _RegionId = StructuralObject.SetValidValue(value);
+                _RegionId = StructuralObject.SetValidValue(value, "RegionId");
                 ReportPropertyChanged("RegionId");
                 OnRegionIdChanged();
             }
@@ -54080,7 +54254,7 @@ namespace PriemLib
             {
                 OnPhoneChanging(value);
                 ReportPropertyChanging("Phone");
-                _Phone = StructuralObject.SetValidValue(value, true);
+                _Phone = StructuralObject.SetValidValue(value, true, "Phone");
                 ReportPropertyChanged("Phone");
                 OnPhoneChanged();
             }
@@ -54104,7 +54278,7 @@ namespace PriemLib
             {
                 OnMobilesChanging(value);
                 ReportPropertyChanging("Mobiles");
-                _Mobiles = StructuralObject.SetValidValue(value, true);
+                _Mobiles = StructuralObject.SetValidValue(value, true, "Mobiles");
                 ReportPropertyChanged("Mobiles");
                 OnMobilesChanged();
             }
@@ -54128,7 +54302,7 @@ namespace PriemLib
             {
                 OnEmailChanging(value);
                 ReportPropertyChanging("Email");
-                _Email = StructuralObject.SetValidValue(value, true);
+                _Email = StructuralObject.SetValidValue(value, true, "Email");
                 ReportPropertyChanged("Email");
                 OnEmailChanged();
             }
@@ -54152,7 +54326,7 @@ namespace PriemLib
             {
                 OnCodeChanging(value);
                 ReportPropertyChanging("Code");
-                _Code = StructuralObject.SetValidValue(value, true);
+                _Code = StructuralObject.SetValidValue(value, true, "Code");
                 ReportPropertyChanged("Code");
                 OnCodeChanged();
             }
@@ -54176,7 +54350,7 @@ namespace PriemLib
             {
                 OnCityChanging(value);
                 ReportPropertyChanging("City");
-                _City = StructuralObject.SetValidValue(value, true);
+                _City = StructuralObject.SetValidValue(value, true, "City");
                 ReportPropertyChanged("City");
                 OnCityChanged();
             }
@@ -54200,7 +54374,7 @@ namespace PriemLib
             {
                 OnStreetChanging(value);
                 ReportPropertyChanging("Street");
-                _Street = StructuralObject.SetValidValue(value, true);
+                _Street = StructuralObject.SetValidValue(value, true, "Street");
                 ReportPropertyChanged("Street");
                 OnStreetChanged();
             }
@@ -54224,7 +54398,7 @@ namespace PriemLib
             {
                 OnHouseChanging(value);
                 ReportPropertyChanging("House");
-                _House = StructuralObject.SetValidValue(value, true);
+                _House = StructuralObject.SetValidValue(value, true, "House");
                 ReportPropertyChanged("House");
                 OnHouseChanged();
             }
@@ -54248,7 +54422,7 @@ namespace PriemLib
             {
                 OnKorpusChanging(value);
                 ReportPropertyChanging("Korpus");
-                _Korpus = StructuralObject.SetValidValue(value, true);
+                _Korpus = StructuralObject.SetValidValue(value, true, "Korpus");
                 ReportPropertyChanged("Korpus");
                 OnKorpusChanged();
             }
@@ -54272,7 +54446,7 @@ namespace PriemLib
             {
                 OnFlatChanging(value);
                 ReportPropertyChanging("Flat");
-                _Flat = StructuralObject.SetValidValue(value, true);
+                _Flat = StructuralObject.SetValidValue(value, true, "Flat");
                 ReportPropertyChanged("Flat");
                 OnFlatChanged();
             }
@@ -54296,7 +54470,7 @@ namespace PriemLib
             {
                 OnCodeRealChanging(value);
                 ReportPropertyChanging("CodeReal");
-                _CodeReal = StructuralObject.SetValidValue(value, true);
+                _CodeReal = StructuralObject.SetValidValue(value, true, "CodeReal");
                 ReportPropertyChanged("CodeReal");
                 OnCodeRealChanged();
             }
@@ -54320,7 +54494,7 @@ namespace PriemLib
             {
                 OnCityRealChanging(value);
                 ReportPropertyChanging("CityReal");
-                _CityReal = StructuralObject.SetValidValue(value, true);
+                _CityReal = StructuralObject.SetValidValue(value, true, "CityReal");
                 ReportPropertyChanged("CityReal");
                 OnCityRealChanged();
             }
@@ -54344,7 +54518,7 @@ namespace PriemLib
             {
                 OnStreetRealChanging(value);
                 ReportPropertyChanging("StreetReal");
-                _StreetReal = StructuralObject.SetValidValue(value, true);
+                _StreetReal = StructuralObject.SetValidValue(value, true, "StreetReal");
                 ReportPropertyChanged("StreetReal");
                 OnStreetRealChanged();
             }
@@ -54368,7 +54542,7 @@ namespace PriemLib
             {
                 OnHouseRealChanging(value);
                 ReportPropertyChanging("HouseReal");
-                _HouseReal = StructuralObject.SetValidValue(value, true);
+                _HouseReal = StructuralObject.SetValidValue(value, true, "HouseReal");
                 ReportPropertyChanged("HouseReal");
                 OnHouseRealChanged();
             }
@@ -54392,7 +54566,7 @@ namespace PriemLib
             {
                 OnKorpusRealChanging(value);
                 ReportPropertyChanging("KorpusReal");
-                _KorpusReal = StructuralObject.SetValidValue(value, true);
+                _KorpusReal = StructuralObject.SetValidValue(value, true, "KorpusReal");
                 ReportPropertyChanged("KorpusReal");
                 OnKorpusRealChanged();
             }
@@ -54416,7 +54590,7 @@ namespace PriemLib
             {
                 OnFlatRealChanging(value);
                 ReportPropertyChanging("FlatReal");
-                _FlatReal = StructuralObject.SetValidValue(value, true);
+                _FlatReal = StructuralObject.SetValidValue(value, true, "FlatReal");
                 ReportPropertyChanged("FlatReal");
                 OnFlatRealChanged();
             }
@@ -54440,7 +54614,7 @@ namespace PriemLib
             {
                 OnForeignAddressInfoChanging(value);
                 ReportPropertyChanging("ForeignAddressInfo");
-                _ForeignAddressInfo = StructuralObject.SetValidValue(value, true);
+                _ForeignAddressInfo = StructuralObject.SetValidValue(value, true, "ForeignAddressInfo");
                 ReportPropertyChanged("ForeignAddressInfo");
                 OnForeignAddressInfoChanged();
             }
@@ -54464,7 +54638,7 @@ namespace PriemLib
             {
                 OnForeignCountryIdChanging(value);
                 ReportPropertyChanging("ForeignCountryId");
-                _ForeignCountryId = StructuralObject.SetValidValue(value);
+                _ForeignCountryId = StructuralObject.SetValidValue(value, "ForeignCountryId");
                 ReportPropertyChanged("ForeignCountryId");
                 OnForeignCountryIdChanged();
             }
@@ -54488,7 +54662,7 @@ namespace PriemLib
             {
                 OnKladrCodeChanging(value);
                 ReportPropertyChanging("KladrCode");
-                _KladrCode = StructuralObject.SetValidValue(value, true);
+                _KladrCode = StructuralObject.SetValidValue(value, true, "KladrCode");
                 ReportPropertyChanged("KladrCode");
                 OnKladrCodeChanged();
             }
@@ -54512,7 +54686,7 @@ namespace PriemLib
             {
                 OnAuthorChanging(value);
                 ReportPropertyChanging("Author");
-                _Author = StructuralObject.SetValidValue(value, false);
+                _Author = StructuralObject.SetValidValue(value, false, "Author");
                 ReportPropertyChanged("Author");
                 OnAuthorChanged();
             }
@@ -54536,7 +54710,7 @@ namespace PriemLib
             {
                 OnDateCreatedChanging(value);
                 ReportPropertyChanging("DateCreated");
-                _DateCreated = StructuralObject.SetValidValue(value);
+                _DateCreated = StructuralObject.SetValidValue(value, "DateCreated");
                 ReportPropertyChanged("DateCreated");
                 OnDateCreatedChanged();
             }
@@ -54547,7 +54721,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -54751,7 +54924,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -54768,7 +54941,7 @@ namespace PriemLib
             {
                 OnPersonIdChanging(value);
                 ReportPropertyChanging("PersonId");
-                _PersonId = StructuralObject.SetValidValue(value);
+                _PersonId = StructuralObject.SetValidValue(value, "PersonId");
                 ReportPropertyChanged("PersonId");
                 OnPersonIdChanged();
             }
@@ -54792,7 +54965,7 @@ namespace PriemLib
             {
                 OnIsExcellentChanging(value);
                 ReportPropertyChanging("IsExcellent");
-                _IsExcellent = StructuralObject.SetValidValue(value);
+                _IsExcellent = StructuralObject.SetValidValue(value, "IsExcellent");
                 ReportPropertyChanged("IsExcellent");
                 OnIsExcellentChanged();
             }
@@ -54816,7 +54989,7 @@ namespace PriemLib
             {
                 OnSchoolCityChanging(value);
                 ReportPropertyChanging("SchoolCity");
-                _SchoolCity = StructuralObject.SetValidValue(value, true);
+                _SchoolCity = StructuralObject.SetValidValue(value, true, "SchoolCity");
                 ReportPropertyChanged("SchoolCity");
                 OnSchoolCityChanged();
             }
@@ -54840,7 +55013,7 @@ namespace PriemLib
             {
                 OnSchoolTypeIdChanging(value);
                 ReportPropertyChanging("SchoolTypeId");
-                _SchoolTypeId = StructuralObject.SetValidValue(value);
+                _SchoolTypeId = StructuralObject.SetValidValue(value, "SchoolTypeId");
                 ReportPropertyChanged("SchoolTypeId");
                 OnSchoolTypeIdChanged();
             }
@@ -54864,7 +55037,7 @@ namespace PriemLib
             {
                 OnSchoolNameChanging(value);
                 ReportPropertyChanging("SchoolName");
-                _SchoolName = StructuralObject.SetValidValue(value, false);
+                _SchoolName = StructuralObject.SetValidValue(value, false, "SchoolName");
                 ReportPropertyChanged("SchoolName");
                 OnSchoolNameChanged();
             }
@@ -54888,7 +55061,7 @@ namespace PriemLib
             {
                 OnSchoolNumChanging(value);
                 ReportPropertyChanging("SchoolNum");
-                _SchoolNum = StructuralObject.SetValidValue(value, true);
+                _SchoolNum = StructuralObject.SetValidValue(value, true, "SchoolNum");
                 ReportPropertyChanged("SchoolNum");
                 OnSchoolNumChanged();
             }
@@ -54912,7 +55085,7 @@ namespace PriemLib
             {
                 OnSchoolExitYearChanging(value);
                 ReportPropertyChanging("SchoolExitYear");
-                _SchoolExitYear = StructuralObject.SetValidValue(value);
+                _SchoolExitYear = StructuralObject.SetValidValue(value, "SchoolExitYear");
                 ReportPropertyChanged("SchoolExitYear");
                 OnSchoolExitYearChanged();
             }
@@ -54936,7 +55109,7 @@ namespace PriemLib
             {
                 OnCountryEducIdChanging(value);
                 ReportPropertyChanging("CountryEducId");
-                _CountryEducId = StructuralObject.SetValidValue(value);
+                _CountryEducId = StructuralObject.SetValidValue(value, "CountryEducId");
                 ReportPropertyChanged("CountryEducId");
                 OnCountryEducIdChanged();
             }
@@ -54960,7 +55133,7 @@ namespace PriemLib
             {
                 OnAttestatSeriesChanging(value);
                 ReportPropertyChanging("AttestatSeries");
-                _AttestatSeries = StructuralObject.SetValidValue(value, true);
+                _AttestatSeries = StructuralObject.SetValidValue(value, true, "AttestatSeries");
                 ReportPropertyChanged("AttestatSeries");
                 OnAttestatSeriesChanged();
             }
@@ -54984,7 +55157,7 @@ namespace PriemLib
             {
                 OnAttestatNumChanging(value);
                 ReportPropertyChanging("AttestatNum");
-                _AttestatNum = StructuralObject.SetValidValue(value, true);
+                _AttestatNum = StructuralObject.SetValidValue(value, true, "AttestatNum");
                 ReportPropertyChanged("AttestatNum");
                 OnAttestatNumChanged();
             }
@@ -55008,7 +55181,7 @@ namespace PriemLib
             {
                 OnDiplomSeriesChanging(value);
                 ReportPropertyChanging("DiplomSeries");
-                _DiplomSeries = StructuralObject.SetValidValue(value, true);
+                _DiplomSeries = StructuralObject.SetValidValue(value, true, "DiplomSeries");
                 ReportPropertyChanged("DiplomSeries");
                 OnDiplomSeriesChanged();
             }
@@ -55032,7 +55205,7 @@ namespace PriemLib
             {
                 OnDiplomNumChanging(value);
                 ReportPropertyChanging("DiplomNum");
-                _DiplomNum = StructuralObject.SetValidValue(value, true);
+                _DiplomNum = StructuralObject.SetValidValue(value, true, "DiplomNum");
                 ReportPropertyChanged("DiplomNum");
                 OnDiplomNumChanged();
             }
@@ -55056,7 +55229,7 @@ namespace PriemLib
             {
                 OnSchoolAVGChanging(value);
                 ReportPropertyChanging("SchoolAVG");
-                _SchoolAVG = StructuralObject.SetValidValue(value);
+                _SchoolAVG = StructuralObject.SetValidValue(value, "SchoolAVG");
                 ReportPropertyChanged("SchoolAVG");
                 OnSchoolAVGChanged();
             }
@@ -55080,7 +55253,7 @@ namespace PriemLib
             {
                 OnHighEducationChanging(value);
                 ReportPropertyChanging("HighEducation");
-                _HighEducation = StructuralObject.SetValidValue(value, true);
+                _HighEducation = StructuralObject.SetValidValue(value, true, "HighEducation");
                 ReportPropertyChanged("HighEducation");
                 OnHighEducationChanged();
             }
@@ -55104,7 +55277,7 @@ namespace PriemLib
             {
                 OnHEProfessionChanging(value);
                 ReportPropertyChanging("HEProfession");
-                _HEProfession = StructuralObject.SetValidValue(value, true);
+                _HEProfession = StructuralObject.SetValidValue(value, true, "HEProfession");
                 ReportPropertyChanged("HEProfession");
                 OnHEProfessionChanged();
             }
@@ -55128,7 +55301,7 @@ namespace PriemLib
             {
                 OnHEQualificationChanging(value);
                 ReportPropertyChanging("HEQualification");
-                _HEQualification = StructuralObject.SetValidValue(value, true);
+                _HEQualification = StructuralObject.SetValidValue(value, true, "HEQualification");
                 ReportPropertyChanged("HEQualification");
                 OnHEQualificationChanged();
             }
@@ -55152,7 +55325,7 @@ namespace PriemLib
             {
                 OnHEStudyFormIdChanging(value);
                 ReportPropertyChanging("HEStudyFormId");
-                _HEStudyFormId = StructuralObject.SetValidValue(value);
+                _HEStudyFormId = StructuralObject.SetValidValue(value, "HEStudyFormId");
                 ReportPropertyChanged("HEStudyFormId");
                 OnHEStudyFormIdChanged();
             }
@@ -55176,7 +55349,7 @@ namespace PriemLib
             {
                 OnHEEntryYearChanging(value);
                 ReportPropertyChanging("HEEntryYear");
-                _HEEntryYear = StructuralObject.SetValidValue(value);
+                _HEEntryYear = StructuralObject.SetValidValue(value, "HEEntryYear");
                 ReportPropertyChanged("HEEntryYear");
                 OnHEEntryYearChanged();
             }
@@ -55200,7 +55373,7 @@ namespace PriemLib
             {
                 OnHEExitYearChanging(value);
                 ReportPropertyChanging("HEExitYear");
-                _HEExitYear = StructuralObject.SetValidValue(value);
+                _HEExitYear = StructuralObject.SetValidValue(value, "HEExitYear");
                 ReportPropertyChanged("HEExitYear");
                 OnHEExitYearChanged();
             }
@@ -55224,7 +55397,7 @@ namespace PriemLib
             {
                 OnHEWorkChanging(value);
                 ReportPropertyChanging("HEWork");
-                _HEWork = StructuralObject.SetValidValue(value, true);
+                _HEWork = StructuralObject.SetValidValue(value, true, "HEWork");
                 ReportPropertyChanged("HEWork");
                 OnHEWorkChanged();
             }
@@ -55248,7 +55421,7 @@ namespace PriemLib
             {
                 OnForeignCountryEducIdChanging(value);
                 ReportPropertyChanging("ForeignCountryEducId");
-                _ForeignCountryEducId = StructuralObject.SetValidValue(value);
+                _ForeignCountryEducId = StructuralObject.SetValidValue(value, "ForeignCountryEducId");
                 ReportPropertyChanged("ForeignCountryEducId");
                 OnForeignCountryEducIdChanged();
             }
@@ -55272,7 +55445,7 @@ namespace PriemLib
             {
                 OnIsEqualChanging(value);
                 ReportPropertyChanging("IsEqual");
-                _IsEqual = StructuralObject.SetValidValue(value);
+                _IsEqual = StructuralObject.SetValidValue(value, "IsEqual");
                 ReportPropertyChanged("IsEqual");
                 OnIsEqualChanged();
             }
@@ -55296,7 +55469,7 @@ namespace PriemLib
             {
                 OnEqualDocumentNumberChanging(value);
                 ReportPropertyChanging("EqualDocumentNumber");
-                _EqualDocumentNumber = StructuralObject.SetValidValue(value, true);
+                _EqualDocumentNumber = StructuralObject.SetValidValue(value, true, "EqualDocumentNumber");
                 ReportPropertyChanged("EqualDocumentNumber");
                 OnEqualDocumentNumberChanged();
             }
@@ -55320,7 +55493,7 @@ namespace PriemLib
             {
                 OnRegionEducIdChanging(value);
                 ReportPropertyChanging("RegionEducId");
-                _RegionEducId = StructuralObject.SetValidValue(value);
+                _RegionEducId = StructuralObject.SetValidValue(value, "RegionEducId");
                 ReportPropertyChanged("RegionEducId");
                 OnRegionEducIdChanged();
             }
@@ -55346,7 +55519,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -55371,7 +55544,7 @@ namespace PriemLib
             {
                 OnAuthorChanging(value);
                 ReportPropertyChanging("Author");
-                _Author = StructuralObject.SetValidValue(value, false);
+                _Author = StructuralObject.SetValidValue(value, false, "Author");
                 ReportPropertyChanged("Author");
                 OnAuthorChanged();
             }
@@ -55395,7 +55568,7 @@ namespace PriemLib
             {
                 OnDateCreatedChanging(value);
                 ReportPropertyChanging("DateCreated");
-                _DateCreated = StructuralObject.SetValidValue(value);
+                _DateCreated = StructuralObject.SetValidValue(value, "DateCreated");
                 ReportPropertyChanged("DateCreated");
                 OnDateCreatedChanged();
             }
@@ -55406,7 +55579,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -55606,6 +55778,244 @@ namespace PriemLib
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="Priem2012Model", Name="PersonAchievement")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class PersonAchievement : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new PersonAchievement object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="personId">Initial value of the PersonId property.</param>
+        /// <param name="achievementTypeId">Initial value of the AchievementTypeId property.</param>
+        /// <param name="isOpen">Initial value of the IsOpen property.</param>
+        public static PersonAchievement CreatePersonAchievement(global::System.Guid id, global::System.Guid personId, global::System.Int32 achievementTypeId, global::System.Boolean isOpen)
+        {
+            PersonAchievement personAchievement = new PersonAchievement();
+            personAchievement.Id = id;
+            personAchievement.PersonId = personId;
+            personAchievement.AchievementTypeId = achievementTypeId;
+            personAchievement.IsOpen = isOpen;
+            return personAchievement;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value, "Id");
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Guid _Id;
+        partial void OnIdChanging(global::System.Guid value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid PersonId
+        {
+            get
+            {
+                return _PersonId;
+            }
+            set
+            {
+                OnPersonIdChanging(value);
+                ReportPropertyChanging("PersonId");
+                _PersonId = StructuralObject.SetValidValue(value, "PersonId");
+                ReportPropertyChanged("PersonId");
+                OnPersonIdChanged();
+            }
+        }
+        private global::System.Guid _PersonId;
+        partial void OnPersonIdChanging(global::System.Guid value);
+        partial void OnPersonIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 AchievementTypeId
+        {
+            get
+            {
+                return _AchievementTypeId;
+            }
+            set
+            {
+                OnAchievementTypeIdChanging(value);
+                ReportPropertyChanging("AchievementTypeId");
+                _AchievementTypeId = StructuralObject.SetValidValue(value, "AchievementTypeId");
+                ReportPropertyChanged("AchievementTypeId");
+                OnAchievementTypeIdChanged();
+            }
+        }
+        private global::System.Int32 _AchievementTypeId;
+        partial void OnAchievementTypeIdChanging(global::System.Int32 value);
+        partial void OnAchievementTypeIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean IsOpen
+        {
+            get
+            {
+                return _IsOpen;
+            }
+            set
+            {
+                OnIsOpenChanging(value);
+                ReportPropertyChanging("IsOpen");
+                _IsOpen = StructuralObject.SetValidValue(value, "IsOpen");
+                ReportPropertyChanged("IsOpen");
+                OnIsOpenChanged();
+            }
+        }
+        private global::System.Boolean _IsOpen;
+        partial void OnIsOpenChanging(global::System.Boolean value);
+        partial void OnIsOpenChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Holder
+        {
+            get
+            {
+                return _Holder;
+            }
+            set
+            {
+                OnHolderChanging(value);
+                ReportPropertyChanging("Holder");
+                _Holder = StructuralObject.SetValidValue(value, true, "Holder");
+                ReportPropertyChanged("Holder");
+                OnHolderChanged();
+            }
+        }
+        private global::System.String _Holder;
+        partial void OnHolderChanging(global::System.String value);
+        partial void OnHolderChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Priem2012Model", "FK_PersonAchievement_AchievementType", "AchievementType")]
+        public AchievementType AchievementType
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<AchievementType>("Priem2012Model.FK_PersonAchievement_AchievementType", "AchievementType").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<AchievementType>("Priem2012Model.FK_PersonAchievement_AchievementType", "AchievementType").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<AchievementType> AchievementTypeReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<AchievementType>("Priem2012Model.FK_PersonAchievement_AchievementType", "AchievementType");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<AchievementType>("Priem2012Model.FK_PersonAchievement_AchievementType", "AchievementType", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Priem2012Model", "FK_PersonAchievement_Person", "Person")]
+        public Person Person
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Person>("Priem2012Model.FK_PersonAchievement_Person", "Person").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Person>("Priem2012Model.FK_PersonAchievement_Person", "Person").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Person> PersonReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Person>("Priem2012Model.FK_PersonAchievement_Person", "Person");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Person>("Priem2012Model.FK_PersonAchievement_Person", "Person", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="Priem2012Model", Name="PersonBenefitDocument")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -55638,7 +56048,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -55657,7 +56067,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -55682,7 +56092,7 @@ namespace PriemLib
             {
                 OnPersonIdChanging(value);
                 ReportPropertyChanging("PersonId");
-                _PersonId = StructuralObject.SetValidValue(value);
+                _PersonId = StructuralObject.SetValidValue(value, "PersonId");
                 ReportPropertyChanged("PersonId");
                 OnPersonIdChanged();
             }
@@ -55706,7 +56116,7 @@ namespace PriemLib
             {
                 OnBenefitDocumentTypeIdChanging(value);
                 ReportPropertyChanging("BenefitDocumentTypeId");
-                _BenefitDocumentTypeId = StructuralObject.SetValidValue(value);
+                _BenefitDocumentTypeId = StructuralObject.SetValidValue(value, "BenefitDocumentTypeId");
                 ReportPropertyChanged("BenefitDocumentTypeId");
                 OnBenefitDocumentTypeIdChanged();
             }
@@ -55730,7 +56140,7 @@ namespace PriemLib
             {
                 OnSeriesChanging(value);
                 ReportPropertyChanging("Series");
-                _Series = StructuralObject.SetValidValue(value, true);
+                _Series = StructuralObject.SetValidValue(value, true, "Series");
                 ReportPropertyChanged("Series");
                 OnSeriesChanged();
             }
@@ -55754,7 +56164,7 @@ namespace PriemLib
             {
                 OnNumberChanging(value);
                 ReportPropertyChanging("Number");
-                _Number = StructuralObject.SetValidValue(value, true);
+                _Number = StructuralObject.SetValidValue(value, true, "Number");
                 ReportPropertyChanged("Number");
                 OnNumberChanged();
             }
@@ -55778,7 +56188,7 @@ namespace PriemLib
             {
                 OnDateChanging(value);
                 ReportPropertyChanging("Date");
-                _Date = StructuralObject.SetValidValue(value);
+                _Date = StructuralObject.SetValidValue(value, "Date");
                 ReportPropertyChanged("Date");
                 OnDateChanged();
             }
@@ -55802,7 +56212,7 @@ namespace PriemLib
             {
                 OnDisabilityTypeIdChanging(value);
                 ReportPropertyChanging("DisabilityTypeId");
-                _DisabilityTypeId = StructuralObject.SetValidValue(value);
+                _DisabilityTypeId = StructuralObject.SetValidValue(value, "DisabilityTypeId");
                 ReportPropertyChanged("DisabilityTypeId");
                 OnDisabilityTypeIdChanged();
             }
@@ -55826,7 +56236,7 @@ namespace PriemLib
             {
                 OnHasOriginalsChanging(value);
                 ReportPropertyChanging("HasOriginals");
-                _HasOriginals = StructuralObject.SetValidValue(value);
+                _HasOriginals = StructuralObject.SetValidValue(value, "HasOriginals");
                 ReportPropertyChanged("HasOriginals");
                 OnHasOriginalsChanged();
             }
@@ -55850,7 +56260,7 @@ namespace PriemLib
             {
                 OnOriginalsDateChanging(value);
                 ReportPropertyChanging("OriginalsDate");
-                _OriginalsDate = StructuralObject.SetValidValue(value);
+                _OriginalsDate = StructuralObject.SetValidValue(value, "OriginalsDate");
                 ReportPropertyChanged("OriginalsDate");
                 OnOriginalsDateChanged();
             }
@@ -55874,7 +56284,7 @@ namespace PriemLib
             {
                 OnAuthorChanging(value);
                 ReportPropertyChanging("Author");
-                _Author = StructuralObject.SetValidValue(value, true);
+                _Author = StructuralObject.SetValidValue(value, true, "Author");
                 ReportPropertyChanged("Author");
                 OnAuthorChanged();
             }
@@ -55898,7 +56308,7 @@ namespace PriemLib
             {
                 OnIsOpenChanging(value);
                 ReportPropertyChanging("IsOpen");
-                _IsOpen = StructuralObject.SetValidValue(value);
+                _IsOpen = StructuralObject.SetValidValue(value, "IsOpen");
                 ReportPropertyChanged("IsOpen");
                 OnIsOpenChanged();
             }
@@ -55922,7 +56332,7 @@ namespace PriemLib
             {
                 OnHolderChanging(value);
                 ReportPropertyChanging("Holder");
-                _Holder = StructuralObject.SetValidValue(value, true);
+                _Holder = StructuralObject.SetValidValue(value, true, "Holder");
                 ReportPropertyChanged("Holder");
                 OnHolderChanged();
             }
@@ -55946,7 +56356,7 @@ namespace PriemLib
             {
                 OnC_AuthorChanging(value);
                 ReportPropertyChanging("C_Author");
-                _C_Author = StructuralObject.SetValidValue(value, false);
+                _C_Author = StructuralObject.SetValidValue(value, false, "C_Author");
                 ReportPropertyChanged("C_Author");
                 OnC_AuthorChanged();
             }
@@ -55970,7 +56380,7 @@ namespace PriemLib
             {
                 OnDateCreatedChanging(value);
                 ReportPropertyChanging("DateCreated");
-                _DateCreated = StructuralObject.SetValidValue(value);
+                _DateCreated = StructuralObject.SetValidValue(value, "DateCreated");
                 ReportPropertyChanged("DateCreated");
                 OnDateCreatedChanged();
             }
@@ -55981,7 +56391,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -56095,7 +56504,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -56114,7 +56523,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -56139,7 +56548,7 @@ namespace PriemLib
             {
                 OnPersonIdChanging(value);
                 ReportPropertyChanging("PersonId");
-                _PersonId = StructuralObject.SetValidValue(value);
+                _PersonId = StructuralObject.SetValidValue(value, "PersonId");
                 ReportPropertyChanged("PersonId");
                 OnPersonIdChanged();
             }
@@ -56163,7 +56572,7 @@ namespace PriemLib
             {
                 OnFieldNameChanging(value);
                 ReportPropertyChanging("FieldName");
-                _FieldName = StructuralObject.SetValidValue(value, false);
+                _FieldName = StructuralObject.SetValidValue(value, false, "FieldName");
                 ReportPropertyChanged("FieldName");
                 OnFieldNameChanged();
             }
@@ -56187,7 +56596,7 @@ namespace PriemLib
             {
                 OnOldValueChanging(value);
                 ReportPropertyChanging("OldValue");
-                _OldValue = StructuralObject.SetValidValue(value, false);
+                _OldValue = StructuralObject.SetValidValue(value, false, "OldValue");
                 ReportPropertyChanged("OldValue");
                 OnOldValueChanged();
             }
@@ -56211,7 +56620,7 @@ namespace PriemLib
             {
                 OnNewValueChanging(value);
                 ReportPropertyChanging("NewValue");
-                _NewValue = StructuralObject.SetValidValue(value, false);
+                _NewValue = StructuralObject.SetValidValue(value, false, "NewValue");
                 ReportPropertyChanged("NewValue");
                 OnNewValueChanged();
             }
@@ -56235,7 +56644,7 @@ namespace PriemLib
             {
                 OnOwnerChanging(value);
                 ReportPropertyChanging("Owner");
-                _Owner = StructuralObject.SetValidValue(value, true);
+                _Owner = StructuralObject.SetValidValue(value, true, "Owner");
                 ReportPropertyChanged("Owner");
                 OnOwnerChanged();
             }
@@ -56259,7 +56668,7 @@ namespace PriemLib
             {
                 OnDateChanging(value);
                 ReportPropertyChanging("Date");
-                _Date = StructuralObject.SetValidValue(value);
+                _Date = StructuralObject.SetValidValue(value, "Date");
                 ReportPropertyChanged("Date");
                 OnDateChanged();
             }
@@ -56283,7 +56692,7 @@ namespace PriemLib
             {
                 OnFacultyIdChanging(value);
                 ReportPropertyChanging("FacultyId");
-                _FacultyId = StructuralObject.SetValidValue(value);
+                _FacultyId = StructuralObject.SetValidValue(value, "FacultyId");
                 ReportPropertyChanged("FacultyId");
                 OnFacultyIdChanged();
             }
@@ -56294,7 +56703,212 @@ namespace PriemLib
 
         #endregion
 
+    }
     
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="Priem2012Model", Name="PersonEgeRequest")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class PersonEgeRequest : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new PersonEgeRequest object.
+        /// </summary>
+        /// <param name="intId">Initial value of the IntId property.</param>
+        /// <param name="personId">Initial value of the PersonId property.</param>
+        /// <param name="dateRequest">Initial value of the DateRequest property.</param>
+        /// <param name="isChecked">Initial value of the IsChecked property.</param>
+        public static PersonEgeRequest CreatePersonEgeRequest(global::System.Int32 intId, global::System.Guid personId, global::System.DateTime dateRequest, global::System.Boolean isChecked)
+        {
+            PersonEgeRequest personEgeRequest = new PersonEgeRequest();
+            personEgeRequest.IntId = intId;
+            personEgeRequest.PersonId = personId;
+            personEgeRequest.DateRequest = dateRequest;
+            personEgeRequest.IsChecked = isChecked;
+            return personEgeRequest;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 IntId
+        {
+            get
+            {
+                return _IntId;
+            }
+            set
+            {
+                if (_IntId != value)
+                {
+                    OnIntIdChanging(value);
+                    ReportPropertyChanging("IntId");
+                    _IntId = StructuralObject.SetValidValue(value, "IntId");
+                    ReportPropertyChanged("IntId");
+                    OnIntIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _IntId;
+        partial void OnIntIdChanging(global::System.Int32 value);
+        partial void OnIntIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid PersonId
+        {
+            get
+            {
+                return _PersonId;
+            }
+            set
+            {
+                OnPersonIdChanging(value);
+                ReportPropertyChanging("PersonId");
+                _PersonId = StructuralObject.SetValidValue(value, "PersonId");
+                ReportPropertyChanged("PersonId");
+                OnPersonIdChanged();
+            }
+        }
+        private global::System.Guid _PersonId;
+        partial void OnPersonIdChanging(global::System.Guid value);
+        partial void OnPersonIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime DateRequest
+        {
+            get
+            {
+                return _DateRequest;
+            }
+            set
+            {
+                OnDateRequestChanging(value);
+                ReportPropertyChanging("DateRequest");
+                _DateRequest = StructuralObject.SetValidValue(value, "DateRequest");
+                ReportPropertyChanged("DateRequest");
+                OnDateRequestChanged();
+            }
+        }
+        private global::System.DateTime _DateRequest;
+        partial void OnDateRequestChanging(global::System.DateTime value);
+        partial void OnDateRequestChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> DateAnswer
+        {
+            get
+            {
+                return _DateAnswer;
+            }
+            set
+            {
+                OnDateAnswerChanging(value);
+                ReportPropertyChanging("DateAnswer");
+                _DateAnswer = StructuralObject.SetValidValue(value, "DateAnswer");
+                ReportPropertyChanged("DateAnswer");
+                OnDateAnswerChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _DateAnswer;
+        partial void OnDateAnswerChanging(Nullable<global::System.DateTime> value);
+        partial void OnDateAnswerChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String XMLRequest
+        {
+            get
+            {
+                return _XMLRequest;
+            }
+            set
+            {
+                OnXMLRequestChanging(value);
+                ReportPropertyChanging("XMLRequest");
+                _XMLRequest = StructuralObject.SetValidValue(value, true, "XMLRequest");
+                ReportPropertyChanged("XMLRequest");
+                OnXMLRequestChanged();
+            }
+        }
+        private global::System.String _XMLRequest;
+        partial void OnXMLRequestChanging(global::System.String value);
+        partial void OnXMLRequestChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String XMLAnswer
+        {
+            get
+            {
+                return _XMLAnswer;
+            }
+            set
+            {
+                OnXMLAnswerChanging(value);
+                ReportPropertyChanging("XMLAnswer");
+                _XMLAnswer = StructuralObject.SetValidValue(value, true, "XMLAnswer");
+                ReportPropertyChanged("XMLAnswer");
+                OnXMLAnswerChanged();
+            }
+        }
+        private global::System.String _XMLAnswer;
+        partial void OnXMLAnswerChanging(global::System.String value);
+        partial void OnXMLAnswerChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean IsChecked
+        {
+            get
+            {
+                return _IsChecked;
+            }
+            set
+            {
+                OnIsCheckedChanging(value);
+                ReportPropertyChanging("IsChecked");
+                _IsChecked = StructuralObject.SetValidValue(value, "IsChecked");
+                ReportPropertyChanged("IsChecked");
+                OnIsCheckedChanged();
+            }
+        }
+        private global::System.Boolean _IsChecked;
+        partial void OnIsCheckedChanging(global::System.Boolean value);
+        partial void OnIsCheckedChanged();
+
+        #endregion
+
     }
     
     /// <summary>
@@ -56320,7 +56934,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -56339,7 +56953,7 @@ namespace PriemLib
                 {
                     OnPersonIdChanging(value);
                     ReportPropertyChanging("PersonId");
-                    _PersonId = StructuralObject.SetValidValue(value);
+                    _PersonId = StructuralObject.SetValidValue(value, "PersonId");
                     ReportPropertyChanged("PersonId");
                     OnPersonIdChanged();
                 }
@@ -56364,7 +56978,7 @@ namespace PriemLib
             {
                 OnSportQualificationIdChanging(value);
                 ReportPropertyChanging("SportQualificationId");
-                _SportQualificationId = StructuralObject.SetValidValue(value);
+                _SportQualificationId = StructuralObject.SetValidValue(value, "SportQualificationId");
                 ReportPropertyChanged("SportQualificationId");
                 OnSportQualificationIdChanged();
             }
@@ -56388,7 +57002,7 @@ namespace PriemLib
             {
                 OnSportQualificationLevelChanging(value);
                 ReportPropertyChanging("SportQualificationLevel");
-                _SportQualificationLevel = StructuralObject.SetValidValue(value, true);
+                _SportQualificationLevel = StructuralObject.SetValidValue(value, true, "SportQualificationLevel");
                 ReportPropertyChanged("SportQualificationLevel");
                 OnSportQualificationLevelChanged();
             }
@@ -56412,7 +57026,7 @@ namespace PriemLib
             {
                 OnOtherSportQualificationChanging(value);
                 ReportPropertyChanging("OtherSportQualification");
-                _OtherSportQualification = StructuralObject.SetValidValue(value, true);
+                _OtherSportQualification = StructuralObject.SetValidValue(value, true, "OtherSportQualification");
                 ReportPropertyChanged("OtherSportQualification");
                 OnOtherSportQualificationChanged();
             }
@@ -56423,7 +57037,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -56531,7 +57144,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -56550,7 +57163,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -56575,7 +57188,7 @@ namespace PriemLib
             {
                 OnNameChanging(value);
                 ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, false);
+                _Name = StructuralObject.SetValidValue(value, false, "Name");
                 ReportPropertyChanged("Name");
                 OnNameChanged();
             }
@@ -56599,7 +57212,7 @@ namespace PriemLib
             {
                 OnDateDovChanging(value);
                 ReportPropertyChanging("DateDov");
-                _DateDov = StructuralObject.SetValidValue(value, true);
+                _DateDov = StructuralObject.SetValidValue(value, true, "DateDov");
                 ReportPropertyChanged("DateDov");
                 OnDateDovChanged();
             }
@@ -56623,7 +57236,7 @@ namespace PriemLib
             {
                 OnNumberDovChanging(value);
                 ReportPropertyChanging("NumberDov");
-                _NumberDov = StructuralObject.SetValidValue(value, true);
+                _NumberDov = StructuralObject.SetValidValue(value, true, "NumberDov");
                 ReportPropertyChanged("NumberDov");
                 OnNumberDovChanged();
             }
@@ -56647,7 +57260,7 @@ namespace PriemLib
             {
                 OnNameFullChanging(value);
                 ReportPropertyChanging("NameFull");
-                _NameFull = StructuralObject.SetValidValue(value, true);
+                _NameFull = StructuralObject.SetValidValue(value, true, "NameFull");
                 ReportPropertyChanged("NameFull");
                 OnNameFullChanged();
             }
@@ -56658,7 +57271,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -56750,7 +57362,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -56769,7 +57381,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -56794,7 +57406,7 @@ namespace PriemLib
             {
                 OnStudyLevelGroupIdChanging(value);
                 ReportPropertyChanging("StudyLevelGroupId");
-                _StudyLevelGroupId = StructuralObject.SetValidValue(value);
+                _StudyLevelGroupId = StructuralObject.SetValidValue(value, "StudyLevelGroupId");
                 ReportPropertyChanged("StudyLevelGroupId");
                 OnStudyLevelGroupIdChanged();
             }
@@ -56818,7 +57430,7 @@ namespace PriemLib
             {
                 OnFacultyIdChanging(value);
                 ReportPropertyChanging("FacultyId");
-                _FacultyId = StructuralObject.SetValidValue(value);
+                _FacultyId = StructuralObject.SetValidValue(value, "FacultyId");
                 ReportPropertyChanged("FacultyId");
                 OnFacultyIdChanged();
             }
@@ -56842,7 +57454,7 @@ namespace PriemLib
             {
                 OnLicenseProgramIdChanging(value);
                 ReportPropertyChanging("LicenseProgramId");
-                _LicenseProgramId = StructuralObject.SetValidValue(value);
+                _LicenseProgramId = StructuralObject.SetValidValue(value, "LicenseProgramId");
                 ReportPropertyChanged("LicenseProgramId");
                 OnLicenseProgramIdChanged();
             }
@@ -56866,7 +57478,7 @@ namespace PriemLib
             {
                 OnStudyFormIdChanging(value);
                 ReportPropertyChanging("StudyFormId");
-                _StudyFormId = StructuralObject.SetValidValue(value);
+                _StudyFormId = StructuralObject.SetValidValue(value, "StudyFormId");
                 ReportPropertyChanged("StudyFormId");
                 OnStudyFormIdChanged();
             }
@@ -56890,7 +57502,7 @@ namespace PriemLib
             {
                 OnStudyBasisIdChanging(value);
                 ReportPropertyChanging("StudyBasisId");
-                _StudyBasisId = StructuralObject.SetValidValue(value);
+                _StudyBasisId = StructuralObject.SetValidValue(value, "StudyBasisId");
                 ReportPropertyChanged("StudyBasisId");
                 OnStudyBasisIdChanged();
             }
@@ -56914,7 +57526,7 @@ namespace PriemLib
             {
                 OnNumberChanging(value);
                 ReportPropertyChanging("Number");
-                _Number = StructuralObject.SetValidValue(value, true);
+                _Number = StructuralObject.SetValidValue(value, true, "Number");
                 ReportPropertyChanged("Number");
                 OnNumberChanged();
             }
@@ -56938,7 +57550,7 @@ namespace PriemLib
             {
                 OnDateChanging(value);
                 ReportPropertyChanging("Date");
-                _Date = StructuralObject.SetValidValue(value);
+                _Date = StructuralObject.SetValidValue(value, "Date");
                 ReportPropertyChanged("Date");
                 OnDateChanged();
             }
@@ -56962,7 +57574,7 @@ namespace PriemLib
             {
                 OnProtocolTypeIdChanging(value);
                 ReportPropertyChanging("ProtocolTypeId");
-                _ProtocolTypeId = StructuralObject.SetValidValue(value);
+                _ProtocolTypeId = StructuralObject.SetValidValue(value, "ProtocolTypeId");
                 ReportPropertyChanged("ProtocolTypeId");
                 OnProtocolTypeIdChanged();
             }
@@ -56986,7 +57598,7 @@ namespace PriemLib
             {
                 OnReasonChanging(value);
                 ReportPropertyChanging("Reason");
-                _Reason = StructuralObject.SetValidValue(value, true);
+                _Reason = StructuralObject.SetValidValue(value, true, "Reason");
                 ReportPropertyChanged("Reason");
                 OnReasonChanged();
             }
@@ -57010,7 +57622,7 @@ namespace PriemLib
             {
                 OnIsOldChanging(value);
                 ReportPropertyChanging("IsOld");
-                _IsOld = StructuralObject.SetValidValue(value);
+                _IsOld = StructuralObject.SetValidValue(value, "IsOld");
                 ReportPropertyChanged("IsOld");
                 OnIsOldChanged();
             }
@@ -57034,7 +57646,7 @@ namespace PriemLib
             {
                 OnParentProtocolIdChanging(value);
                 ReportPropertyChanging("ParentProtocolId");
-                _ParentProtocolId = StructuralObject.SetValidValue(value);
+                _ParentProtocolId = StructuralObject.SetValidValue(value, "ParentProtocolId");
                 ReportPropertyChanged("ParentProtocolId");
                 OnParentProtocolIdChanged();
             }
@@ -57058,7 +57670,7 @@ namespace PriemLib
             {
                 OnIsSecondChanging(value);
                 ReportPropertyChanging("IsSecond");
-                _IsSecond = StructuralObject.SetValidValue(value);
+                _IsSecond = StructuralObject.SetValidValue(value, "IsSecond");
                 ReportPropertyChanged("IsSecond");
                 OnIsSecondChanged();
             }
@@ -57082,7 +57694,7 @@ namespace PriemLib
             {
                 OnIsListenerChanging(value);
                 ReportPropertyChanging("IsListener");
-                _IsListener = StructuralObject.SetValidValue(value);
+                _IsListener = StructuralObject.SetValidValue(value, "IsListener");
                 ReportPropertyChanged("IsListener");
                 OnIsListenerChanged();
             }
@@ -57106,7 +57718,7 @@ namespace PriemLib
             {
                 OnIsParallelChanging(value);
                 ReportPropertyChanging("IsParallel");
-                _IsParallel = StructuralObject.SetValidValue(value);
+                _IsParallel = StructuralObject.SetValidValue(value, "IsParallel");
                 ReportPropertyChanged("IsParallel");
                 OnIsParallelChanged();
             }
@@ -57130,7 +57742,7 @@ namespace PriemLib
             {
                 OnIsReducedChanging(value);
                 ReportPropertyChanging("IsReduced");
-                _IsReduced = StructuralObject.SetValidValue(value);
+                _IsReduced = StructuralObject.SetValidValue(value, "IsReduced");
                 ReportPropertyChanged("IsReduced");
                 OnIsReducedChanged();
             }
@@ -57141,7 +57753,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -57369,7 +57980,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -57388,7 +57999,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -57413,7 +58024,7 @@ namespace PriemLib
             {
                 OnStudyLevelGroupIdChanging(value);
                 ReportPropertyChanging("StudyLevelGroupId");
-                _StudyLevelGroupId = StructuralObject.SetValidValue(value);
+                _StudyLevelGroupId = StructuralObject.SetValidValue(value, "StudyLevelGroupId");
                 ReportPropertyChanged("StudyLevelGroupId");
                 OnStudyLevelGroupIdChanged();
             }
@@ -57437,7 +58048,7 @@ namespace PriemLib
             {
                 OnFacultyIdChanging(value);
                 ReportPropertyChanging("FacultyId");
-                _FacultyId = StructuralObject.SetValidValue(value);
+                _FacultyId = StructuralObject.SetValidValue(value, "FacultyId");
                 ReportPropertyChanged("FacultyId");
                 OnFacultyIdChanged();
             }
@@ -57461,7 +58072,7 @@ namespace PriemLib
             {
                 OnProtocolNumChanging(value);
                 ReportPropertyChanging("ProtocolNum");
-                _ProtocolNum = StructuralObject.SetValidValue(value);
+                _ProtocolNum = StructuralObject.SetValidValue(value, "ProtocolNum");
                 ReportPropertyChanged("ProtocolNum");
                 OnProtocolNumChanged();
             }
@@ -57485,7 +58096,7 @@ namespace PriemLib
             {
                 OnMainProtocolNumChanging(value);
                 ReportPropertyChanging("MainProtocolNum");
-                _MainProtocolNum = StructuralObject.SetValidValue(value);
+                _MainProtocolNum = StructuralObject.SetValidValue(value, "MainProtocolNum");
                 ReportPropertyChanged("MainProtocolNum");
                 OnMainProtocolNumChanged();
             }
@@ -57496,7 +58107,6 @@ namespace PriemLib
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -57524,7 +58134,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -57543,7 +58153,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -57568,7 +58178,7 @@ namespace PriemLib
             {
                 OnNameChanging(value);
                 ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, false);
+                _Name = StructuralObject.SetValidValue(value, false, "Name");
                 ReportPropertyChanged("Name");
                 OnNameChanged();
             }
@@ -57579,7 +58189,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -57689,7 +58298,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -57708,7 +58317,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -57733,7 +58342,7 @@ namespace PriemLib
             {
                 OnPersonIdChanging(value);
                 ReportPropertyChanging("PersonId");
-                _PersonId = StructuralObject.SetValidValue(value);
+                _PersonId = StructuralObject.SetValidValue(value, "PersonId");
                 ReportPropertyChanged("PersonId");
                 OnPersonIdChanged();
             }
@@ -57757,7 +58366,7 @@ namespace PriemLib
             {
                 OnRegNumChanging(value);
                 ReportPropertyChanging("RegNum");
-                _RegNum = StructuralObject.SetValidValue(value, true);
+                _RegNum = StructuralObject.SetValidValue(value, true, "RegNum");
                 ReportPropertyChanged("RegNum");
                 OnRegNumChanged();
             }
@@ -57781,7 +58390,7 @@ namespace PriemLib
             {
                 OnEntryIdChanging(value);
                 ReportPropertyChanging("EntryId");
-                _EntryId = StructuralObject.SetValidValue(value);
+                _EntryId = StructuralObject.SetValidValue(value, "EntryId");
                 ReportPropertyChanged("EntryId");
                 OnEntryIdChanged();
             }
@@ -57805,7 +58414,7 @@ namespace PriemLib
             {
                 OnCompetitionIdChanging(value);
                 ReportPropertyChanging("CompetitionId");
-                _CompetitionId = StructuralObject.SetValidValue(value);
+                _CompetitionId = StructuralObject.SetValidValue(value, "CompetitionId");
                 ReportPropertyChanged("CompetitionId");
                 OnCompetitionIdChanged();
             }
@@ -57831,7 +58440,7 @@ namespace PriemLib
                 {
                     OnIsListenerChanging(value);
                     ReportPropertyChanging("IsListener");
-                    _IsListener = StructuralObject.SetValidValue(value);
+                    _IsListener = StructuralObject.SetValidValue(value, "IsListener");
                     ReportPropertyChanged("IsListener");
                     OnIsListenerChanged();
                 }
@@ -57858,7 +58467,7 @@ namespace PriemLib
                 {
                     OnIsPaidChanging(value);
                     ReportPropertyChanging("IsPaid");
-                    _IsPaid = StructuralObject.SetValidValue(value);
+                    _IsPaid = StructuralObject.SetValidValue(value, "IsPaid");
                     ReportPropertyChanged("IsPaid");
                     OnIsPaidChanged();
                 }
@@ -57885,7 +58494,7 @@ namespace PriemLib
                 {
                     OnBackDocChanging(value);
                     ReportPropertyChanging("BackDoc");
-                    _BackDoc = StructuralObject.SetValidValue(value);
+                    _BackDoc = StructuralObject.SetValidValue(value, "BackDoc");
                     ReportPropertyChanged("BackDoc");
                     OnBackDocChanged();
                 }
@@ -57910,7 +58519,7 @@ namespace PriemLib
             {
                 OnBackDocDateChanging(value);
                 ReportPropertyChanging("BackDocDate");
-                _BackDocDate = StructuralObject.SetValidValue(value);
+                _BackDocDate = StructuralObject.SetValidValue(value, "BackDocDate");
                 ReportPropertyChanged("BackDocDate");
                 OnBackDocDateChanged();
             }
@@ -57934,7 +58543,7 @@ namespace PriemLib
             {
                 OnDocDateChanging(value);
                 ReportPropertyChanging("DocDate");
-                _DocDate = StructuralObject.SetValidValue(value);
+                _DocDate = StructuralObject.SetValidValue(value, "DocDate");
                 ReportPropertyChanged("DocDate");
                 OnDocDateChanged();
             }
@@ -57958,7 +58567,7 @@ namespace PriemLib
             {
                 OnDocInsertDateChanging(value);
                 ReportPropertyChanging("DocInsertDate");
-                _DocInsertDate = StructuralObject.SetValidValue(value);
+                _DocInsertDate = StructuralObject.SetValidValue(value, "DocInsertDate");
                 ReportPropertyChanged("DocInsertDate");
                 OnDocInsertDateChanged();
             }
@@ -57984,7 +58593,7 @@ namespace PriemLib
                 {
                     OnCheckedChanging(value);
                     ReportPropertyChanging("Checked");
-                    _Checked = StructuralObject.SetValidValue(value);
+                    _Checked = StructuralObject.SetValidValue(value, "Checked");
                     ReportPropertyChanged("Checked");
                     OnCheckedChanged();
                 }
@@ -58011,7 +58620,7 @@ namespace PriemLib
                 {
                     OnNotEnabledChanging(value);
                     ReportPropertyChanging("NotEnabled");
-                    _NotEnabled = StructuralObject.SetValidValue(value);
+                    _NotEnabled = StructuralObject.SetValidValue(value, "NotEnabled");
                     ReportPropertyChanged("NotEnabled");
                     OnNotEnabledChanged();
                 }
@@ -58036,7 +58645,7 @@ namespace PriemLib
             {
                 OnCoefficientChanging(value);
                 ReportPropertyChanging("Coefficient");
-                _Coefficient = StructuralObject.SetValidValue(value);
+                _Coefficient = StructuralObject.SetValidValue(value, "Coefficient");
                 ReportPropertyChanged("Coefficient");
                 OnCoefficientChanged();
             }
@@ -58060,7 +58669,7 @@ namespace PriemLib
             {
                 OnSumChanging(value);
                 ReportPropertyChanging("Sum");
-                _Sum = StructuralObject.SetValidValue(value);
+                _Sum = StructuralObject.SetValidValue(value, "Sum");
                 ReportPropertyChanged("Sum");
                 OnSumChanged();
             }
@@ -58084,7 +58693,7 @@ namespace PriemLib
             {
                 OnOtherCompetitionIdChanging(value);
                 ReportPropertyChanging("OtherCompetitionId");
-                _OtherCompetitionId = StructuralObject.SetValidValue(value);
+                _OtherCompetitionId = StructuralObject.SetValidValue(value, "OtherCompetitionId");
                 ReportPropertyChanged("OtherCompetitionId");
                 OnOtherCompetitionIdChanged();
             }
@@ -58108,7 +58717,7 @@ namespace PriemLib
             {
                 OnCelCompetitionIdChanging(value);
                 ReportPropertyChanging("CelCompetitionId");
-                _CelCompetitionId = StructuralObject.SetValidValue(value);
+                _CelCompetitionId = StructuralObject.SetValidValue(value, "CelCompetitionId");
                 ReportPropertyChanged("CelCompetitionId");
                 OnCelCompetitionIdChanged();
             }
@@ -58132,7 +58741,7 @@ namespace PriemLib
             {
                 OnCelCompetitionTextChanging(value);
                 ReportPropertyChanging("CelCompetitionText");
-                _CelCompetitionText = StructuralObject.SetValidValue(value, true);
+                _CelCompetitionText = StructuralObject.SetValidValue(value, true, "CelCompetitionText");
                 ReportPropertyChanged("CelCompetitionText");
                 OnCelCompetitionTextChanged();
             }
@@ -58158,7 +58767,7 @@ namespace PriemLib
                 {
                     OnCompFromOlympChanging(value);
                     ReportPropertyChanging("CompFromOlymp");
-                    _CompFromOlymp = StructuralObject.SetValidValue(value);
+                    _CompFromOlymp = StructuralObject.SetValidValue(value, "CompFromOlymp");
                     ReportPropertyChanged("CompFromOlymp");
                     OnCompFromOlympChanged();
                 }
@@ -58183,7 +58792,7 @@ namespace PriemLib
             {
                 OnLanguageIdChanging(value);
                 ReportPropertyChanging("LanguageId");
-                _LanguageId = StructuralObject.SetValidValue(value);
+                _LanguageId = StructuralObject.SetValidValue(value, "LanguageId");
                 ReportPropertyChanged("LanguageId");
                 OnLanguageIdChanged();
             }
@@ -58209,7 +58818,7 @@ namespace PriemLib
                 {
                     OnHasOriginalsChanging(value);
                     ReportPropertyChanging("HasOriginals");
-                    _HasOriginals = StructuralObject.SetValidValue(value);
+                    _HasOriginals = StructuralObject.SetValidValue(value, "HasOriginals");
                     ReportPropertyChanged("HasOriginals");
                     OnHasOriginalsChanged();
                 }
@@ -58234,7 +58843,7 @@ namespace PriemLib
             {
                 OnStudyNumberChanging(value);
                 ReportPropertyChanging("StudyNumber");
-                _StudyNumber = StructuralObject.SetValidValue(value, true);
+                _StudyNumber = StructuralObject.SetValidValue(value, true, "StudyNumber");
                 ReportPropertyChanged("StudyNumber");
                 OnStudyNumberChanged();
             }
@@ -58258,7 +58867,7 @@ namespace PriemLib
             {
                 OnSessionAVGChanging(value);
                 ReportPropertyChanging("SessionAVG");
-                _SessionAVG = StructuralObject.SetValidValue(value);
+                _SessionAVG = StructuralObject.SetValidValue(value, "SessionAVG");
                 ReportPropertyChanged("SessionAVG");
                 OnSessionAVGChanged();
             }
@@ -58282,7 +58891,7 @@ namespace PriemLib
             {
                 OnStudentStatusChanging(value);
                 ReportPropertyChanging("StudentStatus");
-                _StudentStatus = StructuralObject.SetValidValue(value);
+                _StudentStatus = StructuralObject.SetValidValue(value, "StudentStatus");
                 ReportPropertyChanged("StudentStatus");
                 OnStudentStatusChanged();
             }
@@ -58306,7 +58915,7 @@ namespace PriemLib
             {
                 OnPriorityChanging(value);
                 ReportPropertyChanging("Priority");
-                _Priority = StructuralObject.SetValidValue(value);
+                _Priority = StructuralObject.SetValidValue(value, "Priority");
                 ReportPropertyChanged("Priority");
                 OnPriorityChanged();
             }
@@ -58330,7 +58939,7 @@ namespace PriemLib
             {
                 OnBarcodeChanging(value);
                 ReportPropertyChanging("Barcode");
-                _Barcode = StructuralObject.SetValidValue(value);
+                _Barcode = StructuralObject.SetValidValue(value, "Barcode");
                 ReportPropertyChanged("Barcode");
                 OnBarcodeChanged();
             }
@@ -58356,7 +58965,7 @@ namespace PriemLib
                 {
                     OnFacultyIdChanging(value);
                     ReportPropertyChanging("FacultyId");
-                    _FacultyId = StructuralObject.SetValidValue(value);
+                    _FacultyId = StructuralObject.SetValidValue(value, "FacultyId");
                     ReportPropertyChanged("FacultyId");
                     OnFacultyIdChanged();
                 }
@@ -58381,7 +58990,7 @@ namespace PriemLib
             {
                 OnFacultyNameChanging(value);
                 ReportPropertyChanging("FacultyName");
-                _FacultyName = StructuralObject.SetValidValue(value, true);
+                _FacultyName = StructuralObject.SetValidValue(value, true, "FacultyName");
                 ReportPropertyChanged("FacultyName");
                 OnFacultyNameChanged();
             }
@@ -58405,7 +59014,7 @@ namespace PriemLib
             {
                 OnFacultyAcrChanging(value);
                 ReportPropertyChanging("FacultyAcr");
-                _FacultyAcr = StructuralObject.SetValidValue(value, true);
+                _FacultyAcr = StructuralObject.SetValidValue(value, true, "FacultyAcr");
                 ReportPropertyChanged("FacultyAcr");
                 OnFacultyAcrChanged();
             }
@@ -58431,7 +59040,7 @@ namespace PriemLib
                 {
                     OnLicenseProgramIdChanging(value);
                     ReportPropertyChanging("LicenseProgramId");
-                    _LicenseProgramId = StructuralObject.SetValidValue(value);
+                    _LicenseProgramId = StructuralObject.SetValidValue(value, "LicenseProgramId");
                     ReportPropertyChanged("LicenseProgramId");
                     OnLicenseProgramIdChanged();
                 }
@@ -58456,7 +59065,7 @@ namespace PriemLib
             {
                 OnLicenseProgramNameChanging(value);
                 ReportPropertyChanging("LicenseProgramName");
-                _LicenseProgramName = StructuralObject.SetValidValue(value, false);
+                _LicenseProgramName = StructuralObject.SetValidValue(value, false, "LicenseProgramName");
                 ReportPropertyChanged("LicenseProgramName");
                 OnLicenseProgramNameChanged();
             }
@@ -58480,7 +59089,7 @@ namespace PriemLib
             {
                 OnLicenseProgramCodeChanging(value);
                 ReportPropertyChanging("LicenseProgramCode");
-                _LicenseProgramCode = StructuralObject.SetValidValue(value, true);
+                _LicenseProgramCode = StructuralObject.SetValidValue(value, true, "LicenseProgramCode");
                 ReportPropertyChanged("LicenseProgramCode");
                 OnLicenseProgramCodeChanged();
             }
@@ -58506,7 +59115,7 @@ namespace PriemLib
                 {
                     OnObrazProgramIdChanging(value);
                     ReportPropertyChanging("ObrazProgramId");
-                    _ObrazProgramId = StructuralObject.SetValidValue(value);
+                    _ObrazProgramId = StructuralObject.SetValidValue(value, "ObrazProgramId");
                     ReportPropertyChanged("ObrazProgramId");
                     OnObrazProgramIdChanged();
                 }
@@ -58531,7 +59140,7 @@ namespace PriemLib
             {
                 OnObrazProgramNameChanging(value);
                 ReportPropertyChanging("ObrazProgramName");
-                _ObrazProgramName = StructuralObject.SetValidValue(value, false);
+                _ObrazProgramName = StructuralObject.SetValidValue(value, false, "ObrazProgramName");
                 ReportPropertyChanged("ObrazProgramName");
                 OnObrazProgramNameChanged();
             }
@@ -58555,7 +59164,7 @@ namespace PriemLib
             {
                 OnObrazProgramNumberChanging(value);
                 ReportPropertyChanging("ObrazProgramNumber");
-                _ObrazProgramNumber = StructuralObject.SetValidValue(value, true);
+                _ObrazProgramNumber = StructuralObject.SetValidValue(value, true, "ObrazProgramNumber");
                 ReportPropertyChanged("ObrazProgramNumber");
                 OnObrazProgramNumberChanged();
             }
@@ -58579,7 +59188,7 @@ namespace PriemLib
             {
                 OnObrazProgramCryptChanging(value);
                 ReportPropertyChanging("ObrazProgramCrypt");
-                _ObrazProgramCrypt = StructuralObject.SetValidValue(value, true);
+                _ObrazProgramCrypt = StructuralObject.SetValidValue(value, true, "ObrazProgramCrypt");
                 ReportPropertyChanged("ObrazProgramCrypt");
                 OnObrazProgramCryptChanged();
             }
@@ -58603,7 +59212,7 @@ namespace PriemLib
             {
                 OnProfileIdChanging(value);
                 ReportPropertyChanging("ProfileId");
-                _ProfileId = StructuralObject.SetValidValue(value);
+                _ProfileId = StructuralObject.SetValidValue(value, "ProfileId");
                 ReportPropertyChanged("ProfileId");
                 OnProfileIdChanged();
             }
@@ -58627,7 +59236,7 @@ namespace PriemLib
             {
                 OnProfileNameChanging(value);
                 ReportPropertyChanging("ProfileName");
-                _ProfileName = StructuralObject.SetValidValue(value, true);
+                _ProfileName = StructuralObject.SetValidValue(value, true, "ProfileName");
                 ReportPropertyChanged("ProfileName");
                 OnProfileNameChanged();
             }
@@ -58653,7 +59262,7 @@ namespace PriemLib
                 {
                     OnStudyBasisIdChanging(value);
                     ReportPropertyChanging("StudyBasisId");
-                    _StudyBasisId = StructuralObject.SetValidValue(value);
+                    _StudyBasisId = StructuralObject.SetValidValue(value, "StudyBasisId");
                     ReportPropertyChanged("StudyBasisId");
                     OnStudyBasisIdChanged();
                 }
@@ -58680,7 +59289,7 @@ namespace PriemLib
                 {
                     OnStudyBasisNameChanging(value);
                     ReportPropertyChanging("StudyBasisName");
-                    _StudyBasisName = StructuralObject.SetValidValue(value, false);
+                    _StudyBasisName = StructuralObject.SetValidValue(value, false, "StudyBasisName");
                     ReportPropertyChanged("StudyBasisName");
                     OnStudyBasisNameChanged();
                 }
@@ -58707,7 +59316,7 @@ namespace PriemLib
                 {
                     OnStudyFormIdChanging(value);
                     ReportPropertyChanging("StudyFormId");
-                    _StudyFormId = StructuralObject.SetValidValue(value);
+                    _StudyFormId = StructuralObject.SetValidValue(value, "StudyFormId");
                     ReportPropertyChanged("StudyFormId");
                     OnStudyFormIdChanged();
                 }
@@ -58734,7 +59343,7 @@ namespace PriemLib
                 {
                     OnStudyFormNameChanging(value);
                     ReportPropertyChanging("StudyFormName");
-                    _StudyFormName = StructuralObject.SetValidValue(value, false);
+                    _StudyFormName = StructuralObject.SetValidValue(value, false, "StudyFormName");
                     ReportPropertyChanged("StudyFormName");
                     OnStudyFormNameChanged();
                 }
@@ -58761,7 +59370,7 @@ namespace PriemLib
                 {
                     OnStudyLevelIdChanging(value);
                     ReportPropertyChanging("StudyLevelId");
-                    _StudyLevelId = StructuralObject.SetValidValue(value);
+                    _StudyLevelId = StructuralObject.SetValidValue(value, "StudyLevelId");
                     ReportPropertyChanged("StudyLevelId");
                     OnStudyLevelIdChanged();
                 }
@@ -58788,7 +59397,7 @@ namespace PriemLib
                 {
                     OnStudyLevelNameChanging(value);
                     ReportPropertyChanging("StudyLevelName");
-                    _StudyLevelName = StructuralObject.SetValidValue(value, false);
+                    _StudyLevelName = StructuralObject.SetValidValue(value, false, "StudyLevelName");
                     ReportPropertyChanged("StudyLevelName");
                     OnStudyLevelNameChanged();
                 }
@@ -58815,7 +59424,7 @@ namespace PriemLib
                 {
                     OnStudyPlanIdChanging(value);
                     ReportPropertyChanging("StudyPlanId");
-                    _StudyPlanId = StructuralObject.SetValidValue(value);
+                    _StudyPlanId = StructuralObject.SetValidValue(value, "StudyPlanId");
                     ReportPropertyChanged("StudyPlanId");
                     OnStudyPlanIdChanged();
                 }
@@ -58840,7 +59449,7 @@ namespace PriemLib
             {
                 OnStudyPlanNumberChanging(value);
                 ReportPropertyChanging("StudyPlanNumber");
-                _StudyPlanNumber = StructuralObject.SetValidValue(value, true);
+                _StudyPlanNumber = StructuralObject.SetValidValue(value, true, "StudyPlanNumber");
                 ReportPropertyChanged("StudyPlanNumber");
                 OnStudyPlanNumberChanged();
             }
@@ -58864,7 +59473,7 @@ namespace PriemLib
             {
                 OnProgramModeShortNameChanging(value);
                 ReportPropertyChanging("ProgramModeShortName");
-                _ProgramModeShortName = StructuralObject.SetValidValue(value, true);
+                _ProgramModeShortName = StructuralObject.SetValidValue(value, true, "ProgramModeShortName");
                 ReportPropertyChanged("ProgramModeShortName");
                 OnProgramModeShortNameChanged();
             }
@@ -58890,7 +59499,7 @@ namespace PriemLib
                 {
                     OnIsSecondChanging(value);
                     ReportPropertyChanging("IsSecond");
-                    _IsSecond = StructuralObject.SetValidValue(value);
+                    _IsSecond = StructuralObject.SetValidValue(value, "IsSecond");
                     ReportPropertyChanged("IsSecond");
                     OnIsSecondChanged();
                 }
@@ -58915,7 +59524,7 @@ namespace PriemLib
             {
                 OnStudyFormOldNameChanging(value);
                 ReportPropertyChanging("StudyFormOldName");
-                _StudyFormOldName = StructuralObject.SetValidValue(value, true);
+                _StudyFormOldName = StructuralObject.SetValidValue(value, true, "StudyFormOldName");
                 ReportPropertyChanged("StudyFormOldName");
                 OnStudyFormOldNameChanged();
             }
@@ -58941,7 +59550,7 @@ namespace PriemLib
                 {
                     OnStudyLevelGroupIdChanging(value);
                     ReportPropertyChanging("StudyLevelGroupId");
-                    _StudyLevelGroupId = StructuralObject.SetValidValue(value);
+                    _StudyLevelGroupId = StructuralObject.SetValidValue(value, "StudyLevelGroupId");
                     ReportPropertyChanged("StudyLevelGroupId");
                     OnStudyLevelGroupIdChanged();
                 }
@@ -58968,7 +59577,7 @@ namespace PriemLib
                 {
                     OnWithHEChanging(value);
                     ReportPropertyChanging("WithHE");
-                    _WithHE = StructuralObject.SetValidValue(value);
+                    _WithHE = StructuralObject.SetValidValue(value, "WithHE");
                     ReportPropertyChanged("WithHE");
                     OnWithHEChanged();
                 }
@@ -58995,7 +59604,7 @@ namespace PriemLib
                 {
                     OnIsReducedChanging(value);
                     ReportPropertyChanging("IsReduced");
-                    _IsReduced = StructuralObject.SetValidValue(value);
+                    _IsReduced = StructuralObject.SetValidValue(value, "IsReduced");
                     ReportPropertyChanged("IsReduced");
                     OnIsReducedChanged();
                 }
@@ -59022,7 +59631,7 @@ namespace PriemLib
                 {
                     OnIsParallelChanging(value);
                     ReportPropertyChanging("IsParallel");
-                    _IsParallel = StructuralObject.SetValidValue(value);
+                    _IsParallel = StructuralObject.SetValidValue(value, "IsParallel");
                     ReportPropertyChanged("IsParallel");
                     OnIsParallelChanged();
                 }
@@ -59047,7 +59656,7 @@ namespace PriemLib
             {
                 OnQualificationCodeChanging(value);
                 ReportPropertyChanging("QualificationCode");
-                _QualificationCode = StructuralObject.SetValidValue(value, true);
+                _QualificationCode = StructuralObject.SetValidValue(value, true, "QualificationCode");
                 ReportPropertyChanged("QualificationCode");
                 OnQualificationCodeChanged();
             }
@@ -59071,7 +59680,7 @@ namespace PriemLib
             {
                 OnStudyBasisFISNameChanging(value);
                 ReportPropertyChanging("StudyBasisFISName");
-                _StudyBasisFISName = StructuralObject.SetValidValue(value, true);
+                _StudyBasisFISName = StructuralObject.SetValidValue(value, true, "StudyBasisFISName");
                 ReportPropertyChanged("StudyBasisFISName");
                 OnStudyBasisFISNameChanged();
             }
@@ -59095,7 +59704,7 @@ namespace PriemLib
             {
                 OnStudyFormFISNameChanging(value);
                 ReportPropertyChanging("StudyFormFISName");
-                _StudyFormFISName = StructuralObject.SetValidValue(value, true);
+                _StudyFormFISName = StructuralObject.SetValidValue(value, true, "StudyFormFISName");
                 ReportPropertyChanged("StudyFormFISName");
                 OnStudyFormFISNameChanged();
             }
@@ -59119,7 +59728,7 @@ namespace PriemLib
             {
                 OnStudyLevelFISNameChanging(value);
                 ReportPropertyChanging("StudyLevelFISName");
-                _StudyLevelFISName = StructuralObject.SetValidValue(value, true);
+                _StudyLevelFISName = StructuralObject.SetValidValue(value, true, "StudyLevelFISName");
                 ReportPropertyChanged("StudyLevelFISName");
                 OnStudyLevelFISNameChanged();
             }
@@ -59143,7 +59752,7 @@ namespace PriemLib
             {
                 OnNameChanging(value);
                 ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, true);
+                _Name = StructuralObject.SetValidValue(value, true, "Name");
                 ReportPropertyChanged("Name");
                 OnNameChanged();
             }
@@ -59154,7 +59763,6 @@ namespace PriemLib
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -59244,7 +59852,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -59263,7 +59871,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -59288,7 +59896,7 @@ namespace PriemLib
             {
                 OnPersonIdChanging(value);
                 ReportPropertyChanging("PersonId");
-                _PersonId = StructuralObject.SetValidValue(value);
+                _PersonId = StructuralObject.SetValidValue(value, "PersonId");
                 ReportPropertyChanged("PersonId");
                 OnPersonIdChanged();
             }
@@ -59312,7 +59920,7 @@ namespace PriemLib
             {
                 OnRegNumChanging(value);
                 ReportPropertyChanging("RegNum");
-                _RegNum = StructuralObject.SetValidValue(value, true);
+                _RegNum = StructuralObject.SetValidValue(value, true, "RegNum");
                 ReportPropertyChanged("RegNum");
                 OnRegNumChanged();
             }
@@ -59336,7 +59944,7 @@ namespace PriemLib
             {
                 OnEntryIdChanging(value);
                 ReportPropertyChanging("EntryId");
-                _EntryId = StructuralObject.SetValidValue(value);
+                _EntryId = StructuralObject.SetValidValue(value, "EntryId");
                 ReportPropertyChanged("EntryId");
                 OnEntryIdChanged();
             }
@@ -59360,7 +59968,7 @@ namespace PriemLib
             {
                 OnCompetitionIdChanging(value);
                 ReportPropertyChanging("CompetitionId");
-                _CompetitionId = StructuralObject.SetValidValue(value);
+                _CompetitionId = StructuralObject.SetValidValue(value, "CompetitionId");
                 ReportPropertyChanged("CompetitionId");
                 OnCompetitionIdChanged();
             }
@@ -59386,7 +59994,7 @@ namespace PriemLib
                 {
                     OnIsListenerChanging(value);
                     ReportPropertyChanging("IsListener");
-                    _IsListener = StructuralObject.SetValidValue(value);
+                    _IsListener = StructuralObject.SetValidValue(value, "IsListener");
                     ReportPropertyChanged("IsListener");
                     OnIsListenerChanged();
                 }
@@ -59413,7 +60021,7 @@ namespace PriemLib
                 {
                     OnIsPaidChanging(value);
                     ReportPropertyChanging("IsPaid");
-                    _IsPaid = StructuralObject.SetValidValue(value);
+                    _IsPaid = StructuralObject.SetValidValue(value, "IsPaid");
                     ReportPropertyChanged("IsPaid");
                     OnIsPaidChanged();
                 }
@@ -59440,7 +60048,7 @@ namespace PriemLib
                 {
                     OnBackDocChanging(value);
                     ReportPropertyChanging("BackDoc");
-                    _BackDoc = StructuralObject.SetValidValue(value);
+                    _BackDoc = StructuralObject.SetValidValue(value, "BackDoc");
                     ReportPropertyChanged("BackDoc");
                     OnBackDocChanged();
                 }
@@ -59465,7 +60073,7 @@ namespace PriemLib
             {
                 OnBackDocDateChanging(value);
                 ReportPropertyChanging("BackDocDate");
-                _BackDocDate = StructuralObject.SetValidValue(value);
+                _BackDocDate = StructuralObject.SetValidValue(value, "BackDocDate");
                 ReportPropertyChanged("BackDocDate");
                 OnBackDocDateChanged();
             }
@@ -59489,7 +60097,7 @@ namespace PriemLib
             {
                 OnDocDateChanging(value);
                 ReportPropertyChanging("DocDate");
-                _DocDate = StructuralObject.SetValidValue(value);
+                _DocDate = StructuralObject.SetValidValue(value, "DocDate");
                 ReportPropertyChanged("DocDate");
                 OnDocDateChanged();
             }
@@ -59513,7 +60121,7 @@ namespace PriemLib
             {
                 OnDocInsertDateChanging(value);
                 ReportPropertyChanging("DocInsertDate");
-                _DocInsertDate = StructuralObject.SetValidValue(value);
+                _DocInsertDate = StructuralObject.SetValidValue(value, "DocInsertDate");
                 ReportPropertyChanged("DocInsertDate");
                 OnDocInsertDateChanged();
             }
@@ -59539,7 +60147,7 @@ namespace PriemLib
                 {
                     OnCheckedChanging(value);
                     ReportPropertyChanging("Checked");
-                    _Checked = StructuralObject.SetValidValue(value);
+                    _Checked = StructuralObject.SetValidValue(value, "Checked");
                     ReportPropertyChanged("Checked");
                     OnCheckedChanged();
                 }
@@ -59566,7 +60174,7 @@ namespace PriemLib
                 {
                     OnNotEnabledChanging(value);
                     ReportPropertyChanging("NotEnabled");
-                    _NotEnabled = StructuralObject.SetValidValue(value);
+                    _NotEnabled = StructuralObject.SetValidValue(value, "NotEnabled");
                     ReportPropertyChanged("NotEnabled");
                     OnNotEnabledChanged();
                 }
@@ -59591,7 +60199,7 @@ namespace PriemLib
             {
                 OnCoefficientChanging(value);
                 ReportPropertyChanging("Coefficient");
-                _Coefficient = StructuralObject.SetValidValue(value);
+                _Coefficient = StructuralObject.SetValidValue(value, "Coefficient");
                 ReportPropertyChanged("Coefficient");
                 OnCoefficientChanged();
             }
@@ -59615,7 +60223,7 @@ namespace PriemLib
             {
                 OnSumChanging(value);
                 ReportPropertyChanging("Sum");
-                _Sum = StructuralObject.SetValidValue(value);
+                _Sum = StructuralObject.SetValidValue(value, "Sum");
                 ReportPropertyChanged("Sum");
                 OnSumChanged();
             }
@@ -59639,7 +60247,7 @@ namespace PriemLib
             {
                 OnOtherCompetitionIdChanging(value);
                 ReportPropertyChanging("OtherCompetitionId");
-                _OtherCompetitionId = StructuralObject.SetValidValue(value);
+                _OtherCompetitionId = StructuralObject.SetValidValue(value, "OtherCompetitionId");
                 ReportPropertyChanged("OtherCompetitionId");
                 OnOtherCompetitionIdChanged();
             }
@@ -59663,7 +60271,7 @@ namespace PriemLib
             {
                 OnCelCompetitionIdChanging(value);
                 ReportPropertyChanging("CelCompetitionId");
-                _CelCompetitionId = StructuralObject.SetValidValue(value);
+                _CelCompetitionId = StructuralObject.SetValidValue(value, "CelCompetitionId");
                 ReportPropertyChanged("CelCompetitionId");
                 OnCelCompetitionIdChanged();
             }
@@ -59687,7 +60295,7 @@ namespace PriemLib
             {
                 OnCelCompetitionTextChanging(value);
                 ReportPropertyChanging("CelCompetitionText");
-                _CelCompetitionText = StructuralObject.SetValidValue(value, true);
+                _CelCompetitionText = StructuralObject.SetValidValue(value, true, "CelCompetitionText");
                 ReportPropertyChanged("CelCompetitionText");
                 OnCelCompetitionTextChanged();
             }
@@ -59713,7 +60321,7 @@ namespace PriemLib
                 {
                     OnCompFromOlympChanging(value);
                     ReportPropertyChanging("CompFromOlymp");
-                    _CompFromOlymp = StructuralObject.SetValidValue(value);
+                    _CompFromOlymp = StructuralObject.SetValidValue(value, "CompFromOlymp");
                     ReportPropertyChanged("CompFromOlymp");
                     OnCompFromOlympChanged();
                 }
@@ -59738,7 +60346,7 @@ namespace PriemLib
             {
                 OnLanguageIdChanging(value);
                 ReportPropertyChanging("LanguageId");
-                _LanguageId = StructuralObject.SetValidValue(value);
+                _LanguageId = StructuralObject.SetValidValue(value, "LanguageId");
                 ReportPropertyChanged("LanguageId");
                 OnLanguageIdChanged();
             }
@@ -59764,7 +60372,7 @@ namespace PriemLib
                 {
                     OnHasOriginalsChanging(value);
                     ReportPropertyChanging("HasOriginals");
-                    _HasOriginals = StructuralObject.SetValidValue(value);
+                    _HasOriginals = StructuralObject.SetValidValue(value, "HasOriginals");
                     ReportPropertyChanged("HasOriginals");
                     OnHasOriginalsChanged();
                 }
@@ -59789,7 +60397,7 @@ namespace PriemLib
             {
                 OnStudyNumberChanging(value);
                 ReportPropertyChanging("StudyNumber");
-                _StudyNumber = StructuralObject.SetValidValue(value, true);
+                _StudyNumber = StructuralObject.SetValidValue(value, true, "StudyNumber");
                 ReportPropertyChanged("StudyNumber");
                 OnStudyNumberChanged();
             }
@@ -59813,7 +60421,7 @@ namespace PriemLib
             {
                 OnSessionAVGChanging(value);
                 ReportPropertyChanging("SessionAVG");
-                _SessionAVG = StructuralObject.SetValidValue(value);
+                _SessionAVG = StructuralObject.SetValidValue(value, "SessionAVG");
                 ReportPropertyChanged("SessionAVG");
                 OnSessionAVGChanged();
             }
@@ -59837,7 +60445,7 @@ namespace PriemLib
             {
                 OnStudentStatusChanging(value);
                 ReportPropertyChanging("StudentStatus");
-                _StudentStatus = StructuralObject.SetValidValue(value);
+                _StudentStatus = StructuralObject.SetValidValue(value, "StudentStatus");
                 ReportPropertyChanged("StudentStatus");
                 OnStudentStatusChanged();
             }
@@ -59861,7 +60469,7 @@ namespace PriemLib
             {
                 OnPriorityChanging(value);
                 ReportPropertyChanging("Priority");
-                _Priority = StructuralObject.SetValidValue(value);
+                _Priority = StructuralObject.SetValidValue(value, "Priority");
                 ReportPropertyChanged("Priority");
                 OnPriorityChanged();
             }
@@ -59885,7 +60493,7 @@ namespace PriemLib
             {
                 OnBarcodeChanging(value);
                 ReportPropertyChanging("Barcode");
-                _Barcode = StructuralObject.SetValidValue(value);
+                _Barcode = StructuralObject.SetValidValue(value, "Barcode");
                 ReportPropertyChanged("Barcode");
                 OnBarcodeChanged();
             }
@@ -59911,7 +60519,7 @@ namespace PriemLib
                 {
                     OnFacultyIdChanging(value);
                     ReportPropertyChanging("FacultyId");
-                    _FacultyId = StructuralObject.SetValidValue(value);
+                    _FacultyId = StructuralObject.SetValidValue(value, "FacultyId");
                     ReportPropertyChanged("FacultyId");
                     OnFacultyIdChanged();
                 }
@@ -59936,7 +60544,7 @@ namespace PriemLib
             {
                 OnFacultyNameChanging(value);
                 ReportPropertyChanging("FacultyName");
-                _FacultyName = StructuralObject.SetValidValue(value, true);
+                _FacultyName = StructuralObject.SetValidValue(value, true, "FacultyName");
                 ReportPropertyChanged("FacultyName");
                 OnFacultyNameChanged();
             }
@@ -59960,7 +60568,7 @@ namespace PriemLib
             {
                 OnFacultyAcrChanging(value);
                 ReportPropertyChanging("FacultyAcr");
-                _FacultyAcr = StructuralObject.SetValidValue(value, true);
+                _FacultyAcr = StructuralObject.SetValidValue(value, true, "FacultyAcr");
                 ReportPropertyChanged("FacultyAcr");
                 OnFacultyAcrChanged();
             }
@@ -59986,7 +60594,7 @@ namespace PriemLib
                 {
                     OnLicenseProgramIdChanging(value);
                     ReportPropertyChanging("LicenseProgramId");
-                    _LicenseProgramId = StructuralObject.SetValidValue(value);
+                    _LicenseProgramId = StructuralObject.SetValidValue(value, "LicenseProgramId");
                     ReportPropertyChanged("LicenseProgramId");
                     OnLicenseProgramIdChanged();
                 }
@@ -60013,7 +60621,7 @@ namespace PriemLib
                 {
                     OnLicenseProgramNameChanging(value);
                     ReportPropertyChanging("LicenseProgramName");
-                    _LicenseProgramName = StructuralObject.SetValidValue(value, false);
+                    _LicenseProgramName = StructuralObject.SetValidValue(value, false, "LicenseProgramName");
                     ReportPropertyChanged("LicenseProgramName");
                     OnLicenseProgramNameChanged();
                 }
@@ -60038,7 +60646,7 @@ namespace PriemLib
             {
                 OnLicenseProgramCodeChanging(value);
                 ReportPropertyChanging("LicenseProgramCode");
-                _LicenseProgramCode = StructuralObject.SetValidValue(value, true);
+                _LicenseProgramCode = StructuralObject.SetValidValue(value, true, "LicenseProgramCode");
                 ReportPropertyChanged("LicenseProgramCode");
                 OnLicenseProgramCodeChanged();
             }
@@ -60064,7 +60672,7 @@ namespace PriemLib
                 {
                     OnObrazProgramIdChanging(value);
                     ReportPropertyChanging("ObrazProgramId");
-                    _ObrazProgramId = StructuralObject.SetValidValue(value);
+                    _ObrazProgramId = StructuralObject.SetValidValue(value, "ObrazProgramId");
                     ReportPropertyChanged("ObrazProgramId");
                     OnObrazProgramIdChanged();
                 }
@@ -60091,7 +60699,7 @@ namespace PriemLib
                 {
                     OnObrazProgramNameChanging(value);
                     ReportPropertyChanging("ObrazProgramName");
-                    _ObrazProgramName = StructuralObject.SetValidValue(value, false);
+                    _ObrazProgramName = StructuralObject.SetValidValue(value, false, "ObrazProgramName");
                     ReportPropertyChanged("ObrazProgramName");
                     OnObrazProgramNameChanged();
                 }
@@ -60116,7 +60724,7 @@ namespace PriemLib
             {
                 OnObrazProgramNumberChanging(value);
                 ReportPropertyChanging("ObrazProgramNumber");
-                _ObrazProgramNumber = StructuralObject.SetValidValue(value, true);
+                _ObrazProgramNumber = StructuralObject.SetValidValue(value, true, "ObrazProgramNumber");
                 ReportPropertyChanged("ObrazProgramNumber");
                 OnObrazProgramNumberChanged();
             }
@@ -60140,7 +60748,7 @@ namespace PriemLib
             {
                 OnObrazProgramCryptChanging(value);
                 ReportPropertyChanging("ObrazProgramCrypt");
-                _ObrazProgramCrypt = StructuralObject.SetValidValue(value, true);
+                _ObrazProgramCrypt = StructuralObject.SetValidValue(value, true, "ObrazProgramCrypt");
                 ReportPropertyChanged("ObrazProgramCrypt");
                 OnObrazProgramCryptChanged();
             }
@@ -60164,7 +60772,7 @@ namespace PriemLib
             {
                 OnProfileIdChanging(value);
                 ReportPropertyChanging("ProfileId");
-                _ProfileId = StructuralObject.SetValidValue(value);
+                _ProfileId = StructuralObject.SetValidValue(value, "ProfileId");
                 ReportPropertyChanged("ProfileId");
                 OnProfileIdChanged();
             }
@@ -60188,7 +60796,7 @@ namespace PriemLib
             {
                 OnProfileNameChanging(value);
                 ReportPropertyChanging("ProfileName");
-                _ProfileName = StructuralObject.SetValidValue(value, true);
+                _ProfileName = StructuralObject.SetValidValue(value, true, "ProfileName");
                 ReportPropertyChanged("ProfileName");
                 OnProfileNameChanged();
             }
@@ -60214,7 +60822,7 @@ namespace PriemLib
                 {
                     OnStudyBasisIdChanging(value);
                     ReportPropertyChanging("StudyBasisId");
-                    _StudyBasisId = StructuralObject.SetValidValue(value);
+                    _StudyBasisId = StructuralObject.SetValidValue(value, "StudyBasisId");
                     ReportPropertyChanged("StudyBasisId");
                     OnStudyBasisIdChanged();
                 }
@@ -60241,7 +60849,7 @@ namespace PriemLib
                 {
                     OnStudyBasisNameChanging(value);
                     ReportPropertyChanging("StudyBasisName");
-                    _StudyBasisName = StructuralObject.SetValidValue(value, false);
+                    _StudyBasisName = StructuralObject.SetValidValue(value, false, "StudyBasisName");
                     ReportPropertyChanged("StudyBasisName");
                     OnStudyBasisNameChanged();
                 }
@@ -60268,7 +60876,7 @@ namespace PriemLib
                 {
                     OnStudyFormIdChanging(value);
                     ReportPropertyChanging("StudyFormId");
-                    _StudyFormId = StructuralObject.SetValidValue(value);
+                    _StudyFormId = StructuralObject.SetValidValue(value, "StudyFormId");
                     ReportPropertyChanged("StudyFormId");
                     OnStudyFormIdChanged();
                 }
@@ -60295,7 +60903,7 @@ namespace PriemLib
                 {
                     OnStudyFormNameChanging(value);
                     ReportPropertyChanging("StudyFormName");
-                    _StudyFormName = StructuralObject.SetValidValue(value, false);
+                    _StudyFormName = StructuralObject.SetValidValue(value, false, "StudyFormName");
                     ReportPropertyChanged("StudyFormName");
                     OnStudyFormNameChanged();
                 }
@@ -60322,7 +60930,7 @@ namespace PriemLib
                 {
                     OnStudyLevelIdChanging(value);
                     ReportPropertyChanging("StudyLevelId");
-                    _StudyLevelId = StructuralObject.SetValidValue(value);
+                    _StudyLevelId = StructuralObject.SetValidValue(value, "StudyLevelId");
                     ReportPropertyChanged("StudyLevelId");
                     OnStudyLevelIdChanged();
                 }
@@ -60349,7 +60957,7 @@ namespace PriemLib
                 {
                     OnStudyLevelNameChanging(value);
                     ReportPropertyChanging("StudyLevelName");
-                    _StudyLevelName = StructuralObject.SetValidValue(value, false);
+                    _StudyLevelName = StructuralObject.SetValidValue(value, false, "StudyLevelName");
                     ReportPropertyChanged("StudyLevelName");
                     OnStudyLevelNameChanged();
                 }
@@ -60374,7 +60982,7 @@ namespace PriemLib
             {
                 OnStudyPlanIdChanging(value);
                 ReportPropertyChanging("StudyPlanId");
-                _StudyPlanId = StructuralObject.SetValidValue(value);
+                _StudyPlanId = StructuralObject.SetValidValue(value, "StudyPlanId");
                 ReportPropertyChanged("StudyPlanId");
                 OnStudyPlanIdChanged();
             }
@@ -60398,7 +61006,7 @@ namespace PriemLib
             {
                 OnStudyPlanNumberChanging(value);
                 ReportPropertyChanging("StudyPlanNumber");
-                _StudyPlanNumber = StructuralObject.SetValidValue(value, true);
+                _StudyPlanNumber = StructuralObject.SetValidValue(value, true, "StudyPlanNumber");
                 ReportPropertyChanged("StudyPlanNumber");
                 OnStudyPlanNumberChanged();
             }
@@ -60422,7 +61030,7 @@ namespace PriemLib
             {
                 OnProgramModeShortNameChanging(value);
                 ReportPropertyChanging("ProgramModeShortName");
-                _ProgramModeShortName = StructuralObject.SetValidValue(value, true);
+                _ProgramModeShortName = StructuralObject.SetValidValue(value, true, "ProgramModeShortName");
                 ReportPropertyChanged("ProgramModeShortName");
                 OnProgramModeShortNameChanged();
             }
@@ -60448,7 +61056,7 @@ namespace PriemLib
                 {
                     OnIsSecondChanging(value);
                     ReportPropertyChanging("IsSecond");
-                    _IsSecond = StructuralObject.SetValidValue(value);
+                    _IsSecond = StructuralObject.SetValidValue(value, "IsSecond");
                     ReportPropertyChanged("IsSecond");
                     OnIsSecondChanged();
                 }
@@ -60473,7 +61081,7 @@ namespace PriemLib
             {
                 OnStudyFormOldNameChanging(value);
                 ReportPropertyChanging("StudyFormOldName");
-                _StudyFormOldName = StructuralObject.SetValidValue(value, true);
+                _StudyFormOldName = StructuralObject.SetValidValue(value, true, "StudyFormOldName");
                 ReportPropertyChanged("StudyFormOldName");
                 OnStudyFormOldNameChanged();
             }
@@ -60499,7 +61107,7 @@ namespace PriemLib
                 {
                     OnStudyLevelGroupIdChanging(value);
                     ReportPropertyChanging("StudyLevelGroupId");
-                    _StudyLevelGroupId = StructuralObject.SetValidValue(value);
+                    _StudyLevelGroupId = StructuralObject.SetValidValue(value, "StudyLevelGroupId");
                     ReportPropertyChanged("StudyLevelGroupId");
                     OnStudyLevelGroupIdChanged();
                 }
@@ -60524,7 +61132,7 @@ namespace PriemLib
             {
                 OnObrazProgramNameExChanging(value);
                 ReportPropertyChanging("ObrazProgramNameEx");
-                _ObrazProgramNameEx = StructuralObject.SetValidValue(value, false);
+                _ObrazProgramNameEx = StructuralObject.SetValidValue(value, false, "ObrazProgramNameEx");
                 ReportPropertyChanged("ObrazProgramNameEx");
                 OnObrazProgramNameExChanged();
             }
@@ -60550,7 +61158,7 @@ namespace PriemLib
                 {
                     OnWithHEChanging(value);
                     ReportPropertyChanging("WithHE");
-                    _WithHE = StructuralObject.SetValidValue(value);
+                    _WithHE = StructuralObject.SetValidValue(value, "WithHE");
                     ReportPropertyChanged("WithHE");
                     OnWithHEChanged();
                 }
@@ -60577,7 +61185,7 @@ namespace PriemLib
                 {
                     OnIsReducedChanging(value);
                     ReportPropertyChanging("IsReduced");
-                    _IsReduced = StructuralObject.SetValidValue(value);
+                    _IsReduced = StructuralObject.SetValidValue(value, "IsReduced");
                     ReportPropertyChanged("IsReduced");
                     OnIsReducedChanged();
                 }
@@ -60604,7 +61212,7 @@ namespace PriemLib
                 {
                     OnIsParallelChanging(value);
                     ReportPropertyChanging("IsParallel");
-                    _IsParallel = StructuralObject.SetValidValue(value);
+                    _IsParallel = StructuralObject.SetValidValue(value, "IsParallel");
                     ReportPropertyChanged("IsParallel");
                     OnIsParallelChanged();
                 }
@@ -60629,7 +61237,7 @@ namespace PriemLib
             {
                 OnStudyBasisFISNameChanging(value);
                 ReportPropertyChanging("StudyBasisFISName");
-                _StudyBasisFISName = StructuralObject.SetValidValue(value, true);
+                _StudyBasisFISName = StructuralObject.SetValidValue(value, true, "StudyBasisFISName");
                 ReportPropertyChanged("StudyBasisFISName");
                 OnStudyBasisFISNameChanged();
             }
@@ -60653,7 +61261,7 @@ namespace PriemLib
             {
                 OnStudyFormFISNameChanging(value);
                 ReportPropertyChanging("StudyFormFISName");
-                _StudyFormFISName = StructuralObject.SetValidValue(value, true);
+                _StudyFormFISName = StructuralObject.SetValidValue(value, true, "StudyFormFISName");
                 ReportPropertyChanged("StudyFormFISName");
                 OnStudyFormFISNameChanged();
             }
@@ -60677,7 +61285,7 @@ namespace PriemLib
             {
                 OnObrazProgramPrintNameChanging(value);
                 ReportPropertyChanging("ObrazProgramPrintName");
-                _ObrazProgramPrintName = StructuralObject.SetValidValue(value, true);
+                _ObrazProgramPrintName = StructuralObject.SetValidValue(value, true, "ObrazProgramPrintName");
                 ReportPropertyChanged("ObrazProgramPrintName");
                 OnObrazProgramPrintNameChanged();
             }
@@ -60701,7 +61309,7 @@ namespace PriemLib
             {
                 OnCommitIdChanging(value);
                 ReportPropertyChanging("CommitId");
-                _CommitId = StructuralObject.SetValidValue(value);
+                _CommitId = StructuralObject.SetValidValue(value, "CommitId");
                 ReportPropertyChanged("CommitId");
                 OnCommitIdChanged();
             }
@@ -60725,7 +61333,7 @@ namespace PriemLib
             {
                 OnCommitNumberChanging(value);
                 ReportPropertyChanging("CommitNumber");
-                _CommitNumber = StructuralObject.SetValidValue(value);
+                _CommitNumber = StructuralObject.SetValidValue(value, "CommitNumber");
                 ReportPropertyChanged("CommitNumber");
                 OnCommitNumberChanged();
             }
@@ -60751,7 +61359,7 @@ namespace PriemLib
                 {
                     OnIsGosLineChanging(value);
                     ReportPropertyChanging("IsGosLine");
-                    _IsGosLine = StructuralObject.SetValidValue(value);
+                    _IsGosLine = StructuralObject.SetValidValue(value, "IsGosLine");
                     ReportPropertyChanged("IsGosLine");
                     OnIsGosLineChanged();
                 }
@@ -60778,7 +61386,7 @@ namespace PriemLib
                 {
                     OnIsViewedChanging(value);
                     ReportPropertyChanging("IsViewed");
-                    _IsViewed = StructuralObject.SetValidValue(value);
+                    _IsViewed = StructuralObject.SetValidValue(value, "IsViewed");
                     ReportPropertyChanged("IsViewed");
                     OnIsViewedChanged();
                 }
@@ -60805,7 +61413,7 @@ namespace PriemLib
                 {
                     OnIsCommonRussianCompetitionChanging(value);
                     ReportPropertyChanging("IsCommonRussianCompetition");
-                    _IsCommonRussianCompetition = StructuralObject.SetValidValue(value);
+                    _IsCommonRussianCompetition = StructuralObject.SetValidValue(value, "IsCommonRussianCompetition");
                     ReportPropertyChanged("IsCommonRussianCompetition");
                     OnIsCommonRussianCompetitionChanged();
                 }
@@ -60830,7 +61438,7 @@ namespace PriemLib
             {
                 OnInnerEntryInEntryIdChanging(value);
                 ReportPropertyChanging("InnerEntryInEntryId");
-                _InnerEntryInEntryId = StructuralObject.SetValidValue(value);
+                _InnerEntryInEntryId = StructuralObject.SetValidValue(value, "InnerEntryInEntryId");
                 ReportPropertyChanged("InnerEntryInEntryId");
                 OnInnerEntryInEntryIdChanged();
             }
@@ -60841,7 +61449,6 @@ namespace PriemLib
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -60871,7 +61478,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -60890,7 +61497,7 @@ namespace PriemLib
                 {
                     OnIntIdChanging(value);
                     ReportPropertyChanging("IntId");
-                    _IntId = StructuralObject.SetValidValue(value);
+                    _IntId = StructuralObject.SetValidValue(value, "IntId");
                     ReportPropertyChanged("IntId");
                     OnIntIdChanged();
                 }
@@ -60917,7 +61524,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -60942,7 +61549,7 @@ namespace PriemLib
             {
                 OnUserIdChanging(value);
                 ReportPropertyChanging("UserId");
-                _UserId = StructuralObject.SetValidValue(value, true);
+                _UserId = StructuralObject.SetValidValue(value, true, "UserId");
                 ReportPropertyChanged("UserId");
                 OnUserIdChanged();
             }
@@ -60968,7 +61575,7 @@ namespace PriemLib
                 {
                     OnActionTimeChanging(value);
                     ReportPropertyChanging("ActionTime");
-                    _ActionTime = StructuralObject.SetValidValue(value);
+                    _ActionTime = StructuralObject.SetValidValue(value, "ActionTime");
                     ReportPropertyChanged("ActionTime");
                     OnActionTimeChanged();
                 }
@@ -60993,7 +61600,7 @@ namespace PriemLib
             {
                 OnFacultyIdChanging(value);
                 ReportPropertyChanging("FacultyId");
-                _FacultyId = StructuralObject.SetValidValue(value);
+                _FacultyId = StructuralObject.SetValidValue(value, "FacultyId");
                 ReportPropertyChanged("FacultyId");
                 OnFacultyIdChanged();
             }
@@ -61017,7 +61624,7 @@ namespace PriemLib
             {
                 OnFacultyNameChanging(value);
                 ReportPropertyChanging("FacultyName");
-                _FacultyName = StructuralObject.SetValidValue(value, true);
+                _FacultyName = StructuralObject.SetValidValue(value, true, "FacultyName");
                 ReportPropertyChanged("FacultyName");
                 OnFacultyNameChanged();
             }
@@ -61041,7 +61648,7 @@ namespace PriemLib
             {
                 OnFacultyAcronymChanging(value);
                 ReportPropertyChanging("FacultyAcronym");
-                _FacultyAcronym = StructuralObject.SetValidValue(value, true);
+                _FacultyAcronym = StructuralObject.SetValidValue(value, true, "FacultyAcronym");
                 ReportPropertyChanged("FacultyAcronym");
                 OnFacultyAcronymChanged();
             }
@@ -61065,7 +61672,7 @@ namespace PriemLib
             {
                 OnPersonIdChanging(value);
                 ReportPropertyChanging("PersonId");
-                _PersonId = StructuralObject.SetValidValue(value);
+                _PersonId = StructuralObject.SetValidValue(value, "PersonId");
                 ReportPropertyChanged("PersonId");
                 OnPersonIdChanged();
             }
@@ -61076,7 +61683,6 @@ namespace PriemLib
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -61106,7 +61712,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -61125,7 +61731,7 @@ namespace PriemLib
                 {
                     OnIntIdChanging(value);
                     ReportPropertyChanging("IntId");
-                    _IntId = StructuralObject.SetValidValue(value);
+                    _IntId = StructuralObject.SetValidValue(value, "IntId");
                     ReportPropertyChanged("IntId");
                     OnIntIdChanged();
                 }
@@ -61150,7 +61756,7 @@ namespace PriemLib
             {
                 OnUserIdChanging(value);
                 ReportPropertyChanging("UserId");
-                _UserId = StructuralObject.SetValidValue(value, true);
+                _UserId = StructuralObject.SetValidValue(value, true, "UserId");
                 ReportPropertyChanged("UserId");
                 OnUserIdChanged();
             }
@@ -61174,7 +61780,7 @@ namespace PriemLib
             {
                 OnActionTimeChanging(value);
                 ReportPropertyChanging("ActionTime");
-                _ActionTime = StructuralObject.SetValidValue(value);
+                _ActionTime = StructuralObject.SetValidValue(value, "ActionTime");
                 ReportPropertyChanged("ActionTime");
                 OnActionTimeChanged();
             }
@@ -61200,7 +61806,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -61225,7 +61831,7 @@ namespace PriemLib
             {
                 OnFacultyIdChanging(value);
                 ReportPropertyChanging("FacultyId");
-                _FacultyId = StructuralObject.SetValidValue(value);
+                _FacultyId = StructuralObject.SetValidValue(value, "FacultyId");
                 ReportPropertyChanged("FacultyId");
                 OnFacultyIdChanged();
             }
@@ -61249,7 +61855,7 @@ namespace PriemLib
             {
                 OnFacultyNameChanging(value);
                 ReportPropertyChanging("FacultyName");
-                _FacultyName = StructuralObject.SetValidValue(value, true);
+                _FacultyName = StructuralObject.SetValidValue(value, true, "FacultyName");
                 ReportPropertyChanged("FacultyName");
                 OnFacultyNameChanged();
             }
@@ -61273,7 +61879,7 @@ namespace PriemLib
             {
                 OnFacultyAcronymChanging(value);
                 ReportPropertyChanging("FacultyAcronym");
-                _FacultyAcronym = StructuralObject.SetValidValue(value, true);
+                _FacultyAcronym = StructuralObject.SetValidValue(value, true, "FacultyAcronym");
                 ReportPropertyChanged("FacultyAcronym");
                 OnFacultyAcronymChanged();
             }
@@ -61297,7 +61903,7 @@ namespace PriemLib
             {
                 OnPersonIdChanging(value);
                 ReportPropertyChanging("PersonId");
-                _PersonId = StructuralObject.SetValidValue(value);
+                _PersonId = StructuralObject.SetValidValue(value, "PersonId");
                 ReportPropertyChanged("PersonId");
                 OnPersonIdChanged();
             }
@@ -61308,7 +61914,6 @@ namespace PriemLib
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -61338,7 +61943,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -61357,7 +61962,7 @@ namespace PriemLib
                 {
                     OnIntIdChanging(value);
                     ReportPropertyChanging("IntId");
-                    _IntId = StructuralObject.SetValidValue(value);
+                    _IntId = StructuralObject.SetValidValue(value, "IntId");
                     ReportPropertyChanged("IntId");
                     OnIntIdChanged();
                 }
@@ -61384,7 +61989,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -61409,7 +62014,7 @@ namespace PriemLib
             {
                 OnUserIdChanging(value);
                 ReportPropertyChanging("UserId");
-                _UserId = StructuralObject.SetValidValue(value, true);
+                _UserId = StructuralObject.SetValidValue(value, true, "UserId");
                 ReportPropertyChanged("UserId");
                 OnUserIdChanged();
             }
@@ -61435,7 +62040,7 @@ namespace PriemLib
                 {
                     OnActionTimeChanging(value);
                     ReportPropertyChanging("ActionTime");
-                    _ActionTime = StructuralObject.SetValidValue(value);
+                    _ActionTime = StructuralObject.SetValidValue(value, "ActionTime");
                     ReportPropertyChanged("ActionTime");
                     OnActionTimeChanged();
                 }
@@ -61460,7 +62065,7 @@ namespace PriemLib
             {
                 OnFacultyIdChanging(value);
                 ReportPropertyChanging("FacultyId");
-                _FacultyId = StructuralObject.SetValidValue(value);
+                _FacultyId = StructuralObject.SetValidValue(value, "FacultyId");
                 ReportPropertyChanged("FacultyId");
                 OnFacultyIdChanged();
             }
@@ -61484,7 +62089,7 @@ namespace PriemLib
             {
                 OnFacultyNameChanging(value);
                 ReportPropertyChanging("FacultyName");
-                _FacultyName = StructuralObject.SetValidValue(value, true);
+                _FacultyName = StructuralObject.SetValidValue(value, true, "FacultyName");
                 ReportPropertyChanged("FacultyName");
                 OnFacultyNameChanged();
             }
@@ -61508,7 +62113,7 @@ namespace PriemLib
             {
                 OnFacultyAcronymChanging(value);
                 ReportPropertyChanging("FacultyAcronym");
-                _FacultyAcronym = StructuralObject.SetValidValue(value, true);
+                _FacultyAcronym = StructuralObject.SetValidValue(value, true, "FacultyAcronym");
                 ReportPropertyChanged("FacultyAcronym");
                 OnFacultyAcronymChanged();
             }
@@ -61532,7 +62137,7 @@ namespace PriemLib
             {
                 OnPersonIdChanging(value);
                 ReportPropertyChanging("PersonId");
-                _PersonId = StructuralObject.SetValidValue(value);
+                _PersonId = StructuralObject.SetValidValue(value, "PersonId");
                 ReportPropertyChanged("PersonId");
                 OnPersonIdChanged();
             }
@@ -61543,7 +62148,6 @@ namespace PriemLib
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -61569,7 +62173,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -61588,7 +62192,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -61600,7 +62204,6 @@ namespace PriemLib
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -61636,7 +62239,9 @@ namespace PriemLib
         /// <param name="isReduced">Initial value of the IsReduced property.</param>
         /// <param name="isParallel">Initial value of the IsParallel property.</param>
         /// <param name="isForeign">Initial value of the IsForeign property.</param>
-        public static qEntry CreateqEntry(global::System.Guid id, global::System.Int32 facultyId, global::System.Int32 licenseProgramId, global::System.String licenseProgramName, global::System.Int32 obrazProgramId, global::System.String obrazProgramName, global::System.Int32 profileId, global::System.Int32 studyBasisId, global::System.Int32 studyFormId, global::System.Int32 studyLevelId, global::System.Boolean isSecond, global::System.String studyBasisName, global::System.String studyFormName, global::System.String studyLevelName, global::System.Boolean isClosed, global::System.Int32 studyLevelGroupId, global::System.String obrazProgramNameEx, global::System.Boolean isReduced, global::System.Boolean isParallel, global::System.Boolean isForeign)
+        /// <param name="isCrimea">Initial value of the IsCrimea property.</param>
+        /// <param name="studyLevelGroupName">Initial value of the StudyLevelGroupName property.</param>
+        public static qEntry CreateqEntry(global::System.Guid id, global::System.Int32 facultyId, global::System.Int32 licenseProgramId, global::System.String licenseProgramName, global::System.Int32 obrazProgramId, global::System.String obrazProgramName, global::System.Int32 profileId, global::System.Int32 studyBasisId, global::System.Int32 studyFormId, global::System.Int32 studyLevelId, global::System.Boolean isSecond, global::System.String studyBasisName, global::System.String studyFormName, global::System.String studyLevelName, global::System.Boolean isClosed, global::System.Int32 studyLevelGroupId, global::System.String obrazProgramNameEx, global::System.Boolean isReduced, global::System.Boolean isParallel, global::System.Boolean isForeign, global::System.Boolean isCrimea, global::System.String studyLevelGroupName)
         {
             qEntry qEntry = new qEntry();
             qEntry.Id = id;
@@ -61659,12 +62264,14 @@ namespace PriemLib
             qEntry.IsReduced = isReduced;
             qEntry.IsParallel = isParallel;
             qEntry.IsForeign = isForeign;
+            qEntry.IsCrimea = isCrimea;
+            qEntry.StudyLevelGroupName = studyLevelGroupName;
             return qEntry;
         }
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -61683,7 +62290,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -61710,7 +62317,7 @@ namespace PriemLib
                 {
                     OnFacultyIdChanging(value);
                     ReportPropertyChanging("FacultyId");
-                    _FacultyId = StructuralObject.SetValidValue(value);
+                    _FacultyId = StructuralObject.SetValidValue(value, "FacultyId");
                     ReportPropertyChanged("FacultyId");
                     OnFacultyIdChanged();
                 }
@@ -61737,7 +62344,7 @@ namespace PriemLib
                 {
                     OnLicenseProgramIdChanging(value);
                     ReportPropertyChanging("LicenseProgramId");
-                    _LicenseProgramId = StructuralObject.SetValidValue(value);
+                    _LicenseProgramId = StructuralObject.SetValidValue(value, "LicenseProgramId");
                     ReportPropertyChanged("LicenseProgramId");
                     OnLicenseProgramIdChanged();
                 }
@@ -61762,7 +62369,7 @@ namespace PriemLib
             {
                 OnLicenseProgramNameChanging(value);
                 ReportPropertyChanging("LicenseProgramName");
-                _LicenseProgramName = StructuralObject.SetValidValue(value, false);
+                _LicenseProgramName = StructuralObject.SetValidValue(value, false, "LicenseProgramName");
                 ReportPropertyChanged("LicenseProgramName");
                 OnLicenseProgramNameChanged();
             }
@@ -61786,7 +62393,7 @@ namespace PriemLib
             {
                 OnLicenseProgramCodeChanging(value);
                 ReportPropertyChanging("LicenseProgramCode");
-                _LicenseProgramCode = StructuralObject.SetValidValue(value, true);
+                _LicenseProgramCode = StructuralObject.SetValidValue(value, true, "LicenseProgramCode");
                 ReportPropertyChanged("LicenseProgramCode");
                 OnLicenseProgramCodeChanged();
             }
@@ -61812,7 +62419,7 @@ namespace PriemLib
                 {
                     OnObrazProgramIdChanging(value);
                     ReportPropertyChanging("ObrazProgramId");
-                    _ObrazProgramId = StructuralObject.SetValidValue(value);
+                    _ObrazProgramId = StructuralObject.SetValidValue(value, "ObrazProgramId");
                     ReportPropertyChanged("ObrazProgramId");
                     OnObrazProgramIdChanged();
                 }
@@ -61837,7 +62444,7 @@ namespace PriemLib
             {
                 OnObrazProgramNameChanging(value);
                 ReportPropertyChanging("ObrazProgramName");
-                _ObrazProgramName = StructuralObject.SetValidValue(value, false);
+                _ObrazProgramName = StructuralObject.SetValidValue(value, false, "ObrazProgramName");
                 ReportPropertyChanged("ObrazProgramName");
                 OnObrazProgramNameChanged();
             }
@@ -61861,7 +62468,7 @@ namespace PriemLib
             {
                 OnObrazProgramNumberChanging(value);
                 ReportPropertyChanging("ObrazProgramNumber");
-                _ObrazProgramNumber = StructuralObject.SetValidValue(value, true);
+                _ObrazProgramNumber = StructuralObject.SetValidValue(value, true, "ObrazProgramNumber");
                 ReportPropertyChanged("ObrazProgramNumber");
                 OnObrazProgramNumberChanged();
             }
@@ -61885,7 +62492,7 @@ namespace PriemLib
             {
                 OnObrazProgramCryptChanging(value);
                 ReportPropertyChanging("ObrazProgramCrypt");
-                _ObrazProgramCrypt = StructuralObject.SetValidValue(value, true);
+                _ObrazProgramCrypt = StructuralObject.SetValidValue(value, true, "ObrazProgramCrypt");
                 ReportPropertyChanged("ObrazProgramCrypt");
                 OnObrazProgramCryptChanged();
             }
@@ -61909,7 +62516,7 @@ namespace PriemLib
             {
                 OnProfileIdChanging(value);
                 ReportPropertyChanging("ProfileId");
-                _ProfileId = StructuralObject.SetValidValue(value);
+                _ProfileId = StructuralObject.SetValidValue(value, "ProfileId");
                 ReportPropertyChanged("ProfileId");
                 OnProfileIdChanged();
             }
@@ -61933,7 +62540,7 @@ namespace PriemLib
             {
                 OnProfileNameChanging(value);
                 ReportPropertyChanging("ProfileName");
-                _ProfileName = StructuralObject.SetValidValue(value, true);
+                _ProfileName = StructuralObject.SetValidValue(value, true, "ProfileName");
                 ReportPropertyChanged("ProfileName");
                 OnProfileNameChanged();
             }
@@ -61959,7 +62566,7 @@ namespace PriemLib
                 {
                     OnStudyBasisIdChanging(value);
                     ReportPropertyChanging("StudyBasisId");
-                    _StudyBasisId = StructuralObject.SetValidValue(value);
+                    _StudyBasisId = StructuralObject.SetValidValue(value, "StudyBasisId");
                     ReportPropertyChanged("StudyBasisId");
                     OnStudyBasisIdChanged();
                 }
@@ -61986,7 +62593,7 @@ namespace PriemLib
                 {
                     OnStudyFormIdChanging(value);
                     ReportPropertyChanging("StudyFormId");
-                    _StudyFormId = StructuralObject.SetValidValue(value);
+                    _StudyFormId = StructuralObject.SetValidValue(value, "StudyFormId");
                     ReportPropertyChanged("StudyFormId");
                     OnStudyFormIdChanged();
                 }
@@ -62013,7 +62620,7 @@ namespace PriemLib
                 {
                     OnStudyLevelIdChanging(value);
                     ReportPropertyChanging("StudyLevelId");
-                    _StudyLevelId = StructuralObject.SetValidValue(value);
+                    _StudyLevelId = StructuralObject.SetValidValue(value, "StudyLevelId");
                     ReportPropertyChanged("StudyLevelId");
                     OnStudyLevelIdChanged();
                 }
@@ -62038,7 +62645,7 @@ namespace PriemLib
             {
                 OnStudyPlanIdChanging(value);
                 ReportPropertyChanging("StudyPlanId");
-                _StudyPlanId = StructuralObject.SetValidValue(value);
+                _StudyPlanId = StructuralObject.SetValidValue(value, "StudyPlanId");
                 ReportPropertyChanged("StudyPlanId");
                 OnStudyPlanIdChanged();
             }
@@ -62062,7 +62669,7 @@ namespace PriemLib
             {
                 OnStudyPlanNumberChanging(value);
                 ReportPropertyChanging("StudyPlanNumber");
-                _StudyPlanNumber = StructuralObject.SetValidValue(value, true);
+                _StudyPlanNumber = StructuralObject.SetValidValue(value, true, "StudyPlanNumber");
                 ReportPropertyChanged("StudyPlanNumber");
                 OnStudyPlanNumberChanged();
             }
@@ -62086,7 +62693,7 @@ namespace PriemLib
             {
                 OnProgramModeShortNameChanging(value);
                 ReportPropertyChanging("ProgramModeShortName");
-                _ProgramModeShortName = StructuralObject.SetValidValue(value, true);
+                _ProgramModeShortName = StructuralObject.SetValidValue(value, true, "ProgramModeShortName");
                 ReportPropertyChanged("ProgramModeShortName");
                 OnProgramModeShortNameChanged();
             }
@@ -62112,7 +62719,7 @@ namespace PriemLib
                 {
                     OnIsSecondChanging(value);
                     ReportPropertyChanging("IsSecond");
-                    _IsSecond = StructuralObject.SetValidValue(value);
+                    _IsSecond = StructuralObject.SetValidValue(value, "IsSecond");
                     ReportPropertyChanged("IsSecond");
                     OnIsSecondChanged();
                 }
@@ -62137,7 +62744,7 @@ namespace PriemLib
             {
                 OnKCPChanging(value);
                 ReportPropertyChanging("KCP");
-                _KCP = StructuralObject.SetValidValue(value);
+                _KCP = StructuralObject.SetValidValue(value, "KCP");
                 ReportPropertyChanged("KCP");
                 OnKCPChanged();
             }
@@ -62161,7 +62768,7 @@ namespace PriemLib
             {
                 OnFacultyNameChanging(value);
                 ReportPropertyChanging("FacultyName");
-                _FacultyName = StructuralObject.SetValidValue(value, true);
+                _FacultyName = StructuralObject.SetValidValue(value, true, "FacultyName");
                 ReportPropertyChanged("FacultyName");
                 OnFacultyNameChanged();
             }
@@ -62187,7 +62794,7 @@ namespace PriemLib
                 {
                     OnStudyBasisNameChanging(value);
                     ReportPropertyChanging("StudyBasisName");
-                    _StudyBasisName = StructuralObject.SetValidValue(value, false);
+                    _StudyBasisName = StructuralObject.SetValidValue(value, false, "StudyBasisName");
                     ReportPropertyChanged("StudyBasisName");
                     OnStudyBasisNameChanged();
                 }
@@ -62214,7 +62821,7 @@ namespace PriemLib
                 {
                     OnStudyFormNameChanging(value);
                     ReportPropertyChanging("StudyFormName");
-                    _StudyFormName = StructuralObject.SetValidValue(value, false);
+                    _StudyFormName = StructuralObject.SetValidValue(value, false, "StudyFormName");
                     ReportPropertyChanged("StudyFormName");
                     OnStudyFormNameChanged();
                 }
@@ -62241,7 +62848,7 @@ namespace PriemLib
                 {
                     OnStudyLevelNameChanging(value);
                     ReportPropertyChanging("StudyLevelName");
-                    _StudyLevelName = StructuralObject.SetValidValue(value, false);
+                    _StudyLevelName = StructuralObject.SetValidValue(value, false, "StudyLevelName");
                     ReportPropertyChanged("StudyLevelName");
                     OnStudyLevelNameChanged();
                 }
@@ -62268,7 +62875,7 @@ namespace PriemLib
                 {
                     OnIsClosedChanging(value);
                     ReportPropertyChanging("IsClosed");
-                    _IsClosed = StructuralObject.SetValidValue(value);
+                    _IsClosed = StructuralObject.SetValidValue(value, "IsClosed");
                     ReportPropertyChanged("IsClosed");
                     OnIsClosedChanged();
                 }
@@ -62295,7 +62902,7 @@ namespace PriemLib
                 {
                     OnStudyLevelGroupIdChanging(value);
                     ReportPropertyChanging("StudyLevelGroupId");
-                    _StudyLevelGroupId = StructuralObject.SetValidValue(value);
+                    _StudyLevelGroupId = StructuralObject.SetValidValue(value, "StudyLevelGroupId");
                     ReportPropertyChanged("StudyLevelGroupId");
                     OnStudyLevelGroupIdChanged();
                 }
@@ -62320,7 +62927,7 @@ namespace PriemLib
             {
                 OnObrazProgramNameExChanging(value);
                 ReportPropertyChanging("ObrazProgramNameEx");
-                _ObrazProgramNameEx = StructuralObject.SetValidValue(value, false);
+                _ObrazProgramNameEx = StructuralObject.SetValidValue(value, false, "ObrazProgramNameEx");
                 ReportPropertyChanged("ObrazProgramNameEx");
                 OnObrazProgramNameExChanged();
             }
@@ -62344,7 +62951,7 @@ namespace PriemLib
             {
                 OnFacultyAcrChanging(value);
                 ReportPropertyChanging("FacultyAcr");
-                _FacultyAcr = StructuralObject.SetValidValue(value, true);
+                _FacultyAcr = StructuralObject.SetValidValue(value, true, "FacultyAcr");
                 ReportPropertyChanged("FacultyAcr");
                 OnFacultyAcrChanged();
             }
@@ -62368,7 +62975,7 @@ namespace PriemLib
             {
                 OnKCPCelChanging(value);
                 ReportPropertyChanging("KCPCel");
-                _KCPCel = StructuralObject.SetValidValue(value);
+                _KCPCel = StructuralObject.SetValidValue(value, "KCPCel");
                 ReportPropertyChanged("KCPCel");
                 OnKCPCelChanged();
             }
@@ -62394,7 +63001,7 @@ namespace PriemLib
                 {
                     OnIsReducedChanging(value);
                     ReportPropertyChanging("IsReduced");
-                    _IsReduced = StructuralObject.SetValidValue(value);
+                    _IsReduced = StructuralObject.SetValidValue(value, "IsReduced");
                     ReportPropertyChanged("IsReduced");
                     OnIsReducedChanged();
                 }
@@ -62421,7 +63028,7 @@ namespace PriemLib
                 {
                     OnIsParallelChanging(value);
                     ReportPropertyChanging("IsParallel");
-                    _IsParallel = StructuralObject.SetValidValue(value);
+                    _IsParallel = StructuralObject.SetValidValue(value, "IsParallel");
                     ReportPropertyChanged("IsParallel");
                     OnIsParallelChanged();
                 }
@@ -62446,7 +63053,7 @@ namespace PriemLib
             {
                 OnQualificationCodeChanging(value);
                 ReportPropertyChanging("QualificationCode");
-                _QualificationCode = StructuralObject.SetValidValue(value, true);
+                _QualificationCode = StructuralObject.SetValidValue(value, true, "QualificationCode");
                 ReportPropertyChanged("QualificationCode");
                 OnQualificationCodeChanged();
             }
@@ -62470,7 +63077,7 @@ namespace PriemLib
             {
                 OnStudyLevelFISNameChanging(value);
                 ReportPropertyChanging("StudyLevelFISName");
-                _StudyLevelFISName = StructuralObject.SetValidValue(value, true);
+                _StudyLevelFISName = StructuralObject.SetValidValue(value, true, "StudyLevelFISName");
                 ReportPropertyChanged("StudyLevelFISName");
                 OnStudyLevelFISNameChanged();
             }
@@ -62494,7 +63101,7 @@ namespace PriemLib
             {
                 OnObrazProgramPrintNameChanging(value);
                 ReportPropertyChanging("ObrazProgramPrintName");
-                _ObrazProgramPrintName = StructuralObject.SetValidValue(value, true);
+                _ObrazProgramPrintName = StructuralObject.SetValidValue(value, true, "ObrazProgramPrintName");
                 ReportPropertyChanged("ObrazProgramPrintName");
                 OnObrazProgramPrintNameChanged();
             }
@@ -62502,30 +63109,6 @@ namespace PriemLib
         private global::System.String _ObrazProgramPrintName;
         partial void OnObrazProgramPrintNameChanging(global::System.String value);
         partial void OnObrazProgramPrintNameChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int32> KCPCrimea
-        {
-            get
-            {
-                return _KCPCrimea;
-            }
-            set
-            {
-                OnKCPCrimeaChanging(value);
-                ReportPropertyChanging("KCPCrimea");
-                _KCPCrimea = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("KCPCrimea");
-                OnKCPCrimeaChanged();
-            }
-        }
-        private Nullable<global::System.Int32> _KCPCrimea;
-        partial void OnKCPCrimeaChanging(Nullable<global::System.Int32> value);
-        partial void OnKCPCrimeaChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -62542,7 +63125,7 @@ namespace PriemLib
             {
                 OnKCPQuotaChanging(value);
                 ReportPropertyChanging("KCPQuota");
-                _KCPQuota = StructuralObject.SetValidValue(value);
+                _KCPQuota = StructuralObject.SetValidValue(value, "KCPQuota");
                 ReportPropertyChanged("KCPQuota");
                 OnKCPQuotaChanged();
             }
@@ -62568,7 +63151,7 @@ namespace PriemLib
                 {
                     OnIsForeignChanging(value);
                     ReportPropertyChanging("IsForeign");
-                    _IsForeign = StructuralObject.SetValidValue(value);
+                    _IsForeign = StructuralObject.SetValidValue(value, "IsForeign");
                     ReportPropertyChanged("IsForeign");
                     OnIsForeignChanged();
                 }
@@ -62577,10 +63160,63 @@ namespace PriemLib
         private global::System.Boolean _IsForeign;
         partial void OnIsForeignChanging(global::System.Boolean value);
         partial void OnIsForeignChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean IsCrimea
+        {
+            get
+            {
+                return _IsCrimea;
+            }
+            set
+            {
+                if (_IsCrimea != value)
+                {
+                    OnIsCrimeaChanging(value);
+                    ReportPropertyChanging("IsCrimea");
+                    _IsCrimea = StructuralObject.SetValidValue(value, "IsCrimea");
+                    ReportPropertyChanged("IsCrimea");
+                    OnIsCrimeaChanged();
+                }
+            }
+        }
+        private global::System.Boolean _IsCrimea;
+        partial void OnIsCrimeaChanging(global::System.Boolean value);
+        partial void OnIsCrimeaChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String StudyLevelGroupName
+        {
+            get
+            {
+                return _StudyLevelGroupName;
+            }
+            set
+            {
+                if (_StudyLevelGroupName != value)
+                {
+                    OnStudyLevelGroupNameChanging(value);
+                    ReportPropertyChanging("StudyLevelGroupName");
+                    _StudyLevelGroupName = StructuralObject.SetValidValue(value, false, "StudyLevelGroupName");
+                    ReportPropertyChanged("StudyLevelGroupName");
+                    OnStudyLevelGroupNameChanged();
+                }
+            }
+        }
+        private global::System.String _StudyLevelGroupName;
+        partial void OnStudyLevelGroupNameChanging(global::System.String value);
+        partial void OnStudyLevelGroupNameChanged();
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -62608,7 +63244,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -62627,7 +63263,7 @@ namespace PriemLib
                 {
                     OnEntryIdChanging(value);
                     ReportPropertyChanging("EntryId");
-                    _EntryId = StructuralObject.SetValidValue(value);
+                    _EntryId = StructuralObject.SetValidValue(value, "EntryId");
                     ReportPropertyChanged("EntryId");
                     OnEntryIdChanged();
                 }
@@ -62654,7 +63290,7 @@ namespace PriemLib
                 {
                     OnCompetitiveGroupIdChanging(value);
                     ReportPropertyChanging("CompetitiveGroupId");
-                    _CompetitiveGroupId = StructuralObject.SetValidValue(value);
+                    _CompetitiveGroupId = StructuralObject.SetValidValue(value, "CompetitiveGroupId");
                     ReportPropertyChanged("CompetitiveGroupId");
                     OnCompetitiveGroupIdChanged();
                 }
@@ -62679,7 +63315,7 @@ namespace PriemLib
             {
                 OnCompetitiveGroupNameChanging(value);
                 ReportPropertyChanging("CompetitiveGroupName");
-                _CompetitiveGroupName = StructuralObject.SetValidValue(value, true);
+                _CompetitiveGroupName = StructuralObject.SetValidValue(value, true, "CompetitiveGroupName");
                 ReportPropertyChanged("CompetitiveGroupName");
                 OnCompetitiveGroupNameChanged();
             }
@@ -62690,7 +63326,6 @@ namespace PriemLib
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -62716,7 +63351,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -62735,7 +63370,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -62760,7 +63395,7 @@ namespace PriemLib
             {
                 OnNameChanging(value);
                 ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, true);
+                _Name = StructuralObject.SetValidValue(value, true, "Name");
                 ReportPropertyChanged("Name");
                 OnNameChanged();
             }
@@ -62784,7 +63419,7 @@ namespace PriemLib
             {
                 OnAcronymChanging(value);
                 ReportPropertyChanging("Acronym");
-                _Acronym = StructuralObject.SetValidValue(value, true);
+                _Acronym = StructuralObject.SetValidValue(value, true, "Acronym");
                 ReportPropertyChanged("Acronym");
                 OnAcronymChanged();
             }
@@ -62808,7 +63443,7 @@ namespace PriemLib
             {
                 OnRodNameChanging(value);
                 ReportPropertyChanging("RodName");
-                _RodName = StructuralObject.SetValidValue(value, true);
+                _RodName = StructuralObject.SetValidValue(value, true, "RodName");
                 ReportPropertyChanged("RodName");
                 OnRodNameChanged();
             }
@@ -62832,7 +63467,7 @@ namespace PriemLib
             {
                 OnDatNameChanging(value);
                 ReportPropertyChanging("DatName");
-                _DatName = StructuralObject.SetValidValue(value, true);
+                _DatName = StructuralObject.SetValidValue(value, true, "DatName");
                 ReportPropertyChanged("DatName");
                 OnDatNameChanged();
             }
@@ -62856,7 +63491,7 @@ namespace PriemLib
             {
                 OnVinNameChanging(value);
                 ReportPropertyChanging("VinName");
-                _VinName = StructuralObject.SetValidValue(value, true);
+                _VinName = StructuralObject.SetValidValue(value, true, "VinName");
                 ReportPropertyChanged("VinName");
                 OnVinNameChanged();
             }
@@ -62867,7 +63502,6 @@ namespace PriemLib
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -62893,7 +63527,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -62912,7 +63546,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -62937,7 +63571,7 @@ namespace PriemLib
             {
                 OnNameChanging(value);
                 ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, true);
+                _Name = StructuralObject.SetValidValue(value, true, "Name");
                 ReportPropertyChanged("Name");
                 OnNameChanged();
             }
@@ -62961,7 +63595,7 @@ namespace PriemLib
             {
                 OnCodeChanging(value);
                 ReportPropertyChanging("Code");
-                _Code = StructuralObject.SetValidValue(value, true);
+                _Code = StructuralObject.SetValidValue(value, true, "Code");
                 ReportPropertyChanged("Code");
                 OnCodeChanged();
             }
@@ -62972,7 +63606,6 @@ namespace PriemLib
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -63024,7 +63657,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -63043,7 +63676,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -63070,7 +63703,7 @@ namespace PriemLib
                 {
                     OnAbiturientIdChanging(value);
                     ReportPropertyChanging("AbiturientId");
-                    _AbiturientId = StructuralObject.SetValidValue(value);
+                    _AbiturientId = StructuralObject.SetValidValue(value, "AbiturientId");
                     ReportPropertyChanged("AbiturientId");
                     OnAbiturientIdChanged();
                 }
@@ -63097,7 +63730,7 @@ namespace PriemLib
                 {
                     OnExamInEntryIdChanging(value);
                     ReportPropertyChanging("ExamInEntryId");
-                    _ExamInEntryId = StructuralObject.SetValidValue(value);
+                    _ExamInEntryId = StructuralObject.SetValidValue(value, "ExamInEntryId");
                     ReportPropertyChanged("ExamInEntryId");
                     OnExamInEntryIdChanged();
                 }
@@ -63124,7 +63757,7 @@ namespace PriemLib
                 {
                     OnValueChanging(value);
                     ReportPropertyChanging("Value");
-                    _Value = StructuralObject.SetValidValue(value);
+                    _Value = StructuralObject.SetValidValue(value, "Value");
                     ReportPropertyChanged("Value");
                     OnValueChanged();
                 }
@@ -63149,7 +63782,7 @@ namespace PriemLib
             {
                 OnPassDateChanging(value);
                 ReportPropertyChanging("PassDate");
-                _PassDate = StructuralObject.SetValidValue(value);
+                _PassDate = StructuralObject.SetValidValue(value, "PassDate");
                 ReportPropertyChanged("PassDate");
                 OnPassDateChanged();
             }
@@ -63175,7 +63808,7 @@ namespace PriemLib
                 {
                     OnIsFromEgeChanging(value);
                     ReportPropertyChanging("IsFromEge");
-                    _IsFromEge = StructuralObject.SetValidValue(value);
+                    _IsFromEge = StructuralObject.SetValidValue(value, "IsFromEge");
                     ReportPropertyChanged("IsFromEge");
                     OnIsFromEgeChanged();
                 }
@@ -63202,7 +63835,7 @@ namespace PriemLib
                 {
                     OnIsFromOlympChanging(value);
                     ReportPropertyChanging("IsFromOlymp");
-                    _IsFromOlymp = StructuralObject.SetValidValue(value);
+                    _IsFromOlymp = StructuralObject.SetValidValue(value, "IsFromOlymp");
                     ReportPropertyChanged("IsFromOlymp");
                     OnIsFromOlympChanged();
                 }
@@ -63229,7 +63862,7 @@ namespace PriemLib
                 {
                     OnIsManualChanging(value);
                     ReportPropertyChanging("IsManual");
-                    _IsManual = StructuralObject.SetValidValue(value);
+                    _IsManual = StructuralObject.SetValidValue(value, "IsManual");
                     ReportPropertyChanged("IsManual");
                     OnIsManualChanged();
                 }
@@ -63254,7 +63887,7 @@ namespace PriemLib
             {
                 OnExamVedIdChanging(value);
                 ReportPropertyChanging("ExamVedId");
-                _ExamVedId = StructuralObject.SetValidValue(value);
+                _ExamVedId = StructuralObject.SetValidValue(value, "ExamVedId");
                 ReportPropertyChanged("ExamVedId");
                 OnExamVedIdChanged();
             }
@@ -63280,7 +63913,7 @@ namespace PriemLib
                 {
                     OnEntryIdChanging(value);
                     ReportPropertyChanging("EntryId");
-                    _EntryId = StructuralObject.SetValidValue(value);
+                    _EntryId = StructuralObject.SetValidValue(value, "EntryId");
                     ReportPropertyChanged("EntryId");
                     OnEntryIdChanged();
                 }
@@ -63305,7 +63938,7 @@ namespace PriemLib
             {
                 OnExamNameChanging(value);
                 ReportPropertyChanging("ExamName");
-                _ExamName = StructuralObject.SetValidValue(value, true);
+                _ExamName = StructuralObject.SetValidValue(value, true, "ExamName");
                 ReportPropertyChanged("ExamName");
                 OnExamNameChanged();
             }
@@ -63331,7 +63964,7 @@ namespace PriemLib
                 {
                     OnIsAdditionalChanging(value);
                     ReportPropertyChanging("IsAdditional");
-                    _IsAdditional = StructuralObject.SetValidValue(value);
+                    _IsAdditional = StructuralObject.SetValidValue(value, "IsAdditional");
                     ReportPropertyChanged("IsAdditional");
                     OnIsAdditionalChanged();
                 }
@@ -63358,7 +63991,7 @@ namespace PriemLib
                 {
                     OnIsProfilChanging(value);
                     ReportPropertyChanging("IsProfil");
-                    _IsProfil = StructuralObject.SetValidValue(value);
+                    _IsProfil = StructuralObject.SetValidValue(value, "IsProfil");
                     ReportPropertyChanged("IsProfil");
                     OnIsProfilChanged();
                 }
@@ -63385,7 +64018,7 @@ namespace PriemLib
                 {
                     OnStudyLevelGroupIdChanging(value);
                     ReportPropertyChanging("StudyLevelGroupId");
-                    _StudyLevelGroupId = StructuralObject.SetValidValue(value);
+                    _StudyLevelGroupId = StructuralObject.SetValidValue(value, "StudyLevelGroupId");
                     ReportPropertyChanged("StudyLevelGroupId");
                     OnStudyLevelGroupIdChanged();
                 }
@@ -63412,7 +64045,7 @@ namespace PriemLib
                 {
                     OnExamIdChanging(value);
                     ReportPropertyChanging("ExamId");
-                    _ExamId = StructuralObject.SetValidValue(value);
+                    _ExamId = StructuralObject.SetValidValue(value, "ExamId");
                     ReportPropertyChanged("ExamId");
                     OnExamIdChanged();
                 }
@@ -63439,7 +64072,7 @@ namespace PriemLib
                 {
                     OnExamNameIdChanging(value);
                     ReportPropertyChanging("ExamNameId");
-                    _ExamNameId = StructuralObject.SetValidValue(value);
+                    _ExamNameId = StructuralObject.SetValidValue(value, "ExamNameId");
                     ReportPropertyChanged("ExamNameId");
                     OnExamNameIdChanged();
                 }
@@ -63466,7 +64099,7 @@ namespace PriemLib
                 {
                     OnEntranceTestTypeChanging(value);
                     ReportPropertyChanging("EntranceTestType");
-                    _EntranceTestType = StructuralObject.SetValidValue(value, false);
+                    _EntranceTestType = StructuralObject.SetValidValue(value, false, "EntranceTestType");
                     ReportPropertyChanged("EntranceTestType");
                     OnEntranceTestTypeChanged();
                 }
@@ -63491,7 +64124,7 @@ namespace PriemLib
             {
                 OnOlympiadIdChanging(value);
                 ReportPropertyChanging("OlympiadId");
-                _OlympiadId = StructuralObject.SetValidValue(value);
+                _OlympiadId = StructuralObject.SetValidValue(value, "OlympiadId");
                 ReportPropertyChanged("OlympiadId");
                 OnOlympiadIdChanged();
             }
@@ -63515,7 +64148,7 @@ namespace PriemLib
             {
                 OnEgeCertificateIdChanging(value);
                 ReportPropertyChanging("EgeCertificateId");
-                _EgeCertificateId = StructuralObject.SetValidValue(value);
+                _EgeCertificateId = StructuralObject.SetValidValue(value, "EgeCertificateId");
                 ReportPropertyChanged("EgeCertificateId");
                 OnEgeCertificateIdChanged();
             }
@@ -63539,7 +64172,7 @@ namespace PriemLib
             {
                 OnOrderNumberChanging(value);
                 ReportPropertyChanging("OrderNumber");
-                _OrderNumber = StructuralObject.SetValidValue(value);
+                _OrderNumber = StructuralObject.SetValidValue(value, "OrderNumber");
                 ReportPropertyChanged("OrderNumber");
                 OnOrderNumberChanged();
             }
@@ -63563,7 +64196,7 @@ namespace PriemLib
             {
                 OnFiveGradeValueChanging(value);
                 ReportPropertyChanging("FiveGradeValue");
-                _FiveGradeValue = StructuralObject.SetValidValue(value);
+                _FiveGradeValue = StructuralObject.SetValidValue(value, "FiveGradeValue");
                 ReportPropertyChanged("FiveGradeValue");
                 OnFiveGradeValueChanged();
             }
@@ -63574,7 +64207,6 @@ namespace PriemLib
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -63606,7 +64238,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -63623,7 +64255,7 @@ namespace PriemLib
             {
                 OnCryptChanging(value);
                 ReportPropertyChanging("Crypt");
-                _Crypt = StructuralObject.SetValidValue(value, true);
+                _Crypt = StructuralObject.SetValidValue(value, true, "Crypt");
                 ReportPropertyChanged("Crypt");
                 OnCryptChanged();
             }
@@ -63649,7 +64281,7 @@ namespace PriemLib
                 {
                     OnNameChanging(value);
                     ReportPropertyChanging("Name");
-                    _Name = StructuralObject.SetValidValue(value, false);
+                    _Name = StructuralObject.SetValidValue(value, false, "Name");
                     ReportPropertyChanged("Name");
                     OnNameChanged();
                 }
@@ -63676,7 +64308,7 @@ namespace PriemLib
                 {
                     OnLicenseProgramIdChanging(value);
                     ReportPropertyChanging("LicenseProgramId");
-                    _LicenseProgramId = StructuralObject.SetValidValue(value);
+                    _LicenseProgramId = StructuralObject.SetValidValue(value, "LicenseProgramId");
                     ReportPropertyChanged("LicenseProgramId");
                     OnLicenseProgramIdChanged();
                 }
@@ -63703,7 +64335,7 @@ namespace PriemLib
                 {
                     OnLicenseProgramNameChanging(value);
                     ReportPropertyChanging("LicenseProgramName");
-                    _LicenseProgramName = StructuralObject.SetValidValue(value, false);
+                    _LicenseProgramName = StructuralObject.SetValidValue(value, false, "LicenseProgramName");
                     ReportPropertyChanged("LicenseProgramName");
                     OnLicenseProgramNameChanged();
                 }
@@ -63728,7 +64360,7 @@ namespace PriemLib
             {
                 OnNumberChanging(value);
                 ReportPropertyChanging("Number");
-                _Number = StructuralObject.SetValidValue(value, true);
+                _Number = StructuralObject.SetValidValue(value, true, "Number");
                 ReportPropertyChanged("Number");
                 OnNumberChanged();
             }
@@ -63754,7 +64386,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -63766,7 +64398,6 @@ namespace PriemLib
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -63792,7 +64423,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -63811,7 +64442,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -63836,7 +64467,7 @@ namespace PriemLib
             {
                 OnNameChanging(value);
                 ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, true);
+                _Name = StructuralObject.SetValidValue(value, true, "Name");
                 ReportPropertyChanged("Name");
                 OnNameChanged();
             }
@@ -63847,7 +64478,6 @@ namespace PriemLib
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -63875,7 +64505,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -63894,7 +64524,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -63919,7 +64549,7 @@ namespace PriemLib
             {
                 OnStudyLevelGroupIdChanging(value);
                 ReportPropertyChanging("StudyLevelGroupId");
-                _StudyLevelGroupId = StructuralObject.SetValidValue(value);
+                _StudyLevelGroupId = StructuralObject.SetValidValue(value, "StudyLevelGroupId");
                 ReportPropertyChanged("StudyLevelGroupId");
                 OnStudyLevelGroupIdChanged();
             }
@@ -63943,7 +64573,7 @@ namespace PriemLib
             {
                 OnFacultyIdChanging(value);
                 ReportPropertyChanging("FacultyId");
-                _FacultyId = StructuralObject.SetValidValue(value);
+                _FacultyId = StructuralObject.SetValidValue(value, "FacultyId");
                 ReportPropertyChanged("FacultyId");
                 OnFacultyIdChanged();
             }
@@ -63967,7 +64597,7 @@ namespace PriemLib
             {
                 OnLicenseProgramIdChanging(value);
                 ReportPropertyChanging("LicenseProgramId");
-                _LicenseProgramId = StructuralObject.SetValidValue(value);
+                _LicenseProgramId = StructuralObject.SetValidValue(value, "LicenseProgramId");
                 ReportPropertyChanged("LicenseProgramId");
                 OnLicenseProgramIdChanged();
             }
@@ -63991,7 +64621,7 @@ namespace PriemLib
             {
                 OnStudyFormIdChanging(value);
                 ReportPropertyChanging("StudyFormId");
-                _StudyFormId = StructuralObject.SetValidValue(value);
+                _StudyFormId = StructuralObject.SetValidValue(value, "StudyFormId");
                 ReportPropertyChanged("StudyFormId");
                 OnStudyFormIdChanged();
             }
@@ -64015,7 +64645,7 @@ namespace PriemLib
             {
                 OnStudyBasisIdChanging(value);
                 ReportPropertyChanging("StudyBasisId");
-                _StudyBasisId = StructuralObject.SetValidValue(value);
+                _StudyBasisId = StructuralObject.SetValidValue(value, "StudyBasisId");
                 ReportPropertyChanged("StudyBasisId");
                 OnStudyBasisIdChanged();
             }
@@ -64039,7 +64669,7 @@ namespace PriemLib
             {
                 OnNumberChanging(value);
                 ReportPropertyChanging("Number");
-                _Number = StructuralObject.SetValidValue(value, true);
+                _Number = StructuralObject.SetValidValue(value, true, "Number");
                 ReportPropertyChanged("Number");
                 OnNumberChanged();
             }
@@ -64063,7 +64693,7 @@ namespace PriemLib
             {
                 OnDateChanging(value);
                 ReportPropertyChanging("Date");
-                _Date = StructuralObject.SetValidValue(value);
+                _Date = StructuralObject.SetValidValue(value, "Date");
                 ReportPropertyChanged("Date");
                 OnDateChanged();
             }
@@ -64087,7 +64717,7 @@ namespace PriemLib
             {
                 OnProtocolTypeIdChanging(value);
                 ReportPropertyChanging("ProtocolTypeId");
-                _ProtocolTypeId = StructuralObject.SetValidValue(value);
+                _ProtocolTypeId = StructuralObject.SetValidValue(value, "ProtocolTypeId");
                 ReportPropertyChanged("ProtocolTypeId");
                 OnProtocolTypeIdChanged();
             }
@@ -64111,7 +64741,7 @@ namespace PriemLib
             {
                 OnReasonChanging(value);
                 ReportPropertyChanging("Reason");
-                _Reason = StructuralObject.SetValidValue(value, true);
+                _Reason = StructuralObject.SetValidValue(value, true, "Reason");
                 ReportPropertyChanged("Reason");
                 OnReasonChanged();
             }
@@ -64137,7 +64767,7 @@ namespace PriemLib
                 {
                     OnIsOldChanging(value);
                     ReportPropertyChanging("IsOld");
-                    _IsOld = StructuralObject.SetValidValue(value);
+                    _IsOld = StructuralObject.SetValidValue(value, "IsOld");
                     ReportPropertyChanged("IsOld");
                     OnIsOldChanged();
                 }
@@ -64162,7 +64792,7 @@ namespace PriemLib
             {
                 OnParentProtocolIdChanging(value);
                 ReportPropertyChanging("ParentProtocolId");
-                _ParentProtocolId = StructuralObject.SetValidValue(value);
+                _ParentProtocolId = StructuralObject.SetValidValue(value, "ParentProtocolId");
                 ReportPropertyChanged("ParentProtocolId");
                 OnParentProtocolIdChanged();
             }
@@ -64186,7 +64816,7 @@ namespace PriemLib
             {
                 OnIsSecondChanging(value);
                 ReportPropertyChanging("IsSecond");
-                _IsSecond = StructuralObject.SetValidValue(value);
+                _IsSecond = StructuralObject.SetValidValue(value, "IsSecond");
                 ReportPropertyChanged("IsSecond");
                 OnIsSecondChanged();
             }
@@ -64210,7 +64840,7 @@ namespace PriemLib
             {
                 OnIsListenerChanging(value);
                 ReportPropertyChanging("IsListener");
-                _IsListener = StructuralObject.SetValidValue(value);
+                _IsListener = StructuralObject.SetValidValue(value, "IsListener");
                 ReportPropertyChanged("IsListener");
                 OnIsListenerChanged();
             }
@@ -64221,7 +64851,6 @@ namespace PriemLib
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -64255,7 +64884,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -64274,7 +64903,7 @@ namespace PriemLib
                 {
                     OnAbiturientIdChanging(value);
                     ReportPropertyChanging("AbiturientId");
-                    _AbiturientId = StructuralObject.SetValidValue(value);
+                    _AbiturientId = StructuralObject.SetValidValue(value, "AbiturientId");
                     ReportPropertyChanged("AbiturientId");
                     OnAbiturientIdChanged();
                 }
@@ -64301,7 +64930,7 @@ namespace PriemLib
                 {
                     OnProtocolIdChanging(value);
                     ReportPropertyChanging("ProtocolId");
-                    _ProtocolId = StructuralObject.SetValidValue(value);
+                    _ProtocolId = StructuralObject.SetValidValue(value, "ProtocolId");
                     ReportPropertyChanged("ProtocolId");
                     OnProtocolIdChanged();
                 }
@@ -64328,7 +64957,7 @@ namespace PriemLib
                 {
                     OnExcludedChanging(value);
                     ReportPropertyChanging("Excluded");
-                    _Excluded = StructuralObject.SetValidValue(value);
+                    _Excluded = StructuralObject.SetValidValue(value, "Excluded");
                     ReportPropertyChanged("Excluded");
                     OnExcludedChanged();
                 }
@@ -64353,7 +64982,7 @@ namespace PriemLib
             {
                 OnExcludeProtocolIdChanging(value);
                 ReportPropertyChanging("ExcludeProtocolId");
-                _ExcludeProtocolId = StructuralObject.SetValidValue(value);
+                _ExcludeProtocolId = StructuralObject.SetValidValue(value, "ExcludeProtocolId");
                 ReportPropertyChanged("ExcludeProtocolId");
                 OnExcludeProtocolIdChanged();
             }
@@ -64377,7 +65006,7 @@ namespace PriemLib
             {
                 OnEntryHeaderIdChanging(value);
                 ReportPropertyChanging("EntryHeaderId");
-                _EntryHeaderId = StructuralObject.SetValidValue(value);
+                _EntryHeaderId = StructuralObject.SetValidValue(value, "EntryHeaderId");
                 ReportPropertyChanged("EntryHeaderId");
                 OnEntryHeaderIdChanged();
             }
@@ -64401,7 +65030,7 @@ namespace PriemLib
             {
                 OnStudyLevelGroupIdChanging(value);
                 ReportPropertyChanging("StudyLevelGroupId");
-                _StudyLevelGroupId = StructuralObject.SetValidValue(value);
+                _StudyLevelGroupId = StructuralObject.SetValidValue(value, "StudyLevelGroupId");
                 ReportPropertyChanged("StudyLevelGroupId");
                 OnStudyLevelGroupIdChanged();
             }
@@ -64425,7 +65054,7 @@ namespace PriemLib
             {
                 OnFacultyIdChanging(value);
                 ReportPropertyChanging("FacultyId");
-                _FacultyId = StructuralObject.SetValidValue(value);
+                _FacultyId = StructuralObject.SetValidValue(value, "FacultyId");
                 ReportPropertyChanged("FacultyId");
                 OnFacultyIdChanged();
             }
@@ -64449,7 +65078,7 @@ namespace PriemLib
             {
                 OnLicenseProgramIdChanging(value);
                 ReportPropertyChanging("LicenseProgramId");
-                _LicenseProgramId = StructuralObject.SetValidValue(value);
+                _LicenseProgramId = StructuralObject.SetValidValue(value, "LicenseProgramId");
                 ReportPropertyChanged("LicenseProgramId");
                 OnLicenseProgramIdChanged();
             }
@@ -64473,7 +65102,7 @@ namespace PriemLib
             {
                 OnStudyFormIdChanging(value);
                 ReportPropertyChanging("StudyFormId");
-                _StudyFormId = StructuralObject.SetValidValue(value);
+                _StudyFormId = StructuralObject.SetValidValue(value, "StudyFormId");
                 ReportPropertyChanged("StudyFormId");
                 OnStudyFormIdChanged();
             }
@@ -64497,7 +65126,7 @@ namespace PriemLib
             {
                 OnStudyBasisIdChanging(value);
                 ReportPropertyChanging("StudyBasisId");
-                _StudyBasisId = StructuralObject.SetValidValue(value);
+                _StudyBasisId = StructuralObject.SetValidValue(value, "StudyBasisId");
                 ReportPropertyChanged("StudyBasisId");
                 OnStudyBasisIdChanged();
             }
@@ -64521,7 +65150,7 @@ namespace PriemLib
             {
                 OnNumberChanging(value);
                 ReportPropertyChanging("Number");
-                _Number = StructuralObject.SetValidValue(value, true);
+                _Number = StructuralObject.SetValidValue(value, true, "Number");
                 ReportPropertyChanged("Number");
                 OnNumberChanged();
             }
@@ -64545,7 +65174,7 @@ namespace PriemLib
             {
                 OnDateChanging(value);
                 ReportPropertyChanging("Date");
-                _Date = StructuralObject.SetValidValue(value);
+                _Date = StructuralObject.SetValidValue(value, "Date");
                 ReportPropertyChanged("Date");
                 OnDateChanged();
             }
@@ -64569,7 +65198,7 @@ namespace PriemLib
             {
                 OnProtocolTypeIdChanging(value);
                 ReportPropertyChanging("ProtocolTypeId");
-                _ProtocolTypeId = StructuralObject.SetValidValue(value);
+                _ProtocolTypeId = StructuralObject.SetValidValue(value, "ProtocolTypeId");
                 ReportPropertyChanged("ProtocolTypeId");
                 OnProtocolTypeIdChanged();
             }
@@ -64593,7 +65222,7 @@ namespace PriemLib
             {
                 OnReasonChanging(value);
                 ReportPropertyChanging("Reason");
-                _Reason = StructuralObject.SetValidValue(value, true);
+                _Reason = StructuralObject.SetValidValue(value, true, "Reason");
                 ReportPropertyChanged("Reason");
                 OnReasonChanged();
             }
@@ -64619,7 +65248,7 @@ namespace PriemLib
                 {
                     OnIsOldChanging(value);
                     ReportPropertyChanging("IsOld");
-                    _IsOld = StructuralObject.SetValidValue(value);
+                    _IsOld = StructuralObject.SetValidValue(value, "IsOld");
                     ReportPropertyChanged("IsOld");
                     OnIsOldChanged();
                 }
@@ -64644,7 +65273,7 @@ namespace PriemLib
             {
                 OnIsSecondChanging(value);
                 ReportPropertyChanging("IsSecond");
-                _IsSecond = StructuralObject.SetValidValue(value);
+                _IsSecond = StructuralObject.SetValidValue(value, "IsSecond");
                 ReportPropertyChanged("IsSecond");
                 OnIsSecondChanged();
             }
@@ -64668,7 +65297,7 @@ namespace PriemLib
             {
                 OnIsListenerChanging(value);
                 ReportPropertyChanging("IsListener");
-                _IsListener = StructuralObject.SetValidValue(value);
+                _IsListener = StructuralObject.SetValidValue(value, "IsListener");
                 ReportPropertyChanged("IsListener");
                 OnIsListenerChanged();
             }
@@ -64694,7 +65323,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -64706,7 +65335,6 @@ namespace PriemLib
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -64736,7 +65364,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -64755,7 +65383,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -64782,7 +65410,7 @@ namespace PriemLib
                 {
                     OnNameChanging(value);
                     ReportPropertyChanging("Name");
-                    _Name = StructuralObject.SetValidValue(value, false);
+                    _Name = StructuralObject.SetValidValue(value, false, "Name");
                     ReportPropertyChanged("Name");
                     OnNameChanged();
                 }
@@ -64807,7 +65435,7 @@ namespace PriemLib
             {
                 OnAcronymChanging(value);
                 ReportPropertyChanging("Acronym");
-                _Acronym = StructuralObject.SetValidValue(value, true);
+                _Acronym = StructuralObject.SetValidValue(value, true, "Acronym");
                 ReportPropertyChanged("Acronym");
                 OnAcronymChanged();
             }
@@ -64833,7 +65461,7 @@ namespace PriemLib
                 {
                     OnLevelGroupIdChanging(value);
                     ReportPropertyChanging("LevelGroupId");
-                    _LevelGroupId = StructuralObject.SetValidValue(value);
+                    _LevelGroupId = StructuralObject.SetValidValue(value, "LevelGroupId");
                     ReportPropertyChanged("LevelGroupId");
                     OnLevelGroupIdChanged();
                 }
@@ -64858,7 +65486,7 @@ namespace PriemLib
             {
                 OnLevelGroupPrintChanging(value);
                 ReportPropertyChanging("LevelGroupPrint");
-                _LevelGroupPrint = StructuralObject.SetValidValue(value, true);
+                _LevelGroupPrint = StructuralObject.SetValidValue(value, true, "LevelGroupPrint");
                 ReportPropertyChanged("LevelGroupPrint");
                 OnLevelGroupPrintChanged();
             }
@@ -64882,7 +65510,7 @@ namespace PriemLib
             {
                 OnFISNameChanging(value);
                 ReportPropertyChanging("FISName");
-                _FISName = StructuralObject.SetValidValue(value, true);
+                _FISName = StructuralObject.SetValidValue(value, true, "FISName");
                 ReportPropertyChanged("FISName");
                 OnFISNameChanged();
             }
@@ -64893,7 +65521,6 @@ namespace PriemLib
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -64921,7 +65548,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -64940,7 +65567,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -64965,7 +65592,7 @@ namespace PriemLib
             {
                 OnNameChanging(value);
                 ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, true);
+                _Name = StructuralObject.SetValidValue(value, true, "Name");
                 ReportPropertyChanged("Name");
                 OnNameChanged();
             }
@@ -64989,7 +65616,7 @@ namespace PriemLib
             {
                 OnDistanceChanging(value);
                 ReportPropertyChanging("Distance");
-                _Distance = StructuralObject.SetValidValue(value);
+                _Distance = StructuralObject.SetValidValue(value, "Distance");
                 ReportPropertyChanged("Distance");
                 OnDistanceChanged();
             }
@@ -65013,7 +65640,7 @@ namespace PriemLib
             {
                 OnRegionNumberChanging(value);
                 ReportPropertyChanging("RegionNumber");
-                _RegionNumber = StructuralObject.SetValidValue(value, true);
+                _RegionNumber = StructuralObject.SetValidValue(value, true, "RegionNumber");
                 ReportPropertyChanged("RegionNumber");
                 OnRegionNumberChanged();
             }
@@ -65037,7 +65664,7 @@ namespace PriemLib
             {
                 OnRodNameChanging(value);
                 ReportPropertyChanging("RodName");
-                _RodName = StructuralObject.SetValidValue(value, true);
+                _RodName = StructuralObject.SetValidValue(value, true, "RodName");
                 ReportPropertyChanged("RodName");
                 OnRodNameChanged();
             }
@@ -65061,7 +65688,7 @@ namespace PriemLib
             {
                 OnCountryIdChanging(value);
                 ReportPropertyChanging("CountryId");
-                _CountryId = StructuralObject.SetValidValue(value);
+                _CountryId = StructuralObject.SetValidValue(value, "CountryId");
                 ReportPropertyChanged("CountryId");
                 OnCountryIdChanged();
             }
@@ -65072,7 +65699,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -65132,7 +65758,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -65151,7 +65777,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -65176,7 +65802,7 @@ namespace PriemLib
             {
                 OnNameChanging(value);
                 ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, false);
+                _Name = StructuralObject.SetValidValue(value, false, "Name");
                 ReportPropertyChanged("Name");
                 OnNameChanged();
             }
@@ -65200,7 +65826,7 @@ namespace PriemLib
             {
                 OnRegionIdChanging(value);
                 ReportPropertyChanging("RegionId");
-                _RegionId = StructuralObject.SetValidValue(value);
+                _RegionId = StructuralObject.SetValidValue(value, "RegionId");
                 ReportPropertyChanged("RegionId");
                 OnRegionIdChanged();
             }
@@ -65224,7 +65850,7 @@ namespace PriemLib
             {
                 OnSchoolTypeIdChanging(value);
                 ReportPropertyChanging("SchoolTypeId");
-                _SchoolTypeId = StructuralObject.SetValidValue(value);
+                _SchoolTypeId = StructuralObject.SetValidValue(value, "SchoolTypeId");
                 ReportPropertyChanged("SchoolTypeId");
                 OnSchoolTypeIdChanged();
             }
@@ -65248,7 +65874,7 @@ namespace PriemLib
             {
                 OnSchoolNumChanging(value);
                 ReportPropertyChanging("SchoolNum");
-                _SchoolNum = StructuralObject.SetValidValue(value, true);
+                _SchoolNum = StructuralObject.SetValidValue(value, true, "SchoolNum");
                 ReportPropertyChanged("SchoolNum");
                 OnSchoolNumChanged();
             }
@@ -65272,7 +65898,7 @@ namespace PriemLib
             {
                 OnIsOpenChanging(value);
                 ReportPropertyChanging("IsOpen");
-                _IsOpen = StructuralObject.SetValidValue(value);
+                _IsOpen = StructuralObject.SetValidValue(value, "IsOpen");
                 ReportPropertyChanged("IsOpen");
                 OnIsOpenChanged();
             }
@@ -65296,7 +65922,7 @@ namespace PriemLib
             {
                 OnHolderChanging(value);
                 ReportPropertyChanging("Holder");
-                _Holder = StructuralObject.SetValidValue(value, true);
+                _Holder = StructuralObject.SetValidValue(value, true, "Holder");
                 ReportPropertyChanged("Holder");
                 OnHolderChanged();
             }
@@ -65307,7 +65933,6 @@ namespace PriemLib
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -65337,7 +65962,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -65356,7 +65981,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -65381,7 +66006,7 @@ namespace PriemLib
             {
                 OnNameChanging(value);
                 ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, false);
+                _Name = StructuralObject.SetValidValue(value, false, "Name");
                 ReportPropertyChanged("Name");
                 OnNameChanged();
             }
@@ -65405,7 +66030,7 @@ namespace PriemLib
             {
                 OnFullNameChanging(value);
                 ReportPropertyChanging("FullName");
-                _FullName = StructuralObject.SetValidValue(value, true);
+                _FullName = StructuralObject.SetValidValue(value, true, "FullName");
                 ReportPropertyChanged("FullName");
                 OnFullNameChanged();
             }
@@ -65429,7 +66054,7 @@ namespace PriemLib
             {
                 OnSortChanging(value);
                 ReportPropertyChanging("Sort");
-                _Sort = StructuralObject.SetValidValue(value);
+                _Sort = StructuralObject.SetValidValue(value, "Sort");
                 ReportPropertyChanged("Sort");
                 OnSortChanged();
             }
@@ -65440,7 +66065,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -65492,7 +66116,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -65511,7 +66135,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -65536,7 +66160,7 @@ namespace PriemLib
             {
                 OnNameChanging(value);
                 ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, true);
+                _Name = StructuralObject.SetValidValue(value, true, "Name");
                 ReportPropertyChanged("Name");
                 OnNameChanged();
             }
@@ -65560,7 +66184,7 @@ namespace PriemLib
             {
                 OnPositionChanging(value);
                 ReportPropertyChanging("Position");
-                _Position = StructuralObject.SetValidValue(value, true);
+                _Position = StructuralObject.SetValidValue(value, true, "Position");
                 ReportPropertyChanged("Position");
                 OnPositionChanged();
             }
@@ -65571,7 +66195,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -65625,7 +66248,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -65644,7 +66267,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -65669,7 +66292,7 @@ namespace PriemLib
             {
                 OnNameChanging(value);
                 ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, true);
+                _Name = StructuralObject.SetValidValue(value, true, "Name");
                 ReportPropertyChanged("Name");
                 OnNameChanged();
             }
@@ -65693,7 +66316,7 @@ namespace PriemLib
             {
                 OnNameEngChanging(value);
                 ReportPropertyChanging("NameEng");
-                _NameEng = StructuralObject.SetValidValue(value, true);
+                _NameEng = StructuralObject.SetValidValue(value, true, "NameEng");
                 ReportPropertyChanged("NameEng");
                 OnNameEngChanged();
             }
@@ -65717,7 +66340,7 @@ namespace PriemLib
             {
                 OnAcronymChanging(value);
                 ReportPropertyChanging("Acronym");
-                _Acronym = StructuralObject.SetValidValue(value, true);
+                _Acronym = StructuralObject.SetValidValue(value, true, "Acronym");
                 ReportPropertyChanged("Acronym");
                 OnAcronymChanged();
             }
@@ -65741,7 +66364,7 @@ namespace PriemLib
             {
                 OnAcronymEngChanging(value);
                 ReportPropertyChanging("AcronymEng");
-                _AcronymEng = StructuralObject.SetValidValue(value, true);
+                _AcronymEng = StructuralObject.SetValidValue(value, true, "AcronymEng");
                 ReportPropertyChanged("AcronymEng");
                 OnAcronymEngChanged();
             }
@@ -65765,7 +66388,7 @@ namespace PriemLib
             {
                 OnProfessionListIdChanging(value);
                 ReportPropertyChanging("ProfessionListId");
-                _ProfessionListId = StructuralObject.SetValidValue(value);
+                _ProfessionListId = StructuralObject.SetValidValue(value, "ProfessionListId");
                 ReportPropertyChanged("ProfessionListId");
                 OnProfessionListIdChanged();
             }
@@ -65789,7 +66412,7 @@ namespace PriemLib
             {
                 OnIsOpenChanging(value);
                 ReportPropertyChanging("IsOpen");
-                _IsOpen = StructuralObject.SetValidValue(value);
+                _IsOpen = StructuralObject.SetValidValue(value, "IsOpen");
                 ReportPropertyChanged("IsOpen");
                 OnIsOpenChanged();
             }
@@ -65813,7 +66436,7 @@ namespace PriemLib
             {
                 OnHolderChanging(value);
                 ReportPropertyChanging("Holder");
-                _Holder = StructuralObject.SetValidValue(value, true);
+                _Holder = StructuralObject.SetValidValue(value, true, "Holder");
                 ReportPropertyChanged("Holder");
                 OnHolderChanged();
             }
@@ -65824,7 +66447,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -65876,7 +66498,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -65895,7 +66517,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -65920,7 +66542,7 @@ namespace PriemLib
             {
                 OnNameChanging(value);
                 ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, true);
+                _Name = StructuralObject.SetValidValue(value, true, "Name");
                 ReportPropertyChanged("Name");
                 OnNameChanged();
             }
@@ -65944,7 +66566,7 @@ namespace PriemLib
             {
                 OnNameEngChanging(value);
                 ReportPropertyChanging("NameEng");
-                _NameEng = StructuralObject.SetValidValue(value, true);
+                _NameEng = StructuralObject.SetValidValue(value, true, "NameEng");
                 ReportPropertyChanged("NameEng");
                 OnNameEngChanged();
             }
@@ -65968,7 +66590,7 @@ namespace PriemLib
             {
                 OnAcronymChanging(value);
                 ReportPropertyChanging("Acronym");
-                _Acronym = StructuralObject.SetValidValue(value, true);
+                _Acronym = StructuralObject.SetValidValue(value, true, "Acronym");
                 ReportPropertyChanged("Acronym");
                 OnAcronymChanged();
             }
@@ -65992,7 +66614,7 @@ namespace PriemLib
             {
                 OnRodNameChanging(value);
                 ReportPropertyChanging("RodName");
-                _RodName = StructuralObject.SetValidValue(value, true);
+                _RodName = StructuralObject.SetValidValue(value, true, "RodName");
                 ReportPropertyChanged("RodName");
                 OnRodNameChanged();
             }
@@ -66016,7 +66638,7 @@ namespace PriemLib
             {
                 OnDatNameChanging(value);
                 ReportPropertyChanging("DatName");
-                _DatName = StructuralObject.SetValidValue(value, true);
+                _DatName = StructuralObject.SetValidValue(value, true, "DatName");
                 ReportPropertyChanged("DatName");
                 OnDatNameChanged();
             }
@@ -66040,7 +66662,7 @@ namespace PriemLib
             {
                 OnVinNameChanging(value);
                 ReportPropertyChanging("VinName");
-                _VinName = StructuralObject.SetValidValue(value, true);
+                _VinName = StructuralObject.SetValidValue(value, true, "VinName");
                 ReportPropertyChanged("VinName");
                 OnVinNameChanged();
             }
@@ -66051,7 +66673,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -66201,7 +66822,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -66220,7 +66841,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -66245,7 +66866,7 @@ namespace PriemLib
             {
                 OnNameChanging(value);
                 ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, false);
+                _Name = StructuralObject.SetValidValue(value, false, "Name");
                 ReportPropertyChanged("Name");
                 OnNameChanged();
             }
@@ -66269,7 +66890,7 @@ namespace PriemLib
             {
                 OnNameEngChanging(value);
                 ReportPropertyChanging("NameEng");
-                _NameEng = StructuralObject.SetValidValue(value, true);
+                _NameEng = StructuralObject.SetValidValue(value, true, "NameEng");
                 ReportPropertyChanged("NameEng");
                 OnNameEngChanged();
             }
@@ -66293,7 +66914,7 @@ namespace PriemLib
             {
                 OnCodeChanging(value);
                 ReportPropertyChanging("Code");
-                _Code = StructuralObject.SetValidValue(value, true);
+                _Code = StructuralObject.SetValidValue(value, true, "Code");
                 ReportPropertyChanged("Code");
                 OnCodeChanged();
             }
@@ -66317,7 +66938,7 @@ namespace PriemLib
             {
                 OnStudyLevelIdChanging(value);
                 ReportPropertyChanging("StudyLevelId");
-                _StudyLevelId = StructuralObject.SetValidValue(value);
+                _StudyLevelId = StructuralObject.SetValidValue(value, "StudyLevelId");
                 ReportPropertyChanged("StudyLevelId");
                 OnStudyLevelIdChanged();
             }
@@ -66341,7 +66962,7 @@ namespace PriemLib
             {
                 OnProgramTypeIdChanging(value);
                 ReportPropertyChanging("ProgramTypeId");
-                _ProgramTypeId = StructuralObject.SetValidValue(value);
+                _ProgramTypeId = StructuralObject.SetValidValue(value, "ProgramTypeId");
                 ReportPropertyChanged("ProgramTypeId");
                 OnProgramTypeIdChanged();
             }
@@ -66365,7 +66986,7 @@ namespace PriemLib
             {
                 OnPositionNumChanging(value);
                 ReportPropertyChanging("PositionNum");
-                _PositionNum = StructuralObject.SetValidValue(value, true);
+                _PositionNum = StructuralObject.SetValidValue(value, true, "PositionNum");
                 ReportPropertyChanged("PositionNum");
                 OnPositionNumChanged();
             }
@@ -66389,7 +67010,7 @@ namespace PriemLib
             {
                 OnNormativePeriodChanging(value);
                 ReportPropertyChanging("NormativePeriod");
-                _NormativePeriod = StructuralObject.SetValidValue(value, true);
+                _NormativePeriod = StructuralObject.SetValidValue(value, true, "NormativePeriod");
                 ReportPropertyChanged("NormativePeriod");
                 OnNormativePeriodChanged();
             }
@@ -66413,7 +67034,7 @@ namespace PriemLib
             {
                 OnQualificationIdChanging(value);
                 ReportPropertyChanging("QualificationId");
-                _QualificationId = StructuralObject.SetValidValue(value);
+                _QualificationId = StructuralObject.SetValidValue(value, "QualificationId");
                 ReportPropertyChanged("QualificationId");
                 OnQualificationIdChanged();
             }
@@ -66437,7 +67058,7 @@ namespace PriemLib
             {
                 OnAggregateGroupIdChanging(value);
                 ReportPropertyChanging("AggregateGroupId");
-                _AggregateGroupId = StructuralObject.SetValidValue(value);
+                _AggregateGroupId = StructuralObject.SetValidValue(value, "AggregateGroupId");
                 ReportPropertyChanged("AggregateGroupId");
                 OnAggregateGroupIdChanged();
             }
@@ -66461,7 +67082,7 @@ namespace PriemLib
             {
                 OnIsOpenChanging(value);
                 ReportPropertyChanging("IsOpen");
-                _IsOpen = StructuralObject.SetValidValue(value);
+                _IsOpen = StructuralObject.SetValidValue(value, "IsOpen");
                 ReportPropertyChanged("IsOpen");
                 OnIsOpenChanged();
             }
@@ -66485,7 +67106,7 @@ namespace PriemLib
             {
                 OnHolderChanging(value);
                 ReportPropertyChanging("Holder");
-                _Holder = StructuralObject.SetValidValue(value, true);
+                _Holder = StructuralObject.SetValidValue(value, true, "Holder");
                 ReportPropertyChanged("Holder");
                 OnHolderChanged();
             }
@@ -66509,7 +67130,7 @@ namespace PriemLib
             {
                 OnGSGUCodeChanging(value);
                 ReportPropertyChanging("GSGUCode");
-                _GSGUCode = StructuralObject.SetValidValue(value, true);
+                _GSGUCode = StructuralObject.SetValidValue(value, true, "GSGUCode");
                 ReportPropertyChanged("GSGUCode");
                 OnGSGUCodeChanged();
             }
@@ -66533,7 +67154,7 @@ namespace PriemLib
             {
                 OnVSHEUGNIdChanging(value);
                 ReportPropertyChanging("VSHEUGNId");
-                _VSHEUGNId = StructuralObject.SetValidValue(value);
+                _VSHEUGNId = StructuralObject.SetValidValue(value, "VSHEUGNId");
                 ReportPropertyChanged("VSHEUGNId");
                 OnVSHEUGNIdChanged();
             }
@@ -66544,7 +67165,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -66728,7 +67348,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -66747,7 +67367,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -66772,7 +67392,7 @@ namespace PriemLib
             {
                 OnNameChanging(value);
                 ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, false);
+                _Name = StructuralObject.SetValidValue(value, false, "Name");
                 ReportPropertyChanged("Name");
                 OnNameChanged();
             }
@@ -66796,7 +67416,7 @@ namespace PriemLib
             {
                 OnNameEngChanging(value);
                 ReportPropertyChanging("NameEng");
-                _NameEng = StructuralObject.SetValidValue(value, true);
+                _NameEng = StructuralObject.SetValidValue(value, true, "NameEng");
                 ReportPropertyChanged("NameEng");
                 OnNameEngChanged();
             }
@@ -66820,7 +67440,7 @@ namespace PriemLib
             {
                 OnNumberChanging(value);
                 ReportPropertyChanging("Number");
-                _Number = StructuralObject.SetValidValue(value, true);
+                _Number = StructuralObject.SetValidValue(value, true, "Number");
                 ReportPropertyChanged("Number");
                 OnNumberChanged();
             }
@@ -66844,7 +67464,7 @@ namespace PriemLib
             {
                 OnLicenseProgramIdChanging(value);
                 ReportPropertyChanging("LicenseProgramId");
-                _LicenseProgramId = StructuralObject.SetValidValue(value);
+                _LicenseProgramId = StructuralObject.SetValidValue(value, "LicenseProgramId");
                 ReportPropertyChanged("LicenseProgramId");
                 OnLicenseProgramIdChanged();
             }
@@ -66868,7 +67488,7 @@ namespace PriemLib
             {
                 OnFacultyIdChanging(value);
                 ReportPropertyChanging("FacultyId");
-                _FacultyId = StructuralObject.SetValidValue(value);
+                _FacultyId = StructuralObject.SetValidValue(value, "FacultyId");
                 ReportPropertyChanged("FacultyId");
                 OnFacultyIdChanged();
             }
@@ -66892,7 +67512,7 @@ namespace PriemLib
             {
                 OnProgramModeIdChanging(value);
                 ReportPropertyChanging("ProgramModeId");
-                _ProgramModeId = StructuralObject.SetValidValue(value);
+                _ProgramModeId = StructuralObject.SetValidValue(value, "ProgramModeId");
                 ReportPropertyChanged("ProgramModeId");
                 OnProgramModeIdChanged();
             }
@@ -66916,7 +67536,7 @@ namespace PriemLib
             {
                 OnIsExpressChanging(value);
                 ReportPropertyChanging("IsExpress");
-                _IsExpress = StructuralObject.SetValidValue(value);
+                _IsExpress = StructuralObject.SetValidValue(value, "IsExpress");
                 ReportPropertyChanged("IsExpress");
                 OnIsExpressChanged();
             }
@@ -66940,7 +67560,7 @@ namespace PriemLib
             {
                 OnIsOpenChanging(value);
                 ReportPropertyChanging("IsOpen");
-                _IsOpen = StructuralObject.SetValidValue(value);
+                _IsOpen = StructuralObject.SetValidValue(value, "IsOpen");
                 ReportPropertyChanged("IsOpen");
                 OnIsOpenChanged();
             }
@@ -66964,7 +67584,7 @@ namespace PriemLib
             {
                 OnHolderChanging(value);
                 ReportPropertyChanging("Holder");
-                _Holder = StructuralObject.SetValidValue(value, true);
+                _Holder = StructuralObject.SetValidValue(value, true, "Holder");
                 ReportPropertyChanged("Holder");
                 OnHolderChanged();
             }
@@ -66975,7 +67595,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -67127,7 +67746,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -67146,7 +67765,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -67171,7 +67790,7 @@ namespace PriemLib
             {
                 OnNameChanging(value);
                 ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, true);
+                _Name = StructuralObject.SetValidValue(value, true, "Name");
                 ReportPropertyChanged("Name");
                 OnNameChanged();
             }
@@ -67195,7 +67814,7 @@ namespace PriemLib
             {
                 OnNameEngChanging(value);
                 ReportPropertyChanging("NameEng");
-                _NameEng = StructuralObject.SetValidValue(value, true);
+                _NameEng = StructuralObject.SetValidValue(value, true, "NameEng");
                 ReportPropertyChanged("NameEng");
                 OnNameEngChanged();
             }
@@ -67219,7 +67838,7 @@ namespace PriemLib
             {
                 OnAcronymChanging(value);
                 ReportPropertyChanging("Acronym");
-                _Acronym = StructuralObject.SetValidValue(value, true);
+                _Acronym = StructuralObject.SetValidValue(value, true, "Acronym");
                 ReportPropertyChanged("Acronym");
                 OnAcronymChanged();
             }
@@ -67243,7 +67862,7 @@ namespace PriemLib
             {
                 OnAcronymEngChanging(value);
                 ReportPropertyChanging("AcronymEng");
-                _AcronymEng = StructuralObject.SetValidValue(value, true);
+                _AcronymEng = StructuralObject.SetValidValue(value, true, "AcronymEng");
                 ReportPropertyChanged("AcronymEng");
                 OnAcronymEngChanged();
             }
@@ -67267,7 +67886,7 @@ namespace PriemLib
             {
                 OnIsOpenChanging(value);
                 ReportPropertyChanging("IsOpen");
-                _IsOpen = StructuralObject.SetValidValue(value);
+                _IsOpen = StructuralObject.SetValidValue(value, "IsOpen");
                 ReportPropertyChanged("IsOpen");
                 OnIsOpenChanged();
             }
@@ -67291,7 +67910,7 @@ namespace PriemLib
             {
                 OnHolderChanging(value);
                 ReportPropertyChanging("Holder");
-                _Holder = StructuralObject.SetValidValue(value, true);
+                _Holder = StructuralObject.SetValidValue(value, true, "Holder");
                 ReportPropertyChanged("Holder");
                 OnHolderChanged();
             }
@@ -67302,7 +67921,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -67376,7 +67994,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -67395,7 +68013,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -67420,7 +68038,7 @@ namespace PriemLib
             {
                 OnNameChanging(value);
                 ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, true);
+                _Name = StructuralObject.SetValidValue(value, true, "Name");
                 ReportPropertyChanged("Name");
                 OnNameChanged();
             }
@@ -67444,7 +68062,7 @@ namespace PriemLib
             {
                 OnAcronymChanging(value);
                 ReportPropertyChanging("Acronym");
-                _Acronym = StructuralObject.SetValidValue(value, true);
+                _Acronym = StructuralObject.SetValidValue(value, true, "Acronym");
                 ReportPropertyChanged("Acronym");
                 OnAcronymChanged();
             }
@@ -67455,7 +68073,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -67509,7 +68126,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -67528,7 +68145,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -67553,7 +68170,7 @@ namespace PriemLib
             {
                 OnNameChanging(value);
                 ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, false);
+                _Name = StructuralObject.SetValidValue(value, false, "Name");
                 ReportPropertyChanged("Name");
                 OnNameChanged();
             }
@@ -67577,7 +68194,7 @@ namespace PriemLib
             {
                 OnAcronymChanging(value);
                 ReportPropertyChanging("Acronym");
-                _Acronym = StructuralObject.SetValidValue(value, true);
+                _Acronym = StructuralObject.SetValidValue(value, true, "Acronym");
                 ReportPropertyChanged("Acronym");
                 OnAcronymChanged();
             }
@@ -67601,7 +68218,7 @@ namespace PriemLib
             {
                 OnFISNameChanging(value);
                 ReportPropertyChanging("FISName");
-                _FISName = StructuralObject.SetValidValue(value, true);
+                _FISName = StructuralObject.SetValidValue(value, true, "FISName");
                 ReportPropertyChanged("FISName");
                 OnFISNameChanged();
             }
@@ -67612,7 +68229,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -67710,7 +68326,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -67729,7 +68345,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -67754,7 +68370,7 @@ namespace PriemLib
             {
                 OnNameChanging(value);
                 ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, false);
+                _Name = StructuralObject.SetValidValue(value, false, "Name");
                 ReportPropertyChanged("Name");
                 OnNameChanged();
             }
@@ -67778,7 +68394,7 @@ namespace PriemLib
             {
                 OnAcronymChanging(value);
                 ReportPropertyChanging("Acronym");
-                _Acronym = StructuralObject.SetValidValue(value, true);
+                _Acronym = StructuralObject.SetValidValue(value, true, "Acronym");
                 ReportPropertyChanged("Acronym");
                 OnAcronymChanged();
             }
@@ -67802,7 +68418,7 @@ namespace PriemLib
             {
                 OnRodNameChanging(value);
                 ReportPropertyChanging("RodName");
-                _RodName = StructuralObject.SetValidValue(value, true);
+                _RodName = StructuralObject.SetValidValue(value, true, "RodName");
                 ReportPropertyChanged("RodName");
                 OnRodNameChanged();
             }
@@ -67826,7 +68442,7 @@ namespace PriemLib
             {
                 OnOldNameChanging(value);
                 ReportPropertyChanging("OldName");
-                _OldName = StructuralObject.SetValidValue(value, true);
+                _OldName = StructuralObject.SetValidValue(value, true, "OldName");
                 ReportPropertyChanged("OldName");
                 OnOldNameChanged();
             }
@@ -67850,7 +68466,7 @@ namespace PriemLib
             {
                 OnFISNameChanging(value);
                 ReportPropertyChanging("FISName");
-                _FISName = StructuralObject.SetValidValue(value, true);
+                _FISName = StructuralObject.SetValidValue(value, true, "FISName");
                 ReportPropertyChanged("FISName");
                 OnFISNameChanged();
             }
@@ -67874,7 +68490,7 @@ namespace PriemLib
             {
                 OnDatNameChanging(value);
                 ReportPropertyChanging("DatName");
-                _DatName = StructuralObject.SetValidValue(value, true);
+                _DatName = StructuralObject.SetValidValue(value, true, "DatName");
                 ReportPropertyChanged("DatName");
                 OnDatNameChanged();
             }
@@ -67885,7 +68501,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -67985,7 +68600,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -68004,7 +68619,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -68029,7 +68644,7 @@ namespace PriemLib
             {
                 OnNameChanging(value);
                 ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, false);
+                _Name = StructuralObject.SetValidValue(value, false, "Name");
                 ReportPropertyChanged("Name");
                 OnNameChanged();
             }
@@ -68053,7 +68668,7 @@ namespace PriemLib
             {
                 OnAcronymChanging(value);
                 ReportPropertyChanging("Acronym");
-                _Acronym = StructuralObject.SetValidValue(value, true);
+                _Acronym = StructuralObject.SetValidValue(value, true, "Acronym");
                 ReportPropertyChanged("Acronym");
                 OnAcronymChanged();
             }
@@ -68077,7 +68692,7 @@ namespace PriemLib
             {
                 OnLevelGroupIdChanging(value);
                 ReportPropertyChanging("LevelGroupId");
-                _LevelGroupId = StructuralObject.SetValidValue(value);
+                _LevelGroupId = StructuralObject.SetValidValue(value, "LevelGroupId");
                 ReportPropertyChanged("LevelGroupId");
                 OnLevelGroupIdChanged();
             }
@@ -68101,7 +68716,7 @@ namespace PriemLib
             {
                 OnLevelGroupPrintChanging(value);
                 ReportPropertyChanging("LevelGroupPrint");
-                _LevelGroupPrint = StructuralObject.SetValidValue(value, true);
+                _LevelGroupPrint = StructuralObject.SetValidValue(value, true, "LevelGroupPrint");
                 ReportPropertyChanged("LevelGroupPrint");
                 OnLevelGroupPrintChanged();
             }
@@ -68125,7 +68740,7 @@ namespace PriemLib
             {
                 OnFISNameChanging(value);
                 ReportPropertyChanging("FISName");
-                _FISName = StructuralObject.SetValidValue(value, true);
+                _FISName = StructuralObject.SetValidValue(value, true, "FISName");
                 ReportPropertyChanged("FISName");
                 OnFISNameChanged();
             }
@@ -68149,7 +68764,7 @@ namespace PriemLib
             {
                 OnNameRodChanging(value);
                 ReportPropertyChanging("NameRod");
-                _NameRod = StructuralObject.SetValidValue(value, true);
+                _NameRod = StructuralObject.SetValidValue(value, true, "NameRod");
                 ReportPropertyChanged("NameRod");
                 OnNameRodChanged();
             }
@@ -68160,7 +68775,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -68274,7 +68888,7 @@ namespace PriemLib
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -68293,7 +68907,7 @@ namespace PriemLib
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -68318,7 +68932,7 @@ namespace PriemLib
             {
                 OnNameChanging(value);
                 ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, false);
+                _Name = StructuralObject.SetValidValue(value, false, "Name");
                 ReportPropertyChanged("Name");
                 OnNameChanged();
             }
@@ -68342,7 +68956,7 @@ namespace PriemLib
             {
                 OnAcronymChanging(value);
                 ReportPropertyChanging("Acronym");
-                _Acronym = StructuralObject.SetValidValue(value, true);
+                _Acronym = StructuralObject.SetValidValue(value, true, "Acronym");
                 ReportPropertyChanged("Acronym");
                 OnAcronymChanged();
             }
@@ -68353,7 +68967,6 @@ namespace PriemLib
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -68384,5 +68997,4 @@ namespace PriemLib
 
     #endregion
 
-    
 }

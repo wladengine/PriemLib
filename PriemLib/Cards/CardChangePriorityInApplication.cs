@@ -38,7 +38,7 @@ namespace PriemLib
                 if (PersonId != Guid.Empty)
                 {
                     var data = context.Abiturient
-                        .Where(x => x.PersonId == PersonId && x.Entry.StudyLevel.LevelGroupId == MainClass.studyLevelGroupId && !x.IsGosLine && x.Entry.StudyBasisId == 1 && !x.BackDoc)
+                        .Where(x => x.PersonId == PersonId && MainClass.lstStudyLevelGroupId.Contains(x.Entry.StudyLevel.LevelGroupId) && !x.IsGosLine && x.Entry.StudyBasisId == 1 && !x.BackDoc)
                         .Select(x => new
                         {
                             x.Id,

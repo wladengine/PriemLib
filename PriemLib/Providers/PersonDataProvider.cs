@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Objects;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Text;
 
@@ -89,12 +89,12 @@ namespace PriemLib
             }
         }
 
-        public static void SaveEducationDocument(Person_EducationInfo ED)
+        public static void SaveEducationDocument(Person_EducationInfo ED, bool insert)
         {
             ObjectParameter idParam = new ObjectParameter("id", typeof(int));
             using (PriemEntities context = new PriemEntities())
             {
-                if (ED.Id == 0)
+                if (ED.Id == 0 || insert)
                     context.Person_EducationInfo_insert(ED.PersonId, ED.IsExcellent, ED.SchoolCity, ED.SchoolTypeId, ED.SchoolName,
                         ED.SchoolNum, ED.SchoolExitYear, ED.SchoolAVG, ED.CountryEducId, ED.RegionEducId, ED.IsEqual,
                         ED.AttestatSeries, ED.AttestatNum, ED.DiplomSeries, ED.DiplomNum, ED.HighEducation,
@@ -157,7 +157,7 @@ namespace PriemLib
         public static extPerson_EducationInfo GetPersonCurrentInfo(Guid PersonId)
         {
             IPersonCurrentInfoDataProvider provider;
-            switch (MainClass.studyLevelGroupId)
+            switch (MainClass.lstStudyLevelGroupId.First())
             {
                 case 1: { provider = new PersonCurrentEducationDocument_1K(); break; }
                 case 2: { provider = new PersonCurrentEducationDocument_Mag(); break; }

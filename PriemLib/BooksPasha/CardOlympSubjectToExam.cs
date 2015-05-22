@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 
 using EducServLib;
+using System.Data.Entity.Core.Objects;
 
 namespace PriemLib
 {
@@ -63,7 +64,7 @@ namespace PriemLib
         {
             using (PriemEntities context = new PriemEntities())
             {
-                var src = context.extExamInEntry.Where(x => x.StudyLevelGroupId == MainClass.studyLevelGroupId)
+                var src = context.extExamInEntry.Where(x => MainClass.lstStudyLevelGroupId.Contains(x.StudyLevelGroupId))
                     .Select(x => new { x.ExamId, x.ExamName }).Distinct().ToList()
                     .Select(x => new KeyValuePair<string, string>(x.ExamId.ToString(), x.ExamName)).ToList();
 
@@ -85,7 +86,7 @@ namespace PriemLib
             SaveClick();
         }
 
-        protected override void InsertRec(PriemEntities context, System.Data.Objects.ObjectParameter idParam)
+        protected override void InsertRec(PriemEntities context, ObjectParameter idParam)
         {
             context.OlympSubjectToExam_Insert(OlympSubjectId, ExamId, idParam);
         }

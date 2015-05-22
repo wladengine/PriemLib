@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
-using System.Data.Objects;
+using System.Data.Entity.Core.Objects;
 using System.Transactions;
 
 using BaseFormsLib;
@@ -120,7 +120,7 @@ namespace PriemLib
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error("Ошибка при инициализации формы " + exc.Message);
+                WinFormsServ.Error("Ошибка при инициализации формы ", exc);
             }
         }
         protected override bool IsForReadOnly()
@@ -248,11 +248,11 @@ namespace PriemLib
             }
             catch (DataException de)
             {
-                WinFormsServ.Error("Ошибка при заполнении формы " + de.Message);
+                WinFormsServ.Error("Ошибка при заполнении формы ", de);
             }
             catch (Exception ex)
             {
-                WinFormsServ.Error("Ошибка при заполнении формы " + ex.Message);
+                WinFormsServ.Error("Ошибка при заполнении формы ", ex);
             }
         }
         private extPerson GetPerson()
@@ -300,7 +300,7 @@ namespace PriemLib
 
             catch (Exception ex)
             {
-                WinFormsServ.Error("Ошибка при заполнении формы " + ex.Message);
+                WinFormsServ.Error("Ошибка при заполнении формы ", ex);
                 return null;
             }
         }
@@ -373,11 +373,11 @@ namespace PriemLib
             }
             catch (DataException de)
             {
-                WinFormsServ.Error("Ошибка при заполнении формы (DataException)" + de.Message);
+                WinFormsServ.Error("Ошибка при заполнении формы (DataException)", de);
             }
             catch (Exception ex)
             {
-                WinFormsServ.Error("Ошибка при заполнении формы " + ex.Message);
+                WinFormsServ.Error("Ошибка при заполнении формы ", ex);
             }
         }
         private void FillEgeFirst(DataTable dtEge)
@@ -456,7 +456,7 @@ namespace PriemLib
             }
             catch (DataException de)
             {
-                WinFormsServ.Error("Ошибка при заполнении формы " + de.Message);
+                WinFormsServ.Error("Ошибка при заполнении формы ", de);
             }
         }
         private void FillFiles()
@@ -541,7 +541,7 @@ namespace PriemLib
             }
             catch (Exception ex)
             {
-                WinFormsServ.Error("Ошибка при заполнении формы заявления" + ex.Message);
+                WinFormsServ.Error("Ошибка при заполнении формы заявления", ex);
             }
         }
         private void UpdateApplicationGrid()
@@ -1145,7 +1145,7 @@ namespace PriemLib
             }
             catch (Exception de)
             {
-                WinFormsServ.Error("Ошибка обновления данных" + de.Message);
+                WinFormsServ.Error("Ошибка обновления данных", de);
                 return false;
             }
         }
@@ -1176,7 +1176,7 @@ namespace PriemLib
             }
             catch (Exception de)
             {
-                WinFormsServ.Error("Ошибка обновления данных Abiturient\n" + de.Message + "\n" + de.InnerException.Message);
+                WinFormsServ.Error("Ошибка обновления данных Abiturient\n", de);
                 return false;
             }
         }
@@ -1198,7 +1198,7 @@ namespace PriemLib
             }
             catch (Exception de)
             {          
-                WinFormsServ.Error("Ошибка сохранения данные ЕГЭ - данные не были сохранены. Введите их заново! \n" + de.Message);
+                WinFormsServ.Error("Ошибка сохранения данные ЕГЭ - данные не были сохранены. Введите их заново! \n", de);
             }
         }
         private void SaveEducationDocuments()
@@ -1206,11 +1206,15 @@ namespace PriemLib
             try
             {
                 foreach (var ED in lstEducationInfo)
-                    PersonDataProvider.SaveEducationDocument(ED);
+                {
+                    if (personId.HasValue)
+                        ED.PersonId = personId.Value;
+                    PersonDataProvider.SaveEducationDocument(ED, true);
+                }
             }
             catch (Exception de)
             {
-                WinFormsServ.Error("Ошибка сохранения данных об образовании - данные не были сохранены. \n" + de.Message);
+                WinFormsServ.Error("Ошибка сохранения данных об образовании - данные не были сохранены. \n", de);
             }
         }
 

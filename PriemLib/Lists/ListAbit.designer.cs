@@ -108,9 +108,9 @@ namespace PriemLib
             // 
             // tbNumber
             // 
-            this.tbNumber.Location = new System.Drawing.Point(58, 68);
+            this.tbNumber.Location = new System.Drawing.Point(55, 68);
             this.tbNumber.Name = "tbNumber";
-            this.tbNumber.Size = new System.Drawing.Size(115, 20);
+            this.tbNumber.Size = new System.Drawing.Size(118, 20);
             this.tbNumber.TabIndex = 3;
             this.tbNumber.TextChanged += new System.EventHandler(this.tbNumber_TextChanged);
             // 
@@ -125,7 +125,7 @@ namespace PriemLib
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(12, 12);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(63, 13);
             this.label1.TabIndex = 6;
@@ -134,7 +134,7 @@ namespace PriemLib
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(55, 52);
+            this.label2.Location = new System.Drawing.Point(54, 52);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(63, 13);
             this.label2.TabIndex = 7;
@@ -174,7 +174,7 @@ namespace PriemLib
             // lblSearch
             // 
             this.lblSearch.AutoSize = true;
-            this.lblSearch.Location = new System.Drawing.Point(12, 71);
+            this.lblSearch.Location = new System.Drawing.Point(9, 52);
             this.lblSearch.Name = "lblSearch";
             this.lblSearch.Size = new System.Drawing.Size(39, 13);
             this.lblSearch.TabIndex = 7;
@@ -295,9 +295,9 @@ namespace PriemLib
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.InitialImage")));
-            this.pictureBox1.Location = new System.Drawing.Point(12, 52);
+            this.pictureBox1.Location = new System.Drawing.Point(12, 68);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(36, 19);
+            this.pictureBox1.Size = new System.Drawing.Size(25, 19);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 19;
             this.pictureBox1.TabStop = false;
@@ -327,9 +327,9 @@ namespace PriemLib
             this.cbFaculty.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbFaculty.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbFaculty.FormattingEnabled = true;
-            this.cbFaculty.Location = new System.Drawing.Point(12, 25);
+            this.cbFaculty.Location = new System.Drawing.Point(12, 28);
             this.cbFaculty.Name = "cbFaculty";
-            this.cbFaculty.Size = new System.Drawing.Size(231, 21);
+            this.cbFaculty.Size = new System.Drawing.Size(282, 21);
             this.cbFaculty.TabIndex = 114;
             // 
             // gbWait

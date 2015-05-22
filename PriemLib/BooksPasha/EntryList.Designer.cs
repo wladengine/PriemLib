@@ -48,6 +48,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.btnToExcel = new System.Windows.Forms.Button();
             this.chbIsForeign = new System.Windows.Forms.CheckBox();
+            this.chbIsCrimea = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEntry)).BeginInit();
             this.SuspendLayout();
             // 
@@ -114,7 +115,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 66);
+            this.label2.Location = new System.Drawing.Point(9, 53);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(94, 13);
             this.label2.TabIndex = 97;
@@ -126,14 +127,14 @@
             this.cbStudyBasis.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbStudyBasis.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbStudyBasis.FormattingEnabled = true;
-            this.cbStudyBasis.Location = new System.Drawing.Point(12, 82);
+            this.cbStudyBasis.Location = new System.Drawing.Point(12, 69);
             this.cbStudyBasis.Name = "cbStudyBasis";
             this.cbStudyBasis.Size = new System.Drawing.Size(161, 21);
             this.cbStudyBasis.TabIndex = 96;
             // 
             // tbPlanNumSearch
             // 
-            this.tbPlanNumSearch.Location = new System.Drawing.Point(12, 146);
+            this.tbPlanNumSearch.Location = new System.Drawing.Point(12, 109);
             this.tbPlanNumSearch.Name = "tbPlanNumSearch";
             this.tbPlanNumSearch.Size = new System.Drawing.Size(262, 20);
             this.tbPlanNumSearch.TabIndex = 99;
@@ -142,7 +143,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(9, 130);
+            this.label4.Location = new System.Drawing.Point(9, 93);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(206, 13);
             this.label4.TabIndex = 98;
@@ -151,7 +152,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(195, 66);
+            this.label6.Location = new System.Drawing.Point(195, 53);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(93, 13);
             this.label6.TabIndex = 101;
@@ -163,7 +164,7 @@
             this.cbStudyForm.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbStudyForm.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbStudyForm.FormattingEnabled = true;
-            this.cbStudyForm.Location = new System.Drawing.Point(198, 82);
+            this.cbStudyForm.Location = new System.Drawing.Point(198, 69);
             this.cbStudyForm.Name = "cbStudyForm";
             this.cbStudyForm.Size = new System.Drawing.Size(161, 21);
             this.cbStudyForm.TabIndex = 100;
@@ -188,12 +189,12 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvEntry.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvEntry.Location = new System.Drawing.Point(12, 172);
+            this.dgvEntry.Location = new System.Drawing.Point(12, 135);
             this.dgvEntry.MultiSelect = false;
             this.dgvEntry.Name = "dgvEntry";
             this.dgvEntry.ReadOnly = true;
             this.dgvEntry.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvEntry.Size = new System.Drawing.Size(1031, 270);
+            this.dgvEntry.Size = new System.Drawing.Size(1031, 307);
             this.dgvEntry.TabIndex = 106;
             // 
             // cbIsSecond
@@ -245,7 +246,7 @@
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(76, 13);
             this.label5.TabIndex = 111;
-            this.label5.Text = "Для лис с ВО";
+            this.label5.Text = "Для лиц с ВО";
             // 
             // label7
             // 
@@ -270,7 +271,7 @@
             // chbIsForeign
             // 
             this.chbIsForeign.AutoSize = true;
-            this.chbIsForeign.Location = new System.Drawing.Point(411, 84);
+            this.chbIsForeign.Location = new System.Drawing.Point(411, 71);
             this.chbIsForeign.Name = "chbIsForeign";
             this.chbIsForeign.Size = new System.Drawing.Size(118, 17);
             this.chbIsForeign.TabIndex = 114;
@@ -278,11 +279,23 @@
             this.chbIsForeign.UseVisualStyleBackColor = true;
             this.chbIsForeign.CheckedChanged += new System.EventHandler(this.chbIsForeign_CheckedChanged);
             // 
+            // chbIsCrimea
+            // 
+            this.chbIsCrimea.AutoSize = true;
+            this.chbIsCrimea.Location = new System.Drawing.Point(557, 71);
+            this.chbIsCrimea.Name = "chbIsCrimea";
+            this.chbIsCrimea.Size = new System.Drawing.Size(55, 17);
+            this.chbIsCrimea.TabIndex = 115;
+            this.chbIsCrimea.Text = "Крым";
+            this.chbIsCrimea.UseVisualStyleBackColor = true;
+            this.chbIsCrimea.CheckedChanged += new System.EventHandler(this.chbIsCrimea_CheckedChanged);
+            // 
             // EntryList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1055, 512);
+            this.Controls.Add(this.chbIsCrimea);
             this.Controls.Add(this.chbIsForeign);
             this.Controls.Add(this.btnToExcel);
             this.Controls.Add(this.label7);
@@ -330,6 +343,7 @@
             this.Controls.SetChildIndex(this.label7, 0);
             this.Controls.SetChildIndex(this.btnToExcel, 0);
             this.Controls.SetChildIndex(this.chbIsForeign, 0);
+            this.Controls.SetChildIndex(this.chbIsCrimea, 0);
             ((System.ComponentModel.ISupportInitialize)(this.dgvEntry)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -358,5 +372,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button btnToExcel;
         private System.Windows.Forms.CheckBox chbIsForeign;
+        private System.Windows.Forms.CheckBox chbIsCrimea;
     }
 }

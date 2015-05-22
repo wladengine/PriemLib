@@ -52,7 +52,7 @@ namespace PriemLib
                 LEFT JOIN ed.qProtocolHistory ON ed.qProtocolHistory.AbiturientId = ed.extAbit.Id
                 LEFT JOIN ed.qProtocol ON ed.qProtocol.Id =  ed.qProtocolHistory.ProtocolId ";
 
-            this.sWhere = string.Format(" WHERE 1=1 AND ed.extAbit.StudyLevelGroupId = {1} AND ed.qProtocol.ProtocolTypeId = {0}", TypeToInt(_protocolType), MainClass.studyLevelGroupId);
+            this.sWhere = string.Format(" WHERE 1=1  AND ed.qProtocol.ProtocolTypeId = {0}", TypeToInt(_protocolType));
             this.sOrderby = " ORDER BY ed.extAbit.RegNum, ed.extAbit.BAckDoc ";
 
             InitializeComponent();
@@ -75,15 +75,16 @@ namespace PriemLib
             cbPrint.Items.Clear();
 
             InitGrid();
-
             try
             {
                 using (PriemEntities context = new PriemEntities())
                 {
-                    ComboServ.FillCombo(cbFaculty, HelpClass.GetComboListByTable("ed.qFaculty", "ORDER BY Acronym"), false, false);
+                    FillComboFaculty();
+                    //ComboServ.FillCombo(cbFaculty, HelpClass.GetComboListByTable("ed.qFaculty", "ORDER BY Acronym"), false, false);
                     ComboServ.FillCombo(cbStudyBasis, HelpClass.GetComboListByTable("ed.StudyBasis", "ORDER BY Name"), false, false);
 
-                    FillComboStudyForm(); 
+                    FillComboStudyLevelGroup();
+                    FillComboStudyForm();
                     UpdateProtocolList();
                   
                     cbFaculty.SelectedIndexChanged += new EventHandler(cbFaculty_SelectedIndexChanged);
@@ -105,26 +106,24 @@ namespace PriemLib
             }
             catch (Exception ex)
             {
-                WinFormsServ.Error("Ошибка при инициализации формы протоколов: " + ex.Message);
+                WinFormsServ.Error("Ошибка при инициализации формы протоколов: ", ex);
             }
         }
 
         void cbFaculty_SelectedIndexChanged(object sender, EventArgs e)
         {
+            FillComboStudyLevelGroup();
             FillComboStudyForm();
             UpdateProtocolList();
         }      
-
         void cbStudyForm_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateProtocolList();
         }
-
         void cbStudyBasis_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateProtocolList();
         }
-
         void cbProtocolNum_SelectedIndexChanged(object sender, EventArgs e)
         {
             GetProtocolInfo();
@@ -145,7 +144,36 @@ namespace PriemLib
 
                 ComboServ.FillCombo(cbStudyForm, lst, false, false);
             }
-        }         
+        }
+        private void FillComboStudyLevelGroup()
+        {
+            using (PriemEntities context = new PriemEntities())
+            {
+                var lst = ((from ent in MainClass.GetEntry(context)
+                            select new
+                            {
+                                ent.StudyLevelGroupId,
+                                ent.StudyLevelGroupName
+                            }).Distinct()).ToList().Select(x => new KeyValuePair<string, string>(x.StudyLevelGroupId.ToString(), x.StudyLevelGroupName)).ToList();
+
+                ComboServ.FillCombo(cbStudyLevelGroup, lst, false, false);
+            }
+        }
+        private void FillComboFaculty()
+        {
+            using (PriemEntities context = new PriemEntities())
+            {
+                var lst = ((from ent in MainClass.GetEntry(context)
+                            select new
+                            {
+                                ent.FacultyId,
+                                ent.FacultyName,
+                                ent.FacultyAcr
+                            }).Distinct()).ToList().OrderBy(x => x.FacultyAcr).Select(x => new KeyValuePair<string, string>(x.FacultyId.ToString(), x.FacultyName)).ToList();
+
+                ComboServ.FillCombo(cbFaculty, lst, false, false);
+            }
+        }
 
         //обновление списка протоколов
         private int _currentProtocolIndex = 0;
@@ -161,7 +189,7 @@ namespace PriemLib
                     var protocols = (from p in context.qProtocol
                                      where !p.IsOld && p.ProtocolTypeId == protType
                                      && p.FacultyId == FacultyId && p.StudyFormId == StudyFormId && p.StudyBasisId == StudyBasisId
-                                     && p.StudyLevelGroupId == MainClass.studyLevelGroupId
+                                     && p.StudyLevelGroupId.HasValue ? p.StudyLevelGroupId.Value == StudyLevelGroupId : true
                                      orderby p.Number
                                      select new
                                      {
@@ -174,7 +202,7 @@ namespace PriemLib
             }
             catch (Exception ex)
             {
-                WinFormsServ.Error("Ошибка при обновлении списка протоколов: " + ex.Message);
+                WinFormsServ.Error("Ошибка при обновлении списка протоколов: ", ex);
             }
         }
 
@@ -198,10 +226,9 @@ namespace PriemLib
             }
             catch (Exception ex)
             {
-                WinFormsServ.Error("Ошибка при взятии данных протокола: " + ex.Message);
+                WinFormsServ.Error("Ошибка при взятии данных протокола: ", ex);
             }
         }
-        
 
         //подготовка грида
         virtual protected void InitGrid()
@@ -284,6 +311,9 @@ namespace PriemLib
             if (FacultyId != null)
                 s += string.Format(" AND {0}.FacultyId = {1}", sTable, FacultyId);
 
+            if (StudyLevelGroupId != null)
+                s += string.Format(" AND {0}.StudyLevelGroupId = {1}", sTable, StudyLevelGroupId);
+
             return s;
         }
 
@@ -309,7 +339,7 @@ namespace PriemLib
         {
             if (MainClass.IsOwner())
             {
-                ProtocolCard p = new ProtocolCard(this, FacultyId.Value, StudyBasisId.Value, StudyFormId.Value, ProtocolNumId);
+                ProtocolCard p = new ProtocolCard(this, StudyLevelGroupId.Value, FacultyId.Value, StudyBasisId.Value, StudyFormId.Value, ProtocolNumId);
                 p.Show();
             }
         }
@@ -340,7 +370,7 @@ namespace PriemLib
                 return;
 
             if (StudyFormId != null)
-                MainClass.OpenNewProtocol(this, FacultyId.Value, StudyFormId.Value, StudyBasisId.Value, _protocolType);
+                MainClass.OpenNewProtocol(this, StudyLevelGroupId.Value, FacultyId.Value, StudyFormId.Value, StudyBasisId.Value, _protocolType);
         }
 
         //открытие карточки по двойному клику

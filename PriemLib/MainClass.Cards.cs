@@ -58,7 +58,7 @@ namespace PriemLib
             new CardAbit(abId, rowIndex, formOwner).Show();
         }
 
-        public static void OpenNewProtocol(ProtocolList formOwner, int iFacultyId, int iStudyFormId, int iStudyBasisId, ProtocolTypes _pType)
+        public static void OpenNewProtocol(ProtocolList formOwner, int iStudyLevelGroupId, int iFacultyId, int iStudyFormId, int iStudyBasisId, ProtocolTypes _pType)
         {
             foreach (Form frmChild in mainform.MdiChildren)
             {
@@ -73,11 +73,11 @@ namespace PriemLib
             ProtocolCard p;
             switch (_pType)
             {
-                case ProtocolTypes.EnableProtocol: { p = new EnableProtocol(formOwner, iFacultyId, iStudyBasisId, iStudyFormId); break; }
-                case ProtocolTypes.DisEnableProtocol: { p = new DisEnableProtocol(formOwner, iFacultyId, iStudyBasisId, iStudyFormId); break; }
-                case ProtocolTypes.ChangeCompCelProtocol: { p = new ChangeCompCelProtocol(formOwner, iFacultyId, iStudyBasisId, iStudyFormId); break; }
-                case ProtocolTypes.ChangeCompBEProtocol: { p = new ChangeCompBEProtocol(formOwner, iFacultyId, iStudyBasisId, iStudyFormId); break; }
-                default: { p = new EnableProtocol(formOwner, iFacultyId, iStudyBasisId, iStudyFormId); break; }
+                case ProtocolTypes.EnableProtocol: { p = new EnableProtocol(formOwner, iStudyLevelGroupId, iFacultyId, iStudyBasisId, iStudyFormId); break; }
+                case ProtocolTypes.DisEnableProtocol: { p = new DisEnableProtocol(formOwner, iStudyLevelGroupId, iFacultyId, iStudyBasisId, iStudyFormId); break; }
+                case ProtocolTypes.ChangeCompCelProtocol: { p = new ChangeCompCelProtocol(formOwner, iStudyLevelGroupId, iFacultyId, iStudyBasisId, iStudyFormId); break; }
+                case ProtocolTypes.ChangeCompBEProtocol: { p = new ChangeCompBEProtocol(formOwner, iStudyLevelGroupId, iFacultyId, iStudyBasisId, iStudyFormId); break; }
+                default: { p = new EnableProtocol(formOwner, iStudyLevelGroupId, iFacultyId, iStudyBasisId, iStudyFormId); break; }
             }
 
             p.Show();

@@ -13,7 +13,7 @@ namespace PriemLib
             using (PriemEntities context = new PriemEntities())
             {
                 var notUsedApplications = context.Abiturient
-                    .Where(x => x.PersonId == personId && !x.BackDoc && x.Entry.StudyLevel.LevelGroupId == MainClass.studyLevelGroupId)
+                    .Where(x => x.PersonId == personId && !x.BackDoc && MainClass.lstStudyLevelGroupId.Contains(x.Entry.StudyLevel.LevelGroupId))
                     .Select(x => x.EntryId).ToList()
                     .Except(LstCompetitions.Select(x => x.EntryId)).ToList();
                 if (notUsedApplications.Count > 0)
@@ -38,7 +38,7 @@ namespace PriemLib
                         {
                             foreach (var app_entry in notUsedApplications)
                             {
-                                var applst = context.Abiturient.Where(x => x.EntryId == app_entry && x.PersonId == personId && !x.BackDoc && x.Entry.StudyLevel.LevelGroupId == MainClass.studyLevelGroupId).Select(x => x.Id).ToList();
+                                var applst = context.Abiturient.Where(x => x.EntryId == app_entry && x.PersonId == personId && !x.BackDoc && MainClass.lstStudyLevelGroupId.Contains(x.Entry.StudyLevel.LevelGroupId)).Select(x => x.Id).ToList();
                                 foreach (var app in applst)
                                     context.Abiturient_UpdateBackDoc(true, DateTime.Now, app);
                             }

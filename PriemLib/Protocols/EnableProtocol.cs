@@ -12,8 +12,8 @@ namespace PriemLib
     public class EnableProtocol : ProtocolCard
     {
         //конструктор         
-        public EnableProtocol(ProtocolList owner, int iFacultyId, int iStudyBasisId, int iStudyFormId)
-            : base(owner, iFacultyId, iStudyBasisId, iStudyFormId)
+        public EnableProtocol(ProtocolList owner, int iStudyLevelGroupId, int iFacultyId, int iStudyBasisId, int iStudyFormId)
+            : base(owner, iStudyLevelGroupId, iFacultyId, iStudyBasisId, iStudyFormId)
         {
             _type = ProtocolTypes.EnableProtocol;
         }
@@ -26,16 +26,17 @@ namespace PriemLib
         //дополнительная инициализация
         protected override void InitControls()
         {
-            sQuery = @"SELECT DISTINCT ed.extAbit.Sum, ed.extPerson.AttestatSeries, ed.extPerson.AttestatNum, ed.extAbit.Id as Id, ed.extAbit.BAckDoc as backdoc, 
+            sQuery = @"SELECT DISTINCT ed.extAbit.Sum, CurrEduc.EducDocument, ed.extAbit.Id as Id, ed.extAbit.BAckDoc as backdoc, 
              (ed.extAbit.BAckDoc | ed.extAbit.NotEnabled | case when (NOT ed.hlpMinEgeAbiturient.Id IS NULL) then 'true' else 'false' end) as Red, ed.extAbit.RegNum as Рег_Номер, 
              ed.extPerson.FIO as ФИО, 
              ed.extPerson.EducDocument as Документ_об_образовании, 
              ed.extPerson.PassportSeries + ' №' + ed.extPerson.PassportNumber as Паспорт, 
              extAbit.ObrazProgramNameEx + ' ' + (Case when extAbit.ProfileId IS NULL then '' else extAbit.ProfileName end) as Направление, 
-             Competition.NAme as Конкурс, extAbit.BackDoc 
-             FROM ed.extAbit INNER JOIN ed.extPerson ON ed.extAbit.PersonId = ed.extPerson.Id   
-             LEFT JOIN ed.hlpMinEgeAbiturient ON ed.hlpMinEgeAbiturient.Id = ed.extAbit.Id
-             LEFT JOIN ed.Competition ON ed.Competition.Id = ed.extAbit.CompetitionId";
+             Competition.Name as Конкурс, extAbit.BackDoc 
+             FROM ed.extAbit INNER JOIN ed.extPerson ON extAbit.PersonId = extPerson.Id   
+             INNER JOIN ed.extPerson_EducationInfo_Current AS CurrEduc ON CurrEduc.PersonId = extPerson.Id
+             LEFT JOIN ed.hlpMinEgeAbiturient ON hlpMinEgeAbiturient.Id = extAbit.Id
+             LEFT JOIN ed.Competition ON Competition.Id = extAbit.CompetitionId";
 
             base.InitControls();
 
@@ -51,8 +52,8 @@ namespace PriemLib
             base.InitAndFillGrids();
 
             string sFilter = " /*AND extAbit.Id NOT IN (SELECT ed.hlpMinEgeAbiturient.Id FROM ed.hlpMinEgeAbiturient)*/ ";
-            sFilter = string.Format(" AND ed.extAbit.BackDoc = 0 AND ed.extAbit.NotEnabled=0 AND ed.extAbit.Id NOT IN (SELECT AbiturientId FROM ed.qProtocolHistory WHERE Excluded=0 AND ProtocolId IN (SELECT Id FROM ed.qProtocol WHERE ISOld=0 AND ProtocolTypeId=1 AND FacultyId ={0} AND StudyFormId = {1} AND StudyBasisId = {2}))", 
-                _facultyId.ToString(), _studyFormId.ToString(), _studyBasisId.ToString(), MainClass.studyLevelGroupId);
+            sFilter = string.Format(" AND ed.extAbit.BackDoc=0 AND ed.extAbit.NotEnabled=0 AND ed.extAbit.Id NOT IN (SELECT AbiturientId FROM ed.qProtocolHistory WHERE Excluded=0 AND ProtocolId IN (SELECT Id FROM ed.qProtocol WHERE ISOld=0 AND ProtocolTypeId=1 AND FacultyId ={0} AND StudyFormId = {1} AND StudyBasisId = {2}))", 
+                _facultyId.ToString(), _studyFormId.ToString(), _studyBasisId.ToString());
 
             if (chbFilter.Checked)
                 sFilter += " AND ed.extAbit.Checked > 0";

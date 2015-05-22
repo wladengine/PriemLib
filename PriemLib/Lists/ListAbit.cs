@@ -12,6 +12,7 @@ using EducServLib;
 using BDClassLib;
 using WordOut;
 using BaseFormsLib;
+using System.Threading.Tasks;
 
 namespace PriemLib
 {
@@ -20,6 +21,11 @@ namespace PriemLib
         private DataRefreshHandler _drh;
         private DBPriem _bdc;
         private BackgroundWorker bw;
+
+        private bool sorted = false;
+        private int index = 0;
+        private ListSortDirection order;
+        private string sortedColumn;
 
         public string FacultyId
         {
@@ -88,44 +94,10 @@ namespace PriemLib
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error("Ошибка при инициализации формы " + exc.Message);
+                WinFormsServ.Error("Ошибка при инициализации формы ", exc);
             }
         }
-
-        void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            cbFaculty.Enabled = true;
-
-            if (!e.Cancelled)
-            {
-                HelpClass.FillDataGrid(this.Dgv, (DataView)e.Result);
-
-                lblCount.Text = dgvAbitList.RowCount.ToString();
-                btnCard.Enabled = (dgvAbitList.RowCount != 0);
-            }
-
-            cbFaculty.Enabled = true;
-            btnCard.Enabled = true;
-            btnClose.Enabled = true;
-            btnColumns.Enabled = true;
-            btnExcel.Enabled = true;
-            btnFile.Enabled = true;
-            btnFilters.Enabled = true;
-            btnGroup.Enabled = true;
-            btnPrint.Enabled = true;
-            btnRemove.Enabled = true;
-            btnUpdate.Enabled = true;
-            gbWait.Visible = false;
-        }
-
-        void bw_DoWork(object sender, DoWorkEventArgs e)
-        {
-            BackgroundWorker _bw = sender as BackgroundWorker;
-            e.Result = HelpClass.GetDataView(((dynamic)e.Argument).dgv, ((dynamic)e.Argument).bdc, ((dynamic)e.Argument).query, ((dynamic)e.Argument).filters, ((dynamic)e.Argument).orderby);
-            if (_bw.CancellationPending)
-                e.Cancel = true;
-        }
-
+        
         private void SetSort()
         {
             if (dgvAbitList.Columns.Contains("ФИО"))
@@ -142,7 +114,6 @@ namespace PriemLib
         {           
             UpdateDataGrid();
         }
-
 
         //установить фильтры
         public void SetFilters(string sFaculty, string sGridQuery)
@@ -188,7 +159,7 @@ namespace PriemLib
         //                }
         //                catch (Exception ex)
         //                {
-        //                    WinFormsServ.Error("Ошибка удаления данных" + ex.Message);
+        //                    WinFormsServ.Error("Ошибка удаления данных", ex);
         //                    goto Next;
         //                }
         //            Next: ;
@@ -203,11 +174,6 @@ namespace PriemLib
         {
             string sFilters = GetFilterString();
             string sOrderBy = GetOrderByString();
-            //System.Threading.Thread t = new System.Threading.Thread(DoUpdate);
-            //if (!isBlock)
-            //{
-            //    t.Start(new { sFilters = sFilters, sOrderBy = sOrderBy });
-            //}
             DoUpdate(sFilters, sOrderBy, null);
         }
 
@@ -220,7 +186,6 @@ namespace PriemLib
         {
             DoUpdate(data.sFilters, data.sOrderBy, null);
         }
-
         private void DoUpdate(string filters, string orderby, List<string> tableList)
         {
             List<string> lTables = tableList == null ? new List<string>() : tableList;
@@ -240,19 +205,24 @@ namespace PriemLib
                 MainClass._config.ColumnListAbit.Add("ФИО");
 
 
-            string sortedColumn = string.Empty;
-            ListSortDirection order = ListSortDirection.Ascending;
-            int index = dgvAbitList.CurrentRow == null ? -1 : dgvAbitList.CurrentRow.Index;
+            sortedColumn = string.Empty;
+            order = ListSortDirection.Ascending;
+            index = dgvAbitList.CurrentRow == null ? -1 : dgvAbitList.CurrentRow.Index;
 
             if (dgvAbitList.SortOrder != SortOrder.None)
             {
+                sorted = true;
                 sortedColumn = dgvAbitList.SortedColumn.Name;
                 order = dgvAbitList.SortOrder == SortOrder.Ascending ? ListSortDirection.Ascending : ListSortDirection.Descending;
             }
 
             //stop previous
             if (bw.IsBusy)
+            {
+                bw.CancelAsync();
+                gbWait.Visible = false;
                 return;
+            }
 
             DBPriem __bdc = new DBPriem();
             __bdc.OpenDatabase(MainClass.connString);
@@ -269,10 +239,72 @@ namespace PriemLib
             btnGroup.Enabled = false;
             btnPrint.Enabled = false;
             btnRemove.Enabled = false;
-            btnUpdate.Enabled = false;
+            //btnUpdate.Enabled = false;
+            btnUpdate.Text = "Отмена";
             gbWait.Visible = true;
         }
 
+        async void bw_DoWork(object sender, DoWorkEventArgs e)
+        {
+            BackgroundWorker _bw = sender as BackgroundWorker;
+            //e.Result = HelpClass.GetDataView(((dynamic)e.Argument).dgv, ((dynamic)e.Argument).bdc, ((dynamic)e.Argument).query, ((dynamic)e.Argument).filters, ((dynamic)e.Argument).orderby);
+            Task<DataView> task = HelpClass.GetDataViewAsync((DataGridView)((dynamic)e.Argument).dgv, (BDClass)((dynamic)e.Argument).bdc, 
+                (string)((dynamic)e.Argument).query, (string)((dynamic)e.Argument).filters, (string)((dynamic)e.Argument).orderby, false);
+
+            while (!task.IsCompleted)
+            {
+                System.Threading.Thread.Sleep(25);
+
+                if (_bw.CancellationPending)
+                {
+                    e.Cancel = true;
+                    return;
+                }
+            }
+
+            e.Result = await task;
+        }
+        void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            cbFaculty.Enabled = true;
+
+            if (!e.Cancelled)
+            {
+                HelpClass.FillDataGrid(this.Dgv, (DataView)e.Result);
+
+                if (_groupList == null)
+                {
+                    if (dgvAbitList.Rows.Count > 0)
+                    {
+                        if (sorted && dgvAbitList.Columns.Contains(sortedColumn))
+                            dgvAbitList.Sort(dgvAbitList.Columns[sortedColumn], order);
+                        if (index >= 0 && index <= dgvAbitList.Rows.Count)
+                            dgvAbitList.CurrentCell = dgvAbitList[1, index];
+                    }
+                }
+                else
+                    _groupList = null;
+
+                lblCount.Text = dgvAbitList.RowCount.ToString();
+                btnCard.Enabled = (dgvAbitList.RowCount != 0);
+            }
+
+            cbFaculty.Enabled = true;
+            btnCard.Enabled = true;
+            btnClose.Enabled = true;
+            btnColumns.Enabled = true;
+            btnExcel.Enabled = true;
+            btnFile.Enabled = true;
+            btnFilters.Enabled = true;
+            btnGroup.Enabled = true;
+            btnPrint.Enabled = true;
+            btnRemove.Enabled = true;
+            //btnUpdate.Enabled = true;
+            btnUpdate.Text = "Обновить";
+            gbWait.Visible = false;
+        }
+
+        #region Search
         //поиск по номеру
         private void tbNumber_TextChanged(object sender, EventArgs e)
         {
@@ -315,6 +347,7 @@ namespace PriemLib
                 }
             }
         }
+        #endregion
 
         //строит строку ордер-бай
         private string GetOrderByString()
@@ -354,13 +387,11 @@ namespace PriemLib
         {
             this.Close();
         }
-
         private void ListAbit_Activated(object sender, EventArgs e)
         {
-            HelpClass.FillDataGrid(dgvAbitList, _bdc, MainClass.qBuilder.GetQuery(MainClass._config.ColumnListAbit, null), "");
+            HelpClass.FillDataGridAsync(dgvAbitList, _bdc, MainClass.qBuilder.GetQuery(MainClass._config.ColumnListAbit, null), "");
             lblCount.Text = dgvAbitList.RowCount.ToString();
         }
-            
         private void ListAbit_FormClosed(object sender, FormClosedEventArgs e)
         {
             MainClass.RemoveHandler(_drh);
@@ -378,16 +409,17 @@ namespace PriemLib
             Columns frm = new Columns(this, FacultyId);
             frm.ShowDialog();
         }                
-        
         private void btnFilters_Click(object sender, EventArgs e)
         {
             Filters f = new Filters(this, _bdc, _list);
             f.ShowDialog();
         }
-        
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            MainClass.DataRefresh();
+            if (bw.IsBusy)
+                bw.CancelAsync();
+            else
+                MainClass.DataRefresh();
         }
 
         //группировки
@@ -437,11 +469,10 @@ namespace PriemLib
 
                     i++;
                 }
-
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error("Ошибка вывода в Word: \n" + exc.Message);
+                WinFormsServ.Error("Ошибка вывода в Word: \n", exc);
             }
         }
 
@@ -488,7 +519,7 @@ namespace PriemLib
                 }
                 catch (Exception ex)
                 {
-                    WinFormsServ.Error("Ошибка при записи файла: " + ex.Message);
+                    WinFormsServ.Error("Ошибка при записи файла: ", ex);
                 }
 
             }

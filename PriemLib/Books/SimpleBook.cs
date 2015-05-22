@@ -132,7 +132,7 @@ namespace PriemLib
                 }
                 catch (Exception ex)
                 {
-                    WinFormsServ.Error("Ошибка при сохранении данных:" + ex.Message);
+                    WinFormsServ.Error("Ошибка при сохранении данных:", ex);
                 }
             }
 

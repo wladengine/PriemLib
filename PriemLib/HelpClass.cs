@@ -6,6 +6,8 @@ using System.ComponentModel;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PriemLib
@@ -34,7 +36,7 @@ namespace PriemLib
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error("Ошибка при запросе " + exc.Message);
+                WinFormsServ.Error("Ошибка при запросе ", exc);
                 return null;
             }
         }
@@ -56,7 +58,7 @@ namespace PriemLib
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error("Ошибка при запросе " + exc.Message);
+                WinFormsServ.Error("Ошибка при запросе ", exc);
                 return null;
             }
         }
@@ -118,7 +120,68 @@ namespace PriemLib
             }
             catch (Exception ex)
             {
-                WinFormsServ.Error("Ошибка сервера: " + ex.Message);
+                WinFormsServ.Error("Ошибка сервера: ", ex);
+            }
+        }
+
+        // заполнение DataGrid
+        public async static void FillDataGridAsync(DataGridView grid, BDClass bdc, string query, string filters)
+        {
+            await Task.Run(() => { FillDataGridAsync(grid, bdc, query, filters, ""); });
+        }
+        public async static void FillDataGridAsync(DataGridView grid, BDClass bdc, string query, string filters, string orderby)
+        {
+            await Task.Run(() => { FillDataGridAsync(grid, bdc, query, filters, orderby, false); });
+        }
+        public async static void FillDataGridAsync(DataGridView grid, BDClass bdc, string query, string filters, string orderby, bool saveOrder)
+        {
+            string sortedColumn = string.Empty;
+            ListSortDirection order = ListSortDirection.Ascending;
+            bool sorted = false;
+            int rowIndex = 0;
+
+            if (saveOrder && grid.SortOrder != SortOrder.None)
+            {
+                sorted = true;
+                sortedColumn = grid.SortedColumn.Name;
+                order = grid.SortOrder == SortOrder.Ascending ? ListSortDirection.Ascending : ListSortDirection.Descending;
+                rowIndex = grid.CurrentRow == null ? -1 : grid.CurrentRow.Index;
+            }
+
+            DataSet ds;
+            DataTable dt;
+
+            try
+            {
+                if (query != "")
+                {
+                    ds = await Task.Run<DataSet>(() => { return bdc.GetDataSet(query + " " + filters + " " + orderby); });
+                    dt = ds.Tables[0];
+                }
+                else
+                {
+                    dt = new DataTable();
+                    dt.Columns.Add("Id");
+                }
+
+                DataView dv = new DataView(dt);
+                dv.AllowNew = false;
+
+                grid.DataSource = dv;
+                grid.Columns["Id"].Visible = false;
+                grid.Update();
+
+                if (saveOrder && grid.Rows.Count > 0)
+                {
+                    if (sorted && grid.Columns.Contains(sortedColumn))
+                        grid.Sort(grid.Columns[sortedColumn], order);
+                    if (rowIndex >= 0 && rowIndex <= grid.Rows.Count)
+                        grid.CurrentCell = grid[1, rowIndex];
+                }
+            }
+            catch (Exception ex)
+            {
+                WinFormsServ.Error("Ошибка сервера: ", ex);
             }
         }
 
@@ -150,6 +213,33 @@ namespace PriemLib
             dv.AllowNew = false;
             return dv;
 
+        }
+
+        public static Task<DataView> GetDataViewAsync(DataGridView grid, BDClass bdc, string query, string filters, string orderby)
+        {
+            return GetDataViewAsync(grid, bdc, query, filters, orderby, false);
+        }
+        public static async Task<DataView> GetDataViewAsync(DataGridView grid, BDClass bdc, string query, string filters, string orderby, bool saveOrder)
+        {
+            
+            DataSet ds;
+            DataTable dt;
+
+            if (query != "")
+            {
+                
+                ds = await Task.Run<DataSet>(() => { return bdc.GetDataSet(query + " " + filters + " " + orderby); });
+                dt = ds.Tables[0];
+            }
+            else
+            {
+                dt = new DataTable();
+                dt.Columns.Add("Id");
+            }
+
+            DataView dv = new DataView(dt);
+            dv.AllowNew = false;
+            return dv;
         }
 
         public static void FillDataGrid(DataGridView grid, DataView dv)

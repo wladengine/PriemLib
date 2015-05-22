@@ -126,7 +126,7 @@ namespace PriemLib
                         }
                         catch (Exception ex)
                         {
-                            WinFormsServ.Error("Ошибка удаления данных" + ex.Message);
+                            WinFormsServ.Error("Ошибка удаления данных", ex);
                             goto Next;
                         }
                     Next: ;

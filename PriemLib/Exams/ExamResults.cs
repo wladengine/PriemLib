@@ -69,7 +69,7 @@ namespace PriemLib
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error("Ошибка при инициализации формы " + exc.Message);
+                WinFormsServ.Error("Ошибка при инициализации формы ", exc);
             }           
         }
 
@@ -184,7 +184,7 @@ namespace PriemLib
                     return;
                 }
 
-                var ent = MainClass.GetEntry(context).Where(c => c.FacultyId == FacultyId).Where(c => c.ProfileId != null);
+                var ent = MainClass.GetEntry(context).Where(c => c.FacultyId == FacultyId);
 
                 if (StudyFormId != null)
                     ent = ent.Where(c => c.StudyFormId == StudyFormId);
@@ -211,8 +211,14 @@ namespace PriemLib
         {            
             using (PriemEntities context = new PriemEntities())
             {
-                var ent = Exams.GetExamsWithFilters(context, MainClass.studyLevelGroupId, FacultyId, LicenseProgramId, ObrazProgramId, ProfileId, StudyFormId, StudyBasisId, null, null, null);
-                List<KeyValuePair<string, string>> lst = ent.ToList().Select(u => new KeyValuePair<string, string>(u.ExamId.ToString(), u.ExamName)).Distinct().ToList();
+                List<KeyValuePair<string, string>> lst = new List<KeyValuePair<string, string>>();
+
+                foreach (int SLGrId in MainClass.lstStudyLevelGroupId)
+                {
+                    var ent = Exams.GetExamsWithFilters(context, SLGrId, FacultyId, LicenseProgramId, ObrazProgramId, null, StudyFormId, StudyBasisId, null, null, null);
+                    lst.AddRange(ent.ToList().Select(u => new KeyValuePair<string, string>(u.ExamId.ToString(), u.ExamName)).Distinct().ToList());
+                }
+
                 ComboServ.FillCombo(cbExam, lst, false, true);
             }            
         }
@@ -514,7 +520,7 @@ ORDER BY ФИО", abitFilters);
         {
             string s = " WHERE 1=1 ";
 
-            s += " AND ed.extAbit.StudyLevelGroupId = " + MainClass.studyLevelGroupId;
+            s += " AND ed.extAbit.StudyLevelGroupId IN (" + Util.BuildStringWithCollection(MainClass.lstStudyLevelGroupId) + ")";
 
             //обработали форму обучения  
             if (StudyFormId != null)
@@ -553,8 +559,8 @@ ORDER BY ФИО", abitFilters);
             string s = "";
             string defQuery = "SELECT DISTINCT ed.extExamInEntry.ExamId AS Id, ed.extExamInEntry.ExamName AS Name FROM ed.extExamInEntry WHERE 1=1";
 
-            s += " AND ed.extExamInEntry.StudyLevelGroupId = " + MainClass.studyLevelGroupId;
-            defQuery += " AND ed.extExamInEntry.StudyLevelGroupId = " + MainClass.studyLevelGroupId;
+            s += " AND ed.extExamInEntry.StudyLevelGroupId IN (" + Util.BuildStringWithCollection(MainClass.lstStudyLevelGroupId) + ")";
+            defQuery += " AND ed.extExamInEntry.StudyLevelGroupId IN (" + Util.BuildStringWithCollection(MainClass.lstStudyLevelGroupId) + ")";
 
             if (ExamId != null)
             {
@@ -723,11 +729,11 @@ ORDER BY ФИО", abitFilters);
             }
             catch (WordException we)
             {
-                WinFormsServ.Error(we.Message);
+                WinFormsServ.Error(we);
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error(exc.Message);
+                WinFormsServ.Error(exc);
             }              
         }
         private void btnUpdate_Click(object sender, EventArgs e)

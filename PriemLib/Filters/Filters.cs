@@ -184,7 +184,7 @@ namespace PriemLib
             }
             catch (Exception ex)
             {
-                WinFormsServ.Error("Ошибка при заполнении фильтра:" + ex.Message);
+                WinFormsServ.Error("Ошибка при заполнении фильтра:", ex);
             }
         }
 

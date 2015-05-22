@@ -177,12 +177,12 @@ inner join ed.person on ed.person.id=ed.extabit.personid
 inner join ed.country as nation on nation.id=ed.person.nationalityid
 inner join ed.passporttype on ed.passporttype.id=ed.person.passporttypeid
 left join ed.region on ed.region.id=ed.person.regionid
-where ed.extentryview.studyformid=1 and ed.extentryview.studybasisid=1 and ed.extabit.studylevelgroupid = " + MainClass.studyLevelGroupId;
+where ed.extentryview.studyformid=1 and ed.extentryview.studybasisid=1 and ed.extabit.studylevelgroupid IN (" + Util.BuildStringWithCollection(MainClass.lstStudyLevelGroupId) + ")";
 
                     var AbitList =
                         from Abit in context.Abiturient
                         join extEV in context.extEntryView on Abit.Id equals extEV.AbiturientId
-                        where Abit.Entry.StudyLevel.LevelGroupId == MainClass.studyLevelGroupId
+                        where MainClass.lstStudyLevelGroupId.Contains(Abit.Entry.StudyLevel.LevelGroupId)
                         && Abit.Entry.StudyFormId == 1 && Abit.Entry.StudyBasisId == 1
                         select new
                         {
@@ -371,12 +371,12 @@ inner join ed.person on ed.person.id=ed.extabit.personid
 inner join ed.country as nation on nation.id=ed.person.nationalityid
 inner join ed.passporttype on ed.passporttype.id=ed.person.passporttypeid
 left join ed.region on ed.region.id=ed.person.regionid
-where ed.extentryview.studyformid=1 and ed.extentryview.studybasisid=1 and ed.extabit.studylevelgroupid = " + MainClass.studyLevelGroupId;
+where ed.extentryview.studyformid=1 and ed.extentryview.studybasisid=1 and ed.extabit.studylevelgroupid IN (" + Util.BuildStringWithCollection(MainClass.lstStudyLevelGroupId) + ")";
 
                     var AbitList =
                         from Abit in context.Abiturient
                         join extEV in context.extEntryView on Abit.Id equals extEV.AbiturientId
-                        where Abit.Entry.StudyLevel.LevelGroupId == MainClass.studyLevelGroupId
+                        where MainClass.lstStudyLevelGroupId.Contains(Abit.Entry.StudyLevel.LevelGroupId)
                         && Abit.Entry.StudyFormId == 1 && Abit.Entry.StudyBasisId == 1
                         select new
                         {

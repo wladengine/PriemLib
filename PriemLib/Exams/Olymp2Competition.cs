@@ -56,7 +56,7 @@ namespace PriemLib
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error("Ошибка при инициализации формы " + exc.Message);
+                WinFormsServ.Error("Ошибка при инициализации формы ", exc);
             }
         }
 
@@ -400,7 +400,7 @@ namespace PriemLib
 
             string s1 = string.Empty;
 
-            s1 += " AND ed.qAbiturient.StudyLevelGroupId = " + MainClass.studyLevelGroupId;
+            s1 += " AND ed.qAbiturient.StudyLevelGroupId IN (" + Util.BuildStringWithCollection(MainClass.lstStudyLevelGroupId) + ")";
 
             //обработали форму обучения  
             if (StudyFormId != null)
@@ -507,7 +507,7 @@ namespace PriemLib
                 }
                 catch (Exception ex)
                 {
-                    WinFormsServ.Error("Ошибка при сохранении перезачета оценок. Оценки перезачтены не будут. " + ex.Message);
+                    WinFormsServ.Error("Ошибка при сохранении перезачета оценок. Оценки перезачтены не будут. ", ex);
                 }
 
                 UpdateDataGrid();
@@ -575,7 +575,7 @@ namespace PriemLib
             }
             catch (Exception ex)
             {
-                WinFormsServ.Error("Ошибка при выводе в Word: " + ex.Message);
+                WinFormsServ.Error("Ошибка при выводе в Word: ", ex);
             }            
         } 
     }

@@ -7,6 +7,7 @@ using System.Transactions;
 
 using BDClassLib;
 using EducServLib;
+using System.Threading.Tasks;
 
 namespace PriemLib
 {
@@ -131,5 +132,95 @@ namespace PriemLib
             }
             return;
         }
+
+        public async Task<DataTable> GetDataTableAsync(string query, SortedList<string, object> slParams)
+        {
+            return GetDataSet(query, slParams).Tables[0];
+        }
     }
+
+    //public class AsyncReader : System.ComponentModel.INotifyPropertyChanged
+    //{
+    //    private IEnumerable<dynamic> _readResult;
+    //    public IEnumerable<dynamic> ReadResult
+    //    {
+    //        get
+    //        {
+    //            return _readResult;
+    //        }
+    //    }
+
+    //    private DataTable _tbl;
+    //    public DataTable Table
+    //    {
+    //        get
+    //        {
+    //            return _tbl;
+    //        }
+    //    }
+
+    //    private IAsyncResult _asyncResult;
+
+    //    private bool _cancelled;
+
+    //    private object _sync;
+
+    //    private SqlCommand _command;
+
+    //    private List<string> _lstFields;
+
+    //    public AsyncReader(List<string> lstFields)
+    //    {
+    //        this._cancelled = false;
+    //        this._sync = new object();
+    //        _lstFields = lstFields;
+    //    }
+
+    //    private void EndExecCommand(IAsyncResult result)
+    //    {
+    //        if (result.IsCompleted)
+    //        {
+    //            List<object> resList = new List<object>();
+    //            int cancelCheckCount = 0;
+    //            SqlDataReader reader = _command.EndExecuteReader(result);
+    //            for (int i = 0; i < reader.FieldCount; i++)
+ 
+    //            while (reader.Read())
+    //            {
+    //                cancelCheckCount++;
+    //                if (cancelCheckCount / 100 == 0)
+    //                {
+    //                    lock (_sync)
+    //                    {
+    //                        if (_cancelled)
+    //                        {
+    //                            return;
+    //                        }
+    //                    }
+    //                }
+    //            }
+    //            this._readResult = resList;
+    //            if (PropertyChanged != null)
+    //            {
+    //                PropertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs("ReadResult"));
+    //            }
+    //        }
+    //    }
+
+    //    public void BeginRead(SqlCommand command)
+    //    {
+    //        _command = command;
+    //        _asyncResult = _command.BeginExecuteReader(new AsyncCallback(EndExecCommand), null);
+    //    }
+    //    public void CancelRead()
+    //    {
+    //        lock (_sync)
+    //        {
+    //            _cancelled = true;
+    //            _command.Cancel();
+    //        }
+    //    }
+
+    //    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+    //}
 }

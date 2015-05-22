@@ -164,7 +164,7 @@ AND (StudyLevel.LevelGroupId <> {0} OR StudyLevel.LevelGroupId IS NULL OR StudyL
                         //найти в заявлениях, нет ли нового коммита
                         query = "SELECT COUNT(*) FROM Abiturient WHERE ApplicationCommitNumber<>@Barcode AND PersonId=@PersonId AND StudyLevelGroupId=@SLGrId";
                         bool bHasAnotherInInetBase = (int)bdcInet.GetValue(query,
-                            new SortedList<string, object>() { { "@Barcode", fileNum }, { "@PersonId", PersonId.Value }, { "@SLGrId", MainClass.studyLevelGroupId } }) > 0;
+                            new SortedList<string, object>() { { "@Barcode", fileNum }, { "@PersonId", PersonId.Value }, { "@SLGrId", MainClass.lstStudyLevelGroupId.First() } }) > 0;
 
                         if (bHasAnotherInInetBase)
                         {
@@ -201,7 +201,7 @@ AND (StudyLevel.LevelGroupId <> {0} OR StudyLevel.LevelGroupId IS NULL OR StudyL
                             var abits = (from ab in context.Abiturient
                                          where ab.CommitNumber != fileNum
                                          && !ab.BackDoc
-                                         && ab.Entry.StudyLevel.LevelGroupId == MainClass.studyLevelGroupId
+                                         && MainClass.lstStudyLevelGroupId.Contains(ab.Entry.StudyLevel.LevelGroupId)
                                          && iPersBarc.HasValue ? ab.Person.Barcode == iPersBarc : false//если баркод не найдён в оригинальной базе, то это совсем беда
                                          select ab.Id).ToList();
 
@@ -222,7 +222,7 @@ AND (StudyLevel.LevelGroupId <> {0} OR StudyLevel.LevelGroupId IS NULL OR StudyL
                     }
                     catch (Exception exc)
                     {
-                        WinFormsServ.Error(exc.Message);
+                        WinFormsServ.Error(exc);
                         tbPersonNum.Text = "";
                         tbPersonNum.Focus();
                     }
@@ -318,7 +318,7 @@ AND (StudyLevel.LevelGroupId <> {0} OR StudyLevel.LevelGroupId IS NULL OR StudyL
                         }
                         catch (Exception ex)
                         {
-                            WinFormsServ.Error("Ошибка удаления данных" + ex.Message);
+                            WinFormsServ.Error("Ошибка удаления данных", ex);
                             //goto Next;
                         }
                     //Next: ;

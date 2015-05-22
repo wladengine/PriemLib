@@ -45,13 +45,13 @@
             this.cbAggregateGroup = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.chbIsCrimea = new System.Windows.Forms.CheckBox();
+            this.chbIsForeign = new System.Windows.Forms.CheckBox();
             this.chbIsSecond = new System.Windows.Forms.CheckBox();
             this.chbIsParallel = new System.Windows.Forms.CheckBox();
             this.chbIsReduced = new System.Windows.Forms.CheckBox();
             this.label21 = new System.Windows.Forms.Label();
             this.tbKCPQuota = new System.Windows.Forms.TextBox();
-            this.label20 = new System.Windows.Forms.Label();
-            this.tbKCPCrimea = new System.Windows.Forms.TextBox();
             this.cbComission = new System.Windows.Forms.ComboBox();
             this.label19 = new System.Windows.Forms.Label();
             this.cbProfile = new System.Windows.Forms.ComboBox();
@@ -70,24 +70,6 @@
             this.btnAddExam = new System.Windows.Forms.Button();
             this.dgvExams = new System.Windows.Forms.DataGridView();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.label31 = new System.Windows.Forms.Label();
-            this.label32 = new System.Windows.Forms.Label();
-            this.label33 = new System.Windows.Forms.Label();
-            this.label24 = new System.Windows.Forms.Label();
-            this.dtpDateOfStart_GosLine = new System.Windows.Forms.DateTimePicker();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.dtpDateOfClose_GosLine = new System.Windows.Forms.DateTimePicker();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label28 = new System.Windows.Forms.Label();
-            this.label29 = new System.Windows.Forms.Label();
-            this.label30 = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
-            this.dtpDateOfStart_Foreign = new System.Windows.Forms.DateTimePicker();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.dtpDateOfClose_Foreign = new System.Windows.Forms.DateTimePicker();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label25 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
@@ -101,7 +83,6 @@
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
             this.dgvInnerEntryInEntry = new System.Windows.Forms.DataGridView();
-            this.chbIsForeign = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.epError)).BeginInit();
             this.tcCard.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -110,8 +91,6 @@
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvExams)).BeginInit();
             this.tabPage3.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvInnerEntryInEntry)).BeginInit();
@@ -132,7 +111,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(15, 400);
+            this.label2.Location = new System.Drawing.Point(18, 407);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(79, 13);
             this.label2.TabIndex = 29;
@@ -141,7 +120,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(15, 231);
+            this.label3.Location = new System.Drawing.Point(18, 242);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(53, 13);
             this.label3.TabIndex = 31;
@@ -150,7 +129,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(18, 271);
+            this.label5.Location = new System.Drawing.Point(18, 282);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(63, 13);
             this.label5.TabIndex = 35;
@@ -159,7 +138,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(15, 151);
+            this.label6.Location = new System.Drawing.Point(18, 162);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(75, 13);
             this.label6.TabIndex = 44;
@@ -168,7 +147,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(15, 191);
+            this.label7.Location = new System.Drawing.Point(18, 202);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(158, 13);
             this.label7.TabIndex = 45;
@@ -177,7 +156,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(15, 41);
+            this.label8.Location = new System.Drawing.Point(18, 101);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(120, 13);
             this.label8.TabIndex = 46;
@@ -186,7 +165,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(15, 312);
+            this.label11.Location = new System.Drawing.Point(18, 327);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(93, 13);
             this.label11.TabIndex = 52;
@@ -195,7 +174,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(238, 311);
+            this.label12.Location = new System.Drawing.Point(238, 327);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(94, 13);
             this.label12.TabIndex = 49;
@@ -203,7 +182,7 @@
             // 
             // tbStudyPlan
             // 
-            this.tbStudyPlan.Location = new System.Drawing.Point(18, 416);
+            this.tbStudyPlan.Location = new System.Drawing.Point(18, 423);
             this.tbStudyPlan.Name = "tbStudyPlan";
             this.tbStudyPlan.Size = new System.Drawing.Size(140, 20);
             this.tbStudyPlan.TabIndex = 53;
@@ -218,7 +197,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(15, 446);
+            this.label4.Location = new System.Drawing.Point(18, 446);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(22, 13);
             this.label4.TabIndex = 54;
@@ -254,8 +233,6 @@
             this.gbEntry.Controls.Add(this.groupBox4);
             this.gbEntry.Controls.Add(this.label21);
             this.gbEntry.Controls.Add(this.tbKCPQuota);
-            this.gbEntry.Controls.Add(this.label20);
-            this.gbEntry.Controls.Add(this.tbKCPCrimea);
             this.gbEntry.Controls.Add(this.cbComission);
             this.gbEntry.Controls.Add(this.label19);
             this.gbEntry.Controls.Add(this.cbProfile);
@@ -289,7 +266,7 @@
             // 
             this.cbAggregateGroup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbAggregateGroup.FormattingEnabled = true;
-            this.cbAggregateGroup.Location = new System.Drawing.Point(18, 127);
+            this.cbAggregateGroup.Location = new System.Drawing.Point(18, 138);
             this.cbAggregateGroup.Name = "cbAggregateGroup";
             this.cbAggregateGroup.Size = new System.Drawing.Size(377, 21);
             this.cbAggregateGroup.TabIndex = 81;
@@ -298,7 +275,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(15, 111);
+            this.label9.Location = new System.Drawing.Point(18, 122);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(111, 13);
             this.label9.TabIndex = 80;
@@ -306,16 +283,37 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.chbIsCrimea);
             this.groupBox4.Controls.Add(this.chbIsForeign);
             this.groupBox4.Controls.Add(this.chbIsSecond);
             this.groupBox4.Controls.Add(this.chbIsParallel);
             this.groupBox4.Controls.Add(this.chbIsReduced);
-            this.groupBox4.Location = new System.Drawing.Point(255, 6);
+            this.groupBox4.Location = new System.Drawing.Point(6, 19);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(141, 115);
+            this.groupBox4.Size = new System.Drawing.Size(389, 73);
             this.groupBox4.TabIndex = 79;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Реализация";
+            // 
+            // chbIsCrimea
+            // 
+            this.chbIsCrimea.AutoSize = true;
+            this.chbIsCrimea.Location = new System.Drawing.Point(6, 42);
+            this.chbIsCrimea.Name = "chbIsCrimea";
+            this.chbIsCrimea.Size = new System.Drawing.Size(55, 17);
+            this.chbIsCrimea.TabIndex = 71;
+            this.chbIsCrimea.Text = "Крым";
+            this.chbIsCrimea.UseVisualStyleBackColor = true;
+            // 
+            // chbIsForeign
+            // 
+            this.chbIsForeign.AutoSize = true;
+            this.chbIsForeign.Location = new System.Drawing.Point(126, 42);
+            this.chbIsForeign.Name = "chbIsForeign";
+            this.chbIsForeign.Size = new System.Drawing.Size(110, 17);
+            this.chbIsForeign.TabIndex = 70;
+            this.chbIsForeign.Text = "Иностр. конкурс";
+            this.chbIsForeign.UseVisualStyleBackColor = true;
             // 
             // chbIsSecond
             // 
@@ -330,7 +328,7 @@
             // chbIsParallel
             // 
             this.chbIsParallel.AutoSize = true;
-            this.chbIsParallel.Location = new System.Drawing.Point(6, 42);
+            this.chbIsParallel.Location = new System.Drawing.Point(255, 19);
             this.chbIsParallel.Name = "chbIsParallel";
             this.chbIsParallel.Size = new System.Drawing.Size(128, 17);
             this.chbIsParallel.TabIndex = 68;
@@ -340,7 +338,7 @@
             // chbIsReduced
             // 
             this.chbIsReduced.AutoSize = true;
-            this.chbIsReduced.Location = new System.Drawing.Point(6, 65);
+            this.chbIsReduced.Location = new System.Drawing.Point(126, 19);
             this.chbIsReduced.Name = "chbIsReduced";
             this.chbIsReduced.Size = new System.Drawing.Size(116, 17);
             this.chbIsReduced.TabIndex = 69;
@@ -360,30 +358,14 @@
             // 
             this.tbKCPQuota.Location = new System.Drawing.Point(253, 462);
             this.tbKCPQuota.Name = "tbKCPQuota";
-            this.tbKCPQuota.Size = new System.Drawing.Size(63, 20);
+            this.tbKCPQuota.Size = new System.Drawing.Size(74, 20);
             this.tbKCPQuota.TabIndex = 78;
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(171, 400);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(54, 13);
-            this.label20.TabIndex = 75;
-            this.label20.Text = "КЦ Крым";
-            // 
-            // tbKCPCrimea
-            // 
-            this.tbKCPCrimea.Location = new System.Drawing.Point(174, 416);
-            this.tbKCPCrimea.Name = "tbKCPCrimea";
-            this.tbKCPCrimea.Size = new System.Drawing.Size(63, 20);
-            this.tbKCPCrimea.TabIndex = 76;
             // 
             // cbComission
             // 
             this.cbComission.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbComission.FormattingEnabled = true;
-            this.cbComission.Location = new System.Drawing.Point(18, 372);
+            this.cbComission.Location = new System.Drawing.Point(18, 383);
             this.cbComission.Name = "cbComission";
             this.cbComission.Size = new System.Drawing.Size(377, 21);
             this.cbComission.TabIndex = 74;
@@ -391,7 +373,7 @@
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(18, 356);
+            this.label19.Location = new System.Drawing.Point(18, 367);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(176, 13);
             this.label19.TabIndex = 73;
@@ -402,7 +384,7 @@
             this.cbProfile.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cbProfile.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbProfile.FormattingEnabled = true;
-            this.cbProfile.Location = new System.Drawing.Point(18, 247);
+            this.cbProfile.Location = new System.Drawing.Point(18, 258);
             this.cbProfile.Name = "cbProfile";
             this.cbProfile.Size = new System.Drawing.Size(377, 21);
             this.cbProfile.TabIndex = 72;
@@ -411,7 +393,7 @@
             // 
             this.cbObrazProgram.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbObrazProgram.FormattingEnabled = true;
-            this.cbObrazProgram.Location = new System.Drawing.Point(18, 207);
+            this.cbObrazProgram.Location = new System.Drawing.Point(18, 218);
             this.cbObrazProgram.Name = "cbObrazProgram";
             this.cbObrazProgram.Size = new System.Drawing.Size(377, 21);
             this.cbObrazProgram.TabIndex = 71;
@@ -421,7 +403,7 @@
             // 
             this.cbLicenseProgram.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbLicenseProgram.FormattingEnabled = true;
-            this.cbLicenseProgram.Location = new System.Drawing.Point(18, 167);
+            this.cbLicenseProgram.Location = new System.Drawing.Point(18, 178);
             this.cbLicenseProgram.Name = "cbLicenseProgram";
             this.cbLicenseProgram.Size = new System.Drawing.Size(377, 21);
             this.cbLicenseProgram.TabIndex = 70;
@@ -431,7 +413,7 @@
             // 
             this.cbFaculty.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbFaculty.FormattingEnabled = true;
-            this.cbFaculty.Location = new System.Drawing.Point(18, 287);
+            this.cbFaculty.Location = new System.Drawing.Point(18, 298);
             this.cbFaculty.Name = "cbFaculty";
             this.cbFaculty.Size = new System.Drawing.Size(377, 21);
             this.cbFaculty.TabIndex = 66;
@@ -440,9 +422,9 @@
             // 
             this.cbStudyLevel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbStudyLevel.FormattingEnabled = true;
-            this.cbStudyLevel.Location = new System.Drawing.Point(18, 57);
+            this.cbStudyLevel.Location = new System.Drawing.Point(140, 98);
             this.cbStudyLevel.Name = "cbStudyLevel";
-            this.cbStudyLevel.Size = new System.Drawing.Size(207, 21);
+            this.cbStudyLevel.Size = new System.Drawing.Size(256, 21);
             this.cbStudyLevel.TabIndex = 65;
             this.cbStudyLevel.SelectedIndexChanged += new System.EventHandler(this.cbStudyLevel_SelectedIndexChanged);
             // 
@@ -450,7 +432,7 @@
             // 
             this.cbStudyBasis.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbStudyBasis.FormattingEnabled = true;
-            this.cbStudyBasis.Location = new System.Drawing.Point(241, 327);
+            this.cbStudyBasis.Location = new System.Drawing.Point(241, 343);
             this.cbStudyBasis.Name = "cbStudyBasis";
             this.cbStudyBasis.Size = new System.Drawing.Size(155, 21);
             this.cbStudyBasis.TabIndex = 64;
@@ -459,9 +441,9 @@
             // 
             this.cbStudyForm.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbStudyForm.FormattingEnabled = true;
-            this.cbStudyForm.Location = new System.Drawing.Point(18, 327);
+            this.cbStudyForm.Location = new System.Drawing.Point(18, 343);
             this.cbStudyForm.Name = "cbStudyForm";
-            this.cbStudyForm.Size = new System.Drawing.Size(155, 21);
+            this.cbStudyForm.Size = new System.Drawing.Size(176, 21);
             this.cbStudyForm.TabIndex = 63;
             // 
             // label10
@@ -486,7 +468,7 @@
             // 
             this.tbKCPCel.Location = new System.Drawing.Point(174, 462);
             this.tbKCPCel.Name = "tbKCPCel";
-            this.tbKCPCel.Size = new System.Drawing.Size(63, 20);
+            this.tbKCPCel.Size = new System.Drawing.Size(68, 20);
             this.tbKCPCel.TabIndex = 57;
             // 
             // tabPage2
@@ -551,8 +533,6 @@
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.groupBox3);
-            this.tabPage3.Controls.Add(this.groupBox2);
             this.tabPage3.Controls.Add(this.groupBox1);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
@@ -561,180 +541,6 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Даты проведения";
             this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.label31);
-            this.groupBox3.Controls.Add(this.label32);
-            this.groupBox3.Controls.Add(this.label33);
-            this.groupBox3.Controls.Add(this.label24);
-            this.groupBox3.Controls.Add(this.dtpDateOfStart_GosLine);
-            this.groupBox3.Controls.Add(this.label17);
-            this.groupBox3.Controls.Add(this.label18);
-            this.groupBox3.Controls.Add(this.dtpDateOfClose_GosLine);
-            this.groupBox3.Location = new System.Drawing.Point(6, 193);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(409, 82);
-            this.groupBox3.TabIndex = 69;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Иностранцы - гослиния";
-            // 
-            // label31
-            // 
-            this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(19, 62);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(160, 13);
-            this.label31.TabIndex = 74;
-            this.label31.Text = "Время устанавливается 10:00";
-            // 
-            // label32
-            // 
-            this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(19, 62);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(160, 13);
-            this.label32.TabIndex = 73;
-            this.label32.Text = "Время устанавливается 10:00";
-            // 
-            // label33
-            // 
-            this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(19, 62);
-            this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(160, 13);
-            this.label33.TabIndex = 72;
-            this.label33.Text = "Время устанавливается 10:00";
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(211, 62);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(160, 13);
-            this.label24.TabIndex = 68;
-            this.label24.Text = "Время устанавливается 18:00";
-            // 
-            // dtpDateOfStart_GosLine
-            // 
-            this.dtpDateOfStart_GosLine.Location = new System.Drawing.Point(6, 39);
-            this.dtpDateOfStart_GosLine.Name = "dtpDateOfStart_GosLine";
-            this.dtpDateOfStart_GosLine.ShowCheckBox = true;
-            this.dtpDateOfStart_GosLine.Size = new System.Drawing.Size(173, 20);
-            this.dtpDateOfStart_GosLine.TabIndex = 63;
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(195, 23);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(194, 13);
-            this.label17.TabIndex = 66;
-            this.label17.Text = "Дата окончания приёма в интернете";
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(3, 23);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(176, 13);
-            this.label18.TabIndex = 65;
-            this.label18.Text = "Дата начала приёма в интернете";
-            // 
-            // dtpDateOfClose_GosLine
-            // 
-            this.dtpDateOfClose_GosLine.Location = new System.Drawing.Point(198, 39);
-            this.dtpDateOfClose_GosLine.Name = "dtpDateOfClose_GosLine";
-            this.dtpDateOfClose_GosLine.ShowCheckBox = true;
-            this.dtpDateOfClose_GosLine.Size = new System.Drawing.Size(173, 20);
-            this.dtpDateOfClose_GosLine.TabIndex = 64;
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.label28);
-            this.groupBox2.Controls.Add(this.label29);
-            this.groupBox2.Controls.Add(this.label30);
-            this.groupBox2.Controls.Add(this.label23);
-            this.groupBox2.Controls.Add(this.dtpDateOfStart_Foreign);
-            this.groupBox2.Controls.Add(this.label15);
-            this.groupBox2.Controls.Add(this.label16);
-            this.groupBox2.Controls.Add(this.dtpDateOfClose_Foreign);
-            this.groupBox2.Location = new System.Drawing.Point(6, 102);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(409, 85);
-            this.groupBox2.TabIndex = 68;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Иностранцы - иностранный приём";
-            // 
-            // label28
-            // 
-            this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(19, 62);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(160, 13);
-            this.label28.TabIndex = 74;
-            this.label28.Text = "Время устанавливается 10:00";
-            // 
-            // label29
-            // 
-            this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(19, 62);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(160, 13);
-            this.label29.TabIndex = 73;
-            this.label29.Text = "Время устанавливается 10:00";
-            // 
-            // label30
-            // 
-            this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(19, 62);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(160, 13);
-            this.label30.TabIndex = 72;
-            this.label30.Text = "Время устанавливается 10:00";
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(211, 62);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(160, 13);
-            this.label23.TabIndex = 68;
-            this.label23.Text = "Время устанавливается 18:00";
-            // 
-            // dtpDateOfStart_Foreign
-            // 
-            this.dtpDateOfStart_Foreign.Location = new System.Drawing.Point(6, 39);
-            this.dtpDateOfStart_Foreign.Name = "dtpDateOfStart_Foreign";
-            this.dtpDateOfStart_Foreign.ShowCheckBox = true;
-            this.dtpDateOfStart_Foreign.Size = new System.Drawing.Size(173, 20);
-            this.dtpDateOfStart_Foreign.TabIndex = 63;
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(195, 23);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(194, 13);
-            this.label15.TabIndex = 66;
-            this.label15.Text = "Дата окончания приёма в интернете";
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(3, 23);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(176, 13);
-            this.label16.TabIndex = 65;
-            this.label16.Text = "Дата начала приёма в интернете";
-            // 
-            // dtpDateOfClose_Foreign
-            // 
-            this.dtpDateOfClose_Foreign.Location = new System.Drawing.Point(198, 39);
-            this.dtpDateOfClose_Foreign.Name = "dtpDateOfClose_Foreign";
-            this.dtpDateOfClose_Foreign.ShowCheckBox = true;
-            this.dtpDateOfClose_Foreign.Size = new System.Drawing.Size(173, 20);
-            this.dtpDateOfClose_Foreign.TabIndex = 64;
             // 
             // groupBox1
             // 
@@ -866,16 +672,6 @@
             this.dgvInnerEntryInEntry.TabIndex = 0;
             this.dgvInnerEntryInEntry.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvObrazProgramInEntry_CellDoubleClick);
             // 
-            // cbIsForeign
-            // 
-            this.chbIsForeign.AutoSize = true;
-            this.chbIsForeign.Location = new System.Drawing.Point(6, 88);
-            this.chbIsForeign.Name = "cbIsForeign";
-            this.chbIsForeign.Size = new System.Drawing.Size(110, 17);
-            this.chbIsForeign.TabIndex = 70;
-            this.chbIsForeign.Text = "Иностр. конкурс";
-            this.chbIsForeign.UseVisualStyleBackColor = true;
-            // 
             // CardEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -898,10 +694,6 @@
             this.tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvExams)).EndInit();
             this.tabPage3.ResumeLayout(false);
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.tabPage4.ResumeLayout(false);
@@ -945,16 +737,6 @@
         private System.Windows.Forms.ComboBox cbObrazProgram;
         private System.Windows.Forms.ComboBox cbLicenseProgram;
         private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.DateTimePicker dtpDateOfStart_GosLine;
-        private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.DateTimePicker dtpDateOfClose_GosLine;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.DateTimePicker dtpDateOfStart_Foreign;
-        private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.DateTimePicker dtpDateOfClose_Foreign;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DateTimePicker dtpDateOfStart;
         private System.Windows.Forms.Label label14;
@@ -966,25 +748,16 @@
         private System.Windows.Forms.DataGridView dgvInnerEntryInEntry;
         private System.Windows.Forms.ComboBox cbComission;
         private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.TextBox tbKCPCrimea;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.TextBox tbKCPQuota;
         private System.Windows.Forms.ComboBox cbAggregateGroup;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.Label label31;
-        private System.Windows.Forms.Label label32;
-        private System.Windows.Forms.Label label33;
-        private System.Windows.Forms.Label label24;
-        private System.Windows.Forms.Label label28;
-        private System.Windows.Forms.Label label29;
-        private System.Windows.Forms.Label label30;
-        private System.Windows.Forms.Label label23;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.CheckBox chbIsForeign;
+        private System.Windows.Forms.CheckBox chbIsCrimea;
     }
 }
