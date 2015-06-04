@@ -37,8 +37,8 @@ namespace PriemLib
             this.sQuery = @"SELECT DISTINCT ed.extAbit.Id as Id, ed.extAbit.RegNum,
                 ed.extAbit.BAckDoc, ed.extAbit.RegNum as Рег_Номер,
                 ed.extAbit.FIO as ФИО, 
-                ed.extPerson.AttestatSeries as AttSer, ed.extPerson.AttestatNum as AttNum, 
-                (case when ed.extPerson.SchoolTypeId = 1 then ed.extPerson.AttestatSeries + '  №' + ed.extPerson.AttestatNum else ed.extPerson.DiplomSeries + '  №' + ed.extPerson.DiplomNum end) as Документ_об_образовании, 
+                --ed.extPerson.AttestatSeries as AttSer, ed.extPerson.AttestatNum as AttNum, 
+                extPerson.EducDocument as Документ_об_образовании, 
                 ed.extAbit.ObrazProgramNameEx + ' ' +(Case when ed.extAbit.ProfileId IS NULL then '' else ed.extAbit.ProfileName end) as Направление,
                 ed.Competition.Name as Конкурс, 
                 0 as Black,
@@ -278,19 +278,26 @@ namespace PriemLib
             string sFilters = string.Format(" AND ed.qProtocolHistory.ProtocolId = '{0}'", ProtocolNumId.ToString());
 
             //заполнили грид
-            DataSet ds = MainClass.Bdc.GetDataSet(sQuery + sWhere + sFilters + sOrderby);
-
-            foreach (DataRow dr in ds.Tables[0].Rows)
+            try
             {
-                DataGridViewRow r = new DataGridViewRow();
-                r.CreateCells(dgvProtocols, dr["Id"], dr["Red"], dr["Black"], dr["Рег_номер"], dr["ФИО"], dr["Сумма_баллов"], dr["Документ_об_образовании"], dr["Направление"], dr["Конкурс"], ((int)dr["Black"] != 0 ? "двойные оценки" : dr["Примечания"]));
-                if (bool.Parse(dr["Red"].ToString()))
-                {
-                    r.Cells[3].Style.ForeColor = Color.Red;
-                    r.Cells[4].Style.ForeColor = Color.Red;
-                }
+                DataSet ds = MainClass.Bdc.GetDataSet(sQuery + sWhere + sFilters + sOrderby);
 
-                dgvProtocols.Rows.Add(r);
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    DataGridViewRow r = new DataGridViewRow();
+                    r.CreateCells(dgvProtocols, dr["Id"], dr["Red"], dr["Black"], dr["Рег_номер"], dr["ФИО"], dr["Сумма_баллов"], dr["Документ_об_образовании"], dr["Направление"], dr["Конкурс"], ((int)dr["Black"] != 0 ? "двойные оценки" : dr["Примечания"]));
+                    if (bool.Parse(dr["Red"].ToString()))
+                    {
+                        r.Cells[3].Style.ForeColor = Color.Red;
+                        r.Cells[4].Style.ForeColor = Color.Red;
+                    }
+
+                    dgvProtocols.Rows.Add(r);
+                }
+            }
+            catch (Exception ex)
+            {
+                WinFormsServ.Error(ex);
             }
         }
 
@@ -336,6 +343,11 @@ namespace PriemLib
 
         //изменение - только для супер
         private void btnMake_Click(object sender, EventArgs e)
+        {
+            OpenExistingCard();
+        }
+
+        protected virtual void OpenExistingCard()
         {
             if (MainClass.IsOwner())
             {

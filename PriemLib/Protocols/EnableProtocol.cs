@@ -18,6 +18,12 @@ namespace PriemLib
             _type = ProtocolTypes.EnableProtocol;
         }
 
+        public EnableProtocol(ProtocolList owner, int iStudyLevelGroupId, int iFacultyId, int iStudyBasisId, int iStudyFormId, Guid gId)
+            : base(owner, iStudyLevelGroupId, iFacultyId, iStudyBasisId, iStudyFormId, gId)
+        {
+            _type = ProtocolTypes.EnableProtocol;
+        }
+
         public EnableProtocol() : base()
         { 
             //InitializeComponent(); 
@@ -64,8 +70,7 @@ namespace PriemLib
             //заполнили левый
             if (_id != null)
             {
-                sFilter = string.Format(" WHERE ed.extAbit.Id IN (SELECT AbiturientId FROM ed.qProtocolHistory WHERE ProtocolId = '{0}')", _id.ToString());
-                FillGrid(dgvLeft, sQuery, sFilter, sOrderby);
+                FillGrid(dgvLeft, sQuery, string.Format(" WHERE ed.extAbit.Id IN (SELECT AbiturientId FROM ed.qProtocolHistory WHERE ProtocolId = '{0}')", _id.ToString()), sOrderby);
             }
             else //новый
             {

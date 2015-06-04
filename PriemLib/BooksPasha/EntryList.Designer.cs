@@ -49,7 +49,19 @@
             this.btnToExcel = new System.Windows.Forms.Button();
             this.chbIsForeign = new System.Windows.Forms.CheckBox();
             this.chbIsCrimea = new System.Windows.Forms.CheckBox();
+            this.dtpDateStartFrom = new System.Windows.Forms.DateTimePicker();
+            this.dtpDateStartTo = new System.Windows.Forms.DateTimePicker();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.dtpDateFinishFrom = new System.Windows.Forms.DateTimePicker();
+            this.dtpDateFinishTo = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEntry)).BeginInit();
+            this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblCount
@@ -282,7 +294,7 @@
             // chbIsCrimea
             // 
             this.chbIsCrimea.AutoSize = true;
-            this.chbIsCrimea.Location = new System.Drawing.Point(557, 71);
+            this.chbIsCrimea.Location = new System.Drawing.Point(411, 94);
             this.chbIsCrimea.Name = "chbIsCrimea";
             this.chbIsCrimea.Size = new System.Drawing.Size(55, 17);
             this.chbIsCrimea.TabIndex = 115;
@@ -290,11 +302,111 @@
             this.chbIsCrimea.UseVisualStyleBackColor = true;
             this.chbIsCrimea.CheckedChanged += new System.EventHandler(this.chbIsCrimea_CheckedChanged);
             // 
+            // dtpDateStartFrom
+            // 
+            this.dtpDateStartFrom.Location = new System.Drawing.Point(27, 19);
+            this.dtpDateStartFrom.Name = "dtpDateStartFrom";
+            this.dtpDateStartFrom.ShowCheckBox = true;
+            this.dtpDateStartFrom.Size = new System.Drawing.Size(139, 20);
+            this.dtpDateStartFrom.TabIndex = 116;
+            this.dtpDateStartFrom.ValueChanged += new System.EventHandler(this.dtpDateStartFrom_ValueChanged);
+            // 
+            // dtpDateStartTo
+            // 
+            this.dtpDateStartTo.Location = new System.Drawing.Point(27, 45);
+            this.dtpDateStartTo.Name = "dtpDateStartTo";
+            this.dtpDateStartTo.ShowCheckBox = true;
+            this.dtpDateStartTo.Size = new System.Drawing.Size(139, 20);
+            this.dtpDateStartTo.TabIndex = 117;
+            this.dtpDateStartTo.ValueChanged += new System.EventHandler(this.dtpDateStartTo_ValueChanged);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.label8);
+            this.groupBox1.Controls.Add(this.label9);
+            this.groupBox1.Controls.Add(this.dtpDateStartFrom);
+            this.groupBox1.Controls.Add(this.dtpDateStartTo);
+            this.groupBox1.Location = new System.Drawing.Point(557, 56);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(172, 73);
+            this.groupBox1.TabIndex = 120;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Дата начала приёма";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(8, 22);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(13, 13);
+            this.label8.TabIndex = 121;
+            this.label8.Text = "с";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(6, 47);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(19, 13);
+            this.label9.TabIndex = 122;
+            this.label9.Text = "по";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.label10);
+            this.groupBox2.Controls.Add(this.label12);
+            this.groupBox2.Controls.Add(this.dtpDateFinishFrom);
+            this.groupBox2.Controls.Add(this.dtpDateFinishTo);
+            this.groupBox2.Location = new System.Drawing.Point(735, 56);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(172, 73);
+            this.groupBox2.TabIndex = 121;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Дата окончания приёма";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(8, 22);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(13, 13);
+            this.label10.TabIndex = 121;
+            this.label10.Text = "с";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(6, 47);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(19, 13);
+            this.label12.TabIndex = 122;
+            this.label12.Text = "по";
+            // 
+            // dtpDateFinishFrom
+            // 
+            this.dtpDateFinishFrom.Location = new System.Drawing.Point(27, 19);
+            this.dtpDateFinishFrom.Name = "dtpDateFinishFrom";
+            this.dtpDateFinishFrom.ShowCheckBox = true;
+            this.dtpDateFinishFrom.Size = new System.Drawing.Size(139, 20);
+            this.dtpDateFinishFrom.TabIndex = 116;
+            this.dtpDateFinishFrom.ValueChanged += new System.EventHandler(this.dtpDateFinishFrom_ValueChanged);
+            // 
+            // dtpDateFinishTo
+            // 
+            this.dtpDateFinishTo.Location = new System.Drawing.Point(27, 45);
+            this.dtpDateFinishTo.Name = "dtpDateFinishTo";
+            this.dtpDateFinishTo.ShowCheckBox = true;
+            this.dtpDateFinishTo.Size = new System.Drawing.Size(139, 20);
+            this.dtpDateFinishTo.TabIndex = 117;
+            this.dtpDateFinishTo.ValueChanged += new System.EventHandler(this.dtpDateFinishTo_ValueChanged);
+            // 
             // EntryList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1055, 512);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.chbIsCrimea);
             this.Controls.Add(this.chbIsForeign);
             this.Controls.Add(this.btnToExcel);
@@ -344,7 +456,13 @@
             this.Controls.SetChildIndex(this.btnToExcel, 0);
             this.Controls.SetChildIndex(this.chbIsForeign, 0);
             this.Controls.SetChildIndex(this.chbIsCrimea, 0);
+            this.Controls.SetChildIndex(this.groupBox1, 0);
+            this.Controls.SetChildIndex(this.groupBox2, 0);
             ((System.ComponentModel.ISupportInitialize)(this.dgvEntry)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -373,5 +491,15 @@
         private System.Windows.Forms.Button btnToExcel;
         private System.Windows.Forms.CheckBox chbIsForeign;
         private System.Windows.Forms.CheckBox chbIsCrimea;
+        private System.Windows.Forms.DateTimePicker dtpDateStartFrom;
+        private System.Windows.Forms.DateTimePicker dtpDateStartTo;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.DateTimePicker dtpDateFinishFrom;
+        private System.Windows.Forms.DateTimePicker dtpDateFinishTo;
     }
 }

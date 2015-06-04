@@ -108,7 +108,7 @@ namespace PriemLib
                 {
                     int? h = ComboServ.GetComboIdInt(cbFaculty);
                     if (h != null) 
-                        query = query.Where(c => c.FacultyId == h);                    
+                        query = query.Where(c => c.FacultyId == h);
                 }
                
                 // основа обучения
@@ -161,6 +161,24 @@ namespace PriemLib
 
                 //Крым    
                 query = query.Where(c => c.IsCrimea == chbIsCrimea.Checked);
+
+                //даты начала/окончания
+                if (dtpDateStartFrom.Checked)
+                {
+                    query = query.Where(x => x.DateOfStart >= dtpDateStartFrom.Value);
+                }
+                if (dtpDateStartTo.Checked)
+                {
+                    query = query.Where(x => x.DateOfStart <= dtpDateStartTo.Value);
+                }
+                if (dtpDateFinishFrom.Checked)
+                {
+                    query = query.Where(x => x.DateOfClose >= dtpDateFinishFrom.Value);
+                }
+                if (dtpDateFinishTo.Checked)
+                {
+                    query = query.Where(x => x.DateOfClose <= dtpDateFinishTo.Value);
+                }
             }
         }
 
@@ -289,8 +307,23 @@ namespace PriemLib
         {
             UpdateDataGrid();
         }
-
         private void chbIsCrimea_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateDataGrid();
+        }
+        private void dtpDateStartFrom_ValueChanged(object sender, EventArgs e)
+        {
+            UpdateDataGrid();
+        }
+        private void dtpDateStartTo_ValueChanged(object sender, EventArgs e)
+        {
+            UpdateDataGrid();
+        }
+        private void dtpDateFinishFrom_ValueChanged(object sender, EventArgs e)
+        {
+            UpdateDataGrid();
+        }
+        private void dtpDateFinishTo_ValueChanged(object sender, EventArgs e)
         {
             UpdateDataGrid();
         }

@@ -44,8 +44,7 @@
             this.lblLicenseprogram = new System.Windows.Forms.Label();
             this.tabCard = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.chbIsGosLine = new System.Windows.Forms.CheckBox();
-            this.chbIsCommonRussianCompetition = new System.Windows.Forms.CheckBox();
+            this.chbIsForeign = new System.Windows.Forms.CheckBox();
             this.lblWhoBackDoc = new System.Windows.Forms.Label();
             this.btnObrazProgramInEntry = new System.Windows.Forms.Button();
             this.btnChangePriority = new System.Windows.Forms.Button();
@@ -131,6 +130,7 @@
             this.lblFIO = new System.Windows.Forms.Label();
             this.btnCardPerson = new System.Windows.Forms.Button();
             this.epErrorInput = new System.Windows.Forms.ErrorProvider(this.components);
+            this.chbIsCrimea = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.epError)).BeginInit();
             this.tabCard.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -248,8 +248,8 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.chbIsGosLine);
-            this.tabPage1.Controls.Add(this.chbIsCommonRussianCompetition);
+            this.tabPage1.Controls.Add(this.chbIsCrimea);
+            this.tabPage1.Controls.Add(this.chbIsForeign);
             this.tabPage1.Controls.Add(this.lblWhoBackDoc);
             this.tabPage1.Controls.Add(this.btnObrazProgramInEntry);
             this.tabPage1.Controls.Add(this.btnChangePriority);
@@ -298,23 +298,14 @@
             this.tabPage1.Text = "Основное";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // chbIsGosLine
+            // chbIsForeign
             // 
-            this.chbIsGosLine.Location = new System.Drawing.Point(494, 232);
-            this.chbIsGosLine.Name = "chbIsGosLine";
-            this.chbIsGosLine.Size = new System.Drawing.Size(78, 34);
-            this.chbIsGosLine.TabIndex = 129;
-            this.chbIsGosLine.Text = "Гослиния";
-            this.chbIsGosLine.UseVisualStyleBackColor = true;
-            // 
-            // chbIsCommonRussianCompetition
-            // 
-            this.chbIsCommonRussianCompetition.Location = new System.Drawing.Point(385, 232);
-            this.chbIsCommonRussianCompetition.Name = "chbIsCommonRussianCompetition";
-            this.chbIsCommonRussianCompetition.Size = new System.Drawing.Size(103, 34);
-            this.chbIsCommonRussianCompetition.TabIndex = 128;
-            this.chbIsCommonRussianCompetition.Text = "Поступает на равных правах";
-            this.chbIsCommonRussianCompetition.UseVisualStyleBackColor = true;
+            this.chbIsForeign.Location = new System.Drawing.Point(389, 212);
+            this.chbIsForeign.Name = "chbIsForeign";
+            this.chbIsForeign.Size = new System.Drawing.Size(78, 21);
+            this.chbIsForeign.TabIndex = 129;
+            this.chbIsForeign.Text = "Гослиния";
+            this.chbIsForeign.UseVisualStyleBackColor = true;
             // 
             // lblWhoBackDoc
             // 
@@ -1231,12 +1222,12 @@
             this.label10.TabIndex = 1;
             this.label10.Text = "Образовательная программа";
             // 
-            // cbProfileInObrazProgramInEntry
+            // cbProfileInEntry
             // 
             this.cbProfileInEntry.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbProfileInEntry.FormattingEnabled = true;
             this.cbProfileInEntry.Location = new System.Drawing.Point(9, 72);
-            this.cbProfileInEntry.Name = "cbProfileInObrazProgramInEntry";
+            this.cbProfileInEntry.Name = "cbProfileInEntry";
             this.cbProfileInEntry.Size = new System.Drawing.Size(377, 21);
             this.cbProfileInEntry.TabIndex = 2;
             // 
@@ -1265,6 +1256,15 @@
             // epErrorInput
             // 
             this.epErrorInput.ContainerControl = this;
+            // 
+            // chbIsCrimea
+            // 
+            this.chbIsCrimea.Location = new System.Drawing.Point(389, 239);
+            this.chbIsCrimea.Name = "chbIsCrimea";
+            this.chbIsCrimea.Size = new System.Drawing.Size(78, 21);
+            this.chbIsCrimea.TabIndex = 130;
+            this.chbIsCrimea.Text = "Крым";
+            this.chbIsCrimea.UseVisualStyleBackColor = true;
             // 
             // CardAbit
             // 
@@ -1415,13 +1415,13 @@
         private System.Windows.Forms.Button btnChangePriority;
         private System.Windows.Forms.Button btnObrazProgramInEntry;
         private System.Windows.Forms.Label lblWhoBackDoc;
-        private System.Windows.Forms.CheckBox chbIsCommonRussianCompetition;
-        private System.Windows.Forms.CheckBox chbIsGosLine;
+        private System.Windows.Forms.CheckBox chbIsForeign;
         private System.Windows.Forms.TabPage tpEntry;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.ComboBox cbProfileInEntry;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ComboBox cbObrazProgramInEntry;
         private System.Windows.Forms.GroupBox gbObrazProgramInEntry;
+        private System.Windows.Forms.CheckBox chbIsCrimea;
     }
 }

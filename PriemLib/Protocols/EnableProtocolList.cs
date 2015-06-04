@@ -45,5 +45,14 @@ namespace PriemLib
             if (sfd.ShowDialog() == DialogResult.OK)
                 Print.PrintEnableProtocol(ComboServ.GetComboId(cbProtocolNum), false, sfd.FileName);
         }
+
+        protected override void OpenExistingCard()
+        {
+            if (MainClass.IsOwner() && ProtocolNumId.HasValue)
+            {
+                EnableProtocol p = new EnableProtocol(this, StudyLevelGroupId.Value, FacultyId.Value, StudyBasisId.Value, StudyFormId.Value, ProtocolNumId.Value);
+                p.Show();
+            }
+        }
     }
 }

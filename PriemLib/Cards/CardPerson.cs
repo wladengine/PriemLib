@@ -875,7 +875,16 @@ namespace PriemLib
             else
                 epErrorInput.Clear();
 
-            if (PassportDate.Value.Year > DateTime.Now.Year || PassportDate.Value.Year < 1970)
+            if (string.IsNullOrEmpty(BirthPlace))
+            {
+                epErrorInput.SetError(tbBirthPlace, "Не указано место рождения");
+                tabCard.SelectedIndex = 0;
+                return false;
+            }
+            else
+                epErrorInput.Clear();
+
+            if (PassportDate.HasValue && (PassportDate.Value > DateTime.Now || PassportDate.Value.Year < 1970))
             {
                 epErrorInput.SetError(dtPassportDate, "Неправильно указана дата");
                 tabCard.SelectedIndex = 0;
@@ -883,7 +892,16 @@ namespace PriemLib
             }
             else
                 epErrorInput.Clear();
-            
+
+            if (!PassportTypeId.HasValue)
+            {
+                epErrorInput.SetError(cbPassportType, "Не указан тип паспорта абитуриента");
+                tabCard.SelectedIndex = 0;
+                return false;
+            }
+            else
+                epErrorInput.Clear();
+
             if (PassportTypeId == MainClass.pasptypeRFId)
             {
                 if (!(PassportSeries.Length == 4))
@@ -925,6 +943,33 @@ namespace PriemLib
                 else
                     epErrorInput.Clear();
             }
+
+            if (!NationalityId.HasValue)
+            {
+                epErrorInput.SetError(cbNationality, "Не указано гражданство!");
+                tabCard.SelectedIndex = 0;
+                return false;
+            }
+            else
+                epErrorInput.Clear();
+
+            if (!CountryId.HasValue)
+            {
+                epErrorInput.SetError(cbCountry, "Не указана страна проживания!");
+                tabCard.SelectedIndex = 0;
+                return false;
+            }
+            else
+                epErrorInput.Clear();
+
+            if (!RegionId.HasValue)
+            {
+                epErrorInput.SetError(cbRegion, "Не указан регион!");
+                tabCard.SelectedIndex = 0;
+                return false;
+            }
+            else
+                epErrorInput.Clear();
               
             if (PassportSeries.Length > 10)
             {
@@ -1747,6 +1792,7 @@ namespace PriemLib
             }
         }
 
+        #region EgeRequest
         private void btnRequestEge_Click(object sender, EventArgs e)
         {
             if (!GuidId.HasValue)
@@ -1775,7 +1821,6 @@ namespace PriemLib
                 WinFormsServ.Error(ex);
             }
         }
-
         private BackgroundWorker bw_EgeRequestCheck;
         void bw_EgeRequestCheck_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
@@ -1802,6 +1847,7 @@ namespace PriemLib
                 }
             }
         }
+        #endregion
 
         protected override void OnClosed()
         {
@@ -1816,6 +1862,7 @@ namespace PriemLib
             }
         }
 
+        #region PersonAchievements
         private void btnAddPersonAchievement_Click(object sender, EventArgs e)
         {
 
@@ -1826,7 +1873,20 @@ namespace PriemLib
         }
         private void dgvIndividualAchievements_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-
+            if (e.RowIndex < 0)
+                return;
+            var crd = new CardPersonAchievement(_Id, e.RowIndex, this);
+            crd.ToUpdateList += UpdatePersonAchievement;
+            crd.Show();
         }
+        private void UpdatePersonAchievement()
+        {
+            using (PriemEntities context = new PriemEntities())
+            {
+                var src = context.PersonAchievement.Where(x => x.PersonId == GuidId).Select(x => new { x.Id, x.AchievementType.Name }).ToArray();
+                dgvIndividualAchievements.DataSource = Converter.ConvertToDataTable(src);
+            }
+        }
+        #endregion
     }
 }

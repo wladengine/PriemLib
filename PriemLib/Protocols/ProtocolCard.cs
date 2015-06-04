@@ -80,16 +80,16 @@ namespace PriemLib
 
         //конструктор 
         public ProtocolCard(ProtocolList owner, int studyLevelGroupId, int facultyId, int studyBasisId, int studyFormId, int? licenseProgramId, Guid? id) :
-            this(owner, studyLevelGroupId, facultyId, studyBasisId, studyFormId, licenseProgramId, null, null, null, null, id)
+            this(owner, studyLevelGroupId, facultyId, studyBasisId, studyFormId, licenseProgramId, false, false, false, false, id)
         {
         }
 
-        public ProtocolCard(ProtocolList owner, int studyLevelGroupId, int facultyId, int studyBasisId, int studyFormId, int? licenseProgramId, bool? isSecond, bool? isReduced, bool? isParallel, bool? isListener, Guid? id)
-            : this(owner, studyLevelGroupId, facultyId, studyBasisId, studyFormId, licenseProgramId, isSecond, isReduced, isParallel, isListener, null, id)
+        public ProtocolCard(ProtocolList owner, int studyLevelGroupId, int facultyId, int studyBasisId, int studyFormId, int? licenseProgramId, bool isSecond, bool isReduced, bool isParallel, bool isListener, Guid? id)
+            : this(owner, studyLevelGroupId, facultyId, studyBasisId, studyFormId, licenseProgramId, isSecond, isReduced, isParallel, isListener, false, id)
         { }
 
         //конструктор 
-        public ProtocolCard(ProtocolList owner, int studyLevelGroupId, int facultyId, int studyBasisId, int studyFormId, int? licenseProgramId, bool? isSecond, bool? isReduced, bool? isParallel, bool? isListener, bool? isCel, Guid? id)
+        public ProtocolCard(ProtocolList owner, int studyLevelGroupId, int facultyId, int studyBasisId, int studyFormId, int? licenseProgramId, bool isSecond, bool isReduced, bool isParallel, bool isListener, bool isCel, Guid? id)
         {
             InitializeComponent();
 
@@ -417,17 +417,26 @@ namespace PriemLib
                     {
                         try
                         {
-                            if (!isNew)                                                           
+                            if (!isNew && _type == ProtocolTypes.EntryView)                                                           
                                 context.Protocol_UpdateIsOld(true, _id);
-                            
+
                             ObjectParameter paramId = new ObjectParameter("id", typeof(Guid));
-                            int iProtocolTypeId = ProtocolList.TypeToInt(_type);
 
-                            context.Protocol_InsertAll(_studyLevelGroupId,
-                                _facultyId, _licenseProgramId, _studyFormId, _studyBasisId, tbNum.Text, dtpDate.Value, iProtocolTypeId,
-                                string.Empty, !isNew, null, _isSecond, _isReduced, _isParallel, _isListener, paramId);
+                            if (_id.HasValue)
+                            {
+                                ProtocolId = _id.Value;
+                                context.Protocol_ClearHistory(ProtocolId);
+                            }
+                            else
+                            {
+                                int iProtocolTypeId = ProtocolList.TypeToInt(_type);
 
-                            ProtocolId = (Guid)paramId.Value;
+                                context.Protocol_InsertAll(_studyLevelGroupId,
+                                    _facultyId, _licenseProgramId, _studyFormId, _studyBasisId, tbNum.Text, dtpDate.Value, iProtocolTypeId,
+                                    string.Empty, !isNew, null, _isSecond, _isReduced, _isParallel, _isListener, paramId);
+
+                                ProtocolId = (Guid)paramId.Value;
+                            }
                             //сохраняем людей в протоколе
                             foreach (DataGridViewRow rw in dgvLeft.Rows)
                             {

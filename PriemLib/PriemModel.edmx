@@ -495,7 +495,9 @@
       [extEntry].[AggregateGroupName] AS [AggregateGroupName], 
       [extEntry].[IsForeign] AS [IsForeign], 
       [extEntry].[IsCrimea] AS [IsCrimea], 
-      [extEntry].[StudyLevelGroupName] AS [StudyLevelGroupName]
+      [extEntry].[StudyLevelGroupName] AS [StudyLevelGroupName], 
+      [extEntry].[DateOfClose] AS [DateOfClose], 
+      [extEntry].[DateOfStart] AS [DateOfStart]
       FROM [ed].[extEntry] AS [extEntry]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="extEntryProtocols" EntityType="Priem2012Model.Store.extEntryProtocols" store:Type="Views" store:Schema="ed" store:Name="extEntryProtocols">
@@ -1260,7 +1262,9 @@
       [qAbiturient].[IsGosLine] AS [IsGosLine], 
       [qAbiturient].[IsViewed] AS [IsViewed], 
       [qAbiturient].[IsCommonRussianCompetition] AS [IsCommonRussianCompetition], 
-      [qAbiturient].[InnerEntryInEntryId] AS [InnerEntryInEntryId]
+      [qAbiturient].[InnerEntryInEntryId] AS [InnerEntryInEntryId], 
+      [qAbiturient].[IsForeign] AS [IsForeign], 
+      [qAbiturient].[IsCrimea] AS [IsCrimea]
       FROM [ed].[qAbiturient] AS [qAbiturient]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="qAbiturient_WhoSetBackDoc" EntityType="Priem2012Model.Store.qAbiturient_WhoSetBackDoc" store:Type="Views" store:Schema="ed" store:Name="qAbiturient_WhoSetBackDoc">
@@ -1342,7 +1346,9 @@
       [qEntry].[KCPQuota] AS [KCPQuota], 
       [qEntry].[IsForeign] AS [IsForeign], 
       [qEntry].[IsCrimea] AS [IsCrimea], 
-      [qEntry].[StudyLevelGroupName] AS [StudyLevelGroupName]
+      [qEntry].[StudyLevelGroupName] AS [StudyLevelGroupName], 
+      [qEntry].[DateOfStart] AS [DateOfStart], 
+      [qEntry].[DateOfClose] AS [DateOfClose]
       FROM [ed].[qEntry] AS [qEntry]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="qEntryToCompetitiveGroup" EntityType="Priem2012Model.Store.qEntryToCompetitiveGroup" store:Type="Views" store:Schema="ed" store:Name="qEntryToCompetitiveGroup">
@@ -2831,6 +2837,7 @@
           <Property Name="RodName" Type="nvarchar" MaxLength="100" />
           <Property Name="DatName" Type="nvarchar" MaxLength="100" />
           <Property Name="VinName" Type="nvarchar" MaxLength="100" />
+          <Property Name="IndexNumber" Type="nvarchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="SP_LicenseProgram">
           <Key>
@@ -3472,6 +3479,8 @@
             <PropertyRef Name="IsForeign" />
             <PropertyRef Name="IsCrimea" />
             <PropertyRef Name="StudyLevelGroupName" />
+            <PropertyRef Name="DateOfClose" />
+            <PropertyRef Name="DateOfStart" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="FacultyId" Type="int" Nullable="false" />
@@ -3512,6 +3521,8 @@
           <Property Name="IsForeign" Type="bit" Nullable="false" />
           <Property Name="IsCrimea" Type="bit" Nullable="false" />
           <Property Name="StudyLevelGroupName" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="DateOfClose" Type="datetime" Nullable="false" />
+          <Property Name="DateOfStart" Type="datetime" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
       warning 6002: The table/view 'Priem.ed.extEntryProtocols' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -4501,6 +4512,7 @@
             <PropertyRef Name="Id" />
             
             
+            
             <PropertyRef Name="IsListener" />
             <PropertyRef Name="IsPaid" />
             <PropertyRef Name="BackDoc" />
@@ -4509,6 +4521,7 @@
             <PropertyRef Name="Checked" />
             <PropertyRef Name="NotEnabled" />
             <PropertyRef Name="CompFromOlymp" />
+            
             <PropertyRef Name="HasOriginals" />
             <PropertyRef Name="FacultyId" />
             <PropertyRef Name="LicenseProgramId" />
@@ -4531,12 +4544,14 @@
             <PropertyRef Name="IsGosLine" />
             <PropertyRef Name="IsViewed" />
             <PropertyRef Name="IsCommonRussianCompetition" />
+            <PropertyRef Name="IsForeign" />
+            <PropertyRef Name="IsCrimea" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="PersonId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="RegNum" Type="nvarchar" MaxLength="50" />
           <Property Name="EntryId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="CompetitionId" Type="int" />
+          <Property Name="CompetitionId" Type="int" Nullable="false" />
           <Property Name="IsListener" Type="bit" Nullable="false" />
           <Property Name="IsPaid" Type="bit" Nullable="false" />
           <Property Name="BackDoc" Type="bit" Nullable="false" />
@@ -4551,7 +4566,7 @@
           <Property Name="CelCompetitionId" Type="int" />
           <Property Name="CelCompetitionText" Type="nvarchar" MaxLength="50" />
           <Property Name="CompFromOlymp" Type="bit" Nullable="false" />
-          <Property Name="LanguageId" Type="int" />
+          <Property Name="LanguageId" Type="int" Nullable="false" />
           <Property Name="HasOriginals" Type="bit" Nullable="false" />
           <Property Name="StudyNumber" Type="nvarchar" MaxLength="50" />
           <Property Name="SessionAVG" Type="float" />
@@ -4595,6 +4610,8 @@
           <Property Name="IsViewed" Type="bit" Nullable="false" />
           <Property Name="IsCommonRussianCompetition" Type="bit" Nullable="false" />
           <Property Name="InnerEntryInEntryId" Type="uniqueidentifier" />
+          <Property Name="IsForeign" Type="bit" Nullable="false" />
+          <Property Name="IsCrimea" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
       warning 6002: The table/view 'Priem.ed.qAbiturient_WhoSetBackDoc' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -4686,6 +4703,8 @@
             <PropertyRef Name="IsForeign" />
             <PropertyRef Name="IsCrimea" />
             <PropertyRef Name="StudyLevelGroupName" />
+            <PropertyRef Name="DateOfStart" />
+            <PropertyRef Name="DateOfClose" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="FacultyId" Type="int" Nullable="false" />
@@ -4724,6 +4743,8 @@
           <Property Name="IsForeign" Type="bit" Nullable="false" />
           <Property Name="IsCrimea" Type="bit" Nullable="false" />
           <Property Name="StudyLevelGroupName" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="DateOfStart" Type="datetime" Nullable="false" />
+          <Property Name="DateOfClose" Type="datetime" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
       warning 6002: The table/view 'Priem.ed.qEntryToCompetitiveGroup' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -7068,6 +7089,9 @@
           <Parameter Name="PersonId" Type="uniqueidentifier" Mode="In" />
           <Parameter Name="Id" Type="int" Mode="InOut" />
         </Function>
+        <Function Name="Protocol_ClearHistory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ed">
+          <Parameter Name="ProtocolId" Type="uniqueidentifier" Mode="In" />
+        </Function>
         <Function Name="Protocol_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ed">
           <Parameter Name="id" Type="uniqueidentifier" Mode="In" />
         </Function>
@@ -8840,7 +8864,7 @@
             <End Role="PersonAchievement" EntitySet="PersonAchievement" />
           </AssociationSet>
           <FunctionImport Name="PersonAchievement_delete">
-            <Parameter Name="Id" Mode="In" Type="Guid" />
+          <Parameter Name="Id" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="PersonAchievement_insert">
             <Parameter Name="PersonId" Mode="In" Type="Guid" />
@@ -8850,6 +8874,9 @@
           <FunctionImport Name="PersonAchievement_update">
             <Parameter Name="AchievementTypeId" Mode="In" Type="Int32" />
             <Parameter Name="Id" Mode="In" Type="Guid" />
+          </FunctionImport>
+          <FunctionImport Name="Protocol_ClearHistory">
+          <Parameter Name="ProtocolId" Mode="In" Type="Guid" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="AttMarks">
@@ -9059,6 +9086,7 @@
           <NavigationProperty Name="SP_ObrazProgram" Relationship="Priem2012Model.FK_SP_ObrazProgram_SP_Faculty" FromRole="SP_Faculty" ToRole="SP_ObrazProgram" />
           <NavigationProperty Name="Entry" Relationship="Priem2012Model.FK_Entry_SP_Faculty" FromRole="SP_Faculty" ToRole="Entry" />
           <NavigationProperty Name="Protocol" Relationship="Priem2012Model.FK_Protocol_SP_Faculty" FromRole="SP_Faculty" ToRole="Protocol" />
+          <Property Type="String" Name="IndexNumber" MaxLength="10" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="StudyBasis">
           <Key>
@@ -10575,6 +10603,8 @@
             <PropertyRef Name="IsForeign" />
             <PropertyRef Name="IsCrimea" />
             <PropertyRef Name="StudyLevelGroupName" />
+            <PropertyRef Name="DateOfStart" />
+            <PropertyRef Name="DateOfClose" />
           </Key>
           <Property Type="Guid" Name="Id" Nullable="false" />
           <Property Type="Int32" Name="FacultyId" Nullable="false" />
@@ -10613,6 +10643,8 @@
           <Property Type="Boolean" Name="IsForeign" Nullable="false" />
           <Property Type="Boolean" Name="IsCrimea" Nullable="false" />
           <Property Type="String" Name="StudyLevelGroupName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="DateOfStart" Nullable="false" Precision="3" />
+          <Property Type="DateTime" Name="DateOfClose" Nullable="false" Precision="3" />
         </EntityType>
         <EntityType Name="C_FirstWaveGreen">
           <Key>
@@ -11740,12 +11772,14 @@
             <PropertyRef Name="IsGosLine" />
             <PropertyRef Name="IsViewed" />
             <PropertyRef Name="IsCommonRussianCompetition" />
+            <PropertyRef Name="IsForeign" />
+            <PropertyRef Name="IsCrimea" />
           </Key>
           <Property Type="Guid" Name="Id" Nullable="false" />
           <Property Type="Guid" Name="PersonId" Nullable="false" />
           <Property Type="String" Name="RegNum" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="Guid" Name="EntryId" Nullable="false" />
-          <Property Type="Int32" Name="CompetitionId" />
+          <Property Type="Int32" Name="CompetitionId" Nullable="false" />
           <Property Type="Boolean" Name="IsListener" Nullable="false" />
           <Property Type="Boolean" Name="IsPaid" Nullable="false" />
           <Property Type="Boolean" Name="BackDoc" Nullable="false" />
@@ -11760,7 +11794,7 @@
           <Property Type="Int32" Name="CelCompetitionId" />
           <Property Type="String" Name="CelCompetitionText" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="Boolean" Name="CompFromOlymp" Nullable="false" />
-          <Property Type="Int32" Name="LanguageId" />
+          <Property Type="Int32" Name="LanguageId" Nullable="false" />
           <Property Type="Boolean" Name="HasOriginals" Nullable="false" />
           <Property Type="String" Name="StudyNumber" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="Double" Name="SessionAVG" />
@@ -11804,6 +11838,8 @@
           <Property Type="Boolean" Name="IsViewed" Nullable="false" />
           <Property Type="Boolean" Name="IsCommonRussianCompetition" Nullable="false" />
           <Property Type="Guid" Name="InnerEntryInEntryId" />
+          <Property Type="Boolean" Name="IsForeign" Nullable="false" />
+          <Property Type="Boolean" Name="IsCrimea" Nullable="false" />
         </EntityType>
         <Association Name="FK_Entry_SP_LicenseProgram">
           <End Type="Priem2012Model.SP_LicenseProgram" Role="SP_LicenseProgram" Multiplicity="1" />
@@ -12072,6 +12108,8 @@
             <PropertyRef Name="IsForeign" />
             <PropertyRef Name="IsCrimea" />
             <PropertyRef Name="StudyLevelGroupName" />
+            <PropertyRef Name="DateOfClose" />
+            <PropertyRef Name="DateOfStart" />
           </Key>
           <Property Type="Guid" Name="Id" Nullable="false" />
           <Property Type="Int32" Name="FacultyId" Nullable="false" />
@@ -12112,6 +12150,8 @@
           <Property Type="Boolean" Name="IsForeign" Nullable="false" />
           <Property Type="Boolean" Name="IsCrimea" Nullable="false" />
           <Property Type="String" Name="StudyLevelGroupName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="DateOfClose" Nullable="false" Precision="3" />
+          <Property Type="DateTime" Name="DateOfStart" Nullable="false" Precision="3" />
         </EntityType>
         <EntityType Name="ForeignCountry">
           <Key>
@@ -13146,7 +13186,8 @@
             <ScalarProperty Name="FullName" ColumnName="FullName" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="SP_Faculty"><EntityTypeMapping TypeName="Priem2012Model.SP_Faculty"><MappingFragment StoreEntitySet="SP_Faculty">
-            <ScalarProperty Name="VinName" ColumnName="VinName" />
+            <ScalarProperty Name="IndexNumber" ColumnName="IndexNumber" />
+                <ScalarProperty Name="VinName" ColumnName="VinName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
             <ScalarProperty Name="Name" ColumnName="Name" />
             <ScalarProperty Name="NameEng" ColumnName="NameEng" />
@@ -14148,6 +14189,8 @@
           <EntitySetMapping Name="qEntry">
             <EntityTypeMapping TypeName="Priem2012Model.qEntry">
               <MappingFragment StoreEntitySet="qEntry">
+                <ScalarProperty Name="DateOfClose" ColumnName="DateOfClose" />
+                <ScalarProperty Name="DateOfStart" ColumnName="DateOfStart" />
                 <ScalarProperty Name="StudyLevelGroupName" ColumnName="StudyLevelGroupName" />
                 <ScalarProperty Name="IsCrimea" ColumnName="IsCrimea" />
                 <ScalarProperty Name="IsForeign" ColumnName="IsForeign" />
@@ -14819,6 +14862,8 @@
           <EntitySetMapping Name="qAbiturient">
             <EntityTypeMapping TypeName="Priem2012Model.qAbiturient">
               <MappingFragment StoreEntitySet="qAbiturient">
+                <ScalarProperty Name="IsCrimea" ColumnName="IsCrimea" />
+                <ScalarProperty Name="IsForeign" ColumnName="IsForeign" />
                 <ScalarProperty Name="InnerEntryInEntryId" ColumnName="InnerEntryInEntryId" />
                 <ScalarProperty Name="IsCommonRussianCompetition" ColumnName="IsCommonRussianCompetition" />
                 <ScalarProperty Name="IsViewed" ColumnName="IsViewed" />
@@ -15052,6 +15097,8 @@
           <EntitySetMapping Name="extEntry">
             <EntityTypeMapping TypeName="Priem2012Model.extEntry">
               <MappingFragment StoreEntitySet="extEntry">
+                <ScalarProperty Name="DateOfStart" ColumnName="DateOfStart" />
+                <ScalarProperty Name="DateOfClose" ColumnName="DateOfClose" />
                 <ScalarProperty Name="StudyLevelGroupName" ColumnName="StudyLevelGroupName" />
                 <ScalarProperty Name="IsCrimea" ColumnName="IsCrimea" />
                 <ScalarProperty Name="IsForeign" ColumnName="IsForeign" />
@@ -15679,6 +15726,7 @@
           <FunctionImportMapping FunctionImportName="PersonAchievement_delete" FunctionName="Priem2012Model.Store.PersonAchievement_delete" />
           <FunctionImportMapping FunctionImportName="PersonAchievement_insert" FunctionName="Priem2012Model.Store.PersonAchievement_insert" />
           <FunctionImportMapping FunctionImportName="PersonAchievement_update" FunctionName="Priem2012Model.Store.PersonAchievement_update" />
+          <FunctionImportMapping FunctionImportName="Protocol_ClearHistory" FunctionName="Priem2012Model.Store.Protocol_ClearHistory" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -16,13 +16,13 @@ namespace PriemLib
 {
     public partial class DisEntryViewProtocol : ProtocolCard
     {
-        public DisEntryViewProtocol(ProtocolList owner, int iStudyLevelGroupId, int sFac, int sSection, int sForm, int? sProf, bool? isSec, bool? isReduced, bool? isParal, bool? isList)
+        public DisEntryViewProtocol(ProtocolList owner, int iStudyLevelGroupId, int sFac, int sSection, int sForm, int? sProf, bool isSec, bool isReduced, bool isParal, bool isList)
             : this(owner, iStudyLevelGroupId, sFac, sSection, sForm, sProf, isSec, isReduced, isParal, isList, null)
         {
         }
 
         //конструктор 
-        public DisEntryViewProtocol(ProtocolList owner, int iStudyLevelGroupId, int sFac, int sSection, int sForm, int? sProf, bool? isSec, bool? isReduced, bool? isParal, bool? isList, Guid? sProtocol)
+        public DisEntryViewProtocol(ProtocolList owner, int iStudyLevelGroupId, int sFac, int sSection, int sForm, int? sProf, bool isSec, bool isReduced, bool isParal, bool isList, Guid? sProtocol)
             : base(owner, iStudyLevelGroupId, sFac, sSection, sForm, sProf, isSec, isReduced, isParal, isList, sProtocol)
         {
             _type = ProtocolTypes.DisEntryView;                      

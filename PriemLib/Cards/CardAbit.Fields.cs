@@ -16,15 +16,17 @@ namespace PriemLib
                 try
                 {
                     using (PriemEntities context = new PriemEntities())
-                    {                        
+                    {
                         Guid? entId = (from ent in context.qEntry
-                                                 where ent.IsSecond == IsSecond && ent.IsParallel == IsParallel && ent.IsReduced == IsReduced
-                                                 && ent.LicenseProgramId == LicenseProgramId
-                                                 && ent.ObrazProgramId == ObrazProgramId
-                                                 && (ProfileId == null ? ent.ProfileId == null : ent.ProfileId == ProfileId)   
-                                                 && ent.StudyFormId == StudyFormId
-                                                 && ent.StudyBasisId == StudyBasisId
-                                                 select ent.Id).FirstOrDefault();
+                                       where ent.IsSecond == IsSecond && ent.IsParallel == IsParallel && ent.IsReduced == IsReduced
+                                       && ent.LicenseProgramId == LicenseProgramId
+                                       && ent.ObrazProgramId == ObrazProgramId
+                                       && (ProfileId == null ? ent.ProfileId == null : ent.ProfileId == ProfileId)
+                                       && ent.StudyFormId == StudyFormId
+                                       && ent.StudyBasisId == StudyBasisId
+                                       && ent.IsCrimea == IsCrimea
+                                       && ent.IsForeign == IsForeign
+                                       select ent.Id).FirstOrDefault();
                         return entId;
                     }
                 }
@@ -280,10 +282,15 @@ namespace PriemLib
             get { return chbHasOriginals.Checked; }
             set { chbHasOriginals.Checked = value; }
         }
-        public bool IsCommonRussianCompetition
+        public bool IsForeign
         {
-            get { return chbIsCommonRussianCompetition.Checked; }
-            set { chbIsCommonRussianCompetition.Checked = value; }
+            get { return chbIsForeign.Checked; }
+            set { chbIsForeign.Checked = value; }
+        }
+        public bool IsCrimea
+        {
+            get { return chbIsCrimea.Checked; }
+            set { chbIsCrimea.Checked = value; }
         }
 
         public int? Priority
