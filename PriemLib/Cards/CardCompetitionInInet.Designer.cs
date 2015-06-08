@@ -63,9 +63,9 @@
             this.label37 = new System.Windows.Forms.Label();
             this.epError = new System.Windows.Forms.ErrorProvider(this.components);
             this.btnSave = new System.Windows.Forms.Button();
-            this.chbIsGosLine = new System.Windows.Forms.CheckBox();
+            this.chbIsForeign = new System.Windows.Forms.CheckBox();
             this.btnHasInnerObrazProgram = new System.Windows.Forms.Button();
-            this.chbIsCommonRussianCompetition = new System.Windows.Forms.CheckBox();
+            this.chbIsCrimea = new System.Windows.Forms.CheckBox();
             this.gbDocs.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.epError)).BeginInit();
             this.SuspendLayout();
@@ -99,7 +99,7 @@
             // 
             this.chbIsReduced.AutoSize = true;
             this.chbIsReduced.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chbIsReduced.Location = new System.Drawing.Point(49, 19);
+            this.chbIsReduced.Location = new System.Drawing.Point(91, 12);
             this.chbIsReduced.Name = "chbIsReduced";
             this.chbIsReduced.Size = new System.Drawing.Size(81, 17);
             this.chbIsReduced.TabIndex = 187;
@@ -112,7 +112,7 @@
             // 
             this.chbIsSecond.AutoSize = true;
             this.chbIsSecond.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chbIsSecond.Location = new System.Drawing.Point(178, 12);
+            this.chbIsSecond.Location = new System.Drawing.Point(178, 5);
             this.chbIsSecond.Name = "chbIsSecond";
             this.chbIsSecond.Size = new System.Drawing.Size(153, 30);
             this.chbIsSecond.TabIndex = 186;
@@ -161,7 +161,7 @@
             // 
             this.chbIsListener.AutoSize = true;
             this.chbIsListener.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chbIsListener.Location = new System.Drawing.Point(376, 19);
+            this.chbIsListener.Location = new System.Drawing.Point(370, 12);
             this.chbIsListener.Name = "chbIsListener";
             this.chbIsListener.Size = new System.Drawing.Size(80, 17);
             this.chbIsListener.TabIndex = 182;
@@ -433,16 +433,16 @@
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // chbIsGosLine
+            // chbIsForeign
             // 
-            this.chbIsGosLine.AutoSize = true;
-            this.chbIsGosLine.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chbIsGosLine.Location = new System.Drawing.Point(299, 48);
-            this.chbIsGosLine.Name = "chbIsGosLine";
-            this.chbIsGosLine.Size = new System.Drawing.Size(157, 17);
-            this.chbIsGosLine.TabIndex = 191;
-            this.chbIsGosLine.Text = "Поступление по гослинии";
-            this.chbIsGosLine.UseVisualStyleBackColor = true;
+            this.chbIsForeign.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chbIsForeign.Location = new System.Drawing.Point(337, 35);
+            this.chbIsForeign.Name = "chbIsForeign";
+            this.chbIsForeign.Size = new System.Drawing.Size(113, 34);
+            this.chbIsForeign.TabIndex = 191;
+            this.chbIsForeign.Text = "Иностранный приём";
+            this.chbIsForeign.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chbIsForeign.UseVisualStyleBackColor = true;
             // 
             // btnHasInnerObrazProgram
             // 
@@ -455,24 +455,25 @@
             this.btnHasInnerObrazProgram.Visible = false;
             this.btnHasInnerObrazProgram.Click += new System.EventHandler(this.btnHasInnerObrazProgram_Click);
             // 
-            // chbIsCommonRussianCompetition
+            // chbIsCrimea
             // 
-            this.chbIsCommonRussianCompetition.Location = new System.Drawing.Point(269, 407);
-            this.chbIsCommonRussianCompetition.Name = "chbIsCommonRussianCompetition";
-            this.chbIsCommonRussianCompetition.Size = new System.Drawing.Size(181, 30);
-            this.chbIsCommonRussianCompetition.TabIndex = 193;
-            this.chbIsCommonRussianCompetition.Text = "поступление на равных правах с гражданами РФ";
-            this.chbIsCommonRussianCompetition.UseVisualStyleBackColor = true;
-            this.chbIsCommonRussianCompetition.Visible = false;
+            this.chbIsCrimea.AutoSize = true;
+            this.chbIsCrimea.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chbIsCrimea.Location = new System.Drawing.Point(276, 44);
+            this.chbIsCrimea.Name = "chbIsCrimea";
+            this.chbIsCrimea.Size = new System.Drawing.Size(55, 17);
+            this.chbIsCrimea.TabIndex = 194;
+            this.chbIsCrimea.Text = "Крым";
+            this.chbIsCrimea.UseVisualStyleBackColor = true;
             // 
             // CardCompetitionInInet
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(476, 529);
-            this.Controls.Add(this.chbIsCommonRussianCompetition);
+            this.Controls.Add(this.chbIsCrimea);
             this.Controls.Add(this.btnHasInnerObrazProgram);
-            this.Controls.Add(this.chbIsGosLine);
+            this.Controls.Add(this.chbIsForeign);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.cbStudyLevel);
             this.Controls.Add(this.label52);
@@ -551,8 +552,8 @@
         private System.Windows.Forms.Label label37;
         private System.Windows.Forms.ErrorProvider epError;
         private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.CheckBox chbIsGosLine;
+        private System.Windows.Forms.CheckBox chbIsForeign;
         private System.Windows.Forms.Button btnHasInnerObrazProgram;
-        private System.Windows.Forms.CheckBox chbIsCommonRussianCompetition;
+        private System.Windows.Forms.CheckBox chbIsCrimea;
     }
 }

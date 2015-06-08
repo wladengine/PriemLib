@@ -68,7 +68,7 @@ namespace PriemLib
             if (_abitBarc != null)
                 lblBarcode.Text += @"\" + _abitBarc.ToString();
 
-            _docs = new DocsClass(_personBarc.Value, _abitBarc, MainClass.dbType == PriemType.PriemForeigners);
+            _docs = new DocsClass(_personBarc.Value, null, MainClass.dbType == PriemType.PriemForeigners);
 
             tbNum.Enabled = false;
 
@@ -461,9 +461,9 @@ namespace PriemLib
         }
         private void FillFiles()
         {
-            List<KeyValuePair<string, string>> lstFiles = _docs.UpdateFiles();
-            if (lstFiles == null || lstFiles.Count == 0)
-                return;
+            //List<KeyValuePair<string, string>> lstFiles = _docs.UpdateFiles();
+            //if (lstFiles == null || lstFiles.Count == 0)
+            //    return;
 
             dgvFiles.DataSource = _docs.UpdateFilesTable();
             if (dgvFiles.Rows.Count > 0)
@@ -632,7 +632,8 @@ namespace PriemLib
                 LstCompetitions[ind].CompetitionName = comp.CompetitionName;
 
                 LstCompetitions[ind].DocInsertDate = comp.DocInsertDate;
-                LstCompetitions[ind].IsGosLine = comp.IsGosLine;
+                LstCompetitions[ind].IsForeign = comp.IsForeign;
+                LstCompetitions[ind].IsCrimea = comp.IsCrimea;
                 LstCompetitions[ind].IsListener = comp.IsListener;
                 LstCompetitions[ind].IsReduced = comp.IsReduced;
 

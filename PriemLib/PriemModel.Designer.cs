@@ -114,6 +114,7 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("Priem2012Model", "FK_PersonSportQualification_Person", "Person", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Person), "PersonSportQualification", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.PersonSportQualification), true)]
 [assembly: EdmRelationshipAttribute("Priem2012Model", "FK_PersonAchievement_AchievementType", "AchievementType", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.AchievementType), "PersonAchievement", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.PersonAchievement), true)]
 [assembly: EdmRelationshipAttribute("Priem2012Model", "FK_PersonAchievement_Person", "Person", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Person), "PersonAchievement", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.PersonAchievement), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Mark_PersonAchievement", "PersonAchievement", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.PersonAchievement), "Mark", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Mark), true)]
 
 #endregion
 
@@ -7880,9 +7881,8 @@ namespace PriemLib
         /// <param name="barcode">No Metadata Documentation available.</param>
         /// <param name="commitId">No Metadata Documentation available.</param>
         /// <param name="commitNumber">No Metadata Documentation available.</param>
-        /// <param name="isGosLine">No Metadata Documentation available.</param>
         /// <param name="id">No Metadata Documentation available.</param>
-        public int Abiturient_Insert(Nullable<global::System.Guid> personId, Nullable<global::System.Guid> entryId, Nullable<global::System.Int32> competitionId, Nullable<global::System.Boolean> isListener, Nullable<global::System.Boolean> withHE, Nullable<global::System.Boolean> isPaid, Nullable<global::System.Boolean> backDoc, Nullable<global::System.DateTime> backDocDate, Nullable<global::System.DateTime> docDate, Nullable<global::System.DateTime> docInsertDate, Nullable<global::System.Boolean> @checked, Nullable<global::System.Boolean> notEnabled, Nullable<global::System.Double> coefficient, Nullable<global::System.Int32> otherCompetitionId, Nullable<global::System.Int32> celCompetitionId, global::System.String celCompetitionText, Nullable<global::System.Int32> languageId, Nullable<global::System.Boolean> hasOriginals, Nullable<global::System.Double> priority, Nullable<global::System.Int32> barcode, Nullable<global::System.Guid> commitId, Nullable<global::System.Int32> commitNumber, Nullable<global::System.Boolean> isGosLine, ObjectParameter id)
+        public int Abiturient_Insert(Nullable<global::System.Guid> personId, Nullable<global::System.Guid> entryId, Nullable<global::System.Int32> competitionId, Nullable<global::System.Boolean> isListener, Nullable<global::System.Boolean> withHE, Nullable<global::System.Boolean> isPaid, Nullable<global::System.Boolean> backDoc, Nullable<global::System.DateTime> backDocDate, Nullable<global::System.DateTime> docDate, Nullable<global::System.DateTime> docInsertDate, Nullable<global::System.Boolean> @checked, Nullable<global::System.Boolean> notEnabled, Nullable<global::System.Double> coefficient, Nullable<global::System.Int32> otherCompetitionId, Nullable<global::System.Int32> celCompetitionId, global::System.String celCompetitionText, Nullable<global::System.Int32> languageId, Nullable<global::System.Boolean> hasOriginals, Nullable<global::System.Double> priority, Nullable<global::System.Int32> barcode, Nullable<global::System.Guid> commitId, Nullable<global::System.Int32> commitNumber, ObjectParameter id)
         {
             ObjectParameter personIdParameter;
             if (personId.HasValue)
@@ -8104,17 +8104,7 @@ namespace PriemLib
                 commitNumberParameter = new ObjectParameter("CommitNumber", typeof(global::System.Int32));
             }
     
-            ObjectParameter isGosLineParameter;
-            if (isGosLine.HasValue)
-            {
-                isGosLineParameter = new ObjectParameter("IsGosLine", isGosLine);
-            }
-            else
-            {
-                isGosLineParameter = new ObjectParameter("IsGosLine", typeof(global::System.Boolean));
-            }
-    
-            return base.ExecuteFunction("Abiturient_Insert", personIdParameter, entryIdParameter, competitionIdParameter, isListenerParameter, withHEParameter, isPaidParameter, backDocParameter, backDocDateParameter, docDateParameter, docInsertDateParameter, checkedParameter, notEnabledParameter, coefficientParameter, otherCompetitionIdParameter, celCompetitionIdParameter, celCompetitionTextParameter, languageIdParameter, hasOriginalsParameter, priorityParameter, barcodeParameter, commitIdParameter, commitNumberParameter, isGosLineParameter, id);
+            return base.ExecuteFunction("Abiturient_Insert", personIdParameter, entryIdParameter, competitionIdParameter, isListenerParameter, withHEParameter, isPaidParameter, backDocParameter, backDocDateParameter, docDateParameter, docInsertDateParameter, checkedParameter, notEnabledParameter, coefficientParameter, otherCompetitionIdParameter, celCompetitionIdParameter, celCompetitionTextParameter, languageIdParameter, hasOriginalsParameter, priorityParameter, barcodeParameter, commitIdParameter, commitNumberParameter, id);
         }
     
         /// <summary>
@@ -11902,10 +11892,9 @@ namespace PriemLib
         /// <param name="barcode">No Metadata Documentation available.</param>
         /// <param name="commitId">No Metadata Documentation available.</param>
         /// <param name="commitNumber">No Metadata Documentation available.</param>
-        /// <param name="isGosLine">No Metadata Documentation available.</param>
         /// <param name="isViewed">No Metadata Documentation available.</param>
         /// <param name="id">No Metadata Documentation available.</param>
-        public int Abiturient_InsertDirectly(Nullable<global::System.Guid> personId, Nullable<global::System.Guid> entryId, Nullable<global::System.Int32> competitionId, Nullable<global::System.Boolean> isListener, Nullable<global::System.Boolean> withHE, Nullable<global::System.Boolean> isPaid, Nullable<global::System.Boolean> backDoc, Nullable<global::System.DateTime> backDocDate, Nullable<global::System.DateTime> docDate, Nullable<global::System.DateTime> docInsertDate, Nullable<global::System.Boolean> @checked, Nullable<global::System.Boolean> notEnabled, Nullable<global::System.Double> coefficient, Nullable<global::System.Int32> otherCompetitionId, Nullable<global::System.Int32> celCompetitionId, global::System.String celCompetitionText, Nullable<global::System.Int32> languageId, Nullable<global::System.Boolean> hasOriginals, Nullable<global::System.Double> priority, Nullable<global::System.Int32> barcode, Nullable<global::System.Guid> commitId, Nullable<global::System.Int32> commitNumber, Nullable<global::System.Boolean> isGosLine, Nullable<global::System.Boolean> isViewed, Nullable<global::System.Guid> id)
+        public int Abiturient_InsertDirectly(Nullable<global::System.Guid> personId, Nullable<global::System.Guid> entryId, Nullable<global::System.Int32> competitionId, Nullable<global::System.Boolean> isListener, Nullable<global::System.Boolean> withHE, Nullable<global::System.Boolean> isPaid, Nullable<global::System.Boolean> backDoc, Nullable<global::System.DateTime> backDocDate, Nullable<global::System.DateTime> docDate, Nullable<global::System.DateTime> docInsertDate, Nullable<global::System.Boolean> @checked, Nullable<global::System.Boolean> notEnabled, Nullable<global::System.Double> coefficient, Nullable<global::System.Int32> otherCompetitionId, Nullable<global::System.Int32> celCompetitionId, global::System.String celCompetitionText, Nullable<global::System.Int32> languageId, Nullable<global::System.Boolean> hasOriginals, Nullable<global::System.Double> priority, Nullable<global::System.Int32> barcode, Nullable<global::System.Guid> commitId, Nullable<global::System.Int32> commitNumber, Nullable<global::System.Boolean> isViewed, Nullable<global::System.Guid> id)
         {
             ObjectParameter personIdParameter;
             if (personId.HasValue)
@@ -12127,16 +12116,6 @@ namespace PriemLib
                 commitNumberParameter = new ObjectParameter("CommitNumber", typeof(global::System.Int32));
             }
     
-            ObjectParameter isGosLineParameter;
-            if (isGosLine.HasValue)
-            {
-                isGosLineParameter = new ObjectParameter("IsGosLine", isGosLine);
-            }
-            else
-            {
-                isGosLineParameter = new ObjectParameter("IsGosLine", typeof(global::System.Boolean));
-            }
-    
             ObjectParameter isViewedParameter;
             if (isViewed.HasValue)
             {
@@ -12157,7 +12136,7 @@ namespace PriemLib
                 idParameter = new ObjectParameter("id", typeof(global::System.Guid));
             }
     
-            return base.ExecuteFunction("Abiturient_InsertDirectly", personIdParameter, entryIdParameter, competitionIdParameter, isListenerParameter, withHEParameter, isPaidParameter, backDocParameter, backDocDateParameter, docDateParameter, docInsertDateParameter, checkedParameter, notEnabledParameter, coefficientParameter, otherCompetitionIdParameter, celCompetitionIdParameter, celCompetitionTextParameter, languageIdParameter, hasOriginalsParameter, priorityParameter, barcodeParameter, commitIdParameter, commitNumberParameter, isGosLineParameter, isViewedParameter, idParameter);
+            return base.ExecuteFunction("Abiturient_InsertDirectly", personIdParameter, entryIdParameter, competitionIdParameter, isListenerParameter, withHEParameter, isPaidParameter, backDocParameter, backDocDateParameter, docDateParameter, docInsertDateParameter, checkedParameter, notEnabledParameter, coefficientParameter, otherCompetitionIdParameter, celCompetitionIdParameter, celCompetitionTextParameter, languageIdParameter, hasOriginalsParameter, priorityParameter, barcodeParameter, commitIdParameter, commitNumberParameter, isViewedParameter, idParameter);
         }
     
         /// <summary>
@@ -12272,36 +12251,6 @@ namespace PriemLib
             }
     
             return base.ExecuteFunction("CheckAbitIdentWithIdAndGosLine", abitIdParameter, personIdParameter, entryIdParameter, isGosLineParameter, result);
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        /// <param name="isCommonRussianCompetition">No Metadata Documentation available.</param>
-        /// <param name="id">No Metadata Documentation available.</param>
-        public int Abiturient_UpdateIsCommonRussianCompetition(Nullable<global::System.Boolean> isCommonRussianCompetition, Nullable<global::System.Guid> id)
-        {
-            ObjectParameter isCommonRussianCompetitionParameter;
-            if (isCommonRussianCompetition.HasValue)
-            {
-                isCommonRussianCompetitionParameter = new ObjectParameter("IsCommonRussianCompetition", isCommonRussianCompetition);
-            }
-            else
-            {
-                isCommonRussianCompetitionParameter = new ObjectParameter("IsCommonRussianCompetition", typeof(global::System.Boolean));
-            }
-    
-            ObjectParameter idParameter;
-            if (id.HasValue)
-            {
-                idParameter = new ObjectParameter("id", id);
-            }
-            else
-            {
-                idParameter = new ObjectParameter("id", typeof(global::System.Guid));
-            }
-    
-            return base.ExecuteFunction("Abiturient_UpdateIsCommonRussianCompetition", isCommonRussianCompetitionParameter, idParameter);
         }
     
         /// <summary>
@@ -13139,36 +13088,6 @@ namespace PriemLib
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        /// <param name="isGosLine">No Metadata Documentation available.</param>
-        /// <param name="id">No Metadata Documentation available.</param>
-        public int Abiturient_UpdateIsGosLine(Nullable<global::System.Boolean> isGosLine, Nullable<global::System.Guid> id)
-        {
-            ObjectParameter isGosLineParameter;
-            if (isGosLine.HasValue)
-            {
-                isGosLineParameter = new ObjectParameter("IsGosLine", isGosLine);
-            }
-            else
-            {
-                isGosLineParameter = new ObjectParameter("IsGosLine", typeof(global::System.Boolean));
-            }
-    
-            ObjectParameter idParameter;
-            if (id.HasValue)
-            {
-                idParameter = new ObjectParameter("id", id);
-            }
-            else
-            {
-                idParameter = new ObjectParameter("id", typeof(global::System.Guid));
-            }
-    
-            return base.ExecuteFunction("Abiturient_UpdateIsGosLine", isGosLineParameter, idParameter);
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         /// <param name="id">No Metadata Documentation available.</param>
         public int Person_deleteAllInfo(Nullable<global::System.Guid> id)
         {
@@ -13449,10 +13368,8 @@ namespace PriemLib
         /// <param name="hasOriginals">Initial value of the HasOriginals property.</param>
         /// <param name="withHE">Initial value of the WithHE property.</param>
         /// <param name="isOpen">Initial value of the IsOpen property.</param>
-        /// <param name="isGosLine">Initial value of the IsGosLine property.</param>
         /// <param name="isViewed">Initial value of the IsViewed property.</param>
-        /// <param name="isCommonRussianCompetition">Initial value of the IsCommonRussianCompetition property.</param>
-        public static Abiturient CreateAbiturient(global::System.Guid id, global::System.Guid personId, global::System.Guid entryId, global::System.Int32 competitionId, global::System.Boolean isListener, global::System.Boolean isPaid, global::System.Boolean backDoc, global::System.DateTime docDate, global::System.DateTime docInsertDate, global::System.Boolean @checked, global::System.Boolean notEnabled, global::System.Boolean compFromOlymp, global::System.Int32 languageId, global::System.Boolean hasOriginals, global::System.Boolean withHE, global::System.Boolean isOpen, global::System.Boolean isGosLine, global::System.Boolean isViewed, global::System.Boolean isCommonRussianCompetition)
+        public static Abiturient CreateAbiturient(global::System.Guid id, global::System.Guid personId, global::System.Guid entryId, global::System.Int32 competitionId, global::System.Boolean isListener, global::System.Boolean isPaid, global::System.Boolean backDoc, global::System.DateTime docDate, global::System.DateTime docInsertDate, global::System.Boolean @checked, global::System.Boolean notEnabled, global::System.Boolean compFromOlymp, global::System.Int32 languageId, global::System.Boolean hasOriginals, global::System.Boolean withHE, global::System.Boolean isOpen, global::System.Boolean isViewed)
         {
             Abiturient abiturient = new Abiturient();
             abiturient.Id = id;
@@ -13471,9 +13388,7 @@ namespace PriemLib
             abiturient.HasOriginals = hasOriginals;
             abiturient.WithHE = withHE;
             abiturient.IsOpen = isOpen;
-            abiturient.IsGosLine = isGosLine;
             abiturient.IsViewed = isViewed;
-            abiturient.IsCommonRussianCompetition = isCommonRussianCompetition;
             return abiturient;
         }
 
@@ -14281,30 +14196,6 @@ namespace PriemLib
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Boolean IsGosLine
-        {
-            get
-            {
-                return _IsGosLine;
-            }
-            set
-            {
-                OnIsGosLineChanging(value);
-                ReportPropertyChanging("IsGosLine");
-                _IsGosLine = StructuralObject.SetValidValue(value, "IsGosLine");
-                ReportPropertyChanged("IsGosLine");
-                OnIsGosLineChanged();
-            }
-        }
-        private global::System.Boolean _IsGosLine;
-        partial void OnIsGosLineChanging(global::System.Boolean value);
-        partial void OnIsGosLineChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
         public global::System.Boolean IsViewed
         {
             get
@@ -14323,30 +14214,6 @@ namespace PriemLib
         private global::System.Boolean _IsViewed;
         partial void OnIsViewedChanging(global::System.Boolean value);
         partial void OnIsViewedChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Boolean IsCommonRussianCompetition
-        {
-            get
-            {
-                return _IsCommonRussianCompetition;
-            }
-            set
-            {
-                OnIsCommonRussianCompetitionChanging(value);
-                ReportPropertyChanging("IsCommonRussianCompetition");
-                _IsCommonRussianCompetition = StructuralObject.SetValidValue(value, "IsCommonRussianCompetition");
-                ReportPropertyChanged("IsCommonRussianCompetition");
-                OnIsCommonRussianCompetitionChanged();
-            }
-        }
-        private global::System.Boolean _IsCommonRussianCompetition;
-        partial void OnIsCommonRussianCompetitionChanging(global::System.Boolean value);
-        partial void OnIsCommonRussianCompetitionChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -22321,8 +22188,9 @@ namespace PriemLib
         /// <param name="withHE">Initial value of the WithHE property.</param>
         /// <param name="isReduced">Initial value of the IsReduced property.</param>
         /// <param name="isParallel">Initial value of the IsParallel property.</param>
-        /// <param name="isGosLine">Initial value of the IsGosLine property.</param>
-        public static extAbit CreateextAbit(global::System.Guid id, global::System.Guid personId, global::System.Guid entryId, global::System.Int32 competitionId, global::System.Boolean isListener, global::System.Boolean isPaid, global::System.Boolean backDoc, global::System.DateTime docDate, global::System.DateTime docInsertDate, global::System.Boolean @checked, global::System.Boolean notEnabled, global::System.Boolean compFromOlymp, global::System.Boolean hasOriginals, global::System.Int32 facultyId, global::System.Int32 licenseProgramId, global::System.String licenseProgramName, global::System.Int32 obrazProgramId, global::System.String obrazProgramName, global::System.Int32 profileId, global::System.Int32 studyBasisId, global::System.String studyBasisName, global::System.Int32 studyFormId, global::System.String studyFormName, global::System.Int32 studyLevelId, global::System.String studyLevelName, global::System.Boolean isSecond, global::System.String name, global::System.String surname, global::System.Int32 studyLevelGroupId, global::System.String fIO, global::System.String obrazProgramNameEx, global::System.Boolean withHE, global::System.Boolean isReduced, global::System.Boolean isParallel, global::System.Boolean isGosLine)
+        /// <param name="isForeign">Initial value of the IsForeign property.</param>
+        /// <param name="isCrimea">Initial value of the IsCrimea property.</param>
+        public static extAbit CreateextAbit(global::System.Guid id, global::System.Guid personId, global::System.Guid entryId, global::System.Int32 competitionId, global::System.Boolean isListener, global::System.Boolean isPaid, global::System.Boolean backDoc, global::System.DateTime docDate, global::System.DateTime docInsertDate, global::System.Boolean @checked, global::System.Boolean notEnabled, global::System.Boolean compFromOlymp, global::System.Boolean hasOriginals, global::System.Int32 facultyId, global::System.Int32 licenseProgramId, global::System.String licenseProgramName, global::System.Int32 obrazProgramId, global::System.String obrazProgramName, global::System.Int32 profileId, global::System.Int32 studyBasisId, global::System.String studyBasisName, global::System.Int32 studyFormId, global::System.String studyFormName, global::System.Int32 studyLevelId, global::System.String studyLevelName, global::System.Boolean isSecond, global::System.String name, global::System.String surname, global::System.Int32 studyLevelGroupId, global::System.String fIO, global::System.String obrazProgramNameEx, global::System.Boolean withHE, global::System.Boolean isReduced, global::System.Boolean isParallel, global::System.Boolean isForeign, global::System.Boolean isCrimea)
         {
             extAbit extAbit = new extAbit();
             extAbit.Id = id;
@@ -22359,7 +22227,8 @@ namespace PriemLib
             extAbit.WithHE = withHE;
             extAbit.IsReduced = isReduced;
             extAbit.IsParallel = isParallel;
-            extAbit.IsGosLine = isGosLine;
+            extAbit.IsForeign = isForeign;
+            extAbit.IsCrimea = isCrimea;
             return extAbit;
         }
 
@@ -24029,33 +23898,6 @@ namespace PriemLib
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Boolean IsGosLine
-        {
-            get
-            {
-                return _IsGosLine;
-            }
-            set
-            {
-                if (_IsGosLine != value)
-                {
-                    OnIsGosLineChanging(value);
-                    ReportPropertyChanging("IsGosLine");
-                    _IsGosLine = StructuralObject.SetValidValue(value, "IsGosLine");
-                    ReportPropertyChanged("IsGosLine");
-                    OnIsGosLineChanged();
-                }
-            }
-        }
-        private global::System.Boolean _IsGosLine;
-        partial void OnIsGosLineChanging(global::System.Boolean value);
-        partial void OnIsGosLineChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
         public Nullable<global::System.Guid> InnerEntryInEntryId
@@ -24172,6 +24014,60 @@ namespace PriemLib
         private global::System.String _InnerEntryInEntryObrazProgramName;
         partial void OnInnerEntryInEntryObrazProgramNameChanging(global::System.String value);
         partial void OnInnerEntryInEntryObrazProgramNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean IsForeign
+        {
+            get
+            {
+                return _IsForeign;
+            }
+            set
+            {
+                if (_IsForeign != value)
+                {
+                    OnIsForeignChanging(value);
+                    ReportPropertyChanging("IsForeign");
+                    _IsForeign = StructuralObject.SetValidValue(value, "IsForeign");
+                    ReportPropertyChanged("IsForeign");
+                    OnIsForeignChanged();
+                }
+            }
+        }
+        private global::System.Boolean _IsForeign;
+        partial void OnIsForeignChanging(global::System.Boolean value);
+        partial void OnIsForeignChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean IsCrimea
+        {
+            get
+            {
+                return _IsCrimea;
+            }
+            set
+            {
+                if (_IsCrimea != value)
+                {
+                    OnIsCrimeaChanging(value);
+                    ReportPropertyChanging("IsCrimea");
+                    _IsCrimea = StructuralObject.SetValidValue(value, "IsCrimea");
+                    ReportPropertyChanged("IsCrimea");
+                    OnIsCrimeaChanged();
+                }
+            }
+        }
+        private global::System.Boolean _IsCrimea;
+        partial void OnIsCrimeaChanging(global::System.Boolean value);
+        partial void OnIsCrimeaChanged();
 
         #endregion
 
@@ -24224,8 +24120,7 @@ namespace PriemLib
         /// <param name="withHE">Initial value of the WithHE property.</param>
         /// <param name="isReduced">Initial value of the IsReduced property.</param>
         /// <param name="isParallel">Initial value of the IsParallel property.</param>
-        /// <param name="isGosLine">Initial value of the IsGosLine property.</param>
-        public static extAbitAspirant CreateextAbitAspirant(global::System.Guid id, global::System.Guid personId, global::System.Guid entryId, global::System.Int32 competitionId, global::System.Boolean isListener, global::System.Boolean isPaid, global::System.Boolean backDoc, global::System.DateTime docDate, global::System.DateTime docInsertDate, global::System.Boolean @checked, global::System.Boolean notEnabled, global::System.Boolean compFromOlymp, global::System.Int32 languageId, global::System.Boolean hasOriginals, global::System.Int32 facultyId, global::System.Int32 licenseProgramId, global::System.String licenseProgramName, global::System.Int32 obrazProgramId, global::System.String obrazProgramName, global::System.Int32 profileId, global::System.Int32 studyBasisId, global::System.String studyBasisName, global::System.Int32 studyFormId, global::System.String studyFormName, global::System.Int32 studyLevelId, global::System.String studyLevelName, global::System.Boolean isSecond, global::System.String name, global::System.String surname, global::System.Int32 studyLevelGroupId, global::System.String obrazProgramNameEx, global::System.Boolean withHE, global::System.Boolean isReduced, global::System.Boolean isParallel, global::System.Boolean isGosLine)
+        public static extAbitAspirant CreateextAbitAspirant(global::System.Guid id, global::System.Guid personId, global::System.Guid entryId, global::System.Int32 competitionId, global::System.Boolean isListener, global::System.Boolean isPaid, global::System.Boolean backDoc, global::System.DateTime docDate, global::System.DateTime docInsertDate, global::System.Boolean @checked, global::System.Boolean notEnabled, global::System.Boolean compFromOlymp, global::System.Int32 languageId, global::System.Boolean hasOriginals, global::System.Int32 facultyId, global::System.Int32 licenseProgramId, global::System.String licenseProgramName, global::System.Int32 obrazProgramId, global::System.String obrazProgramName, global::System.Int32 profileId, global::System.Int32 studyBasisId, global::System.String studyBasisName, global::System.Int32 studyFormId, global::System.String studyFormName, global::System.Int32 studyLevelId, global::System.String studyLevelName, global::System.Boolean isSecond, global::System.String name, global::System.String surname, global::System.Int32 studyLevelGroupId, global::System.String obrazProgramNameEx, global::System.Boolean withHE, global::System.Boolean isReduced, global::System.Boolean isParallel)
         {
             extAbitAspirant extAbitAspirant = new extAbitAspirant();
             extAbitAspirant.Id = id;
@@ -24262,7 +24157,6 @@ namespace PriemLib
             extAbitAspirant.WithHE = withHE;
             extAbitAspirant.IsReduced = isReduced;
             extAbitAspirant.IsParallel = isParallel;
-            extAbitAspirant.IsGosLine = isGosLine;
             return extAbitAspirant;
         }
 
@@ -25931,33 +25825,6 @@ namespace PriemLib
         private Nullable<global::System.Int32> _CommitNumber;
         partial void OnCommitNumberChanging(Nullable<global::System.Int32> value);
         partial void OnCommitNumberChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Boolean IsGosLine
-        {
-            get
-            {
-                return _IsGosLine;
-            }
-            set
-            {
-                if (_IsGosLine != value)
-                {
-                    OnIsGosLineChanging(value);
-                    ReportPropertyChanging("IsGosLine");
-                    _IsGosLine = StructuralObject.SetValidValue(value, "IsGosLine");
-                    ReportPropertyChanged("IsGosLine");
-                    OnIsGosLineChanged();
-                }
-            }
-        }
-        private global::System.Boolean _IsGosLine;
-        partial void OnIsGosLineChanging(global::System.Boolean value);
-        partial void OnIsGosLineChanged();
 
         #endregion
 
@@ -47549,7 +47416,8 @@ namespace PriemLib
         /// <param name="isFromEge">Initial value of the IsFromEge property.</param>
         /// <param name="isFromOlymp">Initial value of the IsFromOlymp property.</param>
         /// <param name="isManual">Initial value of the IsManual property.</param>
-        public static Mark CreateMark(global::System.Guid id, global::System.Guid abiturientId, global::System.Int32 examInEntryId, global::System.Byte value, global::System.Boolean isFromEge, global::System.Boolean isFromOlymp, global::System.Boolean isManual)
+        /// <param name="isFromAchievement">Initial value of the IsFromAchievement property.</param>
+        public static Mark CreateMark(global::System.Guid id, global::System.Guid abiturientId, global::System.Int32 examInEntryId, global::System.Byte value, global::System.Boolean isFromEge, global::System.Boolean isFromOlymp, global::System.Boolean isManual, global::System.Boolean isFromAchievement)
         {
             Mark mark = new Mark();
             mark.Id = id;
@@ -47559,6 +47427,7 @@ namespace PriemLib
             mark.IsFromEge = isFromEge;
             mark.IsFromOlymp = isFromOlymp;
             mark.IsManual = isManual;
+            mark.IsFromAchievement = isFromAchievement;
             return mark;
         }
 
@@ -47856,6 +47725,54 @@ namespace PriemLib
         private Nullable<global::System.Byte> _FiveGradeValue;
         partial void OnFiveGradeValueChanging(Nullable<global::System.Byte> value);
         partial void OnFiveGradeValueChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean IsFromAchievement
+        {
+            get
+            {
+                return _IsFromAchievement;
+            }
+            set
+            {
+                OnIsFromAchievementChanging(value);
+                ReportPropertyChanging("IsFromAchievement");
+                _IsFromAchievement = StructuralObject.SetValidValue(value, "IsFromAchievement");
+                ReportPropertyChanged("IsFromAchievement");
+                OnIsFromAchievementChanged();
+            }
+        }
+        private global::System.Boolean _IsFromAchievement;
+        partial void OnIsFromAchievementChanging(global::System.Boolean value);
+        partial void OnIsFromAchievementChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Guid> PersonAchievementId
+        {
+            get
+            {
+                return _PersonAchievementId;
+            }
+            set
+            {
+                OnPersonAchievementIdChanging(value);
+                ReportPropertyChanging("PersonAchievementId");
+                _PersonAchievementId = StructuralObject.SetValidValue(value, "PersonAchievementId");
+                ReportPropertyChanged("PersonAchievementId");
+                OnPersonAchievementIdChanged();
+            }
+        }
+        private Nullable<global::System.Guid> _PersonAchievementId;
+        partial void OnPersonAchievementIdChanging(Nullable<global::System.Guid> value);
+        partial void OnPersonAchievementIdChanged();
 
         #endregion
 
@@ -47971,6 +47888,44 @@ namespace PriemLib
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<EgeCertificate>("Priem2012Model.FK_Mark_EgeCertificate", "EgeCertificate", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Priem2012Model", "FK_Mark_PersonAchievement", "PersonAchievement")]
+        public PersonAchievement PersonAchievement
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PersonAchievement>("Priem2012Model.FK_Mark_PersonAchievement", "PersonAchievement").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PersonAchievement>("Priem2012Model.FK_Mark_PersonAchievement", "PersonAchievement").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<PersonAchievement> PersonAchievementReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PersonAchievement>("Priem2012Model.FK_Mark_PersonAchievement", "PersonAchievement");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<PersonAchievement>("Priem2012Model.FK_Mark_PersonAchievement", "PersonAchievement", value);
                 }
             }
         }
@@ -55869,13 +55824,17 @@ namespace PriemLib
         /// <param name="personId">Initial value of the PersonId property.</param>
         /// <param name="achievementTypeId">Initial value of the AchievementTypeId property.</param>
         /// <param name="isOpen">Initial value of the IsOpen property.</param>
-        public static PersonAchievement CreatePersonAchievement(global::System.Guid id, global::System.Guid personId, global::System.Int32 achievementTypeId, global::System.Boolean isOpen)
+        /// <param name="author">Initial value of the Author property.</param>
+        /// <param name="dateCreated">Initial value of the DateCreated property.</param>
+        public static PersonAchievement CreatePersonAchievement(global::System.Guid id, global::System.Guid personId, global::System.Int32 achievementTypeId, global::System.Boolean isOpen, global::System.String author, global::System.DateTime dateCreated)
         {
             PersonAchievement personAchievement = new PersonAchievement();
             personAchievement.Id = id;
             personAchievement.PersonId = personId;
             personAchievement.AchievementTypeId = achievementTypeId;
             personAchievement.IsOpen = isOpen;
+            personAchievement.Author = author;
+            personAchievement.DateCreated = dateCreated;
             return personAchievement;
         }
 
@@ -56005,6 +55964,54 @@ namespace PriemLib
         private global::System.String _Holder;
         partial void OnHolderChanging(global::System.String value);
         partial void OnHolderChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Author
+        {
+            get
+            {
+                return _Author;
+            }
+            set
+            {
+                OnAuthorChanging(value);
+                ReportPropertyChanging("Author");
+                _Author = StructuralObject.SetValidValue(value, false, "Author");
+                ReportPropertyChanged("Author");
+                OnAuthorChanged();
+            }
+        }
+        private global::System.String _Author;
+        partial void OnAuthorChanging(global::System.String value);
+        partial void OnAuthorChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime DateCreated
+        {
+            get
+            {
+                return _DateCreated;
+            }
+            set
+            {
+                OnDateCreatedChanging(value);
+                ReportPropertyChanging("DateCreated");
+                _DateCreated = StructuralObject.SetValidValue(value, "DateCreated");
+                ReportPropertyChanged("DateCreated");
+                OnDateCreatedChanged();
+            }
+        }
+        private global::System.DateTime _DateCreated;
+        partial void OnDateCreatedChanging(global::System.DateTime value);
+        partial void OnDateCreatedChanged();
 
         #endregion
 
@@ -56082,6 +56089,28 @@ namespace PriemLib
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Person>("Priem2012Model.FK_PersonAchievement_Person", "Person", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Priem2012Model", "FK_Mark_PersonAchievement", "Mark")]
+        public EntityCollection<Mark> Mark
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Mark>("Priem2012Model.FK_Mark_PersonAchievement", "Mark");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Mark>("Priem2012Model.FK_Mark_PersonAchievement", "Mark", value);
                 }
             }
         }
@@ -59887,12 +59916,10 @@ namespace PriemLib
         /// <param name="withHE">Initial value of the WithHE property.</param>
         /// <param name="isReduced">Initial value of the IsReduced property.</param>
         /// <param name="isParallel">Initial value of the IsParallel property.</param>
-        /// <param name="isGosLine">Initial value of the IsGosLine property.</param>
         /// <param name="isViewed">Initial value of the IsViewed property.</param>
-        /// <param name="isCommonRussianCompetition">Initial value of the IsCommonRussianCompetition property.</param>
         /// <param name="isForeign">Initial value of the IsForeign property.</param>
         /// <param name="isCrimea">Initial value of the IsCrimea property.</param>
-        public static qAbiturient CreateqAbiturient(global::System.Guid id, global::System.Guid personId, global::System.Guid entryId, global::System.Int32 competitionId, global::System.Boolean isListener, global::System.Boolean isPaid, global::System.Boolean backDoc, global::System.DateTime docDate, global::System.DateTime docInsertDate, global::System.Boolean @checked, global::System.Boolean notEnabled, global::System.Boolean compFromOlymp, global::System.Int32 languageId, global::System.Boolean hasOriginals, global::System.Int32 facultyId, global::System.Int32 licenseProgramId, global::System.String licenseProgramName, global::System.Int32 obrazProgramId, global::System.String obrazProgramName, global::System.Int32 profileId, global::System.Int32 studyBasisId, global::System.String studyBasisName, global::System.Int32 studyFormId, global::System.String studyFormName, global::System.Int32 studyLevelId, global::System.String studyLevelName, global::System.Boolean isSecond, global::System.Int32 studyLevelGroupId, global::System.String obrazProgramNameEx, global::System.Boolean withHE, global::System.Boolean isReduced, global::System.Boolean isParallel, global::System.Boolean isGosLine, global::System.Boolean isViewed, global::System.Boolean isCommonRussianCompetition, global::System.Boolean isForeign, global::System.Boolean isCrimea)
+        public static qAbiturient CreateqAbiturient(global::System.Guid id, global::System.Guid personId, global::System.Guid entryId, global::System.Int32 competitionId, global::System.Boolean isListener, global::System.Boolean isPaid, global::System.Boolean backDoc, global::System.DateTime docDate, global::System.DateTime docInsertDate, global::System.Boolean @checked, global::System.Boolean notEnabled, global::System.Boolean compFromOlymp, global::System.Int32 languageId, global::System.Boolean hasOriginals, global::System.Int32 facultyId, global::System.Int32 licenseProgramId, global::System.String licenseProgramName, global::System.Int32 obrazProgramId, global::System.String obrazProgramName, global::System.Int32 profileId, global::System.Int32 studyBasisId, global::System.String studyBasisName, global::System.Int32 studyFormId, global::System.String studyFormName, global::System.Int32 studyLevelId, global::System.String studyLevelName, global::System.Boolean isSecond, global::System.Int32 studyLevelGroupId, global::System.String obrazProgramNameEx, global::System.Boolean withHE, global::System.Boolean isReduced, global::System.Boolean isParallel, global::System.Boolean isViewed, global::System.Boolean isForeign, global::System.Boolean isCrimea)
         {
             qAbiturient qAbiturient = new qAbiturient();
             qAbiturient.Id = id;
@@ -59927,9 +59954,7 @@ namespace PriemLib
             qAbiturient.WithHE = withHE;
             qAbiturient.IsReduced = isReduced;
             qAbiturient.IsParallel = isParallel;
-            qAbiturient.IsGosLine = isGosLine;
             qAbiturient.IsViewed = isViewed;
-            qAbiturient.IsCommonRussianCompetition = isCommonRussianCompetition;
             qAbiturient.IsForeign = isForeign;
             qAbiturient.IsCrimea = isCrimea;
             return qAbiturient;
@@ -61432,33 +61457,6 @@ namespace PriemLib
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Boolean IsGosLine
-        {
-            get
-            {
-                return _IsGosLine;
-            }
-            set
-            {
-                if (_IsGosLine != value)
-                {
-                    OnIsGosLineChanging(value);
-                    ReportPropertyChanging("IsGosLine");
-                    _IsGosLine = StructuralObject.SetValidValue(value, "IsGosLine");
-                    ReportPropertyChanged("IsGosLine");
-                    OnIsGosLineChanged();
-                }
-            }
-        }
-        private global::System.Boolean _IsGosLine;
-        partial void OnIsGosLineChanging(global::System.Boolean value);
-        partial void OnIsGosLineChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
         public global::System.Boolean IsViewed
         {
             get
@@ -61480,33 +61478,6 @@ namespace PriemLib
         private global::System.Boolean _IsViewed;
         partial void OnIsViewedChanging(global::System.Boolean value);
         partial void OnIsViewedChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Boolean IsCommonRussianCompetition
-        {
-            get
-            {
-                return _IsCommonRussianCompetition;
-            }
-            set
-            {
-                if (_IsCommonRussianCompetition != value)
-                {
-                    OnIsCommonRussianCompetitionChanging(value);
-                    ReportPropertyChanging("IsCommonRussianCompetition");
-                    _IsCommonRussianCompetition = StructuralObject.SetValidValue(value, "IsCommonRussianCompetition");
-                    ReportPropertyChanged("IsCommonRussianCompetition");
-                    OnIsCommonRussianCompetitionChanged();
-                }
-            }
-        }
-        private global::System.Boolean _IsCommonRussianCompetition;
-        partial void OnIsCommonRussianCompetitionChanging(global::System.Boolean value);
-        partial void OnIsCommonRussianCompetitionChanged();
     
         /// <summary>
         /// No Metadata Documentation available.

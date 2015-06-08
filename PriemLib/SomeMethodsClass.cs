@@ -126,11 +126,11 @@ namespace PriemLib
 
             //просто сосчитаем количество созданных активных конкурсов на человека
             var concurses = (from allab in context.Abiturient
-                             where allab.PersonId == personId
-                                 && allab.Entry.LicenseProgramId != LicenseProgramId
+                             where allab.PersonId == personId    
+                             && allab.Entry.LicenseProgramId != LicenseProgramId
                              && MainClass.lstStudyLevelGroupId.Contains(allab.Entry.StudyLevel.LevelGroupId)
                              && allab.BackDoc != true
-                             && !allab.IsGosLine //считать гослинию нам не надо, только не-гослинию
+                             && !allab.Entry.IsForeign //считать гослинию нам не надо, только не-гослинию
                              select new { allab.Entry.LicenseProgramId }).Distinct();
             return (concurses.Count() < 3);
         }

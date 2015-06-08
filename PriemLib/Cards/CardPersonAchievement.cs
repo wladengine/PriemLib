@@ -20,6 +20,12 @@ namespace PriemLib
             get { return ComboServ.GetComboIdInt(cbAchievementType); }
             set { ComboServ.SetComboId(cbAchievementType, value); }
         }
+        private string Author
+        {
+            get { return lblAuthor.Text.Trim(); }
+            set { lblAuthor.Text = value; }
+        }
+
         private Guid PersonId;
         private string sPersonId;
 
@@ -30,6 +36,8 @@ namespace PriemLib
             _Id = null;
             formOwner = null;
             sPersonId = _sPersonId;
+
+            tcCard = new TabControl();
 
             InitControls();
         }
@@ -42,6 +50,7 @@ namespace PriemLib
             this.formOwner = formOwner;
             if (rowInd.HasValue)
                 ownerRowIndex = rowInd.Value;
+            tcCard = new TabControl();
 
             InitControls();
         }
@@ -64,6 +73,9 @@ namespace PriemLib
         }
         protected override void FillCard()
         {
+            if (string.IsNullOrEmpty(_Id))
+                return;
+
             try
             {
                 using (PriemEntities context = new PriemEntities())
@@ -80,12 +92,34 @@ namespace PriemLib
 
                     PersonId = PersAch.PersonId;
                     AchievementTypeId = PersAch.AchievementTypeId;
+                    //Author = PersAch.Author;
                 }
             }
             catch (Exception ex)
             {
                 WinFormsServ.Error("Ошибка при заполнении формы ", ex);
             }
+        }
+        protected override bool CheckFields()
+        {
+            if (!AchievementTypeId.HasValue)
+            {
+                epError.SetError(cbAchievementType, "Не указано достижение");
+                return false;
+            }
+            else
+                epError.Clear();
+
+            using (PriemEntities context = new PriemEntities())
+            {
+                if (!string.IsNullOrEmpty(_Id) && context.PersonAchievement.Where(x => x.AchievementTypeId == AchievementTypeId && x.PersonId == PersonId).Count() > 0)
+                {
+                    WinFormsServ.Error("У абитуриента уже имеется указанное достижение");
+                    return false;
+                }
+            }
+
+            return base.CheckFields();
         }
 
         protected override void InsertRec(PriemEntities context, System.Data.Entity.Core.Objects.ObjectParameter idParam)

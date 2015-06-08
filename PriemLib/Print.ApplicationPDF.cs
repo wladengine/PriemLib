@@ -44,7 +44,7 @@ namespace PriemLib
             else
                 acrFlds.SetField("HostelEducNo", "1");
 
-            if (abitList.Where(x => x.IsGosLine).Count() > 0)
+            if (abitList.Where(x => x.IsForeign).Count() > 0)
                 acrFlds.SetField("IsGosLine", "1");
 
             acrFlds.SetField("HostelAbitYes", person.HostelAbit ? "1" : "0");
@@ -385,7 +385,8 @@ namespace PriemLib
                                     EntryType = (Entry.StudyLevelId == 17 ? 2 : 1),
                                     Entry.StudyLevelId,
                                     x.Priority,
-                                    x.IsGosLine
+                                    x.Entry.IsForeign,
+                                    x.Entry.IsCrimea
                                 }).ToList();
 
                 
@@ -470,9 +471,6 @@ namespace PriemLib
                     acrFlds.SetField("HostelEducYes", "1");
                 else
                     acrFlds.SetField("HostelEducNo", "1");
-
-                if (abitList.Where(x => x.IsGosLine).Count() > 0)
-                    acrFlds.SetField("IsGosLine", "1");
 
                 acrFlds.SetField("HostelAbitYes", person.HostelAbit ? "1" : "0");
                 acrFlds.SetField("HostelAbitNo", person.HostelAbit ? "0" : "1");

@@ -96,12 +96,6 @@ namespace PriemLib
             set { chbHasOriginals.Checked = value; }
         }
 
-        public bool IsCommonRussianCompetition
-        {
-            get { return chbIsCommonRussianCompetition.Checked; }
-            set { chbIsCommonRussianCompetition.Checked = value; }
-        }
-
         public bool IsReduced
         {
             get { return chbIsReduced.Checked; }
@@ -117,10 +111,15 @@ namespace PriemLib
             get { return chbIsListener.Checked; }
             set { chbIsListener.Checked = value; }
         }
-        public bool IsGosLine
+        public bool IsForeign
         {
-            get { return chbIsGosLine.Checked; }
-            set { chbIsGosLine.Checked = value; }
+            get { return chbIsForeign.Checked; }
+            set { chbIsForeign.Checked = value; }
+        }
+        public bool IsCrimea
+        {
+            get { return chbIsCrimea.Checked; }
+            set { chbIsCrimea.Checked = value; }
         }
 
         public DateTime? DocDate

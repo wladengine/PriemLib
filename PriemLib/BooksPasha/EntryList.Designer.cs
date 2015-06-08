@@ -304,6 +304,7 @@
             // 
             // dtpDateStartFrom
             // 
+            this.dtpDateStartFrom.Checked = false;
             this.dtpDateStartFrom.Location = new System.Drawing.Point(27, 19);
             this.dtpDateStartFrom.Name = "dtpDateStartFrom";
             this.dtpDateStartFrom.ShowCheckBox = true;
@@ -313,6 +314,7 @@
             // 
             // dtpDateStartTo
             // 
+            this.dtpDateStartTo.Checked = false;
             this.dtpDateStartTo.Location = new System.Drawing.Point(27, 45);
             this.dtpDateStartTo.Name = "dtpDateStartTo";
             this.dtpDateStartTo.ShowCheckBox = true;
@@ -384,6 +386,7 @@
             // 
             // dtpDateFinishFrom
             // 
+            this.dtpDateFinishFrom.Checked = false;
             this.dtpDateFinishFrom.Location = new System.Drawing.Point(27, 19);
             this.dtpDateFinishFrom.Name = "dtpDateFinishFrom";
             this.dtpDateFinishFrom.ShowCheckBox = true;
@@ -393,6 +396,7 @@
             // 
             // dtpDateFinishTo
             // 
+            this.dtpDateFinishTo.Checked = false;
             this.dtpDateFinishTo.Location = new System.Drawing.Point(27, 45);
             this.dtpDateFinishTo.Name = "dtpDateFinishTo";
             this.dtpDateFinishTo.ShowCheckBox = true;

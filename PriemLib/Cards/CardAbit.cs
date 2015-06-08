@@ -1368,7 +1368,7 @@ namespace PriemLib
         {
             context.Abiturient_Insert(_personId, EntryId, CompetitionId, IsListener, false, IsPaid, BackDoc, BackDocDate, DocDate, DateTime.Now,
                 Checked, NotEnabled, Coefficient, OtherCompetitionId, CelCompetitionId, CelCompetitionText, LanguageId, HasOriginals,
-                Priority, abitBarcode, null, null, IsForeign, idParam);
+                Priority, abitBarcode, null, null, idParam);
 
             Guid gId = (Guid)idParam.Value;
 

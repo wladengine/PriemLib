@@ -2,7 +2,7 @@
 <edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
   <edmx:Designer>
     <edmx:Diagrams>
-      <edmx:Diagram Name="PriemModel" ZoomLevel="55">
+      <edmx:Diagram Name="PriemModel" ZoomLevel="50">
         <edmx:EntityTypeShape EntityType="Priem2012Model.AttMarks" Width="1.5" PointX="6" PointY="36.375" Height="1.9210009765624996" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="Priem2012Model.AttSubject" Width="1.5" PointX="3.75" PointY="40.75" Height="1.4279589843750031" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="Priem2012Model.CelCompetition" Width="1.5" PointX="17.25" PointY="26.625" Height="1.5923063151041674" IsExpanded="true" />
@@ -905,6 +905,7 @@
         <edmx:EntityTypeShape EntityType="Priem2012Model.PersonAchievement" Width="1.5" PointX="11.638815952296749" PointY="14.423401466767956" />
         <edmx:AssociationConnector Association="Priem2012Model.FK_PersonAchievement_AchievementType" />
         <edmx:AssociationConnector Association="Priem2012Model.FK_PersonAchievement_Person" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_Mark_PersonAchievement" />
         </edmx:Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

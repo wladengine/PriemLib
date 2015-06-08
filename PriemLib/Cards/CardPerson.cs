@@ -26,7 +26,18 @@ namespace PriemLib
         private bool inEnableProtocol;
         private bool inEntryView;
         private List<Person_EducationInfo> lstEducationInfo;
+        
+        public CardPerson()
+            : this(null, null, null)
+        {
+        }
 
+        // конструктор формы открытие и создание в нашей базе        
+        public CardPerson(string id)
+            : this(id, null, null)
+        {                        
+        }
+        
         // конструктор формы
         public CardPerson(string id, int? rowInd, BaseFormEx formOwner)
         {
@@ -41,17 +52,6 @@ namespace PriemLib
             InitControls();     
         }
         
-        public CardPerson()
-            : this(null, null, null)
-        {
-        }
-
-        // конструктор формы открытие и создание в нашей базе        
-        public CardPerson(string id)
-            : this(id, null, null)
-        {                        
-        }
-
         protected override void ExtraInit()
         {
             bw_EgeRequestCheck = new BackgroundWorker();
@@ -136,7 +136,6 @@ namespace PriemLib
                 WinFormsServ.Error("Ошибка при инициализации формы ", exc);
             }
         }
-
         protected override bool IsForReadOnly()
         {
             return !(MainClass.RightsToEditCards() || MainClass.RightsSov_SovMain());
@@ -316,6 +315,7 @@ namespace PriemLib
                     FillApplications();                   
                     UpdateDataGridEge();
                     UpdateGridBenefits();
+                    UpdatePersonAchievement();
 
                     //Async functions
                     GetHasOriginals();
@@ -368,7 +368,7 @@ namespace PriemLib
                     var sourceOwn = from abit in context.qAbiturient
                                     where !abit.BackDoc && abit.PersonId == GuidId
                                     && MainClass.lstStudyLevelGroupId.Contains(abit.StudyLevelGroupId)
-                                    && abit.IsGosLine == false
+                                    && abit.IsForeign == (MainClass.dbType == PriemType.PriemForeigners)
                                     orderby abit.FacultyAcr, abit.ObrazProgramCrypt
                                     select new
                                     {
@@ -1183,7 +1183,7 @@ namespace PriemLib
                 am.ShowDialog();
             }
         }
-               
+        
         // Грид ЕГЭ
         #region EGE
 
@@ -1865,17 +1865,36 @@ namespace PriemLib
         #region PersonAchievements
         private void btnAddPersonAchievement_Click(object sender, EventArgs e)
         {
-
+            var crd = new CardPersonAchievement(_Id);
+            crd.ToUpdateList += UpdatePersonAchievement;
+            crd.Show();
         }
         private void btnDeletePersonAchievement_Click(object sender, EventArgs e)
         {
+            if (dgvIndividualAchievements.SelectedCells.Count == 0)
+                return;
 
+            int rwInd = dgvIndividualAchievements.SelectedCells[0].RowIndex;
+            Guid id = (Guid)dgvIndividualAchievements["Id", rwInd].Value;
+
+            using (PriemEntities context = new PriemEntities())
+            {
+                string message = "Вы действительно хотите удалить указанное достижение?";
+                if (MessageBox.Show(message, "Удаление", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    context.PersonAchievement_delete(id);
+                    UpdatePersonAchievement();
+                }
+            }
         }
         private void dgvIndividualAchievements_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0)
                 return;
-            var crd = new CardPersonAchievement(_Id, e.RowIndex, this);
+
+            string sId = dgvIndividualAchievements["Id", e.RowIndex].Value.ToString();
+
+            var crd = new CardPersonAchievement(sId, e.RowIndex, this);
             crd.ToUpdateList += UpdatePersonAchievement;
             crd.Show();
         }
@@ -1885,6 +1904,8 @@ namespace PriemLib
             {
                 var src = context.PersonAchievement.Where(x => x.PersonId == GuidId).Select(x => new { x.Id, x.AchievementType.Name }).ToArray();
                 dgvIndividualAchievements.DataSource = Converter.ConvertToDataTable(src);
+                dgvIndividualAchievements.Columns["Id"].Visible = false;
+                dgvIndividualAchievements.Columns["Name"].HeaderText = "Достижение";
             }
         }
         #endregion

@@ -290,7 +290,8 @@ where Person.Barcode =" + fileNum ;
 ,[IsSecond]
 ,[IsReduced]
 ,[IsParallel]
-,[IsGosLine]
+,[IsForeign]
+,[IsCrimea]
 ,[CommitId]
 ,[DateOfStart]
 ,(SELECT MAX(ApplicationCommitVersion.Id) FROM ApplicationCommitVersion WHERE ApplicationCommitVersion.CommitId = [Abiturient].CommitId) AS VersionNum
@@ -301,7 +302,6 @@ where Person.Barcode =" + fileNum ;
 ,[Abiturient].CompetitionId
 ,[Abiturient].ApproverName
 ,[Abiturient].DocInsertDate
-,[Abiturient].IsCommonRussianCompetition
 FROM [Abiturient] 
 INNER JOIN ApplicationCommit ON ApplicationCommit.Id = Abiturient.CommitId
 WHERE IsCommited = 1 AND IntNumber=@CommitId";
@@ -334,14 +334,14 @@ WHERE IsCommited = 1 AND IntNumber=@CommitId";
                                   DocDate = rw.Field<DateTime>("DateOfStart"),
                                   DocInsertDate = rw.Field<DateTime?>("DocInsertDate") ?? DateTime.Now,
                                   Priority = rw.Field<int>("Priority"),
-                                  IsGosLine = rw.Field<bool>("IsGosLine"),
+                                  IsForeign = rw.Field<bool>("IsForeign"),
                                   IsReduced = rw.Field<bool>("IsReduced"),
                                   IsSecond = rw.Field<bool>("IsSecond"),
                                   HasInnerPriorities = rw.Field<bool>("HasInnerPriorities"),
                                   IsApprovedByComission = rw.Field<bool>("IsApprovedByComission"),
                                   ApproverName = rw.Field<string>("ApproverName"),
                                   lstInnerEntryInEntry = new List<ShortInnerEntryInEntry>(),
-                                  IsCommonRussianCompetition = rw.Field<bool>("IsCommonRussianCompetition"),
+                                  IsCrimea = rw.Field<bool>("IsCrimea"),
                               }).ToList();
 
                 //ObrazProgramInEntry
@@ -384,16 +384,21 @@ FROM [extApplicationDetails] WHERE [ApplicationId]=@AppId";
 
         public void UpdateApplicationSetApprovedByComission(ShortCompetition comp)
         {
-            string query = @"UPDATE [Application] SET IsApprovedByComission=1, ApproverName=@ApproverName, CompetitionId=@CompId, DocInsertDate=@DocInsertDate, 
-IsCommonRussianCompetition=@IsCommonRussianCompetition, IsGosLine=@IsGosLine WHERE Id=@Id";
+            string query = @"UPDATE [Application] 
+SET 
+    IsApprovedByComission=1, 
+    ApproverName=@ApproverName, 
+    CompetitionId=@CompId, 
+    DocInsertDate=@DocInsertDate, 
+    EntryId=@EntryId 
+WHERE Id=@Id";
             _bdcInet.ExecuteQuery(query, new SortedList<string, object>()
                 {
                     { "@Id", comp.Id },
                     { "@CompId", comp.CompetitionId },
                     { "@DocInsertDate", comp.DocInsertDate },
                     { "@ApproverName", MainClass.GetUserName() },
-                    { "@IsGosLine", comp.IsGosLine },
-                    { "@IsCommonRussianCompetition", comp.IsCommonRussianCompetition }
+                    { "@EntryId", comp.EntryId }
                 });
         }
 

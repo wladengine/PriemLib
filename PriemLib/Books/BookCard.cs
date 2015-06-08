@@ -78,8 +78,8 @@ namespace PriemLib
 
         protected override void ShowMessageIsOpen()
         {
-            string hold = MainClass.GetIsOpenHolder(_tableName, _Id);
-            MessageBox.Show(string.Format("Карточка открыта пользователем {0} и поэтому доступна только для чтения", hold), "Ошибка");
+            string hold = MainClass.GetADUserName(MainClass.GetIsOpenHolder(_tableName, _Id));
+            MessageBox.Show(string.Format("Карточка открыта пользователем {0} и поэтому доступна только для чтения", hold), "Ограничение на редактирование", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         protected virtual bool CheckFields()

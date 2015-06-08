@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EducServLib;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -48,8 +49,8 @@ namespace PriemLib
         public bool IsListener { get; set; }
         public bool IsReduced { get; set; }
         public bool IsSecond { get; set; }
-        public bool IsGosLine { get; set; }
-        public bool IsCommonRussianCompetition { get; set; }
+        public bool IsForeign { get; set; }
+        public bool IsCrimea { get; set; }
 
         public int Barcode { get; set; }
 
@@ -78,10 +79,17 @@ namespace PriemLib
                         && x.StudyLevelId == StudyLevelId
                         && x.StudyFormId == StudyFormId
                         && x.StudyBasisId == StudyBasisId
-                        && x.ProfileId == ProfileId).FirstOrDefault();
+                        && x.ProfileId == ProfileId
+                        && x.IsCrimea == IsCrimea
+                        && x.IsForeign == IsForeign
+                        );
 
-                if (Entry != null)
-                    EntryId = Entry.Id;
+                if (Entry.Count() == 1)
+                    EntryId = Entry.First().Id;
+                else if (Entry.Count() == 0)
+                    WinFormsServ.Error("Не найден конкурс, отвечающий заданным параметрам!");
+                else
+                    WinFormsServ.Error("Найдено более 1 конкурса, отвечающих заданным параметрам!");
             }
         }
     }

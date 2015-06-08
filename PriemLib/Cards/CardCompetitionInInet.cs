@@ -55,10 +55,8 @@ namespace PriemLib
 
             Priority = _competition.Priority;
             DocDate = _competition.DocDate;
-            IsGosLine = _competition.IsGosLine;
-            IsCommonRussianCompetition = _competition.IsCommonRussianCompetition;
-            if (IsCommonRussianCompetition)
-                chbIsCommonRussianCompetition.Visible = true;
+            IsForeign = _competition.IsForeign;
+            IsCrimea = _competition.IsCrimea;
 
             InitHandlers();
 
@@ -135,12 +133,13 @@ namespace PriemLib
             {
                 using (PriemEntities context = new PriemEntities())
                 {
-                    List<KeyValuePair<string, string>> lst = ((from ent in context.qStudyLevel
-                                                               select new
-                                                               {
-                                                                   Id = ent.Id,
-                                                                   Name = ent.Name
-                                                               }).Distinct()).ToList().Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name)).ToList();
+                    List<KeyValuePair<string, string>> lst =
+                        ((from ent in context.qStudyLevel
+                          select new
+                          {
+                              Id = ent.Id,
+                              Name = ent.Name
+                          }).Distinct()).ToList().Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name)).ToList();
 
                     ComboServ.FillCombo(cbStudyLevel, lst, false, false);
                 }
@@ -156,13 +155,14 @@ namespace PriemLib
             {
                 using (PriemEntities context = new PriemEntities())
                 {
-                    List<KeyValuePair<string, string>> lst = ((from ent in GetEntry(context)
-                                                               where ent.StudyLevelId == StudyLevelId
-                                                               select new
-                                                               {
-                                                                   Id = ent.LicenseProgramId,
-                                                                   Name = ent.SP_LicenseProgram.Name
-                                                               }).Distinct()).ToList().Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name)).ToList();
+                    List<KeyValuePair<string, string>> lst =
+                        ((from ent in GetEntry(context)
+                          where ent.StudyLevelId == StudyLevelId
+                          select new
+                          {
+                              Id = ent.LicenseProgramId,
+                              Name = ent.SP_LicenseProgram.Name
+                          }).Distinct()).ToList().Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name)).ToList();
 
                     ComboServ.FillCombo(cbLicenseProgram, lst, false, false);
                 }
@@ -178,14 +178,15 @@ namespace PriemLib
             {
                 using (PriemEntities context = new PriemEntities())
                 {
-                    List<KeyValuePair<string, string>> lst = ((from ent in GetEntry(context)
-                                                               where ent.LicenseProgramId == LicenseProgramId
-                                                               select new
-                                                               {
-                                                                   Id = ent.ObrazProgramId,
-                                                                   Name = ent.SP_ObrazProgram.Name,
-                                                                   Crypt = ent.StudyLevel.Acronym + "." + ent.SP_ObrazProgram.Number + "." + MainClass.sPriemYear
-                                                               }).Distinct()).ToList().Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name + ' ' + u.Crypt)).ToList();
+                    List<KeyValuePair<string, string>> lst =
+                        ((from ent in GetEntry(context)
+                          where ent.LicenseProgramId == LicenseProgramId
+                          select new
+                          {
+                              Id = ent.ObrazProgramId,
+                              Name = ent.SP_ObrazProgram.Name,
+                              Crypt = ent.StudyLevel.Acronym + "." + ent.SP_ObrazProgram.Number + "." + MainClass.sPriemYear
+                          }).Distinct()).ToList().Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name + ' ' + u.Crypt)).ToList();
 
                     ComboServ.FillCombo(cbObrazProgram, lst, false, false);
                 }
@@ -312,13 +313,16 @@ namespace PriemLib
             {
                 using (PriemEntities context = new PriemEntities())
                 {
-                    List<KeyValuePair<string, string>> lst = ((from cp in context.Competition
-                                                               where cp.StudyBasisId == StudyBasisId
-                                                               select new
-                                                               {
-                                                                   cp.Id,
-                                                                   cp.Name
-                                                               }).Distinct()).ToList().Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name)).ToList();
+                    List<KeyValuePair<string, string>> lst =
+                        ((from cp in context.Competition
+                          where cp.StudyBasisId == StudyBasisId
+                          select new
+                          {
+                              cp.Id,
+                              cp.Name
+                          }).Distinct())
+                          .ToList()
+                          .Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name)).ToList();
 
                     ComboServ.FillCombo(cbCompetition, lst, false, false);
 
@@ -328,7 +332,9 @@ namespace PriemLib
                             {
                                 cp.Id,
                                 cp.Name
-                            }).Distinct()).ToList().Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name)).ToList();
+                            }).Distinct())
+                            .ToList()
+                            .Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name)).ToList();
 
                     ComboServ.FillCombo(cbOtherCompetition, lst, true, false);
 
@@ -476,7 +482,8 @@ namespace PriemLib
 
 
                 _competition.DocInsertDate = DocInsertDate ?? DateTime.Now;
-                _competition.IsGosLine = IsGosLine;
+                _competition.IsForeign = IsForeign;
+                _competition.IsCrimea = IsCrimea;
                 _competition.IsListener = IsListener;
                 _competition.IsReduced = IsReduced;
 
@@ -485,7 +492,6 @@ namespace PriemLib
                     OnUpdate(_competition);
 
                 _competition.HasOriginals = HasOriginals;
-                _competition.IsCommonRussianCompetition = IsCommonRussianCompetition;
 
                 this.Close();
             }

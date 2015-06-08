@@ -15,7 +15,7 @@ namespace PriemLib
                     (from x in context.Abiturient
                      join Ent in context.Entry on x.EntryId equals Ent.Id
                      where MainClass.lstStudyLevelGroupId.Contains(Ent.StudyLevel.StudyLevelGroup.Id)
-                     && x.IsGosLine == false
+                     && x.Entry.IsForeign == false
                      && x.PersonId == PersonId
                      && x.BackDoc == false
                      select new ApplicationData
@@ -34,7 +34,8 @@ namespace PriemLib
                          StudyBasisId = Ent.StudyBasisId,
                          StudyLevelId = Ent.StudyLevelId,
                          Priority = x.Priority,
-                         IsGosLine = x.IsGosLine,
+                         IsForeign = x.Entry.IsForeign,
+                         IsCrimea = x.Entry.IsCrimea,
                          ComissionId = Ent.CommissionId,
                          ComissionAddress = Ent.CommissionId.HasValue ? Ent.Comission.Name : ""
                      }).OrderBy(x => x.Priority).ToList();
@@ -51,7 +52,7 @@ namespace PriemLib
                      join Ad in context.extApplicationDetails on x.Id equals Ad.ApplicationId
                      join Ent in context.Entry on x.EntryId equals Ent.Id
                      where MainClass.lstStudyLevelGroupId.Contains(Ent.StudyLevel.StudyLevelGroup.Id)
-                     && x.IsGosLine == false
+                     && x.Entry.IsForeign == (MainClass.dbType == PriemType.PriemForeigners)
                      && x.PersonId == PersonId
                      && x.BackDoc == false
                      select new ShortAppcationDetails()
@@ -75,7 +76,8 @@ namespace PriemLib
         public int? Barcode { get; set; }
         public int? Priority { get; set; }
 
-        public bool IsGosLine { get; set; }
+        public bool IsForeign { get; set; }
+        public bool IsCrimea { get; set; }
 
         public int FacultyId { get; set; }
         public string FacultyName { get; set; }

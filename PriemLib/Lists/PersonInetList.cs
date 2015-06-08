@@ -69,11 +69,10 @@ LEFT JOIN ed.extPerson_EducationInfo_Current AS EducInfo ON EducInfo.PersonId = 
                 join = string.Format(@" LEFT JOIN ed.Abiturient ON Abiturient.PersonId = extPerson.Id 
 LEFT JOIN ed.Entry ON Entry.Id=Abiturient.EntryId 
 LEFT JOIN ed.StudyLevel ON StudyLevel.Id=Entry.StudyLevelId 
-WHERE Abiturient.IsGosLine <> 1 {1} 
-AND (StudyLevel.LevelGroupId <> {0} OR StudyLevel.LevelGroupId IS NULL OR StudyLevel.LevelGroupId = {2}) ",
-                    MainClass.dbType == PriemType.Priem ? 2 : 1,
-                    MainClass.dbType == PriemType.Priem ? "" : "AND EducInfo.SchoolTypeId=4",
-                    MainClass.dbType == PriemType.Priem ? 1 : 2);
+WHERE Entry.IsForeign <> 1 {1} 
+AND (StudyLevel.LevelGroupId IN ({0}) OR StudyLevel.LevelGroupId IS NULL) ",
+                    Util.BuildStringWithCollection(MainClass.lstStudyLevelGroupId),
+                    MainClass.dbType == PriemType.Priem ? "" : " AND EducInfo.SchoolTypeId = 4 ");
             }
             
             HelpClass.FillDataGrid(Dgv, _bdc, _sQuery + join, "", " ORDER BY FIO");
