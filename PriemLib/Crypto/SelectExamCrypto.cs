@@ -46,13 +46,14 @@ namespace PriemLib
             set { ComboServ.SetComboId(cbExam, value); }
         }
 
-        public SelectExamCrypto(ExamsVedList owner, int? facId, int? basisId)
+        public SelectExamCrypto(ExamsVedList owner, int studyLevelId, int? facId, int? basisId)
         {
             InitializeComponent();
             this.owner = owner;
             this.iFacultyId = facId;
             this.iStudyBasisId = basisId;
             this.isAdditional = false;
+            this.iStudyLevelGroupId = studyLevelId;
 
             InitControls();
         }  
@@ -80,6 +81,17 @@ namespace PriemLib
 
         private void btnOk_Click(object sender, EventArgs e)
         {
+            if (!ExamId.HasValue)
+            {
+                WinFormsServ.Error("Не выбран экзамен!");
+                return;
+            }
+            if (!iFacultyId.HasValue)
+            {
+                WinFormsServ.Error("Не выбрано подразделение!");
+                return;
+            }
+
             if (!isAdditional)
             {
                 using (PriemEntities context = new PriemEntities())
@@ -99,7 +111,7 @@ namespace PriemLib
                 }
             }
 
-            ExamsVedCard frm = new ExamsVedCard(owner, iStudyLevelGroupId, iFacultyId, ExamId, dtDateExam.Value, iStudyBasisId, isAdditional);
+            ExamsVedCard frm = new ExamsVedCard(owner, iStudyLevelGroupId, iFacultyId.Value, ExamId.Value, dtDateExam.Value, iStudyBasisId, isAdditional);
             frm.Show();
             this.Close();
         }                     

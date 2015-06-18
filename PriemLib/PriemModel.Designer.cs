@@ -115,6 +115,8 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("Priem2012Model", "FK_PersonAchievement_AchievementType", "AchievementType", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.AchievementType), "PersonAchievement", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.PersonAchievement), true)]
 [assembly: EdmRelationshipAttribute("Priem2012Model", "FK_PersonAchievement_Person", "Person", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Person), "PersonAchievement", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.PersonAchievement), true)]
 [assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Mark_PersonAchievement", "PersonAchievement", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.PersonAchievement), "Mark", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Mark), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_EntryToCompetitiveGroup_CompetitiveGroup", "CompetitiveGroup", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.CompetitiveGroup), "EntryToCompetitiveGroup", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.EntryToCompetitiveGroup), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_EntryToCompetitiveGroup_Entry", "Entry", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Entry), "EntryToCompetitiveGroup", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.EntryToCompetitiveGroup), true)]
 
 #endregion
 
@@ -2261,6 +2263,22 @@ namespace PriemLib
             }
         }
         private ObjectSet<PersonAchievement> _PersonAchievement;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<EntryToCompetitiveGroup> EntryToCompetitiveGroup
+        {
+            get
+            {
+                if ((_EntryToCompetitiveGroup == null))
+                {
+                    _EntryToCompetitiveGroup = base.CreateObjectSet<EntryToCompetitiveGroup>("EntryToCompetitiveGroup");
+                }
+                return _EntryToCompetitiveGroup;
+            }
+        }
+        private ObjectSet<EntryToCompetitiveGroup> _EntryToCompetitiveGroup;
 
         #endregion
 
@@ -3312,6 +3330,14 @@ namespace PriemLib
         public void AddToPersonAchievement(PersonAchievement personAchievement)
         {
             base.AddObject("PersonAchievement", personAchievement);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the EntryToCompetitiveGroup EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToEntryToCompetitiveGroup(EntryToCompetitiveGroup entryToCompetitiveGroup)
+        {
+            base.AddObject("EntryToCompetitiveGroup", entryToCompetitiveGroup);
         }
 
         #endregion
@@ -16828,10 +16854,13 @@ namespace PriemLib
         /// <param name="isOpen">Initial value of the IsOpen property.</param>
         /// <param name="licenseProgramId">Initial value of the LicenseProgramId property.</param>
         /// <param name="obrazProgramId">Initial value of the ObrazProgramId property.</param>
+        /// <param name="profileId">Initial value of the ProfileId property.</param>
         /// <param name="isReduced">Initial value of the IsReduced property.</param>
         /// <param name="isSecond">Initial value of the IsSecond property.</param>
         /// <param name="isParallel">Initial value of the IsParallel property.</param>
-        public static CompetitiveGroup CreateCompetitiveGroup(global::System.Guid id, global::System.String name, global::System.Boolean isOpen, global::System.Int32 licenseProgramId, global::System.Int32 obrazProgramId, global::System.Boolean isReduced, global::System.Boolean isSecond, global::System.Boolean isParallel)
+        /// <param name="isForeign">Initial value of the IsForeign property.</param>
+        /// <param name="isCrimea">Initial value of the IsCrimea property.</param>
+        public static CompetitiveGroup CreateCompetitiveGroup(global::System.Guid id, global::System.String name, global::System.Boolean isOpen, global::System.Int32 licenseProgramId, global::System.Int32 obrazProgramId, global::System.Int32 profileId, global::System.Boolean isReduced, global::System.Boolean isSecond, global::System.Boolean isParallel, global::System.Boolean isForeign, global::System.Boolean isCrimea)
         {
             CompetitiveGroup competitiveGroup = new CompetitiveGroup();
             competitiveGroup.Id = id;
@@ -16839,9 +16868,12 @@ namespace PriemLib
             competitiveGroup.IsOpen = isOpen;
             competitiveGroup.LicenseProgramId = licenseProgramId;
             competitiveGroup.ObrazProgramId = obrazProgramId;
+            competitiveGroup.ProfileId = profileId;
             competitiveGroup.IsReduced = isReduced;
             competitiveGroup.IsSecond = isSecond;
             competitiveGroup.IsParallel = isParallel;
+            competitiveGroup.IsForeign = isForeign;
+            competitiveGroup.IsCrimea = isCrimea;
             return competitiveGroup;
         }
 
@@ -17023,9 +17055,9 @@ namespace PriemLib
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Guid> ProfileId
+        public global::System.Int32 ProfileId
         {
             get
             {
@@ -17040,8 +17072,8 @@ namespace PriemLib
                 OnProfileIdChanged();
             }
         }
-        private Nullable<global::System.Guid> _ProfileId;
-        partial void OnProfileIdChanging(Nullable<global::System.Guid> value);
+        private global::System.Int32 _ProfileId;
+        partial void OnProfileIdChanging(global::System.Int32 value);
         partial void OnProfileIdChanged();
     
         /// <summary>
@@ -17115,6 +17147,80 @@ namespace PriemLib
         private global::System.Boolean _IsParallel;
         partial void OnIsParallelChanging(global::System.Boolean value);
         partial void OnIsParallelChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean IsForeign
+        {
+            get
+            {
+                return _IsForeign;
+            }
+            set
+            {
+                OnIsForeignChanging(value);
+                ReportPropertyChanging("IsForeign");
+                _IsForeign = StructuralObject.SetValidValue(value, "IsForeign");
+                ReportPropertyChanged("IsForeign");
+                OnIsForeignChanged();
+            }
+        }
+        private global::System.Boolean _IsForeign;
+        partial void OnIsForeignChanging(global::System.Boolean value);
+        partial void OnIsForeignChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean IsCrimea
+        {
+            get
+            {
+                return _IsCrimea;
+            }
+            set
+            {
+                OnIsCrimeaChanging(value);
+                ReportPropertyChanging("IsCrimea");
+                _IsCrimea = StructuralObject.SetValidValue(value, "IsCrimea");
+                ReportPropertyChanged("IsCrimea");
+                OnIsCrimeaChanged();
+            }
+        }
+        private global::System.Boolean _IsCrimea;
+        partial void OnIsCrimeaChanging(global::System.Boolean value);
+        partial void OnIsCrimeaChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Priem2012Model", "FK_EntryToCompetitiveGroup_CompetitiveGroup", "EntryToCompetitiveGroup")]
+        public EntityCollection<EntryToCompetitiveGroup> EntryToCompetitiveGroup
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<EntryToCompetitiveGroup>("Priem2012Model.FK_EntryToCompetitiveGroup_CompetitiveGroup", "EntryToCompetitiveGroup");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<EntryToCompetitiveGroup>("Priem2012Model.FK_EntryToCompetitiveGroup_CompetitiveGroup", "EntryToCompetitiveGroup", value);
+                }
+            }
+        }
 
         #endregion
 
@@ -20203,6 +20309,28 @@ namespace PriemLib
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Priem2012Model", "FK_EntryToCompetitiveGroup_Entry", "EntryToCompetitiveGroup")]
+        public EntityCollection<EntryToCompetitiveGroup> EntryToCompetitiveGroup
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<EntryToCompetitiveGroup>("Priem2012Model.FK_EntryToCompetitiveGroup_Entry", "EntryToCompetitiveGroup");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<EntryToCompetitiveGroup>("Priem2012Model.FK_EntryToCompetitiveGroup_Entry", "EntryToCompetitiveGroup", value);
+                }
+            }
+        }
 
         #endregion
 
@@ -20333,6 +20461,218 @@ namespace PriemLib
         private global::System.Int32 _SortNum;
         partial void OnSortNumChanging(global::System.Int32 value);
         partial void OnSortNumChanged();
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="Priem2012Model", Name="EntryToCompetitiveGroup")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class EntryToCompetitiveGroup : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new EntryToCompetitiveGroup object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="entryId">Initial value of the EntryId property.</param>
+        /// <param name="competitiveGroupId">Initial value of the CompetitiveGroupId property.</param>
+        public static EntryToCompetitiveGroup CreateEntryToCompetitiveGroup(global::System.Guid id, global::System.Guid entryId, global::System.Guid competitiveGroupId)
+        {
+            EntryToCompetitiveGroup entryToCompetitiveGroup = new EntryToCompetitiveGroup();
+            entryToCompetitiveGroup.Id = id;
+            entryToCompetitiveGroup.EntryId = entryId;
+            entryToCompetitiveGroup.CompetitiveGroupId = competitiveGroupId;
+            return entryToCompetitiveGroup;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value, "Id");
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Guid _Id;
+        partial void OnIdChanging(global::System.Guid value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid EntryId
+        {
+            get
+            {
+                return _EntryId;
+            }
+            set
+            {
+                OnEntryIdChanging(value);
+                ReportPropertyChanging("EntryId");
+                _EntryId = StructuralObject.SetValidValue(value, "EntryId");
+                ReportPropertyChanged("EntryId");
+                OnEntryIdChanged();
+            }
+        }
+        private global::System.Guid _EntryId;
+        partial void OnEntryIdChanging(global::System.Guid value);
+        partial void OnEntryIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid CompetitiveGroupId
+        {
+            get
+            {
+                return _CompetitiveGroupId;
+            }
+            set
+            {
+                OnCompetitiveGroupIdChanging(value);
+                ReportPropertyChanging("CompetitiveGroupId");
+                _CompetitiveGroupId = StructuralObject.SetValidValue(value, "CompetitiveGroupId");
+                ReportPropertyChanged("CompetitiveGroupId");
+                OnCompetitiveGroupIdChanged();
+            }
+        }
+        private global::System.Guid _CompetitiveGroupId;
+        partial void OnCompetitiveGroupIdChanging(global::System.Guid value);
+        partial void OnCompetitiveGroupIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Guid> CompetitiveGroupItemId
+        {
+            get
+            {
+                return _CompetitiveGroupItemId;
+            }
+            set
+            {
+                OnCompetitiveGroupItemIdChanging(value);
+                ReportPropertyChanging("CompetitiveGroupItemId");
+                _CompetitiveGroupItemId = StructuralObject.SetValidValue(value, "CompetitiveGroupItemId");
+                ReportPropertyChanged("CompetitiveGroupItemId");
+                OnCompetitiveGroupItemIdChanged();
+            }
+        }
+        private Nullable<global::System.Guid> _CompetitiveGroupItemId;
+        partial void OnCompetitiveGroupItemIdChanging(Nullable<global::System.Guid> value);
+        partial void OnCompetitiveGroupItemIdChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Priem2012Model", "FK_EntryToCompetitiveGroup_CompetitiveGroup", "CompetitiveGroup")]
+        public CompetitiveGroup CompetitiveGroup
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CompetitiveGroup>("Priem2012Model.FK_EntryToCompetitiveGroup_CompetitiveGroup", "CompetitiveGroup").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CompetitiveGroup>("Priem2012Model.FK_EntryToCompetitiveGroup_CompetitiveGroup", "CompetitiveGroup").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<CompetitiveGroup> CompetitiveGroupReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CompetitiveGroup>("Priem2012Model.FK_EntryToCompetitiveGroup_CompetitiveGroup", "CompetitiveGroup");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<CompetitiveGroup>("Priem2012Model.FK_EntryToCompetitiveGroup_CompetitiveGroup", "CompetitiveGroup", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Priem2012Model", "FK_EntryToCompetitiveGroup_Entry", "Entry")]
+        public Entry Entry
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Entry>("Priem2012Model.FK_EntryToCompetitiveGroup_Entry", "Entry").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Entry>("Priem2012Model.FK_EntryToCompetitiveGroup_Entry", "Entry").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Entry> EntryReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Entry>("Priem2012Model.FK_EntryToCompetitiveGroup_Entry", "Entry");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Entry>("Priem2012Model.FK_EntryToCompetitiveGroup_Entry", "Entry", value);
+                }
+            }
+        }
 
         #endregion
 
@@ -37561,7 +37901,9 @@ namespace PriemLib
         /// <param name="hasTRKI">Initial value of the HasTRKI property.</param>
         /// <param name="hasRussianNationality">Initial value of the HasRussianNationality property.</param>
         /// <param name="languageName">Initial value of the LanguageName property.</param>
-        public static extPerson CreateextPerson(global::System.Guid id, global::System.Int32 num, global::System.String name, global::System.String surname, global::System.DateTime birthDate, global::System.String birthPlace, global::System.Int32 passportTypeId, global::System.Boolean sex, global::System.Int32 countryId, global::System.Int32 nationalityId, global::System.Int32 regionId, global::System.Boolean hostelAbit, global::System.Boolean hasAssignToHostel, global::System.Boolean hasExamPass, global::System.Int32 languageId, global::System.Int32 privileges, global::System.String fIO, global::System.Boolean hostelEduc, global::System.Boolean startEnglish, global::System.Boolean egeInSPbgu, global::System.Boolean hasTRKI, global::System.Boolean hasRussianNationality, global::System.String languageName)
+        /// <param name="author">Initial value of the Author property.</param>
+        /// <param name="dateCreated">Initial value of the DateCreated property.</param>
+        public static extPerson CreateextPerson(global::System.Guid id, global::System.Int32 num, global::System.String name, global::System.String surname, global::System.DateTime birthDate, global::System.String birthPlace, global::System.Int32 passportTypeId, global::System.Boolean sex, global::System.Int32 countryId, global::System.Int32 nationalityId, global::System.Int32 regionId, global::System.Boolean hostelAbit, global::System.Boolean hasAssignToHostel, global::System.Boolean hasExamPass, global::System.Int32 languageId, global::System.Int32 privileges, global::System.String fIO, global::System.Boolean hostelEduc, global::System.Boolean startEnglish, global::System.Boolean egeInSPbgu, global::System.Boolean hasTRKI, global::System.Boolean hasRussianNationality, global::System.String languageName, global::System.String author, global::System.DateTime dateCreated)
         {
             extPerson extPerson = new extPerson();
             extPerson.Id = id;
@@ -37587,6 +37929,8 @@ namespace PriemLib
             extPerson.HasTRKI = hasTRKI;
             extPerson.HasRussianNationality = hasRussianNationality;
             extPerson.LanguageName = languageName;
+            extPerson.Author = author;
+            extPerson.DateCreated = dateCreated;
             return extPerson;
         }
 
@@ -39426,6 +39770,60 @@ namespace PriemLib
         private global::System.String _LanguageName;
         partial void OnLanguageNameChanging(global::System.String value);
         partial void OnLanguageNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Author
+        {
+            get
+            {
+                return _Author;
+            }
+            set
+            {
+                if (_Author != value)
+                {
+                    OnAuthorChanging(value);
+                    ReportPropertyChanging("Author");
+                    _Author = StructuralObject.SetValidValue(value, false, "Author");
+                    ReportPropertyChanged("Author");
+                    OnAuthorChanged();
+                }
+            }
+        }
+        private global::System.String _Author;
+        partial void OnAuthorChanging(global::System.String value);
+        partial void OnAuthorChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime DateCreated
+        {
+            get
+            {
+                return _DateCreated;
+            }
+            set
+            {
+                if (_DateCreated != value)
+                {
+                    OnDateCreatedChanging(value);
+                    ReportPropertyChanging("DateCreated");
+                    _DateCreated = StructuralObject.SetValidValue(value, "DateCreated");
+                    ReportPropertyChanged("DateCreated");
+                    OnDateCreatedChanged();
+                }
+            }
+        }
+        private global::System.DateTime _DateCreated;
+        partial void OnDateCreatedChanging(global::System.DateTime value);
+        partial void OnDateCreatedChanged();
 
         #endregion
 

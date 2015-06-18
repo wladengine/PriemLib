@@ -369,7 +369,11 @@ namespace PriemLib
         private string GetFilterString()
         {
             string s = " WHERE 1=1 ";
-            s += " AND qAbiturient.Id NOT IN (SELECT Id FROM ed.qAbiturientForeignApplicationsOnly)";
+            if (MainClass.dbType != PriemType.PriemForeigners)
+                s += " AND qAbiturient.Id NOT IN (SELECT Id FROM ed.qAbiturientForeignApplicationsOnly)";
+            else
+                s += " AND qAbiturient.Id IN (SELECT Id FROM ed.qAbiturientForeignApplicationsOnly)";
+
             s += MainClass.GetStLevelFilter("ed.qAbiturient");           
             
             //обработали факультет

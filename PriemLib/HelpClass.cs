@@ -221,13 +221,11 @@ namespace PriemLib
         }
         public static async Task<DataView> GetDataViewAsync(DataGridView grid, BDClass bdc, string query, string filters, string orderby, bool saveOrder)
         {
-            
             DataSet ds;
             DataTable dt;
 
             if (query != "")
             {
-                
                 ds = await Task.Run<DataSet>(() => { return bdc.GetDataSet(query + " " + filters + " " + orderby); });
                 dt = ds.Tables[0];
             }

@@ -99,8 +99,16 @@ namespace PriemLib
                 using (PriemEntities context = new PriemEntities())
                 {
                     ComboServ.FillCombo(cbPassportType, HelpClass.GetComboListByTable("ed.PassportType", " ORDER BY Id "), false, false);
-                    ComboServ.FillCombo(cbCountry, HelpClass.GetComboListByTable("ed.Country", "ORDER BY Distance, Name"), false, false);
-                    ComboServ.FillCombo(cbNationality, HelpClass.GetComboListByTable("ed.Country", "ORDER BY Distance, Name"), false, false);
+                    if (MainClass.dbType == PriemType.PriemForeigners)
+                    {
+                        ComboServ.FillCombo(cbCountry, HelpClass.GetComboListByTable("ed.ForeignCountry", "ORDER BY Distance, Name"), false, false);
+                        ComboServ.FillCombo(cbNationality, HelpClass.GetComboListByTable("ed.ForeignCountry", "ORDER BY Distance, Name"), false, false);
+                    }
+                    else
+                    {
+                        ComboServ.FillCombo(cbCountry, HelpClass.GetComboListByTable("ed.Country", "ORDER BY Distance, Name"), false, false);
+                        ComboServ.FillCombo(cbNationality, HelpClass.GetComboListByTable("ed.Country", "ORDER BY Distance, Name"), false, false);
+                    }
                     UpdateAfterCountry();
                     ComboServ.FillCombo(cbLanguage, HelpClass.GetComboListByTable("ed.Language"), false, false);
                     ComboServ.FillCombo(cbCountryEduc, HelpClass.GetComboListByTable("ed.Country", "ORDER BY Distance, Name"), false, false);
@@ -130,6 +138,9 @@ namespace PriemLib
                     gbMainStudy.Visible = true;
                     btnDocs.Visible = false;
                 }
+
+                gbPashaTechInfo.Visible = MainClass.IsPasha();
+                
             }
             catch (Exception exc)
             {
@@ -142,10 +153,14 @@ namespace PriemLib
         }
         protected override void SetReadOnlyFieldsAfterFill()
         {
-            base.SetReadOnlyFieldsAfterFill();                  
-    
-            if(_Id == null)
+            base.SetReadOnlyFieldsAfterFill();
+
+            if (_Id == null)
+            {
                 btnDocs.Enabled = false;
+            }
+
+            WinFormsServ.SetSubControlsEnabled(gbPashaTechInfo, MainClass.IsPasha());
         }
         
         #region handlers
@@ -291,6 +306,12 @@ namespace PriemLib
             }
 
             personBarc = person.Barcode;
+            tbGUID.Text = person.Id.ToString();
+            tbAuthor.Text = MainClass.GetADUserName(person.Author);
+            tbDateCreated.Text = person.DateCreated.ToShortDateString() + " " + person.DateCreated.ToShortTimeString();
+            btnSendToOnline.Enabled = personBarc.HasValue;
+            if (personBarc.HasValue)
+                tbBarcode.Text = personBarc.ToString();
         }
 
         //данные из нашей базы
@@ -1772,6 +1793,17 @@ namespace PriemLib
 
         private void cbCountry_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //если используется иностр приём, то следует обновить значение CountryId
+            if (MainClass.dbType == PriemType.PriemForeigners)
+            {
+                using (PriemEntities context = new PriemEntities())
+                {
+                    CountryId = context.ForeignCountry.Where(x => x.Id == ForeignCountryId)
+                        .Select(x => x.PriemDictionaryId)
+                        .DefaultIfEmpty(MainClass.countryRussiaId)
+                        .First();
+                }
+            }
             UpdateAfterCountry();
         }
         private void UpdateAfterCountry()
@@ -1909,5 +1941,38 @@ namespace PriemLib
             }
         }
         #endregion
+
+        private void btnSendToOnline_Click(object sender, EventArgs e)
+        {
+            if (!MainClass.IsPasha())
+            {
+                WinFormsServ.Error("Только для администраторов. Извините.");
+                return;
+            }
+
+            if (!GuidId.HasValue)
+            {
+                WinFormsServ.Error("Нет Id");
+                return;
+            }
+
+            string msg = "Переместить абитуриента обратно в онлайн вместе со всеми его заявлениями?";
+            if (MessageBox.Show(msg, "", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+            {
+                try
+                {
+                    LoadFromInet loadClass = new LoadFromInet();
+                    loadClass.SendPersonBackToOnline(GuidId.Value);
+                    loadClass.CloseDB();
+                    MessageBox.Show("Done");
+                    this.Close();
+                    MainClass.DataRefresh();
+                }
+                catch (Exception ex)
+                {
+                    WinFormsServ.Error("Ошибка при отправке абитуриента обратно в онлайн", ex);
+                }
+            }
+        }
     }
 }

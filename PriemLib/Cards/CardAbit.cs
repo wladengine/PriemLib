@@ -208,6 +208,9 @@ namespace PriemLib
                     IsSecond = abit.IsSecond;
                     IsReduced = abit.IsReduced;
                     IsParallel = abit.IsParallel;
+                    IsForeign = abit.IsForeign;
+                    IsCrimea = abit.IsCrimea;
+
                     FillLicenseProgram();
 
                     LicenseProgramId = abit.LicenseProgramId;
@@ -255,9 +258,6 @@ namespace PriemLib
                     Coefficient = abit.Coefficient;
                     LanguageId = abit.LanguageId;
                     HasOriginals = abit.HasOriginals;
-
-                    IsForeign = abit.IsForeign;
-                    IsCrimea = abit.IsCrimea;
 
                     if (abit.HasOriginals)
                     {
@@ -835,6 +835,8 @@ namespace PriemLib
             entry = entry.Where(c => c.IsReduced == IsReduced);
             entry = entry.Where(c => c.IsParallel == IsParallel);
             entry = entry.Where(c => c.IsSecond == IsSecond);
+            entry = entry.Where(c => c.IsForeign == IsForeign);
+            entry = entry.Where(c => c.IsCrimea == IsCrimea);
 
             return entry;
         }
@@ -896,7 +898,7 @@ namespace PriemLib
                 {
                     List<KeyValuePair<string, string>> lst =
                         ((from ent in GetEntry(context)
-                          where ent.LicenseProgramId == LicenseProgramId && ent.ObrazProgramId == ObrazProgramId && ent.ProfileId != 0
+                          where ent.LicenseProgramId == LicenseProgramId && ent.ObrazProgramId == ObrazProgramId
                           orderby ent.ProfileName
                           select new
                           {

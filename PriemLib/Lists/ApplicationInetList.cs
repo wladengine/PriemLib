@@ -316,7 +316,7 @@ namespace PriemLib
                        (CASE WHEN EXISTS(SELECT * FROM qAbitFiles_OnlyEssayMotivLetter q WHERE q.PersonId=qAbiturient.PersonId AND FileTypeId=2) THEN 'Да' ELSE 'Нет' END) AS [Мотивац письмо],
                        (CASE WHEN EXISTS(SELECT * FROM qAbitFiles_OnlyEssayMotivLetter q WHERE q.PersonId=qAbiturient.PersonId AND FileTypeId=3) THEN 'Да' ELSE 'Нет' END) AS [Эссе]
                        FROM qAbiturient INNER JOIN extPerson ON qAbiturient.PersonId = extPerson.Id
-                       WHERE qAbiturient.IsImported = 0 AND Enabled = 1 AND qAbiturient.Id NOT IN (SELECT Id FROM qForeignApplicationOnly)";
+                       WHERE qAbiturient.IsImported = 0 AND SemesterId = 1 AND Enabled = 1 AND qAbiturient.Id NOT IN (SELECT Id FROM qForeignApplicationOnly)";
 
             Task<DataView> task = HelpClass.GetDataViewAsync((DataGridView)((dynamic)e.Argument).dgv, (BDClass)((dynamic)e.Argument)._bdc, _sQuery, (string)((dynamic)e.Argument).filters, _orderBy, false);
 

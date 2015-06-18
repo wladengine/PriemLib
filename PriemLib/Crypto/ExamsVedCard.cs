@@ -24,7 +24,7 @@ namespace PriemLib
         private Guid? _Id;
         private bool isAdditional;
         private int? examId;
-        private int? iStudyLevelGroupId;
+        private int iStudyLevelGroupId;
         private int? facultyId;
         private int? studyBasisId;
         private DateTime passDate;
@@ -66,7 +66,7 @@ namespace PriemLib
             InitControls();       
         }
 
-        public ExamsVedCard(ExamsVedList owner, int StudyLevelGroupId, int? facId, int? examId, DateTime date, int? basisId, bool isAdd)
+        public ExamsVedCard(ExamsVedList owner, int StudyLevelGroupId, int facId, int examId, DateTime date, int? basisId, bool isAdd)
         {
             InitializeComponent();
 
@@ -107,17 +107,17 @@ namespace PriemLib
             InitControls();
         }
 
-        public int? cbStudyBasisId
+        public int? StudyBasisId
         {
             get { return ComboServ.GetComboIdInt(cbStudyBasis); }
             set { ComboServ.SetComboId(cbStudyBasis, value); }
         }
-        public int? cbStudyFormId
+        public int? StudyFormId
         {
             get { return ComboServ.GetComboIdInt(cbStudyForm); }
             set { ComboServ.SetComboId(cbStudyForm, value); }
         }
-        public int? cbObrazProgramId
+        public int? ObrazProgramId
         {
             get { return ComboServ.GetComboIdInt(cbObrazProgram); }
             set { ComboServ.SetComboId(cbObrazProgram, value); }
@@ -195,8 +195,8 @@ namespace PriemLib
                 List<KeyValuePair<string, string>> lst =
                     ((from ent in MainClass.GetEntry(context)
                       where ent.FacultyId == facultyId
-                      && (cbStudyBasisId != null ? ent.StudyBasisId == cbStudyBasisId : true == true)
-                      && (cbStudyFormId != null ? ent.StudyBasisId == cbStudyFormId : true == true)
+                      && (StudyBasisId != null ? ent.StudyBasisId == StudyBasisId : true == true)
+                      && (StudyFormId != null ? ent.StudyBasisId == StudyFormId : true == true)
                       select new
                       {
                           Id = ent.ObrazProgramId,
@@ -213,16 +213,16 @@ namespace PriemLib
             string rez = string.Empty;            
 
             //обработали форму обучения  
-            if (cbStudyFormId != null)
-                rez += " AND ed.qAbiturient.StudyFormId = " + cbStudyFormId;
+            if (StudyFormId != null)
+                rez += " AND ed.qAbiturient.StudyFormId = " + StudyFormId;
 
             //обработали основу обучения 
-            if (cbStudyBasisId != null)
-                rez += " AND ed.qAbiturient.StudyBasisId = " + cbStudyBasisId; 
+            if (StudyBasisId != null)
+                rez += " AND ed.qAbiturient.StudyBasisId = " + StudyBasisId; 
             
             //Направление
-            if (cbObrazProgramId != null)
-                rez += " AND ed.qAbiturient.ObrazProgramId = " + cbObrazProgramId;
+            if (ObrazProgramId != null)
+                rez += " AND ed.qAbiturient.ObrazProgramId = " + ObrazProgramId;
             
             List<string> lstIds = new List<string>();
             foreach(DataGridViewRow dgrw in dgvLeft.Rows)

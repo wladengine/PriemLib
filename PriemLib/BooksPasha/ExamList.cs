@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 
 using BaseFormsLib;
+using EducServLib;
 
 namespace PriemLib
 {
@@ -29,6 +30,7 @@ namespace PriemLib
                 var tt = from f in context.Exam
                          join en in context.ExamName
                          on f.ExamNameId equals en.Id
+                         orderby en.Name
                          select new
                          {
                              Id = f.Id,
@@ -36,7 +38,7 @@ namespace PriemLib
                              IsAdd = f.IsAdditional ? "да" : "нет"
                          };
 
-                Dgv.DataSource = tt;
+                Dgv.DataSource = Converter.ConvertToDataTable(tt.ToArray());
 
                 SetVisibleColumnsAndNameColumns();
             }

@@ -36,12 +36,12 @@ namespace PriemLib
             this.sQuery = @"SELECT DISTINCT ed.extPerson.Id, ed.extPerson.PersonNum as Ид_номер, ed.extPerson.Surname AS Фамилия, ed.extPerson.Name AS Имя, 
                             ed.extPerson.SecondName AS Отчество, ed.extPerson.BirthDate AS Дата_рождения 
                             FROM ed.extPerson INNER JOIN ed.ExamsVedHistory ON ed.ExamsVedHistory.PersonId = ed.extPerson.Id ";
-                       
-            this.sOrderby = " ORDER BY Фамилия ";           
+
+            this.sOrderby = " ORDER BY Фамилия ";
 
             InitializeComponent();
             InitControls();
-        }        
+        }
 
         //дополнительная инициализация контролов
         private void InitControls()
@@ -122,7 +122,9 @@ namespace PriemLib
 
                 using (PriemEntities context = new PriemEntities())
                 {
-                    var src = MainClass.GetEntry(context).Select(x => new { x.StudyLevelGroupId, x.StudyLevelGroupName })
+                    var src = MainClass.GetEntry(context)
+                        .Select(x => new { x.StudyLevelGroupId, x.StudyLevelGroupName })
+                        .Distinct()
                         .ToList()
                         .Select(x => new KeyValuePair<string, string>(x.StudyLevelGroupId.ToString(), x.StudyLevelGroupName))
                         .ToList();
@@ -377,9 +379,15 @@ namespace PriemLib
         //создать новый протокол
         private void btnCreate_Click(object sender, EventArgs e)
         {
+            if (!StudyLevelGroupId.HasValue)
+            {
+                WinFormsServ.Error("Не выбран уровень образования!");
+                return;
+            }
+
             if (MainClass.RightsFacMain())
             {
-                SelectExamCrypto frm = new SelectExamCrypto(this, FacultyId, StudyBasisId);
+                SelectExamCrypto frm = new SelectExamCrypto(this, StudyLevelGroupId.Value, FacultyId, StudyBasisId);
                 frm.Show();
             }                 
         }     

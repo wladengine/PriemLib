@@ -184,10 +184,12 @@ warning 6002: The table/view 'Priem.ed._FirstWaveGreen' does not have a primary 
           <Property Name="Holder" Type="nvarchar" MaxLength="50" />
           <Property Name="LicenseProgramId" Type="int" Nullable="false" />
           <Property Name="ObrazProgramId" Type="int" Nullable="false" />
-          <Property Name="ProfileId" Type="uniqueidentifier" />
+          <Property Name="ProfileId" Type="int" Nullable="false" />
           <Property Name="IsReduced" Type="bit" Nullable="false" />
           <Property Name="IsSecond" Type="bit" Nullable="false" />
           <Property Name="IsParallel" Type="bit" Nullable="false" />
+          <Property Name="IsForeign" Type="bit" Nullable="false" />
+          <Property Name="IsCrimea" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Country">
           <Key>
@@ -316,6 +318,15 @@ warning 6002: The table/view 'Priem.ed.EgeToLanguage' does not have a primary ke
           <Property Name="Name" Type="nvarchar" MaxLength="500" />
           <Property Name="Acronym" Type="nvarchar" MaxLength="50" />
           <Property Name="SortNum" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EntryToCompetitiveGroup">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="EntryId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CompetitiveGroupId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CompetitiveGroupItemId" Type="uniqueidentifier" />
         </EntityType>
         <EntityType Name="Exam">
           <Key>
@@ -2097,6 +2108,8 @@ warning 6002: The table/view 'Priem.ed.extPerson' does not have a primary key de
             
             <PropertyRef Name="HasRussianNationality" />
             
+            <PropertyRef Name="Author" />
+            <PropertyRef Name="DateCreated" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Barcode" Type="int" />
@@ -2173,6 +2186,8 @@ warning 6002: The table/view 'Priem.ed.extPerson' does not have a primary key de
           <Property Name="PassportTypeName" Type="nvarchar" MaxLength="50" />
           <Property Name="PassportTypeFISName" Type="nvarchar" MaxLength="50" />
           <Property Name="LanguageName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Author" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'Priem.ed.extPerson_EducationInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -3446,6 +3461,32 @@ warning 6002: The table/view 'Priem.ed.qStudyLevel' does not have a primary key 
             </Principal>
             <Dependent Role="Entry">
               <PropertyRef Name="StudyLevelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EntryToCompetitiveGroup_CompetitiveGroup">
+          <End Role="CompetitiveGroup" Type="Self.CompetitiveGroup" Multiplicity="1" />
+          <End Role="EntryToCompetitiveGroup" Type="Self.EntryToCompetitiveGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CompetitiveGroup">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EntryToCompetitiveGroup">
+              <PropertyRef Name="CompetitiveGroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EntryToCompetitiveGroup_Entry">
+          <End Role="Entry" Type="Self.Entry" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="EntryToCompetitiveGroup" Type="Self.EntryToCompetitiveGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Entry">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EntryToCompetitiveGroup">
+              <PropertyRef Name="EntryId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -5364,6 +5405,7 @@ warning 6002: The table/view 'Priem.ed.qStudyLevel' does not have a primary key 
           <EntitySet Name="EgeToExam" EntityType="Self.EgeToExam" Schema="ed" store:Type="Tables" />
           <EntitySet Name="Entry" EntityType="Self.Entry" Schema="ed" store:Type="Tables" />
           <EntitySet Name="EntryHeader" EntityType="Self.EntryHeader" Schema="ed" store:Type="Tables" />
+          <EntitySet Name="EntryToCompetitiveGroup" EntityType="Self.EntryToCompetitiveGroup" Schema="ed" store:Type="Tables" />
           <EntitySet Name="Exam" EntityType="Self.Exam" Schema="ed" store:Type="Tables" />
           <EntitySet Name="ExamInEntry" EntityType="Self.ExamInEntry" Schema="ed" store:Type="Tables" />
           <EntitySet Name="ExaminerAccount" EntityType="Self.ExaminerAccount" Schema="ed" store:Type="Tables" />
@@ -6187,7 +6229,9 @@ FROM [ed].[extOlympiadsAll] AS [extOlympiadsAll]</DefiningQuery>
 [extPerson].[HasRussianNationality] AS [HasRussianNationality], 
 [extPerson].[PassportTypeName] AS [PassportTypeName], 
 [extPerson].[PassportTypeFISName] AS [PassportTypeFISName], 
-[extPerson].[LanguageName] AS [LanguageName]
+[extPerson].[LanguageName] AS [LanguageName], 
+[extPerson].[Author] AS [Author], 
+[extPerson].[DateCreated] AS [DateCreated]
 FROM [ed].[extPerson] AS [extPerson]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="extPerson_EducationInfo" EntityType="Self.extPerson_EducationInfo" store:Type="Views" store:Schema="ed">
@@ -6928,6 +6972,14 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <AssociationSet Name="FK_Entry_StudyLevel" Association="Self.FK_Entry_StudyLevel">
             <End Role="StudyLevel" EntitySet="StudyLevel" />
             <End Role="Entry" EntitySet="Entry" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EntryToCompetitiveGroup_CompetitiveGroup" Association="Self.FK_EntryToCompetitiveGroup_CompetitiveGroup">
+            <End Role="CompetitiveGroup" EntitySet="CompetitiveGroup" />
+            <End Role="EntryToCompetitiveGroup" EntitySet="EntryToCompetitiveGroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EntryToCompetitiveGroup_Entry" Association="Self.FK_EntryToCompetitiveGroup_Entry">
+            <End Role="Entry" EntitySet="Entry" />
+            <End Role="EntryToCompetitiveGroup" EntitySet="EntryToCompetitiveGroup" />
           </AssociationSet>
           <AssociationSet Name="fk_Exam_ExamName" Association="Self.fk_Exam_ExamName">
             <End Role="ExamName" EntitySet="ExamName" />
@@ -8822,6 +8874,15 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
             <End Role="PersonAchievement" EntitySet="PersonAchievement" />
             <End Role="Mark" EntitySet="Mark" />
           </AssociationSet>
+          <EntitySet Name="EntryToCompetitiveGroup" EntityType="Priem2012Model.EntryToCompetitiveGroup" />
+          <AssociationSet Name="FK_EntryToCompetitiveGroup_CompetitiveGroup" Association="Priem2012Model.FK_EntryToCompetitiveGroup_CompetitiveGroup">
+            <End Role="CompetitiveGroup" EntitySet="CompetitiveGroup" />
+            <End Role="EntryToCompetitiveGroup" EntitySet="EntryToCompetitiveGroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EntryToCompetitiveGroup_Entry" Association="Priem2012Model.FK_EntryToCompetitiveGroup_Entry">
+            <End Role="Entry" EntitySet="Entry" />
+            <End Role="EntryToCompetitiveGroup" EntitySet="EntryToCompetitiveGroup" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="AttMarks">
           <Key>
@@ -10638,10 +10699,13 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <Property Type="String" Name="Holder" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="LicenseProgramId" Nullable="false" />
           <Property Type="Int32" Name="ObrazProgramId" Nullable="false" />
-          <Property Type="Guid" Name="ProfileId" />
+          <Property Type="Int32" Name="ProfileId" Nullable="false" />
           <Property Type="Boolean" Name="IsReduced" Nullable="false" />
           <Property Type="Boolean" Name="IsSecond" Nullable="false" />
           <Property Type="Boolean" Name="IsParallel" Nullable="false" />
+          <Property Name="IsForeign" Type="Boolean" Nullable="false" />
+          <Property Name="IsCrimea" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="EntryToCompetitiveGroup" Relationship="Priem2012Model.FK_EntryToCompetitiveGroup_CompetitiveGroup" FromRole="CompetitiveGroup" ToRole="EntryToCompetitiveGroup" />
         </EntityType>
         <EntityType Name="Person">
           <Key>
@@ -11544,6 +11608,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <NavigationProperty Name="Comission" Relationship="Priem2012Model.FK_Entry_Comission" FromRole="Entry" ToRole="Comission" />
           <Property Type="Boolean" Name="IsForeign" Nullable="false" />
           <Property Type="Boolean" Name="IsCrimea" Nullable="false" />
+          <NavigationProperty Name="EntryToCompetitiveGroup" Relationship="Priem2012Model.FK_EntryToCompetitiveGroup_Entry" FromRole="Entry" ToRole="EntryToCompetitiveGroup" />
         </EntityType>
         <Association Name="FK_Abiturient_Entry">
           <End Type="Priem2012Model.Entry" Role="Entry" Multiplicity="1" />
@@ -12384,6 +12449,8 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
             <PropertyRef Name="NationalityId" />
             <PropertyRef Name="FIO" />
             <PropertyRef Name="HasRussianNationality" />
+            <PropertyRef Name="Author" />
+            <PropertyRef Name="DateCreated" />
           </Key>
           <Property Type="Guid" Name="Id" Nullable="false" />
           <Property Type="Int32" Name="Barcode" />
@@ -12460,6 +12527,8 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <Property Type="String" Name="PassportTypeName" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="PassportTypeFISName" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="LanguageName" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Author" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <EntityType Name="extPerson_EducationInfo">
           <Key>
@@ -13022,6 +13091,43 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
             </Principal>
             <Dependent Role="Mark">
               <PropertyRef Name="PersonAchievementId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="EntryToCompetitiveGroup">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="EntryId" Type="Guid" Nullable="false" />
+          <Property Name="CompetitiveGroupId" Type="Guid" Nullable="false" />
+          <Property Name="CompetitiveGroupItemId" Type="Guid" />
+          <NavigationProperty Name="CompetitiveGroup" Relationship="Priem2012Model.FK_EntryToCompetitiveGroup_CompetitiveGroup" FromRole="EntryToCompetitiveGroup" ToRole="CompetitiveGroup" />
+          <NavigationProperty Name="Entry" Relationship="Priem2012Model.FK_EntryToCompetitiveGroup_Entry" FromRole="EntryToCompetitiveGroup" ToRole="Entry" />
+        </EntityType>
+        <Association Name="FK_EntryToCompetitiveGroup_CompetitiveGroup">
+          <End Type="Priem2012Model.CompetitiveGroup" Role="CompetitiveGroup" Multiplicity="1" />
+          <End Type="Priem2012Model.EntryToCompetitiveGroup" Role="EntryToCompetitiveGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CompetitiveGroup">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EntryToCompetitiveGroup">
+              <PropertyRef Name="CompetitiveGroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EntryToCompetitiveGroup_Entry">
+          <End Type="Priem2012Model.Entry" Role="Entry" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Priem2012Model.EntryToCompetitiveGroup" Role="EntryToCompetitiveGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Entry">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EntryToCompetitiveGroup">
+              <PropertyRef Name="EntryId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -14228,6 +14334,8 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <EntitySetMapping Name="CompetitiveGroup">
             <EntityTypeMapping TypeName="Priem2012Model.CompetitiveGroup">
               <MappingFragment StoreEntitySet="CompetitiveGroup">
+                <ScalarProperty Name="IsCrimea" ColumnName="IsCrimea" />
+                <ScalarProperty Name="IsForeign" ColumnName="IsForeign" />
                 <ScalarProperty Name="IsParallel" ColumnName="IsParallel" />
                 <ScalarProperty Name="IsSecond" ColumnName="IsSecond" />
                 <ScalarProperty Name="IsReduced" ColumnName="IsReduced" />
@@ -15221,6 +15329,8 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <EntitySetMapping Name="extPerson">
             <EntityTypeMapping TypeName="Priem2012Model.extPerson">
               <MappingFragment StoreEntitySet="extPerson">
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="Author" ColumnName="Author" />
                 <ScalarProperty Name="LanguageName" ColumnName="LanguageName" />
                 <ScalarProperty Name="PassportTypeFISName" ColumnName="PassportTypeFISName" />
                 <ScalarProperty Name="PassportTypeName" ColumnName="PassportTypeName" />
@@ -15681,6 +15791,16 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <FunctionImportMapping FunctionImportName="PersonAchievement_insert" FunctionName="Priem2012Model.Store.PersonAchievement_insert" />
           <FunctionImportMapping FunctionImportName="PersonAchievement_update" FunctionName="Priem2012Model.Store.PersonAchievement_update" />
           <FunctionImportMapping FunctionImportName="Protocol_ClearHistory" FunctionName="Priem2012Model.Store.Protocol_ClearHistory" />
+          <EntitySetMapping Name="EntryToCompetitiveGroup">
+            <EntityTypeMapping TypeName="Priem2012Model.EntryToCompetitiveGroup">
+              <MappingFragment StoreEntitySet="EntryToCompetitiveGroup">
+                <ScalarProperty Name="CompetitiveGroupItemId" ColumnName="CompetitiveGroupItemId" />
+                <ScalarProperty Name="CompetitiveGroupId" ColumnName="CompetitiveGroupId" />
+                <ScalarProperty Name="EntryId" ColumnName="EntryId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

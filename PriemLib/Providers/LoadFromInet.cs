@@ -6,6 +6,7 @@ using System.Data;
 
 using BDClassLib;
 using EducServLib;
+using System.Transactions;
 
 namespace PriemLib
 {
@@ -406,6 +407,33 @@ WHERE Id=@Id";
         {
             if (!MainClass.IsTestDB)
                 _bdcInet.ExecuteQuery("UPDATE ApplicationCommit SET IsImported = 1 WHERE IntNumber = '" + _abitBarc + "'");
+        }
+
+        public void SendPersonBackToOnline(Guid PersonId)
+        {
+            using (PriemEntities context = new PriemEntities())
+            {
+                var lstCommits = context.Abiturient.Where(x => x.PersonId == PersonId && x.CommitId != null)
+                    .Distinct()
+                    .ToList()
+                    .Select(x => x.CommitId.Value)
+                    .ToList();
+                using (TransactionScope tran = new TransactionScope())
+                {
+                    string query = "UPDATE Person SET IsImported = 0 WHERE Id=@Id";
+                    _bdcInet.ExecuteQuery(query, new SortedList<string, object>() { { "@Id", PersonId } });
+
+                    foreach (Guid CommId in lstCommits)
+                    {
+                        query = "UPDATE ApplicationCommit SET IsImported = 0 WHERE Id=@Id";
+                        _bdcInet.ExecuteQuery(query, new SortedList<string, object>() { { "@Id", CommId } });
+                    }
+
+                    context.Person_deleteAllInfo(PersonId);
+
+                    tran.Complete();
+                }
+            }
         }
     }
 }

@@ -906,6 +906,9 @@
         <edmx:AssociationConnector Association="Priem2012Model.FK_PersonAchievement_AchievementType" />
         <edmx:AssociationConnector Association="Priem2012Model.FK_PersonAchievement_Person" />
         <edmx:AssociationConnector Association="Priem2012Model.FK_Mark_PersonAchievement" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.EntryToCompetitiveGroup" Width="1.5" PointX="34" PointY="19" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_EntryToCompetitiveGroup_CompetitiveGroup" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_EntryToCompetitiveGroup_Entry" />
         </edmx:Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

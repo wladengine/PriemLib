@@ -270,6 +270,16 @@
             this.btnAddAbit = new System.Windows.Forms.Button();
             this.btnDocs = new System.Windows.Forms.Button();
             this.sfdPrint = new System.Windows.Forms.SaveFileDialog();
+            this.gbPashaTechInfo = new System.Windows.Forms.GroupBox();
+            this.btnSendToOnline = new System.Windows.Forms.Button();
+            this.label29 = new System.Windows.Forms.Label();
+            this.tbGUID = new System.Windows.Forms.TextBox();
+            this.tbAuthor = new System.Windows.Forms.TextBox();
+            this.label46 = new System.Windows.Forms.Label();
+            this.tbDateCreated = new System.Windows.Forms.TextBox();
+            this.label67 = new System.Windows.Forms.Label();
+            this.tbBarcode = new System.Windows.Forms.TextBox();
+            this.label68 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.epError)).BeginInit();
             this.tabCard.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -311,6 +321,7 @@
             this.gbPersonInfo.SuspendLayout();
             this.gbStag.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.epErrorInput)).BeginInit();
+            this.gbPashaTechInfo.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnClose
@@ -349,6 +360,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.gbPashaTechInfo);
             this.tabPage1.Controls.Add(this.cbRegion);
             this.tabPage1.Controls.Add(this.cbCountry);
             this.tabPage1.Controls.Add(this.cbNationality);
@@ -454,7 +466,7 @@
             // tbNum
             // 
             this.tbNum.BackColor = System.Drawing.Color.Gainsboro;
-            this.tbNum.Location = new System.Drawing.Point(392, 6);
+            this.tbNum.Location = new System.Drawing.Point(382, 6);
             this.tbNum.Name = "tbNum";
             this.tbNum.ReadOnly = true;
             this.tbNum.Size = new System.Drawing.Size(122, 20);
@@ -463,7 +475,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(237, 9);
+            this.label2.Location = new System.Drawing.Point(227, 9);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(149, 13);
             this.label2.TabIndex = 98;
@@ -2824,6 +2836,99 @@
             this.btnDocs.Visible = false;
             this.btnDocs.Click += new System.EventHandler(this.btnDocs_Click);
             // 
+            // gbPashaTechInfo
+            // 
+            this.gbPashaTechInfo.Controls.Add(this.tbBarcode);
+            this.gbPashaTechInfo.Controls.Add(this.label68);
+            this.gbPashaTechInfo.Controls.Add(this.tbDateCreated);
+            this.gbPashaTechInfo.Controls.Add(this.label67);
+            this.gbPashaTechInfo.Controls.Add(this.tbAuthor);
+            this.gbPashaTechInfo.Controls.Add(this.label46);
+            this.gbPashaTechInfo.Controls.Add(this.tbGUID);
+            this.gbPashaTechInfo.Controls.Add(this.label29);
+            this.gbPashaTechInfo.Controls.Add(this.btnSendToOnline);
+            this.gbPashaTechInfo.Location = new System.Drawing.Point(392, 32);
+            this.gbPashaTechInfo.Name = "gbPashaTechInfo";
+            this.gbPashaTechInfo.Size = new System.Drawing.Size(226, 143);
+            this.gbPashaTechInfo.TabIndex = 116;
+            this.gbPashaTechInfo.TabStop = false;
+            this.gbPashaTechInfo.Text = "тех. инфо";
+            this.gbPashaTechInfo.Visible = false;
+            // 
+            // btnSendToOnline
+            // 
+            this.btnSendToOnline.Location = new System.Drawing.Point(145, 114);
+            this.btnSendToOnline.Name = "btnSendToOnline";
+            this.btnSendToOnline.Size = new System.Drawing.Size(75, 23);
+            this.btnSendToOnline.TabIndex = 0;
+            this.btnSendToOnline.Text = "В онлайн";
+            this.btnSendToOnline.UseVisualStyleBackColor = true;
+            this.btnSendToOnline.Click += new System.EventHandler(this.btnSendToOnline_Click);
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(6, 16);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(34, 13);
+            this.label29.TabIndex = 1;
+            this.label29.Text = "GUID";
+            // 
+            // tbGUID
+            // 
+            this.tbGUID.Location = new System.Drawing.Point(46, 13);
+            this.tbGUID.Name = "tbGUID";
+            this.tbGUID.Size = new System.Drawing.Size(174, 20);
+            this.tbGUID.TabIndex = 2;
+            // 
+            // tbAuthor
+            // 
+            this.tbAuthor.Location = new System.Drawing.Point(46, 39);
+            this.tbAuthor.Name = "tbAuthor";
+            this.tbAuthor.Size = new System.Drawing.Size(174, 20);
+            this.tbAuthor.TabIndex = 4;
+            // 
+            // label46
+            // 
+            this.label46.AutoSize = true;
+            this.label46.Location = new System.Drawing.Point(2, 42);
+            this.label46.Name = "label46";
+            this.label46.Size = new System.Drawing.Size(38, 13);
+            this.label46.TabIndex = 3;
+            this.label46.Text = "Author";
+            // 
+            // tbDateCreated
+            // 
+            this.tbDateCreated.Location = new System.Drawing.Point(46, 65);
+            this.tbDateCreated.Name = "tbDateCreated";
+            this.tbDateCreated.Size = new System.Drawing.Size(174, 20);
+            this.tbDateCreated.TabIndex = 6;
+            // 
+            // label67
+            // 
+            this.label67.AutoSize = true;
+            this.label67.Location = new System.Drawing.Point(10, 68);
+            this.label67.Name = "label67";
+            this.label67.Size = new System.Drawing.Size(30, 13);
+            this.label67.TabIndex = 5;
+            this.label67.Text = "Date";
+            // 
+            // tbBarcode
+            // 
+            this.tbBarcode.Location = new System.Drawing.Point(46, 91);
+            this.tbBarcode.Name = "tbBarcode";
+            this.tbBarcode.Size = new System.Drawing.Size(174, 20);
+            this.tbBarcode.TabIndex = 8;
+            // 
+            // label68
+            // 
+            this.label68.AutoSize = true;
+            this.label68.Location = new System.Drawing.Point(2, 94);
+            this.label68.Name = "label68";
+            this.label68.Size = new System.Drawing.Size(47, 13);
+            this.label68.TabIndex = 7;
+            this.label68.Text = "Barcode";
+            // 
             // CardPerson
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2909,6 +3014,8 @@
             this.gbStag.ResumeLayout(false);
             this.gbStag.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.epErrorInput)).EndInit();
+            this.gbPashaTechInfo.ResumeLayout(false);
+            this.gbPashaTechInfo.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -3146,6 +3253,16 @@
         private System.Windows.Forms.Button btnDeletePersonAchievement;
         private System.Windows.Forms.Button btnAddPersonAchievement;
         private System.Windows.Forms.DataGridView dgvIndividualAchievements;
+        private System.Windows.Forms.GroupBox gbPashaTechInfo;
+        private System.Windows.Forms.TextBox tbBarcode;
+        private System.Windows.Forms.Label label68;
+        private System.Windows.Forms.TextBox tbDateCreated;
+        private System.Windows.Forms.Label label67;
+        private System.Windows.Forms.TextBox tbAuthor;
+        private System.Windows.Forms.Label label46;
+        private System.Windows.Forms.TextBox tbGUID;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.Button btnSendToOnline;
 
     }
 }

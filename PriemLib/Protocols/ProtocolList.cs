@@ -188,8 +188,10 @@ namespace PriemLib
                     int protType = TypeToInt(_protocolType);                    
                     var protocols = (from p in context.qProtocol
                                      where !p.IsOld && p.ProtocolTypeId == protType
-                                     && p.FacultyId == FacultyId && p.StudyFormId == StudyFormId && p.StudyBasisId == StudyBasisId
-                                     && p.StudyLevelGroupId.HasValue ? p.StudyLevelGroupId.Value == StudyLevelGroupId : true
+                                     && (FacultyId.HasValue ? p.FacultyId == FacultyId : true)
+                                     && (StudyFormId.HasValue ? p.StudyFormId == StudyFormId : true)
+                                     && (StudyBasisId.HasValue ? p.StudyBasisId == StudyBasisId : true)
+                                     && (StudyLevelGroupId.HasValue ? p.StudyLevelGroupId.Value == StudyLevelGroupId : true)
                                      orderby p.Number
                                      select new
                                      {

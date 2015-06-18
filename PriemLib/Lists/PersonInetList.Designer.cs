@@ -47,26 +47,26 @@
             // 
             // lblCount
             // 
-            this.lblCount.Location = new System.Drawing.Point(250, 385);
+            this.lblCount.Location = new System.Drawing.Point(250, 405);
             // 
             // btnCard
             // 
             this.btnCard.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnCard.Location = new System.Drawing.Point(12, 411);
+            this.btnCard.Location = new System.Drawing.Point(12, 431);
             // 
             // btnRemove
             // 
             this.btnRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRemove.Location = new System.Drawing.Point(490, 382);
+            this.btnRemove.Location = new System.Drawing.Point(507, 402);
             // 
             // btnAdd
             // 
             this.btnAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAdd.Location = new System.Drawing.Point(409, 411);
+            this.btnAdd.Location = new System.Drawing.Point(426, 431);
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(490, 411);
+            this.btnClose.Location = new System.Drawing.Point(507, 431);
             // 
             // dgvAbiturients
             // 
@@ -77,7 +77,7 @@
             this.dgvAbiturients.Location = new System.Drawing.Point(12, 83);
             this.dgvAbiturients.Name = "dgvAbiturients";
             this.dgvAbiturients.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvAbiturients.Size = new System.Drawing.Size(553, 291);
+            this.dgvAbiturients.Size = new System.Drawing.Size(570, 311);
             this.dgvAbiturients.TabIndex = 25;
             // 
             // label2
@@ -109,7 +109,7 @@
             // btnUpdate
             // 
             this.btnUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnUpdate.Location = new System.Drawing.Point(490, 49);
+            this.btnUpdate.Location = new System.Drawing.Point(507, 49);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(75, 28);
             this.btnUpdate.TabIndex = 31;
@@ -150,7 +150,7 @@
             // 
             this.lblBarcode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblBarcode.AutoSize = true;
-            this.lblBarcode.Location = new System.Drawing.Point(93, 400);
+            this.lblBarcode.Location = new System.Drawing.Point(93, 420);
             this.lblBarcode.Name = "lblBarcode";
             this.lblBarcode.Size = new System.Drawing.Size(56, 13);
             this.lblBarcode.TabIndex = 41;
@@ -159,7 +159,7 @@
             // tbPersonNum
             // 
             this.tbPersonNum.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.tbPersonNum.Location = new System.Drawing.Point(96, 413);
+            this.tbPersonNum.Location = new System.Drawing.Point(96, 433);
             this.tbPersonNum.Name = "tbPersonNum";
             this.tbPersonNum.Size = new System.Drawing.Size(115, 20);
             this.tbPersonNum.TabIndex = 39;
@@ -167,7 +167,7 @@
             // btnLoad
             // 
             this.btnLoad.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnLoad.Location = new System.Drawing.Point(217, 411);
+            this.btnLoad.Location = new System.Drawing.Point(217, 431);
             this.btnLoad.Name = "btnLoad";
             this.btnLoad.Size = new System.Drawing.Size(75, 23);
             this.btnLoad.TabIndex = 40;
@@ -192,7 +192,7 @@
             this.AcceptButton = this.btnLoad;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(577, 446);
+            this.ClientSize = new System.Drawing.Size(594, 466);
             this.Controls.Add(this.chbShowAll);
             this.Controls.Add(this.lblBarcode);
             this.Controls.Add(this.tbPersonNum);

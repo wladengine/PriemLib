@@ -336,6 +336,7 @@ namespace PriemLib
             //list.Add("Школьников", "Олимпиада школьников");  
 
             list.Add("Степень_диплома", "Степень диплома");
+            list.Add("Уровень_поступления", "Уровень_поступления");
 
             return list;
         }
@@ -361,6 +362,7 @@ namespace PriemLib
             lst.Add(new FilterItem("Номер учебного заведения", FilterType.FromTo, "ed.extPersonAspirant.SchoolNum", "ed.extPersonAspirant"));
             lst.Add(new FilterItem("Год окончания учебного заведения", FilterType.FromTo, "ed.extPersonAspirant.SchoolExitYear", "ed.extPersonAspirant"));
 
+            lst.Add(new FilterItem("Уровень", FilterType.Multi, "ed.qAbiturient.StudyLevelId", "ed.qAbiturient", " SELECT DISTINCT Id, Name AS Name FROM ed.StudyLevel "));
             lst.Add(new FilterItem("Профиль", FilterType.Multi, "ed.qAbiturient.ProfileId", "ed.qAbiturient", " SELECT DISTINCT ed.qProfile.Id, ed.qProfile.Name AS Name FROM ed.qProfile "));
 
             lst.Add(new FilterItem("Поданы подлинники свидетельств ЕГЭ", FilterType.Bool, "ed.qAbiturient.EgeDocOrigin", "ed.qAbiturient"));

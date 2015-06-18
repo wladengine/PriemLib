@@ -70,7 +70,10 @@ namespace PriemLib
                               Id = f.Id,
                               Name = en.Name,
                               IsAdd = f.IsAdditional
-                          }).Distinct()).ToList().Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name + (u.IsAdd ? " (доп)" : ""))).ToList();
+                          }).Distinct()).ToList()
+                          .Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name + (u.IsAdd ? " (доп)" : "")))
+                          .OrderBy(x => x.Value)
+                          .ToList();
                                                                    
                     ComboServ.FillCombo(cbExam, lst, false, false);                   
                 }

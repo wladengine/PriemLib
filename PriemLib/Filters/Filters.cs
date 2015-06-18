@@ -52,6 +52,8 @@ namespace PriemLib
                 }
                 lbFilters.SelectedIndex = 0;
             }
+
+            cmbFilters.SelectedIndex = 0;
         }
 
         private void AddItem(FilterItem fi)

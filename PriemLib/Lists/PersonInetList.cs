@@ -72,7 +72,7 @@ LEFT JOIN ed.StudyLevel ON StudyLevel.Id=Entry.StudyLevelId
 WHERE Entry.IsForeign <> 1 {1} 
 AND (StudyLevel.LevelGroupId IN ({0}) OR StudyLevel.LevelGroupId IS NULL) ",
                     Util.BuildStringWithCollection(MainClass.lstStudyLevelGroupId),
-                    MainClass.dbType == PriemType.Priem ? "" : " AND EducInfo.SchoolTypeId = 4 ");
+                    (MainClass.dbType == PriemType.PriemAspirant || MainClass.dbType == PriemType.PriemMag) ? " AND EducInfo.SchoolTypeId=4 " : "");
             }
             
             HelpClass.FillDataGrid(Dgv, _bdc, _sQuery + join, "", " ORDER BY FIO");
@@ -88,9 +88,10 @@ AND (StudyLevel.LevelGroupId IN ({0}) OR StudyLevel.LevelGroupId IS NULL) ",
                 col.Visible = false;
             }
             
-            this.Width = 608;
+            this.Width = 628;
             dgvAbiturients.Columns["PersonNum"].Width = 70;
             dgvAbiturients.Columns["FIO"].Width = 246;
+            dgvAbiturients.Columns["EducDocument"].Width += 10;
 
             SetVisibleColumnsAndNameColumnsOrdered("PersonNum", "Ид_номер", 0);
             SetVisibleColumnsAndNameColumnsOrdered("FIO", "ФИО", 1);
@@ -248,23 +249,6 @@ AND (StudyLevel.LevelGroupId IN ({0}) OR StudyLevel.LevelGroupId IS NULL) ",
                             }
                         }
                     }
-
-                    //UpdateDataGrid();
-                    //using (PriemEntities context = new PriemEntities())
-                    //{
-                    //    extAbit abit = (from ab in context.extAbit
-                    //                    where ab.CommitNumber == fileNum
-                    //                    select ab).FirstOrDefault();
-
-                    //    string fio = abit.FIO;
-                    //    string num = abit.PersonNum;
-                    //    string persId = abit.PersonId.ToString();
-
-                    //    WinFormsServ.Search(this.dgvAbiturients, "PersonNum", num);
-                    //    DialogResult dr = MessageBox.Show(string.Format("Абитуриент {0} с данным номером баркода уже импортирован в базу.\nОткрыть карточку абитуриента?", fio), "Внимание", MessageBoxButtons.YesNo);
-                    //    if (dr == System.Windows.Forms.DialogResult.Yes)
-                    //        MainClass.OpenCardPerson(persId, this, null);
-                    //}
                 }
             }
             tbPersonNum.Text = "";

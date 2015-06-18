@@ -85,6 +85,11 @@ namespace PriemLib
             get { return ComboServ.GetComboIdInt(cbComission); }
             set { ComboServ.SetComboId(cbComission, value); }
         }
+        public Guid? CompetitionGroupId
+        {
+            get { return ComboServ.GetComboIdGuid(cbCompetitionGroup); }
+            set { ComboServ.SetComboId(cbCompetitionGroup, value); }
+        }
 
         public DateTime DateOfStart
         {
@@ -271,6 +276,15 @@ namespace PriemLib
                 var src = context.SP_ObrazProgram.Where(x => x.LicenseProgramId == LicenseProgramId).Select(x => new { x.FacultyId, x.SP_Faculty.Name }).Distinct().ToList()
                     .Select(x => new KeyValuePair<string, string>(x.FacultyId.ToString(), x.Name)).ToList();
                 ComboServ.FillCombo(cbFaculty, src, false, false);
+
+                var src2 = context.CompetitiveGroup
+                    .Where(x => x.LicenseProgramId == LicenseProgramId && x.ObrazProgramId == ObrazProgramId)
+                    .Select(x => new { x.Id, x.Name })
+                    .ToList()
+                    .Select(x => new KeyValuePair<string, string>(x.Id.ToString(), x.Name))
+                    .ToList();
+
+                ComboServ.FillCombo(cbCompetitionGroup, src2, true, false);
             }
         }
 
@@ -320,10 +334,15 @@ namespace PriemLib
                     IsReduced = ent.IsReduced;
                     IsParallel = ent.IsParallel;
                     IsForeign = ent.IsForeign;
+                    IsCrimea = ent.IsCrimea;
+
                     tbKCPCel.Text = ent.KCPCel.ToString();
                     KCPQuota = ent.KCPQuota;
 
                     ComissionId = ent.CommissionId;
+                    var _toComp = ent.EntryToCompetitiveGroup.FirstOrDefault();
+                    if (_toComp != null)
+                        CompetitionGroupId = _toComp.CompetitiveGroupId;
 
                     DateOfStart = ent.DateOfStart;
                     DateOfClose = ent.DateOfClose;
@@ -421,7 +440,19 @@ namespace PriemLib
             Entry.DateOfClose = DateOfClose;
             Entry.CommissionId = ComissionId;
             Entry.IsForeign = IsForeign;
+            Entry.IsCrimea = IsCrimea;
+            
             context.Entry.AddObject(Entry);
+
+            if (CompetitionGroupId.HasValue)
+            {
+                var EntryToComp = new EntryToCompetitiveGroup();
+                EntryToComp.Id = Guid.NewGuid();
+                EntryToComp.EntryId = Id;
+                EntryToComp.CompetitiveGroupId = CompetitionGroupId.Value;
+                context.EntryToCompetitiveGroup.AddObject(EntryToComp);
+            }
+
             context.SaveChanges();
 
             idParam.Value = Id;
@@ -463,6 +494,26 @@ DateOfStart, DateOfClose, ComissionId, IsForeign, IsCrimea) VALUES
             context.Entry_UpdateKC(GuidId, KCP, KCPQuota);
             context.Entry_Update(GuidId, StudyLevelId, StudyFormId, StudyBasisId, FacultyId, false, IsParallel, IsReduced, IsSecond, tbStudyPlan.Text.Trim(),
                 DateOfStart, DateOfClose, ComissionId, IsForeign, IsCrimea);
+
+            if (CompetitionGroupId.HasValue)
+            {
+                bool bIns = false;
+                var EntryToComp = context.EntryToCompetitiveGroup.Where(x => x.EntryId == GuidId).FirstOrDefault();
+                if (EntryToComp == null)
+                {
+                    bIns = true;
+                    EntryToComp = new EntryToCompetitiveGroup();
+                    EntryToComp.Id = Guid.NewGuid();
+                    EntryToComp.EntryId = GuidId.Value;
+                }
+                
+                EntryToComp.CompetitiveGroupId = CompetitionGroupId.Value;
+
+                if (bIns)
+                    context.EntryToCompetitiveGroup.AddObject(EntryToComp);
+
+                context.SaveChanges();
+            }
 
             try
             {
@@ -526,17 +577,21 @@ WHERE Id=@Id";
                              select new 
                              { 
                                  exEntry.Id, 
+                                 exEntry.OrderNumber,
                                  Name = exEntry.ExamName,
                                  IsProfil = exEntry.IsProfil ? "да" : "нет",
-                                 exEntry.EgeMin
-                             });
+                                 exEntry.EgeMin,
+                             }).ToList().OrderBy(x => x.OrderNumber).ToList();
 
                 dgvExams.DataSource = query;
                 dgvExams.Columns["Id"].Visible = false;
 
-                dgvExams.Columns["Name"].HeaderText = "Название"; 
+                dgvExams.Columns["Name"].HeaderText = "Название";
+                dgvExams.Columns["Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill; 
                 dgvExams.Columns["IsProfil"].HeaderText = "Профильный"; 
-                dgvExams.Columns["EgeMin"].HeaderText = "Мин. ЕГЭ"; 
+                dgvExams.Columns["EgeMin"].HeaderText = "Мин. ЕГЭ";
+                dgvExams.Columns["OrderNumber"].HeaderText = "№";
+                dgvExams.Columns["OrderNumber"].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
             }
         }
 

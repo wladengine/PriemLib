@@ -182,55 +182,80 @@ namespace PriemLib
                 qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "ed.extPerson.FIO", "ФИО"));
                 qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "ed.extPerson.BirthDate", "Дата_рождения"));
                 qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "ed.extPerson.BirthPlace", "Место_рождения"));
+
+                //Person Passport
+                qBuilder.AddQueryItem(new QueryItem("ed.PassportType", "ed.PassportType.Name", "Тип_паспорта"));
                 qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "ed.extPerson.PassportSeries", "Серия_паспорта"));
                 qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "ed.extPerson.PassportNumber", "Номер_паспорта"));
+                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "ed.extPerson.PassportCode", "Код_подразделения_паспорта"));
+                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "ed.extPerson.PersonalCode", "Личный_код_паспорт"));
                 qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "ed.extPerson.SNILS", "СНИЛС"));
-
                 qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "ed.extPerson.PassportAuthor", "Кем_выдан_паспорт"));
                 qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "ed.extPerson.PassportDate", "Дата_выдачи_паспорта"));
+                
                 qBuilder.AddQueryItem(new QueryItem("ed.extPerson", QueryBuilder.GetBoolField("ed.extPerson.Sex"), "Пол_мужской"));
+
+                //Person Contacts
                 qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "ed.extPerson.Phone", "Телефон"));
                 qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "ed.extPerson.Email", "Email"));
                 qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "ed.extPerson.Code+' '+ed.extPerson.City+' '+ed.extPerson.Street+(Case when ed.extPerson.House = '' then '' else ' д.'+ed.extPerson.House end)+(Case when ed.extPerson.Korpus = '' then '' else ' к.'+ed.extPerson.Korpus end)+(Case when ed.extPerson.Flat = '' then '' else ' кв.'+ed.extPerson.Flat end)", "Адрес_регистрации"));
                 qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "ed.extPerson.CodeReal+' '+ed.extPerson.CityReal+' '+ed.extPerson.StreetReal+(Case when ed.extPerson.HouseReal = '' then '' else ' д.'+ed.extPerson.HouseReal end)+(Case when ed.extPerson.KorpusReal = '' then '' else ' к.'+ed.extPerson.KorpusReal end)+(Case when ed.extPerson.FlatReal = '' then '' else ' кв.'+ed.extPerson.FlatReal end)", "Адрес_проживания"));
                 qBuilder.AddQueryItem(new QueryItem("ed.extPerson", QueryBuilder.GetBoolField("ed.extPerson.HostelAbit"), "Предоставлять_общежитие_поступление"));
+                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", QueryBuilder.GetBoolField("ed.extPerson.HostelEduc"), "Предоставлять_общежитие_обучение"));
                 qBuilder.AddQueryItem(new QueryItem("ed.extPerson", QueryBuilder.GetBoolField("ed.extPerson.HasAssignToHostel"), "Выдано_направление_на_поселение"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", QueryBuilder.GetBoolField("ed.extPerson.IsExcellent"), "Медалист"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "ed.extPerson.SchoolCity", "Город_уч_заведения"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "ed.extPerson.SchoolNum", "Номер_школы"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "ed.extPerson.AttestatRegion", "Регион_аттестата"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "ed.extPerson.AttestatSeries", "Серия_атт"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "ed.extPerson.AttestatNum", "Номер_атт"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "ed.extPerson.SchoolAVG", "Средний_балл_атт"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "ed.extPerson.DiplomSeries", "Серия_диплома"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "ed.extPerson.DiplomNum", "Номер_диплома"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "ed.extPerson.PassportCode", "Код_подразделения_паспорта"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "ed.extPerson.PersonalCode", "Личный_код_паспорт"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "ed.extPerson.Mobiles", "Доп_контакты"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "ed.extPerson.PersonInfo", "Данные_о_родителях"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "ed.extPerson.StartEnglish", "Англ_с_нуля"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "ed.extPerson.EnglishMark", "Англ_оценка"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "ed.extPerson.HEQualification", "Квалификация"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "ed.extPerson.HighEducation", "Место_предыдущего_образования_маг"));
+                qBuilder.AddQueryItem(new QueryItem("HostelFaculty", "HostelFaculty.Name", "Факультет_выдавший_направление"));
+                qBuilder.AddQueryItem(new QueryItem("ed.Country", "ed.Country.Name", "Страна"));
+                qBuilder.AddQueryItem(new QueryItem("Nationality", "Nationality.Name", "Гражданство"));
+                qBuilder.AddQueryItem(new QueryItem("ed.Region", "ed.Region.Name", "Регион"));
+                
 
-                qBuilder.AddQueryItem(new QueryItem("ed.extAbit", "ed.extAbit.ObrazProgramInEntryName", "Образовательная_программа_зачисления"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extAbit", "ed.extAbit.ProfileInObrazProgramInEntryName", "Профиль_зачисления"));
-
-                if (MainClass.dbType == PriemType.PriemMag)
+                //Person Education Info
+                qBuilder.AddQueryItem(new QueryItem("ed.extPerson_EducationInfo_Current", QueryBuilder.GetBoolField("ed.extPerson_EducationInfo_Current.IsExcellent"), "Медалист"));
+                qBuilder.AddQueryItem(new QueryItem("ed.extPerson_EducationInfo_Current", "ed.extPerson_EducationInfo_Current.SchoolCity", "Город_уч_заведения"));
+                qBuilder.AddQueryItem(new QueryItem("ed.extPerson_EducationInfo_Current", "ed.extPerson_EducationInfo_Current.SchoolNum", "Номер_школы"));
+                qBuilder.AddQueryItem(new QueryItem("ed.extPerson_EducationInfo_Current", "ed.extPerson_EducationInfo_Current.AttestatSeries", "Серия_атт"));
+                qBuilder.AddQueryItem(new QueryItem("ed.extPerson_EducationInfo_Current", "ed.extPerson_EducationInfo_Current.AttestatNum", "Номер_атт"));
+                qBuilder.AddQueryItem(new QueryItem("ed.extPerson_EducationInfo_Current", "ed.extPerson_EducationInfo_Current.SchoolAVG", "Средний_балл_атт"));
+                qBuilder.AddQueryItem(new QueryItem("ed.extPerson_EducationInfo_Current", "ed.extPerson_EducationInfo_Current.DiplomSeries", "Серия_диплома"));
+                qBuilder.AddQueryItem(new QueryItem("ed.extPerson_EducationInfo_Current", "ed.extPerson_EducationInfo_Current.DiplomNum", "Номер_диплома"));
+                qBuilder.AddQueryItem(new QueryItem("ed.extPerson_EducationInfo_Current", "ed.extPerson_EducationInfo_Current.HEQualification", "Квалификация"));
+                qBuilder.AddQueryItem(new QueryItem("ed.extPerson_EducationInfo_Current", "ed.extPerson_EducationInfo_Current.HighEducation", "Место_предыдущего_образования"));
+                if (MainClass.dbType == PriemType.PriemMag || MainClass.dbType == PriemType.PriemAspirant)
                 {
-                    qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "ed.extPerson.HighEducation", "Название_уч_заведения"));
-                    qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "ed.extPerson.HEProfession", "Направление_подготовки"));
-                    qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "ed.extPerson.HEExitYear", "Год_выпуска"));
+                    qBuilder.AddQueryItem(new QueryItem("ed.extPerson_EducationInfo_Current", "ed.extPerson_EducationInfo_Current.HighEducation", "Название_уч_заведения"));
+                    qBuilder.AddQueryItem(new QueryItem("ed.extPerson_EducationInfo_Current", "ed.extPerson_EducationInfo_Current.HEProfession", "Направление_подготовки"));
+                    qBuilder.AddQueryItem(new QueryItem("ed.extPerson_EducationInfo_Current", "ed.extPerson_EducationInfo_Current.HEExitYear", "Год_выпуска"));
                 }
                 else
                 {
-                    qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "ed.extPerson.SchoolName", "Название_уч_заведения"));
-                    qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "ed.extPerson.SchoolExitYear", "Год_выпуска"));
+                    qBuilder.AddQueryItem(new QueryItem("ed.extPerson_EducationInfo_Current", "ed.extPerson_EducationInfo_Current.SchoolName", "Название_уч_заведения"));
+                    qBuilder.AddQueryItem(new QueryItem("ed.extPerson_EducationInfo_Current", "ed.extPerson_EducationInfo_Current.SchoolExitYear", "Год_выпуска"));
                 }
+                qBuilder.AddQueryItem(new QueryItem("ed.SchoolType", "ed.SchoolType.Name", "Тип_уч_заведения"));
+                qBuilder.AddQueryItem(new QueryItem("CountryEduc", "CountryEduc.Name", "Страна_получ_пред_образ"));
+                qBuilder.AddQueryItem(new QueryItem("ed.extFBSStatus", "ed.extFBSStatus.FBSStatus", "Статус_ФБС"));
 
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", QueryBuilder.GetBoolField("ed.extPerson.HostelEduc"), "Предоставлять_общежитие_обучение"));
+                //Person Additional Info
+                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "ed.extPerson.Mobiles", "Доп_контакты"));
+                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "ed.extPerson.PersonInfo", "Данные_о_родителях"));
+                qBuilder.AddQueryItem(new QueryItem("ed.Language", "ed.Language.Name", "Ин_язык"));
+                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "ed.extPerson.StartEnglish", "Англ_с_нуля"));
+                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "ed.extPerson.EnglishMark", "Англ_оценка"));
+                
+                
+                //Abiturient Info
+                qBuilder.AddQueryItem(new QueryItem("ed.qFaculty", "ed.qFaculty.Name", "Факультет"));
+                qBuilder.AddQueryItem(new QueryItem("ed.qLicenseProgram", "ed.qLicenseProgram.Name", "Направление"));
+                qBuilder.AddQueryItem(new QueryItem("ed.qLicenseProgram", "ed.qLicenseProgram.Code", "Код_направления"));
+                qBuilder.AddQueryItem(new QueryItem("ed.qObrazProgram", "ed.qObrazProgram.Name", "Образ_программа"));
+                qBuilder.AddQueryItem(new QueryItem("ed.qProfile", "ed.qProfile.Name", "Профиль"));
+                qBuilder.AddQueryItem(new QueryItem("ed.StudyForm", "ed.StudyForm.Name", "Форма_обучения"));
+                qBuilder.AddQueryItem(new QueryItem("ed.StudyBasis", "ed.StudyBasis.Name", "Основа_обучения"));
+                qBuilder.AddQueryItem(new QueryItem("ed.Competition", "ed.Competition.Name", "Тип_конкурса"));
+                qBuilder.AddQueryItem(new QueryItem("OtherCompetition", "OtherCompetition.Name", "Доп_тип_конкурса"));
+                qBuilder.AddQueryItem(new QueryItem("ed.CelCompetition", "ed.CelCompetition.Name", "Целевик_тип"));
                 qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", QueryBuilder.GetBoolField("ed.qAbiturient.IsListener"), "Слушатель"));
-                qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", QueryBuilder.GetBoolField("ed.qAbiturient.WithHE"), "Имеющий_ВВ"));
+                //qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", QueryBuilder.GetBoolField("ed.qAbiturient.WithHE"), "Имеющий_ВВ"));
                 qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", QueryBuilder.GetBoolField("ed.qAbiturient.IsSecond"), "Программы_для_ВО"));
                 qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", QueryBuilder.GetBoolField("ed.qAbiturient.IsReduced"), "Программы_сокр"));
                 qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", QueryBuilder.GetBoolField("ed.qAbiturient.IsParallel"), "Программы_парал"));
@@ -243,38 +268,20 @@ namespace PriemLib
                 qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", "ed.qAbiturient.DocDate", "Дата_подачи_док"));
                 qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", "ed.qAbiturient.Coefficient", "Коэффициент_полупрохода"));
                 qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", "ed.qAbiturient.Priority", "Приоритет"));
-                qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", "ed.qAbiturient.SessionAVG", "Средний_балл_сессии"));
-                qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", "ed.qAbiturient.StudentStatus", "Статус_студента"));
+                //qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", "ed.qAbiturient.SessionAVG", "Средний_балл_сессии"));
+                //qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", "ed.qAbiturient.StudentStatus", "Статус_студента"));
+                qBuilder.AddQueryItem(new QueryItem("ed.StudyLevel", "ed.StudyLevel.Name", "Уровень_поступления"));
+                qBuilder.AddQueryItem(new QueryItem("ed.extAbit", "ed.extAbit.ObrazProgramInEntryName", "Образовательная_программа_зачисления"));
+                qBuilder.AddQueryItem(new QueryItem("ed.extAbit", "ed.extAbit.ProfileInObrazProgramInEntryName", "Профиль_зачисления"));
 
-                qBuilder.AddQueryItem(new QueryItem("ed.PassportType", "ed.PassportType.Name", "Тип_паспорта"));
-                qBuilder.AddQueryItem(new QueryItem("ed.Country", "ed.Country.Name", "Страна"));
-                qBuilder.AddQueryItem(new QueryItem("Nationality", "Nationality.Name", "Гражданство"));
-                qBuilder.AddQueryItem(new QueryItem("ed.Region", "ed.Region.Name", "Регион"));
-                qBuilder.AddQueryItem(new QueryItem("ed.Language", "ed.[Language].Name", "Ин_язык"));
-                qBuilder.AddQueryItem(new QueryItem("ed.SchoolType", "ed.SchoolType.Name", "Тип_уч_заведения"));
-                qBuilder.AddQueryItem(new QueryItem("CountryEduc", "CountryEduc.Name", "Страна_получ_пред_образ"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extFBSStatus", "ed.extFBSStatus.FBSStatus", "Статус_ФБС"));
                 qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", "(select MAX(ed.extOlympiads.OlympValueName) AS Value FROM ed.extOlympiads WHERE extOlympiads.AbiturientId = ed.qAbiturient.Id)", "Степень_диплома"));
-
-                qBuilder.AddQueryItem(new QueryItem("HostelFaculty", "HostelFaculty.Name", "Факультет_выдавший_направление"));
-                qBuilder.AddQueryItem(new QueryItem("ed.qFaculty", "ed.qFaculty.Name", "Факультет"));
-                qBuilder.AddQueryItem(new QueryItem("ed.qLicenseProgram", "ed.qLicenseProgram.Name", "Направление"));
-                qBuilder.AddQueryItem(new QueryItem("ed.qLicenseProgram", "ed.qLicenseProgram.Code", "Код_направления"));
-                qBuilder.AddQueryItem(new QueryItem("ed.qObrazProgram", "ed.qObrazProgram.Name", "Образ_программа"));
-                qBuilder.AddQueryItem(new QueryItem("ed.qProfile", "ed.qProfile.Name", "Профиль"));
-                qBuilder.AddQueryItem(new QueryItem("ed.StudyForm", "ed.StudyForm.Name", "Форма_обучения"));
-                qBuilder.AddQueryItem(new QueryItem("ed.StudyBasis", "ed.StudyBasis.Name", "Основа_обучения"));
-                qBuilder.AddQueryItem(new QueryItem("ed.Competition", "ed.Competition.Name", "Тип_конкурса"));
-                qBuilder.AddQueryItem(new QueryItem("OtherCompetition", "OtherCompetition.Name", "Доп_тип_конкурса"));
-                qBuilder.AddQueryItem(new QueryItem("ed.CelCompetition", "ed.CelCompetition.Name", "Целевик_тип"));
-
+                
                 // ЕГЭ
                 qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select Top(1) ed.EgeCertificate.Number as Number FROM ed.EgeCertificate WHERE ed.EgeCertificate.PersonId = ed.extPerson.Id AND Year=2010 ) ", "Свидетельство_ЕГЭ_2010"));
                 qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select Top(1) ed.EgeCertificate.Number as Number FROM ed.EgeCertificate WHERE ed.EgeCertificate.PersonId = ed.extPerson.Id AND Year=2011 )", "Свидетельство_ЕГЭ_2011"));
                 qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select Top(1) ed.EgeCertificate.Number as Number FROM ed.EgeCertificate WHERE ed.EgeCertificate.PersonId = ed.extPerson.Id AND Year=2012 )", "Свидетельство_ЕГЭ_2012"));
                 qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select Top(1) ed.EgeCertificate.Number as Number FROM ed.EgeCertificate WHERE ed.EgeCertificate.PersonId = ed.extPerson.Id AND Year=2013 )", "Свидетельство_ЕГЭ_2013"));
                 qBuilder.AddQueryItem(new QueryItem("ed.extPerson", QueryBuilder.GetBoolField("(select Top(1) ed.EgeCertificate.IsImported FROM ed.EgeCertificate WHERE ed.EgeCertificate.PersonId = ed.extPerson.Id AND Year=2012 )"), "Загружено_Свид-во_ЕГЭ_2012"));
-
 
                 qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MAX (ed.EgeMark.value) as mark FROM ed.EgeMark INNER JOIN ed.EgeCertificate ON ed.EgeMark.EgeCertificateId = ed.EgeCertificate.Id WHERE ed.EgeCertificate.PersonId = ed.extPerson.Id AND EgeExamNameId=5)", "ЕГЭ_русск.язык"));
                 qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MAX (ed.EgeMark.value) as mark FROM ed.EgeMark INNER JOIN ed.EgeCertificate ON ed.EgeMark.EgeCertificateId = ed.EgeCertificate.Id WHERE ed.EgeCertificate.PersonId = ed.extPerson.Id AND EgeExamNameId=4)", "ЕГЭ_математика"));
@@ -362,16 +369,22 @@ namespace PriemLib
 
                 //JOIN-ы
                 qBuilder.AddTableJoint("ed.Person", " LEFT JOIN ed.Person ON ed.qAbiturient.PersonId = ed.Person.Id ");
+                qBuilder.AddTableJoint("ed.extPerson_EducationInfo_Current", " LEFT JOIN ed.extPerson_EducationInfo_Current ON ed.extPerson_EducationInfo_Current.PersonId = ed.qAbiturient.PersonId ");
                 qBuilder.AddTableJoint("ed.extPerson", " INNER JOIN ed.extPerson ON ed.qAbiturient.PersonId = ed.extPerson.Id ");
+                //использование extAbit крайне нежелательно, т.к. провоцирует перегруз
                 qBuilder.AddTableJoint("ed.extAbit", " INNER JOIN ed.extAbit ON ed.qAbiturient.Id = ed.extAbit.Id ");
 
                 qBuilder.AddTableJoint("ed.PassportType", " LEFT JOIN ed.PassportType ON ed.PassportType.Id = ed.extPerson.PassportTypeId ");
                 qBuilder.AddTableJoint("ed.Country", " LEFT JOIN ed.Country ON ed.extPerson.CountryId = ed.Country.Id ");
-                qBuilder.AddTableJoint("Nationality", " LEFT JOIN ed.Country AS Nationality ON ed.extPerson.NationalityId = Nationality.Id ");
+                if (dbType == PriemType.PriemForeigners)
+                    qBuilder.AddTableJoint("Nationality", " LEFT JOIN ed.ForeignCountry AS Nationality ON ed.extPerson.ForeignNationalityId = Nationality.Id ");
+                else
+                    qBuilder.AddTableJoint("Nationality", " LEFT JOIN ed.Country AS Nationality ON ed.extPerson.NationalityId = Nationality.Id ");
+
                 qBuilder.AddTableJoint("ed.Region", " LEFT JOIN ed.Region ON ed.extPerson.RegionId = ed.Region.Id ");
                 qBuilder.AddTableJoint("ed.Language", " LEFT JOIN ed.[Language] ON ed.qAbiturient.LanguageId = ed.[Language].Id ");
-                qBuilder.AddTableJoint("ed.SchoolType", " LEFT JOIN ed.SchoolType ON ed.extPerson.SchoolTypeId = ed.SchoolType.Id ");
-                qBuilder.AddTableJoint("CountryEduc", " LEFT JOIN ed.Country AS CountryEduc ON ed.extPerson.CountryEducId = CountryEduc.Id ");
+                qBuilder.AddTableJoint("ed.SchoolType", " LEFT JOIN ed.SchoolType ON ed.extPerson_EducationInfo_Current.SchoolTypeId = ed.SchoolType.Id ");
+                qBuilder.AddTableJoint("CountryEduc", " LEFT JOIN ed.Country AS CountryEduc ON ed.extPerson_EducationInfo_Current.CountryEducId = CountryEduc.Id ");
                 qBuilder.AddTableJoint("HostelFaculty", " LEFT JOIN ed.SP_Faculty AS HostelFaculty ON ed.extPerson.HostelFacultyId = HostelFaculty.Id ");
                 qBuilder.AddTableJoint("ed.extFBSStatus", " LEFT JOIN ed.extFBSStatus ON ed.extFBSStatus.PersonId = ed.extPerson.Id ");
 
@@ -381,6 +394,7 @@ namespace PriemLib
                 qBuilder.AddTableJoint("ed.qProfile", " LEFT JOIN ed.qProfile ON ed.qProfile.Id = ed.qAbiturient.ProfileId ");
                 qBuilder.AddTableJoint("ed.StudyBasis", " LEFT JOIN ed.StudyBasis ON ed.StudyBasis.Id = ed.qAbiturient.StudyBasisId ");
                 qBuilder.AddTableJoint("ed.StudyForm", " LEFT JOIN ed.StudyForm ON ed.StudyForm.Id = ed.qAbiturient.StudyFormId ");
+                qBuilder.AddTableJoint("ed.StudyLevel", " LEFT JOIN ed.StudyLevel ON ed.StudyLevel.Id = ed.qAbiturient.StudyLevelId ");
                 qBuilder.AddTableJoint("ed.Competition", " LEFT JOIN ed.Competition ON ed.Competition.Id = ed.qAbiturient.CompetitionId ");
                 qBuilder.AddTableJoint("OtherCompetition", " LEFT JOIN ed.Competition AS OtherCompetition ON ed.qAbiturient.OtherCompetitionId = OtherCompetition.Id ");
                 qBuilder.AddTableJoint("ed.CelCompetition", " LEFT JOIN ed.CelCompetition ON ed.qAbiturient.CelCompetitionId = ed.CelCompetition.Id ");
