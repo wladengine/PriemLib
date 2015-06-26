@@ -11,6 +11,7 @@ using EducServLib;
 using BDClassLib;
 using BaseFormsLib;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace PriemLib
 {
@@ -19,6 +20,7 @@ namespace PriemLib
         protected DBPriem _bdcInet;       
         private LoadFromInet loadClass;
         private BackgroundWorker bw;
+        private CancellationTokenSource _cancel = new CancellationTokenSource();
 
         //конструктор
         public ApplicationInetList()
@@ -87,6 +89,8 @@ namespace PriemLib
 
             if (MainClass.IsReadOnly())
                 btnLoad.Enabled = false;
+
+            btnSetInvisible.Visible = MainClass.IsPasha();
 
             try
             {
@@ -261,7 +265,9 @@ namespace PriemLib
             if (bw.IsBusy)
                 return;
 
-            bw.RunWorkerAsync(new { dgv = this.dgvAbiturients, _bdc = _bdcInet, filters = GetFilterString() });
+            var __bdcInet = new LoadFromInet().BDCInet;
+
+            bw.RunWorkerAsync(new { dgv = this.dgvAbiturients, _bdc = __bdcInet, filters = GetFilterString() });
 
             SetControlsEnableStatus(false);
         }
@@ -277,14 +283,14 @@ namespace PriemLib
                 lblCount.Text = "Всего: " + dgvAbiturients.RowCount.ToString();
                 btnCard.Enabled = (dgvAbiturients.RowCount != 0);
 
-
-                SetControlsEnableStatus(true);
-
                 DataGridViewButtonColumn col = new DataGridViewButtonColumn();
 
                 dgvAbiturients.Columns["ФИО"].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
                 btnLoad.Enabled = !(dgvAbiturients.RowCount == 0);
             }
+
+            lblCount.Text = "Всего: " + dgvAbiturients.RowCount.ToString();
+            SetControlsEnableStatus(true);
         }
 
         private void SetControlsEnableStatus(bool status)
@@ -300,7 +306,7 @@ namespace PriemLib
             btnCard.Enabled = status;
             btnClose.Enabled = status;
             btnRemove.Enabled = status;
-            btnUpdate.Enabled = status;
+            //btnUpdate.Enabled = status;
             gbWait.Visible = !status;
         }
 
@@ -316,15 +322,16 @@ namespace PriemLib
                        (CASE WHEN EXISTS(SELECT * FROM qAbitFiles_OnlyEssayMotivLetter q WHERE q.PersonId=qAbiturient.PersonId AND FileTypeId=2) THEN 'Да' ELSE 'Нет' END) AS [Мотивац письмо],
                        (CASE WHEN EXISTS(SELECT * FROM qAbitFiles_OnlyEssayMotivLetter q WHERE q.PersonId=qAbiturient.PersonId AND FileTypeId=3) THEN 'Да' ELSE 'Нет' END) AS [Эссе]
                        FROM qAbiturient INNER JOIN extPerson ON qAbiturient.PersonId = extPerson.Id
-                       WHERE qAbiturient.IsImported = 0 AND SemesterId = 1 AND Enabled = 1 AND qAbiturient.Id NOT IN (SELECT Id FROM qForeignApplicationOnly)";
+                       WHERE qAbiturient.IsImported = 0 AND SemesterId = 1 AND Enabled = 1 AND IsVisible = 1 AND qAbiturient.Id NOT IN (SELECT Id FROM qForeignApplicationOnly)";
 
-            Task<DataView> task = HelpClass.GetDataViewAsync((DataGridView)((dynamic)e.Argument).dgv, (BDClass)((dynamic)e.Argument)._bdc, _sQuery, (string)((dynamic)e.Argument).filters, _orderBy, false);
+            Task<DataView> task = HelpClass.GetDataViewAsync((DataGridView)((dynamic)e.Argument).dgv, (BDClass)((dynamic)e.Argument)._bdc, _sQuery, (string)((dynamic)e.Argument).filters, _orderBy, false, _cancel.Token);
 
             while (!task.IsCompleted)
             {
                 if (_bw.CancellationPending)
                 {
                     e.Cancel = true;
+                    //_cancel.Cancel();
                     return;
                 }
 
@@ -416,7 +423,13 @@ namespace PriemLib
         }
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            UpdateDataGrid();            
+            if (bw.IsBusy)
+            {
+                bw.CancelAsync();
+                System.Threading.Thread.Sleep(25);
+            }
+            else
+                UpdateDataGrid();
         }
 
         protected override void OnClosed()
@@ -483,6 +496,19 @@ namespace PriemLib
         private void btnPrintToExcel_Click(object sender, EventArgs e)
         {
             PrintClass.PrintAllToExcel(this.dgvAbiturients);
+        }
+
+        private void btnSetInvisible_Click(object sender, EventArgs e)
+        {
+            if (Dgv.CurrentCell != null && Dgv.CurrentCell.RowIndex > -1)
+            {
+                string sId = Dgv.Rows[Dgv.CurrentCell.RowIndex].Cells["Barcode"].Value.ToString();
+
+                string query = "UPDATE ApplicationCommit SET IsVisible = 0 WHERE [IntNumber] = '" + sId + "'";
+                _bdcInet.ExecuteQuery(query);
+                MessageBox.Show("OK");
+                UpdateDataGrid();
+            }
         }       
     }
 }

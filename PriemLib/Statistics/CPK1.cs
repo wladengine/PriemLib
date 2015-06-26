@@ -229,13 +229,21 @@ namespace PriemLib
                 //if (iStudyBasisId != null)
                 //    q_lp = q_lp.Where(x => x.StudyBasisId == iStudyBasisId);
 
+                string ForeignCrimeaFilter = "";
+                if (rbMainPriem.Checked)
+                    ForeignCrimeaFilter = " AND IsForeign=0 AND IsCrimea=0 ";
+                if (rbForeigners.Checked)
+                    ForeignCrimeaFilter = " AND IsForeign=1 AND IsCrimea=0 ";
+                if (rbCrimea.Checked)
+                    ForeignCrimeaFilter = " AND IsForeign=0 AND IsCrimea=1 ";
+
                 var LicensePrograms = q_lp.Select(x => new { x.LicenseProgramId, x.LicenseProgramCode, x.LicenseProgramName }).Distinct().OrderBy(x => x.LicenseProgramCode);
                 foreach (var lProgram in LicensePrograms)
                 {
                     string query = string.Format(@"
                         SELECT StudyBasisId, COUNT(Id) AS CNT FROM ed.extAbit WHERE LicenseProgramId=@LicenseProgramId AND (convert(date, DocInsertDate)<=@Date)
-                        AND StudyLevelGroupId=@SLGId {0} AND StudyFormId=@StudyFormId AND extAbit.Id NOT IN (SELECT Id FROM ed.qAbiturientForeignApplicationsOnly)
-                        GROUP BY StudyBasisId", iFacultyId != null ? "AND FacultyId=@FacultyId" : "");
+                        AND StudyLevelGroupId=@SLGId {0} {1} AND StudyFormId=@StudyFormId AND extAbit.Id NOT IN (SELECT Id FROM ed.qAbiturientForeignApplicationsOnly)
+                        GROUP BY StudyBasisId", iFacultyId != null ? "AND FacultyId=@FacultyId" : "", ForeignCrimeaFilter);
                     DataTable tbl = MainClass.Bdc.GetDataSet(query, 
                         new SortedList<string,object>() 
                         { 
@@ -249,11 +257,11 @@ namespace PriemLib
                     int sum_b = (from DataRow x in tbl.Rows where x.Field<int>("StudyBasisId") == 1 select x.Field<int>("CNT")).DefaultIfEmpty(0).First();
                     int sum_p = (from DataRow x in tbl.Rows where x.Field<int>("StudyBasisId") == 2 select x.Field<int>("CNT")).DefaultIfEmpty(0).First();
 
-                    int? kcp_b = 0;//(from DataRow x in tbl.Rows where x.Field<int>("StudyBasisId") == 1 select x.Field<int?>("KCP")).DefaultIfEmpty(0).First();
-                    int? kcp_p = 0;//(from DataRow x in tbl.Rows where x.Field<int>("StudyBasisId") == 2 select x.Field<int?>("KCP")).DefaultIfEmpty(0).First();
+                    int? kcp_b = 0;
+                    int? kcp_p = 0;
                     
                     query = string.Format(@"SELECT StudyBasisId, SUM(KCP) AS KCP FROM ed.qEntry WHERE LicenseProgramId=@LicenseProgramId 
-                            AND StudyLevelGroupId=@SLGId {0} AND StudyFormId=@StudyFormId GROUP BY StudyBasisId", iFacultyId != null ? "AND FacultyId=@FacultyId" : "");
+                            AND StudyLevelGroupId=@SLGId {0} {1} AND StudyFormId=@StudyFormId GROUP BY StudyBasisId", iFacultyId != null ? "AND FacultyId=@FacultyId" : "", ForeignCrimeaFilter);
                     tbl = MainClass.Bdc.GetDataSet(query,
                         new SortedList<string, object>() 
                         { 
@@ -266,11 +274,6 @@ namespace PriemLib
 
                     kcp_b = (from DataRow x in tbl.Rows where x.Field<int>("StudyBasisId") == 1 select x.Field<int?>("KCP")).DefaultIfEmpty(0).First();
                     kcp_p = (from DataRow x in tbl.Rows where x.Field<int>("StudyBasisId") == 2 select x.Field<int?>("KCP")).DefaultIfEmpty(0).First();
-                    
-
-                    //if (kcp_b == 0 || kcp_p == 0)
-                    //{
-                    //}
 
                     float conc_b = kcp_b == null ? 0f : (sum_b == 0 ? 0f : (float)sum_b / (float)kcp_b.Value);
                     float conc_p = kcp_p == null ? 0f : (sum_p == 0 ? 0f : (float)sum_p / (float)kcp_p.Value);
@@ -295,6 +298,8 @@ namespace PriemLib
                     var q_op = (from ent in context.qEntry
                                 where ent.LicenseProgramId == lProgram.LicenseProgramId
                                 && ent.StudyLevelGroupId == iStudyLevelGroupId
+                                && ent.IsCrimea == rbCrimea.Checked
+                                && ent.IsForeign == rbForeigners.Checked
                                 select new
                                 {
                                     ent.FacultyId,
@@ -316,8 +321,8 @@ namespace PriemLib
                     {
                         query = string.Format(@"SELECT StudyBasisId, COUNT(Id) AS CNT FROM ed.extAbit 
                         WHERE LicenseProgramId=@LicenseProgramId AND ObrazProgramId=@ObrazProgramId AND (convert(date, DocInsertDate)<=@Date)
-                        AND StudyLevelGroupId=@SLGId {0} AND StudyFormId=@StudyFormId AND extAbit.Id NOT IN (SELECT Id FROM ed.qAbiturientForeignApplicationsOnly)
-                        GROUP BY StudyBasisId", iFacultyId != null ? "AND FacultyId=@FacultyId" : "");
+                        AND StudyLevelGroupId=@SLGId {0} {1} AND StudyFormId=@StudyFormId AND extAbit.Id NOT IN (SELECT Id FROM ed.qAbiturientForeignApplicationsOnly)
+                        GROUP BY StudyBasisId", iFacultyId != null ? "AND FacultyId=@FacultyId" : "", ForeignCrimeaFilter);
                         tbl = MainClass.Bdc.GetDataSet(query, 
                             new SortedList<string, object>() 
                             { 
@@ -331,12 +336,10 @@ namespace PriemLib
 
                         sum_b = (from DataRow x in tbl.Rows where x.Field<int>("StudyBasisId") == 1 select x.Field<int>("CNT")).DefaultIfEmpty(0).First();
                         sum_p = (from DataRow x in tbl.Rows where x.Field<int>("StudyBasisId") == 2 select x.Field<int>("CNT")).DefaultIfEmpty(0).First();
-                        //kcp_b = (from DataRow x in tbl.Rows where x.Field<int>("StudyBasisId") == 1 select x.Field<int?>("KCP")).DefaultIfEmpty(0).First();
-                        //kcp_p = (from DataRow x in tbl.Rows where x.Field<int>("StudyBasisId") == 2 select x.Field<int?>("KCP")).DefaultIfEmpty(0).First();
                         
                         query = string.Format(@"SELECT StudyBasisId, SUM(KCP) AS KCP FROM ed.qEntry WHERE LicenseProgramId=@LicenseProgramId 
-                        AND ObrazProgramId=@ObrazProgramId AND StudyLevelGroupId=@SLGId {0} 
-                        AND StudyFormId=@StudyFormId GROUP BY StudyBasisId", iFacultyId != null ? "AND FacultyId=@FacultyId" : "");
+                        AND ObrazProgramId=@ObrazProgramId AND StudyLevelGroupId=@SLGId {0} {1} 
+                        AND StudyFormId=@StudyFormId GROUP BY StudyBasisId", iFacultyId != null ? "AND FacultyId=@FacultyId" : "", ForeignCrimeaFilter);
                         tbl = MainClass.Bdc.GetDataSet(query,
                             new SortedList<string, object>() 
                                 { 
@@ -350,9 +353,6 @@ namespace PriemLib
 
                         kcp_b = (from DataRow x in tbl.Rows where x.Field<int>("StudyBasisId") == 1 select x.Field<int?>("KCP")).DefaultIfEmpty(0).First();
                         kcp_p = (from DataRow x in tbl.Rows where x.Field<int>("StudyBasisId") == 2 select x.Field<int?>("KCP")).DefaultIfEmpty(0).First();
-                        //if (kcp_b == 0 || kcp_p == 0)
-                        //{
-                        //}
 
                         conc_b = kcp_b == null ? 0f : (sum_b == 0 ? 0f : (float)sum_b / (float)kcp_b.Value);
                         conc_p = kcp_p == null ? 0f : (sum_p == 0 ? 0f : (float)sum_p / (float)kcp_p.Value);
@@ -360,7 +360,7 @@ namespace PriemLib
                         {
                             Num = (++num_pp).ToString(),
                             Name = "        " + oProgram.ObrazProgramName,
-                            Code = "",//oProgram.ObrazProgramCrypt,
+                            Code = "",
                             PlanB = kcp_b.HasValue ? kcp_b.ToString() : "0",
                             PlanP = kcp_p.HasValue ? kcp_p.ToString() : "0",
                             SumB = sum_b.ToString(),
@@ -374,6 +374,8 @@ namespace PriemLib
                                     && ent.ObrazProgramId == oProgram.ObrazProgramId
                                     && ent.StudyLevelGroupId == iStudyLevelGroupId
                                     && ent.ProfileId != null
+                                    && ent.IsCrimea == rbCrimea.Checked
+                                    && ent.IsForeign == rbForeigners.Checked
                                     select new
                                     {
                                         ent.FacultyId,
@@ -394,8 +396,8 @@ namespace PriemLib
                         {
                             query = string.Format(@"SELECT StudyBasisId, COUNT(Id) AS CNT FROM ed.extAbit 
                         WHERE LicenseProgramId=@LicenseProgramId AND ObrazProgramId=@ObrazProgramId AND ProfileId=@ProfileId AND (convert(date, DocInsertDate)<=@Date) 
-                        AND StudyLevelGroupId=@SLGId {0} AND StudyFormId=@StudyFormId AND extAbit.Id NOT IN (SELECT Id FROM ed.qAbiturientForeignApplicationsOnly)
-                        GROUP BY StudyBasisId", iFacultyId != null ? "AND FacultyId=@FacultyId" : "");
+                        AND StudyLevelGroupId=@SLGId {0} {1} AND StudyFormId=@StudyFormId AND extAbit.Id NOT IN (SELECT Id FROM ed.qAbiturientForeignApplicationsOnly)
+                        GROUP BY StudyBasisId", iFacultyId != null ? "AND FacultyId=@FacultyId" : "", ForeignCrimeaFilter);
                             tbl = MainClass.Bdc.GetDataSet(query,
                                 new SortedList<string, object>() 
                                 { 
@@ -411,12 +413,10 @@ namespace PriemLib
 
                             sum_b = (from DataRow x in tbl.Rows where x.Field<int>("StudyBasisId") == 1 select x.Field<int>("CNT")).DefaultIfEmpty(0).First();
                             sum_p = (from DataRow x in tbl.Rows where x.Field<int>("StudyBasisId") == 2 select x.Field<int>("CNT")).DefaultIfEmpty(0).First();
-                            //kcp_b = (from DataRow x in tbl.Rows where x.Field<int>("StudyBasisId") == 1 select x.Field<int?>("KCP")).DefaultIfEmpty(0).First();
-                            //kcp_p = (from DataRow x in tbl.Rows where x.Field<int>("StudyBasisId") == 2 select x.Field<int?>("KCP")).DefaultIfEmpty(0).First();
                             
                             query = string.Format(@"SELECT StudyBasisId, SUM(KCP) AS KCP FROM ed.qEntry WHERE LicenseProgramId=@LicenseProgramId 
                         AND ObrazProgramId=@ObrazProgramId AND ProfileId=@ProfileId 
-                        AND StudyLevelGroupId=@SLGId {0} AND StudyFormId=@StudyFormId GROUP BY StudyBasisId", iFacultyId != null ? "AND FacultyId=@FacultyId" : "");
+                        AND StudyLevelGroupId=@SLGId {0} {1} AND StudyFormId=@StudyFormId GROUP BY StudyBasisId", iFacultyId != null ? "AND FacultyId=@FacultyId" : "", ForeignCrimeaFilter);
                             tbl = MainClass.Bdc.GetDataSet(query,
                                 new SortedList<string, object>() 
                                 { 
@@ -438,7 +438,7 @@ namespace PriemLib
                             {
                                 Num = (++num_pp).ToString(),
                                 Name = "                " + prof.ProfileName,
-                                Code = "",//oProgram.ObrazProgramCrypt,
+                                Code = "",
                                 PlanB = kcp_b.HasValue ? kcp_b.ToString() : "0",
                                 PlanP = kcp_p.HasValue ? kcp_p.ToString() : "0",
                                 SumB = sum_b.ToString(),
@@ -624,6 +624,24 @@ namespace PriemLib
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+        private void rbMainPriem_CheckedChanged(object sender, EventArgs e)
+        {
+            //для предотвращения двойного обновления грида
+            if (rbMainPriem.Checked)
+                FillGrid();
+        }
+        private void rbForeigners_CheckedChanged(object sender, EventArgs e)
+        {
+            //для предотвращения двойного обновления грида
+            if (rbForeigners.Checked)
+                FillGrid();
+        }
+        private void rbCrimea_CheckedChanged(object sender, EventArgs e)
+        {
+            //для предотвращения двойного обновления грида
+            if (rbCrimea.Checked)
+                FillGrid();
         }
     }
 }

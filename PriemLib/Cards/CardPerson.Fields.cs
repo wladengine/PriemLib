@@ -397,10 +397,44 @@ namespace PriemLib
             }
             set { tbSchoolExitYear.Text = value.ToString(); }           
         }
+
+
+        private int? _ForeignCountryEducId;
+        private int? _CountryEducId;
+
+        protected int? ForeignCountryEducId
+        {
+            get 
+            {
+                if (MainClass.dbType == PriemType.PriemForeigners)
+                    return ComboServ.GetComboIdInt(cbCountryEduc);
+                else
+                    return _ForeignCountryEducId;
+            }
+            set 
+            {
+                if (MainClass.dbType == PriemType.PriemForeigners)
+                    ComboServ.SetComboId(cbCountryEduc, value);
+                else
+                    _ForeignCountryEducId = value;
+            }
+        }
         protected int? CountryEducId
         {
-            get { return ComboServ.GetComboIdInt(cbCountryEduc); }
-            set { ComboServ.SetComboId(cbCountryEduc, value); }
+            get 
+            {
+                if (MainClass.dbType == PriemType.PriemForeigners)
+                    return _CountryEducId;
+                else
+                    return ComboServ.GetComboIdInt(cbCountryEduc);
+            }
+            set 
+            {
+                if (MainClass.dbType == PriemType.PriemForeigners)
+                    _CountryEducId = value;
+                else
+                    ComboServ.SetComboId(cbCountryEduc, value); 
+            }
         }
         protected int? RegionEducId
         {

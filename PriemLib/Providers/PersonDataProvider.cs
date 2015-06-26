@@ -33,6 +33,7 @@ namespace PriemLib
                             SchoolNum = row.SchoolNum,
                             SchoolExitYear = row.SchoolExitYear,
                             CountryEducId = row.CountryEducId,
+                            ForeignCountryEducId = row.ForeignCountryEducId,
                             RegionEducId = row.RegionEducId,
                             IsExcellent = row.IsExcellent,
                             IsEqual = row.IsEqual,
@@ -70,12 +71,14 @@ namespace PriemLib
             using (PriemEntities context = new PriemEntities())
             {
                 int? CountryEducId = MainClass.countryRussiaId;
+                int? ForeignCountryEducId = 193;
                 int? RegionEducId = context.Region.Select(x => (int)x.Id).FirstOrDefault();
 
                 var Person = context.Person_Contacts.Where(x => x.PersonId == PersonId).FirstOrDefault();
                 if (Person != null)
                 {
                     CountryEducId = Person.CountryId;
+                    ForeignCountryEducId = Person.ForeignCountryId;
                     RegionEducId = Person.RegionId;
                 }
 
@@ -95,15 +98,39 @@ namespace PriemLib
             using (PriemEntities context = new PriemEntities())
             {
                 if (ED.Id == 0 || insert)
-                    context.Person_EducationInfo_insert(ED.PersonId, ED.IsExcellent, ED.SchoolCity, ED.SchoolTypeId, ED.SchoolName,
-                        ED.SchoolNum, ED.SchoolExitYear, ED.SchoolAVG, ED.CountryEducId, ED.RegionEducId, ED.IsEqual,
-                        ED.AttestatSeries, ED.AttestatNum, ED.DiplomSeries, ED.DiplomNum, ED.HighEducation,
-                        ED.HEProfession, ED.HEQualification, ED.HEEntryYear, ED.HEExitYear, ED.HEStudyFormId, ED.HEWork, idParam);
+                {
+                    if (MainClass.dbType == PriemType.PriemForeigners)
+                    {
+                        context.Person_EducationInfo_insertForeign(ED.PersonId, ED.IsExcellent, ED.SchoolCity, ED.SchoolTypeId, ED.SchoolName,
+                            ED.SchoolNum, ED.SchoolExitYear, ED.SchoolAVG, ED.ForeignCountryEducId, ED.RegionEducId, ED.IsEqual,
+                            ED.AttestatSeries, ED.AttestatNum, ED.DiplomSeries, ED.DiplomNum, ED.HighEducation,
+                            ED.HEProfession, ED.HEQualification, ED.HEEntryYear, ED.HEExitYear, ED.HEStudyFormId, ED.HEWork, idParam);
+                    }
+                    else
+                    {
+                        context.Person_EducationInfo_insert(ED.PersonId, ED.IsExcellent, ED.SchoolCity, ED.SchoolTypeId, ED.SchoolName,
+                            ED.SchoolNum, ED.SchoolExitYear, ED.SchoolAVG, ED.CountryEducId, ED.RegionEducId, ED.IsEqual,
+                            ED.AttestatSeries, ED.AttestatNum, ED.DiplomSeries, ED.DiplomNum, ED.HighEducation,
+                            ED.HEProfession, ED.HEQualification, ED.HEEntryYear, ED.HEExitYear, ED.HEStudyFormId, ED.HEWork, idParam);
+                    }
+                }
                 else
-                    context.Person_EducationInfo_update(ED.PersonId, ED.IsExcellent, ED.SchoolCity, ED.SchoolTypeId, ED.SchoolName,
-                        ED.SchoolNum, ED.SchoolExitYear, ED.SchoolAVG, ED.CountryEducId, ED.RegionEducId, ED.IsEqual,
-                        ED.AttestatSeries, ED.AttestatNum, ED.DiplomSeries, ED.DiplomNum, ED.HighEducation,
-                        ED.HEProfession, ED.HEQualification, ED.HEEntryYear, ED.HEExitYear, ED.HEStudyFormId, ED.HEWork, ED.Id);
+                {
+                    if (MainClass.dbType == PriemType.PriemForeigners)
+                    {
+                        context.Person_EducationInfo_updateForeign(ED.PersonId, ED.IsExcellent, ED.SchoolCity, ED.SchoolTypeId, ED.SchoolName,
+                            ED.SchoolNum, ED.SchoolExitYear, ED.SchoolAVG, ED.ForeignCountryEducId, ED.RegionEducId, ED.IsEqual,
+                            ED.AttestatSeries, ED.AttestatNum, ED.DiplomSeries, ED.DiplomNum, ED.HighEducation,
+                            ED.HEProfession, ED.HEQualification, ED.HEEntryYear, ED.HEExitYear, ED.HEStudyFormId, ED.HEWork, ED.Id);
+                    }
+                    else
+                    {
+                        context.Person_EducationInfo_update(ED.PersonId, ED.IsExcellent, ED.SchoolCity, ED.SchoolTypeId, ED.SchoolName,
+                            ED.SchoolNum, ED.SchoolExitYear, ED.SchoolAVG, ED.CountryEducId, ED.RegionEducId, ED.IsEqual,
+                            ED.AttestatSeries, ED.AttestatNum, ED.DiplomSeries, ED.DiplomNum, ED.HighEducation,
+                            ED.HEProfession, ED.HEQualification, ED.HEEntryYear, ED.HEExitYear, ED.HEStudyFormId, ED.HEWork, ED.Id);
+                    }
+                }
             }
         }
         
@@ -202,6 +229,7 @@ namespace PriemLib
             {
                 return (from EI in context.extPerson_EducationInfo
                         join Curr in context.hlpPersonMaxEducationInfoId on EI.Id equals Curr.Id
+                        where EI.PersonId == PersonId
                         select EI).FirstOrDefault();
             }
         }
@@ -214,6 +242,7 @@ namespace PriemLib
             {
                 return (from EI in context.extPerson_EducationInfo
                         join Curr in context.hlpPersonMaxEducationInfoId on EI.Id equals Curr.Id
+                        where EI.PersonId == PersonId
                         select EI).FirstOrDefault();
             }
         }
@@ -226,6 +255,7 @@ namespace PriemLib
             {
                 return (from EI in context.extPerson_EducationInfo
                         join Curr in context.hlpPersonMaxEducationInfoId on EI.Id equals Curr.Id
+                        where EI.PersonId == PersonId
                         select EI).FirstOrDefault();
             }
         }
@@ -238,6 +268,7 @@ namespace PriemLib
             {
                 return (from EI in context.extPerson_EducationInfo
                         join Curr in context.hlpPersonMaxEducationInfoId on EI.Id equals Curr.Id
+                        where EI.PersonId == PersonId
                         select EI).FirstOrDefault();
             }
         }

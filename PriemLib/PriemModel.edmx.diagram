@@ -909,6 +909,9 @@
         <edmx:EntityTypeShape EntityType="Priem2012Model.EntryToCompetitiveGroup" Width="1.5" PointX="34" PointY="19" />
         <edmx:AssociationConnector Association="Priem2012Model.FK_EntryToCompetitiveGroup_CompetitiveGroup" />
         <edmx:AssociationConnector Association="Priem2012Model.FK_EntryToCompetitiveGroup_Entry" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.PersonOtherPassport" Width="1.5" PointX="6.75" PointY="40.625" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_PersonOtherPassport_PassportType" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_PersonOtherPassport_Person" />
         </edmx:Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

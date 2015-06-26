@@ -36,9 +36,9 @@ namespace PriemLib
         {
             using (PriemEntities context = new PriemEntities())
             {
-                var query = context.OlympName.Select(x => new { x.Id, x.Name, x.Number });
+                var query = context.OlympName.Select(x => new { x.Id, x.Name, x.Number }).OrderBy(x => x.Name).ToList();
 
-                Dgv.DataSource = query.ToList();
+                Dgv.DataSource = Converter.ConvertToDataTable(query.ToArray());
                 SetVisibleColumnsAndNameColumns();
             }
         }

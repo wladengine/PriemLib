@@ -251,7 +251,7 @@ namespace PriemLib
             Task<DataView> task = HelpClass.GetDataViewAsync((DataGridView)((dynamic)e.Argument).dgv, (BDClass)((dynamic)e.Argument).bdc, 
                 (string)((dynamic)e.Argument).query, (string)((dynamic)e.Argument).filters, (string)((dynamic)e.Argument).orderby, false);
 
-            while (!task.IsCompleted)
+            while (!task.IsCompleted && !task.IsFaulted)
             {
                 System.Threading.Thread.Sleep(25);
 
@@ -262,7 +262,14 @@ namespace PriemLib
                 }
             }
 
-            e.Result = await task;
+            try
+            {
+                e.Result = await task;
+            }
+            catch (Exception ex)
+            {
+                WinFormsServ.Error(ex);
+            }
         }
         void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {

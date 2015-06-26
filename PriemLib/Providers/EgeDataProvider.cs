@@ -32,6 +32,9 @@ namespace PriemLib
         {
             using (PriemEntities context = new PriemEntities())
             {
+                if (cert.Year >= 2014)
+                    return true;
+
                 int res = (from ec in context.EgeCertificate
                            where ec.Number == cert.Doc
                            select ec).Count();
@@ -44,7 +47,14 @@ namespace PriemLib
             using (PriemEntities context = new PriemEntities())
             {
                 ObjectParameter ecId = new ObjectParameter("id", typeof(Guid));
-                context.EgeCertificate_Insert(cert.Doc, cert.Tipograf, "20" + cert.Doc.Substring(cert.Doc.Length - 2, 2), personId, null, false, ecId);
+
+                string certYear = "";
+                if (cert.Year >= 2014)
+                    certYear = cert.Year.ToString();
+                else
+                    certYear = "20" + cert.Doc.Substring(cert.Doc.Length - 2, 2);
+
+                context.EgeCertificate_Insert(cert.Doc, cert.Tipograf, certYear, personId, null, false, ecId);
 
                 if (ecId.Value == null)
                     return;
@@ -65,10 +75,10 @@ namespace PriemLib
             }
         }
 
-        public static bool GetIsMatchEgeNumber(string number)
+        public static bool GetIsMatchEgeNumber(string number, int year)
         {
             string num = number.Trim();
-            if (Regex.IsMatch(num, @"^\d{2}-\d{9}-(09|10|11|12)$") || string.IsNullOrEmpty(num))
+            if (Regex.IsMatch(num, @"^\d{2}-\d{9}-(11|12|13)$") || year >= 2014)
                 return true;
             else
                 return false;

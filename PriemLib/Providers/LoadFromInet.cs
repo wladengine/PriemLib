@@ -51,7 +51,7 @@ namespace PriemLib
 
         public DataTable GetPersonEgeByBarcode(int fileNum)
         {
-            string queryEge = "SELECT EgeMark.Id, EgeMark.EgeExamId AS ExamId, EgeMark.Value, EgeCertificate.Number, EgeMark.EgeCertificateId FROM EgeMark LEFT JOIN EgeCertificate ON EgeMark.EgeCertificateId = EgeCertificate.Id LEFT JOIN Person ON EgeCertificate.PersonId = Person.Id";
+            string queryEge = "SELECT EgeMark.Id, EgeMark.EgeExamId AS ExamId, EgeMark.Value, EgeCertificate.Number, (CASE WHEN [Is2014] = 1 THEN 2014 ELSE 2013 END) AS Year, EgeMark.EgeCertificateId FROM EgeMark LEFT JOIN EgeCertificate ON EgeMark.EgeCertificateId = EgeCertificate.Id LEFT JOIN Person ON EgeCertificate.PersonId = Person.Id";
             DataSet dsEge = _bdcInet.GetDataSet(queryEge + " WHERE Person.Barcode = " + fileNum + " ORDER BY EgeMark.EgeCertificateId ");
             return dsEge.Tables[0];
         }
@@ -63,7 +63,7 @@ namespace PriemLib
                 string personQueryInet =
                 @"SELECT Id, Barcode, Name, SecondName, Surname, BirthDate, BirthPlace, Sex,
                     PassportTypeId, PassportSeries, PassportNumber, PassportAuthor, PassportDate,
-                    PassportCode, '' AS PersonalCode, CountryId, NationalityId, RegionId, Phone, Mobiles, Email,
+                    PassportCode, '' AS PersonalCode, CountryId, NationalityId, ForeignCountryId, ForeignNationalityId, RegionId, Phone, Mobiles, Email,
                     Code, City, Street, House, Korpus, Flat, CodeReal, CityReal, StreetReal, HouseReal, KorpusReal, FlatReal,
                     AbitHostel AS HostelAbit, LanguageId, 
                     Parents AS PersonInfo, AddInfo AS ExtraInfo, StartEnglish, EnglishMark, AbiturientTypeId, HostelEduc, SNILS, KladrCode
@@ -115,9 +115,14 @@ namespace PriemLib
                 pers.SNILS = row["SNILS"].ToString();
                 
                 pers.Sex = QueryServ.ToBoolValue(row["Sex"]);
+
+                pers.RegionId = (int?)(Util.ToNullObject(row["RegionId"])) ?? 1;
                 pers.CountryId = (int)(row["CountryId"]);
                 pers.NationalityId = (int?)(Util.ToNullObject(row["NationalityId"])) ?? 1;
-                pers.RegionId = (int?)(Util.ToNullObject(row["RegionId"])) ?? 1;
+
+                pers.ForeignCountryId = (int)(row["ForeignCountryId"]);
+                pers.ForeignNationalityId = (int?)(Util.ToNullObject(row["ForeignNationalityId"])) ?? MainClass.foreignCountryRussiaId;
+                
                 pers.Phone = row["Phone"].ToString();
                 pers.Mobiles = row["Mobiles"].ToString();
                 pers.Email = row["Email"].ToString();
@@ -207,7 +212,7 @@ namespace PriemLib
             string query = @"select
 Person.Id as PersonId, PersonEducationDocument.Id as EducationDocumentId
 , SchoolCity, SchoolTypeId, SchoolName, SchoolNum, SchoolExitYear
-, Country.PriemDictionaryId as CountryEducId, Region.PriemDictionaryId AS RegionEducId
+, Country.PriemDictionaryId as CountryEducId, Country.Id as ForeignCountryEducId, Region.PriemDictionaryId AS RegionEducId
 , IsEqual, EqualDocumentNumber, Series , Number, AvgMark, IsExcellent
 , PersonHighEducationInfo.EducationDocumentId as PersonHighEducationInfoId
 , Qualification.Name as Qualification, EntryYear, ExitYear, DiplomaTheme, QualificationId, StudyFormId, ProgramName
@@ -237,6 +242,7 @@ where Person.Barcode =" + fileNum ;
                         SchoolNum = row.Field<string>("SchoolNum"),
                         SchoolExitYear = int.Parse(row.Field<string>("SchoolExitYear")),
                         CountryEducId = row.Field<int>("CountryEducId"),
+                        ForeignCountryEducId = row.Field<int>("ForeignCountryEducId"),
                         RegionEducId = row.Field<int>("RegionEducId"),
                         IsExcellent = row.Field<bool>("IsExcellent"),
                         IsEqual = row.Field<bool>("IsEqual"),

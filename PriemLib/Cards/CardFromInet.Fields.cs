@@ -107,16 +107,81 @@ namespace PriemLib
             set { tbPersonalCode.Text = value; }
         }
 
+        private int? _foreignCountryId;
+        private int? _foreignNationalityId;
+        private int? _countryId;
+        private int? _nationalityId;
+
+        protected int? ForeignCountryId
+        {
+            get
+            {
+                if (MainClass.dbType == PriemType.PriemForeigners)
+                    return ComboServ.GetComboIdInt(cbCountry);
+                else
+                    return _foreignCountryId;
+            }
+            set
+            {
+                if (MainClass.dbType == PriemType.PriemForeigners)
+                    ComboServ.SetComboId(cbCountry, value);
+                else
+                    _foreignCountryId = value;
+            }
+        }
+        protected int? ForeignNationalityId
+        {
+            get
+            {
+                if (MainClass.dbType == PriemType.PriemForeigners)
+                    return ComboServ.GetComboIdInt(cbNationality);
+                else
+                    return _foreignNationalityId;
+            }
+            set
+            {
+                if (MainClass.dbType == PriemType.PriemForeigners)
+                    ComboServ.SetComboId(cbNationality, value);
+                else
+                    _foreignNationalityId = value;
+            }
+        }
+
         protected int? CountryId
         {
-            get { return ComboServ.GetComboIdInt(cbCountry); }
-            set { ComboServ.SetComboId(cbCountry, value); }
+            get
+            {
+                if (MainClass.dbType == PriemType.PriemForeigners)
+                    return _countryId;
+                else
+                    return ComboServ.GetComboIdInt(cbCountry);
+            }
+            set
+            {
+                if (MainClass.dbType == PriemType.PriemForeigners)
+                    _countryId = value;
+                else
+                    ComboServ.SetComboId(cbCountry, value);
+            }
         }
         protected int? NationalityId
         {
-            get { return ComboServ.GetComboIdInt(cbNationality); }
-            set { ComboServ.SetComboId(cbNationality, value); }
+            get
+            {
+                if (MainClass.dbType == PriemType.PriemForeigners)
+                    return _nationalityId;
+                else
+                    return ComboServ.GetComboIdInt(cbNationality);
+            }
+            set
+            {
+                if (MainClass.dbType == PriemType.PriemForeigners)
+                    _nationalityId = value;
+                else
+                    ComboServ.SetComboId(cbNationality, value);
+            }
         }
+
         protected int? RegionId
         {
             get { return ComboServ.GetComboIdInt(cbRegion); }
@@ -258,11 +323,46 @@ namespace PriemLib
             }
             set { tbSchoolExitYear.Text = Util.ToStr(value); }
         }
+
+
+        private int? _ForeignCountryEducId;
+        private int? _CountryEducId;
+
+        protected int? ForeignCountryEducId
+        {
+            get
+            {
+                if (MainClass.dbType == PriemType.PriemForeigners)
+                    return ComboServ.GetComboIdInt(cbCountryEduc);
+                else
+                    return _ForeignCountryEducId;
+            }
+            set
+            {
+                if (MainClass.dbType == PriemType.PriemForeigners)
+                    ComboServ.SetComboId(cbCountryEduc, value);
+                else
+                    _ForeignCountryEducId = value;
+            }
+        }
         protected int? CountryEducId
         {
-            get { return ComboServ.GetComboIdInt(cbCountryEduc); }
-            set { ComboServ.SetComboId(cbCountryEduc, value); }
+            get
+            {
+                if (MainClass.dbType == PriemType.PriemForeigners)
+                    return _CountryEducId;
+                else
+                    return ComboServ.GetComboIdInt(cbCountryEduc);
+            }
+            set
+            {
+                if (MainClass.dbType == PriemType.PriemForeigners)
+                    _CountryEducId = value;
+                else
+                    ComboServ.SetComboId(cbCountryEduc, value);
+            }
         }
+
         protected int? RegionEducId
         {
             get { return ComboServ.GetComboIdInt(cbRegionEduc); }

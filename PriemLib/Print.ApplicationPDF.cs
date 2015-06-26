@@ -44,9 +44,6 @@ namespace PriemLib
             else
                 acrFlds.SetField("HostelEducNo", "1");
 
-            if (abitList.Where(x => x.IsForeign).Count() > 0)
-                acrFlds.SetField("IsGosLine", "1");
-
             acrFlds.SetField("HostelAbitYes", person.HostelAbit ? "1" : "0");
             acrFlds.SetField("HostelAbitNo", person.HostelAbit ? "0" : "1");
 
@@ -66,7 +63,7 @@ namespace PriemLib
             for (int i = 1; i <= 2; i++)
                 acrFlds.SetField("PassportAuthor" + i, splitStr[i - 1]);
 
-            if (person.HasRussianNationality)
+            if (person.HasRussianNationality || person.NationalityId == MainClass.countryRussiaId || person.ForeignNationalityId == MainClass.foreignCountryRussiaId)
                 acrFlds.SetField("HasRussianNationalityYes", "1");
             else
                 acrFlds.SetField("HasRussianNationalityNo", "1");
@@ -234,6 +231,8 @@ namespace PriemLib
                     StudyBasisId = x.StudyBasisId,
                     StudyFormId = x.StudyFormId,
                     HasInnerPriorities = abitProfileList.Where(y => y.ApplicationId == x.ApplicationId).Count() > 0,
+                    IsCrimea = x.IsCrimea,
+                    IsForeign = x.IsForeign
                 }).ToList();
 
             int incrmtr = 1;
@@ -244,7 +243,7 @@ namespace PriemLib
                     lstApps[i].InnerPrioritiesNum = incrmtr; //то пишем об этом
 
                     //и сразу же создаём приложение с описанием - потом приложим
-                    lstAppendixes.Add(GetApplicationPDF_Appendix_Mag(abitProfileList.Where(x => x.ApplicationId == lstApps[i].ApplicationId).ToList(), lstApps[i].LicenseProgramName, person.FIO, dirPath, incrmtr));
+                    lstAppendixes.Add(GetApplicationPDF_Appendix_Mag(abitProfileList.Where(x => x.ApplicationId == lstApps[i].ApplicationId).ToList(), lstApps[i].LicenseProgramName, person.FIO, dirPath, incrmtr, isMag));
                     incrmtr++;
                 }
             }
@@ -273,10 +272,12 @@ namespace PriemLib
             }
         }
 
-        public static byte[] GetApplicationPDF_Appendix_Mag(List<ShortAppcationDetails> lst, string LicenseProgramName, string FIO, string dirPath, int Num)
+        public static byte[] GetApplicationPDF_Appendix_Mag(List<ShortAppcationDetails> lst, string LicenseProgramName, string FIO, string dirPath, int Num, bool bIsMag)
         {
             MemoryStream ms = new MemoryStream();
             string dotName = "PriorityProfiles_Mag2014.pdf";
+            if (!bIsMag)
+                dotName = "PriorityProfiles2015.pdf";
 
             PdfReader pdfRd = GetAcrobatFileFromTemplate(dirPath + "\\" + dotName);
             PdfStamper pdfStm = GetPdfStamper(ref pdfRd, ref ms, false);
@@ -289,8 +290,21 @@ namespace PriemLib
             acrFlds.SetField("LicenseProgram", LicenseProgramName);
             acrFlds.SetField("ObrazProgram", lst.First().ObrazProgramName);
             int rwind = 1;
-            foreach (var p in lst.Select(x => new { x.ProfileName, x.Priority }).Distinct().OrderBy(x => x.Priority))
-                acrFlds.SetField("Profile" + rwind++, p.ProfileName);
+
+            if (bIsMag)
+            {
+                foreach (var p in lst.Select(x => new { x.ProfileName, x.Priority }).Distinct().OrderBy(x => x.Priority))
+                    acrFlds.SetField("Profile" + rwind++, p.ProfileName);
+            }
+            else
+            {
+                foreach (var Prof in lst.OrderBy(x => x.Priority))
+                {
+                    //если других программ нет, то нет смысла показывать её название.
+                    bool bShowObrazProgram = lst.Where(x => x.ObrazProgramName != Prof.ObrazProgramName).Count() > 0;
+                    acrFlds.SetField("Profile" + rwind++, (bShowObrazProgram ? Prof.ObrazProgramName + " /\n" : "") + Prof.ProfileName);
+                }
+            }
 
             pdfStm.FormFlattening = true;
             pdfStm.Close();
@@ -319,8 +333,12 @@ namespace PriemLib
                 acrFlds.SetField("StudyForm" + p.StudyFormId.ToString() + rwind.ToString(), "1");
                 acrFlds.SetField("StudyBasis" + p.StudyBasisId.ToString() + rwind.ToString(), "1");
 
-                if (lstFullSource.Where(x => x.LicenseProgramName == p.LicenseProgramName && x.ObrazProgramName == p.ObrazProgramName && x.ProfileName == p.ProfileName && x.StudyFormId == p.StudyFormId).Count() > 1)
-                    acrFlds.SetField("IsPriority" + rwind, "1");
+                string sQuota = "";
+                if (p.IsCrimea)
+                    sQuota = "в рамках квоты мест для лиц, постоянно проживающих в Крыму";
+                else if (p.IsForeign)
+                    sQuota = "в рамках квоты мест для обучения иностранных граждан и лиц без гражданства";
+                acrFlds.SetField("QuotaType" + rwind.ToString(), sQuota);
 
                 rwind++;
             }

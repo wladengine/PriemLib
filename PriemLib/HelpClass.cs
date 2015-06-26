@@ -239,6 +239,26 @@ namespace PriemLib
             dv.AllowNew = false;
             return dv;
         }
+        public static async Task<DataView> GetDataViewAsync(DataGridView grid, BDClass bdc, string query, string filters, string orderby, bool saveOrder, CancellationToken t)
+        {
+            DataSet ds;
+            DataTable dt;
+
+            if (query != "")
+            {
+                ds = await Task.Run<DataSet>(() => { return bdc.GetDataSet(query + " " + filters + " " + orderby); }, t);
+                dt = ds.Tables[0];
+            }
+            else
+            {
+                dt = new DataTable();
+                dt.Columns.Add("Id");
+            }
+
+            DataView dv = new DataView(dt);
+            dv.AllowNew = false;
+            return dv;
+        }
 
         public static void FillDataGrid(DataGridView grid, DataView dv)
         {

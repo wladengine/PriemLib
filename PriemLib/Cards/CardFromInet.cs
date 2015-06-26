@@ -87,12 +87,21 @@ namespace PriemLib
                 using (PriemEntities context = new PriemEntities())
                 {
                     ComboServ.FillCombo(cbPassportType, HelpClass.GetComboListByTable("ed.PassportType"), true, false);
-                    ComboServ.FillCombo(cbCountry, HelpClass.GetComboListByTable("ed.Country", "ORDER BY Distance, Name"), true, false);
-                    ComboServ.FillCombo(cbNationality, HelpClass.GetComboListByTable("ed.Country", "ORDER BY Distance, Name"), true, false);
+                    if (MainClass.dbType != PriemType.PriemForeigners)
+                    {
+                        ComboServ.FillCombo(cbCountry, HelpClass.GetComboListByTable("ed.Country", "ORDER BY Distance, Name"), true, false);
+                        ComboServ.FillCombo(cbNationality, HelpClass.GetComboListByTable("ed.Country", "ORDER BY Distance, Name"), true, false);
+                    }
+                    else
+                    {
+                        ComboServ.FillCombo(cbCountry, HelpClass.GetComboListByTable("ed.ForeignCountry", "ORDER BY Name"), true, false);
+                        ComboServ.FillCombo(cbNationality, HelpClass.GetComboListByTable("ed.ForeignCountry", "ORDER BY Name"), true, false);
+                    }
+
                     ComboServ.FillCombo(cbRegion, HelpClass.GetComboListByTable("ed.Region", "ORDER BY Distance, Name"), true, false);
                     ComboServ.FillCombo(cbRegionEduc, HelpClass.GetComboListByTable("ed.Region", "ORDER BY Distance, Name"), true, false);
                     ComboServ.FillCombo(cbLanguage, HelpClass.GetComboListByTable("ed.Language"), true, false);
-                    ComboServ.FillCombo(cbCountryEduc, HelpClass.GetComboListByTable("ed.Country", "ORDER BY Distance, Name"), true, false);                    
+                    ComboServ.FillCombo(cbCountryEduc, HelpClass.GetComboListByTable("ed.Country", "ORDER BY Distance, Name"), true, false);
                     ComboServ.FillCombo(cbHEStudyForm, HelpClass.GetComboListByTable("ed.StudyForm"), true, false);
                     ComboServ.FillCombo(cbMSStudyForm, HelpClass.GetComboListByTable("ed.StudyForm"), true, false);
                     ComboServ.FillCombo(cbSchoolType, HelpClass.GetComboListByTable("ed.SchoolType", "ORDER BY 1"), true, false);
@@ -104,7 +113,7 @@ namespace PriemLib
                     cbAttestatSeries.SelectedIndex = -1;
                     cbSchoolCity.SelectedIndex = -1;
                     cbHEQualification.SelectedIndex = -1;
-                    
+
                     ComboServ.FillCombo(cbLanguage, HelpClass.GetComboListByTable("ed.Language"), true, false);
                 }
 
@@ -186,16 +195,17 @@ namespace PriemLib
         }
         private void UpdateAfterCountry(object sender, EventArgs e)
         {
-            if (CountryId == MainClass.countryRussiaId)
-            {
-                cbRegion.Enabled = true;
-                cbRegion.SelectedItem = "нет";
-            }
-            else
-            {
-                cbRegion.Enabled = false;
-                cbRegion.SelectedItem = "нет";
-            }
+            //if (CountryId == MainClass.countryRussiaId)
+            //{
+            //    cbRegion.Enabled = true;
+            //    cbRegion.SelectedItem = "нет";
+            //}
+            //else
+            //{
+            //    cbRegion.Enabled = false;
+            //    cbRegion.SelectedItem = "нет";
+            //}
+            UpdateAfterCountry();
         }
         private void UpdateAfterCountryEduc(object sender, EventArgs e)
         {
@@ -331,6 +341,8 @@ namespace PriemLib
                 Sex = person.Sex;
                 CountryId = person.CountryId;
                 NationalityId = person.NationalityId;
+                ForeignCountryId = person.ForeignCountryId;
+                ForeignNationalityId = person.ForeignNationalityId;
                 RegionId = person.RegionId;
                 Phone = person.Phone;
                 Mobiles = person.Mobiles;
@@ -401,6 +413,10 @@ namespace PriemLib
                 examTable.Columns.Add(clm);
 
                 clm = new DataColumn();
+                clm.ColumnName = "Year";
+                examTable.Columns.Add(clm);
+
+                clm = new DataColumn();
                 clm.ColumnName = "Баллы";
                 examTable.Columns.Add(clm);
 
@@ -436,6 +452,7 @@ namespace PriemLib
                         {
                             examTable.Rows[i]["Баллы"] = dsRow["Value"].ToString();
                             examTable.Rows[i]["Номер сертификата"] = dsRow["Number"].ToString();
+                            examTable.Rows[i]["Year"] = dsRow["Year"].ToString();
                         }
                     }
                 }
@@ -445,6 +462,7 @@ namespace PriemLib
 
                 dgvEGE.DataSource = dv;
                 dgvEGE.Columns["ExamId"].Visible = false;
+                dgvEGE.Columns["Year"].Visible = false;
                 dgvEGE.Columns["EgeCertificateId"].Visible = false;
 
                 dgvEGE.Columns["Предмет"].Width = 162;
@@ -488,6 +506,8 @@ namespace PriemLib
                     dgvFiles.Columns["Id"].Visible = false;
                 if (dgvFiles.Columns.Contains("FileExtention"))
                     dgvFiles.Columns["FileExtention"].Visible = false;
+                if (dgvFiles.Columns.Contains("IsDeleted"))
+                    dgvFiles.Columns["IsDeleted"].Visible = false;
                 dgvFiles.Columns["FileName"].HeaderText = "Файл";
                 dgvFiles.Columns["Comment"].HeaderText = "Комментарий";
                 dgvFiles.Columns["FileTypeName"].HeaderText = "Тип файла";
@@ -496,6 +516,12 @@ namespace PriemLib
                 dgvFiles.Columns["FileTypeName"].ReadOnly = true;
             }
         }
+        private void dgvFiles_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0 && dgvFiles[e.ColumnIndex, e.RowIndex].Visible && (bool)dgvFiles["IsDeleted", e.RowIndex].Value)
+                e.CellStyle.BackColor = Color.OrangeRed;
+        }
+
         private void btnOpenFile_Click(object sender, EventArgs e)
         {
             List<KeyValuePair<string, string>> lstFiles = new List<KeyValuePair<string, string>>();
@@ -663,6 +689,8 @@ namespace PriemLib
         }
         #endregion
 
+        #endregion
+
         #region EducationInfo
         private void FillEducationData(List<Person_EducationInfo> lstVals)
         {
@@ -745,7 +773,7 @@ namespace PriemLib
                 HEWork = lstEducationInfo[ind].HEWork;
                 HEStudyFormId = lstEducationInfo[ind].HEStudyFormId;
             }
-            
+
             SchoolAVG = lstEducationInfo[ind].SchoolAVG;
             IsExcellent = lstEducationInfo[ind].IsExcellent;
             SchoolCity = lstEducationInfo[ind].SchoolCity;
@@ -753,8 +781,54 @@ namespace PriemLib
             SchoolNum = lstEducationInfo[ind].SchoolNum;
             SchoolExitYear = lstEducationInfo[ind].SchoolExitYear;
         }
-        #endregion
 
+        private void cbCountryEduc_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateAfterCountryEduc();
+        }
+        private void UpdateAfterCountryEduc()
+        {
+            //если используется иностр приём, то следует обновить значение CountryId
+            if (MainClass.dbType == PriemType.PriemForeigners)
+            {
+                using (PriemEntities context = new PriemEntities())
+                {
+                    CountryEducId = context.ForeignCountry.Where(x => x.Id == ForeignCountryEducId)
+                        .Select(x => x.PriemDictionaryId)
+                        .DefaultIfEmpty(MainClass.countryRussiaId)
+                        .First();
+                }
+            }
+            else
+            {
+                using (PriemEntities context = new PriemEntities())
+                {
+                    ForeignCountryEducId = context.ForeignCountry.Where(x => x.PriemDictionaryId == CountryEducId)
+                        .Select(x => x.Id)
+                        .DefaultIfEmpty(MainClass.countryRussiaId)
+                        .First();
+                }
+            }
+
+            tbEqualityDocumentNumber.Visible = CountryEducId != MainClass.countryRussiaId;
+            chbEkvivEduc.Visible = CountryEducId != MainClass.countryRussiaId;
+            cbRegion.Enabled = CountryEducId != MainClass.countryRussiaId;
+
+            if (CountryEducId.HasValue)
+                ComboServ.FillCombo(cbRegionEduc, CommonDataProvider.GetRegionListForCountryId(CountryEducId.Value), false, false);
+
+            if (CountryEducId != MainClass.countryRussiaId)
+            {
+                try
+                {
+                    //Region fix
+                    int iRegionEducId = CommonDataProvider.GetRegionIdForCountryId(CountryEducId.Value);
+                    if (iRegionEducId != 0)
+                        RegionEducId = iRegionEducId;
+                }
+                catch { }
+            }
+        }
         #endregion
 
         #region Save
@@ -926,6 +1000,33 @@ namespace PriemLib
                     epError.Clear();
             }
 
+            if (!NationalityId.HasValue)
+            {
+                epError.SetError(cbNationality, "Не указано гражданство!");
+                tabCard.SelectedIndex = 0;
+                return false;
+            }
+            else
+                epError.Clear();
+
+            if (!CountryId.HasValue)
+            {
+                epError.SetError(cbCountry, "Не указана страна проживания!");
+                tabCard.SelectedIndex = 0;
+                return false;
+            }
+            else
+                epError.Clear();
+
+            if (!RegionId.HasValue)
+            {
+                epError.SetError(cbRegion, "Не указан регион!");
+                tabCard.SelectedIndex = 0;
+                return false;
+            }
+            else
+                epError.Clear();
+
             if (PassportSeries.Length > 10)
             {
                 epError.SetError(tbPassportSeries, "Слишком длинное значение серии паспорта абитуриента");
@@ -1043,12 +1144,16 @@ namespace PriemLib
                 foreach (DataGridViewRow dr in dgvEGE.Rows)
                 {
                     string num = dr.Cells["Номер сертификата"].Value.ToString();
+                    string sYear = dr.Cells["Year"].Value.ToString();
                     string prNum = dr.Cells["Типографский номер"].Value.ToString();
                     string balls = dr.Cells["Баллы"].Value.ToString();
 
                     if (num.Length == 0 && balls.Length == 0)
                         continue;
 
+                    int iYear = 0;
+                    int.TryParse(sYear, out iYear);
+                        
                     int bls;
                     if (!(int.TryParse(balls, out bls) && bls > 0 && bls < 101))
                     {
@@ -1059,7 +1164,7 @@ namespace PriemLib
                     else
                         epError.Clear();
 
-                    if (!EgeDataProvider.GetIsMatchEgeNumber(num))
+                    if (!EgeDataProvider.GetIsMatchEgeNumber(num, iYear))
                     {
                         epError.SetError(dgvEGE, "Номер свидетельства не соответствует формату **-*********-**");
                         tabCard.SelectedIndex = 3;
@@ -1116,6 +1221,11 @@ namespace PriemLib
                                     PersonalCode, PersonInfo, ExtraInfo, ScienceWork, StartEnglish, EnglishMark, EgeInSpbgu, SNILS, HasTRKI, TRKICertificateNumber, entId);
 
                                 personId = (Guid)entId.Value;
+
+                                if (MainClass.dbType == PriemType.PriemForeigners)
+                                {
+                                    context.Person_UpdateForeignNationality(ForeignCountryId, ForeignNationalityId, personId);
+                                }
 
                                 SaveEducationDocuments();
                                 SaveEgeFirst();
@@ -1192,13 +1302,19 @@ namespace PriemLib
                 foreach (DataGridViewRow dr in dgvEGE.Rows)
                 {
                     if (dr.Cells["Баллы"].Value.ToString().Trim() != string.Empty)
-                        egeLst.Add(new EgeMarkCert(dr.Cells["ExamId"].Value.ToString().Trim(), dr.Cells["Баллы"].Value.ToString().Trim(), dr.Cells["Номер сертификата"].Value.ToString().Trim(), dr.Cells["Типографский номер"].Value.ToString()));
+                    {
+                        string sYear = dr.Cells["Year"].Value.ToString();
+                        int iYear = 0;
+                        int.TryParse(sYear, out iYear);
+
+                        egeLst.Add(new EgeMarkCert(dr.Cells["ExamId"].Value.ToString().Trim(), dr.Cells["Баллы"].Value.ToString().Trim(), dr.Cells["Номер сертификата"].Value.ToString().Trim(), dr.Cells["Типографский номер"].Value.ToString(), iYear));
+                    }
                 }
 
                 EgeDataProvider.SaveEgeFromEgeList(egeLst, personId.Value);
             }
             catch (Exception de)
-            {          
+            {
                 WinFormsServ.Error("Ошибка сохранения данные ЕГЭ - данные не были сохранены. Введите их заново! \n", de);
             }
         }
@@ -1206,10 +1322,40 @@ namespace PriemLib
         {
             try
             {
+                int _currentEducRow = dgvEducationDocuments.CurrentRow.Index;
+                int IntId = lstEducationInfo[_currentEducRow].Id;
                 foreach (var ED in lstEducationInfo)
                 {
                     if (personId.HasValue)
                         ED.PersonId = personId.Value;
+
+                    if (ED.Id == IntId)
+                    {
+                        ED.SchoolTypeId = SchoolTypeId.Value;
+                        ED.SchoolCity = SchoolCity;
+                        ED.SchoolName = SchoolName;
+                        ED.SchoolNum = SchoolNum;
+                        ED.SchoolAVG = SchoolAVG;
+                        ED.SchoolExitYear = SchoolExitYear ?? DateTime.Now.Year;
+                        ED.CountryEducId = CountryEducId.Value;
+                        ED.ForeignCountryEducId = ForeignCountryEducId.Value;
+                        ED.RegionEducId = RegionEducId.Value;
+                        ED.AttestatSeries = AttestatSeries;
+                        ED.AttestatNum = AttestatNum;
+                        ED.DiplomSeries = DiplomSeries;
+                        ED.DiplomNum = DiplomNum;
+                        ED.HEEntryYear = HEEntryYear;
+                        ED.HEExitYear = HEExitYear;
+                        ED.HEProfession = HEProfession;
+                        ED.HEQualification = HEQualification;
+                        ED.HEStudyFormId = HEStudyFormId;
+                        ED.HEWork = HEWork;
+                        ED.HighEducation = HighEducation;
+                        ED.IsEqual = IsEqual;
+                        ED.IsExcellent = IsExcellent;
+                        ED.EqualDocumentNumber = EqualDocumentNumber;
+                    }
+
                     PersonDataProvider.SaveEducationDocument(ED, true);
                 }
             }
@@ -1236,6 +1382,54 @@ namespace PriemLib
                                select per.Id).FirstOrDefault();
 
                 MainClass.OpenCardPerson(perId.ToString(), null, null);
+            }
+        }
+
+        private void cbNationality_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //если используется иностр приём, то следует обновить значение NationalityId
+            if (MainClass.dbType == PriemType.PriemForeigners)
+            {
+                using (PriemEntities context = new PriemEntities())
+                {
+                    NationalityId = context.ForeignCountry.Where(x => x.Id == ForeignNationalityId)
+                        .Select(x => x.PriemDictionaryId)
+                        .DefaultIfEmpty(MainClass.countryRussiaId)
+                        .First();
+                }
+            }
+        }
+
+        private void cbCountry_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //если используется иностр приём, то следует обновить значение CountryId
+            if (MainClass.dbType == PriemType.PriemForeigners)
+            {
+                using (PriemEntities context = new PriemEntities())
+                {
+                    CountryId = context.ForeignCountry.Where(x => x.Id == ForeignCountryId)
+                        .Select(x => x.PriemDictionaryId)
+                        .DefaultIfEmpty(MainClass.countryRussiaId)
+                        .First();
+                }
+            }
+            UpdateAfterCountry();
+        }
+        private void UpdateAfterCountry()
+        {
+            if (CountryId.HasValue)
+                ComboServ.FillCombo(cbRegion, CommonDataProvider.GetRegionListForCountryId(CountryId.Value), false, false);
+
+            if (CountryId != MainClass.countryRussiaId)
+            {
+                try
+                {
+                    //Region fix
+                    int iRegionId = CommonDataProvider.GetRegionIdForCountryId(CountryId.Value);
+                    if (iRegionId != 0)
+                        RegionId = iRegionId;
+                }
+                catch { }
             }
         }
     }

@@ -11,6 +11,7 @@
           </Key>
           <Property Name="ParamKey" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ParamValue" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Comment" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="_FirstWave">
           <Key>
@@ -78,6 +79,8 @@ warning 6002: The table/view 'Priem.ed._FirstWaveGreen' does not have a primary 
           <Property Name="CommitNumber" Type="int" />
           <Property Name="IsViewed" Type="bit" Nullable="false" />
           <Property Name="InnerEntryInEntryId" Type="uniqueidentifier" />
+          <Property Name="Author" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="AchievementType">
           <Key>
@@ -893,6 +896,22 @@ warning 6002: The table/view 'Priem.ed.PayDataEntry' does not have a primary key
           <Property Name="XMLRequest" Type="nvarchar(max)" />
           <Property Name="XMLAnswer" Type="nvarchar(max)" />
           <Property Name="IsChecked" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PersonOtherPassport">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PersonId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PassportTypeId" Type="int" Nullable="false" />
+          <Property Name="PassportSeries" Type="nvarchar" MaxLength="50" />
+          <Property Name="PassportNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PassportDate" Type="date" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="150" />
+          <Property Name="Name" Type="nvarchar" MaxLength="150" />
+          <Property Name="SecondName" Type="nvarchar" MaxLength="150" />
+          <Property Name="IsOpen" Type="bit" Nullable="false" />
+          <Property Name="Holder" Type="nvarchar" MaxLength="150" />
         </EntityType>
         <EntityType Name="PersonSportQualification">
           <Key>
@@ -2567,6 +2586,7 @@ warning 6002: The table/view 'Priem.ed.qAbitAll' does not have a primary key def
             <PropertyRef Name="Id" />
             
             
+            
             <PropertyRef Name="IsListener" />
             <PropertyRef Name="IsPaid" />
             <PropertyRef Name="BackDoc" />
@@ -2575,6 +2595,7 @@ warning 6002: The table/view 'Priem.ed.qAbitAll' does not have a primary key def
             <PropertyRef Name="Checked" />
             <PropertyRef Name="NotEnabled" />
             <PropertyRef Name="CompFromOlymp" />
+            
             <PropertyRef Name="HasOriginals" />
             <PropertyRef Name="FacultyId" />
             <PropertyRef Name="LicenseProgramId" />
@@ -2593,13 +2614,16 @@ warning 6002: The table/view 'Priem.ed.qAbitAll' does not have a primary key def
             <PropertyRef Name="WithHE" />
             <PropertyRef Name="IsReduced" />
             <PropertyRef Name="IsParallel" />
+            <PropertyRef Name="IsViewed" />
+            <PropertyRef Name="IsForeign" />
+            <PropertyRef Name="IsCrimea" />
             <PropertyRef Name="StudyPlanId" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="PersonId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="RegNum" Type="nvarchar" MaxLength="50" />
           <Property Name="EntryId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="CompetitionId" Type="int" />
+          <Property Name="CompetitionId" Type="int" Nullable="false" />
           <Property Name="IsListener" Type="bit" Nullable="false" />
           <Property Name="IsPaid" Type="bit" Nullable="false" />
           <Property Name="BackDoc" Type="bit" Nullable="false" />
@@ -2614,7 +2638,7 @@ warning 6002: The table/view 'Priem.ed.qAbitAll' does not have a primary key def
           <Property Name="CelCompetitionId" Type="int" />
           <Property Name="CelCompetitionText" Type="nvarchar" MaxLength="50" />
           <Property Name="CompFromOlymp" Type="bit" Nullable="false" />
-          <Property Name="LanguageId" Type="int" />
+          <Property Name="LanguageId" Type="int" Nullable="false" />
           <Property Name="HasOriginals" Type="bit" Nullable="false" />
           <Property Name="StudyNumber" Type="nvarchar" MaxLength="50" />
           <Property Name="SessionAVG" Type="float" />
@@ -2653,6 +2677,9 @@ warning 6002: The table/view 'Priem.ed.qAbitAll' does not have a primary key def
           <Property Name="StudyFormFISName" Type="nvarchar" MaxLength="50" />
           <Property Name="StudyLevelFISName" Type="nvarchar" MaxLength="50" />
           <Property Name="Name" Type="nvarchar" MaxLength="1000" />
+          <Property Name="IsViewed" Type="bit" Nullable="false" />
+          <Property Name="IsForeign" Type="bit" Nullable="false" />
+          <Property Name="IsCrimea" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'Priem.ed.qAbiturient' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -3125,9 +3152,7 @@ warning 6002: The table/view 'Priem.ed.qStudyLevel' does not have a primary key 
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ApplicationDetails_Abiturient">
-          <End Role="Abiturient" Type="Self.Abiturient" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="Abiturient" Type="Self.Abiturient" Multiplicity="1" />
           <End Role="ApplicationDetails" Type="Self.ApplicationDetails" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Abiturient">
@@ -3139,7 +3164,9 @@ warning 6002: The table/view 'Priem.ed.qStudyLevel' does not have a primary key 
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ApplicationDetails_ObrazProgramInEntry">
-          <End Role="InnerEntryInEntry" Type="Self.InnerEntryInEntry" Multiplicity="1" />
+          <End Role="InnerEntryInEntry" Type="Self.InnerEntryInEntry" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="ApplicationDetails" Type="Self.ApplicationDetails" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="InnerEntryInEntry">
@@ -4094,6 +4121,32 @@ warning 6002: The table/view 'Priem.ed.qStudyLevel' does not have a primary key 
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="PersonBenefitDocument">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonOtherPassport_PassportType">
+          <End Role="PassportType" Type="Self.PassportType" Multiplicity="1" />
+          <End Role="PersonOtherPassport" Type="Self.PersonOtherPassport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PassportType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PersonOtherPassport">
+              <PropertyRef Name="PassportTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonOtherPassport_Person">
+          <End Role="Person" Type="Self.Person" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PersonOtherPassport" Type="Self.PersonOtherPassport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PersonOtherPassport">
               <PropertyRef Name="PersonId" />
             </Dependent>
           </ReferentialConstraint>
@@ -5055,6 +5108,31 @@ warning 6002: The table/view 'Priem.ed.qStudyLevel' does not have a primary key 
           <Parameter Name="HEWork" Type="nvarchar" Mode="In" />
           <Parameter Name="id" Type="int" Mode="InOut" />
         </Function>
+        <Function Name="Person_EducationInfo_insertForeign" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ed">
+          <Parameter Name="PersonId" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="IsExcellent" Type="bit" Mode="In" />
+          <Parameter Name="SchoolCity" Type="nvarchar" Mode="In" />
+          <Parameter Name="SchoolTypeId" Type="int" Mode="In" />
+          <Parameter Name="SchoolName" Type="nvarchar" Mode="In" />
+          <Parameter Name="SchoolNum" Type="nvarchar" Mode="In" />
+          <Parameter Name="SchoolExitYear" Type="int" Mode="In" />
+          <Parameter Name="SchoolAVG" Type="float" Mode="In" />
+          <Parameter Name="ForeignCountryEducId" Type="int" Mode="In" />
+          <Parameter Name="RegionEducId" Type="int" Mode="In" />
+          <Parameter Name="IsEqual" Type="bit" Mode="In" />
+          <Parameter Name="AttestatSeries" Type="nvarchar" Mode="In" />
+          <Parameter Name="AttestatNum" Type="nvarchar" Mode="In" />
+          <Parameter Name="DiplomSeries" Type="nvarchar" Mode="In" />
+          <Parameter Name="DiplomNum" Type="nvarchar" Mode="In" />
+          <Parameter Name="HighEducation" Type="nvarchar" Mode="In" />
+          <Parameter Name="HEProfession" Type="nvarchar" Mode="In" />
+          <Parameter Name="HEQualification" Type="nvarchar" Mode="In" />
+          <Parameter Name="HEEntryYear" Type="int" Mode="In" />
+          <Parameter Name="HEExitYear" Type="int" Mode="In" />
+          <Parameter Name="HEStudyFormId" Type="int" Mode="In" />
+          <Parameter Name="HEWork" Type="nvarchar" Mode="In" />
+          <Parameter Name="id" Type="int" Mode="InOut" />
+        </Function>
         <Function Name="Person_EducationInfo_update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ed">
           <Parameter Name="PersonId" Type="uniqueidentifier" Mode="In" />
           <Parameter Name="IsExcellent" Type="bit" Mode="In" />
@@ -5065,6 +5143,31 @@ warning 6002: The table/view 'Priem.ed.qStudyLevel' does not have a primary key 
           <Parameter Name="SchoolExitYear" Type="int" Mode="In" />
           <Parameter Name="SchoolAVG" Type="float" Mode="In" />
           <Parameter Name="CountryEducId" Type="int" Mode="In" />
+          <Parameter Name="RegionEducId" Type="int" Mode="In" />
+          <Parameter Name="IsEqual" Type="bit" Mode="In" />
+          <Parameter Name="AttestatSeries" Type="nvarchar" Mode="In" />
+          <Parameter Name="AttestatNum" Type="nvarchar" Mode="In" />
+          <Parameter Name="DiplomSeries" Type="nvarchar" Mode="In" />
+          <Parameter Name="DiplomNum" Type="nvarchar" Mode="In" />
+          <Parameter Name="HighEducation" Type="nvarchar" Mode="In" />
+          <Parameter Name="HEProfession" Type="nvarchar" Mode="In" />
+          <Parameter Name="HEQualification" Type="nvarchar" Mode="In" />
+          <Parameter Name="HEEntryYear" Type="int" Mode="In" />
+          <Parameter Name="HEExitYear" Type="int" Mode="In" />
+          <Parameter Name="HEStudyFormId" Type="int" Mode="In" />
+          <Parameter Name="HEWork" Type="nvarchar" Mode="In" />
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Person_EducationInfo_updateForeign" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ed">
+          <Parameter Name="PersonId" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="IsExcellent" Type="bit" Mode="In" />
+          <Parameter Name="SchoolCity" Type="nvarchar" Mode="In" />
+          <Parameter Name="SchoolTypeId" Type="int" Mode="In" />
+          <Parameter Name="SchoolName" Type="nvarchar" Mode="In" />
+          <Parameter Name="SchoolNum" Type="nvarchar" Mode="In" />
+          <Parameter Name="SchoolExitYear" Type="int" Mode="In" />
+          <Parameter Name="SchoolAVG" Type="float" Mode="In" />
+          <Parameter Name="ForeignCountryEducId" Type="int" Mode="In" />
           <Parameter Name="RegionEducId" Type="int" Mode="In" />
           <Parameter Name="IsEqual" Type="bit" Mode="In" />
           <Parameter Name="AttestatSeries" Type="nvarchar" Mode="In" />
@@ -5141,6 +5244,11 @@ warning 6002: The table/view 'Priem.ed.qStudyLevel' does not have a primary key 
         <Function Name="Person_UpdateExamPass" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ed">
           <Parameter Name="HasExamPass" Type="bit" Mode="In" />
           <Parameter Name="ExamPassFacultyId" Type="int" Mode="In" />
+          <Parameter Name="id" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <Function Name="Person_UpdateForeignNationality" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ed">
+          <Parameter Name="ForeignCountryId" Type="int" Mode="In" />
+          <Parameter Name="ForeignNationalityId" Type="int" Mode="In" />
           <Parameter Name="id" Type="uniqueidentifier" Mode="In" />
         </Function>
         <Function Name="Person_UpdateHostel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ed">
@@ -5247,6 +5355,31 @@ warning 6002: The table/view 'Priem.ed.qStudyLevel' does not have a primary key 
         <Function Name="PersonEgeRequest_insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ed">
           <Parameter Name="PersonId" Type="uniqueidentifier" Mode="In" />
           <Parameter Name="Id" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="PersonOtherPassport_delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ed">
+          <Parameter Name="Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PersonOtherPassport_insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ed">
+          <Parameter Name="PersonId" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="PassportTypeId" Type="int" Mode="In" />
+          <Parameter Name="PassportSeries" Type="nvarchar" Mode="In" />
+          <Parameter Name="PassportNumber" Type="nvarchar" Mode="In" />
+          <Parameter Name="Surname" Type="nvarchar" Mode="In" />
+          <Parameter Name="Name" Type="nvarchar" Mode="In" />
+          <Parameter Name="SecondName" Type="nvarchar" Mode="In" />
+          <Parameter Name="PassportDate" Type="date" Mode="In" />
+          <Parameter Name="Id" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="PersonOtherPassport_update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ed">
+          <Parameter Name="PersonId" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="PassportTypeId" Type="int" Mode="In" />
+          <Parameter Name="PassportSeries" Type="nvarchar" Mode="In" />
+          <Parameter Name="PassportNumber" Type="nvarchar" Mode="In" />
+          <Parameter Name="Surname" Type="nvarchar" Mode="In" />
+          <Parameter Name="Name" Type="nvarchar" Mode="In" />
+          <Parameter Name="SecondName" Type="nvarchar" Mode="In" />
+          <Parameter Name="PassportDate" Type="date" Mode="In" />
+          <Parameter Name="Id" Type="int" Mode="In" />
         </Function>
         <Function Name="Protocol_ClearHistory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ed">
           <Parameter Name="ProtocolId" Type="uniqueidentifier" Mode="In" />
@@ -5441,6 +5574,7 @@ warning 6002: The table/view 'Priem.ed.qStudyLevel' does not have a primary key 
           <EntitySet Name="PersonBenefitDocument" EntityType="Self.PersonBenefitDocument" Schema="ed" store:Type="Tables" />
           <EntitySet Name="PersonChanges" EntityType="Self.PersonChanges" Schema="ed" store:Type="Tables" />
           <EntitySet Name="PersonEgeRequest" EntityType="Self.PersonEgeRequest" Schema="ed" store:Type="Tables" />
+          <EntitySet Name="PersonOtherPassport" EntityType="Self.PersonOtherPassport" Schema="ed" store:Type="Tables" />
           <EntitySet Name="PersonSportQualification" EntityType="Self.PersonSportQualification" Schema="ed" store:Type="Tables" />
           <EntitySet Name="Prorektor" EntityType="Self.Prorektor" Schema="ed" store:Type="Tables" />
           <EntitySet Name="Protocol" EntityType="Self.Protocol" Schema="ed" store:Type="Tables" />
@@ -6572,7 +6706,10 @@ FROM [ed].[hlpStatistics] AS [hlpStatistics]</DefiningQuery>
 [qAbitAll].[StudyBasisFISName] AS [StudyBasisFISName], 
 [qAbitAll].[StudyFormFISName] AS [StudyFormFISName], 
 [qAbitAll].[StudyLevelFISName] AS [StudyLevelFISName], 
-[qAbitAll].[Name] AS [Name]
+[qAbitAll].[Name] AS [Name], 
+[qAbitAll].[IsViewed] AS [IsViewed], 
+[qAbitAll].[IsForeign] AS [IsForeign], 
+[qAbitAll].[IsCrimea] AS [IsCrimea]
 FROM [ed].[qAbitAll] AS [qAbitAll]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="qAbiturient" EntityType="Self.qAbiturient" store:Type="Views" store:Schema="ed">
@@ -7172,6 +7309,14 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <AssociationSet Name="FK_PersonBenefitDocument_Person" Association="Self.FK_PersonBenefitDocument_Person">
             <End Role="Person" EntitySet="Person" />
             <End Role="PersonBenefitDocument" EntitySet="PersonBenefitDocument" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonOtherPassport_PassportType" Association="Self.FK_PersonOtherPassport_PassportType">
+            <End Role="PassportType" EntitySet="PassportType" />
+            <End Role="PersonOtherPassport" EntitySet="PersonOtherPassport" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonOtherPassport_Person" Association="Self.FK_PersonOtherPassport_Person">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="PersonOtherPassport" EntitySet="PersonOtherPassport" />
           </AssociationSet>
           <AssociationSet Name="FK_PersonSportQualification_Person" Association="Self.FK_PersonSportQualification_Person">
             <End Role="Person" EntitySet="Person" />
@@ -8883,6 +9028,95 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
             <End Role="Entry" EntitySet="Entry" />
             <End Role="EntryToCompetitiveGroup" EntitySet="EntryToCompetitiveGroup" />
           </AssociationSet>
+          <FunctionImport Name="Person_EducationInfo_insertForeign">
+            <Parameter Name="PersonId" Mode="In" Type="Guid" />
+            <Parameter Name="IsExcellent" Mode="In" Type="Boolean" />
+            <Parameter Name="SchoolCity" Mode="In" Type="String" />
+            <Parameter Name="SchoolTypeId" Mode="In" Type="Int32" />
+            <Parameter Name="SchoolName" Mode="In" Type="String" />
+            <Parameter Name="SchoolNum" Mode="In" Type="String" />
+            <Parameter Name="SchoolExitYear" Mode="In" Type="Int32" />
+            <Parameter Name="SchoolAVG" Mode="In" Type="Double" />
+            <Parameter Name="ForeignCountryEducId" Mode="In" Type="Int32" />
+            <Parameter Name="RegionEducId" Mode="In" Type="Int32" />
+            <Parameter Name="IsEqual" Mode="In" Type="Boolean" />
+            <Parameter Name="AttestatSeries" Mode="In" Type="String" />
+            <Parameter Name="AttestatNum" Mode="In" Type="String" />
+            <Parameter Name="DiplomSeries" Mode="In" Type="String" />
+            <Parameter Name="DiplomNum" Mode="In" Type="String" />
+            <Parameter Name="HighEducation" Mode="In" Type="String" />
+            <Parameter Name="HEProfession" Mode="In" Type="String" />
+            <Parameter Name="HEQualification" Mode="In" Type="String" />
+            <Parameter Name="HEEntryYear" Mode="In" Type="Int32" />
+            <Parameter Name="HEExitYear" Mode="In" Type="Int32" />
+            <Parameter Name="HEStudyFormId" Mode="In" Type="Int32" />
+            <Parameter Name="HEWork" Mode="In" Type="String" />
+            <Parameter Name="id" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Person_EducationInfo_updateForeign">
+            <Parameter Name="PersonId" Mode="In" Type="Guid" />
+            <Parameter Name="IsExcellent" Mode="In" Type="Boolean" />
+            <Parameter Name="SchoolCity" Mode="In" Type="String" />
+            <Parameter Name="SchoolTypeId" Mode="In" Type="Int32" />
+            <Parameter Name="SchoolName" Mode="In" Type="String" />
+            <Parameter Name="SchoolNum" Mode="In" Type="String" />
+            <Parameter Name="SchoolExitYear" Mode="In" Type="Int32" />
+            <Parameter Name="SchoolAVG" Mode="In" Type="Double" />
+            <Parameter Name="ForeignCountryEducId" Mode="In" Type="Int32" />
+            <Parameter Name="RegionEducId" Mode="In" Type="Int32" />
+            <Parameter Name="IsEqual" Mode="In" Type="Boolean" />
+            <Parameter Name="AttestatSeries" Mode="In" Type="String" />
+            <Parameter Name="AttestatNum" Mode="In" Type="String" />
+            <Parameter Name="DiplomSeries" Mode="In" Type="String" />
+            <Parameter Name="DiplomNum" Mode="In" Type="String" />
+            <Parameter Name="HighEducation" Mode="In" Type="String" />
+            <Parameter Name="HEProfession" Mode="In" Type="String" />
+            <Parameter Name="HEQualification" Mode="In" Type="String" />
+            <Parameter Name="HEEntryYear" Mode="In" Type="Int32" />
+            <Parameter Name="HEExitYear" Mode="In" Type="Int32" />
+            <Parameter Name="HEStudyFormId" Mode="In" Type="Int32" />
+            <Parameter Name="HEWork" Mode="In" Type="String" />
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="PersonOtherPassport" EntityType="Priem2012Model.PersonOtherPassport" />
+          <AssociationSet Name="FK_PersonOtherPassport_PassportType" Association="Priem2012Model.FK_PersonOtherPassport_PassportType">
+            <End Role="PassportType" EntitySet="PassportType" />
+            <End Role="PersonOtherPassport" EntitySet="PersonOtherPassport" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonOtherPassport_Person" Association="Priem2012Model.FK_PersonOtherPassport_Person">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="PersonOtherPassport" EntitySet="PersonOtherPassport" />
+          </AssociationSet>
+          <FunctionImport Name="PersonOtherPassport_delete">
+          <Parameter Name="Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PersonOtherPassport_insert">
+            <Parameter Name="PersonId" Mode="In" Type="Guid" />
+            <Parameter Name="PassportTypeId" Mode="In" Type="Int32" />
+            <Parameter Name="PassportSeries" Mode="In" Type="String" />
+            <Parameter Name="PassportNumber" Mode="In" Type="String" />
+            <Parameter Name="Surname" Mode="In" Type="String" />
+            <Parameter Name="Name" Mode="In" Type="String" />
+            <Parameter Name="SecondName" Mode="In" Type="String" />
+            <Parameter Name="PassportDate" Mode="In" Type="DateTime" />
+            <Parameter Name="Id" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PersonOtherPassport_update">
+            <Parameter Name="PersonId" Mode="In" Type="Guid" />
+            <Parameter Name="PassportTypeId" Mode="In" Type="Int32" />
+            <Parameter Name="PassportSeries" Mode="In" Type="String" />
+            <Parameter Name="PassportNumber" Mode="In" Type="String" />
+            <Parameter Name="Surname" Mode="In" Type="String" />
+            <Parameter Name="Name" Mode="In" Type="String" />
+            <Parameter Name="SecondName" Mode="In" Type="String" />
+            <Parameter Name="PassportDate" Mode="In" Type="DateTime" />
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Person_UpdateForeignNationality">
+            <Parameter Name="ForeignCountryId" Mode="In" Type="Int32" />
+            <Parameter Name="ForeignNationalityId" Mode="In" Type="Int32" />
+            <Parameter Name="id" Mode="In" Type="Guid" />
+          </FunctionImport>
           </EntityContainer>
         <EntityType Name="AttMarks">
           <Key>
@@ -9031,6 +9265,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <Property Name="Name" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Person" Relationship="Priem2012Model.FK_Person_PassportType" FromRole="PassportType" ToRole="Person" />
           <Property Type="String" Name="FISName" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PersonOtherPassport" Relationship="Priem2012Model.FK_PersonOtherPassport_PassportType" FromRole="PassportType" ToRole="PersonOtherPassport" />
         </EntityType>
         <EntityType Name="PayPeriod">
           <Key>
@@ -9864,6 +10099,8 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <NavigationProperty Name="Entry" Relationship="Priem2012Model.FK_Abiturient_Entry" FromRole="Abiturient" ToRole="Entry" />
           <Property Type="Boolean" Name="IsViewed" Nullable="false" />
           <Property Type="Guid" Name="InnerEntryInEntryId" />
+          <Property Name="Author" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <EntityType Name="Protocol">
           <Key>
@@ -9957,12 +10194,15 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
             <PropertyRef Name="WithHE" />
             <PropertyRef Name="IsReduced" />
             <PropertyRef Name="IsParallel" />
+            <PropertyRef Name="IsViewed" />
+            <PropertyRef Name="IsForeign" />
+            <PropertyRef Name="IsCrimea" />
           </Key>
           <Property Type="Guid" Name="Id" Nullable="false" />
           <Property Type="Guid" Name="PersonId" Nullable="false" />
           <Property Type="String" Name="RegNum" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="Guid" Name="EntryId" Nullable="false" />
-          <Property Type="Int32" Name="CompetitionId" />
+          <Property Type="Int32" Name="CompetitionId" Nullable="false" />
           <Property Type="Boolean" Name="IsListener" Nullable="false" />
           <Property Type="Boolean" Name="IsPaid" Nullable="false" />
           <Property Type="Boolean" Name="BackDoc" Nullable="false" />
@@ -9977,7 +10217,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <Property Type="Int32" Name="CelCompetitionId" />
           <Property Type="String" Name="CelCompetitionText" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="Boolean" Name="CompFromOlymp" Nullable="false" />
-          <Property Type="Int32" Name="LanguageId" />
+          <Property Type="Int32" Name="LanguageId" Nullable="false" />
           <Property Type="Boolean" Name="HasOriginals" Nullable="false" />
           <Property Type="String" Name="StudyNumber" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="Double" Name="SessionAVG" />
@@ -10016,6 +10256,9 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <Property Type="String" Name="StudyFormFISName" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="StudyLevelFISName" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Name" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="IsViewed" Type="Boolean" Nullable="false" />
+          <Property Name="IsForeign" Type="Boolean" Nullable="false" />
+          <Property Name="IsCrimea" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="qProtocol">
           <Key>
@@ -10748,6 +10991,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <Property Type="DateTime" Name="DateCreated" Nullable="false" Precision="3" />
           <NavigationProperty Name="PersonSportQualification" Relationship="Priem2012Model.FK_PersonSportQualification_Person" FromRole="Person" ToRole="PersonSportQualification" />
           <NavigationProperty Name="PersonAchievement" Relationship="Priem2012Model.FK_PersonAchievement_Person" FromRole="Person" ToRole="PersonAchievement" />
+          <NavigationProperty Name="PersonOtherPassport" Relationship="Priem2012Model.FK_PersonOtherPassport_Person" FromRole="Person" ToRole="PersonOtherPassport" />
         </EntityType>
         <EntityType Name="Person_AdditionalInfo">
           <Key>
@@ -11371,6 +11615,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           </Key>
           <Property Type="String" Name="ParamKey" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="ParamValue" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="SP_LicenseProgram">
           <Key>
@@ -13131,6 +13376,50 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="PersonOtherPassport">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="PersonId" Type="Guid" Nullable="false" />
+          <Property Name="PassportTypeId" Type="Int32" Nullable="false" />
+          <Property Name="PassportSeries" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PassportNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Surname" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="SecondName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="IsOpen" Type="Boolean" Nullable="false" />
+          <Property Name="Holder" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PassportType" Relationship="Priem2012Model.FK_PersonOtherPassport_PassportType" FromRole="PersonOtherPassport" ToRole="PassportType" />
+          <NavigationProperty Name="Person" Relationship="Priem2012Model.FK_PersonOtherPassport_Person" FromRole="PersonOtherPassport" ToRole="Person" />
+          <Property Name="PassportDate" Type="DateTime" Precision="0" />
+        </EntityType>
+        <Association Name="FK_PersonOtherPassport_PassportType">
+          <End Type="Priem2012Model.PassportType" Role="PassportType" Multiplicity="1" />
+          <End Type="Priem2012Model.PersonOtherPassport" Role="PersonOtherPassport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PassportType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PersonOtherPassport">
+              <PropertyRef Name="PassportTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonOtherPassport_Person">
+          <End Type="Priem2012Model.Person" Role="Person" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Priem2012Model.PersonOtherPassport" Role="PersonOtherPassport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PersonOtherPassport">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -13748,6 +14037,8 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <EntitySetMapping Name="Abiturient">
             <EntityTypeMapping TypeName="Priem2012Model.Abiturient">
               <MappingFragment StoreEntitySet="Abiturient">
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="Author" ColumnName="Author" />
                 <ScalarProperty Name="InnerEntryInEntryId" ColumnName="InnerEntryInEntryId" />
                 <ScalarProperty Name="IsViewed" ColumnName="IsViewed" />
                 <ScalarProperty Name="CommitNumber" ColumnName="CommitNumber" />
@@ -13839,6 +14130,9 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <EntitySetMapping Name="qAbitAll">
             <EntityTypeMapping TypeName="Priem2012Model.qAbitAll">
               <MappingFragment StoreEntitySet="qAbitAll">
+                <ScalarProperty Name="IsCrimea" ColumnName="IsCrimea" />
+                <ScalarProperty Name="IsForeign" ColumnName="IsForeign" />
+                <ScalarProperty Name="IsViewed" ColumnName="IsViewed" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="StudyLevelFISName" ColumnName="StudyLevelFISName" />
                 <ScalarProperty Name="StudyFormFISName" ColumnName="StudyFormFISName" />
@@ -14754,6 +15048,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <EntitySetMapping Name="C_AppSettings">
             <EntityTypeMapping TypeName="Priem2012Model.C_AppSettings">
               <MappingFragment StoreEntitySet="_AppSettings">
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
                 <ScalarProperty Name="ParamValue" ColumnName="ParamValue" />
                 <ScalarProperty Name="ParamKey" ColumnName="ParamKey" />
               </MappingFragment>
@@ -15801,6 +16096,29 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Person_EducationInfo_insertForeign" FunctionName="Priem2012Model.Store.Person_EducationInfo_insertForeign" />
+          <FunctionImportMapping FunctionImportName="Person_EducationInfo_updateForeign" FunctionName="Priem2012Model.Store.Person_EducationInfo_updateForeign" />
+          <EntitySetMapping Name="PersonOtherPassport">
+            <EntityTypeMapping TypeName="Priem2012Model.PersonOtherPassport">
+              <MappingFragment StoreEntitySet="PersonOtherPassport">
+                <ScalarProperty Name="PassportDate" ColumnName="PassportDate" />
+                <ScalarProperty Name="Holder" ColumnName="Holder" />
+                <ScalarProperty Name="IsOpen" ColumnName="IsOpen" />
+                <ScalarProperty Name="SecondName" ColumnName="SecondName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="PassportNumber" ColumnName="PassportNumber" />
+                <ScalarProperty Name="PassportSeries" ColumnName="PassportSeries" />
+                <ScalarProperty Name="PassportTypeId" ColumnName="PassportTypeId" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="PersonOtherPassport_delete" FunctionName="Priem2012Model.Store.PersonOtherPassport_delete" />
+          <FunctionImportMapping FunctionImportName="PersonOtherPassport_insert" FunctionName="Priem2012Model.Store.PersonOtherPassport_insert" />
+          <FunctionImportMapping FunctionImportName="PersonOtherPassport_update" FunctionName="Priem2012Model.Store.PersonOtherPassport_update" />
+          <FunctionImportMapping FunctionImportName="Person_UpdateForeignNationality" FunctionName="Priem2012Model.Store.Person_UpdateForeignNationality" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

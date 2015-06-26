@@ -41,6 +41,17 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CardPerson));
             this.tabCard = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.gbPashaTechInfo = new System.Windows.Forms.GroupBox();
+            this.btnOnlineEducLoad = new System.Windows.Forms.Button();
+            this.tbBarcode = new System.Windows.Forms.TextBox();
+            this.label68 = new System.Windows.Forms.Label();
+            this.tbDateCreated = new System.Windows.Forms.TextBox();
+            this.label67 = new System.Windows.Forms.Label();
+            this.tbAuthor = new System.Windows.Forms.TextBox();
+            this.label46 = new System.Windows.Forms.Label();
+            this.tbGUID = new System.Windows.Forms.TextBox();
+            this.label29 = new System.Windows.Forms.Label();
+            this.btnSendToOnline = new System.Windows.Forms.Button();
             this.cbRegion = new System.Windows.Forms.ComboBox();
             this.cbCountry = new System.Windows.Forms.ComboBox();
             this.cbNationality = new System.Windows.Forms.ComboBox();
@@ -63,6 +74,7 @@
             this.tbBirthPlace = new System.Windows.Forms.TextBox();
             this.label38 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.btnOtherPassports = new System.Windows.Forms.Button();
             this.tbSNILS = new System.Windows.Forms.TextBox();
             this.label64 = new System.Windows.Forms.Label();
             this.cbPassportType = new System.Windows.Forms.ComboBox();
@@ -200,6 +212,8 @@
             this.tbMSCourse = new System.Windows.Forms.TextBox();
             this.tbMSVuz = new System.Windows.Forms.TextBox();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.gbOlympiads = new System.Windows.Forms.GroupBox();
+            this.dgvOlympiads = new System.Windows.Forms.DataGridView();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.btnDeletePersonAchievement = new System.Windows.Forms.Button();
             this.btnAddPersonAchievement = new System.Windows.Forms.Button();
@@ -270,19 +284,10 @@
             this.btnAddAbit = new System.Windows.Forms.Button();
             this.btnDocs = new System.Windows.Forms.Button();
             this.sfdPrint = new System.Windows.Forms.SaveFileDialog();
-            this.gbPashaTechInfo = new System.Windows.Forms.GroupBox();
-            this.btnSendToOnline = new System.Windows.Forms.Button();
-            this.label29 = new System.Windows.Forms.Label();
-            this.tbGUID = new System.Windows.Forms.TextBox();
-            this.tbAuthor = new System.Windows.Forms.TextBox();
-            this.label46 = new System.Windows.Forms.Label();
-            this.tbDateCreated = new System.Windows.Forms.TextBox();
-            this.label67 = new System.Windows.Forms.Label();
-            this.tbBarcode = new System.Windows.Forms.TextBox();
-            this.label68 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.epError)).BeginInit();
             this.tabCard.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.gbPashaTechInfo.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -303,6 +308,8 @@
             this.tpSecond.SuspendLayout();
             this.gbMainStudy.SuspendLayout();
             this.tabPage5.SuspendLayout();
+            this.gbOlympiads.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvOlympiads)).BeginInit();
             this.groupBox6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvIndividualAchievements)).BeginInit();
             this.groupBox3.SuspendLayout();
@@ -321,7 +328,6 @@
             this.gbPersonInfo.SuspendLayout();
             this.gbStag.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.epErrorInput)).BeginInit();
-            this.gbPashaTechInfo.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnClose
@@ -394,6 +400,110 @@
             this.tabPage1.Text = "Основное";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // gbPashaTechInfo
+            // 
+            this.gbPashaTechInfo.Controls.Add(this.btnOnlineEducLoad);
+            this.gbPashaTechInfo.Controls.Add(this.tbBarcode);
+            this.gbPashaTechInfo.Controls.Add(this.label68);
+            this.gbPashaTechInfo.Controls.Add(this.tbDateCreated);
+            this.gbPashaTechInfo.Controls.Add(this.label67);
+            this.gbPashaTechInfo.Controls.Add(this.tbAuthor);
+            this.gbPashaTechInfo.Controls.Add(this.label46);
+            this.gbPashaTechInfo.Controls.Add(this.tbGUID);
+            this.gbPashaTechInfo.Controls.Add(this.label29);
+            this.gbPashaTechInfo.Controls.Add(this.btnSendToOnline);
+            this.gbPashaTechInfo.Location = new System.Drawing.Point(392, 32);
+            this.gbPashaTechInfo.Name = "gbPashaTechInfo";
+            this.gbPashaTechInfo.Size = new System.Drawing.Size(226, 143);
+            this.gbPashaTechInfo.TabIndex = 116;
+            this.gbPashaTechInfo.TabStop = false;
+            this.gbPashaTechInfo.Text = "тех. инфо";
+            this.gbPashaTechInfo.Visible = false;
+            // 
+            // btnOnlineEducLoad
+            // 
+            this.btnOnlineEducLoad.Location = new System.Drawing.Point(46, 114);
+            this.btnOnlineEducLoad.Name = "btnOnlineEducLoad";
+            this.btnOnlineEducLoad.Size = new System.Drawing.Size(82, 23);
+            this.btnOnlineEducLoad.TabIndex = 9;
+            this.btnOnlineEducLoad.Text = "InetEducLoad";
+            this.btnOnlineEducLoad.UseVisualStyleBackColor = true;
+            this.btnOnlineEducLoad.Click += new System.EventHandler(this.btnOnlineEducLoad_Click);
+            // 
+            // tbBarcode
+            // 
+            this.tbBarcode.Location = new System.Drawing.Point(46, 91);
+            this.tbBarcode.Name = "tbBarcode";
+            this.tbBarcode.Size = new System.Drawing.Size(174, 20);
+            this.tbBarcode.TabIndex = 8;
+            // 
+            // label68
+            // 
+            this.label68.AutoSize = true;
+            this.label68.Location = new System.Drawing.Point(2, 94);
+            this.label68.Name = "label68";
+            this.label68.Size = new System.Drawing.Size(47, 13);
+            this.label68.TabIndex = 7;
+            this.label68.Text = "Barcode";
+            // 
+            // tbDateCreated
+            // 
+            this.tbDateCreated.Location = new System.Drawing.Point(46, 65);
+            this.tbDateCreated.Name = "tbDateCreated";
+            this.tbDateCreated.Size = new System.Drawing.Size(174, 20);
+            this.tbDateCreated.TabIndex = 6;
+            // 
+            // label67
+            // 
+            this.label67.AutoSize = true;
+            this.label67.Location = new System.Drawing.Point(10, 68);
+            this.label67.Name = "label67";
+            this.label67.Size = new System.Drawing.Size(30, 13);
+            this.label67.TabIndex = 5;
+            this.label67.Text = "Date";
+            // 
+            // tbAuthor
+            // 
+            this.tbAuthor.Location = new System.Drawing.Point(46, 39);
+            this.tbAuthor.Name = "tbAuthor";
+            this.tbAuthor.Size = new System.Drawing.Size(174, 20);
+            this.tbAuthor.TabIndex = 4;
+            // 
+            // label46
+            // 
+            this.label46.AutoSize = true;
+            this.label46.Location = new System.Drawing.Point(2, 42);
+            this.label46.Name = "label46";
+            this.label46.Size = new System.Drawing.Size(38, 13);
+            this.label46.TabIndex = 3;
+            this.label46.Text = "Author";
+            // 
+            // tbGUID
+            // 
+            this.tbGUID.Location = new System.Drawing.Point(46, 13);
+            this.tbGUID.Name = "tbGUID";
+            this.tbGUID.Size = new System.Drawing.Size(174, 20);
+            this.tbGUID.TabIndex = 2;
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(6, 16);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(34, 13);
+            this.label29.TabIndex = 1;
+            this.label29.Text = "GUID";
+            // 
+            // btnSendToOnline
+            // 
+            this.btnSendToOnline.Location = new System.Drawing.Point(155, 114);
+            this.btnSendToOnline.Name = "btnSendToOnline";
+            this.btnSendToOnline.Size = new System.Drawing.Size(65, 23);
+            this.btnSendToOnline.TabIndex = 0;
+            this.btnSendToOnline.Text = "В онлайн";
+            this.btnSendToOnline.UseVisualStyleBackColor = true;
+            this.btnSendToOnline.Click += new System.EventHandler(this.btnSendToOnline_Click);
+            // 
             // cbRegion
             // 
             this.cbRegion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -433,6 +543,7 @@
             this.cbNationality.Name = "cbNationality";
             this.cbNationality.Size = new System.Drawing.Size(329, 21);
             this.cbNationality.TabIndex = 113;
+            this.cbNationality.SelectedIndexChanged += new System.EventHandler(this.cbNationality_SelectedIndexChanged);
             // 
             // lblHasExamPass
             // 
@@ -598,6 +709,7 @@
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.btnOtherPassports);
             this.groupBox5.Controls.Add(this.tbSNILS);
             this.groupBox5.Controls.Add(this.label64);
             this.groupBox5.Controls.Add(this.cbPassportType);
@@ -616,10 +728,20 @@
             this.groupBox5.Controls.Add(this.tbPassportSeries);
             this.groupBox5.Location = new System.Drawing.Point(80, 289);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(443, 184);
+            this.groupBox5.Size = new System.Drawing.Size(443, 207);
             this.groupBox5.TabIndex = 84;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Паспорт";
+            // 
+            // btnOtherPassports
+            // 
+            this.btnOtherPassports.Location = new System.Drawing.Point(93, 178);
+            this.btnOtherPassports.Name = "btnOtherPassports";
+            this.btnOtherPassports.Size = new System.Drawing.Size(155, 23);
+            this.btnOtherPassports.TabIndex = 119;
+            this.btnOtherPassports.Text = "Ранее выданные паспорта";
+            this.btnOtherPassports.UseVisualStyleBackColor = true;
+            this.btnOtherPassports.Click += new System.EventHandler(this.btnOtherPassports_Click);
             // 
             // tbSNILS
             // 
@@ -2023,6 +2145,7 @@
             // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.gbOlympiads);
             this.tabPage5.Controls.Add(this.groupBox6);
             this.tabPage5.Controls.Add(this.groupBox3);
             this.tabPage5.Controls.Add(this.gbPrivileges);
@@ -2033,6 +2156,35 @@
             this.tabPage5.Text = "Льготы/инд. достижения";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
+            // gbOlympiads
+            // 
+            this.gbOlympiads.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gbOlympiads.Controls.Add(this.dgvOlympiads);
+            this.gbOlympiads.Location = new System.Drawing.Point(8, 367);
+            this.gbOlympiads.Name = "gbOlympiads";
+            this.gbOlympiads.Size = new System.Drawing.Size(613, 148);
+            this.gbOlympiads.TabIndex = 14;
+            this.gbOlympiads.TabStop = false;
+            this.gbOlympiads.Text = "Олимпиады (только просмотр)";
+            // 
+            // dgvOlympiads
+            // 
+            this.dgvOlympiads.AllowUserToAddRows = false;
+            this.dgvOlympiads.AllowUserToDeleteRows = false;
+            this.dgvOlympiads.AllowUserToResizeRows = false;
+            this.dgvOlympiads.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvOlympiads.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvOlympiads.Location = new System.Drawing.Point(6, 19);
+            this.dgvOlympiads.Name = "dgvOlympiads";
+            this.dgvOlympiads.ReadOnly = true;
+            this.dgvOlympiads.RowHeadersVisible = false;
+            this.dgvOlympiads.Size = new System.Drawing.Size(601, 123);
+            this.dgvOlympiads.TabIndex = 0;
+            // 
             // groupBox6
             // 
             this.groupBox6.Controls.Add(this.btnDeletePersonAchievement);
@@ -2040,7 +2192,7 @@
             this.groupBox6.Controls.Add(this.dgvIndividualAchievements);
             this.groupBox6.Location = new System.Drawing.Point(313, 12);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(308, 384);
+            this.groupBox6.Size = new System.Drawing.Size(308, 349);
             this.groupBox6.TabIndex = 13;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Индивидуальные достижения";
@@ -2048,7 +2200,7 @@
             // btnDeletePersonAchievement
             // 
             this.btnDeletePersonAchievement.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDeletePersonAchievement.Location = new System.Drawing.Point(227, 355);
+            this.btnDeletePersonAchievement.Location = new System.Drawing.Point(227, 320);
             this.btnDeletePersonAchievement.Name = "btnDeletePersonAchievement";
             this.btnDeletePersonAchievement.Size = new System.Drawing.Size(75, 23);
             this.btnDeletePersonAchievement.TabIndex = 2;
@@ -2059,7 +2211,7 @@
             // btnAddPersonAchievement
             // 
             this.btnAddPersonAchievement.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnAddPersonAchievement.Location = new System.Drawing.Point(6, 355);
+            this.btnAddPersonAchievement.Location = new System.Drawing.Point(6, 320);
             this.btnAddPersonAchievement.Name = "btnAddPersonAchievement";
             this.btnAddPersonAchievement.Size = new System.Drawing.Size(65, 23);
             this.btnAddPersonAchievement.TabIndex = 1;
@@ -2079,7 +2231,8 @@
             this.dgvIndividualAchievements.Location = new System.Drawing.Point(6, 19);
             this.dgvIndividualAchievements.Name = "dgvIndividualAchievements";
             this.dgvIndividualAchievements.ReadOnly = true;
-            this.dgvIndividualAchievements.Size = new System.Drawing.Size(296, 330);
+            this.dgvIndividualAchievements.RowHeadersVisible = false;
+            this.dgvIndividualAchievements.Size = new System.Drawing.Size(296, 295);
             this.dgvIndividualAchievements.TabIndex = 0;
             this.dgvIndividualAchievements.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvIndividualAchievements_CellDoubleClick);
             // 
@@ -2090,7 +2243,7 @@
             this.groupBox3.Controls.Add(this.dgvBenefitDocument);
             this.groupBox3.Location = new System.Drawing.Point(8, 155);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(299, 241);
+            this.groupBox3.Size = new System.Drawing.Size(299, 206);
             this.groupBox3.TabIndex = 12;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Реквизиты документов";
@@ -2098,7 +2251,7 @@
             // btnDeleteBenefitDocument
             // 
             this.btnDeleteBenefitDocument.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDeleteBenefitDocument.Location = new System.Drawing.Point(218, 212);
+            this.btnDeleteBenefitDocument.Location = new System.Drawing.Point(218, 177);
             this.btnDeleteBenefitDocument.Name = "btnDeleteBenefitDocument";
             this.btnDeleteBenefitDocument.Size = new System.Drawing.Size(75, 23);
             this.btnDeleteBenefitDocument.TabIndex = 2;
@@ -2109,7 +2262,7 @@
             // btnAddBenefitDocument
             // 
             this.btnAddBenefitDocument.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnAddBenefitDocument.Location = new System.Drawing.Point(6, 212);
+            this.btnAddBenefitDocument.Location = new System.Drawing.Point(6, 177);
             this.btnAddBenefitDocument.Name = "btnAddBenefitDocument";
             this.btnAddBenefitDocument.Size = new System.Drawing.Size(67, 23);
             this.btnAddBenefitDocument.TabIndex = 1;
@@ -2129,7 +2282,8 @@
             this.dgvBenefitDocument.Location = new System.Drawing.Point(6, 19);
             this.dgvBenefitDocument.Name = "dgvBenefitDocument";
             this.dgvBenefitDocument.ReadOnly = true;
-            this.dgvBenefitDocument.Size = new System.Drawing.Size(287, 187);
+            this.dgvBenefitDocument.RowHeadersVisible = false;
+            this.dgvBenefitDocument.Size = new System.Drawing.Size(287, 152);
             this.dgvBenefitDocument.TabIndex = 0;
             // 
             // gbPrivileges
@@ -2836,99 +2990,6 @@
             this.btnDocs.Visible = false;
             this.btnDocs.Click += new System.EventHandler(this.btnDocs_Click);
             // 
-            // gbPashaTechInfo
-            // 
-            this.gbPashaTechInfo.Controls.Add(this.tbBarcode);
-            this.gbPashaTechInfo.Controls.Add(this.label68);
-            this.gbPashaTechInfo.Controls.Add(this.tbDateCreated);
-            this.gbPashaTechInfo.Controls.Add(this.label67);
-            this.gbPashaTechInfo.Controls.Add(this.tbAuthor);
-            this.gbPashaTechInfo.Controls.Add(this.label46);
-            this.gbPashaTechInfo.Controls.Add(this.tbGUID);
-            this.gbPashaTechInfo.Controls.Add(this.label29);
-            this.gbPashaTechInfo.Controls.Add(this.btnSendToOnline);
-            this.gbPashaTechInfo.Location = new System.Drawing.Point(392, 32);
-            this.gbPashaTechInfo.Name = "gbPashaTechInfo";
-            this.gbPashaTechInfo.Size = new System.Drawing.Size(226, 143);
-            this.gbPashaTechInfo.TabIndex = 116;
-            this.gbPashaTechInfo.TabStop = false;
-            this.gbPashaTechInfo.Text = "тех. инфо";
-            this.gbPashaTechInfo.Visible = false;
-            // 
-            // btnSendToOnline
-            // 
-            this.btnSendToOnline.Location = new System.Drawing.Point(145, 114);
-            this.btnSendToOnline.Name = "btnSendToOnline";
-            this.btnSendToOnline.Size = new System.Drawing.Size(75, 23);
-            this.btnSendToOnline.TabIndex = 0;
-            this.btnSendToOnline.Text = "В онлайн";
-            this.btnSendToOnline.UseVisualStyleBackColor = true;
-            this.btnSendToOnline.Click += new System.EventHandler(this.btnSendToOnline_Click);
-            // 
-            // label29
-            // 
-            this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(6, 16);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(34, 13);
-            this.label29.TabIndex = 1;
-            this.label29.Text = "GUID";
-            // 
-            // tbGUID
-            // 
-            this.tbGUID.Location = new System.Drawing.Point(46, 13);
-            this.tbGUID.Name = "tbGUID";
-            this.tbGUID.Size = new System.Drawing.Size(174, 20);
-            this.tbGUID.TabIndex = 2;
-            // 
-            // tbAuthor
-            // 
-            this.tbAuthor.Location = new System.Drawing.Point(46, 39);
-            this.tbAuthor.Name = "tbAuthor";
-            this.tbAuthor.Size = new System.Drawing.Size(174, 20);
-            this.tbAuthor.TabIndex = 4;
-            // 
-            // label46
-            // 
-            this.label46.AutoSize = true;
-            this.label46.Location = new System.Drawing.Point(2, 42);
-            this.label46.Name = "label46";
-            this.label46.Size = new System.Drawing.Size(38, 13);
-            this.label46.TabIndex = 3;
-            this.label46.Text = "Author";
-            // 
-            // tbDateCreated
-            // 
-            this.tbDateCreated.Location = new System.Drawing.Point(46, 65);
-            this.tbDateCreated.Name = "tbDateCreated";
-            this.tbDateCreated.Size = new System.Drawing.Size(174, 20);
-            this.tbDateCreated.TabIndex = 6;
-            // 
-            // label67
-            // 
-            this.label67.AutoSize = true;
-            this.label67.Location = new System.Drawing.Point(10, 68);
-            this.label67.Name = "label67";
-            this.label67.Size = new System.Drawing.Size(30, 13);
-            this.label67.TabIndex = 5;
-            this.label67.Text = "Date";
-            // 
-            // tbBarcode
-            // 
-            this.tbBarcode.Location = new System.Drawing.Point(46, 91);
-            this.tbBarcode.Name = "tbBarcode";
-            this.tbBarcode.Size = new System.Drawing.Size(174, 20);
-            this.tbBarcode.TabIndex = 8;
-            // 
-            // label68
-            // 
-            this.label68.AutoSize = true;
-            this.label68.Location = new System.Drawing.Point(2, 94);
-            this.label68.Name = "label68";
-            this.label68.Size = new System.Drawing.Size(47, 13);
-            this.label68.TabIndex = 7;
-            this.label68.Text = "Barcode";
-            // 
             // CardPerson
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2955,6 +3016,8 @@
             this.tabCard.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.gbPashaTechInfo.ResumeLayout(false);
+            this.gbPashaTechInfo.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             this.tabPage2.ResumeLayout(false);
@@ -2986,6 +3049,8 @@
             this.gbMainStudy.ResumeLayout(false);
             this.gbMainStudy.PerformLayout();
             this.tabPage5.ResumeLayout(false);
+            this.gbOlympiads.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvOlympiads)).EndInit();
             this.groupBox6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvIndividualAchievements)).EndInit();
             this.groupBox3.ResumeLayout(false);
@@ -3014,8 +3079,6 @@
             this.gbStag.ResumeLayout(false);
             this.gbStag.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.epErrorInput)).EndInit();
-            this.gbPashaTechInfo.ResumeLayout(false);
-            this.gbPashaTechInfo.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -3263,6 +3326,10 @@
         private System.Windows.Forms.TextBox tbGUID;
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.Button btnSendToOnline;
+        private System.Windows.Forms.Button btnOnlineEducLoad;
+        private System.Windows.Forms.Button btnOtherPassports;
+        private System.Windows.Forms.GroupBox gbOlympiads;
+        private System.Windows.Forms.DataGridView dgvOlympiads;
 
     }
 }

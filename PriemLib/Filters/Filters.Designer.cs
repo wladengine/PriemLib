@@ -63,6 +63,7 @@
             // 
             // btnDown
             // 
+            this.btnDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnDown.Location = new System.Drawing.Point(439, 69);
             this.btnDown.Name = "btnDown";
             this.btnDown.Size = new System.Drawing.Size(30, 31);
@@ -73,6 +74,7 @@
             // 
             // btnUp
             // 
+            this.btnUp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnUp.Location = new System.Drawing.Point(439, 32);
             this.btnUp.Name = "btnUp";
             this.btnUp.Size = new System.Drawing.Size(30, 31);
@@ -83,6 +85,8 @@
             // 
             // lbFilters
             // 
+            this.lbFilters.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lbFilters.FormattingEnabled = true;
             this.lbFilters.Location = new System.Drawing.Point(7, 3);
             this.lbFilters.Name = "lbFilters";
@@ -92,6 +96,7 @@
             // 
             // btnBrackets
             // 
+            this.btnBrackets.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnBrackets.Location = new System.Drawing.Point(322, 465);
             this.btnBrackets.Name = "btnBrackets";
             this.btnBrackets.Size = new System.Drawing.Size(52, 36);
@@ -102,6 +107,7 @@
             // 
             // btnOr
             // 
+            this.btnOr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnOr.Location = new System.Drawing.Point(265, 465);
             this.btnOr.Name = "btnOr";
             this.btnOr.Size = new System.Drawing.Size(51, 36);
@@ -112,6 +118,7 @@
             // 
             // btnRemove
             // 
+            this.btnRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnRemove.Location = new System.Drawing.Point(169, 465);
             this.btnRemove.Name = "btnRemove";
             this.btnRemove.Size = new System.Drawing.Size(61, 36);
@@ -122,6 +129,7 @@
             // 
             // btnExit
             // 
+            this.btnExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnExit.Location = new System.Drawing.Point(414, 465);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(55, 36);
@@ -132,6 +140,7 @@
             // 
             // btnChange
             // 
+            this.btnChange.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnChange.Enabled = false;
             this.btnChange.Location = new System.Drawing.Point(88, 465);
             this.btnChange.Name = "btnChange";
@@ -143,6 +152,7 @@
             // 
             // btnAdd
             // 
+            this.btnAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnAdd.Location = new System.Drawing.Point(7, 465);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(75, 36);
@@ -153,6 +163,9 @@
             // 
             // gbFilter
             // 
+            this.gbFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.gbFilter.Controls.Add(this.fFromTo);
             this.gbFilter.Controls.Add(this.fMult);
             this.gbFilter.Controls.Add(this.fBool);
@@ -167,6 +180,8 @@
             // 
             // fFromTo
             // 
+            this.fFromTo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.fFromTo.FromValue = "";
             this.fFromTo.Location = new System.Drawing.Point(43, 117);
             this.fFromTo.Name = "fFromTo";
@@ -176,6 +191,9 @@
             // 
             // fMult
             // 
+            this.fMult.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.fMult.Location = new System.Drawing.Point(25, 36);
             this.fMult.Name = "fMult";
             this.fMult.Size = new System.Drawing.Size(412, 206);

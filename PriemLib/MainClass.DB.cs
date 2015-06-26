@@ -91,7 +91,7 @@ namespace PriemLib
             }
             catch (Exception ex)
             {
-                WinFormsServ.Error("Ошибка в MainClass.DeleteAllOpenByHolder() ", ex);
+                WinFormsServ.Error("Ошибка в MainClass.DeleteAllOpenByHolder() \n", ex);
             }
         }
 
@@ -207,7 +207,6 @@ namespace PriemLib
                 qBuilder.AddQueryItem(new QueryItem("ed.Country", "ed.Country.Name", "Страна"));
                 qBuilder.AddQueryItem(new QueryItem("Nationality", "Nationality.Name", "Гражданство"));
                 qBuilder.AddQueryItem(new QueryItem("ed.Region", "ed.Region.Name", "Регион"));
-                
 
                 //Person Education Info
                 qBuilder.AddQueryItem(new QueryItem("ed.extPerson_EducationInfo_Current", QueryBuilder.GetBoolField("ed.extPerson_EducationInfo_Current.IsExcellent"), "Медалист"));
@@ -271,17 +270,18 @@ namespace PriemLib
                 //qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", "ed.qAbiturient.SessionAVG", "Средний_балл_сессии"));
                 //qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", "ed.qAbiturient.StudentStatus", "Статус_студента"));
                 qBuilder.AddQueryItem(new QueryItem("ed.StudyLevel", "ed.StudyLevel.Name", "Уровень_поступления"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extAbit", "ed.extAbit.ObrazProgramInEntryName", "Образовательная_программа_зачисления"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extAbit", "ed.extAbit.ProfileInObrazProgramInEntryName", "Профиль_зачисления"));
+                qBuilder.AddQueryItem(new QueryItem("ed.extAbit", "'[' + ed.extAbit.InnerEntryInEntryObrazProgramCrypt + '] ' + ed.extAbit.InnerEntryInEntryObrazProgramName", "Образовательная_программа_зачисления"));
+                qBuilder.AddQueryItem(new QueryItem("ed.extAbit", "ed.extAbit.InnerEntryInEntryProfileName", "Профиль_зачисления"));
 
                 qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", "(select MAX(ed.extOlympiads.OlympValueName) AS Value FROM ed.extOlympiads WHERE extOlympiads.AbiturientId = ed.qAbiturient.Id)", "Степень_диплома"));
                 
                 // ЕГЭ
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select Top(1) ed.EgeCertificate.Number as Number FROM ed.EgeCertificate WHERE ed.EgeCertificate.PersonId = ed.extPerson.Id AND Year=2010 ) ", "Свидетельство_ЕГЭ_2010"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select Top(1) ed.EgeCertificate.Number as Number FROM ed.EgeCertificate WHERE ed.EgeCertificate.PersonId = ed.extPerson.Id AND Year=2011 )", "Свидетельство_ЕГЭ_2011"));
                 qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select Top(1) ed.EgeCertificate.Number as Number FROM ed.EgeCertificate WHERE ed.EgeCertificate.PersonId = ed.extPerson.Id AND Year=2012 )", "Свидетельство_ЕГЭ_2012"));
                 qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select Top(1) ed.EgeCertificate.Number as Number FROM ed.EgeCertificate WHERE ed.EgeCertificate.PersonId = ed.extPerson.Id AND Year=2013 )", "Свидетельство_ЕГЭ_2013"));
                 qBuilder.AddQueryItem(new QueryItem("ed.extPerson", QueryBuilder.GetBoolField("(select Top(1) ed.EgeCertificate.IsImported FROM ed.EgeCertificate WHERE ed.EgeCertificate.PersonId = ed.extPerson.Id AND Year=2012 )"), "Загружено_Свид-во_ЕГЭ_2012"));
+                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", QueryBuilder.GetBoolField("(select Top(1) ed.EgeCertificate.IsImported FROM ed.EgeCertificate WHERE ed.EgeCertificate.PersonId = ed.extPerson.Id AND Year=2013 )"), "Загружено_Свид-во_ЕГЭ_2013"));
+                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", QueryBuilder.GetBoolField("(select Top(1) ed.EgeCertificate.IsImported FROM ed.EgeCertificate WHERE ed.EgeCertificate.PersonId = ed.extPerson.Id AND Year=2014 )"), "Загружено_Свид-во_ЕГЭ_2014"));
+                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", QueryBuilder.GetBoolField("(select Top(1) ed.EgeCertificate.IsImported FROM ed.EgeCertificate WHERE ed.EgeCertificate.PersonId = ed.extPerson.Id AND Year=2015 )"), "Загружено_Свид-во_ЕГЭ_2015"));
 
                 qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MAX (ed.EgeMark.value) as mark FROM ed.EgeMark INNER JOIN ed.EgeCertificate ON ed.EgeMark.EgeCertificateId = ed.EgeCertificate.Id WHERE ed.EgeCertificate.PersonId = ed.extPerson.Id AND EgeExamNameId=5)", "ЕГЭ_русск.язык"));
                 qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MAX (ed.EgeMark.value) as mark FROM ed.EgeMark INNER JOIN ed.EgeCertificate ON ed.EgeMark.EgeCertificateId = ed.EgeCertificate.Id WHERE ed.EgeCertificate.PersonId = ed.extPerson.Id AND EgeExamNameId=4)", "ЕГЭ_математика"));

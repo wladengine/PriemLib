@@ -11,6 +11,7 @@ using System.IO;
 using EducServLib;
 using BDClassLib;
 using WordOut;
+using System.Threading.Tasks;
 
 namespace PriemLib
 {
@@ -18,6 +19,12 @@ namespace PriemLib
     {
         private DataRefreshHandler _drh;         
         private DBPriem _bdc;
+        private BackgroundWorker bw;
+
+        private bool sorted = false;
+        private int index = 0;
+        private ListSortDirection order;
+        private string sortedColumn;
 
         public string FacultyId
         {
@@ -59,6 +66,11 @@ namespace PriemLib
         private void InitControls()
         {
             InitFocusHandlers();
+
+            bw = new BackgroundWorker();
+            bw.WorkerSupportsCancellation = true;
+            bw.DoWork += bw_DoWork;
+            bw.RunWorkerCompleted += bw_RunWorkerCompleted;
 
             this.CenterToScreen();
             this.MdiParent = MainClass.mainform;
@@ -132,7 +144,6 @@ namespace PriemLib
         {            
             DoUpdate(where, string.Empty,tableList);
         }
-
         private void DoUpdate(string filters, string orderby, List<string> tableList)
         {
             List<string> lTables = tableList==null ? new List<string>() : tableList;
@@ -151,10 +162,39 @@ namespace PriemLib
                 MainClass._config.ColumnListPerson.Add("ФИО");
             }
 
-            string sortedColumn = string.Empty;
-            ListSortDirection order = ListSortDirection.Ascending;
-            bool sorted = false;
-            int index = dgvAbitList.CurrentRow == null ? -1 : dgvAbitList.CurrentRow.Index;
+            //sortedColumn = string.Empty;
+            //order = ListSortDirection.Ascending;
+            //sorted = false;
+            //index = dgvAbitList.CurrentRow == null ? -1 : dgvAbitList.CurrentRow.Index;
+
+            //if (dgvAbitList.SortOrder != SortOrder.None)
+            //{
+            //    sorted = true;
+            //    sortedColumn = dgvAbitList.SortedColumn.Name;
+            //    order = dgvAbitList.SortOrder == SortOrder.Ascending ? ListSortDirection.Ascending : ListSortDirection.Descending;
+            //}
+
+            //HelpClass.FillDataGrid(this.dgvAbitList, this._bdc, MainClass.qBuilder.GetQuery(MainClass._config.ColumnListPerson, lTables, "ed.Person"), filters, orderby);
+
+            //if (_groupList == null)
+            //{
+            //    if (dgvAbitList.Rows.Count > 0)
+            //    {
+            //        if (sorted && dgvAbitList.Columns.Contains(sortedColumn))
+            //            dgvAbitList.Sort(dgvAbitList.Columns[sortedColumn], order);
+            //        if (index >= 0 && index <= dgvAbitList.Rows.Count)
+            //            dgvAbitList.CurrentCell = dgvAbitList[1, index];
+            //    }
+            //}
+            //else
+            //    _groupList = null;
+            
+            //lblCount.Text = dgvAbitList.RowCount.ToString();
+            //btnCard.Enabled = (dgvAbitList.RowCount != 0);
+
+            sortedColumn = string.Empty;
+            order = ListSortDirection.Ascending;
+            index = dgvAbitList.CurrentRow == null ? -1 : dgvAbitList.CurrentRow.Index;
 
             if (dgvAbitList.SortOrder != SortOrder.None)
             {
@@ -163,23 +203,97 @@ namespace PriemLib
                 order = dgvAbitList.SortOrder == SortOrder.Ascending ? ListSortDirection.Ascending : ListSortDirection.Descending;
             }
 
-            HelpClass.FillDataGrid(this.dgvAbitList, this._bdc, MainClass.qBuilder.GetQuery(MainClass._config.ColumnListPerson, lTables, "ed.Person"), filters, orderby);
-
-            if (_groupList == null)
+            //stop previous
+            if (bw.IsBusy)
             {
-                if (dgvAbitList.Rows.Count > 0)
+                bw.CancelAsync();
+                gbWait.Visible = false;
+                return;
+            }
+
+            DBPriem __bdc = new DBPriem();
+            __bdc.OpenDatabase(MainClass.connString);
+
+            bw.RunWorkerAsync(new { dgv = this.dgvAbitList, bdc = __bdc, query = MainClass.qBuilder.GetQuery(MainClass._config.ColumnListPerson, lTables, "ed.Person"), filters = filters, orderby = orderby });
+
+            cbFaculty.Enabled = false;
+            btnCard.Enabled = false;
+            btnClose.Enabled = false;
+            btnColumns.Enabled = false;
+            btnExcel.Enabled = false;
+            btnFile.Enabled = false;
+            btnFilters.Enabled = false;
+            btnGroup.Enabled = false;
+            btnPrint.Enabled = false;
+            //btnUpdate.Enabled = false;
+            btnUpdate.Text = "Отмена";
+            gbWait.Visible = true;
+        }
+
+        async void bw_DoWork(object sender, DoWorkEventArgs e)
+        {
+            BackgroundWorker _bw = sender as BackgroundWorker;
+            //e.Result = HelpClass.GetDataView(((dynamic)e.Argument).dgv, ((dynamic)e.Argument).bdc, ((dynamic)e.Argument).query, ((dynamic)e.Argument).filters, ((dynamic)e.Argument).orderby);
+            Task<DataView> task = HelpClass.GetDataViewAsync((DataGridView)((dynamic)e.Argument).dgv, (BDClass)((dynamic)e.Argument).bdc,
+                (string)((dynamic)e.Argument).query, (string)((dynamic)e.Argument).filters, (string)((dynamic)e.Argument).orderby, false);
+
+            while (!task.IsCompleted && !task.IsFaulted)
+            {
+                System.Threading.Thread.Sleep(25);
+
+                if (_bw.CancellationPending)
                 {
-                    if (sorted && dgvAbitList.Columns.Contains(sortedColumn))
-                        dgvAbitList.Sort(dgvAbitList.Columns[sortedColumn], order);
-                    if (index >= 0 && index <= dgvAbitList.Rows.Count)
-                        dgvAbitList.CurrentCell = dgvAbitList[1, index];
+                    e.Cancel = true;
+                    return;
                 }
             }
-            else
-                _groupList = null;
-            
-            lblCount.Text = dgvAbitList.RowCount.ToString();
-            btnCard.Enabled = (dgvAbitList.RowCount != 0);  
+
+            try
+            {
+                e.Result = await task;
+            }
+            catch (Exception ex)
+            {
+                WinFormsServ.Error(ex);
+            }
+        }
+        void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            cbFaculty.Enabled = true;
+
+            if (!e.Cancelled)
+            {
+                HelpClass.FillDataGrid(this.Dgv, (DataView)e.Result);
+
+                if (_groupList == null)
+                {
+                    if (dgvAbitList.Rows.Count > 0)
+                    {
+                        if (sorted && dgvAbitList.Columns.Contains(sortedColumn))
+                            dgvAbitList.Sort(dgvAbitList.Columns[sortedColumn], order);
+                        if (index >= 0 && index <= dgvAbitList.Rows.Count)
+                            dgvAbitList.CurrentCell = dgvAbitList[1, index];
+                    }
+                }
+                else
+                    _groupList = null;
+
+                lblCount.Text = dgvAbitList.RowCount.ToString();
+                btnCard.Enabled = (dgvAbitList.RowCount != 0);
+            }
+
+            cbFaculty.Enabled = true;
+            btnCard.Enabled = true;
+            btnClose.Enabled = true;
+            btnColumns.Enabled = true;
+            btnExcel.Enabled = true;
+            btnFile.Enabled = true;
+            btnFilters.Enabled = true;
+            btnGroup.Enabled = true;
+            btnPrint.Enabled = true;
+            //btnUpdate.Enabled = true;
+            btnUpdate.Text = "Обновить";
+            gbWait.Visible = false;
         }
 
         //поиск по ид. номеру

@@ -113,20 +113,27 @@ namespace PriemLib
 
         protected virtual string Save()
         {
+            bool bIsIntId = false;
+            int _IntId = 0;
+            bIsIntId = int.TryParse(_Id, out _IntId);
+
             try
             {
                 using (PriemEntities context = new PriemEntities())
                 {
                     if (_Id == null)
                     {
-                        ObjectParameter entId = new ObjectParameter("id", typeof(Guid));
+                        ObjectParameter entId = new ObjectParameter("id", bIsIntId ? typeof(int) : typeof(Guid));
                         using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.RequiresNew))
                         {
                             try
                             {
                                 InsertRec(context, entId);
-                                SaveManyToMany(context, (Guid)entId.Value);
-
+                                if (bIsIntId)
+                                    SaveManyToMany(context, (int)entId.Value);
+                                else
+                                    SaveManyToMany(context, (Guid)entId.Value);
+                                
                                 transaction.Complete();
                             }
                             catch (Exception exc)
@@ -143,8 +150,16 @@ namespace PriemLib
                         {
                             try
                             {
-                                UpdateRec(context, entId);
-                                SaveManyToMany(context, entId);
+                                if (bIsIntId)
+                                {
+                                    UpdateRec(context, _IntId);
+                                    SaveManyToMany(context, _IntId);
+                                }
+                                else
+                                {
+                                    UpdateRec(context, entId);
+                                    SaveManyToMany(context, entId);
+                                }
 
                                 transaction.Complete();
                             }
@@ -167,11 +182,19 @@ namespace PriemLib
         {
         }
 
+        protected virtual void SaveManyToMany(PriemEntities context, int id)
+        {
+        }
+
         protected virtual void InsertRec(PriemEntities context, ObjectParameter idParam)
         {
         }
 
         protected virtual void UpdateRec(PriemEntities context, Guid id)
+        {
+        }
+
+        protected virtual void UpdateRec(PriemEntities context, int id)
         {
         }
 

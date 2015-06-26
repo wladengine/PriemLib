@@ -21,7 +21,7 @@ namespace PriemLib
                                        where ent.IsSecond == IsSecond && ent.IsParallel == IsParallel && ent.IsReduced == IsReduced
                                        && ent.LicenseProgramId == LicenseProgramId
                                        && ent.ObrazProgramId == ObrazProgramId
-                                       && (ProfileId == null ? ent.ProfileId == null : ent.ProfileId == ProfileId)
+                                       && (ProfileId == null ? ent.ProfileId == 0 : ent.ProfileId == ProfileId)
                                        && ent.StudyFormId == StudyFormId
                                        && ent.StudyBasisId == StudyBasisId
                                        && ent.IsCrimea == IsCrimea

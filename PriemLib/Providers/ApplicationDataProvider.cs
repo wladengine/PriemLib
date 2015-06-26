@@ -60,7 +60,7 @@ namespace PriemLib
                          ApplicationId = x.Id,
                          Priority = Ad.InnerEntryInEntryPriority,
                          ObrazProgramName = Ad.ObrazProgramCrypt + " " + Ad.ObrazProgramName,
-                         ProfileName = Ad.ProfileName
+                         ProfileName = Ad.ProfileName,
                      }).Distinct().ToList();
 
                 return abitProfileList;

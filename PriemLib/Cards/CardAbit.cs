@@ -14,6 +14,7 @@ using System.Text.RegularExpressions;
 using BaseFormsLib;
 using EducServLib;
 using System.Data.Entity.Core.Objects;
+using System.Threading.Tasks;
 
 namespace PriemLib
 {
@@ -78,7 +79,6 @@ namespace PriemLib
 
             SetReadOnlyFieldsAfterFill();
         }
-
         protected override void ExtraInit()
         {
             base.ExtraInit();
@@ -134,7 +134,7 @@ namespace PriemLib
                     btnDocInventory.Visible = false;
 
                     btnDocs.Visible = true;
-                    gbSecondType.Visible = false;
+                    //gbSecondType.Visible = false;
                     btnDocInventory.Visible = true;
 
                     if (MainClass.IsPasha())
@@ -166,7 +166,6 @@ namespace PriemLib
                 WinFormsServ.Error("Ошибка при инициализации формы ", exc);
             }
         }
-
         protected override void FillCard()
         {
             try
@@ -284,10 +283,13 @@ namespace PriemLib
                     context.Abiturient_UpdateIsViewed(GuidId);
                     //MainClass.DataRefresh();
 
-                    if (MainClass.dbType == PriemType.PriemMag)
+                    if (MainClass.dbType == PriemType.PriemMag || MainClass.dbType == PriemType.PriemAspirant || MainClass.dbType == PriemType.PriemForeigners)
                     {
-                        chbHasMotivationLetter.Checked = GetHasMotivationLetter();
-                        chbHasEssay.Checked = GetHasEssay();
+                        chbHasEssay.Checked = false;
+                        chbHasMotivationLetter.Checked = false;
+
+                        GetHasMotivationLetter();
+                        GetHasEssay();
                     }
 
                     GetHasInnerPriorities(context);
@@ -425,7 +427,6 @@ namespace PriemLib
                 AND ed.Abiturient.HasOriginals > 0 AND ed.Abiturient.BackDoc = 0) then 'true' else 'false' end ", _personId.ToString(), _Id == null ? "" : string.Format(" AND ed.Abiturient.Id <> '{0}'", _Id));
             lockHasOrigin = bool.Parse(context.ExecuteStoreQuery<string>(queryForLock).FirstOrDefault());
 
-
             if (lockHasOrigin)
             {
                 lblOtherOriginals.Visible = true;
@@ -438,33 +439,40 @@ namespace PriemLib
             }
         }
 
-        private bool GetHasMotivationLetter()
+        private async void GetHasMotivationLetter()
         {
             BDClassLib.SQLClass InetDB = new BDClassLib.SQLClass();
             InetDB.OpenDatabase(MainClass.connStringOnline);
 
             string query = "SELECT COUNT(*) FROM qAbitFiles_OnlyEssayMotivLetter WHERE (ApplicationBarcode=@ApplicationBarcode OR PersonBarcode=@PersonBarcode) AND FileTypeId=2";
-            int cnt = (int)InetDB.GetValue(query, new SortedList<string, object>() 
+            int cnt = await Task.Run(() =>
             {
-                { "@ApplicationBarcode", QueryServ.ToNullDB(abitBarcode) }, 
-                { "@PersonBarcode", QueryServ.ToNullDB(persBarcode) } 
+                return (int)InetDB.GetValue(query, new SortedList<string, object>() 
+                {
+                    { "@ApplicationBarcode", QueryServ.ToNullDB(abitBarcode) }, 
+                    { "@PersonBarcode", QueryServ.ToNullDB(persBarcode) }
+                });
             });
 
-            return (cnt > 0);
+            chbHasMotivationLetter.Checked = cnt > 0;
+            //return new Task<bool>();
         }
-        private bool GetHasEssay()
+        private async void GetHasEssay()
         {
             BDClassLib.SQLClass InetDB = new BDClassLib.SQLClass();
             InetDB.OpenDatabase(MainClass.connStringOnline);
 
             string query = "SELECT COUNT(*) FROM qAbitFiles_OnlyEssayMotivLetter WHERE (ApplicationBarcode=@ApplicationBarcode OR PersonBarcode=@PersonBarcode) AND FileTypeId=3";
-            int cnt = (int)InetDB.GetValue(query, new SortedList<string, object>() 
+            int cnt = await Task.Run(() =>
             {
-                { "@ApplicationBarcode", QueryServ.ToNullDB(abitBarcode) }, 
-                { "@PersonBarcode", QueryServ.ToNullDB(persBarcode) }  
+                return (int)InetDB.GetValue(query, new SortedList<string, object>() 
+                {
+                    { "@ApplicationBarcode", QueryServ.ToNullDB(abitBarcode) }, 
+                    { "@PersonBarcode", QueryServ.ToNullDB(persBarcode) }  
+                });
             });
 
-            return (cnt > 0);
+            chbHasEssay.Checked = (cnt > 0);
         }
 
         // возвращает, есть ли человек в протоколе о допуске
@@ -771,8 +779,10 @@ namespace PriemLib
             cbStudyForm.SelectedIndexChanged += new EventHandler(cbStudyForm_SelectedIndexChanged);
             cbStudyBasis.SelectedIndexChanged += new EventHandler(cbStudyBasis_SelectedIndexChanged);
             chbHasOriginals.CheckedChanged += new System.EventHandler(chbHasOriginals_CheckedChanged);
-
+            chbIsForeign.CheckedChanged += chbIsForeign_CheckedChanged;
+            chbIsCrimea.CheckedChanged += chbIsCrimea_CheckedChanged;
         }
+
         protected override void NullHandlers()
         {
             chbIsReduced.CheckedChanged -= new EventHandler(chbIsReduced_CheckedChanged);
@@ -786,6 +796,14 @@ namespace PriemLib
             chbHasOriginals.CheckedChanged -= new System.EventHandler(chbHasOriginals_CheckedChanged);
         }
 
+        void chbIsCrimea_CheckedChanged(object sender, EventArgs e)
+        {
+            FillLicenseProgram();
+        }
+        void chbIsForeign_CheckedChanged(object sender, EventArgs e)
+        {
+            FillLicenseProgram();
+        }
         void chbIsSecond_CheckedChanged(object sender, EventArgs e)
         {
             FillLicenseProgram();
@@ -1938,7 +1956,6 @@ namespace PriemLib
                 ComboServ.FillCombo(cbObrazProgramInEntry, ObrazProgramInEntryList, false, false);
             }
         }
-
         private void FillProfileInObrazProgramInEntry()
         {
             using (PriemEntities context = new PriemEntities())

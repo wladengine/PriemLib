@@ -61,6 +61,10 @@ namespace PriemLib
                         acrFlds.SetField("LastName", person.SecondName);
 
                         acrFlds.SetField("Faculty", person.HostelFacultyAcr);
+
+                        var abit = context.extAbit.Where(x => x.PersonId == person.Id).First();
+                        acrFlds.SetField("StudyLevel", abit.StudyLevelName);
+                        
                         acrFlds.SetField("Nationality", person.NationalityName);
                         acrFlds.SetField("Country", person.CountryName);
 
@@ -2766,5 +2770,8 @@ namespace PriemLib
 
         public int StudyFormId { get; set; }
         public int StudyBasisId { get; set; }
+
+        public bool IsCrimea { get; set; }
+        public bool IsForeign { get; set; }
     }
 }

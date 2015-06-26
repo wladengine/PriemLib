@@ -70,12 +70,10 @@ namespace PriemLib
         {
             FillAfterOlympSubject();
         }
-
         void cbOlympName_SelectedIndexChanged(object sender, EventArgs e)
         {
             FillAfterOlympName();
         }
-
         void cbOlympType_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateAfterType();
@@ -83,42 +81,35 @@ namespace PriemLib
 
         private void UpdateAfterType()
         {
-            if (OlympTypeId == 1 || OlympTypeId == 2)
+            using (PriemEntities context = new PriemEntities())
             {
-                ComboServ.FillCombo(cbOlympName, new List<KeyValuePair<string, string>>(), true, false);
-                cbOlympName.SelectedIndex = 0;
-                cbOlympName.Enabled = false;
-                                
-                ComboServ.FillCombo(cbOlympSubject, HelpClass.GetComboListByTable("ed.OlympSubject"), false, false);
-                //cbOlympSubject.SelectedIndex = 0;
-                cbOlympSubject.Enabled = true;
+                List<KeyValuePair<string, string>> lst =
+                    ((from ob in context.extOlympBook
+                      where ob.OlympTypeId == OlympTypeId
+                      select new
+                      {
+                          Id = ob.OlympNameId,
+                          Name = ob.OlympNameName
+                      })
+                      .Distinct())
+                      .ToList()
+                      .Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name))
+                      .ToList();
 
-                ComboServ.FillCombo(cbOlympLevel, new List<KeyValuePair<string, string>>(), true, false); 
-                cbOlympLevel.SelectedIndex = 0;
+                cbOlympName.Enabled = true;
+                ComboServ.FillCombo(cbOlympName, lst, false, false);
+                cbOlympName.SelectedIndex = 0;
+
+                FillAfterOlympName();
+                FillAfterOlympSubject();
+            }
+
+            if (OlympTypeId == 1 || OlympTypeId == 2 || OlympTypeId == 7)
+            {
+                cbOlympName.Enabled = false;
                 cbOlympLevel.Enabled = false;
             }
-            else
-            {   
-                using(PriemEntities context = new PriemEntities())
-                {                    
-                    List<KeyValuePair<string, string>> lst = ((from ob in context.extOlympBook
-                                                             where ob.OlympTypeId == OlympTypeId
-                                                             select new
-                                                             {
-                                                                 Id = ob.OlympNameId,
-                                                                 Name = ob.OlympNameName
-                                                             }).Distinct()).ToList().Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name)).ToList();
-
-                    cbOlympName.Enabled = true;
-                    ComboServ.FillCombo(cbOlympName, lst, false, false);
-                    cbOlympName.SelectedIndex = 0;
-
-                    FillAfterOlympName();
-                    FillAfterOlympSubject();
-                }
-            }
         }
-
         private void FillAfterOlympName()
         {
             using (PriemEntities context = new PriemEntities())
@@ -126,44 +117,26 @@ namespace PriemLib
                 if (!OlympTypeId.HasValue)
                     return;
 
-                if (OlympTypeId == 1 || OlympTypeId == 2)
-                {
-                    ComboServ.FillCombo(cbOlympSubject, HelpClass.GetComboListByTable("ed.OlympSubject"), false, false);
-                    //cbOlympSubject.SelectedIndex = 0;
-                    cbOlympSubject.Enabled = true;
-                }
-                else
-                {
-                    List<KeyValuePair<string, string>> lst =
-                        ((from ob in context.extOlympBook
-                          where ob.OlympTypeId == OlympTypeId && ob.OlympNameId == OlympNameId
-                          select new
-                          {
-                              Id = ob.OlympSubjectId,
-                              Name = ob.OlympSubjectName
-                          }).Distinct()).ToList().Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name)).ToList();
+                List<KeyValuePair<string, string>> lst =
+                    ((from ob in context.extOlympBook
+                      where ob.OlympTypeId == OlympTypeId && ob.OlympNameId == OlympNameId
+                      select new
+                      {
+                          Id = ob.OlympSubjectId,
+                          Name = ob.OlympSubjectName
+                      }).Distinct()).ToList().Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name)).ToList();
 
-                    cbOlympSubject.Enabled = true;
-                    ComboServ.FillCombo(cbOlympSubject, lst, false, false);
-                    cbOlympSubject.SelectedIndex = 0;
-                }
+                cbOlympSubject.Enabled = true;
+                ComboServ.FillCombo(cbOlympSubject, lst, false, false);
+                cbOlympSubject.SelectedIndex = 0;
             }
         }
-        
         private void FillAfterOlympSubject()
         {
             using (PriemEntities context = new PriemEntities())
             {
 
-                if (OlympTypeId == 1 || OlympTypeId == 2)
-                {
-                    ComboServ.FillCombo(cbOlympLevel, new List<KeyValuePair<string, string>>(), true, false);
-                    cbOlympLevel.SelectedIndex = 0;
-                    cbOlympLevel.Enabled = false;
-                }
-                else
-                {
-                    List<KeyValuePair<string, string>> lst =
+                List<KeyValuePair<string, string>> lst =
                         ((from ob in context.extOlympBook
                           where ob.OlympTypeId == OlympTypeId && ob.OlympNameId == OlympNameId && ob.OlympSubjectId == OlympSubjectId
                           select new
@@ -172,9 +145,13 @@ namespace PriemLib
                               Name = ob.OlympLevelName
                           }).Distinct()).ToList().Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name)).ToList();
 
-                    cbOlympLevel.Enabled = true;
-                    ComboServ.FillCombo(cbOlympLevel, lst, false, false);
-                    cbOlympLevel.SelectedIndex = 0;
+                cbOlympLevel.Enabled = true;
+                ComboServ.FillCombo(cbOlympLevel, lst, false, false);
+                cbOlympLevel.SelectedIndex = 0;
+
+                if (OlympTypeId == 1 || OlympTypeId == 2 || OlympTypeId == 7)
+                {
+                    cbOlympLevel.Enabled = false;
                 }
             }
         }

@@ -28,7 +28,7 @@ namespace PriemLib
             {
                 List<KeyValuePair<string, string>> lst =
                     (from x in context.qEntry
-                     where x.StudyLevelGroupId == 1
+                     where x.StudyLevelGroupId == 1 && !x.IsForeign && !x.IsCrimea
                      select new { x.FacultyId, x.FacultyName }
                      ).Distinct().ToList().Select(x => new KeyValuePair<string, string>(x.FacultyId.ToString(), x.FacultyName)).Distinct().ToList();
                 ComboServ.FillCombo(cbFaculty, lst, false, false);
@@ -40,7 +40,7 @@ namespace PriemLib
             {
                 List<KeyValuePair<string, string>> lst =
                     (from x in context.qEntry
-                     where x.StudyLevelGroupId == 1 && x.FacultyId == FacultyId
+                     where x.StudyLevelGroupId == 1 && x.FacultyId == FacultyId && !x.IsForeign && !x.IsCrimea
                      select new { x.LicenseProgramId, x.LicenseProgramCode, x.LicenseProgramName }
                      ).Distinct().ToList().Select(x => new KeyValuePair<string, string>(x.LicenseProgramId.ToString(), x.LicenseProgramCode + " " + x.LicenseProgramName)).Distinct().ToList();
                 ComboServ.FillCombo(cbLicenseProgram, lst, false, true);
@@ -51,7 +51,7 @@ namespace PriemLib
             using (PriemEntities context = new PriemEntities())
             {
                 var OP = from x in context.qEntry
-                         where x.StudyLevelGroupId == 1 && x.FacultyId == FacultyId
+                         where x.StudyLevelGroupId == 1 && x.FacultyId == FacultyId && !x.IsForeign && !x.IsCrimea
                          select new { x.LicenseProgramId, x.ObrazProgramId, x.ObrazProgramName };
                 if (LicenseProgramId != null)
                     OP = OP.Where(x => x.LicenseProgramId == LicenseProgramId);
@@ -66,7 +66,7 @@ namespace PriemLib
             using (PriemEntities context = new PriemEntities())
             {
                 var Prof = from x in context.qEntry
-                           where x.StudyLevelGroupId == 1 && x.FacultyId == FacultyId && x.ProfileId != null
+                           where x.StudyLevelGroupId == 1 && x.FacultyId == FacultyId && !x.IsForeign && !x.IsCrimea
                            select new { x.LicenseProgramId, x.ObrazProgramId, x.ProfileId, x.ProfileName };
                 if (LicenseProgramId != null)
                     Prof = Prof.Where(x => x.LicenseProgramId == LicenseProgramId);
@@ -83,7 +83,7 @@ namespace PriemLib
             using (PriemEntities context = new PriemEntities())
             {
                 var SF = from x in context.qEntry
-                         where x.StudyLevelGroupId == 1 && x.FacultyId == FacultyId
+                         where x.StudyLevelGroupId == 1 && x.FacultyId == FacultyId && !x.IsForeign && !x.IsCrimea
                          select new { x.LicenseProgramId, x.ObrazProgramId, x.ProfileId, x.StudyFormId, x.StudyFormName };
                 if (LicenseProgramId != null)
                     SF = SF.Where(x => x.LicenseProgramId == LicenseProgramId);
@@ -102,7 +102,7 @@ namespace PriemLib
             using (PriemEntities context = new PriemEntities())
             {
                 var SB = from x in context.qEntry
-                         where x.StudyLevelGroupId == 1 && x.FacultyId == FacultyId
+                         where x.StudyLevelGroupId == 1 && x.FacultyId == FacultyId && !x.IsForeign && !x.IsCrimea
                          select new { x.LicenseProgramId, x.ObrazProgramId, x.ProfileId, x.StudyFormId, x.StudyBasisId, x.StudyBasisName };
                 if (LicenseProgramId != null)
                     SB = SB.Where(x => x.LicenseProgramId == LicenseProgramId);
@@ -126,7 +126,7 @@ namespace PriemLib
                 //стартовый микро-запрос количества людей по фильтру
                 string query = @"SELECT COUNT(DISTINCT extAbit.PersonId)
 FROM ed.extAbit
-WHERE extAbit.StudyLevelGroupId=1 AND FacultyId=" + FacultyId.ToString() + " ";
+WHERE extAbit.StudyLevelGroupId=1 AND IsForeign=0 AND IsCrimea=0 AND FacultyId=" + FacultyId.ToString() + " ";
                 string where = "";
                 if (LicenseProgramId != null)
                     where += " AND extAbit.LicenseProgramId=" + LicenseProgramId.ToString();
@@ -159,7 +159,7 @@ INNER JOIN ed.extExamInEntry ON extExamInEntry.EntryId = extAbit.EntryId
 INNER JOIN ed.EgeToExam ON EgeToExam.ExamId = extExamInEntry.ExamId
 INNER JOIN ed.EgeExamName ON EgeExamName.Id = EgeToExam.EgeExamNameId
 INNER JOIN ed.hlpStatMaxApprovedEgeMarks ON hlpStatMaxApprovedEgeMarks.PersonId = extAbit.PersonId AND hlpStatMaxApprovedEgeMarks.EgeExamNameId = EgeExamName.Id
-WHERE extAbit.StudyLevelGroupId=1  AND extAbit.FacultyId=" + FacultyId.ToString() + " ";
+WHERE extAbit.StudyLevelGroupId=1 AND IsForeign=0 AND IsCrimea=0 AND extAbit.FacultyId=" + FacultyId.ToString() + " ";
                 where = "";
                 if (LicenseProgramId != null)
                     where += " AND extAbit.LicenseProgramId=" + LicenseProgramId.ToString();
@@ -186,7 +186,7 @@ WHERE extAbit.StudyLevelGroupId=1  AND extAbit.FacultyId=" + FacultyId.ToString(
                 query = @"
                 SELECT PersonId, (case when extAbit.CompetitionId IN (1,2,7,8) then 1 else 0 end) AS VK 
                 FROM ed.extAbit
-                WHERE extAbit.StudyLevelGroupId=1 AND extAbit.BackDoc=0
+                WHERE extAbit.StudyLevelGroupId=1 AND extAbit.BackDoc=0 AND IsForeign=0 AND IsCrimea=0
                 AND extAbit.FacultyId=" + FacultyId.ToString() + " ";
                 where = "";
                 if (LicenseProgramId != null)
@@ -261,7 +261,7 @@ INNER JOIN ed.EgeExamName ON EgeExamName.Id = EgeToExam.EgeExamNameId";
                     wc.PerformStep();
                 }
 
-                query = "SELECT SUM(KCP) FROM ed.qEntry WHERE StudyLevelGroupId=1 AND FacultyId=" + FacultyId.ToString() + " ";
+                query = "SELECT SUM(KCP) FROM ed.qEntry WHERE StudyLevelGroupId=1 AND IsForeign=0 AND IsCrimea=0 AND FacultyId=" + FacultyId.ToString() + " ";
                 where = "";
                 if (LicenseProgramId != null)
                     where += " AND LicenseProgramId=" + LicenseProgramId.ToString();

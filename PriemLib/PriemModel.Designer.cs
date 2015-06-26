@@ -117,6 +117,8 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Mark_PersonAchievement", "PersonAchievement", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.PersonAchievement), "Mark", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Mark), true)]
 [assembly: EdmRelationshipAttribute("Priem2012Model", "FK_EntryToCompetitiveGroup_CompetitiveGroup", "CompetitiveGroup", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.CompetitiveGroup), "EntryToCompetitiveGroup", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.EntryToCompetitiveGroup), true)]
 [assembly: EdmRelationshipAttribute("Priem2012Model", "FK_EntryToCompetitiveGroup_Entry", "Entry", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Entry), "EntryToCompetitiveGroup", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.EntryToCompetitiveGroup), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_PersonOtherPassport_PassportType", "PassportType", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.PassportType), "PersonOtherPassport", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.PersonOtherPassport), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_PersonOtherPassport_Person", "Person", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Person), "PersonOtherPassport", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.PersonOtherPassport), true)]
 
 #endregion
 
@@ -2279,6 +2281,22 @@ namespace PriemLib
             }
         }
         private ObjectSet<EntryToCompetitiveGroup> _EntryToCompetitiveGroup;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<PersonOtherPassport> PersonOtherPassport
+        {
+            get
+            {
+                if ((_PersonOtherPassport == null))
+                {
+                    _PersonOtherPassport = base.CreateObjectSet<PersonOtherPassport>("PersonOtherPassport");
+                }
+                return _PersonOtherPassport;
+            }
+        }
+        private ObjectSet<PersonOtherPassport> _PersonOtherPassport;
 
         #endregion
 
@@ -3338,6 +3356,14 @@ namespace PriemLib
         public void AddToEntryToCompetitiveGroup(EntryToCompetitiveGroup entryToCompetitiveGroup)
         {
             base.AddObject("EntryToCompetitiveGroup", entryToCompetitiveGroup);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the PersonOtherPassport EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToPersonOtherPassport(PersonOtherPassport personOtherPassport)
+        {
+            base.AddObject("PersonOtherPassport", personOtherPassport);
         }
 
         #endregion
@@ -13248,6 +13274,782 @@ namespace PriemLib
     
             return base.ExecuteFunction("Protocol_ClearHistory", protocolIdParameter);
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="personId">No Metadata Documentation available.</param>
+        /// <param name="isExcellent">No Metadata Documentation available.</param>
+        /// <param name="schoolCity">No Metadata Documentation available.</param>
+        /// <param name="schoolTypeId">No Metadata Documentation available.</param>
+        /// <param name="schoolName">No Metadata Documentation available.</param>
+        /// <param name="schoolNum">No Metadata Documentation available.</param>
+        /// <param name="schoolExitYear">No Metadata Documentation available.</param>
+        /// <param name="schoolAVG">No Metadata Documentation available.</param>
+        /// <param name="foreignCountryEducId">No Metadata Documentation available.</param>
+        /// <param name="regionEducId">No Metadata Documentation available.</param>
+        /// <param name="isEqual">No Metadata Documentation available.</param>
+        /// <param name="attestatSeries">No Metadata Documentation available.</param>
+        /// <param name="attestatNum">No Metadata Documentation available.</param>
+        /// <param name="diplomSeries">No Metadata Documentation available.</param>
+        /// <param name="diplomNum">No Metadata Documentation available.</param>
+        /// <param name="highEducation">No Metadata Documentation available.</param>
+        /// <param name="hEProfession">No Metadata Documentation available.</param>
+        /// <param name="hEQualification">No Metadata Documentation available.</param>
+        /// <param name="hEEntryYear">No Metadata Documentation available.</param>
+        /// <param name="hEExitYear">No Metadata Documentation available.</param>
+        /// <param name="hEStudyFormId">No Metadata Documentation available.</param>
+        /// <param name="hEWork">No Metadata Documentation available.</param>
+        /// <param name="id">No Metadata Documentation available.</param>
+        public int Person_EducationInfo_insertForeign(Nullable<global::System.Guid> personId, Nullable<global::System.Boolean> isExcellent, global::System.String schoolCity, Nullable<global::System.Int32> schoolTypeId, global::System.String schoolName, global::System.String schoolNum, Nullable<global::System.Int32> schoolExitYear, Nullable<global::System.Double> schoolAVG, Nullable<global::System.Int32> foreignCountryEducId, Nullable<global::System.Int32> regionEducId, Nullable<global::System.Boolean> isEqual, global::System.String attestatSeries, global::System.String attestatNum, global::System.String diplomSeries, global::System.String diplomNum, global::System.String highEducation, global::System.String hEProfession, global::System.String hEQualification, Nullable<global::System.Int32> hEEntryYear, Nullable<global::System.Int32> hEExitYear, Nullable<global::System.Int32> hEStudyFormId, global::System.String hEWork, ObjectParameter id)
+        {
+            ObjectParameter personIdParameter;
+            if (personId.HasValue)
+            {
+                personIdParameter = new ObjectParameter("PersonId", personId);
+            }
+            else
+            {
+                personIdParameter = new ObjectParameter("PersonId", typeof(global::System.Guid));
+            }
+    
+            ObjectParameter isExcellentParameter;
+            if (isExcellent.HasValue)
+            {
+                isExcellentParameter = new ObjectParameter("IsExcellent", isExcellent);
+            }
+            else
+            {
+                isExcellentParameter = new ObjectParameter("IsExcellent", typeof(global::System.Boolean));
+            }
+    
+            ObjectParameter schoolCityParameter;
+            if (schoolCity != null)
+            {
+                schoolCityParameter = new ObjectParameter("SchoolCity", schoolCity);
+            }
+            else
+            {
+                schoolCityParameter = new ObjectParameter("SchoolCity", typeof(global::System.String));
+            }
+    
+            ObjectParameter schoolTypeIdParameter;
+            if (schoolTypeId.HasValue)
+            {
+                schoolTypeIdParameter = new ObjectParameter("SchoolTypeId", schoolTypeId);
+            }
+            else
+            {
+                schoolTypeIdParameter = new ObjectParameter("SchoolTypeId", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter schoolNameParameter;
+            if (schoolName != null)
+            {
+                schoolNameParameter = new ObjectParameter("SchoolName", schoolName);
+            }
+            else
+            {
+                schoolNameParameter = new ObjectParameter("SchoolName", typeof(global::System.String));
+            }
+    
+            ObjectParameter schoolNumParameter;
+            if (schoolNum != null)
+            {
+                schoolNumParameter = new ObjectParameter("SchoolNum", schoolNum);
+            }
+            else
+            {
+                schoolNumParameter = new ObjectParameter("SchoolNum", typeof(global::System.String));
+            }
+    
+            ObjectParameter schoolExitYearParameter;
+            if (schoolExitYear.HasValue)
+            {
+                schoolExitYearParameter = new ObjectParameter("SchoolExitYear", schoolExitYear);
+            }
+            else
+            {
+                schoolExitYearParameter = new ObjectParameter("SchoolExitYear", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter schoolAVGParameter;
+            if (schoolAVG.HasValue)
+            {
+                schoolAVGParameter = new ObjectParameter("SchoolAVG", schoolAVG);
+            }
+            else
+            {
+                schoolAVGParameter = new ObjectParameter("SchoolAVG", typeof(global::System.Double));
+            }
+    
+            ObjectParameter foreignCountryEducIdParameter;
+            if (foreignCountryEducId.HasValue)
+            {
+                foreignCountryEducIdParameter = new ObjectParameter("ForeignCountryEducId", foreignCountryEducId);
+            }
+            else
+            {
+                foreignCountryEducIdParameter = new ObjectParameter("ForeignCountryEducId", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter regionEducIdParameter;
+            if (regionEducId.HasValue)
+            {
+                regionEducIdParameter = new ObjectParameter("RegionEducId", regionEducId);
+            }
+            else
+            {
+                regionEducIdParameter = new ObjectParameter("RegionEducId", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter isEqualParameter;
+            if (isEqual.HasValue)
+            {
+                isEqualParameter = new ObjectParameter("IsEqual", isEqual);
+            }
+            else
+            {
+                isEqualParameter = new ObjectParameter("IsEqual", typeof(global::System.Boolean));
+            }
+    
+            ObjectParameter attestatSeriesParameter;
+            if (attestatSeries != null)
+            {
+                attestatSeriesParameter = new ObjectParameter("AttestatSeries", attestatSeries);
+            }
+            else
+            {
+                attestatSeriesParameter = new ObjectParameter("AttestatSeries", typeof(global::System.String));
+            }
+    
+            ObjectParameter attestatNumParameter;
+            if (attestatNum != null)
+            {
+                attestatNumParameter = new ObjectParameter("AttestatNum", attestatNum);
+            }
+            else
+            {
+                attestatNumParameter = new ObjectParameter("AttestatNum", typeof(global::System.String));
+            }
+    
+            ObjectParameter diplomSeriesParameter;
+            if (diplomSeries != null)
+            {
+                diplomSeriesParameter = new ObjectParameter("DiplomSeries", diplomSeries);
+            }
+            else
+            {
+                diplomSeriesParameter = new ObjectParameter("DiplomSeries", typeof(global::System.String));
+            }
+    
+            ObjectParameter diplomNumParameter;
+            if (diplomNum != null)
+            {
+                diplomNumParameter = new ObjectParameter("DiplomNum", diplomNum);
+            }
+            else
+            {
+                diplomNumParameter = new ObjectParameter("DiplomNum", typeof(global::System.String));
+            }
+    
+            ObjectParameter highEducationParameter;
+            if (highEducation != null)
+            {
+                highEducationParameter = new ObjectParameter("HighEducation", highEducation);
+            }
+            else
+            {
+                highEducationParameter = new ObjectParameter("HighEducation", typeof(global::System.String));
+            }
+    
+            ObjectParameter hEProfessionParameter;
+            if (hEProfession != null)
+            {
+                hEProfessionParameter = new ObjectParameter("HEProfession", hEProfession);
+            }
+            else
+            {
+                hEProfessionParameter = new ObjectParameter("HEProfession", typeof(global::System.String));
+            }
+    
+            ObjectParameter hEQualificationParameter;
+            if (hEQualification != null)
+            {
+                hEQualificationParameter = new ObjectParameter("HEQualification", hEQualification);
+            }
+            else
+            {
+                hEQualificationParameter = new ObjectParameter("HEQualification", typeof(global::System.String));
+            }
+    
+            ObjectParameter hEEntryYearParameter;
+            if (hEEntryYear.HasValue)
+            {
+                hEEntryYearParameter = new ObjectParameter("HEEntryYear", hEEntryYear);
+            }
+            else
+            {
+                hEEntryYearParameter = new ObjectParameter("HEEntryYear", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter hEExitYearParameter;
+            if (hEExitYear.HasValue)
+            {
+                hEExitYearParameter = new ObjectParameter("HEExitYear", hEExitYear);
+            }
+            else
+            {
+                hEExitYearParameter = new ObjectParameter("HEExitYear", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter hEStudyFormIdParameter;
+            if (hEStudyFormId.HasValue)
+            {
+                hEStudyFormIdParameter = new ObjectParameter("HEStudyFormId", hEStudyFormId);
+            }
+            else
+            {
+                hEStudyFormIdParameter = new ObjectParameter("HEStudyFormId", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter hEWorkParameter;
+            if (hEWork != null)
+            {
+                hEWorkParameter = new ObjectParameter("HEWork", hEWork);
+            }
+            else
+            {
+                hEWorkParameter = new ObjectParameter("HEWork", typeof(global::System.String));
+            }
+    
+            return base.ExecuteFunction("Person_EducationInfo_insertForeign", personIdParameter, isExcellentParameter, schoolCityParameter, schoolTypeIdParameter, schoolNameParameter, schoolNumParameter, schoolExitYearParameter, schoolAVGParameter, foreignCountryEducIdParameter, regionEducIdParameter, isEqualParameter, attestatSeriesParameter, attestatNumParameter, diplomSeriesParameter, diplomNumParameter, highEducationParameter, hEProfessionParameter, hEQualificationParameter, hEEntryYearParameter, hEExitYearParameter, hEStudyFormIdParameter, hEWorkParameter, id);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="personId">No Metadata Documentation available.</param>
+        /// <param name="isExcellent">No Metadata Documentation available.</param>
+        /// <param name="schoolCity">No Metadata Documentation available.</param>
+        /// <param name="schoolTypeId">No Metadata Documentation available.</param>
+        /// <param name="schoolName">No Metadata Documentation available.</param>
+        /// <param name="schoolNum">No Metadata Documentation available.</param>
+        /// <param name="schoolExitYear">No Metadata Documentation available.</param>
+        /// <param name="schoolAVG">No Metadata Documentation available.</param>
+        /// <param name="foreignCountryEducId">No Metadata Documentation available.</param>
+        /// <param name="regionEducId">No Metadata Documentation available.</param>
+        /// <param name="isEqual">No Metadata Documentation available.</param>
+        /// <param name="attestatSeries">No Metadata Documentation available.</param>
+        /// <param name="attestatNum">No Metadata Documentation available.</param>
+        /// <param name="diplomSeries">No Metadata Documentation available.</param>
+        /// <param name="diplomNum">No Metadata Documentation available.</param>
+        /// <param name="highEducation">No Metadata Documentation available.</param>
+        /// <param name="hEProfession">No Metadata Documentation available.</param>
+        /// <param name="hEQualification">No Metadata Documentation available.</param>
+        /// <param name="hEEntryYear">No Metadata Documentation available.</param>
+        /// <param name="hEExitYear">No Metadata Documentation available.</param>
+        /// <param name="hEStudyFormId">No Metadata Documentation available.</param>
+        /// <param name="hEWork">No Metadata Documentation available.</param>
+        /// <param name="id">No Metadata Documentation available.</param>
+        public int Person_EducationInfo_updateForeign(Nullable<global::System.Guid> personId, Nullable<global::System.Boolean> isExcellent, global::System.String schoolCity, Nullable<global::System.Int32> schoolTypeId, global::System.String schoolName, global::System.String schoolNum, Nullable<global::System.Int32> schoolExitYear, Nullable<global::System.Double> schoolAVG, Nullable<global::System.Int32> foreignCountryEducId, Nullable<global::System.Int32> regionEducId, Nullable<global::System.Boolean> isEqual, global::System.String attestatSeries, global::System.String attestatNum, global::System.String diplomSeries, global::System.String diplomNum, global::System.String highEducation, global::System.String hEProfession, global::System.String hEQualification, Nullable<global::System.Int32> hEEntryYear, Nullable<global::System.Int32> hEExitYear, Nullable<global::System.Int32> hEStudyFormId, global::System.String hEWork, Nullable<global::System.Int32> id)
+        {
+            ObjectParameter personIdParameter;
+            if (personId.HasValue)
+            {
+                personIdParameter = new ObjectParameter("PersonId", personId);
+            }
+            else
+            {
+                personIdParameter = new ObjectParameter("PersonId", typeof(global::System.Guid));
+            }
+    
+            ObjectParameter isExcellentParameter;
+            if (isExcellent.HasValue)
+            {
+                isExcellentParameter = new ObjectParameter("IsExcellent", isExcellent);
+            }
+            else
+            {
+                isExcellentParameter = new ObjectParameter("IsExcellent", typeof(global::System.Boolean));
+            }
+    
+            ObjectParameter schoolCityParameter;
+            if (schoolCity != null)
+            {
+                schoolCityParameter = new ObjectParameter("SchoolCity", schoolCity);
+            }
+            else
+            {
+                schoolCityParameter = new ObjectParameter("SchoolCity", typeof(global::System.String));
+            }
+    
+            ObjectParameter schoolTypeIdParameter;
+            if (schoolTypeId.HasValue)
+            {
+                schoolTypeIdParameter = new ObjectParameter("SchoolTypeId", schoolTypeId);
+            }
+            else
+            {
+                schoolTypeIdParameter = new ObjectParameter("SchoolTypeId", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter schoolNameParameter;
+            if (schoolName != null)
+            {
+                schoolNameParameter = new ObjectParameter("SchoolName", schoolName);
+            }
+            else
+            {
+                schoolNameParameter = new ObjectParameter("SchoolName", typeof(global::System.String));
+            }
+    
+            ObjectParameter schoolNumParameter;
+            if (schoolNum != null)
+            {
+                schoolNumParameter = new ObjectParameter("SchoolNum", schoolNum);
+            }
+            else
+            {
+                schoolNumParameter = new ObjectParameter("SchoolNum", typeof(global::System.String));
+            }
+    
+            ObjectParameter schoolExitYearParameter;
+            if (schoolExitYear.HasValue)
+            {
+                schoolExitYearParameter = new ObjectParameter("SchoolExitYear", schoolExitYear);
+            }
+            else
+            {
+                schoolExitYearParameter = new ObjectParameter("SchoolExitYear", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter schoolAVGParameter;
+            if (schoolAVG.HasValue)
+            {
+                schoolAVGParameter = new ObjectParameter("SchoolAVG", schoolAVG);
+            }
+            else
+            {
+                schoolAVGParameter = new ObjectParameter("SchoolAVG", typeof(global::System.Double));
+            }
+    
+            ObjectParameter foreignCountryEducIdParameter;
+            if (foreignCountryEducId.HasValue)
+            {
+                foreignCountryEducIdParameter = new ObjectParameter("ForeignCountryEducId", foreignCountryEducId);
+            }
+            else
+            {
+                foreignCountryEducIdParameter = new ObjectParameter("ForeignCountryEducId", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter regionEducIdParameter;
+            if (regionEducId.HasValue)
+            {
+                regionEducIdParameter = new ObjectParameter("RegionEducId", regionEducId);
+            }
+            else
+            {
+                regionEducIdParameter = new ObjectParameter("RegionEducId", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter isEqualParameter;
+            if (isEqual.HasValue)
+            {
+                isEqualParameter = new ObjectParameter("IsEqual", isEqual);
+            }
+            else
+            {
+                isEqualParameter = new ObjectParameter("IsEqual", typeof(global::System.Boolean));
+            }
+    
+            ObjectParameter attestatSeriesParameter;
+            if (attestatSeries != null)
+            {
+                attestatSeriesParameter = new ObjectParameter("AttestatSeries", attestatSeries);
+            }
+            else
+            {
+                attestatSeriesParameter = new ObjectParameter("AttestatSeries", typeof(global::System.String));
+            }
+    
+            ObjectParameter attestatNumParameter;
+            if (attestatNum != null)
+            {
+                attestatNumParameter = new ObjectParameter("AttestatNum", attestatNum);
+            }
+            else
+            {
+                attestatNumParameter = new ObjectParameter("AttestatNum", typeof(global::System.String));
+            }
+    
+            ObjectParameter diplomSeriesParameter;
+            if (diplomSeries != null)
+            {
+                diplomSeriesParameter = new ObjectParameter("DiplomSeries", diplomSeries);
+            }
+            else
+            {
+                diplomSeriesParameter = new ObjectParameter("DiplomSeries", typeof(global::System.String));
+            }
+    
+            ObjectParameter diplomNumParameter;
+            if (diplomNum != null)
+            {
+                diplomNumParameter = new ObjectParameter("DiplomNum", diplomNum);
+            }
+            else
+            {
+                diplomNumParameter = new ObjectParameter("DiplomNum", typeof(global::System.String));
+            }
+    
+            ObjectParameter highEducationParameter;
+            if (highEducation != null)
+            {
+                highEducationParameter = new ObjectParameter("HighEducation", highEducation);
+            }
+            else
+            {
+                highEducationParameter = new ObjectParameter("HighEducation", typeof(global::System.String));
+            }
+    
+            ObjectParameter hEProfessionParameter;
+            if (hEProfession != null)
+            {
+                hEProfessionParameter = new ObjectParameter("HEProfession", hEProfession);
+            }
+            else
+            {
+                hEProfessionParameter = new ObjectParameter("HEProfession", typeof(global::System.String));
+            }
+    
+            ObjectParameter hEQualificationParameter;
+            if (hEQualification != null)
+            {
+                hEQualificationParameter = new ObjectParameter("HEQualification", hEQualification);
+            }
+            else
+            {
+                hEQualificationParameter = new ObjectParameter("HEQualification", typeof(global::System.String));
+            }
+    
+            ObjectParameter hEEntryYearParameter;
+            if (hEEntryYear.HasValue)
+            {
+                hEEntryYearParameter = new ObjectParameter("HEEntryYear", hEEntryYear);
+            }
+            else
+            {
+                hEEntryYearParameter = new ObjectParameter("HEEntryYear", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter hEExitYearParameter;
+            if (hEExitYear.HasValue)
+            {
+                hEExitYearParameter = new ObjectParameter("HEExitYear", hEExitYear);
+            }
+            else
+            {
+                hEExitYearParameter = new ObjectParameter("HEExitYear", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter hEStudyFormIdParameter;
+            if (hEStudyFormId.HasValue)
+            {
+                hEStudyFormIdParameter = new ObjectParameter("HEStudyFormId", hEStudyFormId);
+            }
+            else
+            {
+                hEStudyFormIdParameter = new ObjectParameter("HEStudyFormId", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter hEWorkParameter;
+            if (hEWork != null)
+            {
+                hEWorkParameter = new ObjectParameter("HEWork", hEWork);
+            }
+            else
+            {
+                hEWorkParameter = new ObjectParameter("HEWork", typeof(global::System.String));
+            }
+    
+            ObjectParameter idParameter;
+            if (id.HasValue)
+            {
+                idParameter = new ObjectParameter("id", id);
+            }
+            else
+            {
+                idParameter = new ObjectParameter("id", typeof(global::System.Int32));
+            }
+    
+            return base.ExecuteFunction("Person_EducationInfo_updateForeign", personIdParameter, isExcellentParameter, schoolCityParameter, schoolTypeIdParameter, schoolNameParameter, schoolNumParameter, schoolExitYearParameter, schoolAVGParameter, foreignCountryEducIdParameter, regionEducIdParameter, isEqualParameter, attestatSeriesParameter, attestatNumParameter, diplomSeriesParameter, diplomNumParameter, highEducationParameter, hEProfessionParameter, hEQualificationParameter, hEEntryYearParameter, hEExitYearParameter, hEStudyFormIdParameter, hEWorkParameter, idParameter);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="id">No Metadata Documentation available.</param>
+        public int PersonOtherPassport_delete(Nullable<global::System.Int32> id)
+        {
+            ObjectParameter idParameter;
+            if (id.HasValue)
+            {
+                idParameter = new ObjectParameter("Id", id);
+            }
+            else
+            {
+                idParameter = new ObjectParameter("Id", typeof(global::System.Int32));
+            }
+    
+            return base.ExecuteFunction("PersonOtherPassport_delete", idParameter);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="personId">No Metadata Documentation available.</param>
+        /// <param name="passportTypeId">No Metadata Documentation available.</param>
+        /// <param name="passportSeries">No Metadata Documentation available.</param>
+        /// <param name="passportNumber">No Metadata Documentation available.</param>
+        /// <param name="surname">No Metadata Documentation available.</param>
+        /// <param name="name">No Metadata Documentation available.</param>
+        /// <param name="secondName">No Metadata Documentation available.</param>
+        /// <param name="passportDate">No Metadata Documentation available.</param>
+        /// <param name="id">No Metadata Documentation available.</param>
+        public int PersonOtherPassport_insert(Nullable<global::System.Guid> personId, Nullable<global::System.Int32> passportTypeId, global::System.String passportSeries, global::System.String passportNumber, global::System.String surname, global::System.String name, global::System.String secondName, Nullable<global::System.DateTime> passportDate, ObjectParameter id)
+        {
+            ObjectParameter personIdParameter;
+            if (personId.HasValue)
+            {
+                personIdParameter = new ObjectParameter("PersonId", personId);
+            }
+            else
+            {
+                personIdParameter = new ObjectParameter("PersonId", typeof(global::System.Guid));
+            }
+    
+            ObjectParameter passportTypeIdParameter;
+            if (passportTypeId.HasValue)
+            {
+                passportTypeIdParameter = new ObjectParameter("PassportTypeId", passportTypeId);
+            }
+            else
+            {
+                passportTypeIdParameter = new ObjectParameter("PassportTypeId", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter passportSeriesParameter;
+            if (passportSeries != null)
+            {
+                passportSeriesParameter = new ObjectParameter("PassportSeries", passportSeries);
+            }
+            else
+            {
+                passportSeriesParameter = new ObjectParameter("PassportSeries", typeof(global::System.String));
+            }
+    
+            ObjectParameter passportNumberParameter;
+            if (passportNumber != null)
+            {
+                passportNumberParameter = new ObjectParameter("PassportNumber", passportNumber);
+            }
+            else
+            {
+                passportNumberParameter = new ObjectParameter("PassportNumber", typeof(global::System.String));
+            }
+    
+            ObjectParameter surnameParameter;
+            if (surname != null)
+            {
+                surnameParameter = new ObjectParameter("Surname", surname);
+            }
+            else
+            {
+                surnameParameter = new ObjectParameter("Surname", typeof(global::System.String));
+            }
+    
+            ObjectParameter nameParameter;
+            if (name != null)
+            {
+                nameParameter = new ObjectParameter("Name", name);
+            }
+            else
+            {
+                nameParameter = new ObjectParameter("Name", typeof(global::System.String));
+            }
+    
+            ObjectParameter secondNameParameter;
+            if (secondName != null)
+            {
+                secondNameParameter = new ObjectParameter("SecondName", secondName);
+            }
+            else
+            {
+                secondNameParameter = new ObjectParameter("SecondName", typeof(global::System.String));
+            }
+    
+            ObjectParameter passportDateParameter;
+            if (passportDate.HasValue)
+            {
+                passportDateParameter = new ObjectParameter("PassportDate", passportDate);
+            }
+            else
+            {
+                passportDateParameter = new ObjectParameter("PassportDate", typeof(global::System.DateTime));
+            }
+    
+            return base.ExecuteFunction("PersonOtherPassport_insert", personIdParameter, passportTypeIdParameter, passportSeriesParameter, passportNumberParameter, surnameParameter, nameParameter, secondNameParameter, passportDateParameter, id);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="personId">No Metadata Documentation available.</param>
+        /// <param name="passportTypeId">No Metadata Documentation available.</param>
+        /// <param name="passportSeries">No Metadata Documentation available.</param>
+        /// <param name="passportNumber">No Metadata Documentation available.</param>
+        /// <param name="surname">No Metadata Documentation available.</param>
+        /// <param name="name">No Metadata Documentation available.</param>
+        /// <param name="secondName">No Metadata Documentation available.</param>
+        /// <param name="passportDate">No Metadata Documentation available.</param>
+        /// <param name="id">No Metadata Documentation available.</param>
+        public int PersonOtherPassport_update(Nullable<global::System.Guid> personId, Nullable<global::System.Int32> passportTypeId, global::System.String passportSeries, global::System.String passportNumber, global::System.String surname, global::System.String name, global::System.String secondName, Nullable<global::System.DateTime> passportDate, Nullable<global::System.Int32> id)
+        {
+            ObjectParameter personIdParameter;
+            if (personId.HasValue)
+            {
+                personIdParameter = new ObjectParameter("PersonId", personId);
+            }
+            else
+            {
+                personIdParameter = new ObjectParameter("PersonId", typeof(global::System.Guid));
+            }
+    
+            ObjectParameter passportTypeIdParameter;
+            if (passportTypeId.HasValue)
+            {
+                passportTypeIdParameter = new ObjectParameter("PassportTypeId", passportTypeId);
+            }
+            else
+            {
+                passportTypeIdParameter = new ObjectParameter("PassportTypeId", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter passportSeriesParameter;
+            if (passportSeries != null)
+            {
+                passportSeriesParameter = new ObjectParameter("PassportSeries", passportSeries);
+            }
+            else
+            {
+                passportSeriesParameter = new ObjectParameter("PassportSeries", typeof(global::System.String));
+            }
+    
+            ObjectParameter passportNumberParameter;
+            if (passportNumber != null)
+            {
+                passportNumberParameter = new ObjectParameter("PassportNumber", passportNumber);
+            }
+            else
+            {
+                passportNumberParameter = new ObjectParameter("PassportNumber", typeof(global::System.String));
+            }
+    
+            ObjectParameter surnameParameter;
+            if (surname != null)
+            {
+                surnameParameter = new ObjectParameter("Surname", surname);
+            }
+            else
+            {
+                surnameParameter = new ObjectParameter("Surname", typeof(global::System.String));
+            }
+    
+            ObjectParameter nameParameter;
+            if (name != null)
+            {
+                nameParameter = new ObjectParameter("Name", name);
+            }
+            else
+            {
+                nameParameter = new ObjectParameter("Name", typeof(global::System.String));
+            }
+    
+            ObjectParameter secondNameParameter;
+            if (secondName != null)
+            {
+                secondNameParameter = new ObjectParameter("SecondName", secondName);
+            }
+            else
+            {
+                secondNameParameter = new ObjectParameter("SecondName", typeof(global::System.String));
+            }
+    
+            ObjectParameter passportDateParameter;
+            if (passportDate.HasValue)
+            {
+                passportDateParameter = new ObjectParameter("PassportDate", passportDate);
+            }
+            else
+            {
+                passportDateParameter = new ObjectParameter("PassportDate", typeof(global::System.DateTime));
+            }
+    
+            ObjectParameter idParameter;
+            if (id.HasValue)
+            {
+                idParameter = new ObjectParameter("Id", id);
+            }
+            else
+            {
+                idParameter = new ObjectParameter("Id", typeof(global::System.Int32));
+            }
+    
+            return base.ExecuteFunction("PersonOtherPassport_update", personIdParameter, passportTypeIdParameter, passportSeriesParameter, passportNumberParameter, surnameParameter, nameParameter, secondNameParameter, passportDateParameter, idParameter);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="foreignCountryId">No Metadata Documentation available.</param>
+        /// <param name="foreignNationalityId">No Metadata Documentation available.</param>
+        /// <param name="id">No Metadata Documentation available.</param>
+        public int Person_UpdateForeignNationality(Nullable<global::System.Int32> foreignCountryId, Nullable<global::System.Int32> foreignNationalityId, Nullable<global::System.Guid> id)
+        {
+            ObjectParameter foreignCountryIdParameter;
+            if (foreignCountryId.HasValue)
+            {
+                foreignCountryIdParameter = new ObjectParameter("ForeignCountryId", foreignCountryId);
+            }
+            else
+            {
+                foreignCountryIdParameter = new ObjectParameter("ForeignCountryId", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter foreignNationalityIdParameter;
+            if (foreignNationalityId.HasValue)
+            {
+                foreignNationalityIdParameter = new ObjectParameter("ForeignNationalityId", foreignNationalityId);
+            }
+            else
+            {
+                foreignNationalityIdParameter = new ObjectParameter("ForeignNationalityId", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter idParameter;
+            if (id.HasValue)
+            {
+                idParameter = new ObjectParameter("id", id);
+            }
+            else
+            {
+                idParameter = new ObjectParameter("id", typeof(global::System.Guid));
+            }
+    
+            return base.ExecuteFunction("Person_UpdateForeignNationality", foreignCountryIdParameter, foreignNationalityIdParameter, idParameter);
+        }
 
         #endregion
 
@@ -13395,7 +14197,9 @@ namespace PriemLib
         /// <param name="withHE">Initial value of the WithHE property.</param>
         /// <param name="isOpen">Initial value of the IsOpen property.</param>
         /// <param name="isViewed">Initial value of the IsViewed property.</param>
-        public static Abiturient CreateAbiturient(global::System.Guid id, global::System.Guid personId, global::System.Guid entryId, global::System.Int32 competitionId, global::System.Boolean isListener, global::System.Boolean isPaid, global::System.Boolean backDoc, global::System.DateTime docDate, global::System.DateTime docInsertDate, global::System.Boolean @checked, global::System.Boolean notEnabled, global::System.Boolean compFromOlymp, global::System.Int32 languageId, global::System.Boolean hasOriginals, global::System.Boolean withHE, global::System.Boolean isOpen, global::System.Boolean isViewed)
+        /// <param name="author">Initial value of the Author property.</param>
+        /// <param name="dateCreated">Initial value of the DateCreated property.</param>
+        public static Abiturient CreateAbiturient(global::System.Guid id, global::System.Guid personId, global::System.Guid entryId, global::System.Int32 competitionId, global::System.Boolean isListener, global::System.Boolean isPaid, global::System.Boolean backDoc, global::System.DateTime docDate, global::System.DateTime docInsertDate, global::System.Boolean @checked, global::System.Boolean notEnabled, global::System.Boolean compFromOlymp, global::System.Int32 languageId, global::System.Boolean hasOriginals, global::System.Boolean withHE, global::System.Boolean isOpen, global::System.Boolean isViewed, global::System.String author, global::System.DateTime dateCreated)
         {
             Abiturient abiturient = new Abiturient();
             abiturient.Id = id;
@@ -13415,6 +14219,8 @@ namespace PriemLib
             abiturient.WithHE = withHE;
             abiturient.IsOpen = isOpen;
             abiturient.IsViewed = isViewed;
+            abiturient.Author = author;
+            abiturient.DateCreated = dateCreated;
             return abiturient;
         }
 
@@ -14264,6 +15070,54 @@ namespace PriemLib
         private Nullable<global::System.Guid> _InnerEntryInEntryId;
         partial void OnInnerEntryInEntryIdChanging(Nullable<global::System.Guid> value);
         partial void OnInnerEntryInEntryIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Author
+        {
+            get
+            {
+                return _Author;
+            }
+            set
+            {
+                OnAuthorChanging(value);
+                ReportPropertyChanging("Author");
+                _Author = StructuralObject.SetValidValue(value, false, "Author");
+                ReportPropertyChanged("Author");
+                OnAuthorChanged();
+            }
+        }
+        private global::System.String _Author;
+        partial void OnAuthorChanging(global::System.String value);
+        partial void OnAuthorChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime DateCreated
+        {
+            get
+            {
+                return _DateCreated;
+            }
+            set
+            {
+                OnDateCreatedChanging(value);
+                ReportPropertyChanging("DateCreated");
+                _DateCreated = StructuralObject.SetValidValue(value, "DateCreated");
+                ReportPropertyChanged("DateCreated");
+                OnDateCreatedChanged();
+            }
+        }
+        private global::System.DateTime _DateCreated;
+        partial void OnDateCreatedChanging(global::System.DateTime value);
+        partial void OnDateCreatedChanged();
 
         #endregion
 
@@ -15996,6 +16850,30 @@ namespace PriemLib
         private global::System.String _ParamValue;
         partial void OnParamValueChanging(global::System.String value);
         partial void OnParamValueChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Comment
+        {
+            get
+            {
+                return _Comment;
+            }
+            set
+            {
+                OnCommentChanging(value);
+                ReportPropertyChanging("Comment");
+                _Comment = StructuralObject.SetValidValue(value, true, "Comment");
+                ReportPropertyChanged("Comment");
+                OnCommentChanged();
+            }
+        }
+        private global::System.String _Comment;
+        partial void OnCommentChanging(global::System.String value);
+        partial void OnCommentChanged();
 
         #endregion
 
@@ -52095,6 +52973,28 @@ namespace PriemLib
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Priem2012Model", "FK_PersonOtherPassport_PassportType", "PersonOtherPassport")]
+        public EntityCollection<PersonOtherPassport> PersonOtherPassport
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<PersonOtherPassport>("Priem2012Model.FK_PersonOtherPassport_PassportType", "PersonOtherPassport");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<PersonOtherPassport>("Priem2012Model.FK_PersonOtherPassport_PassportType", "PersonOtherPassport", value);
+                }
+            }
+        }
 
         #endregion
 
@@ -53767,6 +54667,28 @@ namespace PriemLib
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<PersonAchievement>("Priem2012Model.FK_PersonAchievement_Person", "PersonAchievement", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Priem2012Model", "FK_PersonOtherPassport_Person", "PersonOtherPassport")]
+        public EntityCollection<PersonOtherPassport> PersonOtherPassport
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<PersonOtherPassport>("Priem2012Model.FK_PersonOtherPassport_Person", "PersonOtherPassport");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<PersonOtherPassport>("Priem2012Model.FK_PersonOtherPassport_Person", "PersonOtherPassport", value);
                 }
             }
         }
@@ -57418,6 +58340,390 @@ namespace PriemLib
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="Priem2012Model", Name="PersonOtherPassport")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class PersonOtherPassport : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new PersonOtherPassport object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="personId">Initial value of the PersonId property.</param>
+        /// <param name="passportTypeId">Initial value of the PassportTypeId property.</param>
+        /// <param name="passportNumber">Initial value of the PassportNumber property.</param>
+        /// <param name="isOpen">Initial value of the IsOpen property.</param>
+        public static PersonOtherPassport CreatePersonOtherPassport(global::System.Int32 id, global::System.Guid personId, global::System.Int32 passportTypeId, global::System.String passportNumber, global::System.Boolean isOpen)
+        {
+            PersonOtherPassport personOtherPassport = new PersonOtherPassport();
+            personOtherPassport.Id = id;
+            personOtherPassport.PersonId = personId;
+            personOtherPassport.PassportTypeId = passportTypeId;
+            personOtherPassport.PassportNumber = passportNumber;
+            personOtherPassport.IsOpen = isOpen;
+            return personOtherPassport;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value, "Id");
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid PersonId
+        {
+            get
+            {
+                return _PersonId;
+            }
+            set
+            {
+                OnPersonIdChanging(value);
+                ReportPropertyChanging("PersonId");
+                _PersonId = StructuralObject.SetValidValue(value, "PersonId");
+                ReportPropertyChanged("PersonId");
+                OnPersonIdChanged();
+            }
+        }
+        private global::System.Guid _PersonId;
+        partial void OnPersonIdChanging(global::System.Guid value);
+        partial void OnPersonIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 PassportTypeId
+        {
+            get
+            {
+                return _PassportTypeId;
+            }
+            set
+            {
+                OnPassportTypeIdChanging(value);
+                ReportPropertyChanging("PassportTypeId");
+                _PassportTypeId = StructuralObject.SetValidValue(value, "PassportTypeId");
+                ReportPropertyChanged("PassportTypeId");
+                OnPassportTypeIdChanged();
+            }
+        }
+        private global::System.Int32 _PassportTypeId;
+        partial void OnPassportTypeIdChanging(global::System.Int32 value);
+        partial void OnPassportTypeIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String PassportSeries
+        {
+            get
+            {
+                return _PassportSeries;
+            }
+            set
+            {
+                OnPassportSeriesChanging(value);
+                ReportPropertyChanging("PassportSeries");
+                _PassportSeries = StructuralObject.SetValidValue(value, true, "PassportSeries");
+                ReportPropertyChanged("PassportSeries");
+                OnPassportSeriesChanged();
+            }
+        }
+        private global::System.String _PassportSeries;
+        partial void OnPassportSeriesChanging(global::System.String value);
+        partial void OnPassportSeriesChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String PassportNumber
+        {
+            get
+            {
+                return _PassportNumber;
+            }
+            set
+            {
+                OnPassportNumberChanging(value);
+                ReportPropertyChanging("PassportNumber");
+                _PassportNumber = StructuralObject.SetValidValue(value, false, "PassportNumber");
+                ReportPropertyChanged("PassportNumber");
+                OnPassportNumberChanged();
+            }
+        }
+        private global::System.String _PassportNumber;
+        partial void OnPassportNumberChanging(global::System.String value);
+        partial void OnPassportNumberChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Surname
+        {
+            get
+            {
+                return _Surname;
+            }
+            set
+            {
+                OnSurnameChanging(value);
+                ReportPropertyChanging("Surname");
+                _Surname = StructuralObject.SetValidValue(value, true, "Surname");
+                ReportPropertyChanged("Surname");
+                OnSurnameChanged();
+            }
+        }
+        private global::System.String _Surname;
+        partial void OnSurnameChanging(global::System.String value);
+        partial void OnSurnameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Name
+        {
+            get
+            {
+                return _Name;
+            }
+            set
+            {
+                OnNameChanging(value);
+                ReportPropertyChanging("Name");
+                _Name = StructuralObject.SetValidValue(value, true, "Name");
+                ReportPropertyChanged("Name");
+                OnNameChanged();
+            }
+        }
+        private global::System.String _Name;
+        partial void OnNameChanging(global::System.String value);
+        partial void OnNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String SecondName
+        {
+            get
+            {
+                return _SecondName;
+            }
+            set
+            {
+                OnSecondNameChanging(value);
+                ReportPropertyChanging("SecondName");
+                _SecondName = StructuralObject.SetValidValue(value, true, "SecondName");
+                ReportPropertyChanged("SecondName");
+                OnSecondNameChanged();
+            }
+        }
+        private global::System.String _SecondName;
+        partial void OnSecondNameChanging(global::System.String value);
+        partial void OnSecondNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean IsOpen
+        {
+            get
+            {
+                return _IsOpen;
+            }
+            set
+            {
+                OnIsOpenChanging(value);
+                ReportPropertyChanging("IsOpen");
+                _IsOpen = StructuralObject.SetValidValue(value, "IsOpen");
+                ReportPropertyChanged("IsOpen");
+                OnIsOpenChanged();
+            }
+        }
+        private global::System.Boolean _IsOpen;
+        partial void OnIsOpenChanging(global::System.Boolean value);
+        partial void OnIsOpenChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Holder
+        {
+            get
+            {
+                return _Holder;
+            }
+            set
+            {
+                OnHolderChanging(value);
+                ReportPropertyChanging("Holder");
+                _Holder = StructuralObject.SetValidValue(value, true, "Holder");
+                ReportPropertyChanged("Holder");
+                OnHolderChanged();
+            }
+        }
+        private global::System.String _Holder;
+        partial void OnHolderChanging(global::System.String value);
+        partial void OnHolderChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> PassportDate
+        {
+            get
+            {
+                return _PassportDate;
+            }
+            set
+            {
+                OnPassportDateChanging(value);
+                ReportPropertyChanging("PassportDate");
+                _PassportDate = StructuralObject.SetValidValue(value, "PassportDate");
+                ReportPropertyChanged("PassportDate");
+                OnPassportDateChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _PassportDate;
+        partial void OnPassportDateChanging(Nullable<global::System.DateTime> value);
+        partial void OnPassportDateChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Priem2012Model", "FK_PersonOtherPassport_PassportType", "PassportType")]
+        public PassportType PassportType
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PassportType>("Priem2012Model.FK_PersonOtherPassport_PassportType", "PassportType").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PassportType>("Priem2012Model.FK_PersonOtherPassport_PassportType", "PassportType").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<PassportType> PassportTypeReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PassportType>("Priem2012Model.FK_PersonOtherPassport_PassportType", "PassportType");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<PassportType>("Priem2012Model.FK_PersonOtherPassport_PassportType", "PassportType", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Priem2012Model", "FK_PersonOtherPassport_Person", "Person")]
+        public Person Person
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Person>("Priem2012Model.FK_PersonOtherPassport_Person", "Person").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Person>("Priem2012Model.FK_PersonOtherPassport_Person", "Person").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Person> PersonReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Person>("Priem2012Model.FK_PersonOtherPassport_Person", "Person");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Person>("Priem2012Model.FK_PersonOtherPassport_Person", "Person", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="Priem2012Model", Name="PersonSportQualification")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -58737,6 +60043,7 @@ namespace PriemLib
         /// <param name="id">Initial value of the Id property.</param>
         /// <param name="personId">Initial value of the PersonId property.</param>
         /// <param name="entryId">Initial value of the EntryId property.</param>
+        /// <param name="competitionId">Initial value of the CompetitionId property.</param>
         /// <param name="isListener">Initial value of the IsListener property.</param>
         /// <param name="isPaid">Initial value of the IsPaid property.</param>
         /// <param name="backDoc">Initial value of the BackDoc property.</param>
@@ -58745,6 +60052,7 @@ namespace PriemLib
         /// <param name="checked">Initial value of the Checked property.</param>
         /// <param name="notEnabled">Initial value of the NotEnabled property.</param>
         /// <param name="compFromOlymp">Initial value of the CompFromOlymp property.</param>
+        /// <param name="languageId">Initial value of the LanguageId property.</param>
         /// <param name="hasOriginals">Initial value of the HasOriginals property.</param>
         /// <param name="facultyId">Initial value of the FacultyId property.</param>
         /// <param name="licenseProgramId">Initial value of the LicenseProgramId property.</param>
@@ -58764,12 +60072,16 @@ namespace PriemLib
         /// <param name="withHE">Initial value of the WithHE property.</param>
         /// <param name="isReduced">Initial value of the IsReduced property.</param>
         /// <param name="isParallel">Initial value of the IsParallel property.</param>
-        public static qAbitAll CreateqAbitAll(global::System.Guid id, global::System.Guid personId, global::System.Guid entryId, global::System.Boolean isListener, global::System.Boolean isPaid, global::System.Boolean backDoc, global::System.DateTime docDate, global::System.DateTime docInsertDate, global::System.Boolean @checked, global::System.Boolean notEnabled, global::System.Boolean compFromOlymp, global::System.Boolean hasOriginals, global::System.Int32 facultyId, global::System.Int32 licenseProgramId, global::System.String licenseProgramName, global::System.Int32 obrazProgramId, global::System.String obrazProgramName, global::System.Int32 profileId, global::System.Int32 studyBasisId, global::System.String studyBasisName, global::System.Int32 studyFormId, global::System.String studyFormName, global::System.Int32 studyLevelId, global::System.String studyLevelName, global::System.Guid studyPlanId, global::System.Boolean isSecond, global::System.Int32 studyLevelGroupId, global::System.Boolean withHE, global::System.Boolean isReduced, global::System.Boolean isParallel)
+        /// <param name="isViewed">Initial value of the IsViewed property.</param>
+        /// <param name="isForeign">Initial value of the IsForeign property.</param>
+        /// <param name="isCrimea">Initial value of the IsCrimea property.</param>
+        public static qAbitAll CreateqAbitAll(global::System.Guid id, global::System.Guid personId, global::System.Guid entryId, global::System.Int32 competitionId, global::System.Boolean isListener, global::System.Boolean isPaid, global::System.Boolean backDoc, global::System.DateTime docDate, global::System.DateTime docInsertDate, global::System.Boolean @checked, global::System.Boolean notEnabled, global::System.Boolean compFromOlymp, global::System.Int32 languageId, global::System.Boolean hasOriginals, global::System.Int32 facultyId, global::System.Int32 licenseProgramId, global::System.String licenseProgramName, global::System.Int32 obrazProgramId, global::System.String obrazProgramName, global::System.Int32 profileId, global::System.Int32 studyBasisId, global::System.String studyBasisName, global::System.Int32 studyFormId, global::System.String studyFormName, global::System.Int32 studyLevelId, global::System.String studyLevelName, global::System.Guid studyPlanId, global::System.Boolean isSecond, global::System.Int32 studyLevelGroupId, global::System.Boolean withHE, global::System.Boolean isReduced, global::System.Boolean isParallel, global::System.Boolean isViewed, global::System.Boolean isForeign, global::System.Boolean isCrimea)
         {
             qAbitAll qAbitAll = new qAbitAll();
             qAbitAll.Id = id;
             qAbitAll.PersonId = personId;
             qAbitAll.EntryId = entryId;
+            qAbitAll.CompetitionId = competitionId;
             qAbitAll.IsListener = isListener;
             qAbitAll.IsPaid = isPaid;
             qAbitAll.BackDoc = backDoc;
@@ -58778,6 +60090,7 @@ namespace PriemLib
             qAbitAll.Checked = @checked;
             qAbitAll.NotEnabled = notEnabled;
             qAbitAll.CompFromOlymp = compFromOlymp;
+            qAbitAll.LanguageId = languageId;
             qAbitAll.HasOriginals = hasOriginals;
             qAbitAll.FacultyId = facultyId;
             qAbitAll.LicenseProgramId = licenseProgramId;
@@ -58797,6 +60110,9 @@ namespace PriemLib
             qAbitAll.WithHE = withHE;
             qAbitAll.IsReduced = isReduced;
             qAbitAll.IsParallel = isParallel;
+            qAbitAll.IsViewed = isViewed;
+            qAbitAll.IsForeign = isForeign;
+            qAbitAll.IsCrimea = isCrimea;
             return qAbitAll;
         }
 
@@ -58906,9 +60222,9 @@ namespace PriemLib
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> CompetitionId
+        public global::System.Int32 CompetitionId
         {
             get
             {
@@ -58923,8 +60239,8 @@ namespace PriemLib
                 OnCompetitionIdChanged();
             }
         }
-        private Nullable<global::System.Int32> _CompetitionId;
-        partial void OnCompetitionIdChanging(Nullable<global::System.Int32> value);
+        private global::System.Int32 _CompetitionId;
+        partial void OnCompetitionIdChanging(global::System.Int32 value);
         partial void OnCompetitionIdChanged();
     
         /// <summary>
@@ -59284,9 +60600,9 @@ namespace PriemLib
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> LanguageId
+        public global::System.Int32 LanguageId
         {
             get
             {
@@ -59301,8 +60617,8 @@ namespace PriemLib
                 OnLanguageIdChanged();
             }
         }
-        private Nullable<global::System.Int32> _LanguageId;
-        partial void OnLanguageIdChanging(Nullable<global::System.Int32> value);
+        private global::System.Int32 _LanguageId;
+        partial void OnLanguageIdChanging(global::System.Int32 value);
         partial void OnLanguageIdChanged();
     
         /// <summary>
@@ -60264,6 +61580,87 @@ namespace PriemLib
         private global::System.String _Name;
         partial void OnNameChanging(global::System.String value);
         partial void OnNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean IsViewed
+        {
+            get
+            {
+                return _IsViewed;
+            }
+            set
+            {
+                if (_IsViewed != value)
+                {
+                    OnIsViewedChanging(value);
+                    ReportPropertyChanging("IsViewed");
+                    _IsViewed = StructuralObject.SetValidValue(value, "IsViewed");
+                    ReportPropertyChanged("IsViewed");
+                    OnIsViewedChanged();
+                }
+            }
+        }
+        private global::System.Boolean _IsViewed;
+        partial void OnIsViewedChanging(global::System.Boolean value);
+        partial void OnIsViewedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean IsForeign
+        {
+            get
+            {
+                return _IsForeign;
+            }
+            set
+            {
+                if (_IsForeign != value)
+                {
+                    OnIsForeignChanging(value);
+                    ReportPropertyChanging("IsForeign");
+                    _IsForeign = StructuralObject.SetValidValue(value, "IsForeign");
+                    ReportPropertyChanged("IsForeign");
+                    OnIsForeignChanged();
+                }
+            }
+        }
+        private global::System.Boolean _IsForeign;
+        partial void OnIsForeignChanging(global::System.Boolean value);
+        partial void OnIsForeignChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean IsCrimea
+        {
+            get
+            {
+                return _IsCrimea;
+            }
+            set
+            {
+                if (_IsCrimea != value)
+                {
+                    OnIsCrimeaChanging(value);
+                    ReportPropertyChanging("IsCrimea");
+                    _IsCrimea = StructuralObject.SetValidValue(value, "IsCrimea");
+                    ReportPropertyChanged("IsCrimea");
+                    OnIsCrimeaChanged();
+                }
+            }
+        }
+        private global::System.Boolean _IsCrimea;
+        partial void OnIsCrimeaChanging(global::System.Boolean value);
+        partial void OnIsCrimeaChanged();
 
         #endregion
 

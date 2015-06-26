@@ -67,6 +67,11 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tbKCPCel = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.dgvMinEgeMarkToCommonBenefit = new System.Windows.Forms.DataGridView();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.dgvOlympicsToCommonBenefit = new System.Windows.Forms.DataGridView();
             this.button1 = new System.Windows.Forms.Button();
@@ -91,17 +96,14 @@
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
             this.dgvInnerEntryInEntry = new System.Windows.Forms.DataGridView();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.dgvMinEgeMarkToCommonBenefit = new System.Windows.Forms.DataGridView();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.epError)).BeginInit();
             this.tcCard.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.gbEntry.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.groupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvMinEgeMarkToCommonBenefit)).BeginInit();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvOlympicsToCommonBenefit)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -110,8 +112,6 @@
             this.groupBox1.SuspendLayout();
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvInnerEntryInEntry)).BeginInit();
-            this.groupBox5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvMinEgeMarkToCommonBenefit)).BeginInit();
             this.SuspendLayout();
             // 
             // btnClose
@@ -296,6 +296,7 @@
             this.cbCompetitionGroup.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cbCompetitionGroup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbCompetitionGroup.DropDownWidth = 1491;
             this.cbCompetitionGroup.FormattingEnabled = true;
             this.cbCompetitionGroup.Location = new System.Drawing.Point(18, 501);
             this.cbCompetitionGroup.Name = "cbCompetitionGroup";
@@ -523,6 +524,64 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Экзамены и льготы";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.dgvMinEgeMarkToCommonBenefit);
+            this.groupBox5.Controls.Add(this.button4);
+            this.groupBox5.Controls.Add(this.button5);
+            this.groupBox5.Controls.Add(this.button6);
+            this.groupBox5.Location = new System.Drawing.Point(9, 348);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(512, 164);
+            this.groupBox5.TabIndex = 88;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Мин баллы для предоставления льготы";
+            // 
+            // dgvMinEgeMarkToCommonBenefit
+            // 
+            this.dgvMinEgeMarkToCommonBenefit.AllowUserToAddRows = false;
+            this.dgvMinEgeMarkToCommonBenefit.AllowUserToResizeRows = false;
+            this.dgvMinEgeMarkToCommonBenefit.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvMinEgeMarkToCommonBenefit.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvMinEgeMarkToCommonBenefit.Location = new System.Drawing.Point(6, 19);
+            this.dgvMinEgeMarkToCommonBenefit.Name = "dgvMinEgeMarkToCommonBenefit";
+            this.dgvMinEgeMarkToCommonBenefit.ReadOnly = true;
+            this.dgvMinEgeMarkToCommonBenefit.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvMinEgeMarkToCommonBenefit.Size = new System.Drawing.Size(409, 127);
+            this.dgvMinEgeMarkToCommonBenefit.TabIndex = 36;
+            // 
+            // button4
+            // 
+            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button4.Location = new System.Drawing.Point(431, 19);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(75, 23);
+            this.button4.TabIndex = 38;
+            this.button4.Text = "Открыть";
+            this.button4.UseVisualStyleBackColor = true;
+            // 
+            // button5
+            // 
+            this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button5.Location = new System.Drawing.Point(431, 71);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(75, 23);
+            this.button5.TabIndex = 37;
+            this.button5.Text = "Добавить";
+            this.button5.UseVisualStyleBackColor = true;
+            // 
+            // button6
+            // 
+            this.button6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button6.Location = new System.Drawing.Point(431, 100);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(75, 23);
+            this.button6.TabIndex = 39;
+            this.button6.Text = "Удалить";
+            this.button6.UseVisualStyleBackColor = true;
             // 
             // groupBox3
             // 
@@ -785,64 +844,6 @@
             this.dgvInnerEntryInEntry.TabIndex = 0;
             this.dgvInnerEntryInEntry.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvObrazProgramInEntry_CellDoubleClick);
             // 
-            // groupBox5
-            // 
-            this.groupBox5.Controls.Add(this.dgvMinEgeMarkToCommonBenefit);
-            this.groupBox5.Controls.Add(this.button4);
-            this.groupBox5.Controls.Add(this.button5);
-            this.groupBox5.Controls.Add(this.button6);
-            this.groupBox5.Location = new System.Drawing.Point(9, 348);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(512, 164);
-            this.groupBox5.TabIndex = 88;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Мин баллы для предоставления льготы";
-            // 
-            // dgvMinEgeMarkToCommonBenefit
-            // 
-            this.dgvMinEgeMarkToCommonBenefit.AllowUserToAddRows = false;
-            this.dgvMinEgeMarkToCommonBenefit.AllowUserToResizeRows = false;
-            this.dgvMinEgeMarkToCommonBenefit.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvMinEgeMarkToCommonBenefit.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvMinEgeMarkToCommonBenefit.Location = new System.Drawing.Point(6, 19);
-            this.dgvMinEgeMarkToCommonBenefit.Name = "dgvMinEgeMarkToCommonBenefit";
-            this.dgvMinEgeMarkToCommonBenefit.ReadOnly = true;
-            this.dgvMinEgeMarkToCommonBenefit.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvMinEgeMarkToCommonBenefit.Size = new System.Drawing.Size(409, 127);
-            this.dgvMinEgeMarkToCommonBenefit.TabIndex = 36;
-            // 
-            // button4
-            // 
-            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button4.Location = new System.Drawing.Point(431, 19);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 38;
-            this.button4.Text = "Открыть";
-            this.button4.UseVisualStyleBackColor = true;
-            // 
-            // button5
-            // 
-            this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button5.Location = new System.Drawing.Point(431, 71);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(75, 23);
-            this.button5.TabIndex = 37;
-            this.button5.Text = "Добавить";
-            this.button5.UseVisualStyleBackColor = true;
-            // 
-            // button6
-            // 
-            this.button6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button6.Location = new System.Drawing.Point(431, 100);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(75, 23);
-            this.button6.TabIndex = 39;
-            this.button6.Text = "Удалить";
-            this.button6.UseVisualStyleBackColor = true;
-            // 
             // CardEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -863,6 +864,8 @@
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.tabPage2.ResumeLayout(false);
+            this.groupBox5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvMinEgeMarkToCommonBenefit)).EndInit();
             this.groupBox3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvOlympicsToCommonBenefit)).EndInit();
             this.groupBox2.ResumeLayout(false);
@@ -872,8 +875,6 @@
             this.groupBox1.PerformLayout();
             this.tabPage4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvInnerEntryInEntry)).EndInit();
-            this.groupBox5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvMinEgeMarkToCommonBenefit)).EndInit();
             this.ResumeLayout(false);
 
         }

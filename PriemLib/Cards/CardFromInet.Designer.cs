@@ -205,6 +205,8 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.gbFile = new System.Windows.Forms.GroupBox();
+            this.label34 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
             this.btnDocCardOpen = new System.Windows.Forms.Button();
             this.dgvFiles = new System.Windows.Forms.DataGridView();
             this.btnOpenFile = new System.Windows.Forms.Button();
@@ -341,6 +343,7 @@
             this.cbCountry.Name = "cbCountry";
             this.cbCountry.Size = new System.Drawing.Size(303, 21);
             this.cbCountry.TabIndex = 114;
+            this.cbCountry.SelectedIndexChanged += new System.EventHandler(this.cbCountry_SelectedIndexChanged);
             // 
             // cbNationality
             // 
@@ -354,6 +357,7 @@
             this.cbNationality.Name = "cbNationality";
             this.cbNationality.Size = new System.Drawing.Size(303, 21);
             this.cbNationality.TabIndex = 113;
+            this.cbNationality.SelectedIndexChanged += new System.EventHandler(this.cbNationality_SelectedIndexChanged);
             // 
             // label54
             // 
@@ -1177,6 +1181,7 @@
             this.cbCountryEduc.Name = "cbCountryEduc";
             this.cbCountryEduc.Size = new System.Drawing.Size(414, 21);
             this.cbCountryEduc.TabIndex = 114;
+            this.cbCountryEduc.SelectedIndexChanged += new System.EventHandler(this.cbCountryEduc_SelectedIndexChanged);
             // 
             // cbRegionEduc
             // 
@@ -2074,6 +2079,8 @@
             // 
             // gbFile
             // 
+            this.gbFile.Controls.Add(this.label34);
+            this.gbFile.Controls.Add(this.label29);
             this.gbFile.Controls.Add(this.btnDocCardOpen);
             this.gbFile.Controls.Add(this.dgvFiles);
             this.gbFile.Controls.Add(this.btnOpenFile);
@@ -2082,6 +2089,26 @@
             this.gbFile.Size = new System.Drawing.Size(628, 314);
             this.gbFile.TabIndex = 12;
             this.gbFile.TabStop = false;
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.BackColor = System.Drawing.Color.OrangeRed;
+            this.label34.ForeColor = System.Drawing.Color.OrangeRed;
+            this.label34.Location = new System.Drawing.Point(501, 16);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(13, 13);
+            this.label34.TabIndex = 14;
+            this.label34.Text = "  ";
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(520, 16);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(100, 13);
+            this.label29.TabIndex = 13;
+            this.label29.Text = "- Удалённый файл";
             // 
             // btnDocCardOpen
             // 
@@ -2101,11 +2128,12 @@
             this.dgvFiles.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvFiles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvFiles.Location = new System.Drawing.Point(6, 19);
+            this.dgvFiles.Location = new System.Drawing.Point(6, 36);
             this.dgvFiles.Name = "dgvFiles";
             this.dgvFiles.RowHeadersVisible = false;
-            this.dgvFiles.Size = new System.Drawing.Size(614, 260);
+            this.dgvFiles.Size = new System.Drawing.Size(614, 243);
             this.dgvFiles.TabIndex = 11;
+            this.dgvFiles.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgvFiles_CellPainting);
             // 
             // btnOpenFile
             // 
@@ -2286,6 +2314,7 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.gbFile.ResumeLayout(false);
+            this.gbFile.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFiles)).EndInit();
             this.tpApplication.ResumeLayout(false);
             this.tpApplication.PerformLayout();
@@ -2488,5 +2517,7 @@
         private System.Windows.Forms.CheckBox chbHasTRKI;
         private System.Windows.Forms.DataGridView dgvFiles;
         protected System.Windows.Forms.Button btnDocCardOpen;
+        private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.Label label29;
     }
 }

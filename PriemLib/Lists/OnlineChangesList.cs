@@ -56,15 +56,11 @@ namespace PriemLib
             get { return ComboServ.GetComboIdInt(cbObrazProgram); }
             set { ComboServ.SetComboId(cbObrazProgram, value); }
         }
-        public Guid? ProfileId
+        public int? ProfileId
         {
             get
             {
-                string prId = ComboServ.GetComboId(cbProfile);
-                if (string.IsNullOrEmpty(prId))
-                    return null;
-                else
-                    return new Guid(prId);
+                return ComboServ.GetComboIdInt(cbProfile);
             }
             set
             {
@@ -247,6 +243,8 @@ namespace PriemLib
         private string GetFilterString(string tableName)
         {
             string s = string.Empty;
+
+            s += string.Format(" AND {0}.IsForeign = '{1}'", tableName, Util.ToBool(MainClass.dbType == PriemType.PriemForeigners));
 
             //обработали основу обучения 
             if (StudyBasisId != null)

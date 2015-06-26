@@ -40,6 +40,9 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.rbMainPriem = new System.Windows.Forms.RadioButton();
+            this.rbForeigners = new System.Windows.Forms.RadioButton();
+            this.rbCrimea = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -156,11 +159,49 @@
             this.label5.TabIndex = 46;
             this.label5.Text = "Данные на";
             // 
+            // rbMainPriem
+            // 
+            this.rbMainPriem.AutoSize = true;
+            this.rbMainPriem.Checked = true;
+            this.rbMainPriem.Location = new System.Drawing.Point(559, 26);
+            this.rbMainPriem.Name = "rbMainPriem";
+            this.rbMainPriem.Size = new System.Drawing.Size(110, 17);
+            this.rbMainPriem.TabIndex = 47;
+            this.rbMainPriem.TabStop = true;
+            this.rbMainPriem.Text = "Основной приём";
+            this.rbMainPriem.UseVisualStyleBackColor = true;
+            this.rbMainPriem.CheckedChanged += new System.EventHandler(this.rbMainPriem_CheckedChanged);
+            // 
+            // rbForeigners
+            // 
+            this.rbForeigners.AutoSize = true;
+            this.rbForeigners.Location = new System.Drawing.Point(675, 26);
+            this.rbForeigners.Name = "rbForeigners";
+            this.rbForeigners.Size = new System.Drawing.Size(88, 17);
+            this.rbForeigners.TabIndex = 48;
+            this.rbForeigners.Text = "Иностранцы";
+            this.rbForeigners.UseVisualStyleBackColor = true;
+            this.rbForeigners.CheckedChanged += new System.EventHandler(this.rbForeigners_CheckedChanged);
+            // 
+            // rbCrimea
+            // 
+            this.rbCrimea.AutoSize = true;
+            this.rbCrimea.Location = new System.Drawing.Point(769, 26);
+            this.rbCrimea.Name = "rbCrimea";
+            this.rbCrimea.Size = new System.Drawing.Size(54, 17);
+            this.rbCrimea.TabIndex = 49;
+            this.rbCrimea.Text = "Крым";
+            this.rbCrimea.UseVisualStyleBackColor = true;
+            this.rbCrimea.CheckedChanged += new System.EventHandler(this.rbCrimea_CheckedChanged);
+            // 
             // CPK1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1082, 530);
+            this.Controls.Add(this.rbCrimea);
+            this.Controls.Add(this.rbForeigners);
+            this.Controls.Add(this.rbMainPriem);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -194,6 +235,9 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.RadioButton rbMainPriem;
+        private System.Windows.Forms.RadioButton rbForeigners;
+        private System.Windows.Forms.RadioButton rbCrimea;
 
     }
 }

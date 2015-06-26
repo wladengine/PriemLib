@@ -34,6 +34,7 @@ namespace PriemLib
         public static string userName;
        
         public static List<int> lstStudyLevelGroupId = new List<int>();
+        public static int foreignCountryRussiaId;
         public static int countryRussiaId;
         public static int educSchoolId;
         public static int pasptypeRFId;
@@ -71,7 +72,7 @@ namespace PriemLib
         /// opens DataBase
         /// </summary>
         /// <param name="connectionString"></param>
-        public static void Init(Form mf)
+        public static bool Init(Form mf)
         {
             try
             {
@@ -96,6 +97,8 @@ namespace PriemLib
                 {
                     //постоянный id страны Россия
                     countryRussiaId = 1;
+                    //постоянный id страны Россия (Foreign)
+                    foreignCountryRussiaId = 193;
                     //постоянный id типа уч.заведения Школа
                     educSchoolId = 1;
                     //постоянный id типа паспорта Паспорт РФ
@@ -160,10 +163,13 @@ namespace PriemLib
                 
                 //взяли конфиг
                 _config = GetConfig();
+
+                return true;
             }
             catch(Exception e)
             {
                 WinFormsServ.Error("Ошибка в MainClass.Init()", e);
+                return false;
             }
         }
 

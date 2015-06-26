@@ -31,7 +31,7 @@ namespace PriemLib
             switch (MainClass.dbType)
             {
                 case PriemType.Priem: { p = new FilterProvider_1K(); break; }
-                case PriemType.PriemMag: { p = new FilterProvider_1K(); break; }
+                case PriemType.PriemMag: { p = new FilterProvider_Mag(); break; }
                 case PriemType.PriemSPO: { p = new FilterProvider_SPO(); break; }
                 case PriemType.PriemAspirant: { p = new FilterProvider_Asp(); break; }
                 default: { p = new FilterProvider_1K(); break; }

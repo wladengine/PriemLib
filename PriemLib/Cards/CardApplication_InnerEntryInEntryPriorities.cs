@@ -39,6 +39,7 @@ namespace PriemLib
                 {
                     x.Id,
                     ObrazProgramName = x.SP_ObrazProgram.Name,
+                    ProfileName = x.SP_Profile.Name
                     //HasInnerProfiles = x.Count() > 1
                 });
 
@@ -71,7 +72,7 @@ namespace PriemLib
                 tblPrior.Columns.Add("Id", typeof(Guid));
                 tblPrior.Columns.Add("Priority", typeof(int));
                 tblPrior.Columns.Add("ObrazProgramName", typeof(string));
-                tblPrior.Columns.Add("HasInnerProfilePriorityText", typeof(string));
+                tblPrior.Columns.Add("ProfileName", typeof(string));
 
                 List<int> lst = new List<int>();
                 for (int i = 1; i <= baseData.Count(); i++)
@@ -95,9 +96,7 @@ namespace PriemLib
                     rw.SetField<Guid>("Id", Op.Value);
                     rw.SetField<string>("ObrazProgramName", baseData.Where(x=> x.Id == Op.Value).Select(x => x.ObrazProgramName).FirstOrDefault());
                     rw.SetField<int>("Priority", priority);
-                    bool hasInnerProfiles = baseData.Where(x => x.Id == Op.Value).Count() > 1;
-                    if (hasInnerProfiles)
-                        rw.SetField<string>("HasInnerProfilePriorityText", "по профилям");
+                    rw.SetField<string>("ProfileName", baseData.Where(x => x.Id == Op.Value).Select(x => x.ProfileName).FirstOrDefault());
                     tblPrior.Rows.Add(rw);
                 }
             }
@@ -112,7 +111,7 @@ namespace PriemLib
             dgv.Columns["Priority"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
             dgv.Columns["ObrazProgramName"].HeaderText = "Обр. программа";
             dgv.Columns["ObrazProgramName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dgv.Columns["HasInnerProfilePriorityText"].HeaderText = "";
+            dgv.Columns["ProfileName"].HeaderText = "Профиль";
 
             dgv.Rows[currSelectedRowId].Selected = true;
         }
@@ -132,7 +131,7 @@ namespace PriemLib
 
             var rw = tblPrior.NewRow();
             rw.SetField<Guid>("Id", tblPrior.Rows[rwInd].Field<Guid>("Id"));
-            rw.SetField<string>("HasInnerProfilePriorityText", tblPrior.Rows[rwInd].Field<string>("HasInnerProfilePriorityText"));
+            rw.SetField<string>("ProfileName", tblPrior.Rows[rwInd].Field<string>("ProfileName"));
             rw.SetField<string>("ObrazProgramName", tblPrior.Rows[rwInd].Field<string>("ObrazProgramName"));
 
             //insert row on new place
@@ -165,7 +164,7 @@ namespace PriemLib
 
             var rw = tblPrior.NewRow();
             rw.SetField<Guid>("Id", tblPrior.Rows[rwInd].Field<Guid>("Id"));
-            rw.SetField<string>("HasInnerProfilePriorityText", tblPrior.Rows[rwInd].Field<string>("HasInnerProfilePriorityText"));
+            rw.SetField<string>("ProfileName", tblPrior.Rows[rwInd].Field<string>("ProfileName"));
             rw.SetField<string>("ObrazProgramName", tblPrior.Rows[rwInd].Field<string>("ObrazProgramName"));
 
             //insert row on new place
@@ -184,7 +183,7 @@ namespace PriemLib
         }
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Сохранить изменения в приоритетах образовательных программ внутри конкурса?", "Изменение приоритетов", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+            if (MessageBox.Show("Сохранить изменения в приоритетах внутри конкурса?", "Изменение приоритетов", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
             {
                 using (PriemEntities context = new PriemEntities())
                 {
@@ -197,15 +196,6 @@ namespace PriemLib
 
                 lblWarning.Visible = false;
             }
-        }
-
-        private void dgv_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex < 0)
-                return;
-
-            if (string.IsNullOrEmpty(dgv["HasInnerProfilePriorityText", e.RowIndex].Value.ToString()))
-                return;
         }
     }
 }

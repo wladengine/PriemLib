@@ -87,7 +87,7 @@ namespace PriemLib
 
                 List<KeyValuePair<string, string>> lstFiles = new List<KeyValuePair<string, string>>();
 
-                string query = string.Format("SELECT Id, FileName + ' (' + convert(nvarchar, extAbitFiles.LoadDate, 104) + ' ' + convert(nvarchar, extAbitFiles.LoadDate, 108) + ')' + FileExtention AS FileName FROM {3} AS extAbitFiles WHERE extAbitFiles.PersonId = '{0}' {1} {2}", _personId,
+                string query = string.Format("SELECT Id, FileName + ' (' + convert(nvarchar, extAbitFiles.LoadDate, 104) + ' ' + convert(nvarchar, extAbitFiles.LoadDate, 108) + ')' + FileExtention AS FileName, IsDeleted FROM {3} AS extAbitFiles WHERE extAbitFiles.PersonId = '{0}' {1} {2}", _personId,
                     !string.IsNullOrEmpty(_abitId) ? " AND (extAbitFiles.ApplicationId = '" + _abitId + "' OR extAbitFiles.ApplicationId IS NULL)" : "",
                     !string.IsNullOrEmpty(_commitId) ? " AND (extAbitFiles.CommitId = '" + _commitId + "' OR extAbitFiles.CommitId IS NULL)" : "",
                     _bShowAllFiles ? "extAbitFiles_All" : "extAbitFiles");
@@ -115,7 +115,7 @@ namespace PriemLib
 
                 List<KeyValuePair<string, string>> lstFiles = new List<KeyValuePair<string, string>>();
 
-                string query = string.Format("SELECT Id, FileName + ' (' + convert(nvarchar, extAbitFiles.LoadDate, 104) + ' ' + convert(nvarchar, extAbitFiles.LoadDate, 108) + ')' + FileExtention AS FileName FROM {4} AS extAbitFiles WHERE extAbitFiles.PersonId = '{0}' {1} {2} {3}", _personId,
+                string query = string.Format("SELECT Id, FileName + ' (' + convert(nvarchar, extAbitFiles.LoadDate, 104) + ' ' + convert(nvarchar, extAbitFiles.LoadDate, 108) + ')' + FileExtention AS FileName, IsDeleted FROM {4} AS extAbitFiles WHERE extAbitFiles.PersonId = '{0}' {1} {2} {3}", _personId,
                     !string.IsNullOrEmpty(_abitId) ? " AND (extAbitFiles.ApplicationId = '" + _abitId + "' OR extAbitFiles.ApplicationId IS NULL)" : "",
                     !string.IsNullOrEmpty(_commitId) ? " AND (extAbitFiles.CommitId = '" + _commitId + "' OR extAbitFiles.CommitId IS NULL)" : "",
                     !string.IsNullOrEmpty(sFilters) ? sFilters : "",
@@ -144,7 +144,7 @@ namespace PriemLib
                 DataTable tbl = new DataTable();
 
 
-                string query = string.Format("SELECT Id, FileName + ' (' + convert(nvarchar, extAbitFiles.LoadDate, 104) + ' ' + convert(nvarchar, extAbitFiles.LoadDate, 108) + ')' + FileExtention AS FileName, Comment, FileTypeName, FileExtention  FROM {3} extAbitFiles WHERE extAbitFiles.PersonId = '{0}' {1} {2}", _personId,
+                string query = string.Format("SELECT Id, FileName + ' (' + convert(nvarchar, extAbitFiles.LoadDate, 104) + ' ' + convert(nvarchar, extAbitFiles.LoadDate, 108) + ')' + FileExtention AS FileName, Comment, FileTypeName, FileExtention, IsDeleted  FROM {3} extAbitFiles WHERE extAbitFiles.PersonId = '{0}' {1} {2}", _personId,
                     !string.IsNullOrEmpty(_abitId) ? " AND (extAbitFiles.ApplicationId = '" + _abitId + "' OR extAbitFiles.ApplicationId IS NULL)" : "",
                     !string.IsNullOrEmpty(_commitId) ? " AND (extAbitFiles.CommitId = '" + _commitId + "' OR extAbitFiles.CommitId IS NULL)" : "",
                     _bShowAllFiles ? "extAbitFileNames_All" : "extAbitFileNames");
