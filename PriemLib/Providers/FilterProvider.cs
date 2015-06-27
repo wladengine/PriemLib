@@ -354,19 +354,19 @@ namespace PriemLib
             lst.Add(new FilterItem("Сокращенные программы", FilterType.Bool, "ed.qAbiturient.IsReduced", "ed.qAbiturient"));
             lst.Add(new FilterItem("параллельные программы", FilterType.Bool, "ed.qAbiturient.IsParallel", "ed.qAbiturient"));
 
-            lst.Add(new FilterItem("Медалист", FilterType.Bool, "ed.extPerson.IsExcellent", "ed.extPerson"));
-            lst.Add(new FilterItem("Подан подлинник аттестата", FilterType.Bool, "ed.qAbiturient.AttDocOrigin", "ed.qAbiturient"));
+            lst.Add(new FilterItem("Медалист", FilterType.Bool, "ed.extPerson_EducationInfo_Current.IsExcellent", "ed.extPerson_EducationInfo_Current"));
+            lst.Add(new FilterItem("Подан подлинник аттестата", FilterType.Bool, "ed.qAbiturient.HasOriginals", "ed.qAbiturient"));
 
-            lst.Add(new FilterItem("Номер аттестата", FilterType.FromTo, "ed.extPerson.AttestatNum", "ed.extPerson"));
-            lst.Add(new FilterItem("Серия аттестата", FilterType.FromTo, "ed.extPerson.AttestatSeries", "ed.extPerson"));
-            lst.Add(new FilterItem("Средний балл аттестата", FilterType.FromTo, "ed.extPerson.SchoolAVG", "ed.extPerson"));
-            lst.Add(new FilterItem("Введен средний балл аттестата", FilterType.Bool, "(NOT ed.extPerson.SchoolAVG IS NULL AND Len(ed.extPerson.SchoolAVG) > 0)", "ed.extPerson"));
+            lst.Add(new FilterItem("Номер аттестата", FilterType.FromTo, "ed.extPerson_EducationInfo_Current.AttestatNum", "ed.extPerson_EducationInfo_Current"));
+            lst.Add(new FilterItem("Серия аттестата", FilterType.FromTo, "ed.extPerson_EducationInfo_Current.AttestatSeries", "ed.extPerson_EducationInfo_Current"));
+            lst.Add(new FilterItem("Средний балл аттестата", FilterType.FromTo, "ed.extPerson_EducationInfo_Current.SchoolAVG", "ed.extPerson_EducationInfo_Current"));
+            lst.Add(new FilterItem("Введен средний балл аттестата", FilterType.Bool, "(NOT ed.extPerson_EducationInfo_Current.SchoolAVG IS NULL AND Len(ed.extPerson_EducationInfo_Current.SchoolAVG) > 0)", "ed.extPerson_EducationInfo_Current"));
 
-            lst.Add(new FilterItem("Город учебного заведения", FilterType.Text, "ed.extPerson.SchoolCity", "ed.extPerson"));
-            lst.Add(new FilterItem("Тип учебного заведения", FilterType.Multi, "ed.extPerson.SchoolTypeId", "ed.extPerson", "SELECT Id, Name FROM SchoolType ORDER BY Name"));
-            lst.Add(new FilterItem("Название учебного заведения", FilterType.Text, "ed.extPerson.SchoolName", "ed.extPerson"));
-            lst.Add(new FilterItem("Номер учебного заведения", FilterType.FromTo, "ed.extPerson.SchoolNum", "ed.extPerson"));
-            lst.Add(new FilterItem("Год окончания учебного заведения", FilterType.FromTo, "ed.extPerson.SchoolExitYear", "ed.extPerson"));
+            lst.Add(new FilterItem("Город учебного заведения", FilterType.Text, "ed.extPerson_EducationInfo_Current.SchoolCity", "ed.extPerson_EducationInfo_Current"));
+            lst.Add(new FilterItem("Тип учебного заведения", FilterType.Multi, "ed.extPerson_EducationInfo_Current.SchoolTypeId", "ed.extPerson_EducationInfo_Current", "SELECT Id, Name FROM SchoolType ORDER BY Name"));
+            lst.Add(new FilterItem("Название учебного заведения", FilterType.Text, "ed.extPerson_EducationInfo_Current.SchoolName", "ed.extPerson_EducationInfo_Current"));
+            lst.Add(new FilterItem("Номер учебного заведения", FilterType.FromTo, "ed.extPerson_EducationInfo_Current.SchoolNum", "ed.extPerson_EducationInfo_Current"));
+            lst.Add(new FilterItem("Год окончания учебного заведения", FilterType.FromTo, "ed.extPerson_EducationInfo_Current.SchoolExitYear", "ed.extPerson_EducationInfo_Current"));
 
             lst.Add(new FilterItem("Уровень", FilterType.Multi, "ed.qAbiturient.StudyLevelId", "ed.qAbiturient", " SELECT DISTINCT Id, Name AS Name FROM ed.StudyLevel "));
             lst.Add(new FilterItem("Профиль", FilterType.Multi, "ed.qAbiturient.ProfileId", "ed.qAbiturient", " SELECT DISTINCT ed.qProfile.Id, ed.qProfile.Name AS Name FROM ed.qProfile "));
@@ -462,14 +462,14 @@ namespace PriemLib
         protected override List<FilterItem> GetOtherFilterList(DBPriem _bdc)
         {
             List<FilterItem> lst = new List<FilterItem>();
-            lst.Add(new FilterItem("Диплом с отличием", FilterType.Bool, "ed.extPerson.IsExcellent", "ed.extPerson"));
+            lst.Add(new FilterItem("Диплом с отличием", FilterType.Bool, "ed.extPerson_EducationInfo_Current.IsExcellent", "ed.extPerson_EducationInfo_Current"));
 
-            lst.Add(new FilterItem("Средний балл диплома", FilterType.FromTo, "ed.extPerson.SchoolAVG", "ed.extPerson"));
-            lst.Add(new FilterItem("Введен средний балл диплома", FilterType.Bool, "(NOT ed.extPerson.SchoolAVG IS NULL AND Len(ed.extPerson.SchoolAVG) > 0)", "ed.extPerson"));
+            lst.Add(new FilterItem("Средний балл диплома", FilterType.FromTo, "ed.extPerson_EducationInfo_Current.SchoolAVG", "ed.extPerson_EducationInfo_Current"));
+            lst.Add(new FilterItem("Введен средний балл диплома", FilterType.Bool, "(NOT ed.extPerson_EducationInfo_Current.SchoolAVG IS NULL AND Len(ed.extPerson_EducationInfo_Current.SchoolAVG) > 0)", "ed.extPerson_EducationInfo_Current"));
 
-            lst.Add(new FilterItem("Город учебного заведения", FilterType.Text, "ed.extPerson.SchoolCity", "ed.extPerson"));
-            lst.Add(new FilterItem("Название учебного заведения", FilterType.Text, "ed.extPerson.SchoolName", "ed.extPerson"));
-            lst.Add(new FilterItem("Год окончания учебного заведения", FilterType.FromTo, "ed.extPerson.SchoolExitYear", "ed.extPerson"));
+            lst.Add(new FilterItem("Город учебного заведения", FilterType.Text, "ed.extPerson_EducationInfo_Current.SchoolCity", "ed.extPerson_EducationInfo_Current"));
+            lst.Add(new FilterItem("Название учебного заведения", FilterType.Text, "ed.extPerson_EducationInfo_Current.SchoolName", "ed.extPerson_EducationInfo_Current"));
+            lst.Add(new FilterItem("Год окончания учебного заведения", FilterType.FromTo, "ed.extPerson_EducationInfo_Current.SchoolExitYear", "ed.extPerson_EducationInfo_Current"));
 
             lst.Add(new FilterItem("Уровень", FilterType.Multi, "ed.qAbiturient.StudyLevelId", "ed.qAbiturient", " SELECT DISTINCT Id, Name AS Name FROM ed.StudyLevel "));
             lst.Add(new FilterItem("Профиль", FilterType.Multi, "ed.qAbiturient.ProfileId", "ed.qAbiturient", " SELECT DISTINCT ed.qProfile.Id, ed.qProfile.Name AS Name FROM ed.qProfile "));
@@ -607,15 +607,15 @@ namespace PriemLib
         {
             List<FilterItem> lst = new List<FilterItem>();
 
-            lst.Add(new FilterItem("Номер диплома", FilterType.FromTo, "ed.extPerson.DiplomNum", "ed.extPerson"));
+            lst.Add(new FilterItem("Номер диплома", FilterType.FromTo, "ed.extPerson_EducationInfo_Current.DiplomNum", "ed.extPerson_EducationInfo_Current"));
 
-            lst.Add(new FilterItem("Название учебного заведения", FilterType.Text, "ed.extPerson.HightEducation", "ed.extPerson"));
-            lst.Add(new FilterItem("Год окончания учебного заведения", FilterType.FromTo, "ed.extPerson.HEExitYear", "ed.extPerson"));
+            lst.Add(new FilterItem("Название учебного заведения", FilterType.Text, "ed.extPerson_EducationInfo_Current.HightEducation", "ed.extPerson_EducationInfo_Current"));
+            lst.Add(new FilterItem("Год окончания учебного заведения", FilterType.FromTo, "ed.extPerson_EducationInfo_Current.HEExitYear", "ed.extPerson_EducationInfo_Current"));
 
             lst.Add(new FilterItem("Профиль", FilterType.Multi, "ed.qAbiturient.ProfileId", "ed.qAbiturient", " SELECT DISTINCT ed.qProfile.Id, ed.qProfile.Name AS Name FROM ed.qProfile "));
 
-            lst.Add(new FilterItem("Красный диплом", FilterType.Bool, "ed.extPerson.IsExcellent", "ed.extPerson"));
-            lst.Add(new FilterItem("Подан подлинник диплома", FilterType.Bool, "ed.qAbiturient.AttDocOrigin", "ed.qAbiturient"));
+            lst.Add(new FilterItem("Красный диплом", FilterType.Bool, "ed.extPerson_EducationInfo_Current.IsExcellent", "ed.extPerson_EducationInfo_Current"));
+            lst.Add(new FilterItem("Подан подлинник диплома", FilterType.Bool, "ed.qAbiturient.HasOriginals", "ed.qAbiturient"));
 
             return lst;
         }
