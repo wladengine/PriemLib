@@ -241,13 +241,12 @@ namespace PriemLib
                 qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "ed.extPerson.StartEnglish", "Англ_с_нуля"));
                 qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "ed.extPerson.EnglishMark", "Англ_оценка"));
                 
-                
                 //Abiturient Info
-                qBuilder.AddQueryItem(new QueryItem("ed.qFaculty", "ed.qFaculty.Name", "Факультет"));
-                qBuilder.AddQueryItem(new QueryItem("ed.qLicenseProgram", "ed.qLicenseProgram.Name", "Направление"));
-                qBuilder.AddQueryItem(new QueryItem("ed.qLicenseProgram", "ed.qLicenseProgram.Code", "Код_направления"));
-                qBuilder.AddQueryItem(new QueryItem("ed.qObrazProgram", "ed.qObrazProgram.Name", "Образ_программа"));
-                qBuilder.AddQueryItem(new QueryItem("ed.qProfile", "ed.qProfile.Name", "Профиль"));
+                qBuilder.AddQueryItem(new QueryItem("ed.SP_Faculty", "ed.SP_Faculty.Name", "Факультет"));
+                qBuilder.AddQueryItem(new QueryItem("ed.SP_LicenseProgram", "ed.SP_LicenseProgram.Name", "Направление"));
+                qBuilder.AddQueryItem(new QueryItem("ed.SP_LicenseProgram", "ed.SP_LicenseProgram.Code", "Код_направления"));
+                qBuilder.AddQueryItem(new QueryItem("ed.SP_ObrazProgram", "ed.SP_ObrazProgram.Name", "Образ_программа"));
+                qBuilder.AddQueryItem(new QueryItem("ed.SP_Profile", "ed.SP_Profile.Name", "Профиль"));
                 qBuilder.AddQueryItem(new QueryItem("ed.StudyForm", "ed.StudyForm.Name", "Форма_обучения"));
                 qBuilder.AddQueryItem(new QueryItem("ed.StudyBasis", "ed.StudyBasis.Name", "Основа_обучения"));
                 qBuilder.AddQueryItem(new QueryItem("ed.Competition", "ed.Competition.Name", "Тип_конкурса"));
@@ -371,6 +370,8 @@ namespace PriemLib
                 qBuilder.AddTableJoint("ed.Person", " LEFT JOIN ed.Person ON ed.qAbiturient.PersonId = ed.Person.Id ");
                 qBuilder.AddTableJoint("ed.extPerson_EducationInfo_Current", " LEFT JOIN ed.extPerson_EducationInfo_Current ON ed.extPerson_EducationInfo_Current.PersonId = ed.qAbiturient.PersonId ");
                 qBuilder.AddTableJoint("ed.extPerson", " INNER JOIN ed.extPerson ON ed.qAbiturient.PersonId = ed.extPerson.Id ");
+                qBuilder.AddTableJoint("ed.PersonAchievement", " LEFT JOIN ed.PersonAchievement ON ed.PersonAchievement.PersonId = ed.Person.Id ");
+
                 //использование extAbit крайне нежелательно, т.к. провоцирует перегруз
                 qBuilder.AddTableJoint("ed.extAbit", " INNER JOIN ed.extAbit ON ed.qAbiturient.Id = ed.extAbit.Id ");
 
@@ -388,10 +389,10 @@ namespace PriemLib
                 qBuilder.AddTableJoint("HostelFaculty", " LEFT JOIN ed.SP_Faculty AS HostelFaculty ON ed.extPerson.HostelFacultyId = HostelFaculty.Id ");
                 qBuilder.AddTableJoint("ed.extFBSStatus", " LEFT JOIN ed.extFBSStatus ON ed.extFBSStatus.PersonId = ed.extPerson.Id ");
 
-                qBuilder.AddTableJoint("ed.qFaculty", " LEFT JOIN ed.qFaculty ON ed.qFaculty.Id = ed.qAbiturient.FacultyId ");
-                qBuilder.AddTableJoint("ed.qLicenseProgram", " LEFT JOIN ed.qLicenseProgram ON ed.qLicenseProgram.Id = ed.qAbiturient.LicenseProgramId ");
-                qBuilder.AddTableJoint("ed.qObrazProgram", " LEFT JOIN ed.qObrazProgram ON ed.qObrazProgram.Id = ed.qAbiturient.ObrazProgramId ");
-                qBuilder.AddTableJoint("ed.qProfile", " LEFT JOIN ed.qProfile ON ed.qProfile.Id = ed.qAbiturient.ProfileId ");
+                qBuilder.AddTableJoint("ed.SP_Faculty", " LEFT JOIN ed.SP_Faculty ON ed.SP_Faculty.Id = ed.qAbiturient.FacultyId ");
+                qBuilder.AddTableJoint("ed.SP_LicenseProgram", " LEFT JOIN ed.SP_LicenseProgram ON ed.SP_LicenseProgram.Id = ed.qAbiturient.LicenseProgramId ");
+                qBuilder.AddTableJoint("ed.SP_ObrazProgram", " LEFT JOIN ed.SP_ObrazProgram ON ed.SP_ObrazProgram.Id = ed.qAbiturient.ObrazProgramId ");
+                qBuilder.AddTableJoint("ed.SP_Profile", " LEFT JOIN ed.SP_Profile ON ed.SP_Profile.Id = ed.qAbiturient.ProfileId ");
                 qBuilder.AddTableJoint("ed.StudyBasis", " LEFT JOIN ed.StudyBasis ON ed.StudyBasis.Id = ed.qAbiturient.StudyBasisId ");
                 qBuilder.AddTableJoint("ed.StudyForm", " LEFT JOIN ed.StudyForm ON ed.StudyForm.Id = ed.qAbiturient.StudyFormId ");
                 qBuilder.AddTableJoint("ed.StudyLevel", " LEFT JOIN ed.StudyLevel ON ed.StudyLevel.Id = ed.qAbiturient.StudyLevelId ");

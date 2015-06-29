@@ -352,6 +352,7 @@ namespace PriemLib
                     var EgeCheck = context.PersonEgeRequest.Where(x => x.PersonId == GuidId.Value && !x.IsChecked).FirstOrDefault();
                     if (EgeCheck != null)
                     {
+                        _currentEgeRequestId = EgeCheck.IntId;
                         btnRequestEge.Enabled = false;
                         btnRequestEge.Visible = false;
                         lblHasRequest.Visible = true;
@@ -616,6 +617,9 @@ namespace PriemLib
             
             btnPrintHostel.Enabled = false;
             btnPrintExamPass.Enabled = false;
+
+            chbHasOriginals.Enabled = false;
+            chbHasDogovor.Enabled = false;
 
             if (HasAssignToHostel.Value)
             {

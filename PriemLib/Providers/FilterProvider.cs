@@ -169,6 +169,8 @@ namespace PriemLib
             lst.Add(new FilterItem("Сумма баллов", FilterType.FromTo, "ed.extAbitMarksSum.TotalSum", "ed.extAbitMarksSum"));
             lst.Add(new FilterItem("Ин. язык испытания", FilterType.Multi, "ed.qAbiturient.LanguageId", "ed.qAbiturient", "SELECT Id, Name FROM ed.Language ORDER BY Name"));
 
+            lst.Add(new FilterItem("Инд.достижения", FilterType.Multi, "ed.PersonAchievement.AchievementTypeId", "ed.PersonAchievement", "SELECT Id, Name FROM ed.AchievementType ORDER BY Name"));
+
             //lst.Add(new FilterItem("Средний балл сессии", FilterType.FromTo, "ed.qAbiturient.SessionAVG", "ed.qAbiturient"));
             //lst.Add(new FilterItem("Статус студента", FilterType.FromTo, "ed.qAbiturient.StudentStatus", "ed.qAbiturient"));
             lst.Add(new FilterItem("Договор об оплате", FilterType.Bool, " EXISTS (SELECT Top(1) ed.PaidData.Id FROM ed.PaidData WHERE ed.PaidData.AbiturientId = ed.qAbiturient.Id)", "ed.qAbiturient"));

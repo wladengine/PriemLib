@@ -170,7 +170,7 @@ namespace PriemLib
                                        select ec).FirstOrDefault();
 
                     if (olymp == null)
-                        return;                    
+                        return;
 
                     OlympTypeId = olymp.OlympTypeId;
                     if (OlympTypeId != 1 || OlympTypeId != 2)

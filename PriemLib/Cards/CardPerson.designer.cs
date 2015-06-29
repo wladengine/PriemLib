@@ -1923,7 +1923,7 @@
             // lblStatusPasha
             // 
             this.lblStatusPasha.AutoSize = true;
-            this.lblStatusPasha.Location = new System.Drawing.Point(329, 380);
+            this.lblStatusPasha.Location = new System.Drawing.Point(315, 416);
             this.lblStatusPasha.Name = "lblStatusPasha";
             this.lblStatusPasha.Size = new System.Drawing.Size(106, 39);
             this.lblStatusPasha.TabIndex = 92;
@@ -1935,7 +1935,7 @@
             this.gbEge.Controls.Add(this.btnCardE);
             this.gbEge.Controls.Add(this.btnAddE);
             this.gbEge.Controls.Add(this.dgvEGE);
-            this.gbEge.Location = new System.Drawing.Point(8, 374);
+            this.gbEge.Location = new System.Drawing.Point(8, 413);
             this.gbEge.Name = "gbEge";
             this.gbEge.Size = new System.Drawing.Size(301, 115);
             this.gbEge.TabIndex = 7;
@@ -2012,7 +2012,7 @@
             // 
             // btnSetStatusPasha
             // 
-            this.btnSetStatusPasha.Location = new System.Drawing.Point(315, 422);
+            this.btnSetStatusPasha.Location = new System.Drawing.Point(315, 458);
             this.btnSetStatusPasha.Name = "btnSetStatusPasha";
             this.btnSetStatusPasha.Size = new System.Drawing.Size(129, 35);
             this.btnSetStatusPasha.TabIndex = 90;
@@ -2032,7 +2032,7 @@
             // 
             // tbCommentFBSPasha
             // 
-            this.tbCommentFBSPasha.Location = new System.Drawing.Point(315, 463);
+            this.tbCommentFBSPasha.Location = new System.Drawing.Point(315, 499);
             this.tbCommentFBSPasha.Name = "tbCommentFBSPasha";
             this.tbCommentFBSPasha.Size = new System.Drawing.Size(129, 20);
             this.tbCommentFBSPasha.TabIndex = 91;
@@ -2043,7 +2043,7 @@
             this.gbEgeMark.Controls.Add(this.dgvExams);
             this.gbEgeMark.Location = new System.Drawing.Point(14, 38);
             this.gbEgeMark.Name = "gbEgeMark";
-            this.gbEgeMark.Size = new System.Drawing.Size(500, 330);
+            this.gbEgeMark.Size = new System.Drawing.Size(500, 369);
             this.gbEgeMark.TabIndex = 87;
             this.gbEgeMark.TabStop = false;
             this.gbEgeMark.Text = "Оценки ЕГЭ для зачета";
@@ -2059,7 +2059,7 @@
             this.dgvExams.Location = new System.Drawing.Point(12, 19);
             this.dgvExams.Name = "dgvExams";
             this.dgvExams.RowHeadersVisible = false;
-            this.dgvExams.Size = new System.Drawing.Size(482, 303);
+            this.dgvExams.Size = new System.Drawing.Size(482, 344);
             this.dgvExams.TabIndex = 8;
             // 
             // tpSecond
