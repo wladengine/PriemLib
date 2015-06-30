@@ -14050,6 +14050,26 @@ namespace PriemLib
     
             return base.ExecuteFunction("Person_UpdateForeignNationality", foreignCountryIdParameter, foreignNationalityIdParameter, idParameter);
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="name">No Metadata Documentation available.</param>
+        [EdmFunction("PriemEntities", "GetFacultyIdsByNameFunc")]
+        public IQueryable<Nullable<global::System.Int32>> GetFacultyIdsByNameFunc(global::System.String name)
+        {
+            ObjectParameter nameParameter;
+            if (name != null)
+            {
+                nameParameter = new ObjectParameter("name", name);
+            }
+            else
+            {
+                nameParameter = new ObjectParameter("name", typeof(global::System.String));
+            }
+    
+            return base.CreateQuery<Nullable<global::System.Int32>>("[PriemEntities].[GetFacultyIdsByNameFunc](@name)", nameParameter);
+        }
 
         #endregion
 
@@ -45834,6 +45854,30 @@ namespace PriemLib
         private global::System.String _Name;
         partial void OnNameChanging(global::System.String value);
         partial void OnNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> SortGrade
+        {
+            get
+            {
+                return _SortGrade;
+            }
+            set
+            {
+                OnSortGradeChanging(value);
+                ReportPropertyChanging("SortGrade");
+                _SortGrade = StructuralObject.SetValidValue(value, "SortGrade");
+                ReportPropertyChanged("SortGrade");
+                OnSortGradeChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _SortGrade;
+        partial void OnSortGradeChanging(Nullable<global::System.Int32> value);
+        partial void OnSortGradeChanged();
 
         #endregion
 
@@ -70759,6 +70803,30 @@ namespace PriemLib
         private global::System.String _NameRod;
         partial void OnNameRodChanging(global::System.String value);
         partial void OnNameRodChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String PostName
+        {
+            get
+            {
+                return _PostName;
+            }
+            set
+            {
+                OnPostNameChanging(value);
+                ReportPropertyChanging("PostName");
+                _PostName = StructuralObject.SetValidValue(value, true, "PostName");
+                ReportPropertyChanged("PostName");
+                OnPostNameChanged();
+            }
+        }
+        private global::System.String _PostName;
+        partial void OnPostNameChanging(global::System.String value);
+        partial void OnPostNameChanged();
 
         #endregion
 

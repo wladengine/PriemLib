@@ -437,6 +437,7 @@ warning 6002: The table/view 'Priem.ed.ExamsVedRoomHistory' does not have a prim
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SortGrade" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'Priem.ed.Fixieren' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -1122,6 +1123,7 @@ warning 6002: The table/view 'Priem.ed.PayDataEntry' does not have a primary key
           <Property Name="LevelGroupPrint" Type="nvarchar" MaxLength="50" />
           <Property Name="FISName" Type="nvarchar" MaxLength="50" />
           <Property Name="NameRod" Type="nvarchar" MaxLength="100" />
+          <Property Name="PostName" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="StudyLevelGroup">
           <Key>
@@ -3152,7 +3154,9 @@ warning 6002: The table/view 'Priem.ed.qStudyLevel' does not have a primary key 
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ApplicationDetails_Abiturient">
-          <End Role="Abiturient" Type="Self.Abiturient" Multiplicity="1" />
+          <End Role="Abiturient" Type="Self.Abiturient" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="ApplicationDetails" Type="Self.ApplicationDetails" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Abiturient">
@@ -4090,7 +4094,9 @@ warning 6002: The table/view 'Priem.ed.qStudyLevel' does not have a primary key 
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PersonAchievement_Person">
-          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="Person" Type="Self.Person" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="PersonAchievement" Type="Self.PersonAchievement" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Person">
@@ -4846,6 +4852,16 @@ warning 6002: The table/view 'Priem.ed.qStudyLevel' does not have a primary key 
         </Function>
         <Function Name="GetFacultyId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ed">
           <Parameter Name="result" Type="nvarchar" Mode="InOut" />
+        </Function>
+        <Function Name="GetFacultyIdsByNameFunc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="ed">
+          <Parameter Name="name" Type="nvarchar" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="facultyId" Type="int" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
         </Function>
         <Function Name="HasRightsForFaculty" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ed">
           <Parameter Name="facId" Type="nvarchar" Mode="In" />
@@ -9117,6 +9133,9 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
             <Parameter Name="ForeignNationalityId" Mode="In" Type="Int32" />
             <Parameter Name="id" Mode="In" Type="Guid" />
           </FunctionImport>
+          <FunctionImport Name="GetFacultyIdsByNameFunc" IsComposable="true" ReturnType="Collection(Int32)">
+            <Parameter Name="name" Mode="In" Type="String" />
+          </FunctionImport>
           </EntityContainer>
         <EntityType Name="AttMarks">
           <Key>
@@ -9246,6 +9265,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="EgeCertificate" Relationship="Priem2012Model.fk_ed_EgeCertificate_FBSStatus" FromRole="FBSStatus" ToRole="EgeCertificate" />
+          <Property Name="SortGrade" Type="Int32" />
         </EntityType>
         <EntityType Name="Language">
           <Key>
@@ -9680,6 +9700,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <NavigationProperty Name="SP_LicenseProgram" Relationship="Priem2012Model.FK_SP_LicenseProgram_StudyLevel" FromRole="StudyLevel" ToRole="SP_LicenseProgram" />
           <NavigationProperty Name="Entry" Relationship="Priem2012Model.FK_Entry_StudyLevel" FromRole="StudyLevel" ToRole="Entry" />
           <Property Type="String" Name="NameRod" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PostName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="fk_Exam_ExamName">
           <End Type="Priem2012Model.ExamName" Role="ExamName" Multiplicity="1" />
@@ -13498,7 +13519,8 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
             <ScalarProperty Name="IsAppeal" ColumnName="IsAppeal" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="FBSStatus"><EntityTypeMapping TypeName="Priem2012Model.FBSStatus"><MappingFragment StoreEntitySet="FBSStatus">
-            <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="SortGrade" ColumnName="SortGrade" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
             <ScalarProperty Name="Name" ColumnName="Name" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="Language"><EntityTypeMapping TypeName="Priem2012Model.Language"><MappingFragment StoreEntitySet="Language">
@@ -13762,6 +13784,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <EntitySetMapping Name="StudyLevel">
             <EntityTypeMapping TypeName="Priem2012Model.StudyLevel">
               <MappingFragment StoreEntitySet="StudyLevel">
+                <ScalarProperty Name="PostName" ColumnName="PostName" />
                 <ScalarProperty Name="NameRod" ColumnName="NameRod" />
                 <ScalarProperty Name="FISName" ColumnName="FISName" />
                 <ScalarProperty Name="LevelGroupPrint" ColumnName="LevelGroupPrint" />
@@ -16119,6 +16142,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <FunctionImportMapping FunctionImportName="PersonOtherPassport_insert" FunctionName="Priem2012Model.Store.PersonOtherPassport_insert" />
           <FunctionImportMapping FunctionImportName="PersonOtherPassport_update" FunctionName="Priem2012Model.Store.PersonOtherPassport_update" />
           <FunctionImportMapping FunctionImportName="Person_UpdateForeignNationality" FunctionName="Priem2012Model.Store.Person_UpdateForeignNationality" />
+          <FunctionImportMapping FunctionImportName="GetFacultyIdsByNameFunc" FunctionName="Priem2012Model.Store.GetFacultyIdsByNameFunc" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

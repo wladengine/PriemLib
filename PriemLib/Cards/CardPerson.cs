@@ -814,6 +814,18 @@ namespace PriemLib
                 btnAddEducDoc.Enabled = false;
                 btnDeleteEducDoc.Enabled = false;
             }
+
+            if (MainClass.IsPasha() && !inEntryView)
+            {
+                tbAttestatNum.Enabled = true;
+                cbAttestatSeries.Enabled = true;
+
+                tbDiplomNum.Enabled = true;
+                tbDiplomSeries.Enabled = true;
+
+                btnAddEducDoc.Enabled = true;
+                btnDeleteEducDoc.Enabled = true;
+            }
         }
 
         private void SetBtnPrintHostelEnabled()

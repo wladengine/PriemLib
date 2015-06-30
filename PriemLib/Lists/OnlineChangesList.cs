@@ -683,7 +683,6 @@ FROM qAbiturient WHERE IsImported = 1 AND Barcode > 0 {0} ", GetFilterString("qA
                 return true;
             else
                 return false;
-            
         }
     }
 }

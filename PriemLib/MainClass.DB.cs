@@ -50,6 +50,30 @@ namespace PriemLib
             }
         }
 
+        public static string GetFacultyForAccount(string account)
+        {
+            try
+            {
+                using (PriemEntities context = new PriemEntities())
+                {
+                    List<int?> lstFacId = context.GetFacultyIdsByNameFunc(account).ToList();
+                    string Facs = context.SP_Faculty.Where(x => lstFacId.Contains(x.Id))
+                        .Select(x => x.Acronym).Distinct()
+                        .ToList()
+                        .OrderBy(x => x)
+                        .DefaultIfEmpty("")
+                        .Aggregate((x, tail) => x + ", " + tail);
+
+                    return Facs;
+                }
+            }
+            catch (Exception ex)
+            {
+                WinFormsServ.Error("Ошибка в MainClass.GetFacultyForAccount() ", ex);
+                return "";
+            }
+        }
+
         public static void SetIsOpen(string tableName, string itemId)
         {
             try
