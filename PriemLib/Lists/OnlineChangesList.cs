@@ -115,15 +115,16 @@ namespace PriemLib
         {
             using (PriemEntities context = new PriemEntities())
             {
-                List<KeyValuePair<string, string>> lst = ((from ent in MainClass.GetEntry(context)
-                                                           where ent.FacultyId == FacultyId
-                                                           select new
-                                                           {
-                                                               Id = ent.LicenseProgramId,
-                                                               Name = ent.LicenseProgramName
-                                                           }).Distinct()).ToList().Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name)).ToList();
+                List<KeyValuePair<string, string>> lst =
+                    ((from ent in MainClass.GetEntry(context)
+                      where ent.FacultyId == FacultyId
+                      select new
+                      {
+                          Id = ent.LicenseProgramId,
+                          Name = ent.LicenseProgramName
+                      }).Distinct()).ToList().Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name)).ToList();
 
-                ComboServ.FillCombo(cbLicenseProgram, lst, false, false);
+                ComboServ.FillCombo(cbLicenseProgram, lst, false, true);
                 cbLicenseProgram.SelectedIndex = 0;
             }
         }
@@ -131,38 +132,48 @@ namespace PriemLib
         {
             using (PriemEntities context = new PriemEntities())
             {
-                List<KeyValuePair<string, string>> lst = ((from ent in MainClass.GetEntry(context)
-                                                           where ent.FacultyId == FacultyId && ent.LicenseProgramId == LicenseProgramId
-                                                           select new
-                                                           {
-                                                               Id = ent.ObrazProgramId,
-                                                               Name = ent.ObrazProgramName,
-                                                               Crypt = ent.ObrazProgramCrypt
-                                                           }).Distinct()).ToList().Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name + ' ' + u.Crypt)).ToList();
+                List<KeyValuePair<string, string>> lst =
+                    ((from ent in MainClass.GetEntry(context)
+                      where ent.FacultyId == FacultyId && (LicenseProgramId.HasValue ? ent.LicenseProgramId == LicenseProgramId : true)
+                      select new
+                      {
+                          Id = ent.ObrazProgramId,
+                          Name = ent.ObrazProgramName,
+                          Crypt = ent.ObrazProgramCrypt
+                      }).Distinct())
+                      .ToList()
+                      .Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name + ' ' + u.Crypt))
+                      .ToList();
 
-                ComboServ.FillCombo(cbObrazProgram, lst, false, false);
+                ComboServ.FillCombo(cbObrazProgram, lst, false, true);
             }
         }
         private void FillProfile()
         {
             using (PriemEntities context = new PriemEntities())
             {
-                List<KeyValuePair<string, string>> lst = ((from ent in MainClass.GetEntry(context)
-                                                           where ent.FacultyId == FacultyId && ent.LicenseProgramId == LicenseProgramId && ent.ObrazProgramId == ObrazProgramId && ent.ProfileId != null
-                                                           select new
-                                                           {
-                                                               Id = ent.ProfileId,
-                                                               Name = ent.ProfileName
-                                                           }).Distinct()).ToList().Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name)).ToList();
+                List<KeyValuePair<string, string>> lst =
+                    ((from ent in MainClass.GetEntry(context)
+                      where ent.FacultyId == FacultyId 
+                      && (LicenseProgramId.HasValue ? ent.LicenseProgramId == LicenseProgramId : true) 
+                      && (ObrazProgramId.HasValue ? ent.ObrazProgramId == ObrazProgramId : true)
+                      select new
+                      {
+                          Id = ent.ProfileId,
+                          Name = ent.ProfileName
+                      }).Distinct())
+                      .ToList()
+                      .Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name))
+                      .ToList();
 
                 if (lst.Count() > 0)
                 {
-                    ComboServ.FillCombo(cbProfile, lst, false, false);
+                    ComboServ.FillCombo(cbProfile, lst, false, true);
                     cbProfile.Enabled = true;
                 }
                 else
                 {
-                    ComboServ.FillCombo(cbProfile, new List<KeyValuePair<string, string>>(), true, false);
+                    ComboServ.FillCombo(cbProfile, new List<KeyValuePair<string, string>>(), true, true);
                     cbProfile.Enabled = false;
                 }
             }
@@ -195,17 +206,17 @@ namespace PriemLib
         void cbFaculty_SelectedIndexChanged(object sender, EventArgs e)
         {
             FillLicenseProgram();
-            UpdateDataGrid();
+            //UpdateDataGrid();
         }
         void cbLicenseProgram_SelectedIndexChanged(object sender, EventArgs e)
         {
             FillObrazProgram();
-            UpdateDataGrid();
+            //UpdateDataGrid();
         }
         void cbObrazProgram_SelectedIndexChanged(object sender, EventArgs e)
         {
             FillProfile();
-            UpdateDataGrid();
+            //UpdateDataGrid();
         }      
 
         private void UpdateAfterChangeType()
@@ -245,6 +256,7 @@ namespace PriemLib
             string s = string.Empty;
 
             s += string.Format(" AND {0}.IsForeign = '{1}'", tableName, Util.ToBool(MainClass.dbType == PriemType.PriemForeigners));
+            s += string.Format(" AND {0}.StudyLevelGroupId = '{1}'", tableName, Util.BuildStringWithCollection(MainClass.lstStudyLevelGroupId));
 
             //обработали основу обучения 
             if (StudyBasisId != null)
@@ -280,24 +292,39 @@ namespace PriemLib
 
         private void UpdateDataGridPerson()
         {
-            string query = @"SELECT DISTINCT qAbiturient.Id, qAbiturient.Barcode FROM qAbiturient WHERE 
-(qAbiturient.Id IN 
+            string query = string.Format(@"SELECT DISTINCT qAbiturient.Id, qAbiturient.Barcode 
+FROM qAbiturient 
+WHERE 
+qAbiturient.Id IN 
 (
-SELECT DISTINCT ab.Id FROM extAbitFiles INNER JOIN qAbiturient AS ab ON extAbitFiles.ApplicationId = ab.Id 
-WHERE (ab.DateReviewDocs IS NULL OR DateDiff(MINUTE, ab.DateReviewDocs, extAbitFiles.LoadDate) > 0)
+	SELECT DISTINCT ab.Id 
+	FROM ApplicationFile 
+	INNER JOIN Abiturient AS ab ON ApplicationFile.ApplicationId = ab.Id 
+	WHERE (ab.DateReviewDocs IS NULL OR DateDiff(MINUTE, ab.DateReviewDocs, ApplicationFile.LoadDate) > 0)
 )
 OR
 qAbiturient.PersonId IN 
 (
-SELECT DISTINCT pers.Id FROM extAbitFiles INNER JOIN Person AS pers ON extAbitFiles.PersonId = pers.Id 
-WHERE extAbitFiles.ApplicationId IS NULL AND (pers.DateReviewDocs IS NULL OR DateDiff(MINUTE, pers.DateReviewDocs, extAbitFiles.LoadDate) > 0)
-))
-AND qAbiturient.IsImported = 1 "; 
+	SELECT DISTINCT pers.Id 
+	FROM PersonFile 
+	INNER JOIN Person AS pers ON PersonFile.PersonId = pers.Id 
+	WHERE pers.DateReviewDocs IS NULL OR DateDiff(MINUTE, pers.DateReviewDocs, PersonFile.LoadDate) > 0
+)
+OR 
+qAbiturient.CommitId IN 
+(
+	SELECT DISTINCT ab.CommitId 
+	FROM ApplicationFile 
+	INNER JOIN Abiturient AS ab ON ApplicationFile.CommitId = ab.CommitId 
+	WHERE (ab.DateReviewDocs IS NULL OR DateDiff(MINUTE, ab.DateReviewDocs, ApplicationFile.LoadDate) > 0)
+)
+AND qAbiturient.IsImported = 1 
+AND qAbiturient.StudyLevelGroupId IN ({0})", Util.BuildStringWithCollection(MainClass.lstStudyLevelGroupId)); 
             
             DataSet dsAbits = _bdcInet.GetDataSet(query);
 
             List<string> lstAbits = (from dr in dsAbits.Tables[0].AsEnumerable()
-                      select dr["Barcode"].ToString()).ToList<string>();
+                      select dr["Barcode"].ToString()).Distinct().ToList<string>();
        
             if (lstAbits.Count == 0)
             {
@@ -305,14 +332,36 @@ AND qAbiturient.IsImported = 1 ";
                 return;
             }
 
-            string s = string.Join(", ", lstAbits.ToArray());
+            query = string.Format("SELECT DISTINCT Barcode FROM ed.qAbiturient WHERE Barcode <> 0 AND StudyLevelGroupId IN ({0})", Util.BuildStringWithCollection(MainClass.lstStudyLevelGroupId));
+            if (FacultyId.HasValue)
+                query += " AND FacultyId = " + FacultyId.Value.ToString();
+            if (LicenseProgramId.HasValue)
+                query += " AND LicenseProgramId = " + LicenseProgramId.Value.ToString();
+            if (ObrazProgramId.HasValue)
+                query += " AND ObrazProgramId = " + ObrazProgramId.Value.ToString();
+            if (ProfileId.HasValue)
+                query += " AND ProfileId = " + ProfileId.Value.ToString();
+
+            DataTable tblBarcodes = _bdc.GetDataSet(query).Tables[0];
+            List<string> lstBarcodes = (from DataRow dr in tblBarcodes.Rows
+                                        select dr["Barcode"].ToString())
+                                        .ToList<string>()
+                                        .Intersect(lstAbits)
+                                        .ToList();
+
+            //List<string> lstOurAbits = 
+
+            //string s = string.Join(", ", lstAbits.ToArray());
+            string s = string.Join(", ", lstBarcodes.ToArray());
             
             string queryOur = string.Format(
                    @"SELECT extAbit.Id, extAbit.Barcode, Person.Surname + ' ' + Person.Name + ' ' + Person.SecondName as ФИО, Person.BirthDate AS Дата_рождения,
                    extAbit.FacultyName AS Факультет, extAbit.LicenseProgramName AS Направление, extAbit.ObrazProgramName AS Образ_программа, 
                    extAbit.ProfileName AS Профиль, extAbit.StudyBasisName AS Основа, Person.Barcode AS PersonBarcode                  
                    FROM ed.extAbit INNER JOIN ed.Person ON extAbit.PersonId = Person.Id 
-                   WHERE 1=1 {0} AND extAbit.Barcode IN({1}) ORDER BY ФИО", GetFilterString("extAbit"), s);
+                   WHERE 1=1 {0} {1} ORDER BY ФИО", 
+                        GetFilterString("extAbit"), 
+                        lstBarcodes.Count > 0 ? string.Format("AND extAbit.Barcode IN ({0})", s) : "");
 
             HelpClass.FillDataGrid(dgvAbiturients, _bdc, queryOur, "");
             dgvAbiturients.Columns["Barcode"].Visible = false;
@@ -329,8 +378,13 @@ AND qAbiturient.IsImported = 1 ";
             {
                 int? changeTp = ChangeTypeId;
 
-                string abitQuery = string.Format("SELECT Barcode, (Case When BackDoc = 1 then 1 else 0 end) AS BackDoc, Cast(Priority AS nvarchar(10)) AS Priority FROM ed.extAbit WHERE Barcode > 0  {0} ", GetFilterString("ed.extAbit"));
-                string abitQueryInet = string.Format("SELECT qAbiturient.Barcode, Cast(qAbiturient.Priority AS nvarchar(10)) AS Priority, (Case When qAbiturient.Enabled = 1 then 0 else 1 end) AS BackDoc FROM qAbiturient WHERE  IsImported = 1 AND Barcode > 0 {0} ", GetFilterString("qAbiturient"));
+                string abitQuery = string.Format(@"SELECT Barcode, 
+(Case When BackDoc = 1 then 1 else 0 end) AS BackDoc, 
+Cast(Priority AS nvarchar(10)) AS Priority FROM ed.extAbit WHERE Barcode > 0  {0} ", GetFilterString("ed.extAbit"));
+                string abitQueryInet = string.Format(@"SELECT qAbiturient.Barcode, 
+Cast(qAbiturient.Priority AS nvarchar(10)) AS Priority, 
+(Case When qAbiturient.Enabled = 1 then 0 else 1 end) AS BackDoc 
+FROM qAbiturient WHERE IsImported = 1 AND Barcode > 0 {0} ", GetFilterString("qAbiturient"));
                                 
                 Dictionary<int, ChangeAbitClass> abits;
                 Dictionary<int, ChangeAbitClass> abitsInet;
@@ -462,16 +516,17 @@ AND qAbiturient.IsImported = 1 ";
 
         private Dictionary<int, ChangeAbitClass> GetAbitList(DataSet dsAbits)
         {
-            Dictionary<int, ChangeAbitClass> abits = (from dr in dsAbits.Tables[0].AsEnumerable()
-                                                      select new
-                                                      {
-                                                          key = dr.Field<int>("Barcode"),
-                                                          val = new ChangeAbitClass(
-                                                         dr.Field<int>("Barcode"),
-                                                         dr.Field<string>("Priority"), 
-                                                         QueryServ.ToBoolValue(dr.Field<int>("BackDoc"))
-                                                         )
-                                                      }).ToDictionary(n => n.key, n => n.val);
+            Dictionary<int, ChangeAbitClass> abits =
+                (from dr in dsAbits.Tables[0].AsEnumerable()
+                 select new
+                 {
+                     key = dr.Field<int>("Barcode"),
+                     val = new ChangeAbitClass(
+                    dr.Field<int>("Barcode"),
+                    dr.Field<string>("Priority"),
+                    QueryServ.ToBoolValue(dr.Field<int>("BackDoc"))
+                    )
+                 }).ToDictionary(n => n.key, n => n.val);
             return abits;
         }
 

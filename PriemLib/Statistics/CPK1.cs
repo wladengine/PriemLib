@@ -48,8 +48,7 @@ namespace PriemLib
                 var facs = (from ent in context.qEntry
                             join sl in context.StudyLevel
                             on ent.StudyLevelId equals sl.Id
-
-                            where sl.LevelGroupId == iStudyLevelGroupId
+                            where MainClass.lstStudyLevelGroupId.Contains(sl.LevelGroupId)
                             select new
                             {
                                 ent.StudyBasisId,
@@ -78,8 +77,7 @@ namespace PriemLib
                 var sforms = (from ent in context.qEntry
                               join sl in context.StudyLevel
                               on ent.StudyLevelId equals sl.Id
-
-                              where sl.LevelGroupId == (MainClass.dbType == PriemType.Priem ? 1 : 2)
+                              where MainClass.lstStudyLevelGroupId.Contains(sl.LevelGroupId)
                               select new
                               {
                                   ent.StudyBasisId,
@@ -108,8 +106,7 @@ namespace PriemLib
                               
                           join sl in context.StudyLevel
                           on ent.StudyLevelId equals sl.Id
-
-                          where sl.LevelGroupId == (MainClass.dbType == PriemType.Priem ? 1 : 2)
+                          where MainClass.lstStudyLevelGroupId.Contains(sl.LevelGroupId)
                           select new
                           {
                               ent.FacultyId,
@@ -242,17 +239,19 @@ namespace PriemLib
                 {
                     string query = string.Format(@"
                         SELECT StudyBasisId, COUNT(Id) AS CNT FROM ed.extAbit WHERE LicenseProgramId=@LicenseProgramId AND (convert(date, DocInsertDate)<=@Date)
-                        AND StudyLevelGroupId=@SLGId {0} {1} AND StudyFormId=@StudyFormId AND extAbit.Id NOT IN (SELECT Id FROM ed.qAbiturientForeignApplicationsOnly)
+                        AND StudyLevelGroupId=@SLGId {0} {1} " + 
+                        (iStudyFormId.HasValue ? "AND StudyFormId=@StudyFormId" : "") + 
+                        @" AND extAbit.Id NOT IN (SELECT Id FROM ed.qAbiturientForeignApplicationsOnly)
                         GROUP BY StudyBasisId", iFacultyId != null ? "AND FacultyId=@FacultyId" : "", ForeignCrimeaFilter);
-                    DataTable tbl = MainClass.Bdc.GetDataSet(query, 
-                        new SortedList<string,object>() 
-                        { 
-                            { "@LicenseProgramId", lProgram.LicenseProgramId },
-                            { "@Date", dtpDate.Value.Date },
-                            { "@SLGId", iStudyLevelGroupId },
-                            { "@FacultyId", iFacultyId ?? 0 },
-                            { "@StudyFormId", iStudyFormId }
-                        }).Tables[0];
+                    SortedList<string, object> sl = new SortedList<string, object>();
+                    sl.Add("@LicenseProgramId", lProgram.LicenseProgramId);
+                    sl.Add("@Date", dtpDate.Value.Date );
+                    sl.Add("@SLGId", iStudyLevelGroupId );
+                    sl.Add("@FacultyId", iFacultyId ?? 0 );
+                    if (iStudyFormId.HasValue)
+                        sl.Add("@StudyFormId", iStudyFormId);
+
+                    DataTable tbl = MainClass.Bdc.GetDataSet(query, sl).Tables[0];
 
                     int sum_b = (from DataRow x in tbl.Rows where x.Field<int>("StudyBasisId") == 1 select x.Field<int>("CNT")).DefaultIfEmpty(0).First();
                     int sum_p = (from DataRow x in tbl.Rows where x.Field<int>("StudyBasisId") == 2 select x.Field<int>("CNT")).DefaultIfEmpty(0).First();
@@ -261,16 +260,10 @@ namespace PriemLib
                     int? kcp_p = 0;
                     
                     query = string.Format(@"SELECT StudyBasisId, SUM(KCP) AS KCP FROM ed.qEntry WHERE LicenseProgramId=@LicenseProgramId 
-                            AND StudyLevelGroupId=@SLGId {0} {1} AND StudyFormId=@StudyFormId GROUP BY StudyBasisId", iFacultyId != null ? "AND FacultyId=@FacultyId" : "", ForeignCrimeaFilter);
-                    tbl = MainClass.Bdc.GetDataSet(query,
-                        new SortedList<string, object>() 
-                        { 
-                            { "@LicenseProgramId", lProgram.LicenseProgramId },
-                            { "@Date", dtpDate.Value.Date },
-                            { "@SLGId", iStudyLevelGroupId },
-                            { "@FacultyId", iFacultyId ?? 0 },
-                            { "@StudyFormId", iStudyFormId }
-                        }).Tables[0];
+                            AND StudyLevelGroupId=@SLGId {0} {1} "+ 
+                        (iStudyFormId.HasValue ? "AND StudyFormId=@StudyFormId" : "") + 
+                        @" GROUP BY StudyBasisId", iFacultyId != null ? "AND FacultyId=@FacultyId" : "", ForeignCrimeaFilter);
+                    tbl = MainClass.Bdc.GetDataSet(query, sl).Tables[0];
 
                     kcp_b = (from DataRow x in tbl.Rows where x.Field<int>("StudyBasisId") == 1 select x.Field<int?>("KCP")).DefaultIfEmpty(0).First();
                     kcp_p = (from DataRow x in tbl.Rows where x.Field<int>("StudyBasisId") == 2 select x.Field<int?>("KCP")).DefaultIfEmpty(0).First();
@@ -319,37 +312,27 @@ namespace PriemLib
                     var ObrazPrograms = q_op.Select(x => new { x.ObrazProgramId, x.ObrazProgramName, x.ObrazProgramCrypt }).Distinct().OrderBy(x => x.ObrazProgramCrypt);
                     foreach (var oProgram in ObrazPrograms)
                     {
+                        if (sl.ContainsKey("@ObrazProgramId"))
+                            sl["@ObrazProgramId"] = oProgram.ObrazProgramId;
+                        else
+                            sl.Add("@ObrazProgramId", oProgram.ObrazProgramId);
+
                         query = string.Format(@"SELECT StudyBasisId, COUNT(Id) AS CNT FROM ed.extAbit 
                         WHERE LicenseProgramId=@LicenseProgramId AND ObrazProgramId=@ObrazProgramId AND (convert(date, DocInsertDate)<=@Date)
-                        AND StudyLevelGroupId=@SLGId {0} {1} AND StudyFormId=@StudyFormId AND extAbit.Id NOT IN (SELECT Id FROM ed.qAbiturientForeignApplicationsOnly)
+                        AND StudyLevelGroupId=@SLGId {0} {1} " +
+                        (iStudyFormId.HasValue ? "AND StudyFormId=@StudyFormId" : "") +
+                        @" AND extAbit.Id NOT IN (SELECT Id FROM ed.qAbiturientForeignApplicationsOnly)
                         GROUP BY StudyBasisId", iFacultyId != null ? "AND FacultyId=@FacultyId" : "", ForeignCrimeaFilter);
-                        tbl = MainClass.Bdc.GetDataSet(query, 
-                            new SortedList<string, object>() 
-                            { 
-                                { "@LicenseProgramId", lProgram.LicenseProgramId }, 
-                                { "@ObrazProgramId", oProgram.ObrazProgramId },
-                                { "@Date", dtpDate.Value.Date },
-                                { "@SLGId", iStudyLevelGroupId },
-                                { "@FacultyId", iFacultyId ?? 0 },
-                                { "@StudyFormId", iStudyFormId }
-                            }).Tables[0];
+                        tbl = MainClass.Bdc.GetDataSet(query, sl).Tables[0];
 
                         sum_b = (from DataRow x in tbl.Rows where x.Field<int>("StudyBasisId") == 1 select x.Field<int>("CNT")).DefaultIfEmpty(0).First();
                         sum_p = (from DataRow x in tbl.Rows where x.Field<int>("StudyBasisId") == 2 select x.Field<int>("CNT")).DefaultIfEmpty(0).First();
                         
                         query = string.Format(@"SELECT StudyBasisId, SUM(KCP) AS KCP FROM ed.qEntry WHERE LicenseProgramId=@LicenseProgramId 
-                        AND ObrazProgramId=@ObrazProgramId AND StudyLevelGroupId=@SLGId {0} {1} 
-                        AND StudyFormId=@StudyFormId GROUP BY StudyBasisId", iFacultyId != null ? "AND FacultyId=@FacultyId" : "", ForeignCrimeaFilter);
-                        tbl = MainClass.Bdc.GetDataSet(query,
-                            new SortedList<string, object>() 
-                                { 
-                                    { "@LicenseProgramId", lProgram.LicenseProgramId },
-                                    { "@ObrazProgramId", oProgram.ObrazProgramId },
-                                    { "@Date", dtpDate.Value.Date },
-                                    { "@SLGId", iStudyLevelGroupId },
-                                    { "@FacultyId", iFacultyId ?? 0 },
-                                    { "@StudyFormId", iStudyFormId }
-                                }).Tables[0];
+                        AND ObrazProgramId=@ObrazProgramId AND StudyLevelGroupId=@SLGId {0} {1} " +
+                        (iStudyFormId.HasValue ? "AND StudyFormId=@StudyFormId" : "") +
+                        @" GROUP BY StudyBasisId", iFacultyId != null ? "AND FacultyId=@FacultyId" : "", ForeignCrimeaFilter);
+                        tbl = MainClass.Bdc.GetDataSet(query, sl).Tables[0];
 
                         kcp_b = (from DataRow x in tbl.Rows where x.Field<int>("StudyBasisId") == 1 select x.Field<int?>("KCP")).DefaultIfEmpty(0).First();
                         kcp_p = (from DataRow x in tbl.Rows where x.Field<int>("StudyBasisId") == 2 select x.Field<int?>("KCP")).DefaultIfEmpty(0).First();
@@ -392,42 +375,32 @@ namespace PriemLib
                         //    q_prof = q_prof.Where(x => x.StudyBasisId == iStudyBasisId);
 
                         var Profiles = q_prof.Select(x => new { x.ProfileId, x.ProfileName }).Distinct().OrderBy(x => x.ProfileName);
+                        if (Profiles.Count() == 1 && Profiles.First().ProfileId == 0)
+                            continue;
                         foreach (var prof in Profiles)
                         {
+                            if (sl.ContainsKey("@ProfileId"))
+                                sl["@ProfileId"] = prof.ProfileId;
+                            else
+                                sl.Add("@ProfileId", prof.ProfileId);
+
                             query = string.Format(@"SELECT StudyBasisId, COUNT(Id) AS CNT FROM ed.extAbit 
                         WHERE LicenseProgramId=@LicenseProgramId AND ObrazProgramId=@ObrazProgramId AND ProfileId=@ProfileId AND (convert(date, DocInsertDate)<=@Date) 
-                        AND StudyLevelGroupId=@SLGId {0} {1} AND StudyFormId=@StudyFormId AND extAbit.Id NOT IN (SELECT Id FROM ed.qAbiturientForeignApplicationsOnly)
+                        AND StudyLevelGroupId=@SLGId {0} {1} " +
+                        (iStudyFormId.HasValue ? "AND StudyFormId=@StudyFormId" : "") +
+                        @" AND extAbit.Id NOT IN (SELECT Id FROM ed.qAbiturientForeignApplicationsOnly)
                         GROUP BY StudyBasisId", iFacultyId != null ? "AND FacultyId=@FacultyId" : "", ForeignCrimeaFilter);
-                            tbl = MainClass.Bdc.GetDataSet(query,
-                                new SortedList<string, object>() 
-                                { 
-                                    { "@LicenseProgramId", lProgram.LicenseProgramId }, 
-                                    { "@ObrazProgramId", oProgram.ObrazProgramId },
-                                    { "@ProfileId", prof.ProfileId},
-                                    { "@Date", dtpDate.Value.Date },
-                                    { "@SLGId", iStudyLevelGroupId },
-                                    { "@FacultyId", iFacultyId ?? 0},
-                                    { "@StudyFormId", iStudyFormId }
-                                }).Tables[0];
-
+                            tbl = MainClass.Bdc.GetDataSet(query, sl).Tables[0];
 
                             sum_b = (from DataRow x in tbl.Rows where x.Field<int>("StudyBasisId") == 1 select x.Field<int>("CNT")).DefaultIfEmpty(0).First();
                             sum_p = (from DataRow x in tbl.Rows where x.Field<int>("StudyBasisId") == 2 select x.Field<int>("CNT")).DefaultIfEmpty(0).First();
                             
                             query = string.Format(@"SELECT StudyBasisId, SUM(KCP) AS KCP FROM ed.qEntry WHERE LicenseProgramId=@LicenseProgramId 
                         AND ObrazProgramId=@ObrazProgramId AND ProfileId=@ProfileId 
-                        AND StudyLevelGroupId=@SLGId {0} {1} AND StudyFormId=@StudyFormId GROUP BY StudyBasisId", iFacultyId != null ? "AND FacultyId=@FacultyId" : "", ForeignCrimeaFilter);
-                            tbl = MainClass.Bdc.GetDataSet(query,
-                                new SortedList<string, object>() 
-                                { 
-                                    { "@LicenseProgramId", lProgram.LicenseProgramId },
-                                    { "@ObrazProgramId", oProgram.ObrazProgramId },
-                                    { "@ProfileId", prof.ProfileId},
-                                    { "@Date", dtpDate.Value.Date },
-                                    { "@SLGId", iStudyLevelGroupId },
-                                    { "@FacultyId", iFacultyId ?? 0 },
-                                    { "@StudyFormId", iStudyFormId }
-                                }).Tables[0];
+                        AND StudyLevelGroupId=@SLGId {0} {1} " +
+                        (iStudyFormId.HasValue ? "AND StudyFormId=@StudyFormId" : "") +
+                        @" GROUP BY StudyBasisId", iFacultyId != null ? "AND FacultyId=@FacultyId" : "", ForeignCrimeaFilter);
+                            tbl = MainClass.Bdc.GetDataSet(query, sl).Tables[0];
 
                             kcp_b = (from DataRow x in tbl.Rows where x.Field<int>("StudyBasisId") == 1 select x.Field<int?>("KCP")).DefaultIfEmpty(0).First();
                             kcp_p = (from DataRow x in tbl.Rows where x.Field<int>("StudyBasisId") == 2 select x.Field<int?>("KCP")).DefaultIfEmpty(0).First();

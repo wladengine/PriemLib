@@ -15,7 +15,7 @@ namespace PriemLib
                     (from x in context.Abiturient
                      join Ent in context.Entry on x.EntryId equals Ent.Id
                      where MainClass.lstStudyLevelGroupId.Contains(Ent.StudyLevel.StudyLevelGroup.Id)
-                     && x.Entry.IsForeign == false
+                     //&& x.Entry.IsForeign == false
                      && x.PersonId == PersonId
                      && x.BackDoc == false
                      select new ApplicationData

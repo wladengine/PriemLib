@@ -812,7 +812,7 @@ namespace PriemLib
 
             tbEqualityDocumentNumber.Visible = CountryEducId != MainClass.countryRussiaId;
             chbEkvivEduc.Visible = CountryEducId != MainClass.countryRussiaId;
-            cbRegion.Enabled = CountryEducId != MainClass.countryRussiaId;
+            cbRegionEduc.Enabled = (CountryEducId == MainClass.countryRussiaId || ForeignCountryEducId == MainClass.foreignCountryRussiaId);
 
             if (CountryEducId.HasValue)
                 ComboServ.FillCombo(cbRegionEduc, CommonDataProvider.GetRegionListForCountryId(CountryEducId.Value), false, false);
@@ -1276,9 +1276,10 @@ namespace PriemLib
             {
                 using (TransactionScope trans = new TransactionScope(TransactionScopeOption.Required))
                 {
-                    ApplicationCommitSaveProvider.CheckAndUpdateNotUsedApplications(personId.Value, LstCompetitions);
-                    ApplicationCommitSaveProvider.SaveApplicationCommitInWorkBase(personId.Value, LstCompetitions, LanguageId, _abitBarc);
-                    
+                    if (ApplicationCommitSaveProvider.CheckAndUpdateNotUsedApplications(personId.Value, LstCompetitions))
+                    {
+                        ApplicationCommitSaveProvider.SaveApplicationCommitInWorkBase(personId.Value, LstCompetitions, LanguageId, _abitBarc);
+                    }
                     trans.Complete();
                 }
                 
@@ -1419,6 +1420,8 @@ namespace PriemLib
         {
             if (CountryId.HasValue)
                 ComboServ.FillCombo(cbRegion, CommonDataProvider.GetRegionListForCountryId(CountryId.Value), false, false);
+            else
+                return;
 
             if (CountryId != MainClass.countryRussiaId)
             {

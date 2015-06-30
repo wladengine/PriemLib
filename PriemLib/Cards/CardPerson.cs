@@ -408,7 +408,7 @@ namespace PriemLib
                     var sourceAll = (from abit in context.qAbitAll
                                     where !abit.BackDoc && abit.PersonId == GuidId
                                     && MainClass.lstStudyLevelGroupId.Contains(abit.StudyLevelGroupId)
-                                    && (MainClass.dbType != PriemType.PriemForeigners ? abit.IsForeign == false : true)
+                                    //&& (MainClass.dbType != PriemType.PriemForeigners ? abit.IsForeign == false : true)
                                     orderby abit.Priority, abit.FacultyAcr, abit.LicenseProgramName
                                     select new
                                     {
@@ -602,6 +602,9 @@ namespace PriemLib
 
             btnDocs.Enabled = true;
 
+            btnPrintApplication.Enabled = true;
+            chbApplicationPrint.Enabled = true;
+
             if (MainClass.IsPasha())            
                 btnSetStatusPasha.Enabled = tbCommentFBSPasha.Enabled = true;
 
@@ -684,13 +687,13 @@ namespace PriemLib
                 tbPassportSeries.Enabled = false;
                 dtPassportDate.Enabled = false;
 
-                tbAttestatNum.Enabled = false;
-                cbAttestatSeries.Enabled = false;
+                //tbAttestatNum.Enabled = false;
+                //cbAttestatSeries.Enabled = false;
 
                 gbPrivileges.Enabled = false;
 
                 //временная добавка, ибо очень уж просили               
-                btnAttMarks.Enabled = true;
+                //btnAttMarks.Enabled = true;
 
                 btnRemoveE.Enabled = false;
             }
@@ -702,16 +705,16 @@ namespace PriemLib
                 gbStag.Enabled = true;
                 gbPersonInfo.Enabled = true;
 
-                tbDiplomNum.Enabled = true;
-                tbDiplomSeries.Enabled = true;
+                //tbDiplomNum.Enabled = true;
+                //tbDiplomSeries.Enabled = true;
                 
                 btnSaveChange.Enabled = true;
                 btnClose.Enabled = true;
                 btnAddAbit.Enabled = true;
 
                 //попросили, чтобы можно было добавлять даже зачисленным в протокол о допуске
-                gbEduc.Enabled = true;
-                btnAttMarks.Enabled = true;                
+                //gbEduc.Enabled = true;
+                //btnAttMarks.Enabled = true;
             }
             if (inEnableProtocol && MainClass.RightsSov_SovMain_FacMain())
             {
@@ -727,8 +730,8 @@ namespace PriemLib
                 tbPassportSeries.Enabled = false;
                 dtPassportDate.Enabled = false;
 
-                tbAttestatNum.Enabled = false;
-                cbAttestatSeries.Enabled = false;
+                //tbAttestatNum.Enabled = false;
+                //cbAttestatSeries.Enabled = false;
 
                 gbPrivileges.Enabled = false;
                
@@ -744,9 +747,60 @@ namespace PriemLib
 
                 dtPassportDate.Enabled = true;
 
+                //tbAttestatNum.Enabled = true;
+                //cbAttestatSeries.Enabled = true;
+
+                //tbDiplomNum.Enabled = true;
+                //tbDiplomSeries.Enabled = true;
+            }
+
+            // закрываем для создания новых для уже зачисленных
+            if (inEntryView)
+            {
+                btnAddAbit.Enabled = false;
+                //chbIsExcellent.Enabled = false;
+                //tbSchoolAVG.Enabled = false;
+
+                btnAddE.Enabled = false;
+                btnRemoveE.Enabled = false;
+
+                //btnAddEducDoc.Enabled = false;
+                //btnDeleteEducDoc.Enabled = false;
+            }
+
+            UpdateEducationInfoFieldsForEditing();
+        }
+        /// <summary>
+        /// Обновляет доступ к полям вкладки "Образование" в зависимости от статуса пользователя
+        /// </summary>
+        private void UpdateEducationInfoFieldsForEditing()
+        {
+            if (MainClass.RightsFaculty())
+            {
+                tbAttestatNum.Enabled = false;
+                cbAttestatSeries.Enabled = false;
+
+                btnAttMarks.Enabled = true;
+            }
+            if (inEnableProtocol && MainClass.RightsFaculty())
+            {
+                tbDiplomNum.Enabled = true;
+                tbDiplomSeries.Enabled = true;
+
+                gbEduc.Enabled = true;
+                btnAttMarks.Enabled = true;
+            }
+            if (inEnableProtocol && MainClass.RightsSov_SovMain_FacMain())
+            {
+                tbAttestatNum.Enabled = false;
+                cbAttestatSeries.Enabled = false;
+            }
+
+            if (MainClass.RightsSov_SovMain())
+            {
                 tbAttestatNum.Enabled = true;
                 cbAttestatSeries.Enabled = true;
-
+                
                 tbDiplomNum.Enabled = true;
                 tbDiplomSeries.Enabled = true;
             }
@@ -754,17 +808,13 @@ namespace PriemLib
             // закрываем для создания новых для уже зачисленных
             if (inEntryView)
             {
-                btnAddAbit.Enabled = false;
                 chbIsExcellent.Enabled = false;
                 tbSchoolAVG.Enabled = false;
-
-                btnAddE.Enabled = false;
-                btnRemoveE.Enabled = false;
 
                 btnAddEducDoc.Enabled = false;
                 btnDeleteEducDoc.Enabled = false;
             }
-        }        
+        }
 
         private void SetBtnPrintHostelEnabled()
         {
@@ -1560,6 +1610,21 @@ namespace PriemLib
                 Print.PrintExamPass(GuidId, sfdPrint.FileName, chbPrint.Checked);
         }
 
+        private void btnPrintApplication_Click(object sender, EventArgs e)
+        {
+            if (!GuidId.HasValue)
+            {
+                WinFormsServ.Error("Сохраните сперва карточку!");
+                return;
+            }
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.FileName = (Surname + " " ?? "") + (PersonName + " " ?? "") + (SecondName ?? "") + " - Заявление.pdf";
+            sfd.Filter = "ADOBE Pdf files|*.pdf";
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                Print.PrintApplication(chbApplicationPrint.Checked, sfd.FileName, GuidId.Value);
+            }
+        }
         #endregion
 
         #region Benefits
@@ -1654,6 +1719,19 @@ namespace PriemLib
         private void ViewEducationInfo(int id)
         {
             int ind = lstEducationInfo.FindIndex(x => x.Id == id);
+
+            if (id == 0)
+            {
+                tbAttestatNum.Enabled = true;
+                cbAttestatSeries.Enabled = true;
+                tbSchoolAVG.Enabled = true;
+                tbDiplomSeries.Enabled = true;
+                tbDiplomNum.Enabled = true;
+            }
+            else
+            {
+                UpdateEducationInfoFieldsForEditing();
+            }
 
             CountryEducId = lstEducationInfo[ind].CountryEducId;
             if (MainClass.dbType == PriemType.PriemForeigners)

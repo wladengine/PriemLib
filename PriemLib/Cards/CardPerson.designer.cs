@@ -284,6 +284,8 @@
             this.btnAddAbit = new System.Windows.Forms.Button();
             this.btnDocs = new System.Windows.Forms.Button();
             this.sfdPrint = new System.Windows.Forms.SaveFileDialog();
+            this.chbApplicationPrint = new System.Windows.Forms.CheckBox();
+            this.btnPrintApplication = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.epError)).BeginInit();
             this.tabCard.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -2653,6 +2655,8 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.chbApplicationPrint);
+            this.tabPage4.Controls.Add(this.btnPrintApplication);
             this.tabPage4.Controls.Add(this.gbExamPass);
             this.tabPage4.Controls.Add(this.gbHostel);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
@@ -2990,6 +2994,26 @@
             this.btnDocs.Visible = false;
             this.btnDocs.Click += new System.EventHandler(this.btnDocs_Click);
             // 
+            // chbApplicationPrint
+            // 
+            this.chbApplicationPrint.AutoSize = true;
+            this.chbApplicationPrint.Location = new System.Drawing.Point(400, 77);
+            this.chbApplicationPrint.Name = "chbApplicationPrint";
+            this.chbApplicationPrint.Size = new System.Drawing.Size(84, 17);
+            this.chbApplicationPrint.TabIndex = 12;
+            this.chbApplicationPrint.Text = "На принтер";
+            this.chbApplicationPrint.UseVisualStyleBackColor = true;
+            // 
+            // btnPrintApplication
+            // 
+            this.btnPrintApplication.Location = new System.Drawing.Point(400, 48);
+            this.btnPrintApplication.Name = "btnPrintApplication";
+            this.btnPrintApplication.Size = new System.Drawing.Size(111, 23);
+            this.btnPrintApplication.TabIndex = 11;
+            this.btnPrintApplication.Text = "Печать заявления";
+            this.btnPrintApplication.UseVisualStyleBackColor = true;
+            this.btnPrintApplication.Click += new System.EventHandler(this.btnPrintApplication_Click);
+            // 
             // CardPerson
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -3064,6 +3088,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvOtherAppl)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvApplications)).EndInit();
             this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
             this.gbExamPass.ResumeLayout(false);
             this.gbExamPass.PerformLayout();
             this.gbHostel.ResumeLayout(false);
@@ -3330,6 +3355,8 @@
         private System.Windows.Forms.Button btnOtherPassports;
         private System.Windows.Forms.GroupBox gbOlympiads;
         private System.Windows.Forms.DataGridView dgvOlympiads;
+        private System.Windows.Forms.CheckBox chbApplicationPrint;
+        private System.Windows.Forms.Button btnPrintApplication;
 
     }
 }

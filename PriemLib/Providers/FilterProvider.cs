@@ -84,6 +84,7 @@ namespace PriemLib
             list.Add("Слушатель", "Слушатель");
             list.Add("Оплатил", "Оплатил");
             list.Add("Забрал_док", "Забрал док.");
+            list.Add("Заявление_просмотрено", "Заявление просмотрено");
             list.Add("Данные_проверены", "Данные проверены");
             list.Add("Дата_возврата_док", "Дата возврата док.");
             list.Add("Дата_подачи_док", "Дата подачи док.");
@@ -161,6 +162,7 @@ namespace PriemLib
             lst.Add(new FilterItem("Тип конкурса", FilterType.Multi, "ed.qAbiturient.CompetitionId", "ed.qAbiturient", "SELECT Id, Name FROM ed.Competition ORDER BY Name"));
             lst.Add(new FilterItem("Слушатель", FilterType.Bool, "ed.qAbiturient.IsListener", "ed.qAbiturient"));
             lst.Add(new FilterItem("Оплатил", FilterType.Bool, "ed.qAbiturient.IsPaid", "ed.qAbiturient"));
+            lst.Add(new FilterItem("Заявление просмотрено", FilterType.Bool, "ed.qAbiturient.IsViewed", "ed.qAbiturient"));
             lst.Add(new FilterItem("Забрал документы", FilterType.Bool, "ed.qAbiturient.BackDoc", "ed.qAbiturient"));
             lst.Add(new FilterItem("Данные проверены", FilterType.Bool, "ed.qAbiturient.Checked", "ed.qAbiturient"));
             lst.Add(new FilterItem("Не допущен", FilterType.Bool, "ed.qAbiturient.NotEnabled", "ed.qAbiturient"));

@@ -603,6 +603,7 @@ namespace PriemLib
             chbIsPaid.Enabled = true;
             cbLanguage.Enabled = true;
             chbIsForeign.Enabled = true;
+            chbIsCrimea.Enabled = true;
             cbCelCompetition.Enabled = true;
             tbCelCompetitionText.Enabled = true;
             chbIsListener.Enabled = true;
@@ -798,11 +799,72 @@ namespace PriemLib
 
         void chbIsCrimea_CheckedChanged(object sender, EventArgs e)
         {
-            FillLicenseProgram();
+            if (!GuidId.HasValue)
+                FillLicenseProgram();
+            else
+            {
+                if (!inEnableProtocol && !inEntryView)
+                {
+                    cbLicenseProgram.Enabled = true;
+                    cbObrazProgram.Enabled = true;
+                    cbProfile.Enabled = true;
+                    cbStudyForm.Enabled = true;
+                    cbStudyBasis.Enabled = true;
+
+                    int? LPId = LicenseProgramId;
+                    int? OPId = ObrazProgramId;
+                    int? ProfId = ProfileId;
+                    int? StF = StudyFormId;
+                    int? StB = StudyBasisId;
+                    FillLicenseProgram();
+                    LicenseProgramId = LPId;
+                    ObrazProgramId = OPId;
+                    ProfileId = ProfId;
+                    StudyFormId = StF;
+                    StudyBasisId = StB;
+                }
+                else
+                {
+                    if (inEntryView)
+                        WinFormsServ.Error("Данное заявление находится в представлении к зачислению!");
+                    else if (inEnableProtocol)
+                        WinFormsServ.Error("Данное заявление находится в протоколе о допуске!");
+                }
+            }
         }
         void chbIsForeign_CheckedChanged(object sender, EventArgs e)
         {
-            FillLicenseProgram();
+            if (!GuidId.HasValue)
+                FillLicenseProgram();
+            else
+            {
+                if (!inEnableProtocol && !inEntryView)
+                {
+                    cbLicenseProgram.Enabled = true;
+                    cbObrazProgram.Enabled = true;
+                    cbProfile.Enabled = true;
+                    cbStudyForm.Enabled = true;
+                    cbStudyBasis.Enabled = true;
+                    int? LPId = LicenseProgramId;
+                    int? OPId = ObrazProgramId;
+                    int? ProfId = ProfileId;
+                    int? StF = StudyFormId;
+                    int? StB = StudyBasisId;
+                    FillLicenseProgram();
+                    LicenseProgramId = LPId;
+                    ObrazProgramId = OPId;
+                    ProfileId = ProfId;
+                    StudyFormId = StF;
+                    StudyBasisId = StB;
+                }
+                else
+                {
+                    if (inEntryView)
+                        WinFormsServ.Error("Данное заявление находится в представлении к зачислению!");
+                    else if (inEnableProtocol)
+                        WinFormsServ.Error("Данное заявление находится в протоколе о допуске!");
+                }
+            }
         }
         void chbIsSecond_CheckedChanged(object sender, EventArgs e)
         {
@@ -1263,6 +1325,12 @@ namespace PriemLib
                         //}
                         //else
                         //    epErrorInput.Clear();
+                    }
+
+                    if (EntryId == Guid.Empty)
+                    {
+                        WinFormsServ.Error("Не найдено конкурсной группы по указанным данным!");
+                        return false;
                     }
 
                     List<int> lstCompetitionIdsForOriginals = context.Competition.Where(x => x.NeedOriginals).Select(x => x.Id).ToList();

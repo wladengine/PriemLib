@@ -8,7 +8,7 @@ namespace PriemLib
 {
     public static class ApplicationCommitSaveProvider
     {
-        public static void CheckAndUpdateNotUsedApplications(Guid personId, List<ShortCompetition> LstCompetitions)
+        public static bool CheckAndUpdateNotUsedApplications(Guid personId, List<ShortCompetition> LstCompetitions)
         {
             using (PriemEntities context = new PriemEntities())
             {
@@ -32,7 +32,7 @@ namespace PriemLib
                                 + entry.StudyLevel.Acronym + "." + entry.SP_ObrazProgram.Number + " " + entry.SP_ObrazProgram.Name +
                                 ";\nПрофиль:" + entry.SP_Profile.Name + ";" + entry.StudyForm.Acronym + ";" + entry.StudyBasis.Acronym;
                         }
-                        
+
                         dr = MessageBox.Show(str, "Внимание!", MessageBoxButtons.YesNo);
                         if (dr == System.Windows.Forms.DialogResult.Yes)
                         {
@@ -43,8 +43,20 @@ namespace PriemLib
                                     context.Abiturient_UpdateBackDoc(true, DateTime.Now, app);
                             }
                         }
+                        else
+                        {
+                            return false;
+                        }
+
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
                     }
                 }
+                else
+                    return true;
             }
         }
         public static void SaveApplicationCommitInWorkBase(Guid PersonId, List<ShortCompetition> LstCompetitions, int? LanguageId, int? _abitBarc)
