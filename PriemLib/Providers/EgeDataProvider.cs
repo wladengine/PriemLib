@@ -78,6 +78,8 @@ namespace PriemLib
         public static bool GetIsMatchEgeNumber(string number, int year)
         {
             string num = number.Trim();
+            if (string.IsNullOrEmpty(num))
+                return true;
             if (Regex.IsMatch(num, @"^\d{2}-\d{9}-(11|12|13)$") || year >= 2014)
                 return true;
             else

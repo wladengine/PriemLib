@@ -310,6 +310,7 @@ namespace PriemLib
             list.Add("ЕГЭ_литература", "ЕГЭ литература");
             list.Add("ЕГЭ_испан.язык", "ЕГЭ испан.язык");
             list.Add("ЕГЭ_информатика", "ЕГЭ информатика");
+            list.Add("ЕГЭ_Сочинение", "ЕГЭ (Сочинение)");
 
             list.Add("Аттестат_алгебра", "Aттестат Алгебра");
             list.Add("Аттестат_англ_язык", "Aттестат Англ. язык");
@@ -432,6 +433,7 @@ namespace PriemLib
             lst.Add(new FilterItem("Сдавал ЕГЭ Литература", FilterType.Bool, " EXISTS (SELECT * FROM (ed.EgeMark INNER JOIN ed.EgeCertificate ON ed.EgeMark.EgeCertificateId = ed.EgeCertificate.Id)INNER JOIN ed.EgeExamName ON ed.EgeMark.EgeExamNameId = ed.EgeExamName.Id WHERE ed.EgeExamName.NAme='Литература' AND ed.EgeCertificate.PersonId = ed.extPerson.Id)", "ed.extPerson"));
             lst.Add(new FilterItem("Сдавал ЕГЭ Испанский язык", FilterType.Bool, " EXISTS (SELECT * FROM (ed.EgeMark INNER JOIN ed.EgeCertificate ON ed.EgeMark.EgeCertificateId = ed.EgeCertificate.Id)INNER JOIN ed.EgeExamName ON ed.EgeMark.EgeExamNameId = ed.EgeExamName.Id WHERE ed.EgeExamName.NAme='Испанский язык' AND ed.EgeCertificate.PersonId = ed.extPerson.Id)", "ed.extPerson"));
             lst.Add(new FilterItem("Сдавал ЕГЭ Информатика и ИКТ", FilterType.Bool, " EXISTS (SELECT * FROM (ed.EgeMark INNER JOIN ed.EgeCertificate ON ed.EgeMark.EgeCertificateId = ed.EgeCertificate.Id)INNER JOIN ed.EgeExamName ON ed.EgeMark.EgeExamNameId = ed.EgeExamName.Id WHERE ed.EgeExamName.NAme='Информатика и ИКТ' AND ed.EgeCertificate.PersonId = ed.extPerson.Id)", "ed.extPerson"));
+            lst.Add(new FilterItem("Сдавал Сочинение", FilterType.Bool, " EXISTS (SELECT * FROM (ed.EgeMark INNER JOIN ed.EgeCertificate ON ed.EgeMark.EgeCertificateId = ed.EgeCertificate.Id) INNER JOIN ed.EgeExamName ON ed.EgeMark.EgeExamNameId = ed.EgeExamName.Id WHERE ed.EgeExamName.Id = 15 AND ed.EgeCertificate.PersonId = ed.extPerson.Id)", "ed.extPerson"));
 
             lst.Add(new FilterItem("Сдавал ЕГЭ в СПбГУ", FilterType.Bool, " EXISTS (SELECT * FROM ed.qMark INNER JOIN ed.extExamInEntry ON qMark.ExamInEntryId = ed.extExamInEntry.Id WHERE ed.qMark.IsFromEge = 0 AND ed.qMark.IsFromOlymp = 0 AND ed.extExamInEntry.IsAdditional = 0 AND ed.qMark.AbiturientId = ed.qAbiturient.Id)", "ed.qAbiturient"));
 

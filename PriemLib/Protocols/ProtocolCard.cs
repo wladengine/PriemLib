@@ -29,12 +29,13 @@ namespace PriemLib
         protected Guid? _id;
         protected ProtocolTypes _type;
                 
-        protected bool? _isSecond;
-        protected bool? _isReduced;
-        protected bool? _isParallel;
-        protected bool? _isCel;
+        protected bool _isSecond;
+        protected bool _isReduced;
+        protected bool _isParallel;
+        protected bool _isCel;
 
-        protected bool? _isListener;
+        protected bool _isListener;
+        protected bool _isForeign;
 
         protected DataRefreshHandler _drh;
         protected bool isNew;
@@ -88,6 +89,7 @@ namespace PriemLib
             : this(owner, studyLevelGroupId, facultyId, studyBasisId, studyFormId, licenseProgramId, isSecond, isReduced, isParallel, isListener, false, id)
         { }
 
+
         //конструктор 
         public ProtocolCard(ProtocolList owner, int studyLevelGroupId, int facultyId, int studyBasisId, int studyFormId, int? licenseProgramId, bool isSecond, bool isReduced, bool isParallel, bool isListener, bool isCel, Guid? id)
         {
@@ -106,6 +108,7 @@ namespace PriemLib
             _isParallel = isParallel;
             _isListener = isListener;
             _isCel = isCel;
+            _isForeign = (MainClass.dbType == PriemType.PriemForeigners);
 
             //флаг, если новый
             isNew = id.HasValue ? false : true;
@@ -160,7 +163,7 @@ namespace PriemLib
                     {
                         var protocolInfo = context.qProtocol.Where(x => x.Id == _id.Value).Select(x => new { x.Number, x.Date }).FirstOrDefault();
                         ProtocolName = protocolInfo.Number;
-                        dtpDate.Value = protocolInfo.Date.Value;
+                        dtpDate.Value = protocolInfo.Date;
                     }
                 }
                 catch (Exception ex)
@@ -276,8 +279,8 @@ namespace PriemLib
         //возвращает строку фильтров
         protected virtual string GetWhereClause(string sTable)
         {
-            string rez = string.Format(" WHERE {3}.StudyLevelGroupId = {4} AND {3}.FacultyId = {0} AND {3}.StudyFormId = {1} AND {3}.StudyBasisId = {2}  ",
-                _facultyId.ToString(), _studyFormId.ToString(), _studyBasisId.ToString(), sTable, _studyLevelGroupId);
+            string rez = string.Format(" WHERE {3}.StudyLevelGroupId = {4} AND {3}.FacultyId = {0} AND {3}.StudyFormId = {1} AND {3}.StudyBasisId = {2} AND {3}.IsForeign = '{5}' ",
+                _facultyId.ToString(), _studyFormId.ToString(), _studyBasisId.ToString(), sTable, _studyLevelGroupId, Util.ToBool(MainClass.dbType == PriemType.PriemForeigners));
 
             return rez;
         }
@@ -433,7 +436,7 @@ namespace PriemLib
 
                                 context.Protocol_InsertAll(_studyLevelGroupId,
                                     _facultyId, _licenseProgramId, _studyFormId, _studyBasisId, tbNum.Text, dtpDate.Value, iProtocolTypeId,
-                                    string.Empty, !isNew, null, _isSecond, _isReduced, _isParallel, _isListener, paramId);
+                                    string.Empty, !isNew, null, _isSecond, _isReduced, _isParallel, _isListener, _isForeign, paramId);
 
                                 ProtocolId = (Guid)paramId.Value;
                             }

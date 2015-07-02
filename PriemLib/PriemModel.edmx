@@ -953,6 +953,7 @@ warning 6002: The table/view 'Priem.ed.PayDataEntry' does not have a primary key
           <Property Name="IsParallel" Type="bit" Nullable="false" />
           <Property Name="IsReduced" Type="bit" Nullable="false" />
           <Property Name="IsListener" Type="bit" Nullable="false" />
+          <Property Name="IsForeign" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="ProtocolNumbers">
           <Key>
@@ -2438,6 +2439,7 @@ warning 6002: The table/view 'Priem.ed.extProtocol' does not have a primary key 
             
             
             
+            
             <PropertyRef Name="IsOld" />
             
             
@@ -2447,6 +2449,7 @@ warning 6002: The table/view 'Priem.ed.extProtocol' does not have a primary key 
             <PropertyRef Name="StudyBasis" />
             <PropertyRef Name="StudyForm" />
             <PropertyRef Name="ProtocolHistoryId" />
+            <PropertyRef Name="IsForeign" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="AbiturientId" Type="uniqueidentifier" Nullable="false" />
@@ -2456,7 +2459,7 @@ warning 6002: The table/view 'Priem.ed.extProtocol' does not have a primary key 
           <Property Name="StudyLevelGroupId" Type="int" Nullable="false" />
           <Property Name="FacultyId" Type="int" />
           <Property Name="LicenseProgramId" Type="int" />
-          <Property Name="StudyFormId" Type="int" />
+          <Property Name="StudyFormId" Type="int" Nullable="false" />
           <Property Name="StudyBasisId" Type="int" />
           <Property Name="Number" Type="nvarchar" MaxLength="15" />
           <Property Name="Date" Type="datetime" Nullable="false" />
@@ -2478,6 +2481,7 @@ warning 6002: The table/view 'Priem.ed.extProtocol' does not have a primary key 
           <Property Name="StudyFormAcr" Type="nvarchar" MaxLength="50" />
           <Property Name="StudyFormRodName" Type="nvarchar" MaxLength="50" />
           <Property Name="ProtocolHistoryId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="IsForeign" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'Priem.ed.hlpAbiturientActionLog' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -3020,22 +3024,30 @@ warning 6002: The table/view 'Priem.ed.qProtocol' does not have a primary key de
         <EntityType Name="qProtocol">
           <Key>
             <PropertyRef Name="Id" />
+            
+            
+            
+            
             <PropertyRef Name="IsOld" />
+            
+            
+            <PropertyRef Name="IsForeign" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="StudyLevelGroupId" Type="int" />
+          <Property Name="StudyLevelGroupId" Type="int" Nullable="false" />
           <Property Name="FacultyId" Type="int" />
           <Property Name="LicenseProgramId" Type="int" />
-          <Property Name="StudyFormId" Type="int" />
+          <Property Name="StudyFormId" Type="int" Nullable="false" />
           <Property Name="StudyBasisId" Type="int" />
-          <Property Name="Number" Type="nvarchar" MaxLength="10" />
-          <Property Name="Date" Type="datetime" />
-          <Property Name="ProtocolTypeId" Type="int" />
+          <Property Name="Number" Type="nvarchar" MaxLength="15" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="ProtocolTypeId" Type="int" Nullable="false" />
           <Property Name="Reason" Type="nvarchar" MaxLength="1000" />
           <Property Name="IsOld" Type="bit" Nullable="false" />
           <Property Name="ParentProtocolId" Type="uniqueidentifier" />
-          <Property Name="IsSecond" Type="bit" />
-          <Property Name="IsListener" Type="bit" />
+          <Property Name="IsSecond" Type="bit" Nullable="false" />
+          <Property Name="IsListener" Type="bit" Nullable="false" />
+          <Property Name="IsForeign" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'Priem.ed.qProtocolHistory' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -3044,27 +3056,35 @@ warning 6002: The table/view 'Priem.ed.qProtocolHistory' does not have a primary
             <PropertyRef Name="AbiturientId" />
             <PropertyRef Name="ProtocolId" />
             <PropertyRef Name="Excluded" />
+            
+            
+            
+            
             <PropertyRef Name="IsOld" />
+            
+            
             <PropertyRef Name="Id" />
+            <PropertyRef Name="IsForeign" />
           </Key>
           <Property Name="AbiturientId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="ProtocolId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Excluded" Type="bit" Nullable="false" />
           <Property Name="ExcludeProtocolId" Type="uniqueidentifier" />
           <Property Name="EntryHeaderId" Type="int" />
-          <Property Name="StudyLevelGroupId" Type="int" />
+          <Property Name="StudyLevelGroupId" Type="int" Nullable="false" />
           <Property Name="FacultyId" Type="int" />
           <Property Name="LicenseProgramId" Type="int" />
-          <Property Name="StudyFormId" Type="int" />
+          <Property Name="StudyFormId" Type="int" Nullable="false" />
           <Property Name="StudyBasisId" Type="int" />
-          <Property Name="Number" Type="nvarchar" MaxLength="10" />
-          <Property Name="Date" Type="datetime" />
-          <Property Name="ProtocolTypeId" Type="int" />
+          <Property Name="Number" Type="nvarchar" MaxLength="15" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="ProtocolTypeId" Type="int" Nullable="false" />
           <Property Name="Reason" Type="nvarchar" MaxLength="1000" />
           <Property Name="IsOld" Type="bit" Nullable="false" />
-          <Property Name="IsSecond" Type="bit" />
-          <Property Name="IsListener" Type="bit" />
+          <Property Name="IsSecond" Type="bit" Nullable="false" />
+          <Property Name="IsListener" Type="bit" Nullable="false" />
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="IsForeign" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'Priem.ed.qStudyLevel' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -5417,6 +5437,7 @@ warning 6002: The table/view 'Priem.ed.qStudyLevel' does not have a primary key 
           <Parameter Name="ParentProtocolId" Type="uniqueidentifier" Mode="In" />
           <Parameter Name="IsSecond" Type="bit" Mode="In" />
           <Parameter Name="IsListener" Type="bit" Mode="In" />
+          <Parameter Name="IsForeign" Type="bit" Mode="In" />
           <Parameter Name="id" Type="uniqueidentifier" Mode="InOut" />
         </Function>
         <Function Name="Protocol_InsertAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ed">
@@ -5435,6 +5456,7 @@ warning 6002: The table/view 'Priem.ed.qStudyLevel' does not have a primary key 
           <Parameter Name="IsReduced" Type="bit" Mode="In" />
           <Parameter Name="IsParallel" Type="bit" Mode="In" />
           <Parameter Name="IsListener" Type="bit" Mode="In" />
+          <Parameter Name="IsForeign" Type="bit" Mode="In" />
           <Parameter Name="id" Type="uniqueidentifier" Mode="InOut" />
         </Function>
         <Function Name="Protocol_UpdateIsOld" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ed">
@@ -6595,7 +6617,8 @@ FROM [ed].[extPersonAll] AS [extPersonAll]</DefiningQuery>
 [extProtocol].[FacultyDatName] AS [FacultyDatName], 
 [extProtocol].[StudyFormAcr] AS [StudyFormAcr], 
 [extProtocol].[StudyFormRodName] AS [StudyFormRodName], 
-[extProtocol].[ProtocolHistoryId] AS [ProtocolHistoryId]
+[extProtocol].[ProtocolHistoryId] AS [ProtocolHistoryId], 
+[extProtocol].[IsForeign] AS [IsForeign]
 FROM [ed].[extProtocol] AS [extProtocol]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="hlpAbiturientActionLog" EntityType="Self.hlpAbiturientActionLog" store:Type="Views" store:Schema="ed">
@@ -6959,7 +6982,8 @@ FROM [ed].[qProfile] AS [qProfile]</DefiningQuery>
 [qProtocol].[IsOld] AS [IsOld], 
 [qProtocol].[ParentProtocolId] AS [ParentProtocolId], 
 [qProtocol].[IsSecond] AS [IsSecond], 
-[qProtocol].[IsListener] AS [IsListener]
+[qProtocol].[IsListener] AS [IsListener], 
+[qProtocol].[IsForeign] AS [IsForeign]
 FROM [ed].[qProtocol] AS [qProtocol]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="qProtocolHistory" EntityType="Self.qProtocolHistory" store:Type="Views" store:Schema="ed">
@@ -6981,7 +7005,8 @@ FROM [ed].[qProtocol] AS [qProtocol]</DefiningQuery>
 [qProtocolHistory].[IsOld] AS [IsOld], 
 [qProtocolHistory].[IsSecond] AS [IsSecond], 
 [qProtocolHistory].[IsListener] AS [IsListener], 
-[qProtocolHistory].[Id] AS [Id]
+[qProtocolHistory].[Id] AS [Id], 
+[qProtocolHistory].[IsForeign] AS [IsForeign]
 FROM [ed].[qProtocolHistory] AS [qProtocolHistory]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="qStudyLevel" EntityType="Self.qStudyLevel" store:Type="Views" store:Schema="ed">
@@ -8152,6 +8177,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
             <Parameter Name="ParentProtocolId" Mode="In" Type="Guid" />
             <Parameter Name="IsSecond" Mode="In" Type="Boolean" />
             <Parameter Name="IsListener" Mode="In" Type="Boolean" />
+            <Parameter Name="IsForeign" Mode="In" Type="Boolean" />
             <Parameter Name="id" Mode="InOut" Type="Guid" />
           </FunctionImport>
           <EntitySet Name="extOlympiadsAll" EntityType="Priem2012Model.extOlympiadsAll" />
@@ -8336,6 +8362,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
             <Parameter Name="IsReduced" Mode="In" Type="Boolean" />
             <Parameter Name="IsParallel" Mode="In" Type="Boolean" />
             <Parameter Name="IsListener" Mode="In" Type="Boolean" />
+            <Parameter Name="IsForeign" Mode="In" Type="Boolean" />
             <Parameter Name="id" Mode="InOut" Type="Guid" />
           </FunctionImport>
           <EntitySet Name="extAbitMarksSum" EntityType="Priem2012Model.extAbitMarksSum" />
@@ -9134,7 +9161,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
             <Parameter Name="id" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="GetFacultyIdsByNameFunc" IsComposable="true" ReturnType="Collection(Int32)">
-            <Parameter Name="name" Mode="In" Type="String" />
+          <Parameter Name="name" Mode="In" Type="String" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="AttMarks">
@@ -10148,6 +10175,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <Property Type="Boolean" Name="IsReduced" Nullable="false" />
           <NavigationProperty Name="SP_Faculty" Relationship="Priem2012Model.FK_Protocol_SP_Faculty" FromRole="Protocol" ToRole="SP_Faculty" />
           <NavigationProperty Name="SP_LicenseProgram" Relationship="Priem2012Model.FK_Protocol_SP_LicenseProgram" FromRole="Protocol" ToRole="SP_LicenseProgram" />
+          <Property Name="IsForeign" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="extExamInEntry">
           <Key>
@@ -10285,21 +10313,23 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <Key>
             <PropertyRef Name="Id" />
             <PropertyRef Name="IsOld" />
+            <PropertyRef Name="IsForeign" />
           </Key>
           <Property Type="Guid" Name="Id" Nullable="false" />
-          <Property Type="Int32" Name="StudyLevelGroupId" />
+          <Property Type="Int32" Name="StudyLevelGroupId" Nullable="false" />
           <Property Type="Int32" Name="FacultyId" />
           <Property Type="Int32" Name="LicenseProgramId" />
-          <Property Type="Int32" Name="StudyFormId" />
+          <Property Type="Int32" Name="StudyFormId" Nullable="false" />
           <Property Type="Int32" Name="StudyBasisId" />
-          <Property Type="String" Name="Number" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="Date" Precision="3" />
-          <Property Type="Int32" Name="ProtocolTypeId" />
+          <Property Type="String" Name="Number" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="Date" Precision="3" Nullable="false" />
+          <Property Type="Int32" Name="ProtocolTypeId" Nullable="false" />
           <Property Type="String" Name="Reason" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Type="Boolean" Name="IsOld" Nullable="false" />
           <Property Type="Guid" Name="ParentProtocolId" />
-          <Property Type="Boolean" Name="IsSecond" />
-          <Property Type="Boolean" Name="IsListener" />
+          <Property Type="Boolean" Name="IsSecond" Nullable="false" />
+          <Property Type="Boolean" Name="IsListener" Nullable="false" />
+          <Property Name="IsForeign" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="qProtocolHistory">
           <Key>
@@ -10308,25 +10338,27 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
             <PropertyRef Name="Excluded" />
             <PropertyRef Name="IsOld" />
             <PropertyRef Name="Id" />
+            <PropertyRef Name="IsForeign" />
           </Key>
           <Property Type="Guid" Name="AbiturientId" Nullable="false" />
           <Property Type="Guid" Name="ProtocolId" Nullable="false" />
           <Property Type="Boolean" Name="Excluded" Nullable="false" />
           <Property Type="Guid" Name="ExcludeProtocolId" />
           <Property Type="Int32" Name="EntryHeaderId" />
-          <Property Type="Int32" Name="StudyLevelGroupId" />
+          <Property Type="Int32" Name="StudyLevelGroupId" Nullable="false" />
           <Property Type="Int32" Name="FacultyId" />
           <Property Type="Int32" Name="LicenseProgramId" />
-          <Property Type="Int32" Name="StudyFormId" />
+          <Property Type="Int32" Name="StudyFormId" Nullable="false" />
           <Property Type="Int32" Name="StudyBasisId" />
-          <Property Type="String" Name="Number" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="Date" Precision="3" />
-          <Property Type="Int32" Name="ProtocolTypeId" />
+          <Property Type="String" Name="Number" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="Date" Precision="3" Nullable="false" />
+          <Property Type="Int32" Name="ProtocolTypeId" Nullable="false" />
           <Property Type="String" Name="Reason" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Type="Boolean" Name="IsOld" Nullable="false" />
-          <Property Type="Boolean" Name="IsSecond" />
-          <Property Type="Boolean" Name="IsListener" />
+          <Property Type="Boolean" Name="IsSecond" Nullable="false" />
+          <Property Type="Boolean" Name="IsListener" Nullable="false" />
           <Property Type="Guid" Name="Id" Nullable="false" />
+          <Property Name="IsForeign" Type="Boolean" Nullable="false" />
         </EntityType>
         <Association Name="FK_Abiturient_CelCompetition">
           <End Type="Priem2012Model.CelCompetition" Role="CelCompetition" Multiplicity="0..1" />
@@ -10763,6 +10795,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
             <PropertyRef Name="StudyBasis" />
             <PropertyRef Name="StudyForm" />
             <PropertyRef Name="ProtocolHistoryId" />
+            <PropertyRef Name="IsForeign" />
           </Key>
           <Property Type="Guid" Name="Id" Nullable="false" />
           <Property Type="Guid" Name="AbiturientId" Nullable="false" />
@@ -10772,7 +10805,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <Property Type="Int32" Name="StudyLevelGroupId" Nullable="false" />
           <Property Type="Int32" Name="FacultyId" />
           <Property Type="Int32" Name="LicenseProgramId" />
-          <Property Type="Int32" Name="StudyFormId" />
+          <Property Type="Int32" Name="StudyFormId" Nullable="false" />
           <Property Type="Int32" Name="StudyBasisId" />
           <Property Type="String" Name="Number" MaxLength="15" FixedLength="false" Unicode="true" />
           <Property Type="DateTime" Name="Date" Precision="3" Nullable="false" />
@@ -10794,6 +10827,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <Property Type="String" Name="StudyFormAcr" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="StudyFormRodName" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="Guid" Name="ProtocolHistoryId" Nullable="false" />
+          <Property Name="IsForeign" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="extEnableProtocol">
           <Key>
@@ -14103,6 +14137,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <EntitySetMapping Name="Protocol">
             <EntityTypeMapping TypeName="Priem2012Model.Protocol">
               <MappingFragment StoreEntitySet="Protocol">
+                <ScalarProperty Name="IsForeign" ColumnName="IsForeign" />
                 <ScalarProperty Name="IsReduced" ColumnName="IsReduced" />
                 <ScalarProperty Name="IsParallel" ColumnName="IsParallel" />
                 <ScalarProperty Name="IsListener" ColumnName="IsListener" />
@@ -14220,6 +14255,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <EntitySetMapping Name="qProtocol">
             <EntityTypeMapping TypeName="Priem2012Model.qProtocol">
               <MappingFragment StoreEntitySet="qProtocol">
+                <ScalarProperty Name="IsForeign" ColumnName="IsForeign" />
                 <ScalarProperty Name="IsListener" ColumnName="IsListener" />
                 <ScalarProperty Name="IsSecond" ColumnName="IsSecond" />
                 <ScalarProperty Name="ParentProtocolId" ColumnName="ParentProtocolId" />
@@ -14240,6 +14276,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <EntitySetMapping Name="qProtocolHistory">
             <EntityTypeMapping TypeName="Priem2012Model.qProtocolHistory">
               <MappingFragment StoreEntitySet="qProtocolHistory">
+                <ScalarProperty Name="IsForeign" ColumnName="IsForeign" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="IsListener" ColumnName="IsListener" />
                 <ScalarProperty Name="IsSecond" ColumnName="IsSecond" />
@@ -14476,6 +14513,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <EntitySetMapping Name="extProtocol">
             <EntityTypeMapping TypeName="Priem2012Model.extProtocol">
               <MappingFragment StoreEntitySet="extProtocol">
+                <ScalarProperty Name="IsForeign" ColumnName="IsForeign" />
                 <ScalarProperty Name="ProtocolHistoryId" ColumnName="ProtocolHistoryId" />
                 <ScalarProperty Name="StudyFormRodName" ColumnName="StudyFormRodName" />
                 <ScalarProperty Name="StudyFormAcr" ColumnName="StudyFormAcr" />

@@ -38,7 +38,7 @@ namespace PriemLib
             {
                string ehQuery = string.Empty; 
                 
-                if (_isCel.Value)
+                if (_isCel)
                    ehQuery = "SELECT CONVERT(varchar(100), Id) AS Id, Acronym as Name FROM ed.EntryHeader WHERE Id IN (7) ORDER BY Id";
                 else
                 {
@@ -106,16 +106,12 @@ namespace PriemLib
             if (_licenseProgramId != null)
                 sFilter += " AND ed.qAbiturient.LicenseProgramId = " + _licenseProgramId;
                         
-            if (_isSecond.HasValue)
-                sFilter += " AND ed.qAbiturient.IsSecond = " + QueryServ.StringParseFromBool(_isSecond.Value);
-            if (_isReduced.HasValue)
-                sFilter += " AND ed.qAbiturient.IsReduced = " + QueryServ.StringParseFromBool(_isReduced.Value);
-            if (_isParallel.HasValue)
-                sFilter += " AND ed.qAbiturient.IsParallel = " + QueryServ.StringParseFromBool(_isParallel.Value);
+            sFilter += " AND ed.qAbiturient.IsSecond = " + QueryServ.StringParseFromBool(_isSecond);
+            sFilter += " AND ed.qAbiturient.IsReduced = " + QueryServ.StringParseFromBool(_isReduced);
+            sFilter += " AND ed.qAbiturient.IsParallel = " + QueryServ.StringParseFromBool(_isParallel);
 
             //обработали слушатель
-            if (_isListener.HasValue)
-                sFilter += " AND ed.qAbiturient.IsListener = " + QueryServ.StringParseFromBool(_isListener.Value);
+            sFilter += " AND ed.qAbiturient.IsListener = " + QueryServ.StringParseFromBool(_isListener);
 
             sFilter += " AND ed.qAbiturient.BackDoc = 0 ";
 
@@ -263,7 +259,7 @@ namespace PriemLib
                     FROM ed.qEntry 
                     WHERE ed.qEntry.StudyLevelGroupId={7} AND ed.qEntry.FacultyId={0} AND ed.qEntry.StudyFormId={1} AND
                     ed.qEntry.StudyBasisId={2} AND ed.qEntry.LicenseProgramId={3} AND ed.qEntry.IsSEcond = {4} AND ed.qEntry.IsReduced = {5} AND ed.qEntry.IsParallel = {6}", _facultyId, _studyFormId, _studyBasisId, _licenseProgramId,
-                    QueryServ.StringParseFromBool(_isSecond.Value), QueryServ.StringParseFromBool(_isReduced.Value), QueryServ.StringParseFromBool(_isParallel.Value), _studyLevelGroupId));
+                    QueryServ.StringParseFromBool(_isSecond), QueryServ.StringParseFromBool(_isReduced), QueryServ.StringParseFromBool(_isParallel), _studyLevelGroupId));
 
             //по каждой программе-профилю смотрим КЦ и оставшиеся места и зачисляем подавших подлинники
             foreach (DataRow dr in dsPrograms.Tables[0].Rows)
@@ -275,10 +271,10 @@ namespace PriemLib
                         INNER JOIN ed.extEntryView ON ed.extAbit.Id=ed.extEntryView.AbiturientId 
                         WHERE Excluded=0 AND ed.extAbit.StudyLevelGroupId = {9}
                         AND ed.extAbit.FacultyId={0} AND ed.extAbit.StudyFormId={1} AND ed.extAbit.StudyBasisId={2} 
-                        AND ed.extAbit.LicenseProgramId={3} AND ed.extAbit.IsSEcond = {4} AND ed.extAbit.IsReduced = {5} AND ed.extAbit.IsParallel = {6} AND ed.extAbit.ObrazProgramId={7} {8}", _facultyId, _studyFormId, _studyBasisId, _licenseProgramId, QueryServ.StringParseFromBool(_isSecond.Value), QueryServ.StringParseFromBool(_isReduced.Value), QueryServ.StringParseFromBool(_isParallel.Value),
+                        AND ed.extAbit.LicenseProgramId={3} AND ed.extAbit.IsSEcond = {4} AND ed.extAbit.IsReduced = {5} AND ed.extAbit.IsParallel = {6} AND ed.extAbit.ObrazProgramId={7} {8}", _facultyId, _studyFormId, _studyBasisId, _licenseProgramId, QueryServ.StringParseFromBool(_isSecond), QueryServ.StringParseFromBool(_isReduced), QueryServ.StringParseFromBool(_isParallel),
                         obProg, string.IsNullOrEmpty(spec) ? " AND ed.extAbit.ProfileId IS NULL " : " AND ed.extAbit.ProfileId='" + spec + "'", _studyLevelGroupId);
 
-                if (_isCel.Value)
+                if (_isCel)
                     enteredQuery += " AND ed.extAbit.CompetitionId=6 ";
 
                 enteredQuery += string.Format(" AND ed.extAbit.CompetitionId {0} IN (11, 12)", (HeaderId == 11 || HeaderId == 12) ? "" : "NOT");
@@ -287,7 +283,7 @@ namespace PriemLib
                 int kc = 0;
                     
                 int.TryParse(MainClass.Bdc.GetStringValue(enteredQuery), out entered);
-                if(_isCel.Value)
+                if(_isCel)
                     int.TryParse(dr["ValueCel"].ToString(), out kc);
                 else if (HeaderId == 11 || HeaderId == 12)
                 {
@@ -336,7 +332,6 @@ namespace PriemLib
         void UpdateLeft()
         { 
             string ids = Util.BuildStringWithCollection(lstSelected[HeaderId]);
-
 
             dgvLeft.Rows.Clear();
             if (ids.Length > 0)
@@ -388,7 +383,7 @@ namespace PriemLib
 
                         context.Protocol_InsertAll(_studyLevelGroupId,
                                   _facultyId, _licenseProgramId, _studyFormId, _studyBasisId, tbNum.Text, dtpDate.Value, iProtocolTypeId,
-                                  string.Empty, !isNew, null, _isSecond, _isReduced, _isParallel, _isListener, paramId);
+                                  string.Empty, !isNew, null, _isSecond, _isReduced, _isParallel, _isListener, _isForeign, paramId);
 
                         protocolId = (Guid)paramId.Value;                        
 

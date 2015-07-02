@@ -258,7 +258,7 @@ namespace PriemLib
 
                         ObjectParameter idParam = new ObjectParameter("id", typeof(Guid));
                         context.Protocol_Insert(protocolInfo.StudyLevelGroupId, protocolInfo.FacultyId, protocolInfo.LicenseProgramId, protocolInfo.StudyFormId, protocolInfo.StudyBasisId, EVNumber + "\\1",
-                            protocolInfo.Date, 4, protocolInfo.Reason, false, null, protocolInfo.IsSecond, protocolInfo.IsListener, idParam);
+                            protocolInfo.Date, 4, protocolInfo.Reason, false, null, protocolInfo.IsSecond, protocolInfo.IsListener, false, idParam);
 
                         Guid protocolId = (Guid)idParam.Value;
 

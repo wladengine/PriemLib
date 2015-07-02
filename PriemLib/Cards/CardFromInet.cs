@@ -1055,7 +1055,7 @@ namespace PriemLib
             else
                 epError.Clear();
 
-            if (!Regex.IsMatch(SchoolExitYear.ToString(), @"^\d{0,4}$"))
+            if (!SchoolExitYear.HasValue || !Regex.IsMatch(SchoolExitYear.ToString(), @"^\d{0,4}$"))
             {
                 epError.SetError(tbSchoolExitYear, "Неправильно указан год");
                 tabCard.SelectedIndex = 2;
@@ -1192,6 +1192,13 @@ namespace PriemLib
 
             return true;
         }
+        private bool CheckIsImported()
+        {
+            using (PriemEntities context = new PriemEntities())
+            {
+                return context.Person.Where(x => x.Barcode == _personBarc).Count() > 0;
+            }
+        }
         
         protected override bool SaveClick()
         {
@@ -1207,45 +1214,50 @@ namespace PriemLib
                     if (!CheckFields())
                         return false;
 
-                    using (PriemEntities context = new PriemEntities())
+                    if (!CheckIsImported())
                     {
-                        using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.RequiresNew))
+                        using (PriemEntities context = new PriemEntities())
                         {
-                            try
+                            using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.RequiresNew))
                             {
-                                ObjectParameter entId = new ObjectParameter("id", typeof(Guid));
-                                context.Person_insert(_personBarc, PersonName, SecondName, Surname, BirthDate, BirthPlace, PassportTypeId, PassportSeries, PassportNumber,
-                                    PassportAuthor, PassportDate, Sex, CountryId, NationalityId, RegionId, Phone, Mobiles, Email,
-                                    Code, City, Street, House, Korpus, Flat, CodeReal, CityReal, StreetReal, HouseReal, KorpusReal, FlatReal, KladrCode, HostelAbit, HostelEduc, false,
-                                    null, false, null, LanguageId, Stag, WorkPlace, MSVuz, MSCourse, MSStudyFormId, Privileges, PassportCode,
-                                    PersonalCode, PersonInfo, ExtraInfo, ScienceWork, StartEnglish, EnglishMark, EgeInSpbgu, SNILS, HasTRKI, TRKICertificateNumber, entId);
-
-                                personId = (Guid)entId.Value;
-
-                                if (MainClass.dbType == PriemType.PriemForeigners)
+                                try
                                 {
-                                    context.Person_UpdateForeignNationality(ForeignCountryId, ForeignNationalityId, personId);
-                                }
+                                    ObjectParameter entId = new ObjectParameter("id", typeof(Guid));
+                                    context.Person_insert(_personBarc, PersonName, SecondName, Surname, BirthDate, BirthPlace, PassportTypeId, PassportSeries, PassportNumber,
+                                        PassportAuthor, PassportDate, Sex, CountryId, NationalityId, RegionId, Phone, Mobiles, Email,
+                                        Code, City, Street, House, Korpus, Flat, CodeReal, CityReal, StreetReal, HouseReal, KorpusReal, FlatReal, KladrCode, HostelAbit, HostelEduc, false,
+                                        null, false, null, LanguageId, Stag, WorkPlace, MSVuz, MSCourse, MSStudyFormId, Privileges, PassportCode,
+                                        PersonalCode, PersonInfo, ExtraInfo, ScienceWork, StartEnglish, EnglishMark, EgeInSpbgu, SNILS, HasTRKI, TRKICertificateNumber, entId);
 
-                                SaveEducationDocuments();
-                                SaveEgeFirst();
-                                transaction.Complete();
+                                    personId = (Guid)entId.Value;
+
+                                    if (MainClass.dbType == PriemType.PriemForeigners)
+                                    {
+                                        context.Person_UpdateForeignNationality(ForeignCountryId, ForeignNationalityId, personId);
+                                    }
+
+                                    SaveEducationDocuments();
+                                    SaveEgeFirst();
+                                    transaction.Complete();
+                                }
+                                catch (Exception exc)
+                                {
+                                    WinFormsServ.Error("Ошибка при сохранении:", exc);
+                                }
                             }
-                            catch (Exception exc)
+                            if (!SaveApplication(personId.Value))
                             {
-                                WinFormsServ.Error("Ошибка при сохранении:", exc);
+                                _closePerson = true;
+                                return false;
                             }
+
+                            if (!MainClass.IsTestDB)
+                                _bdcInet.ExecuteQuery("UPDATE Person SET IsImported = 1 WHERE Person.Barcode = " + _personBarc);
                         }
-                        if (!SaveApplication(personId.Value))
-                        {
-                            _closePerson = true;
-                            return false;
-                        }
-                        
-                        if (!MainClass.IsTestDB)
-                            _bdcInet.ExecuteQuery("UPDATE Person SET IsImported = 1 WHERE Person.Barcode = " + _personBarc);                       
                     }
-                }  
+                    else
+                        MessageBox.Show("Карточка уже была перегружена кем-то ещё");
+                }
                              
                 _isModified = false;
 
@@ -1323,7 +1335,10 @@ namespace PriemLib
         {
             try
             {
-                int _currentEducRow = dgvEducationDocuments.CurrentRow.Index;
+                int _currentEducRow = 0;
+                if (dgvEducationDocuments.SelectedCells.Count != 0)
+                    _currentEducRow = dgvEducationDocuments.CurrentRow.Index;
+                
                 int IntId = lstEducationInfo[_currentEducRow].Id;
                 foreach (var ED in lstEducationInfo)
                 {
@@ -1382,7 +1397,8 @@ namespace PriemLib
                                where per.Barcode == _personBarc
                                select per.Id).FirstOrDefault();
 
-                MainClass.OpenCardPerson(perId.ToString(), null, null);
+                if (perId.HasValue)
+                    MainClass.OpenCardPerson(perId.ToString(), null, null);
             }
         }
 

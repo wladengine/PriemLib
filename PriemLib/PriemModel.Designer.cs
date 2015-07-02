@@ -8587,8 +8587,9 @@ namespace PriemLib
         /// <param name="parentProtocolId">No Metadata Documentation available.</param>
         /// <param name="isSecond">No Metadata Documentation available.</param>
         /// <param name="isListener">No Metadata Documentation available.</param>
+        /// <param name="isForeign">No Metadata Documentation available.</param>
         /// <param name="id">No Metadata Documentation available.</param>
-        public int Protocol_Insert(Nullable<global::System.Int32> studyLevelGroupId, Nullable<global::System.Int32> facultyId, Nullable<global::System.Int32> licenseProgramId, Nullable<global::System.Int32> studyFormId, Nullable<global::System.Int32> studyBasisId, global::System.String number, Nullable<global::System.DateTime> date, Nullable<global::System.Int32> protocolTypeId, global::System.String reason, Nullable<global::System.Boolean> isOld, Nullable<global::System.Guid> parentProtocolId, Nullable<global::System.Boolean> isSecond, Nullable<global::System.Boolean> isListener, ObjectParameter id)
+        public int Protocol_Insert(Nullable<global::System.Int32> studyLevelGroupId, Nullable<global::System.Int32> facultyId, Nullable<global::System.Int32> licenseProgramId, Nullable<global::System.Int32> studyFormId, Nullable<global::System.Int32> studyBasisId, global::System.String number, Nullable<global::System.DateTime> date, Nullable<global::System.Int32> protocolTypeId, global::System.String reason, Nullable<global::System.Boolean> isOld, Nullable<global::System.Guid> parentProtocolId, Nullable<global::System.Boolean> isSecond, Nullable<global::System.Boolean> isListener, Nullable<global::System.Boolean> isForeign, ObjectParameter id)
         {
             ObjectParameter studyLevelGroupIdParameter;
             if (studyLevelGroupId.HasValue)
@@ -8720,7 +8721,17 @@ namespace PriemLib
                 isListenerParameter = new ObjectParameter("IsListener", typeof(global::System.Boolean));
             }
     
-            return base.ExecuteFunction("Protocol_Insert", studyLevelGroupIdParameter, facultyIdParameter, licenseProgramIdParameter, studyFormIdParameter, studyBasisIdParameter, numberParameter, dateParameter, protocolTypeIdParameter, reasonParameter, isOldParameter, parentProtocolIdParameter, isSecondParameter, isListenerParameter, id);
+            ObjectParameter isForeignParameter;
+            if (isForeign.HasValue)
+            {
+                isForeignParameter = new ObjectParameter("IsForeign", isForeign);
+            }
+            else
+            {
+                isForeignParameter = new ObjectParameter("IsForeign", typeof(global::System.Boolean));
+            }
+    
+            return base.ExecuteFunction("Protocol_Insert", studyLevelGroupIdParameter, facultyIdParameter, licenseProgramIdParameter, studyFormIdParameter, studyBasisIdParameter, numberParameter, dateParameter, protocolTypeIdParameter, reasonParameter, isOldParameter, parentProtocolIdParameter, isSecondParameter, isListenerParameter, isForeignParameter, id);
         }
     
         /// <summary>
@@ -9754,8 +9765,9 @@ namespace PriemLib
         /// <param name="isReduced">No Metadata Documentation available.</param>
         /// <param name="isParallel">No Metadata Documentation available.</param>
         /// <param name="isListener">No Metadata Documentation available.</param>
+        /// <param name="isForeign">No Metadata Documentation available.</param>
         /// <param name="id">No Metadata Documentation available.</param>
-        public int Protocol_InsertAll(Nullable<global::System.Int32> studyLevelGroupId, Nullable<global::System.Int32> facultyId, Nullable<global::System.Int32> licenseProgramId, Nullable<global::System.Int32> studyFormId, Nullable<global::System.Int32> studyBasisId, global::System.String number, Nullable<global::System.DateTime> date, Nullable<global::System.Int32> protocolTypeId, global::System.String reason, Nullable<global::System.Boolean> isOld, Nullable<global::System.Guid> parentProtocolId, Nullable<global::System.Boolean> isSecond, Nullable<global::System.Boolean> isReduced, Nullable<global::System.Boolean> isParallel, Nullable<global::System.Boolean> isListener, ObjectParameter id)
+        public int Protocol_InsertAll(Nullable<global::System.Int32> studyLevelGroupId, Nullable<global::System.Int32> facultyId, Nullable<global::System.Int32> licenseProgramId, Nullable<global::System.Int32> studyFormId, Nullable<global::System.Int32> studyBasisId, global::System.String number, Nullable<global::System.DateTime> date, Nullable<global::System.Int32> protocolTypeId, global::System.String reason, Nullable<global::System.Boolean> isOld, Nullable<global::System.Guid> parentProtocolId, Nullable<global::System.Boolean> isSecond, Nullable<global::System.Boolean> isReduced, Nullable<global::System.Boolean> isParallel, Nullable<global::System.Boolean> isListener, Nullable<global::System.Boolean> isForeign, ObjectParameter id)
         {
             ObjectParameter studyLevelGroupIdParameter;
             if (studyLevelGroupId.HasValue)
@@ -9907,7 +9919,17 @@ namespace PriemLib
                 isListenerParameter = new ObjectParameter("IsListener", typeof(global::System.Boolean));
             }
     
-            return base.ExecuteFunction("Protocol_InsertAll", studyLevelGroupIdParameter, facultyIdParameter, licenseProgramIdParameter, studyFormIdParameter, studyBasisIdParameter, numberParameter, dateParameter, protocolTypeIdParameter, reasonParameter, isOldParameter, parentProtocolIdParameter, isSecondParameter, isReducedParameter, isParallelParameter, isListenerParameter, id);
+            ObjectParameter isForeignParameter;
+            if (isForeign.HasValue)
+            {
+                isForeignParameter = new ObjectParameter("IsForeign", isForeign);
+            }
+            else
+            {
+                isForeignParameter = new ObjectParameter("IsForeign", typeof(global::System.Boolean));
+            }
+    
+            return base.ExecuteFunction("Protocol_InsertAll", studyLevelGroupIdParameter, facultyIdParameter, licenseProgramIdParameter, studyFormIdParameter, studyBasisIdParameter, numberParameter, dateParameter, protocolTypeIdParameter, reasonParameter, isOldParameter, parentProtocolIdParameter, isSecondParameter, isReducedParameter, isParallelParameter, isListenerParameter, isForeignParameter, id);
         }
     
         /// <summary>
@@ -44993,6 +45015,7 @@ namespace PriemLib
         /// <param name="abiturientId">Initial value of the AbiturientId property.</param>
         /// <param name="excluded">Initial value of the Excluded property.</param>
         /// <param name="studyLevelGroupId">Initial value of the StudyLevelGroupId property.</param>
+        /// <param name="studyFormId">Initial value of the StudyFormId property.</param>
         /// <param name="date">Initial value of the Date property.</param>
         /// <param name="protocolTypeId">Initial value of the ProtocolTypeId property.</param>
         /// <param name="isOld">Initial value of the IsOld property.</param>
@@ -45004,13 +45027,15 @@ namespace PriemLib
         /// <param name="studyBasis">Initial value of the StudyBasis property.</param>
         /// <param name="studyForm">Initial value of the StudyForm property.</param>
         /// <param name="protocolHistoryId">Initial value of the ProtocolHistoryId property.</param>
-        public static extProtocol CreateextProtocol(global::System.Guid id, global::System.Guid abiturientId, global::System.Boolean excluded, global::System.Int32 studyLevelGroupId, global::System.DateTime date, global::System.Int32 protocolTypeId, global::System.Boolean isOld, global::System.Boolean isSecond, global::System.Boolean isListener, global::System.String protocolTypeName, global::System.Boolean isParallel, global::System.Boolean isReduced, global::System.String studyBasis, global::System.String studyForm, global::System.Guid protocolHistoryId)
+        /// <param name="isForeign">Initial value of the IsForeign property.</param>
+        public static extProtocol CreateextProtocol(global::System.Guid id, global::System.Guid abiturientId, global::System.Boolean excluded, global::System.Int32 studyLevelGroupId, global::System.Int32 studyFormId, global::System.DateTime date, global::System.Int32 protocolTypeId, global::System.Boolean isOld, global::System.Boolean isSecond, global::System.Boolean isListener, global::System.String protocolTypeName, global::System.Boolean isParallel, global::System.Boolean isReduced, global::System.String studyBasis, global::System.String studyForm, global::System.Guid protocolHistoryId, global::System.Boolean isForeign)
         {
             extProtocol extProtocol = new extProtocol();
             extProtocol.Id = id;
             extProtocol.AbiturientId = abiturientId;
             extProtocol.Excluded = excluded;
             extProtocol.StudyLevelGroupId = studyLevelGroupId;
+            extProtocol.StudyFormId = studyFormId;
             extProtocol.Date = date;
             extProtocol.ProtocolTypeId = protocolTypeId;
             extProtocol.IsOld = isOld;
@@ -45022,6 +45047,7 @@ namespace PriemLib
             extProtocol.StudyBasis = studyBasis;
             extProtocol.StudyForm = studyForm;
             extProtocol.ProtocolHistoryId = protocolHistoryId;
+            extProtocol.IsForeign = isForeign;
             return extProtocol;
         }
 
@@ -45233,9 +45259,9 @@ namespace PriemLib
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> StudyFormId
+        public global::System.Int32 StudyFormId
         {
             get
             {
@@ -45250,8 +45276,8 @@ namespace PriemLib
                 OnStudyFormIdChanged();
             }
         }
-        private Nullable<global::System.Int32> _StudyFormId;
-        partial void OnStudyFormIdChanging(Nullable<global::System.Int32> value);
+        private global::System.Int32 _StudyFormId;
+        partial void OnStudyFormIdChanging(global::System.Int32 value);
         partial void OnStudyFormIdChanged();
     
         /// <summary>
@@ -45772,6 +45798,33 @@ namespace PriemLib
         private global::System.Guid _ProtocolHistoryId;
         partial void OnProtocolHistoryIdChanging(global::System.Guid value);
         partial void OnProtocolHistoryIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean IsForeign
+        {
+            get
+            {
+                return _IsForeign;
+            }
+            set
+            {
+                if (_IsForeign != value)
+                {
+                    OnIsForeignChanging(value);
+                    ReportPropertyChanging("IsForeign");
+                    _IsForeign = StructuralObject.SetValidValue(value, "IsForeign");
+                    ReportPropertyChanged("IsForeign");
+                    OnIsForeignChanged();
+                }
+            }
+        }
+        private global::System.Boolean _IsForeign;
+        partial void OnIsForeignChanging(global::System.Boolean value);
+        partial void OnIsForeignChanged();
 
         #endregion
 
@@ -59198,7 +59251,8 @@ namespace PriemLib
         /// <param name="isListener">Initial value of the IsListener property.</param>
         /// <param name="isParallel">Initial value of the IsParallel property.</param>
         /// <param name="isReduced">Initial value of the IsReduced property.</param>
-        public static Protocol CreateProtocol(global::System.Guid id, global::System.Int32 studyLevelGroupId, global::System.Int32 studyFormId, global::System.DateTime date, global::System.Int32 protocolTypeId, global::System.Boolean isOld, global::System.Boolean isSecond, global::System.Boolean isListener, global::System.Boolean isParallel, global::System.Boolean isReduced)
+        /// <param name="isForeign">Initial value of the IsForeign property.</param>
+        public static Protocol CreateProtocol(global::System.Guid id, global::System.Int32 studyLevelGroupId, global::System.Int32 studyFormId, global::System.DateTime date, global::System.Int32 protocolTypeId, global::System.Boolean isOld, global::System.Boolean isSecond, global::System.Boolean isListener, global::System.Boolean isParallel, global::System.Boolean isReduced, global::System.Boolean isForeign)
         {
             Protocol protocol = new Protocol();
             protocol.Id = id;
@@ -59211,6 +59265,7 @@ namespace PriemLib
             protocol.IsListener = isListener;
             protocol.IsParallel = isParallel;
             protocol.IsReduced = isReduced;
+            protocol.IsForeign = isForeign;
             return protocol;
         }
 
@@ -59604,6 +59659,30 @@ namespace PriemLib
         private global::System.Boolean _IsReduced;
         partial void OnIsReducedChanging(global::System.Boolean value);
         partial void OnIsReducedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean IsForeign
+        {
+            get
+            {
+                return _IsForeign;
+            }
+            set
+            {
+                OnIsForeignChanging(value);
+                ReportPropertyChanging("IsForeign");
+                _IsForeign = StructuralObject.SetValidValue(value, "IsForeign");
+                ReportPropertyChanged("IsForeign");
+                OnIsForeignChanged();
+            }
+        }
+        private global::System.Boolean _IsForeign;
+        partial void OnIsForeignChanging(global::System.Boolean value);
+        partial void OnIsForeignChanged();
 
         #endregion
 
@@ -66501,12 +66580,26 @@ namespace PriemLib
         /// Create a new qProtocol object.
         /// </summary>
         /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="studyLevelGroupId">Initial value of the StudyLevelGroupId property.</param>
+        /// <param name="studyFormId">Initial value of the StudyFormId property.</param>
+        /// <param name="date">Initial value of the Date property.</param>
+        /// <param name="protocolTypeId">Initial value of the ProtocolTypeId property.</param>
         /// <param name="isOld">Initial value of the IsOld property.</param>
-        public static qProtocol CreateqProtocol(global::System.Guid id, global::System.Boolean isOld)
+        /// <param name="isSecond">Initial value of the IsSecond property.</param>
+        /// <param name="isListener">Initial value of the IsListener property.</param>
+        /// <param name="isForeign">Initial value of the IsForeign property.</param>
+        public static qProtocol CreateqProtocol(global::System.Guid id, global::System.Int32 studyLevelGroupId, global::System.Int32 studyFormId, global::System.DateTime date, global::System.Int32 protocolTypeId, global::System.Boolean isOld, global::System.Boolean isSecond, global::System.Boolean isListener, global::System.Boolean isForeign)
         {
             qProtocol qProtocol = new qProtocol();
             qProtocol.Id = id;
+            qProtocol.StudyLevelGroupId = studyLevelGroupId;
+            qProtocol.StudyFormId = studyFormId;
+            qProtocol.Date = date;
+            qProtocol.ProtocolTypeId = protocolTypeId;
             qProtocol.IsOld = isOld;
+            qProtocol.IsSecond = isSecond;
+            qProtocol.IsListener = isListener;
+            qProtocol.IsForeign = isForeign;
             return qProtocol;
         }
 
@@ -66544,9 +66637,9 @@ namespace PriemLib
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> StudyLevelGroupId
+        public global::System.Int32 StudyLevelGroupId
         {
             get
             {
@@ -66561,8 +66654,8 @@ namespace PriemLib
                 OnStudyLevelGroupIdChanged();
             }
         }
-        private Nullable<global::System.Int32> _StudyLevelGroupId;
-        partial void OnStudyLevelGroupIdChanging(Nullable<global::System.Int32> value);
+        private global::System.Int32 _StudyLevelGroupId;
+        partial void OnStudyLevelGroupIdChanging(global::System.Int32 value);
         partial void OnStudyLevelGroupIdChanged();
     
         /// <summary>
@@ -66616,9 +66709,9 @@ namespace PriemLib
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> StudyFormId
+        public global::System.Int32 StudyFormId
         {
             get
             {
@@ -66633,8 +66726,8 @@ namespace PriemLib
                 OnStudyFormIdChanged();
             }
         }
-        private Nullable<global::System.Int32> _StudyFormId;
-        partial void OnStudyFormIdChanging(Nullable<global::System.Int32> value);
+        private global::System.Int32 _StudyFormId;
+        partial void OnStudyFormIdChanging(global::System.Int32 value);
         partial void OnStudyFormIdChanged();
     
         /// <summary>
@@ -66688,9 +66781,9 @@ namespace PriemLib
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> Date
+        public global::System.DateTime Date
         {
             get
             {
@@ -66705,16 +66798,16 @@ namespace PriemLib
                 OnDateChanged();
             }
         }
-        private Nullable<global::System.DateTime> _Date;
-        partial void OnDateChanging(Nullable<global::System.DateTime> value);
+        private global::System.DateTime _Date;
+        partial void OnDateChanging(global::System.DateTime value);
         partial void OnDateChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> ProtocolTypeId
+        public global::System.Int32 ProtocolTypeId
         {
             get
             {
@@ -66729,8 +66822,8 @@ namespace PriemLib
                 OnProtocolTypeIdChanged();
             }
         }
-        private Nullable<global::System.Int32> _ProtocolTypeId;
-        partial void OnProtocolTypeIdChanging(Nullable<global::System.Int32> value);
+        private global::System.Int32 _ProtocolTypeId;
+        partial void OnProtocolTypeIdChanging(global::System.Int32 value);
         partial void OnProtocolTypeIdChanged();
     
         /// <summary>
@@ -66811,9 +66904,9 @@ namespace PriemLib
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Boolean> IsSecond
+        public global::System.Boolean IsSecond
         {
             get
             {
@@ -66828,16 +66921,16 @@ namespace PriemLib
                 OnIsSecondChanged();
             }
         }
-        private Nullable<global::System.Boolean> _IsSecond;
-        partial void OnIsSecondChanging(Nullable<global::System.Boolean> value);
+        private global::System.Boolean _IsSecond;
+        partial void OnIsSecondChanging(global::System.Boolean value);
         partial void OnIsSecondChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Boolean> IsListener
+        public global::System.Boolean IsListener
         {
             get
             {
@@ -66852,9 +66945,36 @@ namespace PriemLib
                 OnIsListenerChanged();
             }
         }
-        private Nullable<global::System.Boolean> _IsListener;
-        partial void OnIsListenerChanging(Nullable<global::System.Boolean> value);
+        private global::System.Boolean _IsListener;
+        partial void OnIsListenerChanging(global::System.Boolean value);
         partial void OnIsListenerChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean IsForeign
+        {
+            get
+            {
+                return _IsForeign;
+            }
+            set
+            {
+                if (_IsForeign != value)
+                {
+                    OnIsForeignChanging(value);
+                    ReportPropertyChanging("IsForeign");
+                    _IsForeign = StructuralObject.SetValidValue(value, "IsForeign");
+                    ReportPropertyChanged("IsForeign");
+                    OnIsForeignChanged();
+                }
+            }
+        }
+        private global::System.Boolean _IsForeign;
+        partial void OnIsForeignChanging(global::System.Boolean value);
+        partial void OnIsForeignChanged();
 
         #endregion
 
@@ -66876,16 +66996,30 @@ namespace PriemLib
         /// <param name="abiturientId">Initial value of the AbiturientId property.</param>
         /// <param name="protocolId">Initial value of the ProtocolId property.</param>
         /// <param name="excluded">Initial value of the Excluded property.</param>
+        /// <param name="studyLevelGroupId">Initial value of the StudyLevelGroupId property.</param>
+        /// <param name="studyFormId">Initial value of the StudyFormId property.</param>
+        /// <param name="date">Initial value of the Date property.</param>
+        /// <param name="protocolTypeId">Initial value of the ProtocolTypeId property.</param>
         /// <param name="isOld">Initial value of the IsOld property.</param>
+        /// <param name="isSecond">Initial value of the IsSecond property.</param>
+        /// <param name="isListener">Initial value of the IsListener property.</param>
         /// <param name="id">Initial value of the Id property.</param>
-        public static qProtocolHistory CreateqProtocolHistory(global::System.Guid abiturientId, global::System.Guid protocolId, global::System.Boolean excluded, global::System.Boolean isOld, global::System.Guid id)
+        /// <param name="isForeign">Initial value of the IsForeign property.</param>
+        public static qProtocolHistory CreateqProtocolHistory(global::System.Guid abiturientId, global::System.Guid protocolId, global::System.Boolean excluded, global::System.Int32 studyLevelGroupId, global::System.Int32 studyFormId, global::System.DateTime date, global::System.Int32 protocolTypeId, global::System.Boolean isOld, global::System.Boolean isSecond, global::System.Boolean isListener, global::System.Guid id, global::System.Boolean isForeign)
         {
             qProtocolHistory qProtocolHistory = new qProtocolHistory();
             qProtocolHistory.AbiturientId = abiturientId;
             qProtocolHistory.ProtocolId = protocolId;
             qProtocolHistory.Excluded = excluded;
+            qProtocolHistory.StudyLevelGroupId = studyLevelGroupId;
+            qProtocolHistory.StudyFormId = studyFormId;
+            qProtocolHistory.Date = date;
+            qProtocolHistory.ProtocolTypeId = protocolTypeId;
             qProtocolHistory.IsOld = isOld;
+            qProtocolHistory.IsSecond = isSecond;
+            qProtocolHistory.IsListener = isListener;
             qProtocolHistory.Id = id;
+            qProtocolHistory.IsForeign = isForeign;
             return qProtocolHistory;
         }
 
@@ -67025,9 +67159,9 @@ namespace PriemLib
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> StudyLevelGroupId
+        public global::System.Int32 StudyLevelGroupId
         {
             get
             {
@@ -67042,8 +67176,8 @@ namespace PriemLib
                 OnStudyLevelGroupIdChanged();
             }
         }
-        private Nullable<global::System.Int32> _StudyLevelGroupId;
-        partial void OnStudyLevelGroupIdChanging(Nullable<global::System.Int32> value);
+        private global::System.Int32 _StudyLevelGroupId;
+        partial void OnStudyLevelGroupIdChanging(global::System.Int32 value);
         partial void OnStudyLevelGroupIdChanged();
     
         /// <summary>
@@ -67097,9 +67231,9 @@ namespace PriemLib
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> StudyFormId
+        public global::System.Int32 StudyFormId
         {
             get
             {
@@ -67114,8 +67248,8 @@ namespace PriemLib
                 OnStudyFormIdChanged();
             }
         }
-        private Nullable<global::System.Int32> _StudyFormId;
-        partial void OnStudyFormIdChanging(Nullable<global::System.Int32> value);
+        private global::System.Int32 _StudyFormId;
+        partial void OnStudyFormIdChanging(global::System.Int32 value);
         partial void OnStudyFormIdChanged();
     
         /// <summary>
@@ -67169,9 +67303,9 @@ namespace PriemLib
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> Date
+        public global::System.DateTime Date
         {
             get
             {
@@ -67186,16 +67320,16 @@ namespace PriemLib
                 OnDateChanged();
             }
         }
-        private Nullable<global::System.DateTime> _Date;
-        partial void OnDateChanging(Nullable<global::System.DateTime> value);
+        private global::System.DateTime _Date;
+        partial void OnDateChanging(global::System.DateTime value);
         partial void OnDateChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> ProtocolTypeId
+        public global::System.Int32 ProtocolTypeId
         {
             get
             {
@@ -67210,8 +67344,8 @@ namespace PriemLib
                 OnProtocolTypeIdChanged();
             }
         }
-        private Nullable<global::System.Int32> _ProtocolTypeId;
-        partial void OnProtocolTypeIdChanging(Nullable<global::System.Int32> value);
+        private global::System.Int32 _ProtocolTypeId;
+        partial void OnProtocolTypeIdChanging(global::System.Int32 value);
         partial void OnProtocolTypeIdChanged();
     
         /// <summary>
@@ -67268,9 +67402,9 @@ namespace PriemLib
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Boolean> IsSecond
+        public global::System.Boolean IsSecond
         {
             get
             {
@@ -67285,16 +67419,16 @@ namespace PriemLib
                 OnIsSecondChanged();
             }
         }
-        private Nullable<global::System.Boolean> _IsSecond;
-        partial void OnIsSecondChanging(Nullable<global::System.Boolean> value);
+        private global::System.Boolean _IsSecond;
+        partial void OnIsSecondChanging(global::System.Boolean value);
         partial void OnIsSecondChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Boolean> IsListener
+        public global::System.Boolean IsListener
         {
             get
             {
@@ -67309,8 +67443,8 @@ namespace PriemLib
                 OnIsListenerChanged();
             }
         }
-        private Nullable<global::System.Boolean> _IsListener;
-        partial void OnIsListenerChanging(Nullable<global::System.Boolean> value);
+        private global::System.Boolean _IsListener;
+        partial void OnIsListenerChanging(global::System.Boolean value);
         partial void OnIsListenerChanged();
     
         /// <summary>
@@ -67339,6 +67473,33 @@ namespace PriemLib
         private global::System.Guid _Id;
         partial void OnIdChanging(global::System.Guid value);
         partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean IsForeign
+        {
+            get
+            {
+                return _IsForeign;
+            }
+            set
+            {
+                if (_IsForeign != value)
+                {
+                    OnIsForeignChanging(value);
+                    ReportPropertyChanging("IsForeign");
+                    _IsForeign = StructuralObject.SetValidValue(value, "IsForeign");
+                    ReportPropertyChanged("IsForeign");
+                    OnIsForeignChanged();
+                }
+            }
+        }
+        private global::System.Boolean _IsForeign;
+        partial void OnIsForeignChanging(global::System.Boolean value);
+        partial void OnIsForeignChanged();
 
         #endregion
 
