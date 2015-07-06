@@ -912,6 +912,12 @@
         <edmx:EntityTypeShape EntityType="Priem2012Model.PersonOtherPassport" Width="1.5" PointX="6.75" PointY="40.625" />
         <edmx:AssociationConnector Association="Priem2012Model.FK_PersonOtherPassport_PassportType" />
         <edmx:AssociationConnector Association="Priem2012Model.FK_PersonOtherPassport_Person" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.OlympResultToCommonBenefit" Width="1.5" PointX="27.75" PointY="36.25" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_OlympResultToCommonBenefit_Entry" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_OlympResultToCommonBenefit_OlympName" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_OlympResultToCommonBenefit_OlympSubject" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_OlympResultToCommonBenefit_OlympType" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_OlympResultToCommonBenefit_OlympValue" />
         </edmx:Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -41,14 +41,12 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CardPerson));
             this.tabCard = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.lblCardAuthorInfo = new System.Windows.Forms.Label();
+            this.label69 = new System.Windows.Forms.Label();
             this.gbPashaTechInfo = new System.Windows.Forms.GroupBox();
             this.btnOnlineEducLoad = new System.Windows.Forms.Button();
             this.tbBarcode = new System.Windows.Forms.TextBox();
             this.label68 = new System.Windows.Forms.Label();
-            this.tbDateCreated = new System.Windows.Forms.TextBox();
-            this.label67 = new System.Windows.Forms.Label();
-            this.tbAuthor = new System.Windows.Forms.TextBox();
-            this.label46 = new System.Windows.Forms.Label();
             this.tbGUID = new System.Windows.Forms.TextBox();
             this.label29 = new System.Windows.Forms.Label();
             this.btnSendToOnline = new System.Windows.Forms.Button();
@@ -251,6 +249,8 @@
             this.dgvOtherAppl = new System.Windows.Forms.DataGridView();
             this.dgvApplications = new System.Windows.Forms.DataGridView();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.chbApplicationPrint = new System.Windows.Forms.CheckBox();
+            this.btnPrintApplication = new System.Windows.Forms.Button();
             this.gbExamPass = new System.Windows.Forms.GroupBox();
             this.btnGetExamPass = new System.Windows.Forms.Button();
             this.chbExPassPrint = new System.Windows.Forms.CheckBox();
@@ -284,8 +284,6 @@
             this.btnAddAbit = new System.Windows.Forms.Button();
             this.btnDocs = new System.Windows.Forms.Button();
             this.sfdPrint = new System.Windows.Forms.SaveFileDialog();
-            this.chbApplicationPrint = new System.Windows.Forms.CheckBox();
-            this.btnPrintApplication = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.epError)).BeginInit();
             this.tabCard.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -368,6 +366,8 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.lblCardAuthorInfo);
+            this.tabPage1.Controls.Add(this.label69);
             this.tabPage1.Controls.Add(this.gbPashaTechInfo);
             this.tabPage1.Controls.Add(this.cbRegion);
             this.tabPage1.Controls.Add(this.cbCountry);
@@ -402,29 +402,44 @@
             this.tabPage1.Text = "Основное";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // lblCardAuthorInfo
+            // 
+            this.lblCardAuthorInfo.Location = new System.Drawing.Point(466, 148);
+            this.lblCardAuthorInfo.Name = "lblCardAuthorInfo";
+            this.lblCardAuthorInfo.Size = new System.Drawing.Size(152, 135);
+            this.lblCardAuthorInfo.TabIndex = 118;
+            this.lblCardAuthorInfo.Text = "Нет данных";
+            this.lblCardAuthorInfo.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // label69
+            // 
+            this.label69.AutoSize = true;
+            this.label69.Location = new System.Drawing.Point(516, 129);
+            this.label69.Name = "label69";
+            this.label69.Size = new System.Drawing.Size(102, 13);
+            this.label69.TabIndex = 117;
+            this.label69.Text = "Карточка создана:";
+            // 
             // gbPashaTechInfo
             // 
             this.gbPashaTechInfo.Controls.Add(this.btnOnlineEducLoad);
             this.gbPashaTechInfo.Controls.Add(this.tbBarcode);
             this.gbPashaTechInfo.Controls.Add(this.label68);
-            this.gbPashaTechInfo.Controls.Add(this.tbDateCreated);
-            this.gbPashaTechInfo.Controls.Add(this.label67);
-            this.gbPashaTechInfo.Controls.Add(this.tbAuthor);
-            this.gbPashaTechInfo.Controls.Add(this.label46);
             this.gbPashaTechInfo.Controls.Add(this.tbGUID);
             this.gbPashaTechInfo.Controls.Add(this.label29);
             this.gbPashaTechInfo.Controls.Add(this.btnSendToOnline);
             this.gbPashaTechInfo.Location = new System.Drawing.Point(392, 32);
             this.gbPashaTechInfo.Name = "gbPashaTechInfo";
-            this.gbPashaTechInfo.Size = new System.Drawing.Size(226, 143);
-            this.gbPashaTechInfo.TabIndex = 116;
+            this.gbPashaTechInfo.Size = new System.Drawing.Size(229, 94);
+            this.gbPashaTechInfo.TabIndex = 1200;
             this.gbPashaTechInfo.TabStop = false;
             this.gbPashaTechInfo.Text = "тех. инфо";
             this.gbPashaTechInfo.Visible = false;
             // 
             // btnOnlineEducLoad
             // 
-            this.btnOnlineEducLoad.Location = new System.Drawing.Point(46, 114);
+            this.btnOnlineEducLoad.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnOnlineEducLoad.Location = new System.Drawing.Point(46, 65);
             this.btnOnlineEducLoad.Name = "btnOnlineEducLoad";
             this.btnOnlineEducLoad.Size = new System.Drawing.Size(82, 23);
             this.btnOnlineEducLoad.TabIndex = 9;
@@ -434,7 +449,9 @@
             // 
             // tbBarcode
             // 
-            this.tbBarcode.Location = new System.Drawing.Point(46, 91);
+            this.tbBarcode.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbBarcode.Location = new System.Drawing.Point(46, 39);
             this.tbBarcode.Name = "tbBarcode";
             this.tbBarcode.Size = new System.Drawing.Size(174, 20);
             this.tbBarcode.TabIndex = 8;
@@ -442,46 +459,16 @@
             // label68
             // 
             this.label68.AutoSize = true;
-            this.label68.Location = new System.Drawing.Point(2, 94);
+            this.label68.Location = new System.Drawing.Point(2, 42);
             this.label68.Name = "label68";
             this.label68.Size = new System.Drawing.Size(47, 13);
             this.label68.TabIndex = 7;
             this.label68.Text = "Barcode";
             // 
-            // tbDateCreated
-            // 
-            this.tbDateCreated.Location = new System.Drawing.Point(46, 65);
-            this.tbDateCreated.Name = "tbDateCreated";
-            this.tbDateCreated.Size = new System.Drawing.Size(174, 20);
-            this.tbDateCreated.TabIndex = 6;
-            // 
-            // label67
-            // 
-            this.label67.AutoSize = true;
-            this.label67.Location = new System.Drawing.Point(10, 68);
-            this.label67.Name = "label67";
-            this.label67.Size = new System.Drawing.Size(30, 13);
-            this.label67.TabIndex = 5;
-            this.label67.Text = "Date";
-            // 
-            // tbAuthor
-            // 
-            this.tbAuthor.Location = new System.Drawing.Point(46, 39);
-            this.tbAuthor.Name = "tbAuthor";
-            this.tbAuthor.Size = new System.Drawing.Size(174, 20);
-            this.tbAuthor.TabIndex = 4;
-            // 
-            // label46
-            // 
-            this.label46.AutoSize = true;
-            this.label46.Location = new System.Drawing.Point(2, 42);
-            this.label46.Name = "label46";
-            this.label46.Size = new System.Drawing.Size(38, 13);
-            this.label46.TabIndex = 3;
-            this.label46.Text = "Author";
-            // 
             // tbGUID
             // 
+            this.tbGUID.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbGUID.Location = new System.Drawing.Point(46, 13);
             this.tbGUID.Name = "tbGUID";
             this.tbGUID.Size = new System.Drawing.Size(174, 20);
@@ -498,7 +485,8 @@
             // 
             // btnSendToOnline
             // 
-            this.btnSendToOnline.Location = new System.Drawing.Point(155, 114);
+            this.btnSendToOnline.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSendToOnline.Location = new System.Drawing.Point(155, 65);
             this.btnSendToOnline.Name = "btnSendToOnline";
             this.btnSendToOnline.Size = new System.Drawing.Size(65, 23);
             this.btnSendToOnline.TabIndex = 0;
@@ -514,7 +502,7 @@
             this.cbRegion.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbRegion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbRegion.FormattingEnabled = true;
-            this.cbRegion.Location = new System.Drawing.Point(175, 262);
+            this.cbRegion.Location = new System.Drawing.Point(131, 262);
             this.cbRegion.Name = "cbRegion";
             this.cbRegion.Size = new System.Drawing.Size(329, 21);
             this.cbRegion.TabIndex = 115;
@@ -527,7 +515,7 @@
             this.cbCountry.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbCountry.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbCountry.FormattingEnabled = true;
-            this.cbCountry.Location = new System.Drawing.Point(175, 234);
+            this.cbCountry.Location = new System.Drawing.Point(131, 234);
             this.cbCountry.Name = "cbCountry";
             this.cbCountry.Size = new System.Drawing.Size(329, 21);
             this.cbCountry.TabIndex = 114;
@@ -541,7 +529,7 @@
             this.cbNationality.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbNationality.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbNationality.FormattingEnabled = true;
-            this.cbNationality.Location = new System.Drawing.Point(175, 207);
+            this.cbNationality.Location = new System.Drawing.Point(131, 207);
             this.cbNationality.Name = "cbNationality";
             this.cbNationality.Size = new System.Drawing.Size(329, 21);
             this.cbNationality.TabIndex = 113;
@@ -570,7 +558,7 @@
             // label54
             // 
             this.label54.AutoSize = true;
-            this.label54.Location = new System.Drawing.Point(126, 237);
+            this.label54.Location = new System.Drawing.Point(82, 237);
             this.label54.Name = "label54";
             this.label54.Size = new System.Drawing.Size(43, 13);
             this.label54.TabIndex = 100;
@@ -597,7 +585,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(126, 265);
+            this.label9.Location = new System.Drawing.Point(82, 265);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(43, 13);
             this.label9.TabIndex = 95;
@@ -605,32 +593,32 @@
             // 
             // tbName
             // 
-            this.tbName.Location = new System.Drawing.Point(175, 80);
+            this.tbName.Location = new System.Drawing.Point(131, 80);
             this.tbName.MaxLength = 50;
             this.tbName.Name = "tbName";
-            this.tbName.Size = new System.Drawing.Size(211, 20);
+            this.tbName.Size = new System.Drawing.Size(245, 20);
             this.tbName.TabIndex = 1;
             // 
             // tbSurname
             // 
-            this.tbSurname.Location = new System.Drawing.Point(175, 54);
+            this.tbSurname.Location = new System.Drawing.Point(131, 54);
             this.tbSurname.MaxLength = 50;
             this.tbSurname.Name = "tbSurname";
-            this.tbSurname.Size = new System.Drawing.Size(211, 20);
+            this.tbSurname.Size = new System.Drawing.Size(245, 20);
             this.tbSurname.TabIndex = 0;
             // 
             // tbSecondName
             // 
-            this.tbSecondName.Location = new System.Drawing.Point(175, 106);
+            this.tbSecondName.Location = new System.Drawing.Point(131, 106);
             this.tbSecondName.MaxLength = 50;
             this.tbSecondName.Name = "tbSecondName";
-            this.tbSecondName.Size = new System.Drawing.Size(211, 20);
+            this.tbSecondName.Size = new System.Drawing.Size(245, 20);
             this.tbSecondName.TabIndex = 2;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(113, 57);
+            this.label5.Location = new System.Drawing.Point(69, 57);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(56, 13);
             this.label5.TabIndex = 56;
@@ -638,7 +626,7 @@
             // 
             // dtBirthDate
             // 
-            this.dtBirthDate.Location = new System.Drawing.Point(175, 155);
+            this.dtBirthDate.Location = new System.Drawing.Point(131, 155);
             this.dtBirthDate.Name = "dtBirthDate";
             this.dtBirthDate.Size = new System.Drawing.Size(149, 20);
             this.dtBirthDate.TabIndex = 5;
@@ -646,7 +634,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(140, 83);
+            this.label6.Location = new System.Drawing.Point(96, 83);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(29, 13);
             this.label6.TabIndex = 57;
@@ -655,7 +643,7 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(142, 134);
+            this.label18.Location = new System.Drawing.Point(98, 134);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(27, 13);
             this.label18.TabIndex = 92;
@@ -664,7 +652,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(115, 109);
+            this.label7.Location = new System.Drawing.Point(71, 109);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(54, 13);
             this.label7.TabIndex = 58;
@@ -673,7 +661,7 @@
             // rbFemale
             // 
             this.rbFemale.AutoSize = true;
-            this.rbFemale.Location = new System.Drawing.Point(227, 132);
+            this.rbFemale.Location = new System.Drawing.Point(183, 132);
             this.rbFemale.Name = "rbFemale";
             this.rbFemale.Size = new System.Drawing.Size(45, 17);
             this.rbFemale.TabIndex = 4;
@@ -684,7 +672,7 @@
             // rbMale
             // 
             this.rbMale.AutoSize = true;
-            this.rbMale.Location = new System.Drawing.Point(175, 132);
+            this.rbMale.Location = new System.Drawing.Point(131, 132);
             this.rbMale.Name = "rbMale";
             this.rbMale.Size = new System.Drawing.Size(46, 17);
             this.rbMale.TabIndex = 3;
@@ -694,7 +682,7 @@
             // 
             // tbBirthPlace
             // 
-            this.tbBirthPlace.Location = new System.Drawing.Point(175, 181);
+            this.tbBirthPlace.Location = new System.Drawing.Point(131, 181);
             this.tbBirthPlace.MaxLength = 100;
             this.tbBirthPlace.Name = "tbBirthPlace";
             this.tbBirthPlace.Size = new System.Drawing.Size(329, 20);
@@ -703,7 +691,7 @@
             // label38
             // 
             this.label38.AutoSize = true;
-            this.label38.Location = new System.Drawing.Point(77, 184);
+            this.label38.Location = new System.Drawing.Point(33, 184);
             this.label38.Name = "label38";
             this.label38.Size = new System.Drawing.Size(92, 13);
             this.label38.TabIndex = 93;
@@ -728,7 +716,7 @@
             this.groupBox5.Controls.Add(this.label15);
             this.groupBox5.Controls.Add(this.label16);
             this.groupBox5.Controls.Add(this.tbPassportSeries);
-            this.groupBox5.Location = new System.Drawing.Point(80, 289);
+            this.groupBox5.Location = new System.Drawing.Point(35, 289);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(443, 207);
             this.groupBox5.TabIndex = 84;
@@ -737,7 +725,7 @@
             // 
             // btnOtherPassports
             // 
-            this.btnOtherPassports.Location = new System.Drawing.Point(93, 178);
+            this.btnOtherPassports.Location = new System.Drawing.Point(94, 178);
             this.btnOtherPassports.Name = "btnOtherPassports";
             this.btnOtherPassports.Size = new System.Drawing.Size(155, 23);
             this.btnOtherPassports.TabIndex = 119;
@@ -747,7 +735,7 @@
             // 
             // tbSNILS
             // 
-            this.tbSNILS.Location = new System.Drawing.Point(95, 152);
+            this.tbSNILS.Location = new System.Drawing.Point(96, 152);
             this.tbSNILS.MaxLength = 300;
             this.tbSNILS.Name = "tbSNILS";
             this.tbSNILS.Size = new System.Drawing.Size(257, 20);
@@ -756,7 +744,7 @@
             // label64
             // 
             this.label64.AutoSize = true;
-            this.label64.Location = new System.Drawing.Point(44, 155);
+            this.label64.Location = new System.Drawing.Point(45, 155);
             this.label64.Name = "label64";
             this.label64.Size = new System.Drawing.Size(45, 13);
             this.label64.TabIndex = 118;
@@ -770,7 +758,7 @@
             this.cbPassportType.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbPassportType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbPassportType.FormattingEnabled = true;
-            this.cbPassportType.Location = new System.Drawing.Point(95, 22);
+            this.cbPassportType.Location = new System.Drawing.Point(96, 22);
             this.cbPassportType.Name = "cbPassportType";
             this.cbPassportType.Size = new System.Drawing.Size(329, 21);
             this.cbPassportType.TabIndex = 116;
@@ -786,7 +774,7 @@
             // label55
             // 
             this.label55.AutoSize = true;
-            this.label55.Location = new System.Drawing.Point(15, 129);
+            this.label55.Location = new System.Drawing.Point(16, 129);
             this.label55.Name = "label55";
             this.label55.Size = new System.Drawing.Size(74, 13);
             this.label55.TabIndex = 23;
@@ -803,7 +791,7 @@
             // 
             // tbPassportCode
             // 
-            this.tbPassportCode.Location = new System.Drawing.Point(95, 126);
+            this.tbPassportCode.Location = new System.Drawing.Point(96, 126);
             this.tbPassportCode.MaxLength = 10;
             this.tbPassportCode.Name = "tbPassportCode";
             this.tbPassportCode.Size = new System.Drawing.Size(80, 20);
@@ -812,7 +800,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(56, 107);
+            this.label1.Location = new System.Drawing.Point(57, 107);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(33, 13);
             this.label1.TabIndex = 20;
@@ -820,7 +808,7 @@
             // 
             // tbPassportAuthor
             // 
-            this.tbPassportAuthor.Location = new System.Drawing.Point(95, 75);
+            this.tbPassportAuthor.Location = new System.Drawing.Point(96, 75);
             this.tbPassportAuthor.MaxLength = 300;
             this.tbPassportAuthor.Name = "tbPassportAuthor";
             this.tbPassportAuthor.Size = new System.Drawing.Size(329, 20);
@@ -828,7 +816,7 @@
             // 
             // dtPassportDate
             // 
-            this.dtPassportDate.Location = new System.Drawing.Point(95, 101);
+            this.dtPassportDate.Location = new System.Drawing.Point(96, 101);
             this.dtPassportDate.Name = "dtPassportDate";
             this.dtPassportDate.Size = new System.Drawing.Size(149, 20);
             this.dtPassportDate.TabIndex = 4;
@@ -844,7 +832,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(46, 78);
+            this.label17.Location = new System.Drawing.Point(47, 78);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(40, 13);
             this.label17.TabIndex = 19;
@@ -853,7 +841,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(63, 25);
+            this.label14.Location = new System.Drawing.Point(64, 25);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(26, 13);
             this.label14.TabIndex = 16;
@@ -862,7 +850,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(51, 52);
+            this.label15.Location = new System.Drawing.Point(52, 52);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(38, 13);
             this.label15.TabIndex = 17;
@@ -879,7 +867,7 @@
             // 
             // tbPassportSeries
             // 
-            this.tbPassportSeries.Location = new System.Drawing.Point(95, 49);
+            this.tbPassportSeries.Location = new System.Drawing.Point(96, 49);
             this.tbPassportSeries.MaxLength = 10;
             this.tbPassportSeries.Name = "tbPassportSeries";
             this.tbPassportSeries.Size = new System.Drawing.Size(92, 20);
@@ -888,7 +876,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(83, 158);
+            this.label13.Location = new System.Drawing.Point(39, 158);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(86, 13);
             this.label13.TabIndex = 91;
@@ -897,7 +885,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(95, 210);
+            this.label12.Location = new System.Drawing.Point(51, 210);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(74, 13);
             this.label12.TabIndex = 90;
@@ -906,7 +894,7 @@
             // lblRegNum
             // 
             this.lblRegNum.AutoSize = true;
-            this.lblRegNum.Location = new System.Drawing.Point(139, 142);
+            this.lblRegNum.Location = new System.Drawing.Point(95, 142);
             this.lblRegNum.Name = "lblRegNum";
             this.lblRegNum.Size = new System.Drawing.Size(0, 13);
             this.lblRegNum.TabIndex = 62;
@@ -2666,6 +2654,26 @@
             this.tabPage4.Text = "Печать";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // chbApplicationPrint
+            // 
+            this.chbApplicationPrint.AutoSize = true;
+            this.chbApplicationPrint.Location = new System.Drawing.Point(400, 77);
+            this.chbApplicationPrint.Name = "chbApplicationPrint";
+            this.chbApplicationPrint.Size = new System.Drawing.Size(84, 17);
+            this.chbApplicationPrint.TabIndex = 12;
+            this.chbApplicationPrint.Text = "На принтер";
+            this.chbApplicationPrint.UseVisualStyleBackColor = true;
+            // 
+            // btnPrintApplication
+            // 
+            this.btnPrintApplication.Location = new System.Drawing.Point(400, 48);
+            this.btnPrintApplication.Name = "btnPrintApplication";
+            this.btnPrintApplication.Size = new System.Drawing.Size(111, 23);
+            this.btnPrintApplication.TabIndex = 11;
+            this.btnPrintApplication.Text = "Печать заявления";
+            this.btnPrintApplication.UseVisualStyleBackColor = true;
+            this.btnPrintApplication.Click += new System.EventHandler(this.btnPrintApplication_Click);
+            // 
             // gbExamPass
             // 
             this.gbExamPass.Controls.Add(this.btnGetExamPass);
@@ -2993,26 +3001,6 @@
             this.btnDocs.UseVisualStyleBackColor = true;
             this.btnDocs.Visible = false;
             this.btnDocs.Click += new System.EventHandler(this.btnDocs_Click);
-            // 
-            // chbApplicationPrint
-            // 
-            this.chbApplicationPrint.AutoSize = true;
-            this.chbApplicationPrint.Location = new System.Drawing.Point(400, 77);
-            this.chbApplicationPrint.Name = "chbApplicationPrint";
-            this.chbApplicationPrint.Size = new System.Drawing.Size(84, 17);
-            this.chbApplicationPrint.TabIndex = 12;
-            this.chbApplicationPrint.Text = "На принтер";
-            this.chbApplicationPrint.UseVisualStyleBackColor = true;
-            // 
-            // btnPrintApplication
-            // 
-            this.btnPrintApplication.Location = new System.Drawing.Point(400, 48);
-            this.btnPrintApplication.Name = "btnPrintApplication";
-            this.btnPrintApplication.Size = new System.Drawing.Size(111, 23);
-            this.btnPrintApplication.TabIndex = 11;
-            this.btnPrintApplication.Text = "Печать заявления";
-            this.btnPrintApplication.UseVisualStyleBackColor = true;
-            this.btnPrintApplication.Click += new System.EventHandler(this.btnPrintApplication_Click);
             // 
             // CardPerson
             // 
@@ -3344,10 +3332,6 @@
         private System.Windows.Forms.GroupBox gbPashaTechInfo;
         private System.Windows.Forms.TextBox tbBarcode;
         private System.Windows.Forms.Label label68;
-        private System.Windows.Forms.TextBox tbDateCreated;
-        private System.Windows.Forms.Label label67;
-        private System.Windows.Forms.TextBox tbAuthor;
-        private System.Windows.Forms.Label label46;
         private System.Windows.Forms.TextBox tbGUID;
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.Button btnSendToOnline;
@@ -3357,6 +3341,8 @@
         private System.Windows.Forms.DataGridView dgvOlympiads;
         private System.Windows.Forms.CheckBox chbApplicationPrint;
         private System.Windows.Forms.Button btnPrintApplication;
+        private System.Windows.Forms.Label lblCardAuthorInfo;
+        private System.Windows.Forms.Label label69;
 
     }
 }

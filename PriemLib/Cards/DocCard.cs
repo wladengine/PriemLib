@@ -70,7 +70,7 @@ namespace PriemLib
                 {
                     _docs.BDCInet.ExecuteQuery(string.Format("UPDATE Person SET DateReviewDocs = '{0}' WHERE Person.Barcode = {1}", DateTime.Now.ToString(), _personBarc));
                     if(_abitBarc != null)
-                        _docs.BDCInet.ExecuteQuery(string.Format("UPDATE Application SET DateReviewDocs = '{0}' WHERE Application.Barcode = {1}", DateTime.Now.ToString(), _abitBarc));
+                        _docs.BDCInet.ExecuteQuery(string.Format("UPDATE Application SET DateReviewDocs = '{0}' WHERE Application.PersonId IN (SELECT Id FROM Person WHERE Person.Barcode = {1})", DateTime.Now.ToString(), _personBarc));
                 
                     _docs.CloseDB();
                 }

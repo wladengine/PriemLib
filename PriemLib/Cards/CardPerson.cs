@@ -308,9 +308,7 @@ namespace PriemLib
 
             personBarc = person.Barcode;
             tbGUID.Text = person.Id.ToString();
-            tbAuthor.Text = MainClass.GetADUserName(person.Author);
-            tbDateCreated.Text = person.DateCreated.ToShortDateString() + " " + person.DateCreated.ToShortTimeString();
-            btnSendToOnline.Enabled = personBarc.HasValue;
+            btnSendToOnline.Enabled = personBarc.HasValue && personBarc > 0;
             if (personBarc.HasValue)
                 tbBarcode.Text = personBarc.ToString();
         }
@@ -332,6 +330,9 @@ namespace PriemLib
                     tbNum.Text = person.PersonNum;
                     FillPersonData(ref person);
 
+                    lblCardAuthorInfo.Text = person.DateCreated.ToShortDateString() + " " + person.DateCreated.ToShortTimeString() + " " + 
+                        MainClass.GetADUserName(person.Author) + " (" + MainClass.GetFacultyForAccount(person.Author) + ")";
+                    
                     FBSStatus = GetFBSStatus(GuidId);
 
                     FillApplications();                   
@@ -2040,6 +2041,7 @@ namespace PriemLib
             lblHasRequest.Visible = false;
             lblHasRequestFinished.Visible = true;
             UpdateDataGridEge();
+            UpdatePersonAchievement();
         }
         void bw_EgeRequestCheck_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -2173,7 +2175,6 @@ namespace PriemLib
                 }
             }
         }
-
         private void btnOnlineEducLoad_Click(object sender, EventArgs e)
         {
             if (!personBarc.HasValue)
@@ -2207,7 +2208,6 @@ namespace PriemLib
                 WinFormsServ.Error(ex);
             }
         }
-
         private void btnOtherPassports_Click(object sender, EventArgs e)
         {
             if (!GuidId.HasValue)

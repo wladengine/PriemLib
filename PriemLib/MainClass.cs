@@ -49,6 +49,8 @@ namespace PriemLib
         public static bool bMagCheckProtocolsEnabled;
 
         public static bool bMagImportApplicationsEnabled;
+
+        public static DateTime _1k_LastEgeMarkLoadTime;
         //-----------------------------------------------------
 
         public static QueryBuilder qBuilder;
@@ -121,6 +123,11 @@ namespace PriemLib
 
                     tmp = dicSettings.ContainsKey("bMagImportApplicationsEnabled") ? dicSettings["bMagImportApplicationsEnabled"] : "False";
                     bMagImportApplicationsEnabled = bool.Parse(tmp);
+
+                    tmp = dicSettings.ContainsKey("1k_LastEgeMarkLoadTime") ? dicSettings["1k_LastEgeMarkLoadTime"] : new DateTime(DateTime.Now.Year, 1, 1).ToString();
+                    if (!DateTime.TryParse(tmp, out _1k_LastEgeMarkLoadTime))
+                        _1k_LastEgeMarkLoadTime = new DateTime(DateTime.Now.Year, 1, 1);
+
                 }
 
                 switch (MainClass.dbType)
@@ -238,6 +245,7 @@ namespace PriemLib
                         context.SetApplicationValue("b1kCheckProtocolsEnabled", b1kCheckProtocolsEnabled.ToString());
                         context.SetApplicationValue("PriemYear", sPriemYear);
                         context.SetApplicationValue("bMagImportApplicationsEnabled", bMagImportApplicationsEnabled.ToString());
+                        context.SetApplicationValue("1k_LastEgeMarkLoadTime", _1k_LastEgeMarkLoadTime.ToString());
                     }
                 }
             }

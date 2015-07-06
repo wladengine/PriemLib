@@ -90,6 +90,7 @@ warning 6002: The table/view 'Priem.ed._FirstWaveGreen' does not have a primary 
           <Property Name="Name" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="IsOpen" Type="bit" Nullable="false" />
           <Property Name="Holder" Type="nvarchar" MaxLength="150" />
+          <Property Name="Mark" Type="int" />
         </EntityType>
         <EntityType Name="ApplicationDetails">
           <Key>
@@ -579,6 +580,19 @@ warning 6002: The table/view 'Priem.ed.Fixieren' does not have a primary key def
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="2000" Nullable="false" />
           <Property Name="Number" Type="int" />
+          <Property Name="IsOpen" Type="bit" Nullable="false" />
+          <Property Name="Holder" Type="nvarchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="OlympResultToCommonBenefit">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EntryId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OlympTypeId" Type="int" Nullable="false" />
+          <Property Name="OlympSubjectId" Type="int" Nullable="false" />
+          <Property Name="OlympNameId" Type="int" Nullable="false" />
+          <Property Name="OlympValueId" Type="int" Nullable="false" />
           <Property Name="IsOpen" Type="bit" Nullable="false" />
           <Property Name="Holder" Type="nvarchar" MaxLength="150" />
         </EntityType>
@@ -2210,6 +2224,7 @@ warning 6002: The table/view 'Priem.ed.extPerson' does not have a primary key de
           <Property Name="LanguageName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Author" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="HasOriginals" Type="bit" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'Priem.ed.extPerson_EducationInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -3803,6 +3818,66 @@ warning 6002: The table/view 'Priem.ed.qStudyLevel' does not have a primary key 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_OlympResultToCommonBenefit_Entry">
+          <End Role="Entry" Type="Self.Entry" Multiplicity="1" />
+          <End Role="OlympResultToCommonBenefit" Type="Self.OlympResultToCommonBenefit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Entry">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OlympResultToCommonBenefit">
+              <PropertyRef Name="EntryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OlympResultToCommonBenefit_OlympName">
+          <End Role="OlympName" Type="Self.OlympName" Multiplicity="1" />
+          <End Role="OlympResultToCommonBenefit" Type="Self.OlympResultToCommonBenefit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OlympName">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OlympResultToCommonBenefit">
+              <PropertyRef Name="OlympNameId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OlympResultToCommonBenefit_OlympSubject">
+          <End Role="OlympSubject" Type="Self.OlympSubject" Multiplicity="1" />
+          <End Role="OlympResultToCommonBenefit" Type="Self.OlympResultToCommonBenefit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OlympSubject">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OlympResultToCommonBenefit">
+              <PropertyRef Name="OlympSubjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OlympResultToCommonBenefit_OlympType">
+          <End Role="OlympType" Type="Self.OlympType" Multiplicity="1" />
+          <End Role="OlympResultToCommonBenefit" Type="Self.OlympResultToCommonBenefit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OlympType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OlympResultToCommonBenefit">
+              <PropertyRef Name="OlympTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OlympResultToCommonBenefit_OlympValue">
+          <End Role="OlympValue" Type="Self.OlympValue" Multiplicity="1" />
+          <End Role="OlympResultToCommonBenefit" Type="Self.OlympResultToCommonBenefit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OlympValue">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OlympResultToCommonBenefit">
+              <PropertyRef Name="OlympValueId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_OlympSubjectToExam_Exam">
           <End Role="Exam" Type="Self.Exam" Multiplicity="1" />
           <End Role="OlympSubjectToExam" Type="Self.OlympSubjectToExam" Multiplicity="*" />
@@ -4977,6 +5052,25 @@ warning 6002: The table/view 'Priem.ed.qStudyLevel' does not have a primary key 
           <Parameter Name="OlympNumber" Type="int" Mode="In" />
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="OlympResultToCommonBenefit_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ed">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="OlympResultToCommonBenefit_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ed">
+          <Parameter Name="EntryId" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="OlympTypeId" Type="int" Mode="In" />
+          <Parameter Name="OlympNameId" Type="int" Mode="In" />
+          <Parameter Name="OlympSubjectId" Type="int" Mode="In" />
+          <Parameter Name="OlympValueId" Type="int" Mode="In" />
+          <Parameter Name="id" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="OlympResultToCommonBenefit_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ed">
+          <Parameter Name="EntryId" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="OlympTypeId" Type="int" Mode="In" />
+          <Parameter Name="OlympNameId" Type="int" Mode="In" />
+          <Parameter Name="OlympSubjectId" Type="int" Mode="In" />
+          <Parameter Name="OlympValueId" Type="int" Mode="In" />
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <Function Name="OlympSubject_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ed">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -5596,6 +5690,7 @@ warning 6002: The table/view 'Priem.ed.qStudyLevel' does not have a primary key 
           <EntitySet Name="Olympiads" EntityType="Self.Olympiads" Schema="ed" store:Type="Tables" />
           <EntitySet Name="OlympLevel" EntityType="Self.OlympLevel" Schema="ed" store:Type="Tables" />
           <EntitySet Name="OlympName" EntityType="Self.OlympName" Schema="ed" store:Type="Tables" />
+          <EntitySet Name="OlympResultToCommonBenefit" EntityType="Self.OlympResultToCommonBenefit" Schema="ed" store:Type="Tables" />
           <EntitySet Name="OlympSubject" EntityType="Self.OlympSubject" Schema="ed" store:Type="Tables" />
           <EntitySet Name="OlympSubjectToExam" EntityType="Self.OlympSubjectToExam" Schema="ed" store:Type="Tables" />
           <EntitySet Name="OlympType" EntityType="Self.OlympType" Schema="ed" store:Type="Tables" />
@@ -6403,7 +6498,8 @@ FROM [ed].[extOlympiadsAll] AS [extOlympiadsAll]</DefiningQuery>
 [extPerson].[PassportTypeFISName] AS [PassportTypeFISName], 
 [extPerson].[LanguageName] AS [LanguageName], 
 [extPerson].[Author] AS [Author], 
-[extPerson].[DateCreated] AS [DateCreated]
+[extPerson].[DateCreated] AS [DateCreated], 
+[extPerson].[HasOriginals] AS [HasOriginals]
 FROM [ed].[extPerson] AS [extPerson]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="extPerson_EducationInfo" EntityType="Self.extPerson_EducationInfo" store:Type="Views" store:Schema="ed">
@@ -7238,6 +7334,26 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <AssociationSet Name="fk_Olympiads_OlympValue" Association="Self.fk_Olympiads_OlympValue">
             <End Role="OlympValue" EntitySet="OlympValue" />
             <End Role="Olympiads" EntitySet="Olympiads" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OlympResultToCommonBenefit_Entry" Association="Self.FK_OlympResultToCommonBenefit_Entry">
+            <End Role="Entry" EntitySet="Entry" />
+            <End Role="OlympResultToCommonBenefit" EntitySet="OlympResultToCommonBenefit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OlympResultToCommonBenefit_OlympName" Association="Self.FK_OlympResultToCommonBenefit_OlympName">
+            <End Role="OlympName" EntitySet="OlympName" />
+            <End Role="OlympResultToCommonBenefit" EntitySet="OlympResultToCommonBenefit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OlympResultToCommonBenefit_OlympSubject" Association="Self.FK_OlympResultToCommonBenefit_OlympSubject">
+            <End Role="OlympSubject" EntitySet="OlympSubject" />
+            <End Role="OlympResultToCommonBenefit" EntitySet="OlympResultToCommonBenefit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OlympResultToCommonBenefit_OlympType" Association="Self.FK_OlympResultToCommonBenefit_OlympType">
+            <End Role="OlympType" EntitySet="OlympType" />
+            <End Role="OlympResultToCommonBenefit" EntitySet="OlympResultToCommonBenefit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OlympResultToCommonBenefit_OlympValue" Association="Self.FK_OlympResultToCommonBenefit_OlympValue">
+            <End Role="OlympValue" EntitySet="OlympValue" />
+            <End Role="OlympResultToCommonBenefit" EntitySet="OlympResultToCommonBenefit" />
           </AssociationSet>
           <AssociationSet Name="FK_OlympSubjectToExam_Exam" Association="Self.FK_OlympSubjectToExam_Exam">
             <End Role="Exam" EntitySet="Exam" />
@@ -9163,6 +9279,46 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <FunctionImport Name="GetFacultyIdsByNameFunc" IsComposable="true" ReturnType="Collection(Int32)">
           <Parameter Name="name" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="OlympResultToCommonBenefit" EntityType="Priem2012Model.OlympResultToCommonBenefit" />
+          <AssociationSet Name="FK_OlympResultToCommonBenefit_Entry" Association="Priem2012Model.FK_OlympResultToCommonBenefit_Entry">
+            <End Role="Entry" EntitySet="Entry" />
+            <End Role="OlympResultToCommonBenefit" EntitySet="OlympResultToCommonBenefit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OlympResultToCommonBenefit_OlympName" Association="Priem2012Model.FK_OlympResultToCommonBenefit_OlympName">
+            <End Role="OlympName" EntitySet="OlympName" />
+            <End Role="OlympResultToCommonBenefit" EntitySet="OlympResultToCommonBenefit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OlympResultToCommonBenefit_OlympSubject" Association="Priem2012Model.FK_OlympResultToCommonBenefit_OlympSubject">
+            <End Role="OlympSubject" EntitySet="OlympSubject" />
+            <End Role="OlympResultToCommonBenefit" EntitySet="OlympResultToCommonBenefit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OlympResultToCommonBenefit_OlympType" Association="Priem2012Model.FK_OlympResultToCommonBenefit_OlympType">
+            <End Role="OlympType" EntitySet="OlympType" />
+            <End Role="OlympResultToCommonBenefit" EntitySet="OlympResultToCommonBenefit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OlympResultToCommonBenefit_OlympValue" Association="Priem2012Model.FK_OlympResultToCommonBenefit_OlympValue">
+            <End Role="OlympValue" EntitySet="OlympValue" />
+            <End Role="OlympResultToCommonBenefit" EntitySet="OlympResultToCommonBenefit" />
+          </AssociationSet>
+          <FunctionImport Name="OlympResultToCommonBenefit_Delete">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="OlympResultToCommonBenefit_Insert">
+            <Parameter Name="EntryId" Mode="In" Type="Guid" />
+            <Parameter Name="OlympTypeId" Mode="In" Type="Int32" />
+            <Parameter Name="OlympNameId" Mode="In" Type="Int32" />
+            <Parameter Name="OlympSubjectId" Mode="In" Type="Int32" />
+            <Parameter Name="OlympValueId" Mode="In" Type="Int32" />
+            <Parameter Name="id" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="OlympResultToCommonBenefit_Update">
+            <Parameter Name="EntryId" Mode="In" Type="Guid" />
+            <Parameter Name="OlympTypeId" Mode="In" Type="Int32" />
+            <Parameter Name="OlympNameId" Mode="In" Type="Int32" />
+            <Parameter Name="OlympSubjectId" Mode="In" Type="Int32" />
+            <Parameter Name="OlympValueId" Mode="In" Type="Int32" />
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
           </EntityContainer>
         <EntityType Name="AttMarks">
           <Key>
@@ -9517,6 +9673,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <Property Type="Int32" Name="ExamId" />
           <NavigationProperty Name="OlympSubjectToExam" Relationship="Priem2012Model.FK_OlympSubjectToExam_OlympSubject" FromRole="OlympSubject" ToRole="OlympSubjectToExam" />
           <Property Type="Boolean" Name="IsInVseross" />
+          <NavigationProperty Name="OlympResultToCommonBenefit" Relationship="Priem2012Model.FK_OlympResultToCommonBenefit_OlympSubject" FromRole="OlympSubject" ToRole="OlympResultToCommonBenefit" />
         </EntityType>
         <EntityType Name="OlympValue">
           <Key>
@@ -9529,6 +9686,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <Property Type="String" Name="Acronym" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="Boolean" Name="IsOpen" Nullable="false" />
           <Property Type="String" Name="Holder" MaxLength="150" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="OlympResultToCommonBenefit" Relationship="Priem2012Model.FK_OlympResultToCommonBenefit_OlympValue" FromRole="OlympValue" ToRole="OlympResultToCommonBenefit" />
         </EntityType>
         <EntityType Name="PaidData">
           <Key>
@@ -9887,6 +10045,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <Property Type="Boolean" Name="IsOpen" Nullable="false" />
           <Property Type="String" Name="Holder" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Type="Boolean" Name="IsVseross" Nullable="false" />
+          <NavigationProperty Name="OlympResultToCommonBenefit" Relationship="Priem2012Model.FK_OlympResultToCommonBenefit_OlympType" FromRole="OlympType" ToRole="OlympResultToCommonBenefit" />
         </EntityType>
         <Association Name="FK_OlympBook_OlympType">
           <End Type="Priem2012Model.OlympType" Role="OlympType" Multiplicity="0..1" />
@@ -10046,6 +10205,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <Property Type="Boolean" Name="IsOpen" Nullable="false" />
           <Property Type="String" Name="Holder" MaxLength="150" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Olympiads" Relationship="Priem2012Model.FK_Olympiads_OlympName" FromRole="OlympName" ToRole="Olympiads" />
+          <NavigationProperty Name="OlympResultToCommonBenefit" Relationship="Priem2012Model.FK_OlympResultToCommonBenefit_OlympName" FromRole="OlympName" ToRole="OlympResultToCommonBenefit" />
         </EntityType>
         <EntityType Name="ExamsVed">
           <Key>
@@ -11909,6 +12069,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <Property Type="Boolean" Name="IsForeign" Nullable="false" />
           <Property Type="Boolean" Name="IsCrimea" Nullable="false" />
           <NavigationProperty Name="EntryToCompetitiveGroup" Relationship="Priem2012Model.FK_EntryToCompetitiveGroup_Entry" FromRole="Entry" ToRole="EntryToCompetitiveGroup" />
+          <NavigationProperty Name="OlympResultToCommonBenefit" Relationship="Priem2012Model.FK_OlympResultToCommonBenefit_Entry" FromRole="Entry" ToRole="OlympResultToCommonBenefit" />
         </EntityType>
         <Association Name="FK_Abiturient_Entry">
           <End Type="Priem2012Model.Entry" Role="Entry" Multiplicity="1" />
@@ -12829,6 +12990,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <Property Type="String" Name="LanguageName" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Author" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="HasOriginals" Type="Boolean" />
         </EntityType>
         <EntityType Name="extPerson_EducationInfo">
           <Key>
@@ -13342,6 +13504,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <Property Type="Boolean" Name="IsOpen" Nullable="false" />
           <Property Type="String" Name="Holder" MaxLength="150" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="PersonAchievement" Relationship="Priem2012Model.FK_PersonAchievement_AchievementType" FromRole="AchievementType" ToRole="PersonAchievement" />
+          <Property Name="Mark" Type="Int32" />
         </EntityType>
         <EntityType Name="PersonAchievement">
           <Key>
@@ -13472,6 +13635,84 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
             </Principal>
             <Dependent Role="PersonOtherPassport">
               <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="OlympResultToCommonBenefit">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="EntryId" Type="Guid" Nullable="false" />
+          <Property Name="OlympTypeId" Type="Int32" Nullable="false" />
+          <Property Name="OlympSubjectId" Type="Int32" Nullable="false" />
+          <Property Name="OlympNameId" Type="Int32" Nullable="false" />
+          <Property Name="OlympValueId" Type="Int32" Nullable="false" />
+          <Property Name="IsOpen" Type="Boolean" Nullable="false" />
+          <Property Name="Holder" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Entry" Relationship="Priem2012Model.FK_OlympResultToCommonBenefit_Entry" FromRole="OlympResultToCommonBenefit" ToRole="Entry" />
+          <NavigationProperty Name="OlympName" Relationship="Priem2012Model.FK_OlympResultToCommonBenefit_OlympName" FromRole="OlympResultToCommonBenefit" ToRole="OlympName" />
+          <NavigationProperty Name="OlympSubject" Relationship="Priem2012Model.FK_OlympResultToCommonBenefit_OlympSubject" FromRole="OlympResultToCommonBenefit" ToRole="OlympSubject" />
+          <NavigationProperty Name="OlympType" Relationship="Priem2012Model.FK_OlympResultToCommonBenefit_OlympType" FromRole="OlympResultToCommonBenefit" ToRole="OlympType" />
+          <NavigationProperty Name="OlympValue" Relationship="Priem2012Model.FK_OlympResultToCommonBenefit_OlympValue" FromRole="OlympResultToCommonBenefit" ToRole="OlympValue" />
+        </EntityType>
+        <Association Name="FK_OlympResultToCommonBenefit_Entry">
+          <End Type="Priem2012Model.Entry" Role="Entry" Multiplicity="1" />
+          <End Type="Priem2012Model.OlympResultToCommonBenefit" Role="OlympResultToCommonBenefit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Entry">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OlympResultToCommonBenefit">
+              <PropertyRef Name="EntryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OlympResultToCommonBenefit_OlympName">
+          <End Type="Priem2012Model.OlympName" Role="OlympName" Multiplicity="1" />
+          <End Type="Priem2012Model.OlympResultToCommonBenefit" Role="OlympResultToCommonBenefit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OlympName">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OlympResultToCommonBenefit">
+              <PropertyRef Name="OlympNameId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OlympResultToCommonBenefit_OlympSubject">
+          <End Type="Priem2012Model.OlympSubject" Role="OlympSubject" Multiplicity="1" />
+          <End Type="Priem2012Model.OlympResultToCommonBenefit" Role="OlympResultToCommonBenefit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OlympSubject">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OlympResultToCommonBenefit">
+              <PropertyRef Name="OlympSubjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OlympResultToCommonBenefit_OlympType">
+          <End Type="Priem2012Model.OlympType" Role="OlympType" Multiplicity="1" />
+          <End Type="Priem2012Model.OlympResultToCommonBenefit" Role="OlympResultToCommonBenefit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OlympType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OlympResultToCommonBenefit">
+              <PropertyRef Name="OlympTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OlympResultToCommonBenefit_OlympValue">
+          <End Type="Priem2012Model.OlympValue" Role="OlympValue" Multiplicity="1" />
+          <End Type="Priem2012Model.OlympResultToCommonBenefit" Role="OlympResultToCommonBenefit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OlympValue">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OlympResultToCommonBenefit">
+              <PropertyRef Name="OlympValueId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -15685,6 +15926,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <EntitySetMapping Name="extPerson">
             <EntityTypeMapping TypeName="Priem2012Model.extPerson">
               <MappingFragment StoreEntitySet="extPerson">
+                <ScalarProperty Name="HasOriginals" ColumnName="HasOriginals" />
                 <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
                 <ScalarProperty Name="Author" ColumnName="Author" />
                 <ScalarProperty Name="LanguageName" ColumnName="LanguageName" />
@@ -16123,6 +16365,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <EntitySetMapping Name="AchievementType">
             <EntityTypeMapping TypeName="Priem2012Model.AchievementType">
               <MappingFragment StoreEntitySet="AchievementType">
+                <ScalarProperty Name="Mark" ColumnName="Mark" />
                 <ScalarProperty Name="Holder" ColumnName="Holder" />
                 <ScalarProperty Name="IsOpen" ColumnName="IsOpen" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -16181,6 +16424,23 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <FunctionImportMapping FunctionImportName="PersonOtherPassport_update" FunctionName="Priem2012Model.Store.PersonOtherPassport_update" />
           <FunctionImportMapping FunctionImportName="Person_UpdateForeignNationality" FunctionName="Priem2012Model.Store.Person_UpdateForeignNationality" />
           <FunctionImportMapping FunctionImportName="GetFacultyIdsByNameFunc" FunctionName="Priem2012Model.Store.GetFacultyIdsByNameFunc" />
+          <EntitySetMapping Name="OlympResultToCommonBenefit">
+            <EntityTypeMapping TypeName="Priem2012Model.OlympResultToCommonBenefit">
+              <MappingFragment StoreEntitySet="OlympResultToCommonBenefit">
+                <ScalarProperty Name="Holder" ColumnName="Holder" />
+                <ScalarProperty Name="IsOpen" ColumnName="IsOpen" />
+                <ScalarProperty Name="OlympValueId" ColumnName="OlympValueId" />
+                <ScalarProperty Name="OlympNameId" ColumnName="OlympNameId" />
+                <ScalarProperty Name="OlympSubjectId" ColumnName="OlympSubjectId" />
+                <ScalarProperty Name="OlympTypeId" ColumnName="OlympTypeId" />
+                <ScalarProperty Name="EntryId" ColumnName="EntryId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="OlympResultToCommonBenefit_Delete" FunctionName="Priem2012Model.Store.OlympResultToCommonBenefit_Delete" />
+          <FunctionImportMapping FunctionImportName="OlympResultToCommonBenefit_Insert" FunctionName="Priem2012Model.Store.OlympResultToCommonBenefit_Insert" />
+          <FunctionImportMapping FunctionImportName="OlympResultToCommonBenefit_Update" FunctionName="Priem2012Model.Store.OlympResultToCommonBenefit_Update" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

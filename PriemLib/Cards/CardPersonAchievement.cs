@@ -112,9 +112,11 @@ namespace PriemLib
 
             using (PriemEntities context = new PriemEntities())
             {
-                if (!string.IsNullOrEmpty(_Id) && context.PersonAchievement.Where(x => x.AchievementTypeId == AchievementTypeId && x.PersonId == PersonId).Count() > 0)
+                if (string.IsNullOrEmpty(_Id) && context.PersonAchievement.Where(x => x.AchievementTypeId == AchievementTypeId && x.PersonId == PersonId).Count() > 0)
                 {
                     WinFormsServ.Error("У абитуриента уже имеется указанное достижение");
+                    //update list
+                    OnSave();
                     return false;
                 }
             }

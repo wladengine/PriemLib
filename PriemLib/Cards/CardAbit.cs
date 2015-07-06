@@ -1689,7 +1689,28 @@ namespace PriemLib
                         if (abMark.IsFromEge)
                             newRow["Примечание"] = "Из ЕГЭ ";
                         else if (abMark.IsFromOlymp)
-                            newRow["Примечание"] = "Олимпиада";
+                        {
+                            string OlympName = "";
+                            if (abMark.OlympiadId.HasValue)
+                            {
+                                var Olymp = context.extOlympiads.Where(x => x.Id == abMark.OlympiadId).FirstOrDefault();
+                                if (Olymp == null)
+                                    OlympName = " (олимпиада не найдена!)";
+                                else
+                                {
+                                    if (Olymp.AbiturientId != GuidId)
+                                        OlympName = " (олимпиада не принадлежит заявлению!)";
+                                    else
+                                    {
+                                        OlympName = " (" + Olymp.OlympTypeName + "; " + Olymp.OlympName + "; " + Olymp.OlympSubjectName + "; " + Olymp.OlympValueName + ";)";
+                                    }
+                                }
+                            }
+                            else
+                                OlympName = " (олимпиада не указана!)";
+
+                            newRow["Примечание"] = "Олимпиада" + OlympName;
+                        }
                         else if (abMark.IsManual)
                             newRow["Примечание"] = "Ручной ввод";
                         else if (abMark.ExamVedId != null && MainClass.IsPasha())

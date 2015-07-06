@@ -119,6 +119,11 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("Priem2012Model", "FK_EntryToCompetitiveGroup_Entry", "Entry", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Entry), "EntryToCompetitiveGroup", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.EntryToCompetitiveGroup), true)]
 [assembly: EdmRelationshipAttribute("Priem2012Model", "FK_PersonOtherPassport_PassportType", "PassportType", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.PassportType), "PersonOtherPassport", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.PersonOtherPassport), true)]
 [assembly: EdmRelationshipAttribute("Priem2012Model", "FK_PersonOtherPassport_Person", "Person", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Person), "PersonOtherPassport", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.PersonOtherPassport), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_OlympResultToCommonBenefit_Entry", "Entry", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Entry), "OlympResultToCommonBenefit", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.OlympResultToCommonBenefit), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_OlympResultToCommonBenefit_OlympName", "OlympName", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.OlympName), "OlympResultToCommonBenefit", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.OlympResultToCommonBenefit), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_OlympResultToCommonBenefit_OlympSubject", "OlympSubject", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.OlympSubject), "OlympResultToCommonBenefit", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.OlympResultToCommonBenefit), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_OlympResultToCommonBenefit_OlympType", "OlympType", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.OlympType), "OlympResultToCommonBenefit", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.OlympResultToCommonBenefit), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_OlympResultToCommonBenefit_OlympValue", "OlympValue", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.OlympValue), "OlympResultToCommonBenefit", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.OlympResultToCommonBenefit), true)]
 
 #endregion
 
@@ -2297,6 +2302,22 @@ namespace PriemLib
             }
         }
         private ObjectSet<PersonOtherPassport> _PersonOtherPassport;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<OlympResultToCommonBenefit> OlympResultToCommonBenefit
+        {
+            get
+            {
+                if ((_OlympResultToCommonBenefit == null))
+                {
+                    _OlympResultToCommonBenefit = base.CreateObjectSet<OlympResultToCommonBenefit>("OlympResultToCommonBenefit");
+                }
+                return _OlympResultToCommonBenefit;
+            }
+        }
+        private ObjectSet<OlympResultToCommonBenefit> _OlympResultToCommonBenefit;
 
         #endregion
 
@@ -3364,6 +3385,14 @@ namespace PriemLib
         public void AddToPersonOtherPassport(PersonOtherPassport personOtherPassport)
         {
             base.AddObject("PersonOtherPassport", personOtherPassport);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the OlympResultToCommonBenefit EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToOlympResultToCommonBenefit(OlympResultToCommonBenefit olympResultToCommonBenefit)
+        {
+            base.AddObject("OlympResultToCommonBenefit", olympResultToCommonBenefit);
         }
 
         #endregion
@@ -14092,6 +14121,163 @@ namespace PriemLib
     
             return base.CreateQuery<Nullable<global::System.Int32>>("[PriemEntities].[GetFacultyIdsByNameFunc](@name)", nameParameter);
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="id">No Metadata Documentation available.</param>
+        public int OlympResultToCommonBenefit_Delete(Nullable<global::System.Int32> id)
+        {
+            ObjectParameter idParameter;
+            if (id.HasValue)
+            {
+                idParameter = new ObjectParameter("id", id);
+            }
+            else
+            {
+                idParameter = new ObjectParameter("id", typeof(global::System.Int32));
+            }
+    
+            return base.ExecuteFunction("OlympResultToCommonBenefit_Delete", idParameter);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="entryId">No Metadata Documentation available.</param>
+        /// <param name="olympTypeId">No Metadata Documentation available.</param>
+        /// <param name="olympNameId">No Metadata Documentation available.</param>
+        /// <param name="olympSubjectId">No Metadata Documentation available.</param>
+        /// <param name="olympValueId">No Metadata Documentation available.</param>
+        /// <param name="id">No Metadata Documentation available.</param>
+        public int OlympResultToCommonBenefit_Insert(Nullable<global::System.Guid> entryId, Nullable<global::System.Int32> olympTypeId, Nullable<global::System.Int32> olympNameId, Nullable<global::System.Int32> olympSubjectId, Nullable<global::System.Int32> olympValueId, ObjectParameter id)
+        {
+            ObjectParameter entryIdParameter;
+            if (entryId.HasValue)
+            {
+                entryIdParameter = new ObjectParameter("EntryId", entryId);
+            }
+            else
+            {
+                entryIdParameter = new ObjectParameter("EntryId", typeof(global::System.Guid));
+            }
+    
+            ObjectParameter olympTypeIdParameter;
+            if (olympTypeId.HasValue)
+            {
+                olympTypeIdParameter = new ObjectParameter("OlympTypeId", olympTypeId);
+            }
+            else
+            {
+                olympTypeIdParameter = new ObjectParameter("OlympTypeId", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter olympNameIdParameter;
+            if (olympNameId.HasValue)
+            {
+                olympNameIdParameter = new ObjectParameter("OlympNameId", olympNameId);
+            }
+            else
+            {
+                olympNameIdParameter = new ObjectParameter("OlympNameId", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter olympSubjectIdParameter;
+            if (olympSubjectId.HasValue)
+            {
+                olympSubjectIdParameter = new ObjectParameter("OlympSubjectId", olympSubjectId);
+            }
+            else
+            {
+                olympSubjectIdParameter = new ObjectParameter("OlympSubjectId", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter olympValueIdParameter;
+            if (olympValueId.HasValue)
+            {
+                olympValueIdParameter = new ObjectParameter("OlympValueId", olympValueId);
+            }
+            else
+            {
+                olympValueIdParameter = new ObjectParameter("OlympValueId", typeof(global::System.Int32));
+            }
+    
+            return base.ExecuteFunction("OlympResultToCommonBenefit_Insert", entryIdParameter, olympTypeIdParameter, olympNameIdParameter, olympSubjectIdParameter, olympValueIdParameter, id);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="entryId">No Metadata Documentation available.</param>
+        /// <param name="olympTypeId">No Metadata Documentation available.</param>
+        /// <param name="olympNameId">No Metadata Documentation available.</param>
+        /// <param name="olympSubjectId">No Metadata Documentation available.</param>
+        /// <param name="olympValueId">No Metadata Documentation available.</param>
+        /// <param name="id">No Metadata Documentation available.</param>
+        public int OlympResultToCommonBenefit_Update(Nullable<global::System.Guid> entryId, Nullable<global::System.Int32> olympTypeId, Nullable<global::System.Int32> olympNameId, Nullable<global::System.Int32> olympSubjectId, Nullable<global::System.Int32> olympValueId, Nullable<global::System.Int32> id)
+        {
+            ObjectParameter entryIdParameter;
+            if (entryId.HasValue)
+            {
+                entryIdParameter = new ObjectParameter("EntryId", entryId);
+            }
+            else
+            {
+                entryIdParameter = new ObjectParameter("EntryId", typeof(global::System.Guid));
+            }
+    
+            ObjectParameter olympTypeIdParameter;
+            if (olympTypeId.HasValue)
+            {
+                olympTypeIdParameter = new ObjectParameter("OlympTypeId", olympTypeId);
+            }
+            else
+            {
+                olympTypeIdParameter = new ObjectParameter("OlympTypeId", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter olympNameIdParameter;
+            if (olympNameId.HasValue)
+            {
+                olympNameIdParameter = new ObjectParameter("OlympNameId", olympNameId);
+            }
+            else
+            {
+                olympNameIdParameter = new ObjectParameter("OlympNameId", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter olympSubjectIdParameter;
+            if (olympSubjectId.HasValue)
+            {
+                olympSubjectIdParameter = new ObjectParameter("OlympSubjectId", olympSubjectId);
+            }
+            else
+            {
+                olympSubjectIdParameter = new ObjectParameter("OlympSubjectId", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter olympValueIdParameter;
+            if (olympValueId.HasValue)
+            {
+                olympValueIdParameter = new ObjectParameter("OlympValueId", olympValueId);
+            }
+            else
+            {
+                olympValueIdParameter = new ObjectParameter("OlympValueId", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter idParameter;
+            if (id.HasValue)
+            {
+                idParameter = new ObjectParameter("id", id);
+            }
+            else
+            {
+                idParameter = new ObjectParameter("id", typeof(global::System.Int32));
+            }
+    
+            return base.ExecuteFunction("OlympResultToCommonBenefit_Update", entryIdParameter, olympTypeIdParameter, olympNameIdParameter, olympSubjectIdParameter, olympValueIdParameter, idParameter);
+        }
 
         #endregion
 
@@ -15678,6 +15864,30 @@ namespace PriemLib
         private global::System.String _Holder;
         partial void OnHolderChanging(global::System.String value);
         partial void OnHolderChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> Mark
+        {
+            get
+            {
+                return _Mark;
+            }
+            set
+            {
+                OnMarkChanging(value);
+                ReportPropertyChanging("Mark");
+                _Mark = StructuralObject.SetValidValue(value, "Mark");
+                ReportPropertyChanged("Mark");
+                OnMarkChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _Mark;
+        partial void OnMarkChanging(Nullable<global::System.Int32> value);
+        partial void OnMarkChanged();
 
         #endregion
 
@@ -21248,6 +21458,28 @@ namespace PriemLib
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<EntryToCompetitiveGroup>("Priem2012Model.FK_EntryToCompetitiveGroup_Entry", "EntryToCompetitiveGroup", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Priem2012Model", "FK_OlympResultToCommonBenefit_Entry", "OlympResultToCommonBenefit")]
+        public EntityCollection<OlympResultToCommonBenefit> OlympResultToCommonBenefit
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<OlympResultToCommonBenefit>("Priem2012Model.FK_OlympResultToCommonBenefit_Entry", "OlympResultToCommonBenefit");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<OlympResultToCommonBenefit>("Priem2012Model.FK_OlympResultToCommonBenefit_Entry", "OlympResultToCommonBenefit", value);
                 }
             }
         }
@@ -40744,6 +40976,30 @@ namespace PriemLib
         private global::System.DateTime _DateCreated;
         partial void OnDateCreatedChanging(global::System.DateTime value);
         partial void OnDateCreatedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Boolean> HasOriginals
+        {
+            get
+            {
+                return _HasOriginals;
+            }
+            set
+            {
+                OnHasOriginalsChanging(value);
+                ReportPropertyChanging("HasOriginals");
+                _HasOriginals = StructuralObject.SetValidValue(value, "HasOriginals");
+                ReportPropertyChanged("HasOriginals");
+                OnHasOriginalsChanged();
+            }
+        }
+        private Nullable<global::System.Boolean> _HasOriginals;
+        partial void OnHasOriginalsChanging(Nullable<global::System.Boolean> value);
+        partial void OnHasOriginalsChanged();
 
         #endregion
 
@@ -50864,6 +51120,458 @@ namespace PriemLib
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Priem2012Model", "FK_OlympResultToCommonBenefit_OlympName", "OlympResultToCommonBenefit")]
+        public EntityCollection<OlympResultToCommonBenefit> OlympResultToCommonBenefit
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<OlympResultToCommonBenefit>("Priem2012Model.FK_OlympResultToCommonBenefit_OlympName", "OlympResultToCommonBenefit");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<OlympResultToCommonBenefit>("Priem2012Model.FK_OlympResultToCommonBenefit_OlympName", "OlympResultToCommonBenefit", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="Priem2012Model", Name="OlympResultToCommonBenefit")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class OlympResultToCommonBenefit : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new OlympResultToCommonBenefit object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="entryId">Initial value of the EntryId property.</param>
+        /// <param name="olympTypeId">Initial value of the OlympTypeId property.</param>
+        /// <param name="olympSubjectId">Initial value of the OlympSubjectId property.</param>
+        /// <param name="olympNameId">Initial value of the OlympNameId property.</param>
+        /// <param name="olympValueId">Initial value of the OlympValueId property.</param>
+        /// <param name="isOpen">Initial value of the IsOpen property.</param>
+        public static OlympResultToCommonBenefit CreateOlympResultToCommonBenefit(global::System.Int32 id, global::System.Guid entryId, global::System.Int32 olympTypeId, global::System.Int32 olympSubjectId, global::System.Int32 olympNameId, global::System.Int32 olympValueId, global::System.Boolean isOpen)
+        {
+            OlympResultToCommonBenefit olympResultToCommonBenefit = new OlympResultToCommonBenefit();
+            olympResultToCommonBenefit.Id = id;
+            olympResultToCommonBenefit.EntryId = entryId;
+            olympResultToCommonBenefit.OlympTypeId = olympTypeId;
+            olympResultToCommonBenefit.OlympSubjectId = olympSubjectId;
+            olympResultToCommonBenefit.OlympNameId = olympNameId;
+            olympResultToCommonBenefit.OlympValueId = olympValueId;
+            olympResultToCommonBenefit.IsOpen = isOpen;
+            return olympResultToCommonBenefit;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value, "Id");
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid EntryId
+        {
+            get
+            {
+                return _EntryId;
+            }
+            set
+            {
+                OnEntryIdChanging(value);
+                ReportPropertyChanging("EntryId");
+                _EntryId = StructuralObject.SetValidValue(value, "EntryId");
+                ReportPropertyChanged("EntryId");
+                OnEntryIdChanged();
+            }
+        }
+        private global::System.Guid _EntryId;
+        partial void OnEntryIdChanging(global::System.Guid value);
+        partial void OnEntryIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 OlympTypeId
+        {
+            get
+            {
+                return _OlympTypeId;
+            }
+            set
+            {
+                OnOlympTypeIdChanging(value);
+                ReportPropertyChanging("OlympTypeId");
+                _OlympTypeId = StructuralObject.SetValidValue(value, "OlympTypeId");
+                ReportPropertyChanged("OlympTypeId");
+                OnOlympTypeIdChanged();
+            }
+        }
+        private global::System.Int32 _OlympTypeId;
+        partial void OnOlympTypeIdChanging(global::System.Int32 value);
+        partial void OnOlympTypeIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 OlympSubjectId
+        {
+            get
+            {
+                return _OlympSubjectId;
+            }
+            set
+            {
+                OnOlympSubjectIdChanging(value);
+                ReportPropertyChanging("OlympSubjectId");
+                _OlympSubjectId = StructuralObject.SetValidValue(value, "OlympSubjectId");
+                ReportPropertyChanged("OlympSubjectId");
+                OnOlympSubjectIdChanged();
+            }
+        }
+        private global::System.Int32 _OlympSubjectId;
+        partial void OnOlympSubjectIdChanging(global::System.Int32 value);
+        partial void OnOlympSubjectIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 OlympNameId
+        {
+            get
+            {
+                return _OlympNameId;
+            }
+            set
+            {
+                OnOlympNameIdChanging(value);
+                ReportPropertyChanging("OlympNameId");
+                _OlympNameId = StructuralObject.SetValidValue(value, "OlympNameId");
+                ReportPropertyChanged("OlympNameId");
+                OnOlympNameIdChanged();
+            }
+        }
+        private global::System.Int32 _OlympNameId;
+        partial void OnOlympNameIdChanging(global::System.Int32 value);
+        partial void OnOlympNameIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 OlympValueId
+        {
+            get
+            {
+                return _OlympValueId;
+            }
+            set
+            {
+                OnOlympValueIdChanging(value);
+                ReportPropertyChanging("OlympValueId");
+                _OlympValueId = StructuralObject.SetValidValue(value, "OlympValueId");
+                ReportPropertyChanged("OlympValueId");
+                OnOlympValueIdChanged();
+            }
+        }
+        private global::System.Int32 _OlympValueId;
+        partial void OnOlympValueIdChanging(global::System.Int32 value);
+        partial void OnOlympValueIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean IsOpen
+        {
+            get
+            {
+                return _IsOpen;
+            }
+            set
+            {
+                OnIsOpenChanging(value);
+                ReportPropertyChanging("IsOpen");
+                _IsOpen = StructuralObject.SetValidValue(value, "IsOpen");
+                ReportPropertyChanged("IsOpen");
+                OnIsOpenChanged();
+            }
+        }
+        private global::System.Boolean _IsOpen;
+        partial void OnIsOpenChanging(global::System.Boolean value);
+        partial void OnIsOpenChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Holder
+        {
+            get
+            {
+                return _Holder;
+            }
+            set
+            {
+                OnHolderChanging(value);
+                ReportPropertyChanging("Holder");
+                _Holder = StructuralObject.SetValidValue(value, true, "Holder");
+                ReportPropertyChanged("Holder");
+                OnHolderChanged();
+            }
+        }
+        private global::System.String _Holder;
+        partial void OnHolderChanging(global::System.String value);
+        partial void OnHolderChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Priem2012Model", "FK_OlympResultToCommonBenefit_Entry", "Entry")]
+        public Entry Entry
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Entry>("Priem2012Model.FK_OlympResultToCommonBenefit_Entry", "Entry").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Entry>("Priem2012Model.FK_OlympResultToCommonBenefit_Entry", "Entry").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Entry> EntryReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Entry>("Priem2012Model.FK_OlympResultToCommonBenefit_Entry", "Entry");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Entry>("Priem2012Model.FK_OlympResultToCommonBenefit_Entry", "Entry", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Priem2012Model", "FK_OlympResultToCommonBenefit_OlympName", "OlympName")]
+        public OlympName OlympName
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<OlympName>("Priem2012Model.FK_OlympResultToCommonBenefit_OlympName", "OlympName").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<OlympName>("Priem2012Model.FK_OlympResultToCommonBenefit_OlympName", "OlympName").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<OlympName> OlympNameReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<OlympName>("Priem2012Model.FK_OlympResultToCommonBenefit_OlympName", "OlympName");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<OlympName>("Priem2012Model.FK_OlympResultToCommonBenefit_OlympName", "OlympName", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Priem2012Model", "FK_OlympResultToCommonBenefit_OlympSubject", "OlympSubject")]
+        public OlympSubject OlympSubject
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<OlympSubject>("Priem2012Model.FK_OlympResultToCommonBenefit_OlympSubject", "OlympSubject").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<OlympSubject>("Priem2012Model.FK_OlympResultToCommonBenefit_OlympSubject", "OlympSubject").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<OlympSubject> OlympSubjectReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<OlympSubject>("Priem2012Model.FK_OlympResultToCommonBenefit_OlympSubject", "OlympSubject");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<OlympSubject>("Priem2012Model.FK_OlympResultToCommonBenefit_OlympSubject", "OlympSubject", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Priem2012Model", "FK_OlympResultToCommonBenefit_OlympType", "OlympType")]
+        public OlympType OlympType
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<OlympType>("Priem2012Model.FK_OlympResultToCommonBenefit_OlympType", "OlympType").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<OlympType>("Priem2012Model.FK_OlympResultToCommonBenefit_OlympType", "OlympType").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<OlympType> OlympTypeReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<OlympType>("Priem2012Model.FK_OlympResultToCommonBenefit_OlympType", "OlympType");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<OlympType>("Priem2012Model.FK_OlympResultToCommonBenefit_OlympType", "OlympType", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Priem2012Model", "FK_OlympResultToCommonBenefit_OlympValue", "OlympValue")]
+        public OlympValue OlympValue
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<OlympValue>("Priem2012Model.FK_OlympResultToCommonBenefit_OlympValue", "OlympValue").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<OlympValue>("Priem2012Model.FK_OlympResultToCommonBenefit_OlympValue", "OlympValue").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<OlympValue> OlympValueReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<OlympValue>("Priem2012Model.FK_OlympResultToCommonBenefit_OlympValue", "OlympValue");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<OlympValue>("Priem2012Model.FK_OlympResultToCommonBenefit_OlympValue", "OlympValue", value);
+                }
+            }
+        }
 
         #endregion
 
@@ -51135,6 +51843,28 @@ namespace PriemLib
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<OlympSubjectToExam>("Priem2012Model.FK_OlympSubjectToExam_OlympSubject", "OlympSubjectToExam", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Priem2012Model", "FK_OlympResultToCommonBenefit_OlympSubject", "OlympResultToCommonBenefit")]
+        public EntityCollection<OlympResultToCommonBenefit> OlympResultToCommonBenefit
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<OlympResultToCommonBenefit>("Priem2012Model.FK_OlympResultToCommonBenefit_OlympSubject", "OlympResultToCommonBenefit");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<OlympResultToCommonBenefit>("Priem2012Model.FK_OlympResultToCommonBenefit_OlympSubject", "OlympResultToCommonBenefit", value);
                 }
             }
         }
@@ -51532,6 +52262,28 @@ namespace PriemLib
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Priem2012Model", "FK_OlympResultToCommonBenefit_OlympType", "OlympResultToCommonBenefit")]
+        public EntityCollection<OlympResultToCommonBenefit> OlympResultToCommonBenefit
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<OlympResultToCommonBenefit>("Priem2012Model.FK_OlympResultToCommonBenefit_OlympType", "OlympResultToCommonBenefit");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<OlympResultToCommonBenefit>("Priem2012Model.FK_OlympResultToCommonBenefit_OlympType", "OlympResultToCommonBenefit", value);
+                }
+            }
+        }
 
         #endregion
 
@@ -51735,6 +52487,28 @@ namespace PriemLib
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Olympiads>("Priem2012Model.fk_Olympiads_OlympValue", "Olympiads", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Priem2012Model", "FK_OlympResultToCommonBenefit_OlympValue", "OlympResultToCommonBenefit")]
+        public EntityCollection<OlympResultToCommonBenefit> OlympResultToCommonBenefit
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<OlympResultToCommonBenefit>("Priem2012Model.FK_OlympResultToCommonBenefit_OlympValue", "OlympResultToCommonBenefit");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<OlympResultToCommonBenefit>("Priem2012Model.FK_OlympResultToCommonBenefit_OlympValue", "OlympResultToCommonBenefit", value);
                 }
             }
         }
