@@ -133,7 +133,7 @@ namespace PriemLib
                         node = rwNode.AppendChild(doc.CreateNode(XmlNodeType.Element, "p2_4", ""));
                         node.InnerText = CountAbit_After2507.ToString();
 
-                        var EV = context.extEntryView.Where(x => x.LicenseProgramId == LP.LicenseProgramId && x.StudyFormId == LP.StudyFormId && x.StudyBasisId == LP.StudyBasisId && x.IsCrimea == 0);
+                        var EV = context.extEntryView.Where(x => x.LicenseProgramId == LP.LicenseProgramId && x.StudyFormId == LP.StudyFormId && x.StudyBasisId == LP.StudyBasisId && !x.IsCrimea);
 
                         //зачисленных абитуриентов 31.07
                         int cnt_31072014 = EV.Where(x => x.Date < new DateTime(2014, 8, 1)).Count();
@@ -155,10 +155,10 @@ namespace PriemLib
                         node = rwNode.AppendChild(doc.CreateNode(XmlNodeType.Element, "p3_4", ""));
                         node.InnerText = cnt_after_11082014.ToString();
 
-                        int cntCommonComp = EV.Where(x => x.IsCrimea == 0 && x.IsCel == 0 && x.IsQuota == 0 && x.IsBE == 0).Count();
-                        int cntQuotaComp = EV.Where(x => x.IsCrimea == 0 && x.IsCel == 0 && x.IsQuota == 1 && x.IsBE == 0).Count();
-                        int cntCelComp = EV.Where(x => x.IsCrimea == 0 && x.IsCel == 1 && x.IsQuota == 0 && x.IsBE == 0).Count();
-                        int cntBEComp = EV.Where(x => x.IsCrimea == 0 && x.IsCel == 0 && x.IsQuota == 0 && x.IsBE == 1).Count();
+                        int cntCommonComp = EV.Where(x => !x.IsCrimea && !x.IsCel && !x.IsQuota && !x.IsBE).Count();
+                        int cntQuotaComp = EV.Where(x => !x.IsCrimea && !x.IsCel && x.IsQuota && !x.IsBE).Count();
+                        int cntCelComp = EV.Where(x => !x.IsCrimea && x.IsCel && !x.IsQuota && !x.IsBE).Count();
+                        int cntBEComp = EV.Where(x => !x.IsCrimea && !x.IsCel && !x.IsQuota && x.IsBE).Count();
                         int cntOlympLike100Balls =
                             (from exEV in context.extEntryView
                              join mrk in context.Mark on exEV.AbiturientId equals mrk.AbiturientId
@@ -166,7 +166,7 @@ namespace PriemLib
                              && exEV.LicenseProgramId == LP.LicenseProgramId
                              && exEV.StudyFormId == LP.StudyFormId
                              && exEV.StudyBasisId == LP.StudyBasisId
-                             && exEV.IsCrimea == 0 && exEV.IsCel == 0 && exEV.IsQuota == 0 && exEV.IsBE == 0
+                             && !exEV.IsCrimea && !exEV.IsCel && !exEV.IsQuota && !exEV.IsBE
                              select exEV.AbiturientId).Count();
 
                         //зачисленных абитуриентов по общему конкурсу (без учёта получивших 100 баллов за олимпиаду)
@@ -198,7 +198,7 @@ namespace PriemLib
                              && exEV.LicenseProgramId == LP.LicenseProgramId
                              && exEV.StudyFormId == LP.StudyFormId
                              && exEV.StudyBasisId == LP.StudyBasisId
-                             && exEV.IsCrimea == 0 && exEV.IsCel == 0 && exEV.IsQuota == 0 && exEV.IsBE == 0
+                             && !exEV.IsCrimea && !exEV.IsCel && !exEV.IsQuota && exEV.IsBE
                              select exEV.AbiturientId).Count();
                         node = rwNode.AppendChild(doc.CreateNode(XmlNodeType.Element, "p4_7", ""));
                         node.InnerText = cntOlympVseross.ToString();

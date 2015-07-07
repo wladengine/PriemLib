@@ -110,7 +110,7 @@ namespace PriemLib
                     node = rwNode.AppendChild(doc.CreateNode(XmlNodeType.Element, "p2_2", ""));
                     node.InnerText = Abits.Where(x => x.CompetitionId == 6).Count().ToString();
 
-                    var EV = context.extEntryView.Where(x => x.LicenseProgramId == LP.LicenseProgramId && x.StudyFormId == LP.StudyFormId && x.StudyBasisId == LP.StudyBasisId && x.IsCrimea == 0);
+                    var EV = context.extEntryView.Where(x => x.LicenseProgramId == LP.LicenseProgramId && x.StudyFormId == LP.StudyFormId && x.StudyBasisId == LP.StudyBasisId && !x.IsCrimea);
 
                     // p3-1 Всего зачисленных на места приема граждан
                     int cnt = EV.Count();
@@ -118,7 +118,7 @@ namespace PriemLib
                     node.InnerText = cnt.ToString();
 
                     // p3-2 из них на целевые места
-                    cnt = EV.Where(x => x.IsCel == 1).Count();
+                    cnt = EV.Where(x => x.IsCel).Count();
                     node = rwNode.AppendChild(doc.CreateNode(XmlNodeType.Element, "p3_2", ""));
                     node.InnerText = cnt.ToString();
                     
@@ -126,7 +126,7 @@ namespace PriemLib
                     int MinMark =
                         (from ev in EV
                          join mark in context.Mark on ev.AbiturientId equals mark.AbiturientId
-                         where ev.IsCel == 0 && ev.IsQuota == 0 && ev.IsCrimea == 0 && ev.IsBE == 0
+                         where !ev.IsCel && !ev.IsQuota && !ev.IsCrimea && !ev.IsBE
                          select new { FiveGradeValue = (int?)mark.FiveGradeValue, mark.AbiturientId })
                          .GroupBy(x => x.AbiturientId).DefaultIfEmpty()
                          .Select(x => x.Where(y => y.AbiturientId == x.Key).Select(y => y.FiveGradeValue ?? 0).DefaultIfEmpty(0).Sum())

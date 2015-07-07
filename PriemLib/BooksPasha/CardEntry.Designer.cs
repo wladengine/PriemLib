@@ -610,6 +610,7 @@
             this.dgvOlympicsToCommonBenefit.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvOlympicsToCommonBenefit.Size = new System.Drawing.Size(412, 127);
             this.dgvOlympicsToCommonBenefit.TabIndex = 36;
+            this.dgvOlympicsToCommonBenefit.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvOlympicsToCommonBenefit_CellDoubleClick);
             // 
             // btnOpenOlympicsToCommonBenefit
             // 

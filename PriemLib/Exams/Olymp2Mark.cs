@@ -448,8 +448,8 @@ namespace PriemLib
             {
                 case PriemType.Priem: { extAbitTable = ""; break; }
                 case PriemType.PriemMag: { extAbitTable = ""; break; }
-                case PriemType.PriemSPO: { extAbitTable = "SPO"; break; }
-                case PriemType.PriemAspirant: { extAbitTable = "Aspirant"; break; }
+                case PriemType.PriemSPO: { extAbitTable = ""; break; }
+                case PriemType.PriemAspirant: { extAbitTable = ""; break; }
                 default: { extAbitTable = ""; break; }
             }
             string sQuery = @"SELECT extOlympiads.Id AS OlympiadId, ed.qAbiturient.Id as Id, ed.qAbiturient.RegNum as Рег_Номер, extPersonTable.FIO as ФИО, 
@@ -551,21 +551,23 @@ namespace PriemLib
 
                                     int cnt;
 
-                                    cnt = (from mrk in context.qMark
+                                    cnt = (from mrk in context.Mark
                                            where mrk.AbiturientId == abId && mrk.ExamInEntryId == exId && mrk.IsFromEge
                                            select mrk).Count();
 
                                     if (cnt > 0)
                                     {
-                                        if (MessageBox.Show("Данное действие перекроет оценку, зачтенную из ЕГЭ. Заменить?", "Внимание", MessageBoxButtons.YesNo) == DialogResult.No)
+                                        string abitFio = context.extAbit.Where(x => x.Id == abId).Select(x => x.FIO).FirstOrDefault();
+
+                                        if (MessageBox.Show(((abitFio + ": ") ?? "") + "Данное действие перекроет оценку абитуриента, зачтенную из ЕГЭ. Заменить?", "Внимание", MessageBoxButtons.YesNo) == DialogResult.No)
                                             continue;
                                     }
 
-                                    cnt = (from mrk in context.qMark
+                                    cnt = (from mrk in context.Mark
                                            where mrk.AbiturientId == abId && mrk.ExamInEntryId == exId
                                            select mrk).Count();
                                     
-                                    if (cnt > 0)                                   
+                                    if (cnt > 0)
                                         context.Mark_DeleteByAbitExamId(abId, exId);
 
                                     Guid OlympiadId = new Guid(row.Cells["OlympiadId"].Value.ToString());

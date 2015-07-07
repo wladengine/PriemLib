@@ -94,6 +94,9 @@
             this.textBox48 = new System.Windows.Forms.TextBox();
             this.btnClose = new System.Windows.Forms.Button();
             this.btnWord = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -117,7 +120,7 @@
             // 
             // label2
             // 
-            this.label2.Location = new System.Drawing.Point(31, 408);
+            this.label2.Location = new System.Drawing.Point(31, 448);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(164, 28);
             this.label2.TabIndex = 2;
@@ -126,6 +129,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Controls.Add(this.textBox2);
             this.groupBox1.Controls.Add(this.tbCnt_Stud_1K_USSR_P);
             this.groupBox1.Controls.Add(this.tbCnt_Stud_1K_USSR_B);
             this.groupBox1.Controls.Add(this.tbCnt_Stud_1K_Foreign_P);
@@ -149,7 +154,7 @@
             this.groupBox1.Controls.Add(this.tbCnt_Abit_1K_B);
             this.groupBox1.Location = new System.Drawing.Point(201, 57);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(156, 313);
+            this.groupBox1.Size = new System.Drawing.Size(156, 336);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Всего";
@@ -621,7 +626,7 @@
             // 
             // tbKCP_Mag
             // 
-            this.tbKCP_Mag.Location = new System.Drawing.Point(286, 387);
+            this.tbKCP_Mag.Location = new System.Drawing.Point(286, 427);
             this.tbKCP_Mag.Name = "tbKCP_Mag";
             this.tbKCP_Mag.ReadOnly = true;
             this.tbKCP_Mag.Size = new System.Drawing.Size(148, 20);
@@ -630,7 +635,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(138, 390);
+            this.label14.Location = new System.Drawing.Point(138, 430);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(142, 13);
             this.label14.TabIndex = 16;
@@ -638,7 +643,7 @@
             // 
             // tbCnt_Stud_MAG_All
             // 
-            this.tbCnt_Stud_MAG_All.Location = new System.Drawing.Point(207, 413);
+            this.tbCnt_Stud_MAG_All.Location = new System.Drawing.Point(207, 453);
             this.tbCnt_Stud_MAG_All.Name = "tbCnt_Stud_MAG_All";
             this.tbCnt_Stud_MAG_All.ReadOnly = true;
             this.tbCnt_Stud_MAG_All.Size = new System.Drawing.Size(144, 20);
@@ -646,7 +651,7 @@
             // 
             // textBox46
             // 
-            this.textBox46.Location = new System.Drawing.Point(207, 413);
+            this.textBox46.Location = new System.Drawing.Point(207, 453);
             this.textBox46.Name = "textBox46";
             this.textBox46.ReadOnly = true;
             this.textBox46.Size = new System.Drawing.Size(144, 20);
@@ -654,7 +659,7 @@
             // 
             // tbCnt_Stud_MAG_All_SPB
             // 
-            this.tbCnt_Stud_MAG_All_SPB.Location = new System.Drawing.Point(369, 413);
+            this.tbCnt_Stud_MAG_All_SPB.Location = new System.Drawing.Point(369, 453);
             this.tbCnt_Stud_MAG_All_SPB.Name = "tbCnt_Stud_MAG_All_SPB";
             this.tbCnt_Stud_MAG_All_SPB.ReadOnly = true;
             this.tbCnt_Stud_MAG_All_SPB.Size = new System.Drawing.Size(144, 20);
@@ -662,7 +667,7 @@
             // 
             // textBox48
             // 
-            this.textBox48.Location = new System.Drawing.Point(369, 413);
+            this.textBox48.Location = new System.Drawing.Point(369, 453);
             this.textBox48.Name = "textBox48";
             this.textBox48.ReadOnly = true;
             this.textBox48.Size = new System.Drawing.Size(144, 20);
@@ -687,11 +692,37 @@
             this.btnWord.UseVisualStyleBackColor = true;
             this.btnWord.Click += new System.EventHandler(this.btnWord_Click);
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(85, 305);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(65, 20);
+            this.textBox1.TabIndex = 26;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(6, 305);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.ReadOnly = true;
+            this.textBox2.Size = new System.Drawing.Size(73, 20);
+            this.textBox2.TabIndex = 25;
+            // 
+            // label15
+            // 
+            this.label15.Location = new System.Drawing.Point(10, 360);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(185, 30);
+            this.label15.TabIndex = 24;
+            this.label15.Text = "Средний бал ЕГЭ зачисленных в стобалльной системе";
+            this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(531, 546);
+            this.Controls.Add(this.label15);
             this.Controls.Add(this.btnWord);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.tbCnt_Stud_MAG_All_SPB);
@@ -795,5 +826,8 @@
         private System.Windows.Forms.TextBox textBox48;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Button btnWord;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Label label15;
     }
 }

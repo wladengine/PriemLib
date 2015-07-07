@@ -740,10 +740,10 @@ namespace PriemLib
                     }).FirstOrDefault();
 
                 MemoryStream ms = new MemoryStream();
-                string dotName = "ApplicationSPO_page3.pdf";
+                string dotName = "Application_page3.pdf";
 
                 byte[] templateBytes;
-                using (FileStream fs = new FileStream(dirPath + dotName, FileMode.Open, FileAccess.Read))
+                using (FileStream fs = new FileStream(dirPath + "\\" + dotName, FileMode.Open, FileAccess.Read))
                 {
                     templateBytes = new byte[fs.Length];
                     fs.Read(templateBytes, 0, templateBytes.Length);
@@ -934,7 +934,7 @@ namespace PriemLib
                     }
 
                     //добавляем первый файл
-                    lstFiles.Add(GetApplicationPDF_FirstPage(lstAppsFirst, lstApps, dirPath, "ApplicationSPO_page1.pdf", FIO, code, false));
+                    lstFiles.Add(GetApplicationPDF_FirstPage(lstAppsFirst, lstApps, dirPath, "Application_page1.pdf", FIO, code, false));
                     //acrFlds.SetField("Version", sVersion);
 
                     //остальные - по 4 на новую страницу
@@ -951,7 +951,7 @@ namespace PriemLib
                             appcount++;
                         }
 
-                        lstFiles.Add(GetApplicationPDF_NextPage(lstAppsFirst, lstApps, dirPath, "ApplicationSPO_page2.pdf", FIO));
+                        lstFiles.Add(GetApplicationPDF_NextPage(lstAppsFirst, lstApps, dirPath, "Application_page2.pdf", FIO));
                     }
                 }
 

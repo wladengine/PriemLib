@@ -255,7 +255,7 @@ namespace PriemLib
                     qBuilder.AddQueryItem(new QueryItem("ed.extPerson_EducationInfo_Current", "ed.extPerson_EducationInfo_Current.SchoolExitYear", "Год_выпуска"));
                 }
                 qBuilder.AddQueryItem(new QueryItem("ed.SchoolType", "ed.SchoolType.Name", "Тип_уч_заведения"));
-                qBuilder.AddQueryItem(new QueryItem("CountryEduc", "CountryEduc.Name", "Страна_получ_пред_образ"));
+                qBuilder.AddQueryItem(new QueryItem("ed.CountryEduc", "CountryEduc.Name", "Страна_получ_пред_образ"));
                 qBuilder.AddQueryItem(new QueryItem("ed.extFBSStatus", "ed.extFBSStatus.FBSStatus", "Статус_ФБС"));
 
                 //Person Additional Info
@@ -274,7 +274,7 @@ namespace PriemLib
                 qBuilder.AddQueryItem(new QueryItem("ed.StudyForm", "ed.StudyForm.Name", "Форма_обучения"));
                 qBuilder.AddQueryItem(new QueryItem("ed.StudyBasis", "ed.StudyBasis.Name", "Основа_обучения"));
                 qBuilder.AddQueryItem(new QueryItem("ed.Competition", "ed.Competition.Name", "Тип_конкурса"));
-                qBuilder.AddQueryItem(new QueryItem("OtherCompetition", "OtherCompetition.Name", "Доп_тип_конкурса"));
+                qBuilder.AddQueryItem(new QueryItem("ed.OtherCompetition", "OtherCompetition.Name", "Доп_тип_конкурса"));
                 qBuilder.AddQueryItem(new QueryItem("ed.CelCompetition", "ed.CelCompetition.Name", "Целевик_тип"));
                 qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", QueryBuilder.GetBoolField("ed.qAbiturient.IsListener"), "Слушатель"));
                 //qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", QueryBuilder.GetBoolField("ed.qAbiturient.WithHE"), "Имеющий_ВВ"));
@@ -341,6 +341,15 @@ namespace PriemLib
                 qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "case when (ed.extPerson.Privileges & 128)>0 then 'Да' else 'Нет' end", "стажник"));
                 qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "case when (ed.extPerson.Privileges & 256)>0 then 'Да' else 'Нет' end", "реб.-сирота"));
                 qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "case when (ed.extPerson.Privileges & 512)>0 then 'Да' else 'Нет' end", "огр.возможности"));
+
+                //инд достижения
+                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "case when EXISTS (SELECT * FROM ed.PersonAchievement PA WHERE PA.PersonId = extPerson.Id AND PA.AchievementTypeId = 9) then 'Да' else 'Нет' end", "ИНД_Аттестат"));
+                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "case when EXISTS (SELECT * FROM ed.PersonAchievement PA WHERE PA.PersonId = extPerson.Id AND PA.AchievementTypeId = 10) then 'Да' else 'Нет' end", "ИНД_Волонтёр"));
+                qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", "case when EXISTS (SELECT * FROM ed.Olympiads OL WHERE OL.AbiturientId = qAbiturient.Id AND OL.OlympTypeId = 7 AND OL.OlympValueId = 6) then 'Да' else 'Нет' end", "ИНД_ПобРег"));
+                qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", "case when EXISTS (SELECT * FROM ed.Olympiads OL WHERE OL.AbiturientId = qAbiturient.Id AND OL.OlympTypeId = 7 AND OL.OlympValueId IN (5, 7)) then 'Да' else 'Нет' end", "ИНД_ПризРег"));
+                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "case when EXISTS (SELECT * FROM ed.PersonAchievement PA WHERE PA.PersonId = extPerson.Id AND PA.AchievementTypeId = 11) then 'Да' else 'Нет' end", "ИНД_Конкурсы"));
+                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "case when EXISTS (SELECT * FROM ed.PersonAchievement PA WHERE PA.PersonId = extPerson.Id AND PA.AchievementTypeId = 12) then 'Да' else 'Нет' end", "ИНД_Сочинение"));
+
 
                 //Протоколы
                 qBuilder.AddQueryItem(new QueryItem("ed.extEnableProtocol", "ed.extEnableProtocol.Number", "Протокол_о_допуске"));
@@ -411,7 +420,7 @@ namespace PriemLib
                 qBuilder.AddTableJoint("ed.Region", " LEFT JOIN ed.Region ON ed.extPerson.RegionId = ed.Region.Id ");
                 qBuilder.AddTableJoint("ed.Language", " LEFT JOIN ed.[Language] ON ed.qAbiturient.LanguageId = ed.[Language].Id ");
                 qBuilder.AddTableJoint("ed.SchoolType", " LEFT JOIN ed.SchoolType ON ed.extPerson_EducationInfo_Current.SchoolTypeId = ed.SchoolType.Id ");
-                qBuilder.AddTableJoint("CountryEduc", " LEFT JOIN ed.Country AS CountryEduc ON ed.extPerson_EducationInfo_Current.CountryEducId = CountryEduc.Id ");
+                qBuilder.AddTableJoint("ed.CountryEduc", " LEFT JOIN ed.Country AS CountryEduc ON ed.extPerson_EducationInfo_Current.CountryEducId = CountryEduc.Id ");
                 qBuilder.AddTableJoint("HostelFaculty", " LEFT JOIN ed.SP_Faculty AS HostelFaculty ON ed.extPerson.HostelFacultyId = HostelFaculty.Id ");
                 qBuilder.AddTableJoint("ed.extFBSStatus", " LEFT JOIN ed.extFBSStatus ON ed.extFBSStatus.PersonId = ed.extPerson.Id ");
 
@@ -423,7 +432,7 @@ namespace PriemLib
                 qBuilder.AddTableJoint("ed.StudyForm", " LEFT JOIN ed.StudyForm ON ed.StudyForm.Id = ed.qAbiturient.StudyFormId ");
                 qBuilder.AddTableJoint("ed.StudyLevel", " LEFT JOIN ed.StudyLevel ON ed.StudyLevel.Id = ed.qAbiturient.StudyLevelId ");
                 qBuilder.AddTableJoint("ed.Competition", " LEFT JOIN ed.Competition ON ed.Competition.Id = ed.qAbiturient.CompetitionId ");
-                qBuilder.AddTableJoint("OtherCompetition", " LEFT JOIN ed.Competition AS OtherCompetition ON ed.qAbiturient.OtherCompetitionId = OtherCompetition.Id ");
+                qBuilder.AddTableJoint("ed.OtherCompetition", " LEFT JOIN ed.Competition AS OtherCompetition ON ed.qAbiturient.OtherCompetitionId = OtherCompetition.Id ");
                 qBuilder.AddTableJoint("ed.CelCompetition", " LEFT JOIN ed.CelCompetition ON ed.qAbiturient.CelCompetitionId = ed.CelCompetition.Id ");
 
                 qBuilder.AddTableJoint("ed.extEnableProtocol", " LEFT JOIN ed.extEnableProtocol ON ed.extEnableProtocol.AbiturientId = ed.qAbiturient.Id ");

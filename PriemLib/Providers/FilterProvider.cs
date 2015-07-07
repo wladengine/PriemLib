@@ -110,6 +110,9 @@ namespace PriemLib
             list.Add("стажник", "стажник");
             list.Add("реб.-сирота", "реб.-сирота");
             list.Add("огр.возможности", "огр.возможности");
+
+            
+
             list.Add("Англ_с_нуля", "Желает изучать англ с нуля");
             list.Add("Англ_оценка", "Итог. оценка по англ");
 
@@ -134,6 +137,7 @@ namespace PriemLib
             List<FilterItem> lst = new List<FilterItem>();
 
             //абитуриент
+            lst.Add(new FilterItem("Приоритет", FilterType.FromTo, "ed.qAbiturient.Priority", "ed.qAbiturient"));
             lst.Add(new FilterItem("Ид_номер", FilterType.FromTo, "ed.extPerson.PersonNum", "ed.extPerson"));
             lst.Add(new FilterItem("Рег_номер", FilterType.FromTo, "ed.qAbiturient.RegNum", "ed.qAbiturient"));
             lst.Add(new FilterItem("Номер зачетки", FilterType.FromTo, "ed.qAbiturient.StudyNumber", "ed.qAbiturient"));
@@ -271,6 +275,14 @@ namespace PriemLib
             list.Add("Программы_сокр", "Сокращенная программа");
             list.Add("Программы_парал", "Параллельная программа");
 
+            //индивидуальные достижения
+            list.Add("ИНД_Аттестат", "ИНД_Аттестат");
+            list.Add("ИНД_Волонтёр", "ИНД_Волонтёр");
+            list.Add("ИНД_ПобРег", "ИНД_ПобРег");
+            list.Add("ИНД_ПризРег", "ИНД_ПризРег");
+            list.Add("ИНД_Конкурсы", "ИНД_Конкурсы");
+            list.Add("ИНД_Сочинение", "ИНД_Сочинение");
+
             list.Add("Город_уч_заведения", "Город уч.заведения");
             list.Add("Тип_уч_заведения", "Тип уч.заведения");
             list.Add("Медалист", "Медалист");
@@ -401,6 +413,13 @@ namespace PriemLib
             lst.Add(new FilterItem("Есть свидетельство ЕГЭ 2014 года", FilterType.Bool, " EXISTS (SELECT ed.EgeCertificate.Number FROM ed.EgeCertificate WHERE ed.EgeCertificate.PersonId = ed.extPerson.Id AND ed.EgeCertificate.Year = 2014)", "ed.extPerson"));
             lst.Add(new FilterItem("Есть свидетельство ЕГЭ 2015 года", FilterType.Bool, " EXISTS (SELECT ed.EgeCertificate.Number FROM ed.EgeCertificate WHERE ed.EgeCertificate.PersonId = ed.extPerson.Id AND ed.EgeCertificate.Year = 2015)", "ed.extPerson"));
 
+            //инд достижения
+            lst.Add(new FilterItem("Инд.достижения: Аттестат с отличием", FilterType.Bool, " EXISTS (SELECT * FROM ed.PersonAchievement PA WHERE PA.PersonId = extPerson.Id AND PA.AchievementTypeId = 9)", "ed.extPerson"));
+            lst.Add(new FilterItem("Инд.достижения: Волонтёр", FilterType.Bool, " EXISTS (SELECT * FROM ed.PersonAchievement PA WHERE PA.PersonId = extPerson.Id AND PA.AchievementTypeId = 10)", "ed.extPerson"));
+            lst.Add(new FilterItem("Инд.достижения: Победитель рег. этапа Всеросс", FilterType.Bool, " EXISTS (SELECT * FROM ed.Olympiads OL WHERE OL.AbiturientId = qAbiturient.Id AND OL.OlympTypeId = 7 AND OL.OlympValueId = 6)", "ed.qAbiturient"));
+            lst.Add(new FilterItem("Инд.достижения: Призёр рег. этапа Всеросс", FilterType.Bool, " EXISTS (SELECT * FROM ed.Olympiads OL WHERE OL.AbiturientId = qAbiturient.Id AND OL.OlympTypeId = 7 AND OL.OlympValueId IN (5, 7))", "ed.qAbiturient"));
+            lst.Add(new FilterItem("Инд.достижения: Прочие конкурсы", FilterType.Bool, " EXISTS (SELECT * FROM ed.PersonAchievement PA WHERE PA.PersonId = extPerson.Id AND PA.AchievementTypeId = 11)", "ed.extPerson"));
+            lst.Add(new FilterItem("Инд.достижения: Сочинение (оценка \"зачёт\")", FilterType.Bool, " EXISTS (SELECT * FROM ed.PersonAchievement PA WHERE PA.PersonId = extPerson.Id AND PA.AchievementTypeId = 12)", "ed.extPerson"));
 
             lst.Add(new FilterItem("Апелляция", FilterType.Bool, " EXISTS (SELECT * FROM ed.EgeMark LEFT JOIN ed.EgeCertificate ON ed.EgeMark.EgeCertificateId = ed.EgeCertificate.Id WHERE ed.EgeMark.IsAppeal>0 AND ed.EgeCertificate.PersonId = ed.extPerson.Id) ", "ed.extPerson"));
             lst.Add(new FilterItem("Из олимпиад", FilterType.Bool, " EXISTS (SELECT * FROM ed.EgeMark LEFT JOIN ed.EgeCertificate ON ed.EgeMark.EgeCertificateId = ed.EgeCertificate.Id WHERE ed.EgeMark.IsFromOlymp>0 AND ed.EgeCertificate.PersonId = ed.extPerson.Id) ", "ed.extPerson"));

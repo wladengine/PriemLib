@@ -32,6 +32,7 @@
             this.tbKCP_1kBudzh = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label12 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.dtpDate = new System.Windows.Forms.DateTimePicker();
             this.tbEnteredAbits_AvgEGE_P = new System.Windows.Forms.TextBox();
@@ -54,7 +55,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.btnToWord = new System.Windows.Forms.Button();
             this.btnRecalculate = new System.Windows.Forms.Button();
-            this.label12 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -69,15 +69,16 @@
             // 
             // tbKCP_1kBudzh
             // 
-            this.tbKCP_1kBudzh.Location = new System.Drawing.Point(196, 42);
+            this.tbKCP_1kBudzh.Location = new System.Drawing.Point(247, 42);
             this.tbKCP_1kBudzh.Name = "tbKCP_1kBudzh";
+            this.tbKCP_1kBudzh.ReadOnly = true;
             this.tbKCP_1kBudzh.Size = new System.Drawing.Size(84, 20);
             this.tbKCP_1kBudzh.TabIndex = 7;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(91, 45);
+            this.label1.Location = new System.Drawing.Point(142, 45);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(99, 13);
             this.label1.TabIndex = 6;
@@ -108,14 +109,23 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Location = new System.Drawing.Point(12, 68);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(342, 245);
+            this.groupBox1.Size = new System.Drawing.Size(382, 245);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(18, 122);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(160, 13);
+            this.label12.TabIndex = 23;
+            this.label12.Text = "По приказам от 04.08.2015 (5)";
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(154, 193);
+            this.label10.Location = new System.Drawing.Point(183, 194);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(136, 13);
             this.label10.TabIndex = 22;
@@ -123,29 +133,31 @@
             // 
             // dtpDate
             // 
-            this.dtpDate.Location = new System.Drawing.Point(155, 209);
+            this.dtpDate.Location = new System.Drawing.Point(184, 210);
             this.dtpDate.Name = "dtpDate";
             this.dtpDate.Size = new System.Drawing.Size(174, 20);
             this.dtpDate.TabIndex = 21;
             // 
             // tbEnteredAbits_AvgEGE_P
             // 
-            this.tbEnteredAbits_AvgEGE_P.Location = new System.Drawing.Point(245, 170);
+            this.tbEnteredAbits_AvgEGE_P.Location = new System.Drawing.Point(274, 171);
             this.tbEnteredAbits_AvgEGE_P.Name = "tbEnteredAbits_AvgEGE_P";
+            this.tbEnteredAbits_AvgEGE_P.ReadOnly = true;
             this.tbEnteredAbits_AvgEGE_P.Size = new System.Drawing.Size(84, 20);
             this.tbEnteredAbits_AvgEGE_P.TabIndex = 19;
             // 
             // tbEnteredAbits_AvgEGE_B
             // 
-            this.tbEnteredAbits_AvgEGE_B.Location = new System.Drawing.Point(155, 170);
+            this.tbEnteredAbits_AvgEGE_B.Location = new System.Drawing.Point(184, 171);
             this.tbEnteredAbits_AvgEGE_B.Name = "tbEnteredAbits_AvgEGE_B";
+            this.tbEnteredAbits_AvgEGE_B.ReadOnly = true;
             this.tbEnteredAbits_AvgEGE_B.Size = new System.Drawing.Size(84, 20);
             this.tbEnteredAbits_AvgEGE_B.TabIndex = 18;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(56, 173);
+            this.label8.Location = new System.Drawing.Point(85, 174);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(93, 13);
             this.label8.TabIndex = 17;
@@ -154,7 +166,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(29, 147);
+            this.label7.Location = new System.Drawing.Point(58, 148);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(120, 13);
             this.label7.TabIndex = 16;
@@ -163,16 +175,16 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(4, 95);
+            this.label6.Location = new System.Drawing.Point(18, 96);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(145, 13);
+            this.label6.Size = new System.Drawing.Size(160, 13);
             this.label6.TabIndex = 15;
-            this.label6.Text = "По приказам от 30.07.2013";
+            this.label6.Text = "По приказам от 29.07.2015 (4)";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(105, 69);
+            this.label5.Location = new System.Drawing.Point(134, 70);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(44, 13);
             this.label5.TabIndex = 14;
@@ -180,50 +192,56 @@
             // 
             // tbEnteredAbitsCount_30_07_05_08_P
             // 
-            this.tbEnteredAbitsCount_30_07_05_08_P.Location = new System.Drawing.Point(245, 144);
+            this.tbEnteredAbitsCount_30_07_05_08_P.Location = new System.Drawing.Point(274, 145);
             this.tbEnteredAbitsCount_30_07_05_08_P.Name = "tbEnteredAbitsCount_30_07_05_08_P";
+            this.tbEnteredAbitsCount_30_07_05_08_P.ReadOnly = true;
             this.tbEnteredAbitsCount_30_07_05_08_P.Size = new System.Drawing.Size(84, 20);
             this.tbEnteredAbitsCount_30_07_05_08_P.TabIndex = 13;
             // 
             // tbEnteredAbitsCount_30_07_05_08_B
             // 
-            this.tbEnteredAbitsCount_30_07_05_08_B.Location = new System.Drawing.Point(155, 144);
+            this.tbEnteredAbitsCount_30_07_05_08_B.Location = new System.Drawing.Point(184, 145);
             this.tbEnteredAbitsCount_30_07_05_08_B.Name = "tbEnteredAbitsCount_30_07_05_08_B";
+            this.tbEnteredAbitsCount_30_07_05_08_B.ReadOnly = true;
             this.tbEnteredAbitsCount_30_07_05_08_B.Size = new System.Drawing.Size(84, 20);
             this.tbEnteredAbitsCount_30_07_05_08_B.TabIndex = 12;
             // 
             // tbEnteredAbitsCount_05_08_P
             // 
-            this.tbEnteredAbitsCount_05_08_P.Location = new System.Drawing.Point(245, 118);
+            this.tbEnteredAbitsCount_05_08_P.Location = new System.Drawing.Point(274, 119);
             this.tbEnteredAbitsCount_05_08_P.Name = "tbEnteredAbitsCount_05_08_P";
+            this.tbEnteredAbitsCount_05_08_P.ReadOnly = true;
             this.tbEnteredAbitsCount_05_08_P.Size = new System.Drawing.Size(84, 20);
             this.tbEnteredAbitsCount_05_08_P.TabIndex = 11;
             // 
             // tbEnteredAbitsCount_05_08_B
             // 
-            this.tbEnteredAbitsCount_05_08_B.Location = new System.Drawing.Point(155, 118);
+            this.tbEnteredAbitsCount_05_08_B.Location = new System.Drawing.Point(184, 119);
             this.tbEnteredAbitsCount_05_08_B.Name = "tbEnteredAbitsCount_05_08_B";
+            this.tbEnteredAbitsCount_05_08_B.ReadOnly = true;
             this.tbEnteredAbitsCount_05_08_B.Size = new System.Drawing.Size(84, 20);
             this.tbEnteredAbitsCount_05_08_B.TabIndex = 10;
             // 
             // tbEnteredAbitsCount_30_07_P
             // 
-            this.tbEnteredAbitsCount_30_07_P.Location = new System.Drawing.Point(245, 92);
+            this.tbEnteredAbitsCount_30_07_P.Location = new System.Drawing.Point(274, 93);
             this.tbEnteredAbitsCount_30_07_P.Name = "tbEnteredAbitsCount_30_07_P";
+            this.tbEnteredAbitsCount_30_07_P.ReadOnly = true;
             this.tbEnteredAbitsCount_30_07_P.Size = new System.Drawing.Size(84, 20);
             this.tbEnteredAbitsCount_30_07_P.TabIndex = 9;
             // 
             // tbEnteredAbitsCount_30_07_B
             // 
-            this.tbEnteredAbitsCount_30_07_B.Location = new System.Drawing.Point(155, 92);
+            this.tbEnteredAbitsCount_30_07_B.Location = new System.Drawing.Point(184, 93);
             this.tbEnteredAbitsCount_30_07_B.Name = "tbEnteredAbitsCount_30_07_B";
+            this.tbEnteredAbitsCount_30_07_B.ReadOnly = true;
             this.tbEnteredAbitsCount_30_07_B.Size = new System.Drawing.Size(84, 20);
             this.tbEnteredAbitsCount_30_07_B.TabIndex = 8;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(242, 50);
+            this.label4.Location = new System.Drawing.Point(271, 51);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(48, 13);
             this.label4.TabIndex = 7;
@@ -232,7 +250,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(152, 50);
+            this.label3.Location = new System.Drawing.Point(181, 51);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(46, 13);
             this.label3.TabIndex = 6;
@@ -240,29 +258,32 @@
             // 
             // tbEnteredAbitsCount_P
             // 
-            this.tbEnteredAbitsCount_P.Location = new System.Drawing.Point(245, 66);
+            this.tbEnteredAbitsCount_P.Location = new System.Drawing.Point(274, 67);
             this.tbEnteredAbitsCount_P.Name = "tbEnteredAbitsCount_P";
+            this.tbEnteredAbitsCount_P.ReadOnly = true;
             this.tbEnteredAbitsCount_P.Size = new System.Drawing.Size(84, 20);
             this.tbEnteredAbitsCount_P.TabIndex = 5;
             // 
             // tbEnteredAbitsCount_B
             // 
-            this.tbEnteredAbitsCount_B.Location = new System.Drawing.Point(155, 66);
+            this.tbEnteredAbitsCount_B.Location = new System.Drawing.Point(184, 67);
             this.tbEnteredAbitsCount_B.Name = "tbEnteredAbitsCount_B";
+            this.tbEnteredAbitsCount_B.ReadOnly = true;
             this.tbEnteredAbitsCount_B.Size = new System.Drawing.Size(84, 20);
             this.tbEnteredAbitsCount_B.TabIndex = 4;
             // 
             // tbEnteredAbits_count
             // 
-            this.tbEnteredAbits_count.Location = new System.Drawing.Point(155, 19);
+            this.tbEnteredAbits_count.Location = new System.Drawing.Point(235, 19);
             this.tbEnteredAbits_count.Name = "tbEnteredAbits_count";
+            this.tbEnteredAbits_count.ReadOnly = true;
             this.tbEnteredAbits_count.Size = new System.Drawing.Size(84, 20);
             this.tbEnteredAbits_count.TabIndex = 3;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 22);
+            this.label2.Location = new System.Drawing.Point(21, 22);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(143, 13);
             this.label2.TabIndex = 2;
@@ -286,20 +307,11 @@
             this.btnRecalculate.Text = "Пересчитать";
             this.btnRecalculate.UseVisualStyleBackColor = true;
             // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(4, 121);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(145, 13);
-            this.label12.TabIndex = 23;
-            this.label12.Text = "По приказам от 05.08.2013";
-            // 
             // FormV
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(366, 354);
+            this.ClientSize = new System.Drawing.Size(406, 354);
             this.Controls.Add(this.btnToWord);
             this.Controls.Add(this.btnRecalculate);
             this.Controls.Add(this.groupBox1);

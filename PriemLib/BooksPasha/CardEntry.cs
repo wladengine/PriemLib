@@ -767,8 +767,9 @@ WHERE Id=@Id";
                              select new
                              {
                                  exEntry.Id,
-                                 exEntry.OlympTypeId,
-                                 exEntry.OlympNameId
+                                 OlympTypeId = exEntry.OlympType.Name,
+                                 OlympNameId = exEntry.OlympName.Name,
+                                 OlympValue = exEntry.OlympValue.Name
                              }).ToList().OrderBy(x => x.OlympTypeId).ToList();
 
                 dgvOlympicsToCommonBenefit.DataSource = query;
@@ -788,12 +789,17 @@ WHERE Id=@Id";
                     dgvOlympicsToCommonBenefit.Columns["OlympNameId"].HeaderText = "Название олимпиады";
                     dgvOlympicsToCommonBenefit.Columns["OlympNameId"].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
                 }
+                if (dgvOlympicsToCommonBenefit.Columns.Contains("OlympValue"))
+                {
+                    dgvOlympicsToCommonBenefit.Columns["OlympValue"].HeaderText = "Уровень диплома";
+                    dgvOlympicsToCommonBenefit.Columns["OlympValue"].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+                }
             }
         }
 
         private void btnAddOlympicsToCommonBenefit_Click(object sender, EventArgs e)
         {
-            OpenOlympicsToCommonBenefit(GuidId, null, true);
+            OpenOlympicsToCommonBenefit(GuidId, null, false);
         }
 
         private void OpenOlympicsToCommonBenefit(Guid? entryId, string id, bool isForModified)
@@ -808,7 +814,7 @@ WHERE Id=@Id";
             {
                 string itemId = dgvOlympicsToCommonBenefit.Rows[dgvOlympicsToCommonBenefit.CurrentCell.RowIndex].Cells["Id"].Value.ToString();
                 if (!string.IsNullOrEmpty(itemId))
-                    OpenOlympicsToCommonBenefit(GuidId, itemId, _isModified);
+                    OpenOlympicsToCommonBenefit(GuidId, itemId, false);
             }
         }
 
@@ -833,6 +839,16 @@ WHERE Id=@Id";
                     }
                     UpdateOlympicsToCommonBenefit();
                 }
+            }
+        }
+
+        private void dgvOlympicsToCommonBenefit_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dgvOlympicsToCommonBenefit.CurrentCell != null && dgvOlympicsToCommonBenefit.CurrentCell.RowIndex > -1)
+            {
+                string itemId = dgvOlympicsToCommonBenefit.Rows[dgvOlympicsToCommonBenefit.CurrentCell.RowIndex].Cells["Id"].Value.ToString();
+                if (!string.IsNullOrEmpty(itemId))
+                    OpenOlympicsToCommonBenefit(GuidId, itemId, false);
             }
         }
     }

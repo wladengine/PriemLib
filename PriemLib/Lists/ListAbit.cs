@@ -377,7 +377,7 @@ namespace PriemLib
         {
             string s = " WHERE 1=1 ";
             if (MainClass.dbType != PriemType.PriemForeigners)
-                s += " AND qAbiturient.Id NOT IN (SELECT Id FROM ed.qAbiturientForeignApplicationsOnly)";
+                s += " AND qAbiturient.IsForeign <> 1";
             else
                 s += " AND qAbiturient.Id IN (SELECT Id FROM ed.qAbiturientForeignApplicationsOnly)";
 

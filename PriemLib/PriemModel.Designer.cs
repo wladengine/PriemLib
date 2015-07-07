@@ -33205,6 +33205,7 @@ namespace PriemLib
         /// <param name="abiturientId">Initial value of the AbiturientId property.</param>
         /// <param name="excluded">Initial value of the Excluded property.</param>
         /// <param name="studyLevelGroupId">Initial value of the StudyLevelGroupId property.</param>
+        /// <param name="studyFormId">Initial value of the StudyFormId property.</param>
         /// <param name="date">Initial value of the Date property.</param>
         /// <param name="protocolTypeId">Initial value of the ProtocolTypeId property.</param>
         /// <param name="isOld">Initial value of the IsOld property.</param>
@@ -33220,13 +33221,15 @@ namespace PriemLib
         /// <param name="isQuota">Initial value of the IsQuota property.</param>
         /// <param name="isCel">Initial value of the IsCel property.</param>
         /// <param name="isBE">Initial value of the IsBE property.</param>
-        public static extEntryView CreateextEntryView(global::System.Guid id, global::System.Guid abiturientId, global::System.Boolean excluded, global::System.Int32 studyLevelGroupId, global::System.DateTime date, global::System.Int32 protocolTypeId, global::System.Boolean isOld, global::System.Boolean isSecond, global::System.Boolean isListener, global::System.String protocolTypeName, global::System.Boolean isParallel, global::System.Boolean isReduced, global::System.Guid entryId, global::System.Guid protocolHistoryId, global::System.Guid personId, global::System.Int32 isCrimea, global::System.Int32 isQuota, global::System.Int32 isCel, global::System.Int32 isBE)
+        /// <param name="isForeign">Initial value of the IsForeign property.</param>
+        public static extEntryView CreateextEntryView(global::System.Guid id, global::System.Guid abiturientId, global::System.Boolean excluded, global::System.Int32 studyLevelGroupId, global::System.Int32 studyFormId, global::System.DateTime date, global::System.Int32 protocolTypeId, global::System.Boolean isOld, global::System.Boolean isSecond, global::System.Boolean isListener, global::System.String protocolTypeName, global::System.Boolean isParallel, global::System.Boolean isReduced, global::System.Guid entryId, global::System.Guid protocolHistoryId, global::System.Guid personId, global::System.Boolean isCrimea, global::System.Boolean isQuota, global::System.Boolean isCel, global::System.Boolean isBE, global::System.Boolean isForeign)
         {
             extEntryView extEntryView = new extEntryView();
             extEntryView.Id = id;
             extEntryView.AbiturientId = abiturientId;
             extEntryView.Excluded = excluded;
             extEntryView.StudyLevelGroupId = studyLevelGroupId;
+            extEntryView.StudyFormId = studyFormId;
             extEntryView.Date = date;
             extEntryView.ProtocolTypeId = protocolTypeId;
             extEntryView.IsOld = isOld;
@@ -33242,6 +33245,7 @@ namespace PriemLib
             extEntryView.IsQuota = isQuota;
             extEntryView.IsCel = isCel;
             extEntryView.IsBE = isBE;
+            extEntryView.IsForeign = isForeign;
             return extEntryView;
         }
 
@@ -33453,9 +33457,9 @@ namespace PriemLib
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> StudyFormId
+        public global::System.Int32 StudyFormId
         {
             get
             {
@@ -33470,8 +33474,8 @@ namespace PriemLib
                 OnStudyFormIdChanged();
             }
         }
-        private Nullable<global::System.Int32> _StudyFormId;
-        partial void OnStudyFormIdChanging(Nullable<global::System.Int32> value);
+        private global::System.Int32 _StudyFormId;
+        partial void OnStudyFormIdChanging(global::System.Int32 value);
         partial void OnStudyFormIdChanged();
     
         /// <summary>
@@ -33998,7 +34002,7 @@ namespace PriemLib
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 IsCrimea
+        public global::System.Boolean IsCrimea
         {
             get
             {
@@ -34016,8 +34020,8 @@ namespace PriemLib
                 }
             }
         }
-        private global::System.Int32 _IsCrimea;
-        partial void OnIsCrimeaChanging(global::System.Int32 value);
+        private global::System.Boolean _IsCrimea;
+        partial void OnIsCrimeaChanging(global::System.Boolean value);
         partial void OnIsCrimeaChanged();
     
         /// <summary>
@@ -34025,7 +34029,7 @@ namespace PriemLib
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 IsQuota
+        public global::System.Boolean IsQuota
         {
             get
             {
@@ -34043,8 +34047,8 @@ namespace PriemLib
                 }
             }
         }
-        private global::System.Int32 _IsQuota;
-        partial void OnIsQuotaChanging(global::System.Int32 value);
+        private global::System.Boolean _IsQuota;
+        partial void OnIsQuotaChanging(global::System.Boolean value);
         partial void OnIsQuotaChanged();
     
         /// <summary>
@@ -34052,7 +34056,7 @@ namespace PriemLib
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 IsCel
+        public global::System.Boolean IsCel
         {
             get
             {
@@ -34070,8 +34074,8 @@ namespace PriemLib
                 }
             }
         }
-        private global::System.Int32 _IsCel;
-        partial void OnIsCelChanging(global::System.Int32 value);
+        private global::System.Boolean _IsCel;
+        partial void OnIsCelChanging(global::System.Boolean value);
         partial void OnIsCelChanged();
     
         /// <summary>
@@ -34079,7 +34083,7 @@ namespace PriemLib
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 IsBE
+        public global::System.Boolean IsBE
         {
             get
             {
@@ -34097,9 +34101,36 @@ namespace PriemLib
                 }
             }
         }
-        private global::System.Int32 _IsBE;
-        partial void OnIsBEChanging(global::System.Int32 value);
+        private global::System.Boolean _IsBE;
+        partial void OnIsBEChanging(global::System.Boolean value);
         partial void OnIsBEChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean IsForeign
+        {
+            get
+            {
+                return _IsForeign;
+            }
+            set
+            {
+                if (_IsForeign != value)
+                {
+                    OnIsForeignChanging(value);
+                    ReportPropertyChanging("IsForeign");
+                    _IsForeign = StructuralObject.SetValidValue(value, "IsForeign");
+                    ReportPropertyChanged("IsForeign");
+                    OnIsForeignChanged();
+                }
+            }
+        }
+        private global::System.Boolean _IsForeign;
+        partial void OnIsForeignChanging(global::System.Boolean value);
+        partial void OnIsForeignChanged();
 
         #endregion
 
@@ -48009,11 +48040,12 @@ namespace PriemLib
         /// <param name="licenseProgramName">Initial value of the LicenseProgramName property.</param>
         /// <param name="obrazProgramId">Initial value of the ObrazProgramId property.</param>
         /// <param name="obrazProgramName">Initial value of the ObrazProgramName property.</param>
+        /// <param name="profileId">Initial value of the ProfileId property.</param>
         /// <param name="studyFormId">Initial value of the StudyFormId property.</param>
         /// <param name="studyFormName">Initial value of the StudyFormName property.</param>
         /// <param name="studyBasisId">Initial value of the StudyBasisId property.</param>
         /// <param name="studyBasisName">Initial value of the StudyBasisName property.</param>
-        public static hlpStatistics CreatehlpStatistics(global::System.Guid entryId, global::System.Int32 studyLevelGroupId, global::System.Int32 facultyId, global::System.Int32 licenseProgramId, global::System.String licenseProgramName, global::System.Int32 obrazProgramId, global::System.String obrazProgramName, global::System.Int32 studyFormId, global::System.String studyFormName, global::System.Int32 studyBasisId, global::System.String studyBasisName)
+        public static hlpStatistics CreatehlpStatistics(global::System.Guid entryId, global::System.Int32 studyLevelGroupId, global::System.Int32 facultyId, global::System.Int32 licenseProgramId, global::System.String licenseProgramName, global::System.Int32 obrazProgramId, global::System.String obrazProgramName, global::System.Int32 profileId, global::System.Int32 studyFormId, global::System.String studyFormName, global::System.Int32 studyBasisId, global::System.String studyBasisName)
         {
             hlpStatistics hlpStatistics = new hlpStatistics();
             hlpStatistics.EntryId = entryId;
@@ -48023,6 +48055,7 @@ namespace PriemLib
             hlpStatistics.LicenseProgramName = licenseProgramName;
             hlpStatistics.ObrazProgramId = obrazProgramId;
             hlpStatistics.ObrazProgramName = obrazProgramName;
+            hlpStatistics.ProfileId = profileId;
             hlpStatistics.StudyFormId = studyFormId;
             hlpStatistics.StudyFormName = studyFormName;
             hlpStatistics.StudyBasisId = studyBasisId;
@@ -48274,9 +48307,9 @@ namespace PriemLib
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Guid> ProfileId
+        public global::System.Int32 ProfileId
         {
             get
             {
@@ -48291,8 +48324,8 @@ namespace PriemLib
                 OnProfileIdChanged();
             }
         }
-        private Nullable<global::System.Guid> _ProfileId;
-        partial void OnProfileIdChanging(Nullable<global::System.Guid> value);
+        private global::System.Int32 _ProfileId;
+        partial void OnProfileIdChanging(global::System.Int32 value);
         partial void OnProfileIdChanged();
     
         /// <summary>

@@ -22,14 +22,13 @@ namespace PriemLib
         {
             using (PriemEntities context = new PriemEntities())
             {
-                int kcp_b = context.Entry.Where(x => x.StudyLevel.LevelGroupId == 1 && x.StudyFormId == 1).Select(x => x.KCP ?? 0).DefaultIfEmpty(0).Sum();
+                int kcp_b = context.Entry.Where(x => x.StudyLevel.LevelGroupId == 1 && x.StudyFormId == 1 && !x.IsCrimea && !x.IsForeign).Select(x => x.KCP ?? 0).DefaultIfEmpty(0).Sum();
                 tbKCP_1kBudzh.Text = kcp_b.ToString();
 
                 var enteredCnt = (from Entered in context.extEntryView
                                  join Abit in context.Abiturient on Entered.AbiturientId equals Abit.Id
                                  where Abit.Entry.StudyLevel.LevelGroupId == 1 && Abit.Entry.StudyFormId == 1
-                                 && Entered.Date <= dtpDate.Value
-                                 && Abit.CompetitionId != 11 && Abit.CompetitionId != 12
+                                 && Entered.Date <= dtpDate.Value && !Abit.Entry.IsCrimea
                                  select new
                                  {
                                      Abit.CompetitionId,
@@ -43,14 +42,14 @@ namespace PriemLib
                 tbEnteredAbitsCount_B.Text = enteredCnt.Where(x => x.StudyBasisId == 1).Count().ToString();
                 tbEnteredAbitsCount_P.Text = enteredCnt.Where(x => x.StudyBasisId == 2).Count().ToString();
 
-                tbEnteredAbitsCount_30_07_B.Text = enteredCnt.Where(x => x.StudyBasisId == 1 && x.Date >= new DateTime(2014, 7, 29) && x.Date <= new DateTime(2014, 7, 31)).Count().ToString();
-                tbEnteredAbitsCount_30_07_P.Text = enteredCnt.Where(x => x.StudyBasisId == 2 && x.Date >= new DateTime(2014, 7, 29) && x.Date <= new DateTime(2014, 7, 31)).Count().ToString();
+                tbEnteredAbitsCount_30_07_B.Text = enteredCnt.Where(x => x.StudyBasisId == 1 && x.Date >= new DateTime(2015, 7, 29) && x.Date <= new DateTime(2015, 7, 31)).Count().ToString();
+                tbEnteredAbitsCount_30_07_P.Text = enteredCnt.Where(x => x.StudyBasisId == 2 && x.Date >= new DateTime(2015, 7, 29) && x.Date <= new DateTime(2015, 7, 31)).Count().ToString();
 
-                tbEnteredAbitsCount_05_08_B.Text = enteredCnt.Where(x => x.StudyBasisId == 1 && x.Date >= new DateTime(2014, 8, 4) && x.Date < new DateTime(2014, 8, 6)).Count().ToString();
-                tbEnteredAbitsCount_05_08_P.Text = enteredCnt.Where(x => x.StudyBasisId == 2 && x.Date >= new DateTime(2014, 8, 4) && x.Date < new DateTime(2014, 8, 6)).Count().ToString();
+                tbEnteredAbitsCount_05_08_B.Text = enteredCnt.Where(x => x.StudyBasisId == 1 && x.Date >= new DateTime(2015, 8, 4) && x.Date < new DateTime(2015, 8, 6)).Count().ToString();
+                tbEnteredAbitsCount_05_08_P.Text = enteredCnt.Where(x => x.StudyBasisId == 2 && x.Date >= new DateTime(2015, 8, 4) && x.Date < new DateTime(2015, 8, 6)).Count().ToString();
 
-                tbEnteredAbitsCount_30_07_05_08_B.Text = enteredCnt.Where(x => x.StudyBasisId == 1 && x.Date >= new DateTime(2014, 7, 29) && x.Date <= new DateTime(2014, 8, 4)).Count().ToString();
-                tbEnteredAbitsCount_30_07_05_08_P.Text = enteredCnt.Where(x => x.StudyBasisId == 2 && x.Date >= new DateTime(2014, 7, 29) && x.Date <= new DateTime(2014, 8, 4)).Count().ToString();
+                tbEnteredAbitsCount_30_07_05_08_B.Text = enteredCnt.Where(x => x.StudyBasisId == 1 && x.Date >= new DateTime(2015, 7, 29) && x.Date <= new DateTime(2015, 8, 4)).Count().ToString();
+                tbEnteredAbitsCount_30_07_05_08_P.Text = enteredCnt.Where(x => x.StudyBasisId == 2 && x.Date >= new DateTime(2015, 7, 29) && x.Date <= new DateTime(2015, 8, 4)).Count().ToString();
 
                 //AVG balls
                 var EgeMarks =
@@ -61,7 +60,7 @@ namespace PriemLib
                      && EnteredAbits.Date <= dtpDate.Value
                      select new { Value = (int)Mrk.Value, Abit.Entry.StudyBasisId });
 
-                tbEnteredAbits_AvgEGE_B.Text = EgeMarks.Where(x => x.StudyBasisId == 1).Select(x => x.Value).Average().ToString();
+                tbEnteredAbits_AvgEGE_B.Text = EgeMarks.Where(x => x.StudyBasisId == 1).Select(x => x.Value).DefaultIfEmpty(0).Average().ToString();
                 tbEnteredAbits_AvgEGE_P.Text = EgeMarks.Where(x => x.StudyBasisId == 2).Select(x => x.Value).DefaultIfEmpty(0).Average().ToString();
             }
         }

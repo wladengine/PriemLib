@@ -1238,6 +1238,17 @@ namespace PriemLib
 
                                     SaveEducationDocuments();
                                     SaveEgeFirst();
+
+                                    //Проверка на уже существующие заявления и сообщение при наличии
+                                    if (!SaveApplication(personId.Value))
+                                    {
+                                        _closePerson = true;
+                                        return false;
+                                    }
+
+                                    if (!MainClass.IsTestDB)
+                                        _bdcInet.ExecuteQuery("UPDATE Person SET IsImported = 1 WHERE Person.Barcode = " + _personBarc);
+
                                     transaction.Complete();
                                 }
                                 catch (Exception exc)
@@ -1245,14 +1256,6 @@ namespace PriemLib
                                     WinFormsServ.Error("Ошибка при сохранении:", exc);
                                 }
                             }
-                            if (!SaveApplication(personId.Value))
-                            {
-                                _closePerson = true;
-                                return false;
-                            }
-
-                            if (!MainClass.IsTestDB)
-                                _bdcInet.ExecuteQuery("UPDATE Person SET IsImported = 1 WHERE Person.Barcode = " + _personBarc);
                         }
                     }
                     else

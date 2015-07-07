@@ -14,7 +14,7 @@ using System.Data.Entity.Core.Objects;
 
 namespace PriemLib 
 {
-    public partial class CardOlympicsToCommonBenefit : BookCard
+    public partial class CardOlympicsToCommonBenefit : BookCardInt
     {
         private Guid? _EntryId;
         private bool _isReadOnly;
@@ -42,17 +42,6 @@ namespace PriemLib
             get { return ComboServ.GetComboIdInt(cbOlympValue); }
             set { ComboServ.SetComboId(cbOlympValue, value); }
         }
-        protected int? IntId
-        {
-            get
-            {
-                int gRet;
-                if (string.IsNullOrEmpty(_Id) || !int.TryParse(_Id, out gRet))
-                    return null;
-                else
-                    return gRet;
-            }
-        }
 
         #endregion
 
@@ -60,7 +49,7 @@ namespace PriemLib
             : this(null, EntryId, false)
         {
         }
-        public CardOlympicsToCommonBenefit(string olId, Guid? EntryId, bool isReadOnly)
+        public CardOlympicsToCommonBenefit(string olId, Guid? EntryId, bool isReadOnly) : base(olId)
         {
             InitializeComponent();
             _EntryId = EntryId;
@@ -74,8 +63,8 @@ namespace PriemLib
             base.ExtraInit();
 
             _title = "Олимпиады";
-            _tableName = "ed.Olympiads";
-            this.MdiParent = null;
+            _tableName = "ed.OlympResultToCommonBenefit";
+            this.MdiParent = MainClass.mainform;
 
             try
             {
@@ -217,7 +206,6 @@ namespace PriemLib
         {
             context.OlympResultToCommonBenefit_Insert(_EntryId, OlympTypeId, OlympNameId, OlympSubjectId, OlympValueId, idParam);
         }
-
         protected override void UpdateRec(PriemEntities context, int id)
         {
             context.OlympResultToCommonBenefit_Update(_EntryId, OlympTypeId, OlympNameId, OlympSubjectId, OlympValueId, id);

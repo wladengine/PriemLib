@@ -22,14 +22,14 @@ namespace PriemLib
         {
             using (PriemEntities context = new PriemEntities())
             {
-                int kcp_b = context.Entry.Where(x => x.StudyLevel.LevelGroupId == 1 && x.StudyFormId == 1).Select(x => x.KCP ?? 0).DefaultIfEmpty(0).Sum();
+                int kcp_b = context.Entry.Where(x => x.StudyLevel.LevelGroupId == 1 && x.StudyFormId == 1 && x.IsCrimea).Select(x => x.KCP ?? 0).DefaultIfEmpty(0).Sum();
                 tbKCP_1kBudzh.Text = kcp_b.ToString();
 
                 var enteredCnt = from Entered in context.extEntryView
                                  join Abit in context.Abiturient on Entered.AbiturientId equals Abit.Id
                                  where Abit.Entry.StudyLevel.LevelGroupId == 1 && Abit.Entry.StudyFormId == 1
                                  && Entered.Date <= dtpDate.Value
-                                 && Abit.CompetitionId != 11 && Abit.CompetitionId != 12
+                                 && Abit.Entry.IsCrimea
                                  select new
                                  {
                                      Abit.CompetitionId,
@@ -62,7 +62,7 @@ namespace PriemLib
                      && EnteredAbits.Date <= dtpDate.Value
                      select new { Value = (int)Mrk.Value, Abit.Entry.StudyBasisId });
 
-                tbEnteredAbits_AvgEGE_B.Text = EgeMarks.Where(x => x.StudyBasisId == 1).Select(x => x.Value).Average().ToString();
+                tbEnteredAbits_AvgEGE_B.Text = EgeMarks.Where(x => x.StudyBasisId == 1).Select(x => x.Value).DefaultIfEmpty(0).Average().ToString();
                 tbEnteredAbits_AvgEGE_P.Text = EgeMarks.Where(x => x.StudyBasisId == 2).Select(x => x.Value).DefaultIfEmpty(0).Average().ToString();
             }
         }

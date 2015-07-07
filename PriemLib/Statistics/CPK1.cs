@@ -217,7 +217,7 @@ namespace PriemLib
                              ent.StudyBasisId,
                              ent.LicenseProgramId,
                              ent.LicenseProgramCode,
-                             ent.LicenseProgramName
+                             ent.LicenseProgramName,
                          };
                 if (iFacultyId != null)
                     q_lp = q_lp.Where(x => x.FacultyId == iFacultyId);

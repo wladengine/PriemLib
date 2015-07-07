@@ -256,7 +256,7 @@ namespace PriemLib
             string s = string.Empty;
 
             s += string.Format(" AND {0}.IsForeign = '{1}'", tableName, Util.ToBool(MainClass.dbType == PriemType.PriemForeigners));
-            s += string.Format(" AND {0}.StudyLevelGroupId = '{1}'", tableName, Util.BuildStringWithCollection(MainClass.lstStudyLevelGroupId));
+            s += string.Format(" AND {0}.StudyLevelGroupId IN ({1})", tableName, Util.BuildStringWithCollection(MainClass.lstStudyLevelGroupId));
 
             //обработали основу обучения 
             if (StudyBasisId != null)

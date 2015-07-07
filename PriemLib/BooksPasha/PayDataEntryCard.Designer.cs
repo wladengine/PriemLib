@@ -49,6 +49,8 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.cbProrector = new System.Windows.Forms.ComboBox();
+            this.chbIsCrimea = new System.Windows.Forms.CheckBox();
+            this.chbIsForeign = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.epError)).BeginInit();
             this.SuspendLayout();
             // 
@@ -79,7 +81,7 @@
             this.cbStudyForm.FormattingEnabled = true;
             this.cbStudyForm.Location = new System.Drawing.Point(15, 65);
             this.cbStudyForm.Name = "cbStudyForm";
-            this.cbStudyForm.Size = new System.Drawing.Size(211, 21);
+            this.cbStudyForm.Size = new System.Drawing.Size(257, 21);
             this.cbStudyForm.TabIndex = 11;
             this.cbStudyForm.SelectedIndexChanged += new System.EventHandler(this.cbStudyForm_SelectedIndexChanged);
             // 
@@ -98,7 +100,7 @@
             this.cbStudyLevel.FormattingEnabled = true;
             this.cbStudyLevel.Location = new System.Drawing.Point(15, 25);
             this.cbStudyLevel.Name = "cbStudyLevel";
-            this.cbStudyLevel.Size = new System.Drawing.Size(211, 21);
+            this.cbStudyLevel.Size = new System.Drawing.Size(257, 21);
             this.cbStudyLevel.TabIndex = 9;
             this.cbStudyLevel.SelectedIndexChanged += new System.EventHandler(this.cbStudyLevel_SelectedIndexChanged);
             // 
@@ -264,11 +266,33 @@
             this.cbProrector.Size = new System.Drawing.Size(490, 21);
             this.cbProrector.TabIndex = 29;
             // 
+            // chbIsCrimea
+            // 
+            this.chbIsCrimea.AutoSize = true;
+            this.chbIsCrimea.Location = new System.Drawing.Point(278, 12);
+            this.chbIsCrimea.Name = "chbIsCrimea";
+            this.chbIsCrimea.Size = new System.Drawing.Size(55, 17);
+            this.chbIsCrimea.TabIndex = 31;
+            this.chbIsCrimea.Text = "Крым";
+            this.chbIsCrimea.UseVisualStyleBackColor = true;
+            // 
+            // chbIsForeign
+            // 
+            this.chbIsForeign.AutoSize = true;
+            this.chbIsForeign.Location = new System.Drawing.Point(278, 35);
+            this.chbIsForeign.Name = "chbIsForeign";
+            this.chbIsForeign.Size = new System.Drawing.Size(63, 17);
+            this.chbIsForeign.TabIndex = 32;
+            this.chbIsForeign.Text = "Иностр";
+            this.chbIsForeign.UseVisualStyleBackColor = true;
+            // 
             // PayDataEntryCard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(517, 478);
+            this.Controls.Add(this.chbIsForeign);
+            this.Controls.Add(this.chbIsCrimea);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.cbProrector);
             this.Controls.Add(this.label8);
@@ -316,6 +340,8 @@
             this.Controls.SetChildIndex(this.btnSaveChange, 0);
             this.Controls.SetChildIndex(this.btnClose, 0);
             this.Controls.SetChildIndex(this.btnSaveAsNew, 0);
+            this.Controls.SetChildIndex(this.chbIsCrimea, 0);
+            this.Controls.SetChildIndex(this.chbIsForeign, 0);
             ((System.ComponentModel.ISupportInitialize)(this.epError)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -345,5 +371,7 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.ComboBox cbProrector;
+        private System.Windows.Forms.CheckBox chbIsCrimea;
+        private System.Windows.Forms.CheckBox chbIsForeign;
     }
 }
