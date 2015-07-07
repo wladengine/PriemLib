@@ -348,6 +348,7 @@ namespace PriemLib
                     DateOfClose = ent.DateOfClose;
 
                     UpdateExams();
+                    UpdateOlympicsToCommonBenefit();
                     UpdateInnerEntryInEntry();
                 }
             }
@@ -754,6 +755,85 @@ WHERE Id=@Id";
         private void cbAggregateGroup_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateAfterAggregateGroup();
+        }
+
+        public void UpdateOlympicsToCommonBenefit()
+        {
+            using (PriemEntities context = new PriemEntities())
+            {
+                var query = (from exEntry in context.OlympResultToCommonBenefit
+                             where exEntry.EntryId == GuidId
+                             orderby exEntry.OlympTypeId
+                             select new
+                             {
+                                 exEntry.Id,
+                                 exEntry.OlympTypeId,
+                                 exEntry.OlympNameId
+                             }).ToList().OrderBy(x => x.OlympTypeId).ToList();
+
+                dgvOlympicsToCommonBenefit.DataSource = query;
+                if (dgvOlympicsToCommonBenefit.Columns.Contains("Id"))
+                    dgvOlympicsToCommonBenefit.Columns["Id"].Visible = false;
+                if (dgvOlympicsToCommonBenefit.Columns.Contains("Name"))
+                {
+                    dgvOlympicsToCommonBenefit.Columns["Name"].HeaderText = "Название";
+                    dgvOlympicsToCommonBenefit.Columns["Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                }
+                if (dgvOlympicsToCommonBenefit.Columns.Contains("OlympTypeId"))
+                {
+                    dgvOlympicsToCommonBenefit.Columns["OlympTypeId"].HeaderText = "Тип олимпиады";
+                }
+                if (dgvOlympicsToCommonBenefit.Columns.Contains("OlympNameId"))
+                {
+                    dgvOlympicsToCommonBenefit.Columns["OlympNameId"].HeaderText = "Название олимпиады";
+                    dgvOlympicsToCommonBenefit.Columns["OlympNameId"].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+                }
+            }
+        }
+
+        private void btnAddOlympicsToCommonBenefit_Click(object sender, EventArgs e)
+        {
+            OpenOlympicsToCommonBenefit(GuidId, null, true);
+        }
+
+        private void OpenOlympicsToCommonBenefit(Guid? entryId, string id, bool isForModified)
+        {
+            CardOlympicsToCommonBenefit crd = new CardOlympicsToCommonBenefit(id, entryId, isForModified);
+            crd.ToUpdateList += new UpdateListHandler(UpdateOlympicsToCommonBenefit);
+            crd.Show();
+        }
+        private void btnOpenOlympicsToCommonBenefit_Click(object sender, EventArgs e)
+        {
+            if (dgvOlympicsToCommonBenefit.CurrentCell != null && dgvOlympicsToCommonBenefit.CurrentCell.RowIndex > -1)
+            {
+                string itemId = dgvOlympicsToCommonBenefit.Rows[dgvOlympicsToCommonBenefit.CurrentCell.RowIndex].Cells["Id"].Value.ToString();
+                if (!string.IsNullOrEmpty(itemId))
+                    OpenOlympicsToCommonBenefit(GuidId, itemId, _isModified);
+            }
+        }
+
+        private void btnDeleteOlympicsToCommonBenefit_Click(object sender, EventArgs e)
+        {
+            if (dgvOlympicsToCommonBenefit.CurrentCell != null && dgvOlympicsToCommonBenefit.CurrentCell.RowIndex > -1)
+            {
+                if (MessageBox.Show("Удалить запись?", "Удаление", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    string itemId = dgvOlympicsToCommonBenefit.CurrentRow.Cells["Id"].Value.ToString();
+                    try
+                    {
+                        using (PriemEntities context = new PriemEntities())
+                        {
+                            int? id = int.Parse(itemId);
+                            context.OlympResultToCommonBenefit_Delete(id);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        WinFormsServ.Error("Каскадное удаление запрещено: ", ex);
+                    }
+                    UpdateOlympicsToCommonBenefit();
+                }
+            }
         }
     }
 }
