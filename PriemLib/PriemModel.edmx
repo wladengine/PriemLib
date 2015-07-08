@@ -1621,6 +1621,32 @@ warning 6002: The table/view 'Priem.ed.extEgeMarkMaxAbit' does not have a primar
           <Property Name="PersonId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'Priem.ed.extEgeMarkMaxAbitApproved' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="extEgeMarkMaxAbitApproved">
+          <Key>
+            <PropertyRef Name="AbiturientId" />
+            <PropertyRef Name="EgeMarkId" />
+            <PropertyRef Name="Value" />
+            <PropertyRef Name="EgeExamNameId" />
+            <PropertyRef Name="EgeCertificateId" />
+            <PropertyRef Name="IsAppeal" />
+            <PropertyRef Name="IsCurrent" />
+            <PropertyRef Name="EgeExamName" />
+            <PropertyRef Name="Number" />
+            <PropertyRef Name="PersonId" />
+          </Key>
+          <Property Name="AbiturientId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="EgeMarkId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Value" Type="int" Nullable="false" />
+          <Property Name="EgeExamNameId" Type="int" Nullable="false" />
+          <Property Name="EgeCertificateId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="IsAppeal" Type="bit" Nullable="false" />
+          <Property Name="IsCurrent" Type="bit" Nullable="false" />
+          <Property Name="EgeExamName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Number" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PersonId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'Priem.ed.extEnableProtocol' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="extEnableProtocol">
           <Key>
@@ -6078,6 +6104,20 @@ FROM [ed].[extEgeMarkMax] AS [extEgeMarkMax]</DefiningQuery>
 [extEgeMarkMaxAbit].[PersonId] AS [PersonId]
 FROM [ed].[extEgeMarkMaxAbit] AS [extEgeMarkMaxAbit]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="extEgeMarkMaxAbitApproved" EntityType="Self.extEgeMarkMaxAbitApproved" store:Type="Views" store:Schema="ed">
+            <DefiningQuery>SELECT 
+[extEgeMarkMaxAbitApproved].[AbiturientId] AS [AbiturientId], 
+[extEgeMarkMaxAbitApproved].[EgeMarkId] AS [EgeMarkId], 
+[extEgeMarkMaxAbitApproved].[Value] AS [Value], 
+[extEgeMarkMaxAbitApproved].[EgeExamNameId] AS [EgeExamNameId], 
+[extEgeMarkMaxAbitApproved].[EgeCertificateId] AS [EgeCertificateId], 
+[extEgeMarkMaxAbitApproved].[IsAppeal] AS [IsAppeal], 
+[extEgeMarkMaxAbitApproved].[IsCurrent] AS [IsCurrent], 
+[extEgeMarkMaxAbitApproved].[EgeExamName] AS [EgeExamName], 
+[extEgeMarkMaxAbitApproved].[Number] AS [Number], 
+[extEgeMarkMaxAbitApproved].[PersonId] AS [PersonId]
+FROM [ed].[extEgeMarkMaxAbitApproved] AS [extEgeMarkMaxAbitApproved]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="extEnableProtocol" EntityType="Self.extEnableProtocol" store:Type="Views" store:Schema="ed">
             <DefiningQuery>SELECT 
 [extEnableProtocol].[Id] AS [Id], 
@@ -9324,6 +9364,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
             <Parameter Name="OlympValueId" Mode="In" Type="Int32" />
             <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="extEgeMarkMaxAbitApproved" EntityType="Priem2012Model.extEgeMarkMaxAbitApproved" />
           </EntityContainer>
         <EntityType Name="AttMarks">
           <Key>
@@ -13723,6 +13764,30 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="extEgeMarkMaxAbitApproved">
+          <Key>
+            <PropertyRef Name="AbiturientId" />
+            <PropertyRef Name="EgeMarkId" />
+            <PropertyRef Name="Value" />
+            <PropertyRef Name="EgeExamNameId" />
+            <PropertyRef Name="EgeCertificateId" />
+            <PropertyRef Name="IsAppeal" />
+            <PropertyRef Name="IsCurrent" />
+            <PropertyRef Name="EgeExamName" />
+            <PropertyRef Name="Number" />
+            <PropertyRef Name="PersonId" />
+          </Key>
+          <Property Name="AbiturientId" Type="Guid" Nullable="false" />
+          <Property Name="EgeMarkId" Type="Guid" Nullable="false" />
+          <Property Name="Value" Type="Int32" Nullable="false" />
+          <Property Name="EgeExamNameId" Type="Int32" Nullable="false" />
+          <Property Name="EgeCertificateId" Type="Guid" Nullable="false" />
+          <Property Name="IsAppeal" Type="Boolean" Nullable="false" />
+          <Property Name="IsCurrent" Type="Boolean" Nullable="false" />
+          <Property Name="EgeExamName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Number" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PersonId" Type="Guid" Nullable="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -16449,6 +16514,22 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <FunctionImportMapping FunctionImportName="OlympResultToCommonBenefit_Delete" FunctionName="Priem2012Model.Store.OlympResultToCommonBenefit_Delete" />
           <FunctionImportMapping FunctionImportName="OlympResultToCommonBenefit_Insert" FunctionName="Priem2012Model.Store.OlympResultToCommonBenefit_Insert" />
           <FunctionImportMapping FunctionImportName="OlympResultToCommonBenefit_Update" FunctionName="Priem2012Model.Store.OlympResultToCommonBenefit_Update" />
+          <EntitySetMapping Name="extEgeMarkMaxAbitApproved">
+            <EntityTypeMapping TypeName="Priem2012Model.extEgeMarkMaxAbitApproved">
+              <MappingFragment StoreEntitySet="extEgeMarkMaxAbitApproved">
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="EgeExamName" ColumnName="EgeExamName" />
+                <ScalarProperty Name="IsCurrent" ColumnName="IsCurrent" />
+                <ScalarProperty Name="IsAppeal" ColumnName="IsAppeal" />
+                <ScalarProperty Name="EgeCertificateId" ColumnName="EgeCertificateId" />
+                <ScalarProperty Name="EgeExamNameId" ColumnName="EgeExamNameId" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="EgeMarkId" ColumnName="EgeMarkId" />
+                <ScalarProperty Name="AbiturientId" ColumnName="AbiturientId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -2318,6 +2318,22 @@ namespace PriemLib
             }
         }
         private ObjectSet<OlympResultToCommonBenefit> _OlympResultToCommonBenefit;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<extEgeMarkMaxAbitApproved> extEgeMarkMaxAbitApproved
+        {
+            get
+            {
+                if ((_extEgeMarkMaxAbitApproved == null))
+                {
+                    _extEgeMarkMaxAbitApproved = base.CreateObjectSet<extEgeMarkMaxAbitApproved>("extEgeMarkMaxAbitApproved");
+                }
+                return _extEgeMarkMaxAbitApproved;
+            }
+        }
+        private ObjectSet<extEgeMarkMaxAbitApproved> _extEgeMarkMaxAbitApproved;
 
         #endregion
 
@@ -3393,6 +3409,14 @@ namespace PriemLib
         public void AddToOlympResultToCommonBenefit(OlympResultToCommonBenefit olympResultToCommonBenefit)
         {
             base.AddObject("OlympResultToCommonBenefit", olympResultToCommonBenefit);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the extEgeMarkMaxAbitApproved EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToextEgeMarkMaxAbitApproved(extEgeMarkMaxAbitApproved extEgeMarkMaxAbitApproved)
+        {
+            base.AddObject("extEgeMarkMaxAbitApproved", extEgeMarkMaxAbitApproved);
         }
 
         #endregion
@@ -30716,6 +30740,323 @@ namespace PriemLib
             extEgeMarkMaxAbit.Number = number;
             extEgeMarkMaxAbit.PersonId = personId;
             return extEgeMarkMaxAbit;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid AbiturientId
+        {
+            get
+            {
+                return _AbiturientId;
+            }
+            set
+            {
+                if (_AbiturientId != value)
+                {
+                    OnAbiturientIdChanging(value);
+                    ReportPropertyChanging("AbiturientId");
+                    _AbiturientId = StructuralObject.SetValidValue(value, "AbiturientId");
+                    ReportPropertyChanged("AbiturientId");
+                    OnAbiturientIdChanged();
+                }
+            }
+        }
+        private global::System.Guid _AbiturientId;
+        partial void OnAbiturientIdChanging(global::System.Guid value);
+        partial void OnAbiturientIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid EgeMarkId
+        {
+            get
+            {
+                return _EgeMarkId;
+            }
+            set
+            {
+                if (_EgeMarkId != value)
+                {
+                    OnEgeMarkIdChanging(value);
+                    ReportPropertyChanging("EgeMarkId");
+                    _EgeMarkId = StructuralObject.SetValidValue(value, "EgeMarkId");
+                    ReportPropertyChanged("EgeMarkId");
+                    OnEgeMarkIdChanged();
+                }
+            }
+        }
+        private global::System.Guid _EgeMarkId;
+        partial void OnEgeMarkIdChanging(global::System.Guid value);
+        partial void OnEgeMarkIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Value
+        {
+            get
+            {
+                return _Value;
+            }
+            set
+            {
+                if (_Value != value)
+                {
+                    OnValueChanging(value);
+                    ReportPropertyChanging("Value");
+                    _Value = StructuralObject.SetValidValue(value, "Value");
+                    ReportPropertyChanged("Value");
+                    OnValueChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Value;
+        partial void OnValueChanging(global::System.Int32 value);
+        partial void OnValueChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 EgeExamNameId
+        {
+            get
+            {
+                return _EgeExamNameId;
+            }
+            set
+            {
+                if (_EgeExamNameId != value)
+                {
+                    OnEgeExamNameIdChanging(value);
+                    ReportPropertyChanging("EgeExamNameId");
+                    _EgeExamNameId = StructuralObject.SetValidValue(value, "EgeExamNameId");
+                    ReportPropertyChanged("EgeExamNameId");
+                    OnEgeExamNameIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _EgeExamNameId;
+        partial void OnEgeExamNameIdChanging(global::System.Int32 value);
+        partial void OnEgeExamNameIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid EgeCertificateId
+        {
+            get
+            {
+                return _EgeCertificateId;
+            }
+            set
+            {
+                if (_EgeCertificateId != value)
+                {
+                    OnEgeCertificateIdChanging(value);
+                    ReportPropertyChanging("EgeCertificateId");
+                    _EgeCertificateId = StructuralObject.SetValidValue(value, "EgeCertificateId");
+                    ReportPropertyChanged("EgeCertificateId");
+                    OnEgeCertificateIdChanged();
+                }
+            }
+        }
+        private global::System.Guid _EgeCertificateId;
+        partial void OnEgeCertificateIdChanging(global::System.Guid value);
+        partial void OnEgeCertificateIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean IsAppeal
+        {
+            get
+            {
+                return _IsAppeal;
+            }
+            set
+            {
+                if (_IsAppeal != value)
+                {
+                    OnIsAppealChanging(value);
+                    ReportPropertyChanging("IsAppeal");
+                    _IsAppeal = StructuralObject.SetValidValue(value, "IsAppeal");
+                    ReportPropertyChanged("IsAppeal");
+                    OnIsAppealChanged();
+                }
+            }
+        }
+        private global::System.Boolean _IsAppeal;
+        partial void OnIsAppealChanging(global::System.Boolean value);
+        partial void OnIsAppealChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean IsCurrent
+        {
+            get
+            {
+                return _IsCurrent;
+            }
+            set
+            {
+                if (_IsCurrent != value)
+                {
+                    OnIsCurrentChanging(value);
+                    ReportPropertyChanging("IsCurrent");
+                    _IsCurrent = StructuralObject.SetValidValue(value, "IsCurrent");
+                    ReportPropertyChanged("IsCurrent");
+                    OnIsCurrentChanged();
+                }
+            }
+        }
+        private global::System.Boolean _IsCurrent;
+        partial void OnIsCurrentChanging(global::System.Boolean value);
+        partial void OnIsCurrentChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String EgeExamName
+        {
+            get
+            {
+                return _EgeExamName;
+            }
+            set
+            {
+                if (_EgeExamName != value)
+                {
+                    OnEgeExamNameChanging(value);
+                    ReportPropertyChanging("EgeExamName");
+                    _EgeExamName = StructuralObject.SetValidValue(value, false, "EgeExamName");
+                    ReportPropertyChanged("EgeExamName");
+                    OnEgeExamNameChanged();
+                }
+            }
+        }
+        private global::System.String _EgeExamName;
+        partial void OnEgeExamNameChanging(global::System.String value);
+        partial void OnEgeExamNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Number
+        {
+            get
+            {
+                return _Number;
+            }
+            set
+            {
+                if (_Number != value)
+                {
+                    OnNumberChanging(value);
+                    ReportPropertyChanging("Number");
+                    _Number = StructuralObject.SetValidValue(value, false, "Number");
+                    ReportPropertyChanged("Number");
+                    OnNumberChanged();
+                }
+            }
+        }
+        private global::System.String _Number;
+        partial void OnNumberChanging(global::System.String value);
+        partial void OnNumberChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid PersonId
+        {
+            get
+            {
+                return _PersonId;
+            }
+            set
+            {
+                if (_PersonId != value)
+                {
+                    OnPersonIdChanging(value);
+                    ReportPropertyChanging("PersonId");
+                    _PersonId = StructuralObject.SetValidValue(value, "PersonId");
+                    ReportPropertyChanged("PersonId");
+                    OnPersonIdChanged();
+                }
+            }
+        }
+        private global::System.Guid _PersonId;
+        partial void OnPersonIdChanging(global::System.Guid value);
+        partial void OnPersonIdChanged();
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="Priem2012Model", Name="extEgeMarkMaxAbitApproved")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class extEgeMarkMaxAbitApproved : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new extEgeMarkMaxAbitApproved object.
+        /// </summary>
+        /// <param name="abiturientId">Initial value of the AbiturientId property.</param>
+        /// <param name="egeMarkId">Initial value of the EgeMarkId property.</param>
+        /// <param name="value">Initial value of the Value property.</param>
+        /// <param name="egeExamNameId">Initial value of the EgeExamNameId property.</param>
+        /// <param name="egeCertificateId">Initial value of the EgeCertificateId property.</param>
+        /// <param name="isAppeal">Initial value of the IsAppeal property.</param>
+        /// <param name="isCurrent">Initial value of the IsCurrent property.</param>
+        /// <param name="egeExamName">Initial value of the EgeExamName property.</param>
+        /// <param name="number">Initial value of the Number property.</param>
+        /// <param name="personId">Initial value of the PersonId property.</param>
+        public static extEgeMarkMaxAbitApproved CreateextEgeMarkMaxAbitApproved(global::System.Guid abiturientId, global::System.Guid egeMarkId, global::System.Int32 value, global::System.Int32 egeExamNameId, global::System.Guid egeCertificateId, global::System.Boolean isAppeal, global::System.Boolean isCurrent, global::System.String egeExamName, global::System.String number, global::System.Guid personId)
+        {
+            extEgeMarkMaxAbitApproved extEgeMarkMaxAbitApproved = new extEgeMarkMaxAbitApproved();
+            extEgeMarkMaxAbitApproved.AbiturientId = abiturientId;
+            extEgeMarkMaxAbitApproved.EgeMarkId = egeMarkId;
+            extEgeMarkMaxAbitApproved.Value = value;
+            extEgeMarkMaxAbitApproved.EgeExamNameId = egeExamNameId;
+            extEgeMarkMaxAbitApproved.EgeCertificateId = egeCertificateId;
+            extEgeMarkMaxAbitApproved.IsAppeal = isAppeal;
+            extEgeMarkMaxAbitApproved.IsCurrent = isCurrent;
+            extEgeMarkMaxAbitApproved.EgeExamName = egeExamName;
+            extEgeMarkMaxAbitApproved.Number = number;
+            extEgeMarkMaxAbitApproved.PersonId = personId;
+            return extEgeMarkMaxAbitApproved;
         }
 
         #endregion

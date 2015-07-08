@@ -72,7 +72,7 @@ LEFT JOIN ed.StudyLevel ON StudyLevel.Id=Entry.StudyLevelId
 WHERE Entry.IsForeign <> 1 {1} 
 AND (StudyLevel.LevelGroupId IN ({0}) OR StudyLevel.LevelGroupId IS NULL) ",
                     Util.BuildStringWithCollection(MainClass.lstStudyLevelGroupId),
-                    (MainClass.dbType == PriemType.PriemAspirant || MainClass.dbType == PriemType.PriemMag) ? " AND EducInfo.SchoolTypeId=4 " : "");
+                    (MainClass.dbType == PriemType.PriemAspirant || MainClass.dbType == PriemType.PriemMag) ? " AND extPerson.Id IN (SELECT PersonId FROM ed.Person_EducationInfo WHERE SchoolTypeId=4) " : "");
             }
             
             HelpClass.FillDataGrid(Dgv, _bdc, _sQuery + join, "", " ORDER BY FIO");

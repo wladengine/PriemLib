@@ -918,6 +918,7 @@
         <edmx:AssociationConnector Association="Priem2012Model.FK_OlympResultToCommonBenefit_OlympSubject" />
         <edmx:AssociationConnector Association="Priem2012Model.FK_OlympResultToCommonBenefit_OlympType" />
         <edmx:AssociationConnector Association="Priem2012Model.FK_OlympResultToCommonBenefit_OlympValue" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.extEgeMarkMaxAbitApproved" Width="1.5" PointX="34.375" PointY="22.75" />
         </edmx:Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

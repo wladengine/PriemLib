@@ -15,9 +15,9 @@ namespace PriemLib
 {
     public partial class FormA : BaseForm
     {
-        private DateTime _One = new DateTime(2015, 07, 5, 0, 0, 0);
-        private DateTime _Two = new DateTime(2015, 07, 15, 0, 0, 0);
-        private DateTime _Three = new DateTime(2015, 07, 25, 0, 0, 0);
+        private DateTime _One = new DateTime(2015, 07, 5, 23, 59, 59);
+        private DateTime _Two = new DateTime(2015, 07, 15, 23, 59, 59);
+        private DateTime _Three = new DateTime(2015, 07, 25, 23, 59, 59);
 
         private DBPriem bdcInet = new DBPriem();
         NewWatch wc;
@@ -78,14 +78,14 @@ namespace PriemLib
                 wc.SetText("петербуржцев");
                 //петербуржцев
                 var spb = context.Abiturient.Where(x => x.Entry.StudyFormId == 1 && MainClass.lstStudyLevelGroupId.Contains(x.Entry.StudyLevel.LevelGroupId)
-                    && x.DocInsertDate <= _day && x.Person.Person_Contacts.RegionId == 1 && !x.Entry.IsForeign)
+                    && x.DocInsertDate <= _day && x.Person.Person_Contacts.RegionId == 1 && !x.Entry.IsForeign && !x.Entry.IsCrimea)
                     .Select(x => new { x.Entry.StudyBasisId, x.PersonId }).Distinct();
                 tb1_SpbBudzh.Text = spb.Where(x => x.StudyBasisId == 1).Count().ToString();
                 tb1_SpbPlatn.Text = spb.Where(x => x.StudyBasisId == 2).Count().ToString();
                 wc.PerformStep();
 
                 var mens = context.Abiturient.Where(x => x.Entry.StudyFormId == 1 && MainClass.lstStudyLevelGroupId.Contains(x.Entry.StudyLevel.LevelGroupId)
-                    && x.DocInsertDate <= _day && x.Person.Sex == true && !x.Entry.IsForeign)
+                    && x.DocInsertDate <= _day && x.Person.Sex == true && !x.Entry.IsForeign && !x.Entry.IsCrimea)
                     .Select(x => new { x.Entry.StudyBasisId, x.PersonId }).Distinct();
                 wc.SetText("мужчин");
                 //мужчин
@@ -104,7 +104,7 @@ namespace PriemLib
                      && MainClass.lstStudyLevelGroupId.Contains(Ab.Entry.StudyLevel.LevelGroupId)
                      && Ab.DocInsertDate <= _day
                      && PersEduc.SchoolTypeId == 1
-                     && !Ent.IsForeign
+                     && !Ent.IsForeign && !Ent.IsCrimea
                      select new
                      {
                          Ent.StudyBasisId,
@@ -124,7 +124,7 @@ namespace PriemLib
                                && MainClass.lstStudyLevelGroupId.Contains(Ab.Entry.StudyLevel.LevelGroupId)
                                && Ab.DocInsertDate <= _day
                                && PersEduc.SchoolTypeId != 1 && PersEduc.SchoolTypeId != 3
-                               && !Ent.IsForeign
+                               && !Ent.IsForeign && !Ent.IsCrimea
                                select new
                                {
                                    Ent.StudyBasisId,
@@ -144,7 +144,7 @@ namespace PriemLib
                            && MainClass.lstStudyLevelGroupId.Contains(Ab.Entry.StudyLevel.LevelGroupId)
                            && Ab.DocInsertDate <= _day
                            && PersEduc.SchoolTypeId == 3
-                           && !Ent.IsForeign
+                           && !Ent.IsForeign && !Ent.IsCrimea
                            select new
                            {
                                Ent.StudyBasisId,
@@ -157,7 +157,7 @@ namespace PriemLib
                 wc.SetText("Победителей и призёров олимпиад");
     //            //Олимпиадники
                 var Olymps = context.Olympiads.Where(x => x.Abiturient.Entry.StudyFormId == 1 && MainClass.lstStudyLevelGroupId.Contains(x.Abiturient.Entry.StudyLevel.LevelGroupId)
-                    && x.Abiturient.DocInsertDate <= _day && (x.OlympTypeId == 3 || x.OlympTypeId == 4) && (x.OlympValueId == 5 || x.OlympValueId == 6) && !x.Abiturient.Entry.IsForeign)
+                    && x.Abiturient.DocInsertDate <= _day && (x.OlympTypeId == 3 || x.OlympTypeId == 4) && (x.OlympValueId == 5 || x.OlympValueId == 6) && !x.Abiturient.Entry.IsForeign && !x.Abiturient.Entry.IsCrimea)
                     .Select(x => new { x.Abiturient.Entry.StudyBasisId, x.Abiturient.PersonId }).Distinct();
                 tb1_OlympBudzh.Text = Olymps.Where(x => x.StudyBasisId == 1).Count().ToString();
                 tb1_OlympPlatn.Text = Olymps.Where(x => x.StudyBasisId == 2).Count().ToString();
@@ -166,7 +166,7 @@ namespace PriemLib
                 wc.SetText("в/к");
                 //в\к
                 var VK = context.Abiturient.Where(x => x.Entry.StudyFormId == 1 && MainClass.lstStudyLevelGroupId.Contains(x.Entry.StudyLevel.LevelGroupId)
-                    && x.DocInsertDate <= _day && (x.CompetitionId == 2 || x.CompetitionId == 7) && !x.Entry.IsForeign)
+                    && x.DocInsertDate <= _day && (x.CompetitionId == 2 || x.CompetitionId == 7) && !x.Entry.IsForeign && !x.Entry.IsCrimea)
                     .Select(x => new { x.Entry.StudyBasisId, x.PersonId }).Distinct();
                 tb1_VKBudzh.Text = VK.Where(x => x.StudyBasisId == 1).Count().ToString();
                 tb1_VKPlatn.Text = VK.Where(x => x.StudyBasisId == 2).Count().ToString();
@@ -175,7 +175,7 @@ namespace PriemLib
                 wc.SetText("иностранцев");
                 //иностранцы
                 var Foreigners = context.Abiturient.Where(x => x.Entry.StudyFormId == 1 && MainClass.lstStudyLevelGroupId.Contains(x.Entry.StudyLevel.LevelGroupId)
-                    && x.DocInsertDate <= _day && x.Person.NationalityId != 1 && !x.Entry.IsForeign)
+                    && x.DocInsertDate <= _day && x.Person.NationalityId != 1 && !x.Entry.IsForeign && !x.Entry.IsCrimea)
                     .Select(x => new { x.Entry.StudyBasisId, x.PersonId }).Distinct();
                 int iPriemForeignersB = Foreigners.Where(x => x.StudyBasisId == 1).Count();
                 int iPriemForeignersP = Foreigners.Where(x => x.StudyBasisId == 2).Count();
@@ -186,7 +186,7 @@ namespace PriemLib
                 wc.SetText("Граждане б. СССР, кр. России");
                 //USSR
                 var USSR = context.Abiturient.Where(x => x.Entry.StudyFormId == 1 && MainClass.lstStudyLevelGroupId.Contains(x.Entry.StudyLevel.LevelGroupId)
-                    && x.DocInsertDate <= _day && x.Person.NationalityId != 1 && x.Person.NationalityId != 6 && !x.Entry.IsForeign)
+                    && x.DocInsertDate <= _day && x.Person.NationalityId != 1 && x.Person.NationalityId != 6 && !x.Entry.IsForeign && !x.Entry.IsCrimea)
                     .Select(x => new { x.Entry.StudyBasisId, x.PersonId }).Distinct();
                 tb1_USSRBudzh.Text = USSR.Where(x => x.StudyBasisId == 1).Count().ToString();
                 tb1_USSRPlatn.Text = USSR.Where(x => x.StudyBasisId == 2).Count().ToString();
@@ -237,14 +237,14 @@ namespace PriemLib
                 wc.PerformStep();
 
                 var spb = context.Abiturient.Where(x => x.Entry.StudyFormId == 1 && MainClass.lstStudyLevelGroupId.Contains(x.Entry.StudyLevel.LevelGroupId)
-                    && x.DocInsertDate <= _day && x.Person.Person_Contacts.RegionId == 1 && !x.Entry.IsForeign)
+                    && x.DocInsertDate <= _day && x.Person.Person_Contacts.RegionId == 1 && !x.Entry.IsForeign && !x.Entry.IsCrimea)
                     .Select(x => new { x.Entry.StudyBasisId, x.PersonId }).Distinct();
                 tb2_SpbBudzh.Text = spb.Where(x => x.StudyBasisId == 1).Count().ToString();
                 tb2_SpbPlatn.Text = spb.Where(x => x.StudyBasisId == 2).Count().ToString();
                 wc.PerformStep();
 
                 var mens = context.Abiturient.Where(x => x.Entry.StudyFormId == 1 && MainClass.lstStudyLevelGroupId.Contains(x.Entry.StudyLevel.LevelGroupId)
-                    && x.DocInsertDate <= _day && x.Person.Sex == true && !x.Entry.IsForeign)
+                    && x.DocInsertDate <= _day && x.Person.Sex == true && !x.Entry.IsForeign && !x.Entry.IsCrimea)
                     .Select(x => new { x.Entry.StudyBasisId, x.PersonId }).Distinct();
                 wc.SetText("мужчин");
                 //мужчин
@@ -261,7 +261,7 @@ namespace PriemLib
                               && MainClass.lstStudyLevelGroupId.Contains(Ab.Entry.StudyLevel.LevelGroupId)
                               && Ab.DocInsertDate <= _day
                               && PersEduc.SchoolTypeId == 1
-                              && !Ent.IsForeign
+                              && !Ent.IsForeign && !Ent.IsCrimea
                               select new
                               {
                                   Ent.StudyBasisId,
@@ -279,7 +279,7 @@ namespace PriemLib
                                && MainClass.lstStudyLevelGroupId.Contains(Ab.Entry.StudyLevel.LevelGroupId)
                                && Ab.DocInsertDate <= _day
                                && PersEduc.SchoolTypeId != 1 && PersEduc.SchoolTypeId != 3
-                               && !Ent.IsForeign
+                               && !Ent.IsForeign && !Ent.IsCrimea
                                select new
                                {
                                    Ent.StudyBasisId,
@@ -298,7 +298,7 @@ namespace PriemLib
                                && MainClass.lstStudyLevelGroupId.Contains(Ab.Entry.StudyLevel.LevelGroupId)
                                && Ab.DocInsertDate <= _day
                                && PersEduc.SchoolTypeId == 3
-                               && !Ent.IsForeign
+                               && !Ent.IsForeign && !Ent.IsCrimea
                                select new
                                {
                                    Ent.StudyBasisId,
@@ -311,7 +311,7 @@ namespace PriemLib
                 wc.SetText("Победителей и призёров олимпиад");
                 //Олимпиадники
                 var Olymps = context.Olympiads.Where(x => x.Abiturient.Entry.StudyFormId == 1 && MainClass.lstStudyLevelGroupId.Contains(x.Abiturient.Entry.StudyLevel.LevelGroupId)
-                    && x.Abiturient.DocInsertDate <= _day && (x.OlympTypeId == 3 || x.OlympTypeId == 4) && (x.OlympValueId == 5 || x.OlympValueId == 6) && !x.Abiturient.Entry.IsForeign)
+                    && x.Abiturient.DocInsertDate <= _day && (x.OlympTypeId == 3 || x.OlympTypeId == 4) && (x.OlympValueId == 5 || x.OlympValueId == 6) && !x.Abiturient.Entry.IsForeign && !x.Abiturient.Entry.IsCrimea)
                     .Select(x => new { x.Abiturient.Entry.StudyBasisId, x.Abiturient.PersonId }).Distinct();
                 tb2_OlympBudzh.Text = Olymps.Where(x => x.StudyBasisId == 1).Count().ToString();
                 tb2_OlympPlatn.Text = Olymps.Where(x => x.StudyBasisId == 2).Count().ToString();
@@ -320,7 +320,7 @@ namespace PriemLib
                 wc.SetText("в/к");
                 //в\к
                 var VK = context.Abiturient.Where(x => x.Entry.StudyFormId == 1 && MainClass.lstStudyLevelGroupId.Contains(x.Entry.StudyLevel.LevelGroupId)
-                    && x.DocInsertDate <= _day && (x.CompetitionId == 2 || x.CompetitionId == 7) && !x.Entry.IsForeign)
+                    && x.DocInsertDate <= _day && (x.CompetitionId == 2 || x.CompetitionId == 7) && !x.Entry.IsForeign && !x.Entry.IsCrimea)
                     .Select(x => new { x.Entry.StudyBasisId, x.PersonId }).Distinct();
                 tb2_VKBudzh.Text = VK.Where(x => x.StudyBasisId == 1).Count().ToString();
                 tb2_VKPlatn.Text = VK.Where(x => x.StudyBasisId == 2).Count().ToString();
@@ -329,7 +329,7 @@ namespace PriemLib
                 wc.SetText("иностранцев");
                 //иностранцы
                 var Foreigners = context.Abiturient.Where(x => x.Entry.StudyFormId == 1 && MainClass.lstStudyLevelGroupId.Contains(x.Entry.StudyLevel.LevelGroupId)
-                    && x.DocInsertDate <= _day && x.Person.NationalityId != 1 && !x.Entry.IsForeign)
+                    && x.DocInsertDate <= _day && x.Person.NationalityId != 1 && !x.Entry.IsForeign && !x.Entry.IsCrimea)
                     .Select(x => new { x.Entry.StudyBasisId, x.PersonId }).Distinct();
                 int iPriemForeignersB = Foreigners.Where(x => x.StudyBasisId == 1).Count();
                 int iPriemForeignersP = Foreigners.Where(x => x.StudyBasisId == 2).Count();
@@ -340,7 +340,7 @@ namespace PriemLib
                 wc.SetText("Граждане б. СССР, кр. России");
                 //USSR
                 var USSR = context.Abiturient.Where(x => x.Entry.StudyFormId == 1 && MainClass.lstStudyLevelGroupId.Contains(x.Entry.StudyLevel.LevelGroupId)
-                    && x.DocInsertDate <= _day && x.Person.NationalityId != 1 && x.Person.NationalityId != 6 && !x.Entry.IsForeign)
+                    && x.DocInsertDate <= _day && x.Person.NationalityId != 1 && x.Person.NationalityId != 6 && !x.Entry.IsForeign && !x.Entry.IsCrimea)
                     .Select(x => new { x.Entry.StudyBasisId, x.PersonId }).Distinct();
                 tb2_USSRBudzh.Text = USSR.Where(x => x.StudyBasisId == 1).Count().ToString();
                 tb2_USSRPlatn.Text = USSR.Where(x => x.StudyBasisId == 2).Count().ToString();
@@ -394,14 +394,14 @@ namespace PriemLib
                 wc.SetText("петербуржцев");
                 //петербуржцев
                 var spb = context.Abiturient.Where(x => x.Entry.StudyFormId == 1 && MainClass.lstStudyLevelGroupId.Contains(x.Entry.StudyLevel.LevelGroupId)
-                    && x.DocInsertDate <= _day && x.Person.Person_Contacts.RegionId == 1 && !x.Entry.IsForeign)
+                    && x.DocInsertDate <= _day && x.Person.Person_Contacts.RegionId == 1 && !x.Entry.IsForeign && !x.Entry.IsCrimea)
                     .Select(x => new { x.Entry.StudyBasisId, x.PersonId }).Distinct();
                 tb3_SpbBudzh.Text = spb.Where(x => x.StudyBasisId == 1).Count().ToString();
                 tb3_SpbPlatn.Text = spb.Where(x => x.StudyBasisId == 2).Count().ToString();
                 wc.PerformStep();
 
                 var mens = context.Abiturient.Where(x => x.Entry.StudyFormId == 1 && MainClass.lstStudyLevelGroupId.Contains(x.Entry.StudyLevel.LevelGroupId)
-                    && x.DocInsertDate <= _day && x.Person.Sex == true && !x.Entry.IsForeign)
+                    && x.DocInsertDate <= _day && x.Person.Sex == true && !x.Entry.IsForeign && !x.Entry.IsCrimea)
                     .Select(x => new { x.Entry.StudyBasisId, x.PersonId }).Distinct();
                 wc.SetText("мужчин");
                 //мужчин
@@ -418,7 +418,7 @@ namespace PriemLib
                               && MainClass.lstStudyLevelGroupId.Contains(Ab.Entry.StudyLevel.LevelGroupId)
                               && Ab.DocInsertDate <= _day
                               && PersEduc.SchoolTypeId == 1
-                              && !Ent.IsForeign
+                              && !Ent.IsForeign && !Ent.IsCrimea
                               select new
                               {
                                   Ent.StudyBasisId,
@@ -437,7 +437,7 @@ namespace PriemLib
                                && MainClass.lstStudyLevelGroupId.Contains(Ab.Entry.StudyLevel.LevelGroupId)
                                && Ab.DocInsertDate <= _day
                                && PersEduc.SchoolTypeId != 1 && PersEduc.SchoolTypeId != 3
-                               && !Ent.IsForeign
+                               && !Ent.IsForeign && !Ent.IsCrimea
                                select new
                                {
                                    Ent.StudyBasisId,
@@ -456,7 +456,7 @@ namespace PriemLib
                            && MainClass.lstStudyLevelGroupId.Contains(Ab.Entry.StudyLevel.LevelGroupId)
                            && Ab.DocInsertDate <= _day
                            && PersEduc.SchoolTypeId == 3
-                           && !Ent.IsForeign
+                           && !Ent.IsForeign && !Ent.IsCrimea
                            select new
                            {
                                Ent.StudyBasisId,
@@ -469,7 +469,7 @@ namespace PriemLib
                 wc.SetText("Победителей и призёров олимпиад");
                 //Олимпиадники
                 var Olymps = context.Olympiads.Where(x => x.Abiturient.Entry.StudyFormId == 1 && MainClass.lstStudyLevelGroupId.Contains(x.Abiturient.Entry.StudyLevel.LevelGroupId)
-                    && x.Abiturient.DocInsertDate <= _day && (x.OlympTypeId == 3 || x.OlympTypeId == 4) && (x.OlympValueId == 5 || x.OlympValueId == 6) && !x.Abiturient.Entry.IsForeign)
+                    && x.Abiturient.DocInsertDate <= _day && (x.OlympTypeId == 3 || x.OlympTypeId == 4) && (x.OlympValueId == 5 || x.OlympValueId == 6) && !x.Abiturient.Entry.IsForeign && !x.Abiturient.Entry.IsCrimea)
                     .Select(x => new { x.Abiturient.Entry.StudyBasisId, x.Abiturient.PersonId }).Distinct();
                 tb3_OlympBudzh.Text = Olymps.Where(x => x.StudyBasisId == 1).Count().ToString();
                 tb3_OlympPlatn.Text = Olymps.Where(x => x.StudyBasisId == 2).Count().ToString();
@@ -478,7 +478,7 @@ namespace PriemLib
                 wc.SetText("в/к");
                 //в\к
                 var VK = context.Abiturient.Where(x => x.Entry.StudyFormId == 1 && MainClass.lstStudyLevelGroupId.Contains(x.Entry.StudyLevel.LevelGroupId)
-                    && x.DocInsertDate <= _day && (x.CompetitionId == 2 || x.CompetitionId == 7) && !x.Entry.IsForeign)
+                    && x.DocInsertDate <= _day && (x.CompetitionId == 2 || x.CompetitionId == 7) && !x.Entry.IsForeign && !x.Entry.IsCrimea)
                     .Select(x => new { x.Entry.StudyBasisId, x.PersonId }).Distinct();
                 tb3_VKBudzh.Text = VK.Where(x => x.StudyBasisId == 1).Count().ToString();
                 tb3_VKPlatn.Text = VK.Where(x => x.StudyBasisId == 2).Count().ToString();
@@ -487,7 +487,7 @@ namespace PriemLib
                 wc.SetText("иностранцев");
                 //иностранцы
                 var Foreigners = context.Abiturient.Where(x => x.Entry.StudyFormId == 1 && MainClass.lstStudyLevelGroupId.Contains(x.Entry.StudyLevel.LevelGroupId)
-                    && x.DocInsertDate <= _day && x.Person.NationalityId != 1 && !x.Entry.IsForeign)
+                    && x.DocInsertDate <= _day && x.Person.NationalityId != 1 && !x.Entry.IsForeign && !x.Entry.IsCrimea)
                     .Select(x => new { x.Entry.StudyBasisId, x.PersonId }).Distinct();
                 int iPriemForeignersB = Foreigners.Where(x => x.StudyBasisId == 1).Count();
                 int iPriemForeignersP = Foreigners.Where(x => x.StudyBasisId == 2).Count();
@@ -498,7 +498,7 @@ namespace PriemLib
                 wc.SetText("Граждане б. СССР, кр. России");
                 //USSR
                 var USSR = context.Abiturient.Where(x => x.Entry.StudyFormId == 1 && MainClass.lstStudyLevelGroupId.Contains(x.Entry.StudyLevel.LevelGroupId)
-                    && x.DocInsertDate <= _day && x.Person.NationalityId != 1 && x.Person.NationalityId != 6 && !x.Entry.IsForeign)
+                    && x.DocInsertDate <= _day && x.Person.NationalityId != 1 && x.Person.NationalityId != 6 && !x.Entry.IsForeign && !x.Entry.IsCrimea)
                     .Select(x => new { x.Entry.StudyBasisId, x.PersonId }).Distinct();
                 tb3_USSRBudzh.Text = USSR.Where(x => x.StudyBasisId == 1).Count().ToString();
                 tb3_USSRPlatn.Text = USSR.Where(x => x.StudyBasisId == 2).Count().ToString();

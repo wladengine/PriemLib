@@ -606,8 +606,13 @@ namespace PriemLib
             btnPrintApplication.Enabled = true;
             chbApplicationPrint.Enabled = true;
 
-            if (MainClass.IsPasha())            
+            if (MainClass.IsPasha())
+            {
                 btnSetStatusPasha.Enabled = tbCommentFBSPasha.Enabled = true;
+            }
+
+            if (MainClass.IsPasha() || MainClass.IsFacMain())
+                btnRequestEge.Enabled = true;
 
             WinFormsServ.SetSubControlsEnabled(gbEducationDocuments, true);
             WinFormsServ.SetSubControlsEnabled(gbOlympiads, true);
