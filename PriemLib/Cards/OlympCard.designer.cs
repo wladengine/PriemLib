@@ -41,12 +41,12 @@ namespace PriemLib
             this.cbOlympType = new System.Windows.Forms.ComboBox();
             this.chbOriginDoc = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.tbSeries = new System.Windows.Forms.TextBox();
+            this.dtpDate = new System.Windows.Forms.DateTimePicker();
+            this.label8 = new System.Windows.Forms.Label();
             this.tbNumber = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.dtpDate = new System.Windows.Forms.DateTimePicker();
+            this.tbSeries = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.epError)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -201,21 +201,23 @@ namespace PriemLib
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Реквизиты документа";
             // 
-            // label6
+            // dtpDate
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(46, 22);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(38, 13);
-            this.label6.TabIndex = 0;
-            this.label6.Text = "Серия";
+            this.dtpDate.Checked = false;
+            this.dtpDate.Location = new System.Drawing.Point(339, 19);
+            this.dtpDate.Name = "dtpDate";
+            this.dtpDate.ShowCheckBox = true;
+            this.dtpDate.Size = new System.Drawing.Size(200, 20);
+            this.dtpDate.TabIndex = 5;
             // 
-            // tbSeries
+            // label8
             // 
-            this.tbSeries.Location = new System.Drawing.Point(90, 19);
-            this.tbSeries.Name = "tbSeries";
-            this.tbSeries.Size = new System.Drawing.Size(100, 20);
-            this.tbSeries.TabIndex = 1;
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(241, 22);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(92, 13);
+            this.label8.TabIndex = 4;
+            this.label8.Text = "Дата (если есть)";
             // 
             // tbNumber
             // 
@@ -233,22 +235,21 @@ namespace PriemLib
             this.label7.TabIndex = 2;
             this.label7.Text = "Номер";
             // 
-            // label8
+            // tbSeries
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(241, 22);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(92, 13);
-            this.label8.TabIndex = 4;
-            this.label8.Text = "Дата (если есть)";
+            this.tbSeries.Location = new System.Drawing.Point(90, 19);
+            this.tbSeries.Name = "tbSeries";
+            this.tbSeries.Size = new System.Drawing.Size(100, 20);
+            this.tbSeries.TabIndex = 1;
             // 
-            // dtpDate
+            // label6
             // 
-            this.dtpDate.Location = new System.Drawing.Point(339, 19);
-            this.dtpDate.Name = "dtpDate";
-            this.dtpDate.ShowCheckBox = true;
-            this.dtpDate.Size = new System.Drawing.Size(200, 20);
-            this.dtpDate.TabIndex = 5;
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(46, 22);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(38, 13);
+            this.label6.TabIndex = 0;
+            this.label6.Text = "Серия";
             // 
             // OlympCard
             // 

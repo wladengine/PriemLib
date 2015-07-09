@@ -694,8 +694,8 @@ namespace PriemLib
                             document.Close();
 
                             Process pr = new Process();
-
-                            pr.StartInfo.Verb = "Print";
+                            if (!MainClass.IsOwner())
+                                pr.StartInfo.Verb = "Print";
                             pr.StartInfo.FileName = string.Format(savePath);
                             pr.Start();
 
@@ -774,6 +774,7 @@ namespace PriemLib
                             {
                                 context.Mark_DeleteByExamVedId(ExamsVedId);
                                 context.ExamsVed_UpdateLoad(false, ExamsVedId);
+                                context.ExamsVed_UpdateLock(false, ExamsVedId);
 
                                 transaction.Complete();
                             }

@@ -548,12 +548,9 @@ namespace PriemLib
 
             btnDocs.Enabled = true;
 
-            if (MainClass.dbType != PriemType.PriemMag)
-            {
-                WinFormsServ.SetSubControlsEnabled(gbOlymps, true);
-                btnAddO.Enabled = false;
-                btnRemoveO.Enabled = false;
-            }
+            WinFormsServ.SetSubControlsEnabled(gbOlymps, true);
+            btnAddO.Enabled = false;
+            btnRemoveO.Enabled = false;
 
             if (MainClass.IsPasha())
             {
@@ -739,29 +736,6 @@ namespace PriemLib
             if (lockHasOrigin)
                 if (!chbHasOriginals.Checked)
                     chbHasOriginals.Enabled = false;
-
-            // закрываем для изменения кроме ограниченного набора
-            //if (!MainClass.HasAddRightsForPriem(FacultyId, ProfessionId, ObrazProgramId, SpecializationId, StudyFormId, StudyBasisId))
-            //{
-            //    tbCoefficient.Enabled = false;
-
-            //    chbChecked.Enabled = false;
-            //    chbNotEnabled.Enabled = false;
-            //    dtDocDate.Enabled = false;
-            //    cbCompetition.Enabled = false;
-
-            //    cbLicenseProgram.Enabled = false;
-            //    cbObrazProgram.Enabled = false;
-            //    cbProfile.Enabled = false;
-            //    cbFaculty.Enabled = false;
-            //    cbSecondType.Enabled = false;
-            //    cbStudyForm.Enabled = false;
-            //    cbStudyBasis.Enabled = false; 
-            //    btnAddO.Enabled = false;
-            //    btnRemoveO.Enabled = false;
-
-            //    cbLanguage.Enabled = false;
-            //}
         }
 
         #endregion
@@ -1511,9 +1485,6 @@ namespace PriemLib
         // обновление грида олимпиад
         public void UpdateDataGridOlymp()
         {
-            if (MainClass.dbType == PriemType.PriemMag)
-                return;
-
             try
             {
                 using (PriemEntities context = new PriemEntities())
@@ -1556,7 +1527,7 @@ namespace PriemLib
                         {
                             OlympCard crd = new OlympCard(GuidId);
                             crd.ToUpdateList += new UpdateListHandler(UpdateDataGridOlymp);
-                            crd.ShowDialog();
+                            crd.Show();
                         }
                     }
                     catch (Exception exc)
@@ -1569,7 +1540,7 @@ namespace PriemLib
             {
                 OlympCard crd = new OlympCard(GuidId);
                 crd.ToUpdateList += new UpdateListHandler(UpdateDataGridOlymp);
-                crd.ShowDialog();
+                crd.Show();
             }
         }
 
@@ -1587,7 +1558,7 @@ namespace PriemLib
                 {
                     OlympCard crd = new OlympCard(olId, GuidId, GetReadOnlyOlymps());
                     crd.ToUpdateList += new UpdateListHandler(UpdateDataGridOlymp);
-                    crd.ShowDialog();
+                    crd.Show();
                 }
             }
         }

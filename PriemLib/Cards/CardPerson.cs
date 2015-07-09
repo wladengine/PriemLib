@@ -831,6 +831,10 @@ namespace PriemLib
 
                 btnAddEducDoc.Enabled = true;
                 btnDeleteEducDoc.Enabled = true;
+
+                tbSurname.Enabled = true;
+                tbName.Enabled = true;
+                tbSecondName.Enabled = true;
             }
         }
 
@@ -1401,6 +1405,9 @@ namespace PriemLib
                         dgvEGE.Columns["Id"].Visible = false;
                         dgvEGE.Columns["Number"].HeaderText = "Номер_сертификата";
                         dgvEGE.Columns["Number"].Width = 110;
+
+                        //после биндинга заполняет оценками
+                        FillEgeMarks();
                     });
 
                     btnCardE.Enabled = dgvEGE.RowCount != 0;
@@ -1409,7 +1416,8 @@ namespace PriemLib
 
                     FBSStatus = GetFBSStatus(GuidId);
 
-                    FillEgeMarks();
+                    //закомментил, т.к. по-видимому отрабатывает ещё до окончания биндинга
+                    //FillEgeMarks();
                 }
             }
             catch(Exception exc)

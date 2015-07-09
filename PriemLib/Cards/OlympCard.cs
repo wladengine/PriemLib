@@ -42,7 +42,7 @@ namespace PriemLib
             
             _title = "Диплом олимпиады";
             _tableName = "ed.Olympiads";
-            this.MdiParent = null;
+            this.MdiParent = MainClass.mainform;
 
             try
             {

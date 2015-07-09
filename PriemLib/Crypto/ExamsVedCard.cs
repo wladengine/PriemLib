@@ -359,6 +359,12 @@ namespace PriemLib
                         }
                         else
                         {
+                            if (context.ExamsVed.Where(x => x.Id == _Id).Select(x => x.IsLocked).DefaultIfEmpty(false).First())
+                            {
+                                WinFormsServ.Error("Ведомость уже закрыта!");
+                                return false;
+                            }
+
                             if (dtPassDate.Value.Date != passDate.Date)
                             {
                                 int cnt = (from vd in context.extExamsVed
