@@ -1565,6 +1565,7 @@ namespace PriemLib
                 string sLicenseProgramCode = string.Empty;
                 string sStudyLevelNameRod = string.Empty;
                 int iStudyLevelGroupId = MainClass.lstStudyLevelGroupId.First();
+                string FacultyNum = "";
 
                 using (PriemEntities ctx = new PriemEntities())
                 {
@@ -1593,6 +1594,12 @@ namespace PriemLib
                          join extentryView in ctx.extEntryView on entry.LicenseProgramId equals extentryView.LicenseProgramId
                          where extentryView.Id == gProtocolId
                          select entry.StudyLevel.NameRod).FirstOrDefault();
+
+                    FacultyNum =
+                        (from fac in ctx.SP_Faculty
+                         join extentryView in ctx.extEntryView on fac.Id equals extentryView.FacultyId
+                         where extentryView.Id == gProtocolId
+                         select fac.IndexNumber).FirstOrDefault();
 
                     iStudyLevelGroupId = ProtocolInfo.StudyLevelGroupId;
 
@@ -1741,7 +1748,7 @@ namespace PriemLib
                     else
                         Motivation = string.Empty;
 
-                    AddRowInTableOrder(string.Format("\t\t1.{0}. {1} {2} {3}", counter, v.FIO, balls + ballToStr, string.IsNullOrEmpty(Motivation) ? "" : ("\n\n\t\t" + tmpMotiv + "\n")), ref td, ref curRow);
+                    AddRowInTableOrder(string.Format("\t\t1.{0}. {1} {2} {3}", counter, v.FIO, balls + ballToStr, string.IsNullOrEmpty(Motivation) ? "" : ("\n\n\t\t" + tmpMotiv + "[" + FacultyNum + "]" + "\n")), ref td, ref curRow);
                 }
 
                 if (!string.IsNullOrEmpty(curMotivation) && isCel)

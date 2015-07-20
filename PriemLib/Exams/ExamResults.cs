@@ -468,11 +468,11 @@ ORDER BY ÔÈÎ", abitFilters);
                     if (!int.TryParse(de.Key.ToString(), out iExamId))
                         continue;
                     var mark_data = marks.Where(x => x.AbiturientId == abitId && x.ExamId == iExamId);
-                    int markSum = mark_data.Select(x => (int?)x.Value).DefaultIfEmpty(0).First() ?? 0;
+                    int? markSum = mark_data.Select(x => (int?)x.Value).FirstOrDefault();
                     bool isFromEge = mark_data.Select(x => x.IsFromEge).DefaultIfEmpty(false).First();
                     bool isFromOlymp = mark_data.Select(x => x.IsFromOlymp).DefaultIfEmpty(false).First();
                     
-                    newRow[de.Value.ToString()] = markSum == 0 ? "" : markSum.ToString();
+                    newRow[de.Value.ToString()] = markSum.HasValue ? markSum.ToString() : "";
                     newRow[de.Value.ToString() + "IsEge"] = isFromEge.ToString();
                     newRow[de.Value.ToString() + "IsOlymp"] = isFromOlymp.ToString();
                 }
