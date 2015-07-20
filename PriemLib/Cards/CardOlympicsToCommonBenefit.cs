@@ -25,10 +25,10 @@ namespace PriemLib
             set { ComboServ.SetComboId(cbOlympType, value); }
         }
 
-        public int? OlympNameId
+        public int? OlympLevelId
         {
-            get { return ComboServ.GetComboIdInt(cbOlympName); }
-            set { ComboServ.SetComboId(cbOlympName, value); }
+            get { return ComboServ.GetComboIdInt(cbOlympLevel); }
+            set { ComboServ.SetComboId(cbOlympLevel, value); }
         }
 
         public int? OlympSubjectId
@@ -89,28 +89,28 @@ namespace PriemLib
                       where ob.OlympTypeId == OlympTypeId
                       select new
                       {
-                          Id = ob.OlympNameId,
-                          Name = ob.OlympNameName
+                          Id = ob.OlympLevelId,
+                          Name = ob.OlympLevelName
                       })
                       .Distinct())
                       .ToList()
                       .Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name))
                       .ToList();
 
-                cbOlympName.Enabled = true;
-                ComboServ.FillCombo(cbOlympName, lst, false, false);
-                cbOlympName.SelectedIndex = 0;
+                cbOlympLevel.Enabled = true;
+                ComboServ.FillCombo(cbOlympLevel, lst, false, false);
+                cbOlympLevel.SelectedIndex = 0;
 
-                FillAfterOlympName();
+                FillAfterOlympLevel();
                 FillAfterOlympSubject();
             }
 
             if (OlympTypeId == 1 || OlympTypeId == 2 || OlympTypeId == 7)
             {
-                cbOlympName.Enabled = false;
+                cbOlympLevel.Enabled = false;
             }
         }
-        private void FillAfterOlympName()
+        private void FillAfterOlympLevel()
         {
             using (PriemEntities context = new PriemEntities())
             {
@@ -119,7 +119,7 @@ namespace PriemLib
 
                 List<KeyValuePair<string, string>> lst =
                     ((from ob in context.extOlympBook
-                      where ob.OlympTypeId == OlympTypeId && ob.OlympNameId == OlympNameId
+                      where ob.OlympTypeId == OlympTypeId && ob.OlympLevelId == OlympLevelId
                       select new
                       {
                           Id = ob.OlympSubjectId,
@@ -137,7 +137,7 @@ namespace PriemLib
         protected override void InitHandlers()
         {
             cbOlympType.SelectedIndexChanged += new EventHandler(cbOlympType_SelectedIndexChanged);
-            cbOlympName.SelectedIndexChanged += new EventHandler(cbOlympName_SelectedIndexChanged);
+            cbOlympLevel.SelectedIndexChanged += new EventHandler(cbOlympName_SelectedIndexChanged);
             cbOlympSubject.SelectedIndexChanged += new EventHandler(cbOlympSubject_SelectedIndexChanged);
         }
 
@@ -148,7 +148,7 @@ namespace PriemLib
 
         private void cbOlympName_SelectedIndexChanged(object sender, EventArgs e)
         {
-            FillAfterOlympName();
+            FillAfterOlympLevel();
         }
         private void cbOlympSubject_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -173,8 +173,8 @@ namespace PriemLib
                         return;
 
                     OlympTypeId = olymp.OlympTypeId;
-                    if (OlympTypeId != 1 || OlympTypeId != 2)
-                        OlympNameId = olymp.OlympNameId;
+                    //if (OlympTypeId != 1 || OlympTypeId != 2)
+                        OlympLevelId = olymp.OlympLevelId;
                     OlympSubjectId = olymp.OlympSubjectId;
                     OlympValueId = olymp.OlympValueId;
                 }
@@ -200,15 +200,15 @@ namespace PriemLib
                 cbOlympSubject.Enabled = false;
             }
             else
-                cbOlympName.Enabled = false;
+                cbOlympLevel.Enabled = false;
         }
         protected override void InsertRec(PriemEntities context, ObjectParameter idParam)
         {
-            context.OlympResultToCommonBenefit_Insert(_EntryId, OlympTypeId, OlympNameId, OlympSubjectId, OlympValueId, idParam);
+            context.OlympResultToCommonBenefit_Insert(_EntryId, OlympTypeId, OlympLevelId, OlympSubjectId, OlympValueId, idParam);
         }
         protected override void UpdateRec(PriemEntities context, int id)
         {
-            context.OlympResultToCommonBenefit_Update(_EntryId, OlympTypeId, OlympNameId, OlympSubjectId, OlympValueId, id);
+            context.OlympResultToCommonBenefit_Update(_EntryId, OlympTypeId, OlympLevelId, OlympSubjectId, OlympValueId, id);
         }
         protected override void OnSave()
         {

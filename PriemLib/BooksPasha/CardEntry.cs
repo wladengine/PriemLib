@@ -768,7 +768,7 @@ WHERE Id=@Id";
                              {
                                  exEntry.Id,
                                  OlympTypeId = exEntry.OlympType.Name,
-                                 OlympNameId = exEntry.OlympName.Name,
+                                 OlympLevelId = exEntry.OlympLevel.Name,
                                  OlympValue = exEntry.OlympValue.Name
                              }).ToList().OrderBy(x => x.OlympTypeId).ToList();
 
@@ -784,10 +784,10 @@ WHERE Id=@Id";
                 {
                     dgvOlympicsToCommonBenefit.Columns["OlympTypeId"].HeaderText = "Тип олимпиады";
                 }
-                if (dgvOlympicsToCommonBenefit.Columns.Contains("OlympNameId"))
+                if (dgvOlympicsToCommonBenefit.Columns.Contains("OlympLevelId"))
                 {
-                    dgvOlympicsToCommonBenefit.Columns["OlympNameId"].HeaderText = "Название олимпиады";
-                    dgvOlympicsToCommonBenefit.Columns["OlympNameId"].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+                    dgvOlympicsToCommonBenefit.Columns["OlympLevelId"].HeaderText = "Уровень олимпиады";
+                    dgvOlympicsToCommonBenefit.Columns["OlympLevelId"].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
                 }
                 if (dgvOlympicsToCommonBenefit.Columns.Contains("OlympValue"))
                 {

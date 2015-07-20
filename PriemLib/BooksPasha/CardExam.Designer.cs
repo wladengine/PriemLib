@@ -31,25 +31,27 @@
             this.label2 = new System.Windows.Forms.Label();
             this.cbExamName = new System.Windows.Forms.ComboBox();
             this.chbIsAdd = new System.Windows.Forms.CheckBox();
+            this.chbIsPortfolioAnonymPart = new System.Windows.Forms.CheckBox();
+            this.chbIsPortfolioCommonPart = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.epError)).BeginInit();
             this.SuspendLayout();
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(254, 117);
+            this.btnClose.Location = new System.Drawing.Point(254, 151);
             // 
             // btnSaveChange
             // 
-            this.btnSaveChange.Location = new System.Drawing.Point(12, 116);
+            this.btnSaveChange.Location = new System.Drawing.Point(12, 150);
             // 
             // btnSaveAsNew
             // 
-            this.btnSaveAsNew.Location = new System.Drawing.Point(117, 116);
+            this.btnSaveAsNew.Location = new System.Drawing.Point(117, 150);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(4, 18);
+            this.label2.Location = new System.Drawing.Point(16, 18);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(110, 13);
             this.label2.TabIndex = 35;
@@ -59,26 +61,48 @@
             // 
             this.cbExamName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbExamName.FormattingEnabled = true;
-            this.cbExamName.Location = new System.Drawing.Point(4, 34);
+            this.cbExamName.Location = new System.Drawing.Point(12, 34);
             this.cbExamName.Name = "cbExamName";
-            this.cbExamName.Size = new System.Drawing.Size(331, 21);
+            this.cbExamName.Size = new System.Drawing.Size(323, 21);
             this.cbExamName.TabIndex = 34;
             // 
             // chbIsAdd
             // 
             this.chbIsAdd.AutoSize = true;
-            this.chbIsAdd.Location = new System.Drawing.Point(4, 75);
+            this.chbIsAdd.Location = new System.Drawing.Point(12, 61);
             this.chbIsAdd.Name = "chbIsAdd";
             this.chbIsAdd.Size = new System.Drawing.Size(114, 17);
             this.chbIsAdd.TabIndex = 36;
             this.chbIsAdd.Text = "Дополнительный";
             this.chbIsAdd.UseVisualStyleBackColor = true;
             // 
+            // chbIsPortfolioAnonymPart
+            // 
+            this.chbIsPortfolioAnonymPart.AutoSize = true;
+            this.chbIsPortfolioAnonymPart.Location = new System.Drawing.Point(12, 84);
+            this.chbIsPortfolioAnonymPart.Name = "chbIsPortfolioAnonymPart";
+            this.chbIsPortfolioAnonymPart.Size = new System.Drawing.Size(191, 17);
+            this.chbIsPortfolioAnonymPart.TabIndex = 37;
+            this.chbIsPortfolioAnonymPart.Text = "Портфолио (эссе и мот. письмо)";
+            this.chbIsPortfolioAnonymPart.UseVisualStyleBackColor = true;
+            // 
+            // chbIsPortfolioCommonPart
+            // 
+            this.chbIsPortfolioCommonPart.AutoSize = true;
+            this.chbIsPortfolioCommonPart.Location = new System.Drawing.Point(12, 107);
+            this.chbIsPortfolioCommonPart.Name = "chbIsPortfolioCommonPart";
+            this.chbIsPortfolioCommonPart.Size = new System.Drawing.Size(266, 17);
+            this.chbIsPortfolioCommonPart.TabIndex = 38;
+            this.chbIsPortfolioCommonPart.Text = "Портфолио (прочие файлы: дипломы, грамоты)";
+            this.chbIsPortfolioCommonPart.UseVisualStyleBackColor = true;
+            // 
             // CardExam
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(347, 151);
+            this.ClientSize = new System.Drawing.Size(347, 185);
+            this.Controls.Add(this.chbIsPortfolioCommonPart);
+            this.Controls.Add(this.chbIsPortfolioAnonymPart);
             this.Controls.Add(this.chbIsAdd);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.cbExamName);
@@ -90,6 +114,8 @@
             this.Controls.SetChildIndex(this.cbExamName, 0);
             this.Controls.SetChildIndex(this.label2, 0);
             this.Controls.SetChildIndex(this.chbIsAdd, 0);
+            this.Controls.SetChildIndex(this.chbIsPortfolioAnonymPart, 0);
+            this.Controls.SetChildIndex(this.chbIsPortfolioCommonPart, 0);
             ((System.ComponentModel.ISupportInitialize)(this.epError)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -101,5 +127,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox cbExamName;
         private System.Windows.Forms.CheckBox chbIsAdd;
+        private System.Windows.Forms.CheckBox chbIsPortfolioAnonymPart;
+        private System.Windows.Forms.CheckBox chbIsPortfolioCommonPart;
     }
 }

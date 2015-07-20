@@ -133,42 +133,45 @@ namespace PriemLib
                 switch (HeaderId)
                 {
                     case 1:
-                        sFilter += " AND ed.qAbiturient.CompetitionId=1 ";
-                        sFilter += " AND PersonId IN (SELECT PersonId FROM ed.Olympiads WHERE OlympTypeId=1) ";
+                        sFilter += " AND ed.qAbiturient.IsCrimea = 0 AND qAbiturient.CompetitionId=1 ";
+                        sFilter += " AND qAbiturient.Id IN (SELECT AbiturientId FROM ed.Olympiads WHERE OlympTypeId=1) ";
                         break;
                     case 2:
-                        sFilter += " AND ed.qAbiturient.CompetitionId=1 ";
-                        sFilter += " AND PersonId IN (SELECT PersonId FROM ed.Olympiads WHERE OlympValueId=6 AND OlympTypeId=2) ";
+                        sFilter += " AND ed.qAbiturient.IsCrimea = 0 AND ed.qAbiturient.CompetitionId=1 ";
+                        sFilter += " AND qAbiturient.Id IN (SELECT AbiturientId FROM ed.Olympiads WHERE OlympValueId=6 AND OlympTypeId=2) ";
                         break;
                     case 3:
-                        sFilter += " AND PersonId IN (SELECT PersonId FROM ed.Olympiads WHERE OlympValueId=5 AND OlympTypeId=2) ";
+                        sFilter += " AND ed.qAbiturient.IsCrimea = 0 "; 
+                        sFilter += "AND qAbiturient.Id IN (SELECT AbiturientId FROM ed.Olympiads WHERE OlympValueId=5 AND OlympTypeId=2) ";
                         break;
                     case 4:
-                        sFilter += " AND PersonId IN (SELECT PersonId FROM ed.Olympiads WHERE OlympValueId=6 AND OlympTypeId IN (3,4)) ";
+                        sFilter += " AND ed.qAbiturient.IsCrimea = 0 "; 
+                        sFilter += "AND qAbiturient.Id IN (SELECT AbiturientId FROM ed.Olympiads WHERE OlympValueId=6 AND OlympTypeId IN (3,4)) ";
                         break;
                     case 5:
-                        sFilter += " AND PersonId IN (SELECT PersonId FROM ed.Olympiads WHERE OlympValueId=5 AND OlympTypeId IN (3,4)) ";
+                        sFilter += " AND ed.qAbiturient.IsCrimea = 0 ";
+                        sFilter += "AND qAbiturient.Id IN (SELECT AbiturientId FROM ed.Olympiads WHERE OlympValueId=5 AND OlympTypeId IN (3,4)) ";
                         break;
                     case 6:
-                        sFilter += " AND ed.qAbiturient.CompetitionId=2 ";
+                        sFilter += " AND ed.qAbiturient.IsCrimea = 0 AND ed.qAbiturient.CompetitionId=2 ";
                         break;
                     case 7:
-                        sFilter += " AND ed.qAbiturient.CompetitionId = 6";
+                        sFilter += " AND ed.qAbiturient.IsCrimea = 0 AND ed.qAbiturient.CompetitionId = 6";
                         break;
                     case 8:
-                        sFilter += " AND ed.qAbiturient.CompetitionId NOT IN (1,2,6,7,8,11,12) ";
+                        sFilter += " AND ed.qAbiturient.IsCrimea = 0 AND ed.qAbiturient.IsCrimea = 0 AND ed.qAbiturient.CompetitionId NOT IN (1,2,6,7,8,11,12) ";
                         break;
                     case 9:
-                        sFilter += " AND ed.qAbiturient.CompetitionId IN (1,8) ";
+                        sFilter += " AND ed.qAbiturient.IsCrimea = 0 AND ed.qAbiturient.CompetitionId IN (1,8) ";
                         break;
                     case 10:
-                        sFilter += " AND ed.qAbiturient.CompetitionId IN (2,7) ";
+                        sFilter += " AND ed.qAbiturient.IsCrimea = 0 AND ed.qAbiturient.CompetitionId IN (2,7) ";
                         break;
                     case 11:
-                        sFilter += " AND ed.qAbiturient.CompetitionId IN (11) ";
+                        sFilter += " AND ed.qAbiturient.IsCrimea = 1 AND ed.qAbiturient.CompetitionId NOT IN (1,8)  ";
                         break;
                     case 12:
-                        sFilter += " AND ed.qAbiturient.CompetitionId IN (12) ";
+                        sFilter += " AND ed.qAbiturient.IsCrimea = 1 AND ed.qAbiturient.CompetitionId IN (1,8) ";
                         break;
                 }
             }
@@ -251,15 +254,16 @@ namespace PriemLib
 
             string filt = string.IsNullOrEmpty(ids) ? "" : string.Format(" AND ed.qAbiturient.Id NOT IN ({0}) ", ids);
             dgvRight.Rows.Clear();
-
             
             DataTable dtAbits = new DataTable();
 
-            DataSet dsPrograms = MainClass.Bdc.GetDataSet(string.Format(@"SELECT DISTINCT ObrazProgramId, ProfileId, KCP AS Value, KCPCel AS ValueCel, KCPCrimea 
+            DataSet dsPrograms = MainClass.Bdc.GetDataSet(string.Format(@"SELECT DISTINCT ObrazProgramId, ProfileId, KCP AS Value, KCPCel AS ValueCel 
                     FROM ed.qEntry 
                     WHERE ed.qEntry.StudyLevelGroupId={7} AND ed.qEntry.FacultyId={0} AND ed.qEntry.StudyFormId={1} AND
-                    ed.qEntry.StudyBasisId={2} AND ed.qEntry.LicenseProgramId={3} AND ed.qEntry.IsSEcond = {4} AND ed.qEntry.IsReduced = {5} AND ed.qEntry.IsParallel = {6}", _facultyId, _studyFormId, _studyBasisId, _licenseProgramId,
-                    QueryServ.StringParseFromBool(_isSecond), QueryServ.StringParseFromBool(_isReduced), QueryServ.StringParseFromBool(_isParallel), _studyLevelGroupId));
+                    ed.qEntry.StudyBasisId={2} AND ed.qEntry.LicenseProgramId={3} AND ed.qEntry.IsSEcond = {4} AND ed.qEntry.IsReduced = {5} AND ed.qEntry.IsParallel = {6} 
+                    AND IsForeign = {8} AND IsCrimea = {9}", _facultyId, _studyFormId, _studyBasisId, _licenseProgramId,
+                    QueryServ.StringParseFromBool(_isSecond), QueryServ.StringParseFromBool(_isReduced), QueryServ.StringParseFromBool(_isParallel), _studyLevelGroupId, 
+                    QueryServ.StringParseFromBool(MainClass.dbType == PriemType.PriemForeigners), QueryServ.StringParseFromBool(HeaderId == 11 || HeaderId == 12)));
 
             //по каждой программе-профилю смотрим КЦ и оставшиеся места и зачисляем подавших подлинники
             foreach (DataRow dr in dsPrograms.Tables[0].Rows)
@@ -267,17 +271,18 @@ namespace PriemLib
                 string obProg = dr["ObrazProgramId"].ToString();
                 string spec = dr["ProfileId"].ToString();
 
-                string enteredQuery = string.Format(@"SELECT Count(ed.extAbit.Id) FROM ed.extAbit 
-                        INNER JOIN ed.extEntryView ON ed.extAbit.Id=ed.extEntryView.AbiturientId 
-                        WHERE Excluded=0 AND ed.extAbit.StudyLevelGroupId = {9}
-                        AND ed.extAbit.FacultyId={0} AND ed.extAbit.StudyFormId={1} AND ed.extAbit.StudyBasisId={2} 
-                        AND ed.extAbit.LicenseProgramId={3} AND ed.extAbit.IsSEcond = {4} AND ed.extAbit.IsReduced = {5} AND ed.extAbit.IsParallel = {6} AND ed.extAbit.ObrazProgramId={7} {8}", _facultyId, _studyFormId, _studyBasisId, _licenseProgramId, QueryServ.StringParseFromBool(_isSecond), QueryServ.StringParseFromBool(_isReduced), QueryServ.StringParseFromBool(_isParallel),
-                        obProg, string.IsNullOrEmpty(spec) ? " AND ed.extAbit.ProfileId IS NULL " : " AND ed.extAbit.ProfileId='" + spec + "'", _studyLevelGroupId);
+                string enteredQuery = string.Format(@"SELECT Count(Abiturient.Id) FROM ed.Abiturient INNER JOIN ed.extEntry E ON E.Id = Abiturient.EntryId 
+                        INNER JOIN ed.extEntryView ON Abiturient.Id=ed.extEntryView.AbiturientId 
+                        WHERE Excluded=0 AND E.StudyLevelGroupId = {9}
+                        AND E.FacultyId={0} AND E.StudyFormId={1} AND E.StudyBasisId={2} 
+                        AND E.LicenseProgramId={3} AND E.IsSEcond = {4} AND E.IsReduced = {5} AND E.IsParallel = {6} AND E.ObrazProgramId={7} {8}", _facultyId, _studyFormId, _studyBasisId, _licenseProgramId, QueryServ.StringParseFromBool(_isSecond), QueryServ.StringParseFromBool(_isReduced), QueryServ.StringParseFromBool(_isParallel),
+                        obProg, string.IsNullOrEmpty(spec) ? " AND E.ProfileId IS NULL " : " AND E.ProfileId='" + spec + "'", _studyLevelGroupId);
 
                 if (_isCel)
-                    enteredQuery += " AND ed.extAbit.CompetitionId=6 ";
+                    enteredQuery += " AND Abiturient.CompetitionId = 6 ";
 
-                enteredQuery += string.Format(" AND ed.extAbit.CompetitionId {0} IN (11, 12)", (HeaderId == 11 || HeaderId == 12) ? "" : "NOT");
+                enteredQuery += string.Format(" AND E.IsCrimea = {0}", (HeaderId == 11 || HeaderId == 12) ? "1" : "0");
+                enteredQuery += string.Format(" AND E.IsForeign = {0}", (MainClass.dbType == PriemType.PriemForeigners) ? "1" : "0");
                   
                 int entered = 0;
                 int kc = 0;
@@ -285,26 +290,20 @@ namespace PriemLib
                 int.TryParse(MainClass.Bdc.GetStringValue(enteredQuery), out entered);
                 if(_isCel)
                     int.TryParse(dr["ValueCel"].ToString(), out kc);
-                else if (HeaderId == 11 || HeaderId == 12)
-                {
-                    int.TryParse(dr["KCPCrimea"].ToString(), out kc);
-                }
                 else
-                {
                     int.TryParse(dr["Value"].ToString(), out kc);
-                }
 
                 int kcRest = kc - entered;
-                               
-                string sQueryBody = string.Format("SELECT DISTINCT TOP ({0}) ed.extAbitMarksSum.TotalSum as Sum, ed.extPerson.AttestatSeries, ed.extPerson.AttestatNum, ed.qAbiturient.Id as Id, ed.qAbiturient.BAckDoc as backdoc, " +
+
+                string sQueryBody = string.Format("SELECT DISTINCT TOP ({0}) ed.extAbitMarksSum.TotalSum + extAbitAdditionalMarksSum.AdditionalMarksSum as Sum, ed.extPerson_EducationInfo_Current.AttestatSeries, ed.extPerson_EducationInfo_Current.AttestatNum, ed.qAbiturient.Id as Id, ed.qAbiturient.BAckDoc as backdoc, " +
                     " 'false' as Red, ed.qAbiturient.RegNum as Рег_Номер, " +
                     " ed.extPerson.FIO as ФИО, " +
-                    " (case when ed.extPerson.SchoolTypeId = 1 then ed.extPerson.AttestatRegion + ' ' + ed.extPerson.AttestatSeries + '  №' + ed.extPerson.AttestatNum else ed.extPerson.DiplomSeries + '  №' + ed.extPerson.DiplomNum end) as Документ_об_образовании, " +
+                    " (case when ed.extPerson_EducationInfo_Current.SchoolTypeId = 1 then ed.extPerson_EducationInfo_Current.AttestatSeries + '  №' + ed.extPerson_EducationInfo_Current.AttestatNum else ed.extPerson_EducationInfo_Current.DiplomSeries + '  №' + ed.extPerson_EducationInfo_Current.DiplomNum end) as Документ_об_образовании, " +
                     " ed.extPerson.PassportSeries + ' №' + ed.extPerson.PassportNumber as Паспорт, " +
                     " LicenseProgramCode + ' ' + LicenseProgramName + ' ' +(Case when NOT ed.qAbiturient.ProfileId IS NULL then ProfileName else ObrazProgramName end) as Направление, " +
                     " Competition.NAme as Конкурс, ed.qAbiturient.BackDoc, _FirstWave.SortNum " +
-                    " FROM ed.qAbiturient INNER JOIN ed.extPerson ON ed.qAbiturient.PErsonId =  ed.extPerson.Id " +
-                    " INNER JOIN ed.extEnableProtocol ON ed.qAbiturient.Id=ed.extEnableProtocol.AbiturientId " +
+                    " FROM ed.qAbiturient INNER JOIN ed.extPerson ON ed.qAbiturient.PErsonId =  ed.extPerson.Id INNER JOIN ed.extPerson_EducationInfo_Current ON ed.qAbiturient.PErsonId =  ed.extPerson_EducationInfo_Current.PersonId " +
+                    " INNER JOIN ed.extEnableProtocol ON ed.qAbiturient.Id=ed.extEnableProtocol.AbiturientId INNER JOIN ed.extAbitAdditionalMarksSum ON extAbitAdditionalMarksSum.AbiturientId = qAbiturient.Id " +
                     " INNER JOIN ed._FirstWave AS _FirstWave ON ed.qAbiturient.Id = _FirstWave.AbiturientId " +
                     //((MainClass.dbType == PriemType.Priem) ? " INNER JOIN ed._FirstWaveGreen ON qAbiturient.Id= _FirstWaveGreen.AbiturientId " : "") +
                     " LEFT JOIN ed.extAbitMarksSum ON qAbiturient.Id= extAbitMarksSum.Id " +
@@ -317,7 +316,7 @@ namespace PriemLib
                 sFilter += string.IsNullOrEmpty(spec) ? " AND qAbiturient.ProfileId IS NULL " : " AND qAbiturient.ProfileId='" + spec + "'";
 
                 if (_studyBasisId == 1)
-                    sFilter += "AND (qAbiturient.Id IN (SELECT AbiturientId FROM ed._FirstWaveGreen) OR qAbiturient.Id IN (SELECT AbiturientId FROM ed._FirstWaveYellow))";
+                    sFilter += "AND (qAbiturient.Id IN (SELECT AbiturientId FROM ed._FirstWaveGreen) OR qAbiturient.Id IN (SELECT AbiturientId FROM ed._FirstWaveYellow) OR qAbiturient.CompetitionId IN (1, 2, 7, 8))";
 
                 string orderBy = " ORDER BY SortNum";
 

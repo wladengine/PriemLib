@@ -12,8 +12,15 @@ namespace PriemLib
         {
             using (PriemEntities context = new PriemEntities())
             {
+                var EntryIds = LstCompetitions.Select(x => x.EntryId).Distinct().ToList();
+
+                var StudyLevelGroupId = context.extEntry.Where(z => EntryIds.Contains(z.Id))
+                    .Select(x => x.StudyLevelGroupId)
+                    .DefaultIfEmpty(MainClass.lstStudyLevelGroupId.FirstOrDefault())
+                    .First();
+
                 var notUsedApplications = context.Abiturient
-                    .Where(x => x.PersonId == personId && !x.BackDoc && MainClass.lstStudyLevelGroupId.Contains(x.Entry.StudyLevel.LevelGroupId))
+                    .Where(x => x.PersonId == personId && !x.BackDoc && x.Entry.StudyLevel.LevelGroupId == StudyLevelGroupId)
                     .Select(x => x.EntryId).ToList()
                     .Except(LstCompetitions.Select(x => x.EntryId)).ToList();
                 if (notUsedApplications.Count > 0)
@@ -52,7 +59,17 @@ namespace PriemLib
                     }
                     else
                     {
-                        return false;
+                        if (MainClass.dbType != PriemType.Priem)
+                        {
+                            var dr_ = MessageBox.Show("Оставить существующие конкурсные позиции без изменений?",
+                        "Внимание!", MessageBoxButtons.YesNo);
+                            if (dr_ == DialogResult.Yes)
+                                return true;
+                            else
+                                return false;
+                        }
+                        else
+                            return false;
                     }
                 }
                 else
@@ -82,6 +99,7 @@ namespace PriemLib
                     {
                         ApplicationId = context.Abiturient.Where(x => x.PersonId == PersonId && x.EntryId == Comp.EntryId && !x.BackDoc).Select(x => x.Id).First();
                         context.Abiturient_UpdatePriority(Comp.Priority, ApplicationId);
+                        context.Abiturient_UpdateBarcodeAndCommitId(Comp.Barcode, Comp.CommitId, ApplicationId);
                     }
                     if (Comp.lstInnerEntryInEntry.Count > 0)
                     {

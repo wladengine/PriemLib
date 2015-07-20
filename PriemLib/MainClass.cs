@@ -51,6 +51,12 @@ namespace PriemLib
         public static bool bMagImportApplicationsEnabled;
 
         public static DateTime _1k_LastEgeMarkLoadTime;
+        public static DateTime dt1kursAddNabor1;
+        public static DateTime dtMagAddNabor1;
+
+        public static bool bFirstWaveEnabled;
+        public static bool bMagAddNabor1Enabled;
+        public static bool b1kursAddNabor1Enabled;
         //-----------------------------------------------------
 
         public static QueryBuilder qBuilder;
@@ -108,7 +114,6 @@ namespace PriemLib
                     //постоянный id олимпиады СПбГУ
                     olympSpbguId = 3;
 
-
                     Dictionary<string, string> dicSettings = context.C_AppSettings
                         .Select(x => new { x.ParamKey, x.ParamValue }).ToList().ToDictionary(x => x.ParamKey, y => y.ParamValue);
 
@@ -128,6 +133,22 @@ namespace PriemLib
                     if (!DateTime.TryParse(tmp, out _1k_LastEgeMarkLoadTime))
                         _1k_LastEgeMarkLoadTime = new DateTime(DateTime.Now.Year, 1, 1);
 
+                    tmp = dicSettings.ContainsKey("dt1kursAddNabor1") ? dicSettings["dt1kursAddNabor1"] : new DateTime(DateTime.Now.Year, 1, 1).ToString();
+                    if (!DateTime.TryParse(tmp, out dt1kursAddNabor1))
+                        dt1kursAddNabor1 = new DateTime(DateTime.Now.Year, 1, 1);
+
+                    tmp = dicSettings.ContainsKey("dtMagAddNabor1") ? dicSettings["dtMagAddNabor1"] : new DateTime(DateTime.Now.Year, 1, 1).ToString();
+                    if (!DateTime.TryParse(tmp, out dtMagAddNabor1))
+                        dtMagAddNabor1 = new DateTime(DateTime.Now.Year, 1, 1);
+
+                    tmp = dicSettings.ContainsKey("bFirstWaveEnabled") ? dicSettings["bFirstWaveEnabled"] : "False";
+                    bFirstWaveEnabled = bool.Parse(tmp);
+
+                    tmp = dicSettings.ContainsKey("bMagAddNabor1Enabled") ? dicSettings["bMagAddNabor1Enabled"] : "False";
+                    bMagAddNabor1Enabled = bool.Parse(tmp);
+                    
+                    tmp = dicSettings.ContainsKey("b1kursAddNabor1Enabled") ? dicSettings["b1kursAddNabor1Enabled"] : "False";
+                    b1kursAddNabor1Enabled = bool.Parse(tmp);
                 }
 
                 switch (MainClass.dbType)
@@ -246,6 +267,11 @@ namespace PriemLib
                         context.SetApplicationValue("PriemYear", sPriemYear);
                         context.SetApplicationValue("bMagImportApplicationsEnabled", bMagImportApplicationsEnabled.ToString());
                         context.SetApplicationValue("1k_LastEgeMarkLoadTime", _1k_LastEgeMarkLoadTime.ToString());
+
+                        context.SetApplicationValue("bFirstWaveEnabled", bFirstWaveEnabled.ToString());
+                        context.SetApplicationValue("bMagAddNabor1Enabled", bMagAddNabor1Enabled.ToString());
+                        context.SetApplicationValue("b1kursAddNabor1Enabled", b1kursAddNabor1Enabled.ToString());
+                        
                     }
                 }
             }

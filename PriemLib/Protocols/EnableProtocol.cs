@@ -32,8 +32,9 @@ namespace PriemLib
         //дополнительная инициализация
         protected override void InitControls()
         {
+            //инвалиды (extPerson.Privileges & 32 > 0) имеют право пересдать ЕГЭ по запоротому предмету (где получили меньше минимума)
             sQuery = @"SELECT DISTINCT ed.extAbit.Sum, CurrEduc.EducDocument, ed.extAbit.Id as Id, ed.extAbit.BAckDoc as backdoc, 
-             (ed.extAbit.BAckDoc | ed.extAbit.NotEnabled | case when (NOT ed.hlpMinEgeAbiturient.Id IS NULL) then 'true' else 'false' end) as Red, ed.extAbit.RegNum as Рег_Номер, 
+             (ed.extAbit.BAckDoc | ed.extAbit.NotEnabled | case when (NOT ed.hlpMinEgeAbiturient.Id IS NULL AND extPerson.Privileges & 32 = 0) then 'true' else 'false' end) as Red, ed.extAbit.RegNum as Рег_Номер, 
              ed.extPerson.FIO as ФИО, 
              ed.extPerson.EducDocument as Документ_об_образовании, 
              ed.extPerson.PassportSeries + ' №' + ed.extPerson.PassportNumber as Паспорт, 

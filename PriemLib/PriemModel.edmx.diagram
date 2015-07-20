@@ -919,6 +919,12 @@
         <edmx:AssociationConnector Association="Priem2012Model.FK_OlympResultToCommonBenefit_OlympType" />
         <edmx:AssociationConnector Association="Priem2012Model.FK_OlympResultToCommonBenefit_OlympValue" />
         <edmx:EntityTypeShape EntityType="Priem2012Model.extEgeMarkMaxAbitApproved" Width="1.5" PointX="34.375" PointY="22.75" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.PersonNoticies" Width="1.5" PointX="3" PointY="48.875" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_ExaminerInExamsVed_ExamsVed" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_PersonNoticies_Person" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_OlympResultToCommonBenefit_OlympName1" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.extEgeMarkMaxApproved" Width="1.5" PointX="34.375" PointY="26.75" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.hlpEgeMarkMaxApproved" Width="1.5" PointX="5.375" PointY="33.75" />
         </edmx:Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

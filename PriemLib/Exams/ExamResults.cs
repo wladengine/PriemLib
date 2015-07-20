@@ -434,16 +434,15 @@ ORDER BY ФИО", abitFilters);
                 {0}", abitFilters);
             ds = _bdc.GetDataSet(query);
 
-            var marks = from DataRow rw in ds.Tables[0].Rows
-                        select new
-                        {
-                            AbiturientId = rw.Field<Guid>("AbiturientId"),
-                            ExamId = rw.Field<int?>("ExamId"),
-                            Value = rw.Field<byte?>("Value"),
-                            IsFromOlymp = rw.Field<int>("IsFromOlymp") == 1 ? true : false,
-                            IsFromEge = rw.Field<int>("IsFromEge") == 1 ? true : false
-                        };
-            marks.GetEnumerator();
+            var marks = (from DataRow rw in ds.Tables[0].Rows
+                         select new
+                         {
+                             AbiturientId = rw.Field<Guid>("AbiturientId"),
+                             ExamId = rw.Field<int?>("ExamId"),
+                             Value = rw.Field<byte?>("Value"),
+                             IsFromOlymp = rw.Field<int>("IsFromOlymp") == 1 ? true : false,
+                             IsFromEge = rw.Field<int>("IsFromEge") == 1 ? true : false
+                         }).ToList();
             wc.SetText("Построение списка...");
             
             List<string> lstIds = new List<string>();
@@ -469,7 +468,7 @@ ORDER BY ФИО", abitFilters);
                     if (!int.TryParse(de.Key.ToString(), out iExamId))
                         continue;
                     var mark_data = marks.Where(x => x.AbiturientId == abitId && x.ExamId == iExamId);
-                    int markSum = mark_data.Select(x => x.Value).DefaultIfEmpty((byte?)0).Sum(x => x.Value);
+                    int markSum = mark_data.Select(x => (int?)x.Value).DefaultIfEmpty(0).First() ?? 0;
                     bool isFromEge = mark_data.Select(x => x.IsFromEge).DefaultIfEmpty(false).First();
                     bool isFromOlymp = mark_data.Select(x => x.IsFromOlymp).DefaultIfEmpty(false).First();
                     

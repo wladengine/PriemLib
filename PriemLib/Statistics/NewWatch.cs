@@ -57,6 +57,7 @@ namespace PriemLib
         public void ZeroCount()
         {
             pBar.Value = 0;
+            iMax = 1;
         }
     }
 }

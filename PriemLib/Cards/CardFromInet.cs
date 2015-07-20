@@ -1294,12 +1294,13 @@ namespace PriemLib
                     if (ApplicationCommitSaveProvider.CheckAndUpdateNotUsedApplications(personId.Value, LstCompetitions))
                     {
                         ApplicationCommitSaveProvider.SaveApplicationCommitInWorkBase(personId.Value, LstCompetitions, LanguageId, _abitBarc);
+                        load.UpdateApplicationCommitSetIsImported(_abitBarc);
+
+                        trans.Complete();
                     }
-                    trans.Complete();
+                    
+                    return true;
                 }
-                
-                load.UpdateApplicationCommitSetIsImported(_abitBarc);
-                return true;
             }
             catch (Exception de)
             {

@@ -65,17 +65,14 @@ namespace PriemLib
         {
             return MainClass.GetIsOpen(_tableName, _Id);
         }
-
         protected override void SetIsOpen()
         {
             MainClass.SetIsOpen(_tableName, _Id);
         }
-
         protected override void DeleteIsOpen()
         {
             MainClass.DeleteIsOpen(_tableName, _Id);
         }
-
         protected override void ShowMessageIsOpen()
         {
             string holderid = MainClass.GetIsOpenHolder(_tableName, _Id);
@@ -113,7 +110,6 @@ namespace PriemLib
                 return false;
             }
         }
-
         protected virtual string Save()
         {
             bool bIsIntId = false;
@@ -184,7 +180,6 @@ namespace PriemLib
         protected virtual void SaveManyToMany(PriemEntities context, Guid id)
         {
         }
-
         protected virtual void SaveManyToMany(PriemEntities context, int id)
         {
         }
@@ -196,7 +191,6 @@ namespace PriemLib
         protected virtual void UpdateRec(PriemEntities context, Guid id)
         {
         }
-
         protected virtual void UpdateRec(PriemEntities context, int id)
         {
         }

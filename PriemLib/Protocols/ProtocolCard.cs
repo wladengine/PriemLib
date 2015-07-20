@@ -136,7 +136,7 @@ namespace PriemLib
             if (isNew)
             {
                 //строим номер протокола
-                string sProtNum = MainClass.lstStudyLevelGroupId.First().ToString();
+                string sProtNum = _studyLevelGroupId.ToString();
 
                 sProtNum += (_facultyId > 9 ? "" : "0") + _facultyId.ToString();//номер факультета
                 sProtNum += DateTime.Now.Year.ToString().Substring(2);//год

@@ -49,7 +49,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(9, 59);
+            this.label6.Location = new System.Drawing.Point(39, 56);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(33, 13);
             this.label6.TabIndex = 51;
@@ -57,7 +57,7 @@
             // 
             // dtDateExam
             // 
-            this.dtDateExam.Location = new System.Drawing.Point(48, 55);
+            this.dtDateExam.Location = new System.Drawing.Point(78, 53);
             this.dtDateExam.Name = "dtDateExam";
             this.dtDateExam.Size = new System.Drawing.Size(152, 20);
             this.dtDateExam.TabIndex = 50;
@@ -73,26 +73,27 @@
             // 
             // cbExam
             // 
+            this.cbExam.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cbExam.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cbExam.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbExam.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbExam.FormattingEnabled = true;
             this.cbExam.Location = new System.Drawing.Point(12, 26);
             this.cbExam.Name = "cbExam";
-            this.cbExam.Size = new System.Drawing.Size(268, 21);
+            this.cbExam.Size = new System.Drawing.Size(350, 21);
             this.cbExam.TabIndex = 142;
             // 
             // SelectExamCrypto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(292, 130);
+            this.ClientSize = new System.Drawing.Size(374, 130);
             this.Controls.Add(this.cbExam);
             this.Controls.Add(this.btnOk);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.dtDateExam);
             this.Controls.Add(this.label8);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SelectExamCrypto";
             this.Text = "Выберите экзамен";

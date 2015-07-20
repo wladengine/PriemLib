@@ -49,7 +49,7 @@ namespace PriemLib
             InitFocusHandlers();			
             bdc = MainClass.Bdc;
 
-            if (MainClass.dbType == PriemType.PriemMag)
+            if (MainClass.dbType != PriemType.Priem)
                 btnSetExaminerAccount.Visible = true;
             else
                 btnSetExaminerAccount.Visible = false;
@@ -165,7 +165,7 @@ namespace PriemLib
         {
             UpdateDataGrid();
 
-            if (MainClass.dbType == PriemType.PriemMag && ExamsVedId.HasValue)
+            if (MainClass.dbType != PriemType.Priem && ExamsVedId.HasValue)
                 btnSetExaminerAccount.Visible = true;
             else
                 btnSetExaminerAccount.Visible = false;
@@ -222,19 +222,20 @@ namespace PriemLib
                           select new
                           {
                               ent.Id,
+                              ent.Number,
                               ent.ExamName,
                               ent.Date,
                               StBasis = ent.StudyBasisId == null ? "" : ent.StudyBasisAcr,
                               AddVed = ent.IsAddVed ? " дополнительная" : "",
                               ent.AddCount
-                          }).Distinct()).ToList()
+                          }).Distinct()).ToList().OrderBy(x => x.Date).ThenBy(x => x.ExamName).ThenBy(x => x.Number)
                           .Select(u => new KeyValuePair<string, string>(
                               u.Id.ToString(),
-                              u.ExamName + ' ' + u.Date.ToShortDateString() + ' ' + u.StBasis + u.AddVed +
+                              "[" + u.Number + "] " + u.ExamName + ' ' + u.Date.ToShortDateString() + ' ' + u.StBasis + u.AddVed +
                                 (u.AddCount > 1 ? "(" + Convert.ToString(u.AddCount) + ")" : ""))).ToList();
 
                     ComboServ.FillCombo(cbExamVed, lst, true, false);                    
-                }            
+                }
             }
             catch (Exception ex)
             {
@@ -611,6 +612,12 @@ namespace PriemLib
 
                                 Barcode128 barcode1 = new Barcode128();
                                 barcode1.Code = vedNumber + "==" + drr["PersonVedNumber"].ToString() + "-";
+
+                                if (string.IsNullOrEmpty(drr["PersonVedNumber"].ToString()))
+                                {
+                                    WinFormsServ.Error("У абитуриента " + drr["FIO"].ToString() + " не создан шифровальный номер! Разлочьте ведомость и закройте её заново");
+                                    return;
+                                }
 
                                 Barcode128 barcode2 = new Barcode128();
                                 barcode2.Code = vedNumber + "==" + drr["PersonVedNumber"].ToString() + "-";

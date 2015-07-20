@@ -70,7 +70,7 @@ namespace PriemLib
             InitFocusHandlers();
             _bdc = MainClass.Bdc;
 
-
+            ComboServ.FillCombo(cbStudyLevelGroup, HelpClass.GetComboListByTable("ed.StudyLevelGroup", string.Format("WHERE Id IN ({0})", Util.BuildStringWithCollection(MainClass.lstStudyLevelGroupId))), false, false);
             ComboServ.FillCombo(cbFaculty, HelpClass.GetComboListByTable("ed.qFaculty", "ORDER BY Acronym"), false, false);
             ComboServ.FillCombo(cbStudyBasis, HelpClass.GetComboListByTable("ed.StudyBasis", "ORDER BY Name"), false, false);
 
@@ -223,7 +223,7 @@ namespace PriemLib
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.Filter = "ADOBE Pdf files|*.pdf";
             if (sfd.ShowDialog() == DialogResult.OK)
-                Print.PrintEntryView(dgvViews.CurrentRow.Cells["Id"].Value.ToString(), sfd.FileName);
+                Print.PrintEntryView(dgvViews.CurrentRow.Cells["Id"].Value.ToString(), sfd.FileName, !chbIsForeign.Checked);
         }
 
         private void btnPrintOrder_Click(object sender, EventArgs e)

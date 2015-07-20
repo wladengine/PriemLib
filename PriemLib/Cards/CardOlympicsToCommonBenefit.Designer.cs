@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.cbOlympType = new System.Windows.Forms.ComboBox();
-            this.cbOlympName = new System.Windows.Forms.ComboBox();
+            this.cbOlympLevel = new System.Windows.Forms.ComboBox();
             this.cbOlympSubject = new System.Windows.Forms.ComboBox();
             this.cbOlympValue = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -61,19 +61,19 @@
             this.cbOlympType.TabIndex = 128;
             this.cbOlympType.SelectedIndexChanged += new System.EventHandler(this.cbOlympType_SelectedIndexChanged);
             // 
-            // cbOlympName
+            // cbOlympLevel
             // 
-            this.cbOlympName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.cbOlympLevel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbOlympName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.cbOlympName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cbOlympName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbOlympName.FormattingEnabled = true;
-            this.cbOlympName.Location = new System.Drawing.Point(144, 42);
-            this.cbOlympName.Name = "cbOlympName";
-            this.cbOlympName.Size = new System.Drawing.Size(478, 21);
-            this.cbOlympName.TabIndex = 127;
-            this.cbOlympName.SelectedIndexChanged += new System.EventHandler(this.cbOlympName_SelectedIndexChanged);
+            this.cbOlympLevel.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cbOlympLevel.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cbOlympLevel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbOlympLevel.FormattingEnabled = true;
+            this.cbOlympLevel.Location = new System.Drawing.Point(144, 42);
+            this.cbOlympLevel.Name = "cbOlympLevel";
+            this.cbOlympLevel.Size = new System.Drawing.Size(478, 21);
+            this.cbOlympLevel.TabIndex = 127;
+            this.cbOlympLevel.SelectedIndexChanged += new System.EventHandler(this.cbOlympName_SelectedIndexChanged);
             // 
             // cbOlympSubject
             // 
@@ -105,11 +105,11 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(20, 45);
+            this.label5.Location = new System.Drawing.Point(26, 45);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(118, 13);
+            this.label5.Size = new System.Drawing.Size(112, 13);
             this.label5.TabIndex = 123;
-            this.label5.Text = "Название олимпиады";
+            this.label5.Text = "Уровень олимпиады";
             // 
             // label3
             // 
@@ -144,7 +144,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(644, 214);
             this.Controls.Add(this.cbOlympType);
-            this.Controls.Add(this.cbOlympName);
+            this.Controls.Add(this.cbOlympLevel);
             this.Controls.Add(this.cbOlympSubject);
             this.Controls.Add(this.cbOlympValue);
             this.Controls.Add(this.label5);
@@ -159,7 +159,7 @@
             this.Controls.SetChildIndex(this.label5, 0);
             this.Controls.SetChildIndex(this.cbOlympValue, 0);
             this.Controls.SetChildIndex(this.cbOlympSubject, 0);
-            this.Controls.SetChildIndex(this.cbOlympName, 0);
+            this.Controls.SetChildIndex(this.cbOlympLevel, 0);
             this.Controls.SetChildIndex(this.cbOlympType, 0);
             this.Controls.SetChildIndex(this.btnSaveChange, 0);
             this.Controls.SetChildIndex(this.btnClose, 0);
@@ -173,7 +173,7 @@
         #endregion
 
         private System.Windows.Forms.ComboBox cbOlympType;
-        private System.Windows.Forms.ComboBox cbOlympName;
+        private System.Windows.Forms.ComboBox cbOlympLevel;
         private System.Windows.Forms.ComboBox cbOlympSubject;
         private System.Windows.Forms.ComboBox cbOlympValue;
         private System.Windows.Forms.Label label5;

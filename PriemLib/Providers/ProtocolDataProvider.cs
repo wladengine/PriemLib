@@ -155,6 +155,7 @@ namespace PriemLib
                          StudyLevelId = protocol.LicenseProgramId.HasValue ? protocol.SP_LicenseProgram.StudyLevelId : 0,
                          StudyLevelName = protocol.LicenseProgramId.HasValue ? protocol.SP_LicenseProgram.StudyLevel.Name : "",
                          StudyLevelNameRod = protocol.LicenseProgramId.HasValue ? protocol.SP_LicenseProgram.StudyLevel.NameRod : "",
+                         StudyLevelGroupId = protocol.StudyLevelGroupId,
                      }).FirstOrDefault();
 
                 return info;
@@ -211,7 +212,8 @@ namespace PriemLib
             public string Number { get; set; }
             public DateTime Date { get; set; }
             public int? StudyBasisId { get; set; }
-            
+
+            public int StudyLevelGroupId { get; set; }
             public int StudyLevelId { get; set; }
             public string StudyLevelName { get; set; }
             public string StudyLevelNameRod { get; set; }

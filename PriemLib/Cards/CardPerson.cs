@@ -13,6 +13,7 @@ using System.Transactions;
 using BaseFormsLib;
 using EducServLib;
 using System.Data.Entity.Core.Objects;
+using System.Threading.Tasks;
 
 namespace PriemLib
 {
@@ -335,10 +336,15 @@ namespace PriemLib
                     
                     FBSStatus = GetFBSStatus(GuidId);
 
-                    FillApplications();                   
+                    //Обновление грида ЕГЭ желательно сделать асинхронным
                     UpdateDataGridEge();
+
+                    //эти тоже стоит перевести в асинхронные
+                    FillApplications();
                     UpdateGridBenefits();
                     UpdatePersonAchievement();
+                    UpdateNoticies();
+                    UpdateVedGrid();
 
                     //Async functions
                     GetHasOriginals();
@@ -408,7 +414,7 @@ namespace PriemLib
 
                     var sourceAll = (from abit in context.qAbitAll
                                     where !abit.BackDoc && abit.PersonId == GuidId
-                                    && MainClass.lstStudyLevelGroupId.Contains(abit.StudyLevelGroupId)
+                                    //&& MainClass.lstStudyLevelGroupId.Contains(abit.StudyLevelGroupId)
                                     //&& (MainClass.dbType != PriemType.PriemForeigners ? abit.IsForeign == false : true)
                                     orderby abit.Priority, abit.FacultyAcr, abit.LicenseProgramName
                                     select new
@@ -616,6 +622,13 @@ namespace PriemLib
 
             WinFormsServ.SetSubControlsEnabled(gbEducationDocuments, true);
             WinFormsServ.SetSubControlsEnabled(gbOlympiads, true);
+            WinFormsServ.SetSubControlsEnabled(gbPersonAchievements, true);
+            WinFormsServ.SetSubControlsEnabled(tabPage7, true);
+
+            btnAddPersonAchievement.Enabled = !inEntryView && !MainClass.IsReadOnly();
+            btnDeletePersonAchievement.Enabled = !inEntryView && !MainClass.IsReadOnly();
+            dgvIndividualAchievements.Enabled = !inEntryView && !MainClass.IsReadOnly();
+
             btnAddEducDoc.Enabled = false;
             btnDeleteEducDoc.Enabled = false;
         }
@@ -668,7 +681,7 @@ namespace PriemLib
             tbFBSStatus.Enabled = false;
             gbEnter.Enabled = false;
 
-            
+            SetReadOnlyFields();
         }
         // закрытие части полей в зависимости от прав
         protected override void SetReadOnlyFields()
@@ -722,6 +735,7 @@ namespace PriemLib
                 //gbEduc.Enabled = true;
                 //btnAttMarks.Enabled = true;
             }
+
             if (inEnableProtocol && MainClass.RightsSov_SovMain_FacMain())
             {
                 tbName.Enabled = false;
@@ -1297,85 +1311,96 @@ namespace PriemLib
         // Грид ЕГЭ
         #region EGE
 
-        private void FillEgeMarks()
-        {           
+        private async void FillEgeMarks()
+        {
+            if (MainClass.dbType == PriemType.PriemMag || MainClass.dbType == PriemType.PriemAspirant || MainClass.dbType == PriemType.PriemForeigners)
+                return;
+
             try
             {
-                using (PriemEntities context = new PriemEntities())
-                {
-                    //заполнение грида с оценками
-                    DataTable examTable = new DataTable();
+                DataTable examTable = await Task.Run<DataTable>(() => GetEgeExamTable());
 
-                    DataColumn clm;
-                    clm = new DataColumn();
-                    clm.ColumnName = "Экзамен";
-                    clm.ReadOnly = true;
-                    examTable.Columns.Add(clm);
-
-                    clm = new DataColumn();
-                    clm.ColumnName = "ExamId";
-                    clm.ReadOnly = true;
-                    clm.DataType = typeof(int);
-                    examTable.Columns.Add(clm);
-
-                    clm = new DataColumn();
-                    clm.ColumnName = "Баллы";                   
-                    clm.DataType = typeof(int);
-                    examTable.Columns.Add(clm);
-
-                    clm = new DataColumn();
-                    clm.ColumnName = "Зачетная";                    
-                    clm.DataType = typeof(bool);
-                    examTable.Columns.Add(clm);                    
-
-                    clm = new DataColumn();
-                    clm.ColumnName = "Номер_сертификата";                   
-                    examTable.Columns.Add(clm);
-
-                    IEnumerable<EgeExamName> examNames =
-                        from en in context.EgeExamName
-                        select en;
-
-                    foreach (EgeExamName eName in examNames)
-                    {
-                        DataRow newRow;
-                        newRow = examTable.NewRow();
-                        newRow["Экзамен"] = eName.Name;
-                        newRow["ExamId"] = eName.Id;
-                        examTable.Rows.Add(newRow);
-                    }
-
-                    // оценки
-                    IEnumerable<extEgeMarkMax> egeMarks =
-                        from em in context.extEgeMarkMax
-                        where em.PersonId == GuidId
-                        select em;
-
-                    foreach (extEgeMarkMax eMark in egeMarks)
-                    {
-                        for (int i = 0; i < examTable.Rows.Count; i++)
-                        {
-                            if (examTable.Rows[i]["ExamId"].ToString() == eMark.EgeExamNameId.ToString())
-                            {                               
-                                examTable.Rows[i]["Баллы"] = eMark.Value;
-                                examTable.Rows[i]["Номер_сертификата"] = eMark.Number;
-                                examTable.Rows[i]["Зачетная"] = eMark.IsCurrent;
-                            }
-                        }
-                    }
-
-                    DataView dv = new DataView(examTable);
-                    dv.AllowNew = false;
-                    dgvExams.DataSource = examTable;
-                    dgvExams.DataBindingComplete += ((sender, e) => UpdateDGVExam());
-                    dgvExams.Update();
-                }
+                DataView dv = new DataView(examTable);
+                dv.AllowNew = false;
+                dgvExams.DataSource = examTable;
+                dgvExams.DataBindingComplete += ((sender, e) => UpdateDGVExam());
+                dgvExams.Update();
             }
             catch (Exception exc)
             {
                 WinFormsServ.Error("Ошибка заполения грида Ege: ", exc);
             }
         }
+
+        private DataTable GetEgeExamTable()
+        {
+            using (PriemEntities context = new PriemEntities())
+            {
+                //заполнение грида с оценками
+                DataTable examTable = new DataTable();
+
+                DataColumn clm;
+                clm = new DataColumn();
+                clm.ColumnName = "Экзамен";
+                clm.ReadOnly = true;
+                examTable.Columns.Add(clm);
+
+                clm = new DataColumn();
+                clm.ColumnName = "ExamId";
+                clm.ReadOnly = true;
+                clm.DataType = typeof(int);
+                examTable.Columns.Add(clm);
+
+                clm = new DataColumn();
+                clm.ColumnName = "Баллы";
+                clm.DataType = typeof(int);
+                examTable.Columns.Add(clm);
+
+                clm = new DataColumn();
+                clm.ColumnName = "Зачетная";
+                clm.DataType = typeof(bool);
+                examTable.Columns.Add(clm);
+
+                clm = new DataColumn();
+                clm.ColumnName = "Номер_сертификата";
+                examTable.Columns.Add(clm);
+
+                var examNames =
+                    from en in context.EgeExamName
+                    select new { en.Id, en.Name };
+
+                foreach (var eName in examNames)
+                {
+                    DataRow newRow;
+                    newRow = examTable.NewRow();
+                    newRow["Экзамен"] = eName.Name;
+                    newRow["ExamId"] = eName.Id;
+                    examTable.Rows.Add(newRow);
+                }
+
+                // оценки
+                var egeMarks =
+                    from em in context.extEgeMarkMax
+                    where em.PersonId == GuidId
+                    select new { em.EgeExamNameId, em.Value, em.Number, em.IsCurrent };
+
+                foreach (var eMark in egeMarks)
+                {
+                    for (int i = 0; i < examTable.Rows.Count; i++)
+                    {
+                        if (examTable.Rows[i]["ExamId"].ToString() == eMark.EgeExamNameId.ToString())
+                        {
+                            examTable.Rows[i]["Баллы"] = eMark.Value;
+                            examTable.Rows[i]["Номер_сертификата"] = eMark.Number;
+                            examTable.Rows[i]["Зачетная"] = eMark.IsCurrent;
+                        }
+                    }
+                }
+
+                return examTable;
+            }
+        }
+
         private void UpdateDGVExam()
         {
             dgvExams.Columns["Баллы"].ValueType = typeof(int);
@@ -2130,10 +2155,16 @@ namespace PriemLib
         {
             using (PriemEntities context = new PriemEntities())
             {
-                var src = context.PersonAchievement.Where(x => x.PersonId == GuidId).Select(x => new { x.Id, x.AchievementType.Name }).ToArray();
+                var src = context.PersonAchievement.Where(x => x.PersonId == GuidId).Select(x => new { x.Id, x.AchievementType.Name, x.AchievementType.Mark }).ToArray();
                 dgvIndividualAchievements.DataSource = Converter.ConvertToDataTable(src);
-                dgvIndividualAchievements.Columns["Id"].Visible = false;
-                dgvIndividualAchievements.Columns["Name"].HeaderText = "Достижение";
+                dgvIndividualAchievements.DataBindingComplete += ((e, sender) =>
+                {
+                    dgvIndividualAchievements.Columns["Id"].Visible = false;
+                    dgvIndividualAchievements.Columns["Name"].HeaderText = "Достижение";
+                    dgvIndividualAchievements.Columns["Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                    dgvIndividualAchievements.Columns["Mark"].HeaderText = "Баллы";
+                    dgvIndividualAchievements.Columns["Mark"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                });
             }
         }
         #endregion
@@ -2228,6 +2259,74 @@ namespace PriemLib
 
             var crd = new OtherPersonPassportList(GuidId.Value);
             crd.Show();
+        }
+
+        private async void UpdateNoticies()
+        {
+            if (!GuidId.HasValue)
+                return;
+
+            using (PriemEntities context = new PriemEntities())
+            {
+                var Notes = await Task.Run(() =>
+                {
+                    return context.PersonNoticies.Where(x => x.PersonId == GuidId).Select(x => new { x.DateCreated, x.CreateAuthor, x.NoticeText }).ToList();
+                });
+                
+                tbNotes.Text = "";
+
+                if (Notes.Count > 0)
+                {
+                    tbNotes.Text = Notes.Select(x => "[" + x.DateCreated.ToShortDateString() + " " + x.DateCreated.ToShortTimeString() + "] "
+                        + MainClass.GetADUserName(x.CreateAuthor) + " (" + MainClass.GetFacultyForAccount(x.CreateAuthor) + "):\r\n"
+                        + x.NoticeText + "\r\n\r\n").Aggregate((x, tail) => x + tail);
+                }
+            }
+        }
+        private void btnAddNotice_Click(object sender, EventArgs e)
+        {
+            if (!GuidId.HasValue)
+                return;
+
+            if (string.IsNullOrEmpty(tbAddNotice.Text.Trim()))
+            {
+                UpdateNoticies();
+                return;
+            }
+
+            using (PriemEntities context = new PriemEntities())
+            {
+                context.PersonNoticies_insert(GuidId, tbAddNotice.Text.Trim());
+            }
+
+            UpdateNoticies();
+        }
+
+        private void UpdateVedGrid()
+        {
+            using (PriemEntities context = new PriemEntities())
+            {
+                var src =
+                    from VedHist in context.ExamsVedHistory
+                    join Ved in context.ExamsVed on VedHist.ExamsVedId equals Ved.Id
+                    join Fac in context.SP_Faculty on Ved.FacultyId equals Fac.Id
+                    join Ex in context.Exam on Ved.ExamId equals Ex.Id
+                    join ExName in context.ExamName on Ex.ExamNameId equals ExName.Id
+                    where VedHist.PersonId == GuidId
+                    select new
+                    {
+                        Ved.Id,
+                        Fac = Fac.Name,
+                        ExName.Name,
+                        Ved.Number
+                    };
+
+                dgvVedList.DataSource = Converter.ConvertToDataTable(src.ToArray());
+                dgvVedList.Columns["Id"].Visible = false;
+                dgvVedList.Columns["Fac"].HeaderText = "Подразделение";
+                dgvVedList.Columns["Name"].HeaderText = "Экзамен";
+                dgvVedList.Columns["Number"].HeaderText = "Номер ведомости";
+            }
         }
     }
 }

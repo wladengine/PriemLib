@@ -18,13 +18,13 @@ namespace PriemLib
     {
         private class StatRow
         {
-            public string Num { get; set; }
+            public int Num { get; set; }
             public string Name { get; set; }
             public string Code { get; set; }
-            public string PlanB { get; set; }
-            public string PlanP { get; set; }
-            public string SumB { get; set; }
-            public string SumP { get; set; }
+            public int PlanB { get; set; }
+            public int PlanP { get; set; }
+            public int SumB { get; set; }
+            public int SumP { get; set; }
             public string ConcB { get; set; }
             public string ConcP { get; set; }
         }
@@ -272,13 +272,13 @@ namespace PriemLib
                     float conc_p = kcp_p == null ? 0f : (sum_p == 0 ? 0f : (float)sum_p / (float)kcp_p.Value);
                     AddRow(new StatRow
                     {
-                        Num = (++num_pp).ToString(),
+                        Num = ++num_pp,
                         Name = lProgram.LicenseProgramName,
                         Code = lProgram.LicenseProgramCode,
-                        PlanB = kcp_b.HasValue ? kcp_b.ToString() : "0",
-                        PlanP = kcp_p.HasValue ? kcp_p.ToString() : "0",
-                        SumB = sum_b.ToString(),
-                        SumP = sum_p.ToString(),
+                        PlanB = kcp_b ?? 0,
+                        PlanP = kcp_p ?? 0,
+                        SumB = sum_b,
+                        SumP = sum_p,
                         ConcB = kcp_b == 0 ? "!КЦ" : Math.Round(conc_b, 2).ToString(),
                         ConcP = kcp_p == 0 ? "!КЦ" : Math.Round(conc_p, 2).ToString()
                     });
@@ -341,13 +341,13 @@ namespace PriemLib
                         conc_p = kcp_p == null ? 0f : (sum_p == 0 ? 0f : (float)sum_p / (float)kcp_p.Value);
                         AddRow(new StatRow
                         {
-                            Num = (++num_pp).ToString(),
+                            Num = ++num_pp,
                             Name = "        " + oProgram.ObrazProgramName,
                             Code = "",
-                            PlanB = kcp_b.HasValue ? kcp_b.ToString() : "0",
-                            PlanP = kcp_p.HasValue ? kcp_p.ToString() : "0",
-                            SumB = sum_b.ToString(),
-                            SumP = sum_p.ToString(),
+                            PlanB = kcp_b ?? 0,
+                            PlanP = kcp_p ?? 0,
+                            SumB = sum_b,
+                            SumP = sum_p,
                             ConcB = kcp_b == 0 ? "!КЦ" : Math.Round(conc_b, 2).ToString(),
                             ConcP = kcp_p == 0 ? "!КЦ" : Math.Round(conc_p, 2).ToString()
                         });
@@ -409,13 +409,13 @@ namespace PriemLib
                             conc_p = kcp_p == null ? 0f : (sum_p == 0 ? 0f : (float)sum_p / (float)kcp_p.Value);
                             AddRow(new StatRow
                             {
-                                Num = (++num_pp).ToString(),
+                                Num = ++num_pp,
                                 Name = "                " + prof.ProfileName,
                                 Code = "",
-                                PlanB = kcp_b.HasValue ? kcp_b.ToString() : "0",
-                                PlanP = kcp_p.HasValue ? kcp_p.ToString() : "0",
-                                SumB = sum_b.ToString(),
-                                SumP = sum_p.ToString(),
+                                PlanB = kcp_b ?? 0,
+                                PlanP = kcp_p ?? 0,
+                                SumB = sum_b,
+                                SumP = sum_p,
                                 ConcB = kcp_b == 0 ? "!КЦ" : Math.Round(conc_b, 2).ToString(),
                                 ConcP = kcp_p == 0 ? "!КЦ" : Math.Round(conc_p, 2).ToString()
                             });
@@ -428,13 +428,12 @@ namespace PriemLib
                 }
                 AddRow(new StatRow()
                 {
-                    Num = "",
                     Name = "",
                     Code = "Всего",
-                    PlanB = iTotalPlanBudzh.ToString(),
-                    PlanP = iTotalPlanPlatn.ToString(),
-                    SumB = iTotalBudzh.ToString(),
-                    SumP = iTotalPlatn.ToString(),
+                    PlanB = iTotalPlanBudzh,
+                    PlanP = iTotalPlanPlatn,
+                    SumB = iTotalBudzh,
+                    SumP = iTotalPlatn,
                     ConcB = "-",
                     ConcP = "-"
                 });

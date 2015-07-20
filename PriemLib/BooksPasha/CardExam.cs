@@ -86,6 +86,18 @@ namespace PriemLib
             set { chbIsAdd.Checked = value; }
         }
 
+        protected bool IsPortfolioAnonymPart
+        {
+            get { return chbIsPortfolioAnonymPart.Checked; }
+            set { chbIsPortfolioAnonymPart.Checked = value; }
+        }
+
+        protected bool IsPortfolioCommonPart
+        {
+            get { return chbIsPortfolioCommonPart.Checked; }
+            set { chbIsPortfolioCommonPart.Checked = value; }
+        }
+
         protected override void FillCard()
         {
             if (_Id == null)                
@@ -123,7 +135,7 @@ namespace PriemLib
                         try
                         {
                             exId = new ObjectParameter("id", typeof(Int32));
-                            context.Exam_Insert(ExamNameId, IsAdditional, exId);                           
+                            context.Exam_Insert(ExamNameId, IsAdditional, IsPortfolioAnonymPart, IsPortfolioCommonPart, exId);                           
                         }
                         catch (Exception exc)
                         {
@@ -134,7 +146,7 @@ namespace PriemLib
                     }
                     else
                     {
-                        context.Exam_Update(ExamNameId, IsAdditional, IntId);
+                        context.Exam_Update(ExamNameId, IsAdditional, IsPortfolioAnonymPart, IsPortfolioCommonPart, IntId);
                         return _Id;
                     }
                 }

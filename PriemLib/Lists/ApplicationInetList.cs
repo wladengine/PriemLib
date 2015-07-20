@@ -322,7 +322,7 @@ namespace PriemLib
                        (CASE WHEN EXISTS(SELECT * FROM qAbitFiles_OnlyEssayMotivLetter q WHERE q.PersonId=qAbiturient.PersonId AND FileTypeId=2) THEN 'Да' ELSE 'Нет' END) AS [Мотивац письмо],
                        (CASE WHEN EXISTS(SELECT * FROM qAbitFiles_OnlyEssayMotivLetter q WHERE q.PersonId=qAbiturient.PersonId AND FileTypeId=3) THEN 'Да' ELSE 'Нет' END) AS [Эссе]
                        FROM qAbiturient INNER JOIN extPerson ON qAbiturient.PersonId = extPerson.Id
-                       WHERE qAbiturient.IsImported = 0 AND SemesterId = 1 AND Enabled = 1 AND IsVisible = 1 AND qAbiturient.Id NOT IN (SELECT Id FROM qForeignApplicationOnly)";
+                       WHERE qAbiturient.IsImported = 0 AND SemesterId = 1 AND Enabled = 1 AND IsCommited = 1 AND IsVisible = 1 AND qAbiturient.IsForeign = 0";
 
             Task<DataView> task = HelpClass.GetDataViewAsync((DataGridView)((dynamic)e.Argument).dgv, (BDClass)((dynamic)e.Argument)._bdc, _sQuery, (string)((dynamic)e.Argument).filters, _orderBy, false, _cancel.Token);
 
@@ -377,6 +377,15 @@ namespace PriemLib
                         return;
                     }
 
+                    if (code >= 100000 && code < 199999)
+                    {
+                        WinFormsServ.Error("Указан баркод поступающего в бакалавриат!");
+                        return;
+                    }
+
+                    if (code > 99999)
+                        code = code % 100000;
+
                     string query = "SELECT COUNT(*) FROM [Abiturient] WHERE ApplicationCommitNumber=@Number";
                     int cnt = (int)BdcInet.GetValue(query, new SortedList<string, object>() { { "@Number", code } });
 
@@ -387,13 +396,37 @@ namespace PriemLib
                         return;
                     }
 
+                    query = "SELECT IsPrinted FROM [Abiturient] WHERE ApplicationCommitNumber=@Number";
+                    bool bIsPrinted = (bool?)BdcInet.GetValue(query, new SortedList<string, object>() { { "@Number", code } }) ?? false;
+
+                    if (!bIsPrinted)
+                    {
+                        var dr = MessageBox.Show(@"Данное заявление не было распечатано в личном кабинете. 
+Это означает, что абитуриент всё ещё может изменить список конкурсов и их приоритетность. 
+Если с момента подачи прошло много времени, рекомендуется связаться с абитуриентом.
+Желаете открыть карточку перегрузки?", "Внимание", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                        if (dr == System.Windows.Forms.DialogResult.No)
+                            return;
+                    }
+
                     using (PriemEntities context = new PriemEntities())
                     {
-                        cnt = (from ab in context.Abiturient
-                                   where ab.CommitNumber == code
-                                   select ab).Count();
+                        var EntryIds_workBase = (from ab in context.Abiturient
+                                        where ab.CommitNumber == code
+                                        select ab.EntryId).Distinct().ToList();
 
-                        if (cnt > 0)
+                        query = "SELECT EntryId FROM [Abiturient] WHERE ApplicationCommitNumber=@Number";
+                        DataTable tblEntryIds_onlineBase = BdcInet.GetDataSet(query, new SortedList<string, object>() { { "@Number", code } }).Tables[0];
+                        var EntryIds_onlineBase = (from DataRow rw in tblEntryIds_onlineBase.Rows
+                                                   select rw.Field<Guid>("EntryId")).ToList();
+
+                        cnt = EntryIds_onlineBase.Except(EntryIds_workBase).Count();
+                            //(from ab in context.Abiturient
+                            // where ab.CommitNumber == code
+                            // select ab).Count();
+
+                        if (cnt == 0)
                         {
                             WinFormsServ.Error("Запись уже добавлена!");
                             return;

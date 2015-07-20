@@ -41,13 +41,13 @@ namespace PriemLib
                     ObrazProgramName = x.SP_ObrazProgram.Name,
                     ProfileName = x.SP_Profile.Name
                     //HasInnerProfiles = x.Count() > 1
-                });
+                }).ToList();
 
                 var usedData = context.ApplicationDetails.Where(x => x.ApplicationId == _ApplicationId).Select(x => new
                 {
                     x.InnerEntryInEntryId,
                     Priority = x.InnerEntryInEntryPriority
-                });
+                }).ToList().Where(x => baseData.Select(z => z.Id).Contains(x.InnerEntryInEntryId)).ToList();
 
                 Dictionary<Guid, int> dicObrazPrograms = new Dictionary<Guid, int>();
                 foreach (var usedProf in usedData)

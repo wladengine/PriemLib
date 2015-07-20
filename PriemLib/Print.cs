@@ -1291,7 +1291,7 @@ namespace PriemLib
                 wc.Close();
             }
         }
-        public static void PrintEntryView(string sProtocolId, string savePath)
+        public static void PrintEntryView(string sProtocolId, string savePath, bool isRus)
         {
             FileStream fileS = null;
             NewWatch wc = new NewWatch();
@@ -1304,6 +1304,8 @@ namespace PriemLib
 
                 string docNum = ProtocolInfo.Number.ToString();
                 DateTime docDate = ProtocolInfo.Date.Date;
+
+                int iStudyLevelGroupId = ProtocolInfo.StudyLevelGroupId;
 
                 using (PriemEntities context = new PriemEntities())
                 {
@@ -1383,7 +1385,7 @@ namespace PriemLib
                         else
                             educDoc = "об образовании";
 
-                        p.Add(new Paragraph(string.Format("по основной{4} образовательной программе подготовки {0} на направление {1} «{2}» ", ProtocolInfo.StudyLevelNameRod, ProtocolInfo.LicenseProgramCode, ProtocolInfo.LicenseProgramName, sec), font));
+                        p.Add(new Paragraph(string.Format("по основной {3} образовательной программе подготовки {0} на направление {1} «{2}» ", ProtocolInfo.StudyLevelNameRod, ProtocolInfo.LicenseProgramCode, ProtocolInfo.LicenseProgramName, sec), font));
                         p.Add(new Paragraph((form + " форма обучения,").ToLower(), font));
                         p.Add(new Paragraph(basis, font));
                         p.IndentationLeft = 320;
@@ -1394,7 +1396,27 @@ namespace PriemLib
                         p.SpacingBefore = 10f;
                         document.Add(p);
 
-                        p = new Paragraph(string.Format("В соответствии с Федеральным законом  от 22.08.1996 N 125-ФЗ \"О высшем и послевузовском профессиональном образовании\", Порядком приема граждан в образовательные учреждения высшего профессионального образования, утвержденным Приказом Минобрнауки РФ от 28.12.2011 N 2895, Правилами приема в Санкт-Петербургский государственный университет на основные образовательные программы высшего профессионального образования (программы бакалавриата, программы подготовки специалиста, программы магистратуры) в {0} году", MainClass.iPriemYear), font);
+                        string OrderHeaderPart1 = "";
+                        switch (iStudyLevelGroupId)
+                        {
+                            case 1: { OrderHeaderPart1 = "Порядком приема на обучение по образовательным программам высшего образования – программам бакалавриата, программам специалитета, программам магистратуры на 2015/16 учебный год, утвержденным Приказом Минобрнауки России от 28.07.2015 № 839 (ред. от 02.03.2015)"; break; }
+                            case 2: { OrderHeaderPart1 = "Порядком приема на обучение по образовательным программам высшего образования – программам бакалавриата, программам специалитета, программам магистратуры на 2015/16 учебный год, утвержденным Приказом Минобрнауки России от 28.07.2015 № 839 (ред. от 02.03.2015)"; break; }
+                            case 3: { OrderHeaderPart1 = "Порядком приема на обучение по образовательным программам среднего профессионального образования, утвержденным Приказом Министерства образования и науки Российской Федерации от 23.01.2014 № 36"; break; }
+                            case 4: { OrderHeaderPart1 = "Порядком приема на обучение по образовательным программам высшего образования - программам подготовки научно-педагогических кадров в аспирантуре, утвержденным приказом Министерства образования и науки Российской Федерации от 26.03.2014 № 233"; break; }
+                            case 5: { OrderHeaderPart1 = "Порядком приема граждан на обучение по программам ординатуры, утвержденным Приказом Министерства здравоохранения Российской Федерации от 06.09.2013 № 633н"; break; }
+                        }
+                        
+                        string OrderHeaderPart2 = "";
+                        switch (iStudyLevelGroupId)
+                        {
+                            case 1: { OrderHeaderPart2 = string.Format("Правилами приема в Санкт-Петербургский государственный университет на основные образовательные программы высшего образования (программы бакалавриата, программы специалитета, программы магистратуры) в {0} году", MainClass.iPriemYear); break; }
+                            case 2: { OrderHeaderPart2 = string.Format("Правилами приема в Санкт-Петербургский государственный университет на основные образовательные программы высшего образования (программы бакалавриата, программы специалитета, программы магистратуры) в {0} году", MainClass.iPriemYear); break; }
+                            case 3: { OrderHeaderPart2 = string.Format("Правилами приема в Санкт-Петербургский государственный университет на основные образовательные программы подготовки специалистов среднего звена по специальностям среднего профессионального образования в {0} году", MainClass.iPriemYear); break; }
+                            case 4: { OrderHeaderPart2 = string.Format("Правилами приема на основные образовательные программы подготовки научно-педагогических кадров в аспирантуре Санкт-Петербургского Государственного Университета в {0} году", MainClass.iPriemYear); break; }
+                            case 5: { OrderHeaderPart2 = string.Format("Правилами приема в СПбГУ на основные образовательные программы интернатуры и ординатуры в {0} году", MainClass.iPriemYear); break; }
+                        }
+
+                        p = new Paragraph(string.Format("В соответствии с Федеральным законом от 29.12.2012 № 273-ФЗ \"Об образовании в Российской Федерации\", {0}, {1}", OrderHeaderPart1, OrderHeaderPart2), font);
                         p.SpacingBefore = 10f;
                         p.FirstLineIndent = firstLineIndent;
                         p.Alignment = Element.ALIGN_JUSTIFIED;
@@ -1413,7 +1435,7 @@ namespace PriemLib
 
                         int counter = 0;
 
-                        var lst = ProtocolDataProvider.GetEntryViewData(gProtocolId, false);
+                        var lst = ProtocolDataProvider.GetEntryViewData(gProtocolId, isRus);
                         wc.SetText("Обработка данных...");
                         wc.SetMax(lst.Count);
                         foreach (var v in lst)
@@ -1542,6 +1564,8 @@ namespace PriemLib
                 string sLicenseProgramName = string.Empty;
                 string sLicenseProgramCode = string.Empty;
                 string sStudyLevelNameRod = string.Empty;
+                int iStudyLevelGroupId = MainClass.lstStudyLevelGroupId.First();
+
                 using (PriemEntities ctx = new PriemEntities())
                 {
                     docNum = (from protocol in ctx.OrderNumbers
@@ -1569,6 +1593,8 @@ namespace PriemLib
                          join extentryView in ctx.extEntryView on entry.LicenseProgramId equals extentryView.LicenseProgramId
                          where extentryView.Id == gProtocolId
                          select entry.StudyLevel.NameRod).FirstOrDefault();
+
+                    iStudyLevelGroupId = ProtocolInfo.StudyLevelGroupId;
 
                     var SF = ctx.StudyForm.Where(x => x.Id == ProtocolInfo.StudyFormId).Select(x => new { x.Name, x.RodName }).FirstOrDefault();
                     form = SF.Name + " форма обучения";
@@ -1721,9 +1747,20 @@ namespace PriemLib
                 if (!string.IsNullOrEmpty(curMotivation) && isCel)
                     td[0, curRow] += "\n\t\t" + curMotivation + "\n";
 
+                string Stipendia = "";
+                switch (iStudyLevelGroupId)
+                {
+                    case 1: Stipendia = "1407 рублей"; break;
+                    case 2: Stipendia = "1407 рублей"; break;
+                    case 3: Stipendia = "512 рублей"; break;
+                    case 4: Stipendia = "2769/6647 рублей"; break;
+                    case 5: Stipendia = "7053 рубля"; break;
+                    default: Stipendia = "1407 рублей"; break;
+                }
+
                 //платникам и всем очно-заочникам стипендия не платится
                 if (ProtocolInfo.StudyBasisId != 2 && ProtocolInfo.StudyFormId != 2)
-                    AddRowInTableOrder("\r\n2.    Назначить лицам, указанным в п. 1 настоящего приказа, стипендию в размере 1340 рублей ежемесячно с 01.09.2014 по 31.01.2015.", ref td, ref curRow);
+                    AddRowInTableOrder(string.Format("\r\n2.    Назначить лицам, указанным в п. 1 настоящего приказа, стипендию в размере {0} ежемесячно с 01.09.2015 по 31.01.2016.", Stipendia), ref td, ref curRow);
             }
             catch (WordException we)
             {
@@ -1741,6 +1778,8 @@ namespace PriemLib
                 WordDoc wd = new WordDoc(string.Format(@"{0}\EntryOrderList.dot", MainClass.dirTemplates));
 
                 var ProtocolInfo = ProtocolDataProvider.GetProtocolInfo(gProtocolId, 4);
+                int iStudyLevelGroupId = MainClass.lstStudyLevelGroupId.First();
+
                 using (PriemEntities ctx = new PriemEntities())
                 {
                     string sLicenseProgramName =
@@ -1754,6 +1793,8 @@ namespace PriemLib
                          join extentryView in ctx.extEntryView on entry.LicenseProgramId equals extentryView.LicenseProgramId
                          where extentryView.Id == gProtocolId
                          select entry.LicenseProgramCode).FirstOrDefault();
+
+                    iStudyLevelGroupId = ProtocolInfo.StudyLevelGroupId;
 
                     string sStudyLevelNameRod =
                         (from entry in ctx.Entry
@@ -1892,8 +1933,19 @@ namespace PriemLib
                         string balls = v.TotalSum.ToString();
                         AddRowInTableOrder(string.Format("\t\t{0} {1}", v.FIO, balls + GetBallsToStr(balls)), ref td, ref curRow);
 
+                        string Stipendia = "";
+                        switch (iStudyLevelGroupId)
+                        {
+                            case 1: Stipendia = "1407 рублей"; break;
+                            case 2: Stipendia = "1407 рублей"; break;
+                            case 3: Stipendia = "512 рублей"; break;
+                            case 4: Stipendia = "2769/6647 рублей"; break;
+                            case 5: Stipendia = "7053 рубля"; break;
+                            default: Stipendia = "1407 рублей"; break;
+                        }
+
                         if (ProtocolInfo.StudyBasisId != 2 && ProtocolInfo.StudyFormId != 2)
-                            AddRowInTableOrder("\r\n2.      Назначить указанным лицам стипендию в размере 1340 рубля ежемесячно до 31 января 2015 г.", ref td, ref curRow);
+                            AddRowInTableOrder(string.Format("\r\n2.    Назначить лицам, указанным в п. 1 настоящего приказа, стипендию в размере {0} ежемесячно с 01.09.2015 по 31.01.2016.", Stipendia), ref td, ref curRow);
                     }
                 }
             }

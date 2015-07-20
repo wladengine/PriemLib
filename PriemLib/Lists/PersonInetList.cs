@@ -144,13 +144,19 @@ AND (StudyLevel.LevelGroupId IN ({0}) OR StudyLevel.LevelGroupId IS NULL) ",
                 if (MainClass.CheckExistenseAbitCommitNumberInWorkBase(fileNum))
                 {
                     //если по данному номеру что-то в рабочей базе есть, то проводим процедуру забора документов
-                    using (PriemEntities context = new PriemEntities())
+                    //но сперва предупредим об этом пользователя
+                    var dr = MessageBox.Show("Вы хотите проставить отказ по всем конкурсам в указанном заявлении?",
+                        "", MessageBoxButtons.YesNo);
+                    if (dr == System.Windows.Forms.DialogResult.Yes)
                     {
-                        var abits = (from ab in context.Abiturient
-                                     where ab.CommitNumber == fileNum
-                                     select ab.Id).ToList();
+                        using (PriemEntities context = new PriemEntities())
+                        {
+                            var abits = (from ab in context.Abiturient
+                                         where ab.CommitNumber == fileNum
+                                         select ab.Id).ToList();
 
-                        SomeMethodsClass.SetBackDockForCommit(fileNum, abits);
+                            SomeMethodsClass.SetBackDockForCommit(fileNum, abits);
+                        }
                     }
                 }
                 else
@@ -194,24 +200,24 @@ AND (StudyLevel.LevelGroupId IN ({0}) OR StudyLevel.LevelGroupId IS NULL) ",
                     {
                         using (PriemEntities context = new PriemEntities())
                         {
-                            //для этого надо сперва узнать баркод человека
-                            query = "SELECT Person.Barcode FROM Abiturient INNER JOIN Person ON Person.Id = Abiturient.PersonId WHERE ApplicationCommitNumber=@Barcode";
-                            int? iPersBarc = (int?)bdcInet.GetValue(query, new SortedList<string, object>() { { "@Barcode", fileNum } });
+                            ////для этого надо сперва узнать баркод человека
+                            //query = "SELECT Person.Barcode FROM Abiturient INNER JOIN Person ON Person.Id = Abiturient.PersonId WHERE ApplicationCommitNumber=@Barcode";
+                            //int? iPersBarc = (int?)bdcInet.GetValue(query, new SortedList<string, object>() { { "@Barcode", fileNum } });
 
-                            var abits = (from ab in context.Abiturient
-                                         where ab.CommitNumber != fileNum
-                                         && !ab.BackDoc
-                                         && MainClass.lstStudyLevelGroupId.Contains(ab.Entry.StudyLevel.LevelGroupId)
-                                         && iPersBarc.HasValue ? ab.Person.Barcode == iPersBarc : false//если баркод не найдён в оригинальной базе, то это совсем беда
-                                         select ab.Id).ToList();
+                            //var abits = (from ab in context.Abiturient
+                            //             where ab.CommitNumber != fileNum
+                            //             && !ab.BackDoc
+                            //             && MainClass.lstStudyLevelGroupId.Contains(ab.Entry.StudyLevel.LevelGroupId)
+                            //             && iPersBarc.HasValue ? ab.Person.Barcode == iPersBarc : false//если баркод не найдён в оригинальной базе, то это совсем беда
+                            //             select ab.Id).ToList();
 
-                            //если заявления есть, то нужно осуществить их последовательное проставление "забрал документы"
-                            if (abits.Count() > 0)
-                            {
-                                var dr = MessageBox.Show("У абитуриента имеются активные заявления более ранних версий. Проставить по ним отказ от участия в конкурсе?\nДа - проставить, Нет - не проставить, загрузить новое заявление без отказа по старым", "Внимание", MessageBoxButtons.YesNo);
-                                if (dr == System.Windows.Forms.DialogResult.Yes)
-                                SomeMethodsClass.SetBackDockForCommit(fileNum, abits);
-                            }
+                            ////если заявления есть, то нужно осуществить их последовательное проставление "забрал документы"
+                            //if (abits.Count() > 0)
+                            //{
+                            //    var dr = MessageBox.Show("У абитуриента имеются активные заявления более ранних версий. Проставить по ним отказ от участия в конкурсе?\nДа - проставить, Нет - не проставить, загрузить новое заявление без отказа по старым", "Внимание", MessageBoxButtons.YesNo);
+                            //    if (dr == System.Windows.Forms.DialogResult.Yes)
+                            //        SomeMethodsClass.SetBackDockForCommit(fileNum, abits);
+                            //}
 
                             //если заявлений нет, то это чисто новое заявление
                             //но даже если они есть, то пусть догружают
@@ -251,6 +257,7 @@ AND (StudyLevel.LevelGroupId IN ({0}) OR StudyLevel.LevelGroupId IS NULL) ",
                     }
                 }
             }
+
             tbPersonNum.Text = "";
             tbPersonNum.Focus();
             loadClass.CloseDB();  

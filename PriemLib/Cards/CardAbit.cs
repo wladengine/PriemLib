@@ -292,6 +292,8 @@ namespace PriemLib
                         GetHasEssay();
                     }
 
+                    
+
                     GetHasInnerPriorities(context);
 
                     //if (ObrazProgramInEntryId.HasValue)
@@ -444,7 +446,8 @@ namespace PriemLib
             BDClassLib.SQLClass InetDB = new BDClassLib.SQLClass();
             InetDB.OpenDatabase(MainClass.connStringOnline);
 
-            string query = "SELECT COUNT(*) FROM qAbitFiles_OnlyEssayMotivLetter WHERE (ApplicationBarcode=@ApplicationBarcode OR PersonBarcode=@PersonBarcode) AND FileTypeId=2";
+            //ищем среди файлов, приложенных к конкретному конкурсу (т.е. по совпадению ApplicationBarcode) и из общих файлов (где есть PersonBarcode, а ApplicationBarcode NULL)
+            string query = "SELECT COUNT(*) FROM qAbitFiles_OnlyEssayMotivLetter WHERE (ApplicationBarcode=@ApplicationBarcode OR (PersonBarcode=@PersonBarcode AND ApplicationBarcode IS NULL)) AND FileTypeId=2";
             int cnt = await Task.Run(() =>
             {
                 return (int)InetDB.GetValue(query, new SortedList<string, object>() 
@@ -461,8 +464,8 @@ namespace PriemLib
         {
             BDClassLib.SQLClass InetDB = new BDClassLib.SQLClass();
             InetDB.OpenDatabase(MainClass.connStringOnline);
-
-            string query = "SELECT COUNT(*) FROM qAbitFiles_OnlyEssayMotivLetter WHERE (ApplicationBarcode=@ApplicationBarcode OR PersonBarcode=@PersonBarcode) AND FileTypeId=3";
+            //ищем среди файлов, приложенных к конкретному конкурсу (т.е. по совпадению ApplicationBarcode) и из общих файлов (где есть PersonBarcode, а ApplicationBarcode NULL)
+            string query = "SELECT COUNT(*) FROM qAbitFiles_OnlyEssayMotivLetter WHERE (ApplicationBarcode=@ApplicationBarcode OR (PersonBarcode=@PersonBarcode AND ApplicationBarcode IS NULL)) AND FileTypeId=3";
             int cnt = await Task.Run(() =>
             {
                 return (int)InetDB.GetValue(query, new SortedList<string, object>() 
@@ -689,7 +692,7 @@ namespace PriemLib
                 cbStudyBasis.Enabled = false;
 
                 if (MainClass.RightsFaculty())
-                    btnAddO.Enabled = false;
+                    btnCardO.Enabled = false;
 
                 if (MainClass.IsPasha())
                     btnRemoveO.Enabled = true;
@@ -704,6 +707,20 @@ namespace PriemLib
             cbStudyForm.Enabled = false;
             cbStudyBasis.Enabled = false;
 
+            //
+            if (!inEnableProtocol)
+            {
+                if (MainClass.IsFacMain() || MainClass.IsPasha())
+                {
+                    cbLicenseProgram.Enabled = true;
+                    cbObrazProgram.Enabled = true;
+                    cbProfile.Enabled = true;
+                    cbFaculty.Enabled = true;
+                    gbSecondType.Enabled = true;
+                    cbStudyForm.Enabled = true;
+                    cbStudyBasis.Enabled = true;
+                }
+            }
             if (inEntryView)
             {
                 tbCoefficient.Enabled = false;

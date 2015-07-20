@@ -91,6 +91,7 @@ namespace PriemLib
                     cbStudyBasis.SelectedIndexChanged += new EventHandler(cbStudyBasis_SelectedIndexChanged);
                     cbStudyForm.SelectedIndexChanged += new EventHandler(cbStudyForm_SelectedIndexChanged);
                     cbProtocolNum.SelectedIndexChanged += new EventHandler(cbProtocolNum_SelectedIndexChanged);
+                    cbStudyLevelGroup.SelectedIndexChanged += cbStudyLevelGroup_SelectedIndexChanged;
                 }
                 
                 if (MainClass.RightsSov_SovMain_FacMain())
@@ -108,6 +109,11 @@ namespace PriemLib
             {
                 WinFormsServ.Error("Ошибка при инициализации формы протоколов: ", ex);
             }
+        }
+
+        void cbStudyLevelGroup_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateProtocolList();
         }
 
         void cbFaculty_SelectedIndexChanged(object sender, EventArgs e)
