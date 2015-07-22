@@ -159,11 +159,11 @@ namespace PriemLib
                     newRow["Номер"] = pm.PersonVedNumber;
                     lstNumbers.Add(pm.PersonVedNumber);
                     
-                    int? sumMark = 0;
+                    decimal? sumMark = 0;
                     if(pm.Mark == null && pm.OralMark == null)
                         sumMark = null;
-                    else                    
-                        sumMark = (pm.Mark ?? 0) + (pm.OralMark ?? 0); 
+                    else
+                        sumMark = (pm.Mark ?? 0m) + (pm.OralMark ?? 0m); 
                   
                     newRow["Баллы"] = sumMark;
                     examTable.Rows.Add(newRow);
@@ -304,11 +304,11 @@ namespace PriemLib
                         td[8, i] = examId;
                         td[9, i] = examDate.ToShortDateString();
 
-                        int? sumMark = 0;
+                        decimal? sumMark = 0;
                         if (pm.Mark == null && pm.OralMark == null)
                             sumMark = null;
                         else
-                            sumMark = (pm.Mark ?? 0) + (pm.OralMark ?? 0);
+                            sumMark = (pm.Mark ?? 0m) + (pm.OralMark ?? 0m);
                                           
                         td[10, i] =  sumMark == null ? "" : sumMark.ToString();
 

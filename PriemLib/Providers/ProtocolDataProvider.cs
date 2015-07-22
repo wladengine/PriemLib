@@ -65,6 +65,8 @@ namespace PriemLib
                      join competition in ctx.Competition on extabit.CompetitionId equals competition.Id
                      join extabitMarksSum in ctx.extAbitMarksSum on extabit.Id equals extabitMarksSum.Id into extabitMarksSum2
                      from extabitMarksSum in extabitMarksSum2.DefaultIfEmpty()
+                     join addMarks in ctx.extAbitAdditionalMarksSum on extabit.Id equals addMarks.AbiturientId into addMarks2
+                     from addMarks in addMarks2.DefaultIfEmpty()
                      join entryHeader in ctx.EntryHeader on extentryView.EntryHeaderId equals entryHeader.Id into entryHeader2
                      from entryHeader in entryHeader2.DefaultIfEmpty()
                      join celCompetition in ctx.CelCompetition on extabit.CelCompetitionId equals celCompetition.Id into celCompetition2
@@ -77,6 +79,7 @@ namespace PriemLib
                          extabit.RegNum,
                          extabit.PersonNum,
                          TotalSum = (extabit.CompetitionId == 8 || extabit.CompetitionId == 1) ? null : extabitMarksSum.TotalSum,
+                         addMarks = addMarks.AdditionalMarksSum,
                          extabit.FIO,
                          CelCompName = celCompetition.TvorName,
                          LicenseProgramName = extabit.LicenseProgramName,
@@ -102,7 +105,7 @@ namespace PriemLib
                          AbiturientId = x.AbiturientId,
                          RegNum = x.RegNum,
                          PersonNum = x.PersonNum,
-                         TotalSum = x.TotalSum,
+                         TotalSum = x.TotalSum + (x.addMarks ?? 0),
                          FIO = x.FIO,
                          CelCompName = x.CelCompName,
                          LicenseProgramName = x.LicenseProgramName,
@@ -181,7 +184,7 @@ namespace PriemLib
             public string RegNum { get; set; }
             public string PersonNum { get; set; }
             public string FIO { get; set; }
-            public int? TotalSum { get; set; }
+            public decimal? TotalSum { get; set; }
 
             public string LicenseProgramName { get; set; }
             public string LicenseProgramCode { get; set; }

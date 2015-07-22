@@ -893,8 +893,6 @@
         <edmx:EntityTypeShape EntityType="Priem2012Model.extApplicationDetails" Width="1.5" PointX="1.7454591904512884" PointY="29.135059310651876" />
         <edmx:AssociationConnector Association="Priem2012Model.FK_Entry_Comission" />
         <edmx:EntityTypeShape EntityType="Priem2012Model.hlpPersonMaxEducationInfoId" Width="1.5" PointX="5.0530107603655248" PointY="0.71549055013595642" />
-        <edmx:EntityTypeShape EntityType="Priem2012Model.extAbitAspirant" Width="1.5" PointX="0.64590330638266324" PointY="2.7614979160770297" />
-        <edmx:EntityTypeShape EntityType="Priem2012Model.extAbitSPO" Width="1.5" PointX="2.2358376133422544" PointY="4.4423518946591543" />
         <edmx:EntityTypeShape EntityType="Priem2012Model.PersonSportQualification" Width="1.5" PointX="4.4095504881858592" PointY="6.2666183292244648" />
         <edmx:EntityTypeShape EntityType="Priem2012Model.SportQualification" Width="1.5" PointX="5.8737563033931686" PointY="17.986643799574413" />
         <edmx:AssociationConnector Association="Priem2012Model.FK_PersonSportQualification_SportQualification" />
@@ -925,6 +923,7 @@
         <edmx:AssociationConnector Association="Priem2012Model.FK_OlympResultToCommonBenefit_OlympName1" />
         <edmx:EntityTypeShape EntityType="Priem2012Model.extEgeMarkMaxApproved" Width="1.5" PointX="34.375" PointY="26.75" />
         <edmx:EntityTypeShape EntityType="Priem2012Model.hlpEgeMarkMaxApproved" Width="1.5" PointX="5.375" PointY="33.75" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.extAbitAdditionalMarksSum" Width="1.5" PointX="13.375" PointY="33.75" />
         </edmx:Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

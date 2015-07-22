@@ -412,7 +412,7 @@ ORDER BY ФИО", abitFilters);
                                 Id = rw.Field<Guid>("Id"),
                                 PersonNum = rw["Ид_номер"].ToString(),
                                 RegNum = rw["Рег_номер"].ToString(),
-                                Sum = rw.Field<int?>("Sum"),
+                                Sum = rw.Field<decimal?>("Sum"),
                                 FIO = rw.Field<string>("ФИО"),
                                 StudyForm = rw.Field<string>("StudyForm"),
                                 StudyBasis = rw.Field<string>("StudyBasis"),
@@ -439,7 +439,7 @@ ORDER BY ФИО", abitFilters);
                          {
                              AbiturientId = rw.Field<Guid>("AbiturientId"),
                              ExamId = rw.Field<int?>("ExamId"),
-                             Value = rw.Field<byte?>("Value"),
+                             Value = rw.Field<decimal?>("Value"),
                              IsFromOlymp = rw.Field<int>("IsFromOlymp") == 1 ? true : false,
                              IsFromEge = rw.Field<int>("IsFromEge") == 1 ? true : false
                          }).ToList();
@@ -461,14 +461,14 @@ ORDER BY ФИО", abitFilters);
                 newRow["Форма обучения"] = abit.StudyForm;
                 newRow["Id"] = abit.Id.ToString();
                 newRow["Конкурс"] = abit.Competition;
-                newRow["Сумма баллов"] = abit.Sum.HasValue ? abit.Sum.Value : 0;
+                newRow["Сумма баллов"] = abit.Sum.HasValue ? abit.Sum.Value : 0m;
                 foreach (DictionaryEntry de in examsId)
                 {
                     int iExamId = 0;
                     if (!int.TryParse(de.Key.ToString(), out iExamId))
                         continue;
                     var mark_data = marks.Where(x => x.AbiturientId == abitId && x.ExamId == iExamId);
-                    int? markSum = mark_data.Select(x => (int?)x.Value).FirstOrDefault();
+                    decimal? markSum = mark_data.Select(x => x.Value).FirstOrDefault();
                     bool isFromEge = mark_data.Select(x => x.IsFromEge).DefaultIfEmpty(false).First();
                     bool isFromOlymp = mark_data.Select(x => x.IsFromOlymp).DefaultIfEmpty(false).First();
                     
