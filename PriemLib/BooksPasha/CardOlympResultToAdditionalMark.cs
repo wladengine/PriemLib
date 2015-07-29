@@ -1,47 +1,91 @@
-using System;
+п»їusing System;
 using System.Collections.Generic;
-using System.Collections;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 using EducServLib;
-using BaseFormsLib;
 using System.Data.Entity.Core.Objects;
 
 namespace PriemLib
 {
-    public partial class OlympCard : BookCard
+    public partial class CardOlympResultToAdditionalMark : BookCardInt
     {
-        private Guid? _abitId;
-        private bool _isReadOnly;    
-        
-        // конструктор пустой формы
-        public OlympCard(Guid? abitId)
-            : this(null, abitId, false)
-        {
-        }  
+        private Guid? _EntryId;
+        private bool _isReadOnly;
 
-        // конструктор формы для изменения
-        public OlympCard(string olId, Guid? abitId, bool isReadOnly)
+        #region Fields
+        public int? OlympTypeId
         {
-            InitializeComponent();                      
-            _abitId = abitId;
+            get { return ComboServ.GetComboIdInt(cbOlympType); }
+            set { ComboServ.SetComboId(cbOlympType, value); }
+        }
+        public int? OlympLevelId
+        {
+            get { return ComboServ.GetComboIdInt(cbOlympLevel); }
+            set { ComboServ.SetComboId(cbOlympLevel, value); }
+        }
+        public int? OlympNameId
+        {
+            get { return ComboServ.GetComboIdInt(cbOlympName); }
+            set { ComboServ.SetComboId(cbOlympName, value); }
+        }
+        public int? OlympSubjectId
+        {
+            get { return ComboServ.GetComboIdInt(cbOlympSubject); }
+            set { ComboServ.SetComboId(cbOlympSubject, value); }
+        }
+        public int? OlympValueId
+        {
+            get { return ComboServ.GetComboIdInt(cbOlympValue); }
+            set { ComboServ.SetComboId(cbOlympValue, value); }
+        }
+        public int? OlympYear
+        {
+            get { return ComboServ.GetComboIdInt(cbOlympYear); }
+            set { ComboServ.SetComboId(cbOlympYear, value); }
+        }
+        public int? AdditionalMark
+        {
+            get 
+            {
+                int iRet = 0;
+                int.TryParse(tbAdditionalMark.Text, out iRet);
+                return iRet;
+            }
+            set 
+            {
+                if (value.HasValue)
+                    tbAdditionalMark.Text = value.ToString();
+            }
+        }
+        #endregion
+
+        public CardOlympResultToAdditionalMark(Guid? EntryId)
+            : this(null, EntryId, false)
+        {
+        }
+
+        public CardOlympResultToAdditionalMark(string olId, Guid? EntryId, bool isReadOnly)
+            : base(olId)
+        {
+            InitializeComponent();
+            _EntryId = EntryId;
             _Id = olId;
-            _isReadOnly = isReadOnly;           
-
+            _isReadOnly = isReadOnly;
             InitControls();
-        }       
+        }
 
         protected override void ExtraInit()
         {
             base.ExtraInit();
-            
-            _title = "Диплом олимпиады";
-            _tableName = "ed.Olympiads";
+
+            _title = "Р‘РѕРЅСѓСЃРЅС‹Р№ Р±Р°Р»Р» Р·Р° РѕР»РёРјРїРёР°РґСѓ";
+            _tableName = "ed.OlympResultToAdditionalMark";
             this.MdiParent = MainClass.mainform;
 
             try
@@ -50,45 +94,21 @@ namespace PriemLib
                 {
                     List<KeyValuePair<string, string>> lstYears = new List<KeyValuePair<string, string>>();
                     for (int i = MainClass.iPriemYear; i > MainClass.iPriemYear - 5; i--)
-                        lstYears.Add(new KeyValuePair<string,string>(i.ToString(), i.ToString()));
+                        lstYears.Add(new KeyValuePair<string, string>(i.ToString(), i.ToString()));
                     ComboServ.FillCombo(cbOlympYear, lstYears, false, false);
 
                     ComboServ.FillCombo(cbOlympType, HelpClass.GetComboListByTable("ed.OlympType", "ORDER BY Id"), false, false);
                     UpdateAfterType();
-                    ComboServ.FillCombo(cbOlympValue, HelpClass.GetComboListByTable("ed.OlympValue"), false, false);                    
-                }                
+                    FillAfterOlympName();
+                    FillAfterOlympSubject();
+                    ComboServ.FillCombo(cbOlympValue, HelpClass.GetComboListByTable("ed.OlympValue"), false, false);
+                }
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error("Ошибка при инициализации формы ", exc);
+                WinFormsServ.Error("РћС€РёР±РєР° РїСЂРё РёРЅРёС†РёР°Р»РёР·Р°С†РёРё С„РѕСЂРјС‹ ", exc);
             }
         }
-
-        protected override void InitHandlers()
-        {
-            cbOlympType.SelectedIndexChanged += new EventHandler(cbOlympType_SelectedIndexChanged);
-            cbOlympYear.SelectedIndexChanged += cbOlympYear_SelectedIndexChanged;
-            cbOlympName.SelectedIndexChanged += new EventHandler(cbOlympName_SelectedIndexChanged);
-            cbOlympSubject.SelectedIndexChanged += new EventHandler(cbOlympSubject_SelectedIndexChanged);
-        }
-
-        void cbOlympYear_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            UpdateAfterType();
-        }
-        void cbOlympSubject_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            FillAfterOlympSubject();
-        }
-        void cbOlympName_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            FillAfterOlympName();
-        }
-        void cbOlympType_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            UpdateAfterType();
-        }
-
         private void UpdateAfterType()
         {
             using (PriemEntities context = new PriemEntities())
@@ -110,9 +130,6 @@ namespace PriemLib
                 cbOlympName.Enabled = true;
                 ComboServ.FillCombo(cbOlympName, lst, false, false);
                 cbOlympName.SelectedIndex = 0;
-
-                FillAfterOlympName();
-                FillAfterOlympSubject();
             }
 
             if (OlympTypeId == 1 || OlympTypeId == 2 || OlympTypeId == 7)
@@ -149,7 +166,7 @@ namespace PriemLib
             {
                 List<KeyValuePair<string, string>> lst =
                         ((from ob in context.extOlympBook
-                          where ob.OlympTypeId == OlympTypeId && ob.OlympNameId == OlympNameId 
+                          where ob.OlympTypeId == OlympTypeId && ob.OlympNameId == OlympNameId
                           && ob.OlympSubjectId == OlympSubjectId
                           && ob.OlympYear == OlympYear
                           select new
@@ -168,6 +185,30 @@ namespace PriemLib
                 }
             }
         }
+        protected override void InitHandlers()
+        {
+            cbOlympType.SelectedIndexChanged += new EventHandler(cbOlympType_SelectedIndexChanged);
+            cbOlympYear.SelectedIndexChanged += cbOlympYear_SelectedIndexChanged;
+            cbOlympName.SelectedIndexChanged += new EventHandler(cbOlympName_SelectedIndexChanged);
+            cbOlympSubject.SelectedIndexChanged += new EventHandler(cbOlympSubject_SelectedIndexChanged);
+        }
+
+        void cbOlympYear_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateAfterType();
+        }
+        void cbOlympSubject_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FillAfterOlympSubject();
+        }
+        void cbOlympName_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FillAfterOlympName();
+        }
+        void cbOlympType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateAfterType();
+        }
 
         protected override void FillCard()
         {
@@ -178,38 +219,32 @@ namespace PriemLib
             {
                 using (PriemEntities context = new PriemEntities())
                 {
-                    Olympiads olymp = (from ec in context.Olympiads
-                                       where ec.Id == GuidId
-                                       select ec).FirstOrDefault();
+                    OlympResultToAdditionalMark olymp =
+                        (from ec in context.OlympResultToAdditionalMark
+                         where ec.Id == IntId
+                                                        
+                         select ec).FirstOrDefault();
 
                     if (olymp == null)
                         return;
 
-                    OlympTypeId = olymp.OlympTypeId;
                     OlympYear = olymp.OlympYear;
+                    OlympTypeId = olymp.OlympTypeId;
                     UpdateAfterType();
-
-                    if (OlympTypeId != 1 || OlympTypeId != 2)
-                        OlympNameId = olymp.OlympNameId;
+                    OlympNameId = olymp.OlympNameId;
                     FillAfterOlympName();
                     OlympSubjectId = olymp.OlympSubjectId;
                     FillAfterOlympSubject();
-                    if (OlympTypeId != 1 || OlympTypeId != 2)
-                        OlympLevelId = olymp.OlympLevelId;
+                    OlympLevelId = olymp.OlympLevelId;
                     OlympValueId = olymp.OlympValueId;
-                    OriginDoc = olymp.OriginDoc;
-
-                    DocumentSeries = olymp.DocumentSeries;
-                    DocumentNumber = olymp.DocumentNumber;
-                    DocumentDate = olymp.DocumentDate;
+                    AdditionalMark = olymp.AdditionalMark;
                 }
             }
             catch (DataException de)
             {
-                WinFormsServ.Error("Ошибка при заполнении формы ", de);
+                WinFormsServ.Error("РћС€РёР±РєР° РїСЂРё Р·Р°РїРѕР»РЅРµРЅРёРё С„РѕСЂРјС‹ ", de);
             }
         }
-
         protected override void SetReadOnlyFieldsAfterFill()
         {
             base.SetReadOnlyFieldsAfterFill();
@@ -217,70 +252,28 @@ namespace PriemLib
             if (_isReadOnly)
                 btnSaveChange.Enabled = false;
         }
-        protected override void  SetAllFieldsEnabled()
+        protected override void SetAllFieldsEnabled()
         {
             base.SetAllFieldsEnabled();
 
             if (OlympTypeId == MainClass.olympSpbguId)
-            {               
                 cbOlympSubject.Enabled = false;
-                cbOlympLevel.Enabled = false;
-            }
             else
-                cbOlympName.Enabled = false;           
-        }
-        protected override bool CheckFields()
-        {
-            if (!OriginDoc)
-                return true;
-
-            using (PriemEntities context = new PriemEntities())
-            {
-                Guid? persId = (from ab in context.extAbit
-                                where ab.Id == _abitId
-                                select ab.PersonId).FirstOrDefault();
-                int cnt;
-
-                if (_Id == null)
-                    cnt = (from ol in context.extOlympiadsAll
-                           where ol.OlympLevelId == OlympLevelId && ol.OlympTypeId == OlympTypeId
-                           && ol.OlympNameId == OlympNameId && ol.OlympSubjectId == OlympSubjectId
-                           && ol.OlympValueId == OlympValueId
-                           && ol.PersonId == persId && ol.OriginDoc
-                           select ol).Count();
-                else
-                    cnt = (from ol in context.extOlympiadsAll
-                           where ol.OlympLevelId == OlympLevelId && ol.OlympTypeId == OlympTypeId
-                           && ol.OlympNameId == OlympNameId && ol.OlympSubjectId == OlympSubjectId
-                           && ol.OlympValueId == OlympValueId
-                           && ol.PersonId == persId && ol.Id != GuidId && ol.OriginDoc
-                           select ol).Count();
-
-                if (cnt > 0)
-                {
-                    epError.SetError(chbOriginDoc, "Подан подлинник диплома олимпиады на другое заявление!");                   
-                    return false;
-                }
-                else
-                    epError.Clear();
-
-                return true;
-            }
+                cbOlympLevel.Enabled = false;
         }
 
         protected override void InsertRec(PriemEntities context, ObjectParameter idParam)
         {
-            context.Olympiads_Insert(OlympTypeId, OlympNameId, OlympSubjectId, OlympLevelId, OlympValueId, OlympYear, OriginDoc, _abitId, DocumentSeries, DocumentNumber, DocumentDate, idParam);
+            context.OlympResultToAdditionalMark_Insert(_EntryId, OlympTypeId, OlympLevelId, OlympNameId, OlympSubjectId, OlympValueId, OlympYear, AdditionalMark, idParam);
         }
-        protected override void UpdateRec(PriemEntities context, Guid id)
+        protected override void UpdateRec(PriemEntities context, int id)
         {
-            context.Olympiads_Update(OlympTypeId, OlympNameId, OlympSubjectId, OlympLevelId, OlympValueId, OlympYear, OriginDoc, DocumentSeries, DocumentNumber, DocumentDate, id);
+            context.OlympResultToAdditionalMark_Update(_EntryId, OlympTypeId, OlympLevelId, OlympNameId, OlympSubjectId, OlympValueId, OlympYear, AdditionalMark, id);
         }
-
         protected override void OnSave()
         {
             base.OnSave();
-            MainClass.DataRefresh();            
+            MainClass.DataRefresh();
         }
         protected override void CloseCardAfterSave()
         {

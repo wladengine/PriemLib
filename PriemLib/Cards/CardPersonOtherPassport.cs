@@ -103,6 +103,7 @@ namespace PriemLib
                     return;
                 }
 
+                PersonId = ent.PersonId;
                 PassportTypeId = ent.PassportTypeId;
                 PassportSeries = ent.PassportSeries;
                 PassportNumber = ent.PassportNumber;

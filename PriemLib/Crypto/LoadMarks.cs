@@ -343,8 +343,8 @@ namespace PriemLib
                     flt += string.Format(" AND ed.qAbiturient.EntryId IN (SELECT EntryId FROM ed.extExamInEntry WHERE ExamId = {0})", _examId);
 
                     string flt_fac = "";
-                    if (_isAdditional)
-                        flt_fac = " AND qAbiturient.FacultyId = " + _facultyId;
+                    //if (_isAdditional)
+                    //    flt_fac = " AND qAbiturient.FacultyId = " + _facultyId;
 
                     foreach (DataGridViewRow dgvr in dgvMarks.Rows)
                     {
@@ -399,7 +399,7 @@ namespace PriemLib
 
                             Guid abitId = new Guid(abId);
                             int examInEntryId = int.Parse(examInPr);
-                            int val = int.Parse(slNewMark[abId]);
+                            decimal val = decimal.Parse(slNewMark[abId]);
 
                             int cnt = (from mrk in context.Mark
                                        where mrk.ExamInEntryId == examInEntryId && mrk.AbiturientId == abitId
@@ -428,7 +428,7 @@ namespace PriemLib
                             {
                                 Guid abitId = new Guid(abId);
                                 int examInEntryId = int.Parse(examInPr);
-                                int val = int.Parse(slReplaceMark[abId]);
+                                decimal val = decimal.Parse(slReplaceMark[abId]);
 
                                 context.Mark_DeleteByAbitExamId(abitId, examInEntryId);
                                 context.Mark_Insert(abitId, examInEntryId, val, _dateExam, false, false, false, _vedId, null, null);

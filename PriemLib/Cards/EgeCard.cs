@@ -361,7 +361,7 @@ namespace PriemLib
             {
                 // проверку на отсутствие одинаковых свидетельств   
                 int rez;
-                if (!NoNumber)
+                if (!NoNumber && IsNumeric())
                 {
                     if (_Id == null)
                         rez = (from ec in context.EgeCertificate
@@ -399,6 +399,16 @@ namespace PriemLib
         }                
 
         public bool IsMatchEgeNumber()
+        {
+            int iYear = int.Parse(Year);
+            return EgeDataProvider.GetIsMatchEgeNumber(Number, iYear);
+            //if (Regex.IsMatch(Number, @"^\d{2}-\d{9}-(10|11|12|13)$"))
+            //    return true;
+            //else
+            //    return false;
+        }
+
+        public bool IsNumeric()
         {
             if (Regex.IsMatch(Number, @"^\d{2}-\d{9}-(10|11|12|13)$"))
                 return true;

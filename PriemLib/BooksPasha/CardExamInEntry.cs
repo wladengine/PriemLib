@@ -15,6 +15,68 @@ namespace PriemLib
 {
     public partial class CardExamInEntry : BookCard
     {
+        #region Fields
+        protected int? IntId
+        {
+            get
+            {
+                if (_Id == null)
+                    return null;
+                else
+                    return int.Parse(_Id);
+            }
+        }
+        protected int? ExamId
+        {
+            get { return ComboServ.GetComboIdInt(cbExam); }
+            set { ComboServ.SetComboId(cbExam, value); }
+        }
+        protected int? ParentExamInEntryId
+        {
+            get { return ComboServ.GetComboIdInt(cbParentExamInEntry); }
+            set { ComboServ.SetComboId(cbParentExamInEntry, value); }
+        }
+        protected bool IsProfil
+        {
+            get { return chbIsProfil.Checked; }
+            set { chbIsProfil.Checked = value; }
+        }
+        protected bool IsGosLine
+        {
+            get { return chbGosLine.Checked; }
+            set { chbGosLine.Checked = value; }
+        }
+        protected bool IsCrimea
+        {
+            get { return chbCrimea.Checked; }
+            set { chbCrimea.Checked = value; }
+        }
+        protected int? EgeMin
+        {
+            get
+            {
+                int j;
+                if (int.TryParse(tbEgeMin.Text.Trim(), out j))
+                    return j;
+                else
+                    return null;
+            }
+            set { tbEgeMin.Text = value.ToString(); }
+        }
+        protected byte? OrderNumber
+        {
+            get
+            {
+                byte j;
+                if (byte.TryParse(tbOrderNumber.Text.Trim(), out j))
+                    return j;
+                else
+                    return null;
+            }
+            set { tbOrderNumber.Text = value.ToString(); }
+        }
+        #endregion
+
         private bool _isForModified;
         private Guid? _entryId;
 
@@ -26,26 +88,6 @@ namespace PriemLib
             _isForModified = isForModified;
             InitControls();
         }
-
-        protected int? IntId
-        {
-            get
-            {
-                if (_Id == null)
-                    return null;
-                else
-                    return int.Parse(_Id);
-            }
-        }
-
-        protected override void SetReadOnlyFieldsAfterFill()
-        {
-            base.SetReadOnlyFieldsAfterFill();
-
-            if (!MainClass.IsEntryChanger())
-                btnSaveChange.Enabled = false;
-        }     
-
 
         protected override void ExtraInit()
         {
@@ -74,8 +116,19 @@ namespace PriemLib
                           .Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name + (u.IsAdd ? " (доп)" : "")))
                           .OrderBy(x => x.Value)
                           .ToList();
-                                                                   
-                    ComboServ.FillCombo(cbExam, lst, false, false);                   
+                    ComboServ.FillCombo(cbExam, lst, false, false);
+
+                    lst = ((from ex in context.extExamInEntry
+                            where ex.EntryId == _entryId
+                            select new
+                            {
+                                Id = ex.Id,
+                                Name = ex.ExamName,
+                            }).Distinct()).ToList()
+                          .Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name))
+                          .OrderBy(x => x.Value)
+                          .ToList();
+                    ComboServ.FillCombo(cbParentExamInEntry, lst, true, false);
                 }
             }
             catch (Exception exc)
@@ -83,56 +136,20 @@ namespace PriemLib
                 WinFormsServ.Error("Ошибка при инициализации формы ", exc);
             }
         }
-
-        protected int? ExamId
+        protected override void SetAllFieldsEnabled()
         {
-            get { return ComboServ.GetComboIdInt(cbExam); }
-            set { ComboServ.SetComboId(cbExam, value); }
-        }
+            base.SetAllFieldsEnabled();
 
-        protected bool IsProfil
-        {
-            get { return chbIsProfil.Checked; }
-            set { chbIsProfil.Checked = value; }
+            if (_Id != null)
+                cbExam.Enabled = false;
         }
+        protected override void SetReadOnlyFieldsAfterFill()
+        {
+            base.SetReadOnlyFieldsAfterFill();
 
-        protected bool IsGosLine
-        {
-            get { return chbGosLine.Checked; }
-            set { chbGosLine.Checked = value; }
-        }
-
-        protected bool IsCrimea
-        {
-            get { return chbCrimea.Checked; }
-            set { chbCrimea.Checked = value; }
-        }
-
-        protected int? EgeMin
-        {
-            get
-            {
-                int j;
-                if (int.TryParse(tbEgeMin.Text.Trim(), out j))
-                    return j;
-                else
-                    return null;                 
-            }
-            set { tbEgeMin.Text = value.ToString(); }           
-        }
-
-        protected byte? OrderNumber
-        {
-            get
-            {
-                byte j;
-                if (byte.TryParse(tbOrderNumber.Text.Trim(), out j))
-                    return j;
-                else
-                    return null;
-            }
-            set { tbOrderNumber.Text = value.ToString(); }
-        }
+            if (!MainClass.IsEntryChanger())
+                btnSaveChange.Enabled = false;
+        }     
 
         protected override void FillCard()
         {
@@ -147,27 +164,19 @@ namespace PriemLib
                                        where ex.Id == IntId
                                        select ex).FirstOrDefault();
 
-
                     ExamId = ent.ExamId;
                     IsProfil = ent.IsProfil;
                     IsGosLine = ent.IsGosLine;
                     IsCrimea = ent.IsCrimea;
                     EgeMin = ent.EgeMin;
                     OrderNumber = ent.OrderNumber;
+                    ParentExamInEntryId = ent.ParentExamInEntryId;
                 }
             }
             catch (Exception exc)
             {
                 WinFormsServ.Error("Ошибка при заполнении формы ", exc);
             }
-        }
-
-        protected override void SetAllFieldsEnabled()
-        {
-            base.SetAllFieldsEnabled();
-
-            if (_Id != null)
-                cbExam.Enabled = false;
         }
 
         protected override string Save()
@@ -185,7 +194,7 @@ namespace PriemLib
                             try
                             {
                                 exId = new ObjectParameter("id", typeof(Int32));
-                                context.ExamInEntry_Insert(ExamId, _entryId, IsProfil, EgeMin, IsCrimea, IsGosLine, OrderNumber, exId);
+                                context.ExamInEntry_Insert(ExamId, _entryId, IsProfil, EgeMin, IsCrimea, IsGosLine, OrderNumber, ParentExamInEntryId, exId);
 
                                 Entry curEnt = (from ent in context.Entry
                                               where ent.Id == _entryId
@@ -198,6 +207,8 @@ namespace PriemLib
                                                           && ent.ObrazProgramId == curEnt.ObrazProgramId                                                         
                                                           && (curEnt.ProfileId == null ? ent.ProfileId == null : ent.ProfileId == curEnt.ProfileId) 
                                                           && ent.Id != curEnt.Id
+                                                          && ent.IsCrimea == curEnt.IsCrimea
+                                                          && ent.IsForeign == curEnt.IsForeign
                                                           select ent;
 
                                 if (!chbToAllStudyBasis.Checked)
@@ -206,7 +217,7 @@ namespace PriemLib
                                 foreach (Entry e in ents)
                                 {
                                     exId = new ObjectParameter("id", typeof(Int32));
-                                    context.ExamInEntry_Insert(ExamId, e.Id, IsProfil, EgeMin, IsCrimea, IsGosLine, OrderNumber, exId);
+                                    context.ExamInEntry_Insert(ExamId, e.Id, IsProfil, EgeMin, IsCrimea, IsGosLine, OrderNumber, ParentExamInEntryId, exId);
                                 }
 
                                 transaction.Complete();
@@ -221,7 +232,7 @@ namespace PriemLib
                     }
                     else
                     {
-                        context.ExamInEntry_Update(ExamId, IsProfil, EgeMin, IsCrimea, IsGosLine, OrderNumber, IntId);
+                        context.ExamInEntry_Update(ExamId, IsProfil, EgeMin, IsCrimea, IsGosLine, OrderNumber, ParentExamInEntryId, IntId);
                         return _Id;
                     }
                 }
@@ -231,7 +242,6 @@ namespace PriemLib
                 throw exc;
             }
         }
-
         protected override void CloseCardAfterSave()
         {
             this.Close();

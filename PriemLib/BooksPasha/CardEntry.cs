@@ -90,6 +90,11 @@ namespace PriemLib
             get { return ComboServ.GetComboIdGuid(cbCompetitionGroup); }
             set { ComboServ.SetComboId(cbCompetitionGroup, value); }
         }
+        public Guid? ParentEntryId
+        {
+            get { return ComboServ.GetComboIdGuid(cbParentEntry); }
+            set { ComboServ.SetComboId(cbParentEntry, value); }
+        }
 
         public DateTime DateOfStart
         {
@@ -285,6 +290,16 @@ namespace PriemLib
                     .ToList();
 
                 ComboServ.FillCombo(cbCompetitionGroup, src2, true, false);
+
+                var src3 = context.extEntry
+                    .Where(x => x.LicenseProgramId == LicenseProgramId && x.ObrazProgramId == ObrazProgramId && !x.IsForeign)
+                    .Select(x => new { x.Id, x.LicenseProgramCode, x.ObrazProgramCrypt, x.ProfileName, x.StudyFormName, x.StudyBasisName, x.IsCrimea, x.IsParallel, x.IsReduced, x.IsSecond })
+                    .ToList().Distinct()
+                    .Select(x => new KeyValuePair<string, string>(x.Id.ToString(), "(" + x.LicenseProgramCode + ") [" + x.ObrazProgramCrypt + "] " + x.ProfileName + " " + x.StudyFormName + " " 
+                        + x.StudyBasisName + (x.IsCrimea ? " (крым)" : "") + (x.IsSecond ? " (для лиц с ВО)" : "") + (x.IsReduced ? " (сокр)" : "") + (x.IsParallel ? " (паралл)" : "")))
+                    .ToList();
+
+                ComboServ.FillCombo(cbParentEntry, src3, true, false);
             }
         }
 
@@ -344,12 +359,15 @@ namespace PriemLib
                     if (_toComp != null)
                         CompetitionGroupId = _toComp.CompetitiveGroupId;
 
+                    ParentEntryId = ent.ParentEntryId;
+
                     DateOfStart = ent.DateOfStart;
                     DateOfClose = ent.DateOfClose;
 
                     UpdateExams();
                     UpdateOlympicsToCommonBenefit();
                     UpdateInnerEntryInEntry();
+                    UpdateOlympResultToAdditionalMark();
                 }
             }
             catch (Exception exc)
@@ -512,9 +530,13 @@ DateOfStart, DateOfClose, ComissionId, IsForeign, IsCrimea) VALUES
 
                 if (bIns)
                     context.EntryToCompetitiveGroup.AddObject(EntryToComp);
-
-                context.SaveChanges();
             }
+
+            var Entry = context.Entry.Where(x => x.Id == GuidId).FirstOrDefault();
+            if (Entry != null)
+                Entry.ParentEntryId = ParentEntryId;
+
+            context.SaveChanges();
 
             try
             {
@@ -757,6 +779,7 @@ WHERE Id=@Id";
             UpdateAfterAggregateGroup();
         }
 
+        #region OlympicsToCommonBenefit
         public void UpdateOlympicsToCommonBenefit()
         {
             using (PriemEntities context = new PriemEntities())
@@ -796,12 +819,10 @@ WHERE Id=@Id";
                 }
             }
         }
-
         private void btnAddOlympicsToCommonBenefit_Click(object sender, EventArgs e)
         {
             OpenOlympicsToCommonBenefit(GuidId, null, false);
         }
-
         private void OpenOlympicsToCommonBenefit(Guid? entryId, string id, bool isForModified)
         {
             CardOlympicsToCommonBenefit crd = new CardOlympicsToCommonBenefit(id, entryId, isForModified);
@@ -817,7 +838,6 @@ WHERE Id=@Id";
                     OpenOlympicsToCommonBenefit(GuidId, itemId, false);
             }
         }
-
         private void btnDeleteOlympicsToCommonBenefit_Click(object sender, EventArgs e)
         {
             if (dgvOlympicsToCommonBenefit.CurrentCell != null && dgvOlympicsToCommonBenefit.CurrentCell.RowIndex > -1)
@@ -841,7 +861,6 @@ WHERE Id=@Id";
                 }
             }
         }
-
         private void dgvOlympicsToCommonBenefit_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (dgvOlympicsToCommonBenefit.CurrentCell != null && dgvOlympicsToCommonBenefit.CurrentCell.RowIndex > -1)
@@ -851,5 +870,126 @@ WHERE Id=@Id";
                     OpenOlympicsToCommonBenefit(GuidId, itemId, false);
             }
         }
+        #endregion
+
+        #region OlympResultToAdditionalMark
+        public void UpdateOlympResultToAdditionalMark()
+        {
+            using (PriemEntities context = new PriemEntities())
+            {
+                var query = (from exEntry in context.OlympResultToAdditionalMark
+                             join OlType in context.OlympType on exEntry.OlympTypeId equals OlType.Id
+                             join OlName in context.OlympName on exEntry.OlympNameId equals OlName.Id
+                             join OlSubject in context.OlympSubject on exEntry.OlympSubjectId equals OlSubject.Id
+                             join OlLevel in context.OlympLevel on exEntry.OlympLevelId equals OlLevel.Id
+                             join OlValue in context.OlympValue on exEntry.OlympValueId equals OlValue.Id
+                             where exEntry.EntryId == GuidId
+                             orderby exEntry.OlympTypeId
+                             select new
+                             {
+                                 exEntry.AdditionalMark,
+                                 exEntry.Id,
+                                 OlympTypeId = OlType.Name,
+                                 OlympName = OlName.Name,
+                                 OlympSubject = OlSubject.Name,
+                                 OlympLevelId = OlLevel.Name,
+                                 OlympValue = OlValue.Name,
+                                 exEntry.OlympYear,
+                             }).ToList().OrderBy(x => x.OlympTypeId).ToList();
+
+                dgvOlympResultToAdditionalMark.DataSource = query;
+                if (dgvOlympResultToAdditionalMark.Columns.Contains("Id"))
+                    dgvOlympResultToAdditionalMark.Columns["Id"].Visible = false;
+                if (dgvOlympResultToAdditionalMark.Columns.Contains("OlympName"))
+                {
+                    dgvOlympResultToAdditionalMark.Columns["OlympName"].HeaderText = "Название";
+                    dgvOlympResultToAdditionalMark.Columns["OlympName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                }
+                if (dgvOlympResultToAdditionalMark.Columns.Contains("OlympTypeId"))
+                {
+                    dgvOlympResultToAdditionalMark.Columns["OlympTypeId"].HeaderText = "Тип олимпиады";
+                }
+                if (dgvOlympResultToAdditionalMark.Columns.Contains("OlympLevelId"))
+                {
+                    dgvOlympResultToAdditionalMark.Columns["OlympLevelId"].HeaderText = "Уровень олимпиады";
+                    dgvOlympResultToAdditionalMark.Columns["OlympLevelId"].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+                }
+                if (dgvOlympResultToAdditionalMark.Columns.Contains("OlympValue"))
+                {
+                    dgvOlympResultToAdditionalMark.Columns["OlympValue"].HeaderText = "Уровень диплома";
+                    dgvOlympResultToAdditionalMark.Columns["OlympValue"].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+                }
+
+                if (dgvOlympResultToAdditionalMark.Columns.Contains("OlympSubject"))
+                {
+                    dgvOlympResultToAdditionalMark.Columns["OlympSubject"].HeaderText = "Предмет";
+                    dgvOlympResultToAdditionalMark.Columns["OlympSubject"].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+                }
+                if (dgvOlympResultToAdditionalMark.Columns.Contains("OlympYear"))
+                {
+                    dgvOlympResultToAdditionalMark.Columns["OlympYear"].HeaderText = "Уровень диплома";
+                    dgvOlympResultToAdditionalMark.Columns["OlympYear"].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+                }
+                if (dgvOlympResultToAdditionalMark.Columns.Contains("AdditionalMark"))
+                {
+                    dgvOlympResultToAdditionalMark.Columns["AdditionalMark"].HeaderText = "Баллы";
+                    dgvOlympResultToAdditionalMark.Columns["AdditionalMark"].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+                }
+            }
+        }
+        private void btnOpenOlympResultToAdditionalMark_Click(object sender, EventArgs e)
+        {
+            if (dgvOlympResultToAdditionalMark.CurrentCell != null && dgvOlympResultToAdditionalMark.CurrentCell.RowIndex > -1)
+            {
+                string itemId = dgvOlympResultToAdditionalMark.Rows[dgvOlympResultToAdditionalMark.CurrentCell.RowIndex].Cells["Id"].Value.ToString();
+                if (!string.IsNullOrEmpty(itemId))
+                    OpenOlympResultToAdditionalMark(GuidId, itemId, false);
+            }
+        }
+        private void btnAddOlympResultToAdditionalMark_Click(object sender, EventArgs e)
+        {
+            OpenOlympResultToAdditionalMark(GuidId, null, false);
+        }
+        private void btnDeleteOlympResultToAdditionalMark_Click(object sender, EventArgs e)
+        {
+            if (dgvOlympResultToAdditionalMark.CurrentCell != null && dgvOlympResultToAdditionalMark.CurrentCell.RowIndex > -1)
+            {
+                if (MessageBox.Show("Удалить запись?", "Удаление", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    string itemId = dgvOlympResultToAdditionalMark.CurrentRow.Cells["Id"].Value.ToString();
+                    try
+                    {
+                        using (PriemEntities context = new PriemEntities())
+                        {
+                            int? id = int.Parse(itemId);
+                            context.OlympResultToAdditionalMark_Delete(id);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        WinFormsServ.Error("Каскадное удаление запрещено: ", ex);
+                    }
+                    UpdateOlympResultToAdditionalMark();
+                }
+            }
+        }
+        private void dgvOlympResultToAdditionalMark_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dgvOlympResultToAdditionalMark.CurrentCell != null && dgvOlympResultToAdditionalMark.CurrentCell.RowIndex > -1)
+            {
+                string itemId = dgvOlympResultToAdditionalMark.Rows[dgvOlympResultToAdditionalMark.CurrentCell.RowIndex].Cells["Id"].Value.ToString();
+                if (!string.IsNullOrEmpty(itemId))
+                    OpenOlympResultToAdditionalMark(GuidId, itemId, false);
+            }
+        }
+        private void OpenOlympResultToAdditionalMark(Guid? entryId, string id, bool isForModified)
+        {
+            CardOlympResultToAdditionalMark crd = new CardOlympResultToAdditionalMark(id, entryId, isForModified);
+            crd.ToUpdateList += new UpdateListHandler(UpdateOlympResultToAdditionalMark);
+            crd.Show();
+        }
+        #endregion
+
+        
     }
 }

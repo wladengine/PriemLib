@@ -47,26 +47,28 @@ namespace PriemLib
             this.label7 = new System.Windows.Forms.Label();
             this.tbSeries = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.cbOlympYear = new System.Windows.Forms.ComboBox();
+            this.label9 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.epError)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(527, 256);
+            this.btnClose.Location = new System.Drawing.Point(527, 299);
             // 
             // btnSaveChange
             // 
-            this.btnSaveChange.Location = new System.Drawing.Point(12, 256);
+            this.btnSaveChange.Location = new System.Drawing.Point(12, 299);
             // 
             // btnSaveAsNew
             // 
-            this.btnSaveAsNew.Location = new System.Drawing.Point(117, 254);
+            this.btnSaveAsNew.Location = new System.Drawing.Point(117, 297);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(37, 13);
+            this.label1.Location = new System.Drawing.Point(37, 43);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(87, 13);
             this.label1.TabIndex = 3;
@@ -75,7 +77,7 @@ namespace PriemLib
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(11, 73);
+            this.label2.Location = new System.Drawing.Point(11, 96);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(113, 13);
             this.label2.TabIndex = 4;
@@ -84,7 +86,7 @@ namespace PriemLib
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(28, 130);
+            this.label3.Location = new System.Drawing.Point(28, 153);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(96, 13);
             this.label3.TabIndex = 5;
@@ -93,7 +95,7 @@ namespace PriemLib
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 102);
+            this.label4.Location = new System.Drawing.Point(12, 125);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(112, 13);
             this.label4.TabIndex = 9;
@@ -102,7 +104,7 @@ namespace PriemLib
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 43);
+            this.label5.Location = new System.Drawing.Point(6, 68);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(118, 13);
             this.label5.TabIndex = 11;
@@ -116,7 +118,7 @@ namespace PriemLib
             this.cbOlympLevel.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbOlympLevel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbOlympLevel.FormattingEnabled = true;
-            this.cbOlympLevel.Location = new System.Drawing.Point(130, 99);
+            this.cbOlympLevel.Location = new System.Drawing.Point(130, 120);
             this.cbOlympLevel.Name = "cbOlympLevel";
             this.cbOlympLevel.Size = new System.Drawing.Size(296, 21);
             this.cbOlympLevel.TabIndex = 114;
@@ -129,7 +131,7 @@ namespace PriemLib
             this.cbOlympValue.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbOlympValue.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbOlympValue.FormattingEnabled = true;
-            this.cbOlympValue.Location = new System.Drawing.Point(130, 127);
+            this.cbOlympValue.Location = new System.Drawing.Point(130, 147);
             this.cbOlympValue.Name = "cbOlympValue";
             this.cbOlympValue.Size = new System.Drawing.Size(296, 21);
             this.cbOlympValue.TabIndex = 115;
@@ -142,7 +144,7 @@ namespace PriemLib
             this.cbOlympSubject.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbOlympSubject.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbOlympSubject.FormattingEnabled = true;
-            this.cbOlympSubject.Location = new System.Drawing.Point(130, 70);
+            this.cbOlympSubject.Location = new System.Drawing.Point(130, 93);
             this.cbOlympSubject.Name = "cbOlympSubject";
             this.cbOlympSubject.Size = new System.Drawing.Size(478, 21);
             this.cbOlympSubject.TabIndex = 116;
@@ -155,7 +157,7 @@ namespace PriemLib
             this.cbOlympName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbOlympName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbOlympName.FormattingEnabled = true;
-            this.cbOlympName.Location = new System.Drawing.Point(130, 40);
+            this.cbOlympName.Location = new System.Drawing.Point(130, 66);
             this.cbOlympName.Name = "cbOlympName";
             this.cbOlympName.Size = new System.Drawing.Size(478, 21);
             this.cbOlympName.TabIndex = 117;
@@ -168,7 +170,7 @@ namespace PriemLib
             this.cbOlympType.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbOlympType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbOlympType.FormattingEnabled = true;
-            this.cbOlympType.Location = new System.Drawing.Point(130, 10);
+            this.cbOlympType.Location = new System.Drawing.Point(130, 39);
             this.cbOlympType.Name = "cbOlympType";
             this.cbOlympType.Size = new System.Drawing.Size(478, 21);
             this.cbOlympType.TabIndex = 118;
@@ -194,7 +196,7 @@ namespace PriemLib
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.tbSeries);
             this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Location = new System.Drawing.Point(40, 154);
+            this.groupBox1.Location = new System.Drawing.Point(40, 187);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(568, 81);
             this.groupBox1.TabIndex = 120;
@@ -251,11 +253,35 @@ namespace PriemLib
             this.label6.TabIndex = 0;
             this.label6.Text = "Серия";
             // 
+            // cbOlympYear
+            // 
+            this.cbOlympYear.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbOlympYear.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cbOlympYear.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cbOlympYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbOlympYear.FormattingEnabled = true;
+            this.cbOlympYear.Location = new System.Drawing.Point(130, 12);
+            this.cbOlympYear.Name = "cbOlympYear";
+            this.cbOlympYear.Size = new System.Drawing.Size(296, 21);
+            this.cbOlympYear.TabIndex = 122;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(36, 15);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(88, 13);
+            this.label9.TabIndex = 121;
+            this.label9.Text = "Год проведения";
+            // 
             // OlympCard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(620, 291);
+            this.ClientSize = new System.Drawing.Size(620, 334);
+            this.Controls.Add(this.cbOlympYear);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.cbOlympType);
             this.Controls.Add(this.cbOlympName);
@@ -284,6 +310,8 @@ namespace PriemLib
             this.Controls.SetChildIndex(this.cbOlympName, 0);
             this.Controls.SetChildIndex(this.cbOlympType, 0);
             this.Controls.SetChildIndex(this.groupBox1, 0);
+            this.Controls.SetChildIndex(this.label9, 0);
+            this.Controls.SetChildIndex(this.cbOlympYear, 0);
             ((System.ComponentModel.ISupportInitialize)(this.epError)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -312,6 +340,8 @@ namespace PriemLib
         private System.Windows.Forms.TextBox tbNumber;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox tbSeries;
-        private System.Windows.Forms.Label label6;     
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ComboBox cbOlympYear;
+        private System.Windows.Forms.Label label9;     
     }
 }

@@ -199,7 +199,7 @@
             // 
             // btnPrintSticker
             // 
-            this.btnPrintSticker.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnPrintSticker.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnPrintSticker.Location = new System.Drawing.Point(728, 444);
             this.btnPrintSticker.Name = "btnPrintSticker";
             this.btnPrintSticker.Size = new System.Drawing.Size(81, 42);
@@ -210,7 +210,7 @@
             // 
             // tbCountCell
             // 
-            this.tbCountCell.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.tbCountCell.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.tbCountCell.Location = new System.Drawing.Point(815, 465);
             this.tbCountCell.Name = "tbCountCell";
             this.tbCountCell.Size = new System.Drawing.Size(59, 20);
@@ -218,7 +218,7 @@
             // 
             // lblCountCell
             // 
-            this.lblCountCell.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblCountCell.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.lblCountCell.AutoSize = true;
             this.lblCountCell.Location = new System.Drawing.Point(812, 437);
             this.lblCountCell.Name = "lblCountCell";
@@ -228,7 +228,7 @@
             // 
             // btnDeleteFromVed
             // 
-            this.btnDeleteFromVed.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnDeleteFromVed.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnDeleteFromVed.Location = new System.Drawing.Point(595, 444);
             this.btnDeleteFromVed.Name = "btnDeleteFromVed";
             this.btnDeleteFromVed.Size = new System.Drawing.Size(91, 42);
@@ -241,7 +241,7 @@
             // btnUnload
             // 
             this.btnUnload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnUnload.Location = new System.Drawing.Point(394, 444);
+            this.btnUnload.Location = new System.Drawing.Point(350, 444);
             this.btnUnload.Name = "btnUnload";
             this.btnUnload.Size = new System.Drawing.Size(83, 42);
             this.btnUnload.TabIndex = 55;
@@ -284,7 +284,6 @@
             // 
             // btnSetExaminerAccount
             // 
-            this.btnSetExaminerAccount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSetExaminerAccount.Location = new System.Drawing.Point(496, 49);
             this.btnSetExaminerAccount.Name = "btnSetExaminerAccount";
             this.btnSetExaminerAccount.Size = new System.Drawing.Size(174, 37);
@@ -342,6 +341,7 @@
             this.Controls.Add(this.lblProtocolNum);
             this.Controls.Add(this.label1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MinimumSize = new System.Drawing.Size(1000, 536);
             this.Name = "ExamsVedList";
             this.Text = "Список ведомостей для экзаменов";
             ((System.ComponentModel.ISupportInitialize)(this.dgvList)).EndInit();

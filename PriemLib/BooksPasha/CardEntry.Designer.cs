@@ -42,6 +42,8 @@
             this.tcCard = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.gbEntry = new System.Windows.Forms.GroupBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.cbParentEntry = new System.Windows.Forms.ComboBox();
             this.label16 = new System.Windows.Forms.Label();
             this.cbCompetitionGroup = new System.Windows.Forms.ComboBox();
             this.cbAggregateGroup = new System.Windows.Forms.ComboBox();
@@ -68,10 +70,10 @@
             this.tbKCPCel = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.dgvMinEgeMarkToCommonBenefit = new System.Windows.Forms.DataGridView();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
+            this.dgvOlympResultToAdditionalMark = new System.Windows.Forms.DataGridView();
+            this.btnOpenOlympResultToAdditionalMark = new System.Windows.Forms.Button();
+            this.btnAddOlympResultToAdditionalMark = new System.Windows.Forms.Button();
+            this.btnDeleteOlympResultToAdditionalMark = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.dgvOlympicsToCommonBenefit = new System.Windows.Forms.DataGridView();
             this.btnOpenOlympicsToCommonBenefit = new System.Windows.Forms.Button();
@@ -103,7 +105,7 @@
             this.groupBox4.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.groupBox5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvMinEgeMarkToCommonBenefit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvOlympResultToAdditionalMark)).BeginInit();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvOlympicsToCommonBenefit)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -129,7 +131,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(18, 407);
+            this.label2.Location = new System.Drawing.Point(18, 384);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(79, 13);
             this.label2.TabIndex = 29;
@@ -138,7 +140,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(18, 242);
+            this.label3.Location = new System.Drawing.Point(18, 224);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(53, 13);
             this.label3.TabIndex = 31;
@@ -147,7 +149,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(18, 282);
+            this.label5.Location = new System.Drawing.Point(17, 264);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(63, 13);
             this.label5.TabIndex = 35;
@@ -156,7 +158,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(18, 162);
+            this.label6.Location = new System.Drawing.Point(17, 144);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(75, 13);
             this.label6.TabIndex = 44;
@@ -165,7 +167,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(18, 202);
+            this.label7.Location = new System.Drawing.Point(17, 184);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(158, 13);
             this.label7.TabIndex = 45;
@@ -174,7 +176,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(18, 101);
+            this.label8.Location = new System.Drawing.Point(17, 93);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(120, 13);
             this.label8.TabIndex = 46;
@@ -183,7 +185,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(18, 327);
+            this.label11.Location = new System.Drawing.Point(18, 304);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(93, 13);
             this.label11.TabIndex = 52;
@@ -192,7 +194,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(238, 327);
+            this.label12.Location = new System.Drawing.Point(233, 304);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(94, 13);
             this.label12.TabIndex = 49;
@@ -200,14 +202,14 @@
             // 
             // tbStudyPlan
             // 
-            this.tbStudyPlan.Location = new System.Drawing.Point(18, 423);
+            this.tbStudyPlan.Location = new System.Drawing.Point(18, 400);
             this.tbStudyPlan.Name = "tbStudyPlan";
             this.tbStudyPlan.Size = new System.Drawing.Size(140, 20);
             this.tbStudyPlan.TabIndex = 53;
             // 
             // tbKC
             // 
-            this.tbKC.Location = new System.Drawing.Point(18, 462);
+            this.tbKC.Location = new System.Drawing.Point(211, 400);
             this.tbKC.Name = "tbKC";
             this.tbKC.Size = new System.Drawing.Size(63, 20);
             this.tbKC.TabIndex = 55;
@@ -215,7 +217,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(18, 446);
+            this.label4.Location = new System.Drawing.Point(211, 384);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(22, 13);
             this.label4.TabIndex = 54;
@@ -246,6 +248,8 @@
             // 
             // gbEntry
             // 
+            this.gbEntry.Controls.Add(this.label15);
+            this.gbEntry.Controls.Add(this.cbParentEntry);
             this.gbEntry.Controls.Add(this.label16);
             this.gbEntry.Controls.Add(this.cbCompetitionGroup);
             this.gbEntry.Controls.Add(this.cbAggregateGroup);
@@ -282,6 +286,27 @@
             this.gbEntry.TabIndex = 56;
             this.gbEntry.TabStop = false;
             // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(18, 423);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(123, 13);
+            this.label15.TabIndex = 85;
+            this.label15.Text = "Родительский конкурс";
+            // 
+            // cbParentEntry
+            // 
+            this.cbParentEntry.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbParentEntry.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbParentEntry.DropDownWidth = 1491;
+            this.cbParentEntry.FormattingEnabled = true;
+            this.cbParentEntry.Location = new System.Drawing.Point(17, 439);
+            this.cbParentEntry.Name = "cbParentEntry";
+            this.cbParentEntry.Size = new System.Drawing.Size(491, 21);
+            this.cbParentEntry.TabIndex = 84;
+            // 
             // label16
             // 
             this.label16.AutoSize = true;
@@ -307,9 +332,9 @@
             // 
             this.cbAggregateGroup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbAggregateGroup.FormattingEnabled = true;
-            this.cbAggregateGroup.Location = new System.Drawing.Point(18, 138);
+            this.cbAggregateGroup.Location = new System.Drawing.Point(139, 122);
             this.cbAggregateGroup.Name = "cbAggregateGroup";
-            this.cbAggregateGroup.Size = new System.Drawing.Size(491, 21);
+            this.cbAggregateGroup.Size = new System.Drawing.Size(370, 21);
             this.cbAggregateGroup.TabIndex = 81;
             this.cbAggregateGroup.SelectedIndexChanged += new System.EventHandler(this.cbAggregateGroup_SelectedIndexChanged);
             // 
@@ -329,7 +354,7 @@
             this.groupBox4.Controls.Add(this.chbIsSecond);
             this.groupBox4.Controls.Add(this.chbIsParallel);
             this.groupBox4.Controls.Add(this.chbIsReduced);
-            this.groupBox4.Location = new System.Drawing.Point(6, 19);
+            this.groupBox4.Location = new System.Drawing.Point(6, 11);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(503, 73);
             this.groupBox4.TabIndex = 79;
@@ -389,7 +414,7 @@
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(250, 446);
+            this.label21.Location = new System.Drawing.Point(430, 384);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(77, 13);
             this.label21.TabIndex = 77;
@@ -397,7 +422,7 @@
             // 
             // tbKCPQuota
             // 
-            this.tbKCPQuota.Location = new System.Drawing.Point(253, 462);
+            this.tbKCPQuota.Location = new System.Drawing.Point(433, 400);
             this.tbKCPQuota.Name = "tbKCPQuota";
             this.tbKCPQuota.Size = new System.Drawing.Size(74, 20);
             this.tbKCPQuota.TabIndex = 78;
@@ -406,7 +431,7 @@
             // 
             this.cbComission.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbComission.FormattingEnabled = true;
-            this.cbComission.Location = new System.Drawing.Point(18, 383);
+            this.cbComission.Location = new System.Drawing.Point(18, 360);
             this.cbComission.Name = "cbComission";
             this.cbComission.Size = new System.Drawing.Size(491, 21);
             this.cbComission.TabIndex = 74;
@@ -414,7 +439,7 @@
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(18, 367);
+            this.label19.Location = new System.Drawing.Point(18, 344);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(176, 13);
             this.label19.TabIndex = 73;
@@ -425,7 +450,7 @@
             this.cbProfile.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cbProfile.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbProfile.FormattingEnabled = true;
-            this.cbProfile.Location = new System.Drawing.Point(18, 258);
+            this.cbProfile.Location = new System.Drawing.Point(18, 240);
             this.cbProfile.Name = "cbProfile";
             this.cbProfile.Size = new System.Drawing.Size(491, 21);
             this.cbProfile.TabIndex = 72;
@@ -434,7 +459,7 @@
             // 
             this.cbObrazProgram.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbObrazProgram.FormattingEnabled = true;
-            this.cbObrazProgram.Location = new System.Drawing.Point(18, 218);
+            this.cbObrazProgram.Location = new System.Drawing.Point(18, 200);
             this.cbObrazProgram.Name = "cbObrazProgram";
             this.cbObrazProgram.Size = new System.Drawing.Size(491, 21);
             this.cbObrazProgram.TabIndex = 71;
@@ -444,7 +469,7 @@
             // 
             this.cbLicenseProgram.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbLicenseProgram.FormattingEnabled = true;
-            this.cbLicenseProgram.Location = new System.Drawing.Point(18, 178);
+            this.cbLicenseProgram.Location = new System.Drawing.Point(18, 160);
             this.cbLicenseProgram.Name = "cbLicenseProgram";
             this.cbLicenseProgram.Size = new System.Drawing.Size(491, 21);
             this.cbLicenseProgram.TabIndex = 70;
@@ -454,7 +479,7 @@
             // 
             this.cbFaculty.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbFaculty.FormattingEnabled = true;
-            this.cbFaculty.Location = new System.Drawing.Point(18, 298);
+            this.cbFaculty.Location = new System.Drawing.Point(17, 280);
             this.cbFaculty.Name = "cbFaculty";
             this.cbFaculty.Size = new System.Drawing.Size(491, 21);
             this.cbFaculty.TabIndex = 66;
@@ -463,7 +488,7 @@
             // 
             this.cbStudyLevel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbStudyLevel.FormattingEnabled = true;
-            this.cbStudyLevel.Location = new System.Drawing.Point(140, 98);
+            this.cbStudyLevel.Location = new System.Drawing.Point(139, 90);
             this.cbStudyLevel.Name = "cbStudyLevel";
             this.cbStudyLevel.Size = new System.Drawing.Size(370, 21);
             this.cbStudyLevel.TabIndex = 65;
@@ -473,7 +498,7 @@
             // 
             this.cbStudyBasis.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbStudyBasis.FormattingEnabled = true;
-            this.cbStudyBasis.Location = new System.Drawing.Point(241, 343);
+            this.cbStudyBasis.Location = new System.Drawing.Point(236, 320);
             this.cbStudyBasis.Name = "cbStudyBasis";
             this.cbStudyBasis.Size = new System.Drawing.Size(155, 21);
             this.cbStudyBasis.TabIndex = 64;
@@ -482,7 +507,7 @@
             // 
             this.cbStudyForm.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbStudyForm.FormattingEnabled = true;
-            this.cbStudyForm.Location = new System.Drawing.Point(18, 343);
+            this.cbStudyForm.Location = new System.Drawing.Point(18, 320);
             this.cbStudyForm.Name = "cbStudyForm";
             this.cbStudyForm.Size = new System.Drawing.Size(176, 21);
             this.cbStudyForm.TabIndex = 63;
@@ -490,7 +515,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(129, 465);
+            this.label10.Location = new System.Drawing.Point(309, 403);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(39, 13);
             this.label10.TabIndex = 58;
@@ -499,7 +524,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(171, 446);
+            this.label1.Location = new System.Drawing.Point(351, 384);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(73, 13);
             this.label1.TabIndex = 56;
@@ -507,7 +532,7 @@
             // 
             // tbKCPCel
             // 
-            this.tbKCPCel.Location = new System.Drawing.Point(174, 462);
+            this.tbKCPCel.Location = new System.Drawing.Point(354, 400);
             this.tbKCPCel.Name = "tbKCPCel";
             this.tbKCPCel.Size = new System.Drawing.Size(68, 20);
             this.tbKCPCel.TabIndex = 57;
@@ -527,61 +552,65 @@
             // 
             // groupBox5
             // 
-            this.groupBox5.Controls.Add(this.dgvMinEgeMarkToCommonBenefit);
-            this.groupBox5.Controls.Add(this.button4);
-            this.groupBox5.Controls.Add(this.button5);
-            this.groupBox5.Controls.Add(this.button6);
+            this.groupBox5.Controls.Add(this.dgvOlympResultToAdditionalMark);
+            this.groupBox5.Controls.Add(this.btnOpenOlympResultToAdditionalMark);
+            this.groupBox5.Controls.Add(this.btnAddOlympResultToAdditionalMark);
+            this.groupBox5.Controls.Add(this.btnDeleteOlympResultToAdditionalMark);
             this.groupBox5.Location = new System.Drawing.Point(9, 348);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(512, 164);
             this.groupBox5.TabIndex = 88;
             this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Мин баллы для предоставления льготы";
+            this.groupBox5.Text = "Бонусные баллы за олимпиаду";
             // 
-            // dgvMinEgeMarkToCommonBenefit
+            // dgvOlympResultToAdditionalMark
             // 
-            this.dgvMinEgeMarkToCommonBenefit.AllowUserToAddRows = false;
-            this.dgvMinEgeMarkToCommonBenefit.AllowUserToResizeRows = false;
-            this.dgvMinEgeMarkToCommonBenefit.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.dgvOlympResultToAdditionalMark.AllowUserToAddRows = false;
+            this.dgvOlympResultToAdditionalMark.AllowUserToResizeRows = false;
+            this.dgvOlympResultToAdditionalMark.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvMinEgeMarkToCommonBenefit.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvMinEgeMarkToCommonBenefit.Location = new System.Drawing.Point(6, 19);
-            this.dgvMinEgeMarkToCommonBenefit.Name = "dgvMinEgeMarkToCommonBenefit";
-            this.dgvMinEgeMarkToCommonBenefit.ReadOnly = true;
-            this.dgvMinEgeMarkToCommonBenefit.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvMinEgeMarkToCommonBenefit.Size = new System.Drawing.Size(409, 127);
-            this.dgvMinEgeMarkToCommonBenefit.TabIndex = 36;
+            this.dgvOlympResultToAdditionalMark.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvOlympResultToAdditionalMark.Location = new System.Drawing.Point(6, 19);
+            this.dgvOlympResultToAdditionalMark.Name = "dgvOlympResultToAdditionalMark";
+            this.dgvOlympResultToAdditionalMark.ReadOnly = true;
+            this.dgvOlympResultToAdditionalMark.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvOlympResultToAdditionalMark.Size = new System.Drawing.Size(409, 127);
+            this.dgvOlympResultToAdditionalMark.TabIndex = 36;
+            this.dgvOlympResultToAdditionalMark.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvOlympResultToAdditionalMark_CellDoubleClick);
             // 
-            // button4
+            // btnOpenOlympResultToAdditionalMark
             // 
-            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button4.Location = new System.Drawing.Point(431, 19);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 38;
-            this.button4.Text = "Открыть";
-            this.button4.UseVisualStyleBackColor = true;
+            this.btnOpenOlympResultToAdditionalMark.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnOpenOlympResultToAdditionalMark.Location = new System.Drawing.Point(431, 19);
+            this.btnOpenOlympResultToAdditionalMark.Name = "btnOpenOlympResultToAdditionalMark";
+            this.btnOpenOlympResultToAdditionalMark.Size = new System.Drawing.Size(75, 23);
+            this.btnOpenOlympResultToAdditionalMark.TabIndex = 38;
+            this.btnOpenOlympResultToAdditionalMark.Text = "Открыть";
+            this.btnOpenOlympResultToAdditionalMark.UseVisualStyleBackColor = true;
+            this.btnOpenOlympResultToAdditionalMark.Click += new System.EventHandler(this.btnOpenOlympResultToAdditionalMark_Click);
             // 
-            // button5
+            // btnAddOlympResultToAdditionalMark
             // 
-            this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button5.Location = new System.Drawing.Point(431, 71);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(75, 23);
-            this.button5.TabIndex = 37;
-            this.button5.Text = "Добавить";
-            this.button5.UseVisualStyleBackColor = true;
+            this.btnAddOlympResultToAdditionalMark.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddOlympResultToAdditionalMark.Location = new System.Drawing.Point(431, 71);
+            this.btnAddOlympResultToAdditionalMark.Name = "btnAddOlympResultToAdditionalMark";
+            this.btnAddOlympResultToAdditionalMark.Size = new System.Drawing.Size(75, 23);
+            this.btnAddOlympResultToAdditionalMark.TabIndex = 37;
+            this.btnAddOlympResultToAdditionalMark.Text = "Добавить";
+            this.btnAddOlympResultToAdditionalMark.UseVisualStyleBackColor = true;
+            this.btnAddOlympResultToAdditionalMark.Click += new System.EventHandler(this.btnAddOlympResultToAdditionalMark_Click);
             // 
-            // button6
+            // btnDeleteOlympResultToAdditionalMark
             // 
-            this.button6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button6.Location = new System.Drawing.Point(431, 100);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(75, 23);
-            this.button6.TabIndex = 39;
-            this.button6.Text = "Удалить";
-            this.button6.UseVisualStyleBackColor = true;
+            this.btnDeleteOlympResultToAdditionalMark.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDeleteOlympResultToAdditionalMark.Location = new System.Drawing.Point(431, 100);
+            this.btnDeleteOlympResultToAdditionalMark.Name = "btnDeleteOlympResultToAdditionalMark";
+            this.btnDeleteOlympResultToAdditionalMark.Size = new System.Drawing.Size(75, 23);
+            this.btnDeleteOlympResultToAdditionalMark.TabIndex = 39;
+            this.btnDeleteOlympResultToAdditionalMark.Text = "Удалить";
+            this.btnDeleteOlympResultToAdditionalMark.UseVisualStyleBackColor = true;
+            this.btnDeleteOlympResultToAdditionalMark.Click += new System.EventHandler(this.btnDeleteOlympResultToAdditionalMark_Click);
             // 
             // groupBox3
             // 
@@ -869,7 +898,7 @@
             this.groupBox4.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvMinEgeMarkToCommonBenefit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvOlympResultToAdditionalMark)).EndInit();
             this.groupBox3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvOlympicsToCommonBenefit)).EndInit();
             this.groupBox2.ResumeLayout(false);
@@ -949,9 +978,11 @@
         private System.Windows.Forms.Button btnDeleteOlympicsToCommonBenefit;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox5;
-        private System.Windows.Forms.DataGridView dgvMinEgeMarkToCommonBenefit;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.DataGridView dgvOlympResultToAdditionalMark;
+        private System.Windows.Forms.Button btnOpenOlympResultToAdditionalMark;
+        private System.Windows.Forms.Button btnAddOlympResultToAdditionalMark;
+        private System.Windows.Forms.Button btnDeleteOlympResultToAdditionalMark;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.ComboBox cbParentEntry;
     }
 }

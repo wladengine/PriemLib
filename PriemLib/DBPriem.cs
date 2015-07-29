@@ -43,6 +43,33 @@ namespace PriemLib
             return;
         }
 
+        string AbitsForRatingKoefQuery = "SELECT Id, RegNum as 'РегНомер', (SELECT FIO FROM ed.extPerson WHERE extPerson.Id = Abiturient.PersonId) AS 'ФИО', [Coefficient] AS [РейтКоэф] FROM ed.Abiturient";
+        public DataTable GetAbitsForRatingKoef(string where)
+        {
+            DataTable dataTable = null;
+            using (SqlCommand comm = new SqlCommand(AbitsForRatingKoefQuery + where, _cn))
+            {
+                using (SqlDataAdapter adapt = new SqlDataAdapter(comm))
+                {
+                    SqlCommandBuilder builder = new SqlCommandBuilder(adapt);
+
+                    dataTable = new DataTable();
+
+                    adapt.Fill(dataTable);
+                    adapt.FillSchema(dataTable, SchemaType.Mapped);
+                }
+            }
+
+            return dataTable;
+        }
+
+        public void SetAbitsForRatingKoef(DataTable dataTable, string where)
+        {
+            SetTable(dataTable, AbitsForRatingKoefQuery + where);
+
+            return;
+        }
+
         string EgeExamQuery = "SELECT Id, Name as 'Название', FBSnumber as 'Порядковый номер в ФБС', EgeMin as 'Минимальная планка' from ed.EgeExamName order by FBSnumber";
         public DataTable GetEgeExam()
         {

@@ -36,20 +36,22 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.cbOlympYear = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.epError)).BeginInit();
             this.SuspendLayout();
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(517, 150);
+            this.btnClose.Location = new System.Drawing.Point(517, 189);
             // 
             // btnSaveChange
             // 
-            this.btnSaveChange.Location = new System.Drawing.Point(12, 149);
+            this.btnSaveChange.Location = new System.Drawing.Point(12, 188);
             // 
             // btnSaveAsNew
             // 
-            this.btnSaveAsNew.Location = new System.Drawing.Point(380, 149);
+            this.btnSaveAsNew.Location = new System.Drawing.Point(380, 188);
             this.btnSaveAsNew.Visible = true;
             // 
             // cbOlympType
@@ -132,11 +134,33 @@
             this.label1.TabIndex = 124;
             this.label1.Text = "Вид олимпиады";
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(39, 155);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(88, 13);
+            this.label3.TabIndex = 129;
+            this.label3.Text = "Год проведения";
+            // 
+            // cbOlympYear
+            // 
+            this.cbOlympYear.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbOlympYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbOlympYear.FormattingEnabled = true;
+            this.cbOlympYear.Location = new System.Drawing.Point(133, 152);
+            this.cbOlympYear.Name = "cbOlympYear";
+            this.cbOlympYear.Size = new System.Drawing.Size(465, 21);
+            this.cbOlympYear.TabIndex = 128;
+            // 
             // CardOlympBook
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(610, 184);
+            this.ClientSize = new System.Drawing.Size(610, 223);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.cbOlympYear);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label2);
@@ -159,6 +183,8 @@
             this.Controls.SetChildIndex(this.label2, 0);
             this.Controls.SetChildIndex(this.label4, 0);
             this.Controls.SetChildIndex(this.label5, 0);
+            this.Controls.SetChildIndex(this.cbOlympYear, 0);
+            this.Controls.SetChildIndex(this.label3, 0);
             ((System.ComponentModel.ISupportInitialize)(this.epError)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -175,5 +201,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ComboBox cbOlympYear;
     }
 }

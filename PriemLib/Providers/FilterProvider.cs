@@ -89,7 +89,8 @@ namespace PriemLib
             list.Add("Дата_возврата_док", "Дата возврата док.");
             list.Add("Дата_подачи_док", "Дата подачи док.");
             list.Add("Поданы_подлинник_атт", "Подан подлинник документа об образовании");
-            list.Add("Подал_подлинники", "Подал подлинники");
+            list.Add("Подал_подлинники", "Подал подлинники на заявление");
+            list.Add("Подал_подлинники_в_университет", "Подал подлинники в университет");
 
             list.Add("Факультет", "Факультет");
             list.Add("Направление", "Направление");
@@ -114,10 +115,14 @@ namespace PriemLib
             list.Add("Первый_предмет_ВИ", "Первый предмет ВИ");
             list.Add("Второй_предмет_ВИ", "Второй предмет ВИ");
             list.Add("Третий_предмет_ВИ", "Третий предмет ВИ");
+            list.Add("Четвертый_предмет_ВИ", "Четвертый предмет ВИ");
+            list.Add("Пятый_предмет_ВИ", "Пятый предмет ВИ");
 
             list.Add("Балл_Первый_предмет_ВИ", "Балл Первый предмет ВИ");
             list.Add("Балл_Второй_предмет_ВИ", "Балл Второй предмет ВИ");
             list.Add("Балл_Третий_предмет_ВИ", "Балл Третий предмет ВИ");
+            list.Add("Балл_Четвертый_предмет_ВИ", "Балл Четвертый предмет ВИ");
+            list.Add("Балл_Пятый_предмет_ВИ", "Балл Пятый предмет ВИ");
 
             list.Add("Англ_с_нуля", "Желает изучать англ с нуля");
             list.Add("Англ_оценка", "Итог. оценка по англ");
@@ -196,7 +201,8 @@ namespace PriemLib
             lst.Add(new FilterItem("Номер протокола о допуске", FilterType.FromTo, "ed.extEnableProtocol.Number", "ed.extEnableProtocol"));
             lst.Add(new FilterItem("Номер представления к зачислению", FilterType.FromTo, "extEntryView.Number", "extEntryView"));
             lst.Add(new FilterItem("Рейтинговый коэффициент", FilterType.FromTo, "ed.qAbiturient.Coefficient", "ed.qAbiturient"));
-            lst.Add(new FilterItem("Подал подлинники для зачисления", FilterType.Bool, "ed.qAbiturient.HasOriginals", "ed.qAbiturient"));
+            lst.Add(new FilterItem("Подал подлинники для зачисления", FilterType.Bool, "ed.extPerson.HasOriginals", "ed.extPerson"));
+            lst.Add(new FilterItem("Подал подлинники на заявление", FilterType.Bool, "ed.qAbiturient.HasOriginals", "ed.qAbiturient"));
             lst.Add(new FilterItem("Зачислен в СПбГУ (человек)", FilterType.Bool, " EXISTS (SELECT Top(1) ed.extEntryView.Id FROM ed.extEntryView INNER JOIN ed.extAbitAspirant ON ed.extAbitAspirant.id = ed.extentryview.abiturientid WHERE ed.extAbitAspirant.PersonId = ed.extPersonAspirant.Id)", "ed.extPersonAspirant"));
             lst.Add(new FilterItem("Зачислен в СПбГУ (заявление)", FilterType.Bool, " EXISTS (SELECT Top(1) ed.extEntryView.Id FROM ed.extEntryView WHERE ed.extEntryView.AbiturientId = ed.qAbiturient.Id)", "ed.qAbiturient"));
             lst.Add(new FilterItem("Отчислен из СПбГУ", FilterType.Bool, " EXISTS (SELECT Top(1) ed.extProtocol.Id FROM ed.extProtocol WHERE ProtocolTypeId = 4 AND IsOld = 0 AND Excluded = 1 AND ed.extProtocol.AbiturientId = ed.qAbiturient.Id)", "ed.qAbiturient"));

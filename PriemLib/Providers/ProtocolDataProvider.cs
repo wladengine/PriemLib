@@ -153,6 +153,7 @@ namespace PriemLib
                          IsParallel = protocol.IsParallel,
                          FacultyName = protocol.FacultyId.HasValue ? protocol.SP_Faculty.Name : "",
                          FacultyDatName = protocol.FacultyId.HasValue ? protocol.SP_Faculty.DatName : "",
+                         FacultyIndexNumber = protocol.FacultyId.HasValue ? protocol.SP_Faculty.IndexNumber : "",
                          LicenseProgramCode = protocol.LicenseProgramId.HasValue ? protocol.SP_LicenseProgram.Code : "",
                          LicenseProgramName = protocol.LicenseProgramId.HasValue ? protocol.SP_LicenseProgram.Name : "",
                          StudyLevelId = protocol.LicenseProgramId.HasValue ? protocol.SP_LicenseProgram.StudyLevelId : 0,
@@ -226,6 +227,7 @@ namespace PriemLib
 
             public string FacultyName { get; set; }
             public string FacultyDatName { get; set; }
+            public string FacultyIndexNumber { get; set; }
 
             public string LicenseProgramName { get; set; }
             public string LicenseProgramCode { get; set; }

@@ -34,26 +34,37 @@ namespace PriemLib
             this.MdiParent = MainClass.mainform;
             this._protocolType = protocolType;
 
-            this.sQuery = @"SELECT DISTINCT ed.extAbit.Id as Id, ed.extAbit.RegNum,
-                ed.extAbit.BAckDoc, ed.extAbit.RegNum as Рег_Номер,
-                ed.extAbit.FIO as ФИО, 
-                --ed.extPerson.AttestatSeries as AttSer, ed.extPerson.AttestatNum as AttNum, 
-                extPerson.EducDocument as Документ_об_образовании, 
-                ed.extAbit.ObrazProgramNameEx + ' ' +(Case when ed.extAbit.ProfileId IS NULL then '' else ed.extAbit.ProfileName end) as Направление,
-                ed.Competition.Name as Конкурс, 
-                0 as Black,
-                (CASE WHEN ed.extAbit.BackDoc>0 THEN 'Забрал док.'ELSE (CASE WHEN ed.extAbit.NotEnabled>0 THEN 'Не допущен'ELSE (CASE WHEN ed.qProtocolHistory.Excluded>0 THEN 'Исключен из протокола' ELSE '' END) END)END) as Примечания, 
-                (ed.extAbit.BAckDoc | ed.extAbit.NotEnabled | ed.qProtocolHistory.Excluded) as Red, 
-                ed.extAbit.Sum as Сумма_баллов, 
-                (Case WHEN ed.extPerson.HostelAbit>0 then 'да' else 'нет' END) as Общежитие 
-                FROM ed.extAbit 
-                INNER JOIN ed.extPerson ON ed.extPerson.Id=ed.extAbit.PersonId 
-                LEFT JOIN ed.Competition ON ed.Competition.Id = ed.extAbit.CompetitionId
-                LEFT JOIN ed.qProtocolHistory ON ed.qProtocolHistory.AbiturientId = ed.extAbit.Id
-                LEFT JOIN ed.qProtocol ON ed.qProtocol.Id =  ed.qProtocolHistory.ProtocolId ";
+            this.sQuery = @"SELECT DISTINCT 
+Abiturient.Id as Id, 
+Abiturient.RegNum,
+Abiturient.BAckDoc, 
+Abiturient.RegNum as Рег_Номер,
+extPerson.FIO as ФИО, 
+extPerson.EducDocument as Документ_об_образовании, 
+extEntry.ObrazProgramNameEx + ' ' + 
+	(Case when extEntry.ProfileId = 0 then '' 
+	else extEntry.ProfileName end) as Направление,
+ed.Competition.Name as Конкурс, 
+0 as Black,
+(CASE WHEN Abiturient.BackDoc > 0 THEN 'Забрал док.' 
+	ELSE (CASE WHEN Abiturient.NotEnabled > 0 THEN 'Не допущен'
+		ELSE (CASE WHEN ProtocolHistory.Excluded>0 THEN 'Исключен из протокола' 
+			ELSE '' 
+			END) 
+	END)
+ END) as Примечания, 
+(Abiturient.BAckDoc | Abiturient.NotEnabled | ProtocolHistory.Excluded) as Red, 
+Abiturient.Sum as Сумма_баллов, 
+(Case WHEN extPerson.HostelAbit > 0 then 'да' else 'нет' END) as Общежитие 
+FROM ed.Abiturient 
+INNER JOIN ed.extPerson ON ed.extPerson.Id= Abiturient.PersonId 
+INNER JOIN ed.extEntry ON extEntry.Id = Abiturient.EntryId
+LEFT JOIN ed.Competition ON ed.Competition.Id = Abiturient.CompetitionId
+LEFT JOIN ed.ProtocolHistory ON ProtocolHistory.AbiturientId = Abiturient.Id
+LEFT JOIN ed.Protocol ON Protocol.Id =  ProtocolHistory.ProtocolId ";
 
-            this.sWhere = string.Format(" WHERE 1=1  AND ed.qProtocol.ProtocolTypeId = {0}", TypeToInt(_protocolType));
-            this.sOrderby = " ORDER BY ed.extAbit.RegNum, ed.extAbit.BAckDoc ";
+            this.sWhere = string.Format(" WHERE 1=1  AND Protocol.ProtocolTypeId = {0}", TypeToInt(_protocolType));
+            this.sOrderby = " ORDER BY Abiturient.RegNum, Abiturient.BAckDoc ";
 
             InitializeComponent();
 
@@ -283,7 +294,7 @@ namespace PriemLib
             dgvProtocols.Rows.Clear();
 
             //обработали номер            
-            string sFilters = string.Format(" AND ed.qProtocolHistory.ProtocolId = '{0}'", ProtocolNumId.ToString());
+            string sFilters = string.Format(" AND ProtocolHistory.ProtocolId = '{0}'", ProtocolNumId.ToString());
 
             //заполнили грид
             try

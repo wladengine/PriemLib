@@ -924,6 +924,14 @@
         <edmx:EntityTypeShape EntityType="Priem2012Model.extEgeMarkMaxApproved" Width="1.5" PointX="34.375" PointY="26.75" />
         <edmx:EntityTypeShape EntityType="Priem2012Model.hlpEgeMarkMaxApproved" Width="1.5" PointX="5.375" PointY="33.75" />
         <edmx:EntityTypeShape EntityType="Priem2012Model.extAbitAdditionalMarksSum" Width="1.5" PointX="13.375" PointY="33.75" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_ExamInEntry_ParentExamInEntry" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.OlympResultToAdditionalMark" Width="1.5" PointX="34.375" PointY="30.75" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_OlympResultToAdditionalMark_OlympLevel" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_OlympResultToAdditionalMark_OlympSubject" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_OlympResultToAdditionalMark_OlympType" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_OlympResultToAdditionalMark_OlympValue" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_OlympResultToAdditionalMark_OlympLevel1" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_OlympResultToAdditionalMark_OlympName" />
         </edmx:Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -1306,9 +1306,10 @@ namespace PriemLib
                 DateTime docDate = ProtocolInfo.Date.Date;
 
                 int iStudyLevelGroupId = ProtocolInfo.StudyLevelGroupId;
+                string FacInd = ProtocolInfo.FacultyIndexNumber;
 
                 using (PriemEntities context = new PriemEntities())
-                {
+                { 
                     var SF = context.StudyForm.Where(x => x.Id == ProtocolInfo.StudyFormId).FirstOrDefault();
                     string form = SF.Acronym;
                     string form2 = SF.RodName;
@@ -1511,7 +1512,7 @@ namespace PriemLib
                         p.Alignment = Element.ALIGN_JUSTIFIED;
                         p.FirstLineIndent = firstLineIndent;
                         p.Add(new Phrase("ОСНОВАНИЕ:", new Font(bfTimes, 12)));
-                        p.Add(new Phrase(string.Format(" личные заявления, протоколы вступительных испытаний, {0} документов государственного образца {1}.", copyDoc, educDoc), font));
+                        p.Add(new Phrase(string.Format(" личные заявления, протоколы вступительных испытаний, {0} документов государственного образца {1}. [{2}]", copyDoc, educDoc, FacInd), font));
                         document.Add(p);
 
                         p = new Paragraph();
@@ -1565,7 +1566,7 @@ namespace PriemLib
                 string sLicenseProgramCode = string.Empty;
                 string sStudyLevelNameRod = string.Empty;
                 int iStudyLevelGroupId = MainClass.lstStudyLevelGroupId.First();
-                string FacultyNum = "";
+                string FacultyIndexNumber = ProtocolInfo.FacultyIndexNumber;
 
                 using (PriemEntities ctx = new PriemEntities())
                 {
@@ -1594,12 +1595,6 @@ namespace PriemLib
                          join extentryView in ctx.extEntryView on entry.LicenseProgramId equals extentryView.LicenseProgramId
                          where extentryView.Id == gProtocolId
                          select entry.StudyLevel.NameRod).FirstOrDefault();
-
-                    FacultyNum =
-                        (from fac in ctx.SP_Faculty
-                         join extentryView in ctx.extEntryView on fac.Id equals extentryView.FacultyId
-                         where extentryView.Id == gProtocolId
-                         select fac.IndexNumber).FirstOrDefault();
 
                     iStudyLevelGroupId = ProtocolInfo.StudyLevelGroupId;
 
@@ -1748,7 +1743,7 @@ namespace PriemLib
                     else
                         Motivation = string.Empty;
 
-                    AddRowInTableOrder(string.Format("\t\t1.{0}. {1} {2} {3}", counter, v.FIO, balls + ballToStr, string.IsNullOrEmpty(Motivation) ? "" : ("\n\n\t\t" + tmpMotiv + "[" + FacultyNum + "]" + "\n")), ref td, ref curRow);
+                    AddRowInTableOrder(string.Format("\t\t1.{0}. {1} {2} {3}", counter, v.FIO, balls + ballToStr, (string.IsNullOrEmpty(Motivation) ? "" : ("\n\n\t\t" + tmpMotiv + "\n"))), ref td, ref curRow);
                 }
 
                 if (!string.IsNullOrEmpty(curMotivation) && isCel)
@@ -1767,7 +1762,7 @@ namespace PriemLib
 
                 //платникам и всем очно-заочникам стипендия не платится
                 if (ProtocolInfo.StudyBasisId != 2 && ProtocolInfo.StudyFormId != 2)
-                    AddRowInTableOrder(string.Format("\r\n2.    Назначить лицам, указанным в п. 1 настоящего приказа, стипендию в размере {0} ежемесячно с 01.09.2015 по 31.01.2016.", Stipendia), ref td, ref curRow);
+                    AddRowInTableOrder(string.Format("\r\n2.    Назначить лицам, указанным в п. 1 настоящего приказа, стипендию в размере {0} ежемесячно с 01.09.2015 по 31.01.2016. [{1}]", Stipendia, FacultyIndexNumber), ref td, ref curRow);
             }
             catch (WordException we)
             {
@@ -1952,7 +1947,7 @@ namespace PriemLib
                         }
 
                         if (ProtocolInfo.StudyBasisId != 2 && ProtocolInfo.StudyFormId != 2)
-                            AddRowInTableOrder(string.Format("\r\n2.    Назначить лицам, указанным в п. 1 настоящего приказа, стипендию в размере {0} ежемесячно с 01.09.2015 по 31.01.2016.", Stipendia), ref td, ref curRow);
+                            AddRowInTableOrder(string.Format("\r\n2.    Назначить лицам, указанным в п. 1 настоящего приказа, стипендию в размере {0} ежемесячно с 01.09.2015 по 31.01.2016. [{1}]", Stipendia, ProtocolInfo.FacultyIndexNumber), ref td, ref curRow);
                     }
                 }
             }

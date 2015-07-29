@@ -32,8 +32,15 @@ namespace PriemLib
 
             using (PriemEntities context = new PriemEntities())
             {
+                List<KeyValuePair<string, string>> lstYears = new List<KeyValuePair<string, string>>();
+                for (int i = MainClass.iPriemYear; i > MainClass.iPriemYear - 5; i--)
+                    lstYears.Add(new KeyValuePair<string, string>(i.ToString(), i.ToString()));
+
+                ComboServ.FillCombo(cbOlympYear, lstYears, false, false);
+
                 ComboServ.FillCombo(cbOlympType, HelpClass.GetComboListByTable("ed.OlympType", "ORDER BY Id "), false, false);
                 cbOlympType.SelectedIndexChanged += new EventHandler(cbOlympType_SelectedIndexChanged);
+                cbOlympYear.SelectedIndexChanged += new EventHandler(cbOlympType_SelectedIndexChanged);
             }
 
             this.Width = 1174;
@@ -73,12 +80,17 @@ namespace PriemLib
                                 ob.OlympTypeName,
                                 ob.OlympNameName,
                                 ob.OlympSubjectName,
-                                ob.OlympLevelName
+                                ob.OlympLevelName,
+                                ob.OlympYear
                             };
 
                 int? olTypeId = ComboServ.GetComboIdInt(cbOlympType);
                 if (olTypeId != null)
                     query = query.Where(c => c.OlympTypeId == olTypeId);
+
+                int? olTypeYear = ComboServ.GetComboIdInt(cbOlympYear);
+                if (olTypeYear != null)
+                    query = query.Where(c => c.OlympYear == olTypeYear);
 
                 Dgv.DataSource = query;
                 SetVisibleColumnsAndNameColumns();               
@@ -98,6 +110,7 @@ namespace PriemLib
             SetVisibleColumnsAndNameColumnsOrdered("OlympNameName", "Название", 1);
             SetVisibleColumnsAndNameColumnsOrdered("OlympSubjectName", "Предмет", 2);
             SetVisibleColumnsAndNameColumnsOrdered("OlympLevelName", "Уровень", 3);
+            SetVisibleColumnsAndNameColumnsOrdered("OlympYear", "Год", 4);
 
             Dgv.Columns["OlympTypeName"].Width = 192;
             Dgv.Columns["OlympNameName"].Width = 590;

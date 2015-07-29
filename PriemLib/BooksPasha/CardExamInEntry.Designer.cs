@@ -38,20 +38,22 @@
             this.chbGosLine = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
             this.tbOrderNumber = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.cbParentExamInEntry = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.epError)).BeginInit();
             this.SuspendLayout();
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(262, 163);
+            this.btnClose.Location = new System.Drawing.Point(359, 207);
             // 
             // btnSaveChange
             // 
-            this.btnSaveChange.Location = new System.Drawing.Point(12, 163);
+            this.btnSaveChange.Location = new System.Drawing.Point(12, 207);
             // 
             // btnSaveAsNew
             // 
-            this.btnSaveAsNew.Location = new System.Drawing.Point(118, 163);
+            this.btnSaveAsNew.Location = new System.Drawing.Point(215, 207);
             // 
             // cbExam
             // 
@@ -59,13 +61,13 @@
             this.cbExam.FormattingEnabled = true;
             this.cbExam.Location = new System.Drawing.Point(12, 32);
             this.cbExam.Name = "cbExam";
-            this.cbExam.Size = new System.Drawing.Size(331, 21);
+            this.cbExam.Size = new System.Drawing.Size(428, 21);
             this.cbExam.TabIndex = 29;
             // 
             // chbIsProfil
             // 
             this.chbIsProfil.AutoSize = true;
-            this.chbIsProfil.Location = new System.Drawing.Point(12, 59);
+            this.chbIsProfil.Location = new System.Drawing.Point(12, 99);
             this.chbIsProfil.Name = "chbIsProfil";
             this.chbIsProfil.Size = new System.Drawing.Size(92, 17);
             this.chbIsProfil.TabIndex = 30;
@@ -74,7 +76,7 @@
             // 
             // tbEgeMin
             // 
-            this.tbEgeMin.Location = new System.Drawing.Point(12, 123);
+            this.tbEgeMin.Location = new System.Drawing.Point(12, 167);
             this.tbEgeMin.Name = "tbEgeMin";
             this.tbEgeMin.Size = new System.Drawing.Size(100, 20);
             this.tbEgeMin.TabIndex = 31;
@@ -82,11 +84,11 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 107);
+            this.label1.Location = new System.Drawing.Point(9, 151);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(140, 13);
+            this.label1.Size = new System.Drawing.Size(107, 13);
             this.label1.TabIndex = 32;
-            this.label1.Text = "Минимальная планка ЕГЭ";
+            this.label1.Text = "Минимальный балл";
             // 
             // label2
             // 
@@ -101,7 +103,7 @@
             // 
             this.chbToAllStudyBasis.AutoSize = true;
             this.chbToAllStudyBasis.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chbToAllStudyBasis.Location = new System.Drawing.Point(215, 59);
+            this.chbToAllStudyBasis.Location = new System.Drawing.Point(312, 99);
             this.chbToAllStudyBasis.Name = "chbToAllStudyBasis";
             this.chbToAllStudyBasis.Size = new System.Drawing.Size(128, 30);
             this.chbToAllStudyBasis.TabIndex = 35;
@@ -111,7 +113,7 @@
             // chbCrimea
             // 
             this.chbCrimea.AutoSize = true;
-            this.chbCrimea.Location = new System.Drawing.Point(12, 82);
+            this.chbCrimea.Location = new System.Drawing.Point(12, 122);
             this.chbCrimea.Name = "chbCrimea";
             this.chbCrimea.Size = new System.Drawing.Size(55, 17);
             this.chbCrimea.TabIndex = 36;
@@ -121,7 +123,7 @@
             // chbGosLine
             // 
             this.chbGosLine.AutoSize = true;
-            this.chbGosLine.Location = new System.Drawing.Point(73, 82);
+            this.chbGosLine.Location = new System.Drawing.Point(73, 122);
             this.chbGosLine.Name = "chbGosLine";
             this.chbGosLine.Size = new System.Drawing.Size(74, 17);
             this.chbGosLine.TabIndex = 37;
@@ -131,7 +133,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(212, 107);
+            this.label3.Location = new System.Drawing.Point(334, 151);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(106, 13);
             this.label3.TabIndex = 39;
@@ -139,16 +141,36 @@
             // 
             // tbOrderNumber
             // 
-            this.tbOrderNumber.Location = new System.Drawing.Point(215, 123);
+            this.tbOrderNumber.Location = new System.Drawing.Point(340, 167);
             this.tbOrderNumber.Name = "tbOrderNumber";
             this.tbOrderNumber.Size = new System.Drawing.Size(100, 20);
             this.tbOrderNumber.TabIndex = 38;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(12, 56);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(259, 13);
+            this.label4.TabIndex = 41;
+            this.label4.Text = "Родительский экзамен (для многоуровневых ВИ)";
+            // 
+            // cbParentExamInEntryId
+            // 
+            this.cbParentExamInEntry.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbParentExamInEntry.FormattingEnabled = true;
+            this.cbParentExamInEntry.Location = new System.Drawing.Point(12, 72);
+            this.cbParentExamInEntry.Name = "cbParentExamInEntryId";
+            this.cbParentExamInEntry.Size = new System.Drawing.Size(428, 21);
+            this.cbParentExamInEntry.TabIndex = 40;
             // 
             // CardExamInEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(355, 198);
+            this.ClientSize = new System.Drawing.Size(452, 242);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.cbParentExamInEntry);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.tbOrderNumber);
             this.Controls.Add(this.chbGosLine);
@@ -174,6 +196,8 @@
             this.Controls.SetChildIndex(this.chbGosLine, 0);
             this.Controls.SetChildIndex(this.tbOrderNumber, 0);
             this.Controls.SetChildIndex(this.label3, 0);
+            this.Controls.SetChildIndex(this.cbParentExamInEntry, 0);
+            this.Controls.SetChildIndex(this.label4, 0);
             ((System.ComponentModel.ISupportInitialize)(this.epError)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -192,5 +216,7 @@
         private System.Windows.Forms.CheckBox chbGosLine;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox tbOrderNumber;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox cbParentExamInEntry;
     }
 }

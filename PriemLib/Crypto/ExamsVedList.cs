@@ -431,13 +431,14 @@ namespace PriemLib
                                 btnDelete.Enabled = false;
                                 btnLock.Enabled = false;
                                 lblLocked.Visible = true;
-                                MessageBox.Show("Выполнено");
 
                                 btnPrintSticker.Enabled = true;
                                 tbCountCell.Enabled = true;
 
                                 transaction.Complete();
                             }
+
+                            MessageBox.Show("Выполнено");
                         }
                     }
 

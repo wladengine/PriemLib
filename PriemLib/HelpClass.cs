@@ -224,7 +224,7 @@ namespace PriemLib
             DataSet ds;
             DataTable dt;
 
-            if (query != "")
+            if (!string.IsNullOrEmpty(query))
             {
                 ds = await Task.Run<DataSet>(() => { return bdc.GetDataSet(query + " " + filters + " " + orderby); });
                 dt = ds.Tables[0];

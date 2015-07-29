@@ -313,6 +313,7 @@ warning 6002: The table/view 'Priem.ed.EgeToLanguage' does not have a primary ke
           <Property Name="KCPQuota" Type="int" />
           <Property Name="DateFinishEduc" Type="date" />
           <Property Name="DateStartEduc" Type="date" />
+          <Property Name="ParentEntryId" Type="uniqueidentifier" />
         </EntityType>
         <EntityType Name="EntryHeader">
           <Key>
@@ -359,6 +360,7 @@ warning 6002: The table/view 'Priem.ed.EgeToLanguage' does not have a primary ke
           <Property Name="IsGosLine" Type="bit" Nullable="false" />
           <Property Name="IsCrimea" Type="bit" Nullable="false" />
           <Property Name="OrderNumber" Type="tinyint" Nullable="false" />
+          <Property Name="ParentExamInEntryId" Type="int" />
         </EntityType>
         <EntityType Name="ExaminerAccount">
           <Key>
@@ -537,6 +539,7 @@ warning 6002: The table/view 'Priem.ed.Fixieren' does not have a primary key def
           <Property Name="OlympLevelId" Type="int" />
           <Property Name="IsOpen" Type="bit" Nullable="false" />
           <Property Name="Holder" Type="nvarchar" MaxLength="50" />
+          <Property Name="OlympYear" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="OlympiadCheckedByRectorat">
           <Key>
@@ -565,6 +568,7 @@ warning 6002: The table/view 'Priem.ed.Fixieren' does not have a primary key def
           <Property Name="Holder" Type="nvarchar" MaxLength="50" />
           <Property Name="Author" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="OlympYear" Type="smallint" Nullable="false" />
         </EntityType>
         <EntityType Name="OlympLevel">
           <Key>
@@ -582,6 +586,22 @@ warning 6002: The table/view 'Priem.ed.Fixieren' does not have a primary key def
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="2000" Nullable="false" />
           <Property Name="Number" Type="int" />
+          <Property Name="IsOpen" Type="bit" Nullable="false" />
+          <Property Name="Holder" Type="nvarchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="OlympResultToAdditionalMark">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EntryId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OlympTypeId" Type="int" Nullable="false" />
+          <Property Name="OlympNameId" Type="int" Nullable="false" />
+          <Property Name="OlympSubjectId" Type="int" Nullable="false" />
+          <Property Name="OlympLevelId" Type="int" Nullable="false" />
+          <Property Name="OlympValueId" Type="int" Nullable="false" />
+          <Property Name="OlympYear" Type="int" Nullable="false" />
+          <Property Name="AdditionalMark" Type="int" Nullable="false" />
           <Property Name="IsOpen" Type="bit" Nullable="false" />
           <Property Name="Holder" Type="nvarchar" MaxLength="150" />
         </EntityType>
@@ -1788,6 +1808,7 @@ warning 6002: The table/view 'Priem.ed.extExamInEntry' does not have a primary k
           <Property Name="OrderNumber" Type="tinyint" Nullable="false" />
           <Property Name="IsCrimea" Type="bit" Nullable="false" />
           <Property Name="IsGosLine" Type="bit" Nullable="false" />
+          <Property Name="ParentExamInEntryId" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'Priem.ed.extExamsVed' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -1924,6 +1945,7 @@ warning 6002: The table/view 'Priem.ed.extOlympBook' does not have a primary key
         <EntityType Name="extOlympBook">
           <Key>
             <PropertyRef Name="Id" />
+            <PropertyRef Name="OlympYear" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="OlympTypeId" Type="int" />
@@ -1935,6 +1957,7 @@ warning 6002: The table/view 'Priem.ed.extOlympBook' does not have a primary key
           <Property Name="OlympSubjectName" Type="nvarchar" MaxLength="100" />
           <Property Name="OlympTypeName" Type="nvarchar" MaxLength="50" />
           <Property Name="Number" Type="int" />
+          <Property Name="OlympYear" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'Priem.ed.extOlympiads' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -3486,6 +3509,18 @@ warning 6002: The table/view 'Priem.ed.qStudyLevel' does not have a primary key 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ExamInEntry_ParentExamInEntry">
+          <End Role="ExamInEntry" Type="Self.ExamInEntry" Multiplicity="0..1" />
+          <End Role="ExamInEntry1" Type="Self.ExamInEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExamInEntry">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ExamInEntry1">
+              <PropertyRef Name="ParentExamInEntryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ExaminerInExamsVed_ExamsVed">
           <End Role="ExamsVed" Type="Self.ExamsVed" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -3718,6 +3753,66 @@ warning 6002: The table/view 'Priem.ed.qStudyLevel' does not have a primary key 
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Olympiads">
+              <PropertyRef Name="OlympValueId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OlympResultToAdditionalMark_OlympLevel">
+          <End Role="OlympLevel" Type="Self.OlympLevel" Multiplicity="1" />
+          <End Role="OlympResultToAdditionalMark" Type="Self.OlympResultToAdditionalMark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OlympLevel">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OlympResultToAdditionalMark">
+              <PropertyRef Name="OlympLevelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OlympResultToAdditionalMark_OlympName">
+          <End Role="OlympName" Type="Self.OlympName" Multiplicity="1" />
+          <End Role="OlympResultToAdditionalMark" Type="Self.OlympResultToAdditionalMark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OlympName">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OlympResultToAdditionalMark">
+              <PropertyRef Name="OlympNameId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OlympResultToAdditionalMark_OlympSubject">
+          <End Role="OlympSubject" Type="Self.OlympSubject" Multiplicity="1" />
+          <End Role="OlympResultToAdditionalMark" Type="Self.OlympResultToAdditionalMark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OlympSubject">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OlympResultToAdditionalMark">
+              <PropertyRef Name="OlympSubjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OlympResultToAdditionalMark_OlympType">
+          <End Role="OlympType" Type="Self.OlympType" Multiplicity="1" />
+          <End Role="OlympResultToAdditionalMark" Type="Self.OlympResultToAdditionalMark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OlympType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OlympResultToAdditionalMark">
+              <PropertyRef Name="OlympTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OlympResultToAdditionalMark_OlympValue">
+          <End Role="OlympValue" Type="Self.OlympValue" Multiplicity="1" />
+          <End Role="OlympResultToAdditionalMark" Type="Self.OlympResultToAdditionalMark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OlympValue">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OlympResultToAdditionalMark">
               <PropertyRef Name="OlympValueId" />
             </Dependent>
           </ReferentialConstraint>
@@ -4661,6 +4756,7 @@ warning 6002: The table/view 'Priem.ed.qStudyLevel' does not have a primary key 
           <Parameter Name="IsCrimea" Type="bit" Mode="In" />
           <Parameter Name="IsGosLine" Type="bit" Mode="In" />
           <Parameter Name="OrderNumber" Type="tinyint" Mode="In" />
+          <Parameter Name="ParentExamInEntryId" Type="int" Mode="In" />
           <Parameter Name="id" Type="int" Mode="InOut" />
         </Function>
         <Function Name="ExamInEntry_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ed">
@@ -4670,6 +4766,7 @@ warning 6002: The table/view 'Priem.ed.qStudyLevel' does not have a primary key 
           <Parameter Name="IsCrimea" Type="bit" Mode="In" />
           <Parameter Name="IsGosLine" Type="bit" Mode="In" />
           <Parameter Name="OrderNumber" Type="tinyint" Mode="In" />
+          <Parameter Name="ParentExamInEntryId" Type="int" Mode="In" />
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="ExamInEntry_UpdateMinEge" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ed">
@@ -4770,6 +4867,7 @@ warning 6002: The table/view 'Priem.ed.qStudyLevel' does not have a primary key 
           <Parameter Name="EntryId" Type="uniqueidentifier" Mode="In" />
           <Parameter Name="IsCel" Type="bit" Mode="In" />
           <Parameter Name="IsCrimea" Type="bit" Mode="In" />
+          <Parameter Name="IsQuota" Type="bit" Mode="In" />
         </Function>
         <Function Name="FirstWave_DELETE_DogEntryBack" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ed" />
         <Function Name="FirstWave_DeleteByAbId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ed">
@@ -4925,6 +5023,7 @@ warning 6002: The table/view 'Priem.ed.qStudyLevel' does not have a primary key 
           <Parameter Name="OlympNameId" Type="int" Mode="In" />
           <Parameter Name="OlympSubjectId" Type="int" Mode="In" />
           <Parameter Name="OlympLevelId" Type="int" Mode="In" />
+          <Parameter Name="OlympYear" Type="int" Mode="In" />
           <Parameter Name="id" Type="uniqueidentifier" Mode="InOut" />
         </Function>
         <Function Name="OlympBook_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ed">
@@ -4932,6 +5031,7 @@ warning 6002: The table/view 'Priem.ed.qStudyLevel' does not have a primary key 
           <Parameter Name="OlympNameId" Type="int" Mode="In" />
           <Parameter Name="OlympSubjectId" Type="int" Mode="In" />
           <Parameter Name="OlympLevelId" Type="int" Mode="In" />
+          <Parameter Name="OlympYear" Type="int" Mode="In" />
           <Parameter Name="id" Type="uniqueidentifier" Mode="In" />
         </Function>
         <Function Name="OlympiadCheckedByRectorat_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ed">
@@ -4946,6 +5046,7 @@ warning 6002: The table/view 'Priem.ed.qStudyLevel' does not have a primary key 
           <Parameter Name="OlympSubjectId" Type="int" Mode="In" />
           <Parameter Name="OlympLevelId" Type="int" Mode="In" />
           <Parameter Name="OlympValueId" Type="int" Mode="In" />
+          <Parameter Name="OlympYear" Type="int" Mode="In" />
           <Parameter Name="OriginDoc" Type="bit" Mode="In" />
           <Parameter Name="AbiturientId" Type="uniqueidentifier" Mode="In" />
           <Parameter Name="DocumentSeries" Type="nvarchar" Mode="In" />
@@ -4959,6 +5060,7 @@ warning 6002: The table/view 'Priem.ed.qStudyLevel' does not have a primary key 
           <Parameter Name="OlympSubjectId" Type="int" Mode="In" />
           <Parameter Name="OlympLevelId" Type="int" Mode="In" />
           <Parameter Name="OlympValueId" Type="int" Mode="In" />
+          <Parameter Name="OlympYear" Type="int" Mode="In" />
           <Parameter Name="OriginDoc" Type="bit" Mode="In" />
           <Parameter Name="DocumentSeries" Type="nvarchar" Mode="In" />
           <Parameter Name="DocumentNumber" Type="nvarchar" Mode="In" />
@@ -4976,6 +5078,31 @@ warning 6002: The table/view 'Priem.ed.qStudyLevel' does not have a primary key 
         <Function Name="OlympName_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ed">
           <Parameter Name="OlympName" Type="nvarchar" Mode="In" />
           <Parameter Name="OlympNumber" Type="int" Mode="In" />
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="OlympResultToAdditionalMark_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ed">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="OlympResultToAdditionalMark_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ed">
+          <Parameter Name="EntryId" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="OlympTypeId" Type="int" Mode="In" />
+          <Parameter Name="OlympLevelId" Type="int" Mode="In" />
+          <Parameter Name="OlympNameId" Type="int" Mode="In" />
+          <Parameter Name="OlympSubjectId" Type="int" Mode="In" />
+          <Parameter Name="OlympValueId" Type="int" Mode="In" />
+          <Parameter Name="OlympYear" Type="int" Mode="In" />
+          <Parameter Name="AdditionalMark" Type="int" Mode="In" />
+          <Parameter Name="id" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="OlympResultToAdditionalMark_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ed">
+          <Parameter Name="EntryId" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="OlympTypeId" Type="int" Mode="In" />
+          <Parameter Name="OlympLevelId" Type="int" Mode="In" />
+          <Parameter Name="OlympNameId" Type="int" Mode="In" />
+          <Parameter Name="OlympSubjectId" Type="int" Mode="In" />
+          <Parameter Name="OlympValueId" Type="int" Mode="In" />
+          <Parameter Name="OlympYear" Type="int" Mode="In" />
+          <Parameter Name="AdditionalMark" Type="int" Mode="In" />
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="OlympResultToCommonBenefit_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ed">
@@ -5620,6 +5747,7 @@ warning 6002: The table/view 'Priem.ed.qStudyLevel' does not have a primary key 
           <EntitySet Name="Olympiads" EntityType="Self.Olympiads" Schema="ed" store:Type="Tables" />
           <EntitySet Name="OlympLevel" EntityType="Self.OlympLevel" Schema="ed" store:Type="Tables" />
           <EntitySet Name="OlympName" EntityType="Self.OlympName" Schema="ed" store:Type="Tables" />
+          <EntitySet Name="OlympResultToAdditionalMark" EntityType="Self.OlympResultToAdditionalMark" Schema="ed" store:Type="Tables" />
           <EntitySet Name="OlympResultToCommonBenefit" EntityType="Self.OlympResultToCommonBenefit" Schema="ed" store:Type="Tables" />
           <EntitySet Name="OlympSubject" EntityType="Self.OlympSubject" Schema="ed" store:Type="Tables" />
           <EntitySet Name="OlympSubjectToExam" EntityType="Self.OlympSubjectToExam" Schema="ed" store:Type="Tables" />
@@ -6091,7 +6219,8 @@ FROM [ed].[extEntryView_ForDisEntered] AS [extEntryView_ForDisEntered]</Defining
 [extExamInEntry].[ExamInEntryToCompetitiveGroupId] AS [ExamInEntryToCompetitiveGroupId], 
 [extExamInEntry].[OrderNumber] AS [OrderNumber], 
 [extExamInEntry].[IsCrimea] AS [IsCrimea], 
-[extExamInEntry].[IsGosLine] AS [IsGosLine]
+[extExamInEntry].[IsGosLine] AS [IsGosLine], 
+[extExamInEntry].[ParentExamInEntryId] AS [ParentExamInEntryId]
 FROM [ed].[extExamInEntry] AS [extExamInEntry]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="extExamsVed" EntityType="Self.extExamsVed" store:Type="Views" store:Schema="ed">
@@ -6207,7 +6336,8 @@ FROM [ed].[extForeignPerson] AS [extForeignPerson]</DefiningQuery>
 [extOlympBook].[OlympLevelName] AS [OlympLevelName], 
 [extOlympBook].[OlympSubjectName] AS [OlympSubjectName], 
 [extOlympBook].[OlympTypeName] AS [OlympTypeName], 
-[extOlympBook].[Number] AS [Number]
+[extOlympBook].[Number] AS [Number], 
+[extOlympBook].[OlympYear] AS [OlympYear]
 FROM [ed].[extOlympBook] AS [extOlympBook]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="extOlympiads" EntityType="Self.extOlympiads" store:Type="Views" store:Schema="ed">
@@ -7107,6 +7237,10 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
             <End Role="Exam" EntitySet="Exam" />
             <End Role="ExamInEntry" EntitySet="ExamInEntry" />
           </AssociationSet>
+          <AssociationSet Name="FK_ExamInEntry_ParentExamInEntry" Association="Self.FK_ExamInEntry_ParentExamInEntry">
+            <End Role="ExamInEntry" EntitySet="ExamInEntry" />
+            <End Role="ExamInEntry1" EntitySet="ExamInEntry" />
+          </AssociationSet>
           <AssociationSet Name="FK_ExaminerInExamsVed_ExamsVed" Association="Self.FK_ExaminerInExamsVed_ExamsVed">
             <End Role="ExamsVed" EntitySet="ExamsVed" />
             <End Role="ExaminerInExamsVed" EntitySet="ExaminerInExamsVed" />
@@ -7178,6 +7312,26 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <AssociationSet Name="fk_Olympiads_OlympValue" Association="Self.fk_Olympiads_OlympValue">
             <End Role="OlympValue" EntitySet="OlympValue" />
             <End Role="Olympiads" EntitySet="Olympiads" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OlympResultToAdditionalMark_OlympLevel" Association="Self.FK_OlympResultToAdditionalMark_OlympLevel">
+            <End Role="OlympLevel" EntitySet="OlympLevel" />
+            <End Role="OlympResultToAdditionalMark" EntitySet="OlympResultToAdditionalMark" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OlympResultToAdditionalMark_OlympName" Association="Self.FK_OlympResultToAdditionalMark_OlympName">
+            <End Role="OlympName" EntitySet="OlympName" />
+            <End Role="OlympResultToAdditionalMark" EntitySet="OlympResultToAdditionalMark" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OlympResultToAdditionalMark_OlympSubject" Association="Self.FK_OlympResultToAdditionalMark_OlympSubject">
+            <End Role="OlympSubject" EntitySet="OlympSubject" />
+            <End Role="OlympResultToAdditionalMark" EntitySet="OlympResultToAdditionalMark" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OlympResultToAdditionalMark_OlympType" Association="Self.FK_OlympResultToAdditionalMark_OlympType">
+            <End Role="OlympType" EntitySet="OlympType" />
+            <End Role="OlympResultToAdditionalMark" EntitySet="OlympResultToAdditionalMark" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OlympResultToAdditionalMark_OlympValue" Association="Self.FK_OlympResultToAdditionalMark_OlympValue">
+            <End Role="OlympValue" EntitySet="OlympValue" />
+            <End Role="OlympResultToAdditionalMark" EntitySet="OlympResultToAdditionalMark" />
           </AssociationSet>
           <AssociationSet Name="FK_OlympResultToCommonBenefit_Entry" Association="Self.FK_OlympResultToCommonBenefit_Entry">
             <End Role="Entry" EntitySet="Entry" />
@@ -7735,6 +7889,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
             <Parameter Name="IsCrimea" Mode="In" Type="Boolean" />
             <Parameter Name="IsGosLine" Mode="In" Type="Boolean" />
             <Parameter Name="OrderNumber" Mode="In" Type="Byte" />
+            <Parameter Name="ParentExamInEntryId" Mode="In" Type="Int32" />
             <Parameter Name="id" Mode="InOut" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="ExamInEntry_Update">
@@ -7744,6 +7899,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
             <Parameter Name="IsCrimea" Mode="In" Type="Boolean" />
             <Parameter Name="IsGosLine" Mode="In" Type="Boolean" />
             <Parameter Name="OrderNumber" Mode="In" Type="Byte" />
+            <Parameter Name="ParentExamInEntryId" Mode="In" Type="Int32" />
             <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="Mark" EntityType="Priem2012Model.Mark" />
@@ -7786,6 +7942,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
             <Parameter Name="OlympSubjectId" Mode="In" Type="Int32" />
             <Parameter Name="OlympLevelId" Mode="In" Type="Int32" />
             <Parameter Name="OlympValueId" Mode="In" Type="Int32" />
+            <Parameter Name="OlympYear" Mode="In" Type="Int32" />
             <Parameter Name="OriginDoc" Mode="In" Type="Boolean" />
             <Parameter Name="AbiturientId" Mode="In" Type="Guid" />
             <Parameter Name="DocumentSeries" Mode="In" Type="String" />
@@ -7799,6 +7956,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
             <Parameter Name="OlympSubjectId" Mode="In" Type="Int32" />
             <Parameter Name="OlympLevelId" Mode="In" Type="Int32" />
             <Parameter Name="OlympValueId" Mode="In" Type="Int32" />
+            <Parameter Name="OlympYear" Mode="In" Type="Int32" />
             <Parameter Name="OriginDoc" Mode="In" Type="Boolean" />
             <Parameter Name="DocumentSeries" Mode="In" Type="String" />
             <Parameter Name="DocumentNumber" Mode="In" Type="String" />
@@ -7845,6 +8003,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
             <Parameter Name="OlympNameId" Mode="In" Type="Int32" />
             <Parameter Name="OlympSubjectId" Mode="In" Type="Int32" />
             <Parameter Name="OlympLevelId" Mode="In" Type="Int32" />
+            <Parameter Name="OlympYear" Mode="In" Type="Int32" />
             <Parameter Name="id" Mode="InOut" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="EgeMark_UpdateCurMark">
@@ -8297,6 +8456,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
             <Parameter Name="EntryId" Mode="In" Type="Guid" />
             <Parameter Name="IsCel" Mode="In" Type="Boolean" />
             <Parameter Name="IsCrimea" Mode="In" Type="Boolean" />
+            <Parameter Name="IsQuota" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="FirstWave_INSERT">
             <Parameter Name="AbiturientId" Mode="In" Type="Guid" />
@@ -8676,6 +8836,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
             <Parameter Name="OlympNameId" Mode="In" Type="Int32" />
             <Parameter Name="OlympSubjectId" Mode="In" Type="Int32" />
             <Parameter Name="OlympLevelId" Mode="In" Type="Int32" />
+            <Parameter Name="OlympYear" Mode="In" Type="Int32" />
             <Parameter Name="id" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="OlympName_Update">
@@ -9192,6 +9353,60 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <EntitySet Name="extEgeMarkMaxApproved" EntityType="Priem2012Model.extEgeMarkMaxApproved" />
           <EntitySet Name="hlpEgeMarkMaxApproved" EntityType="Priem2012Model.hlpEgeMarkMaxApproved" />
           <EntitySet Name="extAbitAdditionalMarksSum" EntityType="Priem2012Model.extAbitAdditionalMarksSum" />
+          <AssociationSet Name="FK_ExamInEntry_ParentExamInEntry" Association="Priem2012Model.FK_ExamInEntry_ParentExamInEntry">
+            <End Role="ExamInEntry" EntitySet="ExamInEntry" />
+            <End Role="ExamInEntry1" EntitySet="ExamInEntry" />
+          </AssociationSet>
+          <EntitySet Name="OlympResultToAdditionalMark" EntityType="Priem2012Model.OlympResultToAdditionalMark" />
+          <FunctionImport Name="OlympResultToAdditionalMark_Delete">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="OlympResultToAdditionalMark_Insert">
+            <Parameter Name="EntryId" Mode="In" Type="Guid" />
+            <Parameter Name="OlympTypeId" Mode="In" Type="Int32" />
+            <Parameter Name="OlympLevelId" Mode="In" Type="Int32" />
+            <Parameter Name="OlympNameId" Mode="In" Type="Int32" />
+            <Parameter Name="OlympSubjectId" Mode="In" Type="Int32" />
+            <Parameter Name="OlympValueId" Mode="In" Type="Int32" />
+            <Parameter Name="OlympYear" Mode="In" Type="Int32" />
+            <Parameter Name="AdditionalMark" Mode="In" Type="Int32" />
+            <Parameter Name="id" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="OlympResultToAdditionalMark_Update">
+            <Parameter Name="EntryId" Mode="In" Type="Guid" />
+            <Parameter Name="OlympTypeId" Mode="In" Type="Int32" />
+            <Parameter Name="OlympLevelId" Mode="In" Type="Int32" />
+            <Parameter Name="OlympNameId" Mode="In" Type="Int32" />
+            <Parameter Name="OlympSubjectId" Mode="In" Type="Int32" />
+            <Parameter Name="OlympValueId" Mode="In" Type="Int32" />
+            <Parameter Name="OlympYear" Mode="In" Type="Int32" />
+            <Parameter Name="AdditionalMark" Mode="In" Type="Int32" />
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <AssociationSet Name="FK_OlympResultToAdditionalMark_OlympLevel" Association="Priem2012Model.FK_OlympResultToAdditionalMark_OlympLevel">
+            <End Role="OlympLevel" EntitySet="OlympLevel" />
+            <End Role="OlympResultToAdditionalMark" EntitySet="OlympResultToAdditionalMark" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OlympResultToAdditionalMark_OlympSubject" Association="Priem2012Model.FK_OlympResultToAdditionalMark_OlympSubject">
+            <End Role="OlympSubject" EntitySet="OlympSubject" />
+            <End Role="OlympResultToAdditionalMark" EntitySet="OlympResultToAdditionalMark" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OlympResultToAdditionalMark_OlympType" Association="Priem2012Model.FK_OlympResultToAdditionalMark_OlympType">
+            <End Role="OlympType" EntitySet="OlympType" />
+            <End Role="OlympResultToAdditionalMark" EntitySet="OlympResultToAdditionalMark" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OlympResultToAdditionalMark_OlympValue" Association="Priem2012Model.FK_OlympResultToAdditionalMark_OlympValue">
+            <End Role="OlympValue" EntitySet="OlympValue" />
+            <End Role="OlympResultToAdditionalMark" EntitySet="OlympResultToAdditionalMark" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OlympResultToAdditionalMark_OlympLevel1" Association="Priem2012Model.FK_OlympResultToAdditionalMark_OlympLevel1">
+            <End Role="OlympLevel" EntitySet="OlympLevel" />
+            <End Role="OlympResultToAdditionalMark" EntitySet="OlympResultToAdditionalMark" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OlympResultToAdditionalMark_OlympName" Association="Priem2012Model.FK_OlympResultToAdditionalMark_OlympName">
+            <End Role="OlympName" EntitySet="OlympName" />
+            <End Role="OlympResultToAdditionalMark" EntitySet="OlympResultToAdditionalMark" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="AttMarks">
           <Key>
@@ -9532,6 +9747,8 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <Property Type="Boolean" Name="IsOpen" Nullable="false" />
           <Property Type="String" Name="Holder" MaxLength="150" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="OlympResultToCommonBenefit" Relationship="Priem2012Model.FK_OlympResultToCommonBenefit_OlympName1" FromRole="OlympLevel" ToRole="OlympResultToCommonBenefit" />
+          <NavigationProperty Name="OlympResultToAdditionalMark" Relationship="Priem2012Model.FK_OlympResultToAdditionalMark_OlympLevel" FromRole="OlympLevel" ToRole="OlympResultToAdditionalMark" />
+          <NavigationProperty Name="OlympResultToAdditionalMark1" Relationship="Priem2012Model.FK_OlympResultToAdditionalMark_OlympLevel1" FromRole="OlympLevel" ToRole="OlympResultToAdditionalMark" />
         </EntityType>
         <EntityType Name="OlympSubject">
           <Key>
@@ -9548,6 +9765,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <NavigationProperty Name="OlympSubjectToExam" Relationship="Priem2012Model.FK_OlympSubjectToExam_OlympSubject" FromRole="OlympSubject" ToRole="OlympSubjectToExam" />
           <Property Type="Boolean" Name="IsInVseross" />
           <NavigationProperty Name="OlympResultToCommonBenefit" Relationship="Priem2012Model.FK_OlympResultToCommonBenefit_OlympSubject" FromRole="OlympSubject" ToRole="OlympResultToCommonBenefit" />
+          <NavigationProperty Name="OlympResultToAdditionalMark" Relationship="Priem2012Model.FK_OlympResultToAdditionalMark_OlympSubject" FromRole="OlympSubject" ToRole="OlympResultToAdditionalMark" />
         </EntityType>
         <EntityType Name="OlympValue">
           <Key>
@@ -9561,6 +9779,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <Property Type="Boolean" Name="IsOpen" Nullable="false" />
           <Property Type="String" Name="Holder" MaxLength="150" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="OlympResultToCommonBenefit" Relationship="Priem2012Model.FK_OlympResultToCommonBenefit_OlympValue" FromRole="OlympValue" ToRole="OlympResultToCommonBenefit" />
+          <NavigationProperty Name="OlympResultToAdditionalMark" Relationship="Priem2012Model.FK_OlympResultToAdditionalMark_OlympValue" FromRole="OlympValue" ToRole="OlympResultToAdditionalMark" />
         </EntityType>
         <EntityType Name="PaidData">
           <Key>
@@ -9858,6 +10077,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <Property Type="Boolean" Name="IsOpen" Nullable="false" />
           <Property Type="String" Name="Holder" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="OlympName" Relationship="Priem2012Model.FK_OlympBook_OlympName" FromRole="OlympBook" ToRole="OlympName" />
+          <Property Name="OlympYear" Type="Int32" Nullable="false" />
         </EntityType>
         <Association Name="fk_OlympBook_OlympLevel">
           <End Type="Priem2012Model.OlympLevel" Role="OlympLevel" Multiplicity="0..1" />
@@ -9909,6 +10129,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <NavigationProperty Name="OlympName" Relationship="Priem2012Model.FK_Olympiads_OlympName" FromRole="Olympiads" ToRole="OlympName" />
           <Property Type="String" Name="Author" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Type="DateTime" Name="DateCreated" Nullable="false" Precision="3" />
+          <Property Name="OlympYear" Type="Int16" Nullable="false" />
         </EntityType>
         <EntityType Name="OlympType">
           <Key>
@@ -9922,6 +10143,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <Property Type="String" Name="Holder" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Type="Boolean" Name="IsVseross" Nullable="false" />
           <NavigationProperty Name="OlympResultToCommonBenefit" Relationship="Priem2012Model.FK_OlympResultToCommonBenefit_OlympType" FromRole="OlympType" ToRole="OlympResultToCommonBenefit" />
+          <NavigationProperty Name="OlympResultToAdditionalMark" Relationship="Priem2012Model.FK_OlympResultToAdditionalMark_OlympType" FromRole="OlympType" ToRole="OlympResultToAdditionalMark" />
         </EntityType>
         <Association Name="FK_OlympBook_OlympType">
           <End Type="Priem2012Model.OlympType" Role="OlympType" Multiplicity="0..1" />
@@ -9986,6 +10208,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
         <EntityType Name="extOlympBook">
           <Key>
             <PropertyRef Name="Id" />
+            <PropertyRef Name="OlympYear" />
           </Key>
           <Property Type="Guid" Name="Id" Nullable="false" />
           <Property Type="Int32" Name="OlympTypeId" />
@@ -9997,6 +10220,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <Property Type="String" Name="OlympSubjectName" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="OlympTypeName" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="Number" />
+          <Property Name="OlympYear" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="extEgeMarkMax">
           <Key>
@@ -10081,6 +10305,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <Property Type="Boolean" Name="IsOpen" Nullable="false" />
           <Property Type="String" Name="Holder" MaxLength="150" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Olympiads" Relationship="Priem2012Model.FK_Olympiads_OlympName" FromRole="OlympName" ToRole="Olympiads" />
+          <NavigationProperty Name="OlympResultToAdditionalMark" Relationship="Priem2012Model.FK_OlympResultToAdditionalMark_OlympName" FromRole="OlympName" ToRole="OlympResultToAdditionalMark" />
         </EntityType>
         <EntityType Name="ExamsVed">
           <Key>
@@ -10257,6 +10482,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <Property Type="Byte" Name="OrderNumber" Nullable="false" />
           <Property Name="IsCrimea" Type="Boolean" Nullable="false" />
           <Property Name="IsGosLine" Type="Boolean" Nullable="false" />
+          <Property Name="ParentExamInEntryId" Type="Int32" />
         </EntityType>
         <EntityType Name="qAbitAll">
           <Key>
@@ -11953,6 +12179,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <Property Type="Boolean" Name="IsCrimea" Nullable="false" />
           <NavigationProperty Name="EntryToCompetitiveGroup" Relationship="Priem2012Model.FK_EntryToCompetitiveGroup_Entry" FromRole="Entry" ToRole="EntryToCompetitiveGroup" />
           <NavigationProperty Name="OlympResultToCommonBenefit" Relationship="Priem2012Model.FK_OlympResultToCommonBenefit_Entry" FromRole="Entry" ToRole="OlympResultToCommonBenefit" />
+          <Property Name="ParentEntryId" Type="Guid" />
         </EntityType>
         <Association Name="FK_Abiturient_Entry">
           <End Type="Priem2012Model.Entry" Role="Entry" Multiplicity="1" />
@@ -12058,6 +12285,9 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <NavigationProperty Name="Exam" Relationship="Priem2012Model.FK_ExamInEntry_Exam" FromRole="ExamInEntry" ToRole="Exam" />
           <NavigationProperty Name="Mark" Relationship="Priem2012Model.fk_Mark_ExamInEntry" FromRole="ExamInEntry" ToRole="Mark" />
           <Property Type="Byte" Name="OrderNumber" Nullable="false" />
+          <Property Name="ParentExamInEntryId" Type="Int32" />
+          <NavigationProperty Name="ExamInEntry1" Relationship="Priem2012Model.FK_ExamInEntry_ParentExamInEntry" FromRole="ExamInEntry" ToRole="ExamInEntry1" />
+          <NavigationProperty Name="ExamInEntry2" Relationship="Priem2012Model.FK_ExamInEntry_ParentExamInEntry" FromRole="ExamInEntry1" ToRole="ExamInEntry" />
         </EntityType>
         <Association Name="FK_ExamInEntry_Entry">
           <End Type="Priem2012Model.Entry" Role="Entry" Multiplicity="1">
@@ -13499,6 +13729,112 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <Property Name="AbiturientId" Type="Guid" Nullable="false" />
           <Property Name="AdditionalMarksSum" Type="Int32" />
         </EntityType>
+        <Association Name="FK_ExamInEntry_ParentExamInEntry">
+          <End Type="Priem2012Model.ExamInEntry" Role="ExamInEntry" Multiplicity="0..1" />
+          <End Type="Priem2012Model.ExamInEntry" Role="ExamInEntry1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExamInEntry">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ExamInEntry1">
+              <PropertyRef Name="ParentExamInEntryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="OlympResultToAdditionalMark">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="EntryId" Type="Guid" Nullable="false" />
+          <Property Name="OlympTypeId" Type="Int32" Nullable="false" />
+          <Property Name="OlympSubjectId" Type="Int32" Nullable="false" />
+          <Property Name="OlympLevelId" Type="Int32" Nullable="false" />
+          <Property Name="OlympValueId" Type="Int32" Nullable="false" />
+          <Property Name="OlympYear" Type="Int32" Nullable="false" />
+          <Property Name="AdditionalMark" Type="Int32" Nullable="false" />
+          <Property Name="IsOpen" Type="Boolean" Nullable="false" />
+          <Property Name="Holder" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="OlympLevel" Relationship="Priem2012Model.FK_OlympResultToAdditionalMark_OlympLevel" FromRole="OlympResultToAdditionalMark" ToRole="OlympLevel" />
+          <NavigationProperty Name="OlympSubject" Relationship="Priem2012Model.FK_OlympResultToAdditionalMark_OlympSubject" FromRole="OlympResultToAdditionalMark" ToRole="OlympSubject" />
+          <NavigationProperty Name="OlympType" Relationship="Priem2012Model.FK_OlympResultToAdditionalMark_OlympType" FromRole="OlympResultToAdditionalMark" ToRole="OlympType" />
+          <NavigationProperty Name="OlympValue" Relationship="Priem2012Model.FK_OlympResultToAdditionalMark_OlympValue" FromRole="OlympResultToAdditionalMark" ToRole="OlympValue" />
+          <NavigationProperty Name="OlympLevel1" Relationship="Priem2012Model.FK_OlympResultToAdditionalMark_OlympLevel1" FromRole="OlympResultToAdditionalMark" ToRole="OlympLevel" />
+          <Property Name="OlympNameId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="OlympName" Relationship="Priem2012Model.FK_OlympResultToAdditionalMark_OlympName" FromRole="OlympResultToAdditionalMark" ToRole="OlympName" />
+        </EntityType>
+        <Association Name="FK_OlympResultToAdditionalMark_OlympLevel">
+          <End Type="Priem2012Model.OlympLevel" Role="OlympLevel" Multiplicity="1" />
+          <End Type="Priem2012Model.OlympResultToAdditionalMark" Role="OlympResultToAdditionalMark" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="OlympLevel">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OlympResultToAdditionalMark">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OlympResultToAdditionalMark_OlympSubject">
+          <End Type="Priem2012Model.OlympSubject" Role="OlympSubject" Multiplicity="1" />
+          <End Type="Priem2012Model.OlympResultToAdditionalMark" Role="OlympResultToAdditionalMark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OlympSubject">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OlympResultToAdditionalMark">
+              <PropertyRef Name="OlympSubjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OlympResultToAdditionalMark_OlympType">
+          <End Type="Priem2012Model.OlympType" Role="OlympType" Multiplicity="1" />
+          <End Type="Priem2012Model.OlympResultToAdditionalMark" Role="OlympResultToAdditionalMark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OlympType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OlympResultToAdditionalMark">
+              <PropertyRef Name="OlympTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OlympResultToAdditionalMark_OlympValue">
+          <End Type="Priem2012Model.OlympValue" Role="OlympValue" Multiplicity="1" />
+          <End Type="Priem2012Model.OlympResultToAdditionalMark" Role="OlympResultToAdditionalMark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OlympValue">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OlympResultToAdditionalMark">
+              <PropertyRef Name="OlympValueId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OlympResultToAdditionalMark_OlympLevel1">
+          <End Type="Priem2012Model.OlympLevel" Role="OlympLevel" Multiplicity="1" />
+          <End Type="Priem2012Model.OlympResultToAdditionalMark" Role="OlympResultToAdditionalMark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OlympLevel">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OlympResultToAdditionalMark">
+              <PropertyRef Name="OlympLevelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OlympResultToAdditionalMark_OlympName">
+          <End Type="Priem2012Model.OlympName" Role="OlympName" Multiplicity="1" />
+          <End Type="Priem2012Model.OlympResultToAdditionalMark" Role="OlympResultToAdditionalMark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OlympName">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OlympResultToAdditionalMark">
+              <PropertyRef Name="OlympNameId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -13898,6 +14234,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <EntitySetMapping Name="OlympBook">
             <EntityTypeMapping TypeName="Priem2012Model.OlympBook">
               <MappingFragment StoreEntitySet="OlympBook">
+                <ScalarProperty Name="OlympYear" ColumnName="OlympYear" />
                 <ScalarProperty Name="Holder" ColumnName="Holder" />
                 <ScalarProperty Name="IsOpen" ColumnName="IsOpen" />
                 <ScalarProperty Name="OlympLevelId" ColumnName="OlympLevelId" />
@@ -13911,6 +14248,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <EntitySetMapping Name="Olympiads">
             <EntityTypeMapping TypeName="Priem2012Model.Olympiads">
               <MappingFragment StoreEntitySet="Olympiads">
+                <ScalarProperty Name="OlympYear" ColumnName="OlympYear" />
                 <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
                 <ScalarProperty Name="Author" ColumnName="Author" />
                 <ScalarProperty Name="DocumentDate" ColumnName="DocumentDate" />
@@ -13943,6 +14281,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <EntitySetMapping Name="extOlympBook">
             <EntityTypeMapping TypeName="Priem2012Model.extOlympBook">
               <MappingFragment StoreEntitySet="extOlympBook">
+                <ScalarProperty Name="OlympYear" ColumnName="OlympYear" />
                 <ScalarProperty Name="Number" ColumnName="Number" />
                 <ScalarProperty Name="OlympTypeName" ColumnName="OlympTypeName" />
                 <ScalarProperty Name="OlympSubjectName" ColumnName="OlympSubjectName" />
@@ -14186,6 +14525,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <EntitySetMapping Name="extExamInEntry">
             <EntityTypeMapping TypeName="Priem2012Model.extExamInEntry">
               <MappingFragment StoreEntitySet="extExamInEntry">
+                <ScalarProperty Name="ParentExamInEntryId" ColumnName="ParentExamInEntryId" />
                 <ScalarProperty Name="IsGosLine" ColumnName="IsGosLine" />
                 <ScalarProperty Name="IsCrimea" ColumnName="IsCrimea" />
                 <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
@@ -15260,6 +15600,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <EntitySetMapping Name="Entry">
             <EntityTypeMapping TypeName="Priem2012Model.Entry">
               <MappingFragment StoreEntitySet="Entry">
+                <ScalarProperty Name="ParentEntryId" ColumnName="ParentEntryId" />
                 <ScalarProperty Name="IsCrimea" ColumnName="IsCrimea" />
                 <ScalarProperty Name="IsForeign" ColumnName="IsForeign" />
                 <ScalarProperty Name="DateStartEduc" ColumnName="DateStartEduc" />
@@ -15294,6 +15635,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <EntitySetMapping Name="ExamInEntry">
             <EntityTypeMapping TypeName="Priem2012Model.ExamInEntry">
               <MappingFragment StoreEntitySet="ExamInEntry">
+                <ScalarProperty Name="ParentExamInEntryId" ColumnName="ParentExamInEntryId" />
                 <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
                 <ScalarProperty Name="IsCrimea" ColumnName="IsCrimea" />
                 <ScalarProperty Name="IsGosLine" ColumnName="IsGosLine" />
@@ -16152,6 +16494,26 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="OlympResultToAdditionalMark">
+            <EntityTypeMapping TypeName="Priem2012Model.OlympResultToAdditionalMark">
+              <MappingFragment StoreEntitySet="OlympResultToAdditionalMark">
+                <ScalarProperty Name="OlympNameId" ColumnName="OlympNameId" />
+                <ScalarProperty Name="Holder" ColumnName="Holder" />
+                <ScalarProperty Name="IsOpen" ColumnName="IsOpen" />
+                <ScalarProperty Name="AdditionalMark" ColumnName="AdditionalMark" />
+                <ScalarProperty Name="OlympYear" ColumnName="OlympYear" />
+                <ScalarProperty Name="OlympValueId" ColumnName="OlympValueId" />
+                <ScalarProperty Name="OlympLevelId" ColumnName="OlympLevelId" />
+                <ScalarProperty Name="OlympSubjectId" ColumnName="OlympSubjectId" />
+                <ScalarProperty Name="OlympTypeId" ColumnName="OlympTypeId" />
+                <ScalarProperty Name="EntryId" ColumnName="EntryId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="OlympResultToAdditionalMark_Delete" FunctionName="Priem2012Model.Store.OlympResultToAdditionalMark_Delete" />
+          <FunctionImportMapping FunctionImportName="OlympResultToAdditionalMark_Insert" FunctionName="Priem2012Model.Store.OlympResultToAdditionalMark_Insert" />
+          <FunctionImportMapping FunctionImportName="OlympResultToAdditionalMark_Update" FunctionName="Priem2012Model.Store.OlympResultToAdditionalMark_Update" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -216,7 +216,9 @@ namespace PriemLib
                 qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "ed.extPerson.SNILS", "СНИЛС"));
                 qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "ed.extPerson.PassportAuthor", "Кем_выдан_паспорт"));
                 qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "ed.extPerson.PassportDate", "Дата_выдачи_паспорта"));
-                
+                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", QueryBuilder.GetBoolField("ed.extPerson.HasOriginals"), "Подал_подлинники_в_университет"));
+
+
                 qBuilder.AddQueryItem(new QueryItem("ed.extPerson", QueryBuilder.GetBoolField("ed.extPerson.Sex"), "Пол_мужской"));
 
                 //Person Contacts
@@ -310,10 +312,14 @@ namespace PriemLib
                 qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", "(SELECT TOP 1 ExamName FROM ed.extExamInEntry WHERE extExamInEntry.EntryId = qAbiturient.EntryId AND extExamInEntry.OrderNumber = 1)", "Первый_предмет_ВИ"));
                 qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", "(SELECT TOP 1 ExamName FROM ed.extExamInEntry WHERE extExamInEntry.EntryId = qAbiturient.EntryId AND extExamInEntry.OrderNumber = 2)", "Второй_предмет_ВИ"));
                 qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", "(SELECT TOP 1 ExamName FROM ed.extExamInEntry WHERE extExamInEntry.EntryId = qAbiturient.EntryId AND extExamInEntry.OrderNumber = 3)", "Третий_предмет_ВИ"));
+                qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", "(SELECT TOP 1 ExamName FROM ed.extExamInEntry WHERE extExamInEntry.EntryId = qAbiturient.EntryId AND extExamInEntry.OrderNumber = 4)", "Четвертый_предмет_ВИ"));
+                qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", "(SELECT TOP 1 ExamName FROM ed.extExamInEntry WHERE extExamInEntry.EntryId = qAbiturient.EntryId AND extExamInEntry.OrderNumber = 5)", "Пятый_предмет_ВИ"));
 
                 qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", "(SELECT TOP 1 Value FROM ed.Mark INNER JOIN ed.extExamInEntry ON extExamInEntry.Id = Mark.ExamInEntryId WHERE Mark.AbiturientId = qAbiturient.Id AND extExamInEntry.OrderNumber = 1)", "Балл_Первый_предмет_ВИ"));
                 qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", "(SELECT TOP 1 Value FROM ed.Mark INNER JOIN ed.extExamInEntry ON extExamInEntry.Id = Mark.ExamInEntryId WHERE Mark.AbiturientId = qAbiturient.Id AND extExamInEntry.OrderNumber = 2)", "Балл_Второй_предмет_ВИ"));
                 qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", "(SELECT TOP 1 Value FROM ed.Mark INNER JOIN ed.extExamInEntry ON extExamInEntry.Id = Mark.ExamInEntryId WHERE Mark.AbiturientId = qAbiturient.Id AND extExamInEntry.OrderNumber = 3)", "Балл_Третий_предмет_ВИ"));
+                qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", "(SELECT TOP 1 Value FROM ed.Mark INNER JOIN ed.extExamInEntry ON extExamInEntry.Id = Mark.ExamInEntryId WHERE Mark.AbiturientId = qAbiturient.Id AND extExamInEntry.OrderNumber = 3)", "Балл_Четвертый_предмет_ВИ"));
+                qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", "(SELECT TOP 1 Value FROM ed.Mark INNER JOIN ed.extExamInEntry ON extExamInEntry.Id = Mark.ExamInEntryId WHERE Mark.AbiturientId = qAbiturient.Id AND extExamInEntry.OrderNumber = 3)", "Балл_Пятый_предмет_ВИ"));
 
                 qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MAX (ed.EgeMark.value) as mark FROM ed.EgeMark INNER JOIN ed.EgeCertificate ON ed.EgeMark.EgeCertificateId = ed.EgeCertificate.Id WHERE ed.EgeCertificate.PersonId = ed.extPerson.Id AND EgeExamNameId=5)", "ЕГЭ_русск.язык"));
                 qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MAX (ed.EgeMark.value) as mark FROM ed.EgeMark INNER JOIN ed.EgeCertificate ON ed.EgeMark.EgeCertificateId = ed.EgeCertificate.Id WHERE ed.EgeCertificate.PersonId = ed.extPerson.Id AND EgeExamNameId=4)", "ЕГЭ_математика"));

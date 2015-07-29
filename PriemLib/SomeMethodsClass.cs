@@ -108,7 +108,7 @@ namespace PriemLib
                                 continue;
                             
                             ObjectParameter EntId = new ObjectParameter("id", typeof(Int32));
-                            context.OlympBook_Insert(4, olNameId, subjId, levId, EntId);                        
+                            context.OlympBook_Insert(4, olNameId, subjId, levId, MainClass.iPriemYear, EntId);
                         }
                     }
                 }

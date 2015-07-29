@@ -222,6 +222,7 @@ namespace PriemLib
 
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.Filter = "ADOBE Pdf files|*.pdf";
+            sfd.FileName = "Представление к зачислению - " +  dgvViews.CurrentRow.Cells["Номер представления"].Value.ToString() + ".pdf";
             if (sfd.ShowDialog() == DialogResult.OK)
                 Print.PrintEntryView(dgvViews.CurrentRow.Cells["Id"].Value.ToString(), sfd.FileName, !chbIsForeign.Checked);
         }
