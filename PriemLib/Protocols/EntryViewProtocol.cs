@@ -292,9 +292,10 @@ namespace PriemLib
                 string obProg = dr["ObrazProgramId"].ToString();
                 string spec = dr["ProfileId"].ToString();
 
-                string enteredQuery = string.Format(@"SELECT Count(Abiturient.Id) FROM ed.Abiturient INNER JOIN ed.extEntry E ON E.Id = Abiturient.EntryId 
+                string enteredQuery = string.Format(@"SELECT Count(Abiturient.Id) FROM ed.Abiturient 
+                        INNER JOIN ed.extEntry E ON E.Id = Abiturient.EntryId 
                         INNER JOIN ed.extEntryView ON Abiturient.Id=ed.extEntryView.AbiturientId 
-                        WHERE Excluded=0 AND E.StudyLevelGroupId = {9}
+                        WHERE Excluded=0 AND E.StudyLevelGroupId = {9} AND (E.Id = Abiturient.EntryId OR E.ParentEntryId = Abiturient.EntryId)
                         AND E.FacultyId={0} AND E.StudyFormId={1} AND E.StudyBasisId={2} 
                         AND E.LicenseProgramId={3} AND E.IsSEcond = {4} AND E.IsReduced = {5} AND E.IsParallel = {6} AND E.ObrazProgramId={7} {8}", _facultyId, _studyFormId, _studyBasisId, _licenseProgramId, QueryServ.StringParseFromBool(_isSecond), QueryServ.StringParseFromBool(_isReduced), QueryServ.StringParseFromBool(_isParallel),
                         obProg, string.IsNullOrEmpty(spec) ? " AND E.ProfileId IS NULL " : " AND E.ProfileId='" + spec + "'", _studyLevelGroupId);
@@ -315,6 +316,8 @@ namespace PriemLib
                     int.TryParse(dr["Value"].ToString(), out kc);
 
                 int kcRest = kc - entered;
+                if (MainClass.bFirstWaveEnabled && !_isCel && HeaderId == 8)
+                    kcRest = (int)(((float)kcRest * 0.8f) + 0.999f);
 
                 string sQueryBody = string.Format(@"SELECT DISTINCT TOP ({0}) ed.extAbitMarksSum.TotalSum + extAbitAdditionalMarksSum.AdditionalMarksSum as Sum, 
 Abiturient.Id as Id, Abiturient.BackDoc as backdoc,
@@ -340,11 +343,23 @@ LEFT JOIN ed.Competition ON Competition.Id = Abiturient.CompetitionId ", kcRest)
                 sFilter += string.IsNullOrEmpty(spec) ? " AND extEntry.ProfileId = 0 " : " AND extEntry.ProfileId='" + spec + "'";
 
                 if (_studyBasisId == 1)
-                    sFilter += @"AND 
+                    sFilter += @" AND
 (
-	Abiturient.Id IN (SELECT AbiturientId FROM ed._FirstWaveGreen) 
-	OR Abiturient.Id IN (SELECT AbiturientId FROM ed._FirstWaveYellow) 
-	OR Abiturient.CompetitionId IN (1, 2, 7, 8)
+    Abiturient.Id IN
+    ( 
+	    SELECT Abiturient.Id FROM ed._FirstWaveGreen 
+	    INNER JOIN ed.Abiturient ON Abiturient.Id = _FirstWaveGreen.AbiturientId
+	    WHERE NOT EXISTS (SELECT * FROM ed.hlpAbitToGo WHERE hlpAbitToGo.PersonId = Abiturient.PersonId AND hlpAbitToGo.IsGo = 1 AND hlpAbitToGo.Priority < Abiturient.Priority)
+	    UNION 
+	    SELECT Abiturient.Id FROM ed._FirstWaveYellow 
+	    INNER JOIN ed.Abiturient ON Abiturient.Id = _FirstWaveYellow.AbiturientId
+	    WHERE NOT EXISTS (SELECT * FROM ed.hlpAbitToGo WHERE hlpAbitToGo.PersonId = Abiturient.PersonId AND hlpAbitToGo.IsGo = 1 AND hlpAbitToGo.Priority < Abiturient.Priority)
+	    UNION 
+	    SELECT Abiturient.Id FROM ed._FirstWaveLast
+	    INNER JOIN ed.Abiturient ON Abiturient.Id = _FirstWaveLast.AbiturientId
+	    WHERE NOT EXISTS (SELECT * FROM ed.hlpAbitToGo WHERE hlpAbitToGo.PersonId = Abiturient.PersonId AND hlpAbitToGo.IsGo = 1 AND hlpAbitToGo.Priority < Abiturient.Priority)
+	)
+    OR Abiturient.CompetitionId IN (1, 2, 7, 8)
 )";
 
                 string orderBy = " ORDER BY SortNum";

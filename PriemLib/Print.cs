@@ -1570,13 +1570,15 @@ namespace PriemLib
 
                 using (PriemEntities ctx = new PriemEntities())
                 {
-                    docNum = (from protocol in ctx.OrderNumbers
-                              where protocol.ProtocolId == gProtocolId
-                              select protocol.ComissionNumber).DefaultIfEmpty("НЕ УКАЗАН").FirstOrDefault();
+                    docNum = (from protocol in ctx.Protocol
+                              join AdmProt in ctx.AdmissionProtocol on protocol.AdmissionProtocolId equals AdmProt.Id
+                              where protocol.Id == gProtocolId
+                              select AdmProt.Number).DefaultIfEmpty("НЕ УКАЗАН").FirstOrDefault();
 
-                    docDate = (from protocol in ctx.OrderNumbers
-                               where protocol.ProtocolId == gProtocolId
-                               select protocol.ComissionDate).FirstOrDefault();
+                    docDate = (from protocol in ctx.Protocol
+                               join AdmProt in ctx.AdmissionProtocol on protocol.AdmissionProtocolId equals AdmProt.Id
+                               where protocol.Id == gProtocolId
+                               select AdmProt.Date).FirstOrDefault();
 
                     sLicenseProgramName =
                         (from entry in ctx.extEntry
@@ -1824,14 +1826,16 @@ namespace PriemLib
                     TableDoc td = null;
 
                     DateTime? dtComissionDate =
-                        (from protocol in ctx.OrderNumbers
-                         where protocol.ProtocolId == gProtocolId
-                         select protocol.ComissionDate).FirstOrDefault();
+                        (from protocol in ctx.Protocol
+                         join AdmProt in ctx.AdmissionProtocol on protocol.AdmissionProtocolId equals AdmProt.Id
+                         where protocol.Id == gProtocolId
+                         select AdmProt.Date).FirstOrDefault();
 
                     string sComissionNum =
-                        (from protocol in ctx.OrderNumbers
-                         where protocol.ProtocolId == gProtocolId
-                         select protocol.ComissionNumber).DefaultIfEmpty("НЕ УКАЗАН").FirstOrDefault();
+                        (from protocol in ctx.Protocol
+                         join AdmProt in ctx.AdmissionProtocol on protocol.AdmissionProtocolId equals AdmProt.Id
+                         where protocol.Id == gProtocolId
+                         select AdmProt.Number).DefaultIfEmpty("НЕ УКАЗАН").FirstOrDefault();
 
                     string docNum =
                         (from orderNumbers in ctx.OrderNumbers
@@ -2081,16 +2085,20 @@ namespace PriemLib
                     wd.SetFields("Граждан2", isRus ? "граждан Российской Федерации" : "");
                     wd.SetFields("Стипендия", (ProtocolInfo.StudyBasisId == 2 || ProtocolInfo.StudyFormId == 2) ? "" : "\r\nи назначении стипендии");
                     wd.SetFields("Стипендия2", (ProtocolInfo.StudyBasisId == 2 || ProtocolInfo.StudyFormId == 2) ? "" : " и назначении стипендии");
-                    wd.SetFields("Факультет", facDat);
-                    wd.SetFields("Форма", form);
-                    wd.SetFields("Основа", basis);
-                    wd.SetFields("БакСпец", StudyLevelName);
-                    wd.SetFields("НапрСпец", string.Format(" направлению {0} «{1}»", LicenseProgramCode, LicenseProgramName));
+                    //wd.SetFields("Факультет", facDat);
+                    //wd.SetFields("Форма", form);
+                    //wd.SetFields("Основа", basis);
+                    //wd.SetFields("БакСпец", StudyLevelName);
+                    //wd.SetFields("НапрСпец", string.Format(" направлению {0} «{1}»", LicenseProgramCode, LicenseProgramName));
                     wd.SetFields("ПриказОт", docDate);
                     wd.SetFields("ПриказНомер", docNum);
                     wd.SetFields("ПриказОт2", docDate);
                     wd.SetFields("ПриказНомер2", docNum);
-                    wd.SetFields("Сокращ", sec);
+
+                    wd.SetFields("ПредставлениеНомер", ProtocolInfo.Number);
+                    wd.SetFields("ПредставлениеДата", ProtocolInfo.Date.ToShortDateString());
+
+                    //wd.SetFields("Сокращ", sec);
 
                     int curRow = 4;
                     var lst = (from extabit in ctx.extAbit
@@ -2100,16 +2108,20 @@ namespace PriemLib
                                join competition in ctx.Competition on extabit.CompetitionId equals competition.Id
                                join extabitMarksSum in ctx.extAbitMarksSum on extabit.Id equals extabitMarksSum.Id into extabitMarksSum2
                                from extabitMarksSum in extabitMarksSum2.DefaultIfEmpty()
+                               join extAbitAddMarksSum in ctx.extAbitAdditionalMarksSum on extabit.Id equals extAbitAddMarksSum.AbiturientId into extAbitAddMarksSum2
+                               from extAbitAddMarksSum in extAbitAddMarksSum2.DefaultIfEmpty()
                                where extdisEntryView.Id == gProtocolId && MainClass.lstStudyLevelGroupId.Contains(extdisEntryView.StudyLevelGroupId) && (isRus ? extperson.NationalityId == 1 : extperson.NationalityId != 1)
                                orderby extabit.ProfileName, country.NameRod, extperson.FIO
                                select new
                                {
                                    TotalSum = extabitMarksSum.TotalSum,
+                                   extAbitAddMarksSum.AdditionalMarksSum,
                                    ФИО = extabit.FIO,
+                                   extabit.CompetitionId
                                }).ToList().Distinct().OrderBy(x => x.ФИО).Select(x =>
                                    new
                                    {
-                                       TotalSum = x.TotalSum.ToString(),
+                                       TotalSum = x.CompetitionId == 1 || x.CompetitionId == 8 ? "" : ((x.AdditionalMarksSum ?? 0) + x.TotalSum).ToString(),
                                        ФИО = x.ФИО,
                                    }
                                );
@@ -2118,7 +2130,7 @@ namespace PriemLib
                     {
                         td.AddRow(1);
                         curRow++;
-                        td[0, curRow] = string.Format("\t\tп. № {0} {1} - исключить.", v.ФИО, v.TotalSum);
+                        td[0, curRow] = string.Format("\t\tп. 1.{2} № {0} {1} - исключить.", v.ФИО, v.TotalSum, curRow - 4);
                     }
                 }
             }
@@ -2209,17 +2221,21 @@ namespace PriemLib
                                join competition in ctx.Competition on extabit.CompetitionId equals competition.Id
                                join extabitMarksSum in ctx.extAbitMarksSum on extabit.Id equals extabitMarksSum.Id into extabitMarksSum2
                                from extabitMarksSum in extabitMarksSum2.DefaultIfEmpty()
+                               join extAbitAddMarksSum in ctx.extAbitAdditionalMarksSum on extabit.Id equals extAbitAddMarksSum.AbiturientId into extAbitAddMarksSum2
+                               from extAbitAddMarksSum in extAbitAddMarksSum2.DefaultIfEmpty()
                                where extdisEntryView.Id == gProtocolId && MainClass.lstStudyLevelGroupId.Contains(extdisEntryView.StudyLevelGroupId)
                                orderby extabit.ProfileName, country.NameRod, extperson.FIO
                                select new
                                {
                                    TotalSum = extabitMarksSum.TotalSum,
+                                   extAbitAddMarksSum.AdditionalMarksSum,
                                    ФИО = extabit.FIO,
+                                   extabit.CompetitionId,
                                    extperson.NationalityId
                                }).ToList().Distinct().OrderBy(x => x.ФИО).Select(x =>
                                    new
                                    {
-                                       TotalSum = x.TotalSum.ToString(),
+                                       TotalSum = x.CompetitionId == 1 || x.CompetitionId == 8 ? "" : ((x.AdditionalMarksSum ?? 0) + x.TotalSum).ToString(),
                                        ФИО = x.ФИО,
                                        x.NationalityId
                                    }
@@ -2231,25 +2247,307 @@ namespace PriemLib
                     wd.SetFields("Граждан2", isRus ? "граждан Российской Федерации" : "");
                     wd.SetFields("Стипендия", ProtocolInfo.StudyBasisId == 2 ? "" : "и назначении стипендии");
                     wd.SetFields("Стипендия2", ProtocolInfo.StudyBasisId == 2 ? "" : "и назначении стипендии");
-                    wd.SetFields("Факультет", facDat);
-                    wd.SetFields("Форма", form);
-                    wd.SetFields("Основа", basis);
-                    wd.SetFields("БакСпец", StudyLevelName);
-                    wd.SetFields("НапрСпец", string.Format(" направлению {0} «{1}»", LicenseProgramCode, LicenseProgramName));
+                    //wd.SetFields("Факультет", facDat);
+                    //wd.SetFields("Форма", form);
+                    //wd.SetFields("Основа", basis);
+                    //wd.SetFields("БакСпец", StudyLevelName);
+                    //wd.SetFields("НапрСпец", string.Format(" направлению {0} «{1}»", LicenseProgramCode, LicenseProgramName));
                     wd.SetFields("ПриказОт", docDate);
                     wd.SetFields("ПриказНомер", docNum);
                     wd.SetFields("ПриказОт2", docDate);
                     wd.SetFields("ПриказНомер2", docNum);
                     wd.SetFields("ПредставлениеОт", protocolDate.ToShortDateString());
                     wd.SetFields("ПредставлениеНомер", protocolNum);
-                    wd.SetFields("Сокращ", sec);
+                    //wd.SetFields("Сокращ", sec);
 
                     int curRow = 4;
                     foreach (var v in lst)
                     {
                         td.AddRow(1);
                         curRow++;
-                        td[0, curRow] = string.Format("\t\tп. № {0}, {1} - исключить.", v.ФИО, v.TotalSum);
+                        td[0, curRow] = string.Format("\t\tп. 1.{2} {0}, {1} - исключить.", v.ФИО, v.TotalSum, curRow - 4);
+                    }
+                }
+            }
+            catch (WordException we)
+            {
+                WinFormsServ.Error(we);
+            }
+            catch (Exception exc)
+            {
+                WinFormsServ.Error(exc);
+            }
+        }
+
+        public static void PrintDisEntryFromReEnterOrder(string protocolId, bool isRus)
+        {
+            try
+            {
+                WordDoc wd = new WordDoc(string.Format(@"{0}\DisEntryReEnterOrder.dot", MainClass.dirTemplates));
+                TableDoc td = wd.Tables[0];
+
+                Guid gProtocolId = Guid.Parse(protocolId);
+                var ProtocolInfo = ProtocolDataProvider.GetProtocolInfo(gProtocolId, 7);
+
+                using (PriemEntities ctx = new PriemEntities())
+                {
+                    Guid entryProtocolId =
+                        (from extEntryView in ctx.extEntryView_ForDisEntered
+                         join extDisEntryView in ctx.extDisEntryView on extEntryView.AbiturientId equals extDisEntryView.AbiturientId
+                         where !extDisEntryView.IsOld && extDisEntryView.Id == gProtocolId
+                         select extEntryView.Id).FirstOrDefault();
+
+                    string docNum = "НОМЕР";
+                    string docDate = "ДАТА";
+
+                    DateTime? tempDate;
+                    docNum =
+                        (from orderNumbers in ctx.OrderNumbers
+                         where orderNumbers.ProtocolId == entryProtocolId
+                         select isRus ? orderNumbers.OrderNum : orderNumbers.OrderNumFor).FirstOrDefault();
+
+                    tempDate = (DateTime?)
+                        (from orderNumbers in ctx.OrderNumbers
+                         where orderNumbers.ProtocolId == entryProtocolId
+                         select isRus ? orderNumbers.OrderDate : orderNumbers.OrderDateFor).FirstOrDefault();
+
+                    if (tempDate.HasValue)
+                        docDate = tempDate.Value.ToShortDateString();
+                    else
+                        docDate = "!НЕТ ДАТЫ";
+
+                    string facDat =
+                        (from protocol in ctx.Protocol
+                         join sP_Faculty in ctx.SP_Faculty on protocol.FacultyId equals sP_Faculty.Id
+                         where protocol.Id == gProtocolId
+                         select sP_Faculty.DatName).FirstOrDefault();
+
+                    string list = string.Empty, sec = string.Empty;
+                    if (ProtocolInfo.IsSecond)
+                        list = " в качестве слушателя";
+                    if (ProtocolInfo.IsReduced)
+                        sec += " (сокращенной)";
+                    if (ProtocolInfo.IsListener)
+                        sec += " (для лиц с высшим образованием)";
+
+                    string LicenseProgramName =
+                        (from entry in ctx.extEntry
+                         join extdisEntryView in ctx.extDisEntryView on entry.LicenseProgramId equals extdisEntryView.LicenseProgramId
+                         where extdisEntryView.Id == gProtocolId && MainClass.lstStudyLevelGroupId.Contains(extdisEntryView.StudyLevelGroupId)
+                         select entry.LicenseProgramName).FirstOrDefault();
+
+                    string LicenseProgramCode =
+                        (from entry in ctx.extEntry
+                         join extdisEntryView in ctx.extDisEntryView on entry.LicenseProgramId equals extdisEntryView.LicenseProgramId
+                         where extdisEntryView.Id == gProtocolId && MainClass.lstStudyLevelGroupId.Contains(extdisEntryView.StudyLevelGroupId)
+                         select entry.LicenseProgramCode).FirstOrDefault();
+
+                    string StudyLevelName =
+                        (from entry in ctx.extEntry
+                         join extdisEntryView in ctx.extDisEntryView on entry.LicenseProgramId equals extdisEntryView.LicenseProgramId
+                         where extdisEntryView.Id == gProtocolId && MainClass.lstStudyLevelGroupId.Contains(extdisEntryView.StudyLevelGroupId)
+                         select entry.StudyLevelName).FirstOrDefault();
+
+                    string basis = string.Empty;
+                    switch (ProtocolInfo.StudyBasisId)
+                    {
+                        case 1:
+                            basis = "обучение за счет средств федерального бюджета";
+                            break;
+                        case 2:
+                            basis = string.Format("по договорам оказания государственной услуги по обучению по основной{0} образовательной программе высшего профессионального образования", sec);
+                            break;
+                    }
+
+                    var SF = ctx.StudyForm.Where(x => x.Id == ProtocolInfo.StudyFormId).Select(x => new { x.Name, x.RodName }).FirstOrDefault();
+                    string form = SF.Name + " форма обучения";
+                    string form2 = "по " + SF.RodName + " форме";
+
+                    wd.SetFields("Граждан", isRus ? "граждан РФ" : "иностранных граждан");
+                    wd.SetFields("Граждан2", isRus ? "граждан Российской Федерации" : "");
+                    wd.SetFields("Стипендия", (ProtocolInfo.StudyBasisId == 2 || ProtocolInfo.StudyFormId == 2) ? "" : "\r\nи назначении стипендии");
+                    wd.SetFields("Стипендия2", (ProtocolInfo.StudyBasisId == 2 || ProtocolInfo.StudyFormId == 2) ? "" : " и назначении стипендии");
+                    //wd.SetFields("Факультет", facDat);
+                    //wd.SetFields("Форма", form);
+                    //wd.SetFields("Основа", basis);
+                    //wd.SetFields("БакСпец", StudyLevelName);
+                    //wd.SetFields("НапрСпец", string.Format(" направлению {0} «{1}»", LicenseProgramCode, LicenseProgramName));
+                    wd.SetFields("ПриказОт", docDate);
+                    wd.SetFields("ПриказНомер", docNum);
+                    wd.SetFields("ПриказОт2", docDate);
+                    wd.SetFields("ПриказНомер2", docNum);
+
+                    wd.SetFields("ПредставлениеНомер", ProtocolInfo.Number);
+                    wd.SetFields("ПредставлениеДата", ProtocolInfo.Date.ToShortDateString());
+
+                    //wd.SetFields("Сокращ", sec);
+
+                    int curRow = 4;
+                    var lst = (from extabit in ctx.extAbit
+                               join extdisEntryView in ctx.extDisEntryFromReEnterView on extabit.Id equals extdisEntryView.AbiturientId
+                               join extperson in ctx.extPerson on extabit.PersonId equals extperson.Id
+                               join country in ctx.Country on extperson.NationalityId equals country.Id
+                               join competition in ctx.Competition on extabit.CompetitionId equals competition.Id
+                               join extabitMarksSum in ctx.extAbitMarksSum on extabit.Id equals extabitMarksSum.Id into extabitMarksSum2
+                               from extabitMarksSum in extabitMarksSum2.DefaultIfEmpty()
+                               join extAbitAddMarksSum in ctx.extAbitAdditionalMarksSum on extabit.Id equals extAbitAddMarksSum.AbiturientId into extAbitAddMarksSum2
+                               from extAbitAddMarksSum in extAbitAddMarksSum2.DefaultIfEmpty()
+                               where extdisEntryView.Id == gProtocolId && MainClass.lstStudyLevelGroupId.Contains(extdisEntryView.StudyLevelGroupId) && (isRus ? extperson.NationalityId == 1 : extperson.NationalityId != 1)
+                               orderby extabit.ProfileName, country.NameRod, extperson.FIO
+                               select new
+                               {
+                                   TotalSum = extabitMarksSum.TotalSum,
+                                   extAbitAddMarksSum.AdditionalMarksSum,
+                                   ФИО = extabit.FIO,
+                                   extabit.CompetitionId
+                               }).ToList().Distinct().OrderBy(x => x.ФИО).Select(x =>
+                                   new
+                                   {
+                                       TotalSum = x.CompetitionId == 1 || x.CompetitionId == 8 ? "" : ((x.AdditionalMarksSum ?? 0) + x.TotalSum).ToString(),
+                                       ФИО = x.ФИО,
+                                   }
+                               );
+
+                    foreach (var v in lst)
+                    {
+                        td.AddRow(1);
+                        curRow++;
+                        td[0, curRow] = string.Format("\t\tп. 1.{2} № {0} {1} - исключить.", v.ФИО, v.TotalSum, curRow - 4);
+                    }
+                }
+            }
+            catch (WordException we)
+            {
+                WinFormsServ.Error(we);
+            }
+            catch (Exception exc)
+            {
+                WinFormsServ.Error(exc);
+            }
+        }
+        public static void PrintDisEntryFromReEnterView(string protocolId)
+        {
+            try
+            {
+                WordDoc wd = new WordDoc(string.Format(@"{0}\DisEntryReEnterView.dot", MainClass.dirTemplates));
+                TableDoc td = wd.Tables[0];
+
+                Guid gProtocolId = Guid.Parse(protocolId);
+                var ProtocolInfo = ProtocolDataProvider.GetProtocolInfo(gProtocolId, 7);
+
+                using (PriemEntities ctx = new PriemEntities())
+                {
+                    DateTime protocolDate = ProtocolInfo.Date;
+                    string protocolNum = ProtocolInfo.Number;
+
+                    Guid entryProtocolId =
+                        (from extEntryView in ctx.extEntryView_ForDisEntered
+                         join extDisEntryView in ctx.extDisEntryView on extEntryView.AbiturientId equals extDisEntryView.AbiturientId
+                         where !extDisEntryView.IsOld && extDisEntryView.Id == gProtocolId
+                         select extEntryView.Id).FirstOrDefault();
+
+                    string docNum = "НОМЕР";
+                    string docDate = "ДАТА";
+
+                    string facDat =
+                        (from protocol in ctx.Protocol
+                         join Fac in ctx.SP_Faculty on protocol.FacultyId equals Fac.Id
+                         where protocol.Id == gProtocolId
+                         select Fac.DatName).FirstOrDefault().ToString();
+
+                    string list = string.Empty, sec = string.Empty;
+                    if (ProtocolInfo.IsListener)
+                        list = " в качестве слушателя";
+                    if (ProtocolInfo.IsSecond)
+                        sec = " (для лиц с ВО)";
+                    if (ProtocolInfo.IsReduced)
+                        sec = " (сокращенной)";
+
+                    string LicenseProgramName =
+                        (from entry in ctx.extEntry
+                         join extdisEntryView in ctx.extDisEntryView on entry.LicenseProgramId equals extdisEntryView.LicenseProgramId
+                         where extdisEntryView.Id == gProtocolId && MainClass.lstStudyLevelGroupId.Contains(extdisEntryView.StudyLevelGroupId)
+                         select entry.LicenseProgramName).FirstOrDefault();
+
+                    string LicenseProgramCode =
+                        (from entry in ctx.extEntry
+                         join extdisEntryView in ctx.extDisEntryView on entry.LicenseProgramId equals extdisEntryView.LicenseProgramId
+                         where extdisEntryView.Id == gProtocolId && MainClass.lstStudyLevelGroupId.Contains(extdisEntryView.StudyLevelGroupId)
+                         select entry.LicenseProgramCode).FirstOrDefault();
+
+                    string StudyLevelName =
+                        (from entry in ctx.extEntry
+                         join extdisEntryView in ctx.extDisEntryView on entry.LicenseProgramId equals extdisEntryView.LicenseProgramId
+                         where extdisEntryView.Id == gProtocolId && MainClass.lstStudyLevelGroupId.Contains(extdisEntryView.StudyLevelGroupId)
+                         select entry.StudyLevelName).FirstOrDefault();
+
+                    string basis = string.Empty;
+                    switch (ProtocolInfo.StudyBasisId)
+                    {
+                        case 1:
+                            basis = "обучение за счет средств федерального бюджета";
+                            break;
+                        case 2:
+                            basis = string.Format("по договорам оказания государственной услуги по обучению по основной{0} образовательной программе высшего профессионального образования", sec);
+                            break;
+                    }
+
+                    var SF = ctx.StudyForm.Where(x => x.Id == ProtocolInfo.StudyFormId).Select(x => new { x.Name, x.RodName }).FirstOrDefault();
+                    string form = SF.Name + " форма обучения";
+                    string form2 = "по " + SF.RodName + " форме";
+
+                    var lst = (from extabit in ctx.extAbit
+                               join extdisEntryView in ctx.extDisEntryFromReEnterView on extabit.Id equals extdisEntryView.AbiturientId
+                               join extperson in ctx.extPerson on extabit.PersonId equals extperson.Id
+                               join country in ctx.Country on extperson.NationalityId equals country.Id
+                               join competition in ctx.Competition on extabit.CompetitionId equals competition.Id
+                               join extabitMarksSum in ctx.extAbitMarksSum on extabit.Id equals extabitMarksSum.Id into extabitMarksSum2
+                               from extabitMarksSum in extabitMarksSum2.DefaultIfEmpty()
+                               join extAbitAddMarksSum in ctx.extAbitAdditionalMarksSum on extabit.Id equals extAbitAddMarksSum.AbiturientId into extAbitAddMarksSum2
+                               from extAbitAddMarksSum in extAbitAddMarksSum2.DefaultIfEmpty()
+                               where extdisEntryView.Id == gProtocolId && MainClass.lstStudyLevelGroupId.Contains(extdisEntryView.StudyLevelGroupId)
+                               orderby extabit.ProfileName, country.NameRod, extperson.FIO
+                               select new
+                               {
+                                   TotalSum = extabitMarksSum.TotalSum,
+                                   extAbitAddMarksSum.AdditionalMarksSum,
+                                   ФИО = extabit.FIO,
+                                   extabit.CompetitionId,
+                                   extperson.NationalityId
+                               }).ToList().Distinct().OrderBy(x => x.ФИО).Select(x =>
+                                   new
+                                   {
+                                       TotalSum = x.CompetitionId == 1 || x.CompetitionId == 8 ? "" : ((x.AdditionalMarksSum ?? 0) + x.TotalSum).ToString(),
+                                       ФИО = x.ФИО,
+                                       x.NationalityId
+                                   }
+                               );
+
+                    bool isRus = lst.Where(x => x.NationalityId != 1).Count() == 0;
+
+                    wd.SetFields("Граждан", "граждан РФ" + (isRus ? "" : " и иностранных граждан"));
+                    wd.SetFields("Граждан2", isRus ? "граждан Российской Федерации" : "");
+                    wd.SetFields("Стипендия", ProtocolInfo.StudyBasisId == 2 ? "" : "и назначении стипендии");
+                    wd.SetFields("Стипендия2", ProtocolInfo.StudyBasisId == 2 ? "" : "и назначении стипендии");
+                    //wd.SetFields("Факультет", facDat);
+                    //wd.SetFields("Форма", form);
+                    //wd.SetFields("Основа", basis);
+                    //wd.SetFields("БакСпец", StudyLevelName);
+                    //wd.SetFields("НапрСпец", string.Format(" направлению {0} «{1}»", LicenseProgramCode, LicenseProgramName));
+                    wd.SetFields("ПриказОт", docDate);
+                    wd.SetFields("ПриказНомер", docNum);
+                    wd.SetFields("ПриказОт2", docDate);
+                    wd.SetFields("ПриказНомер2", docNum);
+                    wd.SetFields("ПредставлениеОт", protocolDate.ToShortDateString());
+                    wd.SetFields("ПредставлениеНомер", protocolNum);
+                    //wd.SetFields("Сокращ", sec);
+
+                    int curRow = 4;
+                    foreach (var v in lst)
+                    {
+                        td.AddRow(1);
+                        curRow++;
+                        td[0, curRow] = string.Format("\t\tп. 1.{2} {0}, {1} - исключить.", v.ФИО, v.TotalSum, curRow - 4);
                     }
                 }
             }
@@ -2464,7 +2762,8 @@ namespace PriemLib
             }
         }
 
-        public static void PrintRatingProtocol(int? iStudyFormId, int? iStudyBasisId, int? iFacultyId, int? iLicenseProgramId, int? iObrazProgramId, int? iProfileId, bool isCel, bool isCrimea, int plan, string savePath, bool isSecond, bool isReduced, bool isParallel, bool isQuota)
+        public static void PrintRatingProtocol(int? iStudyFormId, int? iStudyBasisId, int? iFacultyId, int? iLicenseProgramId, int? iObrazProgramId, int? iProfileId, bool isCel, bool isCrimea, 
+            int plan, string savePath, bool isSecond, bool isReduced, bool isParallel, bool isQuota)
         {
             FileStream fileS = null;
             try

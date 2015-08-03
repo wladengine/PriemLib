@@ -1,31 +1,27 @@
-﻿using System;
+﻿using EducServLib;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Transactions;
-
-using BDClassLib;
-using EducServLib;
-using WordOut;
 
 namespace PriemLib
 {
-    public partial class DisEntryViewProtocol : ProtocolCard
+    public partial class DisEntryFromReEnterViewProtocol : ProtocolCard
     {
-        public DisEntryViewProtocol(ProtocolList owner, int iStudyLevelGroupId, int sFac, int sSection, int sForm, int? sProf, bool isSec, bool isReduced, bool isParal, bool isList)
+        public DisEntryFromReEnterViewProtocol(ProtocolList owner, int iStudyLevelGroupId, int sFac, int sSection, int sForm, int? sProf, bool isSec, bool isReduced, bool isParal, bool isList)
             : this(owner, iStudyLevelGroupId, sFac, sSection, sForm, sProf, isSec, isReduced, isParal, isList, null)
         {
         }
 
-        //конструктор 
-        public DisEntryViewProtocol(ProtocolList owner, int iStudyLevelGroupId, int sFac, int sSection, int sForm, int? sProf, bool isSec, bool isReduced, bool isParal, bool isList, Guid? sProtocol)
+        public DisEntryFromReEnterViewProtocol(ProtocolList owner, int iStudyLevelGroupId, int sFac, int sSection, int sForm, int? sProf, bool isSec, bool isReduced, bool isParal, bool isList, Guid? sProtocol)
             : base(owner, iStudyLevelGroupId, sFac, sSection, sForm, sProf, isSec, isReduced, isParal, isList, sProtocol)
         {
-            _type = ProtocolTypes.DisEntryView;                      
+            _type = ProtocolTypes.DisEntryFromReEnterView;
         }
 
         //дополнительная инициализация
@@ -43,18 +39,21 @@ namespace PriemLib
             " INNER JOIN ed.extEntryView ON ed.extAbit.Id=ed.extEntryView.AbiturientId " +
             " INNER JOIN ed.extAbitMarksSum ON ed.extAbit.Id=ed.extAbitMarksSum.Id " +
             " LEFT JOIN ed.Competition ON ed.Competition.Id = ed.extAbit.CompetitionId ");
- 
-          
-            string q = string.Format("SELECT DISTINCT CONVERT(varchar(100), Id) AS Id, Number as Name FROM ed.extEntryView WHERE Excluded=0 AND IsOld=0 AND FacultyId ={0} AND StudyFormId = {1} AND StudyBasisId = {2} AND LicenseProgramId = {3} AND IsSecond = {4} AND IsReduced = {5} AND IsParallel = {6} AND IsListener = {7}", _facultyId, _studyFormId, _studyBasisId, _licenseProgramId, QueryServ.StringParseFromBool(_isSecond), QueryServ.StringParseFromBool(_isReduced), QueryServ.StringParseFromBool(_isParallel), QueryServ.StringParseFromBool(_isListener));
-            ComboServ.FillCombo(cbHeaders, HelpClass.GetComboListByQuery(q), false, false);
-      
+
+            List<KeyValuePair<string, string>> lst = new List<KeyValuePair<string, string>>();
+            lst.Add(new KeyValuePair<string, string>("1", "Зачисленные ранее"));
+            ComboServ.FillCombo(cbHeaders, lst, false, false);
+
+            //string q = string.Format("SELECT DISTINCT CONVERT(varchar(100), Id) AS Id, Number as Name FROM ed.extEntryView WHERE Excluded=0 AND IsOld=0 AND FacultyId ={0} AND StudyFormId = {1} AND StudyBasisId = {2} AND LicenseProgramId = {3} AND IsSecond = {4} AND IsReduced = {5} AND IsParallel = {6} AND IsListener = {7}", _facultyId, _studyFormId, _studyBasisId, _licenseProgramId, QueryServ.StringParseFromBool(_isSecond), QueryServ.StringParseFromBool(_isReduced), QueryServ.StringParseFromBool(_isParallel), QueryServ.StringParseFromBool(_isListener));
+            //ComboServ.FillCombo(cbHeaders, HelpClass.GetComboListByQuery(q), false, false);
+
             cbHeaders.Visible = true;
-            lblHeaderText.Text = "Из представления к зачислению №";            
+            lblHeaderText.Text = "Из представления к зачислению №";
             chbInostr.Visible = true;
 
-            cbHeaders.SelectedIndexChanged += new EventHandler(cbHeaders_SelectedIndexChanged);           
-            chbInostr.CheckedChanged += new System.EventHandler(UpdateGrids);  
-            
+            cbHeaders.SelectedIndexChanged += new EventHandler(cbHeaders_SelectedIndexChanged);
+            chbInostr.CheckedChanged += new System.EventHandler(UpdateGrids);
+
             base.InitControls();
 
             this.Text = "Приказ об исключении ";
@@ -72,7 +71,7 @@ namespace PriemLib
         {
             get { return ComboServ.GetComboId(cbHeaders); }
             set { ComboServ.SetComboId(cbHeaders, value); }
-        }   
+        }
 
         protected override void InitAndFillGrids()
         {
@@ -80,17 +79,16 @@ namespace PriemLib
 
             UpdateRight();
             string sFilter = string.Empty;
-                        
+
             //заполнили левый
-            if (_id!=null)
+            if (_id != null)
             {
-                sFilter = string.Format(" WHERE ed.extAbit.Id IN (SELECT AbiturientId FROM ed.qProtocolHistory WHERE ProtocolId = '{0}')", _id);
                 FillGrid(dgvLeft, sQuery, sFilter, sOrderby);
             }
             else //новый
             {
                 InitGrid(dgvLeft);
-            }                    
+            }
         }
 
         private void UpdateGrids(object sender, EventArgs e)
@@ -112,10 +110,25 @@ namespace PriemLib
                 return;
             }
 
-            string sFilter = string.Empty;
-            sFilter = string.Format(" AND ed.extEntryView.Id = '{0}' {1}", HeaderId, chbInostr.Checked ? " AND ed.extPerson.NationalityId <> 1 " : " AND ed.extPerson.NationalityId = 1 ");
+            string sFilter = @" AND extAbit.PersonId IN 
+ (
+	SELECT Abiturient.PersonId FROM ed._FirstWaveGreen 
+	INNER JOIN ed.Abiturient ON Abiturient.Id = _FirstWaveGreen.AbiturientId
+	WHERE NOT EXISTS (SELECT * FROM ed.hlpAbitToGo WHERE hlpAbitToGo.PersonId = Abiturient.PersonId AND hlpAbitToGo.IsGo = 1 AND hlpAbitToGo.Priority < Abiturient.Priority)
+	UNION 
+	SELECT Abiturient.PersonId FROM ed._FirstWaveYellow 
+	INNER JOIN ed.Abiturient ON Abiturient.Id = _FirstWaveYellow.AbiturientId
+	WHERE NOT EXISTS (SELECT * FROM ed.hlpAbitToGo WHERE hlpAbitToGo.PersonId = Abiturient.PersonId AND hlpAbitToGo.IsGo = 1 AND hlpAbitToGo.Priority < Abiturient.Priority)
+	UNION 
+	SELECT Abiturient.PersonId FROM ed._FirstWaveLast
+	INNER JOIN ed.Abiturient ON Abiturient.Id = _FirstWaveLast.AbiturientId
+	WHERE NOT EXISTS (SELECT * FROM ed.hlpAbitToGo WHERE hlpAbitToGo.PersonId = Abiturient.PersonId AND hlpAbitToGo.IsGo = 1 AND hlpAbitToGo.Priority < Abiturient.Priority)
+)
+AND extAbit.Id NOT IN (SELECT AbiturientId FROM ed.extDisEntryFromReEnterView)
+";
+
             FillGrid(dgvRight, sQuery, GetWhereClause("ed.extAbit") + sFilter, sOrderby);
-        }        
+        }
 
         //подготовка нужного грида
         protected override void InitGrid(DataGridView dgv)
@@ -125,5 +138,5 @@ namespace PriemLib
             dgv.Columns["Pasport"].Visible = false;
             dgv.Columns["Attestat"].Visible = false;
         }
-   }
+    }
 }

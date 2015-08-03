@@ -932,6 +932,8 @@
         <edmx:AssociationConnector Association="Priem2012Model.FK_OlympResultToAdditionalMark_OlympValue" />
         <edmx:AssociationConnector Association="Priem2012Model.FK_OlympResultToAdditionalMark_OlympLevel1" />
         <edmx:AssociationConnector Association="Priem2012Model.FK_OlympResultToAdditionalMark_OlympName" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.AdmissionProtocol" Width="1.5" PointX="35.375" PointY="0.75" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.extDisEntryFromReEnterView" Width="1.5" PointX="35.375" PointY="3.75" />
         </edmx:Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

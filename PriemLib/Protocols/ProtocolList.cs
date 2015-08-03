@@ -433,12 +433,13 @@ LEFT JOIN ed.Protocol ON Protocol.Id =  ProtocolHistory.ProtocolId ";
         {
             switch (type)
             {
-                case ProtocolTypes.EnableProtocol: return 1;
-                case ProtocolTypes.DisEnableProtocol: return 2;
-                case ProtocolTypes.ChangeCompCelProtocol: return 3;
-                case ProtocolTypes.EntryView: return 4;
-                case ProtocolTypes.DisEntryView: return 5;
-                case ProtocolTypes.ChangeCompBEProtocol: return 6;
+                case ProtocolTypes.EnableProtocol: { return 1; }
+                case ProtocolTypes.DisEnableProtocol: { return 2; }
+                case ProtocolTypes.ChangeCompCelProtocol: { return 3; }
+                case ProtocolTypes.EntryView: { return 4; }
+                case ProtocolTypes.DisEntryView: { return 5; }
+                case ProtocolTypes.ChangeCompBEProtocol: { return 6; }
+                case ProtocolTypes.DisEntryFromReEnterView: { return 7; }
             }
             return 0;
         }       

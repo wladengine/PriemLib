@@ -32,6 +32,7 @@ warning 6002: The table/view 'Priem.ed._FirstWaveGreen' does not have a primary 
           </Key>
           <Property Name="AbiturientId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="IsNew" Type="bit" Nullable="false" />
+          <Property Name="CalculationId" Type="uniqueidentifier" />
         </EntityType>
         <EntityType Name="AbitDoc">
           <Key>
@@ -81,6 +82,7 @@ warning 6002: The table/view 'Priem.ed._FirstWaveGreen' does not have a primary 
           <Property Name="InnerEntryInEntryId" Type="uniqueidentifier" />
           <Property Name="Author" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="BackDocByAdmissionHigh" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="AchievementType">
           <Key>
@@ -91,6 +93,18 @@ warning 6002: The table/view 'Priem.ed._FirstWaveGreen' does not have a primary 
           <Property Name="IsOpen" Type="bit" Nullable="false" />
           <Property Name="Holder" Type="nvarchar" MaxLength="150" />
           <Property Name="Mark" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Priem.ed.AdmissionProtocol' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="AdmissionProtocol">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Date" />
+            <PropertyRef Name="Number" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="Number" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="ApplicationDetails">
           <Key>
@@ -501,6 +515,7 @@ warning 6002: The table/view 'Priem.ed.Fixieren' does not have a primary key def
           <Property Name="KCP" Type="int" Nullable="false" />
           <Property Name="EgeExamNameId" Type="int" />
           <Property Name="EgeMin" Type="int" />
+          <Property Name="ParentInnerEntryInEntryId" Type="uniqueidentifier" />
         </EntityType>
         <EntityType Name="Language">
           <Key>
@@ -1000,6 +1015,7 @@ warning 6002: The table/view 'Priem.ed.PayDataEntry' does not have a primary key
           <Property Name="IsReduced" Type="bit" Nullable="false" />
           <Property Name="IsListener" Type="bit" Nullable="false" />
           <Property Name="IsForeign" Type="bit" Nullable="false" />
+          <Property Name="AdmissionProtocolId" Type="int" />
         </EntityType>
         <EntityType Name="ProtocolNumbers">
           <Key>
@@ -1340,6 +1356,46 @@ warning 6002: The table/view 'Priem.ed.extApplicationDetails' does not have a pr
           <Property Name="ProfileName" Type="nvarchar" MaxLength="1000" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'Priem.ed.extDisEntryFromReEnterView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="extDisEntryFromReEnterView">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="AbiturientId" />
+            <PropertyRef Name="Excluded" />
+            <PropertyRef Name="StudyLevelGroupId" />
+            <PropertyRef Name="StudyFormId" />
+            <PropertyRef Name="Date" />
+            <PropertyRef Name="ProtocolTypeId" />
+            <PropertyRef Name="IsOld" />
+            <PropertyRef Name="IsSecond" />
+            <PropertyRef Name="IsListener" />
+            <PropertyRef Name="ProtocolTypeName" />
+            <PropertyRef Name="IsParallel" />
+            <PropertyRef Name="IsReduced" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AbiturientId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Excluded" Type="bit" Nullable="false" />
+          <Property Name="ExcludeProtocolId" Type="uniqueidentifier" />
+          <Property Name="EntryHeaderId" Type="int" />
+          <Property Name="StudyLevelGroupId" Type="int" Nullable="false" />
+          <Property Name="LicenseProgramId" Type="int" />
+          <Property Name="FacultyId" Type="int" />
+          <Property Name="StudyFormId" Type="int" Nullable="false" />
+          <Property Name="StudyBasisId" Type="int" />
+          <Property Name="Number" Type="nvarchar" MaxLength="15" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="ProtocolTypeId" Type="int" Nullable="false" />
+          <Property Name="Reason" Type="nvarchar" MaxLength="1000" />
+          <Property Name="IsOld" Type="bit" Nullable="false" />
+          <Property Name="ParentProtocolId" Type="uniqueidentifier" />
+          <Property Name="IsSecond" Type="bit" Nullable="false" />
+          <Property Name="IsListener" Type="bit" Nullable="false" />
+          <Property Name="ProtocolTypeName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsParallel" Type="bit" Nullable="false" />
+          <Property Name="IsReduced" Type="bit" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'Priem.ed.extDisEntryView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="extDisEntryView">
           <Key>
@@ -1614,6 +1670,7 @@ warning 6002: The table/view 'Priem.ed.extEntry' does not have a primary key def
           <Property Name="DateOfStart" Type="datetime" Nullable="false" />
           <Property Name="DateStartEduc" Type="date" />
           <Property Name="DateFinishEduc" Type="date" />
+          <Property Name="ParentEntryId" Type="uniqueidentifier" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'Priem.ed.extEntryProtocols' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -1713,6 +1770,7 @@ warning 6002: The table/view 'Priem.ed.extEntryView' does not have a primary key
           <Property Name="IsCel" Type="bit" Nullable="false" />
           <Property Name="IsBE" Type="bit" Nullable="false" />
           <Property Name="IsForeign" Type="bit" Nullable="false" />
+          <Property Name="Priority" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'Priem.ed.extEntryView_ForDisEntered' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -2652,6 +2710,7 @@ warning 6002: The table/view 'Priem.ed.qAbiturient' does not have a primary key 
             <PropertyRef Name="IsViewed" />
             <PropertyRef Name="IsForeign" />
             <PropertyRef Name="IsCrimea" />
+            <PropertyRef Name="BackDocByAdmissionHigh" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="PersonId" Type="uniqueidentifier" Nullable="false" />
@@ -2716,6 +2775,7 @@ warning 6002: The table/view 'Priem.ed.qAbiturient' does not have a primary key 
           <Property Name="InnerEntryInEntryId" Type="uniqueidentifier" />
           <Property Name="IsForeign" Type="bit" Nullable="false" />
           <Property Name="IsCrimea" Type="bit" Nullable="false" />
+          <Property Name="BackDocByAdmissionHigh" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'Priem.ed.qAbiturient_WhoSetBackDoc' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -2921,6 +2981,7 @@ warning 6002: The table/view 'Priem.ed.qMark' does not have a primary key define
           <Property Name="EgeCertificateId" Type="uniqueidentifier" />
           <Property Name="OrderNumber" Type="tinyint" Nullable="false" />
           <Property Name="FiveGradeValue" Type="tinyint" />
+          <Property Name="ParentExamInEntryId" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'Priem.ed.qObrazProgram' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -5789,8 +5850,16 @@ warning 6002: The table/view 'Priem.ed.qStudyLevel' does not have a primary key 
           <EntitySet Name="_FirstWaveGreen" EntityType="Self._FirstWaveGreen" store:Type="Tables" store:Schema="ed">
             <DefiningQuery>SELECT 
 [_FirstWaveGreen].[AbiturientId] AS [AbiturientId], 
-[_FirstWaveGreen].[IsNew] AS [IsNew]
+[_FirstWaveGreen].[IsNew] AS [IsNew], 
+[_FirstWaveGreen].[CalculationId] AS [CalculationId]
 FROM [ed].[_FirstWaveGreen] AS [_FirstWaveGreen]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="AdmissionProtocol" EntityType="Self.AdmissionProtocol" store:Type="Tables" store:Schema="ed">
+            <DefiningQuery>SELECT 
+[AdmissionProtocol].[Id] AS [Id], 
+[AdmissionProtocol].[Date] AS [Date], 
+[AdmissionProtocol].[Number] AS [Number]
+FROM [ed].[AdmissionProtocol] AS [AdmissionProtocol]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="EgeToLanguage" EntityType="Self.EgeToLanguage" store:Type="Tables" store:Schema="ed">
             <DefiningQuery>SELECT 
@@ -5934,6 +6003,31 @@ FROM [ed].[extAbitMarksSum] AS [extAbitMarksSum]</DefiningQuery>
 [extApplicationDetails].[ProfileId] AS [ProfileId], 
 [extApplicationDetails].[ProfileName] AS [ProfileName]
 FROM [ed].[extApplicationDetails] AS [extApplicationDetails]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="extDisEntryFromReEnterView" EntityType="Self.extDisEntryFromReEnterView" store:Type="Views" store:Schema="ed">
+            <DefiningQuery>SELECT 
+[extDisEntryFromReEnterView].[Id] AS [Id], 
+[extDisEntryFromReEnterView].[AbiturientId] AS [AbiturientId], 
+[extDisEntryFromReEnterView].[Excluded] AS [Excluded], 
+[extDisEntryFromReEnterView].[ExcludeProtocolId] AS [ExcludeProtocolId], 
+[extDisEntryFromReEnterView].[EntryHeaderId] AS [EntryHeaderId], 
+[extDisEntryFromReEnterView].[StudyLevelGroupId] AS [StudyLevelGroupId], 
+[extDisEntryFromReEnterView].[LicenseProgramId] AS [LicenseProgramId], 
+[extDisEntryFromReEnterView].[FacultyId] AS [FacultyId], 
+[extDisEntryFromReEnterView].[StudyFormId] AS [StudyFormId], 
+[extDisEntryFromReEnterView].[StudyBasisId] AS [StudyBasisId], 
+[extDisEntryFromReEnterView].[Number] AS [Number], 
+[extDisEntryFromReEnterView].[Date] AS [Date], 
+[extDisEntryFromReEnterView].[ProtocolTypeId] AS [ProtocolTypeId], 
+[extDisEntryFromReEnterView].[Reason] AS [Reason], 
+[extDisEntryFromReEnterView].[IsOld] AS [IsOld], 
+[extDisEntryFromReEnterView].[ParentProtocolId] AS [ParentProtocolId], 
+[extDisEntryFromReEnterView].[IsSecond] AS [IsSecond], 
+[extDisEntryFromReEnterView].[IsListener] AS [IsListener], 
+[extDisEntryFromReEnterView].[ProtocolTypeName] AS [ProtocolTypeName], 
+[extDisEntryFromReEnterView].[IsParallel] AS [IsParallel], 
+[extDisEntryFromReEnterView].[IsReduced] AS [IsReduced]
+FROM [ed].[extDisEntryFromReEnterView] AS [extDisEntryFromReEnterView]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="extDisEntryView" EntityType="Self.extDisEntryView" store:Type="Views" store:Schema="ed">
             <DefiningQuery>SELECT 
@@ -6097,7 +6191,8 @@ FROM [ed].[extEnableProtocol] AS [extEnableProtocol]</DefiningQuery>
 [extEntry].[DateOfClose] AS [DateOfClose], 
 [extEntry].[DateOfStart] AS [DateOfStart], 
 [extEntry].[DateStartEduc] AS [DateStartEduc], 
-[extEntry].[DateFinishEduc] AS [DateFinishEduc]
+[extEntry].[DateFinishEduc] AS [DateFinishEduc], 
+[extEntry].[ParentEntryId] AS [ParentEntryId]
 FROM [ed].[extEntry] AS [extEntry]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="extEntryProtocols" EntityType="Self.extEntryProtocols" store:Type="Views" store:Schema="ed">
@@ -6160,7 +6255,8 @@ FROM [ed].[extEntryProtocols] AS [extEntryProtocols]</DefiningQuery>
 [extEntryView].[IsQuota] AS [IsQuota], 
 [extEntryView].[IsCel] AS [IsCel], 
 [extEntryView].[IsBE] AS [IsBE], 
-[extEntryView].[IsForeign] AS [IsForeign]
+[extEntryView].[IsForeign] AS [IsForeign], 
+[extEntryView].[Priority] AS [Priority]
 FROM [ed].[extEntryView] AS [extEntryView]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="extEntryView_ForDisEntered" EntityType="Self.extEntryView_ForDisEntered" store:Type="Views" store:Schema="ed">
@@ -6881,7 +6977,8 @@ FROM [ed].[qAbitAll] AS [qAbitAll]</DefiningQuery>
 [qAbiturient].[IsViewed] AS [IsViewed], 
 [qAbiturient].[InnerEntryInEntryId] AS [InnerEntryInEntryId], 
 [qAbiturient].[IsForeign] AS [IsForeign], 
-[qAbiturient].[IsCrimea] AS [IsCrimea]
+[qAbiturient].[IsCrimea] AS [IsCrimea], 
+[qAbiturient].[BackDocByAdmissionHigh] AS [BackDocByAdmissionHigh]
 FROM [ed].[qAbiturient] AS [qAbiturient]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="qAbiturient_WhoSetBackDoc" EntityType="Self.qAbiturient_WhoSetBackDoc" store:Type="Views" store:Schema="ed">
@@ -7014,7 +7111,8 @@ FROM [ed].[qLicenseProgram] AS [qLicenseProgram]</DefiningQuery>
 [qMark].[OlympiadId] AS [OlympiadId], 
 [qMark].[EgeCertificateId] AS [EgeCertificateId], 
 [qMark].[OrderNumber] AS [OrderNumber], 
-[qMark].[FiveGradeValue] AS [FiveGradeValue]
+[qMark].[FiveGradeValue] AS [FiveGradeValue], 
+[qMark].[ParentExamInEntryId] AS [ParentExamInEntryId]
 FROM [ed].[qMark] AS [qMark]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="qObrazProgram" EntityType="Self.qObrazProgram" store:Type="Views" store:Schema="ed">
@@ -9407,6 +9505,8 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
             <End Role="OlympName" EntitySet="OlympName" />
             <End Role="OlympResultToAdditionalMark" EntitySet="OlympResultToAdditionalMark" />
           </AssociationSet>
+          <EntitySet Name="AdmissionProtocol" EntityType="Priem2012Model.AdmissionProtocol" />
+          <EntitySet Name="extDisEntryFromReEnterView" EntityType="Priem2012Model.extDisEntryFromReEnterView" />
           </EntityContainer>
         <EntityType Name="AttMarks">
           <Key>
@@ -10410,6 +10510,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <Property Type="Guid" Name="InnerEntryInEntryId" />
           <Property Name="Author" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="BackDocByAdmissionHigh" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Protocol">
           <Key>
@@ -10437,6 +10538,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <NavigationProperty Name="SP_Faculty" Relationship="Priem2012Model.FK_Protocol_SP_Faculty" FromRole="Protocol" ToRole="SP_Faculty" />
           <NavigationProperty Name="SP_LicenseProgram" Relationship="Priem2012Model.FK_Protocol_SP_LicenseProgram" FromRole="Protocol" ToRole="SP_LicenseProgram" />
           <Property Name="IsForeign" Type="Boolean" Nullable="false" />
+          <Property Name="AdmissionProtocolId" Type="Int32" />
         </EntityType>
         <EntityType Name="extExamInEntry">
           <Key>
@@ -11052,6 +11154,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <Property Type="Boolean" Name="IsCel" Nullable="false" />
           <Property Type="Boolean" Name="IsBE" Nullable="false" />
           <Property Name="IsForeign" Type="Boolean" Nullable="false" />
+          <Property Name="Priority" Type="Int32" />
         </EntityType>
         <EntityType Name="extProtocol">
           <Key>
@@ -11225,6 +11328,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           </Key>
           <Property Type="Guid" Name="AbiturientId" Nullable="false" />
           <Property Type="Boolean" Name="IsNew" Nullable="false" />
+          <Property Name="CalculationId" Type="Guid" />
         </EntityType>
         <EntityType Name="extEntryProtocols">
           <Key>
@@ -11833,6 +11937,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <Property Type="Guid" Name="EgeCertificateId" />
           <Property Type="Byte" Name="OrderNumber" Nullable="false" />
           <Property Type="Byte" Name="FiveGradeValue" />
+          <Property Name="ParentExamInEntryId" Type="Int32" />
         </EntityType>
         <EntityType Name="hlpAbiturientProf">
           <Key>
@@ -12356,6 +12461,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
             <PropertyRef Name="IsViewed" />
             <PropertyRef Name="IsForeign" />
             <PropertyRef Name="IsCrimea" />
+            <PropertyRef Name="BackDocByAdmissionHigh" />
           </Key>
           <Property Type="Guid" Name="Id" Nullable="false" />
           <Property Type="Guid" Name="PersonId" Nullable="false" />
@@ -12420,6 +12526,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <Property Type="Guid" Name="InnerEntryInEntryId" />
           <Property Type="Boolean" Name="IsForeign" Nullable="false" />
           <Property Type="Boolean" Name="IsCrimea" Nullable="false" />
+          <Property Name="BackDocByAdmissionHigh" Type="Boolean" Nullable="false" />
         </EntityType>
         <Association Name="FK_Entry_SP_LicenseProgram">
           <End Type="Priem2012Model.SP_LicenseProgram" Role="SP_LicenseProgram" Multiplicity="1" />
@@ -12735,6 +12842,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <Property Type="DateTime" Name="DateOfStart" Nullable="false" Precision="3" />
           <Property Name="DateStartEduc" Type="DateTime" Precision="0" />
           <Property Name="DateFinishEduc" Type="DateTime" Precision="0" />
+          <Property Name="ParentEntryId" Type="Guid" />
         </EntityType>
         <EntityType Name="ForeignCountry">
           <Key>
@@ -12841,6 +12949,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <NavigationProperty Name="Entry" Relationship="Priem2012Model.FK_ObrazProgramInEntry_Entry" FromRole="InnerEntryInEntry" ToRole="Entry" />
           <NavigationProperty Name="SP_ObrazProgram" Relationship="Priem2012Model.FK_ObrazProgramInEntry_SP_ObrazProgram" FromRole="InnerEntryInEntry" ToRole="SP_ObrazProgram" />
           <NavigationProperty Name="SP_Profile" Relationship="Priem2012Model.FK_InnerEntryInEntry_SP_Profile" FromRole="InnerEntryInEntry" ToRole="SP_Profile" />
+          <Property Name="ParentInnerEntryInEntryId" Type="Guid" />
         </EntityType>
         <Association Name="FK_ApplicationDetails_ObrazProgramInEntry">
           <End Type="Priem2012Model.InnerEntryInEntry" Role="InnerEntryInEntry" Multiplicity="1" />
@@ -13835,6 +13944,54 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="AdmissionProtocol">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Date" />
+            <PropertyRef Name="Number" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Number" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="extDisEntryFromReEnterView">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="AbiturientId" />
+            <PropertyRef Name="Excluded" />
+            <PropertyRef Name="StudyLevelGroupId" />
+            <PropertyRef Name="StudyFormId" />
+            <PropertyRef Name="Date" />
+            <PropertyRef Name="ProtocolTypeId" />
+            <PropertyRef Name="IsOld" />
+            <PropertyRef Name="IsSecond" />
+            <PropertyRef Name="IsListener" />
+            <PropertyRef Name="ProtocolTypeName" />
+            <PropertyRef Name="IsParallel" />
+            <PropertyRef Name="IsReduced" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="AbiturientId" Type="Guid" Nullable="false" />
+          <Property Name="Excluded" Type="Boolean" Nullable="false" />
+          <Property Name="ExcludeProtocolId" Type="Guid" />
+          <Property Name="EntryHeaderId" Type="Int32" />
+          <Property Name="StudyLevelGroupId" Type="Int32" Nullable="false" />
+          <Property Name="LicenseProgramId" Type="Int32" />
+          <Property Name="FacultyId" Type="Int32" />
+          <Property Name="StudyFormId" Type="Int32" Nullable="false" />
+          <Property Name="StudyBasisId" Type="Int32" />
+          <Property Name="Number" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ProtocolTypeId" Type="Int32" Nullable="false" />
+          <Property Name="Reason" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="IsOld" Type="Boolean" Nullable="false" />
+          <Property Name="ParentProtocolId" Type="Guid" />
+          <Property Name="IsSecond" Type="Boolean" Nullable="false" />
+          <Property Name="IsListener" Type="Boolean" Nullable="false" />
+          <Property Name="ProtocolTypeName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsParallel" Type="Boolean" Nullable="false" />
+          <Property Name="IsReduced" Type="Boolean" Nullable="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -14459,6 +14616,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <EntitySetMapping Name="Abiturient">
             <EntityTypeMapping TypeName="Priem2012Model.Abiturient">
               <MappingFragment StoreEntitySet="Abiturient">
+                <ScalarProperty Name="BackDocByAdmissionHigh" ColumnName="BackDocByAdmissionHigh" />
                 <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
                 <ScalarProperty Name="Author" ColumnName="Author" />
                 <ScalarProperty Name="InnerEntryInEntryId" ColumnName="InnerEntryInEntryId" />
@@ -14502,6 +14660,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <EntitySetMapping Name="Protocol">
             <EntityTypeMapping TypeName="Priem2012Model.Protocol">
               <MappingFragment StoreEntitySet="Protocol">
+                <ScalarProperty Name="AdmissionProtocolId" ColumnName="AdmissionProtocolId" />
                 <ScalarProperty Name="IsForeign" ColumnName="IsForeign" />
                 <ScalarProperty Name="IsReduced" ColumnName="IsReduced" />
                 <ScalarProperty Name="IsParallel" ColumnName="IsParallel" />
@@ -14841,6 +15000,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <EntitySetMapping Name="extEntryView">
             <EntityTypeMapping TypeName="Priem2012Model.extEntryView">
               <MappingFragment StoreEntitySet="extEntryView">
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
                 <ScalarProperty Name="IsForeign" ColumnName="IsForeign" />
                 <ScalarProperty Name="IsBE" ColumnName="IsBE" />
                 <ScalarProperty Name="IsCel" ColumnName="IsCel" />
@@ -15020,6 +15180,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <EntitySetMapping Name="C_FirstWaveGreen">
             <EntityTypeMapping TypeName="Priem2012Model.C_FirstWaveGreen">
               <MappingFragment StoreEntitySet="_FirstWaveGreen">
+                <ScalarProperty Name="CalculationId" ColumnName="CalculationId" />
                 <ScalarProperty Name="IsNew" ColumnName="IsNew" />
                 <ScalarProperty Name="AbiturientId" ColumnName="AbiturientId" />
               </MappingFragment>
@@ -15352,6 +15513,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <EntitySetMapping Name="qMark">
             <EntityTypeMapping TypeName="Priem2012Model.qMark">
               <MappingFragment StoreEntitySet="qMark">
+                <ScalarProperty Name="ParentExamInEntryId" ColumnName="ParentExamInEntryId" />
                 <ScalarProperty Name="FiveGradeValue" ColumnName="FiveGradeValue" />
                 <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
                 <ScalarProperty Name="EgeCertificateId" ColumnName="EgeCertificateId" />
@@ -15653,6 +15815,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <EntitySetMapping Name="qAbiturient">
             <EntityTypeMapping TypeName="Priem2012Model.qAbiturient">
               <MappingFragment StoreEntitySet="qAbiturient">
+                <ScalarProperty Name="BackDocByAdmissionHigh" ColumnName="BackDocByAdmissionHigh" />
                 <ScalarProperty Name="IsCrimea" ColumnName="IsCrimea" />
                 <ScalarProperty Name="IsForeign" ColumnName="IsForeign" />
                 <ScalarProperty Name="InnerEntryInEntryId" ColumnName="InnerEntryInEntryId" />
@@ -15885,6 +16048,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <EntitySetMapping Name="extEntry">
             <EntityTypeMapping TypeName="Priem2012Model.extEntry">
               <MappingFragment StoreEntitySet="extEntry">
+                <ScalarProperty Name="ParentEntryId" ColumnName="ParentEntryId" />
                 <ScalarProperty Name="DateFinishEduc" ColumnName="DateFinishEduc" />
                 <ScalarProperty Name="DateStartEduc" ColumnName="DateStartEduc" />
                 <ScalarProperty Name="DateOfStart" ColumnName="DateOfStart" />
@@ -15965,6 +16129,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <EntitySetMapping Name="InnerEntryInEntry">
             <EntityTypeMapping TypeName="Priem2012Model.InnerEntryInEntry">
               <MappingFragment StoreEntitySet="InnerEntryInEntry">
+                <ScalarProperty Name="ParentInnerEntryInEntryId" ColumnName="ParentInnerEntryInEntryId" />
                 <ScalarProperty Name="EgeMin" ColumnName="EgeMin" />
                 <ScalarProperty Name="EgeExamNameId" ColumnName="EgeExamNameId" />
                 <ScalarProperty Name="KCP" ColumnName="KCP" />
@@ -16514,6 +16679,42 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <FunctionImportMapping FunctionImportName="OlympResultToAdditionalMark_Delete" FunctionName="Priem2012Model.Store.OlympResultToAdditionalMark_Delete" />
           <FunctionImportMapping FunctionImportName="OlympResultToAdditionalMark_Insert" FunctionName="Priem2012Model.Store.OlympResultToAdditionalMark_Insert" />
           <FunctionImportMapping FunctionImportName="OlympResultToAdditionalMark_Update" FunctionName="Priem2012Model.Store.OlympResultToAdditionalMark_Update" />
+          <EntitySetMapping Name="AdmissionProtocol">
+            <EntityTypeMapping TypeName="Priem2012Model.AdmissionProtocol">
+              <MappingFragment StoreEntitySet="AdmissionProtocol">
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="extDisEntryFromReEnterView">
+            <EntityTypeMapping TypeName="Priem2012Model.extDisEntryFromReEnterView">
+              <MappingFragment StoreEntitySet="extDisEntryFromReEnterView">
+                <ScalarProperty Name="IsReduced" ColumnName="IsReduced" />
+                <ScalarProperty Name="IsParallel" ColumnName="IsParallel" />
+                <ScalarProperty Name="ProtocolTypeName" ColumnName="ProtocolTypeName" />
+                <ScalarProperty Name="IsListener" ColumnName="IsListener" />
+                <ScalarProperty Name="IsSecond" ColumnName="IsSecond" />
+                <ScalarProperty Name="ParentProtocolId" ColumnName="ParentProtocolId" />
+                <ScalarProperty Name="IsOld" ColumnName="IsOld" />
+                <ScalarProperty Name="Reason" ColumnName="Reason" />
+                <ScalarProperty Name="ProtocolTypeId" ColumnName="ProtocolTypeId" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="StudyBasisId" ColumnName="StudyBasisId" />
+                <ScalarProperty Name="StudyFormId" ColumnName="StudyFormId" />
+                <ScalarProperty Name="FacultyId" ColumnName="FacultyId" />
+                <ScalarProperty Name="LicenseProgramId" ColumnName="LicenseProgramId" />
+                <ScalarProperty Name="StudyLevelGroupId" ColumnName="StudyLevelGroupId" />
+                <ScalarProperty Name="EntryHeaderId" ColumnName="EntryHeaderId" />
+                <ScalarProperty Name="ExcludeProtocolId" ColumnName="ExcludeProtocolId" />
+                <ScalarProperty Name="Excluded" ColumnName="Excluded" />
+                <ScalarProperty Name="AbiturientId" ColumnName="AbiturientId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

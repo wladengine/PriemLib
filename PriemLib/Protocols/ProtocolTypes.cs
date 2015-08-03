@@ -13,6 +13,7 @@ namespace PriemLib
         ChangeCompCelProtocol,
         EntryView,
         DisEntryView,
-        ChangeCompBEProtocol
+        ChangeCompBEProtocol,
+        DisEntryFromReEnterView
     }    
 }

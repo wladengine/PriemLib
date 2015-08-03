@@ -238,6 +238,7 @@ namespace PriemLib
                     IsListener = abit.IsListener;
                     IsPaid = abit.IsPaid;
                     BackDoc = abit.BackDoc;
+                    BackDocByAdmissionHigh = abit.BackDocByAdmissionHigh;
 
                     if (abit.BackDoc)
                     {
@@ -292,12 +293,12 @@ namespace PriemLib
                         GetHasEssay();
                     }
 
-                    
+
 
                     GetHasInnerPriorities(context);
 
-                    //if (ObrazProgramInEntryId.HasValue)
-                    //    ObrazProgramInEntryId = abit.ObrazProgramInEntryId;
+                    if (InnerEntryInEntryId.HasValue)
+                        InnerEntryInEntryId = abit.InnerEntryInEntryId;
                     //if (ProfileInObrazProgramInEntryId.HasValue)
                     //    ProfileInObrazProgramInEntryId = abit.ProfileInObrazProgramInEntryId;
                 }
@@ -1325,7 +1326,9 @@ namespace PriemLib
                     }
 
                     List<int> lstCompetitionIdsForOriginals = context.Competition.Where(x => x.NeedOriginals).Select(x => x.Id).ToList();
-                    if ((CompetitionId.HasValue && lstCompetitionIdsForOriginals.Contains(CompetitionId.Value)) && !HasOriginals && !BackDoc)
+                    var OrigApps = context.Abiturient.Where(x => x.PersonId == _personId && x.HasOriginals && !x.BackDoc);
+                    bool HasOrigs = OrigApps.Count() > 0;
+                    if ((CompetitionId.HasValue && lstCompetitionIdsForOriginals.Contains(CompetitionId.Value)) && !HasOrigs && !BackDoc)
                     {
                         WinFormsServ.Error("Для данного типа конкурса требуется обязательная подача оригиналов документов об образовании");
                         return false;
@@ -1466,8 +1469,11 @@ namespace PriemLib
             //context.Abiturient_UpdateIsCommonRussianCompetition(IsForeign, id);
 
             // set InnerEntryInEntryId
-            if (InnerEntryInEntryId.HasValue)
-                context.Abiturient_UpdateInnerEntryInEntryId(InnerEntryInEntryId, GuidId);
+            if (inEntryView)
+            {
+                if (InnerEntryInEntryId.HasValue)
+                    context.Abiturient_UpdateInnerEntryInEntryId(InnerEntryInEntryId, GuidId);
+            }
         }
 
         protected override void OnSave()
@@ -2026,33 +2032,21 @@ namespace PriemLib
                 List<KeyValuePair<string, string>> ObrazProgramInEntryList =
                                 (from ent in context.InnerEntryInEntry
                                  join SP_ObrazProgr in context.SP_ObrazProgram on ent.ObrazProgramId equals SP_ObrazProgr.Id
+                                 join SP_Prof in context.SP_Profile on ent.ProfileId equals SP_Prof.Id
                                  where ent.EntryId == EntryId
-                                 select new { ent.Id, SP_ObrazProgr.Name }).ToList()
-                                 .Select(x=> new KeyValuePair<string, string>(x.Id.ToString(), x.Name))
+                                 select new { ent.Id, Name = "ОП: " + SP_ObrazProgr.Name + "; Профиль: " + SP_Prof.Name }).ToList()
+                                 .Select(x=> new KeyValuePair<string, string>(x.Id.ToString(), x.Name)).Distinct()
                                  .ToList();
-                ComboServ.FillCombo(cbObrazProgramInEntry, ObrazProgramInEntryList, false, false);
+                ComboServ.FillCombo(cbInnerEntryInEntry, ObrazProgramInEntryList, false, false);
             }
         }
-        private void FillProfileInObrazProgramInEntry()
+
+        private void btnSaveInnerEntryInEntry_Click(object sender, EventArgs e)
         {
             using (PriemEntities context = new PriemEntities())
             {
-                List<KeyValuePair<string, string>> ProfileInObrazProgramInEntryList =
-                                (from ent in context.InnerEntryInEntry
-                                 join SP_Prof in context.SP_Profile on ent.ProfileId equals SP_Prof.Id
-                                 where ent.EntryId == EntryId
-                                 select new { ent.Id, SP_Prof.Name }).ToList()
-                                 .Select(x => new KeyValuePair<string, string>(x.Id.ToString(), x.Name))
-                                 .ToList();
-
-                ComboServ.FillCombo(cbProfileInEntry, ProfileInObrazProgramInEntryList, false, false);
+                context.Abiturient_UpdateInnerEntryInEntryId(InnerEntryInEntryId, GuidId);
             }
         }
-
-        private void cbObrazProgramInEntry_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            FillProfileInObrazProgramInEntry();
-        }
-
     }
 }

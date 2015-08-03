@@ -2391,6 +2391,38 @@ namespace PriemLib
             }
         }
         private ObjectSet<OlympResultToAdditionalMark> _OlympResultToAdditionalMark;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<AdmissionProtocol> AdmissionProtocol
+        {
+            get
+            {
+                if ((_AdmissionProtocol == null))
+                {
+                    _AdmissionProtocol = base.CreateObjectSet<AdmissionProtocol>("AdmissionProtocol");
+                }
+                return _AdmissionProtocol;
+            }
+        }
+        private ObjectSet<AdmissionProtocol> _AdmissionProtocol;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<extDisEntryFromReEnterView> extDisEntryFromReEnterView
+        {
+            get
+            {
+                if ((_extDisEntryFromReEnterView == null))
+                {
+                    _extDisEntryFromReEnterView = base.CreateObjectSet<extDisEntryFromReEnterView>("extDisEntryFromReEnterView");
+                }
+                return _extDisEntryFromReEnterView;
+            }
+        }
+        private ObjectSet<extDisEntryFromReEnterView> _extDisEntryFromReEnterView;
 
         #endregion
 
@@ -3498,6 +3530,22 @@ namespace PriemLib
         public void AddToOlympResultToAdditionalMark(OlympResultToAdditionalMark olympResultToAdditionalMark)
         {
             base.AddObject("OlympResultToAdditionalMark", olympResultToAdditionalMark);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the AdmissionProtocol EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToAdmissionProtocol(AdmissionProtocol admissionProtocol)
+        {
+            base.AddObject("AdmissionProtocol", admissionProtocol);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the extDisEntryFromReEnterView EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToextDisEntryFromReEnterView(extDisEntryFromReEnterView extDisEntryFromReEnterView)
+        {
+            base.AddObject("extDisEntryFromReEnterView", extDisEntryFromReEnterView);
         }
 
         #endregion
@@ -14958,7 +15006,8 @@ namespace PriemLib
         /// <param name="isViewed">Initial value of the IsViewed property.</param>
         /// <param name="author">Initial value of the Author property.</param>
         /// <param name="dateCreated">Initial value of the DateCreated property.</param>
-        public static Abiturient CreateAbiturient(global::System.Guid id, global::System.Guid personId, global::System.Guid entryId, global::System.Int32 competitionId, global::System.Boolean isListener, global::System.Boolean isPaid, global::System.Boolean backDoc, global::System.DateTime docDate, global::System.DateTime docInsertDate, global::System.Boolean @checked, global::System.Boolean notEnabled, global::System.Boolean compFromOlymp, global::System.Int32 languageId, global::System.Boolean hasOriginals, global::System.Boolean withHE, global::System.Boolean isOpen, global::System.Boolean isViewed, global::System.String author, global::System.DateTime dateCreated)
+        /// <param name="backDocByAdmissionHigh">Initial value of the BackDocByAdmissionHigh property.</param>
+        public static Abiturient CreateAbiturient(global::System.Guid id, global::System.Guid personId, global::System.Guid entryId, global::System.Int32 competitionId, global::System.Boolean isListener, global::System.Boolean isPaid, global::System.Boolean backDoc, global::System.DateTime docDate, global::System.DateTime docInsertDate, global::System.Boolean @checked, global::System.Boolean notEnabled, global::System.Boolean compFromOlymp, global::System.Int32 languageId, global::System.Boolean hasOriginals, global::System.Boolean withHE, global::System.Boolean isOpen, global::System.Boolean isViewed, global::System.String author, global::System.DateTime dateCreated, global::System.Boolean backDocByAdmissionHigh)
         {
             Abiturient abiturient = new Abiturient();
             abiturient.Id = id;
@@ -14980,6 +15029,7 @@ namespace PriemLib
             abiturient.IsViewed = isViewed;
             abiturient.Author = author;
             abiturient.DateCreated = dateCreated;
+            abiturient.BackDocByAdmissionHigh = backDocByAdmissionHigh;
             return abiturient;
         }
 
@@ -15877,6 +15927,30 @@ namespace PriemLib
         private global::System.DateTime _DateCreated;
         partial void OnDateCreatedChanging(global::System.DateTime value);
         partial void OnDateCreatedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean BackDocByAdmissionHigh
+        {
+            get
+            {
+                return _BackDocByAdmissionHigh;
+            }
+            set
+            {
+                OnBackDocByAdmissionHighChanging(value);
+                ReportPropertyChanging("BackDocByAdmissionHigh");
+                _BackDocByAdmissionHigh = StructuralObject.SetValidValue(value, "BackDocByAdmissionHigh");
+                ReportPropertyChanged("BackDocByAdmissionHigh");
+                OnBackDocByAdmissionHighChanged();
+            }
+        }
+        private global::System.Boolean _BackDocByAdmissionHigh;
+        partial void OnBackDocByAdmissionHighChanging(global::System.Boolean value);
+        partial void OnBackDocByAdmissionHighChanged();
 
         #endregion
 
@@ -16445,6 +16519,120 @@ namespace PriemLib
                 }
             }
         }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="Priem2012Model", Name="AdmissionProtocol")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class AdmissionProtocol : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new AdmissionProtocol object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="date">Initial value of the Date property.</param>
+        /// <param name="number">Initial value of the Number property.</param>
+        public static AdmissionProtocol CreateAdmissionProtocol(global::System.Int32 id, global::System.DateTime date, global::System.String number)
+        {
+            AdmissionProtocol admissionProtocol = new AdmissionProtocol();
+            admissionProtocol.Id = id;
+            admissionProtocol.Date = date;
+            admissionProtocol.Number = number;
+            return admissionProtocol;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value, "Id");
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime Date
+        {
+            get
+            {
+                return _Date;
+            }
+            set
+            {
+                if (_Date != value)
+                {
+                    OnDateChanging(value);
+                    ReportPropertyChanging("Date");
+                    _Date = StructuralObject.SetValidValue(value, "Date");
+                    ReportPropertyChanged("Date");
+                    OnDateChanged();
+                }
+            }
+        }
+        private global::System.DateTime _Date;
+        partial void OnDateChanging(global::System.DateTime value);
+        partial void OnDateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Number
+        {
+            get
+            {
+                return _Number;
+            }
+            set
+            {
+                if (_Number != value)
+                {
+                    OnNumberChanging(value);
+                    ReportPropertyChanging("Number");
+                    _Number = StructuralObject.SetValidValue(value, false, "Number");
+                    ReportPropertyChanged("Number");
+                    OnNumberChanged();
+                }
+            }
+        }
+        private global::System.String _Number;
+        partial void OnNumberChanging(global::System.String value);
+        partial void OnNumberChanged();
 
         #endregion
 
@@ -17902,6 +18090,30 @@ namespace PriemLib
         private global::System.Boolean _IsNew;
         partial void OnIsNewChanging(global::System.Boolean value);
         partial void OnIsNewChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Guid> CalculationId
+        {
+            get
+            {
+                return _CalculationId;
+            }
+            set
+            {
+                OnCalculationIdChanging(value);
+                ReportPropertyChanging("CalculationId");
+                _CalculationId = StructuralObject.SetValidValue(value, "CalculationId");
+                ReportPropertyChanged("CalculationId");
+                OnCalculationIdChanged();
+            }
+        }
+        private Nullable<global::System.Guid> _CalculationId;
+        partial void OnCalculationIdChanging(Nullable<global::System.Guid> value);
+        partial void OnCalculationIdChanged();
 
         #endregion
 
@@ -26844,6 +27056,602 @@ namespace PriemLib
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="Priem2012Model", Name="extDisEntryFromReEnterView")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class extDisEntryFromReEnterView : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new extDisEntryFromReEnterView object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="abiturientId">Initial value of the AbiturientId property.</param>
+        /// <param name="excluded">Initial value of the Excluded property.</param>
+        /// <param name="studyLevelGroupId">Initial value of the StudyLevelGroupId property.</param>
+        /// <param name="studyFormId">Initial value of the StudyFormId property.</param>
+        /// <param name="date">Initial value of the Date property.</param>
+        /// <param name="protocolTypeId">Initial value of the ProtocolTypeId property.</param>
+        /// <param name="isOld">Initial value of the IsOld property.</param>
+        /// <param name="isSecond">Initial value of the IsSecond property.</param>
+        /// <param name="isListener">Initial value of the IsListener property.</param>
+        /// <param name="protocolTypeName">Initial value of the ProtocolTypeName property.</param>
+        /// <param name="isParallel">Initial value of the IsParallel property.</param>
+        /// <param name="isReduced">Initial value of the IsReduced property.</param>
+        public static extDisEntryFromReEnterView CreateextDisEntryFromReEnterView(global::System.Guid id, global::System.Guid abiturientId, global::System.Boolean excluded, global::System.Int32 studyLevelGroupId, global::System.Int32 studyFormId, global::System.DateTime date, global::System.Int32 protocolTypeId, global::System.Boolean isOld, global::System.Boolean isSecond, global::System.Boolean isListener, global::System.String protocolTypeName, global::System.Boolean isParallel, global::System.Boolean isReduced)
+        {
+            extDisEntryFromReEnterView extDisEntryFromReEnterView = new extDisEntryFromReEnterView();
+            extDisEntryFromReEnterView.Id = id;
+            extDisEntryFromReEnterView.AbiturientId = abiturientId;
+            extDisEntryFromReEnterView.Excluded = excluded;
+            extDisEntryFromReEnterView.StudyLevelGroupId = studyLevelGroupId;
+            extDisEntryFromReEnterView.StudyFormId = studyFormId;
+            extDisEntryFromReEnterView.Date = date;
+            extDisEntryFromReEnterView.ProtocolTypeId = protocolTypeId;
+            extDisEntryFromReEnterView.IsOld = isOld;
+            extDisEntryFromReEnterView.IsSecond = isSecond;
+            extDisEntryFromReEnterView.IsListener = isListener;
+            extDisEntryFromReEnterView.ProtocolTypeName = protocolTypeName;
+            extDisEntryFromReEnterView.IsParallel = isParallel;
+            extDisEntryFromReEnterView.IsReduced = isReduced;
+            return extDisEntryFromReEnterView;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value, "Id");
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Guid _Id;
+        partial void OnIdChanging(global::System.Guid value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid AbiturientId
+        {
+            get
+            {
+                return _AbiturientId;
+            }
+            set
+            {
+                if (_AbiturientId != value)
+                {
+                    OnAbiturientIdChanging(value);
+                    ReportPropertyChanging("AbiturientId");
+                    _AbiturientId = StructuralObject.SetValidValue(value, "AbiturientId");
+                    ReportPropertyChanged("AbiturientId");
+                    OnAbiturientIdChanged();
+                }
+            }
+        }
+        private global::System.Guid _AbiturientId;
+        partial void OnAbiturientIdChanging(global::System.Guid value);
+        partial void OnAbiturientIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean Excluded
+        {
+            get
+            {
+                return _Excluded;
+            }
+            set
+            {
+                if (_Excluded != value)
+                {
+                    OnExcludedChanging(value);
+                    ReportPropertyChanging("Excluded");
+                    _Excluded = StructuralObject.SetValidValue(value, "Excluded");
+                    ReportPropertyChanged("Excluded");
+                    OnExcludedChanged();
+                }
+            }
+        }
+        private global::System.Boolean _Excluded;
+        partial void OnExcludedChanging(global::System.Boolean value);
+        partial void OnExcludedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Guid> ExcludeProtocolId
+        {
+            get
+            {
+                return _ExcludeProtocolId;
+            }
+            set
+            {
+                OnExcludeProtocolIdChanging(value);
+                ReportPropertyChanging("ExcludeProtocolId");
+                _ExcludeProtocolId = StructuralObject.SetValidValue(value, "ExcludeProtocolId");
+                ReportPropertyChanged("ExcludeProtocolId");
+                OnExcludeProtocolIdChanged();
+            }
+        }
+        private Nullable<global::System.Guid> _ExcludeProtocolId;
+        partial void OnExcludeProtocolIdChanging(Nullable<global::System.Guid> value);
+        partial void OnExcludeProtocolIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> EntryHeaderId
+        {
+            get
+            {
+                return _EntryHeaderId;
+            }
+            set
+            {
+                OnEntryHeaderIdChanging(value);
+                ReportPropertyChanging("EntryHeaderId");
+                _EntryHeaderId = StructuralObject.SetValidValue(value, "EntryHeaderId");
+                ReportPropertyChanged("EntryHeaderId");
+                OnEntryHeaderIdChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _EntryHeaderId;
+        partial void OnEntryHeaderIdChanging(Nullable<global::System.Int32> value);
+        partial void OnEntryHeaderIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 StudyLevelGroupId
+        {
+            get
+            {
+                return _StudyLevelGroupId;
+            }
+            set
+            {
+                if (_StudyLevelGroupId != value)
+                {
+                    OnStudyLevelGroupIdChanging(value);
+                    ReportPropertyChanging("StudyLevelGroupId");
+                    _StudyLevelGroupId = StructuralObject.SetValidValue(value, "StudyLevelGroupId");
+                    ReportPropertyChanged("StudyLevelGroupId");
+                    OnStudyLevelGroupIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _StudyLevelGroupId;
+        partial void OnStudyLevelGroupIdChanging(global::System.Int32 value);
+        partial void OnStudyLevelGroupIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> LicenseProgramId
+        {
+            get
+            {
+                return _LicenseProgramId;
+            }
+            set
+            {
+                OnLicenseProgramIdChanging(value);
+                ReportPropertyChanging("LicenseProgramId");
+                _LicenseProgramId = StructuralObject.SetValidValue(value, "LicenseProgramId");
+                ReportPropertyChanged("LicenseProgramId");
+                OnLicenseProgramIdChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _LicenseProgramId;
+        partial void OnLicenseProgramIdChanging(Nullable<global::System.Int32> value);
+        partial void OnLicenseProgramIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> FacultyId
+        {
+            get
+            {
+                return _FacultyId;
+            }
+            set
+            {
+                OnFacultyIdChanging(value);
+                ReportPropertyChanging("FacultyId");
+                _FacultyId = StructuralObject.SetValidValue(value, "FacultyId");
+                ReportPropertyChanged("FacultyId");
+                OnFacultyIdChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _FacultyId;
+        partial void OnFacultyIdChanging(Nullable<global::System.Int32> value);
+        partial void OnFacultyIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 StudyFormId
+        {
+            get
+            {
+                return _StudyFormId;
+            }
+            set
+            {
+                if (_StudyFormId != value)
+                {
+                    OnStudyFormIdChanging(value);
+                    ReportPropertyChanging("StudyFormId");
+                    _StudyFormId = StructuralObject.SetValidValue(value, "StudyFormId");
+                    ReportPropertyChanged("StudyFormId");
+                    OnStudyFormIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _StudyFormId;
+        partial void OnStudyFormIdChanging(global::System.Int32 value);
+        partial void OnStudyFormIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> StudyBasisId
+        {
+            get
+            {
+                return _StudyBasisId;
+            }
+            set
+            {
+                OnStudyBasisIdChanging(value);
+                ReportPropertyChanging("StudyBasisId");
+                _StudyBasisId = StructuralObject.SetValidValue(value, "StudyBasisId");
+                ReportPropertyChanged("StudyBasisId");
+                OnStudyBasisIdChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _StudyBasisId;
+        partial void OnStudyBasisIdChanging(Nullable<global::System.Int32> value);
+        partial void OnStudyBasisIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Number
+        {
+            get
+            {
+                return _Number;
+            }
+            set
+            {
+                OnNumberChanging(value);
+                ReportPropertyChanging("Number");
+                _Number = StructuralObject.SetValidValue(value, true, "Number");
+                ReportPropertyChanged("Number");
+                OnNumberChanged();
+            }
+        }
+        private global::System.String _Number;
+        partial void OnNumberChanging(global::System.String value);
+        partial void OnNumberChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime Date
+        {
+            get
+            {
+                return _Date;
+            }
+            set
+            {
+                if (_Date != value)
+                {
+                    OnDateChanging(value);
+                    ReportPropertyChanging("Date");
+                    _Date = StructuralObject.SetValidValue(value, "Date");
+                    ReportPropertyChanged("Date");
+                    OnDateChanged();
+                }
+            }
+        }
+        private global::System.DateTime _Date;
+        partial void OnDateChanging(global::System.DateTime value);
+        partial void OnDateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ProtocolTypeId
+        {
+            get
+            {
+                return _ProtocolTypeId;
+            }
+            set
+            {
+                if (_ProtocolTypeId != value)
+                {
+                    OnProtocolTypeIdChanging(value);
+                    ReportPropertyChanging("ProtocolTypeId");
+                    _ProtocolTypeId = StructuralObject.SetValidValue(value, "ProtocolTypeId");
+                    ReportPropertyChanged("ProtocolTypeId");
+                    OnProtocolTypeIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ProtocolTypeId;
+        partial void OnProtocolTypeIdChanging(global::System.Int32 value);
+        partial void OnProtocolTypeIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Reason
+        {
+            get
+            {
+                return _Reason;
+            }
+            set
+            {
+                OnReasonChanging(value);
+                ReportPropertyChanging("Reason");
+                _Reason = StructuralObject.SetValidValue(value, true, "Reason");
+                ReportPropertyChanged("Reason");
+                OnReasonChanged();
+            }
+        }
+        private global::System.String _Reason;
+        partial void OnReasonChanging(global::System.String value);
+        partial void OnReasonChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean IsOld
+        {
+            get
+            {
+                return _IsOld;
+            }
+            set
+            {
+                if (_IsOld != value)
+                {
+                    OnIsOldChanging(value);
+                    ReportPropertyChanging("IsOld");
+                    _IsOld = StructuralObject.SetValidValue(value, "IsOld");
+                    ReportPropertyChanged("IsOld");
+                    OnIsOldChanged();
+                }
+            }
+        }
+        private global::System.Boolean _IsOld;
+        partial void OnIsOldChanging(global::System.Boolean value);
+        partial void OnIsOldChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Guid> ParentProtocolId
+        {
+            get
+            {
+                return _ParentProtocolId;
+            }
+            set
+            {
+                OnParentProtocolIdChanging(value);
+                ReportPropertyChanging("ParentProtocolId");
+                _ParentProtocolId = StructuralObject.SetValidValue(value, "ParentProtocolId");
+                ReportPropertyChanged("ParentProtocolId");
+                OnParentProtocolIdChanged();
+            }
+        }
+        private Nullable<global::System.Guid> _ParentProtocolId;
+        partial void OnParentProtocolIdChanging(Nullable<global::System.Guid> value);
+        partial void OnParentProtocolIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean IsSecond
+        {
+            get
+            {
+                return _IsSecond;
+            }
+            set
+            {
+                if (_IsSecond != value)
+                {
+                    OnIsSecondChanging(value);
+                    ReportPropertyChanging("IsSecond");
+                    _IsSecond = StructuralObject.SetValidValue(value, "IsSecond");
+                    ReportPropertyChanged("IsSecond");
+                    OnIsSecondChanged();
+                }
+            }
+        }
+        private global::System.Boolean _IsSecond;
+        partial void OnIsSecondChanging(global::System.Boolean value);
+        partial void OnIsSecondChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean IsListener
+        {
+            get
+            {
+                return _IsListener;
+            }
+            set
+            {
+                if (_IsListener != value)
+                {
+                    OnIsListenerChanging(value);
+                    ReportPropertyChanging("IsListener");
+                    _IsListener = StructuralObject.SetValidValue(value, "IsListener");
+                    ReportPropertyChanged("IsListener");
+                    OnIsListenerChanged();
+                }
+            }
+        }
+        private global::System.Boolean _IsListener;
+        partial void OnIsListenerChanging(global::System.Boolean value);
+        partial void OnIsListenerChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String ProtocolTypeName
+        {
+            get
+            {
+                return _ProtocolTypeName;
+            }
+            set
+            {
+                if (_ProtocolTypeName != value)
+                {
+                    OnProtocolTypeNameChanging(value);
+                    ReportPropertyChanging("ProtocolTypeName");
+                    _ProtocolTypeName = StructuralObject.SetValidValue(value, false, "ProtocolTypeName");
+                    ReportPropertyChanged("ProtocolTypeName");
+                    OnProtocolTypeNameChanged();
+                }
+            }
+        }
+        private global::System.String _ProtocolTypeName;
+        partial void OnProtocolTypeNameChanging(global::System.String value);
+        partial void OnProtocolTypeNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean IsParallel
+        {
+            get
+            {
+                return _IsParallel;
+            }
+            set
+            {
+                if (_IsParallel != value)
+                {
+                    OnIsParallelChanging(value);
+                    ReportPropertyChanging("IsParallel");
+                    _IsParallel = StructuralObject.SetValidValue(value, "IsParallel");
+                    ReportPropertyChanged("IsParallel");
+                    OnIsParallelChanged();
+                }
+            }
+        }
+        private global::System.Boolean _IsParallel;
+        partial void OnIsParallelChanging(global::System.Boolean value);
+        partial void OnIsParallelChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean IsReduced
+        {
+            get
+            {
+                return _IsReduced;
+            }
+            set
+            {
+                if (_IsReduced != value)
+                {
+                    OnIsReducedChanging(value);
+                    ReportPropertyChanging("IsReduced");
+                    _IsReduced = StructuralObject.SetValidValue(value, "IsReduced");
+                    ReportPropertyChanged("IsReduced");
+                    OnIsReducedChanged();
+                }
+            }
+        }
+        private global::System.Boolean _IsReduced;
+        partial void OnIsReducedChanging(global::System.Boolean value);
+        partial void OnIsReducedChanged();
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="Priem2012Model", Name="extDisEntryView")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -30680,6 +31488,30 @@ namespace PriemLib
         private Nullable<global::System.DateTime> _DateFinishEduc;
         partial void OnDateFinishEducChanging(Nullable<global::System.DateTime> value);
         partial void OnDateFinishEducChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Guid> ParentEntryId
+        {
+            get
+            {
+                return _ParentEntryId;
+            }
+            set
+            {
+                OnParentEntryIdChanging(value);
+                ReportPropertyChanging("ParentEntryId");
+                _ParentEntryId = StructuralObject.SetValidValue(value, "ParentEntryId");
+                ReportPropertyChanged("ParentEntryId");
+                OnParentEntryIdChanged();
+            }
+        }
+        private Nullable<global::System.Guid> _ParentEntryId;
+        partial void OnParentEntryIdChanging(Nullable<global::System.Guid> value);
+        partial void OnParentEntryIdChanged();
 
         #endregion
 
@@ -32169,6 +33001,30 @@ namespace PriemLib
         private global::System.Boolean _IsForeign;
         partial void OnIsForeignChanging(global::System.Boolean value);
         partial void OnIsForeignChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> Priority
+        {
+            get
+            {
+                return _Priority;
+            }
+            set
+            {
+                OnPriorityChanging(value);
+                ReportPropertyChanging("Priority");
+                _Priority = StructuralObject.SetValidValue(value, "Priority");
+                ReportPropertyChanged("Priority");
+                OnPriorityChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _Priority;
+        partial void OnPriorityChanging(Nullable<global::System.Int32> value);
+        partial void OnPriorityChanged();
 
         #endregion
 
@@ -46999,6 +47855,30 @@ namespace PriemLib
         private Nullable<global::System.Int32> _EgeMin;
         partial void OnEgeMinChanging(Nullable<global::System.Int32> value);
         partial void OnEgeMinChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Guid> ParentInnerEntryInEntryId
+        {
+            get
+            {
+                return _ParentInnerEntryInEntryId;
+            }
+            set
+            {
+                OnParentInnerEntryInEntryIdChanging(value);
+                ReportPropertyChanging("ParentInnerEntryInEntryId");
+                _ParentInnerEntryInEntryId = StructuralObject.SetValidValue(value, "ParentInnerEntryInEntryId");
+                ReportPropertyChanged("ParentInnerEntryInEntryId");
+                OnParentInnerEntryInEntryIdChanged();
+            }
+        }
+        private Nullable<global::System.Guid> _ParentInnerEntryInEntryId;
+        partial void OnParentInnerEntryInEntryIdChanging(Nullable<global::System.Guid> value);
+        partial void OnParentInnerEntryInEntryIdChanged();
 
         #endregion
 
@@ -59720,6 +60600,30 @@ namespace PriemLib
         private global::System.Boolean _IsForeign;
         partial void OnIsForeignChanging(global::System.Boolean value);
         partial void OnIsForeignChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> AdmissionProtocolId
+        {
+            get
+            {
+                return _AdmissionProtocolId;
+            }
+            set
+            {
+                OnAdmissionProtocolIdChanging(value);
+                ReportPropertyChanging("AdmissionProtocolId");
+                _AdmissionProtocolId = StructuralObject.SetValidValue(value, "AdmissionProtocolId");
+                ReportPropertyChanged("AdmissionProtocolId");
+                OnAdmissionProtocolIdChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _AdmissionProtocolId;
+        partial void OnAdmissionProtocolIdChanging(Nullable<global::System.Int32> value);
+        partial void OnAdmissionProtocolIdChanged();
 
         #endregion
 
@@ -61874,7 +62778,8 @@ namespace PriemLib
         /// <param name="isViewed">Initial value of the IsViewed property.</param>
         /// <param name="isForeign">Initial value of the IsForeign property.</param>
         /// <param name="isCrimea">Initial value of the IsCrimea property.</param>
-        public static qAbiturient CreateqAbiturient(global::System.Guid id, global::System.Guid personId, global::System.Guid entryId, global::System.Int32 competitionId, global::System.Boolean isListener, global::System.Boolean isPaid, global::System.Boolean backDoc, global::System.DateTime docDate, global::System.DateTime docInsertDate, global::System.Boolean @checked, global::System.Boolean notEnabled, global::System.Boolean compFromOlymp, global::System.Int32 languageId, global::System.Boolean hasOriginals, global::System.Int32 facultyId, global::System.Int32 licenseProgramId, global::System.String licenseProgramName, global::System.Int32 obrazProgramId, global::System.String obrazProgramName, global::System.Int32 profileId, global::System.Int32 studyBasisId, global::System.String studyBasisName, global::System.Int32 studyFormId, global::System.String studyFormName, global::System.Int32 studyLevelId, global::System.String studyLevelName, global::System.Boolean isSecond, global::System.Int32 studyLevelGroupId, global::System.String obrazProgramNameEx, global::System.Boolean withHE, global::System.Boolean isReduced, global::System.Boolean isParallel, global::System.Boolean isViewed, global::System.Boolean isForeign, global::System.Boolean isCrimea)
+        /// <param name="backDocByAdmissionHigh">Initial value of the BackDocByAdmissionHigh property.</param>
+        public static qAbiturient CreateqAbiturient(global::System.Guid id, global::System.Guid personId, global::System.Guid entryId, global::System.Int32 competitionId, global::System.Boolean isListener, global::System.Boolean isPaid, global::System.Boolean backDoc, global::System.DateTime docDate, global::System.DateTime docInsertDate, global::System.Boolean @checked, global::System.Boolean notEnabled, global::System.Boolean compFromOlymp, global::System.Int32 languageId, global::System.Boolean hasOriginals, global::System.Int32 facultyId, global::System.Int32 licenseProgramId, global::System.String licenseProgramName, global::System.Int32 obrazProgramId, global::System.String obrazProgramName, global::System.Int32 profileId, global::System.Int32 studyBasisId, global::System.String studyBasisName, global::System.Int32 studyFormId, global::System.String studyFormName, global::System.Int32 studyLevelId, global::System.String studyLevelName, global::System.Boolean isSecond, global::System.Int32 studyLevelGroupId, global::System.String obrazProgramNameEx, global::System.Boolean withHE, global::System.Boolean isReduced, global::System.Boolean isParallel, global::System.Boolean isViewed, global::System.Boolean isForeign, global::System.Boolean isCrimea, global::System.Boolean backDocByAdmissionHigh)
         {
             qAbiturient qAbiturient = new qAbiturient();
             qAbiturient.Id = id;
@@ -61912,6 +62817,7 @@ namespace PriemLib
             qAbiturient.IsViewed = isViewed;
             qAbiturient.IsForeign = isForeign;
             qAbiturient.IsCrimea = isCrimea;
+            qAbiturient.BackDocByAdmissionHigh = backDocByAdmissionHigh;
             return qAbiturient;
         }
 
@@ -63511,6 +64417,33 @@ namespace PriemLib
         private global::System.Boolean _IsCrimea;
         partial void OnIsCrimeaChanging(global::System.Boolean value);
         partial void OnIsCrimeaChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean BackDocByAdmissionHigh
+        {
+            get
+            {
+                return _BackDocByAdmissionHigh;
+            }
+            set
+            {
+                if (_BackDocByAdmissionHigh != value)
+                {
+                    OnBackDocByAdmissionHighChanging(value);
+                    ReportPropertyChanging("BackDocByAdmissionHigh");
+                    _BackDocByAdmissionHigh = StructuralObject.SetValidValue(value, "BackDocByAdmissionHigh");
+                    ReportPropertyChanged("BackDocByAdmissionHigh");
+                    OnBackDocByAdmissionHighChanged();
+                }
+            }
+        }
+        private global::System.Boolean _BackDocByAdmissionHigh;
+        partial void OnBackDocByAdmissionHighChanging(global::System.Boolean value);
+        partial void OnBackDocByAdmissionHighChanged();
 
         #endregion
 
@@ -66331,6 +67264,30 @@ namespace PriemLib
         private Nullable<global::System.Byte> _FiveGradeValue;
         partial void OnFiveGradeValueChanging(Nullable<global::System.Byte> value);
         partial void OnFiveGradeValueChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> ParentExamInEntryId
+        {
+            get
+            {
+                return _ParentExamInEntryId;
+            }
+            set
+            {
+                OnParentExamInEntryIdChanging(value);
+                ReportPropertyChanging("ParentExamInEntryId");
+                _ParentExamInEntryId = StructuralObject.SetValidValue(value, "ParentExamInEntryId");
+                ReportPropertyChanged("ParentExamInEntryId");
+                OnParentExamInEntryIdChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _ParentExamInEntryId;
+        partial void OnParentExamInEntryIdChanging(Nullable<global::System.Int32> value);
+        partial void OnParentExamInEntryIdChanged();
 
         #endregion
 

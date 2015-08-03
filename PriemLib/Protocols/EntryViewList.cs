@@ -55,6 +55,8 @@ namespace PriemLib
                 chbIsForeign.Location = new Point(28, 515);
                 chbIsForeign.Visible = chbIsForeign.Enabled = true;
             }
+            string qquery = "SELECT CONVERT(nvarchar, Id) AS Id, '№' + Number + ' от ' + CONVERT(nvarchar, [Date], 104) AS Name FROM ed.AdmissionProtocol";
+            ComboServ.FillCombo(cbAdmissionProtocol, HelpClass.GetComboListByQuery(qquery), true, false);
 
             //// посомтреть, почему отдельные факультеты
             //if (_bdc.IsMed() || _bdc.GetFacultyId() == "9" || _bdc.GetFacultyId() == "14" || _bdc.GetFacultyId() == "20")
@@ -204,14 +206,16 @@ namespace PriemLib
             }
 
             string query = string.Format("SELECT DISTINCT Id, Number + ' (' + CONVERT(nvarchar, Date, 104) + ')' AS 'Номер представления' FROM ed.extEntryView WHERE StudyFormId={0} AND StudyBasisId={1} AND FacultyId= {2} AND LicenseProgramId = {3} AND IsListener = {4} AND IsSecond = {5} AND IsReduced = {6} AND IsParallel = {7} order by 2", StudyFormId, StudyBasisId, FacultyId, LicenseProgramId, QueryServ.StringParseFromBool(IsListener), QueryServ.StringParseFromBool(IsSecond), QueryServ.StringParseFromBool(IsReduced), QueryServ.StringParseFromBool(IsParallel));
-            HelpClass.FillDataGrid(dgvViews, _bdc, query, "");            
-        }       
+            HelpClass.FillDataGrid(dgvViews, _bdc, query, "");
+
+            if (dgvViews.Columns.Contains("Номер представления"))
+                dgvViews.Columns["Номер представления"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+        }
 
         private void btnCreate_Click(object sender, EventArgs e)
         {
             new EntryViewProtocol(null, StudyLevelGroupId.Value, FacultyId.Value, StudyBasisId.Value, StudyFormId.Value, LicenseProgramId, IsSecond, IsReduced, IsParallel, IsListener, chbCel.Checked).Show();            
         }
-
         private void btnPrint_Click(object sender, EventArgs e)
         {  
             if (dgvViews.CurrentRow == null)
@@ -226,7 +230,6 @@ namespace PriemLib
             if (sfd.ShowDialog() == DialogResult.OK)
                 Print.PrintEntryView(dgvViews.CurrentRow.Cells["Id"].Value.ToString(), sfd.FileName, !chbIsForeign.Checked);
         }
-
         private void btnPrintOrder_Click(object sender, EventArgs e)
         {
             if (dgvViews.CurrentRow == null)
@@ -239,7 +242,6 @@ namespace PriemLib
 
             Print.PrintOrder(protocolId, !chbIsForeign.Checked, chbCel.Checked);
         }
-
         private void btnOrderReview_Click(object sender, EventArgs e)
         {
             if (dgvViews.CurrentRow == null)
@@ -252,7 +254,6 @@ namespace PriemLib
 
             Print.PrintOrderReview(protocolId, !chbIsForeign.Checked);
         }
-
         private void btnCancelView_Click(object sender, EventArgs e)
         {
             if(!MainClass.IsPasha())
@@ -277,25 +278,86 @@ namespace PriemLib
         {
             MainClass.RemoveProtocolHandler(prh);
         }
-
+        
         private void chbIsListener_CheckedChanged(object sender, EventArgs e)
         {
             UpdateDataGrid();
         }
-
         private void chbIsSecond_CheckedChanged(object sender, EventArgs e)
         {
             FillStudyForm();
         }
-
         private void chbIsReduced_CheckedChanged(object sender, EventArgs e)
         {
             FillStudyForm();
         }
-
         private void chbIsParallel_CheckedChanged(object sender, EventArgs e)
         {
             FillStudyForm();
+        }
+
+        private void dgvViews_SelectionChanged(object sender, EventArgs e)
+        {
+            ViewProtocolInfo();
+        }
+        
+        private void ViewProtocolInfo()
+        {
+            if (dgvViews.CurrentCell != null)
+            {
+                gbProtocolInfo.Visible = true;
+                btnSetAdmissionProtocol.Visible = MainClass.IsPasha() || MainClass.IsEntryChanger();
+                btnSetAdmissionProtocol.Enabled = MainClass.IsPasha() || MainClass.IsEntryChanger();
+
+                if (dgvViews.CurrentCell.RowIndex >= 0)
+                {
+                    int rwInd = dgvViews.CurrentCell.RowIndex;
+                    Guid ProtocolId = (Guid)dgvViews["Id", rwInd].Value;
+                    var protinfo = ProtocolDataProvider.GetProtocolInfo(ProtocolId, 4);
+                    var prot = ProtocolDataProvider.GetEntryViewData(ProtocolId, true);
+                    var prot_for = ProtocolDataProvider.GetEntryViewData(ProtocolId, false);
+
+                    ComboServ.SetComboId(cbAdmissionProtocol, protinfo.AdmissionProtocolId);
+
+                    lblHasForeigners.Visible = prot_for.Count > 0;
+                    lblProtocolPersonsCount.Text = (prot.Count + prot_for.Count).ToString();
+
+                    List<int> lstComps = new List<int>();
+                    lstComps.AddRange(prot.Select(x => x.CompetitionId).ToList().Distinct());
+
+                    using (PriemEntities context = new PriemEntities())
+                    {
+                        var comps = context.Competition.Where(x => lstComps.Contains(x.Id)).Select(x => x.Name).ToList().DefaultIfEmpty("").Aggregate((x, tail) => x + ", " + tail);
+                        lblProtocolCompetitions.Text = comps;
+                    }
+                }
+            }
+            else
+                gbProtocolInfo.Visible = false;
+            
+        }
+
+        private void btnSetAdmissionProtocol_Click(object sender, EventArgs e)
+        {
+            using (PriemEntities context = new PriemEntities())
+            {
+                if (dgvViews.CurrentCell.RowIndex >= 0)
+                {
+                    int rwInd = dgvViews.CurrentCell.RowIndex;
+                    Guid ProtocolId = (Guid)dgvViews["Id", rwInd].Value;
+
+                    var p = context.Protocol.Where(x => x.Id == ProtocolId).FirstOrDefault();
+                    if (p != null)
+                    {
+                        int? AdmissionProtocolId = ComboServ.GetComboIdInt(cbAdmissionProtocol);
+                            p.AdmissionProtocolId = AdmissionProtocolId;
+
+                        context.SaveChanges();
+
+                        MessageBox.Show("OK");
+                    }
+                }
+            }
         }
     }
 }

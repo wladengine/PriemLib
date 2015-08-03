@@ -201,7 +201,13 @@ namespace PriemLib
         {
             get { return tbSum.Text.Trim(); }
             set { tbSum.Text = value; }
-        }        
+        }
+
+        public bool BackDocByAdmissionHigh
+        {
+            get { return lblBackDocByAdmissionHigh.Visible; }
+            set { lblBackDocByAdmissionHigh.Visible = value; }
+        }
 
         public double? Coefficient
         {
@@ -305,40 +311,11 @@ namespace PriemLib
             }
             set { tbPriority.Text = Util.ToStr(value); }
         }
+
         public Guid? InnerEntryInEntryId
         {
-            get 
-            {
-                Guid gId = Guid.Empty;
-                return gId;
-            }
-            set 
-            {
-                if (!value.HasValue)
-                    return;
-
-                using (PriemEntities context = new PriemEntities())
-                {
-                    var InEntInEnt = context.InnerEntryInEntry.Where(x => x.Id == value).FirstOrDefault();
-                    if (InEntInEnt != null)
-                    {
-                        ObrazProgramInEntryId = InEntInEnt.ObrazProgramId;
-                        ProfileInEntryId = InEntInEnt.ProfileId;
-                    }
-                }
-            }
-        }
-
-        public int? ObrazProgramInEntryId
-        {
-            get { return ComboServ.GetComboIdInt(cbObrazProgramInEntry); }
-            set { ComboServ.SetComboId(cbObrazProgramInEntry, value); }
-        }
-
-        public int? ProfileInEntryId
-        {
-            get { return ComboServ.GetComboIdInt(cbProfileInEntry); }
-            set { ComboServ.SetComboId(cbProfileInEntry, value); }
+            get { return ComboServ.GetComboIdGuid(cbInnerEntryInEntry); }
+            set { ComboServ.SetComboId(cbInnerEntryInEntry, value); }
         }
     }
 }
