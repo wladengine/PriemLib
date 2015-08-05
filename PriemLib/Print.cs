@@ -1642,6 +1642,7 @@ namespace PriemLib
 
                 wd.SetFields("ДатаПриказа", docDate.HasValue ? docDate.Value.ToShortDateString() : "НЕТ ДАТЫ");
                 wd.SetFields("НомерПриказа", docNum);
+                wd.SetFields("FacultyInd", FacultyIndexNumber);
 
                 wd.SetFields("DogovorDoc", dogovorDoc);
                 wd.SetFields("EducDoc", educDoc);
@@ -1654,7 +1655,6 @@ namespace PriemLib
                 string curLPHeader = "-";
                 string curMotivation = "-";
                 string Motivation = string.Empty;
-
 
                 var lst = ProtocolDataProvider.GetEntryViewData(gProtocolId, isRus);
                 bool bFirstRun = true;
@@ -1764,7 +1764,7 @@ namespace PriemLib
 
                 //платникам и всем очно-заочникам стипендия не платится
                 if (ProtocolInfo.StudyBasisId != 2 && ProtocolInfo.StudyFormId != 2)
-                    AddRowInTableOrder(string.Format("\r\n2.    Назначить лицам, указанным в п. 1 настоящего приказа, стипендию в размере {0} ежемесячно с 01.09.2015 по 31.01.2016. [{1}]", Stipendia, FacultyIndexNumber), ref td, ref curRow);
+                    AddRowInTableOrder(string.Format("\r\n2.    Назначить лицам, указанным в п. 1 настоящего приказа, стипендию в размере {0} ежемесячно с 01.09.2015 по 31.01.2016.", Stipendia), ref td, ref curRow);
             }
             catch (WordException we)
             {
@@ -1820,7 +1820,7 @@ namespace PriemLib
                     }
 
                     var SF = ctx.StudyForm.Where(x => x.Id == ProtocolInfo.StudyFormId).Select(x => new { x.Name, x.RodName }).FirstOrDefault();
-                    string form2 = "по " + SF.RodName + " форме";
+                    string form2 = SF.RodName + " форме";
 
                     int curRow = 5, counter = 0;
                     TableDoc td = null;
@@ -1859,7 +1859,7 @@ namespace PriemLib
                         else
                             wd.InsertAutoTextInEnd("выписка", true);
 
-                        wd.GetLastFields(13);
+                        wd.GetLastFields(14);
                         td = wd.Tables[counter];
 
                         wd.SetFields("Граждан", isRus ? "граждан РФ" : "иностранных граждан");
@@ -1878,6 +1878,7 @@ namespace PriemLib
                         else
                             wd.SetFields("ДатаОснования", "ДАТА");
                         wd.SetFields("НомерОснования", sComissionNum ?? "НОМЕР");
+                        wd.SetFields("FacultyInd", ProtocolInfo.FacultyIndexNumber);
 
                         string curLPHeader = "-";
                         string curSpez = "-";
@@ -1951,7 +1952,7 @@ namespace PriemLib
                         }
 
                         if (ProtocolInfo.StudyBasisId != 2 && ProtocolInfo.StudyFormId != 2)
-                            AddRowInTableOrder(string.Format("\r\n2.    Назначить лицам, указанным в п. 1 настоящего приказа, стипендию в размере {0} ежемесячно с 01.09.2015 по 31.01.2016. [{1}]", Stipendia, ProtocolInfo.FacultyIndexNumber), ref td, ref curRow);
+                            AddRowInTableOrder(string.Format("\r\n2.    Назначить лицам, указанным в п. 1 настоящего приказа, стипендию в размере {0} ежемесячно с 01.09.2015 по 31.01.2016.", Stipendia), ref td, ref curRow);
                     }
                 }
             }
@@ -2012,7 +2013,7 @@ namespace PriemLib
                     Guid entryProtocolId =
                         (from extEntryView in ctx.extEntryView_ForDisEntered
                          join extDisEntryView in ctx.extDisEntryView on extEntryView.AbiturientId equals extDisEntryView.AbiturientId
-                         where !extDisEntryView.IsOld && extDisEntryView.Id == gProtocolId
+                         where !extDisEntryView.IsOld && extDisEntryView.Id == gProtocolId && extEntryView.Id == extDisEntryView.ParentProtocolId
                          select extEntryView.Id).FirstOrDefault();
 
                     string docNum = "НОМЕР";
@@ -2143,7 +2144,7 @@ namespace PriemLib
                 WinFormsServ.Error(exc);
             }
         }
-        public static void PrintDisEntryView(string protocolId)
+        public static void PrintDisEntryView(string protocolId, bool isRus)
         {
             try
             {
@@ -2161,11 +2162,27 @@ namespace PriemLib
                     Guid entryProtocolId =
                         (from extEntryView in ctx.extEntryView_ForDisEntered
                          join extDisEntryView in ctx.extDisEntryView on extEntryView.AbiturientId equals extDisEntryView.AbiturientId
-                         where !extDisEntryView.IsOld && extDisEntryView.Id == gProtocolId
+                         where !extDisEntryView.IsOld && extDisEntryView.Id == gProtocolId && extEntryView.Id == extDisEntryView.ParentProtocolId
                          select extEntryView.Id).FirstOrDefault();
 
                     string docNum = "НОМЕР";
                     string docDate = "ДАТА";
+
+                    DateTime? tempDate;
+                    docNum =
+                        (from orderNumbers in ctx.OrderNumbers
+                         where orderNumbers.ProtocolId == entryProtocolId
+                         select isRus ? orderNumbers.OrderNum : orderNumbers.OrderNumFor).FirstOrDefault();
+
+                    tempDate = (DateTime?)
+                        (from orderNumbers in ctx.OrderNumbers
+                         where orderNumbers.ProtocolId == entryProtocolId
+                         select isRus ? orderNumbers.OrderDate : orderNumbers.OrderDateFor).FirstOrDefault();
+
+                    if (tempDate.HasValue)
+                        docDate = tempDate.Value.ToShortDateString();
+                    else
+                        docDate = "!НЕТ ДАТЫ";
 
                     string facDat =
                         (from protocol in ctx.Protocol
@@ -2241,7 +2258,7 @@ namespace PriemLib
                                    }
                                );
 
-                    bool isRus = lst.Where(x => x.NationalityId != 1).Count() == 0;
+                    //bool isRus = lst.Where(x => x.NationalityId != 1).Count() == 0;
 
                     wd.SetFields("Граждан", "граждан РФ" + (isRus ? "" : " и иностранных граждан"));
                     wd.SetFields("Граждан2", isRus ? "граждан Российской Федерации" : "");

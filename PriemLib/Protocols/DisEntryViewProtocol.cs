@@ -65,6 +65,10 @@ namespace PriemLib
 
         void cbHeaders_SelectedIndexChanged(object sender, EventArgs e)
         {
+            Guid gId = Guid.NewGuid();
+            if (Guid.TryParse(HeaderId, out gId))
+                _parentProtocolId = gId;
+
             UpdateGrids();
         }
 

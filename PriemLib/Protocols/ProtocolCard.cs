@@ -27,6 +27,7 @@ namespace PriemLib
         protected int _studyLevelGroupId;
 
         protected Guid? _id;
+        protected Guid? _parentProtocolId;
         protected ProtocolTypes _type;
                 
         protected bool _isSecond;
@@ -436,7 +437,7 @@ namespace PriemLib
 
                                 context.Protocol_InsertAll(_studyLevelGroupId,
                                     _facultyId, _licenseProgramId, _studyFormId, _studyBasisId, tbNum.Text, dtpDate.Value, iProtocolTypeId,
-                                    string.Empty, !isNew, null, _isSecond, _isReduced, _isParallel, _isListener, _isForeign, paramId);
+                                    string.Empty, !isNew, _parentProtocolId, _isSecond, _isReduced, _isParallel, _isListener, _isForeign, paramId);
 
                                 ProtocolId = (Guid)paramId.Value;
                             }

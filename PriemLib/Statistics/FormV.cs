@@ -22,7 +22,8 @@ namespace PriemLib
         {
             using (PriemEntities context = new PriemEntities())
             {
-                int kcp_b = context.Entry.Where(x => x.StudyLevel.LevelGroupId == 1 && x.StudyFormId == 1 && !x.IsCrimea && !x.IsForeign).Select(x => x.KCP ?? 0).DefaultIfEmpty(0).Sum();
+                int kcp_b = context.Entry.Where(x => x.StudyLevel.LevelGroupId == 1 && x.StudyFormId == 1 && x.StudyBasisId == 1 && !x.IsCrimea && !x.IsForeign)
+                    .Select(x => x.KCP ?? 0).DefaultIfEmpty(0).Sum();
                 tbKCP_1kBudzh.Text = kcp_b.ToString();
 
                 var enteredCnt = (from Entered in context.extEntryView
@@ -45,8 +46,8 @@ namespace PriemLib
                 tbEnteredAbitsCount_30_07_B.Text = enteredCnt.Where(x => x.StudyBasisId == 1 && x.Date >= new DateTime(2015, 7, 29) && x.Date <= new DateTime(2015, 7, 31)).Count().ToString();
                 tbEnteredAbitsCount_30_07_P.Text = enteredCnt.Where(x => x.StudyBasisId == 2 && x.Date >= new DateTime(2015, 7, 29) && x.Date <= new DateTime(2015, 7, 31)).Count().ToString();
 
-                tbEnteredAbitsCount_05_08_B.Text = enteredCnt.Where(x => x.StudyBasisId == 1 && x.Date >= new DateTime(2015, 8, 4) && x.Date < new DateTime(2015, 8, 6)).Count().ToString();
-                tbEnteredAbitsCount_05_08_P.Text = enteredCnt.Where(x => x.StudyBasisId == 2 && x.Date >= new DateTime(2015, 8, 4) && x.Date < new DateTime(2015, 8, 6)).Count().ToString();
+                tbEnteredAbitsCount_05_08_B.Text = enteredCnt.Where(x => x.StudyBasisId == 1 && x.Date >= new DateTime(2015, 8, 3) && x.Date < new DateTime(2015, 8, 5)).Count().ToString();
+                tbEnteredAbitsCount_05_08_P.Text = enteredCnt.Where(x => x.StudyBasisId == 2 && x.Date >= new DateTime(2015, 8, 3) && x.Date < new DateTime(2015, 8, 5)).Count().ToString();
 
                 tbEnteredAbitsCount_30_07_05_08_B.Text = enteredCnt.Where(x => x.StudyBasisId == 1 && x.Date >= new DateTime(2015, 7, 29) && x.Date <= new DateTime(2015, 8, 4)).Count().ToString();
                 tbEnteredAbitsCount_30_07_05_08_P.Text = enteredCnt.Where(x => x.StudyBasisId == 2 && x.Date >= new DateTime(2015, 7, 29) && x.Date <= new DateTime(2015, 8, 4)).Count().ToString();

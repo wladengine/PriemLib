@@ -44,6 +44,7 @@
             this.lblLicenseprogram = new System.Windows.Forms.Label();
             this.tabCard = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.lblBackDocByAdmissionHigh = new System.Windows.Forms.Label();
             this.chbIsCrimea = new System.Windows.Forms.CheckBox();
             this.chbIsForeign = new System.Windows.Forms.CheckBox();
             this.lblWhoBackDoc = new System.Windows.Forms.Label();
@@ -129,7 +130,7 @@
             this.lblFIO = new System.Windows.Forms.Label();
             this.btnCardPerson = new System.Windows.Forms.Button();
             this.epErrorInput = new System.Windows.Forms.ErrorProvider(this.components);
-            this.lblBackDocByAdmissionHigh = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.epError)).BeginInit();
             this.tabCard.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -247,6 +248,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.button1);
             this.tabPage1.Controls.Add(this.lblBackDocByAdmissionHigh);
             this.tabPage1.Controls.Add(this.chbIsCrimea);
             this.tabPage1.Controls.Add(this.chbIsForeign);
@@ -297,6 +299,17 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Основное";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // lblBackDocByAdmissionHigh
+            // 
+            this.lblBackDocByAdmissionHigh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblBackDocByAdmissionHigh.AutoSize = true;
+            this.lblBackDocByAdmissionHigh.Location = new System.Drawing.Point(136, 482);
+            this.lblBackDocByAdmissionHigh.Name = "lblBackDocByAdmissionHigh";
+            this.lblBackDocByAdmissionHigh.Size = new System.Drawing.Size(240, 13);
+            this.lblBackDocByAdmissionHigh.TabIndex = 131;
+            this.lblBackDocByAdmissionHigh.Text = "(Зачислен(а) на более приоритетный конкурс)";
+            this.lblBackDocByAdmissionHigh.Visible = false;
             // 
             // chbIsCrimea
             // 
@@ -1247,16 +1260,17 @@
             // 
             this.epErrorInput.ContainerControl = this;
             // 
-            // lblBackDocByAdmissionHigh
+            // button1
             // 
-            this.lblBackDocByAdmissionHigh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblBackDocByAdmissionHigh.AutoSize = true;
-            this.lblBackDocByAdmissionHigh.Location = new System.Drawing.Point(136, 482);
-            this.lblBackDocByAdmissionHigh.Name = "lblBackDocByAdmissionHigh";
-            this.lblBackDocByAdmissionHigh.Size = new System.Drawing.Size(240, 13);
-            this.lblBackDocByAdmissionHigh.TabIndex = 131;
-            this.lblBackDocByAdmissionHigh.Text = "(Зачислен(а) на более приоритетный конкурс)";
-            this.lblBackDocByAdmissionHigh.Visible = false;
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.Enabled = false;
+            this.button1.Location = new System.Drawing.Point(276, 392);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(159, 23);
+            this.button1.TabIndex = 132;
+            this.button1.Text = "Перенести на др. конкурс";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
             // 
             // CardAbit
             // 
@@ -1413,5 +1427,6 @@
         private System.Windows.Forms.CheckBox chbIsCrimea;
         private System.Windows.Forms.Button btnSaveInnerEntryInEntry;
         private System.Windows.Forms.Label lblBackDocByAdmissionHigh;
+        private System.Windows.Forms.Button button1;
     }
 }

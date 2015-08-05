@@ -7,6 +7,52 @@ namespace PriemLib
 {
     static class ApplicationDataProvider
     {
+        public static void ChangeHasOriginalsDestination(Guid AbiturientId, Guid? TargetAbiturientId)
+        {
+            using (PriemEntities context = new PriemEntities())
+            {
+                Guid PersonId = context.Abiturient.Where(x => x.Id == AbiturientId).Select(x => x.PersonId)
+                    .DefaultIfEmpty(Guid.Empty).First();
+
+                if (PersonId == Guid.Empty)
+                    throw new KeyNotFoundException("Не найдено записи исходного конкурса!");
+
+                if (!TargetAbiturientId.HasValue)
+                {
+                    bool isForeigners = MainClass.dbType == PriemType.PriemForeigners;
+
+                    TargetAbiturientId = context.Abiturient
+                        .Where(x => x.PersonId == PersonId && !x.BackDoc && !x.NotEnabled && !x.HasOriginals && x.Id != AbiturientId
+                            && x.Entry.IsForeign == isForeigners && MainClass.lstStudyLevelGroupId.Contains(x.Entry.StudyLevel.LevelGroupId))
+                        .Select(x => new { x.Id, x.Priority })
+                        .ToList()
+                        .OrderBy(x => x.Priority)
+                        .Select(x => x.Id)
+                        .DefaultIfEmpty(Guid.Empty)
+                        .First();
+                }
+
+                if (TargetAbiturientId == Guid.Empty)
+                    throw new KeyNotFoundException("Не найдено доступного заявления для перемещения оригиналов!");
+
+                if (context.Abiturient.Where(x => x.Id == TargetAbiturientId).Select(x => x.PersonId).DefaultIfEmpty(Guid.Empty).First() == PersonId)
+                {
+                    var AbSource = context.Abiturient.Where(x => x.Id == AbiturientId).FirstOrDefault();
+                    var AbDest = context.Abiturient.Where(x => x.Id == TargetAbiturientId).FirstOrDefault();
+
+                    if (!AbSource.HasOriginals)
+                        throw new InvalidOperationException("Отстутствуют оригиналы на заявлении!");
+
+                    AbSource.HasOriginals = false;
+                    AbDest.HasOriginals = true;
+
+                    context.SaveChanges();
+                }
+                else
+                    throw new KeyNotFoundException("Не совпадают записи абитуриентов исходного и конечного заявления!");
+            }
+        }
+
         public static List<ApplicationData> GetAppData(Guid PersonId)
         {
             using (PriemEntities context = new PriemEntities())

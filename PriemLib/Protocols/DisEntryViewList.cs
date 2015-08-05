@@ -263,7 +263,7 @@ namespace PriemLib
 
             string protocolId = dgvViews.CurrentRow.Cells["Id"].Value.ToString();
 
-            Print.PrintDisEntryView(protocolId);
+            Print.PrintDisEntryView(protocolId, !chbIsForeign.Checked);
         }
 
         private void chbIsListener_CheckedChanged(object sender, EventArgs e)
