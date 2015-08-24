@@ -262,9 +262,13 @@ namespace PriemLib
                     if (abit.HasOriginals)
                     {
                         GetWhoSetHasOriginals();
+
+                        btnChangeOriginalsDestination.Visible = true;
                     }
                     else
                     {
+                        btnChangeOriginalsDestination.Visible = false;
+
                         lblHasOriginalsUser.Visible = false;
                         lblHasOriginalsUser.Text = "";
                     }
@@ -292,8 +296,6 @@ namespace PriemLib
                         GetHasMotivationLetter();
                         GetHasEssay();
                     }
-
-
 
                     GetHasInnerPriorities(context);
 
@@ -362,7 +364,7 @@ namespace PriemLib
             BackgroundWorker bw_whoBackDoc = new BackgroundWorker();
             bw_whoBackDoc.DoWork += bw_whoBackDoc_DoWork;
             bw_whoBackDoc.RunWorkerCompleted += bw_whoBackDoc_RunWorkerCompleted;
-            bw_whoBackDoc.RunWorkerAsync();
+            bw_whoBackDoc.RunWorkerAsync(GuidId);
         }
 
         void bw_whoBackDoc_DoWork(object sender, DoWorkEventArgs e)
@@ -538,6 +540,11 @@ namespace PriemLib
 
             //if (_Id == null)
             //    chbHasOriginals.Enabled = false;
+
+            //if (MainClass.IsFacMain() || MainClass.IsPasha())
+            //    btnChangeOriginalsDestination.Enabled = true;
+            //else
+            //    btnChangeOriginalsDestination.Enabled = false;
         }
         protected override void SetAllFieldsNotEnabled()
         {
@@ -564,6 +571,11 @@ namespace PriemLib
             }
 
             btnDocInventory.Enabled = true;
+
+            if (MainClass.IsFacMain() || MainClass.IsPasha())
+                btnChangeOriginalsDestination.Enabled = true;
+            else
+                btnChangeOriginalsDestination.Enabled = false;
         }
         protected override void SetAllFieldsEnabled()
         {
@@ -1236,7 +1248,18 @@ namespace PriemLib
             {
                 if (chbBackDoc.Checked)
                 {
-                    if (MessageBox.Show(string.Format("Вы уверены, что абитуриент отказался от участия в конкурсе на образовательную программу \"{0}\", форму обучения \"{1}\", основу обучения \"{2}\"?????", cbObrazProgram.Text, cbStudyForm.Text, cbStudyBasis.Text), "Внимание!", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    if (HasOriginals)
+                    {
+                        if (MessageBox.Show(@"На данном конкурсе лежат подлинники. Хотите переложить их на другой конкурс?
+В случае забора документов из карточки с подлинниками абитуриент считается не подавшим оригиналы", "Внимание!", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        {
+                            OpenCardChangeOriginalsDestination();
+                            return;
+                        }
+                    }
+
+                    if (MessageBox.Show(string.Format("Вы уверены, что абитуриент отказался от участия в конкурсе на образовательную программу \"{0}\", форму обучения \"{1}\", основу обучения \"{2}\"?????", 
+                        cbObrazProgram.Text, cbStudyForm.Text, cbStudyBasis.Text), "Внимание!", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
                         chbBackDoc.ForeColor = System.Drawing.Color.Red;
                         dtBackDocDate.Enabled = true;
@@ -1930,6 +1953,9 @@ namespace PriemLib
 
             using (PriemEntities context = new PriemEntities())
             {
+                if (context.C_FirstWave.Where(x => x.AbiturientId == GuidId).Count() == 0)
+                    context.FirstWave_INSERT(GuidId, 9999);
+
                 context.FirstWaveGreen_DeleteByAbId(GuidId);
                 context.FirstWaveGreen_INSERT(GuidId, true);
 
@@ -2047,6 +2073,19 @@ namespace PriemLib
             {
                 context.Abiturient_UpdateInnerEntryInEntryId(InnerEntryInEntryId, GuidId);
             }
+        }
+
+        private void btnChangeOriginalsDestination_Click(object sender, EventArgs e)
+        {
+            OpenCardChangeOriginalsDestination();
+        }
+
+        private void OpenCardChangeOriginalsDestination()
+        {
+            var crd = new CardChangeOriginalsPlace(GuidId.Value);
+            //crd.OnUpdated += () => { NullHandlers(); InitControls(); };
+            crd.OnUpdated += FillCard;
+            crd.Show();
         }
     }
 }

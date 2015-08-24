@@ -1016,6 +1016,19 @@ warning 6002: The table/view 'Priem.ed.PayDataEntry' does not have a primary key
           <Property Name="IsListener" Type="bit" Nullable="false" />
           <Property Name="IsForeign" Type="bit" Nullable="false" />
           <Property Name="AdmissionProtocolId" Type="int" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="Author" Type="nvarchar" MaxLength="150" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProtocolHistory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AbiturientId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ProtocolId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Excluded" Type="bit" Nullable="false" />
+          <Property Name="ExcludeProtocolId" Type="uniqueidentifier" />
+          <Property Name="EntryHeaderId" Type="int" />
         </EntityType>
         <EntityType Name="ProtocolNumbers">
           <Key>
@@ -1237,6 +1250,7 @@ warning 6002: The table/view 'Priem.ed.extAbit' does not have a primary key defi
             <PropertyRef Name="IsParallel" />
             <PropertyRef Name="IsForeign" />
             <PropertyRef Name="IsCrimea" />
+            <PropertyRef Name="BackDocByAdmissionHigh" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="PersonId" Type="uniqueidentifier" Nullable="false" />
@@ -1310,6 +1324,7 @@ warning 6002: The table/view 'Priem.ed.extAbit' does not have a primary key defi
           <Property Name="InnerEntryInEntryObrazProgramId" Type="int" />
           <Property Name="IsForeign" Type="bit" Nullable="false" />
           <Property Name="IsCrimea" Type="bit" Nullable="false" />
+          <Property Name="BackDocByAdmissionHigh" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'Priem.ed.extAbitAdditionalMarksSum' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -1319,6 +1334,17 @@ warning 6002: The table/view 'Priem.ed.extAbitAdditionalMarksSum' does not have 
           </Key>
           <Property Name="AbiturientId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="AdditionalMarksSum" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Priem.ed.extAbitAllAdditionalAchievements' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="extAbitAllAdditionalAchievements">
+          <Key>
+            <PropertyRef Name="AbiturientId" />
+          </Key>
+          <Property Name="AbiturientId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AchievementType" Type="nvarchar" MaxLength="206" />
+          <Property Name="AchievementTypeId" Type="int" />
+          <Property Name="Mark" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'Priem.ed.extAbitMarksSum' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -1671,6 +1697,7 @@ warning 6002: The table/view 'Priem.ed.extEntry' does not have a primary key def
           <Property Name="DateStartEduc" Type="date" />
           <Property Name="DateFinishEduc" Type="date" />
           <Property Name="ParentEntryId" Type="uniqueidentifier" />
+          <Property Name="FacultyCode" Type="nvarchar" MaxLength="10" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'Priem.ed.extEntryProtocols' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -2053,6 +2080,7 @@ warning 6002: The table/view 'Priem.ed.extOlympiadsAll' does not have a primary 
             <PropertyRef Name="Id" />
             
             <PropertyRef Name="OriginDoc" />
+            <PropertyRef Name="OlympYear" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="OlympTypeId" Type="int" />
@@ -2073,6 +2101,7 @@ warning 6002: The table/view 'Priem.ed.extOlympiadsAll' does not have a primary 
           <Property Name="DocumentNumber" Type="nvarchar" MaxLength="50" />
           <Property Name="DocumentDate" Type="date" />
           <Property Name="OlympValueSortOrder" Type="int" />
+          <Property Name="OlympYear" Type="smallint" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'Priem.ed.extPerson' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -4408,6 +4437,46 @@ warning 6002: The table/view 'Priem.ed.qStudyLevel' does not have a primary key 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_ProtocolHistory_Abiturient">
+          <End Role="Abiturient" Type="Self.Abiturient" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ProtocolHistory" Type="Self.ProtocolHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Abiturient">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProtocolHistory">
+              <PropertyRef Name="AbiturientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Protocolhistory_EntryHeader">
+          <End Role="EntryHeader" Type="Self.EntryHeader" Multiplicity="0..1" />
+          <End Role="ProtocolHistory" Type="Self.ProtocolHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EntryHeader">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProtocolHistory">
+              <PropertyRef Name="EntryHeaderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_ProtocolHistory_Protocol">
+          <End Role="Protocol" Type="Self.Protocol" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ProtocolHistory" Type="Self.ProtocolHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Protocol">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProtocolHistory">
+              <PropertyRef Name="ProtocolId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SP_LicenseProgram_SP_AggregateGroup">
           <End Role="SP_AggregateGroup" Type="Self.SP_AggregateGroup" Multiplicity="1" />
           <End Role="SP_LicenseProgram" Type="Self.SP_LicenseProgram" Multiplicity="*" />
@@ -5831,6 +5900,7 @@ warning 6002: The table/view 'Priem.ed.qStudyLevel' does not have a primary key 
           <EntitySet Name="PersonSportQualification" EntityType="Self.PersonSportQualification" Schema="ed" store:Type="Tables" />
           <EntitySet Name="Prorektor" EntityType="Self.Prorektor" Schema="ed" store:Type="Tables" />
           <EntitySet Name="Protocol" EntityType="Self.Protocol" Schema="ed" store:Type="Tables" />
+          <EntitySet Name="ProtocolHistory" EntityType="Self.ProtocolHistory" Schema="ed" store:Type="Tables" />
           <EntitySet Name="ProtocolNumbers" EntityType="Self.ProtocolNumbers" Schema="ed" store:Type="Tables" />
           <EntitySet Name="ProtocolType" EntityType="Self.ProtocolType" Schema="ed" store:Type="Tables" />
           <EntitySet Name="Region" EntityType="Self.Region" Schema="ed" store:Type="Tables" />
@@ -5973,7 +6043,8 @@ FROM [ed].[PayDataEntry] AS [PayDataEntry]</DefiningQuery>
 [extAbit].[InnerEntryInEntryObrazProgramName] AS [InnerEntryInEntryObrazProgramName], 
 [extAbit].[InnerEntryInEntryObrazProgramId] AS [InnerEntryInEntryObrazProgramId], 
 [extAbit].[IsForeign] AS [IsForeign], 
-[extAbit].[IsCrimea] AS [IsCrimea]
+[extAbit].[IsCrimea] AS [IsCrimea], 
+[extAbit].[BackDocByAdmissionHigh] AS [BackDocByAdmissionHigh]
 FROM [ed].[extAbit] AS [extAbit]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="extAbitAdditionalMarksSum" EntityType="Self.extAbitAdditionalMarksSum" store:Type="Views" store:Schema="ed">
@@ -5981,6 +6052,14 @@ FROM [ed].[extAbit] AS [extAbit]</DefiningQuery>
 [extAbitAdditionalMarksSum].[AbiturientId] AS [AbiturientId], 
 [extAbitAdditionalMarksSum].[AdditionalMarksSum] AS [AdditionalMarksSum]
 FROM [ed].[extAbitAdditionalMarksSum] AS [extAbitAdditionalMarksSum]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="extAbitAllAdditionalAchievements" EntityType="Self.extAbitAllAdditionalAchievements" store:Type="Views" store:Schema="ed">
+            <DefiningQuery>SELECT 
+[extAbitAllAdditionalAchievements].[AbiturientId] AS [AbiturientId], 
+[extAbitAllAdditionalAchievements].[AchievementType] AS [AchievementType], 
+[extAbitAllAdditionalAchievements].[AchievementTypeId] AS [AchievementTypeId], 
+[extAbitAllAdditionalAchievements].[Mark] AS [Mark]
+FROM [ed].[extAbitAllAdditionalAchievements] AS [extAbitAllAdditionalAchievements]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="extAbitMarksSum" EntityType="Self.extAbitMarksSum" store:Type="Views" store:Schema="ed">
             <DefiningQuery>SELECT 
@@ -6192,7 +6271,8 @@ FROM [ed].[extEnableProtocol] AS [extEnableProtocol]</DefiningQuery>
 [extEntry].[DateOfStart] AS [DateOfStart], 
 [extEntry].[DateStartEduc] AS [DateStartEduc], 
 [extEntry].[DateFinishEduc] AS [DateFinishEduc], 
-[extEntry].[ParentEntryId] AS [ParentEntryId]
+[extEntry].[ParentEntryId] AS [ParentEntryId], 
+[extEntry].[FacultyCode] AS [FacultyCode]
 FROM [ed].[extEntry] AS [extEntry]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="extEntryProtocols" EntityType="Self.extEntryProtocols" store:Type="Views" store:Schema="ed">
@@ -6476,7 +6556,8 @@ FROM [ed].[extOlympiads] AS [extOlympiads]</DefiningQuery>
 [extOlympiadsAll].[DocumentSeries] AS [DocumentSeries], 
 [extOlympiadsAll].[DocumentNumber] AS [DocumentNumber], 
 [extOlympiadsAll].[DocumentDate] AS [DocumentDate], 
-[extOlympiadsAll].[OlympValueSortOrder] AS [OlympValueSortOrder]
+[extOlympiadsAll].[OlympValueSortOrder] AS [OlympValueSortOrder], 
+[extOlympiadsAll].[OlympYear] AS [OlympYear]
 FROM [ed].[extOlympiadsAll] AS [extOlympiadsAll]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="extPerson" EntityType="Self.extPerson" store:Type="Views" store:Schema="ed">
@@ -7602,6 +7683,18 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <AssociationSet Name="fk_Protocol_StudyForm" Association="Self.fk_Protocol_StudyForm">
             <End Role="StudyForm" EntitySet="StudyForm" />
             <End Role="Protocol" EntitySet="Protocol" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ProtocolHistory_Abiturient" Association="Self.fk_ProtocolHistory_Abiturient">
+            <End Role="Abiturient" EntitySet="Abiturient" />
+            <End Role="ProtocolHistory" EntitySet="ProtocolHistory" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Protocolhistory_EntryHeader" Association="Self.fk_Protocolhistory_EntryHeader">
+            <End Role="EntryHeader" EntitySet="EntryHeader" />
+            <End Role="ProtocolHistory" EntitySet="ProtocolHistory" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ProtocolHistory_Protocol" Association="Self.fk_ProtocolHistory_Protocol">
+            <End Role="Protocol" EntitySet="Protocol" />
+            <End Role="ProtocolHistory" EntitySet="ProtocolHistory" />
           </AssociationSet>
           <AssociationSet Name="FK_SP_LicenseProgram_SP_AggregateGroup" Association="Self.FK_SP_LicenseProgram_SP_AggregateGroup">
             <End Role="SP_AggregateGroup" EntitySet="SP_AggregateGroup" />
@@ -9507,6 +9600,20 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           </AssociationSet>
           <EntitySet Name="AdmissionProtocol" EntityType="Priem2012Model.AdmissionProtocol" />
           <EntitySet Name="extDisEntryFromReEnterView" EntityType="Priem2012Model.extDisEntryFromReEnterView" />
+          <EntitySet Name="ProtocolHistory" EntityType="Priem2012Model.ProtocolHistory" />
+          <AssociationSet Name="fk_ProtocolHistory_Abiturient" Association="Priem2012Model.fk_ProtocolHistory_Abiturient">
+            <End Role="Abiturient" EntitySet="Abiturient" />
+            <End Role="ProtocolHistory" EntitySet="ProtocolHistory" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Protocolhistory_EntryHeader" Association="Priem2012Model.fk_Protocolhistory_EntryHeader">
+            <End Role="EntryHeader" EntitySet="EntryHeader" />
+            <End Role="ProtocolHistory" EntitySet="ProtocolHistory" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ProtocolHistory_Protocol" Association="Priem2012Model.fk_ProtocolHistory_Protocol">
+            <End Role="Protocol" EntitySet="Protocol" />
+            <End Role="ProtocolHistory" EntitySet="ProtocolHistory" />
+          </AssociationSet>
+          <EntitySet Name="extAbitAllAdditionalAchievements" EntityType="Priem2012Model.extAbitAllAdditionalAchievements" />
           </EntityContainer>
         <EntityType Name="AttMarks">
           <Key>
@@ -10511,6 +10618,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <Property Name="Author" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="BackDocByAdmissionHigh" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="ProtocolHistory" Relationship="Priem2012Model.fk_ProtocolHistory_Abiturient" FromRole="Abiturient" ToRole="ProtocolHistory" />
         </EntityType>
         <EntityType Name="Protocol">
           <Key>
@@ -10539,6 +10647,9 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <NavigationProperty Name="SP_LicenseProgram" Relationship="Priem2012Model.FK_Protocol_SP_LicenseProgram" FromRole="Protocol" ToRole="SP_LicenseProgram" />
           <Property Name="IsForeign" Type="Boolean" Nullable="false" />
           <Property Name="AdmissionProtocolId" Type="Int32" />
+          <NavigationProperty Name="ProtocolHistory" Relationship="Priem2012Model.fk_ProtocolHistory_Protocol" FromRole="Protocol" ToRole="ProtocolHistory" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Author" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="extExamInEntry">
           <Key>
@@ -10828,6 +10939,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <Key>
             <PropertyRef Name="Id" />
             <PropertyRef Name="OriginDoc" />
+            <PropertyRef Name="OlympYear" />
           </Key>
           <Property Type="Guid" Name="Id" Nullable="false" />
           <Property Type="Int32" Name="OlympTypeId" />
@@ -10848,6 +10960,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <Property Type="String" Name="DocumentNumber" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="DateTime" Name="DocumentDate" Precision="0" />
           <Property Type="Int32" Name="OlympValueSortOrder" />
+          <Property Name="OlympYear" Type="Int16" Nullable="false" />
         </EntityType>
         <EntityType Name="AbitDoc">
           <Key>
@@ -12659,6 +12772,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <Property Type="String" Name="Name" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Acronym" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="SortNum" Nullable="false" />
+          <NavigationProperty Name="ProtocolHistory" Relationship="Priem2012Model.fk_Protocolhistory_EntryHeader" FromRole="EntryHeader" ToRole="ProtocolHistory" />
         </EntityType>
         <EntityType Name="hlpStatistics">
           <Key>
@@ -12843,6 +12957,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <Property Name="DateStartEduc" Type="DateTime" Precision="0" />
           <Property Name="DateFinishEduc" Type="DateTime" Precision="0" />
           <Property Name="ParentEntryId" Type="Guid" />
+          <Property Name="FacultyCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="ForeignCountry">
           <Key>
@@ -13048,6 +13163,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
             <PropertyRef Name="IsParallel" />
             <PropertyRef Name="IsForeign" />
             <PropertyRef Name="IsCrimea" />
+            <PropertyRef Name="BackDocByAdmissionHigh" />
           </Key>
           <Property Type="Guid" Name="Id" Nullable="false" />
           <Property Type="Guid" Name="PersonId" Nullable="false" />
@@ -13121,6 +13237,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <Property Type="String" Name="InnerEntryInEntryObrazProgramName" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="IsForeign" Type="Boolean" Nullable="false" />
           <Property Name="IsCrimea" Type="Boolean" Nullable="false" />
+          <Property Name="BackDocByAdmissionHigh" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="extPerson">
           <Key>
@@ -13992,6 +14109,69 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <Property Name="IsParallel" Type="Boolean" Nullable="false" />
           <Property Name="IsReduced" Type="Boolean" Nullable="false" />
         </EntityType>
+        <EntityType Name="ProtocolHistory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="AbiturientId" Type="Guid" Nullable="false" />
+          <Property Name="ProtocolId" Type="Guid" Nullable="false" />
+          <Property Name="Excluded" Type="Boolean" Nullable="false" />
+          <Property Name="ExcludeProtocolId" Type="Guid" />
+          <Property Name="EntryHeaderId" Type="Int32" />
+          <NavigationProperty Name="Abiturient" Relationship="Priem2012Model.fk_ProtocolHistory_Abiturient" FromRole="ProtocolHistory" ToRole="Abiturient" />
+          <NavigationProperty Name="EntryHeader" Relationship="Priem2012Model.fk_Protocolhistory_EntryHeader" FromRole="ProtocolHistory" ToRole="EntryHeader" />
+          <NavigationProperty Name="Protocol" Relationship="Priem2012Model.fk_ProtocolHistory_Protocol" FromRole="ProtocolHistory" ToRole="Protocol" />
+        </EntityType>
+        <Association Name="fk_ProtocolHistory_Abiturient">
+          <End Type="Priem2012Model.Abiturient" Role="Abiturient" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Priem2012Model.ProtocolHistory" Role="ProtocolHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Abiturient">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProtocolHistory">
+              <PropertyRef Name="AbiturientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Protocolhistory_EntryHeader">
+          <End Type="Priem2012Model.EntryHeader" Role="EntryHeader" Multiplicity="0..1" />
+          <End Type="Priem2012Model.ProtocolHistory" Role="ProtocolHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EntryHeader">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProtocolHistory">
+              <PropertyRef Name="EntryHeaderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_ProtocolHistory_Protocol">
+          <End Type="Priem2012Model.Protocol" Role="Protocol" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Priem2012Model.ProtocolHistory" Role="ProtocolHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Protocol">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProtocolHistory">
+              <PropertyRef Name="ProtocolId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="extAbitAllAdditionalAchievements">
+          <Key>
+            <PropertyRef Name="AbiturientId" />
+          </Key>
+          <Property Name="AbiturientId" Type="Guid" Nullable="false" />
+          <Property Name="AchievementType" Type="String" MaxLength="206" FixedLength="false" Unicode="true" />
+          <Property Name="AchievementTypeId" Type="Int32" />
+          <Property Name="Mark" Type="Int32" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -14660,6 +14840,8 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <EntitySetMapping Name="Protocol">
             <EntityTypeMapping TypeName="Priem2012Model.Protocol">
               <MappingFragment StoreEntitySet="Protocol">
+                <ScalarProperty Name="Author" ColumnName="Author" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
                 <ScalarProperty Name="AdmissionProtocolId" ColumnName="AdmissionProtocolId" />
                 <ScalarProperty Name="IsForeign" ColumnName="IsForeign" />
                 <ScalarProperty Name="IsReduced" ColumnName="IsReduced" />
@@ -14832,6 +15014,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <EntitySetMapping Name="extOlympiadsAll">
             <EntityTypeMapping TypeName="Priem2012Model.extOlympiadsAll">
               <MappingFragment StoreEntitySet="extOlympiadsAll">
+                <ScalarProperty Name="OlympYear" ColumnName="OlympYear" />
                 <ScalarProperty Name="OlympValueSortOrder" ColumnName="OlympValueSortOrder" />
                 <ScalarProperty Name="DocumentDate" ColumnName="DocumentDate" />
                 <ScalarProperty Name="DocumentNumber" ColumnName="DocumentNumber" />
@@ -16048,6 +16231,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <EntitySetMapping Name="extEntry">
             <EntityTypeMapping TypeName="Priem2012Model.extEntry">
               <MappingFragment StoreEntitySet="extEntry">
+                <ScalarProperty Name="FacultyCode" ColumnName="FacultyCode" />
                 <ScalarProperty Name="ParentEntryId" ColumnName="ParentEntryId" />
                 <ScalarProperty Name="DateFinishEduc" ColumnName="DateFinishEduc" />
                 <ScalarProperty Name="DateStartEduc" ColumnName="DateStartEduc" />
@@ -16143,6 +16327,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <EntitySetMapping Name="extAbit">
             <EntityTypeMapping TypeName="Priem2012Model.extAbit">
               <MappingFragment StoreEntitySet="extAbit">
+                <ScalarProperty Name="BackDocByAdmissionHigh" ColumnName="BackDocByAdmissionHigh" />
                 <ScalarProperty Name="IsCrimea" ColumnName="IsCrimea" />
                 <ScalarProperty Name="IsForeign" ColumnName="IsForeign" />
                 <ScalarProperty Name="InnerEntryInEntryObrazProgramName" ColumnName="InnerEntryInEntryObrazProgramName" />
@@ -16712,6 +16897,28 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
                 <ScalarProperty Name="Excluded" ColumnName="Excluded" />
                 <ScalarProperty Name="AbiturientId" ColumnName="AbiturientId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProtocolHistory">
+            <EntityTypeMapping TypeName="Priem2012Model.ProtocolHistory">
+              <MappingFragment StoreEntitySet="ProtocolHistory">
+                <ScalarProperty Name="EntryHeaderId" ColumnName="EntryHeaderId" />
+                <ScalarProperty Name="ExcludeProtocolId" ColumnName="ExcludeProtocolId" />
+                <ScalarProperty Name="Excluded" ColumnName="Excluded" />
+                <ScalarProperty Name="ProtocolId" ColumnName="ProtocolId" />
+                <ScalarProperty Name="AbiturientId" ColumnName="AbiturientId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="extAbitAllAdditionalAchievements">
+            <EntityTypeMapping TypeName="Priem2012Model.extAbitAllAdditionalAchievements">
+              <MappingFragment StoreEntitySet="extAbitAllAdditionalAchievements">
+                <ScalarProperty Name="Mark" ColumnName="Mark" />
+                <ScalarProperty Name="AchievementTypeId" ColumnName="AchievementTypeId" />
+                <ScalarProperty Name="AchievementType" ColumnName="AchievementType" />
+                <ScalarProperty Name="AbiturientId" ColumnName="AbiturientId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

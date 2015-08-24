@@ -258,9 +258,9 @@ WHERE RegionId IS NOT NULL AND extAbit.StudyLevelGroupId=@StudyLevelGroupId";
                              {
                                  RegionName = rw.Field<string>("RegionName"),
                                  StudyBasisId = rw.Field<int>("StudyBasisId"),
-                                 MinSUM = rw.Field<int?>("MinSUM"),
+                                 MinSUM = rw.Field<decimal?>("MinSUM"),
                                  AvgSUM = rw.Field<double?>("AvgSUM") ?? 0d,
-                                 MaxSUM = rw.Field<int?>("MaxSUM")
+                                 MaxSUM = rw.Field<decimal?>("MaxSUM")
                              };
 
             DataTable src_tbl = new DataTable();
@@ -274,13 +274,13 @@ WHERE RegionId IS NOT NULL AND extAbit.StudyLevelGroupId=@StudyLevelGroupId";
             src_tbl.Columns.Add("% заявл. дог", typeof(float));
             src_tbl.Columns.Add("% абит. г/б", typeof(float));
             src_tbl.Columns.Add("% абит. дог", typeof(float));
-            
-            src_tbl.Columns.Add("Мин. балл г/б", typeof(int));
-            src_tbl.Columns.Add("Мин. балл дог", typeof(int));
+
+            src_tbl.Columns.Add("Мин. балл г/б", typeof(decimal));
+            src_tbl.Columns.Add("Мин. балл дог", typeof(decimal));
             src_tbl.Columns.Add("Сред. балл г/б", typeof(double));
             src_tbl.Columns.Add("Сред. балл дог", typeof(double));
-            src_tbl.Columns.Add("Макс. балл г/б", typeof(int));
-            src_tbl.Columns.Add("Макс. балл дог", typeof(int));
+            src_tbl.Columns.Add("Макс. балл г/б", typeof(decimal));
+            src_tbl.Columns.Add("Макс. балл дог", typeof(decimal));
 
 
             int iCntAbitBudzh = data_counts.Where(x => x.StudyBasisId == 1).Select(x => x.CNT_abit).Sum();

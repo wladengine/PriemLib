@@ -1,4 +1,4 @@
-﻿namespace PriemLib.Cards
+﻿namespace PriemLib
 {
     partial class CardChangeOriginalsPlace
     {

@@ -1400,8 +1400,8 @@ namespace PriemLib
                         string OrderHeaderPart1 = "";
                         switch (iStudyLevelGroupId)
                         {
-                            case 1: { OrderHeaderPart1 = "Порядком приема на обучение по образовательным программам высшего образования – программам бакалавриата, программам специалитета, программам магистратуры на 2015/16 учебный год, утвержденным Приказом Минобрнауки России от 28.07.2015 № 839 (ред. от 02.03.2015)"; break; }
-                            case 2: { OrderHeaderPart1 = "Порядком приема на обучение по образовательным программам высшего образования – программам бакалавриата, программам специалитета, программам магистратуры на 2015/16 учебный год, утвержденным Приказом Минобрнауки России от 28.07.2015 № 839 (ред. от 02.03.2015)"; break; }
+                            case 1: { OrderHeaderPart1 = "Порядком приема на обучение по образовательным программам высшего образования – программам бакалавриата, программам специалитета, программам магистратуры на 2015/16 учебный год, утвержденным Приказом Минобрнауки России от 28.07.2014 № 839 (ред. от 02.03.2015)"; break; }
+                            case 2: { OrderHeaderPart1 = "Порядком приема на обучение по образовательным программам высшего образования – программам бакалавриата, программам специалитета, программам магистратуры на 2015/16 учебный год, утвержденным Приказом Минобрнауки России от 28.07.2014 № 839 (ред. от 02.03.2015)"; break; }
                             case 3: { OrderHeaderPart1 = "Порядком приема на обучение по образовательным программам среднего профессионального образования, утвержденным Приказом Министерства образования и науки Российской Федерации от 23.01.2014 № 36"; break; }
                             case 4: { OrderHeaderPart1 = "Порядком приема на обучение по образовательным программам высшего образования - программам подготовки научно-педагогических кадров в аспирантуре, утвержденным приказом Министерства образования и науки Российской Федерации от 26.03.2014 № 233"; break; }
                             case 5: { OrderHeaderPart1 = "Порядком приема граждан на обучение по программам ординатуры, утвержденным Приказом Министерства здравоохранения Российской Федерации от 06.09.2013 № 633н"; break; }
@@ -2913,9 +2913,9 @@ namespace PriemLib
                     }
 
                     //Table
-                    float[] headerwidths = { 5, 9, 9, 19, 6, 10, 10, 7, 11, 14 };
+                    float[] headerwidths = { 5, 9, 9, 19, 6, 6, 10, 10, 7, 11, 14 };
 
-                    PdfPTable t = new PdfPTable(10);
+                    PdfPTable t = new PdfPTable(11);
                     t.SetWidthPercentage(headerwidths, document.PageSize);
                     t.WidthPercentage = 100f;
                     t.SpacingBefore = 10f;
@@ -2930,6 +2930,7 @@ namespace PriemLib
                         "Ид. номер",
                         "ФИО",
                         "Cумма баллов",
+                        "Cумма баллов за ИД",
                         "Подлинники документов",
                         "Рейтинговый коэффициент",
                         "Конкурс",
@@ -2963,6 +2964,10 @@ namespace PriemLib
                                    from hlpabiturientProf in hlpabiturientProf2.DefaultIfEmpty()
                                    join extabitMarksSum in ctx.extAbitMarksSum on extabit.Id equals extabitMarksSum.Id into extabitMarksSum2
                                    from extabitMarksSum in extabitMarksSum2.DefaultIfEmpty()
+
+                                   join extabitAddMarksSum in ctx.extAbitAdditionalMarksSum on extabit.Id equals extabitAddMarksSum.AbiturientId into extabitAddMarksSum2
+                                   from extabitAddMarksSum in extabitAddMarksSum2.DefaultIfEmpty()
+
                                    where fixierenView.Id == fixId
                                    orderby fixieren.Number
                                    select new
@@ -2972,14 +2977,15 @@ namespace PriemLib
                                        Ид_номер = extabit.PersonNum,
                                        ФИО = extabit.FIO,
                                        Сумма_баллов = extabitMarksSum.TotalSum,
-                                       Кол_во_оценок = extabitMarksSum.TotalCount,
-                                       Подлинники_документов = extabit.HasOriginals ? "Да" : "Нет",
+                                       Сумма_баллов_за_ИД = extabitAddMarksSum.AdditionalMarksSum,
+                                       //Кол_во_оценок = extabitMarksSum.TotalCount,
+                                       Подлинники_документов = extperson.HasOriginals,
                                        Рейтинговый_коэффициент = extabit.Coefficient,
                                        Конкурс = competition.Name,
                                        Проф_экзамен = hlpabiturientProf.Prof,
                                        Доп_экзамен = hlpabiturientProfAdd.ProfAdd,
-                                       comp = competition.Id == 1 ? 1 : (competition.Id == 2 || competition.Id == 7) && extperson.Privileges > 0 ? 2 : 3,
-                                       noexamssort = competition.Id == 1 ? extabit.Coefficient : 0
+                                       //comp = competition.Id == 1 ? 1 : (competition.Id == 2 || competition.Id == 7) && extperson.Privileges > 0 ? 2 : 3,
+                                       //noexamssort = competition.Id == 1 ? extabit.Coefficient : 0
                                    }).ToList().Distinct().Select(x =>
                                        new
                                        {
@@ -2987,15 +2993,16 @@ namespace PriemLib
                                            Рег_Номер = x.Рег_Номер,
                                            Ид_номер = x.Ид_номер,
                                            ФИО = x.ФИО,
-                                           Сумма_баллов = x.Сумма_баллов,
-                                           Кол_во_оценок = x.Кол_во_оценок,
-                                           Подлинники_документов = x.Подлинники_документов,
+                                           Сумма_баллов = x.Сумма_баллов + (x.Сумма_баллов_за_ИД ?? 0),
+                                           Сумма_баллов_за_ИД = x.Сумма_баллов_за_ИД ?? 0,
+                                           //Кол_во_оценок = x.Кол_во_оценок,
+                                           Подлинники_документов = (x.Подлинники_документов ?? false) ? "Да" : "Нет",
                                            Рейтинговый_коэффициент = x.Рейтинговый_коэффициент,
                                            Конкурс = x.Конкурс,
                                            Проф_экзамен = x.Проф_экзамен,
                                            Доп_экзамен = x.Доп_экзамен,
-                                           comp = x.comp,
-                                           noexamssort = x.noexamssort
+                                           //comp = x.comp,
+                                           //noexamssort = x.noexamssort
                                        }
                                    );
 
@@ -3007,6 +3014,7 @@ namespace PriemLib
                             t.AddCell(new Phrase(v.Ид_номер, font));
                             t.AddCell(new Phrase(v.ФИО, font));
                             t.AddCell(new Phrase(v.Сумма_баллов.ToString(), font));
+                            t.AddCell(new Phrase(v.Сумма_баллов_за_ИД.ToString(), font));
                             t.AddCell(new Phrase(v.Подлинники_документов, font));
                             t.AddCell(new Phrase(v.Рейтинговый_коэффициент.ToString(), font));
                             t.AddCell(new Phrase(v.Конкурс, font));
@@ -3025,7 +3033,6 @@ namespace PriemLib
                     p.Add(new Phrase("Основание:", new Font(bfTimes, 12, Font.BOLD)));
                     p.Add(new Phrase(" личные заявления, результаты вступительных испытаний, документы, подтверждающие право на поступление без вступительных испытаний или внеконкурсное зачисление.", font));
                     document.Add(p);
-
 
                     p = new Paragraph(30f);
                     p.KeepTogether = true;

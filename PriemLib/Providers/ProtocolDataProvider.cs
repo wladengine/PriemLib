@@ -79,6 +79,7 @@ namespace PriemLib
                          extabit.RegNum,
                          extabit.PersonNum,
                          TotalSum = (extabit.CompetitionId == 8 || extabit.CompetitionId == 1) ? null : extabitMarksSum.TotalSum,
+                         TotalSumFiveGrade = (extabit.CompetitionId == 8 || extabit.CompetitionId == 1) ? null : extabitMarksSum.TotalSumFiveGrade,
                          addMarks = addMarks.AdditionalMarksSum,
                          extabit.FIO,
                          CelCompName = celCompetition.TvorName,
@@ -98,20 +99,21 @@ namespace PriemLib
                          extabit.CompetitionId,
                          extentryView.SignerName,
                          extentryView.SignerPosition,
-                         extabit.ObrazProgramCrypt
+                         extabit.ObrazProgramCrypt,
+                         extentryView.StudyLevelGroupId,
                      }).ToList().Distinct()
                      .Select(x => new AbitDataInEntryView
                      {
                          AbiturientId = x.AbiturientId,
                          RegNum = x.RegNum,
                          PersonNum = x.PersonNum,
-                         TotalSum = x.TotalSum + (x.addMarks ?? 0),
+                         TotalSum = (x.StudyLevelGroupId == 4 ? x.TotalSumFiveGrade : x.TotalSum) + (x.addMarks ?? 0),
                          FIO = x.FIO,
                          CelCompName = x.CelCompName,
                          LicenseProgramName = x.LicenseProgramName,
                          LicenseProgramCode = x.LicenseProgramCode,
                          ProfileName = string.IsNullOrEmpty(x.InnerEntryInEntryProfileName) ? x.ProfileName : x.InnerEntryInEntryProfileName,
-                         ObrazProgram = x.InnerEntryInEntryObrazProgramId.HasValue ? x.InnerEntryInEntryObrazProgramCrypt + " " + x.InnerEntryInEntryObrazProgramName : x.ObrazProgram.Replace("(очно-заочная)", "").Replace(" ВВ", ""),
+                         ObrazProgram = x.InnerEntryInEntryObrazProgramId.HasValue ? x.InnerEntryInEntryObrazProgramName : x.ObrazProgram.Replace("(очно-заочная)", "").Replace(" ВВ", ""),
                          ObrazProgramId = x.InnerEntryInEntryObrazProgramId.HasValue ? x.InnerEntryInEntryObrazProgramId.Value : x.ObrazProgramId,
                          EntryHeaderId = x.EntryHeaderId,
                          EntryHeaderName = x.EntryHeaderName,

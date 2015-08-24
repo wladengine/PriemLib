@@ -240,10 +240,27 @@ namespace PriemLib
                 {
                     using (PriemEntities context = new PriemEntities())
                     {
+                        Guid? protocolId = new Guid(dgvViews.CurrentRow.Cells["Id"].Value.ToString());
+
+                        if (MessageBox.Show("Перенести оригиналы на другие доступные конкурсы (если это возможно, переносится на максимальный доступный приоритет)?", 
+                            "Внимание!", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        {
+                            var abitLst = context.ProtocolHistory.Where(x => x.ProtocolId == protocolId).Select(x => x.AbiturientId).ToList();
+                            foreach (Guid abId in abitLst)
+                            {
+                                try
+                                {
+                                    ApplicationDataProvider.ChangeHasOriginalsDestination(abId, null);
+                                }
+                                catch (Exception ex)
+                                {
+                                    WinFormsServ.Error(ex);
+                                }
+                            }
+                        }
+
                         using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.RequiresNew))
                         {
-                            Guid? protocolId = new Guid(dgvViews.CurrentRow.Cells["Id"].Value.ToString());
-
                             context.EntryView_UpdateDisEntry(protocolId);
                             context.Abiturient_UpdateBackDocByDisEntry(true, DateTime.Now.Date, protocolId);                           
                            

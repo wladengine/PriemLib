@@ -245,6 +245,7 @@ namespace PriemLib
                 qBuilder.AddQueryItem(new QueryItem("ed.extPerson_EducationInfo_Current", "ed.extPerson_EducationInfo_Current.DiplomNum", "Номер_диплома"));
                 qBuilder.AddQueryItem(new QueryItem("ed.extPerson_EducationInfo_Current", "ed.extPerson_EducationInfo_Current.HEQualification", "Квалификация"));
                 qBuilder.AddQueryItem(new QueryItem("ed.extPerson_EducationInfo_Current", "ed.extPerson_EducationInfo_Current.HighEducation", "Место_предыдущего_образования"));
+                
                 if (MainClass.dbType == PriemType.PriemMag || MainClass.dbType == PriemType.PriemAspirant)
                 {
                     qBuilder.AddQueryItem(new QueryItem("ed.extPerson_EducationInfo_Current", "ed.extPerson_EducationInfo_Current.HighEducation", "Название_уч_заведения"));

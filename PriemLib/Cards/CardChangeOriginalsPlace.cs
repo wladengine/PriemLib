@@ -7,17 +7,19 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 using System.Windows.Forms;
 
-namespace PriemLib.Cards
+namespace PriemLib
 {
     public partial class CardChangeOriginalsPlace : Form
     {
         private Guid AbiturientId;
-        private event UpdateListHandler OnUpdated;
+        public event UpdateListHandler OnUpdated;
         public CardChangeOriginalsPlace(Guid _AbiturientId)
         {
             InitializeComponent();
+            this.MdiParent = MainClass.mainform;
             AbiturientId = _AbiturientId;
 
             FillCombo();
@@ -30,7 +32,7 @@ namespace PriemLib.Cards
                 List<KeyValuePair<string, string>> lst =
                     (from Ab in context.Abiturient
                      join OthAb in context.Abiturient on Ab.PersonId equals OthAb.PersonId
-                     join ent in context.qEntry on OthAb.EntryId equals ent.Id
+                     join ent in context.extEntry on OthAb.EntryId equals ent.Id
                      where Ab.Id == AbiturientId && OthAb.Id != AbiturientId
                      && !OthAb.HasOriginals && !OthAb.BackDoc && !OthAb.NotEnabled
                      select new
@@ -54,7 +56,26 @@ namespace PriemLib.Cards
             Guid? DestAbiturientId = ComboServ.GetComboIdGuid(cbAbiturient);
 
             if (DestAbiturientId.HasValue)
-                ApplicationDataProvider.ChangeHasOriginalsDestination(AbiturientId, DestAbiturientId.Value);
+            {
+                using (TransactionScope tran = new TransactionScope())
+                {
+                    try
+                    {
+                        ApplicationDataProvider.ChangeHasOriginalsDestination(AbiturientId, DestAbiturientId.Value);
+                        tran.Complete();
+                    }
+                    catch (Exception ex)
+                    {
+                        WinFormsServ.Error(ex);
+                    }
+                }
+
+                if (OnUpdated != null)
+                {
+                    OnUpdated();
+                    this.Close();
+                }
+            }
             else
                 WinFormsServ.Error("Не указан конкурс!");
         }

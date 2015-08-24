@@ -484,7 +484,7 @@ namespace PriemLib
                     if (dtFinish.HasValue)
                         dateEnd = dtFinish.Value.ToString("dd.MM.yyyy");
                     else
-                        dateEnd = "31.08." + (DateTime.Now.Year + 4).ToString();
+                        dateEnd = "31.08." + (MainClass.iPriemYear + 4).ToString();
                 }
                 else if (stLevel == "17")
                 {
@@ -492,7 +492,7 @@ namespace PriemLib
                     if (dtFinish.HasValue)
                         dateEnd = dtFinish.Value.ToString("dd.MM.yyyy");
                     else
-                        dateEnd = "31.08." + (DateTime.Now.Year + 2).ToString();
+                        dateEnd = "31.08." + (MainClass.iPriemYear + 2).ToString();
                 }
                 else if (stLevel == "18")
                 {
@@ -500,7 +500,7 @@ namespace PriemLib
                     if (dtFinish.HasValue)
                         dateEnd = dtFinish.Value.ToString("dd.MM.yyyy");
                     else
-                        dateEnd = "31.08." + (DateTime.Now.Year + 5).ToString();
+                        dateEnd = "31.08." + (MainClass.iPriemYear + 5).ToString();
                 }
                 else
                 {
@@ -508,7 +508,7 @@ namespace PriemLib
                     if (dtFinish.HasValue)
                         dateEnd = dtFinish.Value.ToString("dd.MM.yyyy");
                     else
-                        dateEnd = "31.08." + (DateTime.Now.Year + 3).ToString();//aspirant
+                        dateEnd = "31.08." + (MainClass.iPriemYear + 3).ToString();//aspirant
                 }
 
                 string datebirth = ((DateTime)dr["BirthDate"]).ToString("dd.MM.yyyy");
@@ -533,6 +533,7 @@ namespace PriemLib
             }
 
             _odc.ExecuteWithTrasaction(_alQueries);
+            _odc.CloseDataBase();
             MessageBox.Show("Done!");
         }
 

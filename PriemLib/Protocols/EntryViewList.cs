@@ -306,30 +306,35 @@ namespace PriemLib
             if (dgvViews.CurrentCell != null)
             {
                 gbProtocolInfo.Visible = true;
-                btnSetAdmissionProtocol.Visible = MainClass.IsPasha() || MainClass.IsEntryChanger();
-                btnSetAdmissionProtocol.Enabled = MainClass.IsPasha() || MainClass.IsEntryChanger();
+                btnSetAdmissionProtocol.Visible = MainClass.IsPasha() || MainClass.IsEntryChanger() || MainClass.IsPrintOrder();
+                btnSetAdmissionProtocol.Enabled = MainClass.IsPasha() || MainClass.IsEntryChanger() || MainClass.IsPrintOrder();
 
                 if (dgvViews.CurrentCell.RowIndex >= 0)
                 {
                     int rwInd = dgvViews.CurrentCell.RowIndex;
                     Guid ProtocolId = (Guid)dgvViews["Id", rwInd].Value;
                     var protinfo = ProtocolDataProvider.GetProtocolInfo(ProtocolId, 4);
-                    var prot = ProtocolDataProvider.GetEntryViewData(ProtocolId, true);
-                    var prot_for = ProtocolDataProvider.GetEntryViewData(ProtocolId, false);
-
-                    ComboServ.SetComboId(cbAdmissionProtocol, protinfo.AdmissionProtocolId);
-
-                    lblHasForeigners.Visible = prot_for.Count > 0;
-                    lblProtocolPersonsCount.Text = (prot.Count + prot_for.Count).ToString();
-
-                    List<int> lstComps = new List<int>();
-                    lstComps.AddRange(prot.Select(x => x.CompetitionId).ToList().Distinct());
-
-                    using (PriemEntities context = new PriemEntities())
+                    if (protinfo != null)
                     {
-                        var comps = context.Competition.Where(x => lstComps.Contains(x.Id)).Select(x => x.Name).ToList().DefaultIfEmpty("").Aggregate((x, tail) => x + ", " + tail);
-                        lblProtocolCompetitions.Text = comps;
+                        var prot = ProtocolDataProvider.GetEntryViewData(ProtocolId, true);
+                        var prot_for = ProtocolDataProvider.GetEntryViewData(ProtocolId, false);
+
+                        ComboServ.SetComboId(cbAdmissionProtocol, protinfo.AdmissionProtocolId);
+
+                        lblHasForeigners.Visible = prot_for.Count > 0;
+                        lblProtocolPersonsCount.Text = (prot.Count + prot_for.Count).ToString();
+
+                        List<int> lstComps = new List<int>();
+                        lstComps.AddRange(prot.Select(x => x.CompetitionId).ToList().Distinct());
+
+                        using (PriemEntities context = new PriemEntities())
+                        {
+                            var comps = context.Competition.Where(x => lstComps.Contains(x.Id)).Select(x => x.Name).ToList().DefaultIfEmpty("").Aggregate((x, tail) => x + ", " + tail);
+                            lblProtocolCompetitions.Text = comps;
+                        }
                     }
+                    else
+                        gbProtocolInfo.Visible = false;
                 }
             }
             else

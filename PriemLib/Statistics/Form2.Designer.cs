@@ -32,6 +32,8 @@
             this.tbKCP_1kurs = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.tbAVG_Ege_P = new System.Windows.Forms.TextBox();
+            this.tbAVG_Ege_B = new System.Windows.Forms.TextBox();
             this.tbCnt_Stud_1K_USSR_P = new System.Windows.Forms.TextBox();
             this.tbCnt_Stud_1K_USSR_B = new System.Windows.Forms.TextBox();
             this.tbCnt_Stud_1K_Foreign_P = new System.Windows.Forms.TextBox();
@@ -54,10 +56,6 @@
             this.tbCnt_Abit_1K_P = new System.Windows.Forms.TextBox();
             this.tbCnt_Abit_1K_B = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.textBox42 = new System.Windows.Forms.TextBox();
-            this.textBox43 = new System.Windows.Forms.TextBox();
-            this.textBox40 = new System.Windows.Forms.TextBox();
-            this.textBox41 = new System.Windows.Forms.TextBox();
             this.tbCnt_Stud_1K_Olymp_P_SPB = new System.Windows.Forms.TextBox();
             this.tbCnt_Stud_1K_Olymp_B_SPB = new System.Windows.Forms.TextBox();
             this.tbCnt_Stud_1K_VK_P_SPB = new System.Windows.Forms.TextBox();
@@ -94,8 +92,6 @@
             this.textBox48 = new System.Windows.Forms.TextBox();
             this.btnClose = new System.Windows.Forms.Button();
             this.btnWord = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -129,8 +125,8 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.textBox1);
-            this.groupBox1.Controls.Add(this.textBox2);
+            this.groupBox1.Controls.Add(this.tbAVG_Ege_P);
+            this.groupBox1.Controls.Add(this.tbAVG_Ege_B);
             this.groupBox1.Controls.Add(this.tbCnt_Stud_1K_USSR_P);
             this.groupBox1.Controls.Add(this.tbCnt_Stud_1K_USSR_B);
             this.groupBox1.Controls.Add(this.tbCnt_Stud_1K_Foreign_P);
@@ -158,6 +154,22 @@
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Всего";
+            // 
+            // tbAVG_Ege_P
+            // 
+            this.tbAVG_Ege_P.Location = new System.Drawing.Point(85, 305);
+            this.tbAVG_Ege_P.Name = "tbAVG_Ege_P";
+            this.tbAVG_Ege_P.ReadOnly = true;
+            this.tbAVG_Ege_P.Size = new System.Drawing.Size(65, 20);
+            this.tbAVG_Ege_P.TabIndex = 26;
+            // 
+            // tbAVG_Ege_B
+            // 
+            this.tbAVG_Ege_B.Location = new System.Drawing.Point(6, 305);
+            this.tbAVG_Ege_B.Name = "tbAVG_Ege_B";
+            this.tbAVG_Ege_B.ReadOnly = true;
+            this.tbAVG_Ege_B.Size = new System.Drawing.Size(73, 20);
+            this.tbAVG_Ege_B.TabIndex = 25;
             // 
             // tbCnt_Stud_1K_USSR_P
             // 
@@ -329,10 +341,6 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.textBox42);
-            this.groupBox2.Controls.Add(this.textBox43);
-            this.groupBox2.Controls.Add(this.textBox40);
-            this.groupBox2.Controls.Add(this.textBox41);
             this.groupBox2.Controls.Add(this.tbCnt_Stud_1K_Olymp_P_SPB);
             this.groupBox2.Controls.Add(this.tbCnt_Stud_1K_Olymp_B_SPB);
             this.groupBox2.Controls.Add(this.tbCnt_Stud_1K_VK_P_SPB);
@@ -352,42 +360,10 @@
             this.groupBox2.Controls.Add(this.tbCnt_Abit_1K_B_SPB);
             this.groupBox2.Location = new System.Drawing.Point(363, 57);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(156, 313);
+            this.groupBox2.Size = new System.Drawing.Size(156, 254);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Петербуржцев";
-            // 
-            // textBox42
-            // 
-            this.textBox42.Location = new System.Drawing.Point(77, 279);
-            this.textBox42.Name = "textBox42";
-            this.textBox42.ReadOnly = true;
-            this.textBox42.Size = new System.Drawing.Size(73, 20);
-            this.textBox42.TabIndex = 22;
-            // 
-            // textBox43
-            // 
-            this.textBox43.Location = new System.Drawing.Point(6, 279);
-            this.textBox43.Name = "textBox43";
-            this.textBox43.ReadOnly = true;
-            this.textBox43.Size = new System.Drawing.Size(65, 20);
-            this.textBox43.TabIndex = 21;
-            // 
-            // textBox40
-            // 
-            this.textBox40.Location = new System.Drawing.Point(77, 253);
-            this.textBox40.Name = "textBox40";
-            this.textBox40.ReadOnly = true;
-            this.textBox40.Size = new System.Drawing.Size(73, 20);
-            this.textBox40.TabIndex = 20;
-            // 
-            // textBox41
-            // 
-            this.textBox41.Location = new System.Drawing.Point(6, 253);
-            this.textBox41.Name = "textBox41";
-            this.textBox41.ReadOnly = true;
-            this.textBox41.Size = new System.Drawing.Size(65, 20);
-            this.textBox41.TabIndex = 19;
             // 
             // tbCnt_Stud_1K_Olymp_P_SPB
             // 
@@ -692,22 +668,6 @@
             this.btnWord.UseVisualStyleBackColor = true;
             this.btnWord.Click += new System.EventHandler(this.btnWord_Click);
             // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(85, 305);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(65, 20);
-            this.textBox1.TabIndex = 26;
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(6, 305);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(73, 20);
-            this.textBox2.TabIndex = 25;
-            // 
             // label15
             // 
             this.label15.Location = new System.Drawing.Point(10, 360);
@@ -789,10 +749,6 @@
         private System.Windows.Forms.TextBox tbCnt_Stud_1K_All;
         private System.Windows.Forms.TextBox tbCnt_Abit_1K_P;
         private System.Windows.Forms.TextBox tbCnt_Abit_1K_B;
-        private System.Windows.Forms.TextBox textBox42;
-        private System.Windows.Forms.TextBox textBox43;
-        private System.Windows.Forms.TextBox textBox40;
-        private System.Windows.Forms.TextBox textBox41;
         private System.Windows.Forms.TextBox tbCnt_Stud_1K_Olymp_P_SPB;
         private System.Windows.Forms.TextBox tbCnt_Stud_1K_Olymp_B_SPB;
         private System.Windows.Forms.TextBox tbCnt_Stud_1K_VK_P_SPB;
@@ -826,8 +782,8 @@
         private System.Windows.Forms.TextBox textBox48;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Button btnWord;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox tbAVG_Ege_P;
+        private System.Windows.Forms.TextBox tbAVG_Ege_B;
         private System.Windows.Forms.Label label15;
     }
 }

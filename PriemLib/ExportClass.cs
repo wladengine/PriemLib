@@ -35,15 +35,13 @@ namespace PriemLib
                 {
                     //взять максимум номера, если еще ничего не назначено
                     string num =
-                        (from ab in context.extAbit
-                         join abF in context.qAbiturientForeignApplicationsOnly on ab.Id equals abF.Id into abF2
-                         from abF in abF2.DefaultIfEmpty()
-                         where ab.StudyLevelGroupId == SLGr && abF == null
+                        (from ab in context.qAbitAll
+                         where ab.StudyLevelGroupId == SLGr && !ab.IsForeign
                          select ab.StudyNumber).Max();
 
                     string numFor =
-                        (from ab in context.Abiturient
-                         join abF in context.qAbiturientForeignApplicationsOnly on ab.Id equals abF.Id
+                        (from ab in context.qAbitAll
+                         where ab.IsForeign
                          select ab.StudyNumber).Max();
 
                     var abits =
@@ -51,6 +49,7 @@ namespace PriemLib
                          join ev in context.extEntryView
                          on ab.Id equals ev.AbiturientId
                          where ab.StudyLevelGroupId == SLGr && (ab.StudyNumber == null || ab.StudyNumber.Length == 0)
+                         && !ab.IsForeign
                          orderby ab.FacultyId, ab.FIO
                          select ab.Id).ToList();
 
@@ -58,8 +57,8 @@ namespace PriemLib
                         (from ab in context.extAbit
                          join ev in context.extEntryView
                          on ab.Id equals ev.AbiturientId
-                         join abF in context.qAbiturientForeignApplicationsOnly on ab.Id equals abF.Id
                          where ab.StudyLevelGroupId == SLGr && (ab.StudyNumber == null || ab.StudyNumber.Length == 0)
+                         && ab.IsForeign
                          orderby ab.FacultyId, ab.FIO
                          select ab.Id).ToList();
 
@@ -84,7 +83,7 @@ namespace PriemLib
                     {
                         string sNum = "0000" + stNum.ToString();
                         sNum = sNum.Substring(sNum.Length - 4, 4);
-                        sNum = (DateTime.Now.Year % 100).ToString() + Pref + sNum;
+                        sNum = (MainClass.iPriemYear % 100).ToString() + Pref + sNum;
 
                         context.Abiturient_UpdateStudyNumber(sNum, abitId);
                         stNum++;
@@ -94,12 +93,13 @@ namespace PriemLib
                     {
                         string sNum = "0000" + stNumFor.ToString();
                         sNum = sNum.Substring(sNum.Length - 4, 4);
-                        sNum = (DateTime.Now.Year % 100).ToString() + "4" + sNum;
+                        sNum = (MainClass.iPriemYear % 100).ToString() + "4" + sNum;
 
                         context.Abiturient_UpdateStudyNumber(sNum, abitId);
                         stNumFor++;
                     }
                 }
+
                 MessageBox.Show("Done");
             }
         }

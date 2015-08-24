@@ -23,7 +23,7 @@ namespace PriemLib
         {
             using (PriemEntities context = new PriemEntities())
             {
-                string query = "SELECT SUM(KCP) AS CNT FROM ed.qEntry WHERE StudyLevelGroupId=1 AND StudyFormId='1' AND StudyBasisId='1'";
+                string query = "SELECT SUM(KCP) AS CNT FROM ed.qEntry WHERE StudyLevelGroupId=1 AND StudyFormId='1' AND StudyBasisId='1' AND IsCrimea = 0 AND IsForeign = 0";
                 int iKCP_1k = context.extEntry.Where(x => MainClass.lstStudyLevelGroupId.Contains(x.StudyLevelGroupId) && x.StudyBasisId == 1 && x.StudyFormId == 1)
                     .Select(x => x.KCP ?? 0).DefaultIfEmpty(0).Sum();
                 tbKCP_1kurs.Text = iKCP_1k.ToString();
@@ -44,7 +44,7 @@ namespace PriemLib
 
                 //зачислено на 1 курс, всего
                 var EntView = context.extEntryView
-                    .Where(x => x.StudyFormId == 1 && MainClass.lstStudyLevelGroupId.Contains(x.StudyLevelGroupId) && !x.IsForeign && !x.IsCrimea)
+                    .Where(x => x.StudyFormId == 1 && x.StudyLevelGroupId == 1 && !x.IsForeign)
                     .Select(x => new { x.StudyBasisId, x.AbiturientId }).Distinct();
                 int iCntStud1K_B = EntView.Where(x => x.StudyBasisId == 1).Count();
                 int iCntStud1K_P = EntView.Where(x => x.StudyBasisId == 2).Count();
@@ -59,9 +59,9 @@ namespace PriemLib
                                    join Ent in context.Entry on Ab.EntryId equals Ent.Id
                                    join Pers in context.Person on Ab.PersonId equals Pers.Id
                                    where Ab.Entry.StudyFormId == 1
-                                   && MainClass.lstStudyLevelGroupId.Contains(Ab.Entry.StudyLevel.LevelGroupId)
+                                   && Ab.Entry.StudyLevel.LevelGroupId == 1
                                    && Pers.Person_Contacts.RegionId == 1
-                                   && !Ent.IsForeign && !Ent.IsCrimea
+                                   && !Ent.IsForeign
                                    select new
                                    {
                                        Ent.StudyBasisId,
@@ -80,8 +80,8 @@ namespace PriemLib
                             join Ent in context.Entry on Ab.EntryId equals Ent.Id
                             join Pers in context.Person on Ab.PersonId equals Pers.Id
                             where Ab.Entry.StudyFormId == 1
-                            && MainClass.lstStudyLevelGroupId.Contains(Ab.Entry.StudyLevel.LevelGroupId)
-                            && Pers.Sex && !Ent.IsForeign && !Ent.IsCrimea
+                            && Ab.Entry.StudyLevel.LevelGroupId == 1
+                            && Pers.Sex && !Ent.IsForeign
                             select new
                             {
                                 Ent.StudyBasisId,
@@ -96,9 +96,9 @@ namespace PriemLib
                                 join Ent in context.Entry on Ab.EntryId equals Ent.Id
                                 join Pers in context.Person on Ab.PersonId equals Pers.Id
                                 where Ab.Entry.StudyFormId == 1
-                                && MainClass.lstStudyLevelGroupId.Contains(Ab.Entry.StudyLevel.LevelGroupId)
+                                && Ab.Entry.StudyLevel.LevelGroupId == 1
                                 && Pers.Person_Contacts.RegionId == 1
-                                && !Ent.IsForeign && !Ent.IsCrimea
+                                && !Ent.IsForeign 
                                 && Pers.Sex
                                 select new
                                 {
@@ -115,9 +115,9 @@ namespace PriemLib
                               join Pers in context.Person on Ab.PersonId equals Pers.Id
                               join PersEduc in context.Person_EducationInfo on Pers.Id equals PersEduc.PersonId
                               where Ab.Entry.StudyFormId == 1
-                              && MainClass.lstStudyLevelGroupId.Contains(Ab.Entry.StudyLevel.LevelGroupId)
+                              && Ab.Entry.StudyLevel.LevelGroupId == 1
                               && PersEduc.SchoolTypeId == 1
-                              && !Ent.IsForeign && !Ent.IsCrimea
+                              && !Ent.IsForeign 
                               select new
                               {
                                   Ent.StudyBasisId,
@@ -135,9 +135,9 @@ namespace PriemLib
                                   join Pers in context.Person on Ab.PersonId equals Pers.Id
                                   join PersEduc in context.Person_EducationInfo on Pers.Id equals PersEduc.PersonId
                                   where Ab.Entry.StudyFormId == 1
-                                  && MainClass.lstStudyLevelGroupId.Contains(Ab.Entry.StudyLevel.LevelGroupId)
+                                  && Ab.Entry.StudyLevel.LevelGroupId == 1
                                   && PersEduc.SchoolTypeId == 1
-                                  && !Ent.IsForeign && !Ent.IsCrimea
+                                  && !Ent.IsForeign
                                   && Pers.Person_Contacts.RegionId == 1
                                   select new
                                   {
@@ -155,9 +155,9 @@ namespace PriemLib
                             join Pers in context.Person on Ab.PersonId equals Pers.Id
                             join PersEduc in context.Person_EducationInfo on Pers.Id equals PersEduc.PersonId
                             where Ab.Entry.StudyFormId == 1
-                            && MainClass.lstStudyLevelGroupId.Contains(Ab.Entry.StudyLevel.LevelGroupId)
+                            && Ab.Entry.StudyLevel.LevelGroupId == 1
                             && PersEduc.SchoolTypeId != 1 && PersEduc.SchoolTypeId != 3
-                            && !Ent.IsForeign && !Ent.IsCrimea
+                            && !Ent.IsForeign
                             select new
                             {
                                 Ent.StudyBasisId,
@@ -175,9 +175,9 @@ namespace PriemLib
                                 join Pers in context.Person on Ab.PersonId equals Pers.Id
                                 join PersEduc in context.Person_EducationInfo on Pers.Id equals PersEduc.PersonId
                                 where Ab.Entry.StudyFormId == 1
-                                && MainClass.lstStudyLevelGroupId.Contains(Ab.Entry.StudyLevel.LevelGroupId)
+                                && Ab.Entry.StudyLevel.LevelGroupId == 1
                                 && PersEduc.SchoolTypeId != 1 && PersEduc.SchoolTypeId != 3
-                                && !Ent.IsForeign && !Ent.IsCrimea
+                                && !Ent.IsForeign
                                 && Pers.Person_Contacts.RegionId == 1
                                 select new
                                 {
@@ -194,9 +194,9 @@ namespace PriemLib
                             join Pers in context.Person on Ab.PersonId equals Pers.Id
                             join PersEduc in context.Person_EducationInfo on Pers.Id equals PersEduc.PersonId
                             where Ab.Entry.StudyFormId == 1
-                            && MainClass.lstStudyLevelGroupId.Contains(Ab.Entry.StudyLevel.LevelGroupId)
+                            && Ab.Entry.StudyLevel.LevelGroupId == 1
                             && PersEduc.SchoolTypeId == 3
-                            && !Ent.IsForeign && !Ent.IsCrimea
+                            && !Ent.IsForeign
                             select new
                             {
                                 Ent.StudyBasisId,
@@ -212,9 +212,9 @@ namespace PriemLib
                                join Pers in context.Person on Ab.PersonId equals Pers.Id
                                join PersEduc in context.Person_EducationInfo on Pers.Id equals PersEduc.PersonId
                                where Ab.Entry.StudyFormId == 1
-                               && MainClass.lstStudyLevelGroupId.Contains(Ab.Entry.StudyLevel.LevelGroupId)
+                               && Ab.Entry.StudyLevel.LevelGroupId == 1
                                && PersEduc.SchoolTypeId == 3
-                               && !Ent.IsForeign && !Ent.IsCrimea
+                               && !Ent.IsForeign
                                && Pers.Person_Contacts.RegionId == 1
                                select new
                                {
@@ -231,8 +231,8 @@ namespace PriemLib
                           join Pers in context.Person on Ab.PersonId equals Pers.Id
                           join PersEduc in context.Person_EducationInfo on Pers.Id equals PersEduc.PersonId
                           where Ab.Entry.StudyFormId == 1
-                          && MainClass.lstStudyLevelGroupId.Contains(Ab.Entry.StudyLevel.LevelGroupId)
-                          && !Ent.IsForeign && !Ent.IsCrimea
+                          && Ab.Entry.StudyLevel.LevelGroupId == 1
+                          && !Ent.IsForeign
                           && extEntView.IsQuota
                           select new
                           {
@@ -249,8 +249,8 @@ namespace PriemLib
                               join Pers in context.Person on Ab.PersonId equals Pers.Id
                               join PersEduc in context.Person_EducationInfo on Pers.Id equals PersEduc.PersonId
                               where Ab.Entry.StudyFormId == 1
-                              && MainClass.lstStudyLevelGroupId.Contains(Ab.Entry.StudyLevel.LevelGroupId)
-                              && !Ent.IsForeign && !Ent.IsCrimea
+                              && Ab.Entry.StudyLevel.LevelGroupId == 1
+                              && !Ent.IsForeign
                               && Pers.Person_Contacts.RegionId == 1
                               && extEntView.IsQuota
                               select new
@@ -269,8 +269,8 @@ namespace PriemLib
                              join Pers in context.Person on Ab.PersonId equals Pers.Id
                              join PersEduc in context.Person_EducationInfo on Pers.Id equals PersEduc.PersonId
                              where Ab.Entry.StudyFormId == 1
-                             && MainClass.lstStudyLevelGroupId.Contains(Ab.Entry.StudyLevel.LevelGroupId)
-                             && !Ent.IsForeign && !Ent.IsCrimea
+                             && Ab.Entry.StudyLevel.LevelGroupId == 1
+                             && !Ent.IsForeign
                              && Ol.OlympValueId > 4 && (Ol.OlympTypeId == 3 || Ol.OlympTypeId == 4)
                              select new
                              {
@@ -288,8 +288,8 @@ namespace PriemLib
                                  join Pers in context.Person on Ab.PersonId equals Pers.Id
                                  join PersEduc in context.Person_EducationInfo on Pers.Id equals PersEduc.PersonId
                                  where Ab.Entry.StudyFormId == 1
-                                 && MainClass.lstStudyLevelGroupId.Contains(Ab.Entry.StudyLevel.LevelGroupId)
-                                 && !Ent.IsForeign && !Ent.IsCrimea
+                                 && Ab.Entry.StudyLevel.LevelGroupId == 1
+                                 && !Ent.IsForeign
                                  && Ol.OlympValueId > 4 && (Ol.OlympTypeId == 3 || Ol.OlympTypeId == 4)
                                  && Pers.Person_Contacts.RegionId == 1
                                  select new
@@ -307,8 +307,8 @@ namespace PriemLib
                                   join Pers in context.Person on Ab.PersonId equals Pers.Id
                                   join PersEduc in context.Person_EducationInfo on Pers.Id equals PersEduc.PersonId
                                   where Ab.Entry.StudyFormId == 1
-                                  && MainClass.lstStudyLevelGroupId.Contains(Ab.Entry.StudyLevel.LevelGroupId)
-                                  && !Ent.IsForeign && !Ent.IsCrimea
+                                  && Ab.Entry.StudyLevel.LevelGroupId == 1
+                                  && !Ent.IsForeign
                                   && Pers.Person_Contacts.CountryId != 1
                                   select new
                                   {
@@ -328,8 +328,8 @@ namespace PriemLib
                             join Pers in context.Person on Ab.PersonId equals Pers.Id
                             join PersEduc in context.Person_EducationInfo on Pers.Id equals PersEduc.PersonId
                             where Ab.Entry.StudyFormId == 1
-                            && MainClass.lstStudyLevelGroupId.Contains(Ab.Entry.StudyLevel.LevelGroupId)
-                            && !Ent.IsForeign && !Ent.IsCrimea
+                            && Ab.Entry.StudyLevel.LevelGroupId == 1
+                            && !Ent.IsForeign
                             && Pers.Person_Contacts.CountryId != 1 && Pers.Person_Contacts.CountryId != 6
                             select new
                             {
@@ -342,8 +342,19 @@ namespace PriemLib
                 tbCnt_Stud_1K_USSR_B.Text = iUSSR1K_B.ToString();
                 tbCnt_Stud_1K_USSR_P.Text = iUSSR1K_P.ToString();
 
+                var balls =
+                    (from mrk in context.Mark
+                     join ExInEnt in context.ExamInEntry on mrk.ExamInEntryId equals ExInEnt.Id
+                     join extEv in context.extEntryView on mrk.AbiturientId equals extEv.AbiturientId
+                     where extEv.StudyLevelGroupId == 1 && extEv.StudyFormId == 1
+                     select new { mrk.Value, extEv.StudyBasisId }).ToList();
+
+                //Средний балл ЕГЭ
+                tbAVG_Ege_B.Text = balls.Where(x => x.StudyBasisId == 1).Select(x => x.Value).DefaultIfEmpty(0m).Average().ToString();
+                tbAVG_Ege_P.Text = balls.Where(x => x.StudyBasisId == 2).Select(x => x.Value).DefaultIfEmpty(0m).Average().ToString();
+
                 //КЦ Магистратура
-                query = "SELECT SUM(KCP) AS CNT FROM ed.qEntry WHERE StudyLevelGroupId=2 AND StudyFormId='1' AND StudyBasisId='1'";
+                query = "SELECT SUM(KCP) AS CNT FROM ed.qEntry WHERE StudyLevelGroupId=2 AND StudyFormId='1' AND StudyBasisId='1' AND IsCrimea = 0 AND IsForeign = 0";
                 int iKCP_Mag = (int)MainClass.Bdc.GetValue(query);
                 tbKCP_Mag.Text = iKCP_Mag.ToString();
 
@@ -351,7 +362,7 @@ namespace PriemLib
                 query = @"SELECT COUNT(extAbit.Id) 
 FROM ed.extAbit 
 INNER JOIN ed.extEntryView ON extEntryView.AbiturientId=extAbit.Id 
-WHERE extAbit.StudyLevelGroupId=2 AND extAbit.StudyFormId=1 AND extAbit.StudyBasisId=1  AND CompetitionId NOT IN (11, 12)";
+WHERE extAbit.StudyLevelGroupId=2 AND extAbit.StudyFormId=1 AND extAbit.StudyBasisId=1";
                 int iCNT_Mag = (int)MainClass.Bdc.GetValue(query);
                 tbCnt_Stud_MAG_All.Text = iCNT_Mag.ToString();
 
@@ -360,7 +371,7 @@ WHERE extAbit.StudyLevelGroupId=2 AND extAbit.StudyFormId=1 AND extAbit.StudyBas
 FROM ed.extAbit 
 INNER JOIN ed.extEntryView ON extEntryView.AbiturientId=extAbit.Id
 INNER JOIN ed.extPerson ON extPerson.Id=extAbit.PersonId
-WHERE extAbit.StudyLevelGroupId=2 AND extAbit.StudyFormId=1 AND extAbit.StudyBasisId=1 AND extPerson.RegionId = 1 AND CompetitionId NOT IN (11, 12)";
+WHERE extAbit.StudyLevelGroupId=2 AND extAbit.StudyFormId=1 AND extAbit.StudyBasisId=1 AND extPerson.RegionId = 1";
                 int iCNT_Mag_SPB = (int)MainClass.Bdc.GetValue(query);
                 tbCnt_Stud_MAG_All_SPB.Text = iCNT_Mag_SPB.ToString();
             }

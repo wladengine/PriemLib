@@ -133,6 +133,9 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("Priem2012Model", "FK_OlympResultToAdditionalMark_OlympValue", "OlympValue", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.OlympValue), "OlympResultToAdditionalMark", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.OlympResultToAdditionalMark), true)]
 [assembly: EdmRelationshipAttribute("Priem2012Model", "FK_OlympResultToAdditionalMark_OlympLevel1", "OlympLevel", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.OlympLevel), "OlympResultToAdditionalMark", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.OlympResultToAdditionalMark), true)]
 [assembly: EdmRelationshipAttribute("Priem2012Model", "FK_OlympResultToAdditionalMark_OlympName", "OlympName", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.OlympName), "OlympResultToAdditionalMark", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.OlympResultToAdditionalMark), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "fk_ProtocolHistory_Abiturient", "Abiturient", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Abiturient), "ProtocolHistory", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.ProtocolHistory), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "fk_Protocolhistory_EntryHeader", "EntryHeader", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.EntryHeader), "ProtocolHistory", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.ProtocolHistory), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "fk_ProtocolHistory_Protocol", "Protocol", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Protocol), "ProtocolHistory", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.ProtocolHistory), true)]
 
 #endregion
 
@@ -2423,6 +2426,38 @@ namespace PriemLib
             }
         }
         private ObjectSet<extDisEntryFromReEnterView> _extDisEntryFromReEnterView;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<ProtocolHistory> ProtocolHistory
+        {
+            get
+            {
+                if ((_ProtocolHistory == null))
+                {
+                    _ProtocolHistory = base.CreateObjectSet<ProtocolHistory>("ProtocolHistory");
+                }
+                return _ProtocolHistory;
+            }
+        }
+        private ObjectSet<ProtocolHistory> _ProtocolHistory;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<extAbitAllAdditionalAchievements> extAbitAllAdditionalAchievements
+        {
+            get
+            {
+                if ((_extAbitAllAdditionalAchievements == null))
+                {
+                    _extAbitAllAdditionalAchievements = base.CreateObjectSet<extAbitAllAdditionalAchievements>("extAbitAllAdditionalAchievements");
+                }
+                return _extAbitAllAdditionalAchievements;
+            }
+        }
+        private ObjectSet<extAbitAllAdditionalAchievements> _extAbitAllAdditionalAchievements;
 
         #endregion
 
@@ -3546,6 +3581,22 @@ namespace PriemLib
         public void AddToextDisEntryFromReEnterView(extDisEntryFromReEnterView extDisEntryFromReEnterView)
         {
             base.AddObject("extDisEntryFromReEnterView", extDisEntryFromReEnterView);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the ProtocolHistory EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToProtocolHistory(ProtocolHistory protocolHistory)
+        {
+            base.AddObject("ProtocolHistory", protocolHistory);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the extAbitAllAdditionalAchievements EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToextAbitAllAdditionalAchievements(extAbitAllAdditionalAchievements extAbitAllAdditionalAchievements)
+        {
+            base.AddObject("extAbitAllAdditionalAchievements", extAbitAllAdditionalAchievements);
         }
 
         #endregion
@@ -16337,6 +16388,28 @@ namespace PriemLib
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Priem2012Model", "fk_ProtocolHistory_Abiturient", "ProtocolHistory")]
+        public EntityCollection<ProtocolHistory> ProtocolHistory
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ProtocolHistory>("Priem2012Model.fk_ProtocolHistory_Abiturient", "ProtocolHistory");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ProtocolHistory>("Priem2012Model.fk_ProtocolHistory_Abiturient", "ProtocolHistory", value);
+                }
+            }
+        }
 
         #endregion
 
@@ -22383,6 +22456,32 @@ namespace PriemLib
 
         #endregion
 
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Priem2012Model", "fk_Protocolhistory_EntryHeader", "ProtocolHistory")]
+        public EntityCollection<ProtocolHistory> ProtocolHistory
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ProtocolHistory>("Priem2012Model.fk_Protocolhistory_EntryHeader", "ProtocolHistory");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ProtocolHistory>("Priem2012Model.fk_Protocolhistory_EntryHeader", "ProtocolHistory", value);
+                }
+            }
+        }
+
+        #endregion
+
     }
     
     /// <summary>
@@ -24654,7 +24753,8 @@ namespace PriemLib
         /// <param name="isParallel">Initial value of the IsParallel property.</param>
         /// <param name="isForeign">Initial value of the IsForeign property.</param>
         /// <param name="isCrimea">Initial value of the IsCrimea property.</param>
-        public static extAbit CreateextAbit(global::System.Guid id, global::System.Guid personId, global::System.Guid entryId, global::System.Int32 competitionId, global::System.Boolean isListener, global::System.Boolean isPaid, global::System.Boolean backDoc, global::System.DateTime docDate, global::System.DateTime docInsertDate, global::System.Boolean @checked, global::System.Boolean notEnabled, global::System.Boolean compFromOlymp, global::System.Int32 languageId, global::System.Boolean hasOriginals, global::System.Int32 facultyId, global::System.Int32 licenseProgramId, global::System.String licenseProgramName, global::System.Int32 obrazProgramId, global::System.String obrazProgramName, global::System.Int32 profileId, global::System.Int32 studyBasisId, global::System.String studyBasisName, global::System.Int32 studyFormId, global::System.String studyFormName, global::System.Int32 studyLevelId, global::System.String studyLevelName, global::System.Boolean isSecond, global::System.String name, global::System.String surname, global::System.Int32 studyLevelGroupId, global::System.String fIO, global::System.String obrazProgramNameEx, global::System.Boolean withHE, global::System.Boolean isReduced, global::System.Boolean isParallel, global::System.Boolean isForeign, global::System.Boolean isCrimea)
+        /// <param name="backDocByAdmissionHigh">Initial value of the BackDocByAdmissionHigh property.</param>
+        public static extAbit CreateextAbit(global::System.Guid id, global::System.Guid personId, global::System.Guid entryId, global::System.Int32 competitionId, global::System.Boolean isListener, global::System.Boolean isPaid, global::System.Boolean backDoc, global::System.DateTime docDate, global::System.DateTime docInsertDate, global::System.Boolean @checked, global::System.Boolean notEnabled, global::System.Boolean compFromOlymp, global::System.Int32 languageId, global::System.Boolean hasOriginals, global::System.Int32 facultyId, global::System.Int32 licenseProgramId, global::System.String licenseProgramName, global::System.Int32 obrazProgramId, global::System.String obrazProgramName, global::System.Int32 profileId, global::System.Int32 studyBasisId, global::System.String studyBasisName, global::System.Int32 studyFormId, global::System.String studyFormName, global::System.Int32 studyLevelId, global::System.String studyLevelName, global::System.Boolean isSecond, global::System.String name, global::System.String surname, global::System.Int32 studyLevelGroupId, global::System.String fIO, global::System.String obrazProgramNameEx, global::System.Boolean withHE, global::System.Boolean isReduced, global::System.Boolean isParallel, global::System.Boolean isForeign, global::System.Boolean isCrimea, global::System.Boolean backDocByAdmissionHigh)
         {
             extAbit extAbit = new extAbit();
             extAbit.Id = id;
@@ -24694,6 +24794,7 @@ namespace PriemLib
             extAbit.IsParallel = isParallel;
             extAbit.IsForeign = isForeign;
             extAbit.IsCrimea = isCrimea;
+            extAbit.BackDocByAdmissionHigh = backDocByAdmissionHigh;
             return extAbit;
         }
 
@@ -26533,6 +26634,33 @@ namespace PriemLib
         private global::System.Boolean _IsCrimea;
         partial void OnIsCrimeaChanging(global::System.Boolean value);
         partial void OnIsCrimeaChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean BackDocByAdmissionHigh
+        {
+            get
+            {
+                return _BackDocByAdmissionHigh;
+            }
+            set
+            {
+                if (_BackDocByAdmissionHigh != value)
+                {
+                    OnBackDocByAdmissionHighChanging(value);
+                    ReportPropertyChanging("BackDocByAdmissionHigh");
+                    _BackDocByAdmissionHigh = StructuralObject.SetValidValue(value, "BackDocByAdmissionHigh");
+                    ReportPropertyChanged("BackDocByAdmissionHigh");
+                    OnBackDocByAdmissionHighChanged();
+                }
+            }
+        }
+        private global::System.Boolean _BackDocByAdmissionHigh;
+        partial void OnBackDocByAdmissionHighChanging(global::System.Boolean value);
+        partial void OnBackDocByAdmissionHighChanged();
 
         #endregion
 
@@ -26613,6 +26741,134 @@ namespace PriemLib
         private Nullable<global::System.Int32> _AdditionalMarksSum;
         partial void OnAdditionalMarksSumChanging(Nullable<global::System.Int32> value);
         partial void OnAdditionalMarksSumChanged();
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="Priem2012Model", Name="extAbitAllAdditionalAchievements")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class extAbitAllAdditionalAchievements : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new extAbitAllAdditionalAchievements object.
+        /// </summary>
+        /// <param name="abiturientId">Initial value of the AbiturientId property.</param>
+        public static extAbitAllAdditionalAchievements CreateextAbitAllAdditionalAchievements(global::System.Guid abiturientId)
+        {
+            extAbitAllAdditionalAchievements extAbitAllAdditionalAchievements = new extAbitAllAdditionalAchievements();
+            extAbitAllAdditionalAchievements.AbiturientId = abiturientId;
+            return extAbitAllAdditionalAchievements;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid AbiturientId
+        {
+            get
+            {
+                return _AbiturientId;
+            }
+            set
+            {
+                if (_AbiturientId != value)
+                {
+                    OnAbiturientIdChanging(value);
+                    ReportPropertyChanging("AbiturientId");
+                    _AbiturientId = StructuralObject.SetValidValue(value, "AbiturientId");
+                    ReportPropertyChanged("AbiturientId");
+                    OnAbiturientIdChanged();
+                }
+            }
+        }
+        private global::System.Guid _AbiturientId;
+        partial void OnAbiturientIdChanging(global::System.Guid value);
+        partial void OnAbiturientIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String AchievementType
+        {
+            get
+            {
+                return _AchievementType;
+            }
+            set
+            {
+                OnAchievementTypeChanging(value);
+                ReportPropertyChanging("AchievementType");
+                _AchievementType = StructuralObject.SetValidValue(value, true, "AchievementType");
+                ReportPropertyChanged("AchievementType");
+                OnAchievementTypeChanged();
+            }
+        }
+        private global::System.String _AchievementType;
+        partial void OnAchievementTypeChanging(global::System.String value);
+        partial void OnAchievementTypeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> AchievementTypeId
+        {
+            get
+            {
+                return _AchievementTypeId;
+            }
+            set
+            {
+                OnAchievementTypeIdChanging(value);
+                ReportPropertyChanging("AchievementTypeId");
+                _AchievementTypeId = StructuralObject.SetValidValue(value, "AchievementTypeId");
+                ReportPropertyChanged("AchievementTypeId");
+                OnAchievementTypeIdChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _AchievementTypeId;
+        partial void OnAchievementTypeIdChanging(Nullable<global::System.Int32> value);
+        partial void OnAchievementTypeIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> Mark
+        {
+            get
+            {
+                return _Mark;
+            }
+            set
+            {
+                OnMarkChanging(value);
+                ReportPropertyChanging("Mark");
+                _Mark = StructuralObject.SetValidValue(value, "Mark");
+                ReportPropertyChanged("Mark");
+                OnMarkChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _Mark;
+        partial void OnMarkChanging(Nullable<global::System.Int32> value);
+        partial void OnMarkChanged();
 
         #endregion
 
@@ -31512,6 +31768,30 @@ namespace PriemLib
         private Nullable<global::System.Guid> _ParentEntryId;
         partial void OnParentEntryIdChanging(Nullable<global::System.Guid> value);
         partial void OnParentEntryIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String FacultyCode
+        {
+            get
+            {
+                return _FacultyCode;
+            }
+            set
+            {
+                OnFacultyCodeChanging(value);
+                ReportPropertyChanging("FacultyCode");
+                _FacultyCode = StructuralObject.SetValidValue(value, true, "FacultyCode");
+                ReportPropertyChanged("FacultyCode");
+                OnFacultyCodeChanged();
+            }
+        }
+        private global::System.String _FacultyCode;
+        partial void OnFacultyCodeChanging(global::System.String value);
+        partial void OnFacultyCodeChanged();
 
         #endregion
 
@@ -37576,12 +37856,14 @@ namespace PriemLib
         /// <param name="id">Initial value of the Id property.</param>
         /// <param name="personId">Initial value of the PersonId property.</param>
         /// <param name="originDoc">Initial value of the OriginDoc property.</param>
-        public static extOlympiadsAll CreateextOlympiadsAll(global::System.Guid id, global::System.Guid personId, global::System.Boolean originDoc)
+        /// <param name="olympYear">Initial value of the OlympYear property.</param>
+        public static extOlympiadsAll CreateextOlympiadsAll(global::System.Guid id, global::System.Guid personId, global::System.Boolean originDoc, global::System.Int16 olympYear)
         {
             extOlympiadsAll extOlympiadsAll = new extOlympiadsAll();
             extOlympiadsAll.Id = id;
             extOlympiadsAll.PersonId = personId;
             extOlympiadsAll.OriginDoc = originDoc;
+            extOlympiadsAll.OlympYear = olympYear;
             return extOlympiadsAll;
         }
 
@@ -38050,6 +38332,33 @@ namespace PriemLib
         private Nullable<global::System.Int32> _OlympValueSortOrder;
         partial void OnOlympValueSortOrderChanging(Nullable<global::System.Int32> value);
         partial void OnOlympValueSortOrderChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int16 OlympYear
+        {
+            get
+            {
+                return _OlympYear;
+            }
+            set
+            {
+                if (_OlympYear != value)
+                {
+                    OnOlympYearChanging(value);
+                    ReportPropertyChanging("OlympYear");
+                    _OlympYear = StructuralObject.SetValidValue(value, "OlympYear");
+                    ReportPropertyChanged("OlympYear");
+                    OnOlympYearChanged();
+                }
+            }
+        }
+        private global::System.Int16 _OlympYear;
+        partial void OnOlympYearChanging(global::System.Int16 value);
+        partial void OnOlympYearChanged();
 
         #endregion
 
@@ -60169,7 +60478,9 @@ namespace PriemLib
         /// <param name="isParallel">Initial value of the IsParallel property.</param>
         /// <param name="isReduced">Initial value of the IsReduced property.</param>
         /// <param name="isForeign">Initial value of the IsForeign property.</param>
-        public static Protocol CreateProtocol(global::System.Guid id, global::System.Int32 studyLevelGroupId, global::System.Int32 studyFormId, global::System.DateTime date, global::System.Int32 protocolTypeId, global::System.Boolean isOld, global::System.Boolean isSecond, global::System.Boolean isListener, global::System.Boolean isParallel, global::System.Boolean isReduced, global::System.Boolean isForeign)
+        /// <param name="dateCreated">Initial value of the DateCreated property.</param>
+        /// <param name="author">Initial value of the Author property.</param>
+        public static Protocol CreateProtocol(global::System.Guid id, global::System.Int32 studyLevelGroupId, global::System.Int32 studyFormId, global::System.DateTime date, global::System.Int32 protocolTypeId, global::System.Boolean isOld, global::System.Boolean isSecond, global::System.Boolean isListener, global::System.Boolean isParallel, global::System.Boolean isReduced, global::System.Boolean isForeign, global::System.DateTime dateCreated, global::System.String author)
         {
             Protocol protocol = new Protocol();
             protocol.Id = id;
@@ -60183,6 +60494,8 @@ namespace PriemLib
             protocol.IsParallel = isParallel;
             protocol.IsReduced = isReduced;
             protocol.IsForeign = isForeign;
+            protocol.DateCreated = dateCreated;
+            protocol.Author = author;
             return protocol;
         }
 
@@ -60624,6 +60937,54 @@ namespace PriemLib
         private Nullable<global::System.Int32> _AdmissionProtocolId;
         partial void OnAdmissionProtocolIdChanging(Nullable<global::System.Int32> value);
         partial void OnAdmissionProtocolIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime DateCreated
+        {
+            get
+            {
+                return _DateCreated;
+            }
+            set
+            {
+                OnDateCreatedChanging(value);
+                ReportPropertyChanging("DateCreated");
+                _DateCreated = StructuralObject.SetValidValue(value, "DateCreated");
+                ReportPropertyChanged("DateCreated");
+                OnDateCreatedChanged();
+            }
+        }
+        private global::System.DateTime _DateCreated;
+        partial void OnDateCreatedChanging(global::System.DateTime value);
+        partial void OnDateCreatedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Author
+        {
+            get
+            {
+                return _Author;
+            }
+            set
+            {
+                OnAuthorChanging(value);
+                ReportPropertyChanging("Author");
+                _Author = StructuralObject.SetValidValue(value, false, "Author");
+                ReportPropertyChanged("Author");
+                OnAuthorChanged();
+            }
+        }
+        private global::System.String _Author;
+        partial void OnAuthorChanging(global::System.String value);
+        partial void OnAuthorChanged();
 
         #endregion
 
@@ -60815,6 +61176,328 @@ namespace PriemLib
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<SP_LicenseProgram>("Priem2012Model.FK_Protocol_SP_LicenseProgram", "SP_LicenseProgram", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Priem2012Model", "fk_ProtocolHistory_Protocol", "ProtocolHistory")]
+        public EntityCollection<ProtocolHistory> ProtocolHistory
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ProtocolHistory>("Priem2012Model.fk_ProtocolHistory_Protocol", "ProtocolHistory");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ProtocolHistory>("Priem2012Model.fk_ProtocolHistory_Protocol", "ProtocolHistory", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="Priem2012Model", Name="ProtocolHistory")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class ProtocolHistory : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new ProtocolHistory object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="abiturientId">Initial value of the AbiturientId property.</param>
+        /// <param name="protocolId">Initial value of the ProtocolId property.</param>
+        /// <param name="excluded">Initial value of the Excluded property.</param>
+        public static ProtocolHistory CreateProtocolHistory(global::System.Guid id, global::System.Guid abiturientId, global::System.Guid protocolId, global::System.Boolean excluded)
+        {
+            ProtocolHistory protocolHistory = new ProtocolHistory();
+            protocolHistory.Id = id;
+            protocolHistory.AbiturientId = abiturientId;
+            protocolHistory.ProtocolId = protocolId;
+            protocolHistory.Excluded = excluded;
+            return protocolHistory;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value, "Id");
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Guid _Id;
+        partial void OnIdChanging(global::System.Guid value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid AbiturientId
+        {
+            get
+            {
+                return _AbiturientId;
+            }
+            set
+            {
+                OnAbiturientIdChanging(value);
+                ReportPropertyChanging("AbiturientId");
+                _AbiturientId = StructuralObject.SetValidValue(value, "AbiturientId");
+                ReportPropertyChanged("AbiturientId");
+                OnAbiturientIdChanged();
+            }
+        }
+        private global::System.Guid _AbiturientId;
+        partial void OnAbiturientIdChanging(global::System.Guid value);
+        partial void OnAbiturientIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid ProtocolId
+        {
+            get
+            {
+                return _ProtocolId;
+            }
+            set
+            {
+                OnProtocolIdChanging(value);
+                ReportPropertyChanging("ProtocolId");
+                _ProtocolId = StructuralObject.SetValidValue(value, "ProtocolId");
+                ReportPropertyChanged("ProtocolId");
+                OnProtocolIdChanged();
+            }
+        }
+        private global::System.Guid _ProtocolId;
+        partial void OnProtocolIdChanging(global::System.Guid value);
+        partial void OnProtocolIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean Excluded
+        {
+            get
+            {
+                return _Excluded;
+            }
+            set
+            {
+                OnExcludedChanging(value);
+                ReportPropertyChanging("Excluded");
+                _Excluded = StructuralObject.SetValidValue(value, "Excluded");
+                ReportPropertyChanged("Excluded");
+                OnExcludedChanged();
+            }
+        }
+        private global::System.Boolean _Excluded;
+        partial void OnExcludedChanging(global::System.Boolean value);
+        partial void OnExcludedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Guid> ExcludeProtocolId
+        {
+            get
+            {
+                return _ExcludeProtocolId;
+            }
+            set
+            {
+                OnExcludeProtocolIdChanging(value);
+                ReportPropertyChanging("ExcludeProtocolId");
+                _ExcludeProtocolId = StructuralObject.SetValidValue(value, "ExcludeProtocolId");
+                ReportPropertyChanged("ExcludeProtocolId");
+                OnExcludeProtocolIdChanged();
+            }
+        }
+        private Nullable<global::System.Guid> _ExcludeProtocolId;
+        partial void OnExcludeProtocolIdChanging(Nullable<global::System.Guid> value);
+        partial void OnExcludeProtocolIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> EntryHeaderId
+        {
+            get
+            {
+                return _EntryHeaderId;
+            }
+            set
+            {
+                OnEntryHeaderIdChanging(value);
+                ReportPropertyChanging("EntryHeaderId");
+                _EntryHeaderId = StructuralObject.SetValidValue(value, "EntryHeaderId");
+                ReportPropertyChanged("EntryHeaderId");
+                OnEntryHeaderIdChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _EntryHeaderId;
+        partial void OnEntryHeaderIdChanging(Nullable<global::System.Int32> value);
+        partial void OnEntryHeaderIdChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Priem2012Model", "fk_ProtocolHistory_Abiturient", "Abiturient")]
+        public Abiturient Abiturient
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Abiturient>("Priem2012Model.fk_ProtocolHistory_Abiturient", "Abiturient").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Abiturient>("Priem2012Model.fk_ProtocolHistory_Abiturient", "Abiturient").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Abiturient> AbiturientReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Abiturient>("Priem2012Model.fk_ProtocolHistory_Abiturient", "Abiturient");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Abiturient>("Priem2012Model.fk_ProtocolHistory_Abiturient", "Abiturient", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Priem2012Model", "fk_Protocolhistory_EntryHeader", "EntryHeader")]
+        public EntryHeader EntryHeader
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<EntryHeader>("Priem2012Model.fk_Protocolhistory_EntryHeader", "EntryHeader").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<EntryHeader>("Priem2012Model.fk_Protocolhistory_EntryHeader", "EntryHeader").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<EntryHeader> EntryHeaderReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<EntryHeader>("Priem2012Model.fk_Protocolhistory_EntryHeader", "EntryHeader");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<EntryHeader>("Priem2012Model.fk_Protocolhistory_EntryHeader", "EntryHeader", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Priem2012Model", "fk_ProtocolHistory_Protocol", "Protocol")]
+        public Protocol Protocol
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Protocol>("Priem2012Model.fk_ProtocolHistory_Protocol", "Protocol").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Protocol>("Priem2012Model.fk_ProtocolHistory_Protocol", "Protocol").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Protocol> ProtocolReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Protocol>("Priem2012Model.fk_ProtocolHistory_Protocol", "Protocol");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Protocol>("Priem2012Model.fk_ProtocolHistory_Protocol", "Protocol", value);
                 }
             }
         }

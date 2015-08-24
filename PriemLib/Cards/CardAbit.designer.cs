@@ -44,6 +44,7 @@
             this.lblLicenseprogram = new System.Windows.Forms.Label();
             this.tabCard = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.btnChangeOriginalsDestination = new System.Windows.Forms.Button();
             this.lblBackDocByAdmissionHigh = new System.Windows.Forms.Label();
             this.chbIsCrimea = new System.Windows.Forms.CheckBox();
             this.chbIsForeign = new System.Windows.Forms.CheckBox();
@@ -130,7 +131,6 @@
             this.lblFIO = new System.Windows.Forms.Label();
             this.btnCardPerson = new System.Windows.Forms.Button();
             this.epErrorInput = new System.Windows.Forms.ErrorProvider(this.components);
-            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.epError)).BeginInit();
             this.tabCard.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -248,7 +248,7 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.button1);
+            this.tabPage1.Controls.Add(this.btnChangeOriginalsDestination);
             this.tabPage1.Controls.Add(this.lblBackDocByAdmissionHigh);
             this.tabPage1.Controls.Add(this.chbIsCrimea);
             this.tabPage1.Controls.Add(this.chbIsForeign);
@@ -299,6 +299,19 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Основное";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // btnChangeOriginalsDestination
+            // 
+            this.btnChangeOriginalsDestination.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnChangeOriginalsDestination.Enabled = false;
+            this.btnChangeOriginalsDestination.Location = new System.Drawing.Point(276, 392);
+            this.btnChangeOriginalsDestination.Name = "btnChangeOriginalsDestination";
+            this.btnChangeOriginalsDestination.Size = new System.Drawing.Size(159, 23);
+            this.btnChangeOriginalsDestination.TabIndex = 132;
+            this.btnChangeOriginalsDestination.Text = "Перенести на др. конкурс";
+            this.btnChangeOriginalsDestination.UseVisualStyleBackColor = true;
+            this.btnChangeOriginalsDestination.Visible = false;
+            this.btnChangeOriginalsDestination.Click += new System.EventHandler(this.btnChangeOriginalsDestination_Click);
             // 
             // lblBackDocByAdmissionHigh
             // 
@@ -1205,6 +1218,8 @@
             // 
             // gbObrazProgramInEntry
             // 
+            this.gbObrazProgramInEntry.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.gbObrazProgramInEntry.Controls.Add(this.btnSaveInnerEntryInEntry);
             this.gbObrazProgramInEntry.Controls.Add(this.cbInnerEntryInEntry);
             this.gbObrazProgramInEntry.Location = new System.Drawing.Point(4, 25);
@@ -1227,7 +1242,10 @@
             // 
             // cbInnerEntryInEntry
             // 
+            this.cbInnerEntryInEntry.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cbInnerEntryInEntry.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbInnerEntryInEntry.DropDownWidth = 1000;
             this.cbInnerEntryInEntry.FormattingEnabled = true;
             this.cbInnerEntryInEntry.Location = new System.Drawing.Point(6, 19);
             this.cbInnerEntryInEntry.Name = "cbInnerEntryInEntry";
@@ -1259,18 +1277,6 @@
             // epErrorInput
             // 
             this.epErrorInput.ContainerControl = this;
-            // 
-            // button1
-            // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Enabled = false;
-            this.button1.Location = new System.Drawing.Point(276, 392);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(159, 23);
-            this.button1.TabIndex = 132;
-            this.button1.Text = "Перенести на др. конкурс";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Visible = false;
             // 
             // CardAbit
             // 
@@ -1427,6 +1433,6 @@
         private System.Windows.Forms.CheckBox chbIsCrimea;
         private System.Windows.Forms.Button btnSaveInnerEntryInEntry;
         private System.Windows.Forms.Label lblBackDocByAdmissionHigh;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnChangeOriginalsDestination;
     }
 }

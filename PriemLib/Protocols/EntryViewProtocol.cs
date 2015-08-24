@@ -28,7 +28,7 @@ namespace PriemLib
         public EntryViewProtocol(ProtocolList owner, int iStudyLevelGroup, int sFac, int sSection, int sForm, int? sProf, bool isSec, bool isReduced, bool isParal, bool isList, bool isCel, Guid? sProtocol)
             : base(owner, iStudyLevelGroup, sFac, sSection, sForm, sProf, isSec, isReduced, isParal, isList, isCel, sProtocol)
         {
-            _type = ProtocolTypes.EntryView;                      
+            _type = ProtocolTypes.EntryView;
         }
 
         //дополнительная инициализация
@@ -118,7 +118,7 @@ namespace PriemLib
             sFilter += " AND Abiturient.Id NOT IN (SELECT AbiturientId FROM ed.extEntryView) ";
 
             if (_studyBasisId == 1)
-                sFilter += string.Format(" AND Abiturient.PersonId NOT IN (SELECT PersonId FROM ed.extEntryView WHERE StudyLevelGroupId IN ({0}) AND StudyBasisId = 1)", Util.BuildStringWithCollection(MainClass.lstStudyLevelGroupId));
+                sFilter += string.Format(" AND Abiturient.PersonId NOT IN (SELECT PersonId FROM ed.extEntryView WHERE StudyLevelGroupId = {0} AND StudyBasisId = 1)", _studyLevelGroupId);
 
 //            sFilter += @"AND ((ed.qAbiturient.IsListener = 0 AND ed.qAbiturient.IsSecond = 0 AND ed.qAbiturient.IsReduced = 0 AND ed.qAbiturient.IsParallel = 0 
 //AND EXISTS (SELECT * FROM ed.Abiturient AB WHERE AB.HasOriginals > 0 AND AB.PersonId = qAbiturient.PersonId)) 
@@ -132,8 +132,11 @@ namespace PriemLib
 		AND extEntry.IsParallel = 0 
 		AND EXISTS 
 		(
-			SELECT * FROM ed.Abiturient AB 
-			WHERE AB.HasOriginals > 0 AND AB.PersonId = Abiturient.PersonId
+			SELECT * 
+            FROM ed.Abiturient AB 
+			WHERE AB.HasOriginals > 0 
+            AND AB.PersonId = Abiturient.PersonId
+            AND AB.BackDoc = 0
 		)
 	) 
 	OR Abiturient.IsListener = 1 
@@ -294,7 +297,7 @@ namespace PriemLib
 
                 string enteredQuery = string.Format(@"SELECT Count(Abiturient.Id) FROM ed.Abiturient 
                         INNER JOIN ed.extEntry E ON E.Id = Abiturient.EntryId 
-                        INNER JOIN ed.extEntryView ON Abiturient.Id=ed.extEntryView.AbiturientId 
+                        INNER JOIN ed.extEntryView ON Abiturient.Id = extEntryView.AbiturientId 
                         WHERE Excluded=0 AND E.StudyLevelGroupId = {9} AND (E.Id = Abiturient.EntryId OR E.ParentEntryId = Abiturient.EntryId)
                         AND E.FacultyId={0} AND E.StudyFormId={1} AND E.StudyBasisId={2} 
                         AND E.LicenseProgramId={3} AND E.IsSEcond = {4} AND E.IsReduced = {5} AND E.IsParallel = {6} AND E.ObrazProgramId={7} {8}", _facultyId, _studyFormId, _studyBasisId, _licenseProgramId, QueryServ.StringParseFromBool(_isSecond), QueryServ.StringParseFromBool(_isReduced), QueryServ.StringParseFromBool(_isParallel),
@@ -303,7 +306,9 @@ namespace PriemLib
                 if (_isCel)
                     enteredQuery += " AND Abiturient.CompetitionId = 6 ";
 
-                enteredQuery += string.Format(" AND E.IsCrimea = {0}", (HeaderId == 11 || HeaderId == 12) ? "1" : "0");
+                if (HeaderId == 11 || HeaderId == 12)
+                    enteredQuery += " AND E.IsCrimea = 1";
+
                 enteredQuery += string.Format(" AND E.IsForeign = {0}", (MainClass.dbType == PriemType.PriemForeigners) ? "1" : "0");
                   
                 int entered = 0;
@@ -316,10 +321,13 @@ namespace PriemLib
                     int.TryParse(dr["Value"].ToString(), out kc);
 
                 int kcRest = kc - entered;
-                if (MainClass.bFirstWaveEnabled && !_isCel && HeaderId == 8)
-                    kcRest = (int)(((float)kcRest * 0.8f) + 0.999f);
+                if (_studyLevelGroupId == 1)
+                {
+                    if (MainClass.bFirstWaveEnabled && !_isCel && HeaderId == 8)
+                        kcRest = (int)(((float)kcRest * 0.8f) + 0.999f);
+                }
 
-                string sQueryBody = string.Format(@"SELECT DISTINCT TOP ({0}) ed.extAbitMarksSum.TotalSum + extAbitAdditionalMarksSum.AdditionalMarksSum as Sum, 
+                string sQueryBody = string.Format(@"SELECT DISTINCT TOP ({0}) ed.extAbitMarksSum.TotalSum + ISNULL(extAbitAdditionalMarksSum.AdditionalMarksSum, 0) as Sum, 
 Abiturient.Id as Id, Abiturient.BackDoc as backdoc,
 'false' as Red, Abiturient.RegNum as Рег_Номер, extPerson.FIO as ФИО,
 extPerson.EducDocument as Документ_об_образовании, 
@@ -330,7 +338,7 @@ FROM ed.Abiturient
 INNER JOIN ed.extEntry ON extEntry.Id = Abiturient.EntryId
 INNER JOIN ed.extPerson ON Abiturient.PersonId = extPerson.Id 
 INNER JOIN ed.extEnableProtocol ON Abiturient.Id=ed.extEnableProtocol.AbiturientId 
-INNER JOIN ed.extAbitAdditionalMarksSum ON extAbitAdditionalMarksSum.AbiturientId = Abiturient.Id
+LEFT JOIN ed.extAbitAdditionalMarksSum ON extAbitAdditionalMarksSum.AbiturientId = Abiturient.Id
 INNER JOIN ed._FirstWave AS _FirstWave ON Abiturient.Id = _FirstWave.AbiturientId  " +
                     //((MainClass.dbType == PriemType.Priem) ? " INNER JOIN ed._FirstWaveGreen ON Abiturient.Id = _FirstWaveGreen.AbiturientId " : "") +
 @"LEFT JOIN ed.extAbitMarksSum ON Abiturient.Id = extAbitMarksSum.Id 
@@ -343,24 +351,30 @@ LEFT JOIN ed.Competition ON Competition.Id = Abiturient.CompetitionId ", kcRest)
                 sFilter += string.IsNullOrEmpty(spec) ? " AND extEntry.ProfileId = 0 " : " AND extEntry.ProfileId='" + spec + "'";
 
                 if (_studyBasisId == 1)
-                    sFilter += @" AND
+                    sFilter += string.Format(@" AND
 (
     Abiturient.Id IN
     ( 
 	    SELECT Abiturient.Id FROM ed._FirstWaveGreen 
 	    INNER JOIN ed.Abiturient ON Abiturient.Id = _FirstWaveGreen.AbiturientId
-	    WHERE NOT EXISTS (SELECT * FROM ed.hlpAbitToGo WHERE hlpAbitToGo.PersonId = Abiturient.PersonId AND hlpAbitToGo.IsGo = 1 AND hlpAbitToGo.Priority < Abiturient.Priority)
+	    WHERE NOT EXISTS 
+        (SELECT * FROM ed.hlpAbitToGo WHERE hlpAbitToGo.PersonId = Abiturient.PersonId AND hlpAbitToGo.IsGo = 1 
+        AND hlpAbitToGo.Priority < Abiturient.Priority AND hlpAbitToGo.StudyLevelGroupId = {0})
 	    UNION 
 	    SELECT Abiturient.Id FROM ed._FirstWaveYellow 
 	    INNER JOIN ed.Abiturient ON Abiturient.Id = _FirstWaveYellow.AbiturientId
-	    WHERE NOT EXISTS (SELECT * FROM ed.hlpAbitToGo WHERE hlpAbitToGo.PersonId = Abiturient.PersonId AND hlpAbitToGo.IsGo = 1 AND hlpAbitToGo.Priority < Abiturient.Priority)
+	    WHERE NOT EXISTS 
+        (SELECT * FROM ed.hlpAbitToGo WHERE hlpAbitToGo.PersonId = Abiturient.PersonId AND hlpAbitToGo.IsGo = 1 
+        AND hlpAbitToGo.Priority < Abiturient.Priority AND hlpAbitToGo.StudyLevelGroupId = {0})
 	    UNION 
 	    SELECT Abiturient.Id FROM ed._FirstWaveLast
 	    INNER JOIN ed.Abiturient ON Abiturient.Id = _FirstWaveLast.AbiturientId
-	    WHERE NOT EXISTS (SELECT * FROM ed.hlpAbitToGo WHERE hlpAbitToGo.PersonId = Abiturient.PersonId AND hlpAbitToGo.IsGo = 1 AND hlpAbitToGo.Priority < Abiturient.Priority)
+	    WHERE NOT EXISTS 
+        (SELECT * FROM ed.hlpAbitToGo WHERE hlpAbitToGo.PersonId = Abiturient.PersonId AND hlpAbitToGo.IsGo = 1 
+        AND hlpAbitToGo.Priority < Abiturient.Priority AND hlpAbitToGo.StudyLevelGroupId = {0})
 	)
     OR Abiturient.CompetitionId IN (1, 2, 7, 8)
-)";
+)", _studyLevelGroupId);
 
                 string orderBy = " ORDER BY SortNum";
 
