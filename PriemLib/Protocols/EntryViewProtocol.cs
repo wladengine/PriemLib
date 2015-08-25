@@ -301,7 +301,7 @@ namespace PriemLib
                         WHERE Excluded=0 AND E.StudyLevelGroupId = {9} AND (E.Id = Abiturient.EntryId OR E.ParentEntryId = Abiturient.EntryId)
                         AND E.FacultyId={0} AND E.StudyFormId={1} AND E.StudyBasisId={2} 
                         AND E.LicenseProgramId={3} AND E.IsSEcond = {4} AND E.IsReduced = {5} AND E.IsParallel = {6} AND E.ObrazProgramId={7} {8}", _facultyId, _studyFormId, _studyBasisId, _licenseProgramId, QueryServ.StringParseFromBool(_isSecond), QueryServ.StringParseFromBool(_isReduced), QueryServ.StringParseFromBool(_isParallel),
-                        obProg, string.IsNullOrEmpty(spec) ? " AND E.ProfileId IS NULL " : " AND E.ProfileId='" + spec + "'", _studyLevelGroupId);
+                        obProg, string.IsNullOrEmpty(spec) ? " AND E.ProfileId IS NULL " : string.Format(" AND E.ProfileId='{0}'", spec), _studyLevelGroupId);
 
                 if (_isCel)
                     enteredQuery += " AND Abiturient.CompetitionId = 6 ";

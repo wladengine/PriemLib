@@ -31,7 +31,7 @@ namespace PriemLib
                 // 3 - СПО
                 // 4 - иностранцы
                 // 5 - аспиранты
-                for (int SLGr = 1; SLGr <= 4; SLGr++)
+                for (int SLGr = 1; SLGr <= 5; SLGr++)
                 {
                     //взять максимум номера, если еще ничего не назначено
                     string num =

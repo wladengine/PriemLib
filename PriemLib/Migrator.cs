@@ -191,6 +191,7 @@ namespace PriemLib
                     {
                         _slIds.Add(drr["AbiturientId"].ToString(), _NewId);
                     }
+
                     _NewId++;          
                 }
                 if (dr["OrderNumFor"].ToString().Length != 0)
@@ -221,7 +222,8 @@ namespace PriemLib
 
                 var abitList =
                     (from Ab in context.Abiturient
-                     join Pers in context.Person on Ab.PersonId equals Pers.Id
+                     join Pers in context.extPerson on Ab.PersonId equals Pers.Id
+                     join PersEduc in context.extPerson_EducationInfo_Current on Pers.Id equals PersEduc.PersonId
                      join Ent in context.extEntry on Ab.EntryId equals Ent.Id
                      join extEV in context.extEntryView on Ab.Id equals extEV.AbiturientId
 
@@ -239,65 +241,64 @@ namespace PriemLib
                      {
                          Ab.Id,
                          Ab.RegNum,
-                         Ab.Person.Surname,
-                         Ab.Person.Name,
-                         Ab.Person.SecondName,
-                         Ab.Person.BirthDate,
-                         Ab.Person.BirthPlace,
-                         Ab.Person.Sex,
-                         Ab.Person.PassportTypeId,
-                         Ab.Person.PassportSeries,
-                         Ab.Person.PassportNumber,
-                         Ab.Person.PassportAuthor,
-                         Ab.Person.PassportDate,
-                         Ab.Person.NationalityId,
-                         Ab.Person.Person_Contacts.RegionId,
-                         Ab.Person.Person_Contacts.Phone,
-                         Ab.Person.Person_Contacts.Mobiles,
+                         Pers.Surname,
+                         Pers.Name,
+                         Pers.SecondName,
+                         Pers.BirthDate,
+                         Pers.BirthPlace,
+                         Pers.Sex,
+                         Pers.PassportTypeId,
+                         Pers.PassportSeries,
+                         Pers.PassportNumber,
+                         Pers.PassportAuthor,
+                         Pers.PassportDate,
+                         Pers.NationalityId,
+                         Pers.RegionId,
+                         Pers.Phone,
+                         Pers.Mobiles,
                          Ab.LanguageId,
-                         Ab.Person.Person_AdditionalInfo.Privileges,
-                         Ab.Person.Person_Contacts.Code,
-                         Ab.Person.Person_Contacts.City,
-                         Ab.Person.Person_Contacts.Street,
-                         Ab.Person.Person_Contacts.House,
-                         Ab.Person.Person_Contacts.Korpus,
-                         Ab.Person.Person_Contacts.Flat,
-                         Ab.Person.Person_Contacts.CodeReal,
-                         Ab.Person.Person_Contacts.CityReal,
-                         Ab.Person.Person_Contacts.StreetReal,
-                         Ab.Person.Person_Contacts.HouseReal,
-                         Ab.Person.Person_Contacts.KorpusReal,
-                         Ab.Person.Person_Contacts.FlatReal,
-                         Ab.Person.Person_EducationInfo.First().SchoolTypeId,
-                         Ab.Person.Person_EducationInfo.First().SchoolCity,
-                         Ab.Person.Person_EducationInfo.First().SchoolName,
-                         Ab.Person.Person_EducationInfo.First().SchoolNum,
-                         Ab.Person.Person_EducationInfo.First().SchoolExitYear,
-                         Ab.Person.Person_EducationInfo.First().AttestatSeries,
-                         Ab.Person.Person_EducationInfo.First().AttestatNum,
-                         Ab.Person.Person_EducationInfo.First().DiplomSeries,
-                         Ab.Person.Person_EducationInfo.First().DiplomNum,
-                         Ab.Person.Person_EducationInfo.First().IsExcellent,
-                         Nation = Ab.Person.Nationality.Name,
+                         Pers.Privileges,
+                         Pers.Code,
+                         Pers.City,
+                         Pers.Street,
+                         Pers.House,
+                         Pers.Korpus,
+                         Pers.Flat,
+                         Pers.CodeReal,
+                         Pers.CityReal,
+                         Pers.StreetReal,
+                         Pers.HouseReal,
+                         Pers.KorpusReal,
+                         Pers.FlatReal,
+                         PersEduc.SchoolTypeId,
+                         PersEduc.SchoolCity,
+                         PersEduc.SchoolName,
+                         PersEduc.SchoolNum,
+                         PersEduc.SchoolExitYear,
+                         PersEduc.AttestatSeries,
+                         PersEduc.AttestatNum,
+                         PersEduc.DiplomSeries,
+                         PersEduc.DiplomNum,
+                         PersEduc.IsExcellent,
+                         PersEduc.HEExitYear,
+                         Nation = Pers.NationalityName,
                          ForNation = forNat.Name,
-                         Ab.Entry.FacultyId,
-                         Ab.Entry.StudyFormId,
-                         Ab.Entry.StudyBasisId,
-                         Ab.Entry.LicenseProgramId,
-                         Ab.Entry.ProfileId,
+                         Ent.FacultyId,
+                         Ent.StudyFormId,
+                         Ent.StudyBasisId,
+                         Ent.LicenseProgramId,
+                         Ent.ProfileId,
                          Ab.CompetitionId,
                          Ab.StudyNumber,
-                         ObrazProgramName = Ab.Entry.SP_ObrazProgram.Name,
-                         ObrazProgramCrypt = Ab.Entry.StudyLevel.Acronym + "." + Ab.Entry.SP_ObrazProgram.Number + "." + MainClass.sPriemYear,
+                         ObrazProgramName = Ent.ObrazProgramName,
+                         ObrazProgramCrypt = Ent.ObrazProgramCrypt,
                          Ab.DocDate,
                          Ab.IsListener,
-                         Ab.Entry.StudyPlanNumber,
-                         ListenerTypeId = Ab.Entry.IsSecond ? 1 : (Ab.Entry.IsReduced ? 2 : (Ab.Entry.IsParallel ? 3 : 0)),
-                         //EntryProtId = extEV.Id,
-                         Ab.Person.Person_EducationInfo.First().HEExitYear,
-                         Ab.Person.Person_AdditionalInfo.HostelEduc,
-                         Ab.HasOriginals,
-                         Ab.Person.SNILS
+                         Ent.StudyPlanNumber,
+                         ListenerTypeId = Ent.IsSecond ? 1 : (Ent.IsReduced ? 2 : (Ent.IsParallel ? 3 : 0)),
+                         Pers.HostelEduc,
+                         Pers.HasOriginals,
+                         Pers.SNILS,
                      }).ToList();
 
 
@@ -362,7 +363,16 @@ namespace PriemLib
 
                     long abId = _slIds[Abit.Id.ToString()];
                     string regionId = string.Empty;
-                    regionId = IsFor ? _dRegion[Abit.ForNation] : _dRegion[Abit.Nation];
+
+                    if (IsFor)
+                    {
+                        if (_dRegion.ContainsKey(Abit.ForNation))
+                            regionId = _dRegion[Abit.ForNation];
+                        else
+                            regionId = _dRegion[Abit.Nation];
+                    }
+                    else
+                        regionId = _dRegion[Abit.Nation];
 
                     string AbitSchoolName = (Abit.SchoolName ?? "").Replace("'", "");
                     if (AbitSchoolName.Length > 200)
