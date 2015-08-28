@@ -1443,6 +1443,22 @@ namespace PriemLib
                             }
                         }
                     }
+
+                    if (CompetitionId == 2)
+                    {
+                        if (!CheckCountCompetitionEqual2(context))
+                        {
+                            MessageBox.Show("Ошибка при изменении типа конкурса", "У абитуриента уже есть конкурс 'в/к'", MessageBoxButtons.OK);
+                            return false; 
+                        }
+                        string s = CheckPersonPriveleges();
+                        if (!String.IsNullOrEmpty(s))
+                        {
+                            MessageBox.Show("Ошибка при изменении типа конкурса", s, MessageBoxButtons.OK);
+                            return false;
+                        }
+
+                    }
                     return true;
                 }
             }
@@ -1451,6 +1467,13 @@ namespace PriemLib
                 WinFormsServ.Error("Ошибка при CheckFields", exc);
                 return false;
             }
+        }
+        private bool CheckCountCompetitionEqual2(PriemEntities context)
+        {
+            int cnt = context.ExecuteStoreQuery<int>(string.Format("SELECT Count(Id) FROM Abiturient WHERE Abiturient.PersonId = '{0}' AND Abiturient.CompetitionId = 2 AND Abiturient.Id <> '{1}'", _personId, _Id)).FirstOrDefault();
+            if (cnt > 0)
+                return false;
+            else return true;
         }
 
         private bool CheckIsClosed(PriemEntities context)
@@ -2121,5 +2144,58 @@ namespace PriemLib
             crd.OnUpdated += FillCard;
             crd.Show();
         }
+
+        private string CheckPersonPriveleges()
+        {
+            using (PriemEntities context = new PriemEntities())
+            {
+                var PersonAddInfo = (from x in context.extPerson
+                                     where x.Id == _personId
+                                     select x.Privileges).First().ToString();
+                var BenefitDocs
+                    = (from x in context.BenefitDocumentType
+                       select new { x.Id, x.Name }).ToList();
+
+                List<List<int>> lstDocType = new List<List<int>>();
+                string s = "";
+
+                var PersonDocs = (from x in context.PersonBenefitDocument
+                                  where x.PersonId == _personId
+                                  select x.BenefitDocumentTypeId).ToList();
+
+                if (String.IsNullOrEmpty(PersonAddInfo))
+                {
+                    return "Для предоставления конкурса 'в/к' отсутствуют льготы.";
+                }
+                else if (PersonAddInfo.ToLower().Contains("сирота"))
+                {
+                    lstDocType.Add(new List<int>() { 1 });
+                    lstDocType.Add(new List<int>() { 2 });
+                    lstDocType.Add(new List<int>() { 3 });
+                }
+                else if (PersonAddInfo.ToLower().Contains("инвалид"))
+                {
+                    lstDocType.Add(new List<int>() { 1, 2 });
+                    lstDocType.Add(new List<int>() { 3 });
+                }
+
+                foreach (var lst in lstDocType)
+                {
+                    if (PersonDocs.Where(x => lst.Contains(x)).Count() == 0)
+                    {
+                        foreach (var doc in lst)
+                            s += BenefitDocs.Where(x => x.Id == doc).Select(x => x.Name).First().ToString() + " или ";
+                        s = s.Substring(0, s.Length - 5) + "; ";
+                    }
+                }
+                if (String.IsNullOrEmpty(s))
+                {
+                    s = "Для предоставления льготы '" + PersonAddInfo + "' необходимо ввести в персональной карточке абитуриента следующие документы: " + s;
+                    s = s.Substring(0, s.Length - 2) + ".";
+                }
+                return s;
+            }
+        }
+        
     }
 }
