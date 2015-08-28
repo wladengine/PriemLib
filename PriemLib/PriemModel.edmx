@@ -23,8 +23,8 @@
           <Property Name="IsCrimea" Type="bit" Nullable="false" />
           <Property Name="IsQuota" Type="bit" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem.ed._FirstWaveGreen' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Priem.ed._FirstWaveGreen" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="_FirstWaveGreen">
           <Key>
             <PropertyRef Name="AbiturientId" />
@@ -280,8 +280,8 @@ warning 6002: The table/view 'Priem.ed._FirstWaveGreen' does not have a primary 
           <Property Name="EgeExamNameId" Type="int" Nullable="false" />
           <Property Name="ExamId" Type="int" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem.ed.EgeToLanguage' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Priem.ed.EgeToLanguage" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="EgeToLanguage">
           <Key>
             <PropertyRef Name="ExamId" />
@@ -437,8 +437,8 @@ warning 6002: The table/view 'Priem.ed.EgeToLanguage' does not have a primary ke
           <Property Name="RoomNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Number" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem.ed.ExamsVedRoomHistory' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Priem.ed.ExamsVedRoomHistory" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="ExamsVedRoomHistory">
           <Key>
             <PropertyRef Name="ExamsVedRoomId" />
@@ -455,8 +455,8 @@ warning 6002: The table/view 'Priem.ed.ExamsVedRoomHistory' does not have a prim
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="SortGrade" Type="int" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem.ed.Fixieren' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Priem.ed.Fixieren" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="Fixieren">
           <Key>
             <PropertyRef Name="Number" />
@@ -727,8 +727,8 @@ warning 6002: The table/view 'Priem.ed.Fixieren' does not have a primary key def
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
           <Property Name="FISName" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem.ed.PayDataEntry' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Priem.ed.PayDataEntry" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="PayDataEntry">
           <Key>
             <PropertyRef Name="Id" />
@@ -981,6 +981,18 @@ warning 6002: The table/view 'Priem.ed.PayDataEntry' does not have a primary key
           <Property Name="SportQualificationLevel" Type="nvarchar" MaxLength="50" />
           <Property Name="OtherSportQualification" Type="nvarchar" MaxLength="500" />
         </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Priem.ed.Privilege" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="Privilege">
+          <Key>
+            <PropertyRef Name="Number" />
+            <PropertyRef Name="Maska" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Number" Type="tinyint" Nullable="false" />
+          <Property Name="Maska" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="Prorektor">
           <Key>
             <PropertyRef Name="Id" />
@@ -1206,8 +1218,8 @@ warning 6002: The table/view 'Priem.ed.PayDataEntry' does not have a primary key
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Acronym" Type="nvarchar" MaxLength="10" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem.ed.extAbit' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Priem.ed.extAbit" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="extAbit">
           <Key>
             <PropertyRef Name="Id" />
@@ -1323,8 +1335,8 @@ warning 6002: The table/view 'Priem.ed.extAbit' does not have a primary key defi
           <Property Name="IsCrimea" Type="bit" Nullable="false" />
           <Property Name="BackDocByAdmissionHigh" Type="bit" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem.ed.extAbitAdditionalMarksSum' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Priem.ed.extAbitAdditionalMarksSum" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="extAbitAdditionalMarksSum">
           <Key>
             <PropertyRef Name="AbiturientId" />
@@ -1332,8 +1344,8 @@ warning 6002: The table/view 'Priem.ed.extAbitAdditionalMarksSum' does not have 
           <Property Name="AbiturientId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="AdditionalMarksSum" Type="int" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem.ed.extAbitAllAdditionalAchievements' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Priem.ed.extAbitAllAdditionalAchievements" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="extAbitAllAdditionalAchievements">
           <Key>
             <PropertyRef Name="AbiturientId" />
@@ -1343,8 +1355,8 @@ warning 6002: The table/view 'Priem.ed.extAbitAllAdditionalAchievements' does no
           <Property Name="AchievementTypeId" Type="int" />
           <Property Name="Mark" Type="int" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem.ed.extAbitMarksSum' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Priem.ed.extAbitMarksSum" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="extAbitMarksSum">
           <Key>
             <PropertyRef Name="Id" />
@@ -1358,8 +1370,8 @@ warning 6002: The table/view 'Priem.ed.extAbitMarksSum' does not have a primary 
           <Property Name="TotalSumFiveGrade" Type="int" />
           <Property Name="TotalCount" Type="int" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem.ed.extApplicationDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Priem.ed.extApplicationDetails" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="extApplicationDetails">
           <Key>
             <PropertyRef Name="ApplicationId" />
@@ -1378,8 +1390,8 @@ warning 6002: The table/view 'Priem.ed.extApplicationDetails' does not have a pr
           <Property Name="ProfileId" Type="int" Nullable="false" />
           <Property Name="ProfileName" Type="nvarchar" MaxLength="1000" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem.ed.extDisEntryFromReEnterView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Priem.ed.extDisEntryFromReEnterView" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="extDisEntryFromReEnterView">
           <Key>
             <PropertyRef Name="Id" />
@@ -1418,8 +1430,8 @@ warning 6002: The table/view 'Priem.ed.extDisEntryFromReEnterView' does not have
           <Property Name="IsParallel" Type="bit" Nullable="false" />
           <Property Name="IsReduced" Type="bit" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem.ed.extDisEntryView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Priem.ed.extDisEntryView" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="extDisEntryView">
           <Key>
             <PropertyRef Name="Id" />
@@ -1457,8 +1469,8 @@ warning 6002: The table/view 'Priem.ed.extDisEntryView' does not have a primary 
           <Property Name="IsParallel" Type="bit" Nullable="false" />
           <Property Name="IsReduced" Type="bit" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem.ed.extEgeMark' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Priem.ed.extEgeMark" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="extEgeMark">
           <Key>
             <PropertyRef Name="Id" />
@@ -1485,8 +1497,8 @@ warning 6002: The table/view 'Priem.ed.extEgeMark' does not have a primary key d
           <Property Name="FISName" Type="nvarchar" MaxLength="50" />
           <Property Name="FBSStatusId" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem.ed.extEgeMarkMax' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Priem.ed.extEgeMarkMax" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="extEgeMarkMax">
           <Key>
             <PropertyRef Name="Id" />
@@ -1509,8 +1521,8 @@ warning 6002: The table/view 'Priem.ed.extEgeMarkMax' does not have a primary ke
           <Property Name="Number" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="PersonId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem.ed.extEgeMarkMaxAbit' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Priem.ed.extEgeMarkMaxAbit" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="extEgeMarkMaxAbit">
           <Key>
             <PropertyRef Name="AbiturientId" />
@@ -1535,8 +1547,8 @@ warning 6002: The table/view 'Priem.ed.extEgeMarkMaxAbit' does not have a primar
           <Property Name="Number" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="PersonId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem.ed.extEgeMarkMaxAbitApproved' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Priem.ed.extEgeMarkMaxAbitApproved" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="extEgeMarkMaxAbitApproved">
           <Key>
             <PropertyRef Name="AbiturientId" />
@@ -1561,8 +1573,8 @@ warning 6002: The table/view 'Priem.ed.extEgeMarkMaxAbitApproved' does not have 
           <Property Name="Number" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="PersonId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem.ed.extEgeMarkMaxApproved' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Priem.ed.extEgeMarkMaxApproved" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="extEgeMarkMaxApproved">
           <Key>
             <PropertyRef Name="Id" />
@@ -1585,8 +1597,8 @@ warning 6002: The table/view 'Priem.ed.extEgeMarkMaxApproved' does not have a pr
           <Property Name="Number" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="PersonId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem.ed.extEnableProtocol' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Priem.ed.extEnableProtocol" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="extEnableProtocol">
           <Key>
             <PropertyRef Name="Id" />
@@ -1620,8 +1632,8 @@ warning 6002: The table/view 'Priem.ed.extEnableProtocol' does not have a primar
           <Property Name="IsListener" Type="bit" Nullable="false" />
           <Property Name="ProtocolTypeName" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem.ed.extEntry' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Priem.ed.extEntry" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="extEntry">
           <Key>
             <PropertyRef Name="Id" />
@@ -1696,8 +1708,8 @@ warning 6002: The table/view 'Priem.ed.extEntry' does not have a primary key def
           <Property Name="ParentEntryId" Type="uniqueidentifier" />
           <Property Name="FacultyCode" Type="nvarchar" MaxLength="10" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem.ed.extEntryProtocols' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Priem.ed.extEntryProtocols" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="extEntryProtocols">
           <Key>
             <PropertyRef Name="Id" />
@@ -1733,8 +1745,8 @@ warning 6002: The table/view 'Priem.ed.extEntryProtocols' does not have a primar
           <Property Name="IsParallel" Type="bit" Nullable="false" />
           <Property Name="IsReduced" Type="bit" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem.ed.extEntryView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Priem.ed.extEntryView" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="extEntryView">
           <Key>
             <PropertyRef Name="Id" />
@@ -1796,8 +1808,8 @@ warning 6002: The table/view 'Priem.ed.extEntryView' does not have a primary key
           <Property Name="IsForeign" Type="bit" Nullable="false" />
           <Property Name="Priority" Type="int" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem.ed.extEntryView_ForDisEntered' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Priem.ed.extEntryView_ForDisEntered" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="extEntryView_ForDisEntered">
           <Key>
             <PropertyRef Name="Id" />
@@ -1841,8 +1853,8 @@ warning 6002: The table/view 'Priem.ed.extEntryView_ForDisEntered' does not have
           <Property Name="SignerName" Type="nvarchar" MaxLength="100" />
           <Property Name="SignerPosition" Type="nvarchar" MaxLength="100" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem.ed.extExamInEntry' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Priem.ed.extExamInEntry" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="extExamInEntry">
           <Key>
             <PropertyRef Name="Id" />
@@ -1892,8 +1904,8 @@ warning 6002: The table/view 'Priem.ed.extExamInEntry' does not have a primary k
           <Property Name="IsGosLine" Type="bit" Nullable="false" />
           <Property Name="ParentExamInEntryId" Type="int" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem.ed.extExamsVed' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Priem.ed.extExamsVed" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="extExamsVed">
           <Key>
             <PropertyRef Name="Id" />
@@ -1927,8 +1939,8 @@ warning 6002: The table/view 'Priem.ed.extExamsVed' does not have a primary key 
           <Property Name="StudyBasisAcr" Type="nvarchar" MaxLength="10" />
           <Property Name="FacultyName" Type="nvarchar" MaxLength="100" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem.ed.extFBSStatus' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Priem.ed.extFBSStatus" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="extFBSStatus">
           <Key>
             <PropertyRef Name="FBSStatus" />
@@ -1939,8 +1951,8 @@ warning 6002: The table/view 'Priem.ed.extFBSStatus' does not have a primary key
           <Property Name="PersonId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Surname" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem.ed.extForeignPerson' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Priem.ed.extForeignPerson" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="extForeignPerson">
           <Key>
             <PropertyRef Name="Id" />
@@ -2022,8 +2034,8 @@ warning 6002: The table/view 'Priem.ed.extForeignPerson' does not have a primary
           <Property Name="HasTRKI" Type="bit" />
           <Property Name="TRKICertificateNumber" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem.ed.extOlympBook' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Priem.ed.extOlympBook" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="extOlympBook">
           <Key>
             <PropertyRef Name="Id" />
@@ -2041,8 +2053,8 @@ warning 6002: The table/view 'Priem.ed.extOlympBook' does not have a primary key
           <Property Name="Number" Type="int" />
           <Property Name="OlympYear" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem.ed.extOlympiads' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Priem.ed.extOlympiads" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="extOlympiads">
           <Key>
             <PropertyRef Name="Id" />
@@ -2070,8 +2082,8 @@ warning 6002: The table/view 'Priem.ed.extOlympiads' does not have a primary key
           <Property Name="SortOrder" Type="int" />
           <Property Name="OlympValueAcr" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem.ed.extOlympiadsAll' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Priem.ed.extOlympiadsAll" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="extOlympiadsAll">
           <Key>
             <PropertyRef Name="Id" />
@@ -2100,8 +2112,8 @@ warning 6002: The table/view 'Priem.ed.extOlympiadsAll' does not have a primary 
           <Property Name="OlympValueSortOrder" Type="int" />
           <Property Name="OlympYear" Type="smallint" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem.ed.extPerson' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Priem.ed.extPerson" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="extPerson">
           <Key>
             <PropertyRef Name="Id" />
@@ -2209,8 +2221,8 @@ warning 6002: The table/view 'Priem.ed.extPerson' does not have a primary key de
           <Property Name="DateCreated" Type="datetime" Nullable="false" />
           <Property Name="HasOriginals" Type="bit" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem.ed.extPerson_EducationInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Priem.ed.extPerson_EducationInfo" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="extPerson_EducationInfo">
           <Key>
             <PropertyRef Name="Id" />
@@ -2262,8 +2274,8 @@ warning 6002: The table/view 'Priem.ed.extPerson_EducationInfo' does not have a 
           <Property Name="HEExitYear" Type="int" />
           <Property Name="HEWork" Type="nvarchar" MaxLength="500" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem.ed.extPerson_EducationInfo_Current' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Priem.ed.extPerson_EducationInfo_Current" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="extPerson_EducationInfo_Current">
           <Key>
             <PropertyRef Name="Id" />
@@ -2316,8 +2328,8 @@ warning 6002: The table/view 'Priem.ed.extPerson_EducationInfo_Current' does not
           <Property Name="HEWork" Type="nvarchar" MaxLength="500" />
           <Property Name="EducDocument" Type="nvarchar" MaxLength="42" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem.ed.extPersonAll' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Priem.ed.extPersonAll" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="extPersonAll">
           <Key>
             <PropertyRef Name="Id" />
@@ -2427,8 +2439,8 @@ warning 6002: The table/view 'Priem.ed.extPersonAll' does not have a primary key
           <Property Name="TRKICertificateNumber" Type="nvarchar" MaxLength="50" />
           <Property Name="ForeignCountryEducId" Type="int" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem.ed.extProtocol' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Priem.ed.extProtocol" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="extProtocol">
           <Key>
             <PropertyRef Name="Id" />
@@ -2481,8 +2493,8 @@ warning 6002: The table/view 'Priem.ed.extProtocol' does not have a primary key 
           <Property Name="ProtocolHistoryId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="IsForeign" Type="bit" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem.ed.hlpAbiturientActionLog' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Priem.ed.hlpAbiturientActionLog" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="hlpAbiturientActionLog">
           <Key>
             
@@ -2520,8 +2532,8 @@ warning 6002: The table/view 'Priem.ed.hlpAbiturientActionLog' does not have a p
           <Property Name="ActionAuthor" Type="nvarchar" MaxLength="100" />
           <Property Name="ActionType" Type="varchar" MaxLength="29" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem.ed.hlpAbiturientProf' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Priem.ed.hlpAbiturientProf" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="hlpAbiturientProf">
           <Key>
             <PropertyRef Name="Id" />
@@ -2530,8 +2542,8 @@ warning 6002: The table/view 'Priem.ed.hlpAbiturientProf' does not have a primar
           <Property Name="Prof" Type="decimal" Precision="38" Scale="1" />
           <Property Name="ProfFiveGrade" Type="tinyint" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem.ed.hlpAbiturientProfAdd' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Priem.ed.hlpAbiturientProfAdd" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="hlpAbiturientProfAdd">
           <Key>
             <PropertyRef Name="Id" />
@@ -2539,8 +2551,8 @@ warning 6002: The table/view 'Priem.ed.hlpAbiturientProfAdd' does not have a pri
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="ProfAdd" Type="decimal" Precision="38" Scale="1" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem.ed.hlpEgeMarkMaxApproved' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Priem.ed.hlpEgeMarkMaxApproved" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="hlpEgeMarkMaxApproved">
           <Key>
             <PropertyRef Name="PersonId" />
@@ -2550,8 +2562,8 @@ warning 6002: The table/view 'Priem.ed.hlpEgeMarkMaxApproved' does not have a pr
           <Property Name="EgeExamNameId" Type="int" Nullable="false" />
           <Property Name="EgeMarkId" Type="uniqueidentifier" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem.ed.hlpPersonMaxEducationInfoId' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Priem.ed.hlpPersonMaxEducationInfoId" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="hlpPersonMaxEducationInfoId">
           <Key>
             <PropertyRef Name="PersonId" />
@@ -2559,8 +2571,8 @@ warning 6002: The table/view 'Priem.ed.hlpPersonMaxEducationInfoId' does not hav
           <Property Name="PersonId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Id" Type="int" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem.ed.hlpStatistics' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Priem.ed.hlpStatistics" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="hlpStatistics">
           <Key>
             <PropertyRef Name="EntryId" />
@@ -2595,8 +2607,8 @@ warning 6002: The table/view 'Priem.ed.hlpStatistics' does not have a primary ke
           <Property Name="Date" Type="date" />
           <Property Name="CNT" Type="int" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem.ed.qAbitAll' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Priem.ed.qAbitAll" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="qAbitAll">
           <Key>
             <PropertyRef Name="Id" />
@@ -2697,8 +2709,8 @@ warning 6002: The table/view 'Priem.ed.qAbitAll' does not have a primary key def
           <Property Name="IsForeign" Type="bit" Nullable="false" />
           <Property Name="IsCrimea" Type="bit" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem.ed.qAbiturient' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Priem.ed.qAbiturient" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="qAbiturient">
           <Key>
             <PropertyRef Name="Id" />
@@ -2804,8 +2816,8 @@ warning 6002: The table/view 'Priem.ed.qAbiturient' does not have a primary key 
           <Property Name="BackDocByAdmissionHigh" Type="bit" Nullable="false" />
           <Property Name="OlympiadId" Type="uniqueidentifier" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem.ed.qAbiturient_WhoSetBackDoc' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Priem.ed.qAbiturient_WhoSetBackDoc" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="qAbiturient_WhoSetBackDoc">
           <Key>
             <PropertyRef Name="IntId" />
@@ -2821,8 +2833,8 @@ warning 6002: The table/view 'Priem.ed.qAbiturient_WhoSetBackDoc' does not have 
           <Property Name="FacultyAcronym" Type="nvarchar" MaxLength="50" />
           <Property Name="PersonId" Type="uniqueidentifier" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem.ed.qAbiturient_WhoSetHasOriginals' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Priem.ed.qAbiturient_WhoSetHasOriginals" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="qAbiturient_WhoSetHasOriginals">
           <Key>
             <PropertyRef Name="IntId" />
@@ -2838,8 +2850,8 @@ warning 6002: The table/view 'Priem.ed.qAbiturient_WhoSetHasOriginals' does not 
           <Property Name="FacultyAcronym" Type="nvarchar" MaxLength="50" />
           <Property Name="PersonId" Type="uniqueidentifier" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem.ed.qAbiturient_WhoSetIsPaid' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Priem.ed.qAbiturient_WhoSetIsPaid" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="qAbiturient_WhoSetIsPaid">
           <Key>
             <PropertyRef Name="IntId" />
@@ -2855,16 +2867,16 @@ warning 6002: The table/view 'Priem.ed.qAbiturient_WhoSetIsPaid' does not have a
           <Property Name="FacultyAcronym" Type="nvarchar" MaxLength="50" />
           <Property Name="PersonId" Type="uniqueidentifier" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem.ed.qAbiturientForeignApplicationsOnly' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Priem.ed.qAbiturientForeignApplicationsOnly" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="qAbiturientForeignApplicationsOnly">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem.ed.qEntry' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Priem.ed.qEntry" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="qEntry">
           <Key>
             <PropertyRef Name="Id" />
@@ -2932,8 +2944,8 @@ warning 6002: The table/view 'Priem.ed.qEntry' does not have a primary key defin
           <Property Name="DateOfStart" Type="datetime" Nullable="false" />
           <Property Name="DateOfClose" Type="datetime" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem.ed.qEntryToCompetitiveGroup' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Priem.ed.qEntryToCompetitiveGroup" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="qEntryToCompetitiveGroup">
           <Key>
             <PropertyRef Name="EntryId" />
@@ -2944,8 +2956,8 @@ warning 6002: The table/view 'Priem.ed.qEntryToCompetitiveGroup' does not have a
           <Property Name="CompetitiveGroupId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="CompetitiveGroupName" Type="nvarchar" MaxLength="1000" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem.ed.qFaculty' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Priem.ed.qFaculty" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="qFaculty">
           <Key>
             <PropertyRef Name="Id" />
@@ -2957,8 +2969,8 @@ warning 6002: The table/view 'Priem.ed.qFaculty' does not have a primary key def
           <Property Name="DatName" Type="nvarchar" MaxLength="100" />
           <Property Name="VinName" Type="nvarchar" MaxLength="100" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem.ed.qLicenseProgram' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Priem.ed.qLicenseProgram" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="qLicenseProgram">
           <Key>
             <PropertyRef Name="Id" />
@@ -2967,8 +2979,8 @@ warning 6002: The table/view 'Priem.ed.qLicenseProgram' does not have a primary 
           <Property Name="Name" Type="nvarchar" MaxLength="1000" />
           <Property Name="Code" Type="nvarchar" MaxLength="10" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem.ed.qMark' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Priem.ed.qMark" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="qMark">
           <Key>
             <PropertyRef Name="Id" />
@@ -3014,8 +3026,8 @@ warning 6002: The table/view 'Priem.ed.qMark' does not have a primary key define
           <Property Name="PersonId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="StudyBasisId" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem.ed.qObrazProgram' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Priem.ed.qObrazProgram" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="qObrazProgram">
           <Key>
             <PropertyRef Name="Id" />
@@ -3030,8 +3042,8 @@ warning 6002: The table/view 'Priem.ed.qObrazProgram' does not have a primary ke
           <Property Name="LicenseProgramName" Type="nvarchar" MaxLength="1000" Nullable="false" />
           <Property Name="Number" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem.ed.qProfile' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Priem.ed.qProfile" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="qProfile">
           <Key>
             <PropertyRef Name="Id" />
@@ -3039,8 +3051,8 @@ warning 6002: The table/view 'Priem.ed.qProfile' does not have a primary key def
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="1000" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem.ed.qProtocol' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Priem.ed.qProtocol" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="qProtocol">
           <Key>
             <PropertyRef Name="Id" />
@@ -3069,8 +3081,8 @@ warning 6002: The table/view 'Priem.ed.qProtocol' does not have a primary key de
           <Property Name="IsListener" Type="bit" Nullable="false" />
           <Property Name="IsForeign" Type="bit" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem.ed.qProtocolHistory' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Priem.ed.qProtocolHistory" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="qProtocolHistory">
           <Key>
             <PropertyRef Name="AbiturientId" />
@@ -3106,8 +3118,8 @@ warning 6002: The table/view 'Priem.ed.qProtocolHistory' does not have a primary
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="IsForeign" Type="bit" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem.ed.qStudyLevel' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Priem.ed.qStudyLevel" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="qStudyLevel">
           <Key>
             <PropertyRef Name="Id" />
@@ -4016,18 +4028,6 @@ warning 6002: The table/view 'Priem.ed.qStudyLevel' does not have a primary key 
             </Principal>
             <Dependent Role="PaidData">
               <PropertyRef Name="AbiturientId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PaidData_DogovorType">
-          <End Role="DogovorType" Type="Self.DogovorType" Multiplicity="1" />
-          <End Role="PaidData" Type="Self.PaidData" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DogovorType">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="PaidData">
-              <PropertyRef Name="DogovorTypeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -5966,6 +5966,13 @@ FROM [ed].[Fixieren] AS [Fixieren]</DefiningQuery>
 [PayDataEntry].[Holder] AS [Holder]
 FROM [ed].[PayDataEntry] AS [PayDataEntry]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="Privilege" EntityType="Self.Privilege" store:Type="Tables" store:Schema="ed">
+            <DefiningQuery>SELECT 
+[Privilege].[Number] AS [Number], 
+[Privilege].[Maska] AS [Maska], 
+[Privilege].[Name] AS [Name]
+FROM [ed].[Privilege] AS [Privilege]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="extAbit" EntityType="Self.extAbit" store:Type="Views" store:Schema="ed">
             <DefiningQuery>SELECT 
 [extAbit].[Id] AS [Id], 
@@ -7545,10 +7552,6 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           </AssociationSet>
           <AssociationSet Name="FK_PaidData_Abiturient" Association="Self.FK_PaidData_Abiturient">
             <End Role="Abiturient" EntitySet="Abiturient" />
-            <End Role="PaidData" EntitySet="PaidData" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PaidData_DogovorType" Association="Self.FK_PaidData_DogovorType">
-            <End Role="DogovorType" EntitySet="DogovorType" />
             <End Role="PaidData" EntitySet="PaidData" />
           </AssociationSet>
           <AssociationSet Name="FK_PaidData_PayPeriod" Association="Self.FK_PaidData_PayPeriod">
@@ -9613,6 +9616,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           </AssociationSet>
           <EntitySet Name="extAbitAllAdditionalAchievements" EntityType="Priem2012Model.extAbitAllAdditionalAchievements" />
           <EntitySet Name="AdmissionProtocol" EntityType="Priem2012Model.AdmissionProtocol" />
+          <EntitySet Name="Privilege" EntityType="Priem2012Model.Privilege" />
           </EntityContainer>
         <EntityType Name="AttMarks">
           <Key>
@@ -14175,6 +14179,16 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Number" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="Privilege">
+          <Key>
+            <PropertyRef Name="Number" />
+            <PropertyRef Name="Maska" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Number" Type="Byte" Nullable="false" />
+          <Property Name="Maska" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -16926,6 +16940,15 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
                 <ScalarProperty Name="Number" ColumnName="Number" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Privilege">
+            <EntityTypeMapping TypeName="Priem2012Model.Privilege">
+              <MappingFragment StoreEntitySet="Privilege">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Maska" ColumnName="Maska" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

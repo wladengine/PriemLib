@@ -13,6 +13,7 @@ using System.Text.RegularExpressions;
 
 using BaseFormsLib;
 using EducServLib;
+ 
 using System.Data.Entity.Core.Objects;
 using System.Threading.Tasks;
 
@@ -1448,13 +1449,13 @@ namespace PriemLib
                     {
                         if (!CheckCountCompetitionEqual2(context))
                         {
-                            MessageBox.Show("Ошибка при изменении типа конкурса", "У абитуриента уже есть конкурс 'в/к'", MessageBoxButtons.OK);
+                            MessageBox.Show("У абитуриента уже есть конкурс 'в/к'","Ошибка при изменении типа конкурса",  MessageBoxButtons.OK);
                             return false; 
                         }
                         string s = CheckPersonPriveleges();
                         if (!String.IsNullOrEmpty(s))
                         {
-                            MessageBox.Show("Ошибка при изменении типа конкурса", s, MessageBoxButtons.OK);
+                            MessageBox.Show( s,"Ошибка при изменении типа конкурса", MessageBoxButtons.OK);
                             return false;
                         }
 
@@ -2149,48 +2150,78 @@ namespace PriemLib
         {
             using (PriemEntities context = new PriemEntities())
             {
-                var PersonAddInfo = (from x in context.extPerson
+                int PersonPrivelege = (from x in context.extPerson 
                                      where x.Id == _personId
-                                     select x.Privileges).First().ToString();
+                                     select x.Privileges).First();
+                var Priveleges =
+                    (from x in context.Privilege
+                     select new { x.Number, x.Maska, x.Name }).ToList();
+
                 var BenefitDocs
                     = (from x in context.BenefitDocumentType
                        select new { x.Id, x.Name }).ToList();
 
+                List<string> PersonPriveleges = new List<string>();
+                foreach (var x in Priveleges.OrderByDescending(x => x.Maska))
+                {
+                    if (PersonPrivelege >= x.Maska)
+                    {
+                        PersonPriveleges.Add(x.Name);
+                        PersonPrivelege -= x.Maska;
+                    }
+                }
+
                 List<List<int>> lstDocType = new List<List<int>>();
+
                 string s = "";
 
                 var PersonDocs = (from x in context.PersonBenefitDocument
                                   where x.PersonId == _personId
                                   select x.BenefitDocumentTypeId).ToList();
 
-                if (String.IsNullOrEmpty(PersonAddInfo))
+                if (PersonPriveleges.Count() == 0)
                 {
                     return "Для предоставления конкурса 'в/к' отсутствуют льготы.";
                 }
-                else if (PersonAddInfo.ToLower().Contains("сирота"))
+                else
                 {
-                    lstDocType.Add(new List<int>() { 1 });
-                    lstDocType.Add(new List<int>() { 2 });
-                    lstDocType.Add(new List<int>() { 3 });
+                    if (PersonPriveleges.Where(x=>x.Contains("сирота")).Count()>0)
+                    {
+                        lstDocType.Add(new List<int>() { 1 });
+                        lstDocType.Add(new List<int>() { 2 });
+                        lstDocType.Add(new List<int>() { 3 });
+                    }
+                    else if (PersonPriveleges.Where(x => x.Contains("инвалид")).Count() > 0)
+                    {
+                        lstDocType.Add(new List<int>() { 1, 2 });
+                        lstDocType.Add(new List<int>() { 3 });
+                    }
+                    else
+                    {
+                        lstDocType.Add(new List<int>() { 1, 2, 3, 4 });
+                    }
                 }
-                else if (PersonAddInfo.ToLower().Contains("инвалид"))
-                {
-                    lstDocType.Add(new List<int>() { 1, 2 });
-                    lstDocType.Add(new List<int>() { 3 });
-                }
-
                 foreach (var lst in lstDocType)
                 {
                     if (PersonDocs.Where(x => lst.Contains(x)).Count() == 0)
                     {
-                        foreach (var doc in lst)
-                            s += BenefitDocs.Where(x => x.Id == doc).Select(x => x.Name).First().ToString() + " или ";
+                        foreach (int docId in lst)
+                            s += BenefitDocs.Where(x => x.Id == docId).Select(x => x.Name).First().ToString() + " или ";
                         s = s.Substring(0, s.Length - 5) + "; ";
                     }
                 }
-                if (String.IsNullOrEmpty(s))
+                if (!String.IsNullOrEmpty(s))
                 {
-                    s = "Для предоставления льготы '" + PersonAddInfo + "' необходимо ввести в персональной карточке абитуриента следующие документы: " + s;
+                    string sub = "";
+                    sub = "Для предоставления льгот";
+                    if (PersonPriveleges.Count() == 1)
+                        sub += "ы";
+                    
+                    foreach (var p in PersonPriveleges)
+                    {
+                        sub += " '" + p + "',";
+                    }
+                    s = sub.Substring(0, sub.Length-1) + " необходимо ввести в персональной карточке абитуриента следующие документы: " + s;
                     s = s.Substring(0, s.Length - 2) + ".";
                 }
                 return s;

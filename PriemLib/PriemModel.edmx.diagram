@@ -939,6 +939,7 @@
         <edmx:AssociationConnector Association="Priem2012Model.fk_ProtocolHistory_Protocol" />
         <edmx:EntityTypeShape EntityType="Priem2012Model.extAbitAllAdditionalAchievements" Width="1.5" PointX="36.375" PointY="9.75" />
         <edmx:EntityTypeShape EntityType="Priem2012Model.AdmissionProtocol" Width="1.5" PointX="35.375" PointY="0.75" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.Privilege" Width="1.5" PointX="36.375" PointY="12.75" />
         </edmx:Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

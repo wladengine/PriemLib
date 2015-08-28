@@ -1721,6 +1721,7 @@ namespace PriemLib
                     Guid gId = (Guid)dgvBenefitDocument["Id", rwInd].Value;
                     context.PersonBenefitDocument_delete(gId);
                 }
+                UpdateGridBenefits();
             }
         }
         #endregion
