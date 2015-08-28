@@ -117,7 +117,7 @@ namespace PriemLib
                     UpdateInnerPrioritiesAfterStudyBasis();
 
                     cbOtherCompetition.Visible = false;
-                    lblOtherCompetition.Visible = false;
+                    lblCompetitionAddInfo.Visible = false;
                     cbCelCompetition.Visible = false;
                     lblCelCompetition.Visible = false;
                     tbCelCompetitionText.Visible = false;
@@ -231,6 +231,10 @@ namespace PriemLib
                     FillCompetition();
 
                     CompetitionId = abit.CompetitionId;
+
+                    UpdateBenefitOlympSource();
+                    OlympiadId = abit.OlympiadId;
+
                     OtherCompetitionId = abit.OtherCompetitionId;
                     CelCompetitionId = abit.CelCompetitionId;
                     CelCompetitionText = abit.CelCompetitionText;
@@ -1165,6 +1169,8 @@ namespace PriemLib
                 chbChecked.Enabled = false;
             }
 
+            cbBenefitOlympSource.Visible = (CompetitionId == 1 || CompetitionId == 8);
+
             if (CompetitionId == 6)
             {
                 if (_Id != null)
@@ -1172,7 +1178,7 @@ namespace PriemLib
 
                 cbOtherCompetition.SelectedIndex = 0;
                 cbCelCompetition.SelectedIndex = 0;
-                lblOtherCompetition.Visible = true;
+                lblCompetitionAddInfo.Visible = true;
                 cbOtherCompetition.Visible = true;
 
                 lblCelCompetition.Visible = true;
@@ -1185,7 +1191,7 @@ namespace PriemLib
                     chbChecked.Enabled = true;
 
                 cbOtherCompetition.SelectedIndex = 0;
-                lblOtherCompetition.Visible = false;
+                lblCompetitionAddInfo.Visible = false;
                 cbOtherCompetition.Visible = false;
                 tbCelCompetitionText.Text = "";
                 tbCelCompetitionText.Visible = false;
@@ -1193,6 +1199,31 @@ namespace PriemLib
                 lblCelCompetition.Visible = false;
                 cbCelCompetition.Visible = false;
                 cbCelCompetition.SelectedIndex = 0;
+            }
+        }
+
+        private void UpdateBenefitOlympSource()
+        {
+            if (!GuidId.HasValue)
+                return;
+
+            using (PriemEntities context = new PriemEntities())
+            {
+                List<KeyValuePair<string, string>> lst =
+                        ((from Ol in context.extOlympiadsAll
+                          where Ol.AbiturientId == GuidId
+                          select new
+                          {
+                              Id = Ol.Id,
+                              Ol.OlympName,
+                              Ol.OlympSubjectName,
+                              Ol.OlympValueName,
+                              Ol.OlympYear
+                          }).Distinct()).ToList()
+                          .Select(u => new KeyValuePair<string, string>(u.Id.ToString(), string.Format("({0}) {1} ({2}) - {3}", u.OlympYear, u.OlympName, u.OlympSubjectName, u.OlympValueName)))
+                          .ToList();
+
+                ComboServ.FillCombo(cbBenefitOlympSource, lst, false, false);
             }
         }
 
@@ -1616,6 +1647,9 @@ namespace PriemLib
 
             if (MainClass.RightsFaculty())
                 return true;
+            else if (MainClass.IsPasha() || MainClass.IsOwner())
+                return false;
+
 
             if (inEntryView)
                 return true;

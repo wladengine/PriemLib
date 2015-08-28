@@ -74,7 +74,7 @@
             this.chbHasOriginals = new System.Windows.Forms.CheckBox();
             this.chbNotEnabled = new System.Windows.Forms.CheckBox();
             this.lblCompFromOlymp = new System.Windows.Forms.Label();
-            this.lblOtherCompetition = new System.Windows.Forms.Label();
+            this.lblCompetitionAddInfo = new System.Windows.Forms.Label();
             this.tbRegNum = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.chbChecked = new System.Windows.Forms.CheckBox();
@@ -131,6 +131,7 @@
             this.lblFIO = new System.Windows.Forms.Label();
             this.btnCardPerson = new System.Windows.Forms.Button();
             this.epErrorInput = new System.Windows.Forms.ErrorProvider(this.components);
+            this.cbBenefitOlympSource = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.epError)).BeginInit();
             this.tabCard.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -248,6 +249,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.cbBenefitOlympSource);
             this.tabPage1.Controls.Add(this.btnChangeOriginalsDestination);
             this.tabPage1.Controls.Add(this.lblBackDocByAdmissionHigh);
             this.tabPage1.Controls.Add(this.chbIsCrimea);
@@ -275,7 +277,7 @@
             this.tabPage1.Controls.Add(this.chbHasOriginals);
             this.tabPage1.Controls.Add(this.chbNotEnabled);
             this.tabPage1.Controls.Add(this.lblCompFromOlymp);
-            this.tabPage1.Controls.Add(this.lblOtherCompetition);
+            this.tabPage1.Controls.Add(this.lblCompetitionAddInfo);
             this.tabPage1.Controls.Add(this.tbRegNum);
             this.tabPage1.Controls.Add(this.label2);
             this.tabPage1.Controls.Add(this.chbChecked);
@@ -439,7 +441,7 @@
             this.cbOtherCompetition.FormattingEnabled = true;
             this.cbOtherCompetition.Location = new System.Drawing.Point(226, 288);
             this.cbOtherCompetition.Name = "cbOtherCompetition";
-            this.cbOtherCompetition.Size = new System.Drawing.Size(170, 21);
+            this.cbOtherCompetition.Size = new System.Drawing.Size(262, 21);
             this.cbOtherCompetition.TabIndex = 123;
             // 
             // cbCelCompetition
@@ -621,14 +623,14 @@
             this.lblCompFromOlymp.TabIndex = 103;
             this.lblCompFromOlymp.Text = "из олимпиады";
             // 
-            // lblOtherCompetition
+            // lblCompetitionAddInfo
             // 
-            this.lblOtherCompetition.AutoSize = true;
-            this.lblOtherCompetition.Location = new System.Drawing.Point(223, 272);
-            this.lblOtherCompetition.Name = "lblOtherCompetition";
-            this.lblOtherCompetition.Size = new System.Drawing.Size(165, 13);
-            this.lblOtherCompetition.TabIndex = 102;
-            this.lblOtherCompetition.Text = "Дополнительный тип конкурса";
+            this.lblCompetitionAddInfo.AutoSize = true;
+            this.lblCompetitionAddInfo.Location = new System.Drawing.Point(223, 272);
+            this.lblCompetitionAddInfo.Name = "lblCompetitionAddInfo";
+            this.lblCompetitionAddInfo.Size = new System.Drawing.Size(165, 13);
+            this.lblCompetitionAddInfo.TabIndex = 102;
+            this.lblCompetitionAddInfo.Text = "Дополнительный тип конкурса";
             // 
             // tbRegNum
             // 
@@ -1278,6 +1280,18 @@
             // 
             this.epErrorInput.ContainerControl = this;
             // 
+            // cbBenefitOlympSource
+            // 
+            this.cbBenefitOlympSource.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cbBenefitOlympSource.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cbBenefitOlympSource.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbBenefitOlympSource.FormattingEnabled = true;
+            this.cbBenefitOlympSource.Location = new System.Drawing.Point(226, 288);
+            this.cbBenefitOlympSource.Name = "cbBenefitOlympSource";
+            this.cbBenefitOlympSource.Size = new System.Drawing.Size(262, 21);
+            this.cbBenefitOlympSource.TabIndex = 133;
+            this.cbBenefitOlympSource.Visible = false;
+            // 
             // CardAbit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1372,7 +1386,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox tbCoefficient;
         
-        private System.Windows.Forms.Label lblOtherCompetition;
+        private System.Windows.Forms.Label lblCompetitionAddInfo;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox tbEnabledProtocol;
         private System.Windows.Forms.Label label5;
@@ -1434,5 +1448,6 @@
         private System.Windows.Forms.Button btnSaveInnerEntryInEntry;
         private System.Windows.Forms.Label lblBackDocByAdmissionHigh;
         private System.Windows.Forms.Button btnChangeOriginalsDestination;
+        private System.Windows.Forms.ComboBox cbBenefitOlympSource;
     }
 }

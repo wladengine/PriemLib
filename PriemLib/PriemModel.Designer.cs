@@ -2398,22 +2398,6 @@ namespace PriemLib
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<AdmissionProtocol> AdmissionProtocol
-        {
-            get
-            {
-                if ((_AdmissionProtocol == null))
-                {
-                    _AdmissionProtocol = base.CreateObjectSet<AdmissionProtocol>("AdmissionProtocol");
-                }
-                return _AdmissionProtocol;
-            }
-        }
-        private ObjectSet<AdmissionProtocol> _AdmissionProtocol;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<extDisEntryFromReEnterView> extDisEntryFromReEnterView
         {
             get
@@ -2458,6 +2442,22 @@ namespace PriemLib
             }
         }
         private ObjectSet<extAbitAllAdditionalAchievements> _extAbitAllAdditionalAchievements;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<AdmissionProtocol> AdmissionProtocol
+        {
+            get
+            {
+                if ((_AdmissionProtocol == null))
+                {
+                    _AdmissionProtocol = base.CreateObjectSet<AdmissionProtocol>("AdmissionProtocol");
+                }
+                return _AdmissionProtocol;
+            }
+        }
+        private ObjectSet<AdmissionProtocol> _AdmissionProtocol;
 
         #endregion
 
@@ -3568,14 +3568,6 @@ namespace PriemLib
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the AdmissionProtocol EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToAdmissionProtocol(AdmissionProtocol admissionProtocol)
-        {
-            base.AddObject("AdmissionProtocol", admissionProtocol);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the extDisEntryFromReEnterView EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToextDisEntryFromReEnterView(extDisEntryFromReEnterView extDisEntryFromReEnterView)
@@ -3597,6 +3589,14 @@ namespace PriemLib
         public void AddToextAbitAllAdditionalAchievements(extAbitAllAdditionalAchievements extAbitAllAdditionalAchievements)
         {
             base.AddObject("extAbitAllAdditionalAchievements", extAbitAllAdditionalAchievements);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the AdmissionProtocol EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToAdmissionProtocol(AdmissionProtocol admissionProtocol)
+        {
+            base.AddObject("AdmissionProtocol", admissionProtocol);
         }
 
         #endregion
@@ -16002,6 +16002,30 @@ namespace PriemLib
         private global::System.Boolean _BackDocByAdmissionHigh;
         partial void OnBackDocByAdmissionHighChanging(global::System.Boolean value);
         partial void OnBackDocByAdmissionHighChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Guid> OlympiadId
+        {
+            get
+            {
+                return _OlympiadId;
+            }
+            set
+            {
+                OnOlympiadIdChanging(value);
+                ReportPropertyChanging("OlympiadId");
+                _OlympiadId = StructuralObject.SetValidValue(value, "OlympiadId");
+                ReportPropertyChanged("OlympiadId");
+                OnOlympiadIdChanged();
+            }
+        }
+        private Nullable<global::System.Guid> _OlympiadId;
+        partial void OnOlympiadIdChanging(Nullable<global::System.Guid> value);
+        partial void OnOlympiadIdChanged();
 
         #endregion
 
@@ -16656,7 +16680,7 @@ namespace PriemLib
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.DateTime Date
         {
@@ -16666,14 +16690,11 @@ namespace PriemLib
             }
             set
             {
-                if (_Date != value)
-                {
-                    OnDateChanging(value);
-                    ReportPropertyChanging("Date");
-                    _Date = StructuralObject.SetValidValue(value, "Date");
-                    ReportPropertyChanged("Date");
-                    OnDateChanged();
-                }
+                OnDateChanging(value);
+                ReportPropertyChanging("Date");
+                _Date = StructuralObject.SetValidValue(value, "Date");
+                ReportPropertyChanged("Date");
+                OnDateChanged();
             }
         }
         private global::System.DateTime _Date;
@@ -16683,7 +16704,7 @@ namespace PriemLib
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String Number
         {
@@ -16693,14 +16714,11 @@ namespace PriemLib
             }
             set
             {
-                if (_Number != value)
-                {
-                    OnNumberChanging(value);
-                    ReportPropertyChanging("Number");
-                    _Number = StructuralObject.SetValidValue(value, false, "Number");
-                    ReportPropertyChanged("Number");
-                    OnNumberChanged();
-                }
+                OnNumberChanging(value);
+                ReportPropertyChanging("Number");
+                _Number = StructuralObject.SetValidValue(value, false, "Number");
+                ReportPropertyChanged("Number");
+                OnNumberChanged();
             }
         }
         private global::System.String _Number;
@@ -65127,6 +65145,30 @@ namespace PriemLib
         private global::System.Boolean _BackDocByAdmissionHigh;
         partial void OnBackDocByAdmissionHighChanging(global::System.Boolean value);
         partial void OnBackDocByAdmissionHighChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Guid> OlympiadId
+        {
+            get
+            {
+                return _OlympiadId;
+            }
+            set
+            {
+                OnOlympiadIdChanging(value);
+                ReportPropertyChanging("OlympiadId");
+                _OlympiadId = StructuralObject.SetValidValue(value, "OlympiadId");
+                ReportPropertyChanged("OlympiadId");
+                OnOlympiadIdChanged();
+            }
+        }
+        private Nullable<global::System.Guid> _OlympiadId;
+        partial void OnOlympiadIdChanging(Nullable<global::System.Guid> value);
+        partial void OnOlympiadIdChanged();
 
         #endregion
 
@@ -67377,7 +67419,9 @@ namespace PriemLib
         /// <param name="examNameId">Initial value of the ExamNameId property.</param>
         /// <param name="entranceTestType">Initial value of the EntranceTestType property.</param>
         /// <param name="orderNumber">Initial value of the OrderNumber property.</param>
-        public static qMark CreateqMark(global::System.Guid id, global::System.Guid abiturientId, global::System.Int32 examInEntryId, global::System.Decimal value, global::System.Boolean isFromEge, global::System.Boolean isFromOlymp, global::System.Boolean isManual, global::System.Guid entryId, global::System.Boolean isAdditional, global::System.Boolean isProfil, global::System.Int32 studyLevelGroupId, global::System.Int32 examId, global::System.Int32 examNameId, global::System.String entranceTestType, global::System.Byte orderNumber)
+        /// <param name="personId">Initial value of the PersonId property.</param>
+        /// <param name="studyBasisId">Initial value of the StudyBasisId property.</param>
+        public static qMark CreateqMark(global::System.Guid id, global::System.Guid abiturientId, global::System.Int32 examInEntryId, global::System.Decimal value, global::System.Boolean isFromEge, global::System.Boolean isFromOlymp, global::System.Boolean isManual, global::System.Guid entryId, global::System.Boolean isAdditional, global::System.Boolean isProfil, global::System.Int32 studyLevelGroupId, global::System.Int32 examId, global::System.Int32 examNameId, global::System.String entranceTestType, global::System.Byte orderNumber, global::System.Guid personId, global::System.Int32 studyBasisId)
         {
             qMark qMark = new qMark();
             qMark.Id = id;
@@ -67395,6 +67439,8 @@ namespace PriemLib
             qMark.ExamNameId = examNameId;
             qMark.EntranceTestType = entranceTestType;
             qMark.OrderNumber = orderNumber;
+            qMark.PersonId = personId;
+            qMark.StudyBasisId = studyBasisId;
             return qMark;
         }
 
@@ -67971,6 +68017,60 @@ namespace PriemLib
         private Nullable<global::System.Int32> _ParentExamInEntryId;
         partial void OnParentExamInEntryIdChanging(Nullable<global::System.Int32> value);
         partial void OnParentExamInEntryIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid PersonId
+        {
+            get
+            {
+                return _PersonId;
+            }
+            set
+            {
+                if (_PersonId != value)
+                {
+                    OnPersonIdChanging(value);
+                    ReportPropertyChanging("PersonId");
+                    _PersonId = StructuralObject.SetValidValue(value, "PersonId");
+                    ReportPropertyChanged("PersonId");
+                    OnPersonIdChanged();
+                }
+            }
+        }
+        private global::System.Guid _PersonId;
+        partial void OnPersonIdChanging(global::System.Guid value);
+        partial void OnPersonIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 StudyBasisId
+        {
+            get
+            {
+                return _StudyBasisId;
+            }
+            set
+            {
+                if (_StudyBasisId != value)
+                {
+                    OnStudyBasisIdChanging(value);
+                    ReportPropertyChanging("StudyBasisId");
+                    _StudyBasisId = StructuralObject.SetValidValue(value, "StudyBasisId");
+                    ReportPropertyChanged("StudyBasisId");
+                    OnStudyBasisIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _StudyBasisId;
+        partial void OnStudyBasisIdChanging(global::System.Int32 value);
+        partial void OnStudyBasisIdChanged();
 
         #endregion
 

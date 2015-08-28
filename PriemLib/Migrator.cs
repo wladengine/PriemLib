@@ -312,7 +312,7 @@ namespace PriemLib
 
                 if (notApplicableList.Count() > 0 && !IsFor)
                 {
-                    WinFormsServ.Error("Not found orders for " + notApplicableList.Count() + " Ids");
+                    WinFormsServ.Error(string.Format("Not found orders for {0} Ids", notApplicableList.Count()));
                     return;
                 }
 
@@ -426,7 +426,7 @@ namespace PriemLib
                 }
             }
             wc.Close();
-        }        
+        }
 
         //фильтр по факультету
         private string GetFilter(string table)
@@ -434,9 +434,9 @@ namespace PriemLib
             string res = string.Empty;
 
             if (!string.IsNullOrEmpty(FacultyId))
-                res += string.Format(" AND {0}.FacultyId={1} ", table, FacultyId);
+                res += string.Format(" AND {0}.FacultyId = {1} ", table, FacultyId);
             
-            res += string.Format(" AND {0}.StudyLevelGroupId={1} ", table, StudyLevelGroupId);
+            res += string.Format(" AND {0}.StudyLevelGroupId = {1} ", table, StudyLevelGroupId);
 
             return res;
         }

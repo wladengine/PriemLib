@@ -93,6 +93,12 @@ namespace PriemLib
             set { ComboServ.SetComboId(cbCompetition, value); }
         }
 
+        public Guid? OlympiadId
+        {
+            get { return ComboServ.GetComboIdGuid(cbBenefitOlympSource); }
+            set { ComboServ.SetComboId(cbBenefitOlympSource, value); }
+        }
+
         public bool IsSecond
         {
             get { return chbIsSecond.Checked; }
