@@ -80,11 +80,14 @@ namespace PriemLib
         {
             base.SetAllFieldsEnabled();
 
-            foreach (Control control in tcCard.Controls)
+            if (tcCard != null)
             {
-                control.Enabled = true;
-                foreach (Control crl in control.Controls)
-                    crl.Enabled = true;
+                foreach (Control control in tcCard.Controls)
+                {
+                    control.Enabled = true;
+                    foreach (Control crl in control.Controls)
+                        crl.Enabled = true;
+                }
             }
 
             btnPrev.Enabled = false;

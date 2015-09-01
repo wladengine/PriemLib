@@ -205,7 +205,20 @@ namespace PriemLib
                 return;
             }
 
-            string query = string.Format("SELECT DISTINCT Id, Number + ' (' + CONVERT(nvarchar, Date, 104) + ')' AS 'Номер представления' FROM ed.extEntryView WHERE StudyFormId={0} AND StudyBasisId={1} AND FacultyId= {2} AND LicenseProgramId = {3} AND IsListener = {4} AND IsSecond = {5} AND IsReduced = {6} AND IsParallel = {7} order by 2", StudyFormId, StudyBasisId, FacultyId, LicenseProgramId, QueryServ.StringParseFromBool(IsListener), QueryServ.StringParseFromBool(IsSecond), QueryServ.StringParseFromBool(IsReduced), QueryServ.StringParseFromBool(IsParallel));
+            string query = string.Format(@"SELECT DISTINCT Id, Number + ' (' + CONVERT(nvarchar, Date, 104) + ')' AS 'Номер представления' 
+FROM ed.extEntryView 
+WHERE StudyFormId={0} AND StudyBasisId={1} AND FacultyId= {2} AND LicenseProgramId = {3} AND IsListener = {4} AND IsSecond = {5} 
+AND IsReduced = {6} AND IsParallel = {7} AND IsForeign = {8} 
+order by 2", 
+                               StudyFormId, 
+                               StudyBasisId, 
+                               FacultyId, 
+                               LicenseProgramId, 
+                               QueryServ.StringParseFromBool(IsListener), 
+                               QueryServ.StringParseFromBool(IsSecond), 
+                               QueryServ.StringParseFromBool(IsReduced), 
+                               QueryServ.StringParseFromBool(IsParallel), 
+                               QueryServ.StringParseFromBool(MainClass.dbType == PriemType.PriemForeigners));
             HelpClass.FillDataGrid(dgvViews, _bdc, query, "");
 
             if (dgvViews.Columns.Contains("Номер представления"))
@@ -214,7 +227,17 @@ namespace PriemLib
 
         private void btnCreate_Click(object sender, EventArgs e)
         {
-            new EntryViewProtocol(null, StudyLevelGroupId.Value, FacultyId.Value, StudyBasisId.Value, StudyFormId.Value, LicenseProgramId, IsSecond, IsReduced, IsParallel, IsListener, chbCel.Checked).Show();            
+            new EntryViewProtocol(null, 
+                StudyLevelGroupId.Value, 
+                FacultyId.Value, 
+                StudyBasisId.Value, 
+                StudyFormId.Value, 
+                LicenseProgramId, 
+                IsSecond, 
+                IsReduced, 
+                IsParallel, 
+                IsListener, 
+                chbCel.Checked).Show();            
         }
         private void btnPrint_Click(object sender, EventArgs e)
         {  

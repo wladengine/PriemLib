@@ -74,6 +74,7 @@ namespace PriemLib
                 this.ownerRowIndex = rowInd.Value;
 
             InitControls();
+            _tableName = "ed.PersonBenefitDocument";
         }
 
         protected override void ExtraInit()

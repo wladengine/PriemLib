@@ -296,6 +296,7 @@
             this.btnAddAbit = new System.Windows.Forms.Button();
             this.btnDocs = new System.Windows.Forms.Button();
             this.sfdPrint = new System.Windows.Forms.SaveFileDialog();
+            this.btnOpenCardBenefitDocument = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.epError)).BeginInit();
             this.tabCard.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -2247,6 +2248,7 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.btnOpenCardBenefitDocument);
             this.groupBox3.Controls.Add(this.btnDeleteBenefitDocument);
             this.groupBox3.Controls.Add(this.btnAddBenefitDocument);
             this.groupBox3.Controls.Add(this.dgvBenefitDocument);
@@ -2294,6 +2296,7 @@
             this.dgvBenefitDocument.RowHeadersVisible = false;
             this.dgvBenefitDocument.Size = new System.Drawing.Size(287, 152);
             this.dgvBenefitDocument.TabIndex = 0;
+            this.dgvBenefitDocument.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvBenefitDocument_CellDoubleClick);
             // 
             // gbPrivileges
             // 
@@ -3153,6 +3156,17 @@
             this.btnDocs.Visible = false;
             this.btnDocs.Click += new System.EventHandler(this.btnDocs_Click);
             // 
+            // btnOpenCardBenefitDocument
+            // 
+            this.btnOpenCardBenefitDocument.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnOpenCardBenefitDocument.Location = new System.Drawing.Point(79, 177);
+            this.btnOpenCardBenefitDocument.Name = "btnOpenCardBenefitDocument";
+            this.btnOpenCardBenefitDocument.Size = new System.Drawing.Size(67, 23);
+            this.btnOpenCardBenefitDocument.TabIndex = 3;
+            this.btnOpenCardBenefitDocument.Text = "Открыть";
+            this.btnOpenCardBenefitDocument.UseVisualStyleBackColor = true;
+            this.btnOpenCardBenefitDocument.Click += new System.EventHandler(this.btnOpenCardBenefitDocument_Click);
+            // 
             // CardPerson
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -3514,6 +3528,7 @@
         private System.Windows.Forms.TabPage tabPage11;
         private System.Windows.Forms.GroupBox gbVedList;
         private System.Windows.Forms.DataGridView dgvVedList;
+        private System.Windows.Forms.Button btnOpenCardBenefitDocument;
 
     }
 }

@@ -1383,7 +1383,7 @@ namespace PriemLib
                     List<int> lstCompetitionIdsForOriginals = context.Competition.Where(x => x.NeedOriginals).Select(x => x.Id).ToList();
                     var OrigApps = context.Abiturient.Where(x => x.PersonId == _personId && x.HasOriginals && !x.BackDoc);
                     bool HasOrigs = OrigApps.Count() > 0;
-                    if ((CompetitionId.HasValue && lstCompetitionIdsForOriginals.Contains(CompetitionId.Value)) && !HasOrigs && !BackDoc)
+                    if (!HasOriginals && (CompetitionId.HasValue && lstCompetitionIdsForOriginals.Contains(CompetitionId.Value)) && !HasOrigs && !BackDoc)
                     {
                         WinFormsServ.Error("Для данного типа конкурса требуется обязательная подача оригиналов документов об образовании");
                         return false;
@@ -1452,13 +1452,12 @@ namespace PriemLib
                             MessageBox.Show("У абитуриента уже есть конкурс 'в/к'","Ошибка при изменении типа конкурса",  MessageBoxButtons.OK);
                             return false; 
                         }
-                        string s = CheckPersonPriveleges();
+                        string s = ApplicationDataProvider.CheckPersonPriveleges(_personId);
                         if (!String.IsNullOrEmpty(s))
                         {
                             MessageBox.Show( s,"Ошибка при изменении типа конкурса", MessageBoxButtons.OK);
                             return false;
                         }
-
                     }
                     return true;
                 }
@@ -1471,7 +1470,7 @@ namespace PriemLib
         }
         private bool CheckCountCompetitionEqual2(PriemEntities context)
         {
-            int cnt = context.ExecuteStoreQuery<int>(string.Format("SELECT Count(Id) FROM Abiturient WHERE Abiturient.PersonId = '{0}' AND Abiturient.CompetitionId = 2 AND Abiturient.Id <> '{1}'", _personId, _Id)).FirstOrDefault();
+            int cnt = context.Abiturient.Where(x => x.PersonId == _personId && x.CompetitionId == 2 && (GuidId.HasValue ? x.Id != GuidId.Value : true)).Count();
             if (cnt > 0)
                 return false;
             else return true;
@@ -2141,92 +2140,8 @@ namespace PriemLib
         private void OpenCardChangeOriginalsDestination()
         {
             var crd = new CardChangeOriginalsPlace(GuidId.Value);
-            //crd.OnUpdated += () => { NullHandlers(); InitControls(); };
             crd.OnUpdated += FillCard;
             crd.Show();
         }
-
-        private string CheckPersonPriveleges()
-        {
-            using (PriemEntities context = new PriemEntities())
-            {
-                int PersonPrivelege = (from x in context.extPerson 
-                                     where x.Id == _personId
-                                     select x.Privileges).First();
-                var Priveleges =
-                    (from x in context.Privilege
-                     select new { x.Number, x.Maska, x.Name }).ToList();
-
-                var BenefitDocs
-                    = (from x in context.BenefitDocumentType
-                       select new { x.Id, x.Name }).ToList();
-
-                List<string> PersonPriveleges = new List<string>();
-                foreach (var x in Priveleges.OrderByDescending(x => x.Maska))
-                {
-                    if (PersonPrivelege >= x.Maska)
-                    {
-                        PersonPriveleges.Add(x.Name);
-                        PersonPrivelege -= x.Maska;
-                    }
-                }
-
-                List<List<int>> lstDocType = new List<List<int>>();
-
-                string s = "";
-
-                var PersonDocs = (from x in context.PersonBenefitDocument
-                                  where x.PersonId == _personId
-                                  select x.BenefitDocumentTypeId).ToList();
-
-                if (PersonPriveleges.Count() == 0)
-                {
-                    return "Для предоставления конкурса 'в/к' отсутствуют льготы.";
-                }
-                else
-                {
-                    if (PersonPriveleges.Where(x=>x.Contains("сирота")).Count()>0)
-                    {
-                        lstDocType.Add(new List<int>() { 1 });
-                        lstDocType.Add(new List<int>() { 2 });
-                        lstDocType.Add(new List<int>() { 3 });
-                    }
-                    else if (PersonPriveleges.Where(x => x.Contains("инвалид")).Count() > 0)
-                    {
-                        lstDocType.Add(new List<int>() { 1, 2 });
-                        lstDocType.Add(new List<int>() { 3 });
-                    }
-                    else
-                    {
-                        lstDocType.Add(new List<int>() { 1, 2, 3, 4 });
-                    }
-                }
-                foreach (var lst in lstDocType)
-                {
-                    if (PersonDocs.Where(x => lst.Contains(x)).Count() == 0)
-                    {
-                        foreach (int docId in lst)
-                            s += BenefitDocs.Where(x => x.Id == docId).Select(x => x.Name).First().ToString() + " или ";
-                        s = s.Substring(0, s.Length - 5) + "; ";
-                    }
-                }
-                if (!String.IsNullOrEmpty(s))
-                {
-                    string sub = "";
-                    sub = "Для предоставления льгот";
-                    if (PersonPriveleges.Count() == 1)
-                        sub += "ы";
-                    
-                    foreach (var p in PersonPriveleges)
-                    {
-                        sub += " '" + p + "',";
-                    }
-                    s = sub.Substring(0, sub.Length-1) + " необходимо ввести в персональной карточке абитуриента следующие документы: " + s;
-                    s = s.Substring(0, s.Length - 2) + ".";
-                }
-                return s;
-            }
-        }
-        
     }
 }

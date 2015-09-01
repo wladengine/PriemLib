@@ -17,7 +17,6 @@ namespace PriemLib
         public EnableProtocolList()
             : base(ProtocolTypes.EnableProtocol)
         {
-
         }
 
         protected override void InitControls()

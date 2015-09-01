@@ -1724,6 +1724,29 @@ namespace PriemLib
                 UpdateGridBenefits();
             }
         }
+        private void btnOpenCardBenefitDocument_Click(object sender, EventArgs e)
+        {
+            OpenCardBenefits();
+        }
+        private void dgvBenefitDocument_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            OpenCardBenefits();
+        }
+        private void OpenCardBenefits()
+        {
+            if (dgvBenefitDocument.CurrentCell != null)
+            {
+                int rwInd = dgvBenefitDocument.CurrentCell.RowIndex;
+                string sId = dgvBenefitDocument["Id", rwInd].Value.ToString();
+                if (!string.IsNullOrEmpty(sId))
+                {
+                    var crd = new CardBenefitDocument(sId, GuidId.Value, rwInd, this);
+                    crd.ToUpdateList += UpdateGridBenefits;
+                    crd.Show();
+                }
+            }
+        }
+
         #endregion
 
         #region EducationInfo
@@ -2329,5 +2352,7 @@ namespace PriemLib
                 dgvVedList.Columns["Number"].HeaderText = "Номер ведомости";
             }
         }
+
+        
     }
 }

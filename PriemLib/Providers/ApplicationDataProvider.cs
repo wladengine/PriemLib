@@ -5,7 +5,7 @@ using System.Text;
 
 namespace PriemLib
 {
-    static class ApplicationDataProvider
+    public static class ApplicationDataProvider
     {
         public static void ChangeHasOriginalsDestination(Guid AbiturientId, Guid? TargetAbiturientId)
         {
@@ -50,6 +50,89 @@ namespace PriemLib
                 }
                 else
                     throw new KeyNotFoundException("Не совпадают записи абитуриентов исходного и конечного заявления!");
+            }
+        }
+
+        public static string CheckPersonPriveleges(Guid? _personId)
+        {
+            using (PriemEntities context = new PriemEntities())
+            {
+                int PersonPrivelege = (from x in context.extPerson
+                                       where x.Id == _personId
+                                       select x.Privileges).First();
+                var Priveleges =
+                    (from x in context.Privilege
+                     select new { x.Number, x.Maska, x.Name }).ToList();
+
+                var BenefitDocs
+                    = (from x in context.BenefitDocumentType
+                       select new { x.Id, x.Name }).ToList();
+
+                List<string> PersonPriveleges = new List<string>();
+                foreach (var x in Priveleges.OrderByDescending(x => x.Maska))
+                {
+                    if (PersonPrivelege >= x.Maska)
+                    {
+                        PersonPriveleges.Add(x.Name);
+                        PersonPrivelege -= x.Maska;
+                    }
+                }
+
+                List<List<int>> lstDocType = new List<List<int>>();
+
+                string s = "";
+
+                var PersonDocs = (from x in context.PersonBenefitDocument
+                                  where x.PersonId == _personId
+                                  select x.BenefitDocumentTypeId).ToList();
+
+                if (PersonPriveleges.Count() == 0)
+                {
+                    return "Для предоставления конкурса 'в/к' отсутствуют льготы.";
+                }
+                else
+                {
+                    if (PersonPriveleges.Where(x => x.Contains("сирота")).Count() > 0)
+                    {
+                        lstDocType.Add(new List<int>() { 4 });
+                    }
+                    if (PersonPriveleges.Where(x => x.Contains("инвалид")).Count() > 0)
+                    {
+                        lstDocType.Add(new List<int>() { 1, 2 });
+                        lstDocType.Add(new List<int>() { 3 });
+                    }
+                    if (PersonPriveleges.Where(x => x.Contains("сирота")).Count() == 0 && PersonPriveleges.Where(x => x.Contains("инвалид")).Count() == 0)
+                    {
+                        lstDocType.Add(new List<int>() { 1, 2, 3, 4 });
+                    }
+                }
+
+                foreach (var lst in lstDocType)
+                {
+                    if (PersonDocs.Where(x => lst.Contains(x)).Count() == 0)
+                    {
+                        List<string> benefitDocNames = new List<string>();
+                        foreach (int docId in lst)
+                        {
+                            string docName = BenefitDocs.Where(x => x.Id == docId).Select(x => x.Name).First().ToString();
+                            benefitDocNames.Add(docName);
+                        }
+
+                        s += benefitDocNames.Distinct().Aggregate((x, tail) => x + " или " + tail) + ";\n";
+                    }
+                }
+
+                if (!String.IsNullOrEmpty(s))
+                {
+                    string sub = "";
+                    sub = "Для предоставления льгот";
+                    if (PersonPriveleges.Count() == 1)
+                        sub += "ы";
+
+                    s = sub + " необходимо ввести в персональной карточке абитуриента следующие документы:\n" + s;
+                }
+
+                return s;
             }
         }
 
