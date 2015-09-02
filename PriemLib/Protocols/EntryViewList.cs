@@ -257,7 +257,7 @@ order by 2",
             if (sfd.ShowDialog() == DialogResult.OK)
                 Print.PrintEntryView(dgvViews.CurrentRow.Cells["Id"].Value.ToString(), sfd.FileName, !chbIsForeign.Checked);
         }
-        private void btnPrintOrder_Click(object sender, EventArgs e)
+        protected virtual void btnPrintOrder_Click(object sender, EventArgs e)
         {
             if (dgvViews.CurrentRow == null)
                 return;
@@ -269,7 +269,7 @@ order by 2",
 
             Print.PrintOrder(protocolId, !chbIsForeign.Checked, chbCel.Checked);
         }
-        private void btnOrderReview_Click(object sender, EventArgs e)
+        protected virtual void btnOrderReview_Click(object sender, EventArgs e)
         {
             if (dgvViews.CurrentRow == null)
                 return;

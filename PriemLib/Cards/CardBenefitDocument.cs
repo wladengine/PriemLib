@@ -44,7 +44,7 @@ namespace PriemLib
         {
             get 
             {
-                if (dtpDate.Checked)
+                if (!dtpDate.Checked)
                     return null;
                 else
                     return dtpDate.Value;
