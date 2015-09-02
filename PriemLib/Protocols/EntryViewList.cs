@@ -15,7 +15,7 @@ namespace PriemLib
 {
     public partial class EntryViewList : BaseForm
     {
-        private DBPriem _bdc;
+        public DBPriem _bdc;
         private string sQuery;
         protected ProtocolRefreshHandler prh = null;
 
@@ -67,7 +67,7 @@ namespace PriemLib
         }
 
         //дополнительная инициализация контролов
-        private void InitControls()
+        public virtual void  InitControls()
         {
             InitFocusHandlers();
             _bdc = MainClass.Bdc;
@@ -78,8 +78,7 @@ namespace PriemLib
 
             cbStudyBasis.SelectedIndex = 0;
             FillStudyForm();
-            FillLicenseProgram();             
-            
+            FillLicenseProgram();
             UpdateDataGrid();
 
 
@@ -92,19 +91,19 @@ namespace PriemLib
             MainClass.AddProtocolHandler(prh);          
         }
 
-        void cbFaculty_SelectedIndexChanged(object sender, EventArgs e)
+        public void cbFaculty_SelectedIndexChanged(object sender, EventArgs e)
         {
             FillStudyForm();            
         }
-        void cbStudyBasis_SelectedIndexChanged(object sender, EventArgs e)
+        public void cbStudyBasis_SelectedIndexChanged(object sender, EventArgs e)
         {
             FillStudyForm();            
         }
-        void cbStudyForm_SelectedIndexChanged(object sender, EventArgs e)
+        public void cbStudyForm_SelectedIndexChanged(object sender, EventArgs e)
         {
             FillLicenseProgram();
         }
-        void cbLicenseProgram_SelectedIndexChanged(object sender, EventArgs e)
+        public void cbLicenseProgram_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateDataGrid();
         }
@@ -165,7 +164,7 @@ namespace PriemLib
                 ComboServ.FillCombo(cbStudyLevelGroup, lst, false, false);
             }
         }
-        private void FillStudyForm()
+        public void FillStudyForm()
         {
             using (PriemEntities context = new PriemEntities())
             {
@@ -178,7 +177,7 @@ namespace PriemLib
                 ComboServ.FillCombo(cbStudyForm, lst, false, false);
             }
         }
-        private void FillLicenseProgram()
+        public virtual void FillLicenseProgram()
         {
             using (PriemEntities context = new PriemEntities())
             {
@@ -197,7 +196,7 @@ namespace PriemLib
             }
         }
 
-        private void UpdateDataGrid()
+        public virtual void UpdateDataGrid()
         {
             if (StudyFormId == null || StudyBasisId == null)
             {
@@ -223,6 +222,11 @@ order by 2",
 
             if (dgvViews.Columns.Contains("Номер представления"))
                 dgvViews.Columns["Номер представления"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            if (dgvViews.Rows.Count == 0)
+            {
+                dgvViews.CurrentCell = null;
+                ViewProtocolInfo();
+            }
         }
 
         private void btnCreate_Click(object sender, EventArgs e)
@@ -324,7 +328,7 @@ order by 2",
             ViewProtocolInfo();
         }
         
-        private void ViewProtocolInfo()
+        public virtual void ViewProtocolInfo()
         {
             if (dgvViews.CurrentCell != null)
             {

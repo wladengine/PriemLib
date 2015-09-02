@@ -459,32 +459,32 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dgvViews;        
+        public System.Windows.Forms.DataGridView dgvViews;        
         private System.Windows.Forms.Label label2;       
         private System.Windows.Forms.Label lblLanguage;       
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnPrint;
-        private System.Windows.Forms.Button btnCreate;
-        private System.Windows.Forms.Button btnPrintOrder;       
+        public System.Windows.Forms.Button btnCreate;
+        public System.Windows.Forms.Button btnPrintOrder;       
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button btnCancelView;
-        private System.Windows.Forms.CheckBox chbIsForeign;
+        public System.Windows.Forms.Button btnCancelView;
+        public System.Windows.Forms.CheckBox chbIsForeign;
         private System.Windows.Forms.Button btnOrderReview;
         private System.Windows.Forms.CheckBox chbIsListener;
         private System.Windows.Forms.CheckBox chbIsSecond;
         private System.Windows.Forms.CheckBox chbIsReduced;
         private System.Windows.Forms.CheckBox chbIsParallel;
-        private System.Windows.Forms.ComboBox cbStudyForm;
-        private System.Windows.Forms.ComboBox cbStudyBasis;
-        private System.Windows.Forms.ComboBox cbLicenseProgram;
-        private System.Windows.Forms.ComboBox cbFaculty;
+        public System.Windows.Forms.ComboBox cbStudyForm;
+        public System.Windows.Forms.ComboBox cbStudyBasis;
+        public System.Windows.Forms.ComboBox cbLicenseProgram;
+        public System.Windows.Forms.ComboBox cbFaculty;
         private System.Windows.Forms.CheckBox chbCel;
-        private System.Windows.Forms.ComboBox cbStudyLevelGroup;
+        public System.Windows.Forms.ComboBox cbStudyLevelGroup;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.GroupBox gbProtocolInfo;
         private System.Windows.Forms.Label lblProtocolCompetitions;
         private System.Windows.Forms.Label lblProtocolPersonsCount;
-        private System.Windows.Forms.Label lblHasForeigners;
+        public System.Windows.Forms.Label lblHasForeigners;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button btnSetAdmissionProtocol;
