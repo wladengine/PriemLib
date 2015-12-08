@@ -59,6 +59,9 @@ namespace PriemLib
         public string ApproverName { get; set; }
         public List<ShortInnerEntryInEntry> lstInnerEntryInEntry { get; set; }
 
+        public bool HasManualExams { get; set; }
+        public List<ExamenBlock> lstExamInEntryBlock { get; set; }
+
         public ShortCompetition(Guid _Id, Guid _CommitId, Guid _EntryId, Guid _PersonId, int? _VersionNum, DateTime? _VersionDate)
         {
             Id = _Id;

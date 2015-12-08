@@ -397,7 +397,11 @@ namespace PriemLib
             }
             set { tbSchoolExitYear.Text = value.ToString(); }           
         }
-
+        protected int? SchoolExitClassId
+        {
+            get { return ComboServ.GetComboIdInt(cbExitClass); }
+            set { ComboServ.SetComboId(cbExitClass, value); }
+        }
 
         private int? _ForeignCountryEducId;
         private int? _CountryEducId;

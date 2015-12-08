@@ -44,6 +44,7 @@
             this.lblLicenseprogram = new System.Windows.Forms.Label();
             this.tabCard = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.cbBenefitOlympSource = new System.Windows.Forms.ComboBox();
             this.btnChangeOriginalsDestination = new System.Windows.Forms.Button();
             this.lblBackDocByAdmissionHigh = new System.Windows.Forms.Label();
             this.chbIsCrimea = new System.Windows.Forms.CheckBox();
@@ -128,10 +129,11 @@
             this.gbObrazProgramInEntry = new System.Windows.Forms.GroupBox();
             this.btnSaveInnerEntryInEntry = new System.Windows.Forms.Button();
             this.cbInnerEntryInEntry = new System.Windows.Forms.ComboBox();
+            this.tpExamBlock = new System.Windows.Forms.TabPage();
+            this.dgvAppExams = new System.Windows.Forms.DataGridView();
             this.lblFIO = new System.Windows.Forms.Label();
             this.btnCardPerson = new System.Windows.Forms.Button();
             this.epErrorInput = new System.Windows.Forms.ErrorProvider(this.components);
-            this.cbBenefitOlympSource = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.epError)).BeginInit();
             this.tabCard.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -149,6 +151,8 @@
             this.gbPrint.SuspendLayout();
             this.tpEntry.SuspendLayout();
             this.gbObrazProgramInEntry.SuspendLayout();
+            this.tpExamBlock.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAppExams)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.epErrorInput)).BeginInit();
             this.SuspendLayout();
             // 
@@ -240,6 +244,7 @@
             this.tabCard.Controls.Add(this.tabPage3);
             this.tabCard.Controls.Add(this.tabPage4);
             this.tabCard.Controls.Add(this.tpEntry);
+            this.tabCard.Controls.Add(this.tpExamBlock);
             this.tabCard.Location = new System.Drawing.Point(4, 32);
             this.tabCard.Name = "tabCard";
             this.tabCard.SelectedIndex = 0;
@@ -301,6 +306,18 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Основное";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // cbBenefitOlympSource
+            // 
+            this.cbBenefitOlympSource.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cbBenefitOlympSource.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cbBenefitOlympSource.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbBenefitOlympSource.FormattingEnabled = true;
+            this.cbBenefitOlympSource.Location = new System.Drawing.Point(226, 288);
+            this.cbBenefitOlympSource.Name = "cbBenefitOlympSource";
+            this.cbBenefitOlympSource.Size = new System.Drawing.Size(262, 21);
+            this.cbBenefitOlympSource.TabIndex = 133;
+            this.cbBenefitOlympSource.Visible = false;
             // 
             // btnChangeOriginalsDestination
             // 
@@ -1254,6 +1271,28 @@
             this.cbInnerEntryInEntry.Size = new System.Drawing.Size(593, 21);
             this.cbInnerEntryInEntry.TabIndex = 0;
             // 
+            // tpExamBlock
+            // 
+            this.tpExamBlock.Controls.Add(this.dgvAppExams);
+            this.tpExamBlock.Location = new System.Drawing.Point(4, 22);
+            this.tpExamBlock.Name = "tpExamBlock";
+            this.tpExamBlock.Padding = new System.Windows.Forms.Padding(3);
+            this.tpExamBlock.Size = new System.Drawing.Size(617, 527);
+            this.tpExamBlock.TabIndex = 6;
+            this.tpExamBlock.Text = "Экзамены по выбору";
+            this.tpExamBlock.UseVisualStyleBackColor = true;
+            // 
+            // dgvAppExams
+            // 
+            this.dgvAppExams.AllowUserToAddRows = false;
+            this.dgvAppExams.AllowUserToDeleteRows = false;
+            this.dgvAppExams.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvAppExams.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvAppExams.Location = new System.Drawing.Point(6, 6);
+            this.dgvAppExams.Name = "dgvAppExams";
+            this.dgvAppExams.Size = new System.Drawing.Size(605, 190);
+            this.dgvAppExams.TabIndex = 127;
+            // 
             // lblFIO
             // 
             this.lblFIO.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -1279,18 +1318,6 @@
             // epErrorInput
             // 
             this.epErrorInput.ContainerControl = this;
-            // 
-            // cbBenefitOlympSource
-            // 
-            this.cbBenefitOlympSource.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.cbBenefitOlympSource.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cbBenefitOlympSource.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbBenefitOlympSource.FormattingEnabled = true;
-            this.cbBenefitOlympSource.Location = new System.Drawing.Point(226, 288);
-            this.cbBenefitOlympSource.Name = "cbBenefitOlympSource";
-            this.cbBenefitOlympSource.Size = new System.Drawing.Size(262, 21);
-            this.cbBenefitOlympSource.TabIndex = 133;
-            this.cbBenefitOlympSource.Visible = false;
             // 
             // CardAbit
             // 
@@ -1339,6 +1366,8 @@
             this.gbPrint.PerformLayout();
             this.tpEntry.ResumeLayout(false);
             this.gbObrazProgramInEntry.ResumeLayout(false);
+            this.tpExamBlock.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAppExams)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.epErrorInput)).EndInit();
             this.ResumeLayout(false);
 
@@ -1449,5 +1478,7 @@
         private System.Windows.Forms.Label lblBackDocByAdmissionHigh;
         private System.Windows.Forms.Button btnChangeOriginalsDestination;
         private System.Windows.Forms.ComboBox cbBenefitOlympSource;
+        private System.Windows.Forms.TabPage tpExamBlock;
+        private System.Windows.Forms.DataGridView dgvAppExams;
     }
 }

@@ -111,6 +111,8 @@ namespace PriemLib
                         ComboServ.FillCombo(cbCountry, HelpClass.GetComboListByTable("ed.Country", "ORDER BY Distance, Name"), false, false);
                         ComboServ.FillCombo(cbNationality, HelpClass.GetComboListByTable("ed.Country", "ORDER BY Distance, Name"), false, false);
                         ComboServ.FillCombo(cbCountryEduc, HelpClass.GetComboListByTable("ed.Country", "ORDER BY Distance, Name"), false, false);
+                        ComboServ.FillCombo(cbExitClass, HelpClass.GetComboListByTable("ed.SchoolExitClass", "ORDER BY Name"), false, false);
+
                     }
                     UpdateAfterCountry();
                     ComboServ.FillCombo(cbLanguage, HelpClass.GetComboListByTable("ed.Language"), false, false);
@@ -1827,6 +1829,9 @@ namespace PriemLib
                 AttestatSeries = lstEducationInfo[ind].AttestatSeries;
                 AttestatNum = lstEducationInfo[ind].AttestatNum;
 
+                pnExitClass.Visible = true;
+                SchoolExitClassId = lstEducationInfo[ind].SchoolExitClassId;
+
                 gbFinishStudy.Visible = false;
                 lblSchoolNum.Visible = true;
                 tbSchoolNum.Visible = true;
@@ -1839,6 +1844,9 @@ namespace PriemLib
                 gbDipl.Visible = true;
                 DiplomSeries = lstEducationInfo[ind].DiplomSeries;
                 DiplomNum = lstEducationInfo[ind].DiplomNum;
+
+                pnExitClass.Visible = false;
+                SchoolExitClassId = null;
 
                 gbFinishStudy.Visible = true;
                 lblSchoolNum.Visible = false;

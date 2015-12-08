@@ -24,7 +24,7 @@
           <Property Name="IsQuota" Type="bit" Nullable="false" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Priem.ed._FirstWaveGreen" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+предупреждение 6002: В таблице или представлении "Priem2016Test.ed._FirstWaveGreen" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="_FirstWaveGreen">
           <Key>
             <PropertyRef Name="AbiturientId" />
@@ -84,6 +84,14 @@
           <Property Name="Author" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="DateCreated" Type="datetime" Nullable="false" />
           <Property Name="BackDocByAdmissionHigh" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AbiturientSelectedExam">
+          <Key>
+            <PropertyRef Name="ApplicationId" />
+            <PropertyRef Name="ExamInEntryBlockUnitId" />
+          </Key>
+          <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ExamInEntryBlockUnitId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <EntityType Name="AchievementType">
           <Key>
@@ -281,7 +289,7 @@
           <Property Name="ExamId" Type="int" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Priem.ed.EgeToLanguage" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+предупреждение 6002: В таблице или представлении "Priem2016Test.ed.EgeToLanguage" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="EgeToLanguage">
           <Key>
             <PropertyRef Name="ExamId" />
@@ -373,6 +381,29 @@
           <Property Name="OrderNumber" Type="tinyint" Nullable="false" />
           <Property Name="ParentExamInEntryId" Type="int" />
         </EntityType>
+        <EntityType Name="ExamInEntryBlock">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="EntryId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="250" />
+          <Property Name="IsProfil" Type="bit" Nullable="false" />
+          <Property Name="IsOpen" Type="bit" Nullable="false" />
+          <Property Name="Holder" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsGosLine" Type="bit" Nullable="false" />
+          <Property Name="IsCrimea" Type="bit" Nullable="false" />
+          <Property Name="OrderNumber" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ExamInEntryBlockUnit">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ExamInEntryBlockId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ExamId" Type="int" Nullable="false" />
+          <Property Name="EgeMin" Type="float" />
+        </EntityType>
         <EntityType Name="ExaminerAccount">
           <Key>
             <PropertyRef Name="AccountName" />
@@ -438,7 +469,7 @@
           <Property Name="Number" Type="int" Nullable="false" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Priem.ed.ExamsVedRoomHistory" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+предупреждение 6002: В таблице или представлении "Priem2016Test.ed.ExamsVedRoomHistory" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="ExamsVedRoomHistory">
           <Key>
             <PropertyRef Name="ExamsVedRoomId" />
@@ -456,7 +487,7 @@
           <Property Name="SortGrade" Type="int" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Priem.ed.Fixieren" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+предупреждение 6002: В таблице или представлении "Priem2016Test.ed.Fixieren" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="Fixieren">
           <Key>
             <PropertyRef Name="Number" />
@@ -728,7 +759,7 @@
           <Property Name="FISName" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Priem.ed.PayDataEntry" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+предупреждение 6002: В таблице или представлении "Priem2016Test.ed.PayDataEntry" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="PayDataEntry">
           <Key>
             <PropertyRef Name="Id" />
@@ -889,6 +920,7 @@
           <Property Name="HEWork" Type="nvarchar" MaxLength="500" />
           <Property Name="Author" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="SchoolExitClassId" Type="int" />
         </EntityType>
         <EntityType Name="PersonAchievement">
           <Key>
@@ -915,8 +947,8 @@
           <Property Name="DisabilityTypeId" Type="int" />
           <Property Name="HasOriginals" Type="bit" Nullable="false" />
           <Property Name="OriginalsDate" Type="date" />
-          <Property Name="Author" Type="nvarchar" MaxLength="500" />
           <Property Name="IsOpen" Type="bit" Nullable="false" />
+          <Property Name="Author" Type="nvarchar" MaxLength="500" />
           <Property Name="Holder" Type="nvarchar" MaxLength="150" />
           <Property Name="_Author" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="DateCreated" Type="datetime" Nullable="false" />
@@ -982,7 +1014,7 @@
           <Property Name="OtherSportQualification" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Priem.ed.Privilege" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+предупреждение 6002: В таблице или представлении "Priem2016Test.ed.Privilege" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="Privilege">
           <Key>
             <PropertyRef Name="Number" />
@@ -1209,6 +1241,8 @@
           <Property Name="FISName" Type="nvarchar" MaxLength="50" />
           <Property Name="NameRod" Type="nvarchar" MaxLength="100" />
           <Property Name="PostName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ClassNum" Type="nvarchar" MaxLength="5" />
+          <Property Name="Duration" Type="int" />
         </EntityType>
         <EntityType Name="StudyLevelGroup">
           <Key>
@@ -1219,7 +1253,7 @@
           <Property Name="Acronym" Type="nvarchar" MaxLength="10" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Priem.ed.extAbit" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+предупреждение 6002: В таблице или представлении "Priem2016Test.ed.extAbit" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="extAbit">
           <Key>
             <PropertyRef Name="Id" />
@@ -1336,7 +1370,7 @@
           <Property Name="BackDocByAdmissionHigh" Type="bit" Nullable="false" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Priem.ed.extAbitAdditionalMarksSum" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+предупреждение 6002: В таблице или представлении "Priem2016Test.ed.extAbitAdditionalMarksSum" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="extAbitAdditionalMarksSum">
           <Key>
             <PropertyRef Name="AbiturientId" />
@@ -1345,7 +1379,7 @@
           <Property Name="AdditionalMarksSum" Type="int" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Priem.ed.extAbitAllAdditionalAchievements" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+предупреждение 6002: В таблице или представлении "Priem2016Test.ed.extAbitAllAdditionalAchievements" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="extAbitAllAdditionalAchievements">
           <Key>
             <PropertyRef Name="AbiturientId" />
@@ -1356,7 +1390,7 @@
           <Property Name="Mark" Type="int" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Priem.ed.extAbitMarksSum" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+предупреждение 6002: В таблице или представлении "Priem2016Test.ed.extAbitMarksSum" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="extAbitMarksSum">
           <Key>
             <PropertyRef Name="Id" />
@@ -1371,7 +1405,7 @@
           <Property Name="TotalCount" Type="int" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Priem.ed.extApplicationDetails" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+предупреждение 6002: В таблице или представлении "Priem2016Test.ed.extApplicationDetails" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="extApplicationDetails">
           <Key>
             <PropertyRef Name="ApplicationId" />
@@ -1391,7 +1425,7 @@
           <Property Name="ProfileName" Type="nvarchar" MaxLength="1000" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Priem.ed.extDisEntryFromReEnterView" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+предупреждение 6002: В таблице или представлении "Priem2016Test.ed.extDisEntryFromReEnterView" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="extDisEntryFromReEnterView">
           <Key>
             <PropertyRef Name="Id" />
@@ -1431,12 +1465,13 @@
           <Property Name="IsReduced" Type="bit" Nullable="false" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Priem.ed.extDisEntryView" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+предупреждение 6002: В таблице или представлении "Priem2016Test.ed.extDisEntryView" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="extDisEntryView">
           <Key>
             <PropertyRef Name="Id" />
             <PropertyRef Name="AbiturientId" />
             <PropertyRef Name="Excluded" />
+            
             
             
             
@@ -1446,6 +1481,7 @@
             <PropertyRef Name="ProtocolTypeName" />
             
             
+            <PropertyRef Name="IsForeign" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="AbiturientId" Type="uniqueidentifier" Nullable="false" />
@@ -1455,7 +1491,7 @@
           <Property Name="StudyLevelGroupId" Type="int" Nullable="false" />
           <Property Name="LicenseProgramId" Type="int" />
           <Property Name="FacultyId" Type="int" />
-          <Property Name="StudyFormId" Type="int" />
+          <Property Name="StudyFormId" Type="int" Nullable="false" />
           <Property Name="StudyBasisId" Type="int" />
           <Property Name="Number" Type="nvarchar" MaxLength="15" />
           <Property Name="Date" Type="datetime" Nullable="false" />
@@ -1468,9 +1504,10 @@
           <Property Name="ProtocolTypeName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="IsParallel" Type="bit" Nullable="false" />
           <Property Name="IsReduced" Type="bit" Nullable="false" />
+          <Property Name="IsForeign" Type="bit" Nullable="false" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Priem.ed.extEgeMark" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+предупреждение 6002: В таблице или представлении "Priem2016Test.ed.extEgeMark" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="extEgeMark">
           <Key>
             <PropertyRef Name="Id" />
@@ -1498,7 +1535,7 @@
           <Property Name="FBSStatusId" Type="int" Nullable="false" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Priem.ed.extEgeMarkMax" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+предупреждение 6002: В таблице или представлении "Priem2016Test.ed.extEgeMarkMax" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="extEgeMarkMax">
           <Key>
             <PropertyRef Name="Id" />
@@ -1522,7 +1559,7 @@
           <Property Name="PersonId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Priem.ed.extEgeMarkMaxAbit" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+предупреждение 6002: В таблице или представлении "Priem2016Test.ed.extEgeMarkMaxAbit" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="extEgeMarkMaxAbit">
           <Key>
             <PropertyRef Name="AbiturientId" />
@@ -1548,7 +1585,7 @@
           <Property Name="PersonId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Priem.ed.extEgeMarkMaxAbitApproved" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+предупреждение 6002: В таблице или представлении "Priem2016Test.ed.extEgeMarkMaxAbitApproved" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="extEgeMarkMaxAbitApproved">
           <Key>
             <PropertyRef Name="AbiturientId" />
@@ -1574,7 +1611,7 @@
           <Property Name="PersonId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Priem.ed.extEgeMarkMaxApproved" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+предупреждение 6002: В таблице или представлении "Priem2016Test.ed.extEgeMarkMaxApproved" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="extEgeMarkMaxApproved">
           <Key>
             <PropertyRef Name="Id" />
@@ -1598,7 +1635,7 @@
           <Property Name="PersonId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Priem.ed.extEnableProtocol" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+предупреждение 6002: В таблице или представлении "Priem2016Test.ed.extEnableProtocol" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="extEnableProtocol">
           <Key>
             <PropertyRef Name="Id" />
@@ -1633,7 +1670,7 @@
           <Property Name="ProtocolTypeName" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Priem.ed.extEntry" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+предупреждение 6002: В таблице или представлении "Priem2016Test.ed.extEntry" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="extEntry">
           <Key>
             <PropertyRef Name="Id" />
@@ -1709,7 +1746,7 @@
           <Property Name="FacultyCode" Type="nvarchar" MaxLength="10" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Priem.ed.extEntryProtocols" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+предупреждение 6002: В таблице или представлении "Priem2016Test.ed.extEntryProtocols" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="extEntryProtocols">
           <Key>
             <PropertyRef Name="Id" />
@@ -1746,7 +1783,7 @@
           <Property Name="IsReduced" Type="bit" Nullable="false" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Priem.ed.extEntryView" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+предупреждение 6002: В таблице или представлении "Priem2016Test.ed.extEntryView" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="extEntryView">
           <Key>
             <PropertyRef Name="Id" />
@@ -1767,6 +1804,7 @@
             <PropertyRef Name="PersonId" />
             <PropertyRef Name="IsCrimea" />
             <PropertyRef Name="IsForeign" />
+            <PropertyRef Name="EntryIsForeign" />
             <PropertyRef Name="IsQuota" />
             <PropertyRef Name="IsCel" />
             <PropertyRef Name="IsBE" />
@@ -1807,9 +1845,10 @@
           <Property Name="IsBE" Type="bit" Nullable="false" />
           <Property Name="IsForeign" Type="bit" Nullable="false" />
           <Property Name="Priority" Type="int" />
+          <Property Name="EntryIsForeign" Type="bit" Nullable="false" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Priem.ed.extEntryView_ForDisEntered" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+предупреждение 6002: В таблице или представлении "Priem2016Test.ed.extEntryView_ForDisEntered" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="extEntryView_ForDisEntered">
           <Key>
             <PropertyRef Name="Id" />
@@ -1854,7 +1893,7 @@
           <Property Name="SignerPosition" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Priem.ed.extExamInEntry" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+предупреждение 6002: В таблице или представлении "Priem2016Test.ed.extExamInEntry" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="extExamInEntry">
           <Key>
             <PropertyRef Name="Id" />
@@ -1877,6 +1916,7 @@
             
             <PropertyRef Name="IsCrimea" />
             <PropertyRef Name="IsGosLine" />
+            <PropertyRef Name="IsForeign" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="EntryId" Type="uniqueidentifier" Nullable="false" />
@@ -1903,9 +1943,10 @@
           <Property Name="IsCrimea" Type="bit" Nullable="false" />
           <Property Name="IsGosLine" Type="bit" Nullable="false" />
           <Property Name="ParentExamInEntryId" Type="int" />
+          <Property Name="IsForeign" Type="bit" Nullable="false" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Priem.ed.extExamsVed" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+предупреждение 6002: В таблице или представлении "Priem2016Test.ed.extExamsVed" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="extExamsVed">
           <Key>
             <PropertyRef Name="Id" />
@@ -1940,7 +1981,7 @@
           <Property Name="FacultyName" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Priem.ed.extFBSStatus" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+предупреждение 6002: В таблице или представлении "Priem2016Test.ed.extFBSStatus" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="extFBSStatus">
           <Key>
             <PropertyRef Name="FBSStatus" />
@@ -1952,7 +1993,7 @@
           <Property Name="Surname" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Priem.ed.extForeignPerson" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+предупреждение 6002: В таблице или представлении "Priem2016Test.ed.extForeignPerson" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="extForeignPerson">
           <Key>
             <PropertyRef Name="Id" />
@@ -2035,7 +2076,7 @@
           <Property Name="TRKICertificateNumber" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Priem.ed.extOlympBook" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+предупреждение 6002: В таблице или представлении "Priem2016Test.ed.extOlympBook" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="extOlympBook">
           <Key>
             <PropertyRef Name="Id" />
@@ -2054,7 +2095,7 @@
           <Property Name="OlympYear" Type="int" Nullable="false" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Priem.ed.extOlympiads" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+предупреждение 6002: В таблице или представлении "Priem2016Test.ed.extOlympiads" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="extOlympiads">
           <Key>
             <PropertyRef Name="Id" />
@@ -2083,7 +2124,7 @@
           <Property Name="OlympValueAcr" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Priem.ed.extOlympiadsAll" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+предупреждение 6002: В таблице или представлении "Priem2016Test.ed.extOlympiadsAll" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="extOlympiadsAll">
           <Key>
             <PropertyRef Name="Id" />
@@ -2113,7 +2154,7 @@
           <Property Name="OlympYear" Type="smallint" Nullable="false" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Priem.ed.extPerson" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+предупреждение 6002: В таблице или представлении "Priem2016Test.ed.extPerson" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="extPerson">
           <Key>
             <PropertyRef Name="Id" />
@@ -2222,7 +2263,7 @@
           <Property Name="HasOriginals" Type="bit" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Priem.ed.extPerson_EducationInfo" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+предупреждение 6002: В таблице или представлении "Priem2016Test.ed.extPerson_EducationInfo" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="extPerson_EducationInfo">
           <Key>
             <PropertyRef Name="Id" />
@@ -2275,7 +2316,7 @@
           <Property Name="HEWork" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Priem.ed.extPerson_EducationInfo_Current" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+предупреждение 6002: В таблице или представлении "Priem2016Test.ed.extPerson_EducationInfo_Current" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="extPerson_EducationInfo_Current">
           <Key>
             <PropertyRef Name="Id" />
@@ -2329,7 +2370,7 @@
           <Property Name="EducDocument" Type="nvarchar" MaxLength="42" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Priem.ed.extPersonAll" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+предупреждение 6002: В таблице или представлении "Priem2016Test.ed.extPersonAll" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="extPersonAll">
           <Key>
             <PropertyRef Name="Id" />
@@ -2440,7 +2481,7 @@
           <Property Name="ForeignCountryEducId" Type="int" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Priem.ed.extProtocol" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+предупреждение 6002: В таблице или представлении "Priem2016Test.ed.extProtocol" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="extProtocol">
           <Key>
             <PropertyRef Name="Id" />
@@ -2494,7 +2535,7 @@
           <Property Name="IsForeign" Type="bit" Nullable="false" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Priem.ed.hlpAbiturientActionLog" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+предупреждение 6002: В таблице или представлении "Priem2016Test.ed.hlpAbiturientActionLog" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="hlpAbiturientActionLog">
           <Key>
             
@@ -2533,7 +2574,7 @@
           <Property Name="ActionType" Type="varchar" MaxLength="29" Nullable="false" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Priem.ed.hlpAbiturientProf" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+предупреждение 6002: В таблице или представлении "Priem2016Test.ed.hlpAbiturientProf" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="hlpAbiturientProf">
           <Key>
             <PropertyRef Name="Id" />
@@ -2543,7 +2584,7 @@
           <Property Name="ProfFiveGrade" Type="tinyint" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Priem.ed.hlpAbiturientProfAdd" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+предупреждение 6002: В таблице или представлении "Priem2016Test.ed.hlpAbiturientProfAdd" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="hlpAbiturientProfAdd">
           <Key>
             <PropertyRef Name="Id" />
@@ -2552,7 +2593,7 @@
           <Property Name="ProfAdd" Type="decimal" Precision="38" Scale="1" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Priem.ed.hlpEgeMarkMaxApproved" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+предупреждение 6002: В таблице или представлении "Priem2016Test.ed.hlpEgeMarkMaxApproved" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="hlpEgeMarkMaxApproved">
           <Key>
             <PropertyRef Name="PersonId" />
@@ -2563,7 +2604,7 @@
           <Property Name="EgeMarkId" Type="uniqueidentifier" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Priem.ed.hlpPersonMaxEducationInfoId" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+предупреждение 6002: В таблице или представлении "Priem2016Test.ed.hlpPersonMaxEducationInfoId" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="hlpPersonMaxEducationInfoId">
           <Key>
             <PropertyRef Name="PersonId" />
@@ -2572,7 +2613,7 @@
           <Property Name="Id" Type="int" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Priem.ed.hlpStatistics" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+предупреждение 6002: В таблице или представлении "Priem2016Test.ed.hlpStatistics" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="hlpStatistics">
           <Key>
             <PropertyRef Name="EntryId" />
@@ -2608,7 +2649,7 @@
           <Property Name="CNT" Type="int" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Priem.ed.qAbitAll" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+предупреждение 6002: В таблице или представлении "Priem2016Test.ed.qAbitAll" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="qAbitAll">
           <Key>
             <PropertyRef Name="Id" />
@@ -2710,7 +2751,7 @@
           <Property Name="IsCrimea" Type="bit" Nullable="false" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Priem.ed.qAbiturient" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+предупреждение 6002: В таблице или представлении "Priem2016Test.ed.qAbiturient" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="qAbiturient">
           <Key>
             <PropertyRef Name="Id" />
@@ -2817,7 +2858,7 @@
           <Property Name="OlympiadId" Type="uniqueidentifier" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Priem.ed.qAbiturient_WhoSetBackDoc" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+предупреждение 6002: В таблице или представлении "Priem2016Test.ed.qAbiturient_WhoSetBackDoc" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="qAbiturient_WhoSetBackDoc">
           <Key>
             <PropertyRef Name="IntId" />
@@ -2834,7 +2875,7 @@
           <Property Name="PersonId" Type="uniqueidentifier" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Priem.ed.qAbiturient_WhoSetHasOriginals" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+предупреждение 6002: В таблице или представлении "Priem2016Test.ed.qAbiturient_WhoSetHasOriginals" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="qAbiturient_WhoSetHasOriginals">
           <Key>
             <PropertyRef Name="IntId" />
@@ -2851,7 +2892,7 @@
           <Property Name="PersonId" Type="uniqueidentifier" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Priem.ed.qAbiturient_WhoSetIsPaid" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+предупреждение 6002: В таблице или представлении "Priem2016Test.ed.qAbiturient_WhoSetIsPaid" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="qAbiturient_WhoSetIsPaid">
           <Key>
             <PropertyRef Name="IntId" />
@@ -2868,7 +2909,7 @@
           <Property Name="PersonId" Type="uniqueidentifier" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Priem.ed.qAbiturientForeignApplicationsOnly" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+предупреждение 6002: В таблице или представлении "Priem2016Test.ed.qAbiturientForeignApplicationsOnly" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="qAbiturientForeignApplicationsOnly">
           <Key>
             <PropertyRef Name="Id" />
@@ -2876,7 +2917,7 @@
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Priem.ed.qEntry" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+предупреждение 6002: В таблице или представлении "Priem2016Test.ed.qEntry" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="qEntry">
           <Key>
             <PropertyRef Name="Id" />
@@ -2945,7 +2986,7 @@
           <Property Name="DateOfClose" Type="datetime" Nullable="false" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Priem.ed.qEntryToCompetitiveGroup" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+предупреждение 6002: В таблице или представлении "Priem2016Test.ed.qEntryToCompetitiveGroup" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="qEntryToCompetitiveGroup">
           <Key>
             <PropertyRef Name="EntryId" />
@@ -2957,7 +2998,7 @@
           <Property Name="CompetitiveGroupName" Type="nvarchar" MaxLength="1000" Nullable="false" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Priem.ed.qFaculty" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+предупреждение 6002: В таблице или представлении "Priem2016Test.ed.qFaculty" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="qFaculty">
           <Key>
             <PropertyRef Name="Id" />
@@ -2970,7 +3011,7 @@
           <Property Name="VinName" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Priem.ed.qLicenseProgram" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+предупреждение 6002: В таблице или представлении "Priem2016Test.ed.qLicenseProgram" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="qLicenseProgram">
           <Key>
             <PropertyRef Name="Id" />
@@ -2980,7 +3021,7 @@
           <Property Name="Code" Type="nvarchar" MaxLength="10" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Priem.ed.qMark" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+предупреждение 6002: В таблице или представлении "Priem2016Test.ed.qMark" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="qMark">
           <Key>
             <PropertyRef Name="Id" />
@@ -3027,7 +3068,7 @@
           <Property Name="StudyBasisId" Type="int" Nullable="false" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Priem.ed.qObrazProgram" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+предупреждение 6002: В таблице или представлении "Priem2016Test.ed.qObrazProgram" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="qObrazProgram">
           <Key>
             <PropertyRef Name="Id" />
@@ -3043,7 +3084,7 @@
           <Property Name="Number" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Priem.ed.qProfile" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+предупреждение 6002: В таблице или представлении "Priem2016Test.ed.qProfile" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="qProfile">
           <Key>
             <PropertyRef Name="Id" />
@@ -3052,7 +3093,7 @@
           <Property Name="Name" Type="nvarchar" MaxLength="1000" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Priem.ed.qProtocol" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+предупреждение 6002: В таблице или представлении "Priem2016Test.ed.qProtocol" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="qProtocol">
           <Key>
             <PropertyRef Name="Id" />
@@ -3082,7 +3123,7 @@
           <Property Name="IsForeign" Type="bit" Nullable="false" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Priem.ed.qProtocolHistory" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+предупреждение 6002: В таблице или представлении "Priem2016Test.ed.qProtocolHistory" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="qProtocolHistory">
           <Key>
             <PropertyRef Name="AbiturientId" />
@@ -3119,7 +3160,7 @@
           <Property Name="IsForeign" Type="bit" Nullable="false" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Priem.ed.qStudyLevel" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+предупреждение 6002: В таблице или представлении "Priem2016Test.ed.qStudyLevel" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="qStudyLevel">
           <Key>
             <PropertyRef Name="Id" />
@@ -5838,6 +5879,7 @@
           <EntitySet Name="_FirstWave" EntityType="Self._FirstWave" Schema="ed" store:Type="Tables" />
           <EntitySet Name="AbitDoc" EntityType="Self.AbitDoc" Schema="ed" store:Type="Tables" />
           <EntitySet Name="Abiturient" EntityType="Self.Abiturient" Schema="ed" store:Type="Tables" />
+          <EntitySet Name="AbiturientSelectedExam" EntityType="Self.AbiturientSelectedExam" Schema="ed" store:Type="Tables" />
           <EntitySet Name="AchievementType" EntityType="Self.AchievementType" Schema="ed" store:Type="Tables" />
           <EntitySet Name="AdmissionProtocol" EntityType="Self.AdmissionProtocol" Schema="ed" store:Type="Tables" />
           <EntitySet Name="ApplicationDetails" EntityType="Self.ApplicationDetails" Schema="ed" store:Type="Tables" />
@@ -5863,6 +5905,8 @@
           <EntitySet Name="EntryToCompetitiveGroup" EntityType="Self.EntryToCompetitiveGroup" Schema="ed" store:Type="Tables" />
           <EntitySet Name="Exam" EntityType="Self.Exam" Schema="ed" store:Type="Tables" />
           <EntitySet Name="ExamInEntry" EntityType="Self.ExamInEntry" Schema="ed" store:Type="Tables" />
+          <EntitySet Name="ExamInEntryBlock" EntityType="Self.ExamInEntryBlock" Schema="ed" store:Type="Tables" />
+          <EntitySet Name="ExamInEntryBlockUnit" EntityType="Self.ExamInEntryBlockUnit" Schema="ed" store:Type="Tables" />
           <EntitySet Name="ExaminerAccount" EntityType="Self.ExaminerAccount" Schema="ed" store:Type="Tables" />
           <EntitySet Name="ExaminerInExamsVed" EntityType="Self.ExaminerInExamsVed" Schema="ed" store:Type="Tables" />
           <EntitySet Name="ExamName" EntityType="Self.ExamName" Schema="ed" store:Type="Tables" />
@@ -6133,7 +6177,8 @@ FROM [ed].[extDisEntryFromReEnterView] AS [extDisEntryFromReEnterView]</Defining
 [extDisEntryView].[IsListener] AS [IsListener], 
 [extDisEntryView].[ProtocolTypeName] AS [ProtocolTypeName], 
 [extDisEntryView].[IsParallel] AS [IsParallel], 
-[extDisEntryView].[IsReduced] AS [IsReduced]
+[extDisEntryView].[IsReduced] AS [IsReduced], 
+[extDisEntryView].[IsForeign] AS [IsForeign]
 FROM [ed].[extDisEntryView] AS [extDisEntryView]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="extEgeMark" EntityType="Self.extEgeMark" store:Type="Views" store:Schema="ed">
@@ -6339,7 +6384,8 @@ FROM [ed].[extEntryProtocols] AS [extEntryProtocols]</DefiningQuery>
 [extEntryView].[IsCel] AS [IsCel], 
 [extEntryView].[IsBE] AS [IsBE], 
 [extEntryView].[IsForeign] AS [IsForeign], 
-[extEntryView].[Priority] AS [Priority]
+[extEntryView].[Priority] AS [Priority], 
+[extEntryView].[EntryIsForeign] AS [EntryIsForeign]
 FROM [ed].[extEntryView] AS [extEntryView]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="extEntryView_ForDisEntered" EntityType="Self.extEntryView_ForDisEntered" store:Type="Views" store:Schema="ed">
@@ -6399,7 +6445,8 @@ FROM [ed].[extEntryView_ForDisEntered] AS [extEntryView_ForDisEntered]</Defining
 [extExamInEntry].[OrderNumber] AS [OrderNumber], 
 [extExamInEntry].[IsCrimea] AS [IsCrimea], 
 [extExamInEntry].[IsGosLine] AS [IsGosLine], 
-[extExamInEntry].[ParentExamInEntryId] AS [ParentExamInEntryId]
+[extExamInEntry].[ParentExamInEntryId] AS [ParentExamInEntryId], 
+[extExamInEntry].[IsForeign] AS [IsForeign]
 FROM [ed].[extExamInEntry] AS [extExamInEntry]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="extExamsVed" EntityType="Self.extExamsVed" store:Type="Views" store:Schema="ed">
@@ -9617,6 +9664,9 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <EntitySet Name="extAbitAllAdditionalAchievements" EntityType="Priem2012Model.extAbitAllAdditionalAchievements" />
           <EntitySet Name="AdmissionProtocol" EntityType="Priem2012Model.AdmissionProtocol" />
           <EntitySet Name="Privilege" EntityType="Priem2012Model.Privilege" />
+          <EntitySet Name="AbiturientSelectedExam" EntityType="Priem2012Model.AbiturientSelectedExam" />
+          <EntitySet Name="ExamInEntryBlock" EntityType="Priem2012Model.ExamInEntryBlock" />
+          <EntitySet Name="ExamInEntryBlockUnit" EntityType="Priem2012Model.ExamInEntryBlockUnit" />
           </EntityContainer>
         <EntityType Name="AttMarks">
           <Key>
@@ -10191,6 +10241,8 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <NavigationProperty Name="Entry" Relationship="Priem2012Model.FK_Entry_StudyLevel" FromRole="StudyLevel" ToRole="Entry" />
           <Property Type="String" Name="NameRod" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="PostName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ClassNum" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="Duration" Type="Int32" />
         </EntityType>
         <Association Name="fk_Exam_ExamName">
           <End Type="Priem2012Model.ExamName" Role="ExamName" Multiplicity="1" />
@@ -10674,6 +10726,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
             <PropertyRef Name="IsParallel" />
             <PropertyRef Name="IsCrimea" />
             <PropertyRef Name="IsGosLine" />
+            <PropertyRef Name="IsForeign" />
           </Key>
           <Property Type="Int32" Name="Id" Nullable="false" />
           <Property Type="Guid" Name="EntryId" Nullable="false" />
@@ -10700,6 +10753,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <Property Name="IsCrimea" Type="Boolean" Nullable="false" />
           <Property Name="IsGosLine" Type="Boolean" Nullable="false" />
           <Property Name="ParentExamInEntryId" Type="Int32" />
+          <Property Name="IsForeign" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="qAbitAll">
           <Key>
@@ -11235,6 +11289,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
             <PropertyRef Name="IsCel" />
             <PropertyRef Name="IsBE" />
             <PropertyRef Name="IsForeign" />
+            <PropertyRef Name="EntryIsForeign" />
           </Key>
           <Property Type="Guid" Name="Id" Nullable="false" />
           <Property Type="Guid" Name="AbiturientId" Nullable="false" />
@@ -11272,6 +11327,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <Property Type="Boolean" Name="IsBE" Nullable="false" />
           <Property Name="IsForeign" Type="Boolean" Nullable="false" />
           <Property Name="Priority" Type="Int32" />
+          <Property Name="EntryIsForeign" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="extProtocol">
           <Key>
@@ -11352,6 +11408,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
             <PropertyRef Name="Excluded" />
             <PropertyRef Name="IsOld" />
             <PropertyRef Name="ProtocolTypeName" />
+            <PropertyRef Name="IsForeign" />
           </Key>
           <Property Type="Guid" Name="Id" Nullable="false" />
           <Property Type="Guid" Name="AbiturientId" Nullable="false" />
@@ -11361,7 +11418,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <Property Type="Int32" Name="StudyLevelGroupId" Nullable="false" />
           <Property Type="Int32" Name="LicenseProgramId" />
           <Property Type="Int32" Name="FacultyId" />
-          <Property Type="Int32" Name="StudyFormId" />
+          <Property Type="Int32" Name="StudyFormId" Nullable="false" />
           <Property Type="Int32" Name="StudyBasisId" />
           <Property Type="String" Name="Number" MaxLength="15" FixedLength="false" Unicode="true" />
           <Property Type="DateTime" Name="Date" Precision="3" Nullable="false" />
@@ -11374,6 +11431,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <Property Type="String" Name="ProtocolTypeName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="Boolean" Name="IsParallel" Nullable="false" />
           <Property Type="Boolean" Name="IsReduced" Nullable="false" />
+          <Property Name="IsForeign" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="qEntry">
           <Key>
@@ -11639,6 +11697,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="String" Name="Author" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Type="DateTime" Name="DateCreated" Nullable="false" Precision="3" />
+          <Property Name="SchoolExitClassId" Type="Int32" />
         </EntityType>
         <Association Name="FK_Abiturient_Person">
           <End Type="Priem2012Model.Person" Role="Person" Multiplicity="1" />
@@ -14189,6 +14248,37 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <Property Name="Maska" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="AbiturientSelectedExam">
+          <Key>
+            <PropertyRef Name="ApplicationId" />
+            <PropertyRef Name="ExamInEntryBlockUnitId" />
+          </Key>
+          <Property Name="ApplicationId" Type="Guid" Nullable="false" />
+          <Property Name="ExamInEntryBlockUnitId" Type="Guid" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ExamInEntryBlock">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="EntryId" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="IsProfil" Type="Boolean" Nullable="false" />
+          <Property Name="IsOpen" Type="Boolean" Nullable="false" />
+          <Property Name="Holder" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsGosLine" Type="Boolean" Nullable="false" />
+          <Property Name="IsCrimea" Type="Boolean" Nullable="false" />
+          <Property Name="OrderNumber" Type="Byte" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ExamInEntryBlockUnit">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="ExamInEntryBlockId" Type="Guid" Nullable="false" />
+          <Property Name="ExamId" Type="Int32" Nullable="false" />
+          <Property Name="EgeMin" Type="Double" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -14534,6 +14624,8 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <EntitySetMapping Name="StudyLevel">
             <EntityTypeMapping TypeName="Priem2012Model.StudyLevel">
               <MappingFragment StoreEntitySet="StudyLevel">
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="ClassNum" ColumnName="ClassNum" />
                 <ScalarProperty Name="PostName" ColumnName="PostName" />
                 <ScalarProperty Name="NameRod" ColumnName="NameRod" />
                 <ScalarProperty Name="FISName" ColumnName="FISName" />
@@ -14884,6 +14976,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <EntitySetMapping Name="extExamInEntry">
             <EntityTypeMapping TypeName="Priem2012Model.extExamInEntry">
               <MappingFragment StoreEntitySet="extExamInEntry">
+                <ScalarProperty Name="IsForeign" ColumnName="IsForeign" />
                 <ScalarProperty Name="ParentExamInEntryId" ColumnName="ParentExamInEntryId" />
                 <ScalarProperty Name="IsGosLine" ColumnName="IsGosLine" />
                 <ScalarProperty Name="IsCrimea" ColumnName="IsCrimea" />
@@ -15201,6 +15294,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <EntitySetMapping Name="extEntryView">
             <EntityTypeMapping TypeName="Priem2012Model.extEntryView">
               <MappingFragment StoreEntitySet="extEntryView">
+                <ScalarProperty Name="EntryIsForeign" ColumnName="EntryIsForeign" />
                 <ScalarProperty Name="Priority" ColumnName="Priority" />
                 <ScalarProperty Name="IsForeign" ColumnName="IsForeign" />
                 <ScalarProperty Name="IsBE" ColumnName="IsBE" />
@@ -15307,6 +15401,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <EntitySetMapping Name="extDisEntryView">
             <EntityTypeMapping TypeName="Priem2012Model.extDisEntryView">
               <MappingFragment StoreEntitySet="extDisEntryView">
+                <ScalarProperty Name="IsForeign" ColumnName="IsForeign" />
                 <ScalarProperty Name="IsReduced" ColumnName="IsReduced" />
                 <ScalarProperty Name="IsParallel" ColumnName="IsParallel" />
                 <ScalarProperty Name="ProtocolTypeName" ColumnName="ProtocolTypeName" />
@@ -15530,6 +15625,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <EntitySetMapping Name="Person_EducationInfo">
             <EntityTypeMapping TypeName="Priem2012Model.Person_EducationInfo">
               <MappingFragment StoreEntitySet="Person_EducationInfo">
+                <ScalarProperty Name="SchoolExitClassId" ColumnName="SchoolExitClassId" />
                 <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
                 <ScalarProperty Name="Author" ColumnName="Author" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -16949,6 +17045,39 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Maska" ColumnName="Maska" />
                 <ScalarProperty Name="Number" ColumnName="Number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AbiturientSelectedExam">
+            <EntityTypeMapping TypeName="Priem2012Model.AbiturientSelectedExam">
+              <MappingFragment StoreEntitySet="AbiturientSelectedExam">
+                <ScalarProperty Name="ExamInEntryBlockUnitId" ColumnName="ExamInEntryBlockUnitId" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ExamInEntryBlock">
+            <EntityTypeMapping TypeName="Priem2012Model.ExamInEntryBlock">
+              <MappingFragment StoreEntitySet="ExamInEntryBlock">
+                <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
+                <ScalarProperty Name="IsCrimea" ColumnName="IsCrimea" />
+                <ScalarProperty Name="IsGosLine" ColumnName="IsGosLine" />
+                <ScalarProperty Name="Holder" ColumnName="Holder" />
+                <ScalarProperty Name="IsOpen" ColumnName="IsOpen" />
+                <ScalarProperty Name="IsProfil" ColumnName="IsProfil" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="EntryId" ColumnName="EntryId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ExamInEntryBlockUnit">
+            <EntityTypeMapping TypeName="Priem2012Model.ExamInEntryBlockUnit">
+              <MappingFragment StoreEntitySet="ExamInEntryBlockUnit">
+                <ScalarProperty Name="EgeMin" ColumnName="EgeMin" />
+                <ScalarProperty Name="ExamId" ColumnName="ExamId" />
+                <ScalarProperty Name="ExamInEntryBlockId" ColumnName="ExamInEntryBlockId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

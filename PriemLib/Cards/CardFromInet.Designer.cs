@@ -219,6 +219,9 @@
             this.lblHasMotivationLetter = new System.Windows.Forms.Label();
             this.lblHasEssay = new System.Windows.Forms.Label();
             this.lblBarcode = new System.Windows.Forms.Label();
+            this.pnExitClass = new System.Windows.Forms.Panel();
+            this.cbExitClass = new System.Windows.Forms.ComboBox();
+            this.label36 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.epError)).BeginInit();
             this.tabCard.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -252,6 +255,7 @@
             this.tpApplication.SuspendLayout();
             this.groupBox7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvApplications)).BeginInit();
+            this.pnExitClass.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnClose
@@ -1139,6 +1143,7 @@
             // 
             // gbSchool
             // 
+            this.gbSchool.Controls.Add(this.pnExitClass);
             this.gbSchool.Controls.Add(this.label20);
             this.gbSchool.Controls.Add(this.cbCountryEduc);
             this.gbSchool.Controls.Add(this.cbRegionEduc);
@@ -2250,6 +2255,33 @@
             this.lblBarcode.Size = new System.Drawing.Size(0, 13);
             this.lblBarcode.TabIndex = 41;
             // 
+            // pnExitClass
+            // 
+            this.pnExitClass.Controls.Add(this.cbExitClass);
+            this.pnExitClass.Controls.Add(this.label36);
+            this.pnExitClass.Location = new System.Drawing.Point(508, 71);
+            this.pnExitClass.Name = "pnExitClass";
+            this.pnExitClass.Size = new System.Drawing.Size(97, 57);
+            this.pnExitClass.TabIndex = 121;
+            // 
+            // cbExitClass
+            // 
+            this.cbExitClass.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbExitClass.FormattingEnabled = true;
+            this.cbExitClass.Location = new System.Drawing.Point(4, 28);
+            this.cbExitClass.Name = "cbExitClass";
+            this.cbExitClass.Size = new System.Drawing.Size(90, 21);
+            this.cbExitClass.TabIndex = 119;
+            // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Location = new System.Drawing.Point(31, 9);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(38, 13);
+            this.label36.TabIndex = 118;
+            this.label36.Text = "Класс";
+            // 
             // CardFromInet
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2321,6 +2353,8 @@
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvApplications)).EndInit();
+            this.pnExitClass.ResumeLayout(false);
+            this.pnExitClass.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2519,5 +2553,8 @@
         protected System.Windows.Forms.Button btnDocCardOpen;
         private System.Windows.Forms.Label label34;
         private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.Panel pnExitClass;
+        private System.Windows.Forms.ComboBox cbExitClass;
+        private System.Windows.Forms.Label label36;
     }
 }

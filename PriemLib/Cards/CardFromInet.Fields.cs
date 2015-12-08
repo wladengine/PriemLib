@@ -424,6 +424,11 @@ namespace PriemLib
                     cbHEQualification.Text = value;
             }
         }
+        protected int? SchoolExitClassId
+        {
+            get { return ComboServ.GetComboIdInt(cbExitClass); }
+            set { ComboServ.SetComboId(cbExitClass, value); }
+        }
         public int? HEEntryYear
         {
             get

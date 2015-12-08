@@ -166,6 +166,8 @@ namespace PriemLib
                             lstStudyLevelGroupId.Add(5);
                             break;
                         }
+                    case PriemType.PriemAG: { lstStudyLevelGroupId.Add(6); lstStudyLevelGroupId.Add(7); break; }
+
                     default: { lstStudyLevelGroupId.Add(1); break; }
                 }
                 

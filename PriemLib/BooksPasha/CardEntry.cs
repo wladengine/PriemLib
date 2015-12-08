@@ -594,6 +594,7 @@ WHERE Id=@Id";
         {
             using (PriemEntities context = new PriemEntities())
             {
+                /*
                 var query = (from exEntry in context.extExamInEntry                             
                              where exEntry.EntryId == GuidId
                              orderby exEntry.IsProfil descending, exEntry.ExamName
@@ -615,16 +616,49 @@ WHERE Id=@Id";
                 dgvExams.Columns["EgeMin"].HeaderText = "Мин. ЕГЭ";
                 dgvExams.Columns["OrderNumber"].HeaderText = "№";
                 dgvExams.Columns["OrderNumber"].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+                 * */
+                var query = (from block in context.ExamInEntryBlock
+                             join unit in context.ExamInEntryBlockUnit on block.Id equals unit.ExamInEntryBlockId
+                             join ex in context.Exam on unit.ExamId equals ex.Id
+                             join exname in context.ExamName on ex.ExamNameId equals exname.Id
+                             where block.EntryId == GuidId
+                             orderby block.IsProfil descending, exname.Name
+                             select new
+                             {
+                                 block.Id,
+                                 block.OrderNumber,
+                                 BlockName = block.Name,
+                                 Name = exname.Name,
+                                 IsProfil = block.IsProfil ? "да" : "нет",
+                                 unit.EgeMin,
+                             }).ToList().OrderBy(x => x.OrderNumber).ToList();
+                dgvExams.DataSource = query;
+                dgvExams.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                dgvExams.Columns["Id"].Visible = false;
+                dgvExams.Columns["BlockName"].HeaderText = "Название блока";
+                dgvExams.Columns["Name"].HeaderText = "Название";
+                //dgvExams.Columns["Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                dgvExams.Columns["IsProfil"].HeaderText = "Профильный";
+                dgvExams.Columns["EgeMin"].HeaderText = "Мин. ЕГЭ";
+                dgvExams.Columns["OrderNumber"].HeaderText = "№";
+                dgvExams.Columns["OrderNumber"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                dgvExams.Columns["IsProfil"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                dgvExams.Columns["EgeMin"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             }
         }
 
         private void OpenCardExam(Guid? entryId, string id, bool isForModified)
         {
+            /*
             CardExamInEntry crd = new CardExamInEntry(entryId, id, isForModified);
             crd.ToUpdateList += new UpdateListHandler(UpdateExams);
             crd.Show();
-        }
+             * */
 
+            CardExamInEntryBlock crd = new CardExamInEntryBlock(entryId, id, isForModified);
+            crd.ToUpdateList += new UpdateListHandler(UpdateExams);
+            crd.Show();
+        }
 
         private void btnOpenExam_Click(object sender, EventArgs e)
         {
@@ -652,8 +686,10 @@ WHERE Id=@Id";
                     {
                         using (PriemEntities context = new PriemEntities())
                         {
-                            int? id = int.Parse(itemId);
-                            context.ExamInEntry_Delete(id);
+                            Guid id = Guid.Parse(itemId);
+                            ExamInEntryBlock bl = context.ExamInEntryBlock.Where(x => x.Id == id).First();
+                            context.ExamInEntryBlock.DeleteObject(bl);
+                            context.SaveChanges();
                         }
                     }
                     catch (Exception ex)
@@ -989,7 +1025,5 @@ WHERE Id=@Id";
             crd.Show();
         }
         #endregion
-
-        
     }
 }

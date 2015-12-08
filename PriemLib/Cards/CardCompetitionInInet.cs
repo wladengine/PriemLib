@@ -62,6 +62,8 @@ namespace PriemLib
 
             if (_competition.HasInnerPriorities)
                 btnHasInnerObrazProgram.Visible = true;
+            if (_competition.HasManualExams)
+                btnAppExams.Visible = true;
         }
 
         protected void InitHandlers()
@@ -123,7 +125,7 @@ namespace PriemLib
         {
             IEnumerable<Entry> entry = context.Entry;
             entry = entry.Where(c => c.IsSecond == IsSecond && c.IsReduced == IsReduced);
-
+            
             return entry;
         }
 
@@ -500,6 +502,11 @@ namespace PriemLib
         private void btnHasInnerObrazProgram_Click(object sender, EventArgs e)
         {
             new CardInnerEntryInEntryInCompetitionInInet(_competition).Show();
+        }
+
+        private void btnAppExams_Click(object sender, EventArgs e)
+        {
+            new CardAppManualExams(_competition).Show();
         }
     }
 }

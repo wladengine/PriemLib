@@ -940,6 +940,9 @@
         <edmx:EntityTypeShape EntityType="Priem2012Model.extAbitAllAdditionalAchievements" Width="1.5" PointX="36.375" PointY="9.75" />
         <edmx:EntityTypeShape EntityType="Priem2012Model.AdmissionProtocol" Width="1.5" PointX="35.375" PointY="0.75" />
         <edmx:EntityTypeShape EntityType="Priem2012Model.Privilege" Width="1.5" PointX="36.375" PointY="12.75" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.AbiturientSelectedExam" Width="1.5" PointX="36.375" PointY="15.75" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.ExamInEntryBlock" Width="1.5" PointX="36.375" PointY="18.75" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.ExamInEntryBlockUnit" Width="1.5" PointX="36.375" PointY="21.75" />
         </edmx:Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

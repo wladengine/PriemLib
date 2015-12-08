@@ -211,7 +211,7 @@ namespace PriemLib
 
             string query = @"select
 Person.Id as PersonId, PersonEducationDocument.Id as EducationDocumentId
-, SchoolCity, SchoolTypeId, SchoolName, SchoolNum, SchoolExitYear
+, SchoolCity, SchoolTypeId, SchoolName, SchoolNum, SchoolExitYear, SchoolExitClassId
 , Country.PriemDictionaryId as CountryEducId, Country.Id as ForeignCountryEducId, Region.PriemDictionaryId AS RegionEducId
 , IsEqual, EqualDocumentNumber, Series , Number, AvgMark, IsExcellent
 , PersonHighEducationInfo.EducationDocumentId as PersonHighEducationInfoId
@@ -259,6 +259,7 @@ where Person.Barcode =" + fileNum ;
                         HEExitYear = row.Field<int?>("ExitYear"),
                         HEWork = row.Field<string>("DiplomaTheme") ?? "",
                         HEStudyFormId = row.Field<int?>("StudyFormId"),
+                        SchoolExitClassId = row.Field<int?>("SchoolExitClassId"),
                     });
             }
 
@@ -305,6 +306,7 @@ where Person.Barcode =" + fileNum ;
 ,(SELECT MAX(ApplicationCommitVersion.VersionDate) FROM ApplicationCommitVersion WHERE ApplicationCommitVersion.CommitId = [Abiturient].CommitId) AS VersionDate
 ,ApplicationCommit.IntNumber
 ,[Abiturient].HasInnerPriorities
+,[Abiturient].HasManualExams
 ,[Abiturient].IsApprovedByComission
 ,[Abiturient].CompetitionId
 ,[Abiturient].ApproverName
@@ -345,6 +347,7 @@ WHERE IsCommited = 1 AND IntNumber=@CommitId";
                                   IsReduced = rw.Field<bool>("IsReduced"),
                                   IsSecond = rw.Field<bool>("IsSecond"),
                                   HasInnerPriorities = rw.Field<bool>("HasInnerPriorities"),
+                                  HasManualExams = rw.Field<bool>("HasManualExams"),
                                   IsApprovedByComission = rw.Field<bool>("IsApprovedByComission"),
                                   ApproverName = rw.Field<string>("ApproverName"),
                                   lstInnerEntryInEntry = new List<ShortInnerEntryInEntry>(),
@@ -379,6 +382,10 @@ FROM [extApplicationDetails] WHERE [ApplicationId]=@AppId";
                         OP.CurrDate = OPIE.CurrDate;
                         C.lstInnerEntryInEntry.Add(OP);
                     }
+                }
+                foreach (var C in LstCompetitions.Where(x => x.HasManualExams))
+                {
+                    C.lstExamInEntryBlock = GetExamenInEntryBlock(C.Id, C.EntryId);
                 }
             }
             catch (Exception ex)
@@ -440,6 +447,57 @@ WHERE Id=@Id";
                     tran.Complete();
                 }
             }
+        }
+
+        public List<ExamenBlock> GetExamenInEntryBlock (Guid AppId, Guid EntryId)
+        {
+            string query = String.Format("Select Id, Name from dbo.ExamInEntryBlock where EntryId = '{0}'", EntryId.ToString());
+            DataTable tbl_block = _bdcInet.GetDataSet(query).Tables[0];
+
+            query = String.Format(@"SELECT  
+  ExamInEntryBlockId, ApplicationSelectedExam.ExamInEntryBlockUnitId, ExamName.Name
+  FROM dbo.ApplicationSelectedExam
+  join dbo.ExamInEntryBlockUnit on ApplicationSelectedExam.ExamInEntryBlockUnitId = ExamInEntryBlockUnit.Id
+  join dbo.Exam on Exam.Id =ExamInEntryBlockUnit.ExamId
+  join dbo.ExamName on ExamName.Id = Exam.ExamNameId
+  where ApplicationSelectedExam.ApplicationId = '{0}'", AppId.ToString());
+            DataTable tbl_units = _bdcInet.GetDataSet(query).Tables[0];
+
+            query = @"SELECT  
+  ExamInEntryBlockUnit.Id, ExamName.Name
+  FROM  dbo.ExamInEntryBlockUnit  
+  join dbo.Exam on Exam.Id =ExamInEntryBlockUnit.ExamId
+  join dbo.ExamName on ExamName.Id = Exam.ExamNameId
+  where ExamInEntryBlockUnit.ExamInEntryBlockId = '{0}'";
+
+            List<ExamenBlock> lst = new List<ExamenBlock>();
+            foreach (DataRow rw in tbl_block.Rows)
+            {
+                Guid BlockId = rw.Field<Guid>("Id");
+
+                ExamenBlock bl = new ExamenBlock();
+                bl.BlockId =BlockId;
+                bl.BlockName = rw.Field<string>("Name");
+
+                DataRow unitrw = (from DataRow row in tbl_units.Rows
+                                  where row.Field<Guid>("ExamInEntryBlockId") == BlockId
+                                  select row).FirstOrDefault();
+                if (unitrw != null)
+                {
+                    bl.SelectedUnitId = unitrw.Field<Guid>("ExamInEntryBlockUnitId");
+                    bl.SelectedUnitName = unitrw.Field<string>("Name");
+                }
+
+                DataTable tbl = _bdcInet.GetDataSet(String.Format(query, BlockId.ToString())).Tables[0];
+                bl.UnitList = new List<KeyValuePair<Guid, string>>();
+                foreach (DataRow row in tbl.Rows)
+                {
+                    bl.UnitList.Add(new KeyValuePair<Guid, string>(row.Field<Guid>("Id"), row.Field<string>("Name")));
+                }
+                lst.Add(bl);
+            }
+
+            return lst;
         }
     }
 }

@@ -115,6 +115,7 @@ namespace PriemLib
                     FillStudyForm();
                     FillStudyBasis();
                     FillCompetition();
+                   
                     UpdateInnerPrioritiesAfterStudyBasis();
 
                     cbOtherCompetition.Visible = false;
@@ -308,6 +309,8 @@ namespace PriemLib
                         InnerEntryInEntryId = abit.InnerEntryInEntryId;
                     //if (ProfileInObrazProgramInEntryId.HasValue)
                     //    ProfileInObrazProgramInEntryId = abit.ProfileInObrazProgramInEntryId;
+
+                    FillSelectedExams();
                 }
             }
             catch (Exception ex)
@@ -585,7 +588,7 @@ namespace PriemLib
         protected override void SetAllFieldsEnabled()
         {
             base.SetAllFieldsEnabled();
-
+                        
             tbPriority.Enabled = true;
             tbRegNum.Enabled = false;
             if (StudyBasisId == 2)
@@ -606,6 +609,9 @@ namespace PriemLib
             btnDocInventory.Enabled = true;
             if (StudyBasisId == 1 && MainClass.dbType == PriemType.Priem)
                 btnChangePriority.Enabled = true;
+            
+            tpExamBlock.Enabled = true;
+            dgvAppExams.Enabled = true;
         }
         // закрытие части полей в зависимости от прав
         protected override void SetReadOnlyFields()
@@ -629,6 +635,9 @@ namespace PriemLib
                 chbHasOriginals.Enabled = true;
             tbPriority.Enabled = true;
             tbCoefficient.Enabled = true;
+
+            tpExamBlock.Enabled = true;
+            dgvAppExams.Enabled = true;
 
             btnAddO.Enabled = true;
 
@@ -1162,6 +1171,81 @@ namespace PriemLib
                 WinFormsServ.Error("Ошибка при инициализации формы FillCompetition", exc);
             }
         }
+        private void FillSelectedExams()
+        {
+            try
+            {
+                using (PriemEntities context = new PriemEntities())
+                {
+                    var block = (from b in context.ExamInEntryBlock
+                                 where b.EntryId == EntryId
+                                 select new { b.Id, b.Name }).ToList();
+                    
+                    if (block.Count == 0)
+                    {
+                        if (tabCard.TabPages.Contains(tpExamBlock))
+                            tabCard.TabPages.Remove(tpExamBlock);
+                    }
+                    else
+                    {
+                        if (!tabCard.TabPages.Contains(tpExamBlock))
+                            tabCard.TabPages.Add(tpExamBlock);
+                    }
+                    
+                    dgvAppExams.Columns.Add("Id", "Id");
+                    dgvAppExams.Columns["Id"].Visible = false;
+                    dgvAppExams.Columns["Id"].CellTemplate = new DataGridViewTextBoxCell();
+
+                    dgvAppExams.Columns.Add("Name", "Название");
+                    dgvAppExams.Columns["Name"].CellTemplate = new DataGridViewTextBoxCell();
+
+
+                    DataGridViewComboBoxColumn column1 = new DataGridViewComboBoxColumn();
+                    DataGridViewComboBoxCell cell1 = new DataGridViewComboBoxCell();
+                    cell1.DisplayMember = "Value";
+                    cell1.ValueMember = "Key";
+                    column1.HeaderText = "Список экзаменов";
+                    column1.Name = "ExamsList";
+                    column1.CellTemplate = cell1;
+                    column1.Width = 250; 
+                    dgvAppExams.Columns.Add(column1);
+
+                    foreach (var b in block)
+                    {
+                        var units = (from u in context.ExamInEntryBlockUnit
+                                     join e in context.Exam on u.ExamId equals e.Id
+                                     join en in context.ExamName on e.ExamNameId equals en.Id
+                                     where u.ExamInEntryBlockId == b.Id
+                                     select new
+                                     {u.Id, en.Name}).ToList();
+                        var AbitExams = (from abit in context.AbiturientSelectedExam
+                                         join u in context.ExamInEntryBlockUnit on abit.ExamInEntryBlockUnitId equals u.Id
+                                         where abit.ApplicationId == GuidId && u.ExamInEntryBlockId == b.Id
+                                         select abit.ExamInEntryBlockUnitId
+                                            ).ToList();
+                         
+                        var lst = units.Select(x => new KeyValuePair<Guid, string>(x.Id, x.Name)).ToList();
+                        DataGridViewRow row = new DataGridViewRow();
+                        row.CreateCells(dgvAppExams);
+                        int icol = dgvAppExams.Columns.IndexOf(dgvAppExams.Columns["Id"]);
+                        row.Cells[icol].Value = b.Id;
+                        icol = dgvAppExams.Columns.IndexOf(dgvAppExams.Columns["Name"]);
+                        row.Cells[icol].Value = b.Name;
+                        icol = dgvAppExams.Columns.IndexOf(dgvAppExams.Columns["ExamsList"]);
+                        
+                        DataGridViewComboBoxCell comboCell = row.Cells[icol] as DataGridViewComboBoxCell;
+                        comboCell.DataSource = lst;
+                        if (AbitExams.Count>0)
+                            row.Cells[icol].Value = AbitExams.First();
+                        dgvAppExams.Rows.Add(row);
+                    }
+                }
+            }
+            catch (Exception exc)
+            {
+                WinFormsServ.Error("Ошибка при инициализации формы FillCompetition", exc);
+            }
+        }
         private void UpdateAfterCompetition()
         {
             if (CompetitionId == 1 || CompetitionId == 2 || CompetitionId == 7 || CompetitionId == 8)
@@ -1532,6 +1616,7 @@ namespace PriemLib
             Guid gId = (Guid)idParam.Value;
 
             //context.Abiturient_UpdateIsCommonRussianCompetition(IsForeign, gId);
+            UpdateSelectedExams(context, gId);
         }
 
         protected override void UpdateRec(PriemEntities context, Guid id)
@@ -1551,6 +1636,7 @@ namespace PriemLib
                 if (InnerEntryInEntryId.HasValue)
                     context.Abiturient_UpdateInnerEntryInEntryId(InnerEntryInEntryId, GuidId);
             }
+            UpdateSelectedExams(context, id);
         }
 
         protected override void OnSave()
@@ -1575,6 +1661,24 @@ namespace PriemLib
 
                 tbRegNum.Text = MainClass.GetAbitNum(num, personNum);
             }
+        }
+
+        protected void UpdateSelectedExams(PriemEntities context, Guid id)
+        {
+            var lst = context.AbiturientSelectedExam.Where(x => x.ApplicationId == id).Select(x => x).ToList();
+
+            foreach (var x in lst)
+                context.AbiturientSelectedExam.DeleteObject(x);
+
+            foreach (DataGridViewRow rw in dgvAppExams.Rows)
+            {
+                Guid UnitId = Guid.Parse(rw.Cells["ExamsList"].Value.ToString());
+                context.AbiturientSelectedExam.AddObject(new AbiturientSelectedExam() {
+                    ApplicationId = id, 
+                    ExamInEntryBlockUnitId = UnitId,
+                });
+            }
+            context.SaveChanges();
         }
 
         #endregion

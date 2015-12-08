@@ -217,6 +217,7 @@
             this.btnAddPersonAchievement = new System.Windows.Forms.Button();
             this.dgvIndividualAchievements = new System.Windows.Forms.DataGridView();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.btnOpenCardBenefitDocument = new System.Windows.Forms.Button();
             this.btnDeleteBenefitDocument = new System.Windows.Forms.Button();
             this.btnAddBenefitDocument = new System.Windows.Forms.Button();
             this.dgvBenefitDocument = new System.Windows.Forms.DataGridView();
@@ -296,7 +297,9 @@
             this.btnAddAbit = new System.Windows.Forms.Button();
             this.btnDocs = new System.Windows.Forms.Button();
             this.sfdPrint = new System.Windows.Forms.SaveFileDialog();
-            this.btnOpenCardBenefitDocument = new System.Windows.Forms.Button();
+            this.label70 = new System.Windows.Forms.Label();
+            this.cbExitClass = new System.Windows.Forms.ComboBox();
+            this.pnExitClass = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.epError)).BeginInit();
             this.tabCard.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -348,6 +351,7 @@
             this.gbVedList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVedList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.epErrorInput)).BeginInit();
+            this.pnExitClass.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnClose
@@ -1563,6 +1567,7 @@
             // 
             // gbSchool
             // 
+            this.gbSchool.Controls.Add(this.pnExitClass);
             this.gbSchool.Controls.Add(this.label66);
             this.gbSchool.Controls.Add(this.cbRegionEduc);
             this.gbSchool.Controls.Add(this.cbCountryEduc);
@@ -1603,7 +1608,7 @@
             this.cbRegionEduc.FormattingEnabled = true;
             this.cbRegionEduc.Location = new System.Drawing.Point(76, 102);
             this.cbRegionEduc.Name = "cbRegionEduc";
-            this.cbRegionEduc.Size = new System.Drawing.Size(467, 21);
+            this.cbRegionEduc.Size = new System.Drawing.Size(430, 21);
             this.cbRegionEduc.TabIndex = 116;
             // 
             // cbCountryEduc
@@ -1616,7 +1621,7 @@
             this.cbCountryEduc.FormattingEnabled = true;
             this.cbCountryEduc.Location = new System.Drawing.Point(76, 72);
             this.cbCountryEduc.Name = "cbCountryEduc";
-            this.cbCountryEduc.Size = new System.Drawing.Size(467, 21);
+            this.cbCountryEduc.Size = new System.Drawing.Size(430, 21);
             this.cbCountryEduc.TabIndex = 114;
             this.cbCountryEduc.SelectedIndexChanged += new System.EventHandler(this.cbCountryEduc_SelectedIndexChanged);
             // 
@@ -2258,6 +2263,17 @@
             this.groupBox3.TabIndex = 12;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Реквизиты документов";
+            // 
+            // btnOpenCardBenefitDocument
+            // 
+            this.btnOpenCardBenefitDocument.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnOpenCardBenefitDocument.Location = new System.Drawing.Point(79, 177);
+            this.btnOpenCardBenefitDocument.Name = "btnOpenCardBenefitDocument";
+            this.btnOpenCardBenefitDocument.Size = new System.Drawing.Size(67, 23);
+            this.btnOpenCardBenefitDocument.TabIndex = 3;
+            this.btnOpenCardBenefitDocument.Text = "Открыть";
+            this.btnOpenCardBenefitDocument.UseVisualStyleBackColor = true;
+            this.btnOpenCardBenefitDocument.Click += new System.EventHandler(this.btnOpenCardBenefitDocument_Click);
             // 
             // btnDeleteBenefitDocument
             // 
@@ -3156,16 +3172,32 @@
             this.btnDocs.Visible = false;
             this.btnDocs.Click += new System.EventHandler(this.btnDocs_Click);
             // 
-            // btnOpenCardBenefitDocument
+            // label70
             // 
-            this.btnOpenCardBenefitDocument.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnOpenCardBenefitDocument.Location = new System.Drawing.Point(79, 177);
-            this.btnOpenCardBenefitDocument.Name = "btnOpenCardBenefitDocument";
-            this.btnOpenCardBenefitDocument.Size = new System.Drawing.Size(67, 23);
-            this.btnOpenCardBenefitDocument.TabIndex = 3;
-            this.btnOpenCardBenefitDocument.Text = "Открыть";
-            this.btnOpenCardBenefitDocument.UseVisualStyleBackColor = true;
-            this.btnOpenCardBenefitDocument.Click += new System.EventHandler(this.btnOpenCardBenefitDocument_Click);
+            this.label70.AutoSize = true;
+            this.label70.Location = new System.Drawing.Point(32, 14);
+            this.label70.Name = "label70";
+            this.label70.Size = new System.Drawing.Size(38, 13);
+            this.label70.TabIndex = 118;
+            this.label70.Text = "Класс";
+            // 
+            // cbExitClass
+            // 
+            this.cbExitClass.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbExitClass.FormattingEnabled = true;
+            this.cbExitClass.Location = new System.Drawing.Point(2, 30);
+            this.cbExitClass.Name = "cbExitClass";
+            this.cbExitClass.Size = new System.Drawing.Size(90, 21);
+            this.cbExitClass.TabIndex = 119;
+            // 
+            // pnExitClass
+            // 
+            this.pnExitClass.Controls.Add(this.cbExitClass);
+            this.pnExitClass.Controls.Add(this.label70);
+            this.pnExitClass.Location = new System.Drawing.Point(515, 72);
+            this.pnExitClass.Name = "pnExitClass";
+            this.pnExitClass.Size = new System.Drawing.Size(97, 57);
+            this.pnExitClass.TabIndex = 120;
             // 
             // CardPerson
             // 
@@ -3265,6 +3297,8 @@
             this.gbVedList.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvVedList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.epErrorInput)).EndInit();
+            this.pnExitClass.ResumeLayout(false);
+            this.pnExitClass.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -3529,6 +3563,9 @@
         private System.Windows.Forms.GroupBox gbVedList;
         private System.Windows.Forms.DataGridView dgvVedList;
         private System.Windows.Forms.Button btnOpenCardBenefitDocument;
+        private System.Windows.Forms.Panel pnExitClass;
+        private System.Windows.Forms.ComboBox cbExitClass;
+        private System.Windows.Forms.Label label70;
 
     }
 }

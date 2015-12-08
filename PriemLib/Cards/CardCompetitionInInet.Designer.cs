@@ -66,6 +66,7 @@
             this.chbIsForeign = new System.Windows.Forms.CheckBox();
             this.btnHasInnerObrazProgram = new System.Windows.Forms.Button();
             this.chbIsCrimea = new System.Windows.Forms.CheckBox();
+            this.btnAppExams = new System.Windows.Forms.Button();
             this.gbDocs.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.epError)).BeginInit();
             this.SuspendLayout();
@@ -466,11 +467,23 @@
             this.chbIsCrimea.Text = "Крым";
             this.chbIsCrimea.UseVisualStyleBackColor = true;
             // 
+            // btnAppExams
+            // 
+            this.btnAppExams.Location = new System.Drawing.Point(366, 384);
+            this.btnAppExams.Name = "btnAppExams";
+            this.btnAppExams.Size = new System.Drawing.Size(84, 36);
+            this.btnAppExams.TabIndex = 195;
+            this.btnAppExams.Text = "Экзамены по выбору";
+            this.btnAppExams.UseVisualStyleBackColor = true;
+            this.btnAppExams.Visible = false;
+            this.btnAppExams.Click += new System.EventHandler(this.btnAppExams_Click);
+            // 
             // CardCompetitionInInet
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(476, 529);
+            this.Controls.Add(this.btnAppExams);
             this.Controls.Add(this.chbIsCrimea);
             this.Controls.Add(this.btnHasInnerObrazProgram);
             this.Controls.Add(this.chbIsForeign);
@@ -555,5 +568,6 @@
         private System.Windows.Forms.CheckBox chbIsForeign;
         private System.Windows.Forms.Button btnHasInnerObrazProgram;
         private System.Windows.Forms.CheckBox chbIsCrimea;
+        private System.Windows.Forms.Button btnAppExams;
     }
 }

@@ -115,6 +115,18 @@ namespace PriemLib
 
                         context.SaveChanges();
                     }
+                    if (Comp.lstExamInEntryBlock.Count >0)
+                    {
+                        foreach (var Block in Comp.lstExamInEntryBlock)
+                        {
+                            context.AbiturientSelectedExam.AddObject(new AbiturientSelectedExam()
+                            {
+                                ApplicationId = ApplicationId,
+                                ExamInEntryBlockUnitId = Block.SelectedUnitId,
+                            });
+                        }
+                        context.SaveChanges();
+                    }
                 }
             }
         }

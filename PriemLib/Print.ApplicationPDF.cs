@@ -17,6 +17,8 @@ namespace PriemLib
                 return GetApplicationPDF_Aspirant(PersonId, dirPath);
             else if (MainClass.dbType == PriemType.PriemSPO)
                 return GetApplicationPDF_SPO(PersonId, dirPath);
+            else if (MainClass.dbType == PriemType.PriemAG)
+                return GetApplicationPDF_AG(PersonId, dirPath);
 
             List<byte[]> lstFiles = new List<byte[]>();
             List<byte[]> lstAppendixes = new List<byte[]>();
@@ -964,7 +966,122 @@ namespace PriemLib
                 return MergePdfFiles(lstFiles);
             }
         }
+        public static byte[] GetApplicationPDF_AG(Guid PersonId, string dirPath)
+        {
+            using (PriemEntities context = new PriemEntities())
+            {
+                var abitList = (from x in context.extAbit
+                                join Entry in context.extEntry on x.EntryId equals Entry.Id
+                                join SL in context.StudyLevel on Entry.StudyLevelId equals SL.Id
+                                where x.PersonId == PersonId
+                                && MainClass.lstStudyLevelGroupId.Contains(x.StudyLevelGroupId)
+                                select new
+                                {
+                                    x.Id,
+                                    x.PersonId,
+                                    x.Barcode,
+                                    Profession = Entry.LicenseProgramName,
+                                    ObrazProgram = Entry.ObrazProgramName,
+                                    Entry.StudyLevelId,
+                                    CommitIntNumber = x.CommitNumber,
+                                    Priority = x.Priority ?? 0,
+                                    x.StudyLevelGroupId,
+                                    x.EntryId,
+                                    SL.ClassNum,
+                                    SL.Duration
+                                }).ToList();
 
+                var person = (from x in context.Person
+                              where x.Id == PersonId
+                              select new
+                              {
+                                  x.Surname,
+                                  x.Name,
+                                  x.SecondName,
+                                  x.Barcode,
+                                  x.Person_AdditionalInfo.HostelEduc,
+                              }).FirstOrDefault();
+
+                MemoryStream ms = new MemoryStream();
+                string dotName = "ApplicationAG_2015.pdf";
+
+                byte[] templateBytes;
+                using (FileStream fs = new FileStream(dirPath + "\\" + dotName, FileMode.Open, FileAccess.Read))
+                {
+                    templateBytes = new byte[fs.Length];
+                    fs.Read(templateBytes, 0, templateBytes.Length);
+                }
+
+                PdfReader pdfRd = new PdfReader(templateBytes);
+                PdfStamper pdfStm = new PdfStamper(pdfRd, ms);
+                AcroFields acrFlds = pdfStm.AcroFields;
+
+                int multiplyer = abitList.FirstOrDefault().StudyLevelGroupId;
+                string code = ((multiplyer * 100000) + abitList.First().CommitIntNumber).ToString();
+                Barcode128 barcode = new Barcode128();
+                barcode.Code = code;
+                PdfContentByte cb = pdfStm.GetOverContent(1);
+                iTextSharp.text.Image img = barcode.CreateImageWithBarcode(cb, null, null);
+                // img.SetAbsolutePosition(420, 720);
+                img.SetAbsolutePosition(120, 775);
+                cb.AddImage(img);
+
+                acrFlds.SetField("FIO", ((person.Surname ?? "") + " " + (person.Name ?? "") + " " + (person.SecondName ?? "")).Trim());
+                acrFlds.SetField("ObrazProgramYear", abitList.FirstOrDefault().Duration.ToString());
+                acrFlds.SetField("EntryClass", abitList.FirstOrDefault().ClassNum);
+                if (person.HostelEduc)
+                    acrFlds.SetField("HostelAbitYes", "1");
+                else
+                    acrFlds.SetField("HostelAbitNo", "1");
+
+                int inc = 0;
+                bool hasSecondApp = abitList.Count() > 1;
+                foreach (var abit in abitList)
+                {
+                    inc++;
+                    string i = inc.ToString();
+                    if (hasSecondApp)
+                    {
+                        acrFlds.SetField("chbIsPriority" + i, "1");
+                        hasSecondApp = false;
+                    }
+
+                    if (abit.ClassNum.IndexOf("10") < 0)
+                        acrFlds.SetField("chbSchoolLevel1" + i, "1");
+                    else
+                        acrFlds.SetField("chbSchoolLevel2" + i, "1");
+
+                    acrFlds.SetField("RegNum" + i, (800000 + abit.Barcode).ToString());
+                    acrFlds.SetField("Profession" + i, abit.Profession);
+                    acrFlds.SetField("ObrazProgram" + i, abit.ObrazProgram);
+
+                    var Exams = (from x in context.AbiturientSelectedExam
+                                 join ex_un in context.ExamInEntryBlockUnit on x.ExamInEntryBlockUnitId equals ex_un.Id
+                                 join ex_bl in context.ExamInEntryBlock on ex_un.ExamInEntryBlockId equals ex_bl.Id
+                                 join ex in context.Exam on ex_un.ExamId equals ex.Id
+                                 join ex_n in context.ExamName on ex.ExamNameId equals ex_n.Id
+                                 where x.ApplicationId == abit.Id && ex_bl.EntryId == abit.EntryId
+                                 select ex_n.Name ).ToList();
+                    if (Exams.Count == 0)
+                        acrFlds.SetField("ManualExam" + i, "нет");
+                    else
+                    {
+                        string ExamNames = "";
+                        foreach (var x in Exams)
+                            ExamNames += x + ", ";
+                        if (ExamNames.Length > 2)
+                            ExamNames = ExamNames.Substring(0, ExamNames.Length - 2);
+                        acrFlds.SetField("ManualExam" + i, ExamNames);
+                    }
+                }
+
+                pdfStm.FormFlattening = true;
+                pdfStm.Close();
+                pdfRd.Close();
+
+                return ms.ToArray();
+            }
+        }
         public static PdfReader GetAcrobatFileFromTemplate(string templateFile)
         {
             byte[] templateBytes;
