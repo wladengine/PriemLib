@@ -693,6 +693,8 @@ WHERE Id=@Id";
                             ExamInEntryBlock bl = context.ExamInEntryBlock.Where(x => x.Id == id).First();
                             context.ExamInEntryBlock.DeleteObject(bl);
                             context.SaveChanges();
+
+                            MainClass.BdcOnlineReadWrite.ExecuteQuery(String.Format("delete from dbo.ExamInEntryBlock where Id = '{0}'", id), null);
                         }
                     }
                     catch (Exception ex)

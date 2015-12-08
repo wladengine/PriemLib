@@ -110,7 +110,6 @@ namespace PriemLib
 
                     if (lst.Count == 0)
                     {
-                        new CardExamInEntryUnit(null, new UnitListUpdateHandler(UnitListAdd)).Show();
                         this.Shown += CardExamInEntryBlock_Shown;
                     }
                     else
@@ -203,81 +202,12 @@ namespace PriemLib
                 {
                     if (_Id == null)
                     {
-                        Guid entId = Guid.NewGuid();
+                        ObjectParameter entId = new ObjectParameter("Id", typeof(Guid));
                         using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.RequiresNew))
                         { 
                             try
                             {
-                                if (OrderNumber == null)
-                                {
-                                    int num = (from x in context.ExamInEntryBlock
-                                               where x.EntryId == _entryId
-                                               select x.OrderNumber).OrderByDescending(x => x).FirstOrDefault();
-                                    OrderNumber = (byte)(num + 1);    
-                                }
-
-                                Entry curEnt = (from ent in context.Entry
-                                                where ent.Id == _entryId
-                                                select ent).FirstOrDefault();
-                                context.ExamInEntryBlock.AddObject(new ExamInEntryBlock()
-                                {
-                                    Id = entId,
-                                    EntryId = curEnt.Id,
-                                    Name = BlockName,
-                                    IsCrimea = IsCrimea,
-                                    IsGosLine = IsGosLine,
-                                    OrderNumber = OrderNumber ?? 1,
-                                });
-                                foreach (ExamenBlockUnit x in lstUnit)
-                                {
-                                    context.ExamInEntryBlockUnit.AddObject(new ExamInEntryBlockUnit()
-                                    {
-                                        Id = x.UnitId,
-                                        ExamId = x.ExamId,
-                                        EgeMin = x.EgeMin,
-                                        ExamInEntryBlockId = entId,
-                                    });
-                                }
-
-                                IEnumerable<Entry> ents = from ent in context.Entry
-                                                          where
-                                                          ent.FacultyId == curEnt.FacultyId
-                                                          && ent.LicenseProgramId == curEnt.LicenseProgramId
-                                                          && ent.ObrazProgramId == curEnt.ObrazProgramId
-                                                          && (curEnt.ProfileId == null ? ent.ProfileId == null : ent.ProfileId == curEnt.ProfileId)
-                                                          && ent.Id != curEnt.Id
-                                                          && ent.IsCrimea == curEnt.IsCrimea
-                                                          && ent.IsForeign == curEnt.IsForeign
-                                                          && ent.IsParallel == curEnt.IsParallel
-                                                          && ent.IsReduced == curEnt.IsReduced
-                                                          && ent.IsSecond == curEnt.IsSecond
-                                                          select ent;
-
-                                if (!chbToAllStudyBasis.Checked)
-                                    ents = ents.Where(c => c.StudyBasisId == curEnt.StudyBasisId);
-                                foreach (Entry e in ents)
-                                {
-                                    Guid blId = Guid.NewGuid();
-                                    context.ExamInEntryBlock.AddObject(new ExamInEntryBlock()
-                                    {
-                                        Id = blId,
-                                        EntryId = e.Id,
-                                        Name = BlockName,
-                                        IsCrimea = IsCrimea,
-                                        IsGosLine = IsGosLine,
-                                        OrderNumber = OrderNumber ?? 1,
-                                    });
-                                    foreach (ExamenBlockUnit x in lstUnit)
-                                    {
-                                        context.ExamInEntryBlockUnit.AddObject(new ExamInEntryBlockUnit()
-                                        {
-                                            Id = Guid.NewGuid(),
-                                            ExamId = x.ExamId,
-                                            EgeMin = x.EgeMin,
-                                            ExamInEntryBlockId = blId,
-                                        });
-                                    }
-                                }
+                                InsertRec(context, entId);
 
                                 context.SaveChanges();
                                 transaction.Complete();
@@ -291,45 +221,7 @@ namespace PriemLib
                     }
                     else
                     {
-                        if (OrderNumber == null)
-                        {
-                            int num = (from x in context.ExamInEntryBlock
-                                       where x.EntryId == _entryId
-                                       select x.OrderNumber).OrderByDescending(x => x).FirstOrDefault();
-                            OrderNumber = (byte)(num + 1);
-                        }
-                        ExamInEntryBlock block = context.ExamInEntryBlock.Where(x=>x.Id == gId).First();
-                        block.Name = BlockName;
-                        block.IsCrimea = IsCrimea;
-                        block.IsGosLine = IsGosLine;
-                        block.OrderNumber = OrderNumber ?? 1;
-
-                        var gUnits = lstUnit.Select(x => x.UnitId).ToList();
-                        var lst = context.ExamInEntryBlockUnit.Where(x => x.ExamInEntryBlockId == gId.Value && !gUnits.Contains(x.Id)).ToList();
-                        foreach (var x in lst)
-                            context.ExamInEntryBlockUnit.DeleteObject(x);
-
-                        foreach (var x in lstUnit)
-                        {
-                            ExamInEntryBlockUnit ex_unit = context.ExamInEntryBlockUnit.Where(ex=> ex.Id == x.UnitId).FirstOrDefault();
-                            if (ex_unit == null)
-                            {
-                                context.ExamInEntryBlockUnit.AddObject(new ExamInEntryBlockUnit()
-                                {
-                                    Id = x.UnitId,
-                                    ExamId = x.ExamId,
-                                    EgeMin = x.EgeMin,
-                                    ExamInEntryBlockId = gId.Value,
-                                });
-                                context.SaveChanges();
-                            }
-                            else
-                            {
-                                ex_unit.ExamId = x.ExamId;
-                                ex_unit.EgeMin = x.EgeMin;
-                                context.SaveChanges();
-                            }
-                        }
+                        UpdateRec(context, gId.Value);
                         return _Id;
                     }
                 }
@@ -337,6 +229,187 @@ namespace PriemLib
             catch (Exception exc)
             {
                 throw exc;
+            }
+        }
+        protected override void InsertRec(PriemEntities context, ObjectParameter idParam)
+        {
+            Guid entId = Guid.NewGuid();
+            idParam.Value = entId;
+            string queryBlock = @" INSERT INTO dbo.ExamInEntryBlock ([Id], [EntryId], [Name]) VALUES (@Id, @EntryId, @Name)";
+            string queryBlockUnit = @" INSERT INTO dbo.ExamInEntryBlockUnit ([Id], [ExamInEntryBlockId], [ExamId], EgeMin) 
+                                        VALUES (@Id, @ExamInEntryBlockId, @ExamId, @EgeMin)";
+
+            if (OrderNumber == null)
+            {
+                int num = (from x in context.ExamInEntryBlock
+                           where x.EntryId == _entryId
+                           select x.OrderNumber).OrderByDescending(x => x).FirstOrDefault();
+                OrderNumber = (byte)(num + 1);
+            }
+
+            Entry curEnt = (from ent in context.Entry
+                            where ent.Id == _entryId
+                            select ent).FirstOrDefault();
+            context.ExamInEntryBlock.AddObject(new ExamInEntryBlock()
+            {
+                Id = entId,
+                EntryId = curEnt.Id,
+                Name = BlockName,
+                IsCrimea = IsCrimea,
+                IsGosLine = IsGosLine,
+                OrderNumber = OrderNumber ?? 1,
+            });
+            SortedList<string, object> sl = new SortedList<string, object>();
+            sl.Add("@Id", entId);
+            sl.Add("@EntryId", curEnt.Id);
+            sl.Add("@Name", BlockName);
+            MainClass.BdcOnlineReadWrite.ExecuteQuery(queryBlock, sl);
+            foreach (ExamenBlockUnit x in lstUnit)
+            {
+                context.ExamInEntryBlockUnit.AddObject(new ExamInEntryBlockUnit()
+                {
+                    Id = x.UnitId,
+                    ExamId = x.ExamId,
+                    EgeMin = x.EgeMin,
+                    ExamInEntryBlockId = entId,
+                });
+                SortedList<string, object> _sl = new SortedList<string, object>();
+                _sl.Add("@Id", x.UnitId);
+                _sl.Add("@ExamInEntryBlockId", entId);
+                _sl.Add("@ExamId", x.ExamId);
+                if (x.EgeMin.HasValue)
+                    _sl.Add("@EgeMin", x.EgeMin);
+                else
+                    _sl.Add("@EgeMin", DBNull.Value);
+
+                MainClass.BdcOnlineReadWrite.ExecuteQuery(queryBlockUnit, _sl);
+            }
+            
+            IEnumerable<Entry> ents = from ent in context.Entry
+                                      where
+                                      ent.FacultyId == curEnt.FacultyId
+                                      && ent.LicenseProgramId == curEnt.LicenseProgramId
+                                      && ent.ObrazProgramId == curEnt.ObrazProgramId
+                                      && (curEnt.ProfileId == null ? ent.ProfileId == null : ent.ProfileId == curEnt.ProfileId)
+                                      && ent.Id != curEnt.Id
+                                      && ent.IsCrimea == curEnt.IsCrimea
+                                      && ent.IsForeign == curEnt.IsForeign
+                                      && ent.IsParallel == curEnt.IsParallel
+                                      && ent.IsReduced == curEnt.IsReduced
+                                      && ent.IsSecond == curEnt.IsSecond
+                                      select ent;
+
+            if (!chbToAllStudyBasis.Checked)
+                ents = ents.Where(c => c.StudyBasisId == curEnt.StudyBasisId);
+            foreach (Entry e in ents)
+            {
+                Guid blId = Guid.NewGuid();
+                context.ExamInEntryBlock.AddObject(new ExamInEntryBlock()
+                {
+                    Id = blId,
+                    EntryId = e.Id,
+                    Name = BlockName,
+                    IsCrimea = IsCrimea,
+                    IsGosLine = IsGosLine,
+                    OrderNumber = OrderNumber ?? 1,
+                });
+                SortedList<string, object> sl_ = new SortedList<string, object>();
+                sl_.Add("@Id", blId);
+                sl_.Add("@EntryId", e.Id);
+                sl_.Add("@Name", BlockName);
+                MainClass.BdcOnlineReadWrite.ExecuteQuery(queryBlock, sl_);
+                foreach (ExamenBlockUnit x in lstUnit)
+                {
+                    Guid UnitId = Guid.NewGuid();
+                    context.ExamInEntryBlockUnit.AddObject(new ExamInEntryBlockUnit()
+                    {
+                        Id = UnitId,
+                        ExamId = x.ExamId,
+                        EgeMin = x.EgeMin,
+                        ExamInEntryBlockId = blId,
+                    });
+                    SortedList<string, object> _sl = new SortedList<string, object>();
+                    _sl.Add("@Id", UnitId);
+                    _sl.Add("@ExamInEntryBlockId", blId);
+                    _sl.Add("@ExamId", x.ExamId);
+                    if (x.EgeMin.HasValue)
+                        _sl.Add("@EgeMin", x.EgeMin);
+                    else
+                        _sl.Add("@EgeMin", DBNull.Value);
+                    MainClass.BdcOnlineReadWrite.ExecuteQuery(queryBlockUnit, _sl);
+                }
+            }
+        }
+        protected override void UpdateRec(PriemEntities context, Guid id)
+        {
+            if (OrderNumber == null)
+            {
+                int num = (from x in context.ExamInEntryBlock
+                           where x.EntryId == _entryId
+                           select x.OrderNumber).OrderByDescending(x => x).FirstOrDefault();
+                OrderNumber = (byte)(num + 1);
+            }
+            ExamInEntryBlock block = context.ExamInEntryBlock.Where(x => x.Id == gId).First();
+            block.Name = BlockName;
+            block.IsCrimea = IsCrimea;
+            block.IsGosLine = IsGosLine;
+            block.OrderNumber = OrderNumber ?? 1;
+
+            var gUnits = lstUnit.Select(x => x.UnitId).ToList();
+            var lst = context.ExamInEntryBlockUnit.Where(x => x.ExamInEntryBlockId == gId.Value && !gUnits.Contains(x.Id)).ToList();
+            foreach (var x in lst)
+            {
+                context.ExamInEntryBlockUnit.DeleteObject(x);
+                MainClass.BdcOnlineReadWrite.ExecuteQuery(String.Format("delete from dbo.ExamInEntryBlockUnit where Id = '{0}'", x.Id), null);
+            }
+            string queryBlock = @" UPDATE dbo.ExamInEntryBlock Name = @Name WHERE Id = @Id";
+            SortedList<string, object> sl = new SortedList<string, object>();
+            sl.Add("@Id", id);
+            sl.Add("@Name", BlockName);
+            MainClass.BdcOnlineReadWrite.ExecuteQuery(queryBlock, sl);
+
+            string queryBlockUnitInsert = @" INSERT INTO dbo.ExamInEntryBlockUnit ([Id], [ExamInEntryBlockId], [ExamId], EgeMin) 
+                                        VALUES (@Id, @ExamInEntryBlockId, @ExamId, @EgeMin)";
+            string queryBlockUnitUpdate = @" UPDATE dbo.ExamInEntryBlockUnit SET [ExamId] = @ExamId, EgeMin = @EgeMin 
+                                        WHERE Id =@Id";
+
+            foreach (var x in lstUnit)
+            {
+                ExamInEntryBlockUnit ex_unit = context.ExamInEntryBlockUnit.Where(ex => ex.Id == x.UnitId).FirstOrDefault();
+                if (ex_unit == null)
+                {
+                    context.ExamInEntryBlockUnit.AddObject(new ExamInEntryBlockUnit()
+                    {
+                        Id = x.UnitId,
+                        ExamId = x.ExamId,
+                        EgeMin = x.EgeMin,
+                        ExamInEntryBlockId = gId.Value,
+                    });
+                    context.SaveChanges();
+                    SortedList<string, object> _sl = new SortedList<string, object>();
+                    _sl.Add("@Id", x.UnitId);
+                    _sl.Add("@ExamInEntryBlockId", gId.Value);
+                    _sl.Add("@ExamId", x.ExamId);
+                    if (x.EgeMin.HasValue)
+                        _sl.Add("@EgeMin", x.EgeMin);
+                    else
+                        _sl.Add("@EgeMin", DBNull.Value);
+                    MainClass.BdcOnlineReadWrite.ExecuteQuery(queryBlockUnitInsert, _sl);
+                }
+                else
+                {
+                    ex_unit.ExamId = x.ExamId;
+                    ex_unit.EgeMin = x.EgeMin;
+                    context.SaveChanges();
+                    SortedList<string, object> _sl = new SortedList<string, object>();
+                    _sl.Add("@Id", ex_unit.Id);
+                    _sl.Add("@ExamId", x.ExamId);
+                    if (x.EgeMin.HasValue)
+                        _sl.Add("@EgeMin", x.EgeMin);
+                    else
+                        _sl.Add("@EgeMin", DBNull.Value);
+                    MainClass.BdcOnlineReadWrite.ExecuteQuery(queryBlockUnitUpdate, _sl);
+                }
             }
         }
         protected override void CloseCardAfterSave()
