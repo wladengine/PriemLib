@@ -61,6 +61,7 @@ namespace PriemLib
         protected override void ExtraInit()
         {
             base.ExtraInit();
+            this.TopMost = true;
             _title = "Экзамен";
             _tableName = "ed.[ExamInEntryBlockUnit]";
             btnClose.Visible = btnSaveAsNew.Visible = false;
