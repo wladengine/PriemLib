@@ -281,13 +281,24 @@ namespace PriemLib
             
             DataTable dtAbits = new DataTable();
 
-            DataSet dsPrograms = MainClass.Bdc.GetDataSet(string.Format(@"SELECT DISTINCT ObrazProgramId, ProfileId, KCP AS Value, KCPCel AS ValueCel 
-                    FROM ed.qEntry
-                    WHERE ed.qEntry.StudyLevelGroupId={7} AND ed.qEntry.FacultyId={0} AND ed.qEntry.StudyFormId={1} AND
-                    ed.qEntry.StudyBasisId={2} AND ed.qEntry.LicenseProgramId={3} AND ed.qEntry.IsSEcond = {4} AND ed.qEntry.IsReduced = {5} AND ed.qEntry.IsParallel = {6} 
-                    AND IsForeign = {8} AND IsCrimea = {9}", _facultyId, _studyFormId, _studyBasisId, _licenseProgramId,
-                    QueryServ.StringParseFromBool(_isSecond), QueryServ.StringParseFromBool(_isReduced), QueryServ.StringParseFromBool(_isParallel), _studyLevelGroupId, 
-                    QueryServ.StringParseFromBool(MainClass.dbType == PriemType.PriemForeigners), QueryServ.StringParseFromBool(HeaderId == 11 || HeaderId == 12)));
+            string queryPrograms = 
+                string.Format(@"SELECT DISTINCT ObrazProgramId, ProfileId, KCP AS Value, KCPCel AS ValueCel 
+                                FROM ed.qEntry
+                                WHERE StudyLevelGroupId = {7} AND FacultyId = {0} AND StudyFormId = {1} AND StudyBasisId = {2} 
+                                {3} AND IsSecond = {4} AND IsReduced = {5} AND IsParallel = {6} 
+                                AND IsForeign = {8} AND IsCrimea = {9}", 
+                                _facultyId, 
+                                _studyFormId, 
+                                _studyBasisId, 
+                                _licenseProgramId.HasValue ? string.Format(" AND LicenseProgramId = {0} ", _licenseProgramId) : "", 
+                                QueryServ.StringParseFromBool(_isSecond), 
+                                QueryServ.StringParseFromBool(_isReduced), 
+                                QueryServ.StringParseFromBool(_isParallel), 
+                                _studyLevelGroupId, 
+                                QueryServ.StringParseFromBool(MainClass.dbType == PriemType.PriemForeigners), 
+                                QueryServ.StringParseFromBool(HeaderId == 11 || HeaderId == 12));
+
+            DataSet dsPrograms = MainClass.Bdc.GetDataSet(queryPrograms);
 
             //по каждой программе-профилю смотрим КЦ и оставшиеся места и зачисляем подавших подлинники
             foreach (DataRow dr in dsPrograms.Tables[0].Rows)
@@ -295,13 +306,23 @@ namespace PriemLib
                 string obProg = dr["ObrazProgramId"].ToString();
                 string spec = dr["ProfileId"].ToString();
 
-                string enteredQuery = string.Format(@"SELECT Count(Abiturient.Id) FROM ed.Abiturient 
+                string enteredQuery = 
+                    string.Format(@"SELECT Count(Abiturient.Id) FROM ed.Abiturient 
                         INNER JOIN ed.extEntry E ON E.Id = Abiturient.EntryId 
                         INNER JOIN ed.extEntryView ON Abiturient.Id = extEntryView.AbiturientId 
                         WHERE Excluded=0 AND E.StudyLevelGroupId = {9} AND (E.Id = Abiturient.EntryId OR E.ParentEntryId = Abiturient.EntryId)
                         AND E.FacultyId={0} AND E.StudyFormId={1} AND E.StudyBasisId={2} 
-                        AND E.LicenseProgramId={3} AND E.IsSEcond = {4} AND E.IsReduced = {5} AND E.IsParallel = {6} AND E.ObrazProgramId={7} {8}", _facultyId, _studyFormId, _studyBasisId, _licenseProgramId, QueryServ.StringParseFromBool(_isSecond), QueryServ.StringParseFromBool(_isReduced), QueryServ.StringParseFromBool(_isParallel),
-                        obProg, string.IsNullOrEmpty(spec) ? " AND E.ProfileId IS NULL " : string.Format(" AND E.ProfileId='{0}'", spec), _studyLevelGroupId);
+                        {3} AND E.IsSEcond = {4} AND E.IsReduced = {5} AND E.IsParallel = {6} AND E.ObrazProgramId={7} {8}", 
+                        _facultyId, 
+                        _studyFormId, 
+                        _studyBasisId,
+                        _licenseProgramId.HasValue ? string.Format(" AND E.LicenseProgramId = {0} ", _licenseProgramId) : "", 
+                        QueryServ.StringParseFromBool(_isSecond), 
+                        QueryServ.StringParseFromBool(_isReduced), 
+                        QueryServ.StringParseFromBool(_isParallel),
+                        obProg, 
+                        string.IsNullOrEmpty(spec) ? " AND E.ProfileId IS NULL " : string.Format(" AND E.ProfileId='{0}'", spec), 
+                        _studyLevelGroupId);
 
                 if (_isCel)
                     enteredQuery += " AND Abiturient.CompetitionId = 6 ";

@@ -231,17 +231,21 @@ order by 2",
 
         private void btnCreate_Click(object sender, EventArgs e)
         {
-            new EntryViewProtocol(null, 
-                StudyLevelGroupId.Value, 
-                FacultyId.Value, 
-                StudyBasisId.Value, 
-                StudyFormId.Value, 
-                LicenseProgramId, 
-                IsSecond, 
-                IsReduced, 
-                IsParallel, 
-                IsListener, 
-                chbCel.Checked).Show();            
+            OpenCardProtocol();
+        }
+        protected virtual void OpenCardProtocol()
+        {
+            new EntryViewProtocol(null,
+                   StudyLevelGroupId.Value,
+                   FacultyId.Value,
+                   StudyBasisId.Value,
+                   StudyFormId.Value,
+                   LicenseProgramId,
+                   IsSecond,
+                   IsReduced,
+                   IsParallel,
+                   IsListener,
+                   chbCel.Checked).Show();
         }
         private void btnPrint_Click(object sender, EventArgs e)
         {  

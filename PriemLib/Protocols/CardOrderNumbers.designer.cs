@@ -61,6 +61,8 @@
             this.dtpComissionDate = new System.Windows.Forms.DateTimePicker();
             this.cbSigner = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
+            this.cbStudyLevelGroup = new System.Windows.Forms.ComboBox();
+            this.label11 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvViews)).BeginInit();
             this.gbOrders.SuspendLayout();
             this.gbOrdersFor.SuspendLayout();
@@ -73,12 +75,12 @@
             this.dgvViews.AllowUserToDeleteRows = false;
             this.dgvViews.AllowUserToResizeRows = false;
             this.dgvViews.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvViews.Location = new System.Drawing.Point(6, 174);
+            this.dgvViews.Location = new System.Drawing.Point(12, 220);
             this.dgvViews.MultiSelect = false;
             this.dgvViews.Name = "dgvViews";
             this.dgvViews.ReadOnly = true;
             this.dgvViews.RowHeadersVisible = false;
-            this.dgvViews.Size = new System.Drawing.Size(152, 302);
+            this.dgvViews.Size = new System.Drawing.Size(152, 331);
             this.dgvViews.TabIndex = 83;
             this.dgvViews.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvViews_RowEnter);
             // 
@@ -88,7 +90,7 @@
             this.gbOrders.Controls.Add(this.label1);
             this.gbOrders.Controls.Add(this.tbOrderNum);
             this.gbOrders.Controls.Add(this.dtOrderDate);
-            this.gbOrders.Location = new System.Drawing.Point(164, 174);
+            this.gbOrders.Location = new System.Drawing.Point(170, 220);
             this.gbOrders.Name = "gbOrders";
             this.gbOrders.Size = new System.Drawing.Size(318, 63);
             this.gbOrders.TabIndex = 84;
@@ -133,7 +135,7 @@
             this.gbOrdersFor.Controls.Add(this.label4);
             this.gbOrdersFor.Controls.Add(this.tbOrderNumFor);
             this.gbOrdersFor.Controls.Add(this.dtOrderDateFor);
-            this.gbOrdersFor.Location = new System.Drawing.Point(164, 243);
+            this.gbOrdersFor.Location = new System.Drawing.Point(170, 289);
             this.gbOrdersFor.Name = "gbOrdersFor";
             this.gbOrdersFor.Size = new System.Drawing.Size(318, 60);
             this.gbOrdersFor.TabIndex = 85;
@@ -175,7 +177,7 @@
             // btnSave
             // 
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSave.Location = new System.Drawing.Point(427, 494);
+            this.btnSave.Location = new System.Drawing.Point(427, 528);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 86;
@@ -186,7 +188,7 @@
             // btnClose
             // 
             this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClose.Location = new System.Drawing.Point(153, 494);
+            this.btnClose.Location = new System.Drawing.Point(177, 528);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(75, 23);
             this.btnClose.TabIndex = 87;
@@ -197,7 +199,7 @@
             // btnChange
             // 
             this.btnChange.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnChange.Location = new System.Drawing.Point(340, 494);
+            this.btnChange.Location = new System.Drawing.Point(340, 528);
             this.btnChange.Name = "btnChange";
             this.btnChange.Size = new System.Drawing.Size(75, 23);
             this.btnChange.TabIndex = 88;
@@ -208,7 +210,7 @@
             // chbIsSecond
             // 
             this.chbIsSecond.AutoSize = true;
-            this.chbIsSecond.Location = new System.Drawing.Point(217, 88);
+            this.chbIsSecond.Location = new System.Drawing.Point(223, 134);
             this.chbIsSecond.Name = "chbIsSecond";
             this.chbIsSecond.Size = new System.Drawing.Size(137, 17);
             this.chbIsSecond.TabIndex = 162;
@@ -219,7 +221,7 @@
             // chbIsReduced
             // 
             this.chbIsReduced.AutoSize = true;
-            this.chbIsReduced.Location = new System.Drawing.Point(12, 88);
+            this.chbIsReduced.Location = new System.Drawing.Point(12, 134);
             this.chbIsReduced.Name = "chbIsReduced";
             this.chbIsReduced.Size = new System.Drawing.Size(95, 17);
             this.chbIsReduced.TabIndex = 161;
@@ -230,7 +232,7 @@
             // chbIsParallel
             // 
             this.chbIsParallel.AutoSize = true;
-            this.chbIsParallel.Location = new System.Drawing.Point(113, 88);
+            this.chbIsParallel.Location = new System.Drawing.Point(119, 134);
             this.chbIsParallel.Name = "chbIsParallel";
             this.chbIsParallel.Size = new System.Drawing.Size(98, 17);
             this.chbIsParallel.TabIndex = 160;
@@ -244,7 +246,7 @@
             this.cbStudyForm.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbStudyForm.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbStudyForm.FormattingEnabled = true;
-            this.cbStudyForm.Location = new System.Drawing.Point(174, 61);
+            this.cbStudyForm.Location = new System.Drawing.Point(180, 107);
             this.cbStudyForm.Name = "cbStudyForm";
             this.cbStudyForm.Size = new System.Drawing.Size(170, 21);
             this.cbStudyForm.TabIndex = 159;
@@ -255,7 +257,7 @@
             this.cbStudyBasis.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbStudyBasis.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbStudyBasis.FormattingEnabled = true;
-            this.cbStudyBasis.Location = new System.Drawing.Point(12, 61);
+            this.cbStudyBasis.Location = new System.Drawing.Point(12, 107);
             this.cbStudyBasis.Name = "cbStudyBasis";
             this.cbStudyBasis.Size = new System.Drawing.Size(156, 21);
             this.cbStudyBasis.TabIndex = 158;
@@ -266,7 +268,7 @@
             this.cbLicenseProgram.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbLicenseProgram.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbLicenseProgram.FormattingEnabled = true;
-            this.cbLicenseProgram.Location = new System.Drawing.Point(12, 124);
+            this.cbLicenseProgram.Location = new System.Drawing.Point(12, 170);
             this.cbLicenseProgram.Name = "cbLicenseProgram";
             this.cbLicenseProgram.Size = new System.Drawing.Size(489, 21);
             this.cbLicenseProgram.TabIndex = 157;
@@ -277,7 +279,7 @@
             this.cbFaculty.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbFaculty.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbFaculty.FormattingEnabled = true;
-            this.cbFaculty.Location = new System.Drawing.Point(12, 21);
+            this.cbFaculty.Location = new System.Drawing.Point(12, 67);
             this.cbFaculty.Name = "cbFaculty";
             this.cbFaculty.Size = new System.Drawing.Size(489, 21);
             this.cbFaculty.TabIndex = 156;
@@ -285,7 +287,7 @@
             // chbIsListener
             // 
             this.chbIsListener.AutoSize = true;
-            this.chbIsListener.Location = new System.Drawing.Point(12, 151);
+            this.chbIsListener.Location = new System.Drawing.Point(12, 197);
             this.chbIsListener.Name = "chbIsListener";
             this.chbIsListener.Size = new System.Drawing.Size(80, 17);
             this.chbIsListener.TabIndex = 155;
@@ -296,7 +298,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 108);
+            this.label2.Location = new System.Drawing.Point(9, 154);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(152, 13);
             this.label2.TabIndex = 154;
@@ -305,7 +307,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(9, 5);
+            this.label3.Location = new System.Drawing.Point(9, 51);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(63, 13);
             this.label3.TabIndex = 153;
@@ -314,7 +316,7 @@
             // lblLanguage
             // 
             this.lblLanguage.AutoSize = true;
-            this.lblLanguage.Location = new System.Drawing.Point(9, 45);
+            this.lblLanguage.Location = new System.Drawing.Point(9, 91);
             this.lblLanguage.Name = "lblLanguage";
             this.lblLanguage.Size = new System.Drawing.Size(94, 13);
             this.lblLanguage.TabIndex = 152;
@@ -323,7 +325,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(168, 45);
+            this.label7.Location = new System.Drawing.Point(174, 91);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(93, 13);
             this.label7.TabIndex = 151;
@@ -335,7 +337,7 @@
             this.groupBox1.Controls.Add(this.label9);
             this.groupBox1.Controls.Add(this.tbComissionNumber);
             this.groupBox1.Controls.Add(this.dtpComissionDate);
-            this.groupBox1.Location = new System.Drawing.Point(164, 309);
+            this.groupBox1.Location = new System.Drawing.Point(170, 355);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(318, 63);
             this.groupBox1.TabIndex = 163;
@@ -380,7 +382,7 @@
             this.cbSigner.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbSigner.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbSigner.FormattingEnabled = true;
-            this.cbSigner.Location = new System.Drawing.Point(171, 391);
+            this.cbSigner.Location = new System.Drawing.Point(177, 437);
             this.cbSigner.Name = "cbSigner";
             this.cbSigner.Size = new System.Drawing.Size(311, 21);
             this.cbSigner.TabIndex = 164;
@@ -388,17 +390,39 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(170, 375);
+            this.label10.Location = new System.Drawing.Point(176, 421);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(99, 13);
             this.label10.TabIndex = 165;
             this.label10.Text = "Приказ подписал:";
             // 
+            // cbStudyLevelGroup
+            // 
+            this.cbStudyLevelGroup.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cbStudyLevelGroup.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cbStudyLevelGroup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbStudyLevelGroup.FormattingEnabled = true;
+            this.cbStudyLevelGroup.Location = new System.Drawing.Point(12, 27);
+            this.cbStudyLevelGroup.Name = "cbStudyLevelGroup";
+            this.cbStudyLevelGroup.Size = new System.Drawing.Size(489, 21);
+            this.cbStudyLevelGroup.TabIndex = 167;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(9, 11);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(51, 13);
+            this.label11.TabIndex = 166;
+            this.label11.Text = "Уровень";
+            // 
             // CardOrderNumbers
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(513, 529);
+            this.ClientSize = new System.Drawing.Size(513, 563);
+            this.Controls.Add(this.cbStudyLevelGroup);
+            this.Controls.Add(this.label11);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.cbSigner);
             this.Controls.Add(this.groupBox1);
@@ -470,5 +494,7 @@
         private System.Windows.Forms.DateTimePicker dtpComissionDate;
         private System.Windows.Forms.ComboBox cbSigner;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.ComboBox cbStudyLevelGroup;
+        private System.Windows.Forms.Label label11;
     }
 }

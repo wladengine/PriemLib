@@ -73,8 +73,8 @@ namespace PriemLib
             _odc.ExecuteWithTrasaction(_alQueries);
             MigrateAbits();
             //_odc.ExecuteWithTrasaction(_alQueries);
-            MessageBox.Show("Готово!");
             _odc.CloseDataBase();
+            MessageBox.Show("Готово!");
         }
 
         public string FacultyId
@@ -169,38 +169,56 @@ namespace PriemLib
         }
         private void MigrateOrders()
         {
+            NewWatch wc = new NewWatch(100);
+            wc.Show();
+            wc.SetText("Загрузка приказов...");
+            wc.PerformStep();
+
             string query = @"SELECT ed.OrderNumbers.*, ed.Protocol.FacultyId, ed.Protocol.StudyFormId, ed.Protocol.StudyBasisId FROM ed.OrderNumbers 
                              INNER JOIN ed.Protocol On ed.OrderNumbers.ProtocolId = ed.Protocol.Id WHERE Protocol.StudyLevelGroupId = " + StudyLevelGroupId + " " + GetFilter("ed.Protocol");
             string queryAbits;
-
-            DataSet ds = _bdc.GetDataSet(query);
-            
             _slIds = new SortedList<string, long>();
+            DataSet ds = _bdc.GetDataSet(query);
+
+            wc.SetMax(ds.Tables[0].Rows.Count);
 
             foreach (DataRow dr in ds.Tables[0].Rows)
             {
+                wc.PerformStep();
                 string s = string.Empty;
                 if (dr["OrderNum"].ToString().Length != 0)
                 {
-                    s = string.Format("INSERT INTO Protocol (Id,FacultyId, SectionId, StudyFormId,Name,FromDate) VALUES ({0},{1},{2},{3},'{4}','{5}')", _NewId, dr["FacultyId"].ToString(), dr["StudyFormId"].ToString(), dr["StudyBasisId"].ToString(), dr["OrderNum"].ToString(), dr["OrderDate"].ToString());
+                    s = string.Format("INSERT INTO Protocol (Id,FacultyId, SectionId, StudyFormId, Name, FromDate) VALUES ({0},{1},{2},{3},'{4}','{5}')", 
+                            _NewId, 
+                            dr["FacultyId"].ToString(), 
+                            dr["StudyFormId"].ToString(), 
+                            dr["StudyBasisId"].ToString(), 
+                            dr["OrderNum"].ToString(), 
+                            dr["OrderDate"].ToString());
                     _alQueries.Add(s);
 
-                    queryAbits = string.Format(@"SELECT ed.extEntryView.AbiturientId FROM ed.extEntryView INNER JOIN ed.qAbiturient ON ed.extEntryView.AbiturientId = ed.qAbiturient.Id INNER JOIN ed.Person ON ed.qAbiturient.PersonId = ed.Person.Id WHERE ed.extEntryView.Id = '{0}' 
-                                                 AND ed.Person.NationalityId=1  ", dr["ProtocolId"].ToString());
+                    queryAbits = string.Format(@"SELECT ed.extEntryView.AbiturientId FROM ed.extEntryView INNER JOIN ed.qAbiturient ON ed.extEntryView.AbiturientId = ed.qAbiturient.Id 
+INNER JOIN ed.Person ON ed.qAbiturient.PersonId = ed.Person.Id WHERE ed.extEntryView.Id = '{0}' AND ed.Person.NationalityId=1  ", dr["ProtocolId"].ToString());
                     foreach (DataRow drr in _bdc.GetDataSet(queryAbits).Tables[0].Rows)
                     {
                         _slIds.Add(drr["AbiturientId"].ToString(), _NewId);
                     }
 
-                    _NewId++;          
+                    _NewId++;
                 }
                 if (dr["OrderNumFor"].ToString().Length != 0)
                 {
-                    s = string.Format("INSERT INTO Protocol (Id,FacultyId, SectionId, StudyFormId,Name,FromDate) VALUES ({0},{1},{2},{3},'{4}','{5}')", _NewId, dr["FacultyId"].ToString(), dr["StudyFormId"].ToString(), dr["StudyBasisId"].ToString(), dr["OrderNumFor"].ToString(), dr["OrderDateFor"].ToString());
+                    s = string.Format("INSERT INTO Protocol (Id,FacultyId, SectionId, StudyFormId, Name, FromDate) VALUES ({0},{1},{2},{3},'{4}','{5}')", 
+                            _NewId, 
+                            dr["FacultyId"].ToString(), 
+                            dr["StudyFormId"].ToString(), 
+                            dr["StudyBasisId"].ToString(), 
+                            dr["OrderNumFor"].ToString(), 
+                            dr["OrderDateFor"].ToString());
                     _alQueries.Add(s);
 
-                    queryAbits = string.Format(@"SELECT ed.extEntryView.AbiturientId FROM ed.extEntryView INNER JOIN ed.qAbiturient ON ed.extEntryView.AbiturientId = ed.qAbiturient.Id INNER JOIN ed.Person ON ed.qAbiturient.PersonId = ed.Person.Id 
-                                                 WHERE ed.extEntryView.Id = '{0}' AND ed.Person.NationalityId <> 1 ", dr["ProtocolId"].ToString());
+                    queryAbits = string.Format(@"SELECT extEntryView.AbiturientId FROM ed.extEntryView INNER JOIN ed.qAbiturient ON extEntryView.AbiturientId = qAbiturient.Id 
+INNER JOIN ed.Person ON qAbiturient.PersonId = Person.Id WHERE extEntryView.Id = '{0}' AND Person.NationalityId <> 1 ", dr["ProtocolId"].ToString());
                     foreach (DataRow drr in _bdc.GetDataSet(queryAbits).Tables[0].Rows)
                     {
                         _slIds.Add(drr["AbiturientId"].ToString(), _NewId);
@@ -208,6 +226,8 @@ namespace PriemLib
                     _NewId++;          
                 }
             }
+
+            wc.Close();
         }
         private void MigrateAbits()
         {
@@ -227,15 +247,13 @@ namespace PriemLib
                      join Ent in context.extEntry on Ab.EntryId equals Ent.Id
                      join extEV in context.extEntryView on Ab.Id equals extEV.AbiturientId
 
-                     join qq in context.qAbiturientForeignApplicationsOnly on Ab.Id equals qq.Id into qq2
-                     from qq in qq2.DefaultIfEmpty()
-
                      join forNat in context.ForeignCountry on Pers.ForeignNationalityId equals forNat.Id into forNat2
                      from forNat in forNat2.DefaultIfEmpty()
 
                      where Ab.Entry.StudyLevel.LevelGroupId == StudyLevelGroupId &&
                      (iFacultyId == 0 ? true : Ab.Entry.FacultyId == iFacultyId)
-                     && (IsFor ? qq.Id != null : qq.Id == null)
+                     && Ent.IsForeign == IsFor
+                     //&& Ab.Entry.StudyFormId == 2
                      //&& extEV.Date > new DateTime(2013, 9, 18)
                      select new
                      {
@@ -301,11 +319,10 @@ namespace PriemLib
                          Pers.SNILS,
                      }).ToList();
 
-
-                if (abitList.Count() == 0)
+                if (abitList.Count == 0)
                     return;
 
-                wc.SetMax(abitList.Count());
+                wc.SetMax(abitList.Count);
                 wc.SetText("Импорт данных...");
 
                 var notApplicableList = abitList.Select(x => x.Id).Except(_slIds.Keys.Select(x => Guid.Parse(x))).ToList();
@@ -313,10 +330,11 @@ namespace PriemLib
                 if (notApplicableList.Count() > 0 && !IsFor)
                 {
                     WinFormsServ.Error(string.Format("Not found orders for {0} Ids", notApplicableList.Count()));
+                    wc.Close();
                     return;
                 }
 
-                foreach (var Abit in abitList.ToList())
+                foreach (var Abit in abitList)
                 {
                     string zc = Abit.Code.Replace(" ", "");
                     if (zc.Length > 10)
@@ -326,12 +344,15 @@ namespace PriemLib
                     if (pa.Length > 250)
                         pa = pa.Substring(0, 250);
 
-                    string a = (Abit.Code ?? "") + ", " + (Abit.City ?? "") + ", " + (Abit.Street ?? "") + ", д." + (Abit.House ?? "") + ", " + ((Abit.Korpus ?? "").Length > 0 ? " к." + (Abit.Korpus ?? "") + ", " : "") + "кв." + (Abit.Flat ?? "");
+                    string a = (Abit.Code ?? "") + ", " + (Abit.City ?? "") + ", " + (Abit.Street ?? "") + ", д." + (Abit.House ?? "") + ", " 
+                        + ((Abit.Korpus ?? "").Length > 0 ? " к." + (Abit.Korpus ?? "") + ", " : "") + "кв." + (Abit.Flat ?? "");
                     if (a.Length > 250)
                         a = a.Substring(0, 250);
 
-                    string la = (Abit.CodeReal ?? "") + ", " + (Abit.CityReal ?? "") + ", " + (Abit.StreetReal ?? "") + ", д." + (Abit.HouseReal ?? "") + ", " + ((Abit.KorpusReal ?? "").Length > 0 ? " к." + (Abit.KorpusReal ?? "") + ", " : "") + "кв." + (Abit.FlatReal ?? "");
-                    if ((Abit.CodeReal ?? "").Length == 0 && (Abit.CityReal ?? "").Length == 0 && (Abit.StreetReal ?? "").Length == 0 && (Abit.HouseReal ?? "").Length == 0 && (Abit.KorpusReal ?? "").Length == 0 && (Abit.FlatReal ?? "").Length == 0)
+                    string la = (Abit.CodeReal ?? "") + ", " + (Abit.CityReal ?? "") + ", " + (Abit.StreetReal ?? "") + ", д." + (Abit.HouseReal ?? "") + ", " 
+                        + ((Abit.KorpusReal ?? "").Length > 0 ? " к." + (Abit.KorpusReal ?? "") + ", " : "") + "кв." + (Abit.FlatReal ?? "");
+                    if ((Abit.CodeReal ?? "").Length == 0 && (Abit.CityReal ?? "").Length == 0 && (Abit.StreetReal ?? "").Length == 0 
+                        && (Abit.HouseReal ?? "").Length == 0 && (Abit.KorpusReal ?? "").Length == 0 && (Abit.FlatReal ?? "").Length == 0)
                         la = "";
                     if (la.Length > 250)
                         la = la.Substring(0, 250);
@@ -358,6 +379,8 @@ namespace PriemLib
                     if (string.IsNullOrEmpty(educYear))
                         educYear = "0";
 
+                    int iEducYear = int.Parse(educYear);
+
                     if (IsFor && !_slIds.ContainsKey(Abit.Id.ToString()))
                         continue;
 
@@ -374,10 +397,12 @@ namespace PriemLib
                     else
                         regionId = _dRegion[Abit.Nation];
 
+                    int iRegionId = 0;
+                    int.TryParse(regionId, out iRegionId);
+
                     string AbitSchoolName = (Abit.SchoolName ?? "").Replace("'", "");
                     if (AbitSchoolName.Length > 200)
                         AbitSchoolName = AbitSchoolName.Substring(0, 200);
-
 
                     string s = string.Format(
                         "INSERT INTO Abiturient (" +
@@ -391,35 +416,100 @@ namespace PriemLib
                         "[Phone], [ZipCode], [Adress], [LifeAddress], " +
                         "[BirthDate], [Sex], " +
                         "[PasswordTypeId], [PaswSeries], [PaswNumber], [PaswDate], [PaswAuthor], " +
-                        "[StudyNumber], [EntryOrderId], [EduProgName], [EduProgKod], [StudyPlanNumber], [SNILS])" +
+                        "[StudyNumber], [EntryOrderId], [EduProgName], [EduProgKod], [StudyPlanNumber], [SNILS]) " +
                         "VALUES (" +
-                        "'{0}','{1}','{2}','{3}'," +
-                        "'{4}','{5}','{6}','{7}', " +
-                        "'{8}','{9}','{10}','{11}'," +
-                        "'{12}','{13}','{14}'," +
-                        "'{15}','{16}','{17}','{18}'," +
-                        "'{19}','{20}','{21}','{22}'," +
-                        "'{23}','{24}','{25}','{26}','{27}'," +
-                        "'{28}','{29}','{30}','{31}'," +
-                        "'{32}','{33}'," +
-                        "'{34}','{35}','{36}','{37}','{38}'," +
-                        "'{39}','{40}', '{41}','{42}', '{43}', '{44}')",
-                        Abit.RegNum ?? "", Abit.Name, Abit.SecondName, Abit.Surname,
-                        Abit.Privileges.ToString(), QueryServ.QueryForBool(Abit.IsExcellent.ToString()), Abit.ListenerTypeId.ToString(), QueryServ.QueryForBool(Abit.IsListener.ToString()),
-                        QueryServ.QueryForBool(Abit.HostelEduc.ToString()), Abit.FacultyId.ToString(), profId, specId,
-                        Abit.StudyBasisId, Abit.StudyFormId, Abit.CompetitionId,
-                        Abit.DocDate.ToString(), regionId, IsFor ? regionId : Abit.RegionId.ToString(),
-                        Abit.LanguageId.ToString(),
-                        educSeries, "", educNum, QueryServ.QueryForBool(Abit.HasOriginals.ToString()),
-                        AbitSchoolName ?? "", Abit.SchoolCity ?? "", Abit.SchoolNum ?? "", Abit.SchoolTypeId.ToString(),
-                        (string.IsNullOrEmpty(educYear) ? DateTime.Now.Year.ToString() : educYear),
-                        ph, zc, a, la,
-                        Abit.BirthDate.ToString(), QueryServ.QueryForBool(Abit.Sex.ToString()),
-                        Abit.PassportTypeId.ToString(), Abit.PassportSeries ?? "", Abit.PassportNumber ?? "", Abit.PassportDate.ToString(), pa,
-                        Abit.StudyNumber ?? "", abId,
-                        ((Abit.ObrazProgramName ?? "").Length > 128 ? (Abit.ObrazProgramName ?? "").Substring(0, 128) : Abit.ObrazProgramName ?? ""), Abit.ObrazProgramCrypt ?? "", (Abit.StudyPlanNumber ?? ""), Abit.SNILS ?? "");
+                        "@FileNum, @Name, @Patronymic, @Surname, " +
+                        "@Privileges, @IsExcellent, @ListenerTypeId, @IsActualListener, " +
+                        "@Hostel, @FacultyId, @ProfessionId, @SpecializationId, " +
+                        "@StudyFormId, @SectionId, @CompetitionId, " +
+                        "@DocDate, @CitizenId, @RegionId, @LanguageId, " +
+                        "@AttestatSeries, @AttestatRegion, @AttestatNum, @AttestatCopy, " +
+                        "@SchoolName, @SchoolCity, @SchoolNum, @SchoolTypeId, @ExitYear, " +
+                        "@Phone, @ZipCode, @Adress, @LifeAddress, " +
+                        "@BirthDate, @Sex, " +
+                        "@PasswordTypeId, @PaswSeries, @PaswNumber, @PaswDate, @PaswAuthor, " +
+                        "@StudyNumber, @EntryOrderId, @EduProgName, @EduProgKod, @StudyPlanNumber, @SNILS)"
+                        //"'{0}','{1}','{2}','{3}'," +
+                        //"'{4}','{5}','{6}','{7}', " +
+                        //"'{8}','{9}','{10}','{11}'," +
+                        //"'{12}','{13}','{14}'," +
+                        //"'{15}','{16}','{17}','{18}'," +
+                        //"'{19}','{20}','{21}','{22}'," +
+                        //"'{23}','{24}','{25}','{26}','{27}'," +
+                        //"'{28}','{29}','{30}','{31}'," +
+                        //"'{32}','{33}'," +
+                        //"'{34}','{35}','{36}','{37}','{38}'," +
+                        //"'{39}','{40}', '{41}','{42}', '{43}', '{44}')",
+                        //Abit.RegNum ?? "", Abit.Name, Abit.SecondName, Abit.Surname,
+                        //Abit.Privileges.ToString(), QueryServ.QueryForBool(Abit.IsExcellent.ToString()), Abit.ListenerTypeId.ToString(), QueryServ.QueryForBool(Abit.IsListener.ToString()),
+                        //QueryServ.QueryForBool(Abit.HostelEduc.ToString()), Abit.FacultyId.ToString(), profId, specId,
+                        //Abit.StudyBasisId, Abit.StudyFormId, Abit.CompetitionId,
+                        //Abit.DocDate.ToString(), regionId, IsFor ? regionId : Abit.RegionId.ToString(),
+                        //Abit.LanguageId.ToString(),
+                        //educSeries, "", educNum, QueryServ.QueryForBool(Abit.HasOriginals.ToString()),
+                        //AbitSchoolName ?? "", Abit.SchoolCity ?? "", Abit.SchoolNum ?? "", Abit.SchoolTypeId.ToString(),
+                        //(string.IsNullOrEmpty(educYear) ? DateTime.Now.Year.ToString() : educYear),
+                        //ph, zc, a, la,
+                        //Abit.BirthDate.ToString(), QueryServ.QueryForBool(Abit.Sex.ToString()),
+                        //Abit.PassportTypeId.ToString(), Abit.PassportSeries ?? "", Abit.PassportNumber ?? "", Abit.PassportDate.ToString(), pa,
+                        //Abit.StudyNumber ?? "", abId,
+                        //((Abit.ObrazProgramName ?? "").Length > 128 ? (Abit.ObrazProgramName ?? "").Substring(0, 128) : Abit.ObrazProgramName ?? ""), 
+                        //Abit.ObrazProgramCrypt ?? "", (Abit.StudyPlanNumber ?? ""), Abit.SNILS ?? ""
+                        );
 
-                    _odc.ExecuteQuery(s);
+                    long iRegNum = int.Parse(Abit.RegNum ?? "0");
+
+                    long iProfId = int.Parse(profId ?? "0");
+                    long iSpecId = int.Parse(specId ?? "0");
+
+                    List<KeyValuePair<string, object>> slParams = new List<KeyValuePair<string, object>>();
+                    slParams.Add(new KeyValuePair<string, object>("@FileNum", iRegNum));
+                    slParams.Add(new KeyValuePair<string, object>("@Name", Abit.Name));
+                    slParams.Add(new KeyValuePair<string, object>("@Patronymic", Abit.SecondName));
+                    slParams.Add(new KeyValuePair<string, object>("@Surname", Abit.Surname));
+                    slParams.Add(new KeyValuePair<string, object>("@Privileges", (long)Abit.Privileges));
+                    slParams.Add(new KeyValuePair<string, object>("@IsExcellent", Abit.IsExcellent));
+                    slParams.Add(new KeyValuePair<string, object>("@ListenerTypeId", (long)Abit.ListenerTypeId));
+                    slParams.Add(new KeyValuePair<string, object>("@IsActualListener", Abit.IsListener));
+                    slParams.Add(new KeyValuePair<string, object>("@Hostel", Abit.HostelEduc));
+                    slParams.Add(new KeyValuePair<string, object>("@FacultyId", (long)Abit.FacultyId));
+                    slParams.Add(new KeyValuePair<string, object>("@ProfessionId", iProfId));
+                    slParams.Add(new KeyValuePair<string, object>("@SpecializationId", iSpecId));
+                    slParams.Add(new KeyValuePair<string, object>("@StudyFormId", (long)Abit.StudyBasisId));
+                    slParams.Add(new KeyValuePair<string, object>("@SectionId", (long)Abit.StudyFormId));
+                    slParams.Add(new KeyValuePair<string, object>("@CompetitionId", (long)Abit.CompetitionId));
+                    slParams.Add(new KeyValuePair<string, object>("@DocDate", Abit.DocDate.Date));
+                    slParams.Add(new KeyValuePair<string, object>("@CitizenId", (long)iRegionId));
+                    slParams.Add(new KeyValuePair<string, object>("@RegionId", IsFor ? (long)iRegionId : (long)Abit.RegionId));
+                    slParams.Add(new KeyValuePair<string, object>("@LanguageId", (long)Abit.LanguageId));
+                    slParams.Add(new KeyValuePair<string, object>("@AttestatSeries", educSeries.Length > 10 ? educSeries.Substring(educSeries.Length - 10, 10) : educSeries));
+                    slParams.Add(new KeyValuePair<string, object>("@AttestatRegion", ""));
+                    slParams.Add(new KeyValuePair<string, object>("@AttestatNum", educNum.Length > 15 ? educNum.Substring(educNum.Length - 15, 15) : educNum));
+                    slParams.Add(new KeyValuePair<string, object>("@AttestatCopy", Abit.HasOriginals));
+                    slParams.Add(new KeyValuePair<string, object>("@SchoolName", AbitSchoolName ?? ""));
+                    slParams.Add(new KeyValuePair<string, object>("@SchoolCity", Abit.SchoolCity ?? ""));
+                    slParams.Add(new KeyValuePair<string, object>("@SchoolNum", Abit.SchoolNum ?? ""));
+                    slParams.Add(new KeyValuePair<string, object>("@SchoolTypeId", (long)Abit.SchoolTypeId));
+                    slParams.Add(new KeyValuePair<string, object>("@ExitYear", iEducYear == 0 ? (long)DateTime.Now.Year : (long)iEducYear));
+                    slParams.Add(new KeyValuePair<string, object>("@Phone", ph));
+                    slParams.Add(new KeyValuePair<string, object>("@ZipCode", zc));
+                    slParams.Add(new KeyValuePair<string, object>("@Adress", a));
+                    slParams.Add(new KeyValuePair<string, object>("@LifeAddress", la));
+                    slParams.Add(new KeyValuePair<string, object>("@BirthDate", Abit.BirthDate.Date));
+                    slParams.Add(new KeyValuePair<string, object>("@Sex", Abit.Sex));
+                    slParams.Add(new KeyValuePair<string, object>("@PasswordTypeId", (long)Abit.PassportTypeId));
+                    slParams.Add(new KeyValuePair<string, object>("@PaswSeries", Abit.PassportSeries ?? ""));
+                    slParams.Add(new KeyValuePair<string, object>("@PaswNumber", Abit.PassportNumber ?? ""));
+                    slParams.Add(new KeyValuePair<string, object>("@PaswDate", (Abit.PassportDate ?? new DateTime(1997, 1, 1)).Date));
+                    slParams.Add(new KeyValuePair<string, object>("@PaswAuthor", pa));
+                    slParams.Add(new KeyValuePair<string, object>("@StudyNumber", Abit.StudyNumber ?? ""));
+                    slParams.Add(new KeyValuePair<string, object>("@EntryOrderId", abId));
+                    slParams.Add(new KeyValuePair<string, object>("@EduProgName", ((Abit.ObrazProgramName ?? "").Length > 128 ? (Abit.ObrazProgramName ?? "").Substring(0, 128) : Abit.ObrazProgramName ?? "")));
+                    slParams.Add(new KeyValuePair<string, object>("@EduProgKod", Abit.ObrazProgramCrypt ?? ""));
+                    slParams.Add(new KeyValuePair<string, object>("@StudyPlanNumber", (Abit.StudyPlanNumber ?? "")));
+                    slParams.Add(new KeyValuePair<string, object>("@SNILS", Abit.SNILS ?? ""));
+
+                    _odc.ExecuteQuery(s, slParams);
 
                     _NewId++;
                     wc.PerformStep();
@@ -436,6 +526,9 @@ namespace PriemLib
             if (!string.IsNullOrEmpty(FacultyId))
                 res += string.Format(" AND {0}.FacultyId = {1} ", table, FacultyId);
             
+            if (chbIsFor.Checked)
+                res += string.Format(" AND {0}.IsForeign = 1 ", table);
+
             res += string.Format(" AND {0}.StudyLevelGroupId = {1} ", table, StudyLevelGroupId);
 
             return res;
@@ -453,15 +546,21 @@ namespace PriemLib
             _odc = new OleDbClass();
             _odc.OpenDatabase(newfile);
 
-            string query = string.Format("SELECT DISTINCT ed.extAbit.Id, ed.Person.Name, ed.Person.SecondName, ed.Person.Surname, " +
-                              "ed.Person.BirthDate, ed.extAbit.StudyNumber, ed.extAbit.StudyLevelId, " +
-                              "ed.Person.PassportTypeId, case when ed.Person.PassportTypeId=1 then 'Р' when ed.Person.PassportTypeId=3 then 'З' else '' end as PassportType, " +
-                              "ed.Person.PassportSeries, ed.Person.PassportNumber, EEE.DateFinishEduc, " +
-                              "ed.extEntryView.Id AS EntryProtId " +
-                              "FROM ed.extAbit INNER JOIN ed.Person ON ed.extAbit.PersonId = ed.Person.Id " +
-                              "INNER JOIN ed.extEntryView ON ed.extEntryView.AbiturientId = ed.extAbit.Id " +
-                              "INNER JOIN ed.Entry AS EEE ON EEE.Id = extAbit.EntryId " +
-                              "WHERE ed.extAbit.StudyFormId = 1 {0}", GetFilter("extAbit"));
+            string query = 
+                string.Format(
+                    "SELECT DISTINCT ed.extAbit.Id, ed.Person.Name, ed.Person.SecondName, ed.Person.Surname, " +
+                    "ed.Person.BirthDate, ed.extAbit.StudyNumber, ed.extAbit.StudyLevelId, " +
+                    "ed.Person.PassportTypeId, case when ed.Person.PassportTypeId=1 then 'Р' when ed.Person.PassportTypeId=3 then 'З' else '' end as PassportType, " +
+                    "ed.Person.PassportSeries, ed.Person.PassportNumber, EEE.DateFinishEduc, " +
+                    "ed.extEntryView.Id AS EntryProtId " +
+                    "FROM ed.extAbit INNER JOIN ed.Person ON ed.extAbit.PersonId = ed.Person.Id " +
+                    "INNER JOIN ed.extEntryView ON ed.extEntryView.AbiturientId = ed.extAbit.Id " +
+                    "INNER JOIN ed.Entry AS EEE ON EEE.Id = extAbit.EntryId " +
+                    "WHERE ed.extAbit.StudyFormId = 1 {0} {1}", 
+                    GetFilter("extAbit"),
+                    ""
+                    //" AND extEntryView.Date >= '26.08.2015' "
+                );
 
             DataSet ds = _bdc.GetDataSet(query);
 
