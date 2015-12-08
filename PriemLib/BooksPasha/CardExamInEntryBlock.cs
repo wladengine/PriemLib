@@ -111,6 +111,7 @@ namespace PriemLib
                     if (lst.Count == 0)
                     {
                         new CardExamInEntryUnit(null, new UnitListUpdateHandler(UnitListAdd)).Show();
+                        this.Shown += CardExamInEntryBlock_Shown;
                     }
                     else
                         foreach (var x in lst)
@@ -121,6 +122,11 @@ namespace PriemLib
             {
                 WinFormsServ.Error("Ошибка при инициализации формы ", exc);
             }
+        }
+
+        void CardExamInEntryBlock_Shown(object sender, EventArgs e)
+        {
+            new CardExamInEntryUnit(null, new UnitListUpdateHandler(UnitListAdd)).Show();
         }
         protected override void SetAllFieldsEnabled()
         {
@@ -175,7 +181,20 @@ namespace PriemLib
                 WinFormsServ.Error("Ошибка при заполнении формы ", exc);
             }
         }
+        protected override bool CheckFields()
+        {
+            epError.Clear();
+            bool bRet = true;
 
+            if (lstUnit.Count == 0)
+            {
+                WinFormsServ.Error("Не выбраны экзамены!");
+                epError.SetError(lbExams, "Не выбраны экзамены!");
+                bRet = false;
+            }
+
+            return bRet;
+        }
         protected override string Save()
         {
             try

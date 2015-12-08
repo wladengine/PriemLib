@@ -98,6 +98,7 @@
             this.cbStudyLevel.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cbStudyLevel.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbStudyLevel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbStudyLevel.DropDownWidth = 250;
             this.cbStudyLevel.FormattingEnabled = true;
             this.cbStudyLevel.Location = new System.Drawing.Point(12, 29);
             this.cbStudyLevel.Name = "cbStudyLevel";
