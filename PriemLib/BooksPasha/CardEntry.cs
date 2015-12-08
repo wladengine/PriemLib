@@ -619,31 +619,34 @@ WHERE Id=@Id";
                  * */
                 var query = (from block in context.ExamInEntryBlock
                              join unit in context.ExamInEntryBlockUnit on block.Id equals unit.ExamInEntryBlockId
-                             join ex in context.Exam on unit.ExamId equals ex.Id
-                             join exname in context.ExamName on ex.ExamNameId equals exname.Id
+                             //join ex in context.Exam on unit.ExamId equals ex.Id
+                             //join exname in context.ExamName on ex.ExamNameId equals exname.Id
                              where block.EntryId == GuidId
-                             orderby block.IsProfil descending, exname.Name
+                             orderby 
+                             block.OrderNumber, 
+                             block.IsProfil descending
+                             //, exname.Name
                              select new
                              {
                                  block.Id,
                                  block.OrderNumber,
                                  BlockName = block.Name,
-                                 Name = exname.Name,
+                                 //Name = exname.Name,
                                  IsProfil = block.IsProfil ? "да" : "нет",
-                                 unit.EgeMin,
-                             }).ToList().OrderBy(x => x.OrderNumber).ToList();
+                                // unit.EgeMin,
+                             }).ToList().OrderBy(x => x.OrderNumber).Distinct().ToList();
                 dgvExams.DataSource = query;
                 dgvExams.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                 dgvExams.Columns["Id"].Visible = false;
                 dgvExams.Columns["BlockName"].HeaderText = "Название блока";
-                dgvExams.Columns["Name"].HeaderText = "Название";
+                //dgvExams.Columns["Name"].HeaderText = "Название";
                 //dgvExams.Columns["Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 dgvExams.Columns["IsProfil"].HeaderText = "Профильный";
-                dgvExams.Columns["EgeMin"].HeaderText = "Мин. ЕГЭ";
+                //dgvExams.Columns["EgeMin"].HeaderText = "Мин. ЕГЭ";
                 dgvExams.Columns["OrderNumber"].HeaderText = "№";
                 dgvExams.Columns["OrderNumber"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
                 dgvExams.Columns["IsProfil"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                dgvExams.Columns["EgeMin"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+               //dgvExams.Columns["EgeMin"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             }
         }
 

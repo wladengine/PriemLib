@@ -110,7 +110,7 @@ namespace PriemLib
 
                     if (lst.Count == 0)
                     {
-                        new CardExamInEntryUnit(null, true, new UnitListUpdateHandler(UnitListAdd)).Show();
+                        new CardExamInEntryUnit(null, new UnitListUpdateHandler(UnitListAdd)).Show();
                     }
                     else
                         foreach (var x in lst)
@@ -196,15 +196,19 @@ namespace PriemLib
                                                select x.OrderNumber).OrderByDescending(x => x).FirstOrDefault();
                                     OrderNumber = (byte)(num + 1);    
                                 }
-                                context.ExamInEntryBlock.AddObject(new ExamInEntryBlock() {
+
+                                Entry curEnt = (from ent in context.Entry
+                                                where ent.Id == _entryId
+                                                select ent).FirstOrDefault();
+                                context.ExamInEntryBlock.AddObject(new ExamInEntryBlock()
+                                {
                                     Id = entId,
-                                    EntryId = _entryId.Value,
+                                    EntryId = curEnt.Id,
                                     Name = BlockName,
                                     IsCrimea = IsCrimea,
                                     IsGosLine = IsGosLine,
                                     OrderNumber = OrderNumber ?? 1,
-                                    });
-
+                                });
                                 foreach (ExamenBlockUnit x in lstUnit)
                                 {
                                     context.ExamInEntryBlockUnit.AddObject(new ExamInEntryBlockUnit()
@@ -215,6 +219,47 @@ namespace PriemLib
                                         ExamInEntryBlockId = entId,
                                     });
                                 }
+
+                                IEnumerable<Entry> ents = from ent in context.Entry
+                                                          where
+                                                          ent.FacultyId == curEnt.FacultyId
+                                                          && ent.LicenseProgramId == curEnt.LicenseProgramId
+                                                          && ent.ObrazProgramId == curEnt.ObrazProgramId
+                                                          && (curEnt.ProfileId == null ? ent.ProfileId == null : ent.ProfileId == curEnt.ProfileId)
+                                                          && ent.Id != curEnt.Id
+                                                          && ent.IsCrimea == curEnt.IsCrimea
+                                                          && ent.IsForeign == curEnt.IsForeign
+                                                          && ent.IsParallel == curEnt.IsParallel
+                                                          && ent.IsReduced == curEnt.IsReduced
+                                                          && ent.IsSecond == curEnt.IsSecond
+                                                          select ent;
+
+                                if (!chbToAllStudyBasis.Checked)
+                                    ents = ents.Where(c => c.StudyBasisId == curEnt.StudyBasisId);
+                                foreach (Entry e in ents)
+                                {
+                                    Guid blId = Guid.NewGuid();
+                                    context.ExamInEntryBlock.AddObject(new ExamInEntryBlock()
+                                    {
+                                        Id = blId,
+                                        EntryId = e.Id,
+                                        Name = BlockName,
+                                        IsCrimea = IsCrimea,
+                                        IsGosLine = IsGosLine,
+                                        OrderNumber = OrderNumber ?? 1,
+                                    });
+                                    foreach (ExamenBlockUnit x in lstUnit)
+                                    {
+                                        context.ExamInEntryBlockUnit.AddObject(new ExamInEntryBlockUnit()
+                                        {
+                                            Id = Guid.NewGuid(),
+                                            ExamId = x.ExamId,
+                                            EgeMin = x.EgeMin,
+                                            ExamInEntryBlockId = blId,
+                                        });
+                                    }
+                                }
+
                                 context.SaveChanges();
                                 transaction.Complete();
                             }
@@ -282,7 +327,7 @@ namespace PriemLib
 
         private void btnExamUnitAdd_Click(object sender, EventArgs e)
         {
-            new CardExamInEntryUnit(null, true, new UnitListUpdateHandler(UnitListAdd)).Show();
+            new CardExamInEntryUnit(null, new UnitListUpdateHandler(UnitListAdd)).Show();
         }
 
         private void btnExamUnitDelete_Click(object sender, EventArgs e)
@@ -309,15 +354,44 @@ namespace PriemLib
             {
                 tbBlockName.Text = unit.ExamUnitName;
             }
+
+            if (lstUnit.Where(x=>x.UnitId == unit.UnitId).Count()>0)
+            {
+                var Item = lstUnit.Where(x => x.UnitId == unit.UnitId).Select(x => x).First();
+                lstUnit.Remove(Item);
+
+                foreach ( KeyValuePair<string, string>  lbItem in lbExams.Items)
+                {
+                    if (lbItem.Key == unit.UnitId.ToString())
+                    {
+                        lbExams.Items.Remove(lbItem);
+                        break;
+                    }
+                }
+            }
             if (lstUnit.Where(x=>x.ExamId == unit.ExamId).Count()>0)
             {
                 MessageBox.Show("Экзамен уже был добавлен");
                 return;
             }
+
             lstUnit.Add(unit);
             KeyValuePair<string, string> ex = new KeyValuePair<string,string>( unit.UnitId.ToString(), unit.ExamUnitName + 
                 (unit.EgeMin==null?"":" ("+unit.EgeMin.ToString()+")"));
             lbExams.Items.Add(ex);
+        }
+
+        private void lbExams_DoubleClick(object sender, EventArgs e)
+        {
+            if (lbExams.SelectedItem == null)
+                return;
+
+            var Item = (KeyValuePair<string, string>)lbExams.SelectedItem;
+            Guid gid = Guid.Parse(Item.Key.ToString());
+            CardExamInEntryUnit crd = new CardExamInEntryUnit(Item.Key, new UnitListUpdateHandler(UnitListAdd));
+            crd.ExamId = lstUnit.Where(x => x.UnitId == gid).First().ExamId;
+            crd.EgeMin = lstUnit.Where(x => x.UnitId == gid).First().EgeMin;
+            crd.Show();
         }
     }
 }

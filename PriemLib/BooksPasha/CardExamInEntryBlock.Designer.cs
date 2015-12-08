@@ -145,6 +145,7 @@
             this.lbExams.Name = "lbExams";
             this.lbExams.Size = new System.Drawing.Size(325, 121);
             this.lbExams.TabIndex = 44;
+            this.lbExams.DoubleClick += new System.EventHandler(this.lbExams_DoubleClick);
             // 
             // label4
             // 

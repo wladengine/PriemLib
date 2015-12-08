@@ -26,34 +26,35 @@ namespace PriemLib
                     return Guid.Parse(_Id);
             }
         }
-        protected int? ExamId
+        public int? ExamId
         {
             get { return ComboServ.GetComboIdInt(cbExam); }
             set { ComboServ.SetComboId(cbExam, value); }
         }
-        protected int? EgeMin
+        public double? EgeMin
         {
             get
             {
-                int j;
-                if (int.TryParse(tbEgeMin.Text.Trim(), out j))
+                double j;
+                if (double.TryParse(tbEgeMin.Text.Trim(), out j))
                     return j;
                 else
                     return null;
             }
             set { tbEgeMin.Text = value.ToString(); }
         }
+        protected Guid UnitId { get; set; }
         #endregion
 
-        private bool _isForModified;
         UnitListUpdateHandler _hndlr;
 
-        public CardExamInEntryUnit(string id, bool isForModified, UnitListUpdateHandler _h)
-            : base(id)
+        public CardExamInEntryUnit(string id, UnitListUpdateHandler _h)
+            : base(null)
         {
             InitializeComponent();
-            _isForModified = isForModified;
             _hndlr = _h;
+            if (!String.IsNullOrEmpty(id))
+                UnitId = Guid.Parse(id);
             InitControls();
             SetAllFieldsEnabled();
         }
@@ -65,7 +66,6 @@ namespace PriemLib
             _tableName = "ed.[ExamInEntryBlockUnit]";
             btnClose.Visible = btnSaveAsNew.Visible = false;
             btnSaveChange.Visible = true;
-
             try
             {
                 using (PriemEntities context = new PriemEntities())
@@ -110,7 +110,6 @@ namespace PriemLib
             if (_Id == null)                
                 return;
         }
-
         protected override string Save()
         {
             try
@@ -120,20 +119,34 @@ namespace PriemLib
                     if (_Id == null)
                     {
                         Guid _gId = Guid.NewGuid();
-                            if (_hndlr != null && ExamId.HasValue)
+
+                        if (UnitId != Guid.Empty)
+                            _gId = UnitId;
+
+                        if (_hndlr != null && ExamId.HasValue)
+                        {
+                            _hndlr(new ExamenBlockUnit()
                             {
-                                _hndlr(new ExamenBlockUnit()
-                                {
-                                    ExamUnitName = ((KeyValuePair<string, string>)cbExam.SelectedItem).Value.ToString(),
-                                    UnitId = _gId,
-                                    EgeMin = EgeMin,
-                                    ExamId = ExamId.Value,
-                                });
-                            }
+                                ExamUnitName = ((KeyValuePair<string, string>)cbExam.SelectedItem).Value.ToString(),
+                                UnitId = _gId,
+                                EgeMin = EgeMin,
+                                ExamId = ExamId.Value,
+                            });
+                        }
                         return _gId.ToString();
                     }
                     else
                     {
+                        if (_hndlr != null && ExamId.HasValue)
+                        {
+                            _hndlr(new ExamenBlockUnit()
+                            {
+                                ExamUnitName = ((KeyValuePair<string, string>)cbExam.SelectedItem).Value.ToString(),
+                                UnitId = gId.Value,
+                                EgeMin = EgeMin,
+                                ExamId = ExamId.Value,
+                            });
+                        }
                         return _Id;
                     }
                 }
