@@ -1617,6 +1617,7 @@ namespace PriemLib
 
             //context.Abiturient_UpdateIsCommonRussianCompetition(IsForeign, gId);
             UpdateSelectedExams(context, gId);
+            UpdateIsApprovedByCommision(abitBarcode, Checked);
         }
 
         protected override void UpdateRec(PriemEntities context, Guid id)
@@ -1636,7 +1637,9 @@ namespace PriemLib
                 if (InnerEntryInEntryId.HasValue)
                     context.Abiturient_UpdateInnerEntryInEntryId(InnerEntryInEntryId, GuidId);
             }
+            
             UpdateSelectedExams(context, id);
+            UpdateIsApprovedByCommision(abitBarcode, Checked);
         }
 
         protected override void OnSave()
@@ -1663,6 +1666,11 @@ namespace PriemLib
             }
         }
 
+        protected void UpdateIsApprovedByCommision(int? Id, bool isApproved)
+        {
+            string query = String.Format("update dbo.Application set IsApprovedByComission = {0} where Barcode = '{1}'", isApproved ? "1" : "0", Id);
+            MainClass.BdcOnlineReadWrite.ExecuteQuery(query, null);
+        }
         protected void UpdateSelectedExams(PriemEntities context, Guid id)
         {
             var lst = context.AbiturientSelectedExam.Where(x => x.ApplicationId == id).Select(x => x).ToList();
