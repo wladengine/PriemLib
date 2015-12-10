@@ -70,6 +70,7 @@ namespace PriemLib
             PersonId = _PersonId;
             VersionNum = _VersionNum;
             VersionDate = _VersionDate;
+            lstExamInEntryBlock = new List<ExamenBlock>();
         }
 
         public void ChangeEntry()
