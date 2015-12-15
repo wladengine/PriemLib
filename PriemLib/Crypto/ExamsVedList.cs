@@ -390,7 +390,7 @@ namespace PriemLib
             {
                 SelectExamCrypto frm = new SelectExamCrypto(this, StudyLevelGroupId.Value, FacultyId, StudyBasisId);
                 frm.Show();
-            }                 
+            }
         }     
 
         //выбрать ведомость в списке

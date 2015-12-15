@@ -197,6 +197,7 @@ namespace PriemLib
                       where ent.FacultyId == facultyId
                       && (StudyBasisId != null ? ent.StudyBasisId == StudyBasisId : true == true)
                       && (StudyFormId != null ? ent.StudyBasisId == StudyFormId : true == true)
+                      && ent.StudyLevelGroupId == iStudyLevelGroupId
                       select new
                       {
                           Id = ent.ObrazProgramId,
