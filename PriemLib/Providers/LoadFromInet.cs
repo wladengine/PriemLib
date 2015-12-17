@@ -307,7 +307,7 @@ where Person.Barcode =" + fileNum ;
 ,ApplicationCommit.IntNumber
 ,[Abiturient].HasInnerPriorities
 ,[Abiturient].HasManualExams
-,[Abiturient].IsApprovedByComission
+,[Abiturient].IsUpdatedByComission
 ,[Abiturient].CompetitionId
 ,[Abiturient].ApproverName
 ,[Abiturient].DocInsertDate
@@ -325,7 +325,7 @@ WHERE IsCommited = 1 AND IntNumber=@CommitId";
                                   Barcode = rw.Field<int>("Barcode"),
                                   CompetitionId = rw.Field<int?>("CompetitionId") ?? (rw.Field<int>("StudyBasisId") == 1 ? 4 : 3),
                                   CompetitionName = "не указана",
-                                  HasCompetition = rw.Field<bool>("IsApprovedByComission"),
+                                  HasCompetition = rw.Field<bool>("IsUpdatedByComission"),
                                   LicenseProgramId = rw.Field<int>("LicenseProgramId"),
                                   LicenseProgramName = rw.Field<string>("LicenseProgramName"),
                                   ObrazProgramId = rw.Field<int>("ObrazProgramId"),
@@ -348,7 +348,7 @@ WHERE IsCommited = 1 AND IntNumber=@CommitId";
                                   IsSecond = rw.Field<bool>("IsSecond"),
                                   HasInnerPriorities = rw.Field<bool>("HasInnerPriorities"),
                                   HasManualExams = rw.Field<bool>("HasManualExams"),
-                                  IsApprovedByComission = rw.Field<bool>("IsApprovedByComission"),
+                                  IsApprovedByComission = rw.Field<bool>("IsUpdatedByComission"),
                                   ApproverName = rw.Field<string>("ApproverName"),
                                   lstInnerEntryInEntry = new List<ShortInnerEntryInEntry>(),
                                   IsCrimea = rw.Field<bool>("IsCrimea"),
@@ -400,8 +400,8 @@ FROM [extApplicationDetails] WHERE [ApplicationId]=@AppId";
         {
             string query = @"UPDATE [Application] 
 SET 
-    IsApprovedByComission=1, 
-    ApproverName=@ApproverName, 
+    IsUpdatedByComission=1, 
+    UpdaterName=@ApproverName, 
     CompetitionId=@CompId, 
     DocInsertDate=@DocInsertDate, 
     EntryId=@EntryId 

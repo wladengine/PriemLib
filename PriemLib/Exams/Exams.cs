@@ -22,8 +22,66 @@ namespace PriemLib
         }        
 
         public static IEnumerable<extExamInEntry> GetExamsWithFilters(PriemEntities context, int iStudyLevelGroupId, int? facultyId, int? licenseProgramId, int? obrazProgramId, int? profileId, int? stFormId, int? stBasisId, bool? isSecond, bool? isReduced, bool? isParallel)
-        {            
-            IEnumerable<extExamInEntry> exams = from ex in context.extExamInEntry where ex.StudyLevelGroupId == iStudyLevelGroupId select ex;
+        {
+            IEnumerable<extExamInEntry> exams =
+                (from Unit in context.ExamInEntryBlockUnit
+                join Ex in context.Exam on Unit.ExamId equals Ex.Id
+                join ExName in context.ExamName on Ex.ExamNameId equals ExName.Id
+                join Block in context.ExamInEntryBlock on Unit.ExamInEntryBlockId equals Block.Id
+                join extEnt in context.extEntry on Block.EntryId equals extEnt.Id
+                where extEnt.StudyLevelGroupId == iStudyLevelGroupId
+                select new
+                {
+                    EgeMin = Unit.EgeMin,
+                    EntryId  = Block.EntryId,
+                    ExamDefName = ExName.NamePad,
+                    ExamId = Unit.ExamId,
+                    ExamName = ExName.Name,
+                    ExamNameId= Ex.ExamNameId,
+                    FacultyId = extEnt.FacultyId,
+                    IsAdditional = Ex.IsAdditional,
+                    IsCrimea = Block.IsCrimea,
+                    IsForeign = extEnt.IsForeign,
+                    IsGosLine = Block.IsGosLine,
+                    IsParallel = extEnt.IsParallel,
+                    IsProfil = Block.IsProfil,
+                    IsReduced = extEnt.IsReduced,
+                    IsSecond = extEnt.IsSecond,
+                    LicenseProgramId = extEnt.LicenseProgramId,
+                    ObrazProgramId = extEnt.ObrazProgramId,
+                    OrderNumber = Block.OrderNumber,
+                    ProfileId = extEnt.ProfileId,
+                    StudyBasisId = extEnt.StudyBasisId,
+                    StudyFormId = extEnt.StudyFormId,
+                    StudyLevelGroupId = extEnt.StudyLevelGroupId,
+                    StudyLevelId = extEnt.StudyLevelId
+                }).ToList()
+                .Select(x => new extExamInEntry()
+                {
+                    EgeMin = (int?)x.EgeMin,
+                    EntryId  = x.EntryId,
+                    ExamDefName = x.ExamDefName,
+                    ExamId = x.ExamId,
+                    ExamName = x.ExamName,
+                    ExamNameId= x.ExamNameId,
+                    FacultyId = x.FacultyId,
+                    IsAdditional = x.IsAdditional,
+                    IsCrimea = x.IsCrimea,
+                    IsForeign = x.IsForeign,
+                    IsGosLine = x.IsGosLine,
+                    IsParallel = x.IsParallel,
+                    IsProfil = x.IsProfil,
+                    IsReduced = x.IsReduced,
+                    IsSecond = x.IsSecond,
+                    LicenseProgramId = x.LicenseProgramId,
+                    ObrazProgramId = x.ObrazProgramId,
+                    OrderNumber = x.OrderNumber,
+                    ProfileId = x.ProfileId,
+                    StudyBasisId = x.StudyBasisId,
+                    StudyFormId = x.StudyFormId,
+                    StudyLevelGroupId = x.StudyLevelGroupId,
+                    StudyLevelId = x.StudyLevelId
+                });
 
             if (facultyId != null)
                 exams = exams.Where(c => c.FacultyId == facultyId);

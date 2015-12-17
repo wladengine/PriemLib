@@ -1666,10 +1666,13 @@ namespace PriemLib
             }
         }
 
-        protected void UpdateIsApprovedByCommision(int? Id, bool isApproved)
+        protected void UpdateIsApprovedByCommision(int? Barcode, bool isApproved)
         {
-            string query = String.Format("update dbo.Application set IsApprovedByComission = {0} where Barcode = '{1}'", isApproved ? "1" : "0", Id);
-            MainClass.BdcOnlineReadWrite.ExecuteQuery(query, null);
+            if (Barcode.HasValue)
+            {
+                string query = String.Format("update dbo.Application set IsApprovedByComission = {0}, ApproverName= '{2}'  where Barcode = '{1}'", isApproved ? "1" : "0", Barcode, MainClass.GetUserName());
+                MainClass.BdcOnlineReadWrite.ExecuteQuery(query, null);
+            }
         }
         protected void UpdateSelectedExams(PriemEntities context, Guid id)
         {
