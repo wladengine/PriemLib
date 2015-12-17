@@ -1905,6 +1905,7 @@ namespace PriemLib
                     lstEducationInfo[ind].SchoolNum = SchoolNum;
                     lstEducationInfo[ind].SchoolAVG = SchoolAVG;
                     lstEducationInfo[ind].SchoolExitYear = SchoolExitYear;
+                    lstEducationInfo[ind].SchoolExitClassId = SchoolExitClassId;
                     lstEducationInfo[ind].CountryEducId = CountryEducId.Value;
                     lstEducationInfo[ind].ForeignCountryEducId = ForeignCountryEducId.Value;
                     lstEducationInfo[ind].RegionEducId = RegionEducId.Value;
@@ -1940,6 +1941,7 @@ namespace PriemLib
                         SchoolNum = SchoolNum,
                         SchoolAVG = SchoolAVG,
                         SchoolExitYear = SchoolExitYear,
+                        SchoolExitClassId = SchoolExitClassId,
                         CountryEducId = CountryEducId.Value,
                         ForeignCountryEducId = ForeignCountryEducId.Value,
                         RegionEducId = RegionEducId.Value,
