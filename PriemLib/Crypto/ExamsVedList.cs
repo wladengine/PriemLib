@@ -58,33 +58,33 @@ namespace PriemLib
             {
                 btnDeleteFromVed.Visible = btnDeleteFromVed.Enabled = false;
                 btnUnload.Visible = btnUnload.Enabled = false;
-                
+
                 //наверное нужно писать права по отдельным группам. Чуть больше, зато на порядок понятнее. И чтобы "левых" вставок не было
                 //Паше наклейки печатать нельзя??? Непорядок!!!
                 if (MainClass.IsFacMain())
                 {
                     btnCreate.Visible = true;
-                    btnChange.Visible = true;                    
+                    btnChange.Visible = true;
                     btnDelete.Visible = false;
 
                     tbCountCell.Visible = false;
                     lblCountCell.Visible = false;
                     btnLock.Visible = false;
                     btnCreateAdd.Visible = false;
-                    btnPrintSticker.Visible = false;                    
+                    btnPrintSticker.Visible = false;
                 }
                 else if (MainClass.IsCryptoMain() || MainClass.IsPasha())
                 {
                     btnCreate.Visible = false;
                     btnChange.Visible = false;
                     btnDelete.Visible = false;
-                    
+
                     tbCountCell.Visible = true;
                     lblCountCell.Visible = true;
                     btnLock.Visible = true;
                     btnCreateAdd.Visible = true;
-                    btnPrintSticker.Visible = true;                    
-                }                
+                    btnPrintSticker.Visible = true;
+                }
                 else
                 {
                     btnCreate.Visible = false;
@@ -95,7 +95,7 @@ namespace PriemLib
                     lblCountCell.Visible = false;
                     btnLock.Visible = false;
                     btnCreateAdd.Visible = false;
-                    btnPrintSticker.Visible = false;                    
+                    btnPrintSticker.Visible = false;
                 }
 
                 if (MainClass.IsPasha())
@@ -115,40 +115,43 @@ namespace PriemLib
                     lblCountCell.Visible = true;
                     btnLock.Visible = true;
                     btnCreateAdd.Visible = true;
-                    btnPrintSticker.Visible = true;                    
+                    btnPrintSticker.Visible = true;
                 }
-                    
+
                 tbCountCell.Text = (2).ToString();
 
-                using (PriemEntities context = new PriemEntities())
-                {
-                    var src = MainClass.GetEntry(context)
-                        .Select(x => new { x.StudyLevelGroupId, x.StudyLevelGroupName })
-                        .Distinct()
-                        .ToList()
-                        .Select(x => new KeyValuePair<string, string>(x.StudyLevelGroupId.ToString(), x.StudyLevelGroupName))
-                        .ToList();
+                ComboServ.FillCombo(cbStudyLevelGroup, GetSourceStudyLevelGroup(), false, false);
+                
+                ComboServ.FillCombo(cbFaculty, HelpClass.GetComboListByTable("ed.qFaculty", "ORDER BY Acronym"), false, false);
+                ComboServ.FillCombo(cbStudyBasis, HelpClass.GetComboListByTable("ed.StudyBasis", "ORDER BY Name"), false, true);
 
-                    ComboServ.FillCombo(cbStudyLevelGroup, src, false, false);
+                UpdateVedList();
+                UpdateDataGrid();
 
-                    ComboServ.FillCombo(cbFaculty, HelpClass.GetComboListByTable("ed.qFaculty", "ORDER BY Acronym"), false, false);
-                    ComboServ.FillCombo(cbStudyBasis, HelpClass.GetComboListByTable("ed.StudyBasis", "ORDER BY Name"), false, true);
-                    
-                    UpdateVedList();
-                    UpdateDataGrid();
-
-                    cbFaculty.SelectedIndexChanged += new EventHandler(cbFaculty_SelectedIndexChanged);
-                    cbStudyBasis.SelectedIndexChanged += new EventHandler(cbStudyBasis_SelectedIndexChanged);
-                    cbExamVed.SelectedIndexChanged += new EventHandler(cbExamVed_SelectedIndexChanged);
-                    cbStudyLevelGroup.SelectedIndexChanged += cbStudyLevelGroup_SelectedIndexChanged;
-                }
+                cbFaculty.SelectedIndexChanged += new EventHandler(cbFaculty_SelectedIndexChanged);
+                cbStudyBasis.SelectedIndexChanged += new EventHandler(cbStudyBasis_SelectedIndexChanged);
+                cbExamVed.SelectedIndexChanged += new EventHandler(cbExamVed_SelectedIndexChanged);
+                cbStudyLevelGroup.SelectedIndexChanged += cbStudyLevelGroup_SelectedIndexChanged;
             }
             catch (Exception ex)
             {
                 WinFormsServ.Error("Ошибка при инициализации формы ведомостей: ", ex);
             }
         }
+        public virtual List<KeyValuePair<string,string>> GetSourceStudyLevelGroup()
+        {
+            using (PriemEntities context = new PriemEntities())
+            {
+                var src = MainClass.GetEntry(context)
+                    .Select(x => new { x.StudyLevelGroupId, x.StudyLevelGroupName })
+                    .Distinct()
+                    .ToList()
+                    .Select(x => new KeyValuePair<string, string>(x.StudyLevelGroupId.ToString(), x.StudyLevelGroupName))
+                    .ToList();
 
+                return src;
+            }
+        }
         void cbStudyLevelGroup_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateVedList();

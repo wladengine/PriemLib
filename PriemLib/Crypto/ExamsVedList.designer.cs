@@ -297,6 +297,7 @@
             this.cbStudyLevelGroup.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cbStudyLevelGroup.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbStudyLevelGroup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbStudyLevelGroup.DropDownWidth = 350;
             this.cbStudyLevelGroup.FormattingEnabled = true;
             this.cbStudyLevelGroup.Location = new System.Drawing.Point(496, 20);
             this.cbStudyLevelGroup.Name = "cbStudyLevelGroup";
@@ -374,7 +375,7 @@
         private System.Windows.Forms.ComboBox cbExamVed;
         private System.Windows.Forms.ComboBox cbStudyBasis;
         protected System.Windows.Forms.Button btnSetExaminerAccount;
-        private System.Windows.Forms.ComboBox cbStudyLevelGroup;
+        public System.Windows.Forms.ComboBox cbStudyLevelGroup;
         protected System.Windows.Forms.Label label2;
     }
 }
