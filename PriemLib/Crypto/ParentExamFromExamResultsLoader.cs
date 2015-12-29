@@ -26,16 +26,16 @@ namespace PriemLib
         {
             using (PriemEntities context = new PriemEntities())
             {
-                //var lst = (from extEx in context.extExamInEntry
-                //           join ex in context.ExamInEntry on extEx.Id equals ex.ParentExamInEntryId
-                //           select new
-                //           {
-                //               extEx.Id,
-                //               extEx.ExamName
-                //           }).Distinct().ToList()
-                //          .Select(x => new KeyValuePair<string, string>(x.Id.ToString(), x.ExamName))
-                //          .ToList();
-                //ComboServ.FillCombo(cbExamInEntry, lst, false, false);
+                var lst = (from extEx in context.extExamInEntry
+                           join ex in context.ExamInEntryBlock on extEx.Id equals ex.ParentExamInEntryBlockId
+                           select new
+                           {
+                               extEx.Id,
+                               extEx.ExamName
+                           }).Distinct().ToList()
+                          .Select(x => new KeyValuePair<string, string>(x.Id.ToString(), x.ExamName))
+                          .ToList();
+                ComboServ.FillCombo(cbExamInEntry, lst, false, false);
             }
         }
     }

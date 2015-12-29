@@ -24053,6 +24053,30 @@ namespace PriemLib
         private global::System.Byte _OrderNumber;
         partial void OnOrderNumberChanging(global::System.Byte value);
         partial void OnOrderNumberChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Guid> ParentExamInEntryBlockId
+        {
+            get
+            {
+                return _ParentExamInEntryBlockId;
+            }
+            set
+            {
+                OnParentExamInEntryBlockIdChanging(value);
+                ReportPropertyChanging("ParentExamInEntryBlockId");
+                _ParentExamInEntryBlockId = StructuralObject.SetValidValue(value, "ParentExamInEntryBlockId");
+                ReportPropertyChanged("ParentExamInEntryBlockId");
+                OnParentExamInEntryBlockIdChanged();
+            }
+        }
+        private Nullable<global::System.Guid> _ParentExamInEntryBlockId;
+        partial void OnParentExamInEntryBlockIdChanging(Nullable<global::System.Guid> value);
+        partial void OnParentExamInEntryBlockIdChanged();
 
         #endregion
 

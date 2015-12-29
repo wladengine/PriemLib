@@ -32,13 +32,16 @@ namespace PriemLib
  
         public static IEnumerable<extExamInEntry> GetExamsWithFilters(PriemEntities context, int iStudyLevelGroupId, int? facultyId, int? licenseProgramId, int? obrazProgramId, int? profileId, int? stFormId, int? stBasisId, bool? isSecond, bool? isReduced, bool? isParallel)
         {
+            var lst = (from x in context.ExamInEntryBlock
+                       select x.ParentExamInEntryBlockId).ToList();
+
             IEnumerable<extExamInEntry> exams =
                 (from Unit in context.ExamInEntryBlockUnit
                 join Ex in context.Exam on Unit.ExamId equals Ex.Id
                 join ExName in context.ExamName on Ex.ExamNameId equals ExName.Id
                 join Block in context.ExamInEntryBlock on Unit.ExamInEntryBlockId equals Block.Id
                 join extEnt in context.extEntry on Block.EntryId equals extEnt.Id
-                where extEnt.StudyLevelGroupId == iStudyLevelGroupId
+                where extEnt.StudyLevelGroupId == iStudyLevelGroupId && !lst.Contains(Block.Id)
                 select new
                 {
                     EgeMin = Unit.EgeMin,
@@ -115,13 +118,16 @@ namespace PriemLib
         }
         public static IEnumerable<extExamInEntry> GetExamsWithFiltersStudyLevelId(PriemEntities context, int iStudyLevelId, int? facultyId, int? licenseProgramId, int? obrazProgramId, int? profileId, int? stFormId, int? stBasisId, bool? isSecond, bool? isReduced, bool? isParallel)
         {
+            var lst = (from x in context.ExamInEntryBlock
+                       select x.ParentExamInEntryBlockId).ToList();
+
             IEnumerable<extExamInEntry> exams =
                 (from Unit in context.ExamInEntryBlockUnit
                  join Ex in context.Exam on Unit.ExamId equals Ex.Id
                  join ExName in context.ExamName on Ex.ExamNameId equals ExName.Id
                  join Block in context.ExamInEntryBlock on Unit.ExamInEntryBlockId equals Block.Id
                  join extEnt in context.extEntry on Block.EntryId equals extEnt.Id
-                 where extEnt.StudyLevelId == iStudyLevelId
+                 where extEnt.StudyLevelId == iStudyLevelId && !lst.Contains(Block.Id)
                  select new
                  {
                      EgeMin = Unit.EgeMin,

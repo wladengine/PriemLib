@@ -394,6 +394,7 @@
           <Property Name="IsGosLine" Type="bit" Nullable="false" />
           <Property Name="IsCrimea" Type="bit" Nullable="false" />
           <Property Name="OrderNumber" Type="tinyint" Nullable="false" />
+          <Property Name="ParentExamInEntryBlockId" Type="uniqueidentifier" />
         </EntityType>
         <EntityType Name="ExamInEntryBlockUnit">
           <Key>
@@ -14175,6 +14176,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <Property Name="IsCrimea" Type="Boolean" Nullable="false" />
           <Property Name="OrderNumber" Type="Byte" Nullable="false" />
           <NavigationProperty Name="ExamInEntryBlockUnit" Relationship="Priem2012Model.FK_ExamInEntryBlockUnit_ExamInEntryBlock" FromRole="ExamInEntryBlock" ToRole="ExamInEntryBlockUnit" />
+          <Property Name="ParentExamInEntryBlockId" Type="Guid" />
         </EntityType>
         <EntityType Name="ExamInEntryBlockUnit">
           <Key>
@@ -17100,6 +17102,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <EntitySetMapping Name="ExamInEntryBlock">
             <EntityTypeMapping TypeName="Priem2012Model.ExamInEntryBlock">
               <MappingFragment StoreEntitySet="ExamInEntryBlock">
+                <ScalarProperty Name="ParentExamInEntryBlockId" ColumnName="ParentExamInEntryBlockId" />
                 <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
                 <ScalarProperty Name="IsCrimea" ColumnName="IsCrimea" />
                 <ScalarProperty Name="IsGosLine" ColumnName="IsGosLine" />

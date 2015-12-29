@@ -41,20 +41,22 @@
             this.label4 = new System.Windows.Forms.Label();
             this.btnExamUnitAdd = new System.Windows.Forms.Button();
             this.btnExamUnitDelete = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.cbParentExamInEntry = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.epError)).BeginInit();
             this.SuspendLayout();
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(359, 284);
+            this.btnClose.Location = new System.Drawing.Point(359, 308);
             // 
             // btnSaveChange
             // 
-            this.btnSaveChange.Location = new System.Drawing.Point(12, 284);
+            this.btnSaveChange.Location = new System.Drawing.Point(12, 308);
             // 
             // btnSaveAsNew
             // 
-            this.btnSaveAsNew.Location = new System.Drawing.Point(215, 284);
+            this.btnSaveAsNew.Location = new System.Drawing.Point(215, 308);
             // 
             // chbIsProfil
             // 
@@ -176,11 +178,31 @@
             this.btnExamUnitDelete.UseVisualStyleBackColor = true;
             this.btnExamUnitDelete.Click += new System.EventHandler(this.btnExamUnitDelete_Click);
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(12, 255);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(259, 13);
+            this.label5.TabIndex = 49;
+            this.label5.Text = "Родительский экзамен (для многоуровневых ВИ)";
+            // 
+            // cbParentExamInEntry
+            // 
+            this.cbParentExamInEntry.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbParentExamInEntry.FormattingEnabled = true;
+            this.cbParentExamInEntry.Location = new System.Drawing.Point(12, 271);
+            this.cbParentExamInEntry.Name = "cbParentExamInEntry";
+            this.cbParentExamInEntry.Size = new System.Drawing.Size(428, 21);
+            this.cbParentExamInEntry.TabIndex = 48;
+            // 
             // CardExamInEntryBlock
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(452, 319);
+            this.ClientSize = new System.Drawing.Size(452, 343);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.cbParentExamInEntry);
             this.Controls.Add(this.btnExamUnitDelete);
             this.Controls.Add(this.btnExamUnitAdd);
             this.Controls.Add(this.label4);
@@ -212,6 +234,8 @@
             this.Controls.SetChildIndex(this.label4, 0);
             this.Controls.SetChildIndex(this.btnExamUnitAdd, 0);
             this.Controls.SetChildIndex(this.btnExamUnitDelete, 0);
+            this.Controls.SetChildIndex(this.cbParentExamInEntry, 0);
+            this.Controls.SetChildIndex(this.label5, 0);
             ((System.ComponentModel.ISupportInitialize)(this.epError)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -233,5 +257,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnExamUnitAdd;
         private System.Windows.Forms.Button btnExamUnitDelete;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ComboBox cbParentExamInEntry;
     }
 }

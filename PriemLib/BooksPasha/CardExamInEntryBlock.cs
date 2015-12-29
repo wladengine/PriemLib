@@ -59,6 +59,11 @@ namespace PriemLib
             }
             set { tbOrderNumber.Text = value.ToString(); }
         }
+        protected Guid? ParentExamInEntryId
+        {
+            get { return ComboServ.GetComboIdGuid(cbParentExamInEntry); }
+            set { ComboServ.SetComboId(cbParentExamInEntry, value); }
+        }
         protected List<ExamenBlockUnit> lstUnit;
         protected UnitListUpdateHandler _hndl;
         #endregion
@@ -115,6 +120,18 @@ namespace PriemLib
                     else
                         foreach (var x in lst)
                             lbExams.Items.Add(x);
+
+                    lst = ((from ex in context.ExamInEntryBlock
+                            where ex.EntryId == _entryId
+                            select new
+                            {
+                                Id = ex.Id,
+                                Name = ex.Name,
+                            }).Distinct()).ToList()
+                          .Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name))
+                          .OrderBy(x => x.Value)
+                          .ToList();
+                    ComboServ.FillCombo(cbParentExamInEntry, lst, true, false);
                 }
             }
             catch (Exception exc)
@@ -147,7 +164,6 @@ namespace PriemLib
                 lstUnit = new List<ExamenBlockUnit>();
                 return;
             }
-            
             try
             {
                 using (PriemEntities context = new PriemEntities())
@@ -160,6 +176,7 @@ namespace PriemLib
                     IsGosLine = ent.IsGosLine;
                     IsCrimea = ent.IsCrimea;
                     OrderNumber = ent.OrderNumber;
+                    ParentExamInEntryId = ent.ParentExamInEntryBlockId;
 
                     var lst = (from ex_unit in context.ExamInEntryBlockUnit
                                join ex in context.Exam on ex_unit.ExamId equals ex.Id
@@ -258,11 +275,13 @@ namespace PriemLib
                 IsCrimea = IsCrimea,
                 IsGosLine = IsGosLine,
                 OrderNumber = OrderNumber ?? 1,
+                ParentExamInEntryBlockId = ParentExamInEntryId,
             });
             SortedList<string, object> sl = new SortedList<string, object>();
             sl.Add("@Id", entId);
             sl.Add("@EntryId", curEnt.Id);
             sl.Add("@Name", BlockName);
+            
             MainClass.BdcOnlineReadWrite.ExecuteQuery(queryBlock, sl);
             foreach (ExamenBlockUnit x in lstUnit)
             {
@@ -354,6 +373,8 @@ namespace PriemLib
             block.IsCrimea = IsCrimea;
             block.IsGosLine = IsGosLine;
             block.OrderNumber = OrderNumber ?? 1;
+            block.ParentExamInEntryBlockId = ParentExamInEntryId;
+            context.SaveChanges();
 
             var gUnits = lstUnit.Select(x => x.UnitId).ToList();
             var lst = context.ExamInEntryBlockUnit.Where(x => x.ExamInEntryBlockId == gId.Value && !gUnits.Contains(x.Id)).ToList();
@@ -362,7 +383,7 @@ namespace PriemLib
                 context.ExamInEntryBlockUnit.DeleteObject(x);
                 MainClass.BdcOnlineReadWrite.ExecuteQuery(String.Format("delete from dbo.ExamInEntryBlockUnit where Id = '{0}'", x.Id), null);
             }
-            string queryBlock = @" UPDATE dbo.ExamInEntryBlock Name = @Name WHERE Id = @Id";
+            string queryBlock = @" UPDATE dbo.ExamInEntryBlock set Name = @Name WHERE Id = @Id";
             SortedList<string, object> sl = new SortedList<string, object>();
             sl.Add("@Id", id);
             sl.Add("@Name", BlockName);
@@ -463,8 +484,21 @@ namespace PriemLib
             }
             if (lstUnit.Where(x=>x.ExamId == unit.ExamId).Count()>0)
             {
-                MessageBox.Show("Экзамен уже был добавлен");
+                MessageBox.Show("Экзамен уже был добавлен в текущую группу экзаменов");
                 return;
+            }
+            
+            using (PriemEntities context = new PriemEntities())
+            {
+                var lst = (from x in context.extExamInEntry
+                           where x.EntryId == _entryId
+                           && x.ExamId == unit.ExamId
+                           select x).ToList();
+                if (lst.Count > 0)
+                {
+                    MessageBox.Show("Экзамен уже был добавлен в текущий конкурс");
+                    return;
+                }
             }
 
             lstUnit.Add(unit);
