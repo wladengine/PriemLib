@@ -17,11 +17,21 @@ namespace PriemLib
     public partial class SelectExamCrypto : BaseForm
     {
         private DBPriem bdc;
-        private int iStudyLevelGroupId;
-        private int? iFacultyId;
-        private int? iStudyBasisId;
+        protected int iStudyLevelGroupId;
+        protected int? iFacultyId;
+        protected int? iStudyBasisId;
         private ExamsVedList owner;
-        private bool isAdditional;
+        protected bool isAdditional;
+        protected DateTime ExamDate
+        {
+            get { return dtDateExam.Value;  }
+            set { dtDateExam.Value = value; }
+        }
+        public int? ExamId
+        {
+            get { return ComboServ.GetComboIdInt(cbExam); }
+            set { ComboServ.SetComboId(cbExam, value); }
+        }
 
         public SelectExamCrypto(ExamsVedList owner, int studyLevelGroupId, int? facId, int? basisId, DateTime passDate, int? examId)
         {
@@ -38,12 +48,6 @@ namespace PriemLib
 
             dtDateExam.Value = passDate;            
             this.ExamId = examId;
-        }
-
-        public int? ExamId
-        {
-            get { return ComboServ.GetComboIdInt(cbExam); }
-            set { ComboServ.SetComboId(cbExam, value); }
         }
 
         public SelectExamCrypto(ExamsVedList owner, int studyLevelId, int? facId, int? basisId)
@@ -73,23 +77,33 @@ namespace PriemLib
         {
             using (PriemEntities context = new PriemEntities())
             {
-                var ent = Exams.GetExamsWithFilters(context, MainClass.lstStudyLevelGroupId, iFacultyId, null, null, null, null, iStudyBasisId, null, null, null);
-                List<KeyValuePair<string, string>> lst = ent.ToList().Select(u => new KeyValuePair<string, string>(u.ExamId.ToString(), u.ExamName)).Distinct().ToList();
+                List<KeyValuePair<string, string>> lst = GetSourceExam();
                 ComboServ.FillCombo(cbExam, lst, false, false);                 
             }          
-        } 
+        }
 
-        private void btnOk_Click(object sender, EventArgs e)
+        protected virtual List<KeyValuePair<string, string>> GetSourceExam()
+        {
+            using (PriemEntities context = new PriemEntities())
+            {
+                var ent = Exams.GetExamsWithFilters(context, MainClass.lstStudyLevelGroupId, iFacultyId, null, null, null, null, iStudyBasisId, null, null, null);
+                List<KeyValuePair<string, string>> lst = ent.ToList().Select(u => new KeyValuePair<string, string>(u.ExamId.ToString(), u.ExamName)).Distinct().ToList();
+
+                return lst;
+            }
+        }
+
+        protected bool CheckFields()
         {
             if (!ExamId.HasValue)
             {
                 WinFormsServ.Error("Не выбран экзамен!");
-                return;
+                return false ;
             }
             if (!iFacultyId.HasValue)
             {
                 WinFormsServ.Error("Не выбрано подразделение!");
-                return;
+                return false;
             }
 
             if (!isAdditional)
@@ -97,21 +111,27 @@ namespace PriemLib
                 using (PriemEntities context = new PriemEntities())
                 {
                     int cnt = (from ev in context.extExamsVed
-                               where ev.ExamId == ExamId && ev.Date == dtDateExam.Value.Date 
-                               && ev.FacultyId == iFacultyId 
-                               && (iStudyBasisId == null ? ev.StudyBasisId == null : ev.StudyBasisId == iStudyBasisId) 
+                               where ev.ExamId == ExamId && ev.Date == dtDateExam.Value.Date
+                               && ev.FacultyId == iFacultyId
+                               && (iStudyBasisId == null ? ev.StudyBasisId == null : ev.StudyBasisId == iStudyBasisId)
                                && !ev.IsAddVed
                                select ev).Count();
-                    
+
                     if (cnt > 0)
                     {
                         WinFormsServ.Error(string.Format("{0}едомость на этот экзамен на эту дату {1} уже существует! ", isAdditional ? "Дополнительная в" : "В", iStudyBasisId == null ? "" : "на эту основу обучения"));
-                        return;
+                        return false;
                     }
                 }
             }
+            return true;
+        }
+        protected virtual void btnOk_Click(object sender, EventArgs e)
+        {
+            if (!CheckFields())
+                return;
 
-            ExamsVedCard frm = new ExamsVedCard(owner, iStudyLevelGroupId, iFacultyId.Value, ExamId.Value, dtDateExam.Value, iStudyBasisId, isAdditional);
+            ExamsVedCard frm = new ExamsVedCard(owner, iStudyLevelGroupId, iFacultyId.Value, ExamId.Value, ExamDate, iStudyBasisId, isAdditional);
             frm.Show();
             this.Close();
         }                     

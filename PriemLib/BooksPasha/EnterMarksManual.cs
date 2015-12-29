@@ -123,7 +123,7 @@ namespace PriemLib
             flt_backDoc = " AND ed.extAbit.BackDoc = 0 ";
             flt_enable = " AND ed.extAbit.NotEnabled = 0 ";
             flt_protocol = " AND ed.extAbit.Id IN (SELECT AbiturientId FROM ed.extProtocol WHERE ProtocolTypeId = 1 AND IsOld = 0 AND Excluded = 0) ";
-            flt_existMark = string.Format(" AND ed.extAbit.Id NOT IN (SELECT ed.qMark.abiturientId FROM ed.qMark INNER JOIN ed.extExamInEntry ON ed.qMark.ExamInEntryId = ed.extExamInEntry.Id WHERE ed.extExamInEntry.ExamId = {0} AND ed.extExamInEntry.FacultyId = {1}) ", _examId, _facultyId);
+            flt_existMark = string.Format(" AND ed.extAbit.Id NOT IN (SELECT ed.qMark.abiturientId FROM ed.qMark INNER JOIN ed.extExamInEntry ON ed.qMark.ExamInEntryBlockUnitId = ed.extExamInEntry.Id WHERE ed.extExamInEntry.ExamId = {0} AND ed.extExamInEntry.FacultyId = {1}) ", _examId, _facultyId);
             flt_hasExam = string.Format(" AND ed.extAbit.EntryId IN (SELECT ed.extExamInEntry.EntryId FROM ed.extExamInEntry WHERE ed.extExamInEntry.ExamId = {0})", _examId);
 
             flt_where = string.Format(" WHERE ed.extAbit.FacultyId = {0} {1}", _facultyId, (_studybasisId == null) ? "" : " AND StudyBasisId = " + _studybasisId);
@@ -173,7 +173,7 @@ namespace PriemLib
                                              where ab.Id == abId
                                              select ab.EntryId).FirstOrDefault();
 
-                            int examInEntryId = (from ex in context.extExamInEntry
+                            Guid examInEntryId = (from ex in context.extExamInEntry
                                                  where ex.ExamId == _examId && ex.EntryId == entryId
                                                  select ex.Id).FirstOrDefault();
 

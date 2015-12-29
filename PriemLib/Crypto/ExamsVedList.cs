@@ -138,7 +138,7 @@ namespace PriemLib
                 WinFormsServ.Error("Ошибка при инициализации формы ведомостей: ", ex);
             }
         }
-        public virtual List<KeyValuePair<string,string>> GetSourceStudyLevelGroup()
+        protected virtual List<KeyValuePair<string, string>> GetSourceStudyLevelGroup()
         {
             using (PriemEntities context = new PriemEntities())
             {
@@ -381,7 +381,7 @@ namespace PriemLib
         }
         
         //создать новый протокол
-        private void btnCreate_Click(object sender, EventArgs e)
+        protected virtual void btnCreate_Click(object sender, EventArgs e)
         {
             if (!StudyLevelGroupId.HasValue)
             {

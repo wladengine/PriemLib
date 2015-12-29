@@ -558,7 +558,7 @@
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="AbiturientId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="ExamInEntryId" Type="int" Nullable="false" />
+          <Property Name="ExamInEntryBlockUnitId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Value" Type="decimal" Precision="4" Scale="1" Nullable="false" />
           <Property Name="PassDate" Type="smalldatetime" />
           <Property Name="IsFromEge" Type="bit" Nullable="false" />
@@ -1898,31 +1898,31 @@
           <Key>
             <PropertyRef Name="Id" />
             <PropertyRef Name="EntryId" />
-            
+            <PropertyRef Name="ExamId" />
             <PropertyRef Name="IsProfil" />
             <PropertyRef Name="ExamNameId" />
             <PropertyRef Name="IsAdditional" />
             <PropertyRef Name="FacultyId" />
             <PropertyRef Name="LicenseProgramId" />
             <PropertyRef Name="ObrazProgramId" />
-            
+            <PropertyRef Name="ProfileId" />
             <PropertyRef Name="StudyBasisId" />
             <PropertyRef Name="StudyFormId" />
             <PropertyRef Name="StudyLevelId" />
             <PropertyRef Name="StudyLevelGroupId" />
-            <PropertyRef Name="IsSecond" />
-            <PropertyRef Name="IsReduced" />
-            <PropertyRef Name="IsParallel" />
-            
+            <PropertyRef Name="OrderNumber" />
             <PropertyRef Name="IsCrimea" />
             <PropertyRef Name="IsGosLine" />
             <PropertyRef Name="IsForeign" />
+            <PropertyRef Name="IsSecond" />
+            <PropertyRef Name="IsReduced" />
+            <PropertyRef Name="IsParallel" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="EntryId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="ExamId" Type="int" Nullable="false" />
           <Property Name="IsProfil" Type="bit" Nullable="false" />
-          <Property Name="EgeMin" Type="int" />
+          <Property Name="EgeMin" Type="float" />
           <Property Name="ExamNameId" Type="int" Nullable="false" />
           <Property Name="IsAdditional" Type="bit" Nullable="false" />
           <Property Name="ExamName" Type="nvarchar" MaxLength="539" />
@@ -1934,16 +1934,14 @@
           <Property Name="StudyFormId" Type="int" Nullable="false" />
           <Property Name="StudyLevelId" Type="int" Nullable="false" />
           <Property Name="StudyLevelGroupId" Type="int" Nullable="false" />
+          <Property Name="OrderNumber" Type="tinyint" Nullable="false" />
+          <Property Name="IsCrimea" Type="bit" Nullable="false" />
+          <Property Name="IsGosLine" Type="bit" Nullable="false" />
+          <Property Name="IsForeign" Type="bit" Nullable="false" />
           <Property Name="ExamDefName" Type="nvarchar" MaxLength="500" />
           <Property Name="IsSecond" Type="bit" Nullable="false" />
           <Property Name="IsReduced" Type="bit" Nullable="false" />
           <Property Name="IsParallel" Type="bit" Nullable="false" />
-          <Property Name="ExamInEntryToCompetitiveGroupId" Type="uniqueidentifier" />
-          <Property Name="OrderNumber" Type="tinyint" Nullable="false" />
-          <Property Name="IsCrimea" Type="bit" Nullable="false" />
-          <Property Name="IsGosLine" Type="bit" Nullable="false" />
-          <Property Name="ParentExamInEntryId" Type="int" />
-          <Property Name="IsForeign" Type="bit" Nullable="false" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
 предупреждение 6002: В таблице или представлении "Priem2016Test.ed.extExamsVed" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
@@ -3026,7 +3024,7 @@
           <Key>
             <PropertyRef Name="Id" />
             <PropertyRef Name="AbiturientId" />
-            <PropertyRef Name="ExamInEntryId" />
+            <PropertyRef Name="ExamInEntryBlockUnitId" />
             <PropertyRef Name="Value" />
             <PropertyRef Name="IsFromEge" />
             <PropertyRef Name="IsFromOlymp" />
@@ -3038,13 +3036,13 @@
             <PropertyRef Name="ExamId" />
             <PropertyRef Name="ExamNameId" />
             <PropertyRef Name="EntranceTestType" />
-            
+            <PropertyRef Name="OrderNumber" />
             <PropertyRef Name="PersonId" />
             <PropertyRef Name="StudyBasisId" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="AbiturientId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="ExamInEntryId" Type="int" Nullable="false" />
+          <Property Name="ExamInEntryBlockUnitId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Value" Type="decimal" Precision="4" Scale="1" Nullable="false" />
           <Property Name="PassDate" Type="smalldatetime" />
           <Property Name="IsFromEge" Type="bit" Nullable="false" />
@@ -3063,7 +3061,6 @@
           <Property Name="EgeCertificateId" Type="uniqueidentifier" />
           <Property Name="OrderNumber" Type="tinyint" Nullable="false" />
           <Property Name="FiveGradeValue" Type="tinyint" />
-          <Property Name="ParentExamInEntryId" Type="int" />
           <Property Name="PersonId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="StudyBasisId" Type="int" Nullable="false" />
         </EntityType>
@@ -3243,6 +3240,20 @@
             </Principal>
             <Dependent Role="Abiturient">
               <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AbiturientSelectedExam_Abiturient">
+          <End Role="Abiturient" Type="Self.Abiturient" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AbiturientSelectedExam" Type="Self.AbiturientSelectedExam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Abiturient">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbiturientSelectedExam">
+              <PropertyRef Name="ApplicationId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3666,6 +3677,34 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ExamInEntryBlockUnit_Exam">
+          <End Role="Exam" Type="Self.Exam" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ExamInEntryBlockUnit" Type="Self.ExamInEntryBlockUnit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exam">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ExamInEntryBlockUnit">
+              <PropertyRef Name="ExamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ExamInEntryBlockUnit_ExamInEntryBlock">
+          <End Role="ExamInEntryBlock" Type="Self.ExamInEntryBlock" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ExamInEntryBlockUnit" Type="Self.ExamInEntryBlockUnit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExamInEntryBlock">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ExamInEntryBlockUnit">
+              <PropertyRef Name="ExamInEntryBlockId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ExaminerInExamsVed_ExamsVed">
           <End Role="ExamsVed" Type="Self.ExamsVed" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -3692,7 +3731,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_Mark_Abiturient">
+        <Association Name="FK_Mark_Abiturient">
           <End Role="Abiturient" Type="Self.Abiturient" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -3707,7 +3746,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Mark_EgeCertificate">
-          <End Role="EgeCertificate" Type="Self.EgeCertificate" Multiplicity="0..1" />
+          <End Role="EgeCertificate" Type="Self.EgeCertificate" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Mark" Type="Self.Mark" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="EgeCertificate">
@@ -3718,20 +3759,24 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_Mark_ExamInEntry">
-          <End Role="ExamInEntry" Type="Self.ExamInEntry" Multiplicity="1" />
+        <Association Name="FK_Mark_ExamInEntryBlockUnit">
+          <End Role="ExamInEntryBlockUnit" Type="Self.ExamInEntryBlockUnit" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Mark" Type="Self.Mark" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ExamInEntry">
+            <Principal Role="ExamInEntryBlockUnit">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Mark">
-              <PropertyRef Name="ExamInEntryId" />
+              <PropertyRef Name="ExamInEntryBlockUnitId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Mark_PersonAchievement">
-          <End Role="PersonAchievement" Type="Self.PersonAchievement" Multiplicity="0..1" />
+          <End Role="PersonAchievement" Type="Self.PersonAchievement" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Mark" Type="Self.Mark" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PersonAchievement">
@@ -5164,14 +5209,14 @@
         </Function>
         <Function Name="Mark_DeleteByAbitExamId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ed">
           <Parameter Name="AbiturientId" Type="uniqueidentifier" Mode="In" />
-          <Parameter Name="ExamInEntryId" Type="int" Mode="In" />
+          <Parameter Name="ExamInEntryBlockUnitId" Type="uniqueidentifier" Mode="In" />
         </Function>
         <Function Name="Mark_DeleteByExamVedId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ed">
           <Parameter Name="ExamVedId" Type="uniqueidentifier" Mode="In" />
         </Function>
         <Function Name="Mark_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ed">
           <Parameter Name="AbiturientId" Type="uniqueidentifier" Mode="In" />
-          <Parameter Name="ExamInEntryId" Type="int" Mode="In" />
+          <Parameter Name="ExamInEntryBlockUnitId" Type="uniqueidentifier" Mode="In" />
           <Parameter Name="Value" Type="decimal" Mode="In" />
           <Parameter Name="passDate" Type="smalldatetime" Mode="In" />
           <Parameter Name="IsFromEge" Type="bit" Mode="In" />
@@ -5183,7 +5228,7 @@
         </Function>
         <Function Name="Mark_updateByAbVedId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ed">
           <Parameter Name="AbiturientId" Type="uniqueidentifier" Mode="In" />
-          <Parameter Name="ExamInEntryId" Type="int" Mode="In" />
+          <Parameter Name="ExamInEntryBlockUnitId" Type="uniqueidentifier" Mode="In" />
           <Parameter Name="Value" Type="decimal" Mode="In" />
           <Parameter Name="passDate" Type="smalldatetime" Mode="In" />
           <Parameter Name="ExamVedId" Type="uniqueidentifier" Mode="In" />
@@ -6437,16 +6482,14 @@ FROM [ed].[extEntryView_ForDisEntered] AS [extEntryView_ForDisEntered]</Defining
 [extExamInEntry].[StudyFormId] AS [StudyFormId], 
 [extExamInEntry].[StudyLevelId] AS [StudyLevelId], 
 [extExamInEntry].[StudyLevelGroupId] AS [StudyLevelGroupId], 
-[extExamInEntry].[ExamDefName] AS [ExamDefName], 
-[extExamInEntry].[IsSecond] AS [IsSecond], 
-[extExamInEntry].[IsReduced] AS [IsReduced], 
-[extExamInEntry].[IsParallel] AS [IsParallel], 
-[extExamInEntry].[ExamInEntryToCompetitiveGroupId] AS [ExamInEntryToCompetitiveGroupId], 
 [extExamInEntry].[OrderNumber] AS [OrderNumber], 
 [extExamInEntry].[IsCrimea] AS [IsCrimea], 
 [extExamInEntry].[IsGosLine] AS [IsGosLine], 
-[extExamInEntry].[ParentExamInEntryId] AS [ParentExamInEntryId], 
-[extExamInEntry].[IsForeign] AS [IsForeign]
+[extExamInEntry].[IsForeign] AS [IsForeign], 
+[extExamInEntry].[ExamDefName] AS [ExamDefName], 
+[extExamInEntry].[IsSecond] AS [IsSecond], 
+[extExamInEntry].[IsReduced] AS [IsReduced], 
+[extExamInEntry].[IsParallel] AS [IsParallel]
 FROM [ed].[extExamInEntry] AS [extExamInEntry]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="extExamsVed" EntityType="Self.extExamsVed" store:Type="Views" store:Schema="ed">
@@ -7225,7 +7268,7 @@ FROM [ed].[qLicenseProgram] AS [qLicenseProgram]</DefiningQuery>
             <DefiningQuery>SELECT 
 [qMark].[Id] AS [Id], 
 [qMark].[AbiturientId] AS [AbiturientId], 
-[qMark].[ExamInEntryId] AS [ExamInEntryId], 
+[qMark].[ExamInEntryBlockUnitId] AS [ExamInEntryBlockUnitId], 
 [qMark].[Value] AS [Value], 
 [qMark].[PassDate] AS [PassDate], 
 [qMark].[IsFromEge] AS [IsFromEge], 
@@ -7244,7 +7287,6 @@ FROM [ed].[qLicenseProgram] AS [qLicenseProgram]</DefiningQuery>
 [qMark].[EgeCertificateId] AS [EgeCertificateId], 
 [qMark].[OrderNumber] AS [OrderNumber], 
 [qMark].[FiveGradeValue] AS [FiveGradeValue], 
-[qMark].[ParentExamInEntryId] AS [ParentExamInEntryId], 
 [qMark].[PersonId] AS [PersonId], 
 [qMark].[StudyBasisId] AS [StudyBasisId]
 FROM [ed].[qMark] AS [qMark]</DefiningQuery>
@@ -7340,6 +7382,10 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <AssociationSet Name="FK_Abiturient_Person" Association="Self.FK_Abiturient_Person">
             <End Role="Person" EntitySet="Person" />
             <End Role="Abiturient" EntitySet="Abiturient" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AbiturientSelectedExam_Abiturient" Association="Self.FK_AbiturientSelectedExam_Abiturient">
+            <End Role="Abiturient" EntitySet="Abiturient" />
+            <End Role="AbiturientSelectedExam" EntitySet="AbiturientSelectedExam" />
           </AssociationSet>
           <AssociationSet Name="FK_ApplicationDetails_Abiturient" Association="Self.FK_ApplicationDetails_Abiturient">
             <End Role="Abiturient" EntitySet="Abiturient" />
@@ -7473,6 +7519,14 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
             <End Role="ExamInEntry" EntitySet="ExamInEntry" />
             <End Role="ExamInEntry1" EntitySet="ExamInEntry" />
           </AssociationSet>
+          <AssociationSet Name="FK_ExamInEntryBlockUnit_Exam" Association="Self.FK_ExamInEntryBlockUnit_Exam">
+            <End Role="Exam" EntitySet="Exam" />
+            <End Role="ExamInEntryBlockUnit" EntitySet="ExamInEntryBlockUnit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ExamInEntryBlockUnit_ExamInEntryBlock" Association="Self.FK_ExamInEntryBlockUnit_ExamInEntryBlock">
+            <End Role="ExamInEntryBlock" EntitySet="ExamInEntryBlock" />
+            <End Role="ExamInEntryBlockUnit" EntitySet="ExamInEntryBlockUnit" />
+          </AssociationSet>
           <AssociationSet Name="FK_ExaminerInExamsVed_ExamsVed" Association="Self.FK_ExaminerInExamsVed_ExamsVed">
             <End Role="ExamsVed" EntitySet="ExamsVed" />
             <End Role="ExaminerInExamsVed" EntitySet="ExaminerInExamsVed" />
@@ -7481,7 +7535,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
             <End Role="SP_Profile" EntitySet="SP_Profile" />
             <End Role="InnerEntryInEntry" EntitySet="InnerEntryInEntry" />
           </AssociationSet>
-          <AssociationSet Name="fk_Mark_Abiturient" Association="Self.fk_Mark_Abiturient">
+          <AssociationSet Name="FK_Mark_Abiturient" Association="Self.FK_Mark_Abiturient">
             <End Role="Abiturient" EntitySet="Abiturient" />
             <End Role="Mark" EntitySet="Mark" />
           </AssociationSet>
@@ -7489,8 +7543,8 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
             <End Role="EgeCertificate" EntitySet="EgeCertificate" />
             <End Role="Mark" EntitySet="Mark" />
           </AssociationSet>
-          <AssociationSet Name="fk_Mark_ExamInEntry" Association="Self.fk_Mark_ExamInEntry">
-            <End Role="ExamInEntry" EntitySet="ExamInEntry" />
+          <AssociationSet Name="FK_Mark_ExamInEntryBlockUnit" Association="Self.FK_Mark_ExamInEntryBlockUnit">
+            <End Role="ExamInEntryBlockUnit" EntitySet="ExamInEntryBlockUnit" />
             <End Role="Mark" EntitySet="Mark" />
           </AssociationSet>
           <AssociationSet Name="FK_Mark_PersonAchievement" Association="Self.FK_Mark_PersonAchievement">
@@ -8142,7 +8196,6 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
             <Parameter Name="ParentExamInEntryId" Mode="In" Type="Int32" />
             <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <EntitySet Name="Mark" EntityType="Priem2012Model.Mark" />
           <EntitySet Name="qStudyLevel" EntityType="Priem2012Model.qStudyLevel" />
           <EntitySet Name="ExamName" EntityType="Priem2012Model.ExamName" />
           <EntitySet Name="StudyLevel" EntityType="Priem2012Model.StudyLevel" />
@@ -8333,7 +8386,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           </FunctionImport>
           <FunctionImport Name="Mark_Insert">
             <Parameter Name="AbiturientId" Mode="In" Type="Guid" />
-            <Parameter Name="ExamInEntryId" Mode="In" Type="Int32" />
+            <Parameter Name="ExamInEntryBlockUnitId" Mode="In" Type="Guid" />
             <Parameter Name="Value" Mode="In" Type="Decimal" />
             <Parameter Name="passDate" Mode="In" Type="DateTime" />
             <Parameter Name="IsFromEge" Mode="In" Type="Boolean" />
@@ -8345,7 +8398,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           </FunctionImport>
           <FunctionImport Name="Mark_DeleteByAbitExamId">
             <Parameter Name="AbiturientId" Mode="In" Type="Guid" />
-            <Parameter Name="ExamInEntryId" Mode="In" Type="Int32" />
+            <Parameter Name="ExamInEntryBlockUnitId" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="Abiturient_UpdateChecked">
             <Parameter Name="Checked" Mode="In" Type="Boolean" />
@@ -8429,7 +8482,6 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           </FunctionImport>
           <EntitySet Name="Abiturient" EntityType="Priem2012Model.Abiturient" />
           <EntitySet Name="Protocol" EntityType="Priem2012Model.Protocol" />
-          <EntitySet Name="extExamInEntry" EntityType="Priem2012Model.extExamInEntry" />
           <EntitySet Name="qAbitAll" EntityType="Priem2012Model.qAbitAll" />
           <EntitySet Name="qProtocol" EntityType="Priem2012Model.qProtocol" />
           <EntitySet Name="qProtocolHistory" EntityType="Priem2012Model.qProtocolHistory" />
@@ -8440,10 +8492,6 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <AssociationSet Name="FK_Abiturient_Competition" Association="Priem2012Model.FK_Abiturient_Competition">
             <End Role="Competition" EntitySet="Competition" />
             <End Role="Abiturient" EntitySet="Abiturient" />
-          </AssociationSet>
-          <AssociationSet Name="fk_Mark_Abiturient" Association="Priem2012Model.fk_Mark_Abiturient">
-            <End Role="Abiturient" EntitySet="Abiturient" />
-            <End Role="Mark" EntitySet="Mark" />
           </AssociationSet>
           <AssociationSet Name="fk_Olympiads_Person" Association="Priem2012Model.fk_Olympiads_Person">
             <End Role="Abiturient" EntitySet="Abiturient" />
@@ -8619,7 +8667,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           </FunctionImport>
           <FunctionImport Name="Mark_updateByAbVedId">
             <Parameter Name="AbiturientId" Mode="In" Type="Guid" />
-            <Parameter Name="ExamInEntryId" Mode="In" Type="Int32" />
+            <Parameter Name="ExamInEntryBlockUnitId" Mode="In" Type="Guid" />
             <Parameter Name="Value" Mode="In" Type="Decimal" />
             <Parameter Name="passDate" Mode="In" Type="DateTime" />
             <Parameter Name="ExamVedId" Mode="In" Type="Guid" />
@@ -8908,7 +8956,6 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <FunctionImport Name="OlympiadCheckedByRectorat_Insert">
           <Parameter Name="id" Mode="In" Type="Guid" />
           </FunctionImport>
-          <EntitySet Name="qMark" EntityType="Priem2012Model.qMark" />
           <EntitySet Name="hlpAbiturientProf" EntityType="Priem2012Model.hlpAbiturientProf" />
           <EntitySet Name="hlpAbiturientProfAdd" EntityType="Priem2012Model.hlpAbiturientProfAdd" />
           <EntitySet Name="OrderNumbers" EntityType="Priem2012Model.OrderNumbers" />
@@ -9169,10 +9216,6 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
             <End Role="Exam" EntitySet="Exam" />
             <End Role="ExamInEntry" EntitySet="ExamInEntry" />
           </AssociationSet>
-          <AssociationSet Name="fk_Mark_ExamInEntry" Association="Priem2012Model.fk_Mark_ExamInEntry">
-            <End Role="ExamInEntry" EntitySet="ExamInEntry" />
-            <End Role="Mark" EntitySet="Mark" />
-          </AssociationSet>
           <EntitySet Name="qAbiturient" EntityType="Priem2012Model.qAbiturient" />
           <AssociationSet Name="FK_Entry_SP_LicenseProgram" Association="Priem2012Model.FK_Entry_SP_LicenseProgram">
             <End Role="SP_LicenseProgram" EntitySet="SP_LicenseProgram" />
@@ -9215,10 +9258,6 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
             <Parameter Name="AbiturientId" Mode="In" Type="Guid" />
             <Parameter Name="SortNum" Mode="In" Type="Int32" />
           </FunctionImport>
-          <AssociationSet Name="FK_Mark_EgeCertificate" Association="Priem2012Model.FK_Mark_EgeCertificate">
-            <End Role="EgeCertificate" EntitySet="EgeCertificate" />
-            <End Role="Mark" EntitySet="Mark" />
-          </AssociationSet>
           <FunctionImport Name="FirstWave_INSERTQUOTA">
             <Parameter Name="AbiturientId" Mode="In" Type="Guid" />
             <Parameter Name="SortNum" Mode="In" Type="Int32" />
@@ -9426,10 +9465,6 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <FunctionImport Name="Protocol_ClearHistory">
           <Parameter Name="ProtocolId" Mode="In" Type="Guid" />
           </FunctionImport>
-          <AssociationSet Name="FK_Mark_PersonAchievement" Association="Priem2012Model.FK_Mark_PersonAchievement">
-            <End Role="PersonAchievement" EntitySet="PersonAchievement" />
-            <End Role="Mark" EntitySet="Mark" />
-          </AssociationSet>
           <EntitySet Name="EntryToCompetitiveGroup" EntityType="Priem2012Model.EntryToCompetitiveGroup" />
           <AssociationSet Name="FK_EntryToCompetitiveGroup_CompetitiveGroup" Association="Priem2012Model.FK_EntryToCompetitiveGroup_CompetitiveGroup">
             <End Role="CompetitiveGroup" EntitySet="CompetitiveGroup" />
@@ -9667,6 +9702,37 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <EntitySet Name="AbiturientSelectedExam" EntityType="Priem2012Model.AbiturientSelectedExam" />
           <EntitySet Name="ExamInEntryBlock" EntityType="Priem2012Model.ExamInEntryBlock" />
           <EntitySet Name="ExamInEntryBlockUnit" EntityType="Priem2012Model.ExamInEntryBlockUnit" />
+          <AssociationSet Name="FK_AbiturientSelectedExam_Abiturient" Association="Priem2012Model.FK_AbiturientSelectedExam_Abiturient">
+            <End Role="Abiturient" EntitySet="Abiturient" />
+            <End Role="AbiturientSelectedExam" EntitySet="AbiturientSelectedExam" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ExamInEntryBlockUnit_ExamInEntryBlock" Association="Priem2012Model.FK_ExamInEntryBlockUnit_ExamInEntryBlock">
+            <End Role="ExamInEntryBlock" EntitySet="ExamInEntryBlock" />
+            <End Role="ExamInEntryBlockUnit" EntitySet="ExamInEntryBlockUnit" />
+          </AssociationSet>
+          <EntitySet Name="extExamInEntry" EntityType="Priem2012Model.extExamInEntry" />
+          <EntitySet Name="Mark" EntityType="Priem2012Model.Mark" />
+          <EntitySet Name="qMark" EntityType="Priem2012Model.qMark" />
+          <AssociationSet Name="FK_Mark_Abiturient" Association="Priem2012Model.FK_Mark_Abiturient">
+            <End Role="Abiturient" EntitySet="Abiturient" />
+            <End Role="Mark" EntitySet="Mark" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mark_EgeCertificate" Association="Priem2012Model.FK_Mark_EgeCertificate">
+            <End Role="EgeCertificate" EntitySet="EgeCertificate" />
+            <End Role="Mark" EntitySet="Mark" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mark_ExamInEntryBlockUnit" Association="Priem2012Model.FK_Mark_ExamInEntryBlockUnit">
+            <End Role="ExamInEntryBlockUnit" EntitySet="ExamInEntryBlockUnit" />
+            <End Role="Mark" EntitySet="Mark" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mark_PersonAchievement" Association="Priem2012Model.FK_Mark_PersonAchievement">
+            <End Role="PersonAchievement" EntitySet="PersonAchievement" />
+            <End Role="Mark" EntitySet="Mark" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ExamInEntryBlockUnit_Exam" Association="Priem2012Model.FK_ExamInEntryBlockUnit_Exam">
+            <End Role="Exam" EntitySet="Exam" />
+            <End Role="ExamInEntryBlockUnit" EntitySet="ExamInEntryBlockUnit" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="AttMarks">
           <Key>
@@ -10179,29 +10245,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <NavigationProperty Name="OlympSubjectToExam" Relationship="Priem2012Model.FK_OlympSubjectToExam_Exam" FromRole="Exam" ToRole="OlympSubjectToExam" />
           <Property Name="IsPortfolioCommonPart" Type="Boolean" Nullable="false" />
           <Property Name="IsPortfolioAnonymPart" Type="Boolean" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Mark">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Type="Guid" Name="Id" Nullable="false" />
-          <Property Type="Guid" Name="AbiturientId" Nullable="false" />
-          <Property Type="Int32" Name="ExamInEntryId" Nullable="false" />
-          <Property Type="Decimal" Name="Value" Nullable="false" Precision="4" Scale="1" />
-          <Property Type="DateTime" Name="PassDate" Precision="0" />
-          <Property Type="Boolean" Name="IsFromEge" Nullable="false" />
-          <Property Type="Boolean" Name="IsFromOlymp" Nullable="false" />
-          <Property Type="Boolean" Name="IsManual" Nullable="false" />
-          <Property Type="Guid" Name="ExamVedId" />
-          <NavigationProperty Name="Abiturient" Relationship="Priem2012Model.fk_Mark_Abiturient" FromRole="Mark" ToRole="Abiturient" />
-          <Property Type="Guid" Name="OlympiadId" />
-          <Property Type="Guid" Name="EgeCertificateId" />
-          <NavigationProperty Name="ExamInEntry" Relationship="Priem2012Model.fk_Mark_ExamInEntry" FromRole="Mark" ToRole="ExamInEntry" />
-          <NavigationProperty Name="EgeCertificate" Relationship="Priem2012Model.FK_Mark_EgeCertificate" FromRole="Mark" ToRole="EgeCertificate" />
-          <Property Type="Byte" Name="FiveGradeValue" />
-          <Property Type="Boolean" Name="IsFromAchievement" Nullable="false" />
-          <Property Type="Guid" Name="PersonAchievementId" />
-          <NavigationProperty Name="PersonAchievement" Relationship="Priem2012Model.FK_Mark_PersonAchievement" FromRole="Mark" ToRole="PersonAchievement" />
+          <NavigationProperty Name="ExamInEntryBlockUnit" Relationship="Priem2012Model.FK_ExamInEntryBlockUnit_Exam" FromRole="Exam" ToRole="ExamInEntryBlockUnit" />
         </EntityType>
         <EntityType Name="qStudyLevel">
           <Key>
@@ -10653,7 +10697,6 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <Property Type="String" Name="Holder" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="CelCompetition" Relationship="Priem2012Model.FK_Abiturient_CelCompetition" FromRole="Abiturient" ToRole="CelCompetition" />
           <NavigationProperty Name="Competition" Relationship="Priem2012Model.FK_Abiturient_Competition" FromRole="Abiturient" ToRole="Competition" />
-          <NavigationProperty Name="Mark" Relationship="Priem2012Model.fk_Mark_Abiturient" FromRole="Abiturient" ToRole="Mark" />
           <NavigationProperty Name="Olympiads" Relationship="Priem2012Model.fk_Olympiads_Person" FromRole="Abiturient" ToRole="Olympiads" />
           <NavigationProperty Name="PaidData" Relationship="Priem2012Model.FK_PaidData_Abiturient" FromRole="Abiturient" ToRole="PaidData" />
           <NavigationProperty Name="DocInventory" Relationship="Priem2012Model.fk_DocInventory_Abiturient" FromRole="Abiturient" ToRole="DocInventory" />
@@ -10675,6 +10718,8 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <Property Name="BackDocByAdmissionHigh" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="ProtocolHistory" Relationship="Priem2012Model.fk_ProtocolHistory_Abiturient" FromRole="Abiturient" ToRole="ProtocolHistory" />
           <Property Name="OlympiadId" Type="Guid" />
+          <NavigationProperty Name="AbiturientSelectedExam" Relationship="Priem2012Model.FK_AbiturientSelectedExam_Abiturient" FromRole="Abiturient" ToRole="AbiturientSelectedExam" />
+          <NavigationProperty Name="Mark" Relationship="Priem2012Model.FK_Mark_Abiturient" FromRole="Abiturient" ToRole="Mark" />
         </EntityType>
         <EntityType Name="Protocol">
           <Key>
@@ -10706,54 +10751,6 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <NavigationProperty Name="ProtocolHistory" Relationship="Priem2012Model.fk_ProtocolHistory_Protocol" FromRole="Protocol" ToRole="ProtocolHistory" />
           <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Author" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="extExamInEntry">
-          <Key>
-            <PropertyRef Name="Id" />
-            <PropertyRef Name="EntryId" />
-            <PropertyRef Name="IsProfil" />
-            <PropertyRef Name="ExamNameId" />
-            <PropertyRef Name="IsAdditional" />
-            <PropertyRef Name="FacultyId" />
-            <PropertyRef Name="LicenseProgramId" />
-            <PropertyRef Name="ObrazProgramId" />
-            <PropertyRef Name="StudyBasisId" />
-            <PropertyRef Name="StudyFormId" />
-            <PropertyRef Name="StudyLevelId" />
-            <PropertyRef Name="StudyLevelGroupId" />
-            <PropertyRef Name="IsSecond" />
-            <PropertyRef Name="IsReduced" />
-            <PropertyRef Name="IsParallel" />
-            <PropertyRef Name="IsCrimea" />
-            <PropertyRef Name="IsGosLine" />
-            <PropertyRef Name="IsForeign" />
-          </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" />
-          <Property Type="Guid" Name="EntryId" Nullable="false" />
-          <Property Type="Int32" Name="ExamId" Nullable="false" />
-          <Property Type="Boolean" Name="IsProfil" Nullable="false" />
-          <Property Type="Int32" Name="EgeMin" />
-          <Property Type="Int32" Name="ExamNameId" Nullable="false" />
-          <Property Type="Boolean" Name="IsAdditional" Nullable="false" />
-          <Property Type="String" Name="ExamName" MaxLength="539" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="FacultyId" Nullable="false" />
-          <Property Type="Int32" Name="LicenseProgramId" Nullable="false" />
-          <Property Type="Int32" Name="ObrazProgramId" Nullable="false" />
-          <Property Type="Int32" Name="ProfileId" Nullable="false" />
-          <Property Type="Int32" Name="StudyBasisId" Nullable="false" />
-          <Property Type="Int32" Name="StudyFormId" Nullable="false" />
-          <Property Type="Int32" Name="StudyLevelId" Nullable="false" />
-          <Property Type="Int32" Name="StudyLevelGroupId" Nullable="false" />
-          <Property Type="String" Name="ExamDefName" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Type="Boolean" Name="IsSecond" Nullable="false" />
-          <Property Type="Boolean" Name="IsReduced" Nullable="false" />
-          <Property Type="Boolean" Name="IsParallel" Nullable="false" />
-          <Property Type="Guid" Name="ExamInEntryToCompetitiveGroupId" />
-          <Property Type="Byte" Name="OrderNumber" Nullable="false" />
-          <Property Name="IsCrimea" Type="Boolean" Nullable="false" />
-          <Property Name="IsGosLine" Type="Boolean" Nullable="false" />
-          <Property Name="ParentExamInEntryId" Type="Int32" />
-          <Property Name="IsForeign" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="qAbitAll">
           <Key>
@@ -10918,18 +10915,6 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
             </Principal>
             <Dependent Role="Abiturient">
               <PropertyRef Name="CompetitionId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_Mark_Abiturient">
-          <End Type="Priem2012Model.Abiturient" Role="Abiturient" Multiplicity="1" />
-          <End Type="Priem2012Model.Mark" Role="Mark" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Abiturient">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Mark">
-              <PropertyRef Name="AbiturientId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -12075,50 +12060,6 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="qMark">
-          <Key>
-            <PropertyRef Name="Id" />
-            <PropertyRef Name="AbiturientId" />
-            <PropertyRef Name="ExamInEntryId" />
-            <PropertyRef Name="Value" />
-            <PropertyRef Name="IsFromEge" />
-            <PropertyRef Name="IsFromOlymp" />
-            <PropertyRef Name="IsManual" />
-            <PropertyRef Name="EntryId" />
-            <PropertyRef Name="IsAdditional" />
-            <PropertyRef Name="IsProfil" />
-            <PropertyRef Name="StudyLevelGroupId" />
-            <PropertyRef Name="ExamId" />
-            <PropertyRef Name="ExamNameId" />
-            <PropertyRef Name="EntranceTestType" />
-            <PropertyRef Name="PersonId" />
-            <PropertyRef Name="StudyBasisId" />
-          </Key>
-          <Property Type="Guid" Name="Id" Nullable="false" />
-          <Property Type="Guid" Name="AbiturientId" Nullable="false" />
-          <Property Type="Int32" Name="ExamInEntryId" Nullable="false" />
-          <Property Type="Decimal" Name="Value" Nullable="false" Precision="4" Scale="1" />
-          <Property Type="DateTime" Name="PassDate" Precision="0" />
-          <Property Type="Boolean" Name="IsFromEge" Nullable="false" />
-          <Property Type="Boolean" Name="IsFromOlymp" Nullable="false" />
-          <Property Type="Boolean" Name="IsManual" Nullable="false" />
-          <Property Type="Guid" Name="ExamVedId" />
-          <Property Type="Guid" Name="EntryId" Nullable="false" />
-          <Property Type="String" Name="ExamName" MaxLength="539" FixedLength="false" Unicode="true" />
-          <Property Type="Boolean" Name="IsAdditional" Nullable="false" />
-          <Property Type="Boolean" Name="IsProfil" Nullable="false" />
-          <Property Type="Int32" Name="StudyLevelGroupId" Nullable="false" />
-          <Property Type="Int32" Name="ExamId" Nullable="false" />
-          <Property Type="Int32" Name="ExamNameId" Nullable="false" />
-          <Property Type="String" Name="EntranceTestType" Nullable="false" MaxLength="74" FixedLength="false" Unicode="false" />
-          <Property Type="Guid" Name="OlympiadId" />
-          <Property Type="Guid" Name="EgeCertificateId" />
-          <Property Type="Byte" Name="OrderNumber" Nullable="false" />
-          <Property Type="Byte" Name="FiveGradeValue" />
-          <Property Name="ParentExamInEntryId" Type="Int32" />
-          <Property Name="PersonId" Type="Guid" Nullable="false" />
-          <Property Name="StudyBasisId" Type="Int32" Nullable="false" />
-        </EntityType>
         <EntityType Name="hlpAbiturientProf">
           <Key>
             <PropertyRef Name="Id" />
@@ -12568,7 +12509,6 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <Property Type="Boolean" Name="IsCrimea" Nullable="false" />
           <NavigationProperty Name="Entry" Relationship="Priem2012Model.FK_ExamInEntry_Entry" FromRole="ExamInEntry" ToRole="Entry" />
           <NavigationProperty Name="Exam" Relationship="Priem2012Model.FK_ExamInEntry_Exam" FromRole="ExamInEntry" ToRole="Exam" />
-          <NavigationProperty Name="Mark" Relationship="Priem2012Model.fk_Mark_ExamInEntry" FromRole="ExamInEntry" ToRole="Mark" />
           <Property Type="Byte" Name="OrderNumber" Nullable="false" />
           <Property Name="ParentExamInEntryId" Type="Int32" />
           <NavigationProperty Name="ExamInEntry1" Relationship="Priem2012Model.FK_ExamInEntry_ParentExamInEntry" FromRole="ExamInEntry" ToRole="ExamInEntry1" />
@@ -12597,18 +12537,6 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
             </Principal>
             <Dependent Role="ExamInEntry">
               <PropertyRef Name="ExamId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_Mark_ExamInEntry">
-          <End Type="Priem2012Model.ExamInEntry" Role="ExamInEntry" Multiplicity="1" />
-          <End Type="Priem2012Model.Mark" Role="Mark" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ExamInEntry">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Mark">
-              <PropertyRef Name="ExamInEntryId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -12820,18 +12748,6 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <Property Type="String" Name="ExaminerAccount" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ExamsVed" Relationship="Priem2012Model.FK_ExaminerInExamsVed_ExamsVed" FromRole="ExaminerInExamsVed" ToRole="ExamsVed" />
         </EntityType>
-        <Association Name="FK_Mark_EgeCertificate">
-          <End Type="Priem2012Model.EgeCertificate" Role="EgeCertificate" Multiplicity="0..1" />
-          <End Type="Priem2012Model.Mark" Role="Mark" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EgeCertificate">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Mark">
-              <PropertyRef Name="EgeCertificateId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="EntryHeader">
           <Key>
             <PropertyRef Name="Id" />
@@ -13753,18 +13669,6 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Mark_PersonAchievement">
-          <End Type="Priem2012Model.PersonAchievement" Role="PersonAchievement" Multiplicity="0..1" />
-          <End Type="Priem2012Model.Mark" Role="Mark" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PersonAchievement">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Mark">
-              <PropertyRef Name="PersonAchievementId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="EntryToCompetitiveGroup">
           <Key>
             <PropertyRef Name="Id" />
@@ -14255,6 +14159,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           </Key>
           <Property Name="ApplicationId" Type="Guid" Nullable="false" />
           <Property Name="ExamInEntryBlockUnitId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="Abiturient" Relationship="Priem2012Model.FK_AbiturientSelectedExam_Abiturient" FromRole="AbiturientSelectedExam" ToRole="Abiturient" />
         </EntityType>
         <EntityType Name="ExamInEntryBlock">
           <Key>
@@ -14269,6 +14174,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <Property Name="IsGosLine" Type="Boolean" Nullable="false" />
           <Property Name="IsCrimea" Type="Boolean" Nullable="false" />
           <Property Name="OrderNumber" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="ExamInEntryBlockUnit" Relationship="Priem2012Model.FK_ExamInEntryBlockUnit_ExamInEntryBlock" FromRole="ExamInEntryBlock" ToRole="ExamInEntryBlockUnit" />
         </EntityType>
         <EntityType Name="ExamInEntryBlockUnit">
           <Key>
@@ -14278,7 +14184,224 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <Property Name="ExamInEntryBlockId" Type="Guid" Nullable="false" />
           <Property Name="ExamId" Type="Int32" Nullable="false" />
           <Property Name="EgeMin" Type="Double" />
+          <NavigationProperty Name="ExamInEntryBlock" Relationship="Priem2012Model.FK_ExamInEntryBlockUnit_ExamInEntryBlock" FromRole="ExamInEntryBlockUnit" ToRole="ExamInEntryBlock" />
+          <NavigationProperty Name="Mark" Relationship="Priem2012Model.FK_Mark_ExamInEntryBlockUnit" FromRole="ExamInEntryBlockUnit" ToRole="Mark" />
+          <NavigationProperty Name="Exam" Relationship="Priem2012Model.FK_ExamInEntryBlockUnit_Exam" FromRole="ExamInEntryBlockUnit" ToRole="Exam" />
         </EntityType>
+        <Association Name="FK_AbiturientSelectedExam_Abiturient">
+          <End Type="Priem2012Model.Abiturient" Role="Abiturient" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Priem2012Model.AbiturientSelectedExam" Role="AbiturientSelectedExam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Abiturient">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbiturientSelectedExam">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ExamInEntryBlockUnit_ExamInEntryBlock">
+          <End Type="Priem2012Model.ExamInEntryBlock" Role="ExamInEntryBlock" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Priem2012Model.ExamInEntryBlockUnit" Role="ExamInEntryBlockUnit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExamInEntryBlock">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ExamInEntryBlockUnit">
+              <PropertyRef Name="ExamInEntryBlockId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="extExamInEntry">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="EntryId" />
+            <PropertyRef Name="ExamId" />
+            <PropertyRef Name="IsProfil" />
+            <PropertyRef Name="ExamNameId" />
+            <PropertyRef Name="IsAdditional" />
+            <PropertyRef Name="FacultyId" />
+            <PropertyRef Name="LicenseProgramId" />
+            <PropertyRef Name="ObrazProgramId" />
+            <PropertyRef Name="ProfileId" />
+            <PropertyRef Name="StudyBasisId" />
+            <PropertyRef Name="StudyFormId" />
+            <PropertyRef Name="StudyLevelId" />
+            <PropertyRef Name="StudyLevelGroupId" />
+            <PropertyRef Name="OrderNumber" />
+            <PropertyRef Name="IsCrimea" />
+            <PropertyRef Name="IsGosLine" />
+            <PropertyRef Name="IsForeign" />
+            <PropertyRef Name="IsSecond" />
+            <PropertyRef Name="IsReduced" />
+            <PropertyRef Name="IsParallel" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="EntryId" Type="Guid" Nullable="false" />
+          <Property Name="ExamId" Type="Int32" Nullable="false" />
+          <Property Name="IsProfil" Type="Boolean" Nullable="false" />
+          <Property Name="EgeMin" Type="Double" />
+          <Property Name="ExamNameId" Type="Int32" Nullable="false" />
+          <Property Name="IsAdditional" Type="Boolean" Nullable="false" />
+          <Property Name="ExamName" Type="String" MaxLength="539" FixedLength="false" Unicode="true" />
+          <Property Name="FacultyId" Type="Int32" Nullable="false" />
+          <Property Name="LicenseProgramId" Type="Int32" Nullable="false" />
+          <Property Name="ObrazProgramId" Type="Int32" Nullable="false" />
+          <Property Name="ProfileId" Type="Int32" Nullable="false" />
+          <Property Name="StudyBasisId" Type="Int32" Nullable="false" />
+          <Property Name="StudyFormId" Type="Int32" Nullable="false" />
+          <Property Name="StudyLevelId" Type="Int32" Nullable="false" />
+          <Property Name="StudyLevelGroupId" Type="Int32" Nullable="false" />
+          <Property Name="OrderNumber" Type="Byte" Nullable="false" />
+          <Property Name="IsCrimea" Type="Boolean" Nullable="false" />
+          <Property Name="IsGosLine" Type="Boolean" Nullable="false" />
+          <Property Name="IsForeign" Type="Boolean" Nullable="false" />
+          <Property Name="ExamDefName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="IsSecond" Type="Boolean" Nullable="false" />
+          <Property Name="IsReduced" Type="Boolean" Nullable="false" />
+          <Property Name="IsParallel" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Mark">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="AbiturientId" Type="Guid" Nullable="false" />
+          <Property Name="Value" Type="Decimal" Nullable="false" Precision="4" Scale="1" />
+          <Property Name="PassDate" Type="DateTime" Precision="0" />
+          <Property Name="IsFromEge" Type="Boolean" Nullable="false" />
+          <Property Name="IsFromOlymp" Type="Boolean" Nullable="false" />
+          <Property Name="IsManual" Type="Boolean" Nullable="false" />
+          <Property Name="ExamVedId" Type="Guid" />
+          <Property Name="OlympiadId" Type="Guid" />
+          <Property Name="EgeCertificateId" Type="Guid" />
+          <Property Name="FiveGradeValue" Type="Byte" />
+          <Property Name="IsFromAchievement" Type="Boolean" Nullable="false" />
+          <Property Name="PersonAchievementId" Type="Guid" />
+          <Property Name="ExamInEntryBlockUnitId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="Abiturient" Relationship="Priem2012Model.FK_Mark_Abiturient" FromRole="Mark" ToRole="Abiturient" />
+          <NavigationProperty Name="EgeCertificate" Relationship="Priem2012Model.FK_Mark_EgeCertificate" FromRole="Mark" ToRole="EgeCertificate" />
+          <NavigationProperty Name="ExamInEntryBlockUnit" Relationship="Priem2012Model.FK_Mark_ExamInEntryBlockUnit" FromRole="Mark" ToRole="ExamInEntryBlockUnit" />
+          <NavigationProperty Name="PersonAchievement" Relationship="Priem2012Model.FK_Mark_PersonAchievement" FromRole="Mark" ToRole="PersonAchievement" />
+        </EntityType>
+        <EntityType Name="qMark">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="AbiturientId" />
+            <PropertyRef Name="ExamInEntryBlockUnitId" />
+            <PropertyRef Name="Value" />
+            <PropertyRef Name="IsFromEge" />
+            <PropertyRef Name="IsFromOlymp" />
+            <PropertyRef Name="IsManual" />
+            <PropertyRef Name="EntryId" />
+            <PropertyRef Name="IsAdditional" />
+            <PropertyRef Name="IsProfil" />
+            <PropertyRef Name="StudyLevelGroupId" />
+            <PropertyRef Name="ExamId" />
+            <PropertyRef Name="ExamNameId" />
+            <PropertyRef Name="EntranceTestType" />
+            <PropertyRef Name="OrderNumber" />
+            <PropertyRef Name="PersonId" />
+            <PropertyRef Name="StudyBasisId" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="AbiturientId" Type="Guid" Nullable="false" />
+          <Property Name="ExamInEntryBlockUnitId" Type="Guid" Nullable="false" />
+          <Property Name="Value" Type="Decimal" Nullable="false" Precision="4" Scale="1" />
+          <Property Name="PassDate" Type="DateTime" Precision="0" />
+          <Property Name="IsFromEge" Type="Boolean" Nullable="false" />
+          <Property Name="IsFromOlymp" Type="Boolean" Nullable="false" />
+          <Property Name="IsManual" Type="Boolean" Nullable="false" />
+          <Property Name="ExamVedId" Type="Guid" />
+          <Property Name="EntryId" Type="Guid" Nullable="false" />
+          <Property Name="ExamName" Type="String" MaxLength="539" FixedLength="false" Unicode="true" />
+          <Property Name="IsAdditional" Type="Boolean" Nullable="false" />
+          <Property Name="IsProfil" Type="Boolean" Nullable="false" />
+          <Property Name="StudyLevelGroupId" Type="Int32" Nullable="false" />
+          <Property Name="ExamId" Type="Int32" Nullable="false" />
+          <Property Name="ExamNameId" Type="Int32" Nullable="false" />
+          <Property Name="EntranceTestType" Type="String" Nullable="false" MaxLength="74" FixedLength="false" Unicode="false" />
+          <Property Name="OlympiadId" Type="Guid" />
+          <Property Name="EgeCertificateId" Type="Guid" />
+          <Property Name="OrderNumber" Type="Byte" Nullable="false" />
+          <Property Name="FiveGradeValue" Type="Byte" />
+          <Property Name="PersonId" Type="Guid" Nullable="false" />
+          <Property Name="StudyBasisId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Mark_Abiturient">
+          <End Type="Priem2012Model.Abiturient" Role="Abiturient" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Priem2012Model.Mark" Role="Mark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Abiturient">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Mark">
+              <PropertyRef Name="AbiturientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mark_EgeCertificate">
+          <End Type="Priem2012Model.EgeCertificate" Role="EgeCertificate" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Priem2012Model.Mark" Role="Mark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EgeCertificate">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Mark">
+              <PropertyRef Name="EgeCertificateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mark_ExamInEntryBlockUnit">
+          <End Type="Priem2012Model.ExamInEntryBlockUnit" Role="ExamInEntryBlockUnit" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Priem2012Model.Mark" Role="Mark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExamInEntryBlockUnit">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Mark">
+              <PropertyRef Name="ExamInEntryBlockUnitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mark_PersonAchievement">
+          <End Type="Priem2012Model.PersonAchievement" Role="PersonAchievement" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Priem2012Model.Mark" Role="Mark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonAchievement">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Mark">
+              <PropertyRef Name="PersonAchievementId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ExamInEntryBlockUnit_Exam">
+          <End Type="Priem2012Model.Exam" Role="Exam" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Priem2012Model.ExamInEntryBlockUnit" Role="ExamInEntryBlockUnit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exam">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ExamInEntryBlockUnit">
+              <PropertyRef Name="ExamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -14579,26 +14702,6 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <FunctionImportMapping FunctionImportName="ExamInEntry_Delete" FunctionName="Priem2012Model.Store.ExamInEntry_Delete" />
           <FunctionImportMapping FunctionImportName="ExamInEntry_Insert" FunctionName="Priem2012Model.Store.ExamInEntry_Insert" />
           <FunctionImportMapping FunctionImportName="ExamInEntry_Update" FunctionName="Priem2012Model.Store.ExamInEntry_Update" />
-          <EntitySetMapping Name="Mark">
-            <EntityTypeMapping TypeName="Priem2012Model.Mark">
-              <MappingFragment StoreEntitySet="Mark">
-                <ScalarProperty Name="PersonAchievementId" ColumnName="PersonAchievementId" />
-                <ScalarProperty Name="IsFromAchievement" ColumnName="IsFromAchievement" />
-                <ScalarProperty Name="FiveGradeValue" ColumnName="FiveGradeValue" />
-                <ScalarProperty Name="EgeCertificateId" ColumnName="EgeCertificateId" />
-                <ScalarProperty Name="OlympiadId" ColumnName="OlympiadId" />
-                <ScalarProperty Name="ExamVedId" ColumnName="ExamVedId" />
-                <ScalarProperty Name="IsManual" ColumnName="IsManual" />
-                <ScalarProperty Name="IsFromOlymp" ColumnName="IsFromOlymp" />
-                <ScalarProperty Name="IsFromEge" ColumnName="IsFromEge" />
-                <ScalarProperty Name="PassDate" ColumnName="PassDate" />
-                <ScalarProperty Name="Value" ColumnName="Value" />
-                <ScalarProperty Name="ExamInEntryId" ColumnName="ExamInEntryId" />
-                <ScalarProperty Name="AbiturientId" ColumnName="AbiturientId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="qStudyLevel">
             <EntityTypeMapping TypeName="Priem2012Model.qStudyLevel">
               <MappingFragment StoreEntitySet="qStudyLevel">
@@ -14969,38 +15072,6 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
                 <ScalarProperty Name="LicenseProgramId" ColumnName="LicenseProgramId" />
                 <ScalarProperty Name="FacultyId" ColumnName="FacultyId" />
                 <ScalarProperty Name="StudyLevelGroupId" ColumnName="StudyLevelGroupId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="extExamInEntry">
-            <EntityTypeMapping TypeName="Priem2012Model.extExamInEntry">
-              <MappingFragment StoreEntitySet="extExamInEntry">
-                <ScalarProperty Name="IsForeign" ColumnName="IsForeign" />
-                <ScalarProperty Name="ParentExamInEntryId" ColumnName="ParentExamInEntryId" />
-                <ScalarProperty Name="IsGosLine" ColumnName="IsGosLine" />
-                <ScalarProperty Name="IsCrimea" ColumnName="IsCrimea" />
-                <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
-                <ScalarProperty Name="ExamInEntryToCompetitiveGroupId" ColumnName="ExamInEntryToCompetitiveGroupId" />
-                <ScalarProperty Name="IsParallel" ColumnName="IsParallel" />
-                <ScalarProperty Name="IsReduced" ColumnName="IsReduced" />
-                <ScalarProperty Name="IsSecond" ColumnName="IsSecond" />
-                <ScalarProperty Name="ExamDefName" ColumnName="ExamDefName" />
-                <ScalarProperty Name="StudyLevelGroupId" ColumnName="StudyLevelGroupId" />
-                <ScalarProperty Name="StudyLevelId" ColumnName="StudyLevelId" />
-                <ScalarProperty Name="StudyFormId" ColumnName="StudyFormId" />
-                <ScalarProperty Name="StudyBasisId" ColumnName="StudyBasisId" />
-                <ScalarProperty Name="ProfileId" ColumnName="ProfileId" />
-                <ScalarProperty Name="ObrazProgramId" ColumnName="ObrazProgramId" />
-                <ScalarProperty Name="LicenseProgramId" ColumnName="LicenseProgramId" />
-                <ScalarProperty Name="FacultyId" ColumnName="FacultyId" />
-                <ScalarProperty Name="ExamName" ColumnName="ExamName" />
-                <ScalarProperty Name="IsAdditional" ColumnName="IsAdditional" />
-                <ScalarProperty Name="ExamNameId" ColumnName="ExamNameId" />
-                <ScalarProperty Name="EgeMin" ColumnName="EgeMin" />
-                <ScalarProperty Name="IsProfil" ColumnName="IsProfil" />
-                <ScalarProperty Name="ExamId" ColumnName="ExamId" />
-                <ScalarProperty Name="EntryId" ColumnName="EntryId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -15807,36 +15878,6 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="OlympiadCheckedByRectorat_Insert" FunctionName="Priem2012Model.Store.OlympiadCheckedByRectorat_Insert" />
-          <EntitySetMapping Name="qMark">
-            <EntityTypeMapping TypeName="Priem2012Model.qMark">
-              <MappingFragment StoreEntitySet="qMark">
-                <ScalarProperty Name="StudyBasisId" ColumnName="StudyBasisId" />
-                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
-                <ScalarProperty Name="ParentExamInEntryId" ColumnName="ParentExamInEntryId" />
-                <ScalarProperty Name="FiveGradeValue" ColumnName="FiveGradeValue" />
-                <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
-                <ScalarProperty Name="EgeCertificateId" ColumnName="EgeCertificateId" />
-                <ScalarProperty Name="OlympiadId" ColumnName="OlympiadId" />
-                <ScalarProperty Name="EntranceTestType" ColumnName="EntranceTestType" />
-                <ScalarProperty Name="ExamNameId" ColumnName="ExamNameId" />
-                <ScalarProperty Name="ExamId" ColumnName="ExamId" />
-                <ScalarProperty Name="StudyLevelGroupId" ColumnName="StudyLevelGroupId" />
-                <ScalarProperty Name="IsProfil" ColumnName="IsProfil" />
-                <ScalarProperty Name="IsAdditional" ColumnName="IsAdditional" />
-                <ScalarProperty Name="ExamName" ColumnName="ExamName" />
-                <ScalarProperty Name="EntryId" ColumnName="EntryId" />
-                <ScalarProperty Name="ExamVedId" ColumnName="ExamVedId" />
-                <ScalarProperty Name="IsManual" ColumnName="IsManual" />
-                <ScalarProperty Name="IsFromOlymp" ColumnName="IsFromOlymp" />
-                <ScalarProperty Name="IsFromEge" ColumnName="IsFromEge" />
-                <ScalarProperty Name="PassDate" ColumnName="PassDate" />
-                <ScalarProperty Name="Value" ColumnName="Value" />
-                <ScalarProperty Name="ExamInEntryId" ColumnName="ExamInEntryId" />
-                <ScalarProperty Name="AbiturientId" ColumnName="AbiturientId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="hlpAbiturientProf">
             <EntityTypeMapping TypeName="Priem2012Model.hlpAbiturientProf">
               <MappingFragment StoreEntitySet="hlpAbiturientProf">
@@ -17077,6 +17118,85 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
                 <ScalarProperty Name="EgeMin" ColumnName="EgeMin" />
                 <ScalarProperty Name="ExamId" ColumnName="ExamId" />
                 <ScalarProperty Name="ExamInEntryBlockId" ColumnName="ExamInEntryBlockId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="extExamInEntry">
+            <EntityTypeMapping TypeName="Priem2012Model.extExamInEntry">
+              <MappingFragment StoreEntitySet="extExamInEntry">
+                <ScalarProperty Name="IsParallel" ColumnName="IsParallel" />
+                <ScalarProperty Name="IsReduced" ColumnName="IsReduced" />
+                <ScalarProperty Name="IsSecond" ColumnName="IsSecond" />
+                <ScalarProperty Name="ExamDefName" ColumnName="ExamDefName" />
+                <ScalarProperty Name="IsForeign" ColumnName="IsForeign" />
+                <ScalarProperty Name="IsGosLine" ColumnName="IsGosLine" />
+                <ScalarProperty Name="IsCrimea" ColumnName="IsCrimea" />
+                <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
+                <ScalarProperty Name="StudyLevelGroupId" ColumnName="StudyLevelGroupId" />
+                <ScalarProperty Name="StudyLevelId" ColumnName="StudyLevelId" />
+                <ScalarProperty Name="StudyFormId" ColumnName="StudyFormId" />
+                <ScalarProperty Name="StudyBasisId" ColumnName="StudyBasisId" />
+                <ScalarProperty Name="ProfileId" ColumnName="ProfileId" />
+                <ScalarProperty Name="ObrazProgramId" ColumnName="ObrazProgramId" />
+                <ScalarProperty Name="LicenseProgramId" ColumnName="LicenseProgramId" />
+                <ScalarProperty Name="FacultyId" ColumnName="FacultyId" />
+                <ScalarProperty Name="ExamName" ColumnName="ExamName" />
+                <ScalarProperty Name="IsAdditional" ColumnName="IsAdditional" />
+                <ScalarProperty Name="ExamNameId" ColumnName="ExamNameId" />
+                <ScalarProperty Name="EgeMin" ColumnName="EgeMin" />
+                <ScalarProperty Name="IsProfil" ColumnName="IsProfil" />
+                <ScalarProperty Name="ExamId" ColumnName="ExamId" />
+                <ScalarProperty Name="EntryId" ColumnName="EntryId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Mark">
+            <EntityTypeMapping TypeName="Priem2012Model.Mark">
+              <MappingFragment StoreEntitySet="Mark">
+                <ScalarProperty Name="ExamInEntryBlockUnitId" ColumnName="ExamInEntryBlockUnitId" />
+                <ScalarProperty Name="PersonAchievementId" ColumnName="PersonAchievementId" />
+                <ScalarProperty Name="IsFromAchievement" ColumnName="IsFromAchievement" />
+                <ScalarProperty Name="FiveGradeValue" ColumnName="FiveGradeValue" />
+                <ScalarProperty Name="EgeCertificateId" ColumnName="EgeCertificateId" />
+                <ScalarProperty Name="OlympiadId" ColumnName="OlympiadId" />
+                <ScalarProperty Name="ExamVedId" ColumnName="ExamVedId" />
+                <ScalarProperty Name="IsManual" ColumnName="IsManual" />
+                <ScalarProperty Name="IsFromOlymp" ColumnName="IsFromOlymp" />
+                <ScalarProperty Name="IsFromEge" ColumnName="IsFromEge" />
+                <ScalarProperty Name="PassDate" ColumnName="PassDate" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="AbiturientId" ColumnName="AbiturientId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="qMark">
+            <EntityTypeMapping TypeName="Priem2012Model.qMark">
+              <MappingFragment StoreEntitySet="qMark">
+                <ScalarProperty Name="StudyBasisId" ColumnName="StudyBasisId" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="FiveGradeValue" ColumnName="FiveGradeValue" />
+                <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
+                <ScalarProperty Name="EgeCertificateId" ColumnName="EgeCertificateId" />
+                <ScalarProperty Name="OlympiadId" ColumnName="OlympiadId" />
+                <ScalarProperty Name="EntranceTestType" ColumnName="EntranceTestType" />
+                <ScalarProperty Name="ExamNameId" ColumnName="ExamNameId" />
+                <ScalarProperty Name="ExamId" ColumnName="ExamId" />
+                <ScalarProperty Name="StudyLevelGroupId" ColumnName="StudyLevelGroupId" />
+                <ScalarProperty Name="IsProfil" ColumnName="IsProfil" />
+                <ScalarProperty Name="IsAdditional" ColumnName="IsAdditional" />
+                <ScalarProperty Name="ExamName" ColumnName="ExamName" />
+                <ScalarProperty Name="EntryId" ColumnName="EntryId" />
+                <ScalarProperty Name="ExamVedId" ColumnName="ExamVedId" />
+                <ScalarProperty Name="IsManual" ColumnName="IsManual" />
+                <ScalarProperty Name="IsFromOlymp" ColumnName="IsFromOlymp" />
+                <ScalarProperty Name="IsFromEge" ColumnName="IsFromEge" />
+                <ScalarProperty Name="PassDate" ColumnName="PassDate" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="ExamInEntryBlockUnitId" ColumnName="ExamInEntryBlockUnitId" />
+                <ScalarProperty Name="AbiturientId" ColumnName="AbiturientId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

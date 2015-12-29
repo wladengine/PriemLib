@@ -29,7 +29,7 @@ namespace PriemLib
                                     ed.qMark.Value AS Старая_оценка 
                                     FROM ed.extAbit LEFT JOIN ed.extPerson ON ed.extAbit.PersonId = ed.extPerson.Id 
                                     INNER JOIN ed.qMark ON ed.qMark.AbiturientId = ed.extAbit.Id 
-                                    INNER JOIN ed.extExamInEntry ON ed.qMark.ExamInEntryId = ed.extExamInEntry.Id 
+                                    INNER JOIN ed.extExamInEntry ON ed.qMark.ExamInEntryBlockUnitId = ed.extExamInEntry.Id 
                                     WHERE 1=1 ";
 
         private string sOrderby = " ORDER BY ФИО ";

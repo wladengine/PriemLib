@@ -464,7 +464,7 @@ namespace PriemLib
             sQuery += " WHERE ed.qAbiturient.BackDoc=0 " + GetFilters();
             sQuery += string.Format(" AND ed.extExamInEntry.ExamId = {0}", ExamId);
             //sQuery += string.Format(" AND NOT Exists (Select qMark.id FROM qMark INNER JOIN qAbiturient as abit ON abit.Id=qMark.AbiturientId INNER JOIN extExamInProgram ON qMark.ExamInProgramId = extExamInProgram.Id WHERE abit.id=qAbiturient.Id AND extExamInProgram.ProgramId = qAbiturient.ProgramId AND extExamInProgram.ExamNameId={0} ANd qMark.IsFromOlymp = 1) ", cbExams.Id);
-            sQuery += " AND NOT Exists (SELECT ed.qMark.Id FROM ed.qMark INNER JOIN ed.qAbiturient as abit ON abit.Id=ed.qMark.AbiturientId WHERE abit.id=ed.qAbiturient.Id AND ed.extExamInEntry.Id = ed.qMark.ExamInEntryId AND ed.qMark.IsFromOlymp = 1)";
+            sQuery += " AND NOT Exists (SELECT ed.qMark.Id FROM ed.qMark INNER JOIN ed.qAbiturient as abit ON abit.Id=ed.qMark.AbiturientId WHERE abit.id=ed.qAbiturient.Id AND ed.extExamInEntry.Id = ed.qMark.ExamInEntryBlockUnitId AND ed.qMark.IsFromOlymp = 1)";
             string sOl = string.Empty;
 
             //обработали вид            
@@ -516,8 +516,8 @@ namespace PriemLib
 
         private void btnOk_Click(object sender, EventArgs e)
         {
-           
-            int? exId;
+
+            Guid? exId;
             Guid? abId;
             List<Guid?> lstIds = new List<Guid?>();
 
@@ -546,13 +546,13 @@ namespace PriemLib
                             {
                                 if (row.Cells["Перезачесть"].Value.ToString() == "True")
                                 {
-                                    exId = int.Parse(row.Cells["ExamInEntryId"].Value.ToString());
+                                    exId = Guid.Parse(row.Cells["ExamInEntryId"].Value.ToString());
                                     abId = new Guid(row.Cells["Id"].Value.ToString());
 
                                     int cnt;
 
                                     cnt = (from mrk in context.Mark
-                                           where mrk.AbiturientId == abId && mrk.ExamInEntryId == exId && mrk.IsFromEge
+                                           where mrk.AbiturientId == abId && mrk.ExamInEntryBlockUnitId == exId && mrk.IsFromEge
                                            select mrk).Count();
 
                                     if (cnt > 0)
@@ -564,7 +564,7 @@ namespace PriemLib
                                     }
 
                                     cnt = (from mrk in context.Mark
-                                           where mrk.AbiturientId == abId && mrk.ExamInEntryId == exId
+                                           where mrk.AbiturientId == abId && mrk.ExamInEntryBlockUnitId == exId
                                            select mrk).Count();
                                     
                                     if (cnt > 0)
@@ -619,7 +619,7 @@ namespace PriemLib
                     StudyFormName, extAbitTable.FIO as fio, ed.qMark.Value as markval 
                     FROM ed.extAbit" + extAbitTable+ @" as extAbitTable
                     INNER JOIN ed.qMark ON ed.qMark.AbiturientId = extAbitTable.Id 
-                    INNER JOIN ed.extExamInEntry ON ed.qMark.ExamInEntryId = ed.extExamInEntry.Id 
+                    INNER JOIN ed.extExamInEntry ON ed.qMark.ExamInEntryBlockUnitId = ed.extExamInEntry.Id 
                     WHERE ed.extExamInEntry.ExamId={0} AND ed.qMark.IsFromOlymp>0 {1} ORDER BY 1", ExamId, s1);
             try
             {

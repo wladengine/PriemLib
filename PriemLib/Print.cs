@@ -221,7 +221,7 @@ namespace PriemLib
                             sItem += string.Format(" ({0})", abit.LanguageName);
 
                         string mark = (from mrk in context.qMark
-                                       where mrk.AbiturientId == abit.Id && mrk.ExamInEntryId == ex.Id
+                                       where mrk.AbiturientId == abit.Id && mrk.ExamInEntryBlockUnitId == ex.Id
                                        select mrk.Value).FirstOrDefault().ToString();
 
                         td[0, row] = sItem;
@@ -323,7 +323,7 @@ namespace PriemLib
                                 sItem += string.Format(" ({0})", abit.LanguageName);
 
                             string mark = (from mrk in context.qMark
-                                           where mrk.AbiturientId == abit.Id && mrk.ExamInEntryId == ex.Id
+                                           where mrk.AbiturientId == abit.Id && mrk.ExamInEntryBlockUnitId == ex.Id
                                            select mrk.Value).FirstOrDefault().ToString();
 
                             acrFlds.SetField("Exam" + i, sItem);

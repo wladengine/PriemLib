@@ -316,11 +316,11 @@ namespace PriemLib
                 qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", "(SELECT TOP 1 ExamName FROM ed.extExamInEntry WHERE extExamInEntry.EntryId = qAbiturient.EntryId AND extExamInEntry.OrderNumber = 4)", "Четвертый_предмет_ВИ"));
                 qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", "(SELECT TOP 1 ExamName FROM ed.extExamInEntry WHERE extExamInEntry.EntryId = qAbiturient.EntryId AND extExamInEntry.OrderNumber = 5)", "Пятый_предмет_ВИ"));
 
-                qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", "(SELECT TOP 1 Value FROM ed.Mark INNER JOIN ed.extExamInEntry ON extExamInEntry.Id = Mark.ExamInEntryId WHERE Mark.AbiturientId = qAbiturient.Id AND extExamInEntry.OrderNumber = 1)", "Балл_Первый_предмет_ВИ"));
-                qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", "(SELECT TOP 1 Value FROM ed.Mark INNER JOIN ed.extExamInEntry ON extExamInEntry.Id = Mark.ExamInEntryId WHERE Mark.AbiturientId = qAbiturient.Id AND extExamInEntry.OrderNumber = 2)", "Балл_Второй_предмет_ВИ"));
-                qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", "(SELECT TOP 1 Value FROM ed.Mark INNER JOIN ed.extExamInEntry ON extExamInEntry.Id = Mark.ExamInEntryId WHERE Mark.AbiturientId = qAbiturient.Id AND extExamInEntry.OrderNumber = 3)", "Балл_Третий_предмет_ВИ"));
-                qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", "(SELECT TOP 1 Value FROM ed.Mark INNER JOIN ed.extExamInEntry ON extExamInEntry.Id = Mark.ExamInEntryId WHERE Mark.AbiturientId = qAbiturient.Id AND extExamInEntry.OrderNumber = 3)", "Балл_Четвертый_предмет_ВИ"));
-                qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", "(SELECT TOP 1 Value FROM ed.Mark INNER JOIN ed.extExamInEntry ON extExamInEntry.Id = Mark.ExamInEntryId WHERE Mark.AbiturientId = qAbiturient.Id AND extExamInEntry.OrderNumber = 3)", "Балл_Пятый_предмет_ВИ"));
+                qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", "(SELECT TOP 1 Value FROM ed.Mark INNER JOIN ed.extExamInEntry ON extExamInEntry.Id = Mark.ExamInEntryBlockUnitId WHERE Mark.AbiturientId = qAbiturient.Id AND extExamInEntry.OrderNumber = 1)", "Балл_Первый_предмет_ВИ"));
+                qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", "(SELECT TOP 1 Value FROM ed.Mark INNER JOIN ed.extExamInEntry ON extExamInEntry.Id = Mark.ExamInEntryBlockUnitId WHERE Mark.AbiturientId = qAbiturient.Id AND extExamInEntry.OrderNumber = 2)", "Балл_Второй_предмет_ВИ"));
+                qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", "(SELECT TOP 1 Value FROM ed.Mark INNER JOIN ed.extExamInEntry ON extExamInEntry.Id = Mark.ExamInEntryBlockUnitId WHERE Mark.AbiturientId = qAbiturient.Id AND extExamInEntry.OrderNumber = 3)", "Балл_Третий_предмет_ВИ"));
+                qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", "(SELECT TOP 1 Value FROM ed.Mark INNER JOIN ed.extExamInEntry ON extExamInEntry.Id = Mark.ExamInEntryBlockUnitId WHERE Mark.AbiturientId = qAbiturient.Id AND extExamInEntry.OrderNumber = 3)", "Балл_Четвертый_предмет_ВИ"));
+                qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", "(SELECT TOP 1 Value FROM ed.Mark INNER JOIN ed.extExamInEntry ON extExamInEntry.Id = Mark.ExamInEntryBlockUnitId WHERE Mark.AbiturientId = qAbiturient.Id AND extExamInEntry.OrderNumber = 3)", "Балл_Пятый_предмет_ВИ"));
 
                 qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MAX (ed.EgeMark.value) as mark FROM ed.EgeMark INNER JOIN ed.EgeCertificate ON ed.EgeMark.EgeCertificateId = ed.EgeCertificate.Id WHERE ed.EgeCertificate.PersonId = ed.extPerson.Id AND EgeExamNameId=5)", "ЕГЭ_русск.язык"));
                 qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MAX (ed.EgeMark.value) as mark FROM ed.EgeMark INNER JOIN ed.EgeCertificate ON ed.EgeMark.EgeCertificateId = ed.EgeCertificate.Id WHERE ed.EgeCertificate.PersonId = ed.extPerson.Id AND EgeExamNameId=4)", "ЕГЭ_математика"));
@@ -386,7 +386,7 @@ namespace PriemLib
                                select new { Id = rwx["Id"], Name = rwx["Name"] };
 
                 foreach (DataRow dr in dsExams.Tables[0].Rows)
-                    qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", string.Format("(select Sum(qMark.Value) FROM ed.qMark INNER JOIN ed.extExamInEntry ON ed.qMark.ExamInEntryId =ed.extExamInEntry.Id WHERE AbiturientId = ed.qAbiturient.Id AND ed.extExamInEntry.ExamId={0})", dr["Id"]), dr["Name"].ToString()));
+                    qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", string.Format("(select Sum(qMark.Value) FROM ed.qMark INNER JOIN ed.extExamInEntry ON ed.qMark.ExamInEntryBlockUnitId =ed.extExamInEntry.Id WHERE AbiturientId = ed.qAbiturient.Id AND ed.extExamInEntry.ExamId={0})", dr["Id"]), dr["Name"].ToString()));
 
                 // Оценки из аттестата
                 //

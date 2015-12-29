@@ -357,7 +357,7 @@ namespace PriemLib
                         if (_studybasisId == "2")
                         {
                             DataSet dsAbit = bdc.GetDataSet(string.Format(@"SELECT ed.qAbiturient.Id, ed.qMark.Value FROM ed.qAbiturient 
-                                LEFT JOIN (ed.qMark INNER JOIN ed.extExamInEntry ON ed.qMark.ExamInEntryId = ed.extExamInEntry.Id) 
+                                LEFT JOIN (ed.qMark INNER JOIN ed.extExamInEntry ON ed.qMark.ExamInEntryBlockUnitId = ed.extExamInEntry.Id) 
                                 ON ed.qMark.AbiturientId = ed.qAbiturient.Id AND ed.extExamInEntry.ExamId = {1} 
                                 WHERE ed.qAbiturient.PersonId = '{0}' AND ed.qAbiturient.StudyBasisId = 2 {2} {3}", perId, _examId, flt, flt_fac));
 
@@ -374,7 +374,7 @@ namespace PriemLib
                             DataSet ds = bdc.GetDataSet(string.Format("SELECT ed.qAbiturient.Id FROM ed.qAbiturient WHERE PersonId = '{0}' {1} {2} {3}", perId, flt_fac, _studybasisId == "" ? "" : " AND qAbiturient.StudyBasisId = " + _studybasisId, flt));
                             foreach (DataRow row in ds.Tables[0].Rows)
                             {
-                                if (int.Parse(bdc.GetStringValue(string.Format("SELECT Count(ed.qMark.Id) FROM ed.qMark INNER JOIN ed.extExamInEntry ON ed.qMark.ExamInEntryId = ed.extExamInEntry.Id WHERE ed.extExamInEntry.ExamId = '{0}' AND AbiturientId = '{1}'", _examId, row["Id"].ToString()))) > 0)
+                                if (int.Parse(bdc.GetStringValue(string.Format("SELECT Count(ed.qMark.Id) FROM ed.qMark INNER JOIN ed.extExamInEntry ON ed.qMark.ExamInEntryBlockUnitId = ed.extExamInEntry.Id WHERE ed.extExamInEntry.ExamId = '{0}' AND AbiturientId = '{1}'", _examId, row["Id"].ToString()))) > 0)
                                     continue;
 
                                 slNewMark.Add(row["Id"].ToString(), val);
@@ -398,11 +398,11 @@ namespace PriemLib
                             string examInPr = Exams.GetExamInEntryId(_examId, drr["EntryId"].ToString());
 
                             Guid abitId = new Guid(abId);
-                            int examInEntryId = int.Parse(examInPr);
+                            Guid examInEntryId = Guid.Parse(examInPr);
                             decimal val = decimal.Parse(slNewMark[abId]);
 
                             int cnt = (from mrk in context.Mark
-                                       where mrk.ExamInEntryId == examInEntryId && mrk.AbiturientId == abitId
+                                       where mrk.ExamInEntryBlockUnitId == examInEntryId && mrk.AbiturientId == abitId
                                        select mrk).Count();
 
                             if (cnt > 0)
@@ -427,7 +427,7 @@ namespace PriemLib
                             if (list.Contains(_examId))
                             {
                                 Guid abitId = new Guid(abId);
-                                int examInEntryId = int.Parse(examInPr);
+                                Guid examInEntryId = Guid.Parse(examInPr);
                                 decimal val = decimal.Parse(slReplaceMark[abId]);
 
                                 context.Mark_DeleteByAbitExamId(abitId, examInEntryId);

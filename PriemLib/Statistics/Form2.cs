@@ -344,7 +344,7 @@ namespace PriemLib
 
                 var balls =
                     (from mrk in context.Mark
-                     join ExInEnt in context.ExamInEntry on mrk.ExamInEntryId equals ExInEnt.Id
+                     join ExInEnt in context.ExamInEntryBlockUnit on mrk.ExamInEntryBlockUnitId equals ExInEnt.Id
                      join extEv in context.extEntryView on mrk.AbiturientId equals extEv.AbiturientId
                      where extEv.StudyLevelGroupId == 1 && extEv.StudyFormId == 1
                      select new { mrk.Value, extEv.StudyBasisId }).ToList();

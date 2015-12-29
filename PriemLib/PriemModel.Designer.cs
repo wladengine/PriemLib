@@ -40,7 +40,6 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("Priem2012Model", "fk_Olympiads_OlympValue", "OlympValue", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.OlympValue), "Olympiads", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Olympiads), true)]
 [assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Abiturient_CelCompetition", "CelCompetition", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.CelCompetition), "Abiturient", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Abiturient), true)]
 [assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Abiturient_Competition", "Competition", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Competition), "Abiturient", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Abiturient), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "fk_Mark_Abiturient", "Abiturient", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Abiturient), "Mark", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Mark), true)]
 [assembly: EdmRelationshipAttribute("Priem2012Model", "fk_Olympiads_Person", "Abiturient", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.Abiturient), "Olympiads", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Olympiads), true)]
 [assembly: EdmRelationshipAttribute("Priem2012Model", "FK_PaidData_Abiturient", "Abiturient", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Abiturient), "PaidData", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.PaidData), true)]
 [assembly: EdmRelationshipAttribute("Priem2012Model", "fk_Protocol_ProtocolType", "ProtocolType", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.ProtocolType), "Protocol", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Protocol), true)]
@@ -90,10 +89,8 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Olympiads_OlympName", "OlympName", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.OlympName), "Olympiads", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Olympiads), true)]
 [assembly: EdmRelationshipAttribute("Priem2012Model", "FK_ExamInEntry_Entry", "Entry", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Entry), "ExamInEntry", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.ExamInEntry), true)]
 [assembly: EdmRelationshipAttribute("Priem2012Model", "FK_ExamInEntry_Exam", "Exam", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Exam), "ExamInEntry", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.ExamInEntry), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "fk_Mark_ExamInEntry", "ExamInEntry", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.ExamInEntry), "Mark", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Mark), true)]
 [assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Entry_SP_LicenseProgram", "SP_LicenseProgram", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.SP_LicenseProgram), "Entry", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Entry), true)]
 [assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Entry_SP_ObrazProgram", "SP_ObrazProgram", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.SP_ObrazProgram), "Entry", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Entry), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Mark_EgeCertificate", "EgeCertificate", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.EgeCertificate), "Mark", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Mark), true)]
 [assembly: EdmRelationshipAttribute("Priem2012Model", "FK_OlympSubjectToExam_Exam", "Exam", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Exam), "OlympSubjectToExam", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.OlympSubjectToExam), true)]
 [assembly: EdmRelationshipAttribute("Priem2012Model", "FK_OlympSubjectToExam_OlympSubject", "OlympSubject", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.OlympSubject), "OlympSubjectToExam", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.OlympSubjectToExam), true)]
 [assembly: EdmRelationshipAttribute("Priem2012Model", "FK_OrderNumbers_Signer", "Signer", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Signer), "OrderNumbers", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.OrderNumbers), true)]
@@ -114,7 +111,6 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("Priem2012Model", "FK_PersonSportQualification_Person", "Person", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Person), "PersonSportQualification", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.PersonSportQualification), true)]
 [assembly: EdmRelationshipAttribute("Priem2012Model", "FK_PersonAchievement_AchievementType", "AchievementType", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.AchievementType), "PersonAchievement", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.PersonAchievement), true)]
 [assembly: EdmRelationshipAttribute("Priem2012Model", "FK_PersonAchievement_Person", "Person", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Person), "PersonAchievement", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.PersonAchievement), true)]
-[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Mark_PersonAchievement", "PersonAchievement", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.PersonAchievement), "Mark", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Mark), true)]
 [assembly: EdmRelationshipAttribute("Priem2012Model", "FK_EntryToCompetitiveGroup_CompetitiveGroup", "CompetitiveGroup", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.CompetitiveGroup), "EntryToCompetitiveGroup", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.EntryToCompetitiveGroup), true)]
 [assembly: EdmRelationshipAttribute("Priem2012Model", "FK_EntryToCompetitiveGroup_Entry", "Entry", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Entry), "EntryToCompetitiveGroup", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.EntryToCompetitiveGroup), true)]
 [assembly: EdmRelationshipAttribute("Priem2012Model", "FK_PersonOtherPassport_PassportType", "PassportType", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.PassportType), "PersonOtherPassport", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.PersonOtherPassport), true)]
@@ -136,6 +132,13 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("Priem2012Model", "fk_ProtocolHistory_Abiturient", "Abiturient", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Abiturient), "ProtocolHistory", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.ProtocolHistory), true)]
 [assembly: EdmRelationshipAttribute("Priem2012Model", "fk_Protocolhistory_EntryHeader", "EntryHeader", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.EntryHeader), "ProtocolHistory", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.ProtocolHistory), true)]
 [assembly: EdmRelationshipAttribute("Priem2012Model", "fk_ProtocolHistory_Protocol", "Protocol", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Protocol), "ProtocolHistory", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.ProtocolHistory), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_AbiturientSelectedExam_Abiturient", "Abiturient", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Abiturient), "AbiturientSelectedExam", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.AbiturientSelectedExam), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_ExamInEntryBlockUnit_ExamInEntryBlock", "ExamInEntryBlock", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.ExamInEntryBlock), "ExamInEntryBlockUnit", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.ExamInEntryBlockUnit), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Mark_Abiturient", "Abiturient", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Abiturient), "Mark", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Mark), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Mark_EgeCertificate", "EgeCertificate", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.EgeCertificate), "Mark", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Mark), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Mark_ExamInEntryBlockUnit", "ExamInEntryBlockUnit", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.ExamInEntryBlockUnit), "Mark", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Mark), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_Mark_PersonAchievement", "PersonAchievement", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(PriemLib.PersonAchievement), "Mark", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.Mark), true)]
+[assembly: EdmRelationshipAttribute("Priem2012Model", "FK_ExamInEntryBlockUnit_Exam", "Exam", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(PriemLib.Exam), "ExamInEntryBlockUnit", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PriemLib.ExamInEntryBlockUnit), true)]
 
 #endregion
 
@@ -654,22 +657,6 @@ namespace PriemLib
         /// <summary>
         /// Нет доступной документации по метаданным.
         /// </summary>
-        public ObjectSet<Mark> Mark
-        {
-            get
-            {
-                if ((_Mark == null))
-                {
-                    _Mark = base.CreateObjectSet<Mark>("Mark");
-                }
-                return _Mark;
-            }
-        }
-        private ObjectSet<Mark> _Mark;
-    
-        /// <summary>
-        /// Нет доступной документации по метаданным.
-        /// </summary>
         public ObjectSet<qStudyLevel> qStudyLevel
         {
             get
@@ -1002,22 +989,6 @@ namespace PriemLib
             }
         }
         private ObjectSet<Protocol> _Protocol;
-    
-        /// <summary>
-        /// Нет доступной документации по метаданным.
-        /// </summary>
-        public ObjectSet<extExamInEntry> extExamInEntry
-        {
-            get
-            {
-                if ((_extExamInEntry == null))
-                {
-                    _extExamInEntry = base.CreateObjectSet<extExamInEntry>("extExamInEntry");
-                }
-                return _extExamInEntry;
-            }
-        }
-        private ObjectSet<extExamInEntry> _extExamInEntry;
     
         /// <summary>
         /// Нет доступной документации по метаданным.
@@ -1498,22 +1469,6 @@ namespace PriemLib
             }
         }
         private ObjectSet<OlympiadCheckedByRectorat> _OlympiadCheckedByRectorat;
-    
-        /// <summary>
-        /// Нет доступной документации по метаданным.
-        /// </summary>
-        public ObjectSet<qMark> qMark
-        {
-            get
-            {
-                if ((_qMark == null))
-                {
-                    _qMark = base.CreateObjectSet<qMark>("qMark");
-                }
-                return _qMark;
-            }
-        }
-        private ObjectSet<qMark> _qMark;
     
         /// <summary>
         /// Нет доступной документации по метаданным.
@@ -2522,6 +2477,54 @@ namespace PriemLib
             }
         }
         private ObjectSet<ExamInEntryBlockUnit> _ExamInEntryBlockUnit;
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        public ObjectSet<extExamInEntry> extExamInEntry
+        {
+            get
+            {
+                if ((_extExamInEntry == null))
+                {
+                    _extExamInEntry = base.CreateObjectSet<extExamInEntry>("extExamInEntry");
+                }
+                return _extExamInEntry;
+            }
+        }
+        private ObjectSet<extExamInEntry> _extExamInEntry;
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        public ObjectSet<Mark> Mark
+        {
+            get
+            {
+                if ((_Mark == null))
+                {
+                    _Mark = base.CreateObjectSet<Mark>("Mark");
+                }
+                return _Mark;
+            }
+        }
+        private ObjectSet<Mark> _Mark;
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        public ObjectSet<qMark> qMark
+        {
+            get
+            {
+                if ((_qMark == null))
+                {
+                    _qMark = base.CreateObjectSet<qMark>("qMark");
+                }
+                return _qMark;
+            }
+        }
+        private ObjectSet<qMark> _qMark;
 
         #endregion
 
@@ -2760,14 +2763,6 @@ namespace PriemLib
         }
     
         /// <summary>
-        /// Устаревший метод для добавления новых объектов в набор EntitySet Mark. Взамен можно использовать метод .Add связанного свойства ObjectSet&lt;T&gt;.
-        /// </summary>
-        public void AddToMark(Mark mark)
-        {
-            base.AddObject("Mark", mark);
-        }
-    
-        /// <summary>
         /// Устаревший метод для добавления новых объектов в набор EntitySet qStudyLevel. Взамен можно использовать метод .Add связанного свойства ObjectSet&lt;T&gt;.
         /// </summary>
         public void AddToqStudyLevel(qStudyLevel qStudyLevel)
@@ -2933,14 +2928,6 @@ namespace PriemLib
         public void AddToProtocol(Protocol protocol)
         {
             base.AddObject("Protocol", protocol);
-        }
-    
-        /// <summary>
-        /// Устаревший метод для добавления новых объектов в набор EntitySet extExamInEntry. Взамен можно использовать метод .Add связанного свойства ObjectSet&lt;T&gt;.
-        /// </summary>
-        public void AddToextExamInEntry(extExamInEntry extExamInEntry)
-        {
-            base.AddObject("extExamInEntry", extExamInEntry);
         }
     
         /// <summary>
@@ -3181,14 +3168,6 @@ namespace PriemLib
         public void AddToOlympiadCheckedByRectorat(OlympiadCheckedByRectorat olympiadCheckedByRectorat)
         {
             base.AddObject("OlympiadCheckedByRectorat", olympiadCheckedByRectorat);
-        }
-    
-        /// <summary>
-        /// Устаревший метод для добавления новых объектов в набор EntitySet qMark. Взамен можно использовать метод .Add связанного свойства ObjectSet&lt;T&gt;.
-        /// </summary>
-        public void AddToqMark(qMark qMark)
-        {
-            base.AddObject("qMark", qMark);
         }
     
         /// <summary>
@@ -3693,6 +3672,30 @@ namespace PriemLib
         public void AddToExamInEntryBlockUnit(ExamInEntryBlockUnit examInEntryBlockUnit)
         {
             base.AddObject("ExamInEntryBlockUnit", examInEntryBlockUnit);
+        }
+    
+        /// <summary>
+        /// Устаревший метод для добавления новых объектов в набор EntitySet extExamInEntry. Взамен можно использовать метод .Add связанного свойства ObjectSet&lt;T&gt;.
+        /// </summary>
+        public void AddToextExamInEntry(extExamInEntry extExamInEntry)
+        {
+            base.AddObject("extExamInEntry", extExamInEntry);
+        }
+    
+        /// <summary>
+        /// Устаревший метод для добавления новых объектов в набор EntitySet Mark. Взамен можно использовать метод .Add связанного свойства ObjectSet&lt;T&gt;.
+        /// </summary>
+        public void AddToMark(Mark mark)
+        {
+            base.AddObject("Mark", mark);
+        }
+    
+        /// <summary>
+        /// Устаревший метод для добавления новых объектов в набор EntitySet qMark. Взамен можно использовать метод .Add связанного свойства ObjectSet&lt;T&gt;.
+        /// </summary>
+        public void AddToqMark(qMark qMark)
+        {
+            base.AddObject("qMark", qMark);
         }
 
         #endregion
@@ -7614,7 +7617,7 @@ namespace PriemLib
         /// Нет доступной документации по метаданным.
         /// </summary>
         /// <param name="abiturientId">Нет доступной документации по метаданным.</param>
-        /// <param name="examInEntryId">Нет доступной документации по метаданным.</param>
+        /// <param name="examInEntryBlockUnitId">Нет доступной документации по метаданным.</param>
         /// <param name="value">Нет доступной документации по метаданным.</param>
         /// <param name="passDate">Нет доступной документации по метаданным.</param>
         /// <param name="isFromEge">Нет доступной документации по метаданным.</param>
@@ -7623,7 +7626,7 @@ namespace PriemLib
         /// <param name="examVedId">Нет доступной документации по метаданным.</param>
         /// <param name="olympiadId">Нет доступной документации по метаданным.</param>
         /// <param name="egeCertificateId">Нет доступной документации по метаданным.</param>
-        public int Mark_Insert(Nullable<global::System.Guid> abiturientId, Nullable<global::System.Int32> examInEntryId, Nullable<global::System.Decimal> value, Nullable<global::System.DateTime> passDate, Nullable<global::System.Boolean> isFromEge, Nullable<global::System.Boolean> isFromOlymp, Nullable<global::System.Boolean> isManual, Nullable<global::System.Guid> examVedId, Nullable<global::System.Guid> olympiadId, Nullable<global::System.Guid> egeCertificateId)
+        public int Mark_Insert(Nullable<global::System.Guid> abiturientId, Nullable<global::System.Guid> examInEntryBlockUnitId, Nullable<global::System.Decimal> value, Nullable<global::System.DateTime> passDate, Nullable<global::System.Boolean> isFromEge, Nullable<global::System.Boolean> isFromOlymp, Nullable<global::System.Boolean> isManual, Nullable<global::System.Guid> examVedId, Nullable<global::System.Guid> olympiadId, Nullable<global::System.Guid> egeCertificateId)
         {
             ObjectParameter abiturientIdParameter;
             if (abiturientId.HasValue)
@@ -7635,14 +7638,14 @@ namespace PriemLib
                 abiturientIdParameter = new ObjectParameter("AbiturientId", typeof(global::System.Guid));
             }
     
-            ObjectParameter examInEntryIdParameter;
-            if (examInEntryId.HasValue)
+            ObjectParameter examInEntryBlockUnitIdParameter;
+            if (examInEntryBlockUnitId.HasValue)
             {
-                examInEntryIdParameter = new ObjectParameter("ExamInEntryId", examInEntryId);
+                examInEntryBlockUnitIdParameter = new ObjectParameter("ExamInEntryBlockUnitId", examInEntryBlockUnitId);
             }
             else
             {
-                examInEntryIdParameter = new ObjectParameter("ExamInEntryId", typeof(global::System.Int32));
+                examInEntryBlockUnitIdParameter = new ObjectParameter("ExamInEntryBlockUnitId", typeof(global::System.Guid));
             }
     
             ObjectParameter valueParameter;
@@ -7725,15 +7728,15 @@ namespace PriemLib
                 egeCertificateIdParameter = new ObjectParameter("EgeCertificateId", typeof(global::System.Guid));
             }
     
-            return base.ExecuteFunction("Mark_Insert", abiturientIdParameter, examInEntryIdParameter, valueParameter, passDateParameter, isFromEgeParameter, isFromOlympParameter, isManualParameter, examVedIdParameter, olympiadIdParameter, egeCertificateIdParameter);
+            return base.ExecuteFunction("Mark_Insert", abiturientIdParameter, examInEntryBlockUnitIdParameter, valueParameter, passDateParameter, isFromEgeParameter, isFromOlympParameter, isManualParameter, examVedIdParameter, olympiadIdParameter, egeCertificateIdParameter);
         }
     
         /// <summary>
         /// Нет доступной документации по метаданным.
         /// </summary>
         /// <param name="abiturientId">Нет доступной документации по метаданным.</param>
-        /// <param name="examInEntryId">Нет доступной документации по метаданным.</param>
-        public int Mark_DeleteByAbitExamId(Nullable<global::System.Guid> abiturientId, Nullable<global::System.Int32> examInEntryId)
+        /// <param name="examInEntryBlockUnitId">Нет доступной документации по метаданным.</param>
+        public int Mark_DeleteByAbitExamId(Nullable<global::System.Guid> abiturientId, Nullable<global::System.Guid> examInEntryBlockUnitId)
         {
             ObjectParameter abiturientIdParameter;
             if (abiturientId.HasValue)
@@ -7745,17 +7748,17 @@ namespace PriemLib
                 abiturientIdParameter = new ObjectParameter("AbiturientId", typeof(global::System.Guid));
             }
     
-            ObjectParameter examInEntryIdParameter;
-            if (examInEntryId.HasValue)
+            ObjectParameter examInEntryBlockUnitIdParameter;
+            if (examInEntryBlockUnitId.HasValue)
             {
-                examInEntryIdParameter = new ObjectParameter("ExamInEntryId", examInEntryId);
+                examInEntryBlockUnitIdParameter = new ObjectParameter("ExamInEntryBlockUnitId", examInEntryBlockUnitId);
             }
             else
             {
-                examInEntryIdParameter = new ObjectParameter("ExamInEntryId", typeof(global::System.Int32));
+                examInEntryBlockUnitIdParameter = new ObjectParameter("ExamInEntryBlockUnitId", typeof(global::System.Guid));
             }
     
-            return base.ExecuteFunction("Mark_DeleteByAbitExamId", abiturientIdParameter, examInEntryIdParameter);
+            return base.ExecuteFunction("Mark_DeleteByAbitExamId", abiturientIdParameter, examInEntryBlockUnitIdParameter);
         }
     
         /// <summary>
@@ -9565,11 +9568,11 @@ namespace PriemLib
         /// Нет доступной документации по метаданным.
         /// </summary>
         /// <param name="abiturientId">Нет доступной документации по метаданным.</param>
-        /// <param name="examInEntryId">Нет доступной документации по метаданным.</param>
+        /// <param name="examInEntryBlockUnitId">Нет доступной документации по метаданным.</param>
         /// <param name="value">Нет доступной документации по метаданным.</param>
         /// <param name="passDate">Нет доступной документации по метаданным.</param>
         /// <param name="examVedId">Нет доступной документации по метаданным.</param>
-        public int Mark_updateByAbVedId(Nullable<global::System.Guid> abiturientId, Nullable<global::System.Int32> examInEntryId, Nullable<global::System.Decimal> value, Nullable<global::System.DateTime> passDate, Nullable<global::System.Guid> examVedId)
+        public int Mark_updateByAbVedId(Nullable<global::System.Guid> abiturientId, Nullable<global::System.Guid> examInEntryBlockUnitId, Nullable<global::System.Decimal> value, Nullable<global::System.DateTime> passDate, Nullable<global::System.Guid> examVedId)
         {
             ObjectParameter abiturientIdParameter;
             if (abiturientId.HasValue)
@@ -9581,14 +9584,14 @@ namespace PriemLib
                 abiturientIdParameter = new ObjectParameter("AbiturientId", typeof(global::System.Guid));
             }
     
-            ObjectParameter examInEntryIdParameter;
-            if (examInEntryId.HasValue)
+            ObjectParameter examInEntryBlockUnitIdParameter;
+            if (examInEntryBlockUnitId.HasValue)
             {
-                examInEntryIdParameter = new ObjectParameter("ExamInEntryId", examInEntryId);
+                examInEntryBlockUnitIdParameter = new ObjectParameter("ExamInEntryBlockUnitId", examInEntryBlockUnitId);
             }
             else
             {
-                examInEntryIdParameter = new ObjectParameter("ExamInEntryId", typeof(global::System.Int32));
+                examInEntryBlockUnitIdParameter = new ObjectParameter("ExamInEntryBlockUnitId", typeof(global::System.Guid));
             }
     
             ObjectParameter valueParameter;
@@ -9621,7 +9624,7 @@ namespace PriemLib
                 examVedIdParameter = new ObjectParameter("ExamVedId", typeof(global::System.Guid));
             }
     
-            return base.ExecuteFunction("Mark_updateByAbVedId", abiturientIdParameter, examInEntryIdParameter, valueParameter, passDateParameter, examVedIdParameter);
+            return base.ExecuteFunction("Mark_updateByAbVedId", abiturientIdParameter, examInEntryBlockUnitIdParameter, valueParameter, passDateParameter, examVedIdParameter);
         }
     
         /// <summary>
@@ -16209,28 +16212,6 @@ namespace PriemLib
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Priem2012Model", "fk_Mark_Abiturient", "Mark")]
-        public EntityCollection<Mark> Mark
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Mark>("Priem2012Model.fk_Mark_Abiturient", "Mark");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Mark>("Priem2012Model.fk_Mark_Abiturient", "Mark", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// Нет доступной документации по метаданным.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("Priem2012Model", "fk_Olympiads_Person", "Olympiads")]
         public EntityCollection<Olympiads> Olympiads
         {
@@ -16530,6 +16511,50 @@ namespace PriemLib
                 }
             }
         }
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Priem2012Model", "FK_AbiturientSelectedExam_Abiturient", "AbiturientSelectedExam")]
+        public EntityCollection<AbiturientSelectedExam> AbiturientSelectedExam
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<AbiturientSelectedExam>("Priem2012Model.FK_AbiturientSelectedExam_Abiturient", "AbiturientSelectedExam");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<AbiturientSelectedExam>("Priem2012Model.FK_AbiturientSelectedExam_Abiturient", "AbiturientSelectedExam", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Priem2012Model", "FK_Mark_Abiturient", "Mark")]
+        public EntityCollection<Mark> Mark
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Mark>("Priem2012Model.FK_Mark_Abiturient", "Mark");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Mark>("Priem2012Model.FK_Mark_Abiturient", "Mark", value);
+                }
+            }
+        }
 
         #endregion
 
@@ -16615,6 +16640,48 @@ namespace PriemLib
         private global::System.Guid _ExamInEntryBlockUnitId;
         partial void OnExamInEntryBlockUnitIdChanging(global::System.Guid value);
         partial void OnExamInEntryBlockUnitIdChanged();
+
+        #endregion
+
+        #region Свойства навигации
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Priem2012Model", "FK_AbiturientSelectedExam_Abiturient", "Abiturient")]
+        public Abiturient Abiturient
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Abiturient>("Priem2012Model.FK_AbiturientSelectedExam_Abiturient", "Abiturient").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Abiturient>("Priem2012Model.FK_AbiturientSelectedExam_Abiturient", "Abiturient").Value = value;
+            }
+        }
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Abiturient> AbiturientReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Abiturient>("Priem2012Model.FK_AbiturientSelectedExam_Abiturient", "Abiturient");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Abiturient>("Priem2012Model.FK_AbiturientSelectedExam_Abiturient", "Abiturient", value);
+                }
+            }
+        }
 
         #endregion
 
@@ -23230,6 +23297,28 @@ namespace PriemLib
                 }
             }
         }
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Priem2012Model", "FK_ExamInEntryBlockUnit_Exam", "ExamInEntryBlockUnit")]
+        public EntityCollection<ExamInEntryBlockUnit> ExamInEntryBlockUnit
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ExamInEntryBlockUnit>("Priem2012Model.FK_ExamInEntryBlockUnit_Exam", "ExamInEntryBlockUnit");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ExamInEntryBlockUnit>("Priem2012Model.FK_ExamInEntryBlockUnit_Exam", "ExamInEntryBlockUnit", value);
+                }
+            }
+        }
 
         #endregion
 
@@ -23651,28 +23740,6 @@ namespace PriemLib
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Priem2012Model", "fk_Mark_ExamInEntry", "Mark")]
-        public EntityCollection<Mark> Mark
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Mark>("Priem2012Model.fk_Mark_ExamInEntry", "Mark");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Mark>("Priem2012Model.fk_Mark_ExamInEntry", "Mark", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// Нет доступной документации по метаданным.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("Priem2012Model", "FK_ExamInEntry_ParentExamInEntry", "ExamInEntry1")]
         public EntityCollection<ExamInEntry> ExamInEntry1
         {
@@ -23989,6 +24056,32 @@ namespace PriemLib
 
         #endregion
 
+        #region Свойства навигации
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Priem2012Model", "FK_ExamInEntryBlockUnit_ExamInEntryBlock", "ExamInEntryBlockUnit")]
+        public EntityCollection<ExamInEntryBlockUnit> ExamInEntryBlockUnit
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ExamInEntryBlockUnit>("Priem2012Model.FK_ExamInEntryBlockUnit_ExamInEntryBlock", "ExamInEntryBlockUnit");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ExamInEntryBlockUnit>("Priem2012Model.FK_ExamInEntryBlockUnit_ExamInEntryBlock", "ExamInEntryBlockUnit", value);
+                }
+            }
+        }
+
+        #endregion
+
     }
     
     /// <summary>
@@ -24118,6 +24211,108 @@ namespace PriemLib
         private Nullable<global::System.Double> _EgeMin;
         partial void OnEgeMinChanging(Nullable<global::System.Double> value);
         partial void OnEgeMinChanged();
+
+        #endregion
+
+        #region Свойства навигации
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Priem2012Model", "FK_ExamInEntryBlockUnit_ExamInEntryBlock", "ExamInEntryBlock")]
+        public ExamInEntryBlock ExamInEntryBlock
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ExamInEntryBlock>("Priem2012Model.FK_ExamInEntryBlockUnit_ExamInEntryBlock", "ExamInEntryBlock").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ExamInEntryBlock>("Priem2012Model.FK_ExamInEntryBlockUnit_ExamInEntryBlock", "ExamInEntryBlock").Value = value;
+            }
+        }
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<ExamInEntryBlock> ExamInEntryBlockReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ExamInEntryBlock>("Priem2012Model.FK_ExamInEntryBlockUnit_ExamInEntryBlock", "ExamInEntryBlock");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<ExamInEntryBlock>("Priem2012Model.FK_ExamInEntryBlockUnit_ExamInEntryBlock", "ExamInEntryBlock", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Priem2012Model", "FK_Mark_ExamInEntryBlockUnit", "Mark")]
+        public EntityCollection<Mark> Mark
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Mark>("Priem2012Model.FK_Mark_ExamInEntryBlockUnit", "Mark");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Mark>("Priem2012Model.FK_Mark_ExamInEntryBlockUnit", "Mark", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Priem2012Model", "FK_ExamInEntryBlockUnit_Exam", "Exam")]
+        public Exam Exam
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Exam>("Priem2012Model.FK_ExamInEntryBlockUnit_Exam", "Exam").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Exam>("Priem2012Model.FK_ExamInEntryBlockUnit_Exam", "Exam").Value = value;
+            }
+        }
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Exam> ExamReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Exam>("Priem2012Model.FK_ExamInEntryBlockUnit_Exam", "Exam");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Exam>("Priem2012Model.FK_ExamInEntryBlockUnit_Exam", "Exam", value);
+                }
+            }
+        }
 
         #endregion
 
@@ -34702,14 +34897,14 @@ namespace PriemLib
         /// <param name="studyFormId">Исходное значение свойства StudyFormId.</param>
         /// <param name="studyLevelId">Исходное значение свойства StudyLevelId.</param>
         /// <param name="studyLevelGroupId">Исходное значение свойства StudyLevelGroupId.</param>
-        /// <param name="isSecond">Исходное значение свойства IsSecond.</param>
-        /// <param name="isReduced">Исходное значение свойства IsReduced.</param>
-        /// <param name="isParallel">Исходное значение свойства IsParallel.</param>
         /// <param name="orderNumber">Исходное значение свойства OrderNumber.</param>
         /// <param name="isCrimea">Исходное значение свойства IsCrimea.</param>
         /// <param name="isGosLine">Исходное значение свойства IsGosLine.</param>
         /// <param name="isForeign">Исходное значение свойства IsForeign.</param>
-        public static extExamInEntry CreateextExamInEntry(global::System.Int32 id, global::System.Guid entryId, global::System.Int32 examId, global::System.Boolean isProfil, global::System.Int32 examNameId, global::System.Boolean isAdditional, global::System.Int32 facultyId, global::System.Int32 licenseProgramId, global::System.Int32 obrazProgramId, global::System.Int32 profileId, global::System.Int32 studyBasisId, global::System.Int32 studyFormId, global::System.Int32 studyLevelId, global::System.Int32 studyLevelGroupId, global::System.Boolean isSecond, global::System.Boolean isReduced, global::System.Boolean isParallel, global::System.Byte orderNumber, global::System.Boolean isCrimea, global::System.Boolean isGosLine, global::System.Boolean isForeign)
+        /// <param name="isSecond">Исходное значение свойства IsSecond.</param>
+        /// <param name="isReduced">Исходное значение свойства IsReduced.</param>
+        /// <param name="isParallel">Исходное значение свойства IsParallel.</param>
+        public static extExamInEntry CreateextExamInEntry(global::System.Guid id, global::System.Guid entryId, global::System.Int32 examId, global::System.Boolean isProfil, global::System.Int32 examNameId, global::System.Boolean isAdditional, global::System.Int32 facultyId, global::System.Int32 licenseProgramId, global::System.Int32 obrazProgramId, global::System.Int32 profileId, global::System.Int32 studyBasisId, global::System.Int32 studyFormId, global::System.Int32 studyLevelId, global::System.Int32 studyLevelGroupId, global::System.Byte orderNumber, global::System.Boolean isCrimea, global::System.Boolean isGosLine, global::System.Boolean isForeign, global::System.Boolean isSecond, global::System.Boolean isReduced, global::System.Boolean isParallel)
         {
             extExamInEntry extExamInEntry = new extExamInEntry();
             extExamInEntry.Id = id;
@@ -34726,13 +34921,13 @@ namespace PriemLib
             extExamInEntry.StudyFormId = studyFormId;
             extExamInEntry.StudyLevelId = studyLevelId;
             extExamInEntry.StudyLevelGroupId = studyLevelGroupId;
-            extExamInEntry.IsSecond = isSecond;
-            extExamInEntry.IsReduced = isReduced;
-            extExamInEntry.IsParallel = isParallel;
             extExamInEntry.OrderNumber = orderNumber;
             extExamInEntry.IsCrimea = isCrimea;
             extExamInEntry.IsGosLine = isGosLine;
             extExamInEntry.IsForeign = isForeign;
+            extExamInEntry.IsSecond = isSecond;
+            extExamInEntry.IsReduced = isReduced;
+            extExamInEntry.IsParallel = isParallel;
             return extExamInEntry;
         }
 
@@ -34745,7 +34940,7 @@ namespace PriemLib
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 Id
+        public global::System.Guid Id
         {
             get
             {
@@ -34763,8 +34958,8 @@ namespace PriemLib
                 }
             }
         }
-        private global::System.Int32 _Id;
-        partial void OnIdChanging(global::System.Int32 value);
+        private global::System.Guid _Id;
+        partial void OnIdChanging(global::System.Guid value);
         partial void OnIdChanged();
     
         /// <summary>
@@ -34797,7 +34992,7 @@ namespace PriemLib
         /// <summary>
         /// Нет доступной документации по метаданным.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.Int32 ExamId
         {
@@ -34807,11 +35002,14 @@ namespace PriemLib
             }
             set
             {
-                OnExamIdChanging(value);
-                ReportPropertyChanging("ExamId");
-                _ExamId = StructuralObject.SetValidValue(value, "ExamId");
-                ReportPropertyChanged("ExamId");
-                OnExamIdChanged();
+                if (_ExamId != value)
+                {
+                    OnExamIdChanging(value);
+                    ReportPropertyChanging("ExamId");
+                    _ExamId = StructuralObject.SetValidValue(value, "ExamId");
+                    ReportPropertyChanged("ExamId");
+                    OnExamIdChanged();
+                }
             }
         }
         private global::System.Int32 _ExamId;
@@ -34850,7 +35048,7 @@ namespace PriemLib
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> EgeMin
+        public Nullable<global::System.Double> EgeMin
         {
             get
             {
@@ -34865,8 +35063,8 @@ namespace PriemLib
                 OnEgeMinChanged();
             }
         }
-        private Nullable<global::System.Int32> _EgeMin;
-        partial void OnEgeMinChanging(Nullable<global::System.Int32> value);
+        private Nullable<global::System.Double> _EgeMin;
+        partial void OnEgeMinChanging(Nullable<global::System.Double> value);
         partial void OnEgeMinChanged();
     
         /// <summary>
@@ -35031,7 +35229,7 @@ namespace PriemLib
         /// <summary>
         /// Нет доступной документации по метаданным.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.Int32 ProfileId
         {
@@ -35041,11 +35239,14 @@ namespace PriemLib
             }
             set
             {
-                OnProfileIdChanging(value);
-                ReportPropertyChanging("ProfileId");
-                _ProfileId = StructuralObject.SetValidValue(value, "ProfileId");
-                ReportPropertyChanged("ProfileId");
-                OnProfileIdChanged();
+                if (_ProfileId != value)
+                {
+                    OnProfileIdChanging(value);
+                    ReportPropertyChanging("ProfileId");
+                    _ProfileId = StructuralObject.SetValidValue(value, "ProfileId");
+                    ReportPropertyChanged("ProfileId");
+                    OnProfileIdChanged();
+                }
             }
         }
         private global::System.Int32 _ProfileId;
@@ -35163,6 +35364,114 @@ namespace PriemLib
         /// <summary>
         /// Нет доступной документации по метаданным.
         /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Byte OrderNumber
+        {
+            get
+            {
+                return _OrderNumber;
+            }
+            set
+            {
+                if (_OrderNumber != value)
+                {
+                    OnOrderNumberChanging(value);
+                    ReportPropertyChanging("OrderNumber");
+                    _OrderNumber = StructuralObject.SetValidValue(value, "OrderNumber");
+                    ReportPropertyChanged("OrderNumber");
+                    OnOrderNumberChanged();
+                }
+            }
+        }
+        private global::System.Byte _OrderNumber;
+        partial void OnOrderNumberChanging(global::System.Byte value);
+        partial void OnOrderNumberChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean IsCrimea
+        {
+            get
+            {
+                return _IsCrimea;
+            }
+            set
+            {
+                if (_IsCrimea != value)
+                {
+                    OnIsCrimeaChanging(value);
+                    ReportPropertyChanging("IsCrimea");
+                    _IsCrimea = StructuralObject.SetValidValue(value, "IsCrimea");
+                    ReportPropertyChanged("IsCrimea");
+                    OnIsCrimeaChanged();
+                }
+            }
+        }
+        private global::System.Boolean _IsCrimea;
+        partial void OnIsCrimeaChanging(global::System.Boolean value);
+        partial void OnIsCrimeaChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean IsGosLine
+        {
+            get
+            {
+                return _IsGosLine;
+            }
+            set
+            {
+                if (_IsGosLine != value)
+                {
+                    OnIsGosLineChanging(value);
+                    ReportPropertyChanging("IsGosLine");
+                    _IsGosLine = StructuralObject.SetValidValue(value, "IsGosLine");
+                    ReportPropertyChanged("IsGosLine");
+                    OnIsGosLineChanged();
+                }
+            }
+        }
+        private global::System.Boolean _IsGosLine;
+        partial void OnIsGosLineChanging(global::System.Boolean value);
+        partial void OnIsGosLineChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean IsForeign
+        {
+            get
+            {
+                return _IsForeign;
+            }
+            set
+            {
+                if (_IsForeign != value)
+                {
+                    OnIsForeignChanging(value);
+                    ReportPropertyChanging("IsForeign");
+                    _IsForeign = StructuralObject.SetValidValue(value, "IsForeign");
+                    ReportPropertyChanged("IsForeign");
+                    OnIsForeignChanged();
+                }
+            }
+        }
+        private global::System.Boolean _IsForeign;
+        partial void OnIsForeignChanging(global::System.Boolean value);
+        partial void OnIsForeignChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
         public global::System.String ExamDefName
@@ -35264,159 +35573,6 @@ namespace PriemLib
         private global::System.Boolean _IsParallel;
         partial void OnIsParallelChanging(global::System.Boolean value);
         partial void OnIsParallelChanged();
-    
-        /// <summary>
-        /// Нет доступной документации по метаданным.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Guid> ExamInEntryToCompetitiveGroupId
-        {
-            get
-            {
-                return _ExamInEntryToCompetitiveGroupId;
-            }
-            set
-            {
-                OnExamInEntryToCompetitiveGroupIdChanging(value);
-                ReportPropertyChanging("ExamInEntryToCompetitiveGroupId");
-                _ExamInEntryToCompetitiveGroupId = StructuralObject.SetValidValue(value, "ExamInEntryToCompetitiveGroupId");
-                ReportPropertyChanged("ExamInEntryToCompetitiveGroupId");
-                OnExamInEntryToCompetitiveGroupIdChanged();
-            }
-        }
-        private Nullable<global::System.Guid> _ExamInEntryToCompetitiveGroupId;
-        partial void OnExamInEntryToCompetitiveGroupIdChanging(Nullable<global::System.Guid> value);
-        partial void OnExamInEntryToCompetitiveGroupIdChanged();
-    
-        /// <summary>
-        /// Нет доступной документации по метаданным.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Byte OrderNumber
-        {
-            get
-            {
-                return _OrderNumber;
-            }
-            set
-            {
-                OnOrderNumberChanging(value);
-                ReportPropertyChanging("OrderNumber");
-                _OrderNumber = StructuralObject.SetValidValue(value, "OrderNumber");
-                ReportPropertyChanged("OrderNumber");
-                OnOrderNumberChanged();
-            }
-        }
-        private global::System.Byte _OrderNumber;
-        partial void OnOrderNumberChanging(global::System.Byte value);
-        partial void OnOrderNumberChanged();
-    
-        /// <summary>
-        /// Нет доступной документации по метаданным.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Boolean IsCrimea
-        {
-            get
-            {
-                return _IsCrimea;
-            }
-            set
-            {
-                if (_IsCrimea != value)
-                {
-                    OnIsCrimeaChanging(value);
-                    ReportPropertyChanging("IsCrimea");
-                    _IsCrimea = StructuralObject.SetValidValue(value, "IsCrimea");
-                    ReportPropertyChanged("IsCrimea");
-                    OnIsCrimeaChanged();
-                }
-            }
-        }
-        private global::System.Boolean _IsCrimea;
-        partial void OnIsCrimeaChanging(global::System.Boolean value);
-        partial void OnIsCrimeaChanged();
-    
-        /// <summary>
-        /// Нет доступной документации по метаданным.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Boolean IsGosLine
-        {
-            get
-            {
-                return _IsGosLine;
-            }
-            set
-            {
-                if (_IsGosLine != value)
-                {
-                    OnIsGosLineChanging(value);
-                    ReportPropertyChanging("IsGosLine");
-                    _IsGosLine = StructuralObject.SetValidValue(value, "IsGosLine");
-                    ReportPropertyChanged("IsGosLine");
-                    OnIsGosLineChanged();
-                }
-            }
-        }
-        private global::System.Boolean _IsGosLine;
-        partial void OnIsGosLineChanging(global::System.Boolean value);
-        partial void OnIsGosLineChanged();
-    
-        /// <summary>
-        /// Нет доступной документации по метаданным.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int32> ParentExamInEntryId
-        {
-            get
-            {
-                return _ParentExamInEntryId;
-            }
-            set
-            {
-                OnParentExamInEntryIdChanging(value);
-                ReportPropertyChanging("ParentExamInEntryId");
-                _ParentExamInEntryId = StructuralObject.SetValidValue(value, "ParentExamInEntryId");
-                ReportPropertyChanged("ParentExamInEntryId");
-                OnParentExamInEntryIdChanged();
-            }
-        }
-        private Nullable<global::System.Int32> _ParentExamInEntryId;
-        partial void OnParentExamInEntryIdChanging(Nullable<global::System.Int32> value);
-        partial void OnParentExamInEntryIdChanged();
-    
-        /// <summary>
-        /// Нет доступной документации по метаданным.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Boolean IsForeign
-        {
-            get
-            {
-                return _IsForeign;
-            }
-            set
-            {
-                if (_IsForeign != value)
-                {
-                    OnIsForeignChanging(value);
-                    ReportPropertyChanging("IsForeign");
-                    _IsForeign = StructuralObject.SetValidValue(value, "IsForeign");
-                    ReportPropertyChanged("IsForeign");
-                    OnIsForeignChanged();
-                }
-            }
-        }
-        private global::System.Boolean _IsForeign;
-        partial void OnIsForeignChanging(global::System.Boolean value);
-        partial void OnIsForeignChanged();
 
         #endregion
 
@@ -49202,23 +49358,23 @@ namespace PriemLib
         /// </summary>
         /// <param name="id">Исходное значение свойства Id.</param>
         /// <param name="abiturientId">Исходное значение свойства AbiturientId.</param>
-        /// <param name="examInEntryId">Исходное значение свойства ExamInEntryId.</param>
         /// <param name="value">Исходное значение свойства Value.</param>
         /// <param name="isFromEge">Исходное значение свойства IsFromEge.</param>
         /// <param name="isFromOlymp">Исходное значение свойства IsFromOlymp.</param>
         /// <param name="isManual">Исходное значение свойства IsManual.</param>
         /// <param name="isFromAchievement">Исходное значение свойства IsFromAchievement.</param>
-        public static Mark CreateMark(global::System.Guid id, global::System.Guid abiturientId, global::System.Int32 examInEntryId, global::System.Decimal value, global::System.Boolean isFromEge, global::System.Boolean isFromOlymp, global::System.Boolean isManual, global::System.Boolean isFromAchievement)
+        /// <param name="examInEntryBlockUnitId">Исходное значение свойства ExamInEntryBlockUnitId.</param>
+        public static Mark CreateMark(global::System.Guid id, global::System.Guid abiturientId, global::System.Decimal value, global::System.Boolean isFromEge, global::System.Boolean isFromOlymp, global::System.Boolean isManual, global::System.Boolean isFromAchievement, global::System.Guid examInEntryBlockUnitId)
         {
             Mark mark = new Mark();
             mark.Id = id;
             mark.AbiturientId = abiturientId;
-            mark.ExamInEntryId = examInEntryId;
             mark.Value = value;
             mark.IsFromEge = isFromEge;
             mark.IsFromOlymp = isFromOlymp;
             mark.IsManual = isManual;
             mark.IsFromAchievement = isFromAchievement;
+            mark.ExamInEntryBlockUnitId = examInEntryBlockUnitId;
             return mark;
         }
 
@@ -49276,30 +49432,6 @@ namespace PriemLib
         private global::System.Guid _AbiturientId;
         partial void OnAbiturientIdChanging(global::System.Guid value);
         partial void OnAbiturientIdChanged();
-    
-        /// <summary>
-        /// Нет доступной документации по метаданным.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 ExamInEntryId
-        {
-            get
-            {
-                return _ExamInEntryId;
-            }
-            set
-            {
-                OnExamInEntryIdChanging(value);
-                ReportPropertyChanging("ExamInEntryId");
-                _ExamInEntryId = StructuralObject.SetValidValue(value, "ExamInEntryId");
-                ReportPropertyChanged("ExamInEntryId");
-                OnExamInEntryIdChanged();
-            }
-        }
-        private global::System.Int32 _ExamInEntryId;
-        partial void OnExamInEntryIdChanging(global::System.Int32 value);
-        partial void OnExamInEntryIdChanged();
     
         /// <summary>
         /// Нет доступной документации по метаданным.
@@ -49564,6 +49696,30 @@ namespace PriemLib
         private Nullable<global::System.Guid> _PersonAchievementId;
         partial void OnPersonAchievementIdChanging(Nullable<global::System.Guid> value);
         partial void OnPersonAchievementIdChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid ExamInEntryBlockUnitId
+        {
+            get
+            {
+                return _ExamInEntryBlockUnitId;
+            }
+            set
+            {
+                OnExamInEntryBlockUnitIdChanging(value);
+                ReportPropertyChanging("ExamInEntryBlockUnitId");
+                _ExamInEntryBlockUnitId = StructuralObject.SetValidValue(value, "ExamInEntryBlockUnitId");
+                ReportPropertyChanged("ExamInEntryBlockUnitId");
+                OnExamInEntryBlockUnitIdChanged();
+            }
+        }
+        private global::System.Guid _ExamInEntryBlockUnitId;
+        partial void OnExamInEntryBlockUnitIdChanging(global::System.Guid value);
+        partial void OnExamInEntryBlockUnitIdChanged();
 
         #endregion
 
@@ -49575,16 +49731,16 @@ namespace PriemLib
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Priem2012Model", "fk_Mark_Abiturient", "Abiturient")]
+        [EdmRelationshipNavigationPropertyAttribute("Priem2012Model", "FK_Mark_Abiturient", "Abiturient")]
         public Abiturient Abiturient
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Abiturient>("Priem2012Model.fk_Mark_Abiturient", "Abiturient").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Abiturient>("Priem2012Model.FK_Mark_Abiturient", "Abiturient").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Abiturient>("Priem2012Model.fk_Mark_Abiturient", "Abiturient").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Abiturient>("Priem2012Model.FK_Mark_Abiturient", "Abiturient").Value = value;
             }
         }
         /// <summary>
@@ -49596,51 +49752,13 @@ namespace PriemLib
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Abiturient>("Priem2012Model.fk_Mark_Abiturient", "Abiturient");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Abiturient>("Priem2012Model.FK_Mark_Abiturient", "Abiturient");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Abiturient>("Priem2012Model.fk_Mark_Abiturient", "Abiturient", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// Нет доступной документации по метаданным.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Priem2012Model", "fk_Mark_ExamInEntry", "ExamInEntry")]
-        public ExamInEntry ExamInEntry
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ExamInEntry>("Priem2012Model.fk_Mark_ExamInEntry", "ExamInEntry").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ExamInEntry>("Priem2012Model.fk_Mark_ExamInEntry", "ExamInEntry").Value = value;
-            }
-        }
-        /// <summary>
-        /// Нет доступной документации по метаданным.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<ExamInEntry> ExamInEntryReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ExamInEntry>("Priem2012Model.fk_Mark_ExamInEntry", "ExamInEntry");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<ExamInEntry>("Priem2012Model.fk_Mark_ExamInEntry", "ExamInEntry", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Abiturient>("Priem2012Model.FK_Mark_Abiturient", "Abiturient", value);
                 }
             }
         }
@@ -49679,6 +49797,44 @@ namespace PriemLib
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<EgeCertificate>("Priem2012Model.FK_Mark_EgeCertificate", "EgeCertificate", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Priem2012Model", "FK_Mark_ExamInEntryBlockUnit", "ExamInEntryBlockUnit")]
+        public ExamInEntryBlockUnit ExamInEntryBlockUnit
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ExamInEntryBlockUnit>("Priem2012Model.FK_Mark_ExamInEntryBlockUnit", "ExamInEntryBlockUnit").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ExamInEntryBlockUnit>("Priem2012Model.FK_Mark_ExamInEntryBlockUnit", "ExamInEntryBlockUnit").Value = value;
+            }
+        }
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<ExamInEntryBlockUnit> ExamInEntryBlockUnitReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ExamInEntryBlockUnit>("Priem2012Model.FK_Mark_ExamInEntryBlockUnit", "ExamInEntryBlockUnit");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<ExamInEntryBlockUnit>("Priem2012Model.FK_Mark_ExamInEntryBlockUnit", "ExamInEntryBlockUnit", value);
                 }
             }
         }
@@ -68206,7 +68362,7 @@ namespace PriemLib
         /// </summary>
         /// <param name="id">Исходное значение свойства Id.</param>
         /// <param name="abiturientId">Исходное значение свойства AbiturientId.</param>
-        /// <param name="examInEntryId">Исходное значение свойства ExamInEntryId.</param>
+        /// <param name="examInEntryBlockUnitId">Исходное значение свойства ExamInEntryBlockUnitId.</param>
         /// <param name="value">Исходное значение свойства Value.</param>
         /// <param name="isFromEge">Исходное значение свойства IsFromEge.</param>
         /// <param name="isFromOlymp">Исходное значение свойства IsFromOlymp.</param>
@@ -68221,12 +68377,12 @@ namespace PriemLib
         /// <param name="orderNumber">Исходное значение свойства OrderNumber.</param>
         /// <param name="personId">Исходное значение свойства PersonId.</param>
         /// <param name="studyBasisId">Исходное значение свойства StudyBasisId.</param>
-        public static qMark CreateqMark(global::System.Guid id, global::System.Guid abiturientId, global::System.Int32 examInEntryId, global::System.Decimal value, global::System.Boolean isFromEge, global::System.Boolean isFromOlymp, global::System.Boolean isManual, global::System.Guid entryId, global::System.Boolean isAdditional, global::System.Boolean isProfil, global::System.Int32 studyLevelGroupId, global::System.Int32 examId, global::System.Int32 examNameId, global::System.String entranceTestType, global::System.Byte orderNumber, global::System.Guid personId, global::System.Int32 studyBasisId)
+        public static qMark CreateqMark(global::System.Guid id, global::System.Guid abiturientId, global::System.Guid examInEntryBlockUnitId, global::System.Decimal value, global::System.Boolean isFromEge, global::System.Boolean isFromOlymp, global::System.Boolean isManual, global::System.Guid entryId, global::System.Boolean isAdditional, global::System.Boolean isProfil, global::System.Int32 studyLevelGroupId, global::System.Int32 examId, global::System.Int32 examNameId, global::System.String entranceTestType, global::System.Byte orderNumber, global::System.Guid personId, global::System.Int32 studyBasisId)
         {
             qMark qMark = new qMark();
             qMark.Id = id;
             qMark.AbiturientId = abiturientId;
-            qMark.ExamInEntryId = examInEntryId;
+            qMark.ExamInEntryBlockUnitId = examInEntryBlockUnitId;
             qMark.Value = value;
             qMark.IsFromEge = isFromEge;
             qMark.IsFromOlymp = isFromOlymp;
@@ -68307,27 +68463,27 @@ namespace PriemLib
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 ExamInEntryId
+        public global::System.Guid ExamInEntryBlockUnitId
         {
             get
             {
-                return _ExamInEntryId;
+                return _ExamInEntryBlockUnitId;
             }
             set
             {
-                if (_ExamInEntryId != value)
+                if (_ExamInEntryBlockUnitId != value)
                 {
-                    OnExamInEntryIdChanging(value);
-                    ReportPropertyChanging("ExamInEntryId");
-                    _ExamInEntryId = StructuralObject.SetValidValue(value, "ExamInEntryId");
-                    ReportPropertyChanged("ExamInEntryId");
-                    OnExamInEntryIdChanged();
+                    OnExamInEntryBlockUnitIdChanging(value);
+                    ReportPropertyChanging("ExamInEntryBlockUnitId");
+                    _ExamInEntryBlockUnitId = StructuralObject.SetValidValue(value, "ExamInEntryBlockUnitId");
+                    ReportPropertyChanged("ExamInEntryBlockUnitId");
+                    OnExamInEntryBlockUnitIdChanged();
                 }
             }
         }
-        private global::System.Int32 _ExamInEntryId;
-        partial void OnExamInEntryIdChanging(global::System.Int32 value);
-        partial void OnExamInEntryIdChanged();
+        private global::System.Guid _ExamInEntryBlockUnitId;
+        partial void OnExamInEntryBlockUnitIdChanging(global::System.Guid value);
+        partial void OnExamInEntryBlockUnitIdChanged();
     
         /// <summary>
         /// Нет доступной документации по метаданным.
@@ -68749,7 +68905,7 @@ namespace PriemLib
         /// <summary>
         /// Нет доступной документации по метаданным.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.Byte OrderNumber
         {
@@ -68759,11 +68915,14 @@ namespace PriemLib
             }
             set
             {
-                OnOrderNumberChanging(value);
-                ReportPropertyChanging("OrderNumber");
-                _OrderNumber = StructuralObject.SetValidValue(value, "OrderNumber");
-                ReportPropertyChanged("OrderNumber");
-                OnOrderNumberChanged();
+                if (_OrderNumber != value)
+                {
+                    OnOrderNumberChanging(value);
+                    ReportPropertyChanging("OrderNumber");
+                    _OrderNumber = StructuralObject.SetValidValue(value, "OrderNumber");
+                    ReportPropertyChanged("OrderNumber");
+                    OnOrderNumberChanged();
+                }
             }
         }
         private global::System.Byte _OrderNumber;
@@ -68793,30 +68952,6 @@ namespace PriemLib
         private Nullable<global::System.Byte> _FiveGradeValue;
         partial void OnFiveGradeValueChanging(Nullable<global::System.Byte> value);
         partial void OnFiveGradeValueChanged();
-    
-        /// <summary>
-        /// Нет доступной документации по метаданным.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int32> ParentExamInEntryId
-        {
-            get
-            {
-                return _ParentExamInEntryId;
-            }
-            set
-            {
-                OnParentExamInEntryIdChanging(value);
-                ReportPropertyChanging("ParentExamInEntryId");
-                _ParentExamInEntryId = StructuralObject.SetValidValue(value, "ParentExamInEntryId");
-                ReportPropertyChanged("ParentExamInEntryId");
-                OnParentExamInEntryIdChanged();
-            }
-        }
-        private Nullable<global::System.Int32> _ParentExamInEntryId;
-        partial void OnParentExamInEntryIdChanging(Nullable<global::System.Int32> value);
-        partial void OnParentExamInEntryIdChanged();
     
         /// <summary>
         /// Нет доступной документации по метаданным.

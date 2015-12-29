@@ -1671,7 +1671,7 @@ namespace PriemLib
             if (Barcode.HasValue)
             {
                 string query = String.Format("update dbo.Application set IsApprovedByComission = {0}, ApproverName= '{2}'  where Barcode = '{1}'", isApproved ? "1" : "0", Barcode, MainClass.GetUserName());
-                MainClass.BdcOnlineReadWrite.ExecuteQuery(query, null);
+                MainClass.BdcOnlineReadWrite.ExecuteQuery(query);
             }
         }
         protected void UpdateSelectedExams(PriemEntities context, Guid id)
@@ -1908,7 +1908,7 @@ namespace PriemLib
                             newRow["Примечание"] = "Ведомость № " + vedNum;
                         }
 
-                        newRow["ExamInEntryId"] = abMark.ExamInEntryId;
+                        newRow["ExamInEntryId"] = abMark.ExamInEntryBlockUnitId;
                         examTable.Rows.Add(newRow);
                     }
 

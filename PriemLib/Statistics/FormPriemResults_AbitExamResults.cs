@@ -220,7 +220,7 @@ namespace PriemLib
                         foreach (var conk in TvConk.OrderBy(x => x.ExamNameId))
                         {
                             rw["TvKonk" + i.ToString() + "_Name"] = conk.ExamName;
-                            rw["TvKonk" + i.ToString() + "_Val"] = context.Mark.Where(x => x.AbiturientId == AbEnt.Id && x.ExamInEntryId == conk.Id).Select(x => x.Value).FirstOrDefault().ToString();
+                            rw["TvKonk" + i.ToString() + "_Val"] = context.Mark.Where(x => x.AbiturientId == AbEnt.Id && x.ExamInEntryBlockUnitId == conk.Id).Select(x => x.Value).FirstOrDefault().ToString();
                             i++;
                         }
                     }

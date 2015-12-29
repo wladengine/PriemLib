@@ -509,7 +509,7 @@ INNER JOIN ed.Person ON qAbiturient.PersonId = Person.Id WHERE extEntryView.Id =
                     slParams.Add(new KeyValuePair<string, object>("@StudyPlanNumber", (Abit.StudyPlanNumber ?? "")));
                     slParams.Add(new KeyValuePair<string, object>("@SNILS", Abit.SNILS ?? ""));
 
-                    _odc.ExecuteQuery(s, slParams);
+                    //_odc.ExecuteQuery(s, slParams);
 
                     _NewId++;
                     wc.PerformStep();

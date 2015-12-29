@@ -251,8 +251,8 @@ namespace PriemLib
                                     
                                     if(string.IsNullOrEmpty(examInPr))
                                         continue;
-                                    
-                                    int examInEntryId = int.Parse(examInPr);
+
+                                    Guid examInEntryId = Guid.Parse(examInPr);
 
                                     decimal? sumMark = 0;
                                     if (mrkWr == null && mrkOr == null)
@@ -261,7 +261,7 @@ namespace PriemLib
                                         sumMark = (mrkWr ?? 0m) + (mrkOr ?? 0m); 
 
                                     int cnt = (from mrk in context.qMark
-                                               where mrk.ExamInEntryId == examInEntryId && mrk.AbiturientId == abitId
+                                               where mrk.ExamInEntryBlockUnitId == examInEntryId && mrk.AbiturientId == abitId
                                                select mrk).Count();
 
                                     if (cnt > 0)
