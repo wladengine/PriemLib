@@ -884,6 +884,7 @@
             this.ClientSize = new System.Drawing.Size(559, 619);
             this.Controls.Add(this.tcCard);
             this.Name = "CardEntry";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "CardEntry";
             this.Controls.SetChildIndex(this.tcCard, 0);
             this.Controls.SetChildIndex(this.btnSaveChange, 0);

@@ -39,7 +39,8 @@ namespace PriemLib
             formOwner = null;
             tcCard = tabCard;
 
-            InitControls();
+            //InitControls();
+            this.Load += (x, y) => InitControls();
         }
 
         public CardAbit(string abId, int? rowInd, BaseFormEx formOwner)
@@ -53,7 +54,8 @@ namespace PriemLib
             if (rowInd.HasValue)
                 ownerRowIndex = rowInd.Value;
 
-            InitControls();
+            //InitControls();
+            this.Load += (x, y) => InitControls();
         }
 
         protected override void InitControls()
@@ -95,6 +97,11 @@ namespace PriemLib
 
             if (MainClass.dbType == PriemType.PriemMag)
                 gbSecondType.Visible = false;
+            else if (MainClass.dbType == PriemType.PriemAG)
+            {
+                chbIsForeign.Visible = false;
+                chbIsCrimea.Visible = false;
+            }
 
             try
             {

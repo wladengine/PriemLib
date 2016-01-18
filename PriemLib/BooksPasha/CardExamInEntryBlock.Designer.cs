@@ -217,6 +217,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.chbIsProfil);
             this.Name = "CardExamInEntryBlock";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "CardExamInEntry";
             this.Controls.SetChildIndex(this.btnClose, 0);
             this.Controls.SetChildIndex(this.btnSaveAsNew, 0);

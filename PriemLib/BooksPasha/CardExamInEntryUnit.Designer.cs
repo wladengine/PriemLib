@@ -91,6 +91,7 @@
             this.Controls.Add(this.tbEgeMin);
             this.Controls.Add(this.cbExam);
             this.Name = "CardExamInEntryUnit";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "CardExamInEntry";
             this.Controls.SetChildIndex(this.btnClose, 0);
             this.Controls.SetChildIndex(this.btnSaveAsNew, 0);

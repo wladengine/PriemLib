@@ -50,7 +50,8 @@ namespace PriemLib
             if(rowInd.HasValue)
                 this.ownerRowIndex = rowInd.Value; 
 
-            InitControls();     
+            //InitControls();     
+            this.Load += (x, y) => InitControls();
         }
         
         protected override void ExtraInit()
@@ -142,6 +143,7 @@ namespace PriemLib
                     gbMainStudy.Visible = true;
                     btnDocs.Visible = false;
                 }
+                
 
                 gbPashaTechInfo.Visible = MainClass.IsPasha();
             }
