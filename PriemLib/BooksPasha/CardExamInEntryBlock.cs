@@ -493,7 +493,7 @@ namespace PriemLib
                 var lst = (from x in context.extExamInEntry
                            where x.EntryId == _entryId
                            && x.ExamId == unit.ExamId
-                           select x).ToList();
+                           select x.Id).ToList();
                 if (lst.Count > 0)
                 {
                     MessageBox.Show("Экзамен уже был добавлен в текущий конкурс");

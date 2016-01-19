@@ -119,11 +119,12 @@ namespace PriemLib
                     {
                         foreach (var Block in Comp.lstExamInEntryBlock)
                         {
-                            context.AbiturientSelectedExam.AddObject(new AbiturientSelectedExam()
-                            {
-                                ApplicationId = ApplicationId,
-                                ExamInEntryBlockUnitId = Block.SelectedUnitId,
-                            });
+                            if (Block.SelectedUnitId != Guid.Empty)
+                                context.AbiturientSelectedExam.AddObject(new AbiturientSelectedExam()
+                                {
+                                    ApplicationId = ApplicationId,
+                                    ExamInEntryBlockUnitId = Block.SelectedUnitId,
+                                });
                         }
                         context.SaveChanges();
                     }

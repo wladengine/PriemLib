@@ -95,7 +95,7 @@ namespace PriemLib
                      join egeMark in context.EgeMark on egeCertificate.Id equals egeMark.EgeCertificateId
                      join egeToExam in context.EgeToExam on egeMark.EgeExamNameId equals egeToExam.EgeExamNameId
                      where egeCertificate.PersonId == PersonId
-                            && egeToExam.ExamId == (from examInEntry in context.ExamInEntry
+                            && egeToExam.ExamId == (from examInEntry in context.extExamInEntry
                                                     where examInEntry.EntryId == EntryId && examInEntry.IsProfil
                                                     select examInEntry.ExamId).FirstOrDefault()
                      select new { egeCertificate.Year, egeCertificate.Number }).ToList().Distinct()

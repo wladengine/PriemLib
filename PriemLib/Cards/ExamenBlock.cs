@@ -21,7 +21,7 @@ namespace PriemLib
     {
         public Guid UnitId { get; set; }
         public int ExamId { get; set; }
-        public double? EgeMin { get; set; }
+        public decimal? EgeMin { get; set; }
         public string ExamUnitName { get; set; }
     }
 

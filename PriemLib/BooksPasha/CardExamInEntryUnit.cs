@@ -31,12 +31,12 @@ namespace PriemLib
             get { return ComboServ.GetComboIdInt(cbExam); }
             set { ComboServ.SetComboId(cbExam, value); }
         }
-        public double? EgeMin
+        public decimal? EgeMin
         {
             get
             {
-                double j;
-                if (double.TryParse(tbEgeMin.Text.Trim(), out j))
+                decimal j;
+                if (decimal.TryParse(tbEgeMin.Text.Trim(), out j))
                     return j;
                 else
                     return null;

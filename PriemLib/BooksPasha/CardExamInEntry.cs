@@ -16,14 +16,14 @@ namespace PriemLib
     public partial class CardExamInEntry : BookCard
     {
         #region Fields
-        protected int? IntId
+        protected Guid? gId
         {
             get
             {
                 if (_Id == null)
                     return null;
                 else
-                    return int.Parse(_Id);
+                    return Guid.Parse(_Id);
             }
         }
         protected int? ExamId
@@ -51,12 +51,12 @@ namespace PriemLib
             get { return chbCrimea.Checked; }
             set { chbCrimea.Checked = value; }
         }
-        protected int? EgeMin
+        protected decimal? EgeMin
         {
             get
             {
-                int j;
-                if (int.TryParse(tbEgeMin.Text.Trim(), out j))
+                decimal j;
+                if (decimal.TryParse(tbEgeMin.Text.Trim(), out j))
                     return j;
                 else
                     return null;
@@ -160,8 +160,8 @@ namespace PriemLib
             {
                 using (PriemEntities context = new PriemEntities())
                 {
-                    ExamInEntry ent = (from ex in context.ExamInEntry
-                                       where ex.Id == IntId
+                    extExamInEntry ent = (from ex in context.extExamInEntry
+                                       where ex.Id == gId
                                        select ex).FirstOrDefault();
 
                     ExamId = ent.ExamId;
@@ -170,7 +170,7 @@ namespace PriemLib
                     IsCrimea = ent.IsCrimea;
                     EgeMin = ent.EgeMin;
                     OrderNumber = ent.OrderNumber;
-                    ParentExamInEntryId = ent.ParentExamInEntryId;
+                    ParentExamInEntryId = ent.ParentExamInEntryBlockId;
                 }
             }
             catch (Exception exc)
@@ -232,7 +232,7 @@ namespace PriemLib
                     }
                     else
                     {
-                        context.ExamInEntry_Update(ExamId, IsProfil, EgeMin, IsCrimea, IsGosLine, OrderNumber, ParentExamInEntryId, IntId);
+                        context.ExamInEntry_Update(ExamId, IsProfil, EgeMin, IsCrimea, IsGosLine, OrderNumber, ParentExamInEntryId, gId);
                         return _Id;
                     }
                 }

@@ -20,7 +20,7 @@ namespace PriemLib
             Comp = _c;
 
             this.MdiParent = MainClass.mainform;
-
+            this.Text = "Экзамены по выбору";
             FillGrid();
         }
         public void FillGrid()

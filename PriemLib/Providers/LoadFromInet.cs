@@ -451,11 +451,18 @@ WHERE Id=@Id";
 
         public List<ExamenBlock> GetExamenInEntryBlock (Guid AppId, Guid EntryId)
         {
-            string query = String.Format("Select Id, Name from dbo.ExamInEntryBlock where EntryId = '{0}'", EntryId.ToString());
+            string query = String.Format(@"Select ExamInEntryBlock.Id, ExamInEntryBlock.Name 
+from dbo.ExamInEntryBlock 
+join dbo.ExamInEntryBlockUnit on ExamInEntryBlock.Id = ExamInEntryBlockId
+            where EntryId = '{0}'
+group by ExamInEntryBlock.Id, ExamInEntryBlock.Name
+HAVING COUNT(ExamInEntryBlockUnit.id) > 1", EntryId.ToString());
             DataTable tbl_block = _bdcInet.GetDataSet(query).Tables[0];
 
             query = String.Format(@"SELECT  
-  ExamInEntryBlockId, ApplicationSelectedExam.ExamInEntryBlockUnitId, ExamName.Name
+  ExamInEntryBlockId, 
+ApplicationSelectedExam.ExamInEntryBlockUnitId, 
+ExamName.Name
   FROM dbo.ApplicationSelectedExam
   join dbo.ExamInEntryBlockUnit on ApplicationSelectedExam.ExamInEntryBlockUnitId = ExamInEntryBlockUnit.Id
   join dbo.Exam on Exam.Id =ExamInEntryBlockUnit.ExamId

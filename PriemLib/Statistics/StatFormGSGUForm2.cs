@@ -154,7 +154,7 @@ namespace PriemLib
                             int cntCommonCompWithEGEandExamIsAdd =
                                 (from ev in EV
                                  join mark in context.Mark on ev.AbiturientId equals mark.AbiturientId
-                                 join ent in context.ExamInEntry on ev.EntryId equals ent.EntryId
+                                 join ent in context.extExamInEntry on ev.EntryId equals ent.EntryId
                                  join exam in context.Exam on ent.ExamId equals exam.Id
                                  where mark.IsFromEge == true && !AbitOlympList.Contains(mark.AbiturientId)
                                  && !ev.IsQuota && !ev.IsCrimea && !ev.IsBE && !ev.IsCel 
@@ -214,7 +214,7 @@ namespace PriemLib
                             double AVGMarkEGE =
                                 (from ev in EV
                                  join mark in context.Mark on ev.AbiturientId equals mark.AbiturientId
-                                 join ent in context.ExamInEntry on ev.EntryId equals ent.EntryId
+                                 join ent in context.extExamInEntry on ev.EntryId equals ent.EntryId
                                  join exam in context.Exam on ent.ExamId equals exam.Id 
                                  where !AbitOlympList.Contains(ev.AbiturientId)
                                  && !ev.IsCel && !ev.IsQuota && !ev.IsCrimea && !ev.IsBE
@@ -227,7 +227,7 @@ namespace PriemLib
                             double AVGMarkEGEWithOlymp =
                                 (from ev in EV
                                  join mark in context.Mark on ev.AbiturientId equals mark.AbiturientId
-                                 join ent in context.ExamInEntry on ev.EntryId equals ent.EntryId
+                                 join ent in context.extExamInEntry on ev.EntryId equals ent.EntryId
                                  join exam in context.Exam on ent.ExamId equals exam.Id
                                  where AbitOlympList.Contains(ev.AbiturientId)
                                  && !ev.IsCel && !ev.IsQuota && !ev.IsCrimea && !ev.IsBE
@@ -262,7 +262,7 @@ namespace PriemLib
                             double AVGMarkEGE_Cel =
                                 (from ev in EV
                                  join mark in context.Mark on ev.AbiturientId equals mark.AbiturientId
-                                 join ent in context.ExamInEntry on ev.EntryId equals ent.EntryId
+                                 join ent in context.extExamInEntry on ev.EntryId equals ent.EntryId
                                  join exam in context.Exam on ent.ExamId equals exam.Id 
                                  where ev.IsCel && !ev.IsQuota && !ev.IsCrimea && !ev.IsBE
                                  && exam.IsAdditional == false
@@ -274,7 +274,7 @@ namespace PriemLib
                             double AVGMarkEGE_Quota =
                                 (from ev in EV
                                  join mark in context.Mark on ev.AbiturientId equals mark.AbiturientId
-                                 join ent in context.ExamInEntry on ev.EntryId equals ent.EntryId
+                                 join ent in context.extExamInEntry on ev.EntryId equals ent.EntryId
                                  join exam in context.Exam on ent.ExamId equals exam.Id 
                                  where !ev.IsCel && ev.IsQuota && !ev.IsCrimea && !ev.IsBE
                                  && exam.IsAdditional == false

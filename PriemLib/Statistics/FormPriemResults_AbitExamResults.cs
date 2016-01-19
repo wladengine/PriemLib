@@ -115,7 +115,7 @@ namespace PriemLib
                 //tblRes.Columns.Add("", typeof(int?));
                 //tblRes.Columns.Add("", typeof(int?));
 
-                    var lstExams = context.ExamInEntry.Where(x => x.EntryId == AbEnt.EntryId).Select(x => x.ExamId);
+                    var lstExams = context.extExamInEntry.Where(x => x.EntryId == AbEnt.EntryId).Select(x => x.ExamId);
 
                     int iExam_Rus = context.EgeMark.Where(x => x.EgeCertificate.PersonId == AbEnt.PersonId && (x.EgeCertificate.FBSStatusId == 1 || x.EgeCertificate.FBSStatusId == 4) //&& x.EgeExamName.EgeToExam.Where(y => y.Exam.ExamInEntry.Where(z => z.EntryId == AbEnt.EntryId).Count() > 0).Count() > 0
                         && x.EgeExamName.Name == "Русский язык").Select(x => x.Value).DefaultIfEmpty(0).Max();

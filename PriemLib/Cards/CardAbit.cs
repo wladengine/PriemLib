@@ -1185,10 +1185,19 @@ namespace PriemLib
                 using (PriemEntities context = new PriemEntities())
                 {
                     var block = (from b in context.ExamInEntryBlock
+                                 join u in context.ExamInEntryBlockUnit on b.Id equals u.ExamInEntryBlockId
                                  where b.EntryId == EntryId
-                                 select new { b.Id, b.Name }).ToList();
-                    
-                    if (block.Count == 0)
+                                 select new { b.Id, b.Name, unitId = u.Id }).ToList();
+                    var _block = (from b in block
+                                   group b by b.Id into ex
+                                   where ex.Count() > 1
+                                   select new
+                                  {
+                                      Id = ex.Key,
+                                      Name = ex.Select(x => x.Name).FirstOrDefault(),
+                                  }).ToList();
+
+                    if (_block.Count == 0)
                     {
                         if (tabCard.TabPages.Contains(tpExamBlock))
                             tabCard.TabPages.Remove(tpExamBlock);
@@ -1217,7 +1226,7 @@ namespace PriemLib
                     column1.Width = 250; 
                     dgvAppExams.Columns.Add(column1);
 
-                    foreach (var b in block)
+                    foreach (var b in _block)
                     {
                         var units = (from u in context.ExamInEntryBlockUnit
                                      join e in context.Exam on u.ExamId equals e.Id
@@ -1687,14 +1696,23 @@ namespace PriemLib
 
             foreach (var x in lst)
                 context.AbiturientSelectedExam.DeleteObject(x);
-
+            bool Shown = false;
             foreach (DataGridViewRow rw in dgvAppExams.Rows)
             {
-                Guid UnitId = Guid.Parse(rw.Cells["ExamsList"].Value.ToString());
-                context.AbiturientSelectedExam.AddObject(new AbiturientSelectedExam() {
-                    ApplicationId = id, 
-                    ExamInEntryBlockUnitId = UnitId,
-                });
+                if (rw.Cells["ExamsList"].Value != null)
+                {
+                    Guid UnitId = Guid.Parse(rw.Cells["ExamsList"].Value.ToString());
+                    context.AbiturientSelectedExam.AddObject(new AbiturientSelectedExam()
+                    {
+                        ApplicationId = id,
+                        ExamInEntryBlockUnitId = UnitId,
+                    });
+                }
+                else if (!Shown)
+                {
+                    MessageBox.Show("Не указаны экзамены по выбору");
+                    Shown = true;
+                }
             }
             context.SaveChanges();
         }
