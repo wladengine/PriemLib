@@ -661,4 +661,211 @@ namespace PriemLib
             return new List<ListItem>();
         }
     }
+
+    public class FilterProvider_AG : AbstractFilterProvider<Common_Classes.PriemType1K>
+    {
+        protected override SortedList<string, string> GetOtherColumns(DBPriem _bdc, string _fac)
+        {
+            SortedList<string, string> list = new SortedList<string, string>();
+
+            //list.Add("Программы_для_ВО", "Программа для лиц с ВО");
+            //list.Add("Программы_сокр", "Сокращенная программа");
+            //list.Add("Программы_парал", "Параллельная программа");
+
+            //индивидуальные достижения
+            list.Add("ИНД_Аттестат", "ИНД_Аттестат");
+            list.Add("ИНД_Волонтёр", "ИНД_Волонтёр");
+            list.Add("ИНД_ПобРег", "ИНД_ПобРег");
+            list.Add("ИНД_ПризРег", "ИНД_ПризРег");
+            list.Add("ИНД_Конкурсы", "ИНД_Конкурсы");
+            list.Add("ИНД_Сочинение", "ИНД_Сочинение");
+
+            list.Add("Город_уч_заведения", "Город уч.заведения");
+            list.Add("Тип_уч_заведения", "Тип уч.заведения");
+            list.Add("Медалист", "Медалист");
+            list.Add("Номер_школы", "Номер школы");
+            //list.Add("Серия_атт", "Серия аттестата");
+            //list.Add("Номер_атт", "Номер аттестата");
+
+            //list.Add("Серия_диплома", "Серия диплома");
+            //list.Add("Номер_диплома", "Номер диплома");
+
+            //list.Add("Год_выпуска", "Год выпуска");
+
+            //list.Add("Средний_балл_атт", "Средний балл аттестата");
+            //list.Add("Статус_ФБС", "Статус ФБС");
+            //list.Add("Поданы_подлинники_ЕГЭ", "Поданы подлинники ЕГЭ");
+
+            //list.Add("Профиль", "Профиль");
+
+            //list.Add("Свидетельство_ЕГЭ_2012", "Свидетельство ЕГЭ 2012 года");
+            //list.Add("Свидетельство_ЕГЭ_2013", "Свидетельство ЕГЭ 2013 года");
+            //list.Add("Загружено_Свид-во_ЕГЭ_2012", "Загружено свид-во ЕГЭ 2012 года");
+            //list.Add("Загружено_Свид-во_ЕГЭ_2013", "Загружено свид-во ЕГЭ 2013 года");
+            //list.Add("Загружено_Свид-во_ЕГЭ_2014", "Загружено свид-во ЕГЭ 2014 года");
+            //list.Add("Загружено_Свид-во_ЕГЭ_2015", "Загружено свид-во ЕГЭ 2015 года");
+
+            //list.Add("ЕГЭ_англ.яз", "ЕГЭ англ.яз");
+            //list.Add("ЕГЭ_русск.язык", "ЕГЭ русск.язык");
+            //list.Add("ЕГЭ_математика", "ЕГЭ математика");
+            //list.Add("ЕГЭ_физика", "ЕГЭ физика");
+            //list.Add("ЕГЭ_химия", "ЕГЭ химия");
+            //list.Add("ЕГЭ_биология", "ЕГЭ биология");
+            //list.Add("ЕГЭ_история", "ЕГЭ история");
+            //list.Add("ЕГЭ_география", "ЕГЭ география");
+            //list.Add("ЕГЭ_немец.язык", "ЕГЭ немец.язык");
+            //list.Add("ЕГЭ_франц.язык", "ЕГЭ франц.язык");
+            //list.Add("ЕГЭ_обществознание", "ЕГЭ обществознание");
+            //list.Add("ЕГЭ_литература", "ЕГЭ литература");
+            //list.Add("ЕГЭ_испан.язык", "ЕГЭ испан.язык");
+            //list.Add("ЕГЭ_информатика", "ЕГЭ информатика");
+            //list.Add("ЕГЭ_Сочинение", "ЕГЭ (Сочинение)");
+
+            //list.Add("Аттестат_алгебра", "Aттестат Алгебра");
+            //list.Add("Аттестат_англ_язык", "Aттестат Англ. язык");
+            //list.Add("Аттестат_астрономия", "Aттестат Астрономия");
+            //list.Add("Аттестат_биология", "Aттестат Биология");
+            //list.Add("Аттестат_вселенная_чел", "Aттестат Вселенная человека");
+            //list.Add("Аттестат_вс_история", "Aттестат Всеобщая история");
+            //list.Add("Аттестат_география", "Aттестат География");
+            //list.Add("Аттестат_геометрия", "Aттестат Геометрия");
+            //list.Add("Аттестат_информатика", "Aттестат Информатика");
+            //list.Add("Аттестат_история_Спб", "Aттестат История и культура Санкт-Петербурга");
+            //list.Add("Аттестат_ист_России", "Aттестат История России");
+            //list.Add("Аттестат_литература", "Aттестат Литература");
+            //list.Add("Аттестат_мировая_худ_культура", "Aттестат Мировая художественная культура");
+            //list.Add("Аттестат_обществознание", "Aттестат Обществознание");
+            //list.Add("Аттестат_ОБЖ", "Aттестат ОБЖ");
+            //list.Add("Аттестат_русск_язык", "Aттестат Русский язык");
+            //list.Add("Аттестат_технология", "Aттестат Технология");
+            //list.Add("Аттестат_физика", "Aттестат Физика");
+            //list.Add("Аттестат_физ_культура", "Aттестат Физическая культура");
+            //list.Add("Аттестат_химия", "Aттестат Химия");
+            //list.Add("Аттестат_экология", "Aттестат Экология");
+            //list.Add("Аттестат_немецкий_язык", "Aттестат Немецкий язык");
+            //list.Add("Аттестат_испанский_язык", "Aттестат Испанский язык");
+            //list.Add("Аттестат_французский_язык", "Aттестат Французский язык");
+            //list.Add("Аттестат_итальянский_язык", "Aттестат Итальянский язык");
+
+            // олимпиады
+            //list.Add("Всероссийкая", "Всероссийкая олимпиада");
+            //list.Add("Международная", "Международная олимпиада");
+            //list.Add("Региональная", "Региональная олимпиада");
+            //list.Add("Межвузовская", "Межвузовская олимпиада");
+            //list.Add("СПбГУ", "СПбГУ олимпиада");
+            //list.Add("Школьников", "Олимпиада школьников");  
+
+            //list.Add("Степень_диплома", "Степень диплома");
+            //list.Add("Уровень_поступления", "Уровень_поступления");
+
+            return list;
+        }
+        protected override List<FilterItem> GetOtherFilterList(DBPriem _bdc)
+        {
+            List<FilterItem> lst = new List<FilterItem>();
+
+            lst.Add(new FilterItem("Количество поданных заявлений", FilterType.FromTo, 
+                @" 
+(SELECT Count(Id) FROM  ed.Abiturient 
+WHERE ed.Abiturient.BackDoc = 0 AND ed.Abiturient.PersonId = ed.extPerson.Id)", "ed.extPerson"));
+            lst.Add(new FilterItem("Экзамен по выбору", FilterType.Multi, @" ed.ExamInEntryBlockUnit.ExamId ", "ed.AbiturientSelectedExam", "SELECT Exam.Id, ExamName.Name FROM Exam join ed.ExamName on Exam.ExamNameId = ExamName.Id ORDER BY Name"));
+ 
+
+            //lst.Add(new FilterItem("Программы для лиц с ВО", FilterType.Bool, "ed.qAbiturient.IsSecond", "ed.qAbiturient"));
+            //lst.Add(new FilterItem("Сокращенные программы", FilterType.Bool, "ed.qAbiturient.IsReduced", "ed.qAbiturient"));
+            //lst.Add(new FilterItem("параллельные программы", FilterType.Bool, "ed.qAbiturient.IsParallel", "ed.qAbiturient"));
+
+            lst.Add(new FilterItem("Медалист", FilterType.Bool, "ed.extPerson_EducationInfo_Current.IsExcellent", "ed.extPerson_EducationInfo_Current"));
+            lst.Add(new FilterItem("Подан подлинник аттестата", FilterType.Bool, "ed.qAbiturient.HasOriginals", "ed.qAbiturient"));
+
+            //lst.Add(new FilterItem("Номер аттестата", FilterType.FromTo, "ed.extPerson_EducationInfo_Current.AttestatNum", "ed.extPerson_EducationInfo_Current"));
+            //lst.Add(new FilterItem("Серия аттестата", FilterType.FromTo, "ed.extPerson_EducationInfo_Current.AttestatSeries", "ed.extPerson_EducationInfo_Current"));
+            //lst.Add(new FilterItem("Средний балл аттестата", FilterType.FromTo, "ed.extPerson_EducationInfo_Current.SchoolAVG", "ed.extPerson_EducationInfo_Current"));
+            //lst.Add(new FilterItem("Введен средний балл аттестата", FilterType.Bool, "(NOT ed.extPerson_EducationInfo_Current.SchoolAVG IS NULL AND Len(ed.extPerson_EducationInfo_Current.SchoolAVG) > 0)", "ed.extPerson_EducationInfo_Current"));
+
+            lst.Add(new FilterItem("Город учебного заведения", FilterType.Text, "ed.extPerson_EducationInfo_Current.SchoolCity", "ed.extPerson_EducationInfo_Current"));
+            lst.Add(new FilterItem("Тип учебного заведения", FilterType.Multi, "ed.extPerson_EducationInfo_Current.SchoolTypeId", "ed.extPerson_EducationInfo_Current", "SELECT Id, Name FROM SchoolType ORDER BY Name"));
+            lst.Add(new FilterItem("Название учебного заведения", FilterType.Text, "ed.extPerson_EducationInfo_Current.SchoolName", "ed.extPerson_EducationInfo_Current"));
+            lst.Add(new FilterItem("Номер учебного заведения", FilterType.FromTo, "ed.extPerson_EducationInfo_Current.SchoolNum", "ed.extPerson_EducationInfo_Current"));
+            lst.Add(new FilterItem("Год окончания учебного заведения", FilterType.FromTo, "ed.extPerson_EducationInfo_Current.SchoolExitYear", "ed.extPerson_EducationInfo_Current"));
+
+            //lst.Add(new FilterItem("Уровень", FilterType.Multi, "ed.qAbiturient.StudyLevelId", "ed.qAbiturient", " SELECT DISTINCT Id, Name AS Name FROM ed.StudyLevel "));
+            //lst.Add(new FilterItem("Профиль", FilterType.Multi, "ed.qAbiturient.ProfileId", "ed.qAbiturient", " SELECT DISTINCT ed.qProfile.Id, ed.qProfile.Name AS Name FROM ed.qProfile "));
+
+            //lst.Add(new FilterItem("Статус ФБС", FilterType.Multi, "(SELECT FBSStatusId FROM ed.extFBSStatus WHERE ed.extFBSStatus.PersonId = ed.extPerson.Id)", "ed.extPerson", "SELECT Id, Name FROM ed.FBSStatus WHERE Id <> 3"));
+
+            //олимпиады
+            lst.Add(new FilterItem("Международная олимпиада", FilterType.Bool, " EXISTS (SELECT * FROM ed.Olympiads WHERE ed.Olympiads.AbiturientId = ed.qAbiturient.Id AND ed.Olympiads.OlympTypeId=1 ) ", "ed.qAbiturient"));
+            lst.Add(new FilterItem("Всероссийская олимпиада", FilterType.Bool, " EXISTS (SELECT * FROM ed.Olympiads WHERE ed.Olympiads.AbiturientId = ed.qAbiturient.Id AND ed.Olympiads.OlympTypeId=2 ) ", "ed.qAbiturient"));
+            lst.Add(new FilterItem("Олимпиада СПбГУ", FilterType.Bool, " EXISTS (SELECT * FROM ed.Olympiads WHERE ed.Olympiads.AbiturientId = ed.qAbiturient.Id AND ed.Olympiads.OlympTypeId=3 ) ", "ed.qAbiturient"));
+            lst.Add(new FilterItem("Другие олимпиады школьников", FilterType.Bool, " EXISTS (SELECT * FROM ed.Olympiads WHERE ed.Olympiads.AbiturientId = ed.qAbiturient.Id AND ed.Olympiads.OlympTypeId=4 ) ", "ed.qAbiturient"));
+
+            lst.Add(new FilterItem("Степень диплома олимпиады", FilterType.Multi, "(SELECT MAX(OlympValueId) FROM ed.Olympiads WHERE ed.Olympiads.AbiturientId = ed.qAbiturient.Id)", "ed.qAbiturient", " SELECT Id, Name FROM ed.OlympValue "));
+
+            //ЕГЭ
+            //lst.Add(new FilterItem("Номер свидетельства ЕГЭ 2011 года", FilterType.FromTo, " (SELECT Top(1) ed.EgeCertificate.Number FROM ed.EgeCertificate WHERE ed.EgeCertificate.PersonId = ed.extPerson.Id AND ed.EgeCertificate.Year = 2011)", "ed.extPerson"));
+            //lst.Add(new FilterItem("Номер свидетельства ЕГЭ 2012 года", FilterType.FromTo, " (SELECT Top(1) ed.EgeCertificate.Number FROM ed.EgeCertificate WHERE ed.EgeCertificate.PersonId = ed.extPerson.Id AND ed.EgeCertificate.Year = 2012)", "ed.extPerson"));
+            //lst.Add(new FilterItem("Номер свидетельства ЕГЭ 2013 года", FilterType.FromTo, " (SELECT Top(1) ed.EgeCertificate.Number FROM ed.EgeCertificate WHERE ed.EgeCertificate.PersonId = ed.extPerson.Id AND ed.EgeCertificate.Year = 2012)", "ed.extPerson"));
+            //lst.Add(new FilterItem("Загружено cвид-во ЕГЭ 2012 года", FilterType.Bool, "EXISTS (SELECT Top(1) ed.EgeCertificate.IsImported FROM ed.EgeCertificate WHERE ed.EgeCertificate.PersonId = ed.extPerson.Id AND Year=2012 AND IsImported > 0)", "ed.extPerson"));
+            //lst.Add(new FilterItem("Загружено cвид-во ЕГЭ 2013 года", FilterType.Bool, "EXISTS (SELECT Top(1) ed.EgeCertificate.IsImported FROM ed.EgeCertificate WHERE ed.EgeCertificate.PersonId = ed.extPerson.Id AND Year=2013 AND IsImported > 0)", "ed.extPerson"));
+            //lst.Add(new FilterItem("Загружено cвид-во ЕГЭ 2014 года", FilterType.Bool, "EXISTS (SELECT Top(1) ed.EgeCertificate.IsImported FROM ed.EgeCertificate WHERE ed.EgeCertificate.PersonId = ed.extPerson.Id AND Year=2014 AND IsImported > 0)", "ed.extPerson"));
+            //lst.Add(new FilterItem("Загружено cвид-во ЕГЭ 2015 года", FilterType.Bool, "EXISTS (SELECT Top(1) ed.EgeCertificate.IsImported FROM ed.EgeCertificate WHERE ed.EgeCertificate.PersonId = ed.extPerson.Id AND Year=2015 AND IsImported > 0)", "ed.extPerson"));
+            //lst.Add(new FilterItem("Сдавал ЕГЭ", FilterType.Bool, " EXISTS (SELECT ed.EgeCertificate.Number FROM ed.EgeCertificate WHERE ed.EgeCertificate.PersonId = ed.extPerson.Id)", "ed.extPerson"));
+
+            //lst.Add(new FilterItem("Есть свидетельство ЕГЭ 2012 года", FilterType.Bool, " EXISTS (SELECT ed.EgeCertificate.Number FROM ed.EgeCertificate WHERE ed.EgeCertificate.PersonId = ed.extPerson.Id AND ed.EgeCertificate.Year = 2012)", "ed.extPerson"));
+            //lst.Add(new FilterItem("Есть свидетельство ЕГЭ 2013 года", FilterType.Bool, " EXISTS (SELECT ed.EgeCertificate.Number FROM ed.EgeCertificate WHERE ed.EgeCertificate.PersonId = ed.extPerson.Id AND ed.EgeCertificate.Year = 2013)", "ed.extPerson"));
+            //lst.Add(new FilterItem("Есть свидетельство ЕГЭ 2014 года", FilterType.Bool, " EXISTS (SELECT ed.EgeCertificate.Number FROM ed.EgeCertificate WHERE ed.EgeCertificate.PersonId = ed.extPerson.Id AND ed.EgeCertificate.Year = 2014)", "ed.extPerson"));
+            //lst.Add(new FilterItem("Есть свидетельство ЕГЭ 2015 года", FilterType.Bool, " EXISTS (SELECT ed.EgeCertificate.Number FROM ed.EgeCertificate WHERE ed.EgeCertificate.PersonId = ed.extPerson.Id AND ed.EgeCertificate.Year = 2015)", "ed.extPerson"));
+
+            //инд достижения
+            lst.Add(new FilterItem("Инд.достижения: Аттестат с отличием", FilterType.Bool, " EXISTS (SELECT * FROM ed.PersonAchievement PA WHERE PA.PersonId = extPerson.Id AND PA.AchievementTypeId = 9)", "ed.extPerson"));
+            lst.Add(new FilterItem("Инд.достижения: Волонтёр", FilterType.Bool, " EXISTS (SELECT * FROM ed.PersonAchievement PA WHERE PA.PersonId = extPerson.Id AND PA.AchievementTypeId = 10)", "ed.extPerson"));
+            lst.Add(new FilterItem("Инд.достижения: Победитель рег. этапа Всеросс", FilterType.Bool, " EXISTS (SELECT * FROM ed.Olympiads OL WHERE OL.AbiturientId = qAbiturient.Id AND OL.OlympTypeId = 7 AND OL.OlympValueId = 6)", "ed.qAbiturient"));
+            lst.Add(new FilterItem("Инд.достижения: Призёр рег. этапа Всеросс", FilterType.Bool, " EXISTS (SELECT * FROM ed.Olympiads OL WHERE OL.AbiturientId = qAbiturient.Id AND OL.OlympTypeId = 7 AND OL.OlympValueId IN (5, 7))", "ed.qAbiturient"));
+            lst.Add(new FilterItem("Инд.достижения: Прочие конкурсы", FilterType.Bool, " EXISTS (SELECT * FROM ed.PersonAchievement PA WHERE PA.PersonId = extPerson.Id AND PA.AchievementTypeId = 11)", "ed.extPerson"));
+            lst.Add(new FilterItem("Инд.достижения: Сочинение (оценка \"зачёт\")", FilterType.Bool, " EXISTS (SELECT * FROM ed.PersonAchievement PA WHERE PA.PersonId = extPerson.Id AND PA.AchievementTypeId = 12)", "ed.extPerson"));
+
+            //lst.Add(new FilterItem("Апелляция", FilterType.Bool, " EXISTS (SELECT * FROM ed.EgeMark LEFT JOIN ed.EgeCertificate ON ed.EgeMark.EgeCertificateId = ed.EgeCertificate.Id WHERE ed.EgeMark.IsAppeal>0 AND ed.EgeCertificate.PersonId = ed.extPerson.Id) ", "ed.extPerson"));
+            //lst.Add(new FilterItem("Из олимпиад", FilterType.Bool, " EXISTS (SELECT * FROM ed.EgeMark LEFT JOIN ed.EgeCertificate ON ed.EgeMark.EgeCertificateId = ed.EgeCertificate.Id WHERE ed.EgeMark.IsFromOlymp>0 AND ed.EgeCertificate.PersonId = ed.extPerson.Id) ", "ed.extPerson"));
+            //lst.Add(new FilterItem("ЕГЭ Английский язык", FilterType.FromTo, " (SELECT Max(ed.EgeMark.Value) FROM (ed.EgeMark INNER JOIN ed.EgeCertificate ON ed.EgeMark.EgeCertificateId = ed.EgeCertificate.Id)INNER JOIN ed.EgeExamName ON ed.EgeMark.EgeExamNameId = ed.EgeExamName.Id WHERE ed.EgeExamName.NAme='Английский язык' AND ed.EgeCertificate.PersonId = ed.extPerson.Id)", "ed.extPerson"));
+            //lst.Add(new FilterItem("ЕГЭ Русский язык", FilterType.FromTo, " (SELECT Max(ed.EgeMark.Value) FROM (ed.EgeMark INNER JOIN ed.EgeCertificate ON ed.EgeMark.EgeCertificateId = ed.EgeCertificate.Id)INNER JOIN ed.EgeExamName ON ed.EgeMark.EgeExamNameId = ed.EgeExamName.Id WHERE ed.EgeExamName.NAme='Русский язык' AND ed.EgeCertificate.PersonId = ed.extPerson.Id)", "ed.extPerson"));
+            //lst.Add(new FilterItem("ЕГЭ Математика", FilterType.FromTo, " (SELECT Max(ed.EgeMark.Value) FROM (ed.EgeMark INNER JOIN ed.EgeCertificate ON ed.EgeMark.EgeCertificateId = ed.EgeCertificate.Id)INNER JOIN ed.EgeExamName ON ed.EgeMark.EgeExamNameId = ed.EgeExamName.Id WHERE ed.EgeExamName.NAme='Математика' AND ed.EgeCertificate.PersonId = ed.extPerson.Id)", "ed.extPerson"));
+            //lst.Add(new FilterItem("ЕГЭ Физика", FilterType.FromTo, " (SELECT Max(ed.EgeMark.Value) FROM (ed.EgeMark INNER JOIN ed.EgeCertificate ON ed.EgeMark.EgeCertificateId = ed.EgeCertificate.Id)INNER JOIN ed.EgeExamName ON ed.EgeMark.EgeExamNameId = ed.EgeExamName.Id WHERE ed.EgeExamName.NAme='Физика' AND ed.EgeCertificate.PersonId = ed.extPerson.Id)", "ed.extPerson"));
+            //lst.Add(new FilterItem("ЕГЭ Химия", FilterType.FromTo, " (SELECT Max(ed.EgeMark.Value) FROM (ed.EgeMark INNER JOIN ed.EgeCertificate ON ed.EgeMark.EgeCertificateId = ed.EgeCertificate.Id)INNER JOIN ed.EgeExamName ON ed.EgeMark.EgeExamNameId = ed.EgeExamName.Id WHERE ed.EgeExamName.NAme='Химия' AND ed.EgeCertificate.PersonId = ed.extPerson.Id)", "ed.extPerson"));
+            //lst.Add(new FilterItem("ЕГЭ Биология", FilterType.FromTo, " (SELECT Max(ed.EgeMark.Value) FROM (ed.EgeMark INNER JOIN ed.EgeCertificate ON ed.EgeMark.EgeCertificateId = ed.EgeCertificate.Id)INNER JOIN ed.EgeExamName ON ed.EgeMark.EgeExamNameId = ed.EgeExamName.Id WHERE ed.EgeExamName.NAme='Биология' AND ed.EgeCertificate.PersonId = ed.extPerson.Id)", "ed.extPerson"));
+            //lst.Add(new FilterItem("ЕГЭ История", FilterType.FromTo, " (SELECT Max(ed.EgeMark.Value) FROM (ed.EgeMark INNER JOIN ed.EgeCertificate ON ed.EgeMark.EgeCertificateId = ed.EgeCertificate.Id)INNER JOIN ed.EgeExamName ON ed.EgeMark.EgeExamNameId = ed.EgeExamName.Id WHERE ed.EgeExamName.NAme='История' AND ed.EgeCertificate.PersonId = ed.extPerson.Id)", "ed.extPerson"));
+            //lst.Add(new FilterItem("ЕГЭ География", FilterType.FromTo, " (SELECT Max(ed.EgeMark.Value) FROM (ed.EgeMark INNER JOIN ed.EgeCertificate ON ed.EgeMark.EgeCertificateId = ed.EgeCertificate.Id)INNER JOIN ed.EgeExamName ON ed.EgeMark.EgeExamNameId = ed.EgeExamName.Id WHERE ed.EgeExamName.NAme='География' AND ed.EgeCertificate.PersonId = ed.extPerson.Id)", "ed.extPerson"));
+            //lst.Add(new FilterItem("ЕГЭ Немецкий язык", FilterType.FromTo, " (SELECT Max(ed.EgeMark.Value) FROM (ed.EgeMark INNER JOIN ed.EgeCertificate ON ed.EgeMark.EgeCertificateId = ed.EgeCertificate.Id)INNER JOIN ed.EgeExamName ON ed.EgeMark.EgeExamNameId = ed.EgeExamName.Id WHERE ed.EgeExamName.NAme='Немецкий язык' AND ed.EgeCertificate.PersonId = ed.extPerson.Id)", "ed.extPerson"));
+            //lst.Add(new FilterItem("ЕГЭ Французский язык", FilterType.FromTo, " (SELECT Max(ed.EgeMark.Value) FROM (ed.EgeMark INNER JOIN ed.EgeCertificate ON ed.EgeMark.EgeCertificateId = ed.EgeCertificate.Id)INNER JOIN ed.EgeExamName ON ed.EgeMark.EgeExamNameId = ed.EgeExamName.Id WHERE ed.EgeExamName.NAme='Французский язык' AND ed.EgeCertificate.PersonId = ed.extPerson.Id)", "ed.extPerson"));
+            //lst.Add(new FilterItem("ЕГЭ Обществознание", FilterType.FromTo, " (SELECT Max(ed.EgeMark.Value) FROM (ed.EgeMark INNER JOIN ed.EgeCertificate ON ed.EgeMark.EgeCertificateId = ed.EgeCertificate.Id)INNER JOIN ed.EgeExamName ON ed.EgeMark.EgeExamNameId = ed.EgeExamName.Id WHERE ed.EgeExamName.NAme='Обществознание' AND ed.EgeCertificate.PersonId = ed.extPerson.Id)", "ed.extPerson"));
+            //lst.Add(new FilterItem("ЕГЭ Литература", FilterType.FromTo, " (SELECT Max(ed.EgeMark.Value) FROM (ed.EgeMark INNER JOIN ed.EgeCertificate ON ed.EgeMark.EgeCertificateId = ed.EgeCertificate.Id)INNER JOIN ed.EgeExamName ON ed.EgeMark.EgeExamNameId = ed.EgeExamName.Id WHERE ed.EgeExamName.NAme='Литература' AND ed.EgeCertificate.PersonId = ed.extPerson.Id)", "ed.extPerson"));
+            //lst.Add(new FilterItem("ЕГЭ Испанский язык", FilterType.FromTo, " (SELECT Max(ed.EgeMark.Value) FROM (ed.EgeMark INNER JOIN ed.EgeCertificate ON ed.EgeMark.EgeCertificateId = ed.EgeCertificate.Id)INNER JOIN ed.EgeExamName ON ed.EgeMark.EgeExamNameId = ed.EgeExamName.Id WHERE ed.EgeExamName.NAme='Испанский язык' AND ed.EgeCertificate.PersonId = ed.extPerson.Id)", "ed.extPerson"));
+            //lst.Add(new FilterItem("ЕГЭ Информатика и ИКТ", FilterType.FromTo, " (SELECT Max(ed.EgeMark.Value) FROM (ed.EgeMark INNER JOIN ed.EgeCertificate ON ed.EgeMark.EgeCertificateId = ed.EgeCertificate.Id)INNER JOIN ed.EgeExamName ON ed.EgeMark.EgeExamNameId = ed.EgeExamName.Id WHERE ed.EgeExamName.NAme='Информатика и ИКТ' AND ed.EgeCertificate.PersonId = ed.extPerson.Id)", "ed.extPerson"));
+
+            //lst.Add(new FilterItem("Сдавал ЕГЭ Английский язык", FilterType.Bool, " EXISTS (SELECT * FROM (ed.EgeMark INNER JOIN ed.EgeCertificate ON ed.EgeMark.EgeCertificateId = ed.EgeCertificate.Id)INNER JOIN ed.EgeExamName ON ed.EgeMark.EgeExamNameId = ed.EgeExamName.Id WHERE ed.EgeExamName.NAme='Английский язык' AND ed.EgeCertificate.PersonId = ed.extPerson.Id)", "ed.extPerson"));
+            //lst.Add(new FilterItem("Сдавал ЕГЭ Русский язык", FilterType.Bool, " EXISTS (SELECT * FROM (ed.EgeMark INNER JOIN ed.EgeCertificate ON ed.EgeMark.EgeCertificateId = ed.EgeCertificate.Id)INNER JOIN ed.EgeExamName ON ed.EgeMark.EgeExamNameId = ed.EgeExamName.Id WHERE ed.EgeExamName.NAme='Русский язык' AND ed.EgeCertificate.PersonId = ed.extPerson.Id)", "ed.extPerson"));
+            //lst.Add(new FilterItem("Сдавал ЕГЭ Математика", FilterType.Bool, " EXISTS (SELECT * FROM (ed.EgeMark INNER JOIN ed.EgeCertificate ON ed.EgeMark.EgeCertificateId = ed.EgeCertificate.Id)INNER JOIN ed.EgeExamName ON ed.EgeMark.EgeExamNameId = ed.EgeExamName.Id WHERE ed.EgeExamName.NAme='Математика' AND ed.EgeCertificate.PersonId = ed.extPerson.Id)", "ed.extPerson"));
+            //lst.Add(new FilterItem("Сдавал ЕГЭ Физика", FilterType.Bool, " EXISTS (SELECT * FROM (ed.EgeMark INNER JOIN ed.EgeCertificate ON ed.EgeMark.EgeCertificateId = ed.EgeCertificate.Id)INNER JOIN ed.EgeExamName ON ed.EgeMark.EgeExamNameId = ed.EgeExamName.Id WHERE ed.EgeExamName.NAme='Физика' AND ed.EgeCertificate.PersonId = ed.extPerson.Id)", "ed.extPerson"));
+            //lst.Add(new FilterItem("Сдавал ЕГЭ Химия", FilterType.Bool, " EXISTS (SELECT * FROM (ed.EgeMark INNER JOIN ed.EgeCertificate ON ed.EgeMark.EgeCertificateId = ed.EgeCertificate.Id)INNER JOIN ed.EgeExamName ON ed.EgeMark.EgeExamNameId = ed.EgeExamName.Id WHERE ed.EgeExamName.NAme='Химия' AND ed.EgeCertificate.PersonId = ed.extPerson.Id)", "ed.extPerson"));
+            //lst.Add(new FilterItem("Сдавал ЕГЭ Биология", FilterType.Bool, " EXISTS (SELECT * FROM (ed.EgeMark INNER JOIN ed.EgeCertificate ON ed.EgeMark.EgeCertificateId = ed.EgeCertificate.Id)INNER JOIN ed.EgeExamName ON ed.EgeMark.EgeExamNameId = ed.EgeExamName.Id WHERE ed.EgeExamName.NAme='Биология' AND ed.EgeCertificate.PersonId = ed.extPerson.Id)", "ed.extPerson"));
+            //lst.Add(new FilterItem("Сдавал ЕГЭ История", FilterType.Bool, " EXISTS (SELECT * FROM (ed.EgeMark INNER JOIN ed.EgeCertificate ON ed.EgeMark.EgeCertificateId = ed.EgeCertificate.Id)INNER JOIN ed.EgeExamName ON ed.EgeMark.EgeExamNameId = ed.EgeExamName.Id WHERE ed.EgeExamName.NAme='История' AND ed.EgeCertificate.PersonId = ed.extPerson.Id)", "ed.extPerson"));
+            //lst.Add(new FilterItem("Сдавал ЕГЭ География", FilterType.Bool, " EXISTS (SELECT * FROM (ed.EgeMark INNER JOIN ed.EgeCertificate ON ed.EgeMark.EgeCertificateId = ed.EgeCertificate.Id)INNER JOIN ed.EgeExamName ON ed.EgeMark.EgeExamNameId = ed.EgeExamName.Id WHERE ed.EgeExamName.NAme='География' AND ed.EgeCertificate.PersonId = ed.extPerson.Id)", "ed.extPerson"));
+            //lst.Add(new FilterItem("Сдавал ЕГЭ Немецкий язык", FilterType.Bool, " EXISTS (SELECT * FROM (ed.EgeMark INNER JOIN ed.EgeCertificate ON ed.EgeMark.EgeCertificateId = ed.EgeCertificate.Id)INNER JOIN ed.EgeExamName ON ed.EgeMark.EgeExamNameId = ed.EgeExamName.Id WHERE ed.EgeExamName.NAme='Немецкий язык' AND ed.EgeCertificate.PersonId = ed.extPerson.Id)", "ed.extPerson"));
+            //lst.Add(new FilterItem("Сдавал ЕГЭ Французский язык", FilterType.Bool, " EXISTS (SELECT * FROM (ed.EgeMark INNER JOIN ed.EgeCertificate ON ed.EgeMark.EgeCertificateId = ed.EgeCertificate.Id)INNER JOIN ed.EgeExamName ON ed.EgeMark.EgeExamNameId = ed.EgeExamName.Id WHERE ed.EgeExamName.NAme='Французский язык' AND ed.EgeCertificate.PersonId = ed.extPerson.Id)", "ed.extPerson"));
+            //lst.Add(new FilterItem("Сдавал ЕГЭ Обществознание", FilterType.Bool, " EXISTS (SELECT * FROM (ed.EgeMark INNER JOIN ed.EgeCertificate ON ed.EgeMark.EgeCertificateId = ed.EgeCertificate.Id)INNER JOIN ed.EgeExamName ON ed.EgeMark.EgeExamNameId = ed.EgeExamName.Id WHERE ed.EgeExamName.NAme='Обществознание' AND ed.EgeCertificate.PersonId = ed.extPerson.Id)", "ed.extPerson"));
+            //lst.Add(new FilterItem("Сдавал ЕГЭ Литература", FilterType.Bool, " EXISTS (SELECT * FROM (ed.EgeMark INNER JOIN ed.EgeCertificate ON ed.EgeMark.EgeCertificateId = ed.EgeCertificate.Id)INNER JOIN ed.EgeExamName ON ed.EgeMark.EgeExamNameId = ed.EgeExamName.Id WHERE ed.EgeExamName.NAme='Литература' AND ed.EgeCertificate.PersonId = ed.extPerson.Id)", "ed.extPerson"));
+            //lst.Add(new FilterItem("Сдавал ЕГЭ Испанский язык", FilterType.Bool, " EXISTS (SELECT * FROM (ed.EgeMark INNER JOIN ed.EgeCertificate ON ed.EgeMark.EgeCertificateId = ed.EgeCertificate.Id)INNER JOIN ed.EgeExamName ON ed.EgeMark.EgeExamNameId = ed.EgeExamName.Id WHERE ed.EgeExamName.NAme='Испанский язык' AND ed.EgeCertificate.PersonId = ed.extPerson.Id)", "ed.extPerson"));
+            //lst.Add(new FilterItem("Сдавал ЕГЭ Информатика и ИКТ", FilterType.Bool, " EXISTS (SELECT * FROM (ed.EgeMark INNER JOIN ed.EgeCertificate ON ed.EgeMark.EgeCertificateId = ed.EgeCertificate.Id)INNER JOIN ed.EgeExamName ON ed.EgeMark.EgeExamNameId = ed.EgeExamName.Id WHERE ed.EgeExamName.NAme='Информатика и ИКТ' AND ed.EgeCertificate.PersonId = ed.extPerson.Id)", "ed.extPerson"));
+            //lst.Add(new FilterItem("Сдавал Сочинение", FilterType.Bool, " EXISTS (SELECT * FROM (ed.EgeMark INNER JOIN ed.EgeCertificate ON ed.EgeMark.EgeCertificateId = ed.EgeCertificate.Id) INNER JOIN ed.EgeExamName ON ed.EgeMark.EgeExamNameId = ed.EgeExamName.Id WHERE ed.EgeExamName.Id = 15 AND ed.EgeCertificate.PersonId = ed.extPerson.Id)", "ed.extPerson"));
+
+            //lst.Add(new FilterItem("Сдавал ЕГЭ в СПбГУ", FilterType.Bool, " EXISTS (SELECT * FROM ed.qMark INNER JOIN ed.extExamInEntry ON qMark.ExamInEntryBlockUnitId = ed.extExamInEntry.Id WHERE ed.qMark.IsFromEge = 0 AND ed.qMark.IsFromOlymp = 0 AND ed.extExamInEntry.IsAdditional = 0 AND ed.qMark.AbiturientId = ed.qAbiturient.Id)", "ed.qAbiturient"));
+
+            return lst;
+        }
+        protected override List<ListItem> GetOtherGroups(DBPriem _bdc)
+        {
+            return new List<ListItem>();
+        }
+    }
+
 }

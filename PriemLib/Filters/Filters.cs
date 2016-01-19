@@ -37,6 +37,7 @@ namespace PriemLib
                 case PriemType.PriemMag: { p = new FilterProvider_Mag(); break; }
                 case PriemType.PriemSPO: { p = new FilterProvider_SPO(); break; }
                 case PriemType.PriemAspirant: { p = new FilterProvider_Asp(); break; }
+                case PriemType.PriemAG: { p = new FilterProvider_AG(); break; }
                 default: { p = new FilterProvider_1K(); break; }
             }
 

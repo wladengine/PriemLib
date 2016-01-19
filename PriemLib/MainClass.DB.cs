@@ -245,7 +245,7 @@ namespace PriemLib
                 qBuilder.AddQueryItem(new QueryItem("ed.extPerson_EducationInfo_Current", "ed.extPerson_EducationInfo_Current.DiplomNum", "Номер_диплома"));
                 qBuilder.AddQueryItem(new QueryItem("ed.extPerson_EducationInfo_Current", "ed.extPerson_EducationInfo_Current.HEQualification", "Квалификация"));
                 qBuilder.AddQueryItem(new QueryItem("ed.extPerson_EducationInfo_Current", "ed.extPerson_EducationInfo_Current.HighEducation", "Место_предыдущего_образования"));
-                
+
                 if (MainClass.dbType == PriemType.PriemMag || MainClass.dbType == PriemType.PriemAspirant)
                 {
                     qBuilder.AddQueryItem(new QueryItem("ed.extPerson_EducationInfo_Current", "ed.extPerson_EducationInfo_Current.HighEducation", "Название_уч_заведения"));
@@ -267,8 +267,8 @@ namespace PriemLib
                 qBuilder.AddQueryItem(new QueryItem("ed.Language", "ed.Language.Name", "Ин_язык"));
                 qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "ed.extPerson.StartEnglish", "Англ_с_нуля"));
                 qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "ed.extPerson.EnglishMark", "Англ_оценка"));
-                
-                //Abiturient Info
+
+                //Abiturient Info 
                 qBuilder.AddQueryItem(new QueryItem("ed.SP_Faculty", "ed.SP_Faculty.Name", "Факультет"));
                 qBuilder.AddQueryItem(new QueryItem("ed.SP_LicenseProgram", "ed.SP_LicenseProgram.Name", "Направление"));
                 qBuilder.AddQueryItem(new QueryItem("ed.SP_LicenseProgram", "ed.SP_LicenseProgram.Code", "Код_направления"));
@@ -301,7 +301,7 @@ namespace PriemLib
                 qBuilder.AddQueryItem(new QueryItem("ed.extAbit", "ed.extAbit.InnerEntryInEntryProfileName", "Профиль_зачисления"));
 
                 qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", "(select MAX(ed.extOlympiads.OlympValueName) AS Value FROM ed.extOlympiads WHERE extOlympiads.AbiturientId = ed.qAbiturient.Id)", "Степень_диплома"));
-                
+
                 // ЕГЭ
                 qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select Top(1) ed.EgeCertificate.Number as Number FROM ed.EgeCertificate WHERE ed.EgeCertificate.PersonId = ed.extPerson.Id AND Year=2012 )", "Свидетельство_ЕГЭ_2012"));
                 qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select Top(1) ed.EgeCertificate.Number as Number FROM ed.EgeCertificate WHERE ed.EgeCertificate.PersonId = ed.extPerson.Id AND Year=2013 )", "Свидетельство_ЕГЭ_2013"));
@@ -453,6 +453,8 @@ namespace PriemLib
                 qBuilder.AddTableJoint("ed.extEnableProtocol", " LEFT JOIN ed.extEnableProtocol ON ed.extEnableProtocol.AbiturientId = ed.qAbiturient.Id ");
                 qBuilder.AddTableJoint("ed.extEntryView", " LEFT JOIN ed.extEntryView ON ed.extEntryView.AbiturientId = ed.qAbiturient.Id ");
                 qBuilder.AddTableJoint("ed.extAbitMarksSum", " LEFT JOIN ed.extAbitMarksSum ON ed.extAbitMarksSum.Id = ed.qAbiturient.Id ");
+                qBuilder.AddTableJoint("ed.AbiturientSelectedExam", " LEFT JOIN ed.AbiturientSelectedExam ON ed.AbiturientSelectedExam.ApplicationId = ed.qAbiturient.Id LEFT JOIN ed.ExamInEntryBlockUnit on ExamInEntryBlockUnit.Id = ExamInEntryBlockUnitId LEFT JOIN ed.Exam on Exam.Id = ExamInEntryBlockUnit.ExamId ");
+
             }
             catch (Exception ex)
             {
