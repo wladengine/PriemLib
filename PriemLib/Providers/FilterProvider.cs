@@ -758,13 +758,13 @@ namespace PriemLib
             //list.Add("Степень_диплома", "Степень диплома");
             //list.Add("Уровень_поступления", "Уровень_поступления");
 
-            DataTable tbl = _bdc.GetDataSet(@"
+            DataTable tbl = _bdc.GetDataSet(string.Format(@"
 with t as (
 SELECT distinct block.id
   FROM ed.ExamInEntryBlock block
   join ed.ExamInEntryBlockUnit unit on block.Id = unit.ExamInEntryBlockId
   join ed.extEntry on block.EntryId = extEntry.Id
-  where extEntry.StudyLevelGroupId in (6,7)
+  where extEntry.StudyLevelGroupId in ({0})
  Group by block.Id
  Having COUNT(unit.Id) > 1 
  )  
@@ -772,7 +772,7 @@ SELECT distinct block.id
  from t
   join ed.ExamInEntryBlockUnit unit on t.Id = unit.ExamInEntryBlockId
   join ed.Exam on Exam.Id = unit.ExamId
-  join ed.ExamName on ExamName.Id = Exam.ExamNameId ").Tables[0];
+  join ed.ExamName on ExamName.Id = Exam.ExamNameId ", Util.BuildStringWithCollection(MainClass.lstStudyLevelGroupId))).Tables[0];
 
             foreach (DataRow rw in tbl.Rows)
             {
@@ -789,9 +789,8 @@ SELECT distinct block.id
                 @" 
 (SELECT Count(Id) FROM  ed.Abiturient 
 WHERE ed.Abiturient.BackDoc = 0 AND ed.Abiturient.PersonId = ed.extPerson.Id)", "ed.extPerson"));
-            lst.Add(new FilterItem("Экзамен по выбору", FilterType.Multi, @" ed.ExamInEntryBlockUnit.ExamId ", "ed.AbiturientSelectedExam", "SELECT Exam.Id, ExamName.Name FROM Exam join ed.ExamName on Exam.ExamNameId = ExamName.Id ORDER BY Name"));
+            lst.Add(new FilterItem("Экзамен по выбору", FilterType.Multi, @" ed.ExamInEntryBlockUnit.ExamId ", "ed.AbiturientSelectedExam", "SELECT Exam.Id, ExamName.Name FROM ed.Exam join ed.ExamName on Exam.ExamNameId = ExamName.Id ORDER BY Name"));
  
-
             //lst.Add(new FilterItem("Программы для лиц с ВО", FilterType.Bool, "ed.qAbiturient.IsSecond", "ed.qAbiturient"));
             //lst.Add(new FilterItem("Сокращенные программы", FilterType.Bool, "ed.qAbiturient.IsReduced", "ed.qAbiturient"));
             //lst.Add(new FilterItem("параллельные программы", FilterType.Bool, "ed.qAbiturient.IsParallel", "ed.qAbiturient"));

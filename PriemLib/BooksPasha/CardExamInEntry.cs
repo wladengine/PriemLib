@@ -31,9 +31,9 @@ namespace PriemLib
             get { return ComboServ.GetComboIdInt(cbExam); }
             set { ComboServ.SetComboId(cbExam, value); }
         }
-        protected int? ParentExamInEntryId
+        protected Guid? ParentExamInEntryId
         {
-            get { return ComboServ.GetComboIdInt(cbParentExamInEntry); }
+            get { return ComboServ.GetComboIdGuid(cbParentExamInEntry); }
             set { ComboServ.SetComboId(cbParentExamInEntry, value); }
         }
         protected bool IsProfil
