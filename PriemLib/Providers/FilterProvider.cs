@@ -758,6 +758,27 @@ namespace PriemLib
             //list.Add("Степень_диплома", "Степень диплома");
             //list.Add("Уровень_поступления", "Уровень_поступления");
 
+            DataTable tbl = _bdc.GetDataSet(@"
+with t as (
+SELECT distinct block.id
+  FROM ed.ExamInEntryBlock block
+  join ed.ExamInEntryBlockUnit unit on block.Id = unit.ExamInEntryBlockId
+  join ed.extEntry on block.EntryId = extEntry.Id
+  where extEntry.StudyLevelGroupId in (6,7)
+ Group by block.Id
+ Having COUNT(unit.Id) > 1 
+ )  
+ select distinct Exam.Id, ExamName.Name
+ from t
+  join ed.ExamInEntryBlockUnit unit on t.Id = unit.ExamInEntryBlockId
+  join ed.Exam on Exam.Id = unit.ExamId
+  join ed.ExamName on ExamName.Id = Exam.ExamNameId ").Tables[0];
+
+            foreach (DataRow rw in tbl.Rows)
+            {
+                list.Add("Экзамен_по_выбору_" + rw.Field<string>("Name").Replace(" ", "_"), "Экзамен по выбору - " +rw.Field<string>("Name"));
+            }
+            
             return list;
         }
         protected override List<FilterItem> GetOtherFilterList(DBPriem _bdc)

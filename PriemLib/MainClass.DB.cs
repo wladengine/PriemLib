@@ -416,6 +416,29 @@ namespace PriemLib
                 qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select Min (ed.AttMarks.value) as mark FROM ed.AttMarks WHERE ed.AttMarks.PersonId = ed.extPerson.Id AND AttSubjectId=	24)", "Аттестат_французский_язык"));
                 qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select Min (ed.AttMarks.value) as mark FROM ed.AttMarks WHERE ed.AttMarks.PersonId = ed.extPerson.Id AND AttSubjectId=	25)", "Аттестат_итальянский_язык"));
 
+                // Экзамены по выбору
+                DataTable tbl = _bdc.GetDataSet(@"
+with t as (
+SELECT distinct block.id
+  FROM ed.ExamInEntryBlock block
+  join ed.ExamInEntryBlockUnit unit on block.Id = unit.ExamInEntryBlockId
+ Group by block.Id
+ Having COUNT(unit.Id) > 1 
+ )  
+ select distinct Exam.Id, ExamName.Name
+ from t
+  join ed.ExamInEntryBlockUnit unit on t.Id = unit.ExamInEntryBlockId
+  join ed.Exam on Exam.Id = unit.ExamId
+  join ed.ExamName on ExamName.Id = Exam.ExamNameId").Tables[0];
+                foreach (DataRow rw in tbl.Rows)
+                {
+                    qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", @"case when EXISTS (SELECT * 
+FROM ed.AbiturientSelectedExam join ed.ExamInEntryBlockUnit unit on AbiturientSelectedExam.ExamInEntryBlockUnitId = unit.Id
+WHERE ed.AbiturientSelectedExam.ApplicationId = qAbiturient.Id AND unit.ExamId = " +rw.Field<int>("Id")+" ) then 'Да' else 'Нет' end", "Экзамен_по_выбору_"+rw.Field<string>("Name").Replace(" ","_")));
+
+                }
+
+
                 //JOIN-ы
                 qBuilder.AddTableJoint("ed.Person", " LEFT JOIN ed.Person ON ed.qAbiturient.PersonId = ed.Person.Id ");
                 qBuilder.AddTableJoint("ed.extPerson_EducationInfo_Current", " LEFT JOIN ed.extPerson_EducationInfo_Current ON ed.extPerson_EducationInfo_Current.PersonId = ed.qAbiturient.PersonId ");
