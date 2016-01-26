@@ -323,5 +323,8 @@ namespace PriemLib
             get { return ComboServ.GetComboIdGuid(cbInnerEntryInEntry); }
             set { ComboServ.SetComboId(cbInnerEntryInEntry, value); }
         }
+
+        public bool HasManualExams { get; set; }
+        public List<ExamenBlock> lstExamInEntryBlock { get; set; }
     }
 }

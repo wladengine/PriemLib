@@ -1292,6 +1292,7 @@
             this.dgvAppExams.Name = "dgvAppExams";
             this.dgvAppExams.Size = new System.Drawing.Size(605, 190);
             this.dgvAppExams.TabIndex = 127;
+            this.dgvAppExams.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAppExams_CellValueChanged);
             // 
             // lblFIO
             // 

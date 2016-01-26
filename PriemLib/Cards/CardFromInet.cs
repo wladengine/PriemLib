@@ -585,7 +585,7 @@ namespace PriemLib
                     x.StudyFormName,
                     x.StudyBasisName,
                     HasCompetition = x.HasCompetition || x.IsApprovedByComission,
-                    comp = x.lstInnerEntryInEntry.Count > 0 ? "есть приоритеты" : ""
+                    comp = (x.lstInnerEntryInEntry.Count > 0 ? "есть приоритеты; " : "") + (x.lstExamInEntryBlock.Where(b=>b.SelectedUnitId == Guid.Empty).Count()>0 ? "не указаны экзамены по выбору":"")
                 }).ToList();
 
             dgvApplications.Columns["Id"].Visible = false;

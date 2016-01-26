@@ -1186,8 +1186,11 @@ namespace PriemLib
                 {
                     var block = (from b in context.ExamInEntryBlock
                                  join u in context.ExamInEntryBlockUnit on b.Id equals u.ExamInEntryBlockId
+                                 join ex in context.Exam on u.ExamId equals ex.Id
+                                 join exname in context.ExamName on ex.ExamNameId equals exname.Id
                                  where b.EntryId == EntryId
-                                 select new { b.Id, b.Name, unitId = u.Id }).ToList();
+                                 select new { b.Id, b.Name, unitId = u.Id , unitname = exname.Name,}).ToList();
+
                     var _block = (from b in block
                                    group b by b.Id into ex
                                    where ex.Count() > 1
@@ -1197,17 +1200,20 @@ namespace PriemLib
                                       Name = ex.Select(x => x.Name).FirstOrDefault(),
                                   }).ToList();
 
-                    if (_block.Count == 0)
+                    lstExamInEntryBlock = new List<ExamenBlock>();
+                    HasManualExams = _block.Count != 0;
+
+                    if (!HasManualExams)
                     {
                         if (tabCard.TabPages.Contains(tpExamBlock))
                             tabCard.TabPages.Remove(tpExamBlock);
+                        return;
                     }
-                    else
-                    {
-                        if (!tabCard.TabPages.Contains(tpExamBlock))
+
+                    if (!tabCard.TabPages.Contains(tpExamBlock))
                             tabCard.TabPages.Add(tpExamBlock);
-                    }
                     
+
                     dgvAppExams.Columns.Add("Id", "Id");
                     dgvAppExams.Columns["Id"].Visible = false;
                     dgvAppExams.Columns["Id"].CellTemplate = new DataGridViewTextBoxCell();
@@ -1228,19 +1234,26 @@ namespace PriemLib
 
                     foreach (var b in _block)
                     {
-                        var units = (from u in context.ExamInEntryBlockUnit
-                                     join e in context.Exam on u.ExamId equals e.Id
-                                     join en in context.ExamName on e.ExamNameId equals en.Id
-                                     where u.ExamInEntryBlockId == b.Id
-                                     select new
-                                     {u.Id, en.Name}).ToList();
-                        var AbitExams = (from abit in context.AbiturientSelectedExam
+                        var lst = (from bl in block
+                                   where bl.Id == b.Id
+                                   select new KeyValuePair<Guid, string>(bl.unitId, bl.unitname)).ToList();
+
+                        Guid SelectedUnitId = (from abit in context.AbiturientSelectedExam
                                          join u in context.ExamInEntryBlockUnit on abit.ExamInEntryBlockUnitId equals u.Id
                                          where abit.ApplicationId == GuidId && u.ExamInEntryBlockId == b.Id
                                          select abit.ExamInEntryBlockUnitId
-                                            ).ToList();
-                         
-                        var lst = units.Select(x => new KeyValuePair<Guid, string>(x.Id, x.Name)).ToList();
+                                            ).FirstOrDefault();
+
+                        lstExamInEntryBlock.Add(new ExamenBlock()
+                        {
+                            BlockId = b.Id,
+                            BlockName = b.Name,
+                            UnitList = lst,
+                            SelectedUnitId = SelectedUnitId,
+                        });
+
+                        dgvAppExams.CellValueChanged -= dgvAppExams_CellValueChanged;
+
                         DataGridViewRow row = new DataGridViewRow();
                         row.CreateCells(dgvAppExams);
                         int icol = dgvAppExams.Columns.IndexOf(dgvAppExams.Columns["Id"]);
@@ -1251,9 +1264,12 @@ namespace PriemLib
                         
                         DataGridViewComboBoxCell comboCell = row.Cells[icol] as DataGridViewComboBoxCell;
                         comboCell.DataSource = lst;
-                        if (AbitExams.Count>0)
-                            row.Cells[icol].Value = AbitExams.First();
+                        if (SelectedUnitId != Guid.Empty)
+                            row.Cells[icol].Value = SelectedUnitId;
+
                         dgvAppExams.Rows.Add(row);
+                        dgvAppExams.CellValueChanged += dgvAppExams_CellValueChanged;
+
                     }
                 }
             }
@@ -1559,6 +1575,16 @@ namespace PriemLib
                             return false;
                         }
                     }
+
+                    foreach (var x in lstExamInEntryBlock)
+                    {
+                        if (x.SelectedUnitId == Guid.Empty)
+                        {
+                            MessageBox.Show("Не указан(ы) экзамены по выбору", "", MessageBoxButtons.OK);
+                            break;
+                        }
+                    }
+
                     return true;
                 }
             }
@@ -1696,23 +1722,18 @@ namespace PriemLib
 
             foreach (var x in lst)
                 context.AbiturientSelectedExam.DeleteObject(x);
-            bool Shown = false;
-            foreach (DataGridViewRow rw in dgvAppExams.Rows)
+
+            foreach (var x in lstExamInEntryBlock)
             {
-                if (rw.Cells["ExamsList"].Value != null)
+                if (x.SelectedUnitId != Guid.Empty)
                 {
-                    Guid UnitId = Guid.Parse(rw.Cells["ExamsList"].Value.ToString());
                     context.AbiturientSelectedExam.AddObject(new AbiturientSelectedExam()
                     {
                         ApplicationId = id,
-                        ExamInEntryBlockUnitId = UnitId,
+                        ExamInEntryBlockUnitId = x.SelectedUnitId,
                     });
                 }
-                else if (!Shown)
-                {
-                    MessageBox.Show("Не указаны экзамены по выбору");
-                    Shown = true;
-                }
+                
             }
             context.SaveChanges();
         }
@@ -2282,6 +2303,18 @@ namespace PriemLib
             var crd = new CardChangeOriginalsPlace(GuidId.Value);
             crd.OnUpdated += FillCard;
             crd.Show();
+        }
+
+        private void dgvAppExams_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dgvAppExams.CurrentCell == null)
+                return;
+
+            Guid BlockId = Guid.Parse(dgvAppExams.CurrentRow.Cells["Id"].Value.ToString());
+            Guid ExamsList = Guid.Parse(dgvAppExams.CurrentRow.Cells["ExamsList"].Value.ToString());
+
+            var bl = lstExamInEntryBlock.Where(x => x.BlockId == BlockId).First();
+            bl.SelectedUnitId = ExamsList;
         }
     }
 }

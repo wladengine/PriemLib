@@ -315,6 +315,16 @@ namespace PriemLib
             BackgroundWorker _bw = sender as BackgroundWorker;
 
             _orderBy = " ORDER BY [Приложены файлы], [Дата обновления файлов] DESC, ФИО";
+            if (MainClass.dbType == PriemType.PriemAG)
+            {
+                _sQuery = @"SELECT DISTINCT qAbiturient.CommitId AS Id, extPerson.Surname + ' ' + extPerson.Name + ' ' + extPerson.SecondName as ФИО, 
+                       extPerson.BirthDate AS Дата_рождения, qAbiturient.CommitNumber AS Barcode, 
+                       (Case When EXISTS(SELECT extAbitFileNames.Id FROM extAbitFileNames WHERE extAbitFileNames.PersonId = extPerson.Id) then 'Да' else 'Нет' end) AS [Приложены файлы],
+                       (SELECT Max(extAbitFileNames.LoadDate) FROM extAbitFileNames WHERE extAbitFileNames.PersonId = extPerson.Id AND (extAbitFileNames.CommitId = qAbiturient.CommitId OR extAbitFileNames.CommitId IS NULL)) AS [Дата обновления файлов]
+                       FROM qAbiturient INNER JOIN extPerson ON qAbiturient.PersonId = extPerson.Id
+                       WHERE qAbiturient.IsImported = 0 AND SemesterId = 1 AND Enabled = 1 AND IsCommited = 1 AND IsVisible = 1 AND qAbiturient.IsForeign = 0";
+            }
+            else { 
             _sQuery = @"SELECT DISTINCT qAbiturient.CommitId AS Id, extPerson.Surname + ' ' + extPerson.Name + ' ' + extPerson.SecondName as ФИО, 
                        extPerson.BirthDate AS Дата_рождения, qAbiturient.CommitNumber AS Barcode, 
                        (Case When EXISTS(SELECT extAbitFileNames.Id FROM extAbitFileNames WHERE extAbitFileNames.PersonId = extPerson.Id) then 'Да' else 'Нет' end) AS [Приложены файлы],
@@ -323,7 +333,7 @@ namespace PriemLib
                        (CASE WHEN EXISTS(SELECT * FROM qAbitFiles_OnlyEssayMotivLetter q WHERE q.PersonId=qAbiturient.PersonId AND FileTypeId=3) THEN 'Да' ELSE 'Нет' END) AS [Эссе]
                        FROM qAbiturient INNER JOIN extPerson ON qAbiturient.PersonId = extPerson.Id
                        WHERE qAbiturient.IsImported = 0 AND SemesterId = 1 AND Enabled = 1 AND IsCommited = 1 AND IsVisible = 1 AND qAbiturient.IsForeign = 0";
-
+}
             Task<DataView> task = HelpClass.GetDataViewAsync((DataGridView)((dynamic)e.Argument).dgv, (BDClass)((dynamic)e.Argument)._bdc, _sQuery, (string)((dynamic)e.Argument).filters, _orderBy, false, _cancel.Token);
 
             while (!task.IsCompleted)
