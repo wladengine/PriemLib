@@ -147,7 +147,6 @@ namespace PriemLib
         protected override void SetAllFieldsEnabled()
         {
             base.SetAllFieldsEnabled();
-
         }
         protected override void SetReadOnlyFieldsAfterFill()
         {
@@ -155,6 +154,7 @@ namespace PriemLib
 
             if (!MainClass.IsEntryChanger())
                 btnSaveChange.Enabled = false;
+            btnTimeTable.Enabled = true;
         }     
 
         protected override void FillCard()
@@ -381,7 +381,7 @@ namespace PriemLib
             foreach (var x in lst)
             {
                 context.ExamInEntryBlockUnit.DeleteObject(x);
-                MainClass.BdcOnlineReadWrite.ExecuteQuery(String.Format("delete from dbo.ExamInEntryBlockUnit where Id = '{0}'", x.Id), null);
+                MainClass.BdcOnlineReadWrite.ExecuteQuery(String.Format("delete from dbo.ExamInEntryBlockUnit where Id = '{0}'", x.Id));
             }
             string queryBlock = @" UPDATE dbo.ExamInEntryBlock set Name = @Name WHERE Id = @Id";
             SortedList<string, object> sl = new SortedList<string, object>();
@@ -518,6 +518,12 @@ namespace PriemLib
             crd.ExamId = lstUnit.Where(x => x.UnitId == gid).First().ExamId;
             crd.EgeMin = lstUnit.Where(x => x.UnitId == gid).First().EgeMin;
             crd.Show();
+        }
+
+        private void btnTimeTable_Click(object sender, EventArgs e)
+        {
+            if (lstUnit.Count>0)
+                new CardExamTimeTable(lstUnit).Show();
         }
     }
 }

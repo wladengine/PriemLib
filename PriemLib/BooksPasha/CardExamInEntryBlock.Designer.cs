@@ -43,20 +43,21 @@
             this.btnExamUnitDelete = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.cbParentExamInEntry = new System.Windows.Forms.ComboBox();
+            this.btnTimeTable = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.epError)).BeginInit();
             this.SuspendLayout();
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(359, 308);
+            this.btnClose.Location = new System.Drawing.Point(359, 310);
             // 
             // btnSaveChange
             // 
-            this.btnSaveChange.Location = new System.Drawing.Point(12, 308);
+            this.btnSaveChange.Location = new System.Drawing.Point(12, 310);
             // 
             // btnSaveAsNew
             // 
-            this.btnSaveAsNew.Location = new System.Drawing.Point(215, 308);
+            this.btnSaveAsNew.Location = new System.Drawing.Point(215, 310);
             // 
             // chbIsProfil
             // 
@@ -196,11 +197,23 @@
             this.cbParentExamInEntry.Size = new System.Drawing.Size(428, 21);
             this.cbParentExamInEntry.TabIndex = 48;
             // 
+            // btnTimeTable
+            // 
+            this.btnTimeTable.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnTimeTable.Location = new System.Drawing.Point(12, 339);
+            this.btnTimeTable.Name = "btnTimeTable";
+            this.btnTimeTable.Size = new System.Drawing.Size(160, 23);
+            this.btnTimeTable.TabIndex = 50;
+            this.btnTimeTable.Text = "Расписание экзаменов";
+            this.btnTimeTable.UseVisualStyleBackColor = true;
+            this.btnTimeTable.Click += new System.EventHandler(this.btnTimeTable_Click);
+            // 
             // CardExamInEntryBlock
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(452, 343);
+            this.ClientSize = new System.Drawing.Size(452, 374);
+            this.Controls.Add(this.btnTimeTable);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.cbParentExamInEntry);
             this.Controls.Add(this.btnExamUnitDelete);
@@ -237,6 +250,7 @@
             this.Controls.SetChildIndex(this.btnExamUnitDelete, 0);
             this.Controls.SetChildIndex(this.cbParentExamInEntry, 0);
             this.Controls.SetChildIndex(this.label5, 0);
+            this.Controls.SetChildIndex(this.btnTimeTable, 0);
             ((System.ComponentModel.ISupportInitialize)(this.epError)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -260,5 +274,6 @@
         private System.Windows.Forms.Button btnExamUnitDelete;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox cbParentExamInEntry;
+        private System.Windows.Forms.Button btnTimeTable;
     }
 }
