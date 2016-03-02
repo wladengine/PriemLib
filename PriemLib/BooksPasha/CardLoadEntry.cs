@@ -86,31 +86,31 @@ namespace PriemLib
                         context.Entry_Insert(entryId, (int)dr["FacultyId"], (int)dr["LicenseProgramId"],
                                 (int)dr["ObrazProgramId"], dr.Field<int?>("ProfileId") ?? 0, (int)dr["StudyBasisId"],
                                 (int)dr["StudyFormId"], (int)dr["StudyLevelId"], (Guid)dr["StudyPlanId"], dr["StudyPlanNumber"].ToString(),
-                                dr["ProgramModeShortName"].ToString(), (bool)dr["IsSecond"], (bool)dr["IsReduced"], (bool)dr["IsParallel"], dr.Field<int?>("KCP"), null, null, false, false);
+                                dr["ProgramModeShortName"].ToString(), (bool)dr["IsSecond"], (bool)dr["IsReduced"], (bool)dr["IsParallel"], dr.Field<int?>("KCP"), null, false, false);
                     }
 
-                    //inner profiles
-                    DataSet dsProf = _bdcEduc.GetDataSet("SELECT ProfileId FROM ed.extStudyPlanProfiles WHERE StudyPlanId=@SP", new SortedList<string,object>() { {"@SP", gStudyPlanId}});
-                    DataTable tbl = dsProf.Tables[0];
-                    //если план многопрофильный
-                    if (tbl.Rows.Count > 1)
-                    {
-                        foreach (DataRow row in tbl.Rows)
-                        {
-                            int iProfileId = row.Field<int?>("ProfileId") ?? 0;
-                            if (context.InnerEntryInEntry.Where(x => x.EntryId == entryId && x.ObrazProgramId == iObrazProgramId && x.ProfileId == iProfileId).Count() == 0)
-                            {
-                                InnerEntryInEntry innEntry = new InnerEntryInEntry();
-                                innEntry.Id = Guid.NewGuid();
-                                innEntry.ObrazProgramId = iObrazProgramId;
-                                innEntry.ProfileId = iProfileId;
-                                innEntry.EntryId = entryId;
+                    ////inner profiles
+                    //DataSet dsProf = _bdcEduc.GetDataSet("SELECT ProfileId FROM ed.extStudyPlanProfiles WHERE StudyPlanId=@SP", new SortedList<string,object>() { {"@SP", gStudyPlanId}});
+                    //DataTable tbl = dsProf.Tables[0];
+                    ////если план многопрофильный
+                    //if (tbl.Rows.Count > 1)
+                    //{
+                    //    foreach (DataRow row in tbl.Rows)
+                    //    {
+                    //        int iProfileId = row.Field<int?>("ProfileId") ?? 0;
+                    //        if (context.InnerEntryInEntry.Where(x => x.EntryId == entryId && x.ObrazProgramId == iObrazProgramId && x.ProfileId == iProfileId).Count() == 0)
+                    //        {
+                    //            InnerEntryInEntry innEntry = new InnerEntryInEntry();
+                    //            innEntry.Id = Guid.NewGuid();
+                    //            innEntry.ObrazProgramId = iObrazProgramId;
+                    //            innEntry.ProfileId = iProfileId;
+                    //            innEntry.EntryId = entryId;
 
-                                context.InnerEntryInEntry.AddObject(innEntry);
-                                context.SaveChanges();
-                            }
-                        }
-                    }
+                    //            context.InnerEntryInEntry.Add(innEntry);
+                    //            context.SaveChanges();
+                    //        }
+                    //    }
+                    //}
                 }
 
                 MessageBox.Show("Выполнено");
@@ -143,7 +143,7 @@ namespace PriemLib
 
                     lstOld.Add(string.Format("'{0}'", entryId));
 
-                    DataSet dsOur = MainClass.Bdc.GetDataSet(string.Format("SELECT * FROM ed.Entry WHERE Id = '{0}'", entryId));
+                    DataSet dsOur = MainClass.Bdc.GetDataSet(string.Format("SELECT * FROM ed.extEntry WHERE Id = '{0}'", entryId));
                     if (dsOur.Tables[0].Rows.Count == 0)
                     {
                         missingInOurs.Add(entryId);
@@ -294,7 +294,7 @@ namespace PriemLib
                             context.Entry_Insert(entryId, (int)dr["FacultyId"], (int)dr["LicenseProgramId"], (int)dr["ObrazProgramId"], 
                                 dr.Field<int?>("ProfileId") ?? 0, (int)dr["StudyBasisId"],
                                     (int)dr["StudyFormId"], (int)dr["StudyLevelId"], (Guid)dr["StudyPlanId"], dr["StudyPlanNumber"].ToString(),
-                                    dr["ProgramModeShortName"].ToString(), (bool)dr["IsSecond"], (bool)dr["IsReduced"], (bool)dr["IsParallel"], dr.Field<int?>("KCP"), null, null, false, false);
+                                    dr["ProgramModeShortName"].ToString(), (bool)dr["IsSecond"], (bool)dr["IsReduced"], (bool)dr["IsParallel"], dr.Field<int?>("KCP"), null, false, false);
                         }
 
                         string query = "SELECT COUNT(*) FROM Entry WHERE Id=@Id";
@@ -342,7 +342,7 @@ DateOfClose, DateOfStart, IsUsedForPriem) VALUES
 
                             context.Entry_Insert(entryId, (int)dr["FacultyId"], (int)dr["LicenseProgramId"], (int)dr["ObrazProgramId"], dr.Field<int?>("ProfileId") ?? 0, 
                                 (int)dr["StudyBasisId"], (int)dr["StudyFormId"], (int)dr["StudyLevelId"], (Guid)dr["StudyPlanId"], dr["StudyPlanNumber"].ToString(),
-                                    dr["ProgramModeShortName"].ToString(), (bool)dr["IsSecond"], (bool)dr["IsReduced"], (bool)dr["IsParallel"], dr.Field<int?>("KCP"), null, null, false, false);
+                                    dr["ProgramModeShortName"].ToString(), (bool)dr["IsSecond"], (bool)dr["IsReduced"], (bool)dr["IsParallel"], dr.Field<int?>("KCP"), null, false, false);
 
                             MainClass.BdcOnlineReadWrite.ExecuteQuery(query, slParams);
                         }
@@ -585,7 +585,7 @@ WHERE
                         {
                             pf.SetProgressText("Загрузка SP_Faculty..." + i++ + "/" + lst.Count);
                             var Fac = facList_Educ.Where(x => x.Id == lId).First();
-                            context.SP_Faculty.AddObject(Fac);
+                            context.SP_Faculty.Add(Fac);
                             context.SaveChanges();
                             pf.PerformStep();
                         }
@@ -638,7 +638,7 @@ WHERE
                             var LP = lpList_Educ.Where(x => x.Id == lId).First();
                             LP.IsOpen = false;
                             LP.Holder = "";
-                            context.SP_LicenseProgram.AddObject(LP);
+                            context.SP_LicenseProgram.Add(LP);
                             context.SaveChanges();
                             pf.PerformStep();
                         }
@@ -688,7 +688,7 @@ WHERE
                             var OP = opList_Educ.Where(x => x.Id == lId).First();
                             OP.IsOpen = false;
                             OP.Holder = "";
-                            context.SP_ObrazProgram.AddObject(OP);
+                            context.SP_ObrazProgram.Add(OP);
                             context.SaveChanges();
                             pf.PerformStep();
                         }
@@ -728,7 +728,7 @@ WHERE
                             var Prof = profList_Educ.Where(x => x.Id == lId).First();
                             Prof.IsOpen = false;
                             Prof.Holder = "";
-                            context.SP_Profile.AddObject(Prof);
+                            context.SP_Profile.Add(Prof);
                             context.SaveChanges();
                             pf.PerformStep();
                         }
@@ -904,6 +904,151 @@ WHERE
         {
             _bdcPriemOnline.CloseDataBase();
             _bdcEduc.CloseDataBase();
+        }
+
+        private void btnCopyToCrimea_Click(object sender, EventArgs e)
+        {
+            ProgressForm pf = new ProgressForm();
+            try
+            {
+                using (PriemEntities context = new PriemEntities())
+                {
+                    pf.Show();
+                    
+                    var lstEntry = context.Entry.Where(x => !x.IsCrimea && !x.IsForeign)
+                        .Select(x => new
+                        {
+                            x.Id,
+                            x.LicenseProgramId,
+                            x.ObrazProgramId,
+                            x.ProfileId,
+                            x.KCP,
+                            x.IsSecond,
+                            x.IsReduced,
+                            x.IsParallel,
+                            x.StudyLevelId,
+                            x.StudyPlanId,
+                            x.StudyPlanNumber,
+                            x.StudyBasisId,
+                            x.StudyFormId,
+                            x.FacultyId,
+                            x.DateOfStart,
+                            x.DateOfClose
+                        }).ToList();
+                    pf.MaxPrBarValue = lstEntry.Count;
+                    foreach (var Ent in lstEntry)
+                    {
+                        pf.PerformStep();
+                        int cnt = context.Entry
+                            .Where(x => x.LicenseProgramId == Ent.LicenseProgramId
+                                && x.ObrazProgramId == Ent.ObrazProgramId
+                                && x.ProfileId == Ent.ProfileId
+                                && x.IsSecond == Ent.IsSecond
+                                && x.IsReduced == Ent.IsReduced
+                                && x.IsParallel == Ent.IsParallel
+                                && x.StudyLevelId == Ent.StudyLevelId
+                                && x.StudyBasisId == Ent.StudyBasisId
+                                && x.StudyFormId == Ent.StudyFormId
+                                && x.FacultyId == Ent.FacultyId
+                                && x.IsCrimea && !x.IsForeign
+                            ).Count();
+
+                        if (cnt == 0)
+                        {
+                            using (TransactionScope tran = new TransactionScope())
+                            {
+                                var CrEnt = new Entry();
+                                CrEnt.LicenseProgramId = Ent.LicenseProgramId;
+                                CrEnt.ObrazProgramId = Ent.ObrazProgramId;
+                                CrEnt.ProfileId = Ent.ProfileId;
+                                CrEnt.IsSecond = Ent.IsSecond;
+                                CrEnt.IsReduced = Ent.IsReduced;
+                                CrEnt.IsParallel = Ent.IsParallel;
+                                CrEnt.StudyLevelId = Ent.StudyLevelId;
+                                CrEnt.StudyBasisId = Ent.StudyBasisId;
+                                CrEnt.StudyFormId = Ent.StudyFormId;
+                                CrEnt.FacultyId = Ent.FacultyId;
+                                CrEnt.IsCrimea = true;
+                                CrEnt.IsForeign = false;
+                                CrEnt.StudyPlanId = Ent.StudyPlanId;
+                                CrEnt.StudyPlanNumber = Ent.StudyPlanNumber;
+
+                                CrEnt.DateOfStart = Ent.DateOfStart;
+                                CrEnt.DateOfClose = Ent.DateOfClose;
+
+                                context.Entry.Add(CrEnt);
+                                context.SaveChanges();
+
+                                string query = @"INSERT INTO _Entry 
+    (LicenseProgramId,
+     ObrazProgramId,
+     ProfileId,
+     KCP,
+     IsSecond,
+     IsReduced,
+     IsParallel,
+     StudyLevelId,
+     StudyPlanId,
+     StudyPlanNumber,
+     StudyBasisId,
+     StudyFormId,
+     FacultyId,
+     DateOfStart,
+     DateOfClose,
+     IsCrimea,
+     IsForeign
+    )
+    VALUES
+    (
+     @LicenseProgramId,
+     @ObrazProgramId,
+     @ProfileId,
+     @KCP,
+     @IsSecond,
+     @IsReduced,
+     @IsParallel,
+     @StudyLevelId,
+     @StudyPlanId,
+     @StudyPlanNumber,
+     @StudyBasisId,
+     @StudyFormId,
+     @FacultyId,
+     @DateOfStart,
+     @DateOfClose,
+     1,
+     0
+    )";
+                                SortedList<string, object> slParams = new SortedList<string, object>();
+                                slParams.Add("@LicenseProgramId", Ent.LicenseProgramId);
+                                slParams.Add("@ObrazProgramId", Ent.ObrazProgramId);
+                                slParams.Add("@ProfileId", Ent.ProfileId);
+                                slParams.Add("@KCP", Ent.KCP);
+                                slParams.Add("@IsSecond", Ent.IsSecond);
+                                slParams.Add("@IsReduced", Ent.IsReduced);
+                                slParams.Add("@IsParallel", Ent.IsParallel);
+                                slParams.Add("@StudyLevelId", Ent.StudyLevelId);
+                                slParams.Add("@StudyPlanId", Ent.StudyPlanId);
+                                slParams.Add("@StudyPlanNumber", Ent.StudyPlanNumber);
+                                slParams.Add("@StudyBasisId", Ent.StudyBasisId);
+                                slParams.Add("@StudyFormId", Ent.StudyFormId);
+                                slParams.Add("@FacultyId", Ent.FacultyId);
+                                slParams.Add("@DateOfStart", Ent.DateOfStart);
+                                slParams.Add("@DateOfClose", Ent.DateOfClose);
+
+                                tran.Complete();
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                WinFormsServ.Error(ex);
+            }
+            finally
+            {
+                pf.Close();
+            }
         }
     }
 }

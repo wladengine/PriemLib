@@ -445,7 +445,7 @@ namespace PriemLib
                 WHERE ed.Abiturient.PersonId = '{0}' 
                 {1} 
                 AND ed.Abiturient.HasOriginals > 0 AND ed.Abiturient.BackDoc = 0) then 'true' else 'false' end ", _personId.ToString(), _Id == null ? "" : string.Format(" AND ed.Abiturient.Id <> '{0}'", _Id));
-            lockHasOrigin = bool.Parse(context.ExecuteStoreQuery<string>(queryForLock).FirstOrDefault());
+            lockHasOrigin = bool.Parse(context.Database.SqlQuery<string>(queryForLock).FirstOrDefault());
 
             if (lockHasOrigin)
             {
@@ -1615,7 +1615,7 @@ namespace PriemLib
                 return "3";
             // проверка на олимпиады 
 
-            int cntOl = context.ExecuteStoreQuery<int>(string.Format("SELECT Count(Olympiads.Id) FROM Olympiads WHERE Olympiads.AbiturientId = '{0}' AND ((Olympiads.OlympLevelId = 2 AND Olympiads.OlympValueId IN (1,2,3)) OR Olympiads.OlympLevelId = 1)", _Id)).FirstOrDefault();
+            int cntOl = context.Database.SqlQuery<int>(string.Format("SELECT Count(Olympiads.Id) FROM Olympiads WHERE Olympiads.AbiturientId = '{0}' AND ((Olympiads.OlympLevelId = 2 AND Olympiads.OlympValueId IN (1,2,3)) OR Olympiads.OlympLevelId = 1)", _Id)).FirstOrDefault();
             if (cntOl > 0)
                 return "1";
 
@@ -1721,13 +1721,13 @@ namespace PriemLib
             var lst = context.AbiturientSelectedExam.Where(x => x.ApplicationId == id).Select(x => x).ToList();
 
             foreach (var x in lst)
-                context.AbiturientSelectedExam.DeleteObject(x);
+                context.AbiturientSelectedExam.Remove(x);
 
             foreach (var x in lstExamInEntryBlock)
             {
                 if (x.SelectedUnitId != Guid.Empty)
                 {
-                    context.AbiturientSelectedExam.AddObject(new AbiturientSelectedExam()
+                    context.AbiturientSelectedExam.Add(new AbiturientSelectedExam()
                     {
                         ApplicationId = id,
                         ExamInEntryBlockUnitId = x.SelectedUnitId,

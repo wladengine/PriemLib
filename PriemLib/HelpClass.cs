@@ -26,7 +26,7 @@ namespace PriemLib
                 {
                     List<KeyValuePair<string, string>> lst = new List<KeyValuePair<string, string>>();
 
-                    foreach (ListItem ob in context.ExecuteStoreQuery<ListItem>(string.Format("SELECT CONVERT(varchar(100), Id) AS Id, Name FROM {0} {1}", tableName, string.IsNullOrEmpty(orderBy) ? "ORDER BY 2" : orderBy)))
+                    foreach (ListItem ob in context.Database.SqlQuery<ListItem>(string.Format("SELECT CONVERT(varchar(100), Id) AS Id, Name FROM {0} {1}", tableName, string.IsNullOrEmpty(orderBy) ? "ORDER BY 2" : orderBy)))
                     {
                         lst.Add(new KeyValuePair<string, string>(ob.Id, ob.Name));
                     }
@@ -48,7 +48,7 @@ namespace PriemLib
                 {
                     List<KeyValuePair<string, string>> lst = new List<KeyValuePair<string, string>>();
 
-                    foreach (ListItem ob in context.ExecuteStoreQuery<ListItem>(query))
+                    foreach (ListItem ob in context.Database.SqlQuery<ListItem>(query))
                     {
                         lst.Add(new KeyValuePair<string, string>(ob.Id, ob.Name));
                     }

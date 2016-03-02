@@ -24,7 +24,7 @@
           <Property Name="IsQuota" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016Test.ed._FirstWaveGreen' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed._FirstWaveGreen' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="_FirstWaveGreen">
           <Key>
             <PropertyRef Name="AbiturientId" />
@@ -289,7 +289,7 @@ warning 6002: The table/view 'Priem2016Test.ed._FirstWaveGreen' does not have a 
           <Property Name="ExamId" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016Test.ed.EgeToLanguage' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.EgeToLanguage' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="EgeToLanguage">
           <Key>
             <PropertyRef Name="ExamId" />
@@ -453,7 +453,7 @@ warning 6002: The table/view 'Priem2016Test.ed.EgeToLanguage' does not have a pr
           <Property Name="Number" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016Test.ed.ExamsVedRoomHistory' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.ExamsVedRoomHistory' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ExamsVedRoomHistory">
           <Key>
             <PropertyRef Name="ExamsVedRoomId" />
@@ -471,7 +471,7 @@ warning 6002: The table/view 'Priem2016Test.ed.ExamsVedRoomHistory' does not hav
           <Property Name="SortGrade" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016Test.ed.Fixieren' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.Fixieren' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Fixieren">
           <Key>
             <PropertyRef Name="Number" />
@@ -743,7 +743,7 @@ warning 6002: The table/view 'Priem2016Test.ed.Fixieren' does not have a primary
           <Property Name="FISName" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016Test.ed.PayDataEntry' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.PayDataEntry' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PayDataEntry">
           <Key>
             <PropertyRef Name="Id" />
@@ -998,7 +998,7 @@ warning 6002: The table/view 'Priem2016Test.ed.PayDataEntry' does not have a pri
           <Property Name="OtherSportQualification" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016Test.ed.Privilege' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.Privilege' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Privilege">
           <Key>
             <PropertyRef Name="Number" />
@@ -1237,7 +1237,7 @@ warning 6002: The table/view 'Priem2016Test.ed.Privilege' does not have a primar
           <Property Name="Acronym" Type="nvarchar" MaxLength="10" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016Test.ed.extAbit' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.extAbit' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="extAbit">
           <Key>
             <PropertyRef Name="Id" />
@@ -1354,7 +1354,7 @@ warning 6002: The table/view 'Priem2016Test.ed.extAbit' does not have a primary 
           <Property Name="BackDocByAdmissionHigh" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016Test.ed.extAbitAdditionalMarksSum' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.extAbitAdditionalMarksSum' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="extAbitAdditionalMarksSum">
           <Key>
             <PropertyRef Name="AbiturientId" />
@@ -1363,7 +1363,7 @@ warning 6002: The table/view 'Priem2016Test.ed.extAbitAdditionalMarksSum' does n
           <Property Name="AdditionalMarksSum" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016Test.ed.extAbitAllAdditionalAchievements' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.extAbitAllAdditionalAchievements' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="extAbitAllAdditionalAchievements">
           <Key>
             <PropertyRef Name="AbiturientId" />
@@ -1374,7 +1374,7 @@ warning 6002: The table/view 'Priem2016Test.ed.extAbitAllAdditionalAchievements'
           <Property Name="Mark" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016Test.ed.extAbitMarksSum' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.extAbitMarksSum' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="extAbitMarksSum">
           <Key>
             <PropertyRef Name="Id" />
@@ -1389,7 +1389,7 @@ warning 6002: The table/view 'Priem2016Test.ed.extAbitMarksSum' does not have a 
           <Property Name="TotalCount" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016Test.ed.extApplicationDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.extApplicationDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="extApplicationDetails">
           <Key>
             <PropertyRef Name="ApplicationId" />
@@ -1409,7 +1409,7 @@ warning 6002: The table/view 'Priem2016Test.ed.extApplicationDetails' does not h
           <Property Name="ProfileName" Type="nvarchar" MaxLength="1000" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016Test.ed.extDisEntryFromReEnterView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.extDisEntryFromReEnterView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="extDisEntryFromReEnterView">
           <Key>
             <PropertyRef Name="Id" />
@@ -1449,7 +1449,7 @@ warning 6002: The table/view 'Priem2016Test.ed.extDisEntryFromReEnterView' does 
           <Property Name="IsReduced" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016Test.ed.extDisEntryView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.extDisEntryView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="extDisEntryView">
           <Key>
             <PropertyRef Name="Id" />
@@ -1491,7 +1491,7 @@ warning 6002: The table/view 'Priem2016Test.ed.extDisEntryView' does not have a 
           <Property Name="IsForeign" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016Test.ed.extEgeMark' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.extEgeMark' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="extEgeMark">
           <Key>
             <PropertyRef Name="Id" />
@@ -1519,7 +1519,7 @@ warning 6002: The table/view 'Priem2016Test.ed.extEgeMark' does not have a prima
           <Property Name="FBSStatusId" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016Test.ed.extEgeMarkMax' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.extEgeMarkMax' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="extEgeMarkMax">
           <Key>
             <PropertyRef Name="Id" />
@@ -1543,7 +1543,7 @@ warning 6002: The table/view 'Priem2016Test.ed.extEgeMarkMax' does not have a pr
           <Property Name="PersonId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016Test.ed.extEgeMarkMaxAbit' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.extEgeMarkMaxAbit' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="extEgeMarkMaxAbit">
           <Key>
             <PropertyRef Name="AbiturientId" />
@@ -1569,7 +1569,7 @@ warning 6002: The table/view 'Priem2016Test.ed.extEgeMarkMaxAbit' does not have 
           <Property Name="PersonId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016Test.ed.extEgeMarkMaxAbitApproved' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.extEgeMarkMaxAbitApproved' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="extEgeMarkMaxAbitApproved">
           <Key>
             <PropertyRef Name="AbiturientId" />
@@ -1595,7 +1595,7 @@ warning 6002: The table/view 'Priem2016Test.ed.extEgeMarkMaxAbitApproved' does n
           <Property Name="PersonId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016Test.ed.extEgeMarkMaxApproved' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.extEgeMarkMaxApproved' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="extEgeMarkMaxApproved">
           <Key>
             <PropertyRef Name="Id" />
@@ -1619,7 +1619,7 @@ warning 6002: The table/view 'Priem2016Test.ed.extEgeMarkMaxApproved' does not h
           <Property Name="PersonId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016Test.ed.extEnableProtocol' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.extEnableProtocol' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="extEnableProtocol">
           <Key>
             <PropertyRef Name="Id" />
@@ -1654,7 +1654,7 @@ warning 6002: The table/view 'Priem2016Test.ed.extEnableProtocol' does not have 
           <Property Name="ProtocolTypeName" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016Test.ed.extEntry' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.extEntry' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="extEntry">
           <Key>
             <PropertyRef Name="Id" />
@@ -1730,7 +1730,7 @@ warning 6002: The table/view 'Priem2016Test.ed.extEntry' does not have a primary
           <Property Name="FacultyCode" Type="nvarchar" MaxLength="10" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016Test.ed.extEntryProtocols' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.extEntryProtocols' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="extEntryProtocols">
           <Key>
             <PropertyRef Name="Id" />
@@ -1767,7 +1767,7 @@ warning 6002: The table/view 'Priem2016Test.ed.extEntryProtocols' does not have 
           <Property Name="IsReduced" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016Test.ed.extEntryView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.extEntryView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="extEntryView">
           <Key>
             <PropertyRef Name="Id" />
@@ -1832,7 +1832,7 @@ warning 6002: The table/view 'Priem2016Test.ed.extEntryView' does not have a pri
           <Property Name="EntryIsForeign" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016Test.ed.extEntryView_ForDisEntered' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.extEntryView_ForDisEntered' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="extEntryView_ForDisEntered">
           <Key>
             <PropertyRef Name="Id" />
@@ -1877,7 +1877,7 @@ warning 6002: The table/view 'Priem2016Test.ed.extEntryView_ForDisEntered' does 
           <Property Name="SignerPosition" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016Test.ed.extExamInEntry' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.extExamInEntry' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="extExamInEntry">
           <Key>
             <PropertyRef Name="Id" />
@@ -1931,7 +1931,7 @@ warning 6002: The table/view 'Priem2016Test.ed.extExamInEntry' does not have a p
           <Property Name="IsForeign" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016Test.ed.extExamsVed' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.extExamsVed' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="extExamsVed">
           <Key>
             <PropertyRef Name="Id" />
@@ -1966,7 +1966,7 @@ warning 6002: The table/view 'Priem2016Test.ed.extExamsVed' does not have a prim
           <Property Name="FacultyName" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016Test.ed.extFBSStatus' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.extFBSStatus' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="extFBSStatus">
           <Key>
             <PropertyRef Name="FBSStatus" />
@@ -1978,7 +1978,7 @@ warning 6002: The table/view 'Priem2016Test.ed.extFBSStatus' does not have a pri
           <Property Name="Surname" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016Test.ed.extForeignPerson' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.extForeignPerson' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="extForeignPerson">
           <Key>
             <PropertyRef Name="Id" />
@@ -2061,7 +2061,7 @@ warning 6002: The table/view 'Priem2016Test.ed.extForeignPerson' does not have a
           <Property Name="TRKICertificateNumber" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016Test.ed.extOlympBook' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.extOlympBook' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="extOlympBook">
           <Key>
             <PropertyRef Name="Id" />
@@ -2080,7 +2080,7 @@ warning 6002: The table/view 'Priem2016Test.ed.extOlympBook' does not have a pri
           <Property Name="OlympYear" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016Test.ed.extOlympiads' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.extOlympiads' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="extOlympiads">
           <Key>
             <PropertyRef Name="Id" />
@@ -2109,7 +2109,7 @@ warning 6002: The table/view 'Priem2016Test.ed.extOlympiads' does not have a pri
           <Property Name="OlympValueAcr" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016Test.ed.extOlympiadsAll' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.extOlympiadsAll' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="extOlympiadsAll">
           <Key>
             <PropertyRef Name="Id" />
@@ -2139,7 +2139,7 @@ warning 6002: The table/view 'Priem2016Test.ed.extOlympiadsAll' does not have a 
           <Property Name="OlympYear" Type="smallint" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016Test.ed.extPerson' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.extPerson' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="extPerson">
           <Key>
             <PropertyRef Name="Id" />
@@ -2248,7 +2248,7 @@ warning 6002: The table/view 'Priem2016Test.ed.extPerson' does not have a primar
           <Property Name="HasOriginals" Type="bit" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016Test.ed.extPerson_EducationInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.extPerson_EducationInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="extPerson_EducationInfo">
           <Key>
             <PropertyRef Name="Id" />
@@ -2301,7 +2301,7 @@ warning 6002: The table/view 'Priem2016Test.ed.extPerson_EducationInfo' does not
           <Property Name="HEWork" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016Test.ed.extPerson_EducationInfo_Current' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.extPerson_EducationInfo_Current' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="extPerson_EducationInfo_Current">
           <Key>
             <PropertyRef Name="Id" />
@@ -2355,7 +2355,7 @@ warning 6002: The table/view 'Priem2016Test.ed.extPerson_EducationInfo_Current' 
           <Property Name="EducDocument" Type="nvarchar" MaxLength="42" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016Test.ed.extPersonAll' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.extPersonAll' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="extPersonAll">
           <Key>
             <PropertyRef Name="Id" />
@@ -2466,7 +2466,7 @@ warning 6002: The table/view 'Priem2016Test.ed.extPersonAll' does not have a pri
           <Property Name="ForeignCountryEducId" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016Test.ed.extProtocol' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.extProtocol' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="extProtocol">
           <Key>
             <PropertyRef Name="Id" />
@@ -2520,7 +2520,7 @@ warning 6002: The table/view 'Priem2016Test.ed.extProtocol' does not have a prim
           <Property Name="IsForeign" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016Test.ed.hlpAbiturientActionLog' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.hlpAbiturientActionLog' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="hlpAbiturientActionLog">
           <Key>
             
@@ -2559,7 +2559,7 @@ warning 6002: The table/view 'Priem2016Test.ed.hlpAbiturientActionLog' does not 
           <Property Name="ActionType" Type="varchar" MaxLength="29" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016Test.ed.hlpAbiturientProf' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.hlpAbiturientProf' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="hlpAbiturientProf">
           <Key>
             <PropertyRef Name="Id" />
@@ -2569,7 +2569,7 @@ warning 6002: The table/view 'Priem2016Test.ed.hlpAbiturientProf' does not have 
           <Property Name="ProfFiveGrade" Type="tinyint" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016Test.ed.hlpAbiturientProfAdd' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.hlpAbiturientProfAdd' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="hlpAbiturientProfAdd">
           <Key>
             <PropertyRef Name="Id" />
@@ -2578,7 +2578,7 @@ warning 6002: The table/view 'Priem2016Test.ed.hlpAbiturientProfAdd' does not ha
           <Property Name="ProfAdd" Type="decimal" Precision="38" Scale="1" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016Test.ed.hlpEgeMarkMaxApproved' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.hlpEgeMarkMaxApproved' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="hlpEgeMarkMaxApproved">
           <Key>
             <PropertyRef Name="PersonId" />
@@ -2589,7 +2589,7 @@ warning 6002: The table/view 'Priem2016Test.ed.hlpEgeMarkMaxApproved' does not h
           <Property Name="EgeMarkId" Type="uniqueidentifier" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016Test.ed.hlpPersonMaxEducationInfoId' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.hlpPersonMaxEducationInfoId' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="hlpPersonMaxEducationInfoId">
           <Key>
             <PropertyRef Name="PersonId" />
@@ -2598,7 +2598,7 @@ warning 6002: The table/view 'Priem2016Test.ed.hlpPersonMaxEducationInfoId' does
           <Property Name="Id" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016Test.ed.hlpStatistics' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.hlpStatistics' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="hlpStatistics">
           <Key>
             <PropertyRef Name="EntryId" />
@@ -2634,7 +2634,7 @@ warning 6002: The table/view 'Priem2016Test.ed.hlpStatistics' does not have a pr
           <Property Name="CNT" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016Test.ed.qAbitAll' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.qAbitAll' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="qAbitAll">
           <Key>
             <PropertyRef Name="Id" />
@@ -2736,7 +2736,7 @@ warning 6002: The table/view 'Priem2016Test.ed.qAbitAll' does not have a primary
           <Property Name="IsCrimea" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016Test.ed.qAbiturient' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.qAbiturient' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="qAbiturient">
           <Key>
             <PropertyRef Name="Id" />
@@ -2843,7 +2843,7 @@ warning 6002: The table/view 'Priem2016Test.ed.qAbiturient' does not have a prim
           <Property Name="OlympiadId" Type="uniqueidentifier" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016Test.ed.qAbiturient_WhoSetBackDoc' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.qAbiturient_WhoSetBackDoc' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="qAbiturient_WhoSetBackDoc">
           <Key>
             <PropertyRef Name="IntId" />
@@ -2860,7 +2860,7 @@ warning 6002: The table/view 'Priem2016Test.ed.qAbiturient_WhoSetBackDoc' does n
           <Property Name="PersonId" Type="uniqueidentifier" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016Test.ed.qAbiturient_WhoSetHasOriginals' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.qAbiturient_WhoSetHasOriginals' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="qAbiturient_WhoSetHasOriginals">
           <Key>
             <PropertyRef Name="IntId" />
@@ -2877,7 +2877,7 @@ warning 6002: The table/view 'Priem2016Test.ed.qAbiturient_WhoSetHasOriginals' d
           <Property Name="PersonId" Type="uniqueidentifier" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016Test.ed.qAbiturient_WhoSetIsPaid' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.qAbiturient_WhoSetIsPaid' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="qAbiturient_WhoSetIsPaid">
           <Key>
             <PropertyRef Name="IntId" />
@@ -2894,7 +2894,7 @@ warning 6002: The table/view 'Priem2016Test.ed.qAbiturient_WhoSetIsPaid' does no
           <Property Name="PersonId" Type="uniqueidentifier" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016Test.ed.qAbiturientForeignApplicationsOnly' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.qAbiturientForeignApplicationsOnly' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="qAbiturientForeignApplicationsOnly">
           <Key>
             <PropertyRef Name="Id" />
@@ -2902,7 +2902,7 @@ warning 6002: The table/view 'Priem2016Test.ed.qAbiturientForeignApplicationsOnl
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016Test.ed.qEntry' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.qEntry' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="qEntry">
           <Key>
             <PropertyRef Name="Id" />
@@ -2929,6 +2929,7 @@ warning 6002: The table/view 'Priem2016Test.ed.qEntry' does not have a primary k
             <PropertyRef Name="StudyLevelGroupName" />
             <PropertyRef Name="DateOfStart" />
             <PropertyRef Name="DateOfClose" />
+            <PropertyRef Name="AggregateGroupId" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="FacultyId" Type="int" Nullable="false" />
@@ -2969,9 +2970,10 @@ warning 6002: The table/view 'Priem2016Test.ed.qEntry' does not have a primary k
           <Property Name="StudyLevelGroupName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="DateOfStart" Type="datetime" Nullable="false" />
           <Property Name="DateOfClose" Type="datetime" Nullable="false" />
+          <Property Name="AggregateGroupId" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016Test.ed.qEntryToCompetitiveGroup' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.qEntryToCompetitiveGroup' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="qEntryToCompetitiveGroup">
           <Key>
             <PropertyRef Name="EntryId" />
@@ -2983,7 +2985,7 @@ warning 6002: The table/view 'Priem2016Test.ed.qEntryToCompetitiveGroup' does no
           <Property Name="CompetitiveGroupName" Type="nvarchar" MaxLength="1000" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016Test.ed.qFaculty' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.qFaculty' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="qFaculty">
           <Key>
             <PropertyRef Name="Id" />
@@ -2996,7 +2998,7 @@ warning 6002: The table/view 'Priem2016Test.ed.qFaculty' does not have a primary
           <Property Name="VinName" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016Test.ed.qLicenseProgram' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.qLicenseProgram' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="qLicenseProgram">
           <Key>
             <PropertyRef Name="Id" />
@@ -3006,7 +3008,7 @@ warning 6002: The table/view 'Priem2016Test.ed.qLicenseProgram' does not have a 
           <Property Name="Code" Type="nvarchar" MaxLength="10" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016Test.ed.qMark' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.qMark' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="qMark">
           <Key>
             <PropertyRef Name="Id" />
@@ -3053,7 +3055,7 @@ warning 6002: The table/view 'Priem2016Test.ed.qMark' does not have a primary ke
           <Property Name="StudyBasisId" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016Test.ed.qObrazProgram' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.qObrazProgram' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="qObrazProgram">
           <Key>
             <PropertyRef Name="Id" />
@@ -3069,7 +3071,7 @@ warning 6002: The table/view 'Priem2016Test.ed.qObrazProgram' does not have a pr
           <Property Name="Number" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016Test.ed.qProfile' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.qProfile' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="qProfile">
           <Key>
             <PropertyRef Name="Id" />
@@ -3078,7 +3080,7 @@ warning 6002: The table/view 'Priem2016Test.ed.qProfile' does not have a primary
           <Property Name="Name" Type="nvarchar" MaxLength="1000" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016Test.ed.qProtocol' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.qProtocol' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="qProtocol">
           <Key>
             <PropertyRef Name="Id" />
@@ -3108,7 +3110,7 @@ warning 6002: The table/view 'Priem2016Test.ed.qProtocol' does not have a primar
           <Property Name="IsForeign" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016Test.ed.qProtocolHistory' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.qProtocolHistory' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="qProtocolHistory">
           <Key>
             <PropertyRef Name="AbiturientId" />
@@ -3145,7 +3147,7 @@ warning 6002: The table/view 'Priem2016Test.ed.qProtocolHistory' does not have a
           <Property Name="IsForeign" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016Test.ed.qStudyLevel' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="qStudyLevel">
           <Key>
             <PropertyRef Name="Id" />
@@ -3351,7 +3353,7 @@ warning 6002: The table/view 'Priem2016Test.ed.qStudyLevel' does not have a prim
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_DocInventory_Abiturient">
+        <Association Name="FK_DocInventory_Abiturient">
           <End Role="Abiturient" Type="Self.Abiturient" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -3656,9 +3658,7 @@ warning 6002: The table/view 'Priem2016Test.ed.qStudyLevel' does not have a prim
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ExaminerInExamsVed_ExamsVed">
-          <End Role="ExamsVed" Type="Self.ExamsVed" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="ExamsVed" Type="Self.ExamsVed" Multiplicity="1" />
           <End Role="ExaminerInExamsVed" Type="Self.ExaminerInExamsVed" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ExamsVed">
@@ -3666,6 +3666,30 @@ warning 6002: The table/view 'Priem2016Test.ed.qStudyLevel' does not have a prim
             </Principal>
             <Dependent Role="ExaminerInExamsVed">
               <PropertyRef Name="ExamsVedId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ExamsVedHistory_ExamsVed">
+          <End Role="ExamsVed" Type="Self.ExamsVed" Multiplicity="1" />
+          <End Role="ExamsVedHistory" Type="Self.ExamsVedHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExamsVed">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ExamsVedHistory">
+              <PropertyRef Name="ExamsVedId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ExamsVedHistory_Person">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="ExamsVedHistory" Type="Self.ExamsVedHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ExamsVedHistory">
+              <PropertyRef Name="PersonId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3682,9 +3706,7 @@ warning 6002: The table/view 'Priem2016Test.ed.qStudyLevel' does not have a prim
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Mark_Abiturient">
-          <End Role="Abiturient" Type="Self.Abiturient" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="Abiturient" Type="Self.Abiturient" Multiplicity="1" />
           <End Role="Mark" Type="Self.Mark" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Abiturient">
@@ -4054,9 +4076,7 @@ warning 6002: The table/view 'Priem2016Test.ed.qStudyLevel' does not have a prim
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PaidData_Abiturient">
-          <End Role="Abiturient" Type="Self.Abiturient" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="Abiturient" Type="Self.Abiturient" Multiplicity="1" />
           <End Role="PaidData" Type="Self.PaidData" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Abiturient">
@@ -4342,7 +4362,9 @@ warning 6002: The table/view 'Priem2016Test.ed.qStudyLevel' does not have a prim
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PersonBenefitDocument_Person">
-          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="Person" Type="Self.Person" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="PersonBenefitDocument" Type="Self.PersonBenefitDocument" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Person">
@@ -4354,7 +4376,9 @@ warning 6002: The table/view 'Priem2016Test.ed.qStudyLevel' does not have a prim
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PersonNoticies_Person">
-          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="Person" Type="Self.Person" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="PersonNoticies" Type="Self.PersonNoticies" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Person">
@@ -4392,7 +4416,9 @@ warning 6002: The table/view 'Priem2016Test.ed.qStudyLevel' does not have a prim
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PersonSportQualification_Person">
-          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="Person" Type="Self.Person" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="PersonSportQualification" Type="Self.PersonSportQualification" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Person">
@@ -4475,10 +4501,8 @@ warning 6002: The table/view 'Priem2016Test.ed.qStudyLevel' does not have a prim
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_ProtocolHistory_Abiturient">
-          <End Role="Abiturient" Type="Self.Abiturient" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+        <Association Name="FK_ProtocolHistory_Abiturient">
+          <End Role="Abiturient" Type="Self.Abiturient" Multiplicity="1" />
           <End Role="ProtocolHistory" Type="Self.ProtocolHistory" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Abiturient">
@@ -4854,7 +4878,6 @@ warning 6002: The table/view 'Priem2016Test.ed.qStudyLevel' does not have a prim
           <Parameter Name="IsReduced" Type="bit" Mode="In" />
           <Parameter Name="IsParallel" Type="bit" Mode="In" />
           <Parameter Name="KCP" Type="int" Mode="In" />
-          <Parameter Name="KCPCrimea" Type="int" Mode="In" />
           <Parameter Name="ComissionId" Type="int" Mode="In" />
           <Parameter Name="IsForeign" Type="bit" Mode="In" />
           <Parameter Name="IsCrimea" Type="bit" Mode="In" />
@@ -5960,1356 +5983,1357 @@ warning 6002: The table/view 'Priem2016Test.ed.qStudyLevel' does not have a prim
           <EntitySet Name="StudyLevelGroup" EntityType="Self.StudyLevelGroup" Schema="ed" store:Type="Tables" />
           <EntitySet Name="_FirstWaveGreen" EntityType="Self._FirstWaveGreen" store:Type="Tables" store:Schema="ed">
             <DefiningQuery>SELECT 
-[_FirstWaveGreen].[AbiturientId] AS [AbiturientId], 
-[_FirstWaveGreen].[IsNew] AS [IsNew], 
-[_FirstWaveGreen].[CalculationId] AS [CalculationId]
-FROM [ed].[_FirstWaveGreen] AS [_FirstWaveGreen]</DefiningQuery>
+    [_FirstWaveGreen].[AbiturientId] AS [AbiturientId], 
+    [_FirstWaveGreen].[IsNew] AS [IsNew], 
+    [_FirstWaveGreen].[CalculationId] AS [CalculationId]
+    FROM [ed].[_FirstWaveGreen] AS [_FirstWaveGreen]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="EgeToLanguage" EntityType="Self.EgeToLanguage" store:Type="Tables" store:Schema="ed">
             <DefiningQuery>SELECT 
-[EgeToLanguage].[ExamId] AS [ExamId], 
-[EgeToLanguage].[EgeExamNameId] AS [EgeExamNameId], 
-[EgeToLanguage].[LanguageId] AS [LanguageId]
-FROM [ed].[EgeToLanguage] AS [EgeToLanguage]</DefiningQuery>
+    [EgeToLanguage].[ExamId] AS [ExamId], 
+    [EgeToLanguage].[EgeExamNameId] AS [EgeExamNameId], 
+    [EgeToLanguage].[LanguageId] AS [LanguageId]
+    FROM [ed].[EgeToLanguage] AS [EgeToLanguage]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="ExamsVedRoomHistory" EntityType="Self.ExamsVedRoomHistory" store:Type="Tables" store:Schema="ed">
             <DefiningQuery>SELECT 
-[ExamsVedRoomHistory].[ExamsVedRoomId] AS [ExamsVedRoomId], 
-[ExamsVedRoomHistory].[PersonId] AS [PersonId]
-FROM [ed].[ExamsVedRoomHistory] AS [ExamsVedRoomHistory]</DefiningQuery>
+    [ExamsVedRoomHistory].[ExamsVedRoomId] AS [ExamsVedRoomId], 
+    [ExamsVedRoomHistory].[PersonId] AS [PersonId]
+    FROM [ed].[ExamsVedRoomHistory] AS [ExamsVedRoomHistory]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="Fixieren" EntityType="Self.Fixieren" store:Type="Tables" store:Schema="ed">
             <DefiningQuery>SELECT 
-[Fixieren].[Number] AS [Number], 
-[Fixieren].[AbiturientId] AS [AbiturientId], 
-[Fixieren].[FixierenViewId] AS [FixierenViewId]
-FROM [ed].[Fixieren] AS [Fixieren]</DefiningQuery>
+    [Fixieren].[Number] AS [Number], 
+    [Fixieren].[AbiturientId] AS [AbiturientId], 
+    [Fixieren].[FixierenViewId] AS [FixierenViewId]
+    FROM [ed].[Fixieren] AS [Fixieren]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="PayDataEntry" EntityType="Self.PayDataEntry" store:Type="Tables" store:Schema="ed">
             <DefiningQuery>SELECT 
-[PayDataEntry].[Id] AS [Id], 
-[PayDataEntry].[EntryId] AS [EntryId], 
-[PayDataEntry].[UniverName] AS [UniverName], 
-[PayDataEntry].[UniverAddress] AS [UniverAddress], 
-[PayDataEntry].[UniverINN] AS [UniverINN], 
-[PayDataEntry].[UniverRS] AS [UniverRS], 
-[PayDataEntry].[UniverDop] AS [UniverDop], 
-[PayDataEntry].[ProrektorId] AS [ProrektorId], 
-[PayDataEntry].[Qualification] AS [Qualification], 
-[PayDataEntry].[EducPeriod] AS [EducPeriod], 
-[PayDataEntry].[DateStart] AS [DateStart], 
-[PayDataEntry].[DateFinish] AS [DateFinish], 
-[PayDataEntry].[Props] AS [Props], 
-[PayDataEntry].[IsOpen] AS [IsOpen], 
-[PayDataEntry].[Holder] AS [Holder]
-FROM [ed].[PayDataEntry] AS [PayDataEntry]</DefiningQuery>
+    [PayDataEntry].[Id] AS [Id], 
+    [PayDataEntry].[EntryId] AS [EntryId], 
+    [PayDataEntry].[UniverName] AS [UniverName], 
+    [PayDataEntry].[UniverAddress] AS [UniverAddress], 
+    [PayDataEntry].[UniverINN] AS [UniverINN], 
+    [PayDataEntry].[UniverRS] AS [UniverRS], 
+    [PayDataEntry].[UniverDop] AS [UniverDop], 
+    [PayDataEntry].[ProrektorId] AS [ProrektorId], 
+    [PayDataEntry].[Qualification] AS [Qualification], 
+    [PayDataEntry].[EducPeriod] AS [EducPeriod], 
+    [PayDataEntry].[DateStart] AS [DateStart], 
+    [PayDataEntry].[DateFinish] AS [DateFinish], 
+    [PayDataEntry].[Props] AS [Props], 
+    [PayDataEntry].[IsOpen] AS [IsOpen], 
+    [PayDataEntry].[Holder] AS [Holder]
+    FROM [ed].[PayDataEntry] AS [PayDataEntry]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="Privilege" EntityType="Self.Privilege" store:Type="Tables" store:Schema="ed">
             <DefiningQuery>SELECT 
-[Privilege].[Number] AS [Number], 
-[Privilege].[Maska] AS [Maska], 
-[Privilege].[Name] AS [Name]
-FROM [ed].[Privilege] AS [Privilege]</DefiningQuery>
+    [Privilege].[Number] AS [Number], 
+    [Privilege].[Maska] AS [Maska], 
+    [Privilege].[Name] AS [Name]
+    FROM [ed].[Privilege] AS [Privilege]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="extAbit" EntityType="Self.extAbit" store:Type="Views" store:Schema="ed">
             <DefiningQuery>SELECT 
-[extAbit].[Id] AS [Id], 
-[extAbit].[PersonId] AS [PersonId], 
-[extAbit].[RegNum] AS [RegNum], 
-[extAbit].[EntryId] AS [EntryId], 
-[extAbit].[CompetitionId] AS [CompetitionId], 
-[extAbit].[IsListener] AS [IsListener], 
-[extAbit].[IsPaid] AS [IsPaid], 
-[extAbit].[BackDoc] AS [BackDoc], 
-[extAbit].[BackDocDate] AS [BackDocDate], 
-[extAbit].[DocDate] AS [DocDate], 
-[extAbit].[DocInsertDate] AS [DocInsertDate], 
-[extAbit].[Checked] AS [Checked], 
-[extAbit].[NotEnabled] AS [NotEnabled], 
-[extAbit].[Coefficient] AS [Coefficient], 
-[extAbit].[Sum] AS [Sum], 
-[extAbit].[OtherCompetitionId] AS [OtherCompetitionId], 
-[extAbit].[CelCompetitionId] AS [CelCompetitionId], 
-[extAbit].[CelCompetitionText] AS [CelCompetitionText], 
-[extAbit].[CompFromOlymp] AS [CompFromOlymp], 
-[extAbit].[LanguageId] AS [LanguageId], 
-[extAbit].[HasOriginals] AS [HasOriginals], 
-[extAbit].[StudyNumber] AS [StudyNumber], 
-[extAbit].[StudentStatus] AS [StudentStatus], 
-[extAbit].[SessionAVG] AS [SessionAVG], 
-[extAbit].[Priority] AS [Priority], 
-[extAbit].[Barcode] AS [Barcode], 
-[extAbit].[FacultyId] AS [FacultyId], 
-[extAbit].[FacultyAcr] AS [FacultyAcr], 
-[extAbit].[LicenseProgramId] AS [LicenseProgramId], 
-[extAbit].[LicenseProgramName] AS [LicenseProgramName], 
-[extAbit].[FacultyName] AS [FacultyName], 
-[extAbit].[LicenseProgramCode] AS [LicenseProgramCode], 
-[extAbit].[ObrazProgramId] AS [ObrazProgramId], 
-[extAbit].[ObrazProgramName] AS [ObrazProgramName], 
-[extAbit].[ObrazProgramNumber] AS [ObrazProgramNumber], 
-[extAbit].[ObrazProgramCrypt] AS [ObrazProgramCrypt], 
-[extAbit].[ProfileId] AS [ProfileId], 
-[extAbit].[ProfileName] AS [ProfileName], 
-[extAbit].[StudyBasisId] AS [StudyBasisId], 
-[extAbit].[StudyBasisName] AS [StudyBasisName], 
-[extAbit].[StudyFormId] AS [StudyFormId], 
-[extAbit].[StudyFormName] AS [StudyFormName], 
-[extAbit].[StudyLevelId] AS [StudyLevelId], 
-[extAbit].[StudyLevelName] AS [StudyLevelName], 
-[extAbit].[StudyPlanId] AS [StudyPlanId], 
-[extAbit].[StudyPlanNumber] AS [StudyPlanNumber], 
-[extAbit].[ProgramModeShortName] AS [ProgramModeShortName], 
-[extAbit].[IsSecond] AS [IsSecond], 
-[extAbit].[PersonNum] AS [PersonNum], 
-[extAbit].[Name] AS [Name], 
-[extAbit].[SecondName] AS [SecondName], 
-[extAbit].[Surname] AS [Surname], 
-[extAbit].[StudyFormOldName] AS [StudyFormOldName], 
-[extAbit].[LanguageName] AS [LanguageName], 
-[extAbit].[StudyLevelGroupId] AS [StudyLevelGroupId], 
-[extAbit].[FIO] AS [FIO], 
-[extAbit].[PassportData] AS [PassportData], 
-[extAbit].[ObrazProgramNameEx] AS [ObrazProgramNameEx], 
-[extAbit].[WithHE] AS [WithHE], 
-[extAbit].[IsReduced] AS [IsReduced], 
-[extAbit].[IsParallel] AS [IsParallel], 
-[extAbit].[StudyBasisFISName] AS [StudyBasisFISName], 
-[extAbit].[StudyFormFISName] AS [StudyFormFISName], 
-[extAbit].[CommitId] AS [CommitId], 
-[extAbit].[CommitNumber] AS [CommitNumber], 
-[extAbit].[InnerEntryInEntryId] AS [InnerEntryInEntryId], 
-[extAbit].[InnerEntryInEntryProfileName] AS [InnerEntryInEntryProfileName], 
-[extAbit].[InnerEntryInEntryObrazProgramCrypt] AS [InnerEntryInEntryObrazProgramCrypt], 
-[extAbit].[InnerEntryInEntryObrazProgramName] AS [InnerEntryInEntryObrazProgramName], 
-[extAbit].[InnerEntryInEntryObrazProgramId] AS [InnerEntryInEntryObrazProgramId], 
-[extAbit].[IsForeign] AS [IsForeign], 
-[extAbit].[IsCrimea] AS [IsCrimea], 
-[extAbit].[BackDocByAdmissionHigh] AS [BackDocByAdmissionHigh]
-FROM [ed].[extAbit] AS [extAbit]</DefiningQuery>
+    [extAbit].[Id] AS [Id], 
+    [extAbit].[PersonId] AS [PersonId], 
+    [extAbit].[RegNum] AS [RegNum], 
+    [extAbit].[EntryId] AS [EntryId], 
+    [extAbit].[CompetitionId] AS [CompetitionId], 
+    [extAbit].[IsListener] AS [IsListener], 
+    [extAbit].[IsPaid] AS [IsPaid], 
+    [extAbit].[BackDoc] AS [BackDoc], 
+    [extAbit].[BackDocDate] AS [BackDocDate], 
+    [extAbit].[DocDate] AS [DocDate], 
+    [extAbit].[DocInsertDate] AS [DocInsertDate], 
+    [extAbit].[Checked] AS [Checked], 
+    [extAbit].[NotEnabled] AS [NotEnabled], 
+    [extAbit].[Coefficient] AS [Coefficient], 
+    [extAbit].[Sum] AS [Sum], 
+    [extAbit].[OtherCompetitionId] AS [OtherCompetitionId], 
+    [extAbit].[CelCompetitionId] AS [CelCompetitionId], 
+    [extAbit].[CelCompetitionText] AS [CelCompetitionText], 
+    [extAbit].[CompFromOlymp] AS [CompFromOlymp], 
+    [extAbit].[LanguageId] AS [LanguageId], 
+    [extAbit].[HasOriginals] AS [HasOriginals], 
+    [extAbit].[StudyNumber] AS [StudyNumber], 
+    [extAbit].[StudentStatus] AS [StudentStatus], 
+    [extAbit].[SessionAVG] AS [SessionAVG], 
+    [extAbit].[Priority] AS [Priority], 
+    [extAbit].[Barcode] AS [Barcode], 
+    [extAbit].[FacultyId] AS [FacultyId], 
+    [extAbit].[FacultyAcr] AS [FacultyAcr], 
+    [extAbit].[LicenseProgramId] AS [LicenseProgramId], 
+    [extAbit].[LicenseProgramName] AS [LicenseProgramName], 
+    [extAbit].[FacultyName] AS [FacultyName], 
+    [extAbit].[LicenseProgramCode] AS [LicenseProgramCode], 
+    [extAbit].[ObrazProgramId] AS [ObrazProgramId], 
+    [extAbit].[ObrazProgramName] AS [ObrazProgramName], 
+    [extAbit].[ObrazProgramNumber] AS [ObrazProgramNumber], 
+    [extAbit].[ObrazProgramCrypt] AS [ObrazProgramCrypt], 
+    [extAbit].[ProfileId] AS [ProfileId], 
+    [extAbit].[ProfileName] AS [ProfileName], 
+    [extAbit].[StudyBasisId] AS [StudyBasisId], 
+    [extAbit].[StudyBasisName] AS [StudyBasisName], 
+    [extAbit].[StudyFormId] AS [StudyFormId], 
+    [extAbit].[StudyFormName] AS [StudyFormName], 
+    [extAbit].[StudyLevelId] AS [StudyLevelId], 
+    [extAbit].[StudyLevelName] AS [StudyLevelName], 
+    [extAbit].[StudyPlanId] AS [StudyPlanId], 
+    [extAbit].[StudyPlanNumber] AS [StudyPlanNumber], 
+    [extAbit].[ProgramModeShortName] AS [ProgramModeShortName], 
+    [extAbit].[IsSecond] AS [IsSecond], 
+    [extAbit].[PersonNum] AS [PersonNum], 
+    [extAbit].[Name] AS [Name], 
+    [extAbit].[SecondName] AS [SecondName], 
+    [extAbit].[Surname] AS [Surname], 
+    [extAbit].[StudyFormOldName] AS [StudyFormOldName], 
+    [extAbit].[LanguageName] AS [LanguageName], 
+    [extAbit].[StudyLevelGroupId] AS [StudyLevelGroupId], 
+    [extAbit].[FIO] AS [FIO], 
+    [extAbit].[PassportData] AS [PassportData], 
+    [extAbit].[ObrazProgramNameEx] AS [ObrazProgramNameEx], 
+    [extAbit].[WithHE] AS [WithHE], 
+    [extAbit].[IsReduced] AS [IsReduced], 
+    [extAbit].[IsParallel] AS [IsParallel], 
+    [extAbit].[StudyBasisFISName] AS [StudyBasisFISName], 
+    [extAbit].[StudyFormFISName] AS [StudyFormFISName], 
+    [extAbit].[CommitId] AS [CommitId], 
+    [extAbit].[CommitNumber] AS [CommitNumber], 
+    [extAbit].[InnerEntryInEntryId] AS [InnerEntryInEntryId], 
+    [extAbit].[InnerEntryInEntryProfileName] AS [InnerEntryInEntryProfileName], 
+    [extAbit].[InnerEntryInEntryObrazProgramCrypt] AS [InnerEntryInEntryObrazProgramCrypt], 
+    [extAbit].[InnerEntryInEntryObrazProgramName] AS [InnerEntryInEntryObrazProgramName], 
+    [extAbit].[InnerEntryInEntryObrazProgramId] AS [InnerEntryInEntryObrazProgramId], 
+    [extAbit].[IsForeign] AS [IsForeign], 
+    [extAbit].[IsCrimea] AS [IsCrimea], 
+    [extAbit].[BackDocByAdmissionHigh] AS [BackDocByAdmissionHigh]
+    FROM [ed].[extAbit] AS [extAbit]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="extAbitAdditionalMarksSum" EntityType="Self.extAbitAdditionalMarksSum" store:Type="Views" store:Schema="ed">
             <DefiningQuery>SELECT 
-[extAbitAdditionalMarksSum].[AbiturientId] AS [AbiturientId], 
-[extAbitAdditionalMarksSum].[AdditionalMarksSum] AS [AdditionalMarksSum]
-FROM [ed].[extAbitAdditionalMarksSum] AS [extAbitAdditionalMarksSum]</DefiningQuery>
+    [extAbitAdditionalMarksSum].[AbiturientId] AS [AbiturientId], 
+    [extAbitAdditionalMarksSum].[AdditionalMarksSum] AS [AdditionalMarksSum]
+    FROM [ed].[extAbitAdditionalMarksSum] AS [extAbitAdditionalMarksSum]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="extAbitAllAdditionalAchievements" EntityType="Self.extAbitAllAdditionalAchievements" store:Type="Views" store:Schema="ed">
             <DefiningQuery>SELECT 
-[extAbitAllAdditionalAchievements].[AbiturientId] AS [AbiturientId], 
-[extAbitAllAdditionalAchievements].[AchievementType] AS [AchievementType], 
-[extAbitAllAdditionalAchievements].[AchievementTypeId] AS [AchievementTypeId], 
-[extAbitAllAdditionalAchievements].[Mark] AS [Mark]
-FROM [ed].[extAbitAllAdditionalAchievements] AS [extAbitAllAdditionalAchievements]</DefiningQuery>
+    [extAbitAllAdditionalAchievements].[AbiturientId] AS [AbiturientId], 
+    [extAbitAllAdditionalAchievements].[AchievementType] AS [AchievementType], 
+    [extAbitAllAdditionalAchievements].[AchievementTypeId] AS [AchievementTypeId], 
+    [extAbitAllAdditionalAchievements].[Mark] AS [Mark]
+    FROM [ed].[extAbitAllAdditionalAchievements] AS [extAbitAllAdditionalAchievements]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="extAbitMarksSum" EntityType="Self.extAbitMarksSum" store:Type="Views" store:Schema="ed">
             <DefiningQuery>SELECT 
-[extAbitMarksSum].[Id] AS [Id], 
-[extAbitMarksSum].[StudyFormId] AS [StudyFormId], 
-[extAbitMarksSum].[StudyBasisId] AS [StudyBasisId], 
-[extAbitMarksSum].[TotalSum] AS [TotalSum], 
-[extAbitMarksSum].[TotalSumFiveGrade] AS [TotalSumFiveGrade], 
-[extAbitMarksSum].[TotalCount] AS [TotalCount]
-FROM [ed].[extAbitMarksSum] AS [extAbitMarksSum]</DefiningQuery>
+    [extAbitMarksSum].[Id] AS [Id], 
+    [extAbitMarksSum].[StudyFormId] AS [StudyFormId], 
+    [extAbitMarksSum].[StudyBasisId] AS [StudyBasisId], 
+    [extAbitMarksSum].[TotalSum] AS [TotalSum], 
+    [extAbitMarksSum].[TotalSumFiveGrade] AS [TotalSumFiveGrade], 
+    [extAbitMarksSum].[TotalCount] AS [TotalCount]
+    FROM [ed].[extAbitMarksSum] AS [extAbitMarksSum]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="extApplicationDetails" EntityType="Self.extApplicationDetails" store:Type="Views" store:Schema="ed">
             <DefiningQuery>SELECT 
-[extApplicationDetails].[ApplicationId] AS [ApplicationId], 
-[extApplicationDetails].[InnerEntryInEntryId] AS [InnerEntryInEntryId], 
-[extApplicationDetails].[InnerEntryInEntryPriority] AS [InnerEntryInEntryPriority], 
-[extApplicationDetails].[ObrazProgramId] AS [ObrazProgramId], 
-[extApplicationDetails].[ObrazProgramCrypt] AS [ObrazProgramCrypt], 
-[extApplicationDetails].[ObrazProgramName] AS [ObrazProgramName], 
-[extApplicationDetails].[ProfileId] AS [ProfileId], 
-[extApplicationDetails].[ProfileName] AS [ProfileName]
-FROM [ed].[extApplicationDetails] AS [extApplicationDetails]</DefiningQuery>
+    [extApplicationDetails].[ApplicationId] AS [ApplicationId], 
+    [extApplicationDetails].[InnerEntryInEntryId] AS [InnerEntryInEntryId], 
+    [extApplicationDetails].[InnerEntryInEntryPriority] AS [InnerEntryInEntryPriority], 
+    [extApplicationDetails].[ObrazProgramId] AS [ObrazProgramId], 
+    [extApplicationDetails].[ObrazProgramCrypt] AS [ObrazProgramCrypt], 
+    [extApplicationDetails].[ObrazProgramName] AS [ObrazProgramName], 
+    [extApplicationDetails].[ProfileId] AS [ProfileId], 
+    [extApplicationDetails].[ProfileName] AS [ProfileName]
+    FROM [ed].[extApplicationDetails] AS [extApplicationDetails]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="extDisEntryFromReEnterView" EntityType="Self.extDisEntryFromReEnterView" store:Type="Views" store:Schema="ed">
             <DefiningQuery>SELECT 
-[extDisEntryFromReEnterView].[Id] AS [Id], 
-[extDisEntryFromReEnterView].[AbiturientId] AS [AbiturientId], 
-[extDisEntryFromReEnterView].[Excluded] AS [Excluded], 
-[extDisEntryFromReEnterView].[ExcludeProtocolId] AS [ExcludeProtocolId], 
-[extDisEntryFromReEnterView].[EntryHeaderId] AS [EntryHeaderId], 
-[extDisEntryFromReEnterView].[StudyLevelGroupId] AS [StudyLevelGroupId], 
-[extDisEntryFromReEnterView].[LicenseProgramId] AS [LicenseProgramId], 
-[extDisEntryFromReEnterView].[FacultyId] AS [FacultyId], 
-[extDisEntryFromReEnterView].[StudyFormId] AS [StudyFormId], 
-[extDisEntryFromReEnterView].[StudyBasisId] AS [StudyBasisId], 
-[extDisEntryFromReEnterView].[Number] AS [Number], 
-[extDisEntryFromReEnterView].[Date] AS [Date], 
-[extDisEntryFromReEnterView].[ProtocolTypeId] AS [ProtocolTypeId], 
-[extDisEntryFromReEnterView].[Reason] AS [Reason], 
-[extDisEntryFromReEnterView].[IsOld] AS [IsOld], 
-[extDisEntryFromReEnterView].[ParentProtocolId] AS [ParentProtocolId], 
-[extDisEntryFromReEnterView].[IsSecond] AS [IsSecond], 
-[extDisEntryFromReEnterView].[IsListener] AS [IsListener], 
-[extDisEntryFromReEnterView].[ProtocolTypeName] AS [ProtocolTypeName], 
-[extDisEntryFromReEnterView].[IsParallel] AS [IsParallel], 
-[extDisEntryFromReEnterView].[IsReduced] AS [IsReduced]
-FROM [ed].[extDisEntryFromReEnterView] AS [extDisEntryFromReEnterView]</DefiningQuery>
+    [extDisEntryFromReEnterView].[Id] AS [Id], 
+    [extDisEntryFromReEnterView].[AbiturientId] AS [AbiturientId], 
+    [extDisEntryFromReEnterView].[Excluded] AS [Excluded], 
+    [extDisEntryFromReEnterView].[ExcludeProtocolId] AS [ExcludeProtocolId], 
+    [extDisEntryFromReEnterView].[EntryHeaderId] AS [EntryHeaderId], 
+    [extDisEntryFromReEnterView].[StudyLevelGroupId] AS [StudyLevelGroupId], 
+    [extDisEntryFromReEnterView].[LicenseProgramId] AS [LicenseProgramId], 
+    [extDisEntryFromReEnterView].[FacultyId] AS [FacultyId], 
+    [extDisEntryFromReEnterView].[StudyFormId] AS [StudyFormId], 
+    [extDisEntryFromReEnterView].[StudyBasisId] AS [StudyBasisId], 
+    [extDisEntryFromReEnterView].[Number] AS [Number], 
+    [extDisEntryFromReEnterView].[Date] AS [Date], 
+    [extDisEntryFromReEnterView].[ProtocolTypeId] AS [ProtocolTypeId], 
+    [extDisEntryFromReEnterView].[Reason] AS [Reason], 
+    [extDisEntryFromReEnterView].[IsOld] AS [IsOld], 
+    [extDisEntryFromReEnterView].[ParentProtocolId] AS [ParentProtocolId], 
+    [extDisEntryFromReEnterView].[IsSecond] AS [IsSecond], 
+    [extDisEntryFromReEnterView].[IsListener] AS [IsListener], 
+    [extDisEntryFromReEnterView].[ProtocolTypeName] AS [ProtocolTypeName], 
+    [extDisEntryFromReEnterView].[IsParallel] AS [IsParallel], 
+    [extDisEntryFromReEnterView].[IsReduced] AS [IsReduced]
+    FROM [ed].[extDisEntryFromReEnterView] AS [extDisEntryFromReEnterView]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="extDisEntryView" EntityType="Self.extDisEntryView" store:Type="Views" store:Schema="ed">
             <DefiningQuery>SELECT 
-[extDisEntryView].[Id] AS [Id], 
-[extDisEntryView].[AbiturientId] AS [AbiturientId], 
-[extDisEntryView].[Excluded] AS [Excluded], 
-[extDisEntryView].[ExcludeProtocolId] AS [ExcludeProtocolId], 
-[extDisEntryView].[EntryHeaderId] AS [EntryHeaderId], 
-[extDisEntryView].[StudyLevelGroupId] AS [StudyLevelGroupId], 
-[extDisEntryView].[LicenseProgramId] AS [LicenseProgramId], 
-[extDisEntryView].[FacultyId] AS [FacultyId], 
-[extDisEntryView].[StudyFormId] AS [StudyFormId], 
-[extDisEntryView].[StudyBasisId] AS [StudyBasisId], 
-[extDisEntryView].[Number] AS [Number], 
-[extDisEntryView].[Date] AS [Date], 
-[extDisEntryView].[ProtocolTypeId] AS [ProtocolTypeId], 
-[extDisEntryView].[Reason] AS [Reason], 
-[extDisEntryView].[IsOld] AS [IsOld], 
-[extDisEntryView].[ParentProtocolId] AS [ParentProtocolId], 
-[extDisEntryView].[IsSecond] AS [IsSecond], 
-[extDisEntryView].[IsListener] AS [IsListener], 
-[extDisEntryView].[ProtocolTypeName] AS [ProtocolTypeName], 
-[extDisEntryView].[IsParallel] AS [IsParallel], 
-[extDisEntryView].[IsReduced] AS [IsReduced], 
-[extDisEntryView].[IsForeign] AS [IsForeign]
-FROM [ed].[extDisEntryView] AS [extDisEntryView]</DefiningQuery>
+    [extDisEntryView].[Id] AS [Id], 
+    [extDisEntryView].[AbiturientId] AS [AbiturientId], 
+    [extDisEntryView].[Excluded] AS [Excluded], 
+    [extDisEntryView].[ExcludeProtocolId] AS [ExcludeProtocolId], 
+    [extDisEntryView].[EntryHeaderId] AS [EntryHeaderId], 
+    [extDisEntryView].[StudyLevelGroupId] AS [StudyLevelGroupId], 
+    [extDisEntryView].[LicenseProgramId] AS [LicenseProgramId], 
+    [extDisEntryView].[FacultyId] AS [FacultyId], 
+    [extDisEntryView].[StudyFormId] AS [StudyFormId], 
+    [extDisEntryView].[StudyBasisId] AS [StudyBasisId], 
+    [extDisEntryView].[Number] AS [Number], 
+    [extDisEntryView].[Date] AS [Date], 
+    [extDisEntryView].[ProtocolTypeId] AS [ProtocolTypeId], 
+    [extDisEntryView].[Reason] AS [Reason], 
+    [extDisEntryView].[IsOld] AS [IsOld], 
+    [extDisEntryView].[ParentProtocolId] AS [ParentProtocolId], 
+    [extDisEntryView].[IsSecond] AS [IsSecond], 
+    [extDisEntryView].[IsListener] AS [IsListener], 
+    [extDisEntryView].[ProtocolTypeName] AS [ProtocolTypeName], 
+    [extDisEntryView].[IsParallel] AS [IsParallel], 
+    [extDisEntryView].[IsReduced] AS [IsReduced], 
+    [extDisEntryView].[IsForeign] AS [IsForeign]
+    FROM [ed].[extDisEntryView] AS [extDisEntryView]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="extEgeMark" EntityType="Self.extEgeMark" store:Type="Views" store:Schema="ed">
             <DefiningQuery>SELECT 
-[extEgeMark].[Id] AS [Id], 
-[extEgeMark].[Value] AS [Value], 
-[extEgeMark].[EgeExamNameId] AS [EgeExamNameId], 
-[extEgeMark].[EgeCertificateId] AS [EgeCertificateId], 
-[extEgeMark].[IsAppeal] AS [IsAppeal], 
-[extEgeMark].[IsCurrent] AS [IsCurrent], 
-[extEgeMark].[EgeExamName] AS [EgeExamName], 
-[extEgeMark].[Number] AS [Number], 
-[extEgeMark].[PersonId] AS [PersonId], 
-[extEgeMark].[Year] AS [Year], 
-[extEgeMark].[FISName] AS [FISName], 
-[extEgeMark].[FBSStatusId] AS [FBSStatusId]
-FROM [ed].[extEgeMark] AS [extEgeMark]</DefiningQuery>
+    [extEgeMark].[Id] AS [Id], 
+    [extEgeMark].[Value] AS [Value], 
+    [extEgeMark].[EgeExamNameId] AS [EgeExamNameId], 
+    [extEgeMark].[EgeCertificateId] AS [EgeCertificateId], 
+    [extEgeMark].[IsAppeal] AS [IsAppeal], 
+    [extEgeMark].[IsCurrent] AS [IsCurrent], 
+    [extEgeMark].[EgeExamName] AS [EgeExamName], 
+    [extEgeMark].[Number] AS [Number], 
+    [extEgeMark].[PersonId] AS [PersonId], 
+    [extEgeMark].[Year] AS [Year], 
+    [extEgeMark].[FISName] AS [FISName], 
+    [extEgeMark].[FBSStatusId] AS [FBSStatusId]
+    FROM [ed].[extEgeMark] AS [extEgeMark]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="extEgeMarkMax" EntityType="Self.extEgeMarkMax" store:Type="Views" store:Schema="ed">
             <DefiningQuery>SELECT 
-[extEgeMarkMax].[Id] AS [Id], 
-[extEgeMarkMax].[Value] AS [Value], 
-[extEgeMarkMax].[EgeExamNameId] AS [EgeExamNameId], 
-[extEgeMarkMax].[EgeCertificateId] AS [EgeCertificateId], 
-[extEgeMarkMax].[IsAppeal] AS [IsAppeal], 
-[extEgeMarkMax].[IsCurrent] AS [IsCurrent], 
-[extEgeMarkMax].[EgeExamName] AS [EgeExamName], 
-[extEgeMarkMax].[Number] AS [Number], 
-[extEgeMarkMax].[PersonId] AS [PersonId]
-FROM [ed].[extEgeMarkMax] AS [extEgeMarkMax]</DefiningQuery>
+    [extEgeMarkMax].[Id] AS [Id], 
+    [extEgeMarkMax].[Value] AS [Value], 
+    [extEgeMarkMax].[EgeExamNameId] AS [EgeExamNameId], 
+    [extEgeMarkMax].[EgeCertificateId] AS [EgeCertificateId], 
+    [extEgeMarkMax].[IsAppeal] AS [IsAppeal], 
+    [extEgeMarkMax].[IsCurrent] AS [IsCurrent], 
+    [extEgeMarkMax].[EgeExamName] AS [EgeExamName], 
+    [extEgeMarkMax].[Number] AS [Number], 
+    [extEgeMarkMax].[PersonId] AS [PersonId]
+    FROM [ed].[extEgeMarkMax] AS [extEgeMarkMax]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="extEgeMarkMaxAbit" EntityType="Self.extEgeMarkMaxAbit" store:Type="Views" store:Schema="ed">
             <DefiningQuery>SELECT 
-[extEgeMarkMaxAbit].[AbiturientId] AS [AbiturientId], 
-[extEgeMarkMaxAbit].[EgeMarkId] AS [EgeMarkId], 
-[extEgeMarkMaxAbit].[Value] AS [Value], 
-[extEgeMarkMaxAbit].[EgeExamNameId] AS [EgeExamNameId], 
-[extEgeMarkMaxAbit].[EgeCertificateId] AS [EgeCertificateId], 
-[extEgeMarkMaxAbit].[IsAppeal] AS [IsAppeal], 
-[extEgeMarkMaxAbit].[IsCurrent] AS [IsCurrent], 
-[extEgeMarkMaxAbit].[EgeExamName] AS [EgeExamName], 
-[extEgeMarkMaxAbit].[Number] AS [Number], 
-[extEgeMarkMaxAbit].[PersonId] AS [PersonId]
-FROM [ed].[extEgeMarkMaxAbit] AS [extEgeMarkMaxAbit]</DefiningQuery>
+    [extEgeMarkMaxAbit].[AbiturientId] AS [AbiturientId], 
+    [extEgeMarkMaxAbit].[EgeMarkId] AS [EgeMarkId], 
+    [extEgeMarkMaxAbit].[Value] AS [Value], 
+    [extEgeMarkMaxAbit].[EgeExamNameId] AS [EgeExamNameId], 
+    [extEgeMarkMaxAbit].[EgeCertificateId] AS [EgeCertificateId], 
+    [extEgeMarkMaxAbit].[IsAppeal] AS [IsAppeal], 
+    [extEgeMarkMaxAbit].[IsCurrent] AS [IsCurrent], 
+    [extEgeMarkMaxAbit].[EgeExamName] AS [EgeExamName], 
+    [extEgeMarkMaxAbit].[Number] AS [Number], 
+    [extEgeMarkMaxAbit].[PersonId] AS [PersonId]
+    FROM [ed].[extEgeMarkMaxAbit] AS [extEgeMarkMaxAbit]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="extEgeMarkMaxAbitApproved" EntityType="Self.extEgeMarkMaxAbitApproved" store:Type="Views" store:Schema="ed">
             <DefiningQuery>SELECT 
-[extEgeMarkMaxAbitApproved].[AbiturientId] AS [AbiturientId], 
-[extEgeMarkMaxAbitApproved].[EgeMarkId] AS [EgeMarkId], 
-[extEgeMarkMaxAbitApproved].[Value] AS [Value], 
-[extEgeMarkMaxAbitApproved].[EgeExamNameId] AS [EgeExamNameId], 
-[extEgeMarkMaxAbitApproved].[EgeCertificateId] AS [EgeCertificateId], 
-[extEgeMarkMaxAbitApproved].[IsAppeal] AS [IsAppeal], 
-[extEgeMarkMaxAbitApproved].[IsCurrent] AS [IsCurrent], 
-[extEgeMarkMaxAbitApproved].[EgeExamName] AS [EgeExamName], 
-[extEgeMarkMaxAbitApproved].[Number] AS [Number], 
-[extEgeMarkMaxAbitApproved].[PersonId] AS [PersonId]
-FROM [ed].[extEgeMarkMaxAbitApproved] AS [extEgeMarkMaxAbitApproved]</DefiningQuery>
+    [extEgeMarkMaxAbitApproved].[AbiturientId] AS [AbiturientId], 
+    [extEgeMarkMaxAbitApproved].[EgeMarkId] AS [EgeMarkId], 
+    [extEgeMarkMaxAbitApproved].[Value] AS [Value], 
+    [extEgeMarkMaxAbitApproved].[EgeExamNameId] AS [EgeExamNameId], 
+    [extEgeMarkMaxAbitApproved].[EgeCertificateId] AS [EgeCertificateId], 
+    [extEgeMarkMaxAbitApproved].[IsAppeal] AS [IsAppeal], 
+    [extEgeMarkMaxAbitApproved].[IsCurrent] AS [IsCurrent], 
+    [extEgeMarkMaxAbitApproved].[EgeExamName] AS [EgeExamName], 
+    [extEgeMarkMaxAbitApproved].[Number] AS [Number], 
+    [extEgeMarkMaxAbitApproved].[PersonId] AS [PersonId]
+    FROM [ed].[extEgeMarkMaxAbitApproved] AS [extEgeMarkMaxAbitApproved]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="extEgeMarkMaxApproved" EntityType="Self.extEgeMarkMaxApproved" store:Type="Views" store:Schema="ed">
             <DefiningQuery>SELECT 
-[extEgeMarkMaxApproved].[Id] AS [Id], 
-[extEgeMarkMaxApproved].[Value] AS [Value], 
-[extEgeMarkMaxApproved].[EgeExamNameId] AS [EgeExamNameId], 
-[extEgeMarkMaxApproved].[EgeCertificateId] AS [EgeCertificateId], 
-[extEgeMarkMaxApproved].[IsAppeal] AS [IsAppeal], 
-[extEgeMarkMaxApproved].[IsCurrent] AS [IsCurrent], 
-[extEgeMarkMaxApproved].[EgeExamName] AS [EgeExamName], 
-[extEgeMarkMaxApproved].[Number] AS [Number], 
-[extEgeMarkMaxApproved].[PersonId] AS [PersonId]
-FROM [ed].[extEgeMarkMaxApproved] AS [extEgeMarkMaxApproved]</DefiningQuery>
+    [extEgeMarkMaxApproved].[Id] AS [Id], 
+    [extEgeMarkMaxApproved].[Value] AS [Value], 
+    [extEgeMarkMaxApproved].[EgeExamNameId] AS [EgeExamNameId], 
+    [extEgeMarkMaxApproved].[EgeCertificateId] AS [EgeCertificateId], 
+    [extEgeMarkMaxApproved].[IsAppeal] AS [IsAppeal], 
+    [extEgeMarkMaxApproved].[IsCurrent] AS [IsCurrent], 
+    [extEgeMarkMaxApproved].[EgeExamName] AS [EgeExamName], 
+    [extEgeMarkMaxApproved].[Number] AS [Number], 
+    [extEgeMarkMaxApproved].[PersonId] AS [PersonId]
+    FROM [ed].[extEgeMarkMaxApproved] AS [extEgeMarkMaxApproved]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="extEnableProtocol" EntityType="Self.extEnableProtocol" store:Type="Views" store:Schema="ed">
             <DefiningQuery>SELECT 
-[extEnableProtocol].[Id] AS [Id], 
-[extEnableProtocol].[AbiturientId] AS [AbiturientId], 
-[extEnableProtocol].[Excluded] AS [Excluded], 
-[extEnableProtocol].[ExcludeProtocolId] AS [ExcludeProtocolId], 
-[extEnableProtocol].[EntryHeaderId] AS [EntryHeaderId], 
-[extEnableProtocol].[StudyLevelGroupId] AS [StudyLevelGroupId], 
-[extEnableProtocol].[LicenseProgramId] AS [LicenseProgramId], 
-[extEnableProtocol].[FacultyId] AS [FacultyId], 
-[extEnableProtocol].[StudyFormId] AS [StudyFormId], 
-[extEnableProtocol].[StudyBasisId] AS [StudyBasisId], 
-[extEnableProtocol].[Number] AS [Number], 
-[extEnableProtocol].[Date] AS [Date], 
-[extEnableProtocol].[ProtocolTypeId] AS [ProtocolTypeId], 
-[extEnableProtocol].[Reason] AS [Reason], 
-[extEnableProtocol].[IsOld] AS [IsOld], 
-[extEnableProtocol].[ParentProtocolId] AS [ParentProtocolId], 
-[extEnableProtocol].[IsSecond] AS [IsSecond], 
-[extEnableProtocol].[IsListener] AS [IsListener], 
-[extEnableProtocol].[ProtocolTypeName] AS [ProtocolTypeName]
-FROM [ed].[extEnableProtocol] AS [extEnableProtocol]</DefiningQuery>
+    [extEnableProtocol].[Id] AS [Id], 
+    [extEnableProtocol].[AbiturientId] AS [AbiturientId], 
+    [extEnableProtocol].[Excluded] AS [Excluded], 
+    [extEnableProtocol].[ExcludeProtocolId] AS [ExcludeProtocolId], 
+    [extEnableProtocol].[EntryHeaderId] AS [EntryHeaderId], 
+    [extEnableProtocol].[StudyLevelGroupId] AS [StudyLevelGroupId], 
+    [extEnableProtocol].[LicenseProgramId] AS [LicenseProgramId], 
+    [extEnableProtocol].[FacultyId] AS [FacultyId], 
+    [extEnableProtocol].[StudyFormId] AS [StudyFormId], 
+    [extEnableProtocol].[StudyBasisId] AS [StudyBasisId], 
+    [extEnableProtocol].[Number] AS [Number], 
+    [extEnableProtocol].[Date] AS [Date], 
+    [extEnableProtocol].[ProtocolTypeId] AS [ProtocolTypeId], 
+    [extEnableProtocol].[Reason] AS [Reason], 
+    [extEnableProtocol].[IsOld] AS [IsOld], 
+    [extEnableProtocol].[ParentProtocolId] AS [ParentProtocolId], 
+    [extEnableProtocol].[IsSecond] AS [IsSecond], 
+    [extEnableProtocol].[IsListener] AS [IsListener], 
+    [extEnableProtocol].[ProtocolTypeName] AS [ProtocolTypeName]
+    FROM [ed].[extEnableProtocol] AS [extEnableProtocol]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="extEntry" EntityType="Self.extEntry" store:Type="Views" store:Schema="ed">
             <DefiningQuery>SELECT 
-[extEntry].[Id] AS [Id], 
-[extEntry].[FacultyId] AS [FacultyId], 
-[extEntry].[LicenseProgramId] AS [LicenseProgramId], 
-[extEntry].[LicenseProgramName] AS [LicenseProgramName], 
-[extEntry].[LicenseProgramCode] AS [LicenseProgramCode], 
-[extEntry].[ObrazProgramId] AS [ObrazProgramId], 
-[extEntry].[ObrazProgramName] AS [ObrazProgramName], 
-[extEntry].[ObrazProgramNumber] AS [ObrazProgramNumber], 
-[extEntry].[ObrazProgramCrypt] AS [ObrazProgramCrypt], 
-[extEntry].[ProfileId] AS [ProfileId], 
-[extEntry].[ProfileName] AS [ProfileName], 
-[extEntry].[StudyBasisId] AS [StudyBasisId], 
-[extEntry].[StudyFormId] AS [StudyFormId], 
-[extEntry].[StudyLevelId] AS [StudyLevelId], 
-[extEntry].[StudyPlanId] AS [StudyPlanId], 
-[extEntry].[StudyPlanNumber] AS [StudyPlanNumber], 
-[extEntry].[ProgramModeShortName] AS [ProgramModeShortName], 
-[extEntry].[IsSecond] AS [IsSecond], 
-[extEntry].[KCP] AS [KCP], 
-[extEntry].[FacultyName] AS [FacultyName], 
-[extEntry].[StudyBasisName] AS [StudyBasisName], 
-[extEntry].[StudyFormName] AS [StudyFormName], 
-[extEntry].[StudyLevelName] AS [StudyLevelName], 
-[extEntry].[IsClosed] AS [IsClosed], 
-[extEntry].[StudyLevelGroupId] AS [StudyLevelGroupId], 
-[extEntry].[ObrazProgramNameEx] AS [ObrazProgramNameEx], 
-[extEntry].[FacultyAcr] AS [FacultyAcr], 
-[extEntry].[KCPCel] AS [KCPCel], 
-[extEntry].[IsReduced] AS [IsReduced], 
-[extEntry].[IsParallel] AS [IsParallel], 
-[extEntry].[QualificationCode] AS [QualificationCode], 
-[extEntry].[StudyLevelFISName] AS [StudyLevelFISName], 
-[extEntry].[ObrazProgramPrintName] AS [ObrazProgramPrintName], 
-[extEntry].[KCPQuota] AS [KCPQuota], 
-[extEntry].[AggregateGroupId] AS [AggregateGroupId], 
-[extEntry].[AggregateGroupName] AS [AggregateGroupName], 
-[extEntry].[IsForeign] AS [IsForeign], 
-[extEntry].[IsCrimea] AS [IsCrimea], 
-[extEntry].[StudyLevelGroupName] AS [StudyLevelGroupName], 
-[extEntry].[DateOfClose] AS [DateOfClose], 
-[extEntry].[DateOfStart] AS [DateOfStart], 
-[extEntry].[DateStartEduc] AS [DateStartEduc], 
-[extEntry].[DateFinishEduc] AS [DateFinishEduc], 
-[extEntry].[ParentEntryId] AS [ParentEntryId], 
-[extEntry].[FacultyCode] AS [FacultyCode]
-FROM [ed].[extEntry] AS [extEntry]</DefiningQuery>
+    [extEntry].[Id] AS [Id], 
+    [extEntry].[FacultyId] AS [FacultyId], 
+    [extEntry].[LicenseProgramId] AS [LicenseProgramId], 
+    [extEntry].[LicenseProgramName] AS [LicenseProgramName], 
+    [extEntry].[LicenseProgramCode] AS [LicenseProgramCode], 
+    [extEntry].[ObrazProgramId] AS [ObrazProgramId], 
+    [extEntry].[ObrazProgramName] AS [ObrazProgramName], 
+    [extEntry].[ObrazProgramNumber] AS [ObrazProgramNumber], 
+    [extEntry].[ObrazProgramCrypt] AS [ObrazProgramCrypt], 
+    [extEntry].[ProfileId] AS [ProfileId], 
+    [extEntry].[ProfileName] AS [ProfileName], 
+    [extEntry].[StudyBasisId] AS [StudyBasisId], 
+    [extEntry].[StudyFormId] AS [StudyFormId], 
+    [extEntry].[StudyLevelId] AS [StudyLevelId], 
+    [extEntry].[StudyPlanId] AS [StudyPlanId], 
+    [extEntry].[StudyPlanNumber] AS [StudyPlanNumber], 
+    [extEntry].[ProgramModeShortName] AS [ProgramModeShortName], 
+    [extEntry].[IsSecond] AS [IsSecond], 
+    [extEntry].[KCP] AS [KCP], 
+    [extEntry].[FacultyName] AS [FacultyName], 
+    [extEntry].[StudyBasisName] AS [StudyBasisName], 
+    [extEntry].[StudyFormName] AS [StudyFormName], 
+    [extEntry].[StudyLevelName] AS [StudyLevelName], 
+    [extEntry].[IsClosed] AS [IsClosed], 
+    [extEntry].[StudyLevelGroupId] AS [StudyLevelGroupId], 
+    [extEntry].[ObrazProgramNameEx] AS [ObrazProgramNameEx], 
+    [extEntry].[FacultyAcr] AS [FacultyAcr], 
+    [extEntry].[KCPCel] AS [KCPCel], 
+    [extEntry].[IsReduced] AS [IsReduced], 
+    [extEntry].[IsParallel] AS [IsParallel], 
+    [extEntry].[QualificationCode] AS [QualificationCode], 
+    [extEntry].[StudyLevelFISName] AS [StudyLevelFISName], 
+    [extEntry].[ObrazProgramPrintName] AS [ObrazProgramPrintName], 
+    [extEntry].[KCPQuota] AS [KCPQuota], 
+    [extEntry].[AggregateGroupId] AS [AggregateGroupId], 
+    [extEntry].[AggregateGroupName] AS [AggregateGroupName], 
+    [extEntry].[IsForeign] AS [IsForeign], 
+    [extEntry].[IsCrimea] AS [IsCrimea], 
+    [extEntry].[StudyLevelGroupName] AS [StudyLevelGroupName], 
+    [extEntry].[DateOfClose] AS [DateOfClose], 
+    [extEntry].[DateOfStart] AS [DateOfStart], 
+    [extEntry].[DateStartEduc] AS [DateStartEduc], 
+    [extEntry].[DateFinishEduc] AS [DateFinishEduc], 
+    [extEntry].[ParentEntryId] AS [ParentEntryId], 
+    [extEntry].[FacultyCode] AS [FacultyCode]
+    FROM [ed].[extEntry] AS [extEntry]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="extEntryProtocols" EntityType="Self.extEntryProtocols" store:Type="Views" store:Schema="ed">
             <DefiningQuery>SELECT 
-[extEntryProtocols].[Id] AS [Id], 
-[extEntryProtocols].[AbiturientId] AS [AbiturientId], 
-[extEntryProtocols].[Excluded] AS [Excluded], 
-[extEntryProtocols].[ExcludeProtocolId] AS [ExcludeProtocolId], 
-[extEntryProtocols].[EntryHeaderId] AS [EntryHeaderId], 
-[extEntryProtocols].[StudyLevelGroupId] AS [StudyLevelGroupId], 
-[extEntryProtocols].[LicenseProgramId] AS [LicenseProgramId], 
-[extEntryProtocols].[FacultyId] AS [FacultyId], 
-[extEntryProtocols].[StudyFormId] AS [StudyFormId], 
-[extEntryProtocols].[StudyBasisId] AS [StudyBasisId], 
-[extEntryProtocols].[Number] AS [Number], 
-[extEntryProtocols].[Date] AS [Date], 
-[extEntryProtocols].[ProtocolTypeId] AS [ProtocolTypeId], 
-[extEntryProtocols].[Reason] AS [Reason], 
-[extEntryProtocols].[IsOld] AS [IsOld], 
-[extEntryProtocols].[ParentProtocolId] AS [ParentProtocolId], 
-[extEntryProtocols].[IsSecond] AS [IsSecond], 
-[extEntryProtocols].[IsListener] AS [IsListener], 
-[extEntryProtocols].[IsParallel] AS [IsParallel], 
-[extEntryProtocols].[IsReduced] AS [IsReduced]
-FROM [ed].[extEntryProtocols] AS [extEntryProtocols]</DefiningQuery>
+    [extEntryProtocols].[Id] AS [Id], 
+    [extEntryProtocols].[AbiturientId] AS [AbiturientId], 
+    [extEntryProtocols].[Excluded] AS [Excluded], 
+    [extEntryProtocols].[ExcludeProtocolId] AS [ExcludeProtocolId], 
+    [extEntryProtocols].[EntryHeaderId] AS [EntryHeaderId], 
+    [extEntryProtocols].[StudyLevelGroupId] AS [StudyLevelGroupId], 
+    [extEntryProtocols].[LicenseProgramId] AS [LicenseProgramId], 
+    [extEntryProtocols].[FacultyId] AS [FacultyId], 
+    [extEntryProtocols].[StudyFormId] AS [StudyFormId], 
+    [extEntryProtocols].[StudyBasisId] AS [StudyBasisId], 
+    [extEntryProtocols].[Number] AS [Number], 
+    [extEntryProtocols].[Date] AS [Date], 
+    [extEntryProtocols].[ProtocolTypeId] AS [ProtocolTypeId], 
+    [extEntryProtocols].[Reason] AS [Reason], 
+    [extEntryProtocols].[IsOld] AS [IsOld], 
+    [extEntryProtocols].[ParentProtocolId] AS [ParentProtocolId], 
+    [extEntryProtocols].[IsSecond] AS [IsSecond], 
+    [extEntryProtocols].[IsListener] AS [IsListener], 
+    [extEntryProtocols].[IsParallel] AS [IsParallel], 
+    [extEntryProtocols].[IsReduced] AS [IsReduced]
+    FROM [ed].[extEntryProtocols] AS [extEntryProtocols]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="extEntryView" EntityType="Self.extEntryView" store:Type="Views" store:Schema="ed">
             <DefiningQuery>SELECT 
-[extEntryView].[Id] AS [Id], 
-[extEntryView].[AbiturientId] AS [AbiturientId], 
-[extEntryView].[Excluded] AS [Excluded], 
-[extEntryView].[ExcludeProtocolId] AS [ExcludeProtocolId], 
-[extEntryView].[EntryHeaderId] AS [EntryHeaderId], 
-[extEntryView].[StudyLevelGroupId] AS [StudyLevelGroupId], 
-[extEntryView].[LicenseProgramId] AS [LicenseProgramId], 
-[extEntryView].[FacultyId] AS [FacultyId], 
-[extEntryView].[StudyFormId] AS [StudyFormId], 
-[extEntryView].[StudyBasisId] AS [StudyBasisId], 
-[extEntryView].[Number] AS [Number], 
-[extEntryView].[Date] AS [Date], 
-[extEntryView].[ProtocolTypeId] AS [ProtocolTypeId], 
-[extEntryView].[Reason] AS [Reason], 
-[extEntryView].[IsOld] AS [IsOld], 
-[extEntryView].[ParentProtocolId] AS [ParentProtocolId], 
-[extEntryView].[IsSecond] AS [IsSecond], 
-[extEntryView].[IsListener] AS [IsListener], 
-[extEntryView].[ProtocolTypeName] AS [ProtocolTypeName], 
-[extEntryView].[IsParallel] AS [IsParallel], 
-[extEntryView].[IsReduced] AS [IsReduced], 
-[extEntryView].[OrderDate] AS [OrderDate], 
-[extEntryView].[OrderNum] AS [OrderNum], 
-[extEntryView].[OrderNumFor] AS [OrderNumFor], 
-[extEntryView].[OrderDateFor] AS [OrderDateFor], 
-[extEntryView].[SignerName] AS [SignerName], 
-[extEntryView].[SignerPosition] AS [SignerPosition], 
-[extEntryView].[EntryId] AS [EntryId], 
-[extEntryView].[ProtocolHistoryId] AS [ProtocolHistoryId], 
-[extEntryView].[PersonId] AS [PersonId], 
-[extEntryView].[IsCrimea] AS [IsCrimea], 
-[extEntryView].[IsQuota] AS [IsQuota], 
-[extEntryView].[IsCel] AS [IsCel], 
-[extEntryView].[IsBE] AS [IsBE], 
-[extEntryView].[IsForeign] AS [IsForeign], 
-[extEntryView].[Priority] AS [Priority], 
-[extEntryView].[EntryIsForeign] AS [EntryIsForeign]
-FROM [ed].[extEntryView] AS [extEntryView]</DefiningQuery>
+    [extEntryView].[Id] AS [Id], 
+    [extEntryView].[AbiturientId] AS [AbiturientId], 
+    [extEntryView].[Excluded] AS [Excluded], 
+    [extEntryView].[ExcludeProtocolId] AS [ExcludeProtocolId], 
+    [extEntryView].[EntryHeaderId] AS [EntryHeaderId], 
+    [extEntryView].[StudyLevelGroupId] AS [StudyLevelGroupId], 
+    [extEntryView].[LicenseProgramId] AS [LicenseProgramId], 
+    [extEntryView].[FacultyId] AS [FacultyId], 
+    [extEntryView].[StudyFormId] AS [StudyFormId], 
+    [extEntryView].[StudyBasisId] AS [StudyBasisId], 
+    [extEntryView].[Number] AS [Number], 
+    [extEntryView].[Date] AS [Date], 
+    [extEntryView].[ProtocolTypeId] AS [ProtocolTypeId], 
+    [extEntryView].[Reason] AS [Reason], 
+    [extEntryView].[IsOld] AS [IsOld], 
+    [extEntryView].[ParentProtocolId] AS [ParentProtocolId], 
+    [extEntryView].[IsSecond] AS [IsSecond], 
+    [extEntryView].[IsListener] AS [IsListener], 
+    [extEntryView].[ProtocolTypeName] AS [ProtocolTypeName], 
+    [extEntryView].[IsParallel] AS [IsParallel], 
+    [extEntryView].[IsReduced] AS [IsReduced], 
+    [extEntryView].[OrderDate] AS [OrderDate], 
+    [extEntryView].[OrderNum] AS [OrderNum], 
+    [extEntryView].[OrderNumFor] AS [OrderNumFor], 
+    [extEntryView].[OrderDateFor] AS [OrderDateFor], 
+    [extEntryView].[SignerName] AS [SignerName], 
+    [extEntryView].[SignerPosition] AS [SignerPosition], 
+    [extEntryView].[EntryId] AS [EntryId], 
+    [extEntryView].[ProtocolHistoryId] AS [ProtocolHistoryId], 
+    [extEntryView].[PersonId] AS [PersonId], 
+    [extEntryView].[IsCrimea] AS [IsCrimea], 
+    [extEntryView].[IsQuota] AS [IsQuota], 
+    [extEntryView].[IsCel] AS [IsCel], 
+    [extEntryView].[IsBE] AS [IsBE], 
+    [extEntryView].[IsForeign] AS [IsForeign], 
+    [extEntryView].[Priority] AS [Priority], 
+    [extEntryView].[EntryIsForeign] AS [EntryIsForeign]
+    FROM [ed].[extEntryView] AS [extEntryView]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="extEntryView_ForDisEntered" EntityType="Self.extEntryView_ForDisEntered" store:Type="Views" store:Schema="ed">
             <DefiningQuery>SELECT 
-[extEntryView_ForDisEntered].[Id] AS [Id], 
-[extEntryView_ForDisEntered].[AbiturientId] AS [AbiturientId], 
-[extEntryView_ForDisEntered].[Excluded] AS [Excluded], 
-[extEntryView_ForDisEntered].[ExcludeProtocolId] AS [ExcludeProtocolId], 
-[extEntryView_ForDisEntered].[EntryHeaderId] AS [EntryHeaderId], 
-[extEntryView_ForDisEntered].[StudyLevelGroupId] AS [StudyLevelGroupId], 
-[extEntryView_ForDisEntered].[LicenseProgramId] AS [LicenseProgramId], 
-[extEntryView_ForDisEntered].[FacultyId] AS [FacultyId], 
-[extEntryView_ForDisEntered].[StudyFormId] AS [StudyFormId], 
-[extEntryView_ForDisEntered].[StudyBasisId] AS [StudyBasisId], 
-[extEntryView_ForDisEntered].[Number] AS [Number], 
-[extEntryView_ForDisEntered].[Date] AS [Date], 
-[extEntryView_ForDisEntered].[ProtocolTypeId] AS [ProtocolTypeId], 
-[extEntryView_ForDisEntered].[Reason] AS [Reason], 
-[extEntryView_ForDisEntered].[IsOld] AS [IsOld], 
-[extEntryView_ForDisEntered].[ParentProtocolId] AS [ParentProtocolId], 
-[extEntryView_ForDisEntered].[IsSecond] AS [IsSecond], 
-[extEntryView_ForDisEntered].[IsListener] AS [IsListener], 
-[extEntryView_ForDisEntered].[ProtocolTypeName] AS [ProtocolTypeName], 
-[extEntryView_ForDisEntered].[IsParallel] AS [IsParallel], 
-[extEntryView_ForDisEntered].[IsReduced] AS [IsReduced], 
-[extEntryView_ForDisEntered].[OrderDate] AS [OrderDate], 
-[extEntryView_ForDisEntered].[OrderNum] AS [OrderNum], 
-[extEntryView_ForDisEntered].[OrderNumFor] AS [OrderNumFor], 
-[extEntryView_ForDisEntered].[OrderDateFor] AS [OrderDateFor], 
-[extEntryView_ForDisEntered].[SignerName] AS [SignerName], 
-[extEntryView_ForDisEntered].[SignerPosition] AS [SignerPosition]
-FROM [ed].[extEntryView_ForDisEntered] AS [extEntryView_ForDisEntered]</DefiningQuery>
+    [extEntryView_ForDisEntered].[Id] AS [Id], 
+    [extEntryView_ForDisEntered].[AbiturientId] AS [AbiturientId], 
+    [extEntryView_ForDisEntered].[Excluded] AS [Excluded], 
+    [extEntryView_ForDisEntered].[ExcludeProtocolId] AS [ExcludeProtocolId], 
+    [extEntryView_ForDisEntered].[EntryHeaderId] AS [EntryHeaderId], 
+    [extEntryView_ForDisEntered].[StudyLevelGroupId] AS [StudyLevelGroupId], 
+    [extEntryView_ForDisEntered].[LicenseProgramId] AS [LicenseProgramId], 
+    [extEntryView_ForDisEntered].[FacultyId] AS [FacultyId], 
+    [extEntryView_ForDisEntered].[StudyFormId] AS [StudyFormId], 
+    [extEntryView_ForDisEntered].[StudyBasisId] AS [StudyBasisId], 
+    [extEntryView_ForDisEntered].[Number] AS [Number], 
+    [extEntryView_ForDisEntered].[Date] AS [Date], 
+    [extEntryView_ForDisEntered].[ProtocolTypeId] AS [ProtocolTypeId], 
+    [extEntryView_ForDisEntered].[Reason] AS [Reason], 
+    [extEntryView_ForDisEntered].[IsOld] AS [IsOld], 
+    [extEntryView_ForDisEntered].[ParentProtocolId] AS [ParentProtocolId], 
+    [extEntryView_ForDisEntered].[IsSecond] AS [IsSecond], 
+    [extEntryView_ForDisEntered].[IsListener] AS [IsListener], 
+    [extEntryView_ForDisEntered].[ProtocolTypeName] AS [ProtocolTypeName], 
+    [extEntryView_ForDisEntered].[IsParallel] AS [IsParallel], 
+    [extEntryView_ForDisEntered].[IsReduced] AS [IsReduced], 
+    [extEntryView_ForDisEntered].[OrderDate] AS [OrderDate], 
+    [extEntryView_ForDisEntered].[OrderNum] AS [OrderNum], 
+    [extEntryView_ForDisEntered].[OrderNumFor] AS [OrderNumFor], 
+    [extEntryView_ForDisEntered].[OrderDateFor] AS [OrderDateFor], 
+    [extEntryView_ForDisEntered].[SignerName] AS [SignerName], 
+    [extEntryView_ForDisEntered].[SignerPosition] AS [SignerPosition]
+    FROM [ed].[extEntryView_ForDisEntered] AS [extEntryView_ForDisEntered]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="extExamInEntry" EntityType="Self.extExamInEntry" store:Type="Views" store:Schema="ed">
             <DefiningQuery>SELECT 
-[extExamInEntry].[Id] AS [Id], 
-[extExamInEntry].[EntryId] AS [EntryId], 
-[extExamInEntry].[ExamId] AS [ExamId], 
-[extExamInEntry].[IsProfil] AS [IsProfil], 
-[extExamInEntry].[EgeMin] AS [EgeMin], 
-[extExamInEntry].[ExamNameId] AS [ExamNameId], 
-[extExamInEntry].[IsAdditional] AS [IsAdditional], 
-[extExamInEntry].[ExamName] AS [ExamName], 
-[extExamInEntry].[FacultyId] AS [FacultyId], 
-[extExamInEntry].[LicenseProgramId] AS [LicenseProgramId], 
-[extExamInEntry].[ObrazProgramId] AS [ObrazProgramId], 
-[extExamInEntry].[ProfileId] AS [ProfileId], 
-[extExamInEntry].[StudyBasisId] AS [StudyBasisId], 
-[extExamInEntry].[StudyFormId] AS [StudyFormId], 
-[extExamInEntry].[StudyLevelId] AS [StudyLevelId], 
-[extExamInEntry].[StudyLevelGroupId] AS [StudyLevelGroupId], 
-[extExamInEntry].[ExamDefName] AS [ExamDefName], 
-[extExamInEntry].[IsSecond] AS [IsSecond], 
-[extExamInEntry].[IsReduced] AS [IsReduced], 
-[extExamInEntry].[IsParallel] AS [IsParallel], 
-[extExamInEntry].[Expr1] AS [Expr1], 
-[extExamInEntry].[OrderNumber] AS [OrderNumber], 
-[extExamInEntry].[IsCrimea] AS [IsCrimea], 
-[extExamInEntry].[IsGosLine] AS [IsGosLine], 
-[extExamInEntry].[ParentExamInEntryBlockId] AS [ParentExamInEntryBlockId], 
-[extExamInEntry].[IsForeign] AS [IsForeign]
-FROM [ed].[extExamInEntry] AS [extExamInEntry]</DefiningQuery>
+    [extExamInEntry].[Id] AS [Id], 
+    [extExamInEntry].[EntryId] AS [EntryId], 
+    [extExamInEntry].[ExamId] AS [ExamId], 
+    [extExamInEntry].[IsProfil] AS [IsProfil], 
+    [extExamInEntry].[EgeMin] AS [EgeMin], 
+    [extExamInEntry].[ExamNameId] AS [ExamNameId], 
+    [extExamInEntry].[IsAdditional] AS [IsAdditional], 
+    [extExamInEntry].[ExamName] AS [ExamName], 
+    [extExamInEntry].[FacultyId] AS [FacultyId], 
+    [extExamInEntry].[LicenseProgramId] AS [LicenseProgramId], 
+    [extExamInEntry].[ObrazProgramId] AS [ObrazProgramId], 
+    [extExamInEntry].[ProfileId] AS [ProfileId], 
+    [extExamInEntry].[StudyBasisId] AS [StudyBasisId], 
+    [extExamInEntry].[StudyFormId] AS [StudyFormId], 
+    [extExamInEntry].[StudyLevelId] AS [StudyLevelId], 
+    [extExamInEntry].[StudyLevelGroupId] AS [StudyLevelGroupId], 
+    [extExamInEntry].[ExamDefName] AS [ExamDefName], 
+    [extExamInEntry].[IsSecond] AS [IsSecond], 
+    [extExamInEntry].[IsReduced] AS [IsReduced], 
+    [extExamInEntry].[IsParallel] AS [IsParallel], 
+    [extExamInEntry].[Expr1] AS [Expr1], 
+    [extExamInEntry].[OrderNumber] AS [OrderNumber], 
+    [extExamInEntry].[IsCrimea] AS [IsCrimea], 
+    [extExamInEntry].[IsGosLine] AS [IsGosLine], 
+    [extExamInEntry].[ParentExamInEntryBlockId] AS [ParentExamInEntryBlockId], 
+    [extExamInEntry].[IsForeign] AS [IsForeign]
+    FROM [ed].[extExamInEntry] AS [extExamInEntry]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="extExamsVed" EntityType="Self.extExamsVed" store:Type="Views" store:Schema="ed">
             <DefiningQuery>SELECT 
-[extExamsVed].[Id] AS [Id], 
-[extExamsVed].[Number] AS [Number], 
-[extExamsVed].[StudyLevelGroupId] AS [StudyLevelGroupId], 
-[extExamsVed].[FacultyId] AS [FacultyId], 
-[extExamsVed].[StudyBasisId] AS [StudyBasisId], 
-[extExamsVed].[Date] AS [Date], 
-[extExamsVed].[ExamId] AS [ExamId], 
-[extExamsVed].[IsLocked] AS [IsLocked], 
-[extExamsVed].[IsLoad] AS [IsLoad], 
-[extExamsVed].[IsAddVed] AS [IsAddVed], 
-[extExamsVed].[AddCount] AS [AddCount], 
-[extExamsVed].[ExamNameId] AS [ExamNameId], 
-[extExamsVed].[IsAdditional] AS [IsAdditional], 
-[extExamsVed].[ExamName] AS [ExamName], 
-[extExamsVed].[ExamAcronym] AS [ExamAcronym], 
-[extExamsVed].[StudyBasisName] AS [StudyBasisName], 
-[extExamsVed].[StudyBasisAcr] AS [StudyBasisAcr], 
-[extExamsVed].[FacultyName] AS [FacultyName]
-FROM [ed].[extExamsVed] AS [extExamsVed]</DefiningQuery>
+    [extExamsVed].[Id] AS [Id], 
+    [extExamsVed].[Number] AS [Number], 
+    [extExamsVed].[StudyLevelGroupId] AS [StudyLevelGroupId], 
+    [extExamsVed].[FacultyId] AS [FacultyId], 
+    [extExamsVed].[StudyBasisId] AS [StudyBasisId], 
+    [extExamsVed].[Date] AS [Date], 
+    [extExamsVed].[ExamId] AS [ExamId], 
+    [extExamsVed].[IsLocked] AS [IsLocked], 
+    [extExamsVed].[IsLoad] AS [IsLoad], 
+    [extExamsVed].[IsAddVed] AS [IsAddVed], 
+    [extExamsVed].[AddCount] AS [AddCount], 
+    [extExamsVed].[ExamNameId] AS [ExamNameId], 
+    [extExamsVed].[IsAdditional] AS [IsAdditional], 
+    [extExamsVed].[ExamName] AS [ExamName], 
+    [extExamsVed].[ExamAcronym] AS [ExamAcronym], 
+    [extExamsVed].[StudyBasisName] AS [StudyBasisName], 
+    [extExamsVed].[StudyBasisAcr] AS [StudyBasisAcr], 
+    [extExamsVed].[FacultyName] AS [FacultyName]
+    FROM [ed].[extExamsVed] AS [extExamsVed]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="extFBSStatus" EntityType="Self.extFBSStatus" store:Type="Views" store:Schema="ed">
             <DefiningQuery>SELECT 
-[extFBSStatus].[FBSStatus] AS [FBSStatus], 
-[extFBSStatus].[FBSStatusId] AS [FBSStatusId], 
-[extFBSStatus].[PersonId] AS [PersonId], 
-[extFBSStatus].[Surname] AS [Surname]
-FROM [ed].[extFBSStatus] AS [extFBSStatus]</DefiningQuery>
+    [extFBSStatus].[FBSStatus] AS [FBSStatus], 
+    [extFBSStatus].[FBSStatusId] AS [FBSStatusId], 
+    [extFBSStatus].[PersonId] AS [PersonId], 
+    [extFBSStatus].[Surname] AS [Surname]
+    FROM [ed].[extFBSStatus] AS [extFBSStatus]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="extForeignPerson" EntityType="Self.extForeignPerson" store:Type="Views" store:Schema="ed">
             <DefiningQuery>SELECT 
-[extForeignPerson].[PersonTypeId] AS [PersonTypeId], 
-[extForeignPerson].[Id] AS [Id], 
-[extForeignPerson].[Barcode] AS [Barcode], 
-[extForeignPerson].[Num] AS [Num], 
-[extForeignPerson].[Name] AS [Name], 
-[extForeignPerson].[SecondName] AS [SecondName], 
-[extForeignPerson].[Surname] AS [Surname], 
-[extForeignPerson].[BirthDate] AS [BirthDate], 
-[extForeignPerson].[BirthPlace] AS [BirthPlace], 
-[extForeignPerson].[PassportTypeId] AS [PassportTypeId], 
-[extForeignPerson].[PassportSeries] AS [PassportSeries], 
-[extForeignPerson].[PassportNumber] AS [PassportNumber], 
-[extForeignPerson].[PassportAuthor] AS [PassportAuthor], 
-[extForeignPerson].[PassportDate] AS [PassportDate], 
-[extForeignPerson].[Sex] AS [Sex], 
-[extForeignPerson].[CountryId] AS [CountryId], 
-[extForeignPerson].[ForeignCountryId] AS [ForeignCountryId], 
-[extForeignPerson].[NationalityId] AS [NationalityId], 
-[extForeignPerson].[ForeignNationalityId] AS [ForeignNationalityId], 
-[extForeignPerson].[RegionId] AS [RegionId], 
-[extForeignPerson].[Phone] AS [Phone], 
-[extForeignPerson].[Mobiles] AS [Mobiles], 
-[extForeignPerson].[Email] AS [Email], 
-[extForeignPerson].[HostelAbit] AS [HostelAbit], 
-[extForeignPerson].[HasAssignToHostel] AS [HasAssignToHostel], 
-[extForeignPerson].[HostelFacultyId] AS [HostelFacultyId], 
-[extForeignPerson].[ExamPassFacultyId] AS [ExamPassFacultyId], 
-[extForeignPerson].[HasExamPass] AS [HasExamPass], 
-[extForeignPerson].[PersonVisaStart] AS [PersonVisaStart], 
-[extForeignPerson].[PersonVisaEnd] AS [PersonVisaEnd], 
-[extForeignPerson].[EnterInRussiaDate] AS [EnterInRussiaDate], 
-[extForeignPerson].[EducationDirectionDate] AS [EducationDirectionDate], 
-[extForeignPerson].[EducationDirectionNumber] AS [EducationDirectionNumber], 
-[extForeignPerson].[Stag] AS [Stag], 
-[extForeignPerson].[WorkPlace] AS [WorkPlace], 
-[extForeignPerson].[Privileges] AS [Privileges], 
-[extForeignPerson].[PassportCode] AS [PassportCode], 
-[extForeignPerson].[PersonalCode] AS [PersonalCode], 
-[extForeignPerson].[PersonInfo] AS [PersonInfo], 
-[extForeignPerson].[ExtraInfo] AS [ExtraInfo], 
-[extForeignPerson].[ScienceWork] AS [ScienceWork], 
-[extForeignPerson].[PersonNum] AS [PersonNum], 
-[extForeignPerson].[FIO] AS [FIO], 
-[extForeignPerson].[PassportData] AS [PassportData], 
-[extForeignPerson].[EducDocument] AS [EducDocument], 
-[extForeignPerson].[HostelFacultyAcr] AS [HostelFacultyAcr], 
-[extForeignPerson].[ForeignCountryName] AS [ForeignCountryName], 
-[extForeignPerson].[CountryName] AS [CountryName], 
-[extForeignPerson].[NationalityName] AS [NationalityName], 
-[extForeignPerson].[ForeignNationalityName] AS [ForeignNationalityName], 
-[extForeignPerson].[RegionName] AS [RegionName], 
-[extForeignPerson].[HostelFacultyName] AS [HostelFacultyName], 
-[extForeignPerson].[Code] AS [Code], 
-[extForeignPerson].[City] AS [City], 
-[extForeignPerson].[Street] AS [Street], 
-[extForeignPerson].[House] AS [House], 
-[extForeignPerson].[Korpus] AS [Korpus], 
-[extForeignPerson].[Flat] AS [Flat], 
-[extForeignPerson].[HostelEduc] AS [HostelEduc], 
-[extForeignPerson].[CodeReal] AS [CodeReal], 
-[extForeignPerson].[CityReal] AS [CityReal], 
-[extForeignPerson].[StreetReal] AS [StreetReal], 
-[extForeignPerson].[HouseReal] AS [HouseReal], 
-[extForeignPerson].[KorpusReal] AS [KorpusReal], 
-[extForeignPerson].[FlatReal] AS [FlatReal], 
-[extForeignPerson].[KladrCode] AS [KladrCode], 
-[extForeignPerson].[HasTRKI] AS [HasTRKI], 
-[extForeignPerson].[TRKICertificateNumber] AS [TRKICertificateNumber]
-FROM [ed].[extForeignPerson] AS [extForeignPerson]</DefiningQuery>
+    [extForeignPerson].[PersonTypeId] AS [PersonTypeId], 
+    [extForeignPerson].[Id] AS [Id], 
+    [extForeignPerson].[Barcode] AS [Barcode], 
+    [extForeignPerson].[Num] AS [Num], 
+    [extForeignPerson].[Name] AS [Name], 
+    [extForeignPerson].[SecondName] AS [SecondName], 
+    [extForeignPerson].[Surname] AS [Surname], 
+    [extForeignPerson].[BirthDate] AS [BirthDate], 
+    [extForeignPerson].[BirthPlace] AS [BirthPlace], 
+    [extForeignPerson].[PassportTypeId] AS [PassportTypeId], 
+    [extForeignPerson].[PassportSeries] AS [PassportSeries], 
+    [extForeignPerson].[PassportNumber] AS [PassportNumber], 
+    [extForeignPerson].[PassportAuthor] AS [PassportAuthor], 
+    [extForeignPerson].[PassportDate] AS [PassportDate], 
+    [extForeignPerson].[Sex] AS [Sex], 
+    [extForeignPerson].[CountryId] AS [CountryId], 
+    [extForeignPerson].[ForeignCountryId] AS [ForeignCountryId], 
+    [extForeignPerson].[NationalityId] AS [NationalityId], 
+    [extForeignPerson].[ForeignNationalityId] AS [ForeignNationalityId], 
+    [extForeignPerson].[RegionId] AS [RegionId], 
+    [extForeignPerson].[Phone] AS [Phone], 
+    [extForeignPerson].[Mobiles] AS [Mobiles], 
+    [extForeignPerson].[Email] AS [Email], 
+    [extForeignPerson].[HostelAbit] AS [HostelAbit], 
+    [extForeignPerson].[HasAssignToHostel] AS [HasAssignToHostel], 
+    [extForeignPerson].[HostelFacultyId] AS [HostelFacultyId], 
+    [extForeignPerson].[ExamPassFacultyId] AS [ExamPassFacultyId], 
+    [extForeignPerson].[HasExamPass] AS [HasExamPass], 
+    [extForeignPerson].[PersonVisaStart] AS [PersonVisaStart], 
+    [extForeignPerson].[PersonVisaEnd] AS [PersonVisaEnd], 
+    [extForeignPerson].[EnterInRussiaDate] AS [EnterInRussiaDate], 
+    [extForeignPerson].[EducationDirectionDate] AS [EducationDirectionDate], 
+    [extForeignPerson].[EducationDirectionNumber] AS [EducationDirectionNumber], 
+    [extForeignPerson].[Stag] AS [Stag], 
+    [extForeignPerson].[WorkPlace] AS [WorkPlace], 
+    [extForeignPerson].[Privileges] AS [Privileges], 
+    [extForeignPerson].[PassportCode] AS [PassportCode], 
+    [extForeignPerson].[PersonalCode] AS [PersonalCode], 
+    [extForeignPerson].[PersonInfo] AS [PersonInfo], 
+    [extForeignPerson].[ExtraInfo] AS [ExtraInfo], 
+    [extForeignPerson].[ScienceWork] AS [ScienceWork], 
+    [extForeignPerson].[PersonNum] AS [PersonNum], 
+    [extForeignPerson].[FIO] AS [FIO], 
+    [extForeignPerson].[PassportData] AS [PassportData], 
+    [extForeignPerson].[EducDocument] AS [EducDocument], 
+    [extForeignPerson].[HostelFacultyAcr] AS [HostelFacultyAcr], 
+    [extForeignPerson].[ForeignCountryName] AS [ForeignCountryName], 
+    [extForeignPerson].[CountryName] AS [CountryName], 
+    [extForeignPerson].[NationalityName] AS [NationalityName], 
+    [extForeignPerson].[ForeignNationalityName] AS [ForeignNationalityName], 
+    [extForeignPerson].[RegionName] AS [RegionName], 
+    [extForeignPerson].[HostelFacultyName] AS [HostelFacultyName], 
+    [extForeignPerson].[Code] AS [Code], 
+    [extForeignPerson].[City] AS [City], 
+    [extForeignPerson].[Street] AS [Street], 
+    [extForeignPerson].[House] AS [House], 
+    [extForeignPerson].[Korpus] AS [Korpus], 
+    [extForeignPerson].[Flat] AS [Flat], 
+    [extForeignPerson].[HostelEduc] AS [HostelEduc], 
+    [extForeignPerson].[CodeReal] AS [CodeReal], 
+    [extForeignPerson].[CityReal] AS [CityReal], 
+    [extForeignPerson].[StreetReal] AS [StreetReal], 
+    [extForeignPerson].[HouseReal] AS [HouseReal], 
+    [extForeignPerson].[KorpusReal] AS [KorpusReal], 
+    [extForeignPerson].[FlatReal] AS [FlatReal], 
+    [extForeignPerson].[KladrCode] AS [KladrCode], 
+    [extForeignPerson].[HasTRKI] AS [HasTRKI], 
+    [extForeignPerson].[TRKICertificateNumber] AS [TRKICertificateNumber]
+    FROM [ed].[extForeignPerson] AS [extForeignPerson]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="extOlympBook" EntityType="Self.extOlympBook" store:Type="Views" store:Schema="ed">
             <DefiningQuery>SELECT 
-[extOlympBook].[Id] AS [Id], 
-[extOlympBook].[OlympTypeId] AS [OlympTypeId], 
-[extOlympBook].[OlympNameId] AS [OlympNameId], 
-[extOlympBook].[OlympSubjectId] AS [OlympSubjectId], 
-[extOlympBook].[OlympLevelId] AS [OlympLevelId], 
-[extOlympBook].[OlympNameName] AS [OlympNameName], 
-[extOlympBook].[OlympLevelName] AS [OlympLevelName], 
-[extOlympBook].[OlympSubjectName] AS [OlympSubjectName], 
-[extOlympBook].[OlympTypeName] AS [OlympTypeName], 
-[extOlympBook].[Number] AS [Number], 
-[extOlympBook].[OlympYear] AS [OlympYear]
-FROM [ed].[extOlympBook] AS [extOlympBook]</DefiningQuery>
+    [extOlympBook].[Id] AS [Id], 
+    [extOlympBook].[OlympTypeId] AS [OlympTypeId], 
+    [extOlympBook].[OlympNameId] AS [OlympNameId], 
+    [extOlympBook].[OlympSubjectId] AS [OlympSubjectId], 
+    [extOlympBook].[OlympLevelId] AS [OlympLevelId], 
+    [extOlympBook].[OlympNameName] AS [OlympNameName], 
+    [extOlympBook].[OlympLevelName] AS [OlympLevelName], 
+    [extOlympBook].[OlympSubjectName] AS [OlympSubjectName], 
+    [extOlympBook].[OlympTypeName] AS [OlympTypeName], 
+    [extOlympBook].[Number] AS [Number], 
+    [extOlympBook].[OlympYear] AS [OlympYear]
+    FROM [ed].[extOlympBook] AS [extOlympBook]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="extOlympiads" EntityType="Self.extOlympiads" store:Type="Views" store:Schema="ed">
             <DefiningQuery>SELECT 
-[extOlympiads].[Id] AS [Id], 
-[extOlympiads].[OlympTypeId] AS [OlympTypeId], 
-[extOlympiads].[OlympNameId] AS [OlympNameId], 
-[extOlympiads].[OlympSubjectId] AS [OlympSubjectId], 
-[extOlympiads].[OlympLevelId] AS [OlympLevelId], 
-[extOlympiads].[OlympValueId] AS [OlympValueId], 
-[extOlympiads].[AbiturientId] AS [AbiturientId], 
-[extOlympiads].[OlympLevelName] AS [OlympLevelName], 
-[extOlympiads].[OlympValueName] AS [OlympValueName], 
-[extOlympiads].[OlympName] AS [OlympName], 
-[extOlympiads].[OlympSubjectName] AS [OlympSubjectName], 
-[extOlympiads].[OlympTypeName] AS [OlympTypeName], 
-[extOlympiads].[PersonId] AS [PersonId], 
-[extOlympiads].[OriginDoc] AS [OriginDoc], 
-[extOlympiads].[SortOrder] AS [SortOrder], 
-[extOlympiads].[OlympValueAcr] AS [OlympValueAcr]
-FROM [ed].[extOlympiads] AS [extOlympiads]</DefiningQuery>
+    [extOlympiads].[Id] AS [Id], 
+    [extOlympiads].[OlympTypeId] AS [OlympTypeId], 
+    [extOlympiads].[OlympNameId] AS [OlympNameId], 
+    [extOlympiads].[OlympSubjectId] AS [OlympSubjectId], 
+    [extOlympiads].[OlympLevelId] AS [OlympLevelId], 
+    [extOlympiads].[OlympValueId] AS [OlympValueId], 
+    [extOlympiads].[AbiturientId] AS [AbiturientId], 
+    [extOlympiads].[OlympLevelName] AS [OlympLevelName], 
+    [extOlympiads].[OlympValueName] AS [OlympValueName], 
+    [extOlympiads].[OlympName] AS [OlympName], 
+    [extOlympiads].[OlympSubjectName] AS [OlympSubjectName], 
+    [extOlympiads].[OlympTypeName] AS [OlympTypeName], 
+    [extOlympiads].[PersonId] AS [PersonId], 
+    [extOlympiads].[OriginDoc] AS [OriginDoc], 
+    [extOlympiads].[SortOrder] AS [SortOrder], 
+    [extOlympiads].[OlympValueAcr] AS [OlympValueAcr]
+    FROM [ed].[extOlympiads] AS [extOlympiads]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="extOlympiadsAll" EntityType="Self.extOlympiadsAll" store:Type="Views" store:Schema="ed">
             <DefiningQuery>SELECT 
-[extOlympiadsAll].[Id] AS [Id], 
-[extOlympiadsAll].[OlympTypeId] AS [OlympTypeId], 
-[extOlympiadsAll].[OlympNameId] AS [OlympNameId], 
-[extOlympiadsAll].[OlympSubjectId] AS [OlympSubjectId], 
-[extOlympiadsAll].[OlympLevelId] AS [OlympLevelId], 
-[extOlympiadsAll].[OlympValueId] AS [OlympValueId], 
-[extOlympiadsAll].[AbiturientId] AS [AbiturientId], 
-[extOlympiadsAll].[OlympLevelName] AS [OlympLevelName], 
-[extOlympiadsAll].[OlympValueName] AS [OlympValueName], 
-[extOlympiadsAll].[OlympName] AS [OlympName], 
-[extOlympiadsAll].[OlympSubjectName] AS [OlympSubjectName], 
-[extOlympiadsAll].[OlympTypeName] AS [OlympTypeName], 
-[extOlympiadsAll].[PersonId] AS [PersonId], 
-[extOlympiadsAll].[OriginDoc] AS [OriginDoc], 
-[extOlympiadsAll].[Number] AS [Number], 
-[extOlympiadsAll].[DocumentSeries] AS [DocumentSeries], 
-[extOlympiadsAll].[DocumentNumber] AS [DocumentNumber], 
-[extOlympiadsAll].[DocumentDate] AS [DocumentDate], 
-[extOlympiadsAll].[OlympValueSortOrder] AS [OlympValueSortOrder], 
-[extOlympiadsAll].[OlympYear] AS [OlympYear]
-FROM [ed].[extOlympiadsAll] AS [extOlympiadsAll]</DefiningQuery>
+    [extOlympiadsAll].[Id] AS [Id], 
+    [extOlympiadsAll].[OlympTypeId] AS [OlympTypeId], 
+    [extOlympiadsAll].[OlympNameId] AS [OlympNameId], 
+    [extOlympiadsAll].[OlympSubjectId] AS [OlympSubjectId], 
+    [extOlympiadsAll].[OlympLevelId] AS [OlympLevelId], 
+    [extOlympiadsAll].[OlympValueId] AS [OlympValueId], 
+    [extOlympiadsAll].[AbiturientId] AS [AbiturientId], 
+    [extOlympiadsAll].[OlympLevelName] AS [OlympLevelName], 
+    [extOlympiadsAll].[OlympValueName] AS [OlympValueName], 
+    [extOlympiadsAll].[OlympName] AS [OlympName], 
+    [extOlympiadsAll].[OlympSubjectName] AS [OlympSubjectName], 
+    [extOlympiadsAll].[OlympTypeName] AS [OlympTypeName], 
+    [extOlympiadsAll].[PersonId] AS [PersonId], 
+    [extOlympiadsAll].[OriginDoc] AS [OriginDoc], 
+    [extOlympiadsAll].[Number] AS [Number], 
+    [extOlympiadsAll].[DocumentSeries] AS [DocumentSeries], 
+    [extOlympiadsAll].[DocumentNumber] AS [DocumentNumber], 
+    [extOlympiadsAll].[DocumentDate] AS [DocumentDate], 
+    [extOlympiadsAll].[OlympValueSortOrder] AS [OlympValueSortOrder], 
+    [extOlympiadsAll].[OlympYear] AS [OlympYear]
+    FROM [ed].[extOlympiadsAll] AS [extOlympiadsAll]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="extPerson" EntityType="Self.extPerson" store:Type="Views" store:Schema="ed">
             <DefiningQuery>SELECT 
-[extPerson].[Id] AS [Id], 
-[extPerson].[Barcode] AS [Barcode], 
-[extPerson].[Num] AS [Num], 
-[extPerson].[Name] AS [Name], 
-[extPerson].[SecondName] AS [SecondName], 
-[extPerson].[Surname] AS [Surname], 
-[extPerson].[BirthDate] AS [BirthDate], 
-[extPerson].[BirthPlace] AS [BirthPlace], 
-[extPerson].[PassportTypeId] AS [PassportTypeId], 
-[extPerson].[PassportSeries] AS [PassportSeries], 
-[extPerson].[PassportNumber] AS [PassportNumber], 
-[extPerson].[PassportAuthor] AS [PassportAuthor], 
-[extPerson].[PassportDate] AS [PassportDate], 
-[extPerson].[Sex] AS [Sex], 
-[extPerson].[CountryId] AS [CountryId], 
-[extPerson].[NationalityId] AS [NationalityId], 
-[extPerson].[RegionId] AS [RegionId], 
-[extPerson].[Phone] AS [Phone], 
-[extPerson].[Mobiles] AS [Mobiles], 
-[extPerson].[Email] AS [Email], 
-[extPerson].[Code] AS [Code], 
-[extPerson].[City] AS [City], 
-[extPerson].[Street] AS [Street], 
-[extPerson].[House] AS [House], 
-[extPerson].[Flat] AS [Flat], 
-[extPerson].[CodeReal] AS [CodeReal], 
-[extPerson].[Korpus] AS [Korpus], 
-[extPerson].[CityReal] AS [CityReal], 
-[extPerson].[StreetReal] AS [StreetReal], 
-[extPerson].[HouseReal] AS [HouseReal], 
-[extPerson].[KorpusReal] AS [KorpusReal], 
-[extPerson].[FlatReal] AS [FlatReal], 
-[extPerson].[HostelAbit] AS [HostelAbit], 
-[extPerson].[HasAssignToHostel] AS [HasAssignToHostel], 
-[extPerson].[HostelFacultyId] AS [HostelFacultyId], 
-[extPerson].[ExamPassFacultyId] AS [ExamPassFacultyId], 
-[extPerson].[HasExamPass] AS [HasExamPass], 
-[extPerson].[LanguageId] AS [LanguageId], 
-[extPerson].[MSVuz] AS [MSVuz], 
-[extPerson].[MSStudyFormId] AS [MSStudyFormId], 
-[extPerson].[MSCourse] AS [MSCourse], 
-[extPerson].[Stag] AS [Stag], 
-[extPerson].[WorkPlace] AS [WorkPlace], 
-[extPerson].[Privileges] AS [Privileges], 
-[extPerson].[PassportCode] AS [PassportCode], 
-[extPerson].[PersonalCode] AS [PersonalCode], 
-[extPerson].[PersonInfo] AS [PersonInfo], 
-[extPerson].[ExtraInfo] AS [ExtraInfo], 
-[extPerson].[ScienceWork] AS [ScienceWork], 
-[extPerson].[PersonNum] AS [PersonNum], 
-[extPerson].[FIO] AS [FIO], 
-[extPerson].[PassportData] AS [PassportData], 
-[extPerson].[EducDocument] AS [EducDocument], 
-[extPerson].[HostelFacultyAcr] AS [HostelFacultyAcr], 
-[extPerson].[CountryName] AS [CountryName], 
-[extPerson].[NationalityName] AS [NationalityName], 
-[extPerson].[RegionName] AS [RegionName], 
-[extPerson].[HostelFacultyName] AS [HostelFacultyName], 
-[extPerson].[HostelEduc] AS [HostelEduc], 
-[extPerson].[KladrCode] AS [KladrCode], 
-[extPerson].[SNILS] AS [SNILS], 
-[extPerson].[RegionNumber] AS [RegionNumber], 
-[extPerson].[ForeignNationality] AS [ForeignNationality], 
-[extPerson].[ForeignNationalityId] AS [ForeignNationalityId], 
-[extPerson].[ForeignCountry] AS [ForeignCountry], 
-[extPerson].[ForeignCountryId] AS [ForeignCountryId], 
-[extPerson].[StartEnglish] AS [StartEnglish], 
-[extPerson].[EnglishMark] AS [EnglishMark], 
-[extPerson].[EgeInSPbgu] AS [EgeInSPbgu], 
-[extPerson].[HasTRKI] AS [HasTRKI], 
-[extPerson].[TRKICertificateNumber] AS [TRKICertificateNumber], 
-[extPerson].[HasRussianNationality] AS [HasRussianNationality], 
-[extPerson].[PassportTypeName] AS [PassportTypeName], 
-[extPerson].[PassportTypeFISName] AS [PassportTypeFISName], 
-[extPerson].[LanguageName] AS [LanguageName], 
-[extPerson].[Author] AS [Author], 
-[extPerson].[DateCreated] AS [DateCreated], 
-[extPerson].[HasOriginals] AS [HasOriginals]
-FROM [ed].[extPerson] AS [extPerson]</DefiningQuery>
+    [extPerson].[Id] AS [Id], 
+    [extPerson].[Barcode] AS [Barcode], 
+    [extPerson].[Num] AS [Num], 
+    [extPerson].[Name] AS [Name], 
+    [extPerson].[SecondName] AS [SecondName], 
+    [extPerson].[Surname] AS [Surname], 
+    [extPerson].[BirthDate] AS [BirthDate], 
+    [extPerson].[BirthPlace] AS [BirthPlace], 
+    [extPerson].[PassportTypeId] AS [PassportTypeId], 
+    [extPerson].[PassportSeries] AS [PassportSeries], 
+    [extPerson].[PassportNumber] AS [PassportNumber], 
+    [extPerson].[PassportAuthor] AS [PassportAuthor], 
+    [extPerson].[PassportDate] AS [PassportDate], 
+    [extPerson].[Sex] AS [Sex], 
+    [extPerson].[CountryId] AS [CountryId], 
+    [extPerson].[NationalityId] AS [NationalityId], 
+    [extPerson].[RegionId] AS [RegionId], 
+    [extPerson].[Phone] AS [Phone], 
+    [extPerson].[Mobiles] AS [Mobiles], 
+    [extPerson].[Email] AS [Email], 
+    [extPerson].[Code] AS [Code], 
+    [extPerson].[City] AS [City], 
+    [extPerson].[Street] AS [Street], 
+    [extPerson].[House] AS [House], 
+    [extPerson].[Flat] AS [Flat], 
+    [extPerson].[CodeReal] AS [CodeReal], 
+    [extPerson].[Korpus] AS [Korpus], 
+    [extPerson].[CityReal] AS [CityReal], 
+    [extPerson].[StreetReal] AS [StreetReal], 
+    [extPerson].[HouseReal] AS [HouseReal], 
+    [extPerson].[KorpusReal] AS [KorpusReal], 
+    [extPerson].[FlatReal] AS [FlatReal], 
+    [extPerson].[HostelAbit] AS [HostelAbit], 
+    [extPerson].[HasAssignToHostel] AS [HasAssignToHostel], 
+    [extPerson].[HostelFacultyId] AS [HostelFacultyId], 
+    [extPerson].[ExamPassFacultyId] AS [ExamPassFacultyId], 
+    [extPerson].[HasExamPass] AS [HasExamPass], 
+    [extPerson].[LanguageId] AS [LanguageId], 
+    [extPerson].[MSVuz] AS [MSVuz], 
+    [extPerson].[MSStudyFormId] AS [MSStudyFormId], 
+    [extPerson].[MSCourse] AS [MSCourse], 
+    [extPerson].[Stag] AS [Stag], 
+    [extPerson].[WorkPlace] AS [WorkPlace], 
+    [extPerson].[Privileges] AS [Privileges], 
+    [extPerson].[PassportCode] AS [PassportCode], 
+    [extPerson].[PersonalCode] AS [PersonalCode], 
+    [extPerson].[PersonInfo] AS [PersonInfo], 
+    [extPerson].[ExtraInfo] AS [ExtraInfo], 
+    [extPerson].[ScienceWork] AS [ScienceWork], 
+    [extPerson].[PersonNum] AS [PersonNum], 
+    [extPerson].[FIO] AS [FIO], 
+    [extPerson].[PassportData] AS [PassportData], 
+    [extPerson].[EducDocument] AS [EducDocument], 
+    [extPerson].[HostelFacultyAcr] AS [HostelFacultyAcr], 
+    [extPerson].[CountryName] AS [CountryName], 
+    [extPerson].[NationalityName] AS [NationalityName], 
+    [extPerson].[RegionName] AS [RegionName], 
+    [extPerson].[HostelFacultyName] AS [HostelFacultyName], 
+    [extPerson].[HostelEduc] AS [HostelEduc], 
+    [extPerson].[KladrCode] AS [KladrCode], 
+    [extPerson].[SNILS] AS [SNILS], 
+    [extPerson].[RegionNumber] AS [RegionNumber], 
+    [extPerson].[ForeignNationality] AS [ForeignNationality], 
+    [extPerson].[ForeignNationalityId] AS [ForeignNationalityId], 
+    [extPerson].[ForeignCountry] AS [ForeignCountry], 
+    [extPerson].[ForeignCountryId] AS [ForeignCountryId], 
+    [extPerson].[StartEnglish] AS [StartEnglish], 
+    [extPerson].[EnglishMark] AS [EnglishMark], 
+    [extPerson].[EgeInSPbgu] AS [EgeInSPbgu], 
+    [extPerson].[HasTRKI] AS [HasTRKI], 
+    [extPerson].[TRKICertificateNumber] AS [TRKICertificateNumber], 
+    [extPerson].[HasRussianNationality] AS [HasRussianNationality], 
+    [extPerson].[PassportTypeName] AS [PassportTypeName], 
+    [extPerson].[PassportTypeFISName] AS [PassportTypeFISName], 
+    [extPerson].[LanguageName] AS [LanguageName], 
+    [extPerson].[Author] AS [Author], 
+    [extPerson].[DateCreated] AS [DateCreated], 
+    [extPerson].[HasOriginals] AS [HasOriginals]
+    FROM [ed].[extPerson] AS [extPerson]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="extPerson_EducationInfo" EntityType="Self.extPerson_EducationInfo" store:Type="Views" store:Schema="ed">
             <DefiningQuery>SELECT 
-[extPerson_EducationInfo].[Id] AS [Id], 
-[extPerson_EducationInfo].[PersonId] AS [PersonId], 
-[extPerson_EducationInfo].[SchoolTypeId] AS [SchoolTypeId], 
-[extPerson_EducationInfo].[SchoolTypeName] AS [SchoolTypeName], 
-[extPerson_EducationInfo].[SchoolTypeFullName] AS [SchoolTypeFullName], 
-[extPerson_EducationInfo].[CountryEducId] AS [CountryEducId], 
-[extPerson_EducationInfo].[CountryEducName] AS [CountryEducName], 
-[extPerson_EducationInfo].[CountryEducOSKMCode] AS [CountryEducOSKMCode], 
-[extPerson_EducationInfo].[RegionEducId] AS [RegionEducId], 
-[extPerson_EducationInfo].[RegionEducName] AS [RegionEducName], 
-[extPerson_EducationInfo].[RegionEducNumber] AS [RegionEducNumber], 
-[extPerson_EducationInfo].[ForeignCountryEducId] AS [ForeignCountryEducId], 
-[extPerson_EducationInfo].[ForeignCountryEducName] AS [ForeignCountryEducName], 
-[extPerson_EducationInfo].[ForeignCountryEducOSKMCode] AS [ForeignCountryEducOSKMCode], 
-[extPerson_EducationInfo].[ForeignCountryEducPriemDictionaryId] AS [ForeignCountryEducPriemDictionaryId], 
-[extPerson_EducationInfo].[SchoolCity] AS [SchoolCity], 
-[extPerson_EducationInfo].[SchoolName] AS [SchoolName], 
-[extPerson_EducationInfo].[SchoolNum] AS [SchoolNum], 
-[extPerson_EducationInfo].[SchoolExitYear] AS [SchoolExitYear], 
-[extPerson_EducationInfo].[AttestatSeries] AS [AttestatSeries], 
-[extPerson_EducationInfo].[AttestatNum] AS [AttestatNum], 
-[extPerson_EducationInfo].[DiplomSeries] AS [DiplomSeries], 
-[extPerson_EducationInfo].[DiplomNum] AS [DiplomNum], 
-[extPerson_EducationInfo].[SchoolAVG] AS [SchoolAVG], 
-[extPerson_EducationInfo].[IsExcellent] AS [IsExcellent], 
-[extPerson_EducationInfo].[IsEqual] AS [IsEqual], 
-[extPerson_EducationInfo].[EqualDocumentNumber] AS [EqualDocumentNumber], 
-[extPerson_EducationInfo].[HighEducation] AS [HighEducation], 
-[extPerson_EducationInfo].[HEProfession] AS [HEProfession], 
-[extPerson_EducationInfo].[HEQualification] AS [HEQualification], 
-[extPerson_EducationInfo].[HEStudyFormId] AS [HEStudyFormId], 
-[extPerson_EducationInfo].[HEStudyFormName] AS [HEStudyFormName], 
-[extPerson_EducationInfo].[HEStudyFormFISName] AS [HEStudyFormFISName], 
-[extPerson_EducationInfo].[HEEntryYear] AS [HEEntryYear], 
-[extPerson_EducationInfo].[HEExitYear] AS [HEExitYear], 
-[extPerson_EducationInfo].[HEWork] AS [HEWork]
-FROM [ed].[extPerson_EducationInfo] AS [extPerson_EducationInfo]</DefiningQuery>
+    [extPerson_EducationInfo].[Id] AS [Id], 
+    [extPerson_EducationInfo].[PersonId] AS [PersonId], 
+    [extPerson_EducationInfo].[SchoolTypeId] AS [SchoolTypeId], 
+    [extPerson_EducationInfo].[SchoolTypeName] AS [SchoolTypeName], 
+    [extPerson_EducationInfo].[SchoolTypeFullName] AS [SchoolTypeFullName], 
+    [extPerson_EducationInfo].[CountryEducId] AS [CountryEducId], 
+    [extPerson_EducationInfo].[CountryEducName] AS [CountryEducName], 
+    [extPerson_EducationInfo].[CountryEducOSKMCode] AS [CountryEducOSKMCode], 
+    [extPerson_EducationInfo].[RegionEducId] AS [RegionEducId], 
+    [extPerson_EducationInfo].[RegionEducName] AS [RegionEducName], 
+    [extPerson_EducationInfo].[RegionEducNumber] AS [RegionEducNumber], 
+    [extPerson_EducationInfo].[ForeignCountryEducId] AS [ForeignCountryEducId], 
+    [extPerson_EducationInfo].[ForeignCountryEducName] AS [ForeignCountryEducName], 
+    [extPerson_EducationInfo].[ForeignCountryEducOSKMCode] AS [ForeignCountryEducOSKMCode], 
+    [extPerson_EducationInfo].[ForeignCountryEducPriemDictionaryId] AS [ForeignCountryEducPriemDictionaryId], 
+    [extPerson_EducationInfo].[SchoolCity] AS [SchoolCity], 
+    [extPerson_EducationInfo].[SchoolName] AS [SchoolName], 
+    [extPerson_EducationInfo].[SchoolNum] AS [SchoolNum], 
+    [extPerson_EducationInfo].[SchoolExitYear] AS [SchoolExitYear], 
+    [extPerson_EducationInfo].[AttestatSeries] AS [AttestatSeries], 
+    [extPerson_EducationInfo].[AttestatNum] AS [AttestatNum], 
+    [extPerson_EducationInfo].[DiplomSeries] AS [DiplomSeries], 
+    [extPerson_EducationInfo].[DiplomNum] AS [DiplomNum], 
+    [extPerson_EducationInfo].[SchoolAVG] AS [SchoolAVG], 
+    [extPerson_EducationInfo].[IsExcellent] AS [IsExcellent], 
+    [extPerson_EducationInfo].[IsEqual] AS [IsEqual], 
+    [extPerson_EducationInfo].[EqualDocumentNumber] AS [EqualDocumentNumber], 
+    [extPerson_EducationInfo].[HighEducation] AS [HighEducation], 
+    [extPerson_EducationInfo].[HEProfession] AS [HEProfession], 
+    [extPerson_EducationInfo].[HEQualification] AS [HEQualification], 
+    [extPerson_EducationInfo].[HEStudyFormId] AS [HEStudyFormId], 
+    [extPerson_EducationInfo].[HEStudyFormName] AS [HEStudyFormName], 
+    [extPerson_EducationInfo].[HEStudyFormFISName] AS [HEStudyFormFISName], 
+    [extPerson_EducationInfo].[HEEntryYear] AS [HEEntryYear], 
+    [extPerson_EducationInfo].[HEExitYear] AS [HEExitYear], 
+    [extPerson_EducationInfo].[HEWork] AS [HEWork]
+    FROM [ed].[extPerson_EducationInfo] AS [extPerson_EducationInfo]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="extPerson_EducationInfo_Current" EntityType="Self.extPerson_EducationInfo_Current" store:Type="Views" store:Schema="ed">
             <DefiningQuery>SELECT 
-[extPerson_EducationInfo_Current].[Id] AS [Id], 
-[extPerson_EducationInfo_Current].[PersonId] AS [PersonId], 
-[extPerson_EducationInfo_Current].[SchoolTypeId] AS [SchoolTypeId], 
-[extPerson_EducationInfo_Current].[SchoolTypeName] AS [SchoolTypeName], 
-[extPerson_EducationInfo_Current].[SchoolTypeFullName] AS [SchoolTypeFullName], 
-[extPerson_EducationInfo_Current].[CountryEducId] AS [CountryEducId], 
-[extPerson_EducationInfo_Current].[CountryEducName] AS [CountryEducName], 
-[extPerson_EducationInfo_Current].[CountryEducOSKMCode] AS [CountryEducOSKMCode], 
-[extPerson_EducationInfo_Current].[RegionEducId] AS [RegionEducId], 
-[extPerson_EducationInfo_Current].[RegionEducName] AS [RegionEducName], 
-[extPerson_EducationInfo_Current].[RegionEducNumber] AS [RegionEducNumber], 
-[extPerson_EducationInfo_Current].[ForeignCountryEducId] AS [ForeignCountryEducId], 
-[extPerson_EducationInfo_Current].[ForeignCountryEducName] AS [ForeignCountryEducName], 
-[extPerson_EducationInfo_Current].[ForeignCountryEducOSKMCode] AS [ForeignCountryEducOSKMCode], 
-[extPerson_EducationInfo_Current].[ForeignCountryEducPriemDictionaryId] AS [ForeignCountryEducPriemDictionaryId], 
-[extPerson_EducationInfo_Current].[SchoolCity] AS [SchoolCity], 
-[extPerson_EducationInfo_Current].[SchoolName] AS [SchoolName], 
-[extPerson_EducationInfo_Current].[SchoolNum] AS [SchoolNum], 
-[extPerson_EducationInfo_Current].[SchoolExitYear] AS [SchoolExitYear], 
-[extPerson_EducationInfo_Current].[AttestatSeries] AS [AttestatSeries], 
-[extPerson_EducationInfo_Current].[AttestatNum] AS [AttestatNum], 
-[extPerson_EducationInfo_Current].[DiplomSeries] AS [DiplomSeries], 
-[extPerson_EducationInfo_Current].[DiplomNum] AS [DiplomNum], 
-[extPerson_EducationInfo_Current].[SchoolAVG] AS [SchoolAVG], 
-[extPerson_EducationInfo_Current].[IsExcellent] AS [IsExcellent], 
-[extPerson_EducationInfo_Current].[IsEqual] AS [IsEqual], 
-[extPerson_EducationInfo_Current].[EqualDocumentNumber] AS [EqualDocumentNumber], 
-[extPerson_EducationInfo_Current].[HighEducation] AS [HighEducation], 
-[extPerson_EducationInfo_Current].[HEProfession] AS [HEProfession], 
-[extPerson_EducationInfo_Current].[HEQualification] AS [HEQualification], 
-[extPerson_EducationInfo_Current].[HEStudyFormId] AS [HEStudyFormId], 
-[extPerson_EducationInfo_Current].[HEStudyFormName] AS [HEStudyFormName], 
-[extPerson_EducationInfo_Current].[HEStudyFormFISName] AS [HEStudyFormFISName], 
-[extPerson_EducationInfo_Current].[HEEntryYear] AS [HEEntryYear], 
-[extPerson_EducationInfo_Current].[HEExitYear] AS [HEExitYear], 
-[extPerson_EducationInfo_Current].[HEWork] AS [HEWork], 
-[extPerson_EducationInfo_Current].[EducDocument] AS [EducDocument]
-FROM [ed].[extPerson_EducationInfo_Current] AS [extPerson_EducationInfo_Current]</DefiningQuery>
+    [extPerson_EducationInfo_Current].[Id] AS [Id], 
+    [extPerson_EducationInfo_Current].[PersonId] AS [PersonId], 
+    [extPerson_EducationInfo_Current].[SchoolTypeId] AS [SchoolTypeId], 
+    [extPerson_EducationInfo_Current].[SchoolTypeName] AS [SchoolTypeName], 
+    [extPerson_EducationInfo_Current].[SchoolTypeFullName] AS [SchoolTypeFullName], 
+    [extPerson_EducationInfo_Current].[CountryEducId] AS [CountryEducId], 
+    [extPerson_EducationInfo_Current].[CountryEducName] AS [CountryEducName], 
+    [extPerson_EducationInfo_Current].[CountryEducOSKMCode] AS [CountryEducOSKMCode], 
+    [extPerson_EducationInfo_Current].[RegionEducId] AS [RegionEducId], 
+    [extPerson_EducationInfo_Current].[RegionEducName] AS [RegionEducName], 
+    [extPerson_EducationInfo_Current].[RegionEducNumber] AS [RegionEducNumber], 
+    [extPerson_EducationInfo_Current].[ForeignCountryEducId] AS [ForeignCountryEducId], 
+    [extPerson_EducationInfo_Current].[ForeignCountryEducName] AS [ForeignCountryEducName], 
+    [extPerson_EducationInfo_Current].[ForeignCountryEducOSKMCode] AS [ForeignCountryEducOSKMCode], 
+    [extPerson_EducationInfo_Current].[ForeignCountryEducPriemDictionaryId] AS [ForeignCountryEducPriemDictionaryId], 
+    [extPerson_EducationInfo_Current].[SchoolCity] AS [SchoolCity], 
+    [extPerson_EducationInfo_Current].[SchoolName] AS [SchoolName], 
+    [extPerson_EducationInfo_Current].[SchoolNum] AS [SchoolNum], 
+    [extPerson_EducationInfo_Current].[SchoolExitYear] AS [SchoolExitYear], 
+    [extPerson_EducationInfo_Current].[AttestatSeries] AS [AttestatSeries], 
+    [extPerson_EducationInfo_Current].[AttestatNum] AS [AttestatNum], 
+    [extPerson_EducationInfo_Current].[DiplomSeries] AS [DiplomSeries], 
+    [extPerson_EducationInfo_Current].[DiplomNum] AS [DiplomNum], 
+    [extPerson_EducationInfo_Current].[SchoolAVG] AS [SchoolAVG], 
+    [extPerson_EducationInfo_Current].[IsExcellent] AS [IsExcellent], 
+    [extPerson_EducationInfo_Current].[IsEqual] AS [IsEqual], 
+    [extPerson_EducationInfo_Current].[EqualDocumentNumber] AS [EqualDocumentNumber], 
+    [extPerson_EducationInfo_Current].[HighEducation] AS [HighEducation], 
+    [extPerson_EducationInfo_Current].[HEProfession] AS [HEProfession], 
+    [extPerson_EducationInfo_Current].[HEQualification] AS [HEQualification], 
+    [extPerson_EducationInfo_Current].[HEStudyFormId] AS [HEStudyFormId], 
+    [extPerson_EducationInfo_Current].[HEStudyFormName] AS [HEStudyFormName], 
+    [extPerson_EducationInfo_Current].[HEStudyFormFISName] AS [HEStudyFormFISName], 
+    [extPerson_EducationInfo_Current].[HEEntryYear] AS [HEEntryYear], 
+    [extPerson_EducationInfo_Current].[HEExitYear] AS [HEExitYear], 
+    [extPerson_EducationInfo_Current].[HEWork] AS [HEWork], 
+    [extPerson_EducationInfo_Current].[EducDocument] AS [EducDocument]
+    FROM [ed].[extPerson_EducationInfo_Current] AS [extPerson_EducationInfo_Current]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="extPersonAll" EntityType="Self.extPersonAll" store:Type="Views" store:Schema="ed">
             <DefiningQuery>SELECT 
-[extPersonAll].[Id] AS [Id], 
-[extPersonAll].[Barcode] AS [Barcode], 
-[extPersonAll].[Num] AS [Num], 
-[extPersonAll].[Name] AS [Name], 
-[extPersonAll].[SecondName] AS [SecondName], 
-[extPersonAll].[Surname] AS [Surname], 
-[extPersonAll].[BirthDate] AS [BirthDate], 
-[extPersonAll].[BirthPlace] AS [BirthPlace], 
-[extPersonAll].[PassportTypeId] AS [PassportTypeId], 
-[extPersonAll].[PassportSeries] AS [PassportSeries], 
-[extPersonAll].[PassportNumber] AS [PassportNumber], 
-[extPersonAll].[PassportAuthor] AS [PassportAuthor], 
-[extPersonAll].[PassportDate] AS [PassportDate], 
-[extPersonAll].[Sex] AS [Sex], 
-[extPersonAll].[CountryId] AS [CountryId], 
-[extPersonAll].[NationalityId] AS [NationalityId], 
-[extPersonAll].[RegionId] AS [RegionId], 
-[extPersonAll].[Phone] AS [Phone], 
-[extPersonAll].[Mobiles] AS [Mobiles], 
-[extPersonAll].[Email] AS [Email], 
-[extPersonAll].[Code] AS [Code], 
-[extPersonAll].[City] AS [City], 
-[extPersonAll].[Street] AS [Street], 
-[extPersonAll].[House] AS [House], 
-[extPersonAll].[Flat] AS [Flat], 
-[extPersonAll].[CodeReal] AS [CodeReal], 
-[extPersonAll].[Korpus] AS [Korpus], 
-[extPersonAll].[CityReal] AS [CityReal], 
-[extPersonAll].[StreetReal] AS [StreetReal], 
-[extPersonAll].[HouseReal] AS [HouseReal], 
-[extPersonAll].[KorpusReal] AS [KorpusReal], 
-[extPersonAll].[FlatReal] AS [FlatReal], 
-[extPersonAll].[HostelAbit] AS [HostelAbit], 
-[extPersonAll].[HasAssignToHostel] AS [HasAssignToHostel], 
-[extPersonAll].[HostelFacultyId] AS [HostelFacultyId], 
-[extPersonAll].[ExamPassFacultyId] AS [ExamPassFacultyId], 
-[extPersonAll].[HasExamPass] AS [HasExamPass], 
-[extPersonAll].[IsExcellent] AS [IsExcellent], 
-[extPersonAll].[LanguageId] AS [LanguageId], 
-[extPersonAll].[SchoolTypeId] AS [SchoolTypeId], 
-[extPersonAll].[SchoolCity] AS [SchoolCity], 
-[extPersonAll].[SchoolName] AS [SchoolName], 
-[extPersonAll].[SchoolNum] AS [SchoolNum], 
-[extPersonAll].[SchoolExitYear] AS [SchoolExitYear], 
-[extPersonAll].[CountryEducId] AS [CountryEducId], 
-[extPersonAll].[IsEqual] AS [IsEqual], 
-[extPersonAll].[AttestatSeries] AS [AttestatSeries], 
-[extPersonAll].[AttestatNum] AS [AttestatNum], 
-[extPersonAll].[DiplomSeries] AS [DiplomSeries], 
-[extPersonAll].[DiplomNum] AS [DiplomNum], 
-[extPersonAll].[SchoolAVG] AS [SchoolAVG], 
-[extPersonAll].[HighEducation] AS [HighEducation], 
-[extPersonAll].[HEProfession] AS [HEProfession], 
-[extPersonAll].[HEQualification] AS [HEQualification], 
-[extPersonAll].[HEStudyFormId] AS [HEStudyFormId], 
-[extPersonAll].[HEEntryYear] AS [HEEntryYear], 
-[extPersonAll].[HEExitYear] AS [HEExitYear], 
-[extPersonAll].[HEWork] AS [HEWork], 
-[extPersonAll].[MSVuz] AS [MSVuz], 
-[extPersonAll].[MSStudyFormId] AS [MSStudyFormId], 
-[extPersonAll].[MSCourse] AS [MSCourse], 
-[extPersonAll].[Stag] AS [Stag], 
-[extPersonAll].[WorkPlace] AS [WorkPlace], 
-[extPersonAll].[Privileges] AS [Privileges], 
-[extPersonAll].[PassportCode] AS [PassportCode], 
-[extPersonAll].[PersonalCode] AS [PersonalCode], 
-[extPersonAll].[PersonInfo] AS [PersonInfo], 
-[extPersonAll].[ExtraInfo] AS [ExtraInfo], 
-[extPersonAll].[ScienceWork] AS [ScienceWork], 
-[extPersonAll].[PersonNum] AS [PersonNum], 
-[extPersonAll].[FIO] AS [FIO], 
-[extPersonAll].[PassportData] AS [PassportData], 
-[extPersonAll].[EducDocument] AS [EducDocument], 
-[extPersonAll].[HostelFacultyAcr] AS [HostelFacultyAcr], 
-[extPersonAll].[CountryName] AS [CountryName], 
-[extPersonAll].[NationalityName] AS [NationalityName], 
-[extPersonAll].[RegionName] AS [RegionName], 
-[extPersonAll].[HostelFacultyName] AS [HostelFacultyName], 
-[extPersonAll].[StartEnglish] AS [StartEnglish], 
-[extPersonAll].[EnglishMark] AS [EnglishMark], 
-[extPersonAll].[EgeInSPbgu] AS [EgeInSPbgu], 
-[extPersonAll].[VAKPublCount] AS [VAKPublCount], 
-[extPersonAll].[TotalPublCount] AS [TotalPublCount], 
-[extPersonAll].[CompetitionWinner] AS [CompetitionWinner], 
-[extPersonAll].[HasGrant] AS [HasGrant], 
-[extPersonAll].[HostelEduc] AS [HostelEduc], 
-[extPersonAll].[SNILS] AS [SNILS], 
-[extPersonAll].[RegionEducId] AS [RegionEducId], 
-[extPersonAll].[KladrCode] AS [KladrCode], 
-[extPersonAll].[EqualDocumentNumber] AS [EqualDocumentNumber], 
-[extPersonAll].[ForeignNationalityId] AS [ForeignNationalityId], 
-[extPersonAll].[ForeignCountryId] AS [ForeignCountryId], 
-[extPersonAll].[HasTRKI] AS [HasTRKI], 
-[extPersonAll].[TRKICertificateNumber] AS [TRKICertificateNumber], 
-[extPersonAll].[ForeignCountryEducId] AS [ForeignCountryEducId]
-FROM [ed].[extPersonAll] AS [extPersonAll]</DefiningQuery>
+    [extPersonAll].[Id] AS [Id], 
+    [extPersonAll].[Barcode] AS [Barcode], 
+    [extPersonAll].[Num] AS [Num], 
+    [extPersonAll].[Name] AS [Name], 
+    [extPersonAll].[SecondName] AS [SecondName], 
+    [extPersonAll].[Surname] AS [Surname], 
+    [extPersonAll].[BirthDate] AS [BirthDate], 
+    [extPersonAll].[BirthPlace] AS [BirthPlace], 
+    [extPersonAll].[PassportTypeId] AS [PassportTypeId], 
+    [extPersonAll].[PassportSeries] AS [PassportSeries], 
+    [extPersonAll].[PassportNumber] AS [PassportNumber], 
+    [extPersonAll].[PassportAuthor] AS [PassportAuthor], 
+    [extPersonAll].[PassportDate] AS [PassportDate], 
+    [extPersonAll].[Sex] AS [Sex], 
+    [extPersonAll].[CountryId] AS [CountryId], 
+    [extPersonAll].[NationalityId] AS [NationalityId], 
+    [extPersonAll].[RegionId] AS [RegionId], 
+    [extPersonAll].[Phone] AS [Phone], 
+    [extPersonAll].[Mobiles] AS [Mobiles], 
+    [extPersonAll].[Email] AS [Email], 
+    [extPersonAll].[Code] AS [Code], 
+    [extPersonAll].[City] AS [City], 
+    [extPersonAll].[Street] AS [Street], 
+    [extPersonAll].[House] AS [House], 
+    [extPersonAll].[Flat] AS [Flat], 
+    [extPersonAll].[CodeReal] AS [CodeReal], 
+    [extPersonAll].[Korpus] AS [Korpus], 
+    [extPersonAll].[CityReal] AS [CityReal], 
+    [extPersonAll].[StreetReal] AS [StreetReal], 
+    [extPersonAll].[HouseReal] AS [HouseReal], 
+    [extPersonAll].[KorpusReal] AS [KorpusReal], 
+    [extPersonAll].[FlatReal] AS [FlatReal], 
+    [extPersonAll].[HostelAbit] AS [HostelAbit], 
+    [extPersonAll].[HasAssignToHostel] AS [HasAssignToHostel], 
+    [extPersonAll].[HostelFacultyId] AS [HostelFacultyId], 
+    [extPersonAll].[ExamPassFacultyId] AS [ExamPassFacultyId], 
+    [extPersonAll].[HasExamPass] AS [HasExamPass], 
+    [extPersonAll].[IsExcellent] AS [IsExcellent], 
+    [extPersonAll].[LanguageId] AS [LanguageId], 
+    [extPersonAll].[SchoolTypeId] AS [SchoolTypeId], 
+    [extPersonAll].[SchoolCity] AS [SchoolCity], 
+    [extPersonAll].[SchoolName] AS [SchoolName], 
+    [extPersonAll].[SchoolNum] AS [SchoolNum], 
+    [extPersonAll].[SchoolExitYear] AS [SchoolExitYear], 
+    [extPersonAll].[CountryEducId] AS [CountryEducId], 
+    [extPersonAll].[IsEqual] AS [IsEqual], 
+    [extPersonAll].[AttestatSeries] AS [AttestatSeries], 
+    [extPersonAll].[AttestatNum] AS [AttestatNum], 
+    [extPersonAll].[DiplomSeries] AS [DiplomSeries], 
+    [extPersonAll].[DiplomNum] AS [DiplomNum], 
+    [extPersonAll].[SchoolAVG] AS [SchoolAVG], 
+    [extPersonAll].[HighEducation] AS [HighEducation], 
+    [extPersonAll].[HEProfession] AS [HEProfession], 
+    [extPersonAll].[HEQualification] AS [HEQualification], 
+    [extPersonAll].[HEStudyFormId] AS [HEStudyFormId], 
+    [extPersonAll].[HEEntryYear] AS [HEEntryYear], 
+    [extPersonAll].[HEExitYear] AS [HEExitYear], 
+    [extPersonAll].[HEWork] AS [HEWork], 
+    [extPersonAll].[MSVuz] AS [MSVuz], 
+    [extPersonAll].[MSStudyFormId] AS [MSStudyFormId], 
+    [extPersonAll].[MSCourse] AS [MSCourse], 
+    [extPersonAll].[Stag] AS [Stag], 
+    [extPersonAll].[WorkPlace] AS [WorkPlace], 
+    [extPersonAll].[Privileges] AS [Privileges], 
+    [extPersonAll].[PassportCode] AS [PassportCode], 
+    [extPersonAll].[PersonalCode] AS [PersonalCode], 
+    [extPersonAll].[PersonInfo] AS [PersonInfo], 
+    [extPersonAll].[ExtraInfo] AS [ExtraInfo], 
+    [extPersonAll].[ScienceWork] AS [ScienceWork], 
+    [extPersonAll].[PersonNum] AS [PersonNum], 
+    [extPersonAll].[FIO] AS [FIO], 
+    [extPersonAll].[PassportData] AS [PassportData], 
+    [extPersonAll].[EducDocument] AS [EducDocument], 
+    [extPersonAll].[HostelFacultyAcr] AS [HostelFacultyAcr], 
+    [extPersonAll].[CountryName] AS [CountryName], 
+    [extPersonAll].[NationalityName] AS [NationalityName], 
+    [extPersonAll].[RegionName] AS [RegionName], 
+    [extPersonAll].[HostelFacultyName] AS [HostelFacultyName], 
+    [extPersonAll].[StartEnglish] AS [StartEnglish], 
+    [extPersonAll].[EnglishMark] AS [EnglishMark], 
+    [extPersonAll].[EgeInSPbgu] AS [EgeInSPbgu], 
+    [extPersonAll].[VAKPublCount] AS [VAKPublCount], 
+    [extPersonAll].[TotalPublCount] AS [TotalPublCount], 
+    [extPersonAll].[CompetitionWinner] AS [CompetitionWinner], 
+    [extPersonAll].[HasGrant] AS [HasGrant], 
+    [extPersonAll].[HostelEduc] AS [HostelEduc], 
+    [extPersonAll].[SNILS] AS [SNILS], 
+    [extPersonAll].[RegionEducId] AS [RegionEducId], 
+    [extPersonAll].[KladrCode] AS [KladrCode], 
+    [extPersonAll].[EqualDocumentNumber] AS [EqualDocumentNumber], 
+    [extPersonAll].[ForeignNationalityId] AS [ForeignNationalityId], 
+    [extPersonAll].[ForeignCountryId] AS [ForeignCountryId], 
+    [extPersonAll].[HasTRKI] AS [HasTRKI], 
+    [extPersonAll].[TRKICertificateNumber] AS [TRKICertificateNumber], 
+    [extPersonAll].[ForeignCountryEducId] AS [ForeignCountryEducId]
+    FROM [ed].[extPersonAll] AS [extPersonAll]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="extProtocol" EntityType="Self.extProtocol" store:Type="Views" store:Schema="ed">
             <DefiningQuery>SELECT 
-[extProtocol].[Id] AS [Id], 
-[extProtocol].[AbiturientId] AS [AbiturientId], 
-[extProtocol].[Excluded] AS [Excluded], 
-[extProtocol].[ExcludeProtocolId] AS [ExcludeProtocolId], 
-[extProtocol].[EntryHeaderId] AS [EntryHeaderId], 
-[extProtocol].[StudyLevelGroupId] AS [StudyLevelGroupId], 
-[extProtocol].[FacultyId] AS [FacultyId], 
-[extProtocol].[LicenseProgramId] AS [LicenseProgramId], 
-[extProtocol].[StudyFormId] AS [StudyFormId], 
-[extProtocol].[StudyBasisId] AS [StudyBasisId], 
-[extProtocol].[Number] AS [Number], 
-[extProtocol].[Date] AS [Date], 
-[extProtocol].[ProtocolTypeId] AS [ProtocolTypeId], 
-[extProtocol].[Reason] AS [Reason], 
-[extProtocol].[IsOld] AS [IsOld], 
-[extProtocol].[ParentProtocolId] AS [ParentProtocolId], 
-[extProtocol].[IsSecond] AS [IsSecond], 
-[extProtocol].[IsListener] AS [IsListener], 
-[extProtocol].[ProtocolTypeName] AS [ProtocolTypeName], 
-[extProtocol].[IsParallel] AS [IsParallel], 
-[extProtocol].[IsReduced] AS [IsReduced], 
-[extProtocol].[Faculty] AS [Faculty], 
-[extProtocol].[StudyBasis] AS [StudyBasis], 
-[extProtocol].[StudyForm] AS [StudyForm], 
-[extProtocol].[FacultyAcr] AS [FacultyAcr], 
-[extProtocol].[FacultyRodName] AS [FacultyRodName], 
-[extProtocol].[FacultyDatName] AS [FacultyDatName], 
-[extProtocol].[StudyFormAcr] AS [StudyFormAcr], 
-[extProtocol].[StudyFormRodName] AS [StudyFormRodName], 
-[extProtocol].[ProtocolHistoryId] AS [ProtocolHistoryId], 
-[extProtocol].[IsForeign] AS [IsForeign]
-FROM [ed].[extProtocol] AS [extProtocol]</DefiningQuery>
+    [extProtocol].[Id] AS [Id], 
+    [extProtocol].[AbiturientId] AS [AbiturientId], 
+    [extProtocol].[Excluded] AS [Excluded], 
+    [extProtocol].[ExcludeProtocolId] AS [ExcludeProtocolId], 
+    [extProtocol].[EntryHeaderId] AS [EntryHeaderId], 
+    [extProtocol].[StudyLevelGroupId] AS [StudyLevelGroupId], 
+    [extProtocol].[FacultyId] AS [FacultyId], 
+    [extProtocol].[LicenseProgramId] AS [LicenseProgramId], 
+    [extProtocol].[StudyFormId] AS [StudyFormId], 
+    [extProtocol].[StudyBasisId] AS [StudyBasisId], 
+    [extProtocol].[Number] AS [Number], 
+    [extProtocol].[Date] AS [Date], 
+    [extProtocol].[ProtocolTypeId] AS [ProtocolTypeId], 
+    [extProtocol].[Reason] AS [Reason], 
+    [extProtocol].[IsOld] AS [IsOld], 
+    [extProtocol].[ParentProtocolId] AS [ParentProtocolId], 
+    [extProtocol].[IsSecond] AS [IsSecond], 
+    [extProtocol].[IsListener] AS [IsListener], 
+    [extProtocol].[ProtocolTypeName] AS [ProtocolTypeName], 
+    [extProtocol].[IsParallel] AS [IsParallel], 
+    [extProtocol].[IsReduced] AS [IsReduced], 
+    [extProtocol].[Faculty] AS [Faculty], 
+    [extProtocol].[StudyBasis] AS [StudyBasis], 
+    [extProtocol].[StudyForm] AS [StudyForm], 
+    [extProtocol].[FacultyAcr] AS [FacultyAcr], 
+    [extProtocol].[FacultyRodName] AS [FacultyRodName], 
+    [extProtocol].[FacultyDatName] AS [FacultyDatName], 
+    [extProtocol].[StudyFormAcr] AS [StudyFormAcr], 
+    [extProtocol].[StudyFormRodName] AS [StudyFormRodName], 
+    [extProtocol].[ProtocolHistoryId] AS [ProtocolHistoryId], 
+    [extProtocol].[IsForeign] AS [IsForeign]
+    FROM [ed].[extProtocol] AS [extProtocol]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="hlpAbiturientActionLog" EntityType="Self.hlpAbiturientActionLog" store:Type="Views" store:Schema="ed">
             <DefiningQuery>SELECT 
-[hlpAbiturientActionLog].[PersonNum] AS [PersonNum], 
-[hlpAbiturientActionLog].[FIO] AS [FIO], 
-[hlpAbiturientActionLog].[Id] AS [Id], 
-[hlpAbiturientActionLog].[RegNum] AS [RegNum], 
-[hlpAbiturientActionLog].[FacultyId] AS [FacultyId], 
-[hlpAbiturientActionLog].[LicenseProgramId] AS [LicenseProgramId], 
-[hlpAbiturientActionLog].[LicenseProgramCode] AS [LicenseProgramCode], 
-[hlpAbiturientActionLog].[LicenseProgramName] AS [LicenseProgramName], 
-[hlpAbiturientActionLog].[ObrazProgramId] AS [ObrazProgramId], 
-[hlpAbiturientActionLog].[ObrazProgramCrypt] AS [ObrazProgramCrypt], 
-[hlpAbiturientActionLog].[ObrazProgramName] AS [ObrazProgramName], 
-[hlpAbiturientActionLog].[ProfileName] AS [ProfileName], 
-[hlpAbiturientActionLog].[StudyFormId] AS [StudyFormId], 
-[hlpAbiturientActionLog].[StudyFormName] AS [StudyFormName], 
-[hlpAbiturientActionLog].[StudyBasisId] AS [StudyBasisId], 
-[hlpAbiturientActionLog].[StudyBasisName] AS [StudyBasisName], 
-[hlpAbiturientActionLog].[StudyLevelGroupId] AS [StudyLevelGroupId], 
-[hlpAbiturientActionLog].[ActionTime] AS [ActionTime], 
-[hlpAbiturientActionLog].[ActionAuthor] AS [ActionAuthor], 
-[hlpAbiturientActionLog].[ActionType] AS [ActionType]
-FROM [ed].[hlpAbiturientActionLog] AS [hlpAbiturientActionLog]</DefiningQuery>
+    [hlpAbiturientActionLog].[PersonNum] AS [PersonNum], 
+    [hlpAbiturientActionLog].[FIO] AS [FIO], 
+    [hlpAbiturientActionLog].[Id] AS [Id], 
+    [hlpAbiturientActionLog].[RegNum] AS [RegNum], 
+    [hlpAbiturientActionLog].[FacultyId] AS [FacultyId], 
+    [hlpAbiturientActionLog].[LicenseProgramId] AS [LicenseProgramId], 
+    [hlpAbiturientActionLog].[LicenseProgramCode] AS [LicenseProgramCode], 
+    [hlpAbiturientActionLog].[LicenseProgramName] AS [LicenseProgramName], 
+    [hlpAbiturientActionLog].[ObrazProgramId] AS [ObrazProgramId], 
+    [hlpAbiturientActionLog].[ObrazProgramCrypt] AS [ObrazProgramCrypt], 
+    [hlpAbiturientActionLog].[ObrazProgramName] AS [ObrazProgramName], 
+    [hlpAbiturientActionLog].[ProfileName] AS [ProfileName], 
+    [hlpAbiturientActionLog].[StudyFormId] AS [StudyFormId], 
+    [hlpAbiturientActionLog].[StudyFormName] AS [StudyFormName], 
+    [hlpAbiturientActionLog].[StudyBasisId] AS [StudyBasisId], 
+    [hlpAbiturientActionLog].[StudyBasisName] AS [StudyBasisName], 
+    [hlpAbiturientActionLog].[StudyLevelGroupId] AS [StudyLevelGroupId], 
+    [hlpAbiturientActionLog].[ActionTime] AS [ActionTime], 
+    [hlpAbiturientActionLog].[ActionAuthor] AS [ActionAuthor], 
+    [hlpAbiturientActionLog].[ActionType] AS [ActionType]
+    FROM [ed].[hlpAbiturientActionLog] AS [hlpAbiturientActionLog]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="hlpAbiturientProf" EntityType="Self.hlpAbiturientProf" store:Type="Views" store:Schema="ed">
             <DefiningQuery>SELECT 
-[hlpAbiturientProf].[Id] AS [Id], 
-[hlpAbiturientProf].[Prof] AS [Prof], 
-[hlpAbiturientProf].[ProfFiveGrade] AS [ProfFiveGrade]
-FROM [ed].[hlpAbiturientProf] AS [hlpAbiturientProf]</DefiningQuery>
+    [hlpAbiturientProf].[Id] AS [Id], 
+    [hlpAbiturientProf].[Prof] AS [Prof], 
+    [hlpAbiturientProf].[ProfFiveGrade] AS [ProfFiveGrade]
+    FROM [ed].[hlpAbiturientProf] AS [hlpAbiturientProf]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="hlpAbiturientProfAdd" EntityType="Self.hlpAbiturientProfAdd" store:Type="Views" store:Schema="ed">
             <DefiningQuery>SELECT 
-[hlpAbiturientProfAdd].[Id] AS [Id], 
-[hlpAbiturientProfAdd].[ProfAdd] AS [ProfAdd]
-FROM [ed].[hlpAbiturientProfAdd] AS [hlpAbiturientProfAdd]</DefiningQuery>
+    [hlpAbiturientProfAdd].[Id] AS [Id], 
+    [hlpAbiturientProfAdd].[ProfAdd] AS [ProfAdd]
+    FROM [ed].[hlpAbiturientProfAdd] AS [hlpAbiturientProfAdd]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="hlpEgeMarkMaxApproved" EntityType="Self.hlpEgeMarkMaxApproved" store:Type="Views" store:Schema="ed">
             <DefiningQuery>SELECT 
-[hlpEgeMarkMaxApproved].[PersonId] AS [PersonId], 
-[hlpEgeMarkMaxApproved].[EgeExamNameId] AS [EgeExamNameId], 
-[hlpEgeMarkMaxApproved].[EgeMarkId] AS [EgeMarkId]
-FROM [ed].[hlpEgeMarkMaxApproved] AS [hlpEgeMarkMaxApproved]</DefiningQuery>
+    [hlpEgeMarkMaxApproved].[PersonId] AS [PersonId], 
+    [hlpEgeMarkMaxApproved].[EgeExamNameId] AS [EgeExamNameId], 
+    [hlpEgeMarkMaxApproved].[EgeMarkId] AS [EgeMarkId]
+    FROM [ed].[hlpEgeMarkMaxApproved] AS [hlpEgeMarkMaxApproved]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="hlpPersonMaxEducationInfoId" EntityType="Self.hlpPersonMaxEducationInfoId" store:Type="Views" store:Schema="ed">
             <DefiningQuery>SELECT 
-[hlpPersonMaxEducationInfoId].[PersonId] AS [PersonId], 
-[hlpPersonMaxEducationInfoId].[Id] AS [Id]
-FROM [ed].[hlpPersonMaxEducationInfoId] AS [hlpPersonMaxEducationInfoId]</DefiningQuery>
+    [hlpPersonMaxEducationInfoId].[PersonId] AS [PersonId], 
+    [hlpPersonMaxEducationInfoId].[Id] AS [Id]
+    FROM [ed].[hlpPersonMaxEducationInfoId] AS [hlpPersonMaxEducationInfoId]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="hlpStatistics" EntityType="Self.hlpStatistics" store:Type="Views" store:Schema="ed">
             <DefiningQuery>SELECT 
-[hlpStatistics].[EntryId] AS [EntryId], 
-[hlpStatistics].[StudyLevelGroupId] AS [StudyLevelGroupId], 
-[hlpStatistics].[FacultyId] AS [FacultyId], 
-[hlpStatistics].[LicenseProgramId] AS [LicenseProgramId], 
-[hlpStatistics].[LicenseProgramCode] AS [LicenseProgramCode], 
-[hlpStatistics].[LicenseProgramName] AS [LicenseProgramName], 
-[hlpStatistics].[ObrazProgramId] AS [ObrazProgramId], 
-[hlpStatistics].[ObrazProgramCrypt] AS [ObrazProgramCrypt], 
-[hlpStatistics].[ObrazProgramName] AS [ObrazProgramName], 
-[hlpStatistics].[ProfileId] AS [ProfileId], 
-[hlpStatistics].[ProfileName] AS [ProfileName], 
-[hlpStatistics].[StudyFormId] AS [StudyFormId], 
-[hlpStatistics].[StudyFormName] AS [StudyFormName], 
-[hlpStatistics].[StudyBasisId] AS [StudyBasisId], 
-[hlpStatistics].[StudyBasisName] AS [StudyBasisName], 
-[hlpStatistics].[KCP] AS [KCP], 
-[hlpStatistics].[Date] AS [Date], 
-[hlpStatistics].[CNT] AS [CNT]
-FROM [ed].[hlpStatistics] AS [hlpStatistics]</DefiningQuery>
+    [hlpStatistics].[EntryId] AS [EntryId], 
+    [hlpStatistics].[StudyLevelGroupId] AS [StudyLevelGroupId], 
+    [hlpStatistics].[FacultyId] AS [FacultyId], 
+    [hlpStatistics].[LicenseProgramId] AS [LicenseProgramId], 
+    [hlpStatistics].[LicenseProgramCode] AS [LicenseProgramCode], 
+    [hlpStatistics].[LicenseProgramName] AS [LicenseProgramName], 
+    [hlpStatistics].[ObrazProgramId] AS [ObrazProgramId], 
+    [hlpStatistics].[ObrazProgramCrypt] AS [ObrazProgramCrypt], 
+    [hlpStatistics].[ObrazProgramName] AS [ObrazProgramName], 
+    [hlpStatistics].[ProfileId] AS [ProfileId], 
+    [hlpStatistics].[ProfileName] AS [ProfileName], 
+    [hlpStatistics].[StudyFormId] AS [StudyFormId], 
+    [hlpStatistics].[StudyFormName] AS [StudyFormName], 
+    [hlpStatistics].[StudyBasisId] AS [StudyBasisId], 
+    [hlpStatistics].[StudyBasisName] AS [StudyBasisName], 
+    [hlpStatistics].[KCP] AS [KCP], 
+    [hlpStatistics].[Date] AS [Date], 
+    [hlpStatistics].[CNT] AS [CNT]
+    FROM [ed].[hlpStatistics] AS [hlpStatistics]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="qAbitAll" EntityType="Self.qAbitAll" store:Type="Views" store:Schema="ed">
             <DefiningQuery>SELECT 
-[qAbitAll].[Id] AS [Id], 
-[qAbitAll].[PersonId] AS [PersonId], 
-[qAbitAll].[RegNum] AS [RegNum], 
-[qAbitAll].[EntryId] AS [EntryId], 
-[qAbitAll].[CompetitionId] AS [CompetitionId], 
-[qAbitAll].[IsListener] AS [IsListener], 
-[qAbitAll].[IsPaid] AS [IsPaid], 
-[qAbitAll].[BackDoc] AS [BackDoc], 
-[qAbitAll].[BackDocDate] AS [BackDocDate], 
-[qAbitAll].[DocDate] AS [DocDate], 
-[qAbitAll].[DocInsertDate] AS [DocInsertDate], 
-[qAbitAll].[Checked] AS [Checked], 
-[qAbitAll].[NotEnabled] AS [NotEnabled], 
-[qAbitAll].[Coefficient] AS [Coefficient], 
-[qAbitAll].[Sum] AS [Sum], 
-[qAbitAll].[OtherCompetitionId] AS [OtherCompetitionId], 
-[qAbitAll].[CelCompetitionId] AS [CelCompetitionId], 
-[qAbitAll].[CelCompetitionText] AS [CelCompetitionText], 
-[qAbitAll].[CompFromOlymp] AS [CompFromOlymp], 
-[qAbitAll].[LanguageId] AS [LanguageId], 
-[qAbitAll].[HasOriginals] AS [HasOriginals], 
-[qAbitAll].[StudyNumber] AS [StudyNumber], 
-[qAbitAll].[SessionAVG] AS [SessionAVG], 
-[qAbitAll].[StudentStatus] AS [StudentStatus], 
-[qAbitAll].[Priority] AS [Priority], 
-[qAbitAll].[Barcode] AS [Barcode], 
-[qAbitAll].[FacultyId] AS [FacultyId], 
-[qAbitAll].[FacultyName] AS [FacultyName], 
-[qAbitAll].[FacultyAcr] AS [FacultyAcr], 
-[qAbitAll].[LicenseProgramId] AS [LicenseProgramId], 
-[qAbitAll].[LicenseProgramName] AS [LicenseProgramName], 
-[qAbitAll].[LicenseProgramCode] AS [LicenseProgramCode], 
-[qAbitAll].[ObrazProgramId] AS [ObrazProgramId], 
-[qAbitAll].[ObrazProgramName] AS [ObrazProgramName], 
-[qAbitAll].[ObrazProgramNumber] AS [ObrazProgramNumber], 
-[qAbitAll].[ObrazProgramCrypt] AS [ObrazProgramCrypt], 
-[qAbitAll].[ProfileId] AS [ProfileId], 
-[qAbitAll].[ProfileName] AS [ProfileName], 
-[qAbitAll].[StudyBasisId] AS [StudyBasisId], 
-[qAbitAll].[StudyBasisName] AS [StudyBasisName], 
-[qAbitAll].[StudyFormId] AS [StudyFormId], 
-[qAbitAll].[StudyFormName] AS [StudyFormName], 
-[qAbitAll].[StudyLevelId] AS [StudyLevelId], 
-[qAbitAll].[StudyLevelName] AS [StudyLevelName], 
-[qAbitAll].[StudyPlanId] AS [StudyPlanId], 
-[qAbitAll].[StudyPlanNumber] AS [StudyPlanNumber], 
-[qAbitAll].[ProgramModeShortName] AS [ProgramModeShortName], 
-[qAbitAll].[IsSecond] AS [IsSecond], 
-[qAbitAll].[StudyFormOldName] AS [StudyFormOldName], 
-[qAbitAll].[StudyLevelGroupId] AS [StudyLevelGroupId], 
-[qAbitAll].[WithHE] AS [WithHE], 
-[qAbitAll].[IsReduced] AS [IsReduced], 
-[qAbitAll].[IsParallel] AS [IsParallel], 
-[qAbitAll].[QualificationCode] AS [QualificationCode], 
-[qAbitAll].[StudyBasisFISName] AS [StudyBasisFISName], 
-[qAbitAll].[StudyFormFISName] AS [StudyFormFISName], 
-[qAbitAll].[StudyLevelFISName] AS [StudyLevelFISName], 
-[qAbitAll].[Name] AS [Name], 
-[qAbitAll].[IsViewed] AS [IsViewed], 
-[qAbitAll].[IsForeign] AS [IsForeign], 
-[qAbitAll].[IsCrimea] AS [IsCrimea]
-FROM [ed].[qAbitAll] AS [qAbitAll]</DefiningQuery>
+    [qAbitAll].[Id] AS [Id], 
+    [qAbitAll].[PersonId] AS [PersonId], 
+    [qAbitAll].[RegNum] AS [RegNum], 
+    [qAbitAll].[EntryId] AS [EntryId], 
+    [qAbitAll].[CompetitionId] AS [CompetitionId], 
+    [qAbitAll].[IsListener] AS [IsListener], 
+    [qAbitAll].[IsPaid] AS [IsPaid], 
+    [qAbitAll].[BackDoc] AS [BackDoc], 
+    [qAbitAll].[BackDocDate] AS [BackDocDate], 
+    [qAbitAll].[DocDate] AS [DocDate], 
+    [qAbitAll].[DocInsertDate] AS [DocInsertDate], 
+    [qAbitAll].[Checked] AS [Checked], 
+    [qAbitAll].[NotEnabled] AS [NotEnabled], 
+    [qAbitAll].[Coefficient] AS [Coefficient], 
+    [qAbitAll].[Sum] AS [Sum], 
+    [qAbitAll].[OtherCompetitionId] AS [OtherCompetitionId], 
+    [qAbitAll].[CelCompetitionId] AS [CelCompetitionId], 
+    [qAbitAll].[CelCompetitionText] AS [CelCompetitionText], 
+    [qAbitAll].[CompFromOlymp] AS [CompFromOlymp], 
+    [qAbitAll].[LanguageId] AS [LanguageId], 
+    [qAbitAll].[HasOriginals] AS [HasOriginals], 
+    [qAbitAll].[StudyNumber] AS [StudyNumber], 
+    [qAbitAll].[SessionAVG] AS [SessionAVG], 
+    [qAbitAll].[StudentStatus] AS [StudentStatus], 
+    [qAbitAll].[Priority] AS [Priority], 
+    [qAbitAll].[Barcode] AS [Barcode], 
+    [qAbitAll].[FacultyId] AS [FacultyId], 
+    [qAbitAll].[FacultyName] AS [FacultyName], 
+    [qAbitAll].[FacultyAcr] AS [FacultyAcr], 
+    [qAbitAll].[LicenseProgramId] AS [LicenseProgramId], 
+    [qAbitAll].[LicenseProgramName] AS [LicenseProgramName], 
+    [qAbitAll].[LicenseProgramCode] AS [LicenseProgramCode], 
+    [qAbitAll].[ObrazProgramId] AS [ObrazProgramId], 
+    [qAbitAll].[ObrazProgramName] AS [ObrazProgramName], 
+    [qAbitAll].[ObrazProgramNumber] AS [ObrazProgramNumber], 
+    [qAbitAll].[ObrazProgramCrypt] AS [ObrazProgramCrypt], 
+    [qAbitAll].[ProfileId] AS [ProfileId], 
+    [qAbitAll].[ProfileName] AS [ProfileName], 
+    [qAbitAll].[StudyBasisId] AS [StudyBasisId], 
+    [qAbitAll].[StudyBasisName] AS [StudyBasisName], 
+    [qAbitAll].[StudyFormId] AS [StudyFormId], 
+    [qAbitAll].[StudyFormName] AS [StudyFormName], 
+    [qAbitAll].[StudyLevelId] AS [StudyLevelId], 
+    [qAbitAll].[StudyLevelName] AS [StudyLevelName], 
+    [qAbitAll].[StudyPlanId] AS [StudyPlanId], 
+    [qAbitAll].[StudyPlanNumber] AS [StudyPlanNumber], 
+    [qAbitAll].[ProgramModeShortName] AS [ProgramModeShortName], 
+    [qAbitAll].[IsSecond] AS [IsSecond], 
+    [qAbitAll].[StudyFormOldName] AS [StudyFormOldName], 
+    [qAbitAll].[StudyLevelGroupId] AS [StudyLevelGroupId], 
+    [qAbitAll].[WithHE] AS [WithHE], 
+    [qAbitAll].[IsReduced] AS [IsReduced], 
+    [qAbitAll].[IsParallel] AS [IsParallel], 
+    [qAbitAll].[QualificationCode] AS [QualificationCode], 
+    [qAbitAll].[StudyBasisFISName] AS [StudyBasisFISName], 
+    [qAbitAll].[StudyFormFISName] AS [StudyFormFISName], 
+    [qAbitAll].[StudyLevelFISName] AS [StudyLevelFISName], 
+    [qAbitAll].[Name] AS [Name], 
+    [qAbitAll].[IsViewed] AS [IsViewed], 
+    [qAbitAll].[IsForeign] AS [IsForeign], 
+    [qAbitAll].[IsCrimea] AS [IsCrimea]
+    FROM [ed].[qAbitAll] AS [qAbitAll]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="qAbiturient" EntityType="Self.qAbiturient" store:Type="Views" store:Schema="ed">
             <DefiningQuery>SELECT 
-[qAbiturient].[Id] AS [Id], 
-[qAbiturient].[PersonId] AS [PersonId], 
-[qAbiturient].[RegNum] AS [RegNum], 
-[qAbiturient].[EntryId] AS [EntryId], 
-[qAbiturient].[CompetitionId] AS [CompetitionId], 
-[qAbiturient].[IsListener] AS [IsListener], 
-[qAbiturient].[IsPaid] AS [IsPaid], 
-[qAbiturient].[BackDoc] AS [BackDoc], 
-[qAbiturient].[BackDocDate] AS [BackDocDate], 
-[qAbiturient].[DocDate] AS [DocDate], 
-[qAbiturient].[DocInsertDate] AS [DocInsertDate], 
-[qAbiturient].[Checked] AS [Checked], 
-[qAbiturient].[NotEnabled] AS [NotEnabled], 
-[qAbiturient].[Coefficient] AS [Coefficient], 
-[qAbiturient].[Sum] AS [Sum], 
-[qAbiturient].[OtherCompetitionId] AS [OtherCompetitionId], 
-[qAbiturient].[CelCompetitionId] AS [CelCompetitionId], 
-[qAbiturient].[CelCompetitionText] AS [CelCompetitionText], 
-[qAbiturient].[CompFromOlymp] AS [CompFromOlymp], 
-[qAbiturient].[LanguageId] AS [LanguageId], 
-[qAbiturient].[HasOriginals] AS [HasOriginals], 
-[qAbiturient].[StudyNumber] AS [StudyNumber], 
-[qAbiturient].[SessionAVG] AS [SessionAVG], 
-[qAbiturient].[StudentStatus] AS [StudentStatus], 
-[qAbiturient].[Priority] AS [Priority], 
-[qAbiturient].[Barcode] AS [Barcode], 
-[qAbiturient].[FacultyId] AS [FacultyId], 
-[qAbiturient].[FacultyName] AS [FacultyName], 
-[qAbiturient].[FacultyAcr] AS [FacultyAcr], 
-[qAbiturient].[LicenseProgramId] AS [LicenseProgramId], 
-[qAbiturient].[LicenseProgramName] AS [LicenseProgramName], 
-[qAbiturient].[LicenseProgramCode] AS [LicenseProgramCode], 
-[qAbiturient].[ObrazProgramId] AS [ObrazProgramId], 
-[qAbiturient].[ObrazProgramName] AS [ObrazProgramName], 
-[qAbiturient].[ObrazProgramNumber] AS [ObrazProgramNumber], 
-[qAbiturient].[ObrazProgramCrypt] AS [ObrazProgramCrypt], 
-[qAbiturient].[ProfileId] AS [ProfileId], 
-[qAbiturient].[ProfileName] AS [ProfileName], 
-[qAbiturient].[StudyBasisId] AS [StudyBasisId], 
-[qAbiturient].[StudyBasisName] AS [StudyBasisName], 
-[qAbiturient].[StudyFormId] AS [StudyFormId], 
-[qAbiturient].[StudyFormName] AS [StudyFormName], 
-[qAbiturient].[StudyLevelId] AS [StudyLevelId], 
-[qAbiturient].[StudyLevelName] AS [StudyLevelName], 
-[qAbiturient].[StudyPlanId] AS [StudyPlanId], 
-[qAbiturient].[StudyPlanNumber] AS [StudyPlanNumber], 
-[qAbiturient].[ProgramModeShortName] AS [ProgramModeShortName], 
-[qAbiturient].[IsSecond] AS [IsSecond], 
-[qAbiturient].[StudyFormOldName] AS [StudyFormOldName], 
-[qAbiturient].[StudyLevelGroupId] AS [StudyLevelGroupId], 
-[qAbiturient].[ObrazProgramNameEx] AS [ObrazProgramNameEx], 
-[qAbiturient].[WithHE] AS [WithHE], 
-[qAbiturient].[IsReduced] AS [IsReduced], 
-[qAbiturient].[IsParallel] AS [IsParallel], 
-[qAbiturient].[StudyBasisFISName] AS [StudyBasisFISName], 
-[qAbiturient].[StudyFormFISName] AS [StudyFormFISName], 
-[qAbiturient].[ObrazProgramPrintName] AS [ObrazProgramPrintName], 
-[qAbiturient].[CommitId] AS [CommitId], 
-[qAbiturient].[CommitNumber] AS [CommitNumber], 
-[qAbiturient].[IsViewed] AS [IsViewed], 
-[qAbiturient].[InnerEntryInEntryId] AS [InnerEntryInEntryId], 
-[qAbiturient].[IsForeign] AS [IsForeign], 
-[qAbiturient].[IsCrimea] AS [IsCrimea], 
-[qAbiturient].[BackDocByAdmissionHigh] AS [BackDocByAdmissionHigh], 
-[qAbiturient].[OlympiadId] AS [OlympiadId]
-FROM [ed].[qAbiturient] AS [qAbiturient]</DefiningQuery>
+    [qAbiturient].[Id] AS [Id], 
+    [qAbiturient].[PersonId] AS [PersonId], 
+    [qAbiturient].[RegNum] AS [RegNum], 
+    [qAbiturient].[EntryId] AS [EntryId], 
+    [qAbiturient].[CompetitionId] AS [CompetitionId], 
+    [qAbiturient].[IsListener] AS [IsListener], 
+    [qAbiturient].[IsPaid] AS [IsPaid], 
+    [qAbiturient].[BackDoc] AS [BackDoc], 
+    [qAbiturient].[BackDocDate] AS [BackDocDate], 
+    [qAbiturient].[DocDate] AS [DocDate], 
+    [qAbiturient].[DocInsertDate] AS [DocInsertDate], 
+    [qAbiturient].[Checked] AS [Checked], 
+    [qAbiturient].[NotEnabled] AS [NotEnabled], 
+    [qAbiturient].[Coefficient] AS [Coefficient], 
+    [qAbiturient].[Sum] AS [Sum], 
+    [qAbiturient].[OtherCompetitionId] AS [OtherCompetitionId], 
+    [qAbiturient].[CelCompetitionId] AS [CelCompetitionId], 
+    [qAbiturient].[CelCompetitionText] AS [CelCompetitionText], 
+    [qAbiturient].[CompFromOlymp] AS [CompFromOlymp], 
+    [qAbiturient].[LanguageId] AS [LanguageId], 
+    [qAbiturient].[HasOriginals] AS [HasOriginals], 
+    [qAbiturient].[StudyNumber] AS [StudyNumber], 
+    [qAbiturient].[SessionAVG] AS [SessionAVG], 
+    [qAbiturient].[StudentStatus] AS [StudentStatus], 
+    [qAbiturient].[Priority] AS [Priority], 
+    [qAbiturient].[Barcode] AS [Barcode], 
+    [qAbiturient].[FacultyId] AS [FacultyId], 
+    [qAbiturient].[FacultyName] AS [FacultyName], 
+    [qAbiturient].[FacultyAcr] AS [FacultyAcr], 
+    [qAbiturient].[LicenseProgramId] AS [LicenseProgramId], 
+    [qAbiturient].[LicenseProgramName] AS [LicenseProgramName], 
+    [qAbiturient].[LicenseProgramCode] AS [LicenseProgramCode], 
+    [qAbiturient].[ObrazProgramId] AS [ObrazProgramId], 
+    [qAbiturient].[ObrazProgramName] AS [ObrazProgramName], 
+    [qAbiturient].[ObrazProgramNumber] AS [ObrazProgramNumber], 
+    [qAbiturient].[ObrazProgramCrypt] AS [ObrazProgramCrypt], 
+    [qAbiturient].[ProfileId] AS [ProfileId], 
+    [qAbiturient].[ProfileName] AS [ProfileName], 
+    [qAbiturient].[StudyBasisId] AS [StudyBasisId], 
+    [qAbiturient].[StudyBasisName] AS [StudyBasisName], 
+    [qAbiturient].[StudyFormId] AS [StudyFormId], 
+    [qAbiturient].[StudyFormName] AS [StudyFormName], 
+    [qAbiturient].[StudyLevelId] AS [StudyLevelId], 
+    [qAbiturient].[StudyLevelName] AS [StudyLevelName], 
+    [qAbiturient].[StudyPlanId] AS [StudyPlanId], 
+    [qAbiturient].[StudyPlanNumber] AS [StudyPlanNumber], 
+    [qAbiturient].[ProgramModeShortName] AS [ProgramModeShortName], 
+    [qAbiturient].[IsSecond] AS [IsSecond], 
+    [qAbiturient].[StudyFormOldName] AS [StudyFormOldName], 
+    [qAbiturient].[StudyLevelGroupId] AS [StudyLevelGroupId], 
+    [qAbiturient].[ObrazProgramNameEx] AS [ObrazProgramNameEx], 
+    [qAbiturient].[WithHE] AS [WithHE], 
+    [qAbiturient].[IsReduced] AS [IsReduced], 
+    [qAbiturient].[IsParallel] AS [IsParallel], 
+    [qAbiturient].[StudyBasisFISName] AS [StudyBasisFISName], 
+    [qAbiturient].[StudyFormFISName] AS [StudyFormFISName], 
+    [qAbiturient].[ObrazProgramPrintName] AS [ObrazProgramPrintName], 
+    [qAbiturient].[CommitId] AS [CommitId], 
+    [qAbiturient].[CommitNumber] AS [CommitNumber], 
+    [qAbiturient].[IsViewed] AS [IsViewed], 
+    [qAbiturient].[InnerEntryInEntryId] AS [InnerEntryInEntryId], 
+    [qAbiturient].[IsForeign] AS [IsForeign], 
+    [qAbiturient].[IsCrimea] AS [IsCrimea], 
+    [qAbiturient].[BackDocByAdmissionHigh] AS [BackDocByAdmissionHigh], 
+    [qAbiturient].[OlympiadId] AS [OlympiadId]
+    FROM [ed].[qAbiturient] AS [qAbiturient]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="qAbiturient_WhoSetBackDoc" EntityType="Self.qAbiturient_WhoSetBackDoc" store:Type="Views" store:Schema="ed">
             <DefiningQuery>SELECT 
-[qAbiturient_WhoSetBackDoc].[IntId] AS [IntId], 
-[qAbiturient_WhoSetBackDoc].[Id] AS [Id], 
-[qAbiturient_WhoSetBackDoc].[UserId] AS [UserId], 
-[qAbiturient_WhoSetBackDoc].[ActionTime] AS [ActionTime], 
-[qAbiturient_WhoSetBackDoc].[FacultyId] AS [FacultyId], 
-[qAbiturient_WhoSetBackDoc].[FacultyName] AS [FacultyName], 
-[qAbiturient_WhoSetBackDoc].[FacultyAcronym] AS [FacultyAcronym], 
-[qAbiturient_WhoSetBackDoc].[PersonId] AS [PersonId]
-FROM [ed].[qAbiturient_WhoSetBackDoc] AS [qAbiturient_WhoSetBackDoc]</DefiningQuery>
+    [qAbiturient_WhoSetBackDoc].[IntId] AS [IntId], 
+    [qAbiturient_WhoSetBackDoc].[Id] AS [Id], 
+    [qAbiturient_WhoSetBackDoc].[UserId] AS [UserId], 
+    [qAbiturient_WhoSetBackDoc].[ActionTime] AS [ActionTime], 
+    [qAbiturient_WhoSetBackDoc].[FacultyId] AS [FacultyId], 
+    [qAbiturient_WhoSetBackDoc].[FacultyName] AS [FacultyName], 
+    [qAbiturient_WhoSetBackDoc].[FacultyAcronym] AS [FacultyAcronym], 
+    [qAbiturient_WhoSetBackDoc].[PersonId] AS [PersonId]
+    FROM [ed].[qAbiturient_WhoSetBackDoc] AS [qAbiturient_WhoSetBackDoc]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="qAbiturient_WhoSetHasOriginals" EntityType="Self.qAbiturient_WhoSetHasOriginals" store:Type="Views" store:Schema="ed">
             <DefiningQuery>SELECT 
-[qAbiturient_WhoSetHasOriginals].[IntId] AS [IntId], 
-[qAbiturient_WhoSetHasOriginals].[Id] AS [Id], 
-[qAbiturient_WhoSetHasOriginals].[UserId] AS [UserId], 
-[qAbiturient_WhoSetHasOriginals].[ActionTime] AS [ActionTime], 
-[qAbiturient_WhoSetHasOriginals].[FacultyId] AS [FacultyId], 
-[qAbiturient_WhoSetHasOriginals].[FacultyName] AS [FacultyName], 
-[qAbiturient_WhoSetHasOriginals].[FacultyAcronym] AS [FacultyAcronym], 
-[qAbiturient_WhoSetHasOriginals].[PersonId] AS [PersonId]
-FROM [ed].[qAbiturient_WhoSetHasOriginals] AS [qAbiturient_WhoSetHasOriginals]</DefiningQuery>
+    [qAbiturient_WhoSetHasOriginals].[IntId] AS [IntId], 
+    [qAbiturient_WhoSetHasOriginals].[Id] AS [Id], 
+    [qAbiturient_WhoSetHasOriginals].[UserId] AS [UserId], 
+    [qAbiturient_WhoSetHasOriginals].[ActionTime] AS [ActionTime], 
+    [qAbiturient_WhoSetHasOriginals].[FacultyId] AS [FacultyId], 
+    [qAbiturient_WhoSetHasOriginals].[FacultyName] AS [FacultyName], 
+    [qAbiturient_WhoSetHasOriginals].[FacultyAcronym] AS [FacultyAcronym], 
+    [qAbiturient_WhoSetHasOriginals].[PersonId] AS [PersonId]
+    FROM [ed].[qAbiturient_WhoSetHasOriginals] AS [qAbiturient_WhoSetHasOriginals]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="qAbiturient_WhoSetIsPaid" EntityType="Self.qAbiturient_WhoSetIsPaid" store:Type="Views" store:Schema="ed">
             <DefiningQuery>SELECT 
-[qAbiturient_WhoSetIsPaid].[IntId] AS [IntId], 
-[qAbiturient_WhoSetIsPaid].[Id] AS [Id], 
-[qAbiturient_WhoSetIsPaid].[UserId] AS [UserId], 
-[qAbiturient_WhoSetIsPaid].[ActionTime] AS [ActionTime], 
-[qAbiturient_WhoSetIsPaid].[FacultyId] AS [FacultyId], 
-[qAbiturient_WhoSetIsPaid].[FacultyName] AS [FacultyName], 
-[qAbiturient_WhoSetIsPaid].[FacultyAcronym] AS [FacultyAcronym], 
-[qAbiturient_WhoSetIsPaid].[PersonId] AS [PersonId]
-FROM [ed].[qAbiturient_WhoSetIsPaid] AS [qAbiturient_WhoSetIsPaid]</DefiningQuery>
+    [qAbiturient_WhoSetIsPaid].[IntId] AS [IntId], 
+    [qAbiturient_WhoSetIsPaid].[Id] AS [Id], 
+    [qAbiturient_WhoSetIsPaid].[UserId] AS [UserId], 
+    [qAbiturient_WhoSetIsPaid].[ActionTime] AS [ActionTime], 
+    [qAbiturient_WhoSetIsPaid].[FacultyId] AS [FacultyId], 
+    [qAbiturient_WhoSetIsPaid].[FacultyName] AS [FacultyName], 
+    [qAbiturient_WhoSetIsPaid].[FacultyAcronym] AS [FacultyAcronym], 
+    [qAbiturient_WhoSetIsPaid].[PersonId] AS [PersonId]
+    FROM [ed].[qAbiturient_WhoSetIsPaid] AS [qAbiturient_WhoSetIsPaid]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="qAbiturientForeignApplicationsOnly" EntityType="Self.qAbiturientForeignApplicationsOnly" store:Type="Views" store:Schema="ed">
             <DefiningQuery>SELECT 
-[qAbiturientForeignApplicationsOnly].[Id] AS [Id]
-FROM [ed].[qAbiturientForeignApplicationsOnly] AS [qAbiturientForeignApplicationsOnly]</DefiningQuery>
+    [qAbiturientForeignApplicationsOnly].[Id] AS [Id]
+    FROM [ed].[qAbiturientForeignApplicationsOnly] AS [qAbiturientForeignApplicationsOnly]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="qEntry" EntityType="Self.qEntry" store:Type="Views" store:Schema="ed">
             <DefiningQuery>SELECT 
-[qEntry].[Id] AS [Id], 
-[qEntry].[FacultyId] AS [FacultyId], 
-[qEntry].[LicenseProgramId] AS [LicenseProgramId], 
-[qEntry].[LicenseProgramName] AS [LicenseProgramName], 
-[qEntry].[LicenseProgramCode] AS [LicenseProgramCode], 
-[qEntry].[ObrazProgramId] AS [ObrazProgramId], 
-[qEntry].[ObrazProgramName] AS [ObrazProgramName], 
-[qEntry].[ObrazProgramNumber] AS [ObrazProgramNumber], 
-[qEntry].[ObrazProgramCrypt] AS [ObrazProgramCrypt], 
-[qEntry].[ProfileId] AS [ProfileId], 
-[qEntry].[ProfileName] AS [ProfileName], 
-[qEntry].[StudyBasisId] AS [StudyBasisId], 
-[qEntry].[StudyFormId] AS [StudyFormId], 
-[qEntry].[StudyLevelId] AS [StudyLevelId], 
-[qEntry].[StudyPlanId] AS [StudyPlanId], 
-[qEntry].[StudyPlanNumber] AS [StudyPlanNumber], 
-[qEntry].[ProgramModeShortName] AS [ProgramModeShortName], 
-[qEntry].[IsSecond] AS [IsSecond], 
-[qEntry].[KCP] AS [KCP], 
-[qEntry].[FacultyName] AS [FacultyName], 
-[qEntry].[StudyBasisName] AS [StudyBasisName], 
-[qEntry].[StudyFormName] AS [StudyFormName], 
-[qEntry].[StudyLevelName] AS [StudyLevelName], 
-[qEntry].[IsClosed] AS [IsClosed], 
-[qEntry].[StudyLevelGroupId] AS [StudyLevelGroupId], 
-[qEntry].[ObrazProgramNameEx] AS [ObrazProgramNameEx], 
-[qEntry].[FacultyAcr] AS [FacultyAcr], 
-[qEntry].[KCPCel] AS [KCPCel], 
-[qEntry].[IsReduced] AS [IsReduced], 
-[qEntry].[IsParallel] AS [IsParallel], 
-[qEntry].[QualificationCode] AS [QualificationCode], 
-[qEntry].[StudyLevelFISName] AS [StudyLevelFISName], 
-[qEntry].[ObrazProgramPrintName] AS [ObrazProgramPrintName], 
-[qEntry].[KCPQuota] AS [KCPQuota], 
-[qEntry].[IsForeign] AS [IsForeign], 
-[qEntry].[IsCrimea] AS [IsCrimea], 
-[qEntry].[StudyLevelGroupName] AS [StudyLevelGroupName], 
-[qEntry].[DateOfStart] AS [DateOfStart], 
-[qEntry].[DateOfClose] AS [DateOfClose]
-FROM [ed].[qEntry] AS [qEntry]</DefiningQuery>
+    [qEntry].[Id] AS [Id], 
+    [qEntry].[FacultyId] AS [FacultyId], 
+    [qEntry].[LicenseProgramId] AS [LicenseProgramId], 
+    [qEntry].[LicenseProgramName] AS [LicenseProgramName], 
+    [qEntry].[LicenseProgramCode] AS [LicenseProgramCode], 
+    [qEntry].[ObrazProgramId] AS [ObrazProgramId], 
+    [qEntry].[ObrazProgramName] AS [ObrazProgramName], 
+    [qEntry].[ObrazProgramNumber] AS [ObrazProgramNumber], 
+    [qEntry].[ObrazProgramCrypt] AS [ObrazProgramCrypt], 
+    [qEntry].[ProfileId] AS [ProfileId], 
+    [qEntry].[ProfileName] AS [ProfileName], 
+    [qEntry].[StudyBasisId] AS [StudyBasisId], 
+    [qEntry].[StudyFormId] AS [StudyFormId], 
+    [qEntry].[StudyLevelId] AS [StudyLevelId], 
+    [qEntry].[StudyPlanId] AS [StudyPlanId], 
+    [qEntry].[StudyPlanNumber] AS [StudyPlanNumber], 
+    [qEntry].[ProgramModeShortName] AS [ProgramModeShortName], 
+    [qEntry].[IsSecond] AS [IsSecond], 
+    [qEntry].[KCP] AS [KCP], 
+    [qEntry].[FacultyName] AS [FacultyName], 
+    [qEntry].[StudyBasisName] AS [StudyBasisName], 
+    [qEntry].[StudyFormName] AS [StudyFormName], 
+    [qEntry].[StudyLevelName] AS [StudyLevelName], 
+    [qEntry].[IsClosed] AS [IsClosed], 
+    [qEntry].[StudyLevelGroupId] AS [StudyLevelGroupId], 
+    [qEntry].[ObrazProgramNameEx] AS [ObrazProgramNameEx], 
+    [qEntry].[FacultyAcr] AS [FacultyAcr], 
+    [qEntry].[KCPCel] AS [KCPCel], 
+    [qEntry].[IsReduced] AS [IsReduced], 
+    [qEntry].[IsParallel] AS [IsParallel], 
+    [qEntry].[QualificationCode] AS [QualificationCode], 
+    [qEntry].[StudyLevelFISName] AS [StudyLevelFISName], 
+    [qEntry].[ObrazProgramPrintName] AS [ObrazProgramPrintName], 
+    [qEntry].[KCPQuota] AS [KCPQuota], 
+    [qEntry].[IsForeign] AS [IsForeign], 
+    [qEntry].[IsCrimea] AS [IsCrimea], 
+    [qEntry].[StudyLevelGroupName] AS [StudyLevelGroupName], 
+    [qEntry].[DateOfStart] AS [DateOfStart], 
+    [qEntry].[DateOfClose] AS [DateOfClose], 
+    [qEntry].[AggregateGroupId] AS [AggregateGroupId]
+    FROM [ed].[qEntry] AS [qEntry]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="qEntryToCompetitiveGroup" EntityType="Self.qEntryToCompetitiveGroup" store:Type="Views" store:Schema="ed">
             <DefiningQuery>SELECT 
-[qEntryToCompetitiveGroup].[EntryId] AS [EntryId], 
-[qEntryToCompetitiveGroup].[CompetitiveGroupId] AS [CompetitiveGroupId], 
-[qEntryToCompetitiveGroup].[CompetitiveGroupName] AS [CompetitiveGroupName]
-FROM [ed].[qEntryToCompetitiveGroup] AS [qEntryToCompetitiveGroup]</DefiningQuery>
+    [qEntryToCompetitiveGroup].[EntryId] AS [EntryId], 
+    [qEntryToCompetitiveGroup].[CompetitiveGroupId] AS [CompetitiveGroupId], 
+    [qEntryToCompetitiveGroup].[CompetitiveGroupName] AS [CompetitiveGroupName]
+    FROM [ed].[qEntryToCompetitiveGroup] AS [qEntryToCompetitiveGroup]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="qFaculty" EntityType="Self.qFaculty" store:Type="Views" store:Schema="ed">
             <DefiningQuery>SELECT 
-[qFaculty].[Id] AS [Id], 
-[qFaculty].[Name] AS [Name], 
-[qFaculty].[Acronym] AS [Acronym], 
-[qFaculty].[RodName] AS [RodName], 
-[qFaculty].[DatName] AS [DatName], 
-[qFaculty].[VinName] AS [VinName]
-FROM [ed].[qFaculty] AS [qFaculty]</DefiningQuery>
+    [qFaculty].[Id] AS [Id], 
+    [qFaculty].[Name] AS [Name], 
+    [qFaculty].[Acronym] AS [Acronym], 
+    [qFaculty].[RodName] AS [RodName], 
+    [qFaculty].[DatName] AS [DatName], 
+    [qFaculty].[VinName] AS [VinName]
+    FROM [ed].[qFaculty] AS [qFaculty]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="qLicenseProgram" EntityType="Self.qLicenseProgram" store:Type="Views" store:Schema="ed">
             <DefiningQuery>SELECT 
-[qLicenseProgram].[Id] AS [Id], 
-[qLicenseProgram].[Name] AS [Name], 
-[qLicenseProgram].[Code] AS [Code]
-FROM [ed].[qLicenseProgram] AS [qLicenseProgram]</DefiningQuery>
+    [qLicenseProgram].[Id] AS [Id], 
+    [qLicenseProgram].[Name] AS [Name], 
+    [qLicenseProgram].[Code] AS [Code]
+    FROM [ed].[qLicenseProgram] AS [qLicenseProgram]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="qMark" EntityType="Self.qMark" store:Type="Views" store:Schema="ed">
             <DefiningQuery>SELECT 
-[qMark].[Id] AS [Id], 
-[qMark].[AbiturientId] AS [AbiturientId], 
-[qMark].[ExamInEntryBlockUnitId] AS [ExamInEntryBlockUnitId], 
-[qMark].[Value] AS [Value], 
-[qMark].[PassDate] AS [PassDate], 
-[qMark].[IsFromEge] AS [IsFromEge], 
-[qMark].[IsFromOlymp] AS [IsFromOlymp], 
-[qMark].[IsManual] AS [IsManual], 
-[qMark].[ExamVedId] AS [ExamVedId], 
-[qMark].[EntryId] AS [EntryId], 
-[qMark].[ExamName] AS [ExamName], 
-[qMark].[IsAdditional] AS [IsAdditional], 
-[qMark].[IsProfil] AS [IsProfil], 
-[qMark].[StudyLevelGroupId] AS [StudyLevelGroupId], 
-[qMark].[ExamId] AS [ExamId], 
-[qMark].[ExamNameId] AS [ExamNameId], 
-[qMark].[EntranceTestType] AS [EntranceTestType], 
-[qMark].[OlympiadId] AS [OlympiadId], 
-[qMark].[EgeCertificateId] AS [EgeCertificateId], 
-[qMark].[OrderNumber] AS [OrderNumber], 
-[qMark].[FiveGradeValue] AS [FiveGradeValue], 
-[qMark].[ParentExamInEntryBlockId] AS [ParentExamInEntryBlockId], 
-[qMark].[PersonId] AS [PersonId], 
-[qMark].[StudyBasisId] AS [StudyBasisId]
-FROM [ed].[qMark] AS [qMark]</DefiningQuery>
+    [qMark].[Id] AS [Id], 
+    [qMark].[AbiturientId] AS [AbiturientId], 
+    [qMark].[ExamInEntryBlockUnitId] AS [ExamInEntryBlockUnitId], 
+    [qMark].[Value] AS [Value], 
+    [qMark].[PassDate] AS [PassDate], 
+    [qMark].[IsFromEge] AS [IsFromEge], 
+    [qMark].[IsFromOlymp] AS [IsFromOlymp], 
+    [qMark].[IsManual] AS [IsManual], 
+    [qMark].[ExamVedId] AS [ExamVedId], 
+    [qMark].[EntryId] AS [EntryId], 
+    [qMark].[ExamName] AS [ExamName], 
+    [qMark].[IsAdditional] AS [IsAdditional], 
+    [qMark].[IsProfil] AS [IsProfil], 
+    [qMark].[StudyLevelGroupId] AS [StudyLevelGroupId], 
+    [qMark].[ExamId] AS [ExamId], 
+    [qMark].[ExamNameId] AS [ExamNameId], 
+    [qMark].[EntranceTestType] AS [EntranceTestType], 
+    [qMark].[OlympiadId] AS [OlympiadId], 
+    [qMark].[EgeCertificateId] AS [EgeCertificateId], 
+    [qMark].[OrderNumber] AS [OrderNumber], 
+    [qMark].[FiveGradeValue] AS [FiveGradeValue], 
+    [qMark].[ParentExamInEntryBlockId] AS [ParentExamInEntryBlockId], 
+    [qMark].[PersonId] AS [PersonId], 
+    [qMark].[StudyBasisId] AS [StudyBasisId]
+    FROM [ed].[qMark] AS [qMark]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="qObrazProgram" EntityType="Self.qObrazProgram" store:Type="Views" store:Schema="ed">
             <DefiningQuery>SELECT 
-[qObrazProgram].[Id] AS [Id], 
-[qObrazProgram].[Crypt] AS [Crypt], 
-[qObrazProgram].[Name] AS [Name], 
-[qObrazProgram].[LicenseProgramId] AS [LicenseProgramId], 
-[qObrazProgram].[LicenseProgramName] AS [LicenseProgramName], 
-[qObrazProgram].[Number] AS [Number]
-FROM [ed].[qObrazProgram] AS [qObrazProgram]</DefiningQuery>
+    [qObrazProgram].[Id] AS [Id], 
+    [qObrazProgram].[Crypt] AS [Crypt], 
+    [qObrazProgram].[Name] AS [Name], 
+    [qObrazProgram].[LicenseProgramId] AS [LicenseProgramId], 
+    [qObrazProgram].[LicenseProgramName] AS [LicenseProgramName], 
+    [qObrazProgram].[Number] AS [Number]
+    FROM [ed].[qObrazProgram] AS [qObrazProgram]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="qProfile" EntityType="Self.qProfile" store:Type="Views" store:Schema="ed">
             <DefiningQuery>SELECT 
-[qProfile].[Id] AS [Id], 
-[qProfile].[Name] AS [Name]
-FROM [ed].[qProfile] AS [qProfile]</DefiningQuery>
+    [qProfile].[Id] AS [Id], 
+    [qProfile].[Name] AS [Name]
+    FROM [ed].[qProfile] AS [qProfile]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="qProtocol" EntityType="Self.qProtocol" store:Type="Views" store:Schema="ed">
             <DefiningQuery>SELECT 
-[qProtocol].[Id] AS [Id], 
-[qProtocol].[StudyLevelGroupId] AS [StudyLevelGroupId], 
-[qProtocol].[FacultyId] AS [FacultyId], 
-[qProtocol].[LicenseProgramId] AS [LicenseProgramId], 
-[qProtocol].[StudyFormId] AS [StudyFormId], 
-[qProtocol].[StudyBasisId] AS [StudyBasisId], 
-[qProtocol].[Number] AS [Number], 
-[qProtocol].[Date] AS [Date], 
-[qProtocol].[ProtocolTypeId] AS [ProtocolTypeId], 
-[qProtocol].[Reason] AS [Reason], 
-[qProtocol].[IsOld] AS [IsOld], 
-[qProtocol].[ParentProtocolId] AS [ParentProtocolId], 
-[qProtocol].[IsSecond] AS [IsSecond], 
-[qProtocol].[IsListener] AS [IsListener], 
-[qProtocol].[IsForeign] AS [IsForeign]
-FROM [ed].[qProtocol] AS [qProtocol]</DefiningQuery>
+    [qProtocol].[Id] AS [Id], 
+    [qProtocol].[StudyLevelGroupId] AS [StudyLevelGroupId], 
+    [qProtocol].[FacultyId] AS [FacultyId], 
+    [qProtocol].[LicenseProgramId] AS [LicenseProgramId], 
+    [qProtocol].[StudyFormId] AS [StudyFormId], 
+    [qProtocol].[StudyBasisId] AS [StudyBasisId], 
+    [qProtocol].[Number] AS [Number], 
+    [qProtocol].[Date] AS [Date], 
+    [qProtocol].[ProtocolTypeId] AS [ProtocolTypeId], 
+    [qProtocol].[Reason] AS [Reason], 
+    [qProtocol].[IsOld] AS [IsOld], 
+    [qProtocol].[ParentProtocolId] AS [ParentProtocolId], 
+    [qProtocol].[IsSecond] AS [IsSecond], 
+    [qProtocol].[IsListener] AS [IsListener], 
+    [qProtocol].[IsForeign] AS [IsForeign]
+    FROM [ed].[qProtocol] AS [qProtocol]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="qProtocolHistory" EntityType="Self.qProtocolHistory" store:Type="Views" store:Schema="ed">
             <DefiningQuery>SELECT 
-[qProtocolHistory].[AbiturientId] AS [AbiturientId], 
-[qProtocolHistory].[ProtocolId] AS [ProtocolId], 
-[qProtocolHistory].[Excluded] AS [Excluded], 
-[qProtocolHistory].[ExcludeProtocolId] AS [ExcludeProtocolId], 
-[qProtocolHistory].[EntryHeaderId] AS [EntryHeaderId], 
-[qProtocolHistory].[StudyLevelGroupId] AS [StudyLevelGroupId], 
-[qProtocolHistory].[FacultyId] AS [FacultyId], 
-[qProtocolHistory].[LicenseProgramId] AS [LicenseProgramId], 
-[qProtocolHistory].[StudyFormId] AS [StudyFormId], 
-[qProtocolHistory].[StudyBasisId] AS [StudyBasisId], 
-[qProtocolHistory].[Number] AS [Number], 
-[qProtocolHistory].[Date] AS [Date], 
-[qProtocolHistory].[ProtocolTypeId] AS [ProtocolTypeId], 
-[qProtocolHistory].[Reason] AS [Reason], 
-[qProtocolHistory].[IsOld] AS [IsOld], 
-[qProtocolHistory].[IsSecond] AS [IsSecond], 
-[qProtocolHistory].[IsListener] AS [IsListener], 
-[qProtocolHistory].[Id] AS [Id], 
-[qProtocolHistory].[IsForeign] AS [IsForeign]
-FROM [ed].[qProtocolHistory] AS [qProtocolHistory]</DefiningQuery>
+    [qProtocolHistory].[AbiturientId] AS [AbiturientId], 
+    [qProtocolHistory].[ProtocolId] AS [ProtocolId], 
+    [qProtocolHistory].[Excluded] AS [Excluded], 
+    [qProtocolHistory].[ExcludeProtocolId] AS [ExcludeProtocolId], 
+    [qProtocolHistory].[EntryHeaderId] AS [EntryHeaderId], 
+    [qProtocolHistory].[StudyLevelGroupId] AS [StudyLevelGroupId], 
+    [qProtocolHistory].[FacultyId] AS [FacultyId], 
+    [qProtocolHistory].[LicenseProgramId] AS [LicenseProgramId], 
+    [qProtocolHistory].[StudyFormId] AS [StudyFormId], 
+    [qProtocolHistory].[StudyBasisId] AS [StudyBasisId], 
+    [qProtocolHistory].[Number] AS [Number], 
+    [qProtocolHistory].[Date] AS [Date], 
+    [qProtocolHistory].[ProtocolTypeId] AS [ProtocolTypeId], 
+    [qProtocolHistory].[Reason] AS [Reason], 
+    [qProtocolHistory].[IsOld] AS [IsOld], 
+    [qProtocolHistory].[IsSecond] AS [IsSecond], 
+    [qProtocolHistory].[IsListener] AS [IsListener], 
+    [qProtocolHistory].[Id] AS [Id], 
+    [qProtocolHistory].[IsForeign] AS [IsForeign]
+    FROM [ed].[qProtocolHistory] AS [qProtocolHistory]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="qStudyLevel" EntityType="Self.qStudyLevel" store:Type="Views" store:Schema="ed">
             <DefiningQuery>SELECT 
-[qStudyLevel].[Id] AS [Id], 
-[qStudyLevel].[Name] AS [Name], 
-[qStudyLevel].[Acronym] AS [Acronym], 
-[qStudyLevel].[LevelGroupId] AS [LevelGroupId], 
-[qStudyLevel].[LevelGroupPrint] AS [LevelGroupPrint], 
-[qStudyLevel].[FISName] AS [FISName]
-FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
+    [qStudyLevel].[Id] AS [Id], 
+    [qStudyLevel].[Name] AS [Name], 
+    [qStudyLevel].[Acronym] AS [Acronym], 
+    [qStudyLevel].[LevelGroupId] AS [LevelGroupId], 
+    [qStudyLevel].[LevelGroupPrint] AS [LevelGroupPrint], 
+    [qStudyLevel].[FISName] AS [FISName]
+    FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK_Abiturient_CelCompetition" Association="Self.FK_Abiturient_CelCompetition">
             <End Role="CelCompetition" EntitySet="CelCompetition" />
@@ -7371,7 +7395,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
             <End Role="AbitDoc" EntitySet="AbitDoc" />
             <End Role="DocInventory" EntitySet="DocInventory" />
           </AssociationSet>
-          <AssociationSet Name="fk_DocInventory_Abiturient" Association="Self.fk_DocInventory_Abiturient">
+          <AssociationSet Name="FK_DocInventory_Abiturient" Association="Self.FK_DocInventory_Abiturient">
             <End Role="Abiturient" EntitySet="Abiturient" />
             <End Role="DocInventory" EntitySet="DocInventory" />
           </AssociationSet>
@@ -7470,6 +7494,14 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <AssociationSet Name="FK_ExaminerInExamsVed_ExamsVed" Association="Self.FK_ExaminerInExamsVed_ExamsVed">
             <End Role="ExamsVed" EntitySet="ExamsVed" />
             <End Role="ExaminerInExamsVed" EntitySet="ExaminerInExamsVed" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ExamsVedHistory_ExamsVed" Association="Self.FK_ExamsVedHistory_ExamsVed">
+            <End Role="ExamsVed" EntitySet="ExamsVed" />
+            <End Role="ExamsVedHistory" EntitySet="ExamsVedHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ExamsVedHistory_Person" Association="Self.FK_ExamsVedHistory_Person">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="ExamsVedHistory" EntitySet="ExamsVedHistory" />
           </AssociationSet>
           <AssociationSet Name="FK_InnerEntryInEntry_SP_Profile" Association="Self.FK_InnerEntryInEntry_SP_Profile">
             <End Role="SP_Profile" EntitySet="SP_Profile" />
@@ -7727,7 +7759,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
             <End Role="StudyForm" EntitySet="StudyForm" />
             <End Role="Protocol" EntitySet="Protocol" />
           </AssociationSet>
-          <AssociationSet Name="fk_ProtocolHistory_Abiturient" Association="Self.fk_ProtocolHistory_Abiturient">
+          <AssociationSet Name="FK_ProtocolHistory_Abiturient" Association="Self.FK_ProtocolHistory_Abiturient">
             <End Role="Abiturient" EntitySet="Abiturient" />
             <End Role="ProtocolHistory" EntitySet="ProtocolHistory" />
           </AssociationSet>
@@ -8513,7 +8545,6 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
             <Parameter Name="IsReduced" Mode="In" Type="Boolean" />
             <Parameter Name="IsParallel" Mode="In" Type="Boolean" />
             <Parameter Name="KCP" Mode="In" Type="Int32" />
-            <Parameter Name="KCPCrimea" Mode="In" Type="Int32" />
             <Parameter Name="ComissionId" Mode="In" Type="Int32" />
             <Parameter Name="IsForeign" Mode="In" Type="Boolean" />
             <Parameter Name="IsCrimea" Mode="In" Type="Boolean" />
@@ -9660,6 +9691,14 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
             <End Role="ExamInEntryBlockUnit" EntitySet="ExamInEntryBlockUnit" />
           </AssociationSet>
           <EntitySet Name="extExamInEntry" EntityType="Priem2012Model.extExamInEntry" />
+          <AssociationSet Name="FK_ExamsVedHistory_ExamsVed" Association="Priem2012Model.FK_ExamsVedHistory_ExamsVed">
+            <End Role="ExamsVed" EntitySet="ExamsVed" />
+            <End Role="ExamsVedHistory" EntitySet="ExamsVedHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ExamsVedHistory_Person" Association="Priem2012Model.FK_ExamsVedHistory_Person">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="ExamsVedHistory" EntitySet="ExamsVedHistory" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="AttMarks">
           <Key>
@@ -10556,6 +10595,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <Property Type="Int32" Name="AddCount" />
           <Property Type="String" Name="ExaminerAccount" MaxLength="250" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ExaminerInExamsVed" Relationship="Priem2012Model.FK_ExaminerInExamsVed_ExamsVed" FromRole="ExamsVed" ToRole="ExaminerInExamsVed" />
+          <NavigationProperty Name="ExamsVedHistory" Relationship="Priem2012Model.FK_ExamsVedHistory_ExamsVed" FromRole="ExamsVed" ToRole="ExamsVedHistory" />
         </EntityType>
         <EntityType Name="ExamsVedHistory">
           <Key>
@@ -10570,6 +10610,8 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <Property Type="Decimal" Name="AppealMark" Precision="4" Scale="1" />
           <Property Type="Decimal" Name="OralAppealMark" Precision="4" Scale="1" />
           <Property Type="String" Name="ExaminerName" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ExamsVed" Relationship="Priem2012Model.FK_ExamsVedHistory_ExamsVed" FromRole="ExamsVedHistory" ToRole="ExamsVed" />
+          <NavigationProperty Name="Person" Relationship="Priem2012Model.FK_ExamsVedHistory_Person" FromRole="ExamsVedHistory" ToRole="Person" />
         </EntityType>
         <EntityType Name="ExamsVedRoom">
           <Key>
@@ -10943,12 +10985,12 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Guid" Name="Id" Nullable="false" />
           <Property Type="Guid" Name="AbiturientId" Nullable="false" />
           <Property Type="Int32" Name="AbitDocId" Nullable="false" />
           <Property Type="String" Name="Comment" MaxLength="1000" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AbitDoc" Relationship="Priem2012Model.fk_DocInventory_AbitDoc" FromRole="DocInventory" ToRole="AbitDoc" />
           <NavigationProperty Name="Abiturient" Relationship="Priem2012Model.fk_DocInventory_Abiturient" FromRole="DocInventory" ToRole="Abiturient" />
+          <Property Name="Id" Type="Guid" Nullable="false" />
         </EntityType>
         <Association Name="fk_DocInventory_AbitDoc">
           <End Type="Priem2012Model.AbitDoc" Role="AbitDoc" Multiplicity="1" />
@@ -11366,6 +11408,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
             <PropertyRef Name="StudyLevelGroupName" />
             <PropertyRef Name="DateOfStart" />
             <PropertyRef Name="DateOfClose" />
+            <PropertyRef Name="AggregateGroupId" />
           </Key>
           <Property Type="Guid" Name="Id" Nullable="false" />
           <Property Type="Int32" Name="FacultyId" Nullable="false" />
@@ -11406,6 +11449,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <Property Type="String" Name="StudyLevelGroupName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="DateTime" Name="DateOfStart" Nullable="false" Precision="3" />
           <Property Type="DateTime" Name="DateOfClose" Nullable="false" Precision="3" />
+          <Property Name="AggregateGroupId" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="C_FirstWaveGreen">
           <Key>
@@ -11506,6 +11550,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <NavigationProperty Name="PersonAchievement" Relationship="Priem2012Model.FK_PersonAchievement_Person" FromRole="Person" ToRole="PersonAchievement" />
           <NavigationProperty Name="PersonOtherPassport" Relationship="Priem2012Model.FK_PersonOtherPassport_Person" FromRole="Person" ToRole="PersonOtherPassport" />
           <NavigationProperty Name="PersonNoticies" Relationship="Priem2012Model.FK_PersonNoticies_Person" FromRole="Person" ToRole="PersonNoticies" />
+          <NavigationProperty Name="ExamsVedHistory" Relationship="Priem2012Model.FK_ExamsVedHistory_Person" FromRole="Person" ToRole="ExamsVedHistory" />
         </EntityType>
         <EntityType Name="Person_AdditionalInfo">
           <Key>
@@ -14273,6 +14318,30 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <Property Name="ParentExamInEntryBlockId" Type="Guid" />
           <Property Name="IsForeign" Type="Boolean" Nullable="false" />
         </EntityType>
+        <Association Name="FK_ExamsVedHistory_ExamsVed">
+          <End Type="Priem2012Model.ExamsVed" Role="ExamsVed" Multiplicity="1" />
+          <End Type="Priem2012Model.ExamsVedHistory" Role="ExamsVedHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExamsVed">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ExamsVedHistory">
+              <PropertyRef Name="ExamsVedId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ExamsVedHistory_Person">
+          <End Type="Priem2012Model.Person" Role="Person" Multiplicity="1" />
+          <End Type="Priem2012Model.ExamsVedHistory" Role="ExamsVedHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ExamsVedHistory">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -15103,10 +15172,10 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <EntitySetMapping Name="DocInventory">
             <EntityTypeMapping TypeName="Priem2012Model.DocInventory">
               <MappingFragment StoreEntitySet="DocInventory">
+                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Comment" ColumnName="Comment" />
                 <ScalarProperty Name="AbitDocId" ColumnName="AbitDocId" />
                 <ScalarProperty Name="AbiturientId" ColumnName="AbiturientId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -15373,6 +15442,7 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
           <EntitySetMapping Name="qEntry">
             <EntityTypeMapping TypeName="Priem2012Model.qEntry">
               <MappingFragment StoreEntitySet="qEntry">
+                <ScalarProperty Name="AggregateGroupId" ColumnName="AggregateGroupId" />
                 <ScalarProperty Name="DateOfClose" ColumnName="DateOfClose" />
                 <ScalarProperty Name="DateOfStart" ColumnName="DateOfStart" />
                 <ScalarProperty Name="StudyLevelGroupName" ColumnName="StudyLevelGroupName" />
@@ -17074,7 +17144,8 @@ FROM [ed].[qStudyLevel] AS [qStudyLevel]</DefiningQuery>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="False" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
-        <DesignerProperty Name="UseLegacyProvider" Value="True" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->

@@ -134,7 +134,7 @@ namespace PriemLib
                     if (!GuidId.HasValue)
                     {
                         GuidId = Guid.NewGuid();
-                        context.InnerEntryInEntry.AddObject(new InnerEntryInEntry() { Id = GuidId.Value, ObrazProgramId = ObrazProgramId, ProfileId = ProfileId, KCP = KCP, EntryId = EntryId });
+                        context.InnerEntryInEntry.Add(new InnerEntryInEntry() { Id = GuidId.Value, ObrazProgramId = ObrazProgramId, ProfileId = ProfileId, KCP = KCP, EntryId = EntryId });
 
                         query = "INSERT INTO InnerEntryInEntry (Id, ObrazProgramId, ProfileId, EntryId) VALUES (@Id, @ObrazProgramId, @ProfileId, @EntryId)";
                     }

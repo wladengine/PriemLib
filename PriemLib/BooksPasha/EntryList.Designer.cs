@@ -59,6 +59,8 @@
             this.label12 = new System.Windows.Forms.Label();
             this.dtpDateFinishFrom = new System.Windows.Forms.DateTimePicker();
             this.dtpDateFinishTo = new System.Windows.Forms.DateTimePicker();
+            this.label13 = new System.Windows.Forms.Label();
+            this.cbAggregateGroup = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEntry)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -66,23 +68,23 @@
             // 
             // lblCount
             // 
-            this.lblCount.Location = new System.Drawing.Point(366, 445);
+            this.lblCount.Location = new System.Drawing.Point(366, 489);
             // 
             // btnCard
             // 
-            this.btnCard.Location = new System.Drawing.Point(968, 448);
+            this.btnCard.Location = new System.Drawing.Point(968, 492);
             // 
             // btnRemove
             // 
-            this.btnRemove.Location = new System.Drawing.Point(12, 477);
+            this.btnRemove.Location = new System.Drawing.Point(12, 521);
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(12, 448);
+            this.btnAdd.Location = new System.Drawing.Point(12, 492);
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(968, 477);
+            this.btnClose.Location = new System.Drawing.Point(968, 521);
             // 
             // label11
             // 
@@ -108,7 +110,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(197, 13);
+            this.label1.Location = new System.Drawing.Point(192, 53);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(63, 13);
             this.label1.TabIndex = 87;
@@ -120,15 +122,15 @@
             this.cbFaculty.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbFaculty.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbFaculty.FormattingEnabled = true;
-            this.cbFaculty.Location = new System.Drawing.Point(200, 29);
+            this.cbFaculty.Location = new System.Drawing.Point(195, 69);
             this.cbFaculty.Name = "cbFaculty";
-            this.cbFaculty.Size = new System.Drawing.Size(329, 21);
+            this.cbFaculty.Size = new System.Drawing.Size(340, 21);
             this.cbFaculty.TabIndex = 86;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 53);
+            this.label2.Location = new System.Drawing.Point(12, 93);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(94, 13);
             this.label2.TabIndex = 97;
@@ -140,14 +142,14 @@
             this.cbStudyBasis.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbStudyBasis.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbStudyBasis.FormattingEnabled = true;
-            this.cbStudyBasis.Location = new System.Drawing.Point(12, 69);
+            this.cbStudyBasis.Location = new System.Drawing.Point(12, 109);
             this.cbStudyBasis.Name = "cbStudyBasis";
             this.cbStudyBasis.Size = new System.Drawing.Size(161, 21);
             this.cbStudyBasis.TabIndex = 96;
             // 
             // tbPlanNumSearch
             // 
-            this.tbPlanNumSearch.Location = new System.Drawing.Point(12, 109);
+            this.tbPlanNumSearch.Location = new System.Drawing.Point(195, 109);
             this.tbPlanNumSearch.Name = "tbPlanNumSearch";
             this.tbPlanNumSearch.Size = new System.Drawing.Size(262, 20);
             this.tbPlanNumSearch.TabIndex = 99;
@@ -156,7 +158,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(9, 93);
+            this.label4.Location = new System.Drawing.Point(192, 93);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(206, 13);
             this.label4.TabIndex = 98;
@@ -165,7 +167,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(195, 53);
+            this.label6.Location = new System.Drawing.Point(12, 53);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(93, 13);
             this.label6.TabIndex = 101;
@@ -177,7 +179,7 @@
             this.cbStudyForm.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbStudyForm.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbStudyForm.FormattingEnabled = true;
-            this.cbStudyForm.Location = new System.Drawing.Point(198, 69);
+            this.cbStudyForm.Location = new System.Drawing.Point(12, 69);
             this.cbStudyForm.Name = "cbStudyForm";
             this.cbStudyForm.Size = new System.Drawing.Size(161, 21);
             this.cbStudyForm.TabIndex = 100;
@@ -185,7 +187,7 @@
             // btnLoadEntry
             // 
             this.btnLoadEntry.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnLoadEntry.Location = new System.Drawing.Point(864, 448);
+            this.btnLoadEntry.Location = new System.Drawing.Point(864, 492);
             this.btnLoadEntry.Name = "btnLoadEntry";
             this.btnLoadEntry.Size = new System.Drawing.Size(75, 52);
             this.btnLoadEntry.TabIndex = 105;
@@ -202,12 +204,12 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvEntry.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvEntry.Location = new System.Drawing.Point(12, 135);
+            this.dgvEntry.Location = new System.Drawing.Point(12, 136);
             this.dgvEntry.MultiSelect = false;
             this.dgvEntry.Name = "dgvEntry";
             this.dgvEntry.ReadOnly = true;
             this.dgvEntry.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvEntry.Size = new System.Drawing.Size(1031, 307);
+            this.dgvEntry.Size = new System.Drawing.Size(1031, 350);
             this.dgvEntry.TabIndex = 106;
             // 
             // cbIsSecond
@@ -273,7 +275,7 @@
             // btnToExcel
             // 
             this.btnToExcel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnToExcel.Location = new System.Drawing.Point(93, 448);
+            this.btnToExcel.Location = new System.Drawing.Point(93, 492);
             this.btnToExcel.Name = "btnToExcel";
             this.btnToExcel.Size = new System.Drawing.Size(75, 23);
             this.btnToExcel.TabIndex = 113;
@@ -284,7 +286,7 @@
             // chbIsForeign
             // 
             this.chbIsForeign.AutoSize = true;
-            this.chbIsForeign.Location = new System.Drawing.Point(411, 71);
+            this.chbIsForeign.Location = new System.Drawing.Point(913, 77);
             this.chbIsForeign.Name = "chbIsForeign";
             this.chbIsForeign.Size = new System.Drawing.Size(118, 17);
             this.chbIsForeign.TabIndex = 114;
@@ -295,7 +297,7 @@
             // chbIsCrimea
             // 
             this.chbIsCrimea.AutoSize = true;
-            this.chbIsCrimea.Location = new System.Drawing.Point(411, 94);
+            this.chbIsCrimea.Location = new System.Drawing.Point(913, 103);
             this.chbIsCrimea.Name = "chbIsCrimea";
             this.chbIsCrimea.Size = new System.Drawing.Size(55, 17);
             this.chbIsCrimea.TabIndex = 115;
@@ -405,11 +407,33 @@
             this.dtpDateFinishTo.TabIndex = 117;
             this.dtpDateFinishTo.ValueChanged += new System.EventHandler(this.dtpDateFinishTo_ValueChanged);
             // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(192, 13);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(111, 13);
+            this.label13.TabIndex = 123;
+            this.label13.Text = "Укрупнённая группа";
+            // 
+            // cbAggregateGroup
+            // 
+            this.cbAggregateGroup.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cbAggregateGroup.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cbAggregateGroup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbAggregateGroup.FormattingEnabled = true;
+            this.cbAggregateGroup.Location = new System.Drawing.Point(195, 29);
+            this.cbAggregateGroup.Name = "cbAggregateGroup";
+            this.cbAggregateGroup.Size = new System.Drawing.Size(340, 21);
+            this.cbAggregateGroup.TabIndex = 122;
+            // 
             // EntryList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1055, 512);
+            this.ClientSize = new System.Drawing.Size(1055, 556);
+            this.Controls.Add(this.label13);
+            this.Controls.Add(this.cbAggregateGroup);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.chbIsCrimea);
@@ -463,6 +487,8 @@
             this.Controls.SetChildIndex(this.chbIsCrimea, 0);
             this.Controls.SetChildIndex(this.groupBox1, 0);
             this.Controls.SetChildIndex(this.groupBox2, 0);
+            this.Controls.SetChildIndex(this.cbAggregateGroup, 0);
+            this.Controls.SetChildIndex(this.label13, 0);
             ((System.ComponentModel.ISupportInitialize)(this.dgvEntry)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -506,5 +532,7 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.DateTimePicker dtpDateFinishFrom;
         private System.Windows.Forms.DateTimePicker dtpDateFinishTo;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.ComboBox cbAggregateGroup;
     }
 }

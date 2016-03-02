@@ -468,6 +468,7 @@ namespace PriemLib
 
             lst.Add(new FilterItem("Сдавал ЕГЭ в СПбГУ", FilterType.Bool, " EXISTS (SELECT * FROM ed.qMark INNER JOIN ed.extExamInEntry ON qMark.ExamInEntryBlockUnitId = ed.extExamInEntry.Id WHERE ed.qMark.IsFromEge = 0 AND ed.qMark.IsFromOlymp = 0 AND ed.extExamInEntry.IsAdditional = 0 AND ed.qMark.AbiturientId = ed.qAbiturient.Id)", "ed.qAbiturient"));
 
+            lst.Add(new FilterItem("Квалификация (пред. обр.)", FilterType.Multi, "ed.extPerson_EducationInfo_Current.HEQualification", "ed.extPerson_EducationInfo_Current", " SELECT DISTINCT HEQualification AS Id, HEQualification AS Name FROM ed.extPerson_EducationInfo_Current "));
             return lst;
         }
         protected override List<ListItem> GetOtherGroups(DBPriem _bdc)
@@ -508,6 +509,7 @@ namespace PriemLib
             lst.Add(new FilterItem("Название учебного заведения", FilterType.Text, "ed.extPerson_EducationInfo_Current.SchoolName", "ed.extPerson_EducationInfo_Current"));
             lst.Add(new FilterItem("Год окончания учебного заведения", FilterType.FromTo, "ed.extPerson_EducationInfo_Current.SchoolExitYear", "ed.extPerson_EducationInfo_Current"));
 
+            lst.Add(new FilterItem("Квалификация (пред. обр.)", FilterType.Multi, "ed.extPerson_EducationInfo_Current.HEQualification", "ed.extPerson_EducationInfo_Current", " SELECT DISTINCT HEQualification AS Id, HEQualification AS Name FROM ed.extPerson_EducationInfo_Current "));
             lst.Add(new FilterItem("Уровень", FilterType.Multi, "ed.qAbiturient.StudyLevelId", "ed.qAbiturient", " SELECT DISTINCT Id, Name AS Name FROM ed.StudyLevel "));
             lst.Add(new FilterItem("Профиль", FilterType.Multi, "ed.qAbiturient.ProfileId", "ed.qAbiturient", " SELECT DISTINCT ed.qProfile.Id, ed.qProfile.Name AS Name FROM ed.qProfile "));
 
@@ -653,6 +655,8 @@ namespace PriemLib
 
             lst.Add(new FilterItem("Красный диплом", FilterType.Bool, "ed.extPerson_EducationInfo_Current.IsExcellent", "ed.extPerson_EducationInfo_Current"));
             lst.Add(new FilterItem("Подан подлинник диплома", FilterType.Bool, "ed.qAbiturient.HasOriginals", "ed.qAbiturient"));
+
+            lst.Add(new FilterItem("Квалификация (пред. обр.)", FilterType.Multi, "ed.extPerson_EducationInfo_Current.HEQualification", "ed.extPerson_EducationInfo_Current", " SELECT DISTINCT HEQualification AS Id, HEQualification AS Name FROM ed.extPerson_EducationInfo_Current "));
 
             return lst;
         }

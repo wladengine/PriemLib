@@ -107,7 +107,7 @@ namespace PriemLib
                         int currVersion = Comp.lstInnerEntryInEntry.Select(x => x.CurrVersion).FirstOrDefault();
                         DateTime currDate = Comp.lstInnerEntryInEntry.Select(x => x.CurrDate).FirstOrDefault();
                         Guid ApplicationVersionId = Guid.NewGuid();
-                        context.ApplicationVersion.AddObject(new ApplicationVersion() { IntNumber = currVersion, Id = ApplicationVersionId, ApplicationId = ApplicationId, VersionDate = currDate });
+                        context.ApplicationVersion.Add(new ApplicationVersion() { IntNumber = currVersion, Id = ApplicationVersionId, ApplicationId = ApplicationId, VersionDate = currDate });
                         foreach (var InnerEntryInEntry in Comp.lstInnerEntryInEntry)
                         {
                             context.Abiturient_UpdateInnerEntryInEntryPriority(InnerEntryInEntry.Id, InnerEntryInEntry.InnerEntryInEntryPriority, ApplicationId);
@@ -120,7 +120,7 @@ namespace PriemLib
                         foreach (var Block in Comp.lstExamInEntryBlock)
                         {
                             if (Block.SelectedUnitId != Guid.Empty)
-                                context.AbiturientSelectedExam.AddObject(new AbiturientSelectedExam()
+                                context.AbiturientSelectedExam.Add(new AbiturientSelectedExam()
                                 {
                                     ApplicationId = ApplicationId,
                                     ExamInEntryBlockUnitId = Block.SelectedUnitId,

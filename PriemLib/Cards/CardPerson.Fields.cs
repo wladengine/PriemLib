@@ -319,7 +319,7 @@ namespace PriemLib
                 {
                     _hostelFacultyId = value;
                     if (value.HasValue)
-                        lblHasAssignToHostel.Text = HasAssignConst + context.ExecuteStoreQuery<string>("SELECT ed.SP_Faculty.Acronym FROM ed.SP_Faculty WHERE Id = " + value).FirstOrDefault();
+                        lblHasAssignToHostel.Text = HasAssignConst + context.Database.SqlQuery<string>("SELECT ed.SP_Faculty.Acronym FROM ed.SP_Faculty WHERE Id = " + value).FirstOrDefault();
                     else
                         lblHasAssignToHostel.Text = string.Empty;
                 }
@@ -345,7 +345,7 @@ namespace PriemLib
                 {
                     _examPassFacultyId = value;
                     if (value.HasValue)
-                        lblHasExamPass.Text = HasExamPassConst + context.ExecuteStoreQuery<string>("SELECT ed.SP_Faculty.Acronym FROM ed.SP_Faculty WHERE Id = " + value).FirstOrDefault();
+                        lblHasExamPass.Text = HasExamPassConst + context.Database.SqlQuery<string>("SELECT ed.SP_Faculty.Acronym FROM ed.SP_Faculty WHERE Id = " + value).FirstOrDefault();
                     else
                         lblHasExamPass.Text = string.Empty;
                 }

@@ -98,12 +98,14 @@ namespace PriemLib
 
         public DateTime DateOfStart
         {
-            get { return dtpDateOfStart.Value.Date.AddHours(10); }
+            //get { return dtpDateOfStart.Value.Date.AddHours(10); }
+            get { return dtpDateOfStart.Value; }
             set { dtpDateOfStart.Value = value; }
         }
         public DateTime DateOfClose
         {
-            get { return dtpDateOfClose.Value.Date.AddHours(18); }
+            //get { return dtpDateOfClose.Value.Date.AddHours(18); }
+            get { return dtpDateOfClose.Value; }
             set { dtpDateOfClose.Value = value; }
         }
 
@@ -461,7 +463,7 @@ namespace PriemLib
             Entry.IsForeign = IsForeign;
             Entry.IsCrimea = IsCrimea;
             
-            context.Entry.AddObject(Entry);
+            context.Entry.Add(Entry);
 
             if (CompetitionGroupId.HasValue)
             {
@@ -469,7 +471,7 @@ namespace PriemLib
                 EntryToComp.Id = Guid.NewGuid();
                 EntryToComp.EntryId = Id;
                 EntryToComp.CompetitiveGroupId = CompetitionGroupId.Value;
-                context.EntryToCompetitiveGroup.AddObject(EntryToComp);
+                context.EntryToCompetitiveGroup.Add(EntryToComp);
             }
 
             context.SaveChanges();
@@ -529,7 +531,7 @@ DateOfStart, DateOfClose, ComissionId, IsForeign, IsCrimea) VALUES
                 EntryToComp.CompetitiveGroupId = CompetitionGroupId.Value;
 
                 if (bIns)
-                    context.EntryToCompetitiveGroup.AddObject(EntryToComp);
+                    context.EntryToCompetitiveGroup.Add(EntryToComp);
             }
 
             var Entry = context.Entry.Where(x => x.Id == GuidId).FirstOrDefault();
@@ -691,7 +693,7 @@ WHERE Id=@Id";
                         {
                             Guid id = Guid.Parse(itemId);
                             ExamInEntryBlock bl = context.ExamInEntryBlock.Where(x => x.Id == id).First();
-                            context.ExamInEntryBlock.DeleteObject(bl);
+                            context.ExamInEntryBlock.Remove(bl);
                             context.SaveChanges();
 
                             MainClass.BdcOnlineReadWrite.ExecuteQuery(String.Format("delete from dbo.ExamInEntryBlock where Id = '{0}'", id), null);
@@ -758,7 +760,7 @@ WHERE Id=@Id";
             using (PriemEntities context = new PriemEntities())
             {
                 var OPIE = context.InnerEntryInEntry.Where(x => x.Id == gId).FirstOrDefault();
-                context.InnerEntryInEntry.DeleteObject(OPIE);
+                context.InnerEntryInEntry.Remove(OPIE);
                 context.SaveChanges();
 
                 string query = "DELETE FROM InnerEntryInEntry WHERE Id=@Id";

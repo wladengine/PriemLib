@@ -802,6 +802,8 @@
             // 
             // dtpDateOfStart
             // 
+            this.dtpDateOfStart.CustomFormat = "dd.MM.yyyy HH:mm";
+            this.dtpDateOfStart.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpDateOfStart.Location = new System.Drawing.Point(6, 39);
             this.dtpDateOfStart.Name = "dtpDateOfStart";
             this.dtpDateOfStart.Size = new System.Drawing.Size(173, 20);
@@ -827,6 +829,8 @@
             // 
             // dtpDateOfClose
             // 
+            this.dtpDateOfClose.CustomFormat = "dd.MM.yyyy HH:mm";
+            this.dtpDateOfClose.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpDateOfClose.Location = new System.Drawing.Point(198, 39);
             this.dtpDateOfClose.Name = "dtpDateOfClose";
             this.dtpDateOfClose.Size = new System.Drawing.Size(173, 20);

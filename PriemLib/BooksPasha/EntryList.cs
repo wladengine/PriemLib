@@ -30,32 +30,54 @@ namespace PriemLib
             _tableName = "ed.Entry";
             _title = "Конкурс";
 
-            Dgv.Size = new Size(1031, 270);
-            Dgv.Location = new Point(12, 172);
-            lblCount.Location = new Point(405, 448);            
+            //Dgv.Size = new Size(1031, 270);
+            //Dgv.Location = new Point(12, 172);
+            //lblCount.Location = new Point(405, 448);            
 
             try
             {
                 using (PriemEntities context = new PriemEntities())
                 {
-                    List<KeyValuePair<string, string>> lst = (from f in context.qFaculty
-                                                              orderby f.Acronym
-                                                              select new { f.Id, f.Name }).ToList().OrderBy(x => x.Name).Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name)).ToList();
+                    List<KeyValuePair<string, string>> lst = 
+                        (from f in context.qFaculty
+                         orderby f.Acronym
+                         select new { f.Id, f.Name })
+                         .ToList()
+                         .OrderBy(x => x.Name)
+                         .Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name))
+                         .ToList();
                     ComboServ.FillCombo(cbFaculty, lst, false, true);
+
+                    lst = (from f in context.SP_AggregateGroup
+                           orderby f.AcronymEng
+                           select new { f.Id, f.Name })
+                           .ToList()
+                           .Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name))
+                           .ToList();
+                    ComboServ.FillCombo(cbAggregateGroup, lst, false, true);
 
                     lst = (from f in context.StudyLevel
                            orderby f.Acronym
-                           select new { f.Id, f.Name }).ToList().Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name)).ToList();
+                           select new { f.Id, f.Name })
+                           .ToList()
+                           .Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name))
+                           .ToList();
                     ComboServ.FillCombo(cbStudyLevel, lst, false, true);
 
                     lst = (from f in context.StudyBasis
                            orderby f.Acronym
-                           select new { f.Id, f.Name }).ToList().Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name)).ToList();
+                           select new { f.Id, f.Name })
+                           .ToList()
+                           .Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name))
+                           .ToList();
                     ComboServ.FillCombo(cbStudyBasis, lst, false, true);
 
                     lst = (from f in context.StudyForm
                            orderby f.Acronym
-                           select new { f.Id, f.Name }).ToList().Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name)).ToList();
+                           select new { f.Id, f.Name })
+                           .ToList()
+                           .Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name))
+                           .ToList();
                     ComboServ.FillCombo(cbStudyForm, lst, false, true);
 
                     lst = ComboServ.GetBoolFilter();
@@ -85,6 +107,7 @@ namespace PriemLib
             cbIsSecond.SelectedIndexChanged += new EventHandler(UpdateDataGrid);
             cbIsReduced.SelectedIndexChanged += new EventHandler(UpdateDataGrid); 
             cbIsParallel.SelectedIndexChanged += new EventHandler(UpdateDataGrid);
+            cbAggregateGroup.SelectedIndexChanged += new EventHandler(UpdateDataGrid);
         }
 
         void chbIsSecond_CheckedChanged(object sender, EventArgs e)
@@ -133,6 +156,14 @@ namespace PriemLib
                     int? h = ComboServ.GetComboIdInt(cbStudyLevel);
                     if (h != null)
                         query = query.Where(c => c.StudyLevelId == h);
+                }
+
+                // укрупнённая группа
+                if (cbAggregateGroup.SelectedValue.ToString() != ComboServ.ALL_VALUE)
+                {
+                    int? h = ComboServ.GetComboIdInt(cbAggregateGroup);
+                    if (h != null)
+                        query = query.Where(c => c.AggregateGroupId == h);
                 }
 
                 // ускоренная
@@ -193,7 +224,7 @@ namespace PriemLib
                     if (string.IsNullOrEmpty(_orderBy))
                         query = context.qEntry.OrderBy(c => c.StudyLevelName).ThenBy(c => c.FacultyName).ThenBy(c => c.ObrazProgramName).ThenBy(c => c.ProfileName).ThenBy(c => c.StudyFormId).ThenBy(c => c.StudyBasisId);
                     else
-                        query = context.qEntry.OrderBy(_orderBy);                    
+                        query = context.qEntry;
 
                     GetFilters(ref query);
                     Dgv.DataSource = Converter.ConvertToDataTable(query.ToArray());
@@ -289,7 +320,7 @@ namespace PriemLib
                     WinFormsServ.Error("Не найдена запись в базе");
                     return;
                 }
-                context.Entry.DeleteObject(Ent);
+                context.Entry.Remove(Ent);
                 context.SaveChanges();
 
                 string query = "DELETE FROM _Entry WHERE Id=@Id";

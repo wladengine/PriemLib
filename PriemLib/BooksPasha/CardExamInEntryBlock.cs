@@ -267,7 +267,7 @@ namespace PriemLib
             Entry curEnt = (from ent in context.Entry
                             where ent.Id == _entryId
                             select ent).FirstOrDefault();
-            context.ExamInEntryBlock.AddObject(new ExamInEntryBlock()
+            context.ExamInEntryBlock.Add(new ExamInEntryBlock()
             {
                 Id = entId,
                 EntryId = curEnt.Id,
@@ -285,7 +285,7 @@ namespace PriemLib
             MainClass.BdcOnlineReadWrite.ExecuteQuery(queryBlock, sl);
             foreach (ExamenBlockUnit x in lstUnit)
             {
-                context.ExamInEntryBlockUnit.AddObject(new ExamInEntryBlockUnit()
+                context.ExamInEntryBlockUnit.Add(new ExamInEntryBlockUnit()
                 {
                     Id = x.UnitId,
                     ExamId = x.ExamId,
@@ -323,7 +323,7 @@ namespace PriemLib
             foreach (Entry e in ents)
             {
                 Guid blId = Guid.NewGuid();
-                context.ExamInEntryBlock.AddObject(new ExamInEntryBlock()
+                context.ExamInEntryBlock.Add(new ExamInEntryBlock()
                 {
                     Id = blId,
                     EntryId = e.Id,
@@ -340,7 +340,7 @@ namespace PriemLib
                 foreach (ExamenBlockUnit x in lstUnit)
                 {
                     Guid UnitId = Guid.NewGuid();
-                    context.ExamInEntryBlockUnit.AddObject(new ExamInEntryBlockUnit()
+                    context.ExamInEntryBlockUnit.Add(new ExamInEntryBlockUnit()
                     {
                         Id = UnitId,
                         ExamId = x.ExamId,
@@ -380,7 +380,7 @@ namespace PriemLib
             var lst = context.ExamInEntryBlockUnit.Where(x => x.ExamInEntryBlockId == gId.Value && !gUnits.Contains(x.Id)).ToList();
             foreach (var x in lst)
             {
-                context.ExamInEntryBlockUnit.DeleteObject(x);
+                context.ExamInEntryBlockUnit.Remove(x);
                 MainClass.BdcOnlineReadWrite.ExecuteQuery(String.Format("delete from dbo.ExamInEntryBlockUnit where Id = '{0}'", x.Id));
             }
             string queryBlock = @" UPDATE dbo.ExamInEntryBlock set Name = @Name WHERE Id = @Id";
@@ -399,7 +399,7 @@ namespace PriemLib
                 ExamInEntryBlockUnit ex_unit = context.ExamInEntryBlockUnit.Where(ex => ex.Id == x.UnitId).FirstOrDefault();
                 if (ex_unit == null)
                 {
-                    context.ExamInEntryBlockUnit.AddObject(new ExamInEntryBlockUnit()
+                    context.ExamInEntryBlockUnit.Add(new ExamInEntryBlockUnit()
                     {
                         Id = x.UnitId,
                         ExamId = x.ExamId,

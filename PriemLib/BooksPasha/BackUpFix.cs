@@ -83,7 +83,7 @@ namespace PriemLib
 
                             foreach (Fixieren fix in fixs)
                             {
-                                context.ExecuteStoreCommand("INSERT INTO ed.FixierenBackUp2(Number, AbiturientId, FixierenViewId) VALUES({0}, {1}, {2})", fix.Number, fix.AbiturientId, fix.FixierenViewId);
+                                context.Database.ExecuteSqlCommand("INSERT INTO ed.FixierenBackUp2(Number, AbiturientId, FixierenViewId) VALUES({0}, {1}, {2})", fix.Number, fix.AbiturientId, fix.FixierenViewId);
                                 context.Fixieren_DELETE(fix.AbiturientId);
 
                                 wc.PerformStep();
@@ -102,7 +102,7 @@ namespace PriemLib
 
                             foreach (C_FirstWave fix in firstW)
                             {
-                                context.ExecuteStoreCommand("INSERT INTO ed._FirstWaveBackUp2(AbiturientId, SortNum) VALUES({0}, {1})", fix.AbiturientId, fix.SortNum);
+                                context.Database.ExecuteSqlCommand("INSERT INTO ed._FirstWaveBackUp2(AbiturientId, SortNum) VALUES({0}, {1})", fix.AbiturientId, fix.SortNum);
 
                                 context.FirstWave_DeleteByAbId(fix.AbiturientId);
                                 wc.PerformStep();
@@ -125,7 +125,7 @@ namespace PriemLib
 
                             foreach (Fixieren fix in fixs)
                             {
-                                context.ExecuteStoreCommand("INSERT INTO ed.FixierenBackUp2(Number, AbiturientId, FixierenViewId) VALUES({0}, {1}, {2})", fix.Number, fix.AbiturientId, fix.FixierenViewId);
+                                context.Database.ExecuteSqlCommand("INSERT INTO ed.FixierenBackUp2(Number, AbiturientId, FixierenViewId) VALUES({0}, {1}, {2})", fix.Number, fix.AbiturientId, fix.FixierenViewId);
                                 context.Fixieren_DELETE(fix.AbiturientId);
 
                                 wc.PerformStep();
@@ -161,7 +161,7 @@ namespace PriemLib
 
                             foreach (C_FirstWave fix in firstW)
                             {
-                                context.ExecuteStoreCommand("INSERT INTO ed._FirstWaveBackUp2(AbiturientId, SortNum) VALUES({0}, {1})", fix.AbiturientId, fix.SortNum);
+                                context.Database.ExecuteSqlCommand("INSERT INTO ed._FirstWaveBackUp2(AbiturientId, SortNum) VALUES({0}, {1})", fix.AbiturientId, fix.SortNum);
 
                                 context.FirstWave_DeleteByAbId(fix.AbiturientId);
                                 wc.PerformStep();
@@ -179,7 +179,7 @@ namespace PriemLib
 
                             foreach (C_FirstWaveGreen fix in firstWGr)
                             {
-                                context.ExecuteStoreCommand("INSERT INTO ed._FirstWaveGreenBackUp2(AbiturientId, IsNew) VALUES({0}, {1})", fix.AbiturientId, fix.IsNew);
+                                context.Database.ExecuteSqlCommand("INSERT INTO ed._FirstWaveGreenBackUp2(AbiturientId, IsNew) VALUES({0}, {1})", fix.AbiturientId, fix.IsNew);
 
                                 context.FirstWaveGreen_DeleteByAbId(fix.AbiturientId);
                                 wc.PerformStep();

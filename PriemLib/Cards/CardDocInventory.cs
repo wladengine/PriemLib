@@ -43,8 +43,8 @@ namespace PriemLib
 
             using (PriemEntities context = new PriemEntities())
             {
-                ObjectSet<AbitDoc> queryDocs = context.CreateObjectSet<AbitDoc>();
-                Dictionary<string, string> dict = (from f in queryDocs.OrderBy("it.Name")
+                var queryDocs = context.AbitDoc;
+                Dictionary<string, string> dict = (from f in queryDocs.OrderBy(x => x.Name)
                                                    select new { key = f.Id, value = f.Name }).ToDictionary(item => item.key.ToString(), item => item.value);
                 mslDocs.InitSource(dict);              
 
