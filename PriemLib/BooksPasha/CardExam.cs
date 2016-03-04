@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.Data.Entity.Core.Objects;
 
 using EducServLib;
+using BDClassLib;
 
 namespace PriemLib
 {
@@ -132,21 +133,35 @@ namespace PriemLib
                     {
                         ObjectParameter exId;
 
-                        try
-                        {
-                            exId = new ObjectParameter("id", typeof(Int32));
-                            context.Exam_Insert(ExamNameId, IsAdditional, IsPortfolioAnonymPart, IsPortfolioCommonPart, exId);                           
-                        }
-                        catch (Exception exc)
-                        {
-                            throw exc;
-                        }
+                        exId = new ObjectParameter("id", typeof(Int32));
+                        context.Exam_Insert(ExamNameId, IsAdditional, IsPortfolioAnonymPart, IsPortfolioCommonPart, exId);
+
+                        int examId = (int)exId.Value;
+
+                        string query = "INSERT INTO Exam (Id, ExamNameId) VALUES (@Id, @ExamNameId)";
+                        SortedList<string, object> slParams = new SortedList<string, object>();
+                        slParams.Add("@Id", examId);
+                        slParams.Add("@ExamNameId", ExamNameId);
+
+                        SQLClass _bdcPriemOnline = new SQLClass();
+                        _bdcPriemOnline.OpenDatabase(DBConstants.CS_PriemONLINE_ReadWrite);
+                        _bdcPriemOnline.ExecuteQuery(query, slParams);
 
                         return exId.Value.ToString();
                     }
                     else
                     {
                         context.Exam_Update(ExamNameId, IsAdditional, IsPortfolioAnonymPart, IsPortfolioCommonPart, IntId);
+
+                        string query = "UPDATE Exam SET ExamNameId=@ExamNameId WHERE Id=@Id";
+                        SortedList<string, object> slParams = new SortedList<string, object>();
+                        slParams.Add("@Id", IntId);
+                        slParams.Add("@ExamNameId", ExamNameId);
+
+                        SQLClass _bdcPriemOnline = new SQLClass();
+                        _bdcPriemOnline.OpenDatabase(DBConstants.CS_PriemONLINE_ReadWrite);
+                        _bdcPriemOnline.ExecuteQuery(query, slParams);
+
                         return _Id;
                     }
                 }

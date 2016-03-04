@@ -1188,7 +1188,7 @@ namespace PriemLib
                                  join u in context.ExamInEntryBlockUnit on b.Id equals u.ExamInEntryBlockId
                                  join ex in context.Exam on u.ExamId equals ex.Id
                                  join exname in context.ExamName on ex.ExamNameId equals exname.Id
-                                 where b.EntryId == EntryId
+                                 where b.EntryId == EntryId && b.ParentExamInEntryBlockId == null
                                  select new { b.Id, b.Name, unitId = u.Id , unitname = exname.Name,}).ToList();
 
                     var _block = (from b in block
@@ -1762,7 +1762,7 @@ namespace PriemLib
                                      Диплом = ec.OlympValueName
                                  };
 
-                    dgvOlimps.DataSource = source;
+                    dgvOlimps.DataSource = Converter.ConvertToDataTable(source.ToArray());
                     dgvOlimps.Columns["Id"].Visible = false;
 
                     btnCardO.Enabled = dgvOlimps.RowCount != 0;

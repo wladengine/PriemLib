@@ -955,9 +955,15 @@ WHERE
 
                         if (cnt == 0)
                         {
+                            var lstInnerEntriesInEntry = context.InnerEntryInEntry.Where(x => x.EntryId == Ent.Id)
+                                .Select(x => new { x.EgeExamNameId, x.EgeMin, x.KCP, x.ObrazProgramId, x.ParentInnerEntryInEntryId, x.ProfileId })
+                                .ToList();
+
                             using (TransactionScope tran = new TransactionScope())
                             {
+                                Guid gId = Guid.NewGuid();
                                 var CrEnt = new Entry();
+                                CrEnt.Id = gId;
                                 CrEnt.LicenseProgramId = Ent.LicenseProgramId;
                                 CrEnt.ObrazProgramId = Ent.ObrazProgramId;
                                 CrEnt.ProfileId = Ent.ProfileId;
@@ -980,10 +986,11 @@ WHERE
                                 context.SaveChanges();
 
                                 string query = @"INSERT INTO _Entry 
-    (LicenseProgramId,
+    ( 
+     Id,
+     LicenseProgramId,
      ObrazProgramId,
      ProfileId,
-     KCP,
      IsSecond,
      IsReduced,
      IsParallel,
@@ -996,14 +1003,16 @@ WHERE
      DateOfStart,
      DateOfClose,
      IsCrimea,
-     IsForeign
+     IsForeign,
+     SemesterId,
+     CampaignYear
     )
     VALUES
     (
+     @Id,
      @LicenseProgramId,
      @ObrazProgramId,
      @ProfileId,
-     @KCP,
      @IsSecond,
      @IsReduced,
      @IsParallel,
@@ -1016,24 +1025,269 @@ WHERE
      @DateOfStart,
      @DateOfClose,
      1,
-     0
+     0,
+     1,
+     @CampaignYear
     )";
                                 SortedList<string, object> slParams = new SortedList<string, object>();
+                                slParams.Add("@Id", gId);
                                 slParams.Add("@LicenseProgramId", Ent.LicenseProgramId);
                                 slParams.Add("@ObrazProgramId", Ent.ObrazProgramId);
                                 slParams.Add("@ProfileId", Ent.ProfileId);
-                                slParams.Add("@KCP", Ent.KCP);
                                 slParams.Add("@IsSecond", Ent.IsSecond);
                                 slParams.Add("@IsReduced", Ent.IsReduced);
                                 slParams.Add("@IsParallel", Ent.IsParallel);
                                 slParams.Add("@StudyLevelId", Ent.StudyLevelId);
-                                slParams.Add("@StudyPlanId", Ent.StudyPlanId);
-                                slParams.Add("@StudyPlanNumber", Ent.StudyPlanNumber);
+                                slParams.AddVal("@StudyPlanId", Ent.StudyPlanId);
+                                slParams.AddVal("@StudyPlanNumber", Ent.StudyPlanNumber);
                                 slParams.Add("@StudyBasisId", Ent.StudyBasisId);
                                 slParams.Add("@StudyFormId", Ent.StudyFormId);
                                 slParams.Add("@FacultyId", Ent.FacultyId);
                                 slParams.Add("@DateOfStart", Ent.DateOfStart);
                                 slParams.Add("@DateOfClose", Ent.DateOfClose);
+                                slParams.Add("@CampaignYear", MainClass.iPriemYear);
+
+                                _bdcPriemOnline.ExecuteQuery(query, slParams);
+
+
+                                foreach (var InEnt in lstInnerEntriesInEntry)
+                                {
+                                    Guid IEIE_Id = Guid.NewGuid();
+                                    InnerEntryInEntry IEIE = new InnerEntryInEntry();
+                                    IEIE.Id = IEIE_Id;
+                                    IEIE.EgeExamNameId = InEnt.EgeExamNameId;
+                                    IEIE.EgeMin = InEnt.EgeMin;
+                                    IEIE.EntryId = gId;
+                                    IEIE.KCP = InEnt.KCP;
+                                    IEIE.ObrazProgramId = InEnt.ObrazProgramId;
+                                    IEIE.ParentInnerEntryInEntryId = InEnt.ParentInnerEntryInEntryId;
+                                    IEIE.ProfileId = InEnt.ProfileId;
+
+                                    context.InnerEntryInEntry.Add(IEIE);
+                                    context.SaveChanges();
+
+                                    query = @"
+INSERT INTO InnerEntryInEntry
+(
+     Id
+    ,EntryId
+    ,ObrazProgramId
+    ,ProfileId
+)
+VALUES
+(
+     @Id
+    ,@EntryId
+    ,@ObrazProgramId
+    ,@ProfileId
+)";
+                                    slParams.Clear();
+                                    slParams.Add("@Id", IEIE_Id);
+                                    slParams.Add("@EntryId", gId);
+                                    slParams.Add("@ObrazProgramId", InEnt.ObrazProgramId);
+                                    slParams.Add("@ProfileId", InEnt.ProfileId);
+
+                                    _bdcPriemOnline.ExecuteQuery(query, slParams);
+                                }
+
+                                tran.Complete();
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                WinFormsServ.Error(ex);
+            }
+            finally
+            {
+                pf.Close();
+            }
+        }
+        private void btnCopyToForeign_Click(object sender, EventArgs e)
+        {
+            ProgressForm pf = new ProgressForm();
+            try
+            {
+                using (PriemEntities context = new PriemEntities())
+                {
+                    pf.Show();
+
+                    var lstEntry = context.Entry.Where(x => !x.IsCrimea && !x.IsForeign)
+                        .Select(x => new
+                        {
+                            x.Id,
+                            x.LicenseProgramId,
+                            x.ObrazProgramId,
+                            x.ProfileId,
+                            x.KCP,
+                            x.IsSecond,
+                            x.IsReduced,
+                            x.IsParallel,
+                            x.StudyLevelId,
+                            x.StudyPlanId,
+                            x.StudyPlanNumber,
+                            x.StudyBasisId,
+                            x.StudyFormId,
+                            x.FacultyId,
+                            x.DateOfStart,
+                            x.DateOfClose
+                        }).ToList();
+                    pf.MaxPrBarValue = lstEntry.Count;
+                    foreach (var Ent in lstEntry)
+                    {
+                        pf.PerformStep();
+                        int cnt = context.Entry
+                            .Where(x => x.LicenseProgramId == Ent.LicenseProgramId
+                                && x.ObrazProgramId == Ent.ObrazProgramId
+                                && x.ProfileId == Ent.ProfileId
+                                && x.IsSecond == Ent.IsSecond
+                                && x.IsReduced == Ent.IsReduced
+                                && x.IsParallel == Ent.IsParallel
+                                && x.StudyLevelId == Ent.StudyLevelId
+                                && x.StudyBasisId == Ent.StudyBasisId
+                                && x.StudyFormId == Ent.StudyFormId
+                                && x.FacultyId == Ent.FacultyId
+                                && !x.IsCrimea && x.IsForeign
+                            ).Count();
+
+                        if (cnt == 0)
+                        {
+                            //var lstInnerEntriesInEntry = context.InnerEntryInEntry.Where(x => x.EntryId == Ent.Id)
+                            //    .Select(x => new { x.EgeExamNameId, x.EgeMin, x.KCP, x.ObrazProgramId, x.ParentInnerEntryInEntryId, x.ProfileId })
+                            //    .ToList();
+
+                            using (TransactionScope tran = new TransactionScope())
+                            {
+                                Guid gId = Guid.NewGuid();
+                                var CrEnt = new Entry();
+                                CrEnt.Id = gId;
+                                CrEnt.LicenseProgramId = Ent.LicenseProgramId;
+                                CrEnt.ObrazProgramId = Ent.ObrazProgramId;
+                                CrEnt.ProfileId = Ent.ProfileId;
+                                CrEnt.IsSecond = Ent.IsSecond;
+                                CrEnt.IsReduced = Ent.IsReduced;
+                                CrEnt.IsParallel = Ent.IsParallel;
+                                CrEnt.StudyLevelId = Ent.StudyLevelId;
+                                CrEnt.StudyBasisId = Ent.StudyBasisId;
+                                CrEnt.StudyFormId = Ent.StudyFormId;
+                                CrEnt.FacultyId = Ent.FacultyId;
+                                CrEnt.IsCrimea = false;
+                                CrEnt.IsForeign = true;
+                                CrEnt.StudyPlanId = Ent.StudyPlanId;
+                                CrEnt.StudyPlanNumber = Ent.StudyPlanNumber;
+
+                                CrEnt.DateOfStart = Ent.DateOfStart;
+                                CrEnt.DateOfClose = Ent.DateOfClose;
+
+                                context.Entry.Add(CrEnt);
+                                context.SaveChanges();
+
+                                string query = @"INSERT INTO _Entry 
+    ( 
+     Id,
+     LicenseProgramId,
+     ObrazProgramId,
+     ProfileId,
+     IsSecond,
+     IsReduced,
+     IsParallel,
+     StudyLevelId,
+     StudyPlanId,
+     StudyPlanNumber,
+     StudyBasisId,
+     StudyFormId,
+     FacultyId,
+     DateOfStart,
+     DateOfClose,
+     IsCrimea,
+     IsForeign,
+     SemesterId,
+     CampaignYear
+    )
+    VALUES
+    (
+     @Id,
+     @LicenseProgramId,
+     @ObrazProgramId,
+     @ProfileId,
+     @IsSecond,
+     @IsReduced,
+     @IsParallel,
+     @StudyLevelId,
+     @StudyPlanId,
+     @StudyPlanNumber,
+     @StudyBasisId,
+     @StudyFormId,
+     @FacultyId,
+     @DateOfStart,
+     @DateOfClose,
+     0,
+     1,
+     1,
+     @CampaignYear
+    )";
+                                SortedList<string, object> slParams = new SortedList<string, object>();
+                                slParams.Add("@Id", gId);
+                                slParams.Add("@LicenseProgramId", Ent.LicenseProgramId);
+                                slParams.Add("@ObrazProgramId", Ent.ObrazProgramId);
+                                slParams.Add("@ProfileId", Ent.ProfileId);
+                                slParams.Add("@IsSecond", Ent.IsSecond);
+                                slParams.Add("@IsReduced", Ent.IsReduced);
+                                slParams.Add("@IsParallel", Ent.IsParallel);
+                                slParams.Add("@StudyLevelId", Ent.StudyLevelId);
+                                slParams.AddVal("@StudyPlanId", Ent.StudyPlanId);
+                                slParams.AddVal("@StudyPlanNumber", Ent.StudyPlanNumber);
+                                slParams.Add("@StudyBasisId", Ent.StudyBasisId);
+                                slParams.Add("@StudyFormId", Ent.StudyFormId);
+                                slParams.Add("@FacultyId", Ent.FacultyId);
+                                slParams.Add("@DateOfStart", Ent.DateOfStart);
+                                slParams.Add("@DateOfClose", Ent.DateOfClose);
+                                slParams.Add("@CampaignYear", MainClass.iPriemYear);
+
+                                _bdcPriemOnline.ExecuteQuery(query, slParams);
+
+
+//                                foreach (var InEnt in lstInnerEntriesInEntry)
+//                                {
+//                                    Guid IEIE_Id = Guid.NewGuid();
+//                                    InnerEntryInEntry IEIE = new InnerEntryInEntry();
+//                                    IEIE.Id = IEIE_Id;
+//                                    IEIE.EgeExamNameId = InEnt.EgeExamNameId;
+//                                    IEIE.EgeMin = InEnt.EgeMin;
+//                                    IEIE.EntryId = gId;
+//                                    IEIE.KCP = InEnt.KCP;
+//                                    IEIE.ObrazProgramId = InEnt.ObrazProgramId;
+//                                    IEIE.ParentInnerEntryInEntryId = InEnt.ParentInnerEntryInEntryId;
+//                                    IEIE.ProfileId = InEnt.ProfileId;
+
+//                                    context.InnerEntryInEntry.Add(IEIE);
+//                                    context.SaveChanges();
+
+//                                    query = @"
+//INSERT INTO InnerEntryInEntry
+//(
+//     Id
+//    ,EntryId
+//    ,ObrazProgramId
+//    ,ProfileId
+//)
+//VALUES
+//(
+//     @Id
+//    ,@EntryId
+//    ,@ObrazProgramId
+//    ,@ProfileId
+//)";
+//                                    slParams.Clear();
+//                                    slParams.Add("@Id", IEIE_Id);
+//                                    slParams.Add("@EntryId", gId);
+//                                    slParams.Add("@ObrazProgramId", InEnt.ObrazProgramId);
+//                                    slParams.Add("@ProfileId", InEnt.ProfileId);
+
+//                                    _bdcPriemOnline.ExecuteQuery(query, slParams);
+//                                }
 
                                 tran.Complete();
                             }

@@ -108,7 +108,7 @@ namespace PriemLib
                             };
 
 
-                dgvExams.DataSource = query;
+                dgvExams.DataSource = Converter.ConvertToDataTable(query.ToArray());
 
                 dgvExams.Columns["Id"].Visible = false;
                 dgvExams.Columns["Subject"].HeaderText = "Предмет";

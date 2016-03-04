@@ -189,7 +189,7 @@ namespace PriemLib
                                  ExamId = en.Id
                              };
 
-                dgvExams.DataSource = source;
+                dgvExams.DataSource = Converter.ConvertToDataTable(source.ToArray());
                 
                 dgvExams.Columns["Id"].Visible = false;
                 dgvExams.Columns["ExamId"].Visible = false;

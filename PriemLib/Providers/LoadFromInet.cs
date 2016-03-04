@@ -454,7 +454,7 @@ WHERE Id=@Id";
             string query = String.Format(@"Select ExamInEntryBlock.Id, ExamInEntryBlock.Name 
 from dbo.ExamInEntryBlock 
 join dbo.ExamInEntryBlockUnit on ExamInEntryBlock.Id = ExamInEntryBlockId
-            where EntryId = '{0}'
+where EntryId = '{0}' AND ExamInEntryBlock.ParentExamInEntryBlockId IS NULL
 group by ExamInEntryBlock.Id, ExamInEntryBlock.Name
 HAVING COUNT(ExamInEntryBlockUnit.id) > 1", EntryId.ToString());
             DataTable tbl_block = _bdcInet.GetDataSet(query).Tables[0];

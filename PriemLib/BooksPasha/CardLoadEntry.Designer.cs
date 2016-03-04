@@ -35,6 +35,7 @@
             this.btnOnlineLoadUpdate = new System.Windows.Forms.Button();
             this.btnUpdateBaseDics = new System.Windows.Forms.Button();
             this.btnCopyToCrimea = new System.Windows.Forms.Button();
+            this.btnCopyToForeign = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnLoadAll
@@ -107,11 +108,22 @@
             this.btnCopyToCrimea.UseVisualStyleBackColor = true;
             this.btnCopyToCrimea.Click += new System.EventHandler(this.btnCopyToCrimea_Click);
             // 
+            // btnCopyToForeign
+            // 
+            this.btnCopyToForeign.Location = new System.Drawing.Point(16, 181);
+            this.btnCopyToForeign.Name = "btnCopyToForeign";
+            this.btnCopyToForeign.Size = new System.Drawing.Size(296, 23);
+            this.btnCopyToForeign.TabIndex = 7;
+            this.btnCopyToForeign.Text = "Скопировать в ИНОСТР";
+            this.btnCopyToForeign.UseVisualStyleBackColor = true;
+            this.btnCopyToForeign.Click += new System.EventHandler(this.btnCopyToForeign_Click);
+            // 
             // CardLoadEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(324, 196);
+            this.ClientSize = new System.Drawing.Size(324, 214);
+            this.Controls.Add(this.btnCopyToForeign);
             this.Controls.Add(this.btnCopyToCrimea);
             this.Controls.Add(this.btnUpdateBaseDics);
             this.Controls.Add(this.btnOnlineLoadUpdate);
@@ -135,5 +147,6 @@
         private System.Windows.Forms.Button btnOnlineLoadUpdate;
         private System.Windows.Forms.Button btnUpdateBaseDics;
         private System.Windows.Forms.Button btnCopyToCrimea;
+        private System.Windows.Forms.Button btnCopyToForeign;
     }
 }

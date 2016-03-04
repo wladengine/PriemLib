@@ -121,9 +121,15 @@ namespace PriemLib
                     ComboServ.FillCombo(cbHEStudyForm, HelpClass.GetComboListByTable("ed.StudyForm"), true, false);
                     ComboServ.FillCombo(cbSchoolType, HelpClass.GetComboListByTable("ed.SchoolType", "ORDER BY 1"), false, false);
 
-                    cbSchoolCity.DataSource = context.Database.SqlQuery<string>("SELECT DISTINCT ed.Person_EducationInfo.SchoolCity AS Name FROM ed.Person_EducationInfo WHERE ed.Person_EducationInfo.SchoolCity > '' ORDER BY 1");
-                    cbAttestatSeries.DataSource = context.Database.SqlQuery<string>("SELECT DISTINCT ed.Person_EducationInfo.AttestatSeries AS Name FROM ed.Person_EducationInfo WHERE ed.Person_EducationInfo.AttestatSeries > '' ORDER BY 1");
-                    cbHEQualification.DataSource = context.Database.SqlQuery<string>("SELECT DISTINCT ed.Person_EducationInfo.HEQualification AS Name FROM ed.Person_EducationInfo WHERE NOT ed.Person_EducationInfo.HEQualification IS NULL /*AND ed.Person_EducationInfo.HEQualification > ''*/ ORDER BY 1");
+                    //cbSchoolCity.DataSource = context.Database.SqlQuery<string>("SELECT DISTINCT ed.Person_EducationInfo.SchoolCity AS Name FROM ed.Person_EducationInfo WHERE ed.Person_EducationInfo.SchoolCity > '' ORDER BY 1");
+                    //cbAttestatSeries.DataSource = context.Database.SqlQuery<string>("SELECT DISTINCT ed.Person_EducationInfo.AttestatSeries AS Name FROM ed.Person_EducationInfo WHERE ed.Person_EducationInfo.AttestatSeries > '' ORDER BY 1");
+                    //cbHEQualification.DataSource = context.Database.SqlQuery<string>("SELECT DISTINCT ed.Person_EducationInfo.HEQualification AS Name FROM ed.Person_EducationInfo WHERE NOT ed.Person_EducationInfo.HEQualification IS NULL /*AND ed.Person_EducationInfo.HEQualification > ''*/ ORDER BY 1");
+                    cbSchoolCity.DataSource = context.Person_EducationInfo.Where(x => x.SchoolCity != "")
+                        .Select(x => x.SchoolCity).Distinct().ToList().OrderBy(x => x).ToList();
+                    cbAttestatSeries.DataSource = context.Person_EducationInfo.Where(x => x.AttestatSeries != "")
+                        .Select(x => x.AttestatSeries).Distinct().ToList().OrderBy(x => x).ToList();
+                    cbHEQualification.DataSource = context.Person_EducationInfo.Where(x => x.HEQualification != null && x.HEQualification != "")
+                        .Select(x => x.HEQualification).Distinct().ToList().OrderBy(x => x).ToList();
 
                     cbAttestatSeries.SelectedIndex = -1;
                     cbSchoolCity.SelectedIndex = -1;
@@ -434,11 +440,11 @@ namespace PriemLib
                                         abit.IsViewed
                                     }).Except(sourceOwn);
 
-                    dgvApplications.DataSource = sourceOwn;
+                    dgvApplications.DataSource = Converter.ConvertToDataTable(sourceOwn.ToArray());
                     dgvApplications.Columns["Id"].Visible = false;
                     dgvApplications.Columns["IsViewed"].Visible = false;
 
-                    dgvOtherAppl.DataSource = sourceAll;
+                    dgvOtherAppl.DataSource = Converter.ConvertToDataTable(sourceAll.ToArray());
                     dgvOtherAppl.Columns["Id"].Visible = false;
                     dgvOtherAppl.Columns["IsViewed"].Visible = false;
 
