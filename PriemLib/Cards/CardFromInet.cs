@@ -68,7 +68,7 @@ namespace PriemLib
             if (_abitBarc != null)
                 lblBarcode.Text += @"\" + _abitBarc.ToString();
 
-            _docs = new DocsClass(_personBarc.Value, null, MainClass.dbType == PriemType.PriemForeigners);
+            _docs = new DocsClass(_personBarc.Value, null, MainClass.dbType == PriemType.PriemForeigners || MainClass.dbType == PriemType.PriemAG);
 
             tbNum.Enabled = false;
 
