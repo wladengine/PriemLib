@@ -100,7 +100,9 @@ where " +
                 dic.Add("@TTid", TimeTableId);
             dic.Add("@UnitId", ExamenUnitId);
 
-            DataTable tbl = MainClass.BdcOnlineReadWrite.GetDataSet(query, dic).Tables[0];
+            LoadFromInet load = new LoadFromInet();
+
+            DataTable tbl = load.BDCInet.GetDataSet(query, dic).Tables[0];
 
             dgv.DataSource = tbl;
             if (dgv.Columns.Contains("Id"))
