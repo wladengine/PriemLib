@@ -417,6 +417,11 @@ namespace PriemLib
                 Guid ProtocolId;
                 using (PriemEntities context = new PriemEntities())
                 {
+                    LoadFromInet load = new LoadFromInet();
+                    DBPriem _bdcInet = load.BDCInet;
+
+                    List<Guid> lstAbits = dgvLeft.Rows.Cast<DataGridViewRow>().Select(x => (Guid)x.Cells["Id"].Value).ToList();
+                    var abitsList = context.Abiturient.Where(x => lstAbits.Contains(x.Id)).Select(x => new { x.Id, x.Barcode }).ToList();
                     using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.RequiresNew))
                     {
                         try
@@ -442,10 +447,24 @@ namespace PriemLib
                                 ProtocolId = (Guid)paramId.Value;
                             }
                             //сохраняем людей в протоколе
-                            foreach (DataGridViewRow rw in dgvLeft.Rows)
+                            //foreach (DataGridViewRow rw in dgvLeft.Rows)
+                            foreach (Guid abId in lstAbits)
                             {
-                                Guid abId = new Guid(rw.Cells["Id"].Value.ToString());
+                                //Guid abId = new Guid(rw.Cells["Id"].Value.ToString());
                                 context.ProtocolHistory_Insert(abId, ProtocolId, false, null, null, paramId);
+
+                                if (_type == ProtocolTypes.EnableProtocol)
+                                {
+                                    string query = "INSERT INTO ApplicationAddedToProtocol (Barcode) VALUES (@Barcode)";
+                                    int barcode = abitsList.Where(x => x.Id == abId).Select(x => x.Barcode ?? 0).DefaultIfEmpty(0).First();
+                                    _bdcInet.ExecuteQuery(query, new SortedList<string, object>() { { "@Barcode", barcode } });
+                                }
+                                else if (_type == ProtocolTypes.DisEnableProtocol)
+                                {
+                                    string query = "DELETE FROM ApplicationAddedToProtocol WHERE Barcode=@Barcode";
+                                    int barcode = abitsList.Where(x => x.Id == abId).Select(x => x.Barcode ?? 0).DefaultIfEmpty(0).First();
+                                    _bdcInet.ExecuteQuery(query, new SortedList<string, object>() { { "@Barcode", barcode } });
+                                }
                             }
 
                             transaction.Complete();

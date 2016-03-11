@@ -320,6 +320,7 @@ namespace PriemLib
                 _sQuery = @"SELECT DISTINCT qAbiturient.CommitId AS Id, extPerson.Surname + ' ' + extPerson.Name + ' ' + extPerson.SecondName as ФИО, 
                        extPerson.BirthDate AS Дата_рождения, qAbiturient.CommitNumber AS Barcode, 
                        (Case When EXISTS(SELECT extAbitFileNames.Id FROM extAbitFileNames WHERE extAbitFileNames.PersonId = extPerson.Id) then 'Да' else 'Нет' end) AS [Приложены файлы],
+                       (CASE WHEN EXISTS(SELECT * FROM qAbitFiles_OnlyEssayMotivLetter q WHERE q.PersonId=qAbiturient.PersonId AND FileTypeId=2) THEN 'Да' ELSE 'Нет' END) AS [Мотивац письмо],
                        (SELECT Max(extAbitFileNames.LoadDate) FROM extAbitFileNames WHERE extAbitFileNames.PersonId = extPerson.Id AND (extAbitFileNames.CommitId = qAbiturient.CommitId OR extAbitFileNames.CommitId IS NULL)) AS [Дата обновления файлов]
                        FROM qAbiturient INNER JOIN extPerson ON qAbiturient.PersonId = extPerson.Id
                        WHERE qAbiturient.IsImported = 0 AND SemesterId = 1 AND Enabled = 1 AND IsCommited = 1 AND IsVisible = 1 AND qAbiturient.IsForeign = 0";
