@@ -419,8 +419,7 @@ namespace PriemLib
                 {
                     LoadFromInet load = new LoadFromInet();
                     DBPriem _bdcInet = load.BDCInet;
-
-                    List<Guid> lstAbits = dgvLeft.Rows.Cast<DataGridViewRow>().Select(x => (Guid)x.Cells["Id"].Value).ToList();
+                    List<Guid> lstAbits = dgvLeft.Rows.Cast<DataGridViewRow>().Select(x => Guid.Parse(x.Cells["Id"].Value.ToString())).ToList();
                     var abitsList = context.Abiturient.Where(x => lstAbits.Contains(x.Id)).Select(x => new { x.Id, x.Barcode }).ToList();
                     using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.RequiresNew))
                     {
