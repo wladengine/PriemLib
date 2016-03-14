@@ -240,7 +240,9 @@ Id
 , Address 
 from dbo.ExamTimeTable 
 where ExamInEntryBlockUnitId = @Id ";
-                DataTable tbl = MainClass.BdcOnlineReadWrite.GetDataSet(query, new SortedList<string, object>() { { "@Id", ExamenUnitId } }).Tables[0];
+
+                LoadFromInet load = new LoadFromInet();
+                DataTable tbl = load.BDCInet.GetDataSet(query, new SortedList<string, object>() { { "@Id", ExamenUnitId } }).Tables[0];
                 List<KeyValuePair<string, string>> lst = new List<KeyValuePair<string, string>>();
                 foreach (DataRow t in tbl.Rows)
                 {
