@@ -189,7 +189,7 @@ where " +
                     if (lst.Count() == 1)
                     {
                         var blocks = (from bl in context.ExamInEntryBlock
-                                      where bl.EntryId == lst.FirstOrDefault()
+                                      where bl.EntryId == lst.FirstOrDefault() && bl.ParentExamInEntryBlockId == null 
                                       select new
                                       {
                                           bl.Id, bl.Name
