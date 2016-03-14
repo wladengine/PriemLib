@@ -43,6 +43,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.btnFillGrid = new System.Windows.Forms.Button();
             this.btnPrint = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.SuspendLayout();
             // 
@@ -54,7 +55,7 @@
             this.cbStudyLevel.FormattingEnabled = true;
             this.cbStudyLevel.Location = new System.Drawing.Point(167, 12);
             this.cbStudyLevel.Name = "cbStudyLevel";
-            this.cbStudyLevel.Size = new System.Drawing.Size(400, 21);
+            this.cbStudyLevel.Size = new System.Drawing.Size(391, 21);
             this.cbStudyLevel.TabIndex = 0;
             this.cbStudyLevel.SelectedIndexChanged += new System.EventHandler(this.cbStudyLevel_SelectedIndexChanged);
             // 
@@ -70,7 +71,7 @@
             this.dgv.Location = new System.Drawing.Point(12, 255);
             this.dgv.Name = "dgv";
             this.dgv.ReadOnly = true;
-            this.dgv.Size = new System.Drawing.Size(555, 277);
+            this.dgv.Size = new System.Drawing.Size(546, 277);
             this.dgv.TabIndex = 1;
             // 
             // label1
@@ -90,7 +91,7 @@
             this.cbLicenseProgram.FormattingEnabled = true;
             this.cbLicenseProgram.Location = new System.Drawing.Point(167, 39);
             this.cbLicenseProgram.Name = "cbLicenseProgram";
-            this.cbLicenseProgram.Size = new System.Drawing.Size(400, 21);
+            this.cbLicenseProgram.Size = new System.Drawing.Size(391, 21);
             this.cbLicenseProgram.TabIndex = 0;
             this.cbLicenseProgram.SelectedIndexChanged += new System.EventHandler(this.cbLicenseProgram_SelectedIndexChanged);
             // 
@@ -111,7 +112,7 @@
             this.cbObrazProgram.FormattingEnabled = true;
             this.cbObrazProgram.Location = new System.Drawing.Point(167, 66);
             this.cbObrazProgram.Name = "cbObrazProgram";
-            this.cbObrazProgram.Size = new System.Drawing.Size(400, 21);
+            this.cbObrazProgram.Size = new System.Drawing.Size(391, 21);
             this.cbObrazProgram.TabIndex = 0;
             this.cbObrazProgram.SelectedIndexChanged += new System.EventHandler(this.cbObrazProgram_SelectedIndexChanged);
             // 
@@ -132,7 +133,7 @@
             this.cbExamenBlock.FormattingEnabled = true;
             this.cbExamenBlock.Location = new System.Drawing.Point(167, 108);
             this.cbExamenBlock.Name = "cbExamenBlock";
-            this.cbExamenBlock.Size = new System.Drawing.Size(400, 21);
+            this.cbExamenBlock.Size = new System.Drawing.Size(391, 21);
             this.cbExamenBlock.TabIndex = 0;
             this.cbExamenBlock.SelectedIndexChanged += new System.EventHandler(this.cbExamenBlock_SelectedIndexChanged);
             // 
@@ -144,7 +145,7 @@
             this.cbExamenUnit.FormattingEnabled = true;
             this.cbExamenUnit.Location = new System.Drawing.Point(167, 135);
             this.cbExamenUnit.Name = "cbExamenUnit";
-            this.cbExamenUnit.Size = new System.Drawing.Size(400, 21);
+            this.cbExamenUnit.Size = new System.Drawing.Size(391, 21);
             this.cbExamenUnit.TabIndex = 0;
             this.cbExamenUnit.SelectedIndexChanged += new System.EventHandler(this.cbExamenUnit_SelectedIndexChanged);
             // 
@@ -174,7 +175,7 @@
             this.cbExamTimeTable.FormattingEnabled = true;
             this.cbExamTimeTable.Location = new System.Drawing.Point(167, 162);
             this.cbExamTimeTable.Name = "cbExamTimeTable";
-            this.cbExamTimeTable.Size = new System.Drawing.Size(400, 21);
+            this.cbExamTimeTable.Size = new System.Drawing.Size(391, 21);
             this.cbExamTimeTable.TabIndex = 0;
             // 
             // label7
@@ -189,7 +190,7 @@
             // btnFillGrid
             // 
             this.btnFillGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnFillGrid.Location = new System.Drawing.Point(452, 226);
+            this.btnFillGrid.Location = new System.Drawing.Point(443, 226);
             this.btnFillGrid.Name = "btnFillGrid";
             this.btnFillGrid.Size = new System.Drawing.Size(115, 23);
             this.btnFillGrid.TabIndex = 4;
@@ -207,11 +208,23 @@
             this.btnPrint.UseVisualStyleBackColor = true;
             this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
             // 
+            // label4
+            // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label4.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
+            this.label4.Location = new System.Drawing.Point(431, 193);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(127, 30);
+            this.label4.TabIndex = 5;
+            this.label4.Text = "Нажмите \"Обновить\" для построения списка";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
             // CardExamTimeTableAbitList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(579, 544);
+            this.ClientSize = new System.Drawing.Size(570, 544);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.btnPrint);
             this.Controls.Add(this.btnFillGrid);
             this.Controls.Add(this.label7);
@@ -227,6 +240,7 @@
             this.Controls.Add(this.cbLicenseProgram);
             this.Controls.Add(this.cbObrazProgram);
             this.Controls.Add(this.cbStudyLevel);
+            this.MinimumSize = new System.Drawing.Size(586, 582);
             this.Name = "CardExamTimeTableAbitList";
             this.Text = "ExamTimeTable";
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).EndInit();
@@ -252,5 +266,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button btnFillGrid;
         private System.Windows.Forms.Button btnPrint;
+        private System.Windows.Forms.Label label4;
     }
 }
