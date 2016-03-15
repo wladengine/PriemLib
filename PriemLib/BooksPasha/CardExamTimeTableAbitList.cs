@@ -37,14 +37,14 @@ namespace PriemLib
             get { return ComboServ.GetComboIdInt(cbExamTimeTable); }
             set { ComboServ.SetComboId(cbExamTimeTable, value); }
         }
-        public Guid? ExamenBlockId
+        public string ExamenBlockId
         {
-            get { return ComboServ.GetComboIdGuid(cbExamenBlock); }
+            get { return ComboServ.GetComboId(cbExamenBlock); }
             set { ComboServ.SetComboId(cbExamenBlock, value); }
         }
-        public Guid? ExamenUnitId
+        public string ExamenUnitId
         {
-            get { return ComboServ.GetComboIdGuid(cbExamenUnit); }
+            get { return ComboServ.GetComboId(cbExamenUnit); }
             set { ComboServ.SetComboId(cbExamenUnit, value); }
         }
         public CardExamTimeTableAbitList()
@@ -70,7 +70,7 @@ namespace PriemLib
                               Name = ent.StudyLevelName,
                           }).Distinct()).ToList().Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name)).ToList();
 
-                    ComboServ.FillCombo(cbStudyLevel, lst, false, false);
+                    ComboServ.FillCombo(cbStudyLevel, lst, false, true);
                 }
             }
             catch (Exception exc)
@@ -85,6 +85,9 @@ SELECT  Application.Id
 , Person.Surname as 'Фамилия'
 , Person.Name as  'Имя'
 , Person.SecondName as  'Отчество'
+, ExamName.Name as 'Экзамен'
+,Entry.StudyLevelName as 'Уровень'
+, Entry.LicenseProgramName as 'Профиль'
 , ExamTimetable.ExamDate as 'Дата экзамена'
 , ExamTimetable.Address as 'Место проведения'
 , ApplicationSelectedExam.RegistrationDate as 'Дата регистрации на экзамен'
@@ -92,14 +95,45 @@ SELECT  Application.Id
   join dbo.Person on Person.Id = Application.PersonId
   join dbo.ApplicationSelectedExam on Application.Id = ApplicationSelectedExam.ApplicationId
   join dbo.ExamTimetable on ExamTimetable.Id = ApplicationSelectedExam.ExamTimetableId
-where " +
-     (   TimeTableId.HasValue ? @" ExamTimetable.Id = @TTid " : " ApplicationSelectedExam.ExamInEntryBlockUnitId = @UnitId ");
+  join dbo.ExamInEntryBlockUnit on ApplicationSelectedExam.ExamInEntryBlockUnitId = ExamInEntryBlockUnit.Id
+join dbo.ExamInEntryBlock on ExamInEntryBlockUnit.ExamInEntryBlockId = ExamInEntryBlock.Id
+  join dbo.Exam on ExamInEntryBlockUnit.ExamId = Exam.id
+  join dbo.ExamName on ExamName.Id = ExamNameId
+  join dbo.Entry on Entry.Id = Application.EntryId
+
+where 1=1  ";
 
             SortedList<string, object> dic = new SortedList<string, object>();
             if (TimeTableId.HasValue)
+            {
                 dic.Add("@TTid", TimeTableId);
-            dic.Add("@UnitId", ExamenUnitId);
-
+                query += @" and Month(ExamTimetable.Examdate) = @TTid ";
+            }
+            if (!String.IsNullOrEmpty(ExamenUnitId))
+            {
+                dic.Add("@UnitId", ExamenUnitId);
+                query += " and ExamName.Name = @UnitId ";
+            }
+            else if (!String.IsNullOrEmpty(ExamenBlockId))
+            {
+                dic.Add("@ExamInEntryBlock", ExamenBlockId);
+                query += " and ExamInEntryBlock.Name = @ExamInEntryBlock ";
+            }
+            
+            
+            if (ObrazProgramId.HasValue)
+            {
+                dic.Add("@ObrazProgramId", ObrazProgramId);
+                query += @" and Entry.ObrazProgramId = @ObrazProgramId";
+            } else if (LicenseProgramId.HasValue)
+            {
+                dic.Add("@LicenseProgramId", LicenseProgramId);
+                query += @" and Entry.LicenseProgramId = @LicenseProgramId";
+            } else if (StudyLevelId.HasValue)
+            {
+                dic.Add("@StudyLevelId", StudyLevelId);
+                query += @" and Entry.StudyLevelId = @StudyLevelId";
+            }
             LoadFromInet load = new LoadFromInet();
 
             DataTable tbl = load.BDCInet.GetDataSet(query, dic).Tables[0];
@@ -107,6 +141,7 @@ where " +
             dgv.DataSource = tbl;
             if (dgv.Columns.Contains("Id"))
                 dgv.Columns["Id"].Visible = false;
+            lblCount.Text = dgv.Rows.Count.ToString();
         }
 
         private IEnumerable<qEntry> GetEntry(PriemEntities context)
@@ -130,7 +165,7 @@ where " +
                 {
                     List<KeyValuePair<string, string>> lst =
                         ((from ent in GetEntry(context)
-                          where ent.StudyLevelId == StudyLevelId
+                          where (StudyLevelId.HasValue )? (ent.StudyLevelId == StudyLevelId) : (true)
                           orderby ent.LicenseProgramName
                           select new
                           {
@@ -138,8 +173,7 @@ where " +
                               Name = ent.LicenseProgramName,
                               Code = ent.LicenseProgramCode
                           }).Distinct()).ToList().Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name + ' ' + u.Code)).ToList();
-
-                    ComboServ.FillCombo(cbLicenseProgram, lst, false, false);
+                    ComboServ.FillCombo(cbLicenseProgram, lst, false, true);
                 }
             }
             catch (Exception exc)
@@ -155,7 +189,8 @@ where " +
                 {
                     List<KeyValuePair<string, string>> lst =
                         ((from ent in GetEntry(context)
-                          where ent.LicenseProgramId == LicenseProgramId
+                          where (LicenseProgramId.HasValue ? ent.LicenseProgramId == LicenseProgramId : true )
+                          && (StudyLevelId.HasValue ? ent.StudyLevelId == StudyLevelId : true)
                           orderby ent.ObrazProgramName
                           select new
                           {
@@ -164,7 +199,7 @@ where " +
                               Crypt = ent.ObrazProgramCrypt
                           }).Distinct()).ToList().Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name + ' ' + u.Crypt)).ToList();
 
-                    ComboServ.FillCombo(cbObrazProgram, lst, false, false);
+                    ComboServ.FillCombo(cbObrazProgram, lst, false, true);
                 }
             }
             catch (Exception exc)
@@ -180,21 +215,31 @@ where " +
                 {
                     var lst =
                         (from ent in GetEntry(context)
-                          where ent.LicenseProgramId == LicenseProgramId
-                          && ent.ObrazProgramId == ObrazProgramId
-                          && ent.StudyLevelId == StudyLevelId
+                         where (LicenseProgramId.HasValue ? (ent.LicenseProgramId == LicenseProgramId) : true)
+                          && (ObrazProgramId.HasValue ? ent.ObrazProgramId == ObrazProgramId : true)
+                          && (StudyLevelId.HasValue ? ent.StudyLevelId == StudyLevelId : true)
                           orderby ent.ProfileName
                           select ent.Id).Distinct().ToList();
-
-                    if (lst.Count() == 1)
+                    //if (lst.Count() == 1) 
+                    //{
+                    //    var blocks = (from bl in context.ExamInEntryBlock
+                    //                  where lst.Contains(bl.EntryId) && bl.ParentExamInEntryBlockId == null 
+                    //                  select new
+                    //                  {
+                    //                      bl.Id, bl.Name
+                    //                  }).ToList().Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name)).ToList();
+                    //    ComboServ.FillCombo(cbExamenBlock, blocks, false, true);
+                    //} 
+                    //else 
+                        if (lst.Count() > 0)
                     {
                         var blocks = (from bl in context.ExamInEntryBlock
-                                      where bl.EntryId == lst.FirstOrDefault() && bl.ParentExamInEntryBlockId == null 
+                                      where lst.Contains(bl.EntryId) && bl.ParentExamInEntryBlockId == null
                                       select new
                                       {
-                                          bl.Id, bl.Name
-                                      }).ToList().Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name)).ToList();
-                        ComboServ.FillCombo(cbExamenBlock, blocks, false, false);
+                                          bl.Name
+                                      }).Distinct().ToList().Select(u => new KeyValuePair<string, string>(u.Name.ToString(), u.Name)).ToList();
+                        ComboServ.FillCombo(cbExamenBlock, blocks, false, true); 
                     }
                     else
                     {
@@ -213,16 +258,22 @@ where " +
             {
                 using (PriemEntities context = new PriemEntities())
                 {
-                    var blocks = (from bl in context.ExamInEntryBlockUnit
-                                  join ex in context.Exam on bl.ExamId equals ex.Id
+                    var blocks = (from un in context.ExamInEntryBlockUnit
+                                  join bl in context.ExamInEntryBlock on un.ExamInEntryBlockId equals bl.Id
+                                  join ent in context.Entry on bl.EntryId equals ent.Id
+                                  join ex in context.Exam on un.ExamId equals ex.Id
                                   join exn in context.ExamName on ex.ExamNameId equals exn.Id
-                                      where bl.ExamInEntryBlockId == ExamenBlockId
+                                  where (!String.IsNullOrEmpty(ExamenBlockId) ?  bl.Name.ToLower() == ExamenBlockId.ToLower() : true)
+                                  && (LicenseProgramId.HasValue ? ent.LicenseProgramId == LicenseProgramId : true)
+                                  && (StudyLevelId.HasValue ? ent.StudyLevelId == StudyLevelId : true)
                                       select new
                                       {
-                                          bl.Id,
                                           exn.Name
-                                      }).ToList().Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name)).ToList();
-                    ComboServ.FillCombo(cbExamenUnit, blocks, false, false);
+                                      }).Distinct().ToList().Select(u => new KeyValuePair<string, string>(u.Name, u.Name)).ToList();
+                    if (!String.IsNullOrEmpty(ExamenBlockId))
+                        ComboServ.FillCombo(cbExamenUnit, blocks, false, true);
+                    else
+                        ComboServ.FillCombo(cbExamenUnit, new List<KeyValuePair<string,string>>(), false, true);
                 }
             }
             catch (Exception exc)
@@ -234,19 +285,27 @@ where " +
         {
             try
             {
-                string query = @"select 
-Id
-, ExamDate 
-, Address 
+                string query = @"select distinct
+ MONTH(ExamDate) as [Key]
+, DATENAME(month, ExamDate) +', ' + Address as [Value]
 from dbo.ExamTimeTable 
-where ExamInEntryBlockUnitId = @Id ";
+join dbo.ExamInEntryBlockUnit on ExamInEntryBlockUnit.Id  = ExamTimeTable.ExamInEntryBlockUnitId
+join dbo.Exam on Exam.Id = ExamInEntryBlockUnit.ExamId
+join dbo.ExamName on ExamName.Id = Exam.ExamNameId
+" + (!String.IsNullOrEmpty(ExamenUnitId) ? @"
+where ExamName.Name = @Id " : "");
 
                 LoadFromInet load = new LoadFromInet();
-                DataTable tbl = load.BDCInet.GetDataSet(query, new SortedList<string, object>() { { "@Id", ExamenUnitId } }).Tables[0];
+                SortedList<string, object> dic = new SortedList<string, object>();
+                if (!String.IsNullOrEmpty(ExamenUnitId))
+                    dic.Add("@Id", ExamenUnitId);
+                DataTable tbl = load.BDCInet.GetDataSet(query, dic).Tables[0];
                 List<KeyValuePair<string, string>> lst = new List<KeyValuePair<string, string>>();
                 foreach (DataRow t in tbl.Rows)
                 {
-                    lst.Add(new KeyValuePair<string, string>(t.Field<int>("Id").ToString(), t.Field<DateTime>("ExamDate").ToShortDateString() + " в " +t.Field<DateTime>("ExamDate").ToShortTimeString() + ", " + t.Field<string>("Address")));
+                   // lst.Add(new KeyValuePair<string, string>(t.Field<int>("Id").ToString(), t.Field<DateTime>("ExamDate").ToShortDateString() + " в " + t.Field<DateTime>("ExamDate").ToShortTimeString() + ", " + t.Field<string>("Address")));
+                    lst.Add(new KeyValuePair<string, string>
+                        (t.Field<int>("Key").ToString(), t.Field<string>("Value")));
                 }
                 ComboServ.FillCombo(cbExamTimeTable, lst, false, true);
             }
