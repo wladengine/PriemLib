@@ -39,12 +39,26 @@ namespace PriemLib
         }
         public string ExamenBlockId
         {
-            get { return ComboServ.GetComboId(cbExamenBlock); }
+            get 
+            {
+                string tmp = ComboServ.GetComboId(cbExamenBlock);
+                if (tmp == ComboServ.ALL_VALUE)
+                    return null;
+                else
+                    return tmp;
+            }
             set { ComboServ.SetComboId(cbExamenBlock, value); }
         }
         public string ExamenUnitId
         {
-            get { return ComboServ.GetComboId(cbExamenUnit); }
+            get 
+            { 
+                string tmp = ComboServ.GetComboId(cbExamenUnit);
+                if (tmp == ComboServ.ALL_VALUE)
+                    return null;
+                else
+                    return tmp;
+            }
             set { ComboServ.SetComboId(cbExamenUnit, value); }
         }
         public CardExamTimeTableAbitList()
@@ -263,17 +277,17 @@ where 1=1  ";
                                   join ent in context.Entry on bl.EntryId equals ent.Id
                                   join ex in context.Exam on un.ExamId equals ex.Id
                                   join exn in context.ExamName on ex.ExamNameId equals exn.Id
-                                  where (!String.IsNullOrEmpty(ExamenBlockId) ?  bl.Name.ToLower() == ExamenBlockId.ToLower() : true)
+                                  where bl.ParentExamInEntryBlockId == null
+                                  && (!String.IsNullOrEmpty(ExamenBlockId) ?  bl.Name.ToLower() == ExamenBlockId.ToLower() : true)
                                   && (LicenseProgramId.HasValue ? ent.LicenseProgramId == LicenseProgramId : true)
+                                  && MainClass.lstStudyLevelGroupId.Contains(ent.StudyLevel.LevelGroupId)
                                   && (StudyLevelId.HasValue ? ent.StudyLevelId == StudyLevelId : true)
                                       select new
                                       {
                                           exn.Name
                                       }).Distinct().ToList().Select(u => new KeyValuePair<string, string>(u.Name, u.Name)).ToList();
-                    if (!String.IsNullOrEmpty(ExamenBlockId))
-                        ComboServ.FillCombo(cbExamenUnit, blocks, false, true);
-                    else
-                        ComboServ.FillCombo(cbExamenUnit, new List<KeyValuePair<string,string>>(), false, true);
+                    
+                    ComboServ.FillCombo(cbExamenUnit, blocks, false, true);
                 }
             }
             catch (Exception exc)
@@ -303,7 +317,6 @@ where ExamName.Name = @Id " : "");
                 List<KeyValuePair<string, string>> lst = new List<KeyValuePair<string, string>>();
                 foreach (DataRow t in tbl.Rows)
                 {
-                   // lst.Add(new KeyValuePair<string, string>(t.Field<int>("Id").ToString(), t.Field<DateTime>("ExamDate").ToShortDateString() + " в " + t.Field<DateTime>("ExamDate").ToShortTimeString() + ", " + t.Field<string>("Address")));
                     lst.Add(new KeyValuePair<string, string>
                         (t.Field<int>("Key").ToString(), t.Field<string>("Value")));
                 }
@@ -347,56 +360,11 @@ where ExamName.Name = @Id " : "");
                 return;
             try
             {
-                DataTable tbl = ((DataTable)dgv.DataSource).Copy();
-                foreach (DataGridViewColumn c in dgv.Columns)
-                    if (!c.Visible)
-                    {
-                        if (tbl.Columns.Contains(c.HeaderText))
-                            tbl.Columns.Remove(c.HeaderText);
-                    }
-                tbl = tbl.DefaultView.ToTable(true);
-
-                string filenameDate = "Список абитуриентов на экзамен ";
-                string filename = MainClass.saveTempFolder + filenameDate + ".xls";
-                int fileindex = 1;
-                while (File.Exists(filename))
-                {
-                    filename = MainClass.saveTempFolder + filenameDate + "(" + fileindex + ")" + ".xls";
-                    fileindex++;
-                }
-                StringBuilder sb = new StringBuilder();
-                string delimiter = ";";
-                string[] outputColNames = (from DataColumn col in tbl.Columns select col.ColumnName).ToArray();
-
-                sb.AppendLine(string.Join(delimiter, outputColNames));
-
-                foreach (DataRow rw in tbl.Rows)
-                {
-                    List<string> outp = new List<string>();
-                    foreach (var x in rw.ItemArray)
-                    {
-                        if (x is DateTime)
-                        {
-                            DateTime xc = DateTime.Parse(x.ToString());
-                            outp.Add(xc.ToShortDateString() + " "+xc.ToShortTimeString());
-                        }
-                        else
-                        {
-                            long p;
-                            if (long.TryParse(x.ToString(), out p))
-                                outp.Add("=\"" + x.ToString() + "\"");
-                            else
-                                outp.Add(x.ToString());
-                        }
-                    }
-
-                    sb.AppendLine(string.Join(delimiter, outp.ToArray()));
-                }
-                File.WriteAllText(filename, sb.ToString(), Encoding.UTF8);
-                System.Diagnostics.Process.Start(filename);
+                PrintClass.PrintAllToExcel(dgv, false, "Экзамен");
             }
-            catch
+            catch (Exception ex)
             {
+                WinFormsServ.Error(ex);
             }
         }
     }
