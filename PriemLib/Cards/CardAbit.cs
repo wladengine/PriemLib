@@ -1499,7 +1499,7 @@ namespace PriemLib
                     List<int> lstCompetitionIdsForOriginals = context.Competition.Where(x => x.NeedOriginals).Select(x => x.Id).ToList();
                     var OrigApps = context.Abiturient.Where(x => x.PersonId == _personId && x.HasOriginals && !x.BackDoc);
                     bool HasOrigs = OrigApps.Count() > 0;
-                    if (!HasOriginals && (CompetitionId.HasValue && lstCompetitionIdsForOriginals.Contains(CompetitionId.Value)) && !HasOrigs && !BackDoc)
+                    if (MainClass.dbType != PriemType.PriemAG && !HasOriginals && (CompetitionId.HasValue && lstCompetitionIdsForOriginals.Contains(CompetitionId.Value)) && !HasOrigs && !BackDoc)
                     {
                         WinFormsServ.Error("Для данного типа конкурса требуется обязательная подача оригиналов документов об образовании");
                         return false;

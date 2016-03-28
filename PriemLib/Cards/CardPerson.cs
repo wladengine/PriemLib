@@ -1586,7 +1586,7 @@ namespace PriemLib
             }
 
             if(personBarc != null)
-                new DocCard(personBarc.Value, null, true, MainClass.dbType == PriemType.PriemForeigners).Show();
+                new DocCard(personBarc.Value, null, true, MainClass.dbType == PriemType.PriemForeigners || MainClass.dbType == PriemType.PriemAG).Show();
         }
 
         #region Print
