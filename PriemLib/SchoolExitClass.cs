@@ -12,20 +12,19 @@ namespace PriemLib
     using System;
     using System.Collections.Generic;
     
-    public partial class StudyLevelGroup
+    public partial class SchoolExitClass
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public StudyLevelGroup()
+        public SchoolExitClass()
         {
-            this.StudyLevel = new HashSet<StudyLevel>();
+            this.Person_EducationInfo = new HashSet<Person_EducationInfo>();
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Acronym { get; set; }
-        public Nullable<int> UpperCategoryId { get; set; }
+        public int IntValue { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<StudyLevel> StudyLevel { get; set; }
+        public virtual ICollection<Person_EducationInfo> Person_EducationInfo { get; set; }
     }
 }

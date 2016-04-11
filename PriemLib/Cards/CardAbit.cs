@@ -1893,7 +1893,7 @@ namespace PriemLib
                     DataColumn clm;
                     clm = new DataColumn();
                     clm.ColumnName = "ExamInEntryId";
-                    clm.DataType = typeof(int);
+                    clm.DataType = typeof(Guid);
                     examTable.Columns.Add(clm);
 
                     clm = new DataColumn();

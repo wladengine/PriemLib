@@ -48,5 +48,6 @@ namespace PriemLib
         public virtual SchoolType SchoolType { get; set; }
         public virtual StudyForm StudyForm { get; set; }
         public virtual ForeignCountry ForeignCountry { get; set; }
+        public virtual SchoolExitClass SchoolExitClass { get; set; }
     }
 }

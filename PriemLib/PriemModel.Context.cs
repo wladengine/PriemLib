@@ -172,6 +172,7 @@ namespace PriemLib
         public virtual DbSet<Mark> Mark { get; set; }
         public virtual DbSet<qMark> qMark { get; set; }
         public virtual DbSet<extExamInEntry> extExamInEntry { get; set; }
+        public virtual DbSet<SchoolExitClass> SchoolExitClass { get; set; }
     
         public virtual int RoleMember(string roleName, ObjectParameter result)
         {
@@ -4624,6 +4625,19 @@ namespace PriemLib
                 new ObjectParameter("id", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("OlympResultToAdditionalMark_Update", entryIdParameter, olympTypeIdParameter, olympLevelIdParameter, olympNameIdParameter, olympSubjectIdParameter, olympValueIdParameter, olympYearParameter, additionalMarkParameter, idParameter);
+        }
+    
+        public virtual int Person_EducationInfo_SchoolClass_update(Nullable<int> schoolExitClassId, Nullable<int> id)
+        {
+            var schoolExitClassIdParameter = schoolExitClassId.HasValue ?
+                new ObjectParameter("SchoolExitClassId", schoolExitClassId) :
+                new ObjectParameter("SchoolExitClassId", typeof(int));
+    
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Person_EducationInfo_SchoolClass_update", schoolExitClassIdParameter, idParameter);
         }
     }
 }
