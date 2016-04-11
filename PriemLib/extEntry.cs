@@ -59,5 +59,7 @@ namespace PriemLib
         public Nullable<System.DateTime> DateFinishEduc { get; set; }
         public Nullable<System.Guid> ParentEntryId { get; set; }
         public string FacultyCode { get; set; }
+        public Nullable<int> StudyLevelGroupUpperCategoryId { get; set; }
+        public string AggregateGroupAcronym { get; set; }
     }
 }

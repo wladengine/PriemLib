@@ -1363,6 +1363,7 @@ namespace PriemLib
                     if (ED.Id == IntId)
                     {
                         ED.SchoolTypeId = SchoolTypeId.Value;
+                        ED.SchoolExitClassId = SchoolExitClassId;
                         ED.SchoolCity = SchoolCity;
                         ED.SchoolName = SchoolName;
                         ED.SchoolNum = SchoolNum;

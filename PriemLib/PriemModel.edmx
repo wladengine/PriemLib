@@ -1083,6 +1083,14 @@ warning 6002: The table/view 'Priem2016.ed.Privilege' does not have a primary ke
           <Property Name="RodName" Type="nvarchar" MaxLength="100" />
           <Property Name="CountryId" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="SchoolExitClass">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IntValue" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="SchoolNames">
           <Key>
             <PropertyRef Name="Id" />
@@ -1235,6 +1243,7 @@ warning 6002: The table/view 'Priem2016.ed.Privilege' does not have a primary ke
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Acronym" Type="nvarchar" MaxLength="10" />
+          <Property Name="UpperCategoryId" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'Priem2016.ed.extAbit' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -1728,6 +1737,8 @@ warning 6002: The table/view 'Priem2016.ed.extEntry' does not have a primary key
           <Property Name="DateFinishEduc" Type="date" />
           <Property Name="ParentEntryId" Type="uniqueidentifier" />
           <Property Name="FacultyCode" Type="nvarchar" MaxLength="10" />
+          <Property Name="StudyLevelGroupUpperCategoryId" Type="int" />
+          <Property Name="AggregateGroupAcronym" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'Priem2016.ed.extEntryProtocols' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -4275,6 +4286,18 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Person_EducationInfo_SchoolExitClass">
+          <End Role="SchoolExitClass" Type="Self.SchoolExitClass" Multiplicity="0..1" />
+          <End Role="Person_EducationInfo" Type="Self.Person_EducationInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SchoolExitClass">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Person_EducationInfo">
+              <PropertyRef Name="SchoolExitClassId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Person_EducationInfo_SchoolType">
           <End Role="SchoolType" Type="Self.SchoolType" Multiplicity="1" />
           <End Role="Person_EducationInfo" Type="Self.Person_EducationInfo" Multiplicity="*" />
@@ -5507,6 +5530,10 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           <Parameter Name="HEWork" Type="nvarchar" Mode="In" />
           <Parameter Name="id" Type="int" Mode="InOut" />
         </Function>
+        <Function Name="Person_EducationInfo_SchoolClass_update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ed">
+          <Parameter Name="SchoolExitClassId" Type="int" Mode="In" />
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <Function Name="Person_EducationInfo_update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ed">
           <Parameter Name="PersonId" Type="uniqueidentifier" Mode="In" />
           <Parameter Name="IsExcellent" Type="bit" Mode="In" />
@@ -5968,6 +5995,7 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           <EntitySet Name="ProtocolNumbers" EntityType="Self.ProtocolNumbers" Schema="ed" store:Type="Tables" />
           <EntitySet Name="ProtocolType" EntityType="Self.ProtocolType" Schema="ed" store:Type="Tables" />
           <EntitySet Name="Region" EntityType="Self.Region" Schema="ed" store:Type="Tables" />
+          <EntitySet Name="SchoolExitClass" EntityType="Self.SchoolExitClass" Schema="ed" store:Type="Tables" />
           <EntitySet Name="SchoolNames" EntityType="Self.SchoolNames" Schema="ed" store:Type="Tables" />
           <EntitySet Name="SchoolType" EntityType="Self.SchoolType" Schema="ed" store:Type="Tables" />
           <EntitySet Name="Signer" EntityType="Self.Signer" Schema="ed" store:Type="Tables" />
@@ -6337,7 +6365,9 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
     [extEntry].[DateStartEduc] AS [DateStartEduc], 
     [extEntry].[DateFinishEduc] AS [DateFinishEduc], 
     [extEntry].[ParentEntryId] AS [ParentEntryId], 
-    [extEntry].[FacultyCode] AS [FacultyCode]
+    [extEntry].[FacultyCode] AS [FacultyCode], 
+    [extEntry].[StudyLevelGroupUpperCategoryId] AS [StudyLevelGroupUpperCategoryId], 
+    [extEntry].[AggregateGroupAcronym] AS [AggregateGroupAcronym]
     FROM [ed].[extEntry] AS [extEntry]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="extEntryProtocols" EntityType="Self.extEntryProtocols" store:Type="Views" store:Schema="ed">
@@ -7685,6 +7715,10 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           </AssociationSet>
           <AssociationSet Name="FK_Person_EducationInfo_Person" Association="Self.FK_Person_EducationInfo_Person">
             <End Role="Person" EntitySet="Person" />
+            <End Role="Person_EducationInfo" EntitySet="Person_EducationInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Person_EducationInfo_SchoolExitClass" Association="Self.FK_Person_EducationInfo_SchoolExitClass">
+            <End Role="SchoolExitClass" EntitySet="SchoolExitClass" />
             <End Role="Person_EducationInfo" EntitySet="Person_EducationInfo" />
           </AssociationSet>
           <AssociationSet Name="FK_Person_EducationInfo_SchoolType" Association="Self.FK_Person_EducationInfo_SchoolType">
@@ -9699,6 +9733,15 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
             <End Role="Person" EntitySet="Person" />
             <End Role="ExamsVedHistory" EntitySet="ExamsVedHistory" />
           </AssociationSet>
+          <EntitySet Name="SchoolExitClass" EntityType="Priem2012Model.SchoolExitClass" />
+          <AssociationSet Name="FK_Person_EducationInfo_SchoolExitClass" Association="Priem2012Model.FK_Person_EducationInfo_SchoolExitClass">
+            <End Role="SchoolExitClass" EntitySet="SchoolExitClass" />
+            <End Role="Person_EducationInfo" EntitySet="Person_EducationInfo" />
+          </AssociationSet>
+          <FunctionImport Name="Person_EducationInfo_SchoolClass_update">
+            <Parameter Name="SchoolExitClassId" Mode="In" Type="Int32" />
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
           </EntityContainer>
         <EntityType Name="AttMarks">
           <Key>
@@ -11654,6 +11697,7 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           <Property Type="String" Name="Author" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Type="DateTime" Name="DateCreated" Nullable="false" Precision="3" />
           <Property Name="SchoolExitClassId" Type="Int32" />
+          <NavigationProperty Name="SchoolExitClass" Relationship="Priem2012Model.FK_Person_EducationInfo_SchoolExitClass" FromRole="Person_EducationInfo" ToRole="SchoolExitClass" />
         </EntityType>
         <Association Name="FK_Abiturient_Person">
           <End Type="Priem2012Model.Person" Role="Person" Multiplicity="1" />
@@ -12009,6 +12053,7 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Acronym" MaxLength="10" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="StudyLevel" Relationship="Priem2012Model.FK_StudyLevel_StudyLevelGroup" FromRole="StudyLevelGroup" ToRole="StudyLevel" />
+          <Property Name="UpperCategoryId" Type="Int32" />
         </EntityType>
         <EntityType Name="OlympiadCheckedByRectorat">
           <Key>
@@ -12865,6 +12910,8 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           <Property Name="DateFinishEduc" Type="DateTime" Precision="0" />
           <Property Name="ParentEntryId" Type="Guid" />
           <Property Name="FacultyCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="StudyLevelGroupUpperCategoryId" Type="Int32" />
+          <Property Name="AggregateGroupAcronym" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="ForeignCountry">
           <Key>
@@ -14342,6 +14389,27 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="SchoolExitClass">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IntValue" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Person_EducationInfo" Relationship="Priem2012Model.FK_Person_EducationInfo_SchoolExitClass" FromRole="SchoolExitClass" ToRole="Person_EducationInfo" />
+        </EntityType>
+        <Association Name="FK_Person_EducationInfo_SchoolExitClass">
+          <End Type="Priem2012Model.SchoolExitClass" Role="SchoolExitClass" Multiplicity="0..1" />
+          <End Type="Priem2012Model.Person_EducationInfo" Role="Person_EducationInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SchoolExitClass">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Person_EducationInfo">
+              <PropertyRef Name="SchoolExitClassId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -15803,6 +15871,7 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           <EntitySetMapping Name="StudyLevelGroup">
             <EntityTypeMapping TypeName="Priem2012Model.StudyLevelGroup">
               <MappingFragment StoreEntitySet="StudyLevelGroup">
+                <ScalarProperty Name="UpperCategoryId" ColumnName="UpperCategoryId" />
                 <ScalarProperty Name="Acronym" ColumnName="Acronym" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -16312,6 +16381,8 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           <EntitySetMapping Name="extEntry">
             <EntityTypeMapping TypeName="Priem2012Model.extEntry">
               <MappingFragment StoreEntitySet="extEntry">
+                <ScalarProperty Name="AggregateGroupAcronym" ColumnName="AggregateGroupAcronym" />
+                <ScalarProperty Name="StudyLevelGroupUpperCategoryId" ColumnName="StudyLevelGroupUpperCategoryId" />
                 <ScalarProperty Name="FacultyCode" ColumnName="FacultyCode" />
                 <ScalarProperty Name="ParentEntryId" ColumnName="ParentEntryId" />
                 <ScalarProperty Name="DateFinishEduc" ColumnName="DateFinishEduc" />
@@ -17128,6 +17199,16 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="SchoolExitClass">
+            <EntityTypeMapping TypeName="Priem2012Model.SchoolExitClass">
+              <MappingFragment StoreEntitySet="SchoolExitClass">
+                <ScalarProperty Name="IntValue" ColumnName="IntValue" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Person_EducationInfo_SchoolClass_update" FunctionName="Priem2012Model.Store.Person_EducationInfo_SchoolClass_update" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

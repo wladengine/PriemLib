@@ -886,6 +886,8 @@
         <edmx:EntityTypeShape EntityType="Priem2012Model.extExamInEntry" Width="1.5" PointX="36.375" PointY="29.75" />
         <edmx:AssociationConnector Association="Priem2012Model.FK_ExamsVedHistory_ExamsVed" />
         <edmx:AssociationConnector Association="Priem2012Model.FK_ExamsVedHistory_Person" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.SchoolExitClass" Width="1.5" PointX="16.375" PointY="29.75" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_Person_EducationInfo_SchoolExitClass" />
         </edmx:Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
