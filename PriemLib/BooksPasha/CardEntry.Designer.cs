@@ -80,6 +80,7 @@
             this.btnAddOlympicsToCommonBenefit = new System.Windows.Forms.Button();
             this.btnDeleteOlympicsToCommonBenefit = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnCopyExamsFromMain = new System.Windows.Forms.Button();
             this.dgvExams = new System.Windows.Forms.DataGridView();
             this.btnOpenExam = new System.Windows.Forms.Button();
             this.btnAddExam = new System.Windows.Forms.Button();
@@ -95,6 +96,7 @@
             this.label13 = new System.Windows.Forms.Label();
             this.dtpDateOfClose = new System.Windows.Forms.DateTimePicker();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.btnCopyInnerEntryInEntryFromParent = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
             this.dgvInnerEntryInEntry = new System.Windows.Forms.DataGridView();
@@ -118,7 +120,7 @@
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(466, 585);
+            this.btnClose.Location = new System.Drawing.Point(507, 585);
             // 
             // btnSaveChange
             // 
@@ -126,7 +128,7 @@
             // 
             // btnSaveAsNew
             // 
-            this.btnSaveAsNew.Location = new System.Drawing.Point(329, 584);
+            this.btnSaveAsNew.Location = new System.Drawing.Point(370, 584);
             // 
             // label2
             // 
@@ -232,7 +234,7 @@
             this.tcCard.Location = new System.Drawing.Point(12, 12);
             this.tcCard.Name = "tcCard";
             this.tcCard.SelectedIndex = 0;
-            this.tcCard.Size = new System.Drawing.Size(535, 567);
+            this.tcCard.Size = new System.Drawing.Size(582, 567);
             this.tcCard.TabIndex = 56;
             // 
             // tabPage1
@@ -241,7 +243,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(527, 541);
+            this.tabPage1.Size = new System.Drawing.Size(574, 541);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Основное";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -282,7 +284,7 @@
             this.gbEntry.Controls.Add(this.label12);
             this.gbEntry.Location = new System.Drawing.Point(6, 3);
             this.gbEntry.Name = "gbEntry";
-            this.gbEntry.Size = new System.Drawing.Size(515, 532);
+            this.gbEntry.Size = new System.Drawing.Size(556, 532);
             this.gbEntry.TabIndex = 56;
             this.gbEntry.TabStop = false;
             // 
@@ -304,7 +306,7 @@
             this.cbParentEntry.FormattingEnabled = true;
             this.cbParentEntry.Location = new System.Drawing.Point(17, 439);
             this.cbParentEntry.Name = "cbParentEntry";
-            this.cbParentEntry.Size = new System.Drawing.Size(491, 21);
+            this.cbParentEntry.Size = new System.Drawing.Size(532, 21);
             this.cbParentEntry.TabIndex = 84;
             // 
             // label16
@@ -325,7 +327,7 @@
             this.cbCompetitionGroup.FormattingEnabled = true;
             this.cbCompetitionGroup.Location = new System.Drawing.Point(18, 501);
             this.cbCompetitionGroup.Name = "cbCompetitionGroup";
-            this.cbCompetitionGroup.Size = new System.Drawing.Size(491, 21);
+            this.cbCompetitionGroup.Size = new System.Drawing.Size(532, 21);
             this.cbCompetitionGroup.TabIndex = 82;
             // 
             // cbAggregateGroup
@@ -334,7 +336,7 @@
             this.cbAggregateGroup.FormattingEnabled = true;
             this.cbAggregateGroup.Location = new System.Drawing.Point(139, 122);
             this.cbAggregateGroup.Name = "cbAggregateGroup";
-            this.cbAggregateGroup.Size = new System.Drawing.Size(370, 21);
+            this.cbAggregateGroup.Size = new System.Drawing.Size(410, 21);
             this.cbAggregateGroup.TabIndex = 81;
             this.cbAggregateGroup.SelectedIndexChanged += new System.EventHandler(this.cbAggregateGroup_SelectedIndexChanged);
             // 
@@ -433,7 +435,7 @@
             this.cbComission.FormattingEnabled = true;
             this.cbComission.Location = new System.Drawing.Point(18, 360);
             this.cbComission.Name = "cbComission";
-            this.cbComission.Size = new System.Drawing.Size(491, 21);
+            this.cbComission.Size = new System.Drawing.Size(530, 21);
             this.cbComission.TabIndex = 74;
             // 
             // label19
@@ -452,7 +454,7 @@
             this.cbProfile.FormattingEnabled = true;
             this.cbProfile.Location = new System.Drawing.Point(18, 240);
             this.cbProfile.Name = "cbProfile";
-            this.cbProfile.Size = new System.Drawing.Size(491, 21);
+            this.cbProfile.Size = new System.Drawing.Size(531, 21);
             this.cbProfile.TabIndex = 72;
             // 
             // cbObrazProgram
@@ -461,7 +463,7 @@
             this.cbObrazProgram.FormattingEnabled = true;
             this.cbObrazProgram.Location = new System.Drawing.Point(18, 200);
             this.cbObrazProgram.Name = "cbObrazProgram";
-            this.cbObrazProgram.Size = new System.Drawing.Size(491, 21);
+            this.cbObrazProgram.Size = new System.Drawing.Size(531, 21);
             this.cbObrazProgram.TabIndex = 71;
             this.cbObrazProgram.SelectedIndexChanged += new System.EventHandler(this.cbObrazProgram_SelectedIndexChanged);
             // 
@@ -471,7 +473,7 @@
             this.cbLicenseProgram.FormattingEnabled = true;
             this.cbLicenseProgram.Location = new System.Drawing.Point(18, 160);
             this.cbLicenseProgram.Name = "cbLicenseProgram";
-            this.cbLicenseProgram.Size = new System.Drawing.Size(491, 21);
+            this.cbLicenseProgram.Size = new System.Drawing.Size(531, 21);
             this.cbLicenseProgram.TabIndex = 70;
             this.cbLicenseProgram.SelectedIndexChanged += new System.EventHandler(this.cbLicenseProgram_SelectedIndexChanged);
             // 
@@ -481,7 +483,7 @@
             this.cbFaculty.FormattingEnabled = true;
             this.cbFaculty.Location = new System.Drawing.Point(17, 280);
             this.cbFaculty.Name = "cbFaculty";
-            this.cbFaculty.Size = new System.Drawing.Size(491, 21);
+            this.cbFaculty.Size = new System.Drawing.Size(531, 21);
             this.cbFaculty.TabIndex = 66;
             // 
             // cbStudyLevel
@@ -490,7 +492,7 @@
             this.cbStudyLevel.FormattingEnabled = true;
             this.cbStudyLevel.Location = new System.Drawing.Point(139, 90);
             this.cbStudyLevel.Name = "cbStudyLevel";
-            this.cbStudyLevel.Size = new System.Drawing.Size(370, 21);
+            this.cbStudyLevel.Size = new System.Drawing.Size(410, 21);
             this.cbStudyLevel.TabIndex = 65;
             this.cbStudyLevel.SelectedIndexChanged += new System.EventHandler(this.cbStudyLevel_SelectedIndexChanged);
             // 
@@ -545,7 +547,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(527, 541);
+            this.tabPage2.Size = new System.Drawing.Size(574, 541);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Экзамены и льготы";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -558,7 +560,7 @@
             this.groupBox5.Controls.Add(this.btnDeleteOlympResultToAdditionalMark);
             this.groupBox5.Location = new System.Drawing.Point(9, 348);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(512, 164);
+            this.groupBox5.Size = new System.Drawing.Size(553, 164);
             this.groupBox5.TabIndex = 88;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Бонусные баллы за олимпиаду";
@@ -575,16 +577,16 @@
             this.dgvOlympResultToAdditionalMark.Name = "dgvOlympResultToAdditionalMark";
             this.dgvOlympResultToAdditionalMark.ReadOnly = true;
             this.dgvOlympResultToAdditionalMark.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvOlympResultToAdditionalMark.Size = new System.Drawing.Size(409, 127);
+            this.dgvOlympResultToAdditionalMark.Size = new System.Drawing.Size(450, 127);
             this.dgvOlympResultToAdditionalMark.TabIndex = 36;
             this.dgvOlympResultToAdditionalMark.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvOlympResultToAdditionalMark_CellDoubleClick);
             // 
             // btnOpenOlympResultToAdditionalMark
             // 
             this.btnOpenOlympResultToAdditionalMark.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOpenOlympResultToAdditionalMark.Location = new System.Drawing.Point(431, 19);
+            this.btnOpenOlympResultToAdditionalMark.Location = new System.Drawing.Point(462, 19);
             this.btnOpenOlympResultToAdditionalMark.Name = "btnOpenOlympResultToAdditionalMark";
-            this.btnOpenOlympResultToAdditionalMark.Size = new System.Drawing.Size(75, 23);
+            this.btnOpenOlympResultToAdditionalMark.Size = new System.Drawing.Size(85, 23);
             this.btnOpenOlympResultToAdditionalMark.TabIndex = 38;
             this.btnOpenOlympResultToAdditionalMark.Text = "Открыть";
             this.btnOpenOlympResultToAdditionalMark.UseVisualStyleBackColor = true;
@@ -593,9 +595,9 @@
             // btnAddOlympResultToAdditionalMark
             // 
             this.btnAddOlympResultToAdditionalMark.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddOlympResultToAdditionalMark.Location = new System.Drawing.Point(431, 71);
+            this.btnAddOlympResultToAdditionalMark.Location = new System.Drawing.Point(462, 71);
             this.btnAddOlympResultToAdditionalMark.Name = "btnAddOlympResultToAdditionalMark";
-            this.btnAddOlympResultToAdditionalMark.Size = new System.Drawing.Size(75, 23);
+            this.btnAddOlympResultToAdditionalMark.Size = new System.Drawing.Size(85, 23);
             this.btnAddOlympResultToAdditionalMark.TabIndex = 37;
             this.btnAddOlympResultToAdditionalMark.Text = "Добавить";
             this.btnAddOlympResultToAdditionalMark.UseVisualStyleBackColor = true;
@@ -604,9 +606,9 @@
             // btnDeleteOlympResultToAdditionalMark
             // 
             this.btnDeleteOlympResultToAdditionalMark.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDeleteOlympResultToAdditionalMark.Location = new System.Drawing.Point(431, 100);
+            this.btnDeleteOlympResultToAdditionalMark.Location = new System.Drawing.Point(462, 100);
             this.btnDeleteOlympResultToAdditionalMark.Name = "btnDeleteOlympResultToAdditionalMark";
-            this.btnDeleteOlympResultToAdditionalMark.Size = new System.Drawing.Size(75, 23);
+            this.btnDeleteOlympResultToAdditionalMark.Size = new System.Drawing.Size(85, 23);
             this.btnDeleteOlympResultToAdditionalMark.TabIndex = 39;
             this.btnDeleteOlympResultToAdditionalMark.Text = "Удалить";
             this.btnDeleteOlympResultToAdditionalMark.UseVisualStyleBackColor = true;
@@ -620,7 +622,7 @@
             this.groupBox3.Controls.Add(this.btnDeleteOlympicsToCommonBenefit);
             this.groupBox3.Location = new System.Drawing.Point(6, 178);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(515, 164);
+            this.groupBox3.Size = new System.Drawing.Size(556, 164);
             this.groupBox3.TabIndex = 87;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Олимпиады для предоставления льготы";
@@ -637,16 +639,16 @@
             this.dgvOlympicsToCommonBenefit.Name = "dgvOlympicsToCommonBenefit";
             this.dgvOlympicsToCommonBenefit.ReadOnly = true;
             this.dgvOlympicsToCommonBenefit.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvOlympicsToCommonBenefit.Size = new System.Drawing.Size(412, 127);
+            this.dgvOlympicsToCommonBenefit.Size = new System.Drawing.Size(453, 127);
             this.dgvOlympicsToCommonBenefit.TabIndex = 36;
             this.dgvOlympicsToCommonBenefit.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvOlympicsToCommonBenefit_CellDoubleClick);
             // 
             // btnOpenOlympicsToCommonBenefit
             // 
             this.btnOpenOlympicsToCommonBenefit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOpenOlympicsToCommonBenefit.Location = new System.Drawing.Point(434, 19);
+            this.btnOpenOlympicsToCommonBenefit.Location = new System.Drawing.Point(465, 19);
             this.btnOpenOlympicsToCommonBenefit.Name = "btnOpenOlympicsToCommonBenefit";
-            this.btnOpenOlympicsToCommonBenefit.Size = new System.Drawing.Size(75, 23);
+            this.btnOpenOlympicsToCommonBenefit.Size = new System.Drawing.Size(85, 23);
             this.btnOpenOlympicsToCommonBenefit.TabIndex = 38;
             this.btnOpenOlympicsToCommonBenefit.Text = "Открыть";
             this.btnOpenOlympicsToCommonBenefit.UseVisualStyleBackColor = true;
@@ -655,9 +657,9 @@
             // btnAddOlympicsToCommonBenefit
             // 
             this.btnAddOlympicsToCommonBenefit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddOlympicsToCommonBenefit.Location = new System.Drawing.Point(434, 71);
+            this.btnAddOlympicsToCommonBenefit.Location = new System.Drawing.Point(465, 71);
             this.btnAddOlympicsToCommonBenefit.Name = "btnAddOlympicsToCommonBenefit";
-            this.btnAddOlympicsToCommonBenefit.Size = new System.Drawing.Size(75, 23);
+            this.btnAddOlympicsToCommonBenefit.Size = new System.Drawing.Size(85, 23);
             this.btnAddOlympicsToCommonBenefit.TabIndex = 37;
             this.btnAddOlympicsToCommonBenefit.Text = "Добавить";
             this.btnAddOlympicsToCommonBenefit.UseVisualStyleBackColor = true;
@@ -666,9 +668,9 @@
             // btnDeleteOlympicsToCommonBenefit
             // 
             this.btnDeleteOlympicsToCommonBenefit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDeleteOlympicsToCommonBenefit.Location = new System.Drawing.Point(434, 100);
+            this.btnDeleteOlympicsToCommonBenefit.Location = new System.Drawing.Point(465, 100);
             this.btnDeleteOlympicsToCommonBenefit.Name = "btnDeleteOlympicsToCommonBenefit";
-            this.btnDeleteOlympicsToCommonBenefit.Size = new System.Drawing.Size(75, 23);
+            this.btnDeleteOlympicsToCommonBenefit.Size = new System.Drawing.Size(85, 23);
             this.btnDeleteOlympicsToCommonBenefit.TabIndex = 39;
             this.btnDeleteOlympicsToCommonBenefit.Text = "Удалить";
             this.btnDeleteOlympicsToCommonBenefit.UseVisualStyleBackColor = true;
@@ -676,16 +678,28 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.btnCopyExamsFromMain);
             this.groupBox2.Controls.Add(this.dgvExams);
             this.groupBox2.Controls.Add(this.btnOpenExam);
             this.groupBox2.Controls.Add(this.btnAddExam);
             this.groupBox2.Controls.Add(this.btnDeleteExam);
             this.groupBox2.Location = new System.Drawing.Point(6, 6);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(515, 166);
+            this.groupBox2.Size = new System.Drawing.Size(556, 166);
             this.groupBox2.TabIndex = 86;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Экзамены";
+            // 
+            // btnCopyExamsFromMain
+            // 
+            this.btnCopyExamsFromMain.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCopyExamsFromMain.Location = new System.Drawing.Point(465, 126);
+            this.btnCopyExamsFromMain.Name = "btnCopyExamsFromMain";
+            this.btnCopyExamsFromMain.Size = new System.Drawing.Size(85, 23);
+            this.btnCopyExamsFromMain.TabIndex = 40;
+            this.btnCopyExamsFromMain.Text = "КопирИзОсн";
+            this.btnCopyExamsFromMain.UseVisualStyleBackColor = true;
+            this.btnCopyExamsFromMain.Click += new System.EventHandler(this.btnCopyExamsFromMain_Click);
             // 
             // dgvExams
             // 
@@ -699,16 +713,16 @@
             this.dgvExams.Name = "dgvExams";
             this.dgvExams.ReadOnly = true;
             this.dgvExams.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvExams.Size = new System.Drawing.Size(412, 130);
+            this.dgvExams.Size = new System.Drawing.Size(453, 130);
             this.dgvExams.TabIndex = 36;
             this.dgvExams.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvExams_CellDoubleClick);
             // 
             // btnOpenExam
             // 
             this.btnOpenExam.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOpenExam.Location = new System.Drawing.Point(434, 19);
+            this.btnOpenExam.Location = new System.Drawing.Point(465, 19);
             this.btnOpenExam.Name = "btnOpenExam";
-            this.btnOpenExam.Size = new System.Drawing.Size(75, 23);
+            this.btnOpenExam.Size = new System.Drawing.Size(85, 23);
             this.btnOpenExam.TabIndex = 38;
             this.btnOpenExam.Text = "Открыть";
             this.btnOpenExam.UseVisualStyleBackColor = true;
@@ -717,9 +731,9 @@
             // btnAddExam
             // 
             this.btnAddExam.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddExam.Location = new System.Drawing.Point(434, 71);
+            this.btnAddExam.Location = new System.Drawing.Point(465, 61);
             this.btnAddExam.Name = "btnAddExam";
-            this.btnAddExam.Size = new System.Drawing.Size(75, 23);
+            this.btnAddExam.Size = new System.Drawing.Size(85, 23);
             this.btnAddExam.TabIndex = 37;
             this.btnAddExam.Text = "Добавить";
             this.btnAddExam.UseVisualStyleBackColor = true;
@@ -728,9 +742,9 @@
             // btnDeleteExam
             // 
             this.btnDeleteExam.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDeleteExam.Location = new System.Drawing.Point(434, 100);
+            this.btnDeleteExam.Location = new System.Drawing.Point(465, 90);
             this.btnDeleteExam.Name = "btnDeleteExam";
-            this.btnDeleteExam.Size = new System.Drawing.Size(75, 23);
+            this.btnDeleteExam.Size = new System.Drawing.Size(85, 23);
             this.btnDeleteExam.TabIndex = 39;
             this.btnDeleteExam.Text = "Удалить";
             this.btnDeleteExam.UseVisualStyleBackColor = true;
@@ -742,7 +756,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(527, 541);
+            this.tabPage3.Size = new System.Drawing.Size(574, 541);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Даты проведения";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -759,7 +773,7 @@
             this.groupBox1.Controls.Add(this.dtpDateOfClose);
             this.groupBox1.Location = new System.Drawing.Point(6, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(409, 90);
+            this.groupBox1.Size = new System.Drawing.Size(519, 90);
             this.groupBox1.TabIndex = 67;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Основной приём";
@@ -794,7 +808,7 @@
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(211, 62);
+            this.label22.Location = new System.Drawing.Point(260, 62);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(160, 13);
             this.label22.TabIndex = 67;
@@ -812,7 +826,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(195, 23);
+            this.label14.Location = new System.Drawing.Point(244, 23);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(194, 13);
             this.label14.TabIndex = 66;
@@ -831,29 +845,40 @@
             // 
             this.dtpDateOfClose.CustomFormat = "dd.MM.yyyy HH:mm";
             this.dtpDateOfClose.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpDateOfClose.Location = new System.Drawing.Point(198, 39);
+            this.dtpDateOfClose.Location = new System.Drawing.Point(247, 39);
             this.dtpDateOfClose.Name = "dtpDateOfClose";
             this.dtpDateOfClose.Size = new System.Drawing.Size(173, 20);
             this.dtpDateOfClose.TabIndex = 64;
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.btnCopyInnerEntryInEntryFromParent);
             this.tabPage4.Controls.Add(this.btnDelete);
             this.tabPage4.Controls.Add(this.btnAdd);
             this.tabPage4.Controls.Add(this.dgvInnerEntryInEntry);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(527, 541);
+            this.tabPage4.Size = new System.Drawing.Size(574, 541);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Внутр. подконкурсы";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // btnCopyInnerEntryInEntryFromParent
+            // 
+            this.btnCopyInnerEntryInEntryFromParent.Location = new System.Drawing.Point(87, 264);
+            this.btnCopyInnerEntryInEntryFromParent.Name = "btnCopyInnerEntryInEntryFromParent";
+            this.btnCopyInnerEntryInEntryFromParent.Size = new System.Drawing.Size(104, 38);
+            this.btnCopyInnerEntryInEntryFromParent.TabIndex = 3;
+            this.btnCopyInnerEntryInEntryFromParent.Text = "Скопировать из родительского";
+            this.btnCopyInnerEntryInEntryFromParent.UseVisualStyleBackColor = true;
+            this.btnCopyInnerEntryInEntryFromParent.Click += new System.EventHandler(this.btnCopyInnerEntryInEntryFromParent_Click);
+            // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(446, 264);
+            this.btnDelete.Location = new System.Drawing.Point(491, 264);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(75, 23);
+            this.btnDelete.Size = new System.Drawing.Size(77, 38);
             this.btnDelete.TabIndex = 2;
             this.btnDelete.Text = "Удалить";
             this.btnDelete.UseVisualStyleBackColor = true;
@@ -863,7 +888,7 @@
             // 
             this.btnAdd.Location = new System.Drawing.Point(6, 264);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(75, 23);
+            this.btnAdd.Size = new System.Drawing.Size(75, 38);
             this.btnAdd.TabIndex = 1;
             this.btnAdd.Text = "Добавить";
             this.btnAdd.UseVisualStyleBackColor = true;
@@ -877,7 +902,7 @@
             this.dgvInnerEntryInEntry.Location = new System.Drawing.Point(6, 6);
             this.dgvInnerEntryInEntry.Name = "dgvInnerEntryInEntry";
             this.dgvInnerEntryInEntry.ReadOnly = true;
-            this.dgvInnerEntryInEntry.Size = new System.Drawing.Size(515, 252);
+            this.dgvInnerEntryInEntry.Size = new System.Drawing.Size(562, 252);
             this.dgvInnerEntryInEntry.TabIndex = 0;
             this.dgvInnerEntryInEntry.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvObrazProgramInEntry_CellDoubleClick);
             // 
@@ -885,7 +910,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(559, 619);
+            this.ClientSize = new System.Drawing.Size(600, 619);
             this.Controls.Add(this.tcCard);
             this.Name = "CardEntry";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -989,5 +1014,7 @@
         private System.Windows.Forms.Button btnDeleteOlympResultToAdditionalMark;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.ComboBox cbParentEntry;
+        private System.Windows.Forms.Button btnCopyExamsFromMain;
+        private System.Windows.Forms.Button btnCopyInnerEntryInEntryFromParent;
     }
 }

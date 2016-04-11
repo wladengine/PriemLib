@@ -29,6 +29,7 @@ namespace PriemLib
         private bool lockHasOrigin;
         private int? abitBarcode;
         private int? persBarcode;
+        private LoadFromInet load;
 
         // конструктор нового заявления для человека
         public CardAbit(Guid? personId)
@@ -86,6 +87,8 @@ namespace PriemLib
         {
             base.ExtraInit();
             _tableName = "ed.Abiturient";
+
+            load = new LoadFromInet();
 
             _drh = new DataRefreshHandler(UpdateFIO);
             MainClass.AddHandler(_drh);
@@ -1499,7 +1502,7 @@ namespace PriemLib
                     List<int> lstCompetitionIdsForOriginals = context.Competition.Where(x => x.NeedOriginals).Select(x => x.Id).ToList();
                     var OrigApps = context.Abiturient.Where(x => x.PersonId == _personId && x.HasOriginals && !x.BackDoc);
                     bool HasOrigs = OrigApps.Count() > 0;
-                    if (!HasOriginals && (CompetitionId.HasValue && lstCompetitionIdsForOriginals.Contains(CompetitionId.Value)) && !HasOrigs && !BackDoc)
+                    if (!HasOriginals && (CompetitionId.HasValue && lstCompetitionIdsForOriginals.Contains(CompetitionId.Value)) && !HasOrigs && !BackDoc && MainClass.dbType != PriemType.PriemAG)
                     {
                         WinFormsServ.Error("Для данного типа конкурса требуется обязательная подача оригиналов документов об образовании");
                         return false;
@@ -1614,8 +1617,13 @@ namespace PriemLib
             if (StudyBasisId == 2)
                 return "3";
             // проверка на олимпиады 
+            List<int?> lstOlympsTmp = new List<int?>() { 1, 2, 3 };
 
-            int cntOl = context.Database.SqlQuery<int>(string.Format("SELECT Count(Olympiads.Id) FROM Olympiads WHERE Olympiads.AbiturientId = '{0}' AND ((Olympiads.OlympLevelId = 2 AND Olympiads.OlympValueId IN (1,2,3)) OR Olympiads.OlympLevelId = 1)", _Id)).FirstOrDefault();
+            int cntOl = context.Olympiads
+                .Where(x => x.AbiturientId == GuidId && (x.OlympLevelId == 1 || (x.OlympLevelId == 2 && lstOlympsTmp.Contains(x.OlympValueId))))
+                .Count();
+                //.Database.SqlQuery<int>(string.Format("SELECT Count(Olympiads.Id) FROM Olympiads WHERE Olympiads.AbiturientId = '{0}' 
+                //AND ((Olympiads.OlympLevelId = 2 AND Olympiads.OlympValueId IN (1,2,3)) OR Olympiads.OlympLevelId = 1)", _Id)).FirstOrDefault();
             if (cntOl > 0)
                 return "1";
 
@@ -1713,7 +1721,8 @@ namespace PriemLib
             if (Barcode.HasValue)
             {
                 string query = String.Format("update dbo.Application set IsApprovedByComission = {0}, ApproverName= '{2}'  where Barcode = '{1}'", isApproved ? "1" : "0", Barcode, MainClass.GetUserName());
-                MainClass.BdcOnlineReadWrite.ExecuteQuery(query);
+                load.BDCInet.ExecuteQuery(query);
+                //MainClass.BdcOnlineReadWrite.ExecuteQuery(query);
             }
         }
         protected void UpdateSelectedExams(PriemEntities context, Guid id)

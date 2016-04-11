@@ -536,7 +536,12 @@ DateOfStart, DateOfClose, ComissionId, IsForeign, IsCrimea) VALUES
 
             var Entry = context.Entry.Where(x => x.Id == GuidId).FirstOrDefault();
             if (Entry != null)
+            {
                 Entry.ParentEntryId = ParentEntryId;
+                Entry.LicenseProgramId = LicenseProgramId.Value;
+                Entry.ObrazProgramId = ObrazProgramId.Value;
+                Entry.ProfileId = ProfileId.Value;
+            }
 
             context.SaveChanges();
 
@@ -556,7 +561,10 @@ SET
     CampaignYear=@CampaignYear,
     ComissionId=@ComissionId,
     IsForeign=@IsForeign,
-    IsCrimea=@IsCrimea
+    IsCrimea=@IsCrimea,
+    LicenseProgramId=@LicenseProgramId,
+    ObrazProgramId=@ObrazProgramId,
+    ProfileId=@ProfileId
 WHERE Id=@Id";
                 SortedList<string, object> sl = new SortedList<string, object>();
                 sl.Add("@Id", GuidId.Value);
@@ -576,6 +584,10 @@ WHERE Id=@Id";
                 sl.AddVal("@ComissionId", ComissionId);
                 sl.AddVal("@IsForeign", IsForeign);
                 sl.AddVal("@IsCrimea", IsCrimea);
+
+                sl.AddVal("@LicenseProgramId", LicenseProgramId);
+                sl.AddVal("@ObrazProgramId", ObrazProgramId);
+                sl.AddVal("@ProfileId", ProfileId);
 
                 MainClass.BdcOnlineReadWrite.ExecuteQuery(query, sl);
             }
@@ -797,7 +809,16 @@ WHERE Id=@Id";
                 epError.SetError(cbObrazProgram, "не указана обр. программа");
                 bRet = false;
             }
-
+            if (!FacultyId.HasValue)
+            {
+                epError.SetError(cbFaculty, "не указано подразделение!");
+                bRet = false;
+            }
+            if (!ProfileId.HasValue)
+            {
+                epError.SetError(cbProfile, "не указан профиль!");
+                bRet = false;
+            }
             return bRet;
         }
 
@@ -1032,5 +1053,190 @@ WHERE Id=@Id";
             crd.Show();
         }
         #endregion
+
+        private void btnCopyExamsFromMain_Click(object sender, EventArgs e)
+        {
+            using (PriemEntities context = new PriemEntities())
+            {
+                var CurrEnt = context.Entry.Where(x => x.Id == GuidId).FirstOrDefault();
+                if (CurrEnt == null)
+                {
+                    WinFormsServ.Error("Не удаётся найти в базе текущий конкурс. Сохраните карточку и повторите запрос снова");
+                    return;
+                }
+
+                Guid? ParentEntryId = context.extEntry
+                    .Where(x => x.Id != this.GuidId
+                        && !x.IsCrimea && !x.IsForeign
+                        && x.LicenseProgramId == CurrEnt.LicenseProgramId
+                        && x.ObrazProgramId == CurrEnt.ObrazProgramId
+                        && x.ProfileId == CurrEnt.ProfileId
+                        && x.StudyFormId == CurrEnt.StudyFormId
+                        && x.StudyBasisId == CurrEnt.StudyBasisId
+                        && x.IsCrimea == IsCrimea
+                        && x.IsForeign == IsForeign
+                        && x.IsSecond == IsSecond
+                        && x.IsParallel == IsParallel
+                        && x.IsReduced == IsReduced
+                        )
+                    .Select(x => (Guid?)x.Id).FirstOrDefault();
+
+                if (ParentEntryId == null)
+                {
+                    WinFormsServ.Error("Не удаётся найти в базе аналог для текущего конкурса");
+                    return;
+                }
+
+                var Exams = context.ExamInEntryBlockUnit
+                    .Where(x => x.ExamInEntryBlock.EntryId == ParentEntryId)
+                    .Select(x => new {
+                        UnitId = x.Id,
+                        BlockId = x.ExamInEntryBlockId,
+                        ParentBlockId = x.ExamInEntryBlock.ParentExamInEntryBlockId,
+                        x.ExamId,
+                        x.EgeMin,
+                        SortVal = x.ExamInEntryBlock.ParentExamInEntryBlockId == null ? 0 : 1,
+                        x.ExamInEntryBlock.OrderNumber,
+                        x.ExamInEntryBlock.Name
+                    })
+                    .ToList()
+                    .OrderBy(x => x.SortVal).ThenBy(x => x.OrderNumber)
+                    .ToList();
+
+                Dictionary<Guid?, Guid?> dicExamBlock_OldToNew = new Dictionary<Guid?, Guid?>();
+
+                var lstBlocks = Exams.Select(x => new { x.BlockId, x.Name, x.OrderNumber, x.ParentBlockId }).Distinct().ToList();
+                foreach (var ExBlock in lstBlocks)
+                {
+                    //Проверяем, нет ли уже такого блока.
+                    int cnt = context.ExamInEntryBlock.Where(x => x.EntryId == CurrEnt.Id && x.Name == ExBlock.Name && x.OrderNumber == ExBlock.OrderNumber).Count();
+
+                    if (cnt > 0)
+                        continue;
+                    
+                    //вставка блока
+                    Guid entId = Guid.NewGuid();
+
+                    dicExamBlock_OldToNew.Add(ExBlock.BlockId, entId);
+
+                    Guid? ParentExamInEntryId = null;
+                    if (ExBlock.ParentBlockId.HasValue)
+                        dicExamBlock_OldToNew.TryGetValue(ExBlock.ParentBlockId, out ParentExamInEntryId);
+
+                    string queryBlock = @" INSERT INTO dbo.ExamInEntryBlock ([Id], [EntryId], [Name]) VALUES (@Id, @EntryId, @Name)";
+                    string queryBlockUnit = @" INSERT INTO dbo.ExamInEntryBlockUnit ([Id], [ExamInEntryBlockId], [ExamId], EgeMin) 
+                                        VALUES (@Id, @ExamInEntryBlockId, @ExamId, @EgeMin)";
+
+                    context.ExamInEntryBlock.Add(new ExamInEntryBlock()
+                    {
+                        Id = entId,
+                        EntryId = CurrEnt.Id,
+                        Name = ExBlock.Name,
+                        IsCrimea = IsCrimea,
+                        IsGosLine = IsForeign,
+                        OrderNumber = ExBlock.OrderNumber,
+                        ParentExamInEntryBlockId = ParentExamInEntryId,
+                    });
+
+                    SortedList<string, object> sl = new SortedList<string, object>();
+                    sl.Add("@Id", entId);
+                    sl.Add("@EntryId", CurrEnt.Id);
+                    sl.Add("@Name", ExBlock.Name);
+                    MainClass.BdcOnlineReadWrite.ExecuteQuery(queryBlock, sl);
+
+                    var lstExams = Exams.Where(x => x.BlockId == ExBlock.BlockId).Select(x => new { x.ExamId, x.EgeMin }).Distinct().ToList();
+                    foreach (var ExBlockUnit in lstExams)
+                    {
+                        Guid unitId = Guid.NewGuid();
+                        //вставка юнитов
+                        context.ExamInEntryBlockUnit.Add(new ExamInEntryBlockUnit()
+                        {
+                            Id = unitId,
+                            ExamId = ExBlockUnit.ExamId,
+                            EgeMin = ExBlockUnit.EgeMin,
+                            ExamInEntryBlockId = entId,
+                        });
+
+                        SortedList<string, object> _sl = new SortedList<string, object>();
+                        _sl.Add("@Id", unitId);
+                        _sl.Add("@ExamInEntryBlockId", entId);
+                        _sl.Add("@ExamId", ExBlockUnit.ExamId);
+                        if (ExBlockUnit.EgeMin.HasValue)
+                            _sl.Add("@EgeMin", ExBlockUnit.EgeMin);
+                        else
+                            _sl.Add("@EgeMin", DBNull.Value);
+
+                        MainClass.BdcOnlineReadWrite.ExecuteQuery(queryBlockUnit, _sl);
+                    }
+                }
+
+                UpdateExams();
+            }
+        }
+
+        private void btnCopyInnerEntryInEntryFromParent_Click(object sender, EventArgs e)
+        {
+            using (PriemEntities context = new PriemEntities())
+            {
+                var CurrEnt = context.Entry.Where(x => x.Id == GuidId).FirstOrDefault();
+                if (CurrEnt == null)
+                {
+                    WinFormsServ.Error("Не удаётся найти в базе текущий конкурс. Сохраните карточку и повторите запрос снова");
+                    return;
+                }
+
+                Guid? ParentEntryId = context.extEntry
+                    .Where(x => x.Id != this.GuidId
+                        && !x.IsCrimea && !x.IsForeign
+                        && x.LicenseProgramId == CurrEnt.LicenseProgramId
+                        && x.ObrazProgramId == CurrEnt.ObrazProgramId
+                        && x.ProfileId == CurrEnt.ProfileId
+                        && x.StudyFormId == CurrEnt.StudyFormId
+                        && x.IsCrimea == IsCrimea
+                        && x.IsForeign == IsForeign
+                        && x.IsSecond == IsSecond
+                        && x.IsParallel == IsParallel
+                        && x.IsReduced == IsReduced
+                        && x.StudyBasisId != CurrEnt.StudyBasisId)
+                    .Select(x => (Guid?)x.Id).FirstOrDefault();
+
+                if (ParentEntryId == null)
+                {
+                    WinFormsServ.Error("Не удаётся найти в базе аналог для текущего конкурса");
+                    return;
+                }
+
+                var lstInnerEnts = context.InnerEntryInEntry
+                    .Where(x => x.EntryId == ParentEntryId)
+                    .Select(x => new
+                    {
+                        x.ObrazProgramId,
+                        x.ProfileId,
+                        x.KCP,
+                    }).ToList();
+
+                Dictionary<Guid?, Guid?> dicInnerEntInEnt_OldToNew = new Dictionary<Guid?, Guid?>();
+
+                foreach (var vInnEnt in lstInnerEnts)
+                {
+                    int cnt = context.InnerEntryInEntry
+                        .Where(x => x.EntryId == GuidId && x.ObrazProgramId == vInnEnt.ObrazProgramId && x.ProfileId == vInnEnt.ProfileId)
+                        .Count();
+
+                    if (cnt == 0)
+                    {
+                        var zz = new InnerEntryInEntry();
+                        zz.Id = Guid.NewGuid();
+                        zz.EntryId = GuidId.Value;
+                        zz.ObrazProgramId = vInnEnt.ObrazProgramId;
+                        zz.ProfileId = vInnEnt.ProfileId;
+                        zz.KCP = vInnEnt.KCP;
+                        context.InnerEntryInEntry.Add(zz);
+
+                        context.SaveChanges();
+                    }
+                }
+            }
+        }
     }
 }
