@@ -1172,7 +1172,7 @@ namespace PriemLib
             else
                 epErrorInput.Clear();
 
-            if (gbAtt.Visible && AttestatNum.Length <= 0)
+            if (gbAtt.Visible && AttestatNum.Length <= 0 && MainClass.dbType != PriemType.PriemAG)
             {
                 epErrorInput.SetError(tbAttestatNum, "Отсутствует номер аттестата абитуриента");
                 tabCard.SelectedIndex = 2;

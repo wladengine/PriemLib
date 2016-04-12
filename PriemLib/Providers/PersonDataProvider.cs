@@ -113,8 +113,9 @@ namespace PriemLib
                             ED.SchoolNum, ED.SchoolExitYear, ED.SchoolAVG, ED.CountryEducId, ED.RegionEducId, ED.IsEqual,
                             ED.AttestatSeries, ED.AttestatNum, ED.DiplomSeries, ED.DiplomNum, ED.HighEducation,
                             ED.HEProfession, ED.HEQualification, ED.HEEntryYear, ED.HEExitYear, ED.HEStudyFormId, ED.HEWork, idParam);
-                        context.Person_EducationInfo_SchoolClass_update(ED.SchoolExitClassId, ((int)idParam.Value));
                     }
+
+                    context.Person_EducationInfo_SchoolClass_update(ED.SchoolExitClassId, ((int)idParam.Value));
                 }
                 else
                 {
@@ -131,8 +132,9 @@ namespace PriemLib
                             ED.SchoolNum, ED.SchoolExitYear, ED.SchoolAVG, ED.CountryEducId, ED.RegionEducId, ED.IsEqual,
                             ED.AttestatSeries, ED.AttestatNum, ED.DiplomSeries, ED.DiplomNum, ED.HighEducation,
                             ED.HEProfession, ED.HEQualification, ED.HEEntryYear, ED.HEExitYear, ED.HEStudyFormId, ED.HEWork, ED.Id);
-                        context.Person_EducationInfo_SchoolClass_update(ED.SchoolExitClassId, ED.Id);
                     }
+
+                    context.Person_EducationInfo_SchoolClass_update(ED.SchoolExitClassId, ED.Id);
                 }
             }
         }

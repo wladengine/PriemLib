@@ -608,70 +608,33 @@ WHERE Id=@Id";
         {
             using (PriemEntities context = new PriemEntities())
             {
-                /*
-                var query = (from exEntry in context.extExamInEntry                             
-                             where exEntry.EntryId == GuidId
-                             orderby exEntry.IsProfil descending, exEntry.ExamName
-                             select new 
-                             { 
-                                 exEntry.Id, 
-                                 exEntry.OrderNumber,
-                                 Name = exEntry.ExamName,
-                                 IsProfil = exEntry.IsProfil ? "да" : "нет",
-                                 exEntry.EgeMin,
-                             }).ToList().OrderBy(x => x.OrderNumber).ToList();
-
-                dgvExams.DataSource = query;
-                dgvExams.Columns["Id"].Visible = false;
-
-                dgvExams.Columns["Name"].HeaderText = "Название";
-                dgvExams.Columns["Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill; 
-                dgvExams.Columns["IsProfil"].HeaderText = "Профильный"; 
-                dgvExams.Columns["EgeMin"].HeaderText = "Мин. ЕГЭ";
-                dgvExams.Columns["OrderNumber"].HeaderText = "№";
-                dgvExams.Columns["OrderNumber"].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
-                 * */
                 var query = (from block in context.ExamInEntryBlock
                              join unit in context.ExamInEntryBlockUnit on block.Id equals unit.ExamInEntryBlockId
-                             //join ex in context.Exam on unit.ExamId equals ex.Id
-                             //join exname in context.ExamName on ex.ExamNameId equals exname.Id
                              where block.EntryId == GuidId
                              orderby 
                              block.OrderNumber, 
-                             block.IsProfil descending
-                             //, exname.Name
+                             block.IsProfil descending,
+                             block.Name
                              select new
                              {
                                  block.Id,
                                  block.OrderNumber,
                                  BlockName = block.Name,
-                                 //Name = exname.Name,
                                  IsProfil = block.IsProfil ? "да" : "нет",
-                                // unit.EgeMin,
                              }).ToList().OrderBy(x => x.OrderNumber).Distinct().ToList();
                 dgvExams.DataSource = query;
                 dgvExams.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                 dgvExams.Columns["Id"].Visible = false;
                 dgvExams.Columns["BlockName"].HeaderText = "Название блока";
-                //dgvExams.Columns["Name"].HeaderText = "Название";
-                //dgvExams.Columns["Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 dgvExams.Columns["IsProfil"].HeaderText = "Профильный";
-                //dgvExams.Columns["EgeMin"].HeaderText = "Мин. ЕГЭ";
                 dgvExams.Columns["OrderNumber"].HeaderText = "№";
                 dgvExams.Columns["OrderNumber"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
                 dgvExams.Columns["IsProfil"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-               //dgvExams.Columns["EgeMin"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             }
         }
 
         private void OpenCardExam(Guid? entryId, string id, bool isForModified)
         {
-            /*
-            CardExamInEntry crd = new CardExamInEntry(entryId, id, isForModified);
-            crd.ToUpdateList += new UpdateListHandler(UpdateExams);
-            crd.Show();
-             * */
-
             CardExamInEntryBlock crd = new CardExamInEntryBlock(entryId, id, isForModified);
             crd.ToUpdateList += new UpdateListHandler(UpdateExams);
             crd.Show();
@@ -1115,9 +1078,9 @@ WHERE Id=@Id";
                         continue;
                     
                     //вставка блока
-                    Guid entId = Guid.NewGuid();
+                    Guid gExBlockId = Guid.NewGuid();
 
-                    dicExamBlock_OldToNew.Add(ExBlock.BlockId, entId);
+                    dicExamBlock_OldToNew.Add(ExBlock.BlockId, gExBlockId);
 
                     Guid? ParentExamInEntryId = null;
                     if (ExBlock.ParentBlockId.HasValue)
@@ -1129,7 +1092,7 @@ WHERE Id=@Id";
 
                     context.ExamInEntryBlock.Add(new ExamInEntryBlock()
                     {
-                        Id = entId,
+                        Id = gExBlockId,
                         EntryId = CurrEnt.Id,
                         Name = ExBlock.Name,
                         IsCrimea = IsCrimea,
@@ -1139,7 +1102,7 @@ WHERE Id=@Id";
                     });
 
                     SortedList<string, object> sl = new SortedList<string, object>();
-                    sl.Add("@Id", entId);
+                    sl.Add("@Id", gExBlockId);
                     sl.Add("@EntryId", CurrEnt.Id);
                     sl.Add("@Name", ExBlock.Name);
                     MainClass.BdcOnlineReadWrite.ExecuteQuery(queryBlock, sl);
@@ -1147,19 +1110,19 @@ WHERE Id=@Id";
                     var lstExams = Exams.Where(x => x.BlockId == ExBlock.BlockId).Select(x => new { x.ExamId, x.EgeMin }).Distinct().ToList();
                     foreach (var ExBlockUnit in lstExams)
                     {
-                        Guid unitId = Guid.NewGuid();
+                        Guid gUnitId = Guid.NewGuid();
                         //вставка юнитов
                         context.ExamInEntryBlockUnit.Add(new ExamInEntryBlockUnit()
                         {
-                            Id = unitId,
+                            Id = gUnitId,
                             ExamId = ExBlockUnit.ExamId,
                             EgeMin = ExBlockUnit.EgeMin,
-                            ExamInEntryBlockId = entId,
+                            ExamInEntryBlockId = gExBlockId,
                         });
 
                         SortedList<string, object> _sl = new SortedList<string, object>();
-                        _sl.Add("@Id", unitId);
-                        _sl.Add("@ExamInEntryBlockId", entId);
+                        _sl.Add("@Id", gUnitId);
+                        _sl.Add("@ExamInEntryBlockId", gExBlockId);
                         _sl.Add("@ExamId", ExBlockUnit.ExamId);
                         if (ExBlockUnit.EgeMin.HasValue)
                             _sl.Add("@EgeMin", ExBlockUnit.EgeMin);

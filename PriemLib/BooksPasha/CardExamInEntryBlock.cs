@@ -127,9 +127,11 @@ namespace PriemLib
                             {
                                 Id = ex.Id,
                                 Name = ex.Name,
+                                Ord = ex.OrderNumber
                             }).Distinct()).ToList()
+                          .OrderBy(x => x.Ord)
+                          .ThenBy(x => x.Name)
                           .Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name))
-                          .OrderBy(x => x.Value)
                           .ToList();
                     ComboServ.FillCombo(cbParentExamInEntry, lst, true, false);
                 }
