@@ -31,7 +31,6 @@ namespace PriemLib
                 return h; 
             }            
         }
-
       
         private void InitControls()
         {

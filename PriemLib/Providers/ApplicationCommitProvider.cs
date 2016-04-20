@@ -115,8 +115,12 @@ namespace PriemLib
 
                         context.SaveChanges();
                     }
-                    if (Comp.lstExamInEntryBlock.Count >0)
+
+                    if (Comp.lstExamInEntryBlock.Count > 0)
                     {
+                        var lstExams = context.AbiturientSelectedExam.Where(x => x.ApplicationId == ApplicationId);
+                        context.AbiturientSelectedExam.RemoveRange(lstExams);
+
                         foreach (var Block in Comp.lstExamInEntryBlock)
                         {
                             if (Block.SelectedUnitId != Guid.Empty)
@@ -126,6 +130,7 @@ namespace PriemLib
                                     ExamInEntryBlockUnitId = Block.SelectedUnitId,
                                 });
                         }
+
                         context.SaveChanges();
                     }
                 }

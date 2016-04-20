@@ -27,7 +27,7 @@ namespace PriemLib
         public static bool IsReadOnly()
         {
             return IsRoleMember("readOnly");
-        }       
+        }
 
         public static bool IsFaculty()
         {

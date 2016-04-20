@@ -196,13 +196,11 @@ GetStudyLevelGroupIdFromStudyLevelId();
             else
                 return HelpClass.GetComboListByQuery(string.Format("SELECT CONVERT(varchar(100), Id) AS Id, Name FROM ed.StudyBasis WHERE Id = {0} ORDER BY Name", studyBasisId));
         }
-
         protected virtual List<KeyValuePair<string, string>> GetSourceStudyForm()
         {
             return HelpClass.GetComboListByQuery(string.Format(@"SELECT DISTINCT CONVERT(varchar(100), StudyFormId) AS Id, StudyFormName AS Name 
 FROM ed.qEntry WHERE StudyLevelGroupId = {0} AND FacultyId = {1} ORDER BY Name", iStudyLevelGroupId, facultyId));
         }
-
         protected virtual List<KeyValuePair<string, string>> GetSourceObrazProgram()
         {
             using (PriemEntities context = new PriemEntities())
@@ -222,6 +220,7 @@ FROM ed.qEntry WHERE StudyLevelGroupId = {0} AND FacultyId = {1} ORDER BY Name",
                 return lst;
             }
         }
+        
         private void FillObrazProgram()
         {
             ComboServ.FillCombo(cbObrazProgram, GetSourceObrazProgram(), false, true);
