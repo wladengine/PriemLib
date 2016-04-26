@@ -115,6 +115,9 @@
             this.dgvEducationDocuments = new System.Windows.Forms.DataGridView();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.gbSchool = new System.Windows.Forms.GroupBox();
+            this.pnExitClass = new System.Windows.Forms.Panel();
+            this.cbExitClass = new System.Windows.Forms.ComboBox();
+            this.label36 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.cbCountryEduc = new System.Windows.Forms.ComboBox();
             this.cbRegionEduc = new System.Windows.Forms.ComboBox();
@@ -163,14 +166,15 @@
             this.chbEgeInSpbgu = new System.Windows.Forms.CheckBox();
             this.dgvEGE = new System.Windows.Forms.DataGridView();
             this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.tbTRKICertificateNumber = new System.Windows.Forms.TextBox();
-            this.chbHasTRKI = new System.Windows.Forms.CheckBox();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
             this.cbLanguage = new System.Windows.Forms.ComboBox();
-            this.label28 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.chbStartEnglish = new System.Windows.Forms.CheckBox();
             this.tbEnglishMark = new System.Windows.Forms.TextBox();
             this.label68 = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
+            this.tabPage6 = new System.Windows.Forms.TabPage();
             this.gbPrivileges = new System.Windows.Forms.GroupBox();
             this.chbExtPoss = new System.Windows.Forms.CheckBox();
             this.chbRebSir = new System.Windows.Forms.CheckBox();
@@ -219,9 +223,7 @@
             this.lblHasMotivationLetter = new System.Windows.Forms.Label();
             this.lblHasEssay = new System.Windows.Forms.Label();
             this.lblBarcode = new System.Windows.Forms.Label();
-            this.pnExitClass = new System.Windows.Forms.Panel();
-            this.cbExitClass = new System.Windows.Forms.ComboBox();
-            this.label36 = new System.Windows.Forms.Label();
+            this.dgvCertificates = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.epError)).BeginInit();
             this.tabCard.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -234,6 +236,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvEducationDocuments)).BeginInit();
             this.groupBox6.SuspendLayout();
             this.gbSchool.SuspendLayout();
+            this.pnExitClass.SuspendLayout();
             this.gbFinishStudy.SuspendLayout();
             this.gbEduc.SuspendLayout();
             this.gbAtt.SuspendLayout();
@@ -241,7 +244,10 @@
             this.tpEge.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEGE)).BeginInit();
             this.tabPage5.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.tabPage4.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.tabPage6.SuspendLayout();
             this.gbPrivileges.SuspendLayout();
             this.gbMotivateText.SuspendLayout();
             this.gbPersonInfo.SuspendLayout();
@@ -255,7 +261,7 @@
             this.tpApplication.SuspendLayout();
             this.groupBox7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvApplications)).BeginInit();
-            this.pnExitClass.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCertificates)).BeginInit();
             this.SuspendLayout();
             // 
             // btnClose
@@ -1165,6 +1171,33 @@
             this.gbSchool.TabStop = false;
             this.gbSchool.Text = "Основное образование";
             // 
+            // pnExitClass
+            // 
+            this.pnExitClass.Controls.Add(this.cbExitClass);
+            this.pnExitClass.Controls.Add(this.label36);
+            this.pnExitClass.Location = new System.Drawing.Point(508, 71);
+            this.pnExitClass.Name = "pnExitClass";
+            this.pnExitClass.Size = new System.Drawing.Size(97, 57);
+            this.pnExitClass.TabIndex = 121;
+            // 
+            // cbExitClass
+            // 
+            this.cbExitClass.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbExitClass.FormattingEnabled = true;
+            this.cbExitClass.Location = new System.Drawing.Point(4, 28);
+            this.cbExitClass.Name = "cbExitClass";
+            this.cbExitClass.Size = new System.Drawing.Size(90, 21);
+            this.cbExitClass.TabIndex = 119;
+            // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Location = new System.Drawing.Point(31, 9);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(38, 13);
+            this.label36.TabIndex = 118;
+            this.label36.Text = "Класс";
+            // 
             // label20
             // 
             this.label20.AutoSize = true;
@@ -1647,11 +1680,7 @@
             // 
             // tabPage5
             // 
-            this.tabPage5.Controls.Add(this.tbTRKICertificateNumber);
-            this.tabPage5.Controls.Add(this.chbHasTRKI);
-            this.tabPage5.Controls.Add(this.cbLanguage);
-            this.tabPage5.Controls.Add(this.label28);
-            this.tabPage5.Controls.Add(this.groupBox3);
+            this.tabPage5.Controls.Add(this.tabControl1);
             this.tabPage5.Controls.Add(this.gbPrivileges);
             this.tabPage5.Controls.Add(this.gbMotivateText);
             this.tabPage5.Controls.Add(this.gbPersonInfo);
@@ -1663,24 +1692,28 @@
             this.tabPage5.Text = "Льготы и доп. информация";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
-            // tbTRKICertificateNumber
+            // tabControl1
             // 
-            this.tbTRKICertificateNumber.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbTRKICertificateNumber.Location = new System.Drawing.Point(453, 115);
-            this.tbTRKICertificateNumber.MaxLength = 4;
-            this.tbTRKICertificateNumber.Name = "tbTRKICertificateNumber";
-            this.tbTRKICertificateNumber.Size = new System.Drawing.Size(121, 20);
-            this.tbTRKICertificateNumber.TabIndex = 124;
+            this.tabControl1.Controls.Add(this.tabPage4);
+            this.tabControl1.Controls.Add(this.tabPage6);
+            this.tabControl1.Location = new System.Drawing.Point(269, 12);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(372, 137);
+            this.tabControl1.TabIndex = 123;
             // 
-            // chbHasTRKI
+            // tabPage4
             // 
-            this.chbHasTRKI.Location = new System.Drawing.Point(453, 91);
-            this.chbHasTRKI.Name = "chbHasTRKI";
-            this.chbHasTRKI.Size = new System.Drawing.Size(121, 18);
-            this.chbHasTRKI.TabIndex = 123;
-            this.chbHasTRKI.Text = "Сертификат ТРКИ";
-            this.chbHasTRKI.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.chbHasTRKI.UseVisualStyleBackColor = true;
+            this.tabPage4.Controls.Add(this.cbLanguage);
+            this.tabPage4.Controls.Add(this.groupBox3);
+            this.tabPage4.Controls.Add(this.label28);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(364, 111);
+            this.tabPage4.TabIndex = 0;
+            this.tabPage4.Text = "Англ.язык";
+            this.tabPage4.UseVisualStyleBackColor = true;
             // 
             // cbLanguage
             // 
@@ -1690,57 +1723,66 @@
             this.cbLanguage.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbLanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbLanguage.FormattingEnabled = true;
-            this.cbLanguage.Location = new System.Drawing.Point(453, 38);
+            this.cbLanguage.Location = new System.Drawing.Point(123, 84);
             this.cbLanguage.Name = "cbLanguage";
-            this.cbLanguage.Size = new System.Drawing.Size(183, 21);
+            this.cbLanguage.Size = new System.Drawing.Size(234, 21);
             this.cbLanguage.TabIndex = 122;
-            // 
-            // label28
-            // 
-            this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(450, 22);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(115, 13);
-            this.label28.TabIndex = 121;
-            this.label28.Text = "Язык (для экзамена)";
             // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.chbStartEnglish);
             this.groupBox3.Controls.Add(this.tbEnglishMark);
             this.groupBox3.Controls.Add(this.label68);
-            this.groupBox3.Location = new System.Drawing.Point(269, 12);
+            this.groupBox3.Location = new System.Drawing.Point(6, 3);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(175, 137);
+            this.groupBox3.Size = new System.Drawing.Size(351, 75);
             this.groupBox3.TabIndex = 120;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Английский язык";
             // 
             // chbStartEnglish
             // 
-            this.chbStartEnglish.AutoSize = true;
-            this.chbStartEnglish.Location = new System.Drawing.Point(9, 30);
+            this.chbStartEnglish.Location = new System.Drawing.Point(6, 17);
             this.chbStartEnglish.Name = "chbStartEnglish";
-            this.chbStartEnglish.Size = new System.Drawing.Size(161, 43);
+            this.chbStartEnglish.Size = new System.Drawing.Size(163, 52);
             this.chbStartEnglish.TabIndex = 115;
-            this.chbStartEnglish.Text = "Желаю изучать \r\nанглийский язык в СПбГУ\r\nс \"нулевого\" уровня\r\n";
+            this.chbStartEnglish.Text = "Желаю изучать английский язык в СПбГУ с \"нулевого\" уровня\r\n";
             this.chbStartEnglish.UseVisualStyleBackColor = true;
             // 
             // tbEnglishMark
             // 
-            this.tbEnglishMark.Location = new System.Drawing.Point(123, 103);
+            this.tbEnglishMark.Location = new System.Drawing.Point(299, 33);
             this.tbEnglishMark.Name = "tbEnglishMark";
             this.tbEnglishMark.Size = new System.Drawing.Size(46, 20);
             this.tbEnglishMark.TabIndex = 116;
             // 
             // label68
             // 
-            this.label68.AutoSize = true;
-            this.label68.Location = new System.Drawing.Point(10, 85);
+            this.label68.Location = new System.Drawing.Point(184, 18);
             this.label68.Name = "label68";
-            this.label68.Size = new System.Drawing.Size(109, 39);
+            this.label68.Size = new System.Drawing.Size(109, 48);
             this.label68.TabIndex = 117;
-            this.label68.Text = "Итоговая оценка по\r\nанглийскому языку\r\n(если изучался)";
+            this.label68.Text = "Итоговая оценка по английскому языку (если изучался)";
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(6, 87);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(115, 13);
+            this.label28.TabIndex = 121;
+            this.label28.Text = "Язык (для экзамена)";
+            // 
+            // tabPage6
+            // 
+            this.tabPage6.Controls.Add(this.dgvCertificates);
+            this.tabPage6.Location = new System.Drawing.Point(4, 22);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage6.Size = new System.Drawing.Size(364, 111);
+            this.tabPage6.TabIndex = 1;
+            this.tabPage6.Text = "Языковые сертификаты";
+            this.tabPage6.UseVisualStyleBackColor = true;
             // 
             // gbPrivileges
             // 
@@ -2255,32 +2297,16 @@
             this.lblBarcode.Size = new System.Drawing.Size(0, 13);
             this.lblBarcode.TabIndex = 41;
             // 
-            // pnExitClass
+            // dgvCertificates
             // 
-            this.pnExitClass.Controls.Add(this.cbExitClass);
-            this.pnExitClass.Controls.Add(this.label36);
-            this.pnExitClass.Location = new System.Drawing.Point(508, 71);
-            this.pnExitClass.Name = "pnExitClass";
-            this.pnExitClass.Size = new System.Drawing.Size(97, 57);
-            this.pnExitClass.TabIndex = 121;
-            // 
-            // cbExitClass
-            // 
-            this.cbExitClass.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbExitClass.FormattingEnabled = true;
-            this.cbExitClass.Location = new System.Drawing.Point(4, 28);
-            this.cbExitClass.Name = "cbExitClass";
-            this.cbExitClass.Size = new System.Drawing.Size(90, 21);
-            this.cbExitClass.TabIndex = 119;
-            // 
-            // label36
-            // 
-            this.label36.AutoSize = true;
-            this.label36.Location = new System.Drawing.Point(31, 9);
-            this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(38, 13);
-            this.label36.TabIndex = 118;
-            this.label36.Text = "Класс";
+            this.dgvCertificates.AllowUserToAddRows = false;
+            this.dgvCertificates.AllowUserToDeleteRows = false;
+            this.dgvCertificates.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvCertificates.Location = new System.Drawing.Point(6, 6);
+            this.dgvCertificates.Name = "dgvCertificates";
+            this.dgvCertificates.ReadOnly = true;
+            this.dgvCertificates.Size = new System.Drawing.Size(351, 99);
+            this.dgvCertificates.TabIndex = 0;
             // 
             // CardFromInet
             // 
@@ -2316,6 +2342,8 @@
             this.groupBox6.ResumeLayout(false);
             this.gbSchool.ResumeLayout(false);
             this.gbSchool.PerformLayout();
+            this.pnExitClass.ResumeLayout(false);
+            this.pnExitClass.PerformLayout();
             this.gbFinishStudy.ResumeLayout(false);
             this.gbFinishStudy.PerformLayout();
             this.gbEduc.ResumeLayout(false);
@@ -2328,9 +2356,12 @@
             this.tpEge.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEGE)).EndInit();
             this.tabPage5.ResumeLayout(false);
-            this.tabPage5.PerformLayout();
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.tabPage6.ResumeLayout(false);
             this.gbPrivileges.ResumeLayout(false);
             this.gbPrivileges.PerformLayout();
             this.gbMotivateText.ResumeLayout(false);
@@ -2353,8 +2384,7 @@
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvApplications)).EndInit();
-            this.pnExitClass.ResumeLayout(false);
-            this.pnExitClass.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCertificates)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2547,8 +2577,6 @@
         private System.Windows.Forms.ComboBox cbLanguage;
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.GroupBox gbEducationDocuments;
-        private System.Windows.Forms.TextBox tbTRKICertificateNumber;
-        private System.Windows.Forms.CheckBox chbHasTRKI;
         private System.Windows.Forms.DataGridView dgvFiles;
         protected System.Windows.Forms.Button btnDocCardOpen;
         private System.Windows.Forms.Label label34;
@@ -2556,5 +2584,9 @@
         private System.Windows.Forms.Panel pnExitClass;
         private System.Windows.Forms.ComboBox cbExitClass;
         private System.Windows.Forms.Label label36;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.TabPage tabPage6;
+        private System.Windows.Forms.DataGridView dgvCertificates;
     }
 }

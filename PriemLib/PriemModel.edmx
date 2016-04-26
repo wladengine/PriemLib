@@ -536,6 +536,16 @@ warning 6002: The table/view 'Priem2016.ed.Fixieren' does not have a primary key
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="LanguageCertificatesType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="NameEng" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="BoolType" Type="bit" Nullable="false" />
+          <Property Name="ValueType" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="Mark">
           <Key>
             <PropertyRef Name="Id" />
@@ -961,6 +971,16 @@ warning 6002: The table/view 'Priem2016.ed.PayDataEntry' does not have a primary
           <Property Name="XMLRequest" Type="nvarchar(max)" />
           <Property Name="XMLAnswer" Type="nvarchar(max)" />
           <Property Name="IsChecked" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PersonLanguageCertificates">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PersonId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LanguageCertificateTypeId" Type="int" Nullable="false" />
+          <Property Name="Number" Type="nvarchar" MaxLength="150" />
+          <Property Name="ResultValue" Type="float" />
         </EntityType>
         <EntityType Name="PersonNoticies">
           <Key>
@@ -4398,6 +4418,20 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PersonLanguageCertificates_Person">
+          <End Role="Person" Type="Self.Person" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PersonLanguageCertificates" Type="Self.PersonLanguageCertificates" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PersonLanguageCertificates">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PersonNoticies_Person">
           <End Role="Person" Type="Self.Person" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -5962,6 +5996,7 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           <EntitySet Name="ForeignCountry" EntityType="Self.ForeignCountry" Schema="ed" store:Type="Tables" />
           <EntitySet Name="InnerEntryInEntry" EntityType="Self.InnerEntryInEntry" Schema="ed" store:Type="Tables" />
           <EntitySet Name="Language" EntityType="Self.Language" Schema="ed" store:Type="Tables" />
+          <EntitySet Name="LanguageCertificatesType" EntityType="Self.LanguageCertificatesType" Schema="ed" store:Type="Tables" />
           <EntitySet Name="Mark" EntityType="Self.Mark" Schema="ed" store:Type="Tables" />
           <EntitySet Name="OlympBook" EntityType="Self.OlympBook" Schema="ed" store:Type="Tables" />
           <EntitySet Name="OlympiadCheckedByRectorat" EntityType="Self.OlympiadCheckedByRectorat" Schema="ed" store:Type="Tables" />
@@ -5986,6 +6021,7 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           <EntitySet Name="PersonBenefitDocument" EntityType="Self.PersonBenefitDocument" Schema="ed" store:Type="Tables" />
           <EntitySet Name="PersonChanges" EntityType="Self.PersonChanges" Schema="ed" store:Type="Tables" />
           <EntitySet Name="PersonEgeRequest" EntityType="Self.PersonEgeRequest" Schema="ed" store:Type="Tables" />
+          <EntitySet Name="PersonLanguageCertificates" EntityType="Self.PersonLanguageCertificates" Schema="ed" store:Type="Tables" />
           <EntitySet Name="PersonNoticies" EntityType="Self.PersonNoticies" Schema="ed" store:Type="Tables" />
           <EntitySet Name="PersonOtherPassport" EntityType="Self.PersonOtherPassport" Schema="ed" store:Type="Tables" />
           <EntitySet Name="PersonSportQualification" EntityType="Self.PersonSportQualification" Schema="ed" store:Type="Tables" />
@@ -7752,6 +7788,10 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           <AssociationSet Name="FK_PersonBenefitDocument_Person" Association="Self.FK_PersonBenefitDocument_Person">
             <End Role="Person" EntitySet="Person" />
             <End Role="PersonBenefitDocument" EntitySet="PersonBenefitDocument" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonLanguageCertificates_Person" Association="Self.FK_PersonLanguageCertificates_Person">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="PersonLanguageCertificates" EntitySet="PersonLanguageCertificates" />
           </AssociationSet>
           <AssociationSet Name="FK_PersonNoticies_Person" Association="Self.FK_PersonNoticies_Person">
             <End Role="Person" EntitySet="Person" />
@@ -9742,6 +9782,12 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
             <Parameter Name="SchoolExitClassId" Mode="In" Type="Int32" />
             <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="LanguageCertificatesType" EntityType="Priem2012Model.LanguageCertificatesType" />
+          <EntitySet Name="PersonLanguageCertificates" EntityType="Priem2012Model.PersonLanguageCertificates" />
+          <AssociationSet Name="FK_PersonLanguageCertificates_Person" Association="Priem2012Model.FK_PersonLanguageCertificates_Person">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="PersonLanguageCertificates" EntitySet="PersonLanguageCertificates" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="AttMarks">
           <Key>
@@ -11594,6 +11640,7 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           <NavigationProperty Name="PersonOtherPassport" Relationship="Priem2012Model.FK_PersonOtherPassport_Person" FromRole="Person" ToRole="PersonOtherPassport" />
           <NavigationProperty Name="PersonNoticies" Relationship="Priem2012Model.FK_PersonNoticies_Person" FromRole="Person" ToRole="PersonNoticies" />
           <NavigationProperty Name="ExamsVedHistory" Relationship="Priem2012Model.FK_ExamsVedHistory_Person" FromRole="Person" ToRole="ExamsVedHistory" />
+          <NavigationProperty Name="PersonLanguageCertificates" Relationship="Priem2012Model.FK_PersonLanguageCertificates_Person" FromRole="Person" ToRole="PersonLanguageCertificates" />
         </EntityType>
         <EntityType Name="Person_AdditionalInfo">
           <Key>
@@ -14410,6 +14457,41 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="LanguageCertificatesType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="NameEng" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="BoolType" Type="Boolean" Nullable="false" />
+          <Property Name="ValueType" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PersonLanguageCertificates">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="PersonId" Type="Guid" Nullable="false" />
+          <Property Name="LanguageCertificateTypeId" Type="Int32" Nullable="false" />
+          <Property Name="Number" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ResultValue" Type="Double" />
+          <NavigationProperty Name="Person" Relationship="Priem2012Model.FK_PersonLanguageCertificates_Person" FromRole="PersonLanguageCertificates" ToRole="Person" />
+        </EntityType>
+        <Association Name="FK_PersonLanguageCertificates_Person">
+          <End Type="Priem2012Model.Person" Role="Person" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Priem2012Model.PersonLanguageCertificates" Role="PersonLanguageCertificates" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PersonLanguageCertificates">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -17209,6 +17291,28 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="Person_EducationInfo_SchoolClass_update" FunctionName="Priem2012Model.Store.Person_EducationInfo_SchoolClass_update" />
+          <EntitySetMapping Name="LanguageCertificatesType">
+            <EntityTypeMapping TypeName="Priem2012Model.LanguageCertificatesType">
+              <MappingFragment StoreEntitySet="LanguageCertificatesType">
+                <ScalarProperty Name="ValueType" ColumnName="ValueType" />
+                <ScalarProperty Name="BoolType" ColumnName="BoolType" />
+                <ScalarProperty Name="NameEng" ColumnName="NameEng" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PersonLanguageCertificates">
+            <EntityTypeMapping TypeName="Priem2012Model.PersonLanguageCertificates">
+              <MappingFragment StoreEntitySet="PersonLanguageCertificates">
+                <ScalarProperty Name="ResultValue" ColumnName="ResultValue" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="LanguageCertificateTypeId" ColumnName="LanguageCertificateTypeId" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

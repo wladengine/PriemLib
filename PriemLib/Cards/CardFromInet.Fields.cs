@@ -591,15 +591,6 @@ namespace PriemLib
             get { return chbEgeInSpbgu.Checked; }
             set { chbEgeInSpbgu.Checked = value; }
         }
-        public bool HasTRKI
-        {
-            get { return chbHasTRKI.Checked; }
-            set { chbHasTRKI.Checked = value; }
-        }
-        public string TRKICertificateNumber
-        {
-            get { return tbTRKICertificateNumber.Text.Trim(); }
-            set { tbTRKICertificateNumber.Text = value; }
-        }
+        
     }
 }

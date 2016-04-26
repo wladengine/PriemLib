@@ -55,7 +55,21 @@ namespace PriemLib
             DataSet dsEge = _bdcInet.GetDataSet(queryEge + " WHERE Person.Barcode = " + fileNum + " ORDER BY EgeMark.EgeCertificateId ");
             return dsEge.Tables[0];
         }
-
+        public DataTable GetLanguageCertificates(int fileNum)
+        {
+            string queryEge = @"
+SELECT 
+PersonLanguageCertificates.Id,
+LanguageCertificatesType.Id as LanguageCertificatesTypeId,
+LanguageCertificatesType.Name as 'Тип',
+PersonLanguageCertificates.Number as 'Номер',
+PersonLanguageCertificates.ResultValue as 'Результат' 
+FROM dbo.PersonLanguageCertificates 
+join LanguageCertificatesType on PersonLanguageCertificates.LanguageCertificateTypeId = LanguageCertificatesType.Id
+LEFT JOIN Person ON PersonLanguageCertificates.PersonId = Person.Id";
+            DataSet dsEge = _bdcInet.GetDataSet(queryEge + " WHERE Person.Barcode = " + fileNum + " ORDER BY LanguageCertificatesType.Name ");
+            return dsEge.Tables[0];
+        }
         public extPerson GetPersonByBarcode(int fileNum)
         {
             try

@@ -27,6 +27,7 @@ namespace PriemLib
         private bool inEnableProtocol;
         private bool inEntryView;
         private List<Person_EducationInfo> lstEducationInfo;
+        private List<PersonLanguageCertificates> LangCertificates;
         
         public CardPerson()
             : this(null, null, null)
@@ -322,6 +323,47 @@ namespace PriemLib
             btnSendToOnline.Enabled = personBarc.HasValue && personBarc > 0;
             if (personBarc.HasValue)
                 tbBarcode.Text = personBarc.ToString();
+            FillLanguageCertificates();
+        }
+
+        public void FillLanguageCertificates()
+        {
+            try
+            {
+                using (PriemEntities context = new PriemEntities())
+                {
+                    var lang = (from x in context.PersonLanguageCertificates
+                                join t in context.LanguageCertificatesType on 
+                                x.LanguageCertificateTypeId equals t.Id
+                                 
+                                where x.PersonId == GuidId
+                                select new 
+                                {
+                                     Id = x.Id,
+                                     Name = t.Name,
+                                     Number = x.Number,
+                                     ResultType = t.BoolType,
+                                     ResultValue = x.ResultValue
+                                }).ToList();
+                    var datasourse = (from l in lang
+                                      select new
+                                      {
+                                          Id = l.Id,
+                                          Название = l.Name,
+                                          Номер = l.Number,
+                                          Результат = l.ResultValue,
+                                      }).ToList();
+                    dgvCertificates.DataSource = datasourse;
+                    if (dgvCertificates.Columns.Contains("Id"))
+                    {
+                        dgvCertificates.Columns["Id"].Visible = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         //данные из нашей базы
@@ -1199,6 +1241,9 @@ namespace PriemLib
 
         protected override void InsertRec(PriemEntities context, ObjectParameter idParam)
         {
+            bool HasTRKI = LangCertificates.Where(x => x.LanguageCertificateTypeId == 1).Count() > 0;
+            string TRKICertificateNumber = HasTRKI ? LangCertificates.Where(x => x.LanguageCertificateTypeId == 1).Select(x => x.Number).First() : "";
+
             context.Person_insert(personBarc, PersonName, SecondName, Surname, BirthDate, BirthPlace, PassportTypeId, PassportSeries, PassportNumber,
                 PassportAuthor, PassportDate, Sex, CountryId, NationalityId, RegionId, Phone, Mobiles, Email,
                 Code, City, Street, House, Korpus, Flat, CodeReal, CityReal, StreetReal, HouseReal, KorpusReal, FlatReal, KladrCode, HostelAbit, HostelEduc, HasAssignToHostel,
@@ -2369,6 +2414,27 @@ namespace PriemLib
                 dgvVedList.Columns["Name"].HeaderText = "Экзамен";
                 dgvVedList.Columns["Number"].HeaderText = "Номер ведомости";
             }
+        }
+
+        private void btnCertificateAdd_Click(object sender, EventArgs e)
+        {
+            if (GuidId.HasValue)
+                new CardLangCertificate(null, GuidId.Value, new UpdateHandler(FillLanguageCertificates)).Show();
+        }
+
+        private void btnCertificateDelete_Click(object sender, EventArgs e)
+        {
+            if (dgvCertificates.CurrentCell != null)
+                if (dgvCertificates.CurrentCell.RowIndex > 0)
+                {
+                    int Certid = int.Parse(dgvCertificates.CurrentRow.Cells["Id"].Value.ToString());
+                    using (PriemEntities context = new PriemEntities())
+                    {
+                        context.PersonLanguageCertificates.RemoveRange(context.PersonLanguageCertificates.Where(x => x.Id == Certid));
+                        context.SaveChanges();
+                    }
+                    FillLanguageCertificates();
+                }
         }
 
         

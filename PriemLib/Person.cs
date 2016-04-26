@@ -26,6 +26,7 @@ namespace PriemLib
             this.PersonOtherPassport = new HashSet<PersonOtherPassport>();
             this.PersonNoticies = new HashSet<PersonNoticies>();
             this.ExamsVedHistory = new HashSet<ExamsVedHistory>();
+            this.PersonLanguageCertificates = new HashSet<PersonLanguageCertificates>();
         }
     
         public System.Guid Id { get; set; }
@@ -78,5 +79,7 @@ namespace PriemLib
         public virtual ICollection<PersonNoticies> PersonNoticies { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ExamsVedHistory> ExamsVedHistory { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PersonLanguageCertificates> PersonLanguageCertificates { get; set; }
     }
 }

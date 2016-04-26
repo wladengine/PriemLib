@@ -173,6 +173,8 @@ namespace PriemLib
         public virtual DbSet<qMark> qMark { get; set; }
         public virtual DbSet<extExamInEntry> extExamInEntry { get; set; }
         public virtual DbSet<SchoolExitClass> SchoolExitClass { get; set; }
+        public virtual DbSet<LanguageCertificatesType> LanguageCertificatesType { get; set; }
+        public virtual DbSet<PersonLanguageCertificates> PersonLanguageCertificates { get; set; }
     
         public virtual int RoleMember(string roleName, ObjectParameter result)
         {

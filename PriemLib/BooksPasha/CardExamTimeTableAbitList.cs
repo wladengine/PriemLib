@@ -367,5 +367,42 @@ where ExamName.Name = @Id " : "");
                 WinFormsServ.Error(ex);
             }
         }
+
+        private void btnFillNotRegistered_Click(object sender, EventArgs e)
+        {
+            string query = @"
+SELECT distinct  
+Person.Id
+, Person.Surname
+, Person.Name 
+, ExamName.Name
+, [User].Email
+, Entry.StudyLevelName 
+  FROM [dbo].[Application]
+  join dbo.Person on Person.Id = Application.PersonId
+  join dbo.[User] on [User].Id = Person.Id
+  join dbo.ApplicationSelectedExam on Application.Id = ApplicationId
+  join dbo.ExamTimetable on ApplicationSelectedExam.ExamInEntryBlockUnitId = ExamTimetable.ExamInEntryBlockUnitId
+  join dbo.ExamInEntryBlockUnit on ApplicationSelectedExam.ExamInEntryBlockUnitId = ExamInEntryBlockUnit.Id
+  join dbo.Exam on Exam.Id = ExamInEntryBlockUnit.ExamId
+  join dbo.ExamName on ExamName.Id = Exam.ExamNameId
+ join dbo.ExamInEntryBlock on ExamInEntryBlock.Id = ExamInEntryBlockId
+  join dbo.Entry on Entry.Id = ExamInEntryBlock.EntryId
+  where Application.Barcode in (select Barcode from dbo.ApplicationAddedToProtocol)
+  and ApplicationSelectedExam.ExamTimetableId is null 
+  and ExamTimetable.DateOfClose > '26-04-2016'
+  
+" + (checkBox1.Checked ? @" and NOT (ExamId = 345 and Entry.StudyLevelId = 1003)" : "" )+
+@" order by 2, 3, 4
+";
+            LoadFromInet load = new LoadFromInet();
+
+            DataTable tbl = load.BDCInet.GetDataSet(query, new SortedList<string, object>()).Tables[0];
+
+            dgvNotRegistered.DataSource = tbl;
+            if (dgvNotRegistered.Columns.Contains("Id"))
+                dgvNotRegistered.Columns["Id"].Visible = false;
+            lblCount2.Text = dgvNotRegistered.Rows.Count.ToString();
+        }
     }
 }

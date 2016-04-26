@@ -381,7 +381,6 @@ namespace PriemLib
                 EnglishMark = person.EnglishMark;
 
                 FillEducationData(load.GetPersonEducationDocumentsByBarcode(_personBarc.Value));
-
                 if (MainClass.dbType == PriemType.Priem)
                 {
                     DataTable dtEge = load.GetPersonEgeByBarcode(_personBarc.Value);
@@ -697,6 +696,13 @@ namespace PriemLib
         #endregion
 
         #region EducationInfo
+        {
+            dgvCertificates.DataSource = tbl;
+                List<string> cols = new List<string>() {"Id", "LanguageCertificatesTypeId"};
+            foreach (string s in cols)
+            if (dgvCertificates.Columns.Contains(s))
+                dgvCertificates.Columns[s].Visible = false;
+        }
         private void FillEducationData(List<Person_EducationInfo> lstVals)
         {
             lstEducationInfo = lstVals;
@@ -1238,7 +1244,7 @@ namespace PriemLib
                                         PassportAuthor, PassportDate, Sex, CountryId, NationalityId, RegionId, Phone, Mobiles, Email,
                                         Code, City, Street, House, Korpus, Flat, CodeReal, CityReal, StreetReal, HouseReal, KorpusReal, FlatReal, KladrCode, HostelAbit, HostelEduc, false,
                                         null, false, null, LanguageId, Stag, WorkPlace, MSVuz, MSCourse, MSStudyFormId, Privileges, PassportCode,
-                                        PersonalCode, PersonInfo, ExtraInfo, ScienceWork, StartEnglish, EnglishMark, EgeInSpbgu, SNILS, HasTRKI, TRKICertificateNumber, entId);
+                                        PersonalCode, PersonInfo, ExtraInfo, ScienceWork, StartEnglish, EnglishMark, EgeInSpbgu, SNILS, false, "", entId);
 
                                     personId = (Guid)entId.Value;
 
@@ -1249,6 +1255,8 @@ namespace PriemLib
 
                                     SaveEducationDocuments();
                                     SaveEgeFirst();
+
+                                    SaveLanguageCertificates(context);
 
                                     //Проверка на уже существующие заявления и сообщение при наличии
                                     if (!SaveApplication(personId.Value))
@@ -1345,6 +1353,31 @@ namespace PriemLib
             {
                 WinFormsServ.Error("Ошибка сохранения данные ЕГЭ - данные не были сохранены. Введите их заново! \n", de);
             }
+        }
+        private void SaveLanguageCertificates(PriemEntities context)
+        {
+            foreach (DataGridViewRow rw in dgvCertificates.Rows)
+            {
+                int Type = int.Parse(rw.Cells["LanguageCertificatesTypeId"].Value.ToString());
+                string Number = rw.Cells["Номер"].Value.ToString();
+
+                double? Result;
+                if (!string.IsNullOrEmpty(rw.Cells["Результат"].Value.ToString()))
+                {
+                    Result = double.Parse(rw.Cells["Результат"].Value.ToString());
+                }
+                else
+                    Result = null;
+
+                context.PersonLanguageCertificates.Add(new PersonLanguageCertificates()
+                    {
+                        PersonId = personId.Value,
+                        LanguageCertificateTypeId = Type,
+                        Number = Number,
+                        ResultValue = Result,
+                    });
+            }
+            context.SaveChanges();
         }
         private void SaveEducationDocuments()
         {
