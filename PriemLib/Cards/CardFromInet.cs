@@ -381,6 +381,7 @@ namespace PriemLib
                 EnglishMark = person.EnglishMark;
 
                 FillEducationData(load.GetPersonEducationDocumentsByBarcode(_personBarc.Value));
+                FillLanguageCertificates(load.GetLanguageCertificates(_personBarc.Value));
                 if (MainClass.dbType == PriemType.Priem)
                 {
                     DataTable dtEge = load.GetPersonEgeByBarcode(_personBarc.Value);
@@ -696,6 +697,7 @@ namespace PriemLib
         #endregion
 
         #region EducationInfo
+        private void FillLanguageCertificates(DataTable tbl)
         {
             dgvCertificates.DataSource = tbl;
                 List<string> cols = new List<string>() {"Id", "LanguageCertificatesTypeId"};
