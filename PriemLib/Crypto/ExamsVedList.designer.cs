@@ -53,6 +53,7 @@
             this.btnSetExaminerAccount = new System.Windows.Forms.Button();
             this.cbStudyLevelGroup = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.btnSelectMarkTypes = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvList)).BeginInit();
             this.SuspendLayout();
             // 
@@ -313,6 +314,16 @@
             this.label2.TabIndex = 146;
             this.label2.Text = "Уровень";
             // 
+            // btnSelectMarkTypes
+            // 
+            this.btnSelectMarkTypes.Location = new System.Drawing.Point(676, 49);
+            this.btnSelectMarkTypes.Name = "btnSelectMarkTypes";
+            this.btnSelectMarkTypes.Size = new System.Drawing.Size(133, 37);
+            this.btnSelectMarkTypes.TabIndex = 52;
+            this.btnSelectMarkTypes.Text = "Указать категории оценок";
+            this.btnSelectMarkTypes.UseVisualStyleBackColor = true;
+            this.btnSelectMarkTypes.Click += new System.EventHandler(this.btnSelectMarkTypes_Click);
+            // 
             // ExamsVedList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -320,6 +331,7 @@
             this.ClientSize = new System.Drawing.Size(1106, 498);
             this.Controls.Add(this.cbStudyLevelGroup);
             this.Controls.Add(this.label2);
+            this.Controls.Add(this.btnSelectMarkTypes);
             this.Controls.Add(this.btnSetExaminerAccount);
             this.Controls.Add(this.cbStudyBasis);
             this.Controls.Add(this.cbFaculty);
@@ -377,5 +389,6 @@
         protected System.Windows.Forms.Button btnSetExaminerAccount;
         public System.Windows.Forms.ComboBox cbStudyLevelGroup;
         protected System.Windows.Forms.Label label2;
+        protected System.Windows.Forms.Button btnSelectMarkTypes;
     }
 }

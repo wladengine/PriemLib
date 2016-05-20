@@ -351,7 +351,7 @@ namespace PriemLib
                                           Id = l.Id,
                                           Название = l.Name,
                                           Номер = l.Number,
-                                          Результат = l.ResultValue,
+                                          Результат = l.ResultType ? "сдан" : (l.ResultValue).ToString(),
                                       }).ToList();
                     dgvCertificates.DataSource = datasourse;
                     if (dgvCertificates.Columns.Contains("Id"))
@@ -2434,6 +2434,16 @@ namespace PriemLib
                         context.SaveChanges();
                     }
                     FillLanguageCertificates();
+                }
+        }
+
+        private void dgvCertificates_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dgvCertificates.CurrentCell != null)
+                if (dgvCertificates.CurrentCell.RowIndex > 0)
+                {
+                    int Certid = int.Parse(dgvCertificates.CurrentRow.Cells["Id"].Value.ToString());
+                    new CardLangCertificate(Certid, GuidId.Value, new UpdateHandler(FillLanguageCertificates)).Show();
                 }
         }
 

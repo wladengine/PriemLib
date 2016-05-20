@@ -2907,6 +2907,7 @@
             this.dgvCertificates.ReadOnly = true;
             this.dgvCertificates.Size = new System.Drawing.Size(387, 202);
             this.dgvCertificates.TabIndex = 0;
+            this.dgvCertificates.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCertificates_CellDoubleClick);
             // 
             // groupBox2
             // 

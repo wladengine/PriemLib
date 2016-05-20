@@ -891,6 +891,12 @@
         <edmx:EntityTypeShape EntityType="Priem2012Model.LanguageCertificatesType" Width="1.5" PointX="37.375" PointY="0.75" />
         <edmx:EntityTypeShape EntityType="Priem2012Model.PersonLanguageCertificates" Width="1.5" PointX="3" PointY="52" />
         <edmx:AssociationConnector Association="Priem2012Model.FK_PersonLanguageCertificates_Person" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.ExamsVedHistoryMark" Width="1.5" PointX="39.625" PointY="4" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.ExamsVedMarkDetails" Width="1.5" PointX="41.875" PointY="4" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.ExamsVedMarkType" Width="1.5" PointX="37.375" PointY="4.375" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_ExamsVedHistoryMark_ExamsVedMarkType" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_ExamsVedMarkDetails_ExamsVedHistoryMark" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.ExamsVedSelectedMarkType" Width="1.5" PointX="16.375" PointY="37.75" />
         </edmx:Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

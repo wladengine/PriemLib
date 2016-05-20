@@ -7,7 +7,7 @@ namespace PriemLib
 {
     public class DBConstants
     {
-        public const string CS_PRIEM = "Data Source=81.89.183.112;Initial Catalog=Priem2016;Integrated Security=SSPI";
+        public const string CS_PRIEM = "Data Source=81.89.183.112;Initial Catalog=Priem2016_TEST;Integrated Security=SSPI";
         //PriemSECOND
         public const string CS_PRIEM_SECOND = "Data Source=81.89.183.112;Initial Catalog=PriemSECOND;Integrated Security=SSPI";
         //public const string CS_PRIEM = "Data Source=81.89.183.112;Initial Catalog=Priem;Integrated Security=false; user=Priem2014TestUser; password=Priem2014TestUser; Connect Timeout=10";

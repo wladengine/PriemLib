@@ -395,6 +395,13 @@ WHERE ((ed.ExamsVed.IsLoad = 1 AND NOT ed.ExamsVedHistory.Mark IS NULL) OR (ed.E
                                 (isAddVed ? addCount : null), 
                                 vedParId);
                             _Id = (Guid)vedParId.Value;
+
+                            var lst = (from x in context.ExamsVedMarkType
+                                       where x.SelectByDefault
+                                       select new { x.Id }).ToList();
+                            foreach (var x in lst)
+                                context.ExamsVedSelectedMarkType.Add(new ExamsVedSelectedMarkType { ExamsVedId =  _Id.Value, MarkTypeId = x.Id });
+                            context.SaveChanges();
                         }
                         else
                         {

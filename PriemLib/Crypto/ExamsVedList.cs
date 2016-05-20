@@ -53,6 +53,7 @@ namespace PriemLib
                 btnSetExaminerAccount.Visible = true;
             else
                 btnSetExaminerAccount.Visible = false;
+            btnSelectMarkTypes.Visible = ExamsVedId.HasValue;
 
             try
             {
@@ -172,6 +173,7 @@ namespace PriemLib
                 btnSetExaminerAccount.Visible = true;
             else
                 btnSetExaminerAccount.Visible = false;
+            btnSelectMarkTypes.Visible = ExamsVedId.HasValue;
         }
 
         public int? StudyLevelGroupId
@@ -214,6 +216,8 @@ namespace PriemLib
             try
             {
                 btnSetExaminerAccount.Visible = false;
+                btnSelectMarkTypes.Visible = ExamsVedId.HasValue;
+
                 using (PriemEntities context = new PriemEntities())
                 {
                     List<KeyValuePair<string, string>> lst =
@@ -806,6 +810,14 @@ namespace PriemLib
             if (ExamsVedId.HasValue)
             {
                 new CardExaminerInExamsVed(ExamsVedId.Value).Show();
+            }
+        }
+
+        private void btnSelectMarkTypes_Click(object sender, EventArgs e)
+        {
+            if (ExamsVedId.HasValue)
+            {
+                new ExamsVedSelectMarkTypes(ExamsVedId.Value).Show();
             }
         }         
     }

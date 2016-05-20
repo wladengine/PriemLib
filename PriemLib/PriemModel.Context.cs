@@ -175,6 +175,10 @@ namespace PriemLib
         public virtual DbSet<SchoolExitClass> SchoolExitClass { get; set; }
         public virtual DbSet<LanguageCertificatesType> LanguageCertificatesType { get; set; }
         public virtual DbSet<PersonLanguageCertificates> PersonLanguageCertificates { get; set; }
+        public virtual DbSet<ExamsVedHistoryMark> ExamsVedHistoryMark { get; set; }
+        public virtual DbSet<ExamsVedMarkDetails> ExamsVedMarkDetails { get; set; }
+        public virtual DbSet<ExamsVedMarkType> ExamsVedMarkType { get; set; }
+        public virtual DbSet<ExamsVedSelectedMarkType> ExamsVedSelectedMarkType { get; set; }
     
         public virtual int RoleMember(string roleName, ObjectParameter result)
         {

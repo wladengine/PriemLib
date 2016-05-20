@@ -22,6 +22,7 @@ namespace PriemLib
         public Nullable<decimal> AppealMark { get; set; }
         public Nullable<decimal> OralAppealMark { get; set; }
         public string ExaminerName { get; set; }
+        public System.Guid Id { get; set; }
     
         public virtual ExamsVed ExamsVed { get; set; }
         public virtual Person Person { get; set; }
