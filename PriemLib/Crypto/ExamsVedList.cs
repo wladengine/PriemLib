@@ -517,7 +517,7 @@ namespace PriemLib
              
         }
 
-        private void btnCreateAdd_Click(object sender, EventArgs e)
+        protected virtual void btnCreateAdd_Click(object sender, EventArgs e)
         {
             if (MainClass.IsCrypto() || MainClass.IsOwner() || MainClass.IsPasha())
             {

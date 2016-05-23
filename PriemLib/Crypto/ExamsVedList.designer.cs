@@ -384,8 +384,8 @@
         protected System.Windows.Forms.Button btnDeleteFromVed;
         protected System.Windows.Forms.Button btnUnload;
         private System.Windows.Forms.ComboBox cbFaculty;
-        private System.Windows.Forms.ComboBox cbExamVed;
-        private System.Windows.Forms.ComboBox cbStudyBasis;
+        protected System.Windows.Forms.ComboBox cbExamVed;
+        protected System.Windows.Forms.ComboBox cbStudyBasis;
         protected System.Windows.Forms.Button btnSetExaminerAccount;
         public System.Windows.Forms.ComboBox cbStudyLevelGroup;
         protected System.Windows.Forms.Label label2;
