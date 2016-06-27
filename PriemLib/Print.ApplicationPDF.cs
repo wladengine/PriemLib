@@ -381,6 +381,55 @@ namespace PriemLib
             return ms.ToArray();
         }
 
+        public static byte[] GetApplicationPDF_Agreement_Mag(string FIO, bool bSex)
+        {
+            MemoryStream ms = new MemoryStream();
+            string dotName = string.Format("ApplicationAgreement_MagSex{0}.pdf", bSex ? "1" : "0");
+
+            byte[] templateBytes;
+            using (FileStream fs = new FileStream(MainClass.dirTemplates.TrimEnd('\\') + "\\" + dotName, FileMode.Open, FileAccess.Read))
+            {
+                templateBytes = new byte[fs.Length];
+                fs.Read(templateBytes, 0, templateBytes.Length);
+            }
+
+            PdfReader pdfRd = new PdfReader(templateBytes);
+            PdfStamper pdfStm = new PdfStamper(pdfRd, ms);
+            AcroFields acrFlds = pdfStm.AcroFields;
+
+            acrFlds.SetField("FIO", FIO);
+
+            pdfStm.FormFlattening = true;
+            pdfStm.Close();
+            pdfRd.Close();
+
+            return ms.ToArray();
+        }
+        public static byte[] GetApplicationPDF_Agreement_1k(string FIO, bool bSex)
+        {
+            MemoryStream ms = new MemoryStream();
+            string dotName = string.Format("ApplicationAgreement_1kSex{0}.pdf", bSex ? "1" : "0");
+
+            byte[] templateBytes;
+            using (FileStream fs = new FileStream(MainClass.dirTemplates.TrimEnd('\\') + "\\" + dotName, FileMode.Open, FileAccess.Read))
+            {
+                templateBytes = new byte[fs.Length];
+                fs.Read(templateBytes, 0, templateBytes.Length);
+            }
+
+            PdfReader pdfRd = new PdfReader(templateBytes);
+            PdfStamper pdfStm = new PdfStamper(pdfRd, ms);
+            AcroFields acrFlds = pdfStm.AcroFields;
+
+            acrFlds.SetField("FIO", FIO);
+
+            pdfStm.FormFlattening = true;
+            pdfStm.Close();
+            pdfRd.Close();
+
+            return ms.ToArray();
+        }
+
         //Аспирантура
         public static byte[] GetApplicationPDF_Aspirant(Guid PersonId, string dirPath)
         {

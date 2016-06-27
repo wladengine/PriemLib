@@ -69,12 +69,18 @@ namespace PriemLib
             cbOlympType.SelectedIndexChanged += new EventHandler(cbOlympType_SelectedIndexChanged);
             cbOlympYear.SelectedIndexChanged += cbOlympYear_SelectedIndexChanged;
             cbOlympName.SelectedIndexChanged += new EventHandler(cbOlympName_SelectedIndexChanged);
+            cbOlympProfile.SelectedIndexChanged += new EventHandler(cbOlympProfile_SelectedIndexChanged);
             cbOlympSubject.SelectedIndexChanged += new EventHandler(cbOlympSubject_SelectedIndexChanged);
+            
         }
 
         void cbOlympYear_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateAfterType();
+        }
+        void cbOlympProfile_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FillAfterOlympProfile();
         }
         void cbOlympSubject_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -134,6 +140,28 @@ namespace PriemLib
                       && ob.OlympYear == OlympYear
                       select new
                       {
+                          Id = ob.OlympProfileId,
+                          Name = ob.OlympProfileName
+                      }).Distinct()).ToList().Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name)).ToList();
+
+                cbOlympProfile.Enabled = true;
+                ComboServ.FillCombo(cbOlympProfile, lst, false, false);
+                cbOlympProfile.SelectedIndex = 0;
+            }
+        }
+        private void FillAfterOlympProfile()
+        {
+            using (PriemEntities context = new PriemEntities())
+            {
+                if (!OlympTypeId.HasValue)
+                    return;
+
+                List<KeyValuePair<string, string>> lst =
+                    ((from ob in context.extOlympBook
+                      where ob.OlympTypeId == OlympTypeId && ob.OlympNameId == OlympNameId
+                      && ob.OlympYear == OlympYear && ob.OlympProfileId == OlympProfileId
+                      select new
+                      {
                           Id = ob.OlympSubjectId,
                           Name = ob.OlympSubjectName
                       }).Distinct()).ToList().Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name)).ToList();
@@ -149,8 +177,8 @@ namespace PriemLib
             {
                 List<KeyValuePair<string, string>> lst =
                         ((from ob in context.extOlympBook
-                          where ob.OlympTypeId == OlympTypeId && ob.OlympNameId == OlympNameId 
-                          && ob.OlympSubjectId == OlympSubjectId
+                          where ob.OlympTypeId == OlympTypeId && ob.OlympNameId == OlympNameId
+                          && ob.OlympSubjectId == OlympSubjectId && ob.OlympProfileId == OlympProfileId
                           && ob.OlympYear == OlympYear
                           select new
                           {
@@ -192,6 +220,8 @@ namespace PriemLib
                     if (OlympTypeId != 1 || OlympTypeId != 2)
                         OlympNameId = olymp.OlympNameId;
                     FillAfterOlympName();
+                    OlympProfileId = olymp.OlympProfileId;
+                    FillAfterOlympProfile();
                     OlympSubjectId = olymp.OlympSubjectId;
                     FillAfterOlympSubject();
                     if (OlympTypeId != 1 || OlympTypeId != 2)
@@ -244,14 +274,14 @@ namespace PriemLib
                 if (_Id == null)
                     cnt = (from ol in context.extOlympiadsAll
                            where ol.OlympLevelId == OlympLevelId && ol.OlympTypeId == OlympTypeId
-                           && ol.OlympNameId == OlympNameId && ol.OlympSubjectId == OlympSubjectId
+                           && ol.OlympNameId == OlympNameId && ol.OlympSubjectId == OlympSubjectId && ol.OlympProfileId == OlympProfileId
                            && ol.OlympValueId == OlympValueId
                            && ol.PersonId == persId && ol.OriginDoc
                            select ol).Count();
                 else
                     cnt = (from ol in context.extOlympiadsAll
                            where ol.OlympLevelId == OlympLevelId && ol.OlympTypeId == OlympTypeId
-                           && ol.OlympNameId == OlympNameId && ol.OlympSubjectId == OlympSubjectId
+                           && ol.OlympNameId == OlympNameId && ol.OlympSubjectId == OlympSubjectId && ol.OlympProfileId == OlympProfileId
                            && ol.OlympValueId == OlympValueId
                            && ol.PersonId == persId && ol.Id != GuidId && ol.OriginDoc
                            select ol).Count();
@@ -270,11 +300,11 @@ namespace PriemLib
 
         protected override void InsertRec(PriemEntities context, ObjectParameter idParam)
         {
-            context.Olympiads_Insert(OlympTypeId, OlympNameId, OlympSubjectId, OlympLevelId, OlympValueId, OlympYear, OriginDoc, _abitId, DocumentSeries, DocumentNumber, DocumentDate, idParam);
+            context.Olympiads_Insert(OlympTypeId, OlympNameId, OlympProfileId, OlympSubjectId, OlympLevelId, OlympValueId, OlympYear, OriginDoc, _abitId, DocumentSeries, DocumentNumber, DocumentDate, idParam);
         }
         protected override void UpdateRec(PriemEntities context, Guid id)
         {
-            context.Olympiads_Update(OlympTypeId, OlympNameId, OlympSubjectId, OlympLevelId, OlympValueId, OlympYear, OriginDoc, DocumentSeries, DocumentNumber, DocumentDate, id);
+            context.Olympiads_Update(OlympTypeId, OlympNameId, OlympProfileId, OlympSubjectId, OlympLevelId, OlympValueId, OlympYear, OriginDoc, DocumentSeries, DocumentNumber, DocumentDate, id);
         }
 
         protected override void OnSave()

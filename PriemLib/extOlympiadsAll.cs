@@ -15,11 +15,11 @@ namespace PriemLib
     public partial class extOlympiadsAll
     {
         public System.Guid Id { get; set; }
-        public Nullable<int> OlympTypeId { get; set; }
+        public int OlympTypeId { get; set; }
         public Nullable<int> OlympNameId { get; set; }
         public Nullable<int> OlympSubjectId { get; set; }
         public Nullable<int> OlympLevelId { get; set; }
-        public Nullable<int> OlympValueId { get; set; }
+        public int OlympValueId { get; set; }
         public Nullable<System.Guid> AbiturientId { get; set; }
         public string OlympLevelName { get; set; }
         public string OlympValueName { get; set; }
@@ -34,5 +34,7 @@ namespace PriemLib
         public Nullable<System.DateTime> DocumentDate { get; set; }
         public Nullable<int> OlympValueSortOrder { get; set; }
         public short OlympYear { get; set; }
+        public Nullable<int> OlympProfileId { get; set; }
+        public string OlympProfileName { get; set; }
     }
 }

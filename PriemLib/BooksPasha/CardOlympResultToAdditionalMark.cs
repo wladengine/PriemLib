@@ -19,35 +19,45 @@ namespace PriemLib
         private bool _isReadOnly;
 
         #region Fields
-        public int? OlympTypeId
-        {
-            get { return ComboServ.GetComboIdInt(cbOlympType); }
-            set { ComboServ.SetComboId(cbOlympType, value); }
-        }
         public int? OlympLevelId
         {
             get { return ComboServ.GetComboIdInt(cbOlympLevel); }
             set { ComboServ.SetComboId(cbOlympLevel, value); }
-        }
-        public int? OlympNameId
-        {
-            get { return ComboServ.GetComboIdInt(cbOlympName); }
-            set { ComboServ.SetComboId(cbOlympName, value); }
         }
         public int? OlympSubjectId
         {
             get { return ComboServ.GetComboIdInt(cbOlympSubject); }
             set { ComboServ.SetComboId(cbOlympSubject, value); }
         }
+        public int? OlympProfileId
+        {
+            get { return ComboServ.GetComboIdInt(cbOlympProfile); }
+            set { ComboServ.SetComboId(cbOlympProfile, value); }
+        }
         public int? OlympValueId
         {
             get { return ComboServ.GetComboIdInt(cbOlympValue); }
             set { ComboServ.SetComboId(cbOlympValue, value); }
         }
-        public int? OlympYear
+        public int? ExamId
         {
-            get { return ComboServ.GetComboIdInt(cbOlympYear); }
-            set { ComboServ.SetComboId(cbOlympYear, value); }
+            get { return ComboServ.GetComboIdInt(cbExam); }
+            set { ComboServ.SetComboId(cbExam, value); }
+        }
+        public decimal MinEge
+        {
+            get
+            {
+                string sVal = tbMinEge.Text.Trim();
+                decimal iVal = 0;
+
+                decimal.TryParse(sVal, out iVal);
+                return iVal;
+            }
+            set
+            {
+                tbMinEge.Text = value.ToString();
+            }
         }
         public int? AdditionalMark
         {
@@ -88,126 +98,72 @@ namespace PriemLib
             _tableName = "ed.OlympResultToAdditionalMark";
             this.MdiParent = MainClass.mainform;
 
+            btnSaveAsNew.Enabled = true;
+            btnSaveAsNew.Visible = true;
+
             try
             {
-                using (PriemEntities context = new PriemEntities())
-                {
-                    List<KeyValuePair<string, string>> lstYears = new List<KeyValuePair<string, string>>();
-                    for (int i = MainClass.iPriemYear; i > MainClass.iPriemYear - 5; i--)
-                        lstYears.Add(new KeyValuePair<string, string>(i.ToString(), i.ToString()));
-                    ComboServ.FillCombo(cbOlympYear, lstYears, false, false);
-
-                    ComboServ.FillCombo(cbOlympType, HelpClass.GetComboListByTable("ed.OlympType", "ORDER BY Id"), false, false);
-                    UpdateAfterType();
-                    FillAfterOlympName();
-                    FillAfterOlympSubject();
-                    ComboServ.FillCombo(cbOlympValue, HelpClass.GetComboListByTable("ed.OlympValue"), false, false);
-                }
+                ComboServ.FillCombo(cbOlympLevel, HelpClass.GetComboListByTable("ed.OlympLevel"), false, false);
+                ComboServ.FillCombo(cbOlympValue, HelpClass.GetComboListByTable("ed.OlympValue"), false, false);
+                ComboServ.FillCombo(cbOlympProfile, HelpClass.GetComboListByTable("ed.OlympProfile"), false, true);
+                FillAfterOlympLevel();
+                FillOlympSubjects();
             }
             catch (Exception exc)
             {
                 WinFormsServ.Error("Ошибка при инициализации формы ", exc);
             }
+
+            if (string.IsNullOrEmpty(_Id))
+            {
+                tbAdditionalMark.Text = "100";
+            }
         }
-        private void UpdateAfterType()
+        
+        protected override void InitHandlers()
+        {
+            
+        }
+
+        private void FillAfterOlympLevel()
         {
             using (PriemEntities context = new PriemEntities())
             {
                 List<KeyValuePair<string, string>> lst =
                     ((from ob in context.extOlympBook
-                      where ob.OlympTypeId == OlympTypeId
-                      && ob.OlympYear == OlympYear
+                      join exToOl in context.OlympSubjectToExam on ob.OlympSubjectId equals exToOl.OlympSubjectId
+                      join ex in context.Exam on exToOl.ExamId equals ex.Id
+                      join exInEnt in context.extExamInEntry on ex.Id equals exInEnt.ExamId
+                      where ob.OlympLevelId == OlympLevelId && exInEnt.EntryId == _EntryId
+                      orderby exInEnt.OrderNumber
                       select new
                       {
-                          Id = ob.OlympNameId,
-                          Name = ob.OlympNameName
-                      })
-                      .Distinct())
-                      .ToList()
-                      .Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name))
-                      .ToList();
+                          Id = ex.Id,
+                          Name = ex.ExamName.Name
+                      }).Distinct()).ToList().Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name)).ToList();
 
-                cbOlympName.Enabled = true;
-                ComboServ.FillCombo(cbOlympName, lst, false, false);
-                cbOlympName.SelectedIndex = 0;
-            }
-
-            if (OlympTypeId == 1 || OlympTypeId == 2 || OlympTypeId == 7)
-            {
-                cbOlympName.Enabled = false;
-                cbOlympLevel.Enabled = false;
+                cbExam.Enabled = true;
+                ComboServ.FillCombo(cbExam, lst, false, false);
+                cbExam.SelectedIndex = 0;
             }
         }
-        private void FillAfterOlympName()
+        private void FillOlympSubjects()
         {
             using (PriemEntities context = new PriemEntities())
             {
-                if (!OlympTypeId.HasValue)
-                    return;
-
                 List<KeyValuePair<string, string>> lst =
                     ((from ob in context.extOlympBook
-                      where ob.OlympTypeId == OlympTypeId && ob.OlympNameId == OlympNameId
-                      && ob.OlympYear == OlympYear
                       select new
                       {
                           Id = ob.OlympSubjectId,
-                          Name = ob.OlympSubjectName
-                      }).Distinct()).ToList().Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name)).ToList();
+                          Name = ob.OlympSubjectName,
+                      }).Distinct()).ToList()
+                      .OrderBy(x => x.Name)
+                      .Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name)).ToList();
 
                 cbOlympSubject.Enabled = true;
-                ComboServ.FillCombo(cbOlympSubject, lst, false, false);
-                cbOlympSubject.SelectedIndex = 0;
+                ComboServ.FillCombo(cbOlympSubject, lst, false, true);
             }
-        }
-        private void FillAfterOlympSubject()
-        {
-            using (PriemEntities context = new PriemEntities())
-            {
-                List<KeyValuePair<string, string>> lst =
-                        ((from ob in context.extOlympBook
-                          where ob.OlympTypeId == OlympTypeId && ob.OlympNameId == OlympNameId
-                          && ob.OlympSubjectId == OlympSubjectId
-                          && ob.OlympYear == OlympYear
-                          select new
-                          {
-                              Id = ob.OlympLevelId,
-                              Name = ob.OlympLevelName
-                          }).Distinct()).ToList().Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name)).ToList();
-
-                cbOlympLevel.Enabled = true;
-                ComboServ.FillCombo(cbOlympLevel, lst, false, false);
-                cbOlympLevel.SelectedIndex = 0;
-
-                if (OlympTypeId == 1 || OlympTypeId == 2 || OlympTypeId == 7)
-                {
-                    cbOlympLevel.Enabled = false;
-                }
-            }
-        }
-        protected override void InitHandlers()
-        {
-            cbOlympType.SelectedIndexChanged += new EventHandler(cbOlympType_SelectedIndexChanged);
-            cbOlympYear.SelectedIndexChanged += cbOlympYear_SelectedIndexChanged;
-            cbOlympName.SelectedIndexChanged += new EventHandler(cbOlympName_SelectedIndexChanged);
-            cbOlympSubject.SelectedIndexChanged += new EventHandler(cbOlympSubject_SelectedIndexChanged);
-        }
-
-        void cbOlympYear_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            UpdateAfterType();
-        }
-        void cbOlympSubject_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            FillAfterOlympSubject();
-        }
-        void cbOlympName_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            FillAfterOlympName();
-        }
-        void cbOlympType_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            UpdateAfterType();
         }
 
         protected override void FillCard()
@@ -228,15 +184,10 @@ namespace PriemLib
                     if (olymp == null)
                         return;
 
-                    OlympYear = olymp.OlympYear;
-                    OlympTypeId = olymp.OlympTypeId;
-                    UpdateAfterType();
-                    OlympNameId = olymp.OlympNameId;
-                    FillAfterOlympName();
-                    OlympSubjectId = olymp.OlympSubjectId;
-                    FillAfterOlympSubject();
                     OlympLevelId = olymp.OlympLevelId;
+                    ExamId = olymp.ExamId;
                     OlympValueId = olymp.OlympValueId;
+                    MinEge = olymp.MinEge;
                     AdditionalMark = olymp.AdditionalMark;
                 }
             }
@@ -255,20 +206,15 @@ namespace PriemLib
         protected override void SetAllFieldsEnabled()
         {
             base.SetAllFieldsEnabled();
-
-            if (OlympTypeId == MainClass.olympSpbguId)
-                cbOlympSubject.Enabled = false;
-            else
-                cbOlympLevel.Enabled = false;
         }
 
         protected override void InsertRec(PriemEntities context, ObjectParameter idParam)
         {
-            context.OlympResultToAdditionalMark_Insert(_EntryId, OlympTypeId, OlympLevelId, OlympNameId, OlympSubjectId, OlympValueId, OlympYear, AdditionalMark, idParam);
+            context.OlympResultToAdditionalMark_Insert(_EntryId, OlympLevelId, OlympValueId, ExamId, OlympProfileId, OlympSubjectId, AdditionalMark, MinEge, idParam);
         }
         protected override void UpdateRec(PriemEntities context, int id)
         {
-            context.OlympResultToAdditionalMark_Update(_EntryId, OlympTypeId, OlympLevelId, OlympNameId, OlympSubjectId, OlympValueId, OlympYear, AdditionalMark, id);
+            context.OlympResultToAdditionalMark_Update(_EntryId, OlympLevelId, OlympValueId, ExamId, OlympProfileId, OlympSubjectId, AdditionalMark, MinEge, id);
         }
         protected override void OnSave()
         {

@@ -15,20 +15,22 @@ namespace PriemLib
     public partial class extOlympiads
     {
         public System.Guid Id { get; set; }
-        public Nullable<int> OlympTypeId { get; set; }
+        public int OlympTypeId { get; set; }
         public Nullable<int> OlympNameId { get; set; }
         public Nullable<int> OlympSubjectId { get; set; }
         public Nullable<int> OlympLevelId { get; set; }
-        public Nullable<int> OlympValueId { get; set; }
+        public int OlympValueId { get; set; }
         public Nullable<System.Guid> AbiturientId { get; set; }
         public string OlympLevelName { get; set; }
         public string OlympValueName { get; set; }
         public string OlympName { get; set; }
         public string OlympSubjectName { get; set; }
         public string OlympTypeName { get; set; }
-        public Nullable<System.Guid> PersonId { get; set; }
+        public System.Guid PersonId { get; set; }
         public bool OriginDoc { get; set; }
         public Nullable<int> SortOrder { get; set; }
         public string OlympValueAcr { get; set; }
+        public Nullable<int> OlympProfileId { get; set; }
+        public string OlympProfileName { get; set; }
     }
 }

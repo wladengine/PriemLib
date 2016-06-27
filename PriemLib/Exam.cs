@@ -21,6 +21,8 @@ namespace PriemLib
             this.EgeToLanguage = new HashSet<EgeToLanguage>();
             this.OlympSubjectToExam = new HashSet<OlympSubjectToExam>();
             this.ExamInEntryBlockUnit = new HashSet<ExamInEntryBlockUnit>();
+            this.OlympResultToAdditionalMark = new HashSet<OlympResultToAdditionalMark>();
+            this.OlympResultToCommonBenefit = new HashSet<OlympResultToCommonBenefit>();
         }
     
         public int Id { get; set; }
@@ -40,5 +42,9 @@ namespace PriemLib
         public virtual ICollection<OlympSubjectToExam> OlympSubjectToExam { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ExamInEntryBlockUnit> ExamInEntryBlockUnit { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OlympResultToAdditionalMark> OlympResultToAdditionalMark { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OlympResultToCommonBenefit> OlympResultToCommonBenefit { get; set; }
     }
 }

@@ -673,6 +673,74 @@ namespace PriemLib
             System.Diagnostics.Process.Start(savePath);
         }
 
+        public static void PrintApplicationAgreement(Guid? abitId, bool forPrint)
+        {
+            if (!abitId.HasValue)
+                return;
+
+            using (PriemEntities context = new PriemEntities())
+            {
+                var lstPersInfo =
+                    from ab in context.qAbitAll
+                    join extP in context.extPerson on ab.PersonId equals extP.Id
+                    where ab.Id == abitId
+                    select new { extP.FIO, extP.Sex, ab.StudyLevelGroupId };
+                
+                int iCnt = lstPersInfo.Count();
+
+                if (iCnt == 0)
+                    WinFormsServ.Error("Не найдено сведений о человеке!");
+                else if (iCnt > 1)
+                    WinFormsServ.Error(string.Format("Найдено более 1 записи {0} сведений о человеке!", iCnt));
+                else
+                {
+                    var PersInfo = lstPersInfo.First();
+                    string savePath = MainClass.saveTempFolder.TrimEnd('\\') + "\\" + PersInfo.FIO + " - Согласие на зачисление.pdf";
+                    if (!forPrint)
+                    {
+                        SaveFileDialog sfd = new SaveFileDialog();
+                        sfd.FileName = PersInfo.FIO + " - Согласие на зачисление.pdf";
+                        sfd.Filter = "ADOBE Pdf files|*.pdf";
+                        if (sfd.ShowDialog() == DialogResult.OK)
+                            savePath = sfd.FileName;
+                        else
+                            return;
+                    }
+                    using (FileStream fs = new FileStream(savePath, FileMode.Create))
+                    using (BinaryWriter bw = new BinaryWriter(fs))
+                    {
+                        switch (PersInfo.StudyLevelGroupId)
+                        {
+                            case 1:
+                                {
+                                    byte[] buffer = GetApplicationPDF_Agreement_1k(PersInfo.FIO, PersInfo.Sex);
+                                    fs.Write(buffer, 0, buffer.Length);
+                                    fs.Flush();
+                                    fs.Close();
+                                    break;
+                                }
+                            case 2:
+                                {
+                                    byte[] buffer = GetApplicationPDF_Agreement_Mag(PersInfo.FIO, PersInfo.Sex);
+                                    fs.Write(buffer, 0, buffer.Length);
+                                    fs.Flush();
+                                    fs.Close();
+                                    break;
+                                }
+                        }
+                    }
+
+                    System.Diagnostics.Process pr = new Process();
+                    pr.StartInfo.FileName = string.Format(savePath);
+                    if (forPrint)
+                        pr.StartInfo.Verb = "Print";
+                    else
+                        pr.StartInfo.Verb = "Open";
+                    pr.Start();
+                }
+            }
+        }
+
         public static void PrintEnableProtocol(string protocolId, bool forPrint, string savePath)
         {
             FileStream fileS = null;

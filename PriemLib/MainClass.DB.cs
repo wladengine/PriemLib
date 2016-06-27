@@ -378,16 +378,18 @@ namespace PriemLib
                 //Сумма баллов
                 qBuilder.AddQueryItem(new QueryItem("ed.extAbitMarksSum", "ed.extAbitMarksSum.TotalSum", "Сумма_баллов"));
 
-
                 //экзамены 
-                DataSet dsExams = _bdc.GetDataSet("SELECT DISTINCT ed.extExamInEntry.ExamId AS Id, ed.extExamInEntry.ExamName AS Name FROM ed.extExamInEntry");
+                //DataSet dsExams = _bdc.GetDataSet("SELECT DISTINCT ed.extExamInEntry.ExamId AS Id, ed.extExamInEntry.ExamName AS Name FROM ed.extExamInEntry");
 
-                var dicExams = from DataRow rwx in dsExams.Tables[0].Rows
-                               select new { Id = rwx["Id"], Name = rwx["Name"] };
+                using (PriemEntities context = new PriemEntities())
+                {
+                    var dicExams = context.extExamInEntry.Select(x => new { x.ExamId, x.ExamName }).Distinct().ToList();
+                    //from DataRow rwx in dsExams.Tables[0].Rows
+                    //select new { Id = rwx["Id"], Name = rwx["Name"] };
 
-                foreach (DataRow dr in dsExams.Tables[0].Rows)
-                    qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", string.Format("(select Sum(qMark.Value) FROM ed.qMark INNER JOIN ed.extExamInEntry ON ed.qMark.ExamInEntryBlockUnitId =ed.extExamInEntry.Id WHERE AbiturientId = ed.qAbiturient.Id AND ed.extExamInEntry.ExamId={0})", dr["Id"]), dr["Name"].ToString()));
-
+                    foreach (var ex in dicExams)
+                        qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", string.Format("(select Sum(qMark.Value) FROM ed.qMark INNER JOIN ed.extExamInEntry ON ed.qMark.ExamInEntryBlockUnitId =ed.extExamInEntry.Id WHERE AbiturientId = ed.qAbiturient.Id AND ed.extExamInEntry.ExamId={0})", ex.ExamId), ex.ExamName));
+                }
                 // Оценки из аттестата
                 //
                 qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select Min (ed.AttMarks.value) as mark FROM ed.AttMarks WHERE ed.AttMarks.PersonId = ed.extPerson.Id AND AttSubjectId=	1)", "Аттестат_алгебра"));
@@ -417,27 +419,37 @@ namespace PriemLib
                 qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select Min (ed.AttMarks.value) as mark FROM ed.AttMarks WHERE ed.AttMarks.PersonId = ed.extPerson.Id AND AttSubjectId=	25)", "Аттестат_итальянский_язык"));
 
                 // Экзамены по выбору
-                DataTable tbl = _bdc.GetDataSet(@"
-with t as (
-SELECT distinct block.id
-  FROM ed.ExamInEntryBlock block
-  join ed.ExamInEntryBlockUnit unit on block.Id = unit.ExamInEntryBlockId
- Group by block.Id
- Having COUNT(unit.Id) > 1 
- )  
- select distinct Exam.Id, ExamName.Name
- from t
-  join ed.ExamInEntryBlockUnit unit on t.Id = unit.ExamInEntryBlockId
-  join ed.Exam on Exam.Id = unit.ExamId
-  join ed.ExamName on ExamName.Id = Exam.ExamNameId").Tables[0];
-                foreach (DataRow rw in tbl.Rows)
+//                DataTable tbl = _bdc.GetDataSet(@"
+//with t as (
+//SELECT distinct block.id
+//  FROM ed.ExamInEntryBlock block
+//  join ed.ExamInEntryBlockUnit unit on block.Id = unit.ExamInEntryBlockId
+// Group by block.Id
+// Having COUNT(unit.Id) > 1 
+// )  
+// select distinct Exam.Id, ExamName.Name
+// from t
+//  join ed.ExamInEntryBlockUnit unit on t.Id = unit.ExamInEntryBlockId
+//  join ed.Exam on Exam.Id = unit.ExamId
+//  join ed.ExamName on ExamName.Id = Exam.ExamNameId").Tables[0];
+
+                using (PriemEntities context = new PriemEntities())
                 {
-                    qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", @"case when EXISTS (SELECT * 
+                    var lstBlocksToSelect = context.ExamInEntryBlock.Where(x => x.ExamInEntryBlockUnit.Count() > 1).Select(x => x.Id);
+
+                    var lstExams =
+                        (from ExBlockUnit in context.ExamInEntryBlockUnit
+                         join Ex in context.Exam on ExBlockUnit.ExamId equals Ex.Id
+                         join ExName in context.ExamName on Ex.ExamNameId equals ExName.Id
+                         where lstBlocksToSelect.Contains(ExBlockUnit.ExamInEntryBlockId)
+                         select new { Ex.Id, ExName.Name }).ToList();
+                    foreach (var Ex in lstExams)
+                    {
+                        qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", @"case when EXISTS (SELECT * 
 FROM ed.AbiturientSelectedExam join ed.ExamInEntryBlockUnit unit on AbiturientSelectedExam.ExamInEntryBlockUnitId = unit.Id
-WHERE ed.AbiturientSelectedExam.ApplicationId = qAbiturient.Id AND unit.ExamId = " +rw.Field<int>("Id")+" ) then 'Да' else 'Нет' end", "Экзамен_по_выбору_"+rw.Field<string>("Name").Replace(" ","_")));
-
+WHERE ed.AbiturientSelectedExam.ApplicationId = qAbiturient.Id AND unit.ExamId = " + Ex.Id + " ) then 'Да' else 'Нет' end", "Экзамен_по_выбору_" + Ex.Name.Replace(" ", "_")));
+                    }
                 }
-
 
                 //JOIN-ы
                 qBuilder.AddTableJoint("ed.Person", " LEFT JOIN ed.Person ON ed.qAbiturient.PersonId = ed.Person.Id ");

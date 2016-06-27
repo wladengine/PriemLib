@@ -813,26 +813,22 @@ WHERE Id=@Id";
             {
                 var query = (from exEntry in context.OlympResultToCommonBenefit
                              where exEntry.EntryId == GuidId
-                             orderby exEntry.OlympTypeId
                              select new
                              {
                                  exEntry.Id,
-                                 OlympTypeId = exEntry.OlympType.Name,
+                                 ExamName = exEntry.Exam.ExamName.Name,
                                  OlympLevelId = exEntry.OlympLevel.Name,
-                                 OlympValue = exEntry.OlympValue.Name
-                             }).ToList().OrderBy(x => x.OlympTypeId).ToList();
+                                 OlympValue = exEntry.OlympValue.Name,
+                                 exEntry.MinEge
+                             }).ToList().OrderBy(x => x.ExamName).ThenBy(x => x.OlympLevelId).ThenBy(x => x.OlympValue).ToList();
 
                 dgvOlympicsToCommonBenefit.DataSource = query;
                 if (dgvOlympicsToCommonBenefit.Columns.Contains("Id"))
                     dgvOlympicsToCommonBenefit.Columns["Id"].Visible = false;
-                if (dgvOlympicsToCommonBenefit.Columns.Contains("Name"))
+                if (dgvOlympicsToCommonBenefit.Columns.Contains("ExamName"))
                 {
-                    dgvOlympicsToCommonBenefit.Columns["Name"].HeaderText = "Название";
-                    dgvOlympicsToCommonBenefit.Columns["Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                }
-                if (dgvOlympicsToCommonBenefit.Columns.Contains("OlympTypeId"))
-                {
-                    dgvOlympicsToCommonBenefit.Columns["OlympTypeId"].HeaderText = "Тип олимпиады";
+                    dgvOlympicsToCommonBenefit.Columns["ExamName"].HeaderText = "Предмет";
+                    dgvOlympicsToCommonBenefit.Columns["ExamName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 }
                 if (dgvOlympicsToCommonBenefit.Columns.Contains("OlympLevelId"))
                 {
@@ -844,11 +840,19 @@ WHERE Id=@Id";
                     dgvOlympicsToCommonBenefit.Columns["OlympValue"].HeaderText = "Уровень диплома";
                     dgvOlympicsToCommonBenefit.Columns["OlympValue"].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
                 }
+                if (dgvOlympicsToCommonBenefit.Columns.Contains("MinEge"))
+                {
+                    dgvOlympicsToCommonBenefit.Columns["MinEge"].HeaderText = "Мин.балл";
+                    dgvOlympicsToCommonBenefit.Columns["MinEge"].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+                }
             }
         }
         private void btnAddOlympicsToCommonBenefit_Click(object sender, EventArgs e)
         {
-            OpenOlympicsToCommonBenefit(GuidId, null, false);
+            //OpenOlympicsToCommonBenefit(GuidId, null, false);
+            var crd = new CardOlympicsToCommonBenefit_Master(GuidId.Value);
+            crd.OnSave += UpdateOlympicsToCommonBenefit;
+            crd.Show();
         }
         private void OpenOlympicsToCommonBenefit(Guid? entryId, string id, bool isForModified)
         {
@@ -905,37 +909,24 @@ WHERE Id=@Id";
             using (PriemEntities context = new PriemEntities())
             {
                 var query = (from exEntry in context.OlympResultToAdditionalMark
-                             join OlType in context.OlympType on exEntry.OlympTypeId equals OlType.Id
-                             join OlName in context.OlympName on exEntry.OlympNameId equals OlName.Id
-                             join OlSubject in context.OlympSubject on exEntry.OlympSubjectId equals OlSubject.Id
                              join OlLevel in context.OlympLevel on exEntry.OlympLevelId equals OlLevel.Id
                              join OlValue in context.OlympValue on exEntry.OlympValueId equals OlValue.Id
+                             join Ex in context.Exam on exEntry.ExamId equals Ex.Id
                              where exEntry.EntryId == GuidId
-                             orderby exEntry.OlympTypeId
+                             orderby exEntry.OlympLevelId
                              select new
                              {
                                  exEntry.AdditionalMark,
                                  exEntry.Id,
-                                 OlympTypeId = OlType.Name,
-                                 OlympName = OlName.Name,
-                                 OlympSubject = OlSubject.Name,
                                  OlympLevelId = OlLevel.Name,
                                  OlympValue = OlValue.Name,
-                                 exEntry.OlympYear,
-                             }).ToList().OrderBy(x => x.OlympTypeId).ToList();
+                                 ExamName = Ex.ExamName.Name,
+                                 exEntry.MinEge
+                             }).ToList().OrderBy(x => x.OlympLevelId).ToList();
 
                 dgvOlympResultToAdditionalMark.DataSource = query;
                 if (dgvOlympResultToAdditionalMark.Columns.Contains("Id"))
                     dgvOlympResultToAdditionalMark.Columns["Id"].Visible = false;
-                if (dgvOlympResultToAdditionalMark.Columns.Contains("OlympName"))
-                {
-                    dgvOlympResultToAdditionalMark.Columns["OlympName"].HeaderText = "Название";
-                    dgvOlympResultToAdditionalMark.Columns["OlympName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                }
-                if (dgvOlympResultToAdditionalMark.Columns.Contains("OlympTypeId"))
-                {
-                    dgvOlympResultToAdditionalMark.Columns["OlympTypeId"].HeaderText = "Тип олимпиады";
-                }
                 if (dgvOlympResultToAdditionalMark.Columns.Contains("OlympLevelId"))
                 {
                     dgvOlympResultToAdditionalMark.Columns["OlympLevelId"].HeaderText = "Уровень олимпиады";
@@ -947,15 +938,10 @@ WHERE Id=@Id";
                     dgvOlympResultToAdditionalMark.Columns["OlympValue"].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
                 }
 
-                if (dgvOlympResultToAdditionalMark.Columns.Contains("OlympSubject"))
+                if (dgvOlympResultToAdditionalMark.Columns.Contains("ExamName"))
                 {
-                    dgvOlympResultToAdditionalMark.Columns["OlympSubject"].HeaderText = "Предмет";
-                    dgvOlympResultToAdditionalMark.Columns["OlympSubject"].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
-                }
-                if (dgvOlympResultToAdditionalMark.Columns.Contains("OlympYear"))
-                {
-                    dgvOlympResultToAdditionalMark.Columns["OlympYear"].HeaderText = "Уровень диплома";
-                    dgvOlympResultToAdditionalMark.Columns["OlympYear"].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+                    dgvOlympResultToAdditionalMark.Columns["ExamName"].HeaderText = "Предмет";
+                    dgvOlympResultToAdditionalMark.Columns["ExamName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
                 }
                 if (dgvOlympResultToAdditionalMark.Columns.Contains("AdditionalMark"))
                 {
@@ -975,7 +961,10 @@ WHERE Id=@Id";
         }
         private void btnAddOlympResultToAdditionalMark_Click(object sender, EventArgs e)
         {
-            OpenOlympResultToAdditionalMark(GuidId, null, false);
+            //OpenOlympResultToAdditionalMark(GuidId, null, false);
+            var crd = new CardOlympResultToAdditionalMark_Master(GuidId.Value);
+            crd.OnSave += UpdateOlympResultToAdditionalMark;
+            crd.Show();
         }
         private void btnDeleteOlympResultToAdditionalMark_Click(object sender, EventArgs e)
         {

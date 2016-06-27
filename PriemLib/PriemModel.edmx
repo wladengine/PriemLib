@@ -24,7 +24,7 @@
           <Property Name="IsQuota" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016_TEST.ed._FirstWaveGreen' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed._FirstWaveGreen' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="_FirstWaveGreen">
           <Key>
             <PropertyRef Name="AbiturientId" />
@@ -289,7 +289,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed._FirstWaveGreen' does not have a
           <Property Name="ExamId" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016_TEST.ed.EgeToLanguage' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.EgeToLanguage' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="EgeToLanguage">
           <Key>
             <PropertyRef Name="ExamId" />
@@ -482,7 +482,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.EgeToLanguage' does not have a p
           <Property Name="Number" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016_TEST.ed.ExamsVedRoomHistory' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.ExamsVedRoomHistory' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ExamsVedRoomHistory">
           <Key>
             <PropertyRef Name="ExamsVedRoomId" />
@@ -508,7 +508,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.ExamsVedRoomHistory' does not ha
           <Property Name="SortGrade" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016_TEST.ed.Fixieren' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.Fixieren' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Fixieren">
           <Key>
             <PropertyRef Name="Number" />
@@ -607,13 +607,15 @@ warning 6002: The table/view 'Priem2016_TEST.ed.Fixieren' does not have a primar
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="OlympTypeId" Type="int" />
-          <Property Name="OlympNameId" Type="int" />
-          <Property Name="OlympSubjectId" Type="int" />
-          <Property Name="OlympLevelId" Type="int" />
+          <Property Name="OlympYear" Type="int" Nullable="false" />
+          <Property Name="OlympTypeId" Type="int" Nullable="false" />
+          <Property Name="OlympNameId" Type="int" Nullable="false" />
+          <Property Name="OlympLevelId" Type="int" Nullable="false" />
+          <Property Name="OlympProfileId" Type="int" Nullable="false" />
+          <Property Name="OlympSubjectId" Type="int" Nullable="false" />
+          <Property Name="OlympicID" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="IsOpen" Type="bit" Nullable="false" />
           <Property Name="Holder" Type="nvarchar" MaxLength="50" />
-          <Property Name="OlympYear" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="OlympiadCheckedByRectorat">
           <Key>
@@ -632,17 +634,18 @@ warning 6002: The table/view 'Priem2016_TEST.ed.Fixieren' does not have a primar
           <Property Name="DocumentSeries" Type="nvarchar" MaxLength="50" />
           <Property Name="DocumentNumber" Type="nvarchar" MaxLength="50" />
           <Property Name="DocumentDate" Type="date" />
-          <Property Name="OlympTypeId" Type="int" />
+          <Property Name="OlympYear" Type="smallint" Nullable="false" />
+          <Property Name="OlympTypeId" Type="int" Nullable="false" />
           <Property Name="OlympNameId" Type="int" />
-          <Property Name="OlympSubjectId" Type="int" />
           <Property Name="OlympLevelId" Type="int" />
-          <Property Name="OlympValueId" Type="int" />
+          <Property Name="OlympProfileId" Type="int" />
+          <Property Name="OlympSubjectId" Type="int" />
+          <Property Name="OlympValueId" Type="int" Nullable="false" />
           <Property Name="OriginDoc" Type="bit" Nullable="false" />
           <Property Name="IsOpen" Type="bit" Nullable="false" />
           <Property Name="Holder" Type="nvarchar" MaxLength="50" />
           <Property Name="Author" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="DateCreated" Type="datetime" Nullable="false" />
-          <Property Name="OlympYear" Type="smallint" Nullable="false" />
         </EntityType>
         <EntityType Name="OlympLevel">
           <Key>
@@ -652,6 +655,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.Fixieren' does not have a primar
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="IsOpen" Type="bit" Nullable="false" />
           <Property Name="Holder" Type="nvarchar" MaxLength="150" />
+          <Property Name="FISID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="OlympName">
           <Key>
@@ -663,19 +667,27 @@ warning 6002: The table/view 'Priem2016_TEST.ed.Fixieren' does not have a primar
           <Property Name="IsOpen" Type="bit" Nullable="false" />
           <Property Name="Holder" Type="nvarchar" MaxLength="150" />
         </EntityType>
+        <EntityType Name="OlympProfile">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="SubjectID_FIS" Type="int" />
+        </EntityType>
         <EntityType Name="OlympResultToAdditionalMark">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EntryId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="OlympTypeId" Type="int" Nullable="false" />
-          <Property Name="OlympNameId" Type="int" Nullable="false" />
-          <Property Name="OlympSubjectId" Type="int" Nullable="false" />
           <Property Name="OlympLevelId" Type="int" Nullable="false" />
           <Property Name="OlympValueId" Type="int" Nullable="false" />
-          <Property Name="OlympYear" Type="int" Nullable="false" />
+          <Property Name="ExamId" Type="int" Nullable="false" />
+          <Property Name="OlympProfileId" Type="int" />
+          <Property Name="OlympSubjectId" Type="int" />
           <Property Name="AdditionalMark" Type="int" Nullable="false" />
+          <Property Name="MinEge" Type="decimal" Precision="3" Scale="1" Nullable="false" />
           <Property Name="IsOpen" Type="bit" Nullable="false" />
           <Property Name="Holder" Type="nvarchar" MaxLength="150" />
         </EntityType>
@@ -685,10 +697,12 @@ warning 6002: The table/view 'Priem2016_TEST.ed.Fixieren' does not have a primar
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EntryId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="OlympTypeId" Type="int" Nullable="false" />
-          <Property Name="OlympSubjectId" Type="int" Nullable="false" />
           <Property Name="OlympLevelId" Type="int" Nullable="false" />
           <Property Name="OlympValueId" Type="int" Nullable="false" />
+          <Property Name="ExamId" Type="int" Nullable="false" />
+          <Property Name="OlympProfileId" Type="int" />
+          <Property Name="OlympSubjectId" Type="int" />
+          <Property Name="MinEge" Type="decimal" Precision="3" Scale="1" Nullable="false" />
           <Property Name="IsOpen" Type="bit" Nullable="false" />
           <Property Name="Holder" Type="nvarchar" MaxLength="150" />
         </EntityType>
@@ -703,6 +717,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.Fixieren' does not have a primar
           <Property Name="Holder" Type="nvarchar" MaxLength="150" />
           <Property Name="ExamId" Type="int" />
           <Property Name="IsInVseross" Type="bit" />
+          <Property Name="SubjectID_FIS" Type="int" />
         </EntityType>
         <EntityType Name="OlympSubjectToExam">
           <Key>
@@ -790,7 +805,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.Fixieren' does not have a primar
           <Property Name="FISName" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016_TEST.ed.PayDataEntry' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.PayDataEntry' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PayDataEntry">
           <Key>
             <PropertyRef Name="Id" />
@@ -1055,7 +1070,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.PayDataEntry' does not have a pr
           <Property Name="OtherSportQualification" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016_TEST.ed.Privilege' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.Privilege' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Privilege">
           <Key>
             <PropertyRef Name="Number" />
@@ -1303,7 +1318,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.Privilege' does not have a prima
           <Property Name="UpperCategoryId" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016_TEST.ed.extAbit' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.extAbit' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="extAbit">
           <Key>
             <PropertyRef Name="Id" />
@@ -1420,7 +1435,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.extAbit' does not have a primary
           <Property Name="BackDocByAdmissionHigh" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016_TEST.ed.extAbitAdditionalMarksSum' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.extAbitAdditionalMarksSum' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="extAbitAdditionalMarksSum">
           <Key>
             <PropertyRef Name="AbiturientId" />
@@ -1429,7 +1444,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.extAbitAdditionalMarksSum' does 
           <Property Name="AdditionalMarksSum" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016_TEST.ed.extAbitAllAdditionalAchievements' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.extAbitAllAdditionalAchievements' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="extAbitAllAdditionalAchievements">
           <Key>
             <PropertyRef Name="AbiturientId" />
@@ -1440,7 +1455,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.extAbitAllAdditionalAchievements
           <Property Name="Mark" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016_TEST.ed.extAbitMarksSum' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.extAbitMarksSum' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="extAbitMarksSum">
           <Key>
             <PropertyRef Name="Id" />
@@ -1455,7 +1470,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.extAbitMarksSum' does not have a
           <Property Name="TotalCount" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016_TEST.ed.extApplicationDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.extApplicationDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="extApplicationDetails">
           <Key>
             <PropertyRef Name="ApplicationId" />
@@ -1475,7 +1490,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.extApplicationDetails' does not 
           <Property Name="ProfileName" Type="nvarchar" MaxLength="1000" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016_TEST.ed.extDisEntryFromReEnterView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.extDisEntryFromReEnterView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="extDisEntryFromReEnterView">
           <Key>
             <PropertyRef Name="Id" />
@@ -1515,7 +1530,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.extDisEntryFromReEnterView' does
           <Property Name="IsReduced" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016_TEST.ed.extDisEntryView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.extDisEntryView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="extDisEntryView">
           <Key>
             <PropertyRef Name="Id" />
@@ -1557,7 +1572,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.extDisEntryView' does not have a
           <Property Name="IsForeign" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016_TEST.ed.extEgeMark' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.extEgeMark' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="extEgeMark">
           <Key>
             <PropertyRef Name="Id" />
@@ -1585,7 +1600,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.extEgeMark' does not have a prim
           <Property Name="FBSStatusId" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016_TEST.ed.extEgeMarkMax' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.extEgeMarkMax' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="extEgeMarkMax">
           <Key>
             <PropertyRef Name="Id" />
@@ -1609,7 +1624,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.extEgeMarkMax' does not have a p
           <Property Name="PersonId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016_TEST.ed.extEgeMarkMaxAbit' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.extEgeMarkMaxAbit' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="extEgeMarkMaxAbit">
           <Key>
             <PropertyRef Name="AbiturientId" />
@@ -1635,7 +1650,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.extEgeMarkMaxAbit' does not have
           <Property Name="PersonId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016_TEST.ed.extEgeMarkMaxAbitApproved' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.extEgeMarkMaxAbitApproved' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="extEgeMarkMaxAbitApproved">
           <Key>
             <PropertyRef Name="AbiturientId" />
@@ -1661,7 +1676,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.extEgeMarkMaxAbitApproved' does 
           <Property Name="PersonId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016_TEST.ed.extEgeMarkMaxApproved' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.extEgeMarkMaxApproved' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="extEgeMarkMaxApproved">
           <Key>
             <PropertyRef Name="Id" />
@@ -1685,7 +1700,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.extEgeMarkMaxApproved' does not 
           <Property Name="PersonId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016_TEST.ed.extEnableProtocol' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.extEnableProtocol' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="extEnableProtocol">
           <Key>
             <PropertyRef Name="Id" />
@@ -1720,7 +1735,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.extEnableProtocol' does not have
           <Property Name="ProtocolTypeName" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016_TEST.ed.extEntry' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.extEntry' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="extEntry">
           <Key>
             <PropertyRef Name="Id" />
@@ -1798,7 +1813,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.extEntry' does not have a primar
           <Property Name="AggregateGroupAcronym" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016_TEST.ed.extEntryProtocols' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.extEntryProtocols' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="extEntryProtocols">
           <Key>
             <PropertyRef Name="Id" />
@@ -1835,7 +1850,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.extEntryProtocols' does not have
           <Property Name="IsReduced" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016_TEST.ed.extEntryView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.extEntryView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="extEntryView">
           <Key>
             <PropertyRef Name="Id" />
@@ -1900,7 +1915,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.extEntryView' does not have a pr
           <Property Name="EntryIsForeign" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016_TEST.ed.extEntryView_ForDisEntered' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.extEntryView_ForDisEntered' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="extEntryView_ForDisEntered">
           <Key>
             <PropertyRef Name="Id" />
@@ -1945,7 +1960,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.extEntryView_ForDisEntered' does
           <Property Name="SignerPosition" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016_TEST.ed.extExamInEntry' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.extExamInEntry' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="extExamInEntry">
           <Key>
             <PropertyRef Name="Id" />
@@ -1999,7 +2014,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.extExamInEntry' does not have a 
           <Property Name="IsForeign" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016_TEST.ed.extExamsVed' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.extExamsVed' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="extExamsVed">
           <Key>
             <PropertyRef Name="Id" />
@@ -2034,7 +2049,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.extExamsVed' does not have a pri
           <Property Name="FacultyName" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016_TEST.ed.extFBSStatus' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.extFBSStatus' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="extFBSStatus">
           <Key>
             <PropertyRef Name="FBSStatus" />
@@ -2046,7 +2061,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.extFBSStatus' does not have a pr
           <Property Name="Surname" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016_TEST.ed.extForeignPerson' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.extForeignPerson' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="extForeignPerson">
           <Key>
             <PropertyRef Name="Id" />
@@ -2129,29 +2144,39 @@ warning 6002: The table/view 'Priem2016_TEST.ed.extForeignPerson' does not have 
           <Property Name="TRKICertificateNumber" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016_TEST.ed.extOlympBook' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.extOlympBook' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="extOlympBook">
           <Key>
             <PropertyRef Name="Id" />
+            
+            
+            
+            
             <PropertyRef Name="OlympYear" />
+            <PropertyRef Name="OlympProfileId" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="OlympTypeId" Type="int" />
-          <Property Name="OlympNameId" Type="int" />
-          <Property Name="OlympSubjectId" Type="int" />
-          <Property Name="OlympLevelId" Type="int" />
+          <Property Name="OlympTypeId" Type="int" Nullable="false" />
+          <Property Name="OlympNameId" Type="int" Nullable="false" />
+          <Property Name="OlympSubjectId" Type="int" Nullable="false" />
+          <Property Name="OlympLevelId" Type="int" Nullable="false" />
           <Property Name="OlympNameName" Type="nvarchar" MaxLength="2000" />
           <Property Name="OlympLevelName" Type="nvarchar" MaxLength="50" />
           <Property Name="OlympSubjectName" Type="nvarchar" MaxLength="100" />
           <Property Name="OlympTypeName" Type="nvarchar" MaxLength="50" />
           <Property Name="Number" Type="int" />
           <Property Name="OlympYear" Type="int" Nullable="false" />
+          <Property Name="OlympProfileId" Type="int" Nullable="false" />
+          <Property Name="OlympProfileName" Type="nvarchar" MaxLength="150" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016_TEST.ed.extOlympiads' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.extOlympiads' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="extOlympiads">
           <Key>
             <PropertyRef Name="Id" />
+            
+            
+            
             <PropertyRef Name="OriginDoc" />
             <PropertyRef Name="OlympLevelName" />
             <PropertyRef Name="OlympValueName" />
@@ -2160,37 +2185,41 @@ warning 6002: The table/view 'Priem2016_TEST.ed.extOlympiads' does not have a pr
             <PropertyRef Name="OlympTypeName" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="OlympTypeId" Type="int" />
+          <Property Name="OlympTypeId" Type="int" Nullable="false" />
           <Property Name="OlympNameId" Type="int" />
           <Property Name="OlympSubjectId" Type="int" />
           <Property Name="OlympLevelId" Type="int" />
-          <Property Name="OlympValueId" Type="int" />
+          <Property Name="OlympValueId" Type="int" Nullable="false" />
           <Property Name="AbiturientId" Type="uniqueidentifier" />
           <Property Name="OlympLevelName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="OlympValueName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="OlympName" Type="nvarchar" MaxLength="2000" Nullable="false" />
           <Property Name="OlympSubjectName" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="OlympTypeName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="PersonId" Type="uniqueidentifier" />
+          <Property Name="PersonId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="OriginDoc" Type="bit" Nullable="false" />
           <Property Name="SortOrder" Type="int" />
           <Property Name="OlympValueAcr" Type="nvarchar" MaxLength="50" />
+          <Property Name="OlympProfileId" Type="int" />
+          <Property Name="OlympProfileName" Type="nvarchar" MaxLength="150" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016_TEST.ed.extOlympiadsAll' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.extOlympiadsAll' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="extOlympiadsAll">
           <Key>
             <PropertyRef Name="Id" />
+            
+            
             
             <PropertyRef Name="OriginDoc" />
             <PropertyRef Name="OlympYear" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="OlympTypeId" Type="int" />
+          <Property Name="OlympTypeId" Type="int" Nullable="false" />
           <Property Name="OlympNameId" Type="int" />
           <Property Name="OlympSubjectId" Type="int" />
           <Property Name="OlympLevelId" Type="int" />
-          <Property Name="OlympValueId" Type="int" />
+          <Property Name="OlympValueId" Type="int" Nullable="false" />
           <Property Name="AbiturientId" Type="uniqueidentifier" />
           <Property Name="OlympLevelName" Type="nvarchar" MaxLength="50" />
           <Property Name="OlympValueName" Type="nvarchar" MaxLength="50" />
@@ -2205,9 +2234,11 @@ warning 6002: The table/view 'Priem2016_TEST.ed.extOlympiadsAll' does not have a
           <Property Name="DocumentDate" Type="date" />
           <Property Name="OlympValueSortOrder" Type="int" />
           <Property Name="OlympYear" Type="smallint" Nullable="false" />
+          <Property Name="OlympProfileId" Type="int" />
+          <Property Name="OlympProfileName" Type="nvarchar" MaxLength="150" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016_TEST.ed.extPerson' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.extPerson' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="extPerson">
           <Key>
             <PropertyRef Name="Id" />
@@ -2316,7 +2347,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.extPerson' does not have a prima
           <Property Name="HasOriginals" Type="bit" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016_TEST.ed.extPerson_EducationInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.extPerson_EducationInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="extPerson_EducationInfo">
           <Key>
             <PropertyRef Name="Id" />
@@ -2369,7 +2400,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.extPerson_EducationInfo' does no
           <Property Name="HEWork" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016_TEST.ed.extPerson_EducationInfo_Current' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.extPerson_EducationInfo_Current' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="extPerson_EducationInfo_Current">
           <Key>
             <PropertyRef Name="Id" />
@@ -2423,7 +2454,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.extPerson_EducationInfo_Current'
           <Property Name="EducDocument" Type="nvarchar" MaxLength="42" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016_TEST.ed.extPersonAll' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.extPersonAll' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="extPersonAll">
           <Key>
             <PropertyRef Name="Id" />
@@ -2534,7 +2565,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.extPersonAll' does not have a pr
           <Property Name="ForeignCountryEducId" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016_TEST.ed.extProtocol' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.extProtocol' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="extProtocol">
           <Key>
             <PropertyRef Name="Id" />
@@ -2588,7 +2619,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.extProtocol' does not have a pri
           <Property Name="IsForeign" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016_TEST.ed.hlpAbiturientActionLog' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.hlpAbiturientActionLog' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="hlpAbiturientActionLog">
           <Key>
             
@@ -2627,7 +2658,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.hlpAbiturientActionLog' does not
           <Property Name="ActionType" Type="varchar" MaxLength="29" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016_TEST.ed.hlpAbiturientProf' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.hlpAbiturientProf' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="hlpAbiturientProf">
           <Key>
             <PropertyRef Name="Id" />
@@ -2637,7 +2668,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.hlpAbiturientProf' does not have
           <Property Name="ProfFiveGrade" Type="tinyint" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016_TEST.ed.hlpAbiturientProfAdd' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.hlpAbiturientProfAdd' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="hlpAbiturientProfAdd">
           <Key>
             <PropertyRef Name="Id" />
@@ -2646,7 +2677,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.hlpAbiturientProfAdd' does not h
           <Property Name="ProfAdd" Type="decimal" Precision="38" Scale="1" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016_TEST.ed.hlpEgeMarkMaxApproved' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.hlpEgeMarkMaxApproved' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="hlpEgeMarkMaxApproved">
           <Key>
             <PropertyRef Name="PersonId" />
@@ -2657,7 +2688,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.hlpEgeMarkMaxApproved' does not 
           <Property Name="EgeMarkId" Type="uniqueidentifier" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016_TEST.ed.hlpPersonMaxEducationInfoId' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.hlpPersonMaxEducationInfoId' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="hlpPersonMaxEducationInfoId">
           <Key>
             <PropertyRef Name="PersonId" />
@@ -2666,7 +2697,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.hlpPersonMaxEducationInfoId' doe
           <Property Name="Id" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016_TEST.ed.hlpStatistics' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.hlpStatistics' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="hlpStatistics">
           <Key>
             <PropertyRef Name="EntryId" />
@@ -2702,7 +2733,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.hlpStatistics' does not have a p
           <Property Name="CNT" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016_TEST.ed.qAbitAll' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.qAbitAll' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="qAbitAll">
           <Key>
             <PropertyRef Name="Id" />
@@ -2804,7 +2835,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qAbitAll' does not have a primar
           <Property Name="IsCrimea" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016_TEST.ed.qAbiturient' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.qAbiturient' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="qAbiturient">
           <Key>
             <PropertyRef Name="Id" />
@@ -2911,7 +2942,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qAbiturient' does not have a pri
           <Property Name="OlympiadId" Type="uniqueidentifier" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016_TEST.ed.qAbiturient_WhoSetBackDoc' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.qAbiturient_WhoSetBackDoc' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="qAbiturient_WhoSetBackDoc">
           <Key>
             <PropertyRef Name="IntId" />
@@ -2928,7 +2959,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qAbiturient_WhoSetBackDoc' does 
           <Property Name="PersonId" Type="uniqueidentifier" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016_TEST.ed.qAbiturient_WhoSetHasOriginals' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.qAbiturient_WhoSetHasOriginals' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="qAbiturient_WhoSetHasOriginals">
           <Key>
             <PropertyRef Name="IntId" />
@@ -2945,7 +2976,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qAbiturient_WhoSetHasOriginals' 
           <Property Name="PersonId" Type="uniqueidentifier" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016_TEST.ed.qAbiturient_WhoSetIsPaid' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.qAbiturient_WhoSetIsPaid' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="qAbiturient_WhoSetIsPaid">
           <Key>
             <PropertyRef Name="IntId" />
@@ -2962,7 +2993,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qAbiturient_WhoSetIsPaid' does n
           <Property Name="PersonId" Type="uniqueidentifier" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016_TEST.ed.qAbiturientForeignApplicationsOnly' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.qAbiturientForeignApplicationsOnly' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="qAbiturientForeignApplicationsOnly">
           <Key>
             <PropertyRef Name="Id" />
@@ -2970,7 +3001,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qAbiturientForeignApplicationsOn
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016_TEST.ed.qEntry' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.qEntry' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="qEntry">
           <Key>
             <PropertyRef Name="Id" />
@@ -3041,7 +3072,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qEntry' does not have a primary 
           <Property Name="AggregateGroupId" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016_TEST.ed.qEntryToCompetitiveGroup' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.qEntryToCompetitiveGroup' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="qEntryToCompetitiveGroup">
           <Key>
             <PropertyRef Name="EntryId" />
@@ -3053,7 +3084,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qEntryToCompetitiveGroup' does n
           <Property Name="CompetitiveGroupName" Type="nvarchar" MaxLength="1000" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016_TEST.ed.qFaculty' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.qFaculty' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="qFaculty">
           <Key>
             <PropertyRef Name="Id" />
@@ -3066,7 +3097,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qFaculty' does not have a primar
           <Property Name="VinName" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016_TEST.ed.qLicenseProgram' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.qLicenseProgram' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="qLicenseProgram">
           <Key>
             <PropertyRef Name="Id" />
@@ -3076,7 +3107,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qLicenseProgram' does not have a
           <Property Name="Code" Type="nvarchar" MaxLength="10" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016_TEST.ed.qMark' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.qMark' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="qMark">
           <Key>
             <PropertyRef Name="Id" />
@@ -3123,7 +3154,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qMark' does not have a primary k
           <Property Name="StudyBasisId" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016_TEST.ed.qObrazProgram' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.qObrazProgram' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="qObrazProgram">
           <Key>
             <PropertyRef Name="Id" />
@@ -3139,7 +3170,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qObrazProgram' does not have a p
           <Property Name="Number" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016_TEST.ed.qProfile' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.qProfile' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="qProfile">
           <Key>
             <PropertyRef Name="Id" />
@@ -3148,7 +3179,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qProfile' does not have a primar
           <Property Name="Name" Type="nvarchar" MaxLength="1000" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016_TEST.ed.qProtocol' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.qProtocol' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="qProtocol">
           <Key>
             <PropertyRef Name="Id" />
@@ -3178,7 +3209,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qProtocol' does not have a prima
           <Property Name="IsForeign" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016_TEST.ed.qProtocolHistory' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.qProtocolHistory' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="qProtocolHistory">
           <Key>
             <PropertyRef Name="AbiturientId" />
@@ -3215,7 +3246,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qProtocolHistory' does not have 
           <Property Name="IsForeign" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="qStudyLevel">
           <Key>
             <PropertyRef Name="Id" />
@@ -3774,9 +3805,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a pri
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ExamsVedMarkDetails_ExamsVedHistoryMark">
-          <End Role="ExamsVedHistoryMark" Type="Self.ExamsVedHistoryMark" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="ExamsVedHistoryMark" Type="Self.ExamsVedHistoryMark" Multiplicity="0..1" />
           <End Role="ExamsVedMarkDetails" Type="Self.ExamsVedMarkDetails" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ExamsVedHistoryMark">
@@ -3880,7 +3909,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a pri
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_OlympBook_OlympLevel">
-          <End Role="OlympLevel" Type="Self.OlympLevel" Multiplicity="0..1">
+          <End Role="OlympLevel" Type="Self.OlympLevel" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="OlympBook" Type="Self.OlympBook" Multiplicity="*" />
@@ -3894,7 +3923,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a pri
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_OlympBook_OlympSubject">
-          <End Role="OlympSubject" Type="Self.OlympSubject" Multiplicity="0..1">
+          <End Role="OlympSubject" Type="Self.OlympSubject" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="OlympBook" Type="Self.OlympBook" Multiplicity="*" />
@@ -3908,7 +3937,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a pri
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_OlympBook_OlympType">
-          <End Role="OlympType" Type="Self.OlympType" Multiplicity="0..1" />
+          <End Role="OlympType" Type="Self.OlympType" Multiplicity="1" />
           <End Role="OlympBook" Type="Self.OlympBook" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="OlympType">
@@ -3988,7 +4017,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a pri
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Olympiads_OlympType">
-          <End Role="OlympType" Type="Self.OlympType" Multiplicity="0..1" />
+          <End Role="OlympType" Type="Self.OlympType" Multiplicity="1" />
           <End Role="Olympiads" Type="Self.Olympiads" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="OlympType">
@@ -4000,7 +4029,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a pri
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_Olympiads_OlympValue">
-          <End Role="OlympValue" Type="Self.OlympValue" Multiplicity="0..1">
+          <End Role="OlympValue" Type="Self.OlympValue" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="Olympiads" Type="Self.Olympiads" Multiplicity="*" />
@@ -4013,6 +4042,30 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a pri
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_OlympResultToAdditionalMark_Entry">
+          <End Role="Entry" Type="Self.Entry" Multiplicity="1" />
+          <End Role="OlympResultToAdditionalMark" Type="Self.OlympResultToAdditionalMark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Entry">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OlympResultToAdditionalMark">
+              <PropertyRef Name="EntryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OlympResultToAdditionalMark_Exam">
+          <End Role="Exam" Type="Self.Exam" Multiplicity="1" />
+          <End Role="OlympResultToAdditionalMark" Type="Self.OlympResultToAdditionalMark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exam">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OlympResultToAdditionalMark">
+              <PropertyRef Name="ExamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_OlympResultToAdditionalMark_OlympLevel">
           <End Role="OlympLevel" Type="Self.OlympLevel" Multiplicity="1" />
           <End Role="OlympResultToAdditionalMark" Type="Self.OlympResultToAdditionalMark" Multiplicity="*" />
@@ -4022,42 +4075,6 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a pri
             </Principal>
             <Dependent Role="OlympResultToAdditionalMark">
               <PropertyRef Name="OlympLevelId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OlympResultToAdditionalMark_OlympName">
-          <End Role="OlympName" Type="Self.OlympName" Multiplicity="1" />
-          <End Role="OlympResultToAdditionalMark" Type="Self.OlympResultToAdditionalMark" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OlympName">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OlympResultToAdditionalMark">
-              <PropertyRef Name="OlympNameId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OlympResultToAdditionalMark_OlympSubject">
-          <End Role="OlympSubject" Type="Self.OlympSubject" Multiplicity="1" />
-          <End Role="OlympResultToAdditionalMark" Type="Self.OlympResultToAdditionalMark" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OlympSubject">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OlympResultToAdditionalMark">
-              <PropertyRef Name="OlympSubjectId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OlympResultToAdditionalMark_OlympType">
-          <End Role="OlympType" Type="Self.OlympType" Multiplicity="1" />
-          <End Role="OlympResultToAdditionalMark" Type="Self.OlympResultToAdditionalMark" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OlympType">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OlympResultToAdditionalMark">
-              <PropertyRef Name="OlympTypeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4085,7 +4102,19 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a pri
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_OlympResultToCommonBenefit_OlympName">
+        <Association Name="FK_OlympResultToCommonBenefit_Exam">
+          <End Role="Exam" Type="Self.Exam" Multiplicity="1" />
+          <End Role="OlympResultToCommonBenefit" Type="Self.OlympResultToCommonBenefit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exam">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OlympResultToCommonBenefit">
+              <PropertyRef Name="ExamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OlympResultToCommonBenefit_OlympLevel">
           <End Role="OlympLevel" Type="Self.OlympLevel" Multiplicity="1" />
           <End Role="OlympResultToCommonBenefit" Type="Self.OlympResultToCommonBenefit" Multiplicity="*" />
           <ReferentialConstraint>
@@ -4094,30 +4123,6 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a pri
             </Principal>
             <Dependent Role="OlympResultToCommonBenefit">
               <PropertyRef Name="OlympLevelId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OlympResultToCommonBenefit_OlympSubject">
-          <End Role="OlympSubject" Type="Self.OlympSubject" Multiplicity="1" />
-          <End Role="OlympResultToCommonBenefit" Type="Self.OlympResultToCommonBenefit" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OlympSubject">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OlympResultToCommonBenefit">
-              <PropertyRef Name="OlympSubjectId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OlympResultToCommonBenefit_OlympType">
-          <End Role="OlympType" Type="Self.OlympType" Multiplicity="1" />
-          <End Role="OlympResultToCommonBenefit" Type="Self.OlympResultToCommonBenefit" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OlympType">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OlympResultToCommonBenefit">
-              <PropertyRef Name="OlympTypeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -5354,6 +5359,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a pri
         <Function Name="Olympiads_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ed">
           <Parameter Name="OlympTypeId" Type="int" Mode="In" />
           <Parameter Name="OlympNameId" Type="int" Mode="In" />
+          <Parameter Name="OlympProfileId" Type="int" Mode="In" />
           <Parameter Name="OlympSubjectId" Type="int" Mode="In" />
           <Parameter Name="OlympLevelId" Type="int" Mode="In" />
           <Parameter Name="OlympValueId" Type="int" Mode="In" />
@@ -5368,6 +5374,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a pri
         <Function Name="Olympiads_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ed">
           <Parameter Name="OlympTypeId" Type="int" Mode="In" />
           <Parameter Name="OlympNameId" Type="int" Mode="In" />
+          <Parameter Name="OlympProfileId" Type="int" Mode="In" />
           <Parameter Name="OlympSubjectId" Type="int" Mode="In" />
           <Parameter Name="OlympLevelId" Type="int" Mode="In" />
           <Parameter Name="OlympValueId" Type="int" Mode="In" />
@@ -5396,24 +5403,24 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a pri
         </Function>
         <Function Name="OlympResultToAdditionalMark_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ed">
           <Parameter Name="EntryId" Type="uniqueidentifier" Mode="In" />
-          <Parameter Name="OlympTypeId" Type="int" Mode="In" />
           <Parameter Name="OlympLevelId" Type="int" Mode="In" />
-          <Parameter Name="OlympNameId" Type="int" Mode="In" />
-          <Parameter Name="OlympSubjectId" Type="int" Mode="In" />
           <Parameter Name="OlympValueId" Type="int" Mode="In" />
-          <Parameter Name="OlympYear" Type="int" Mode="In" />
+          <Parameter Name="ExamId" Type="int" Mode="In" />
+          <Parameter Name="OlympProfileId" Type="int" Mode="In" />
+          <Parameter Name="OlympSubjectId" Type="int" Mode="In" />
           <Parameter Name="AdditionalMark" Type="int" Mode="In" />
+          <Parameter Name="MinEgeValue" Type="decimal" Mode="In" />
           <Parameter Name="id" Type="int" Mode="InOut" />
         </Function>
         <Function Name="OlympResultToAdditionalMark_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ed">
           <Parameter Name="EntryId" Type="uniqueidentifier" Mode="In" />
-          <Parameter Name="OlympTypeId" Type="int" Mode="In" />
           <Parameter Name="OlympLevelId" Type="int" Mode="In" />
-          <Parameter Name="OlympNameId" Type="int" Mode="In" />
-          <Parameter Name="OlympSubjectId" Type="int" Mode="In" />
           <Parameter Name="OlympValueId" Type="int" Mode="In" />
-          <Parameter Name="OlympYear" Type="int" Mode="In" />
+          <Parameter Name="ExamId" Type="int" Mode="In" />
+          <Parameter Name="OlympProfileId" Type="int" Mode="In" />
+          <Parameter Name="OlympSubjectId" Type="int" Mode="In" />
           <Parameter Name="AdditionalMark" Type="int" Mode="In" />
+          <Parameter Name="MinEgeValue" Type="decimal" Mode="In" />
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="OlympResultToCommonBenefit_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ed">
@@ -5421,18 +5428,22 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a pri
         </Function>
         <Function Name="OlympResultToCommonBenefit_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ed">
           <Parameter Name="EntryId" Type="uniqueidentifier" Mode="In" />
-          <Parameter Name="OlympTypeId" Type="int" Mode="In" />
           <Parameter Name="OlympLevelId" Type="int" Mode="In" />
-          <Parameter Name="OlympSubjectId" Type="int" Mode="In" />
           <Parameter Name="OlympValueId" Type="int" Mode="In" />
+          <Parameter Name="ExamId" Type="int" Mode="In" />
+          <Parameter Name="OlympProfileId" Type="int" Mode="In" />
+          <Parameter Name="OlympSubjectId" Type="int" Mode="In" />
+          <Parameter Name="MinEgeValue" Type="decimal" Mode="In" />
           <Parameter Name="id" Type="int" Mode="InOut" />
         </Function>
         <Function Name="OlympResultToCommonBenefit_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ed">
           <Parameter Name="EntryId" Type="uniqueidentifier" Mode="In" />
-          <Parameter Name="OlympTypeId" Type="int" Mode="In" />
           <Parameter Name="OlympLevelId" Type="int" Mode="In" />
-          <Parameter Name="OlympSubjectId" Type="int" Mode="In" />
           <Parameter Name="OlympValueId" Type="int" Mode="In" />
+          <Parameter Name="ExamId" Type="int" Mode="In" />
+          <Parameter Name="OlympProfileId" Type="int" Mode="In" />
+          <Parameter Name="OlympSubjectId" Type="int" Mode="In" />
+          <Parameter Name="MinEgeValue" Type="decimal" Mode="In" />
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="OlympSubject_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ed">
@@ -6070,6 +6081,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a pri
           <EntitySet Name="Olympiads" EntityType="Self.Olympiads" Schema="ed" store:Type="Tables" />
           <EntitySet Name="OlympLevel" EntityType="Self.OlympLevel" Schema="ed" store:Type="Tables" />
           <EntitySet Name="OlympName" EntityType="Self.OlympName" Schema="ed" store:Type="Tables" />
+          <EntitySet Name="OlympProfile" EntityType="Self.OlympProfile" Schema="ed" store:Type="Tables" />
           <EntitySet Name="OlympResultToAdditionalMark" EntityType="Self.OlympResultToAdditionalMark" Schema="ed" store:Type="Tables" />
           <EntitySet Name="OlympResultToCommonBenefit" EntityType="Self.OlympResultToCommonBenefit" Schema="ed" store:Type="Tables" />
           <EntitySet Name="OlympSubject" EntityType="Self.OlympSubject" Schema="ed" store:Type="Tables" />
@@ -6713,7 +6725,9 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a pri
     [extOlympBook].[OlympSubjectName] AS [OlympSubjectName], 
     [extOlympBook].[OlympTypeName] AS [OlympTypeName], 
     [extOlympBook].[Number] AS [Number], 
-    [extOlympBook].[OlympYear] AS [OlympYear]
+    [extOlympBook].[OlympYear] AS [OlympYear], 
+    [extOlympBook].[OlympProfileId] AS [OlympProfileId], 
+    [extOlympBook].[OlympProfileName] AS [OlympProfileName]
     FROM [ed].[extOlympBook] AS [extOlympBook]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="extOlympiads" EntityType="Self.extOlympiads" store:Type="Views" store:Schema="ed">
@@ -6733,7 +6747,9 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a pri
     [extOlympiads].[PersonId] AS [PersonId], 
     [extOlympiads].[OriginDoc] AS [OriginDoc], 
     [extOlympiads].[SortOrder] AS [SortOrder], 
-    [extOlympiads].[OlympValueAcr] AS [OlympValueAcr]
+    [extOlympiads].[OlympValueAcr] AS [OlympValueAcr], 
+    [extOlympiads].[OlympProfileId] AS [OlympProfileId], 
+    [extOlympiads].[OlympProfileName] AS [OlympProfileName]
     FROM [ed].[extOlympiads] AS [extOlympiads]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="extOlympiadsAll" EntityType="Self.extOlympiadsAll" store:Type="Views" store:Schema="ed">
@@ -6757,7 +6773,9 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a pri
     [extOlympiadsAll].[DocumentNumber] AS [DocumentNumber], 
     [extOlympiadsAll].[DocumentDate] AS [DocumentDate], 
     [extOlympiadsAll].[OlympValueSortOrder] AS [OlympValueSortOrder], 
-    [extOlympiadsAll].[OlympYear] AS [OlympYear]
+    [extOlympiadsAll].[OlympYear] AS [OlympYear], 
+    [extOlympiadsAll].[OlympProfileId] AS [OlympProfileId], 
+    [extOlympiadsAll].[OlympProfileName] AS [OlympProfileName]
     FROM [ed].[extOlympiadsAll] AS [extOlympiadsAll]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="extPerson" EntityType="Self.extPerson" store:Type="Views" store:Schema="ed">
@@ -7712,20 +7730,16 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a pri
             <End Role="OlympValue" EntitySet="OlympValue" />
             <End Role="Olympiads" EntitySet="Olympiads" />
           </AssociationSet>
+          <AssociationSet Name="FK_OlympResultToAdditionalMark_Entry" Association="Self.FK_OlympResultToAdditionalMark_Entry">
+            <End Role="Entry" EntitySet="Entry" />
+            <End Role="OlympResultToAdditionalMark" EntitySet="OlympResultToAdditionalMark" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OlympResultToAdditionalMark_Exam" Association="Self.FK_OlympResultToAdditionalMark_Exam">
+            <End Role="Exam" EntitySet="Exam" />
+            <End Role="OlympResultToAdditionalMark" EntitySet="OlympResultToAdditionalMark" />
+          </AssociationSet>
           <AssociationSet Name="FK_OlympResultToAdditionalMark_OlympLevel" Association="Self.FK_OlympResultToAdditionalMark_OlympLevel">
             <End Role="OlympLevel" EntitySet="OlympLevel" />
-            <End Role="OlympResultToAdditionalMark" EntitySet="OlympResultToAdditionalMark" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OlympResultToAdditionalMark_OlympName" Association="Self.FK_OlympResultToAdditionalMark_OlympName">
-            <End Role="OlympName" EntitySet="OlympName" />
-            <End Role="OlympResultToAdditionalMark" EntitySet="OlympResultToAdditionalMark" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OlympResultToAdditionalMark_OlympSubject" Association="Self.FK_OlympResultToAdditionalMark_OlympSubject">
-            <End Role="OlympSubject" EntitySet="OlympSubject" />
-            <End Role="OlympResultToAdditionalMark" EntitySet="OlympResultToAdditionalMark" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OlympResultToAdditionalMark_OlympType" Association="Self.FK_OlympResultToAdditionalMark_OlympType">
-            <End Role="OlympType" EntitySet="OlympType" />
             <End Role="OlympResultToAdditionalMark" EntitySet="OlympResultToAdditionalMark" />
           </AssociationSet>
           <AssociationSet Name="FK_OlympResultToAdditionalMark_OlympValue" Association="Self.FK_OlympResultToAdditionalMark_OlympValue">
@@ -7736,16 +7750,12 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a pri
             <End Role="Entry" EntitySet="Entry" />
             <End Role="OlympResultToCommonBenefit" EntitySet="OlympResultToCommonBenefit" />
           </AssociationSet>
-          <AssociationSet Name="FK_OlympResultToCommonBenefit_OlympName" Association="Self.FK_OlympResultToCommonBenefit_OlympName">
+          <AssociationSet Name="FK_OlympResultToCommonBenefit_Exam" Association="Self.FK_OlympResultToCommonBenefit_Exam">
+            <End Role="Exam" EntitySet="Exam" />
+            <End Role="OlympResultToCommonBenefit" EntitySet="OlympResultToCommonBenefit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OlympResultToCommonBenefit_OlympLevel" Association="Self.FK_OlympResultToCommonBenefit_OlympLevel">
             <End Role="OlympLevel" EntitySet="OlympLevel" />
-            <End Role="OlympResultToCommonBenefit" EntitySet="OlympResultToCommonBenefit" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OlympResultToCommonBenefit_OlympSubject" Association="Self.FK_OlympResultToCommonBenefit_OlympSubject">
-            <End Role="OlympSubject" EntitySet="OlympSubject" />
-            <End Role="OlympResultToCommonBenefit" EntitySet="OlympResultToCommonBenefit" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OlympResultToCommonBenefit_OlympType" Association="Self.FK_OlympResultToCommonBenefit_OlympType">
-            <End Role="OlympType" EntitySet="OlympType" />
             <End Role="OlympResultToCommonBenefit" EntitySet="OlympResultToCommonBenefit" />
           </AssociationSet>
           <AssociationSet Name="FK_OlympResultToCommonBenefit_OlympValue" Association="Self.FK_OlympResultToCommonBenefit_OlympValue">
@@ -8196,7 +8206,6 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a pri
           <EntitySet Name="qLicenseProgram" EntityType="Priem2012Model.qLicenseProgram" />
           <EntitySet Name="qProfile" EntityType="Priem2012Model.qProfile" />
           <EntitySet Name="OlympLevel" EntityType="Priem2012Model.OlympLevel" />
-          <EntitySet Name="OlympSubject" EntityType="Priem2012Model.OlympSubject" />
           <EntitySet Name="OlympValue" EntityType="Priem2012Model.OlympValue" />
           <FunctionImport Name="Olympiads_Delete">
           <Parameter Name="id" Mode="In" Type="Guid" />
@@ -8353,6 +8362,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a pri
           <FunctionImport Name="Olympiads_Insert">
             <Parameter Name="OlympTypeId" Mode="In" Type="Int32" />
             <Parameter Name="OlympNameId" Mode="In" Type="Int32" />
+            <Parameter Name="OlympProfileId" Mode="In" Type="Int32" />
             <Parameter Name="OlympSubjectId" Mode="In" Type="Int32" />
             <Parameter Name="OlympLevelId" Mode="In" Type="Int32" />
             <Parameter Name="OlympValueId" Mode="In" Type="Int32" />
@@ -8367,6 +8377,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a pri
           <FunctionImport Name="Olympiads_Update">
             <Parameter Name="OlympTypeId" Mode="In" Type="Int32" />
             <Parameter Name="OlympNameId" Mode="In" Type="Int32" />
+            <Parameter Name="OlympProfileId" Mode="In" Type="Int32" />
             <Parameter Name="OlympSubjectId" Mode="In" Type="Int32" />
             <Parameter Name="OlympLevelId" Mode="In" Type="Int32" />
             <Parameter Name="OlympValueId" Mode="In" Type="Int32" />
@@ -8382,26 +8393,9 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a pri
             <End Role="OlympLevel" EntitySet="OlympLevel" />
             <End Role="OlympBook" EntitySet="OlympBook" />
           </AssociationSet>
-          <AssociationSet Name="fk_OlympBook_OlympSubject" Association="Priem2012Model.fk_OlympBook_OlympSubject">
-            <End Role="OlympSubject" EntitySet="OlympSubject" />
-            <End Role="OlympBook" EntitySet="OlympBook" />
-          </AssociationSet>
           <EntitySet Name="Olympiads" EntityType="Priem2012Model.Olympiads" />
-          <EntitySet Name="OlympType" EntityType="Priem2012Model.OlympType" />
-          <AssociationSet Name="FK_OlympBook_OlympType" Association="Priem2012Model.FK_OlympBook_OlympType">
-            <End Role="OlympType" EntitySet="OlympType" />
-            <End Role="OlympBook" EntitySet="OlympBook" />
-          </AssociationSet>
           <AssociationSet Name="fk_Olympiads_OlympLevel" Association="Priem2012Model.fk_Olympiads_OlympLevel">
             <End Role="OlympLevel" EntitySet="OlympLevel" />
-            <End Role="Olympiads" EntitySet="Olympiads" />
-          </AssociationSet>
-          <AssociationSet Name="fk_Olympiads_OlympSubject" Association="Priem2012Model.fk_Olympiads_OlympSubject">
-            <End Role="OlympSubject" EntitySet="OlympSubject" />
-            <End Role="Olympiads" EntitySet="Olympiads" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Olympiads_OlympType" Association="Priem2012Model.FK_Olympiads_OlympType">
-            <End Role="OlympType" EntitySet="OlympType" />
             <End Role="Olympiads" EntitySet="Olympiads" />
           </AssociationSet>
           <AssociationSet Name="fk_Olympiads_OlympValue" Association="Priem2012Model.fk_Olympiads_OlympValue">
@@ -8491,7 +8485,6 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a pri
             <Parameter Name="id" Mode="InOut" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="PersonChanges" EntityType="Priem2012Model.PersonChanges" />
-          <EntitySet Name="OlympName" EntityType="Priem2012Model.OlympName" />
           <FunctionImport Name="Abiturient_UpdateCompetititon">
             <Parameter Name="CompetitionId" Mode="In" Type="Int32" />
             <Parameter Name="OtherCompetitionId" Mode="In" Type="Int32" />
@@ -9028,10 +9021,6 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a pri
             <End Role="Country" EntitySet="Country" />
             <End Role="Person" EntitySet="Person" />
           </AssociationSet>
-          <AssociationSet Name="FK_OlympBook_OlympName" Association="Priem2012Model.FK_OlympBook_OlympName">
-            <End Role="OlympName" EntitySet="OlympName" />
-            <End Role="OlympBook" EntitySet="OlympBook" />
-          </AssociationSet>
           <EntitySet Name="BenefitDocumentType" EntityType="Priem2012Model.BenefitDocumentType" />
           <EntitySet Name="PersonBenefitDocument" EntityType="Priem2012Model.PersonBenefitDocument" />
           <AssociationSet Name="FK_PersonBenefitDocument_BenefitDocumentType" Association="Priem2012Model.FK_PersonBenefitDocument_BenefitDocumentType">
@@ -9323,10 +9312,6 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a pri
             <End Role="Entry" EntitySet="Entry" />
             <End Role="PayDataEntry" EntitySet="PayDataEntry" />
           </AssociationSet>
-          <AssociationSet Name="FK_Olympiads_OlympName" Association="Priem2012Model.FK_Olympiads_OlympName">
-            <End Role="OlympName" EntitySet="OlympName" />
-            <End Role="Olympiads" EntitySet="Olympiads" />
-          </AssociationSet>
           <EntitySet Name="qAbiturient" EntityType="Priem2012Model.qAbiturient" />
           <AssociationSet Name="FK_Entry_SP_LicenseProgram" Association="Priem2012Model.FK_Entry_SP_LicenseProgram">
             <End Role="SP_LicenseProgram" EntitySet="SP_LicenseProgram" />
@@ -9392,10 +9377,6 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a pri
           </FunctionImport>
           <AssociationSet Name="FK_OlympSubjectToExam_Exam" Association="Priem2012Model.FK_OlympSubjectToExam_Exam">
             <End Role="Exam" EntitySet="Exam" />
-            <End Role="OlympSubjectToExam" EntitySet="OlympSubjectToExam" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OlympSubjectToExam_OlympSubject" Association="Priem2012Model.FK_OlympSubjectToExam_OlympSubject">
-            <End Role="OlympSubject" EntitySet="OlympSubject" />
             <End Role="OlympSubjectToExam" EntitySet="OlympSubjectToExam" />
           </AssociationSet>
           <FunctionImport Name="PayDataEntry_Delete">
@@ -9677,40 +9658,27 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a pri
           <FunctionImport Name="GetFacultyIdsByNameFunc" IsComposable="true" ReturnType="Collection(Int32)">
           <Parameter Name="name" Mode="In" Type="String" />
           </FunctionImport>
-          <EntitySet Name="OlympResultToCommonBenefit" EntityType="Priem2012Model.OlympResultToCommonBenefit" />
-          <AssociationSet Name="FK_OlympResultToCommonBenefit_Entry" Association="Priem2012Model.FK_OlympResultToCommonBenefit_Entry">
-            <End Role="Entry" EntitySet="Entry" />
-            <End Role="OlympResultToCommonBenefit" EntitySet="OlympResultToCommonBenefit" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OlympResultToCommonBenefit_OlympSubject" Association="Priem2012Model.FK_OlympResultToCommonBenefit_OlympSubject">
-            <End Role="OlympSubject" EntitySet="OlympSubject" />
-            <End Role="OlympResultToCommonBenefit" EntitySet="OlympResultToCommonBenefit" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OlympResultToCommonBenefit_OlympType" Association="Priem2012Model.FK_OlympResultToCommonBenefit_OlympType">
-            <End Role="OlympType" EntitySet="OlympType" />
-            <End Role="OlympResultToCommonBenefit" EntitySet="OlympResultToCommonBenefit" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OlympResultToCommonBenefit_OlympValue" Association="Priem2012Model.FK_OlympResultToCommonBenefit_OlympValue">
-            <End Role="OlympValue" EntitySet="OlympValue" />
-            <End Role="OlympResultToCommonBenefit" EntitySet="OlympResultToCommonBenefit" />
-          </AssociationSet>
           <FunctionImport Name="OlympResultToCommonBenefit_Delete">
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="OlympResultToCommonBenefit_Insert">
             <Parameter Name="EntryId" Mode="In" Type="Guid" />
-            <Parameter Name="OlympTypeId" Mode="In" Type="Int32" />
             <Parameter Name="OlympLevelId" Mode="In" Type="Int32" />
-            <Parameter Name="OlympSubjectId" Mode="In" Type="Int32" />
             <Parameter Name="OlympValueId" Mode="In" Type="Int32" />
+            <Parameter Name="ExamId" Mode="In" Type="Int32" />
+            <Parameter Name="OlympProfileId" Mode="In" Type="Int32" />
+            <Parameter Name="OlympSubjectId" Mode="In" Type="Int32" />
+            <Parameter Name="MinEgeValue" Mode="In" Type="Decimal" />
             <Parameter Name="id" Mode="InOut" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="OlympResultToCommonBenefit_Update">
             <Parameter Name="EntryId" Mode="In" Type="Guid" />
-            <Parameter Name="OlympTypeId" Mode="In" Type="Int32" />
             <Parameter Name="OlympLevelId" Mode="In" Type="Int32" />
-            <Parameter Name="OlympSubjectId" Mode="In" Type="Int32" />
             <Parameter Name="OlympValueId" Mode="In" Type="Int32" />
+            <Parameter Name="ExamId" Mode="In" Type="Int32" />
+            <Parameter Name="OlympProfileId" Mode="In" Type="Int32" />
+            <Parameter Name="OlympSubjectId" Mode="In" Type="Int32" />
+            <Parameter Name="MinEgeValue" Mode="In" Type="Decimal" />
             <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="extEgeMarkMaxAbitApproved" EntityType="Priem2012Model.extEgeMarkMaxAbitApproved" />
@@ -9732,63 +9700,33 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a pri
             <Parameter Name="CommitId" Mode="In" Type="Guid" />
             <Parameter Name="id" Mode="In" Type="Guid" />
           </FunctionImport>
-          <AssociationSet Name="FK_OlympResultToCommonBenefit_OlympName1" Association="Priem2012Model.FK_OlympResultToCommonBenefit_OlympName1">
-            <End Role="OlympLevel" EntitySet="OlympLevel" />
-            <End Role="OlympResultToCommonBenefit" EntitySet="OlympResultToCommonBenefit" />
-          </AssociationSet>
           <EntitySet Name="extEgeMarkMaxApproved" EntityType="Priem2012Model.extEgeMarkMaxApproved" />
           <EntitySet Name="hlpEgeMarkMaxApproved" EntityType="Priem2012Model.hlpEgeMarkMaxApproved" />
-          <EntitySet Name="extAbitAdditionalMarksSum" EntityType="Priem2012Model.extAbitAdditionalMarksSum" />
-          <EntitySet Name="OlympResultToAdditionalMark" EntityType="Priem2012Model.OlympResultToAdditionalMark" />
           <FunctionImport Name="OlympResultToAdditionalMark_Delete">
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="OlympResultToAdditionalMark_Insert">
             <Parameter Name="EntryId" Mode="In" Type="Guid" />
-            <Parameter Name="OlympTypeId" Mode="In" Type="Int32" />
             <Parameter Name="OlympLevelId" Mode="In" Type="Int32" />
-            <Parameter Name="OlympNameId" Mode="In" Type="Int32" />
-            <Parameter Name="OlympSubjectId" Mode="In" Type="Int32" />
             <Parameter Name="OlympValueId" Mode="In" Type="Int32" />
-            <Parameter Name="OlympYear" Mode="In" Type="Int32" />
+            <Parameter Name="ExamId" Mode="In" Type="Int32" />
+            <Parameter Name="OlympProfileId" Mode="In" Type="Int32" />
+            <Parameter Name="OlympSubjectId" Mode="In" Type="Int32" />
             <Parameter Name="AdditionalMark" Mode="In" Type="Int32" />
+            <Parameter Name="MinEgeValue" Mode="In" Type="Decimal" />
             <Parameter Name="id" Mode="InOut" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="OlympResultToAdditionalMark_Update">
             <Parameter Name="EntryId" Mode="In" Type="Guid" />
-            <Parameter Name="OlympTypeId" Mode="In" Type="Int32" />
             <Parameter Name="OlympLevelId" Mode="In" Type="Int32" />
-            <Parameter Name="OlympNameId" Mode="In" Type="Int32" />
-            <Parameter Name="OlympSubjectId" Mode="In" Type="Int32" />
             <Parameter Name="OlympValueId" Mode="In" Type="Int32" />
-            <Parameter Name="OlympYear" Mode="In" Type="Int32" />
+            <Parameter Name="ExamId" Mode="In" Type="Int32" />
+            <Parameter Name="OlympProfileId" Mode="In" Type="Int32" />
+            <Parameter Name="OlympSubjectId" Mode="In" Type="Int32" />
             <Parameter Name="AdditionalMark" Mode="In" Type="Int32" />
+            <Parameter Name="MinEgeValue" Mode="In" Type="Decimal" />
             <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <AssociationSet Name="FK_OlympResultToAdditionalMark_OlympLevel" Association="Priem2012Model.FK_OlympResultToAdditionalMark_OlympLevel">
-            <End Role="OlympLevel" EntitySet="OlympLevel" />
-            <End Role="OlympResultToAdditionalMark" EntitySet="OlympResultToAdditionalMark" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OlympResultToAdditionalMark_OlympSubject" Association="Priem2012Model.FK_OlympResultToAdditionalMark_OlympSubject">
-            <End Role="OlympSubject" EntitySet="OlympSubject" />
-            <End Role="OlympResultToAdditionalMark" EntitySet="OlympResultToAdditionalMark" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OlympResultToAdditionalMark_OlympType" Association="Priem2012Model.FK_OlympResultToAdditionalMark_OlympType">
-            <End Role="OlympType" EntitySet="OlympType" />
-            <End Role="OlympResultToAdditionalMark" EntitySet="OlympResultToAdditionalMark" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OlympResultToAdditionalMark_OlympValue" Association="Priem2012Model.FK_OlympResultToAdditionalMark_OlympValue">
-            <End Role="OlympValue" EntitySet="OlympValue" />
-            <End Role="OlympResultToAdditionalMark" EntitySet="OlympResultToAdditionalMark" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OlympResultToAdditionalMark_OlympLevel1" Association="Priem2012Model.FK_OlympResultToAdditionalMark_OlympLevel1">
-            <End Role="OlympLevel" EntitySet="OlympLevel" />
-            <End Role="OlympResultToAdditionalMark" EntitySet="OlympResultToAdditionalMark" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OlympResultToAdditionalMark_OlympName" Association="Priem2012Model.FK_OlympResultToAdditionalMark_OlympName">
-            <End Role="OlympName" EntitySet="OlympName" />
-            <End Role="OlympResultToAdditionalMark" EntitySet="OlympResultToAdditionalMark" />
-          </AssociationSet>
           <EntitySet Name="extDisEntryFromReEnterView" EntityType="Priem2012Model.extDisEntryFromReEnterView" />
           <EntitySet Name="ProtocolHistory" EntityType="Priem2012Model.ProtocolHistory" />
           <AssociationSet Name="fk_ProtocolHistory_Abiturient" Association="Priem2012Model.fk_ProtocolHistory_Abiturient">
@@ -9875,6 +9813,69 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a pri
             <End Role="ExamsVedMarkDetails" EntitySet="ExamsVedMarkDetails" />
           </AssociationSet>
           <EntitySet Name="ExamsVedSelectedMarkType" EntityType="Priem2012Model.ExamsVedSelectedMarkType" />
+          <EntitySet Name="OlympProfile" EntityType="Priem2012Model.OlympProfile" />
+          <EntitySet Name="OlympName" EntityType="Priem2012Model.OlympName" />
+          <EntitySet Name="OlympResultToAdditionalMark" EntityType="Priem2012Model.OlympResultToAdditionalMark" />
+          <EntitySet Name="OlympResultToCommonBenefit" EntityType="Priem2012Model.OlympResultToCommonBenefit" />
+          <EntitySet Name="OlympSubject" EntityType="Priem2012Model.OlympSubject" />
+          <EntitySet Name="OlympType" EntityType="Priem2012Model.OlympType" />
+          <AssociationSet Name="FK_OlympResultToAdditionalMark_Entry" Association="Priem2012Model.FK_OlympResultToAdditionalMark_Entry">
+            <End Role="Entry" EntitySet="Entry" />
+            <End Role="OlympResultToAdditionalMark" EntitySet="OlympResultToAdditionalMark" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OlympResultToCommonBenefit_Entry" Association="Priem2012Model.FK_OlympResultToCommonBenefit_Entry">
+            <End Role="Entry" EntitySet="Entry" />
+            <End Role="OlympResultToCommonBenefit" EntitySet="OlympResultToCommonBenefit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OlympResultToAdditionalMark_Exam" Association="Priem2012Model.FK_OlympResultToAdditionalMark_Exam">
+            <End Role="Exam" EntitySet="Exam" />
+            <End Role="OlympResultToAdditionalMark" EntitySet="OlympResultToAdditionalMark" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OlympResultToCommonBenefit_Exam" Association="Priem2012Model.FK_OlympResultToCommonBenefit_Exam">
+            <End Role="Exam" EntitySet="Exam" />
+            <End Role="OlympResultToCommonBenefit" EntitySet="OlympResultToCommonBenefit" />
+          </AssociationSet>
+          <AssociationSet Name="fk_OlympBook_OlympSubject" Association="Priem2012Model.fk_OlympBook_OlympSubject">
+            <End Role="OlympSubject" EntitySet="OlympSubject" />
+            <End Role="OlympBook" EntitySet="OlympBook" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OlympBook_OlympType" Association="Priem2012Model.FK_OlympBook_OlympType">
+            <End Role="OlympType" EntitySet="OlympType" />
+            <End Role="OlympBook" EntitySet="OlympBook" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Olympiads_OlympName" Association="Priem2012Model.FK_Olympiads_OlympName">
+            <End Role="OlympName" EntitySet="OlympName" />
+            <End Role="Olympiads" EntitySet="Olympiads" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Olympiads_OlympSubject" Association="Priem2012Model.fk_Olympiads_OlympSubject">
+            <End Role="OlympSubject" EntitySet="OlympSubject" />
+            <End Role="Olympiads" EntitySet="Olympiads" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Olympiads_OlympType" Association="Priem2012Model.FK_Olympiads_OlympType">
+            <End Role="OlympType" EntitySet="OlympType" />
+            <End Role="Olympiads" EntitySet="Olympiads" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OlympResultToAdditionalMark_OlympLevel" Association="Priem2012Model.FK_OlympResultToAdditionalMark_OlympLevel">
+            <End Role="OlympLevel" EntitySet="OlympLevel" />
+            <End Role="OlympResultToAdditionalMark" EntitySet="OlympResultToAdditionalMark" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OlympResultToCommonBenefit_OlympLevel" Association="Priem2012Model.FK_OlympResultToCommonBenefit_OlympLevel">
+            <End Role="OlympLevel" EntitySet="OlympLevel" />
+            <End Role="OlympResultToCommonBenefit" EntitySet="OlympResultToCommonBenefit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OlympResultToAdditionalMark_OlympValue" Association="Priem2012Model.FK_OlympResultToAdditionalMark_OlympValue">
+            <End Role="OlympValue" EntitySet="OlympValue" />
+            <End Role="OlympResultToAdditionalMark" EntitySet="OlympResultToAdditionalMark" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OlympResultToCommonBenefit_OlympValue" Association="Priem2012Model.FK_OlympResultToCommonBenefit_OlympValue">
+            <End Role="OlympValue" EntitySet="OlympValue" />
+            <End Role="OlympResultToCommonBenefit" EntitySet="OlympResultToCommonBenefit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OlympSubjectToExam_OlympSubject" Association="Priem2012Model.FK_OlympSubjectToExam_OlympSubject">
+            <End Role="OlympSubject" EntitySet="OlympSubject" />
+            <End Role="OlympSubjectToExam" EntitySet="OlympSubjectToExam" />
+          </AssociationSet>
+          <EntitySet Name="extAbitAdditionalMarksSum" EntityType="Priem2012Model.extAbitAdditionalMarksSum" />
           </EntityContainer>
         <EntityType Name="AttMarks">
           <Key>
@@ -10214,26 +10215,9 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a pri
           <NavigationProperty Name="Olympiads" Relationship="Priem2012Model.fk_Olympiads_OlympLevel" FromRole="OlympLevel" ToRole="Olympiads" />
           <Property Type="Boolean" Name="IsOpen" Nullable="false" />
           <Property Type="String" Name="Holder" MaxLength="150" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="OlympResultToCommonBenefit" Relationship="Priem2012Model.FK_OlympResultToCommonBenefit_OlympName1" FromRole="OlympLevel" ToRole="OlympResultToCommonBenefit" />
+          <Property Name="FISID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="OlympResultToAdditionalMark" Relationship="Priem2012Model.FK_OlympResultToAdditionalMark_OlympLevel" FromRole="OlympLevel" ToRole="OlympResultToAdditionalMark" />
-          <NavigationProperty Name="OlympResultToAdditionalMark1" Relationship="Priem2012Model.FK_OlympResultToAdditionalMark_OlympLevel1" FromRole="OlympLevel" ToRole="OlympResultToAdditionalMark" />
-        </EntityType>
-        <EntityType Name="OlympSubject">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="NameDative" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="OlympBook" Relationship="Priem2012Model.fk_OlympBook_OlympSubject" FromRole="OlympSubject" ToRole="OlympBook" />
-          <NavigationProperty Name="Olympiads" Relationship="Priem2012Model.fk_Olympiads_OlympSubject" FromRole="OlympSubject" ToRole="Olympiads" />
-          <Property Type="Boolean" Name="IsOpen" Nullable="false" />
-          <Property Type="String" Name="Holder" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="ExamId" />
-          <NavigationProperty Name="OlympSubjectToExam" Relationship="Priem2012Model.FK_OlympSubjectToExam_OlympSubject" FromRole="OlympSubject" ToRole="OlympSubjectToExam" />
-          <Property Type="Boolean" Name="IsInVseross" />
-          <NavigationProperty Name="OlympResultToCommonBenefit" Relationship="Priem2012Model.FK_OlympResultToCommonBenefit_OlympSubject" FromRole="OlympSubject" ToRole="OlympResultToCommonBenefit" />
-          <NavigationProperty Name="OlympResultToAdditionalMark" Relationship="Priem2012Model.FK_OlympResultToAdditionalMark_OlympSubject" FromRole="OlympSubject" ToRole="OlympResultToAdditionalMark" />
+          <NavigationProperty Name="OlympResultToCommonBenefit" Relationship="Priem2012Model.FK_OlympResultToCommonBenefit_OlympLevel" FromRole="OlympLevel" ToRole="OlympResultToCommonBenefit" />
         </EntityType>
         <EntityType Name="OlympValue">
           <Key>
@@ -10246,8 +10230,8 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a pri
           <Property Type="String" Name="Acronym" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="Boolean" Name="IsOpen" Nullable="false" />
           <Property Type="String" Name="Holder" MaxLength="150" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="OlympResultToCommonBenefit" Relationship="Priem2012Model.FK_OlympResultToCommonBenefit_OlympValue" FromRole="OlympValue" ToRole="OlympResultToCommonBenefit" />
           <NavigationProperty Name="OlympResultToAdditionalMark" Relationship="Priem2012Model.FK_OlympResultToAdditionalMark_OlympValue" FromRole="OlympValue" ToRole="OlympResultToAdditionalMark" />
+          <NavigationProperty Name="OlympResultToCommonBenefit" Relationship="Priem2012Model.FK_OlympResultToCommonBenefit_OlympValue" FromRole="OlympValue" ToRole="OlympResultToCommonBenefit" />
         </EntityType>
         <EntityType Name="PaidData">
           <Key>
@@ -10387,6 +10371,8 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a pri
           <Property Name="IsPortfolioCommonPart" Type="Boolean" Nullable="false" />
           <Property Name="IsPortfolioAnonymPart" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="ExamInEntryBlockUnit" Relationship="Priem2012Model.FK_ExamInEntryBlockUnit_Exam" FromRole="Exam" ToRole="ExamInEntryBlockUnit" />
+          <NavigationProperty Name="OlympResultToAdditionalMark" Relationship="Priem2012Model.FK_OlympResultToAdditionalMark_Exam" FromRole="Exam" ToRole="OlympResultToAdditionalMark" />
+          <NavigationProperty Name="OlympResultToCommonBenefit" Relationship="Priem2012Model.FK_OlympResultToCommonBenefit_Exam" FromRole="Exam" ToRole="OlympResultToCommonBenefit" />
         </EntityType>
         <EntityType Name="qStudyLevel">
           <Key>
@@ -10514,20 +10500,21 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a pri
             <PropertyRef Name="Id" />
           </Key>
           <Property Type="Guid" Name="Id" Nullable="false" />
-          <Property Type="Int32" Name="OlympTypeId" />
-          <Property Type="Int32" Name="OlympNameId" />
-          <Property Type="Int32" Name="OlympSubjectId" />
-          <Property Type="Int32" Name="OlympLevelId" />
+          <Property Type="Int32" Name="OlympTypeId" Nullable="false" />
+          <Property Type="Int32" Name="OlympNameId" Nullable="false" />
+          <Property Type="Int32" Name="OlympSubjectId" Nullable="false" />
+          <Property Type="Int32" Name="OlympLevelId" Nullable="false" />
           <NavigationProperty Name="OlympLevel" Relationship="Priem2012Model.fk_OlympBook_OlympLevel" FromRole="OlympBook" ToRole="OlympLevel" />
-          <NavigationProperty Name="OlympSubject" Relationship="Priem2012Model.fk_OlympBook_OlympSubject" FromRole="OlympBook" ToRole="OlympSubject" />
-          <NavigationProperty Name="OlympType" Relationship="Priem2012Model.FK_OlympBook_OlympType" FromRole="OlympBook" ToRole="OlympType" />
           <Property Type="Boolean" Name="IsOpen" Nullable="false" />
           <Property Type="String" Name="Holder" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="OlympName" Relationship="Priem2012Model.FK_OlympBook_OlympName" FromRole="OlympBook" ToRole="OlympName" />
           <Property Name="OlympYear" Type="Int32" Nullable="false" />
+          <Property Name="OlympicID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OlympProfileId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="OlympSubject" Relationship="Priem2012Model.fk_OlympBook_OlympSubject" FromRole="OlympBook" ToRole="OlympSubject" />
+          <NavigationProperty Name="OlympType" Relationship="Priem2012Model.FK_OlympBook_OlympType" FromRole="OlympBook" ToRole="OlympType" />
         </EntityType>
         <Association Name="fk_OlympBook_OlympLevel">
-          <End Type="Priem2012Model.OlympLevel" Role="OlympLevel" Multiplicity="0..1" />
+          <End Type="Priem2012Model.OlympLevel" Role="OlympLevel" Multiplicity="1" />
           <End Type="Priem2012Model.OlympBook" Role="OlympBook" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="OlympLevel">
@@ -10538,32 +10525,18 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a pri
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_OlympBook_OlympSubject">
-          <End Type="Priem2012Model.OlympSubject" Role="OlympSubject" Multiplicity="0..1" />
-          <End Type="Priem2012Model.OlympBook" Role="OlympBook" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OlympSubject">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OlympBook">
-              <PropertyRef Name="OlympSubjectId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="Olympiads">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Type="Guid" Name="Id" Nullable="false" />
-          <Property Type="Int32" Name="OlympTypeId" />
+          <Property Type="Int32" Name="OlympTypeId" Nullable="false" />
           <Property Type="Int32" Name="OlympNameId" />
           <Property Type="Int32" Name="OlympSubjectId" />
           <Property Type="Int32" Name="OlympLevelId" />
-          <Property Type="Int32" Name="OlympValueId" />
+          <Property Type="Int32" Name="OlympValueId" Nullable="false" />
           <Property Type="Guid" Name="AbiturientId" />
           <NavigationProperty Name="OlympLevel" Relationship="Priem2012Model.fk_Olympiads_OlympLevel" FromRole="Olympiads" ToRole="OlympLevel" />
-          <NavigationProperty Name="OlympSubject" Relationship="Priem2012Model.fk_Olympiads_OlympSubject" FromRole="Olympiads" ToRole="OlympSubject" />
-          <NavigationProperty Name="OlympType" Relationship="Priem2012Model.FK_Olympiads_OlympType" FromRole="Olympiads" ToRole="OlympType" />
           <NavigationProperty Name="OlympValue" Relationship="Priem2012Model.fk_Olympiads_OlympValue" FromRole="Olympiads" ToRole="OlympValue" />
           <NavigationProperty Name="Abiturient" Relationship="Priem2012Model.fk_Olympiads_Person" FromRole="Olympiads" ToRole="Abiturient" />
           <Property Type="Boolean" Name="IsOpen" Nullable="false" />
@@ -10573,37 +10546,14 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a pri
           <Property Type="String" Name="DocumentNumber" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="DateTime" Name="DocumentDate" Precision="0" />
           <NavigationProperty Name="OlympiadCheckedByRectorat" Relationship="Priem2012Model.FK_OlympiadCheckedByRectorat_Olympiads" FromRole="Olympiads" ToRole="OlympiadCheckedByRectorat" />
-          <NavigationProperty Name="OlympName" Relationship="Priem2012Model.FK_Olympiads_OlympName" FromRole="Olympiads" ToRole="OlympName" />
           <Property Type="String" Name="Author" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Type="DateTime" Name="DateCreated" Nullable="false" Precision="3" />
           <Property Name="OlympYear" Type="Int16" Nullable="false" />
+          <Property Name="OlympProfileId" Type="Int32" />
+          <NavigationProperty Name="OlympName" Relationship="Priem2012Model.FK_Olympiads_OlympName" FromRole="Olympiads" ToRole="OlympName" />
+          <NavigationProperty Name="OlympSubject" Relationship="Priem2012Model.fk_Olympiads_OlympSubject" FromRole="Olympiads" ToRole="OlympSubject" />
+          <NavigationProperty Name="OlympType" Relationship="Priem2012Model.FK_Olympiads_OlympType" FromRole="Olympiads" ToRole="OlympType" />
         </EntityType>
-        <EntityType Name="OlympType">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="OlympBook" Relationship="Priem2012Model.FK_OlympBook_OlympType" FromRole="OlympType" ToRole="OlympBook" />
-          <NavigationProperty Name="Olympiads" Relationship="Priem2012Model.FK_Olympiads_OlympType" FromRole="OlympType" ToRole="Olympiads" />
-          <Property Type="Boolean" Name="IsOpen" Nullable="false" />
-          <Property Type="String" Name="Holder" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Type="Boolean" Name="IsVseross" Nullable="false" />
-          <NavigationProperty Name="OlympResultToCommonBenefit" Relationship="Priem2012Model.FK_OlympResultToCommonBenefit_OlympType" FromRole="OlympType" ToRole="OlympResultToCommonBenefit" />
-          <NavigationProperty Name="OlympResultToAdditionalMark" Relationship="Priem2012Model.FK_OlympResultToAdditionalMark_OlympType" FromRole="OlympType" ToRole="OlympResultToAdditionalMark" />
-        </EntityType>
-        <Association Name="FK_OlympBook_OlympType">
-          <End Type="Priem2012Model.OlympType" Role="OlympType" Multiplicity="0..1" />
-          <End Type="Priem2012Model.OlympBook" Role="OlympBook" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OlympType">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OlympBook">
-              <PropertyRef Name="OlympTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_Olympiads_OlympLevel">
           <End Type="Priem2012Model.OlympLevel" Role="OlympLevel" Multiplicity="0..1" />
           <End Type="Priem2012Model.Olympiads" Role="Olympiads" Multiplicity="*" />
@@ -10616,32 +10566,8 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a pri
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_Olympiads_OlympSubject">
-          <End Type="Priem2012Model.OlympSubject" Role="OlympSubject" Multiplicity="0..1" />
-          <End Type="Priem2012Model.Olympiads" Role="Olympiads" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OlympSubject">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Olympiads">
-              <PropertyRef Name="OlympSubjectId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Olympiads_OlympType">
-          <End Type="Priem2012Model.OlympType" Role="OlympType" Multiplicity="0..1" />
-          <End Type="Priem2012Model.Olympiads" Role="Olympiads" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OlympType">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Olympiads">
-              <PropertyRef Name="OlympTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_Olympiads_OlympValue">
-          <End Type="Priem2012Model.OlympValue" Role="OlympValue" Multiplicity="0..1" />
+          <End Type="Priem2012Model.OlympValue" Role="OlympValue" Multiplicity="1" />
           <End Type="Priem2012Model.Olympiads" Role="Olympiads" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="OlympValue">
@@ -10656,18 +10582,21 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a pri
           <Key>
             <PropertyRef Name="Id" />
             <PropertyRef Name="OlympYear" />
+            <PropertyRef Name="OlympProfileId" />
           </Key>
           <Property Type="Guid" Name="Id" Nullable="false" />
-          <Property Type="Int32" Name="OlympTypeId" />
-          <Property Type="Int32" Name="OlympNameId" />
-          <Property Type="Int32" Name="OlympSubjectId" />
-          <Property Type="Int32" Name="OlympLevelId" />
+          <Property Type="Int32" Name="OlympTypeId" Nullable="false" />
+          <Property Type="Int32" Name="OlympNameId" Nullable="false" />
+          <Property Type="Int32" Name="OlympSubjectId" Nullable="false" />
+          <Property Type="Int32" Name="OlympLevelId" Nullable="false" />
           <Property Type="String" Name="OlympNameName" MaxLength="2000" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="OlympLevelName" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="OlympSubjectName" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="OlympTypeName" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="Number" />
           <Property Name="OlympYear" Type="Int32" Nullable="false" />
+          <Property Name="OlympProfileId" Type="Int32" Nullable="false" />
+          <Property Name="OlympProfileName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="extEgeMarkMax">
           <Key>
@@ -10702,21 +10631,23 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a pri
             <PropertyRef Name="OriginDoc" />
           </Key>
           <Property Type="Guid" Name="Id" Nullable="false" />
-          <Property Type="Int32" Name="OlympTypeId" />
+          <Property Type="Int32" Name="OlympTypeId" Nullable="false" />
           <Property Type="Int32" Name="OlympNameId" />
           <Property Type="Int32" Name="OlympSubjectId" />
           <Property Type="Int32" Name="OlympLevelId" />
-          <Property Type="Int32" Name="OlympValueId" />
+          <Property Type="Int32" Name="OlympValueId" Nullable="false" />
           <Property Type="Guid" Name="AbiturientId" />
           <Property Type="String" Name="OlympLevelName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="OlympValueName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="OlympName" Nullable="false" MaxLength="2000" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="OlympSubjectName" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="OlympTypeName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="Guid" Name="PersonId" />
+          <Property Type="Guid" Name="PersonId" Nullable="false" />
           <Property Type="Boolean" Name="OriginDoc" Nullable="false" />
           <Property Type="Int32" Name="SortOrder" />
           <Property Type="String" Name="OlympValueAcr" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OlympProfileId" Type="Int32" />
+          <Property Name="OlympProfileName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="ProtocolNumbers">
           <Key>
@@ -10740,19 +10671,6 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a pri
           <Property Type="String" Name="Owner" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="DateTime" Name="Date" Precision="0" />
           <Property Type="Int32" Name="FacultyId" />
-        </EntityType>
-        <EntityType Name="OlympName">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="2000" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="Number" />
-          <NavigationProperty Name="OlympBook" Relationship="Priem2012Model.FK_OlympBook_OlympName" FromRole="OlympName" ToRole="OlympBook" />
-          <Property Type="Boolean" Name="IsOpen" Nullable="false" />
-          <Property Type="String" Name="Holder" MaxLength="150" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Olympiads" Relationship="Priem2012Model.FK_Olympiads_OlympName" FromRole="OlympName" ToRole="Olympiads" />
-          <NavigationProperty Name="OlympResultToAdditionalMark" Relationship="Priem2012Model.FK_OlympResultToAdditionalMark_OlympName" FromRole="OlympName" ToRole="OlympResultToAdditionalMark" />
         </EntityType>
         <EntityType Name="ExamsVed">
           <Key>
@@ -11130,11 +11048,11 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a pri
             <PropertyRef Name="OlympYear" />
           </Key>
           <Property Type="Guid" Name="Id" Nullable="false" />
-          <Property Type="Int32" Name="OlympTypeId" />
+          <Property Type="Int32" Name="OlympTypeId" Nullable="false" />
           <Property Type="Int32" Name="OlympNameId" />
           <Property Type="Int32" Name="OlympSubjectId" />
           <Property Type="Int32" Name="OlympLevelId" />
-          <Property Type="Int32" Name="OlympValueId" />
+          <Property Type="Int32" Name="OlympValueId" Nullable="false" />
           <Property Type="Guid" Name="AbiturientId" />
           <Property Type="String" Name="OlympLevelName" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="OlympValueName" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -11149,6 +11067,8 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a pri
           <Property Type="DateTime" Name="DocumentDate" Precision="0" />
           <Property Type="Int32" Name="OlympValueSortOrder" />
           <Property Name="OlympYear" Type="Int16" Nullable="false" />
+          <Property Name="OlympProfileId" Type="Int32" />
+          <Property Name="OlympProfileName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="AbitDoc">
           <Key>
@@ -12014,18 +11934,6 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a pri
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_OlympBook_OlympName">
-          <End Type="Priem2012Model.OlympName" Role="OlympName" Multiplicity="0..1" />
-          <End Type="Priem2012Model.OlympBook" Role="OlympBook" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OlympName">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OlympBook">
-              <PropertyRef Name="OlympNameId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="BenefitDocumentType">
           <Key>
             <PropertyRef Name="Id" />
@@ -12554,8 +12462,9 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a pri
           <Property Type="Boolean" Name="IsForeign" Nullable="false" />
           <Property Type="Boolean" Name="IsCrimea" Nullable="false" />
           <NavigationProperty Name="EntryToCompetitiveGroup" Relationship="Priem2012Model.FK_EntryToCompetitiveGroup_Entry" FromRole="Entry" ToRole="EntryToCompetitiveGroup" />
-          <NavigationProperty Name="OlympResultToCommonBenefit" Relationship="Priem2012Model.FK_OlympResultToCommonBenefit_Entry" FromRole="Entry" ToRole="OlympResultToCommonBenefit" />
           <Property Name="ParentEntryId" Type="Guid" />
+          <NavigationProperty Name="OlympResultToAdditionalMark" Relationship="Priem2012Model.FK_OlympResultToAdditionalMark_Entry" FromRole="Entry" ToRole="OlympResultToAdditionalMark" />
+          <NavigationProperty Name="OlympResultToCommonBenefit" Relationship="Priem2012Model.FK_OlympResultToCommonBenefit_Entry" FromRole="Entry" ToRole="OlympResultToCommonBenefit" />
         </EntityType>
         <Association Name="FK_Abiturient_Entry">
           <End Type="Priem2012Model.Entry" Role="Entry" Multiplicity="1" />
@@ -12628,18 +12537,6 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a pri
             </Principal>
             <Dependent Role="PayDataEntry">
               <PropertyRef Name="EntryId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Olympiads_OlympName">
-          <End Type="Priem2012Model.OlympName" Role="OlympName" Multiplicity="0..1" />
-          <End Type="Priem2012Model.Olympiads" Role="Olympiads" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OlympName">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Olympiads">
-              <PropertyRef Name="OlympNameId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -12922,18 +12819,6 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a pri
             </Principal>
             <Dependent Role="OlympSubjectToExam">
               <PropertyRef Name="ExamId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OlympSubjectToExam_OlympSubject">
-          <End Type="Priem2012Model.OlympSubject" Role="OlympSubject" Multiplicity="1" />
-          <End Type="Priem2012Model.OlympSubjectToExam" Role="OlympSubjectToExam" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OlympSubject">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OlympSubjectToExam">
-              <PropertyRef Name="OlympSubjectId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -13855,72 +13740,6 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a pri
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="OlympResultToCommonBenefit">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
-          <Property Name="EntryId" Type="Guid" Nullable="false" />
-          <Property Name="OlympTypeId" Type="Int32" Nullable="false" />
-          <Property Name="OlympSubjectId" Type="Int32" Nullable="false" />
-          <Property Name="OlympValueId" Type="Int32" Nullable="false" />
-          <Property Name="IsOpen" Type="Boolean" Nullable="false" />
-          <Property Name="Holder" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Entry" Relationship="Priem2012Model.FK_OlympResultToCommonBenefit_Entry" FromRole="OlympResultToCommonBenefit" ToRole="Entry" />
-          <NavigationProperty Name="OlympSubject" Relationship="Priem2012Model.FK_OlympResultToCommonBenefit_OlympSubject" FromRole="OlympResultToCommonBenefit" ToRole="OlympSubject" />
-          <NavigationProperty Name="OlympType" Relationship="Priem2012Model.FK_OlympResultToCommonBenefit_OlympType" FromRole="OlympResultToCommonBenefit" ToRole="OlympType" />
-          <NavigationProperty Name="OlympValue" Relationship="Priem2012Model.FK_OlympResultToCommonBenefit_OlympValue" FromRole="OlympResultToCommonBenefit" ToRole="OlympValue" />
-          <Property Name="OlympLevelId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="OlympLevel" Relationship="Priem2012Model.FK_OlympResultToCommonBenefit_OlympName1" FromRole="OlympResultToCommonBenefit" ToRole="OlympLevel" />
-        </EntityType>
-        <Association Name="FK_OlympResultToCommonBenefit_Entry">
-          <End Type="Priem2012Model.Entry" Role="Entry" Multiplicity="1" />
-          <End Type="Priem2012Model.OlympResultToCommonBenefit" Role="OlympResultToCommonBenefit" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Entry">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OlympResultToCommonBenefit">
-              <PropertyRef Name="EntryId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OlympResultToCommonBenefit_OlympSubject">
-          <End Type="Priem2012Model.OlympSubject" Role="OlympSubject" Multiplicity="1" />
-          <End Type="Priem2012Model.OlympResultToCommonBenefit" Role="OlympResultToCommonBenefit" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OlympSubject">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OlympResultToCommonBenefit">
-              <PropertyRef Name="OlympSubjectId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OlympResultToCommonBenefit_OlympType">
-          <End Type="Priem2012Model.OlympType" Role="OlympType" Multiplicity="1" />
-          <End Type="Priem2012Model.OlympResultToCommonBenefit" Role="OlympResultToCommonBenefit" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OlympType">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OlympResultToCommonBenefit">
-              <PropertyRef Name="OlympTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OlympResultToCommonBenefit_OlympValue">
-          <End Type="Priem2012Model.OlympValue" Role="OlympValue" Multiplicity="1" />
-          <End Type="Priem2012Model.OlympResultToCommonBenefit" Role="OlympResultToCommonBenefit" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OlympValue">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OlympResultToCommonBenefit">
-              <PropertyRef Name="OlympValueId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="extEgeMarkMaxAbitApproved">
           <Key>
             <PropertyRef Name="AbiturientId" />
@@ -13982,18 +13801,6 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a pri
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_OlympResultToCommonBenefit_OlympName1">
-          <End Type="Priem2012Model.OlympLevel" Role="OlympLevel" Multiplicity="1" />
-          <End Type="Priem2012Model.OlympResultToCommonBenefit" Role="OlympResultToCommonBenefit" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OlympLevel">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OlympResultToCommonBenefit">
-              <PropertyRef Name="OlympLevelId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="extEgeMarkMaxApproved">
           <Key>
             <PropertyRef Name="Id" />
@@ -14025,107 +13832,6 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a pri
           <Property Name="EgeExamNameId" Type="Int32" Nullable="false" />
           <Property Name="EgeMarkId" Type="Guid" />
         </EntityType>
-        <EntityType Name="extAbitAdditionalMarksSum">
-          <Key>
-            <PropertyRef Name="AbiturientId" />
-          </Key>
-          <Property Name="AbiturientId" Type="Guid" Nullable="false" />
-          <Property Name="AdditionalMarksSum" Type="Int32" />
-        </EntityType>
-        <EntityType Name="OlympResultToAdditionalMark">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
-          <Property Name="EntryId" Type="Guid" Nullable="false" />
-          <Property Name="OlympTypeId" Type="Int32" Nullable="false" />
-          <Property Name="OlympSubjectId" Type="Int32" Nullable="false" />
-          <Property Name="OlympLevelId" Type="Int32" Nullable="false" />
-          <Property Name="OlympValueId" Type="Int32" Nullable="false" />
-          <Property Name="OlympYear" Type="Int32" Nullable="false" />
-          <Property Name="AdditionalMark" Type="Int32" Nullable="false" />
-          <Property Name="IsOpen" Type="Boolean" Nullable="false" />
-          <Property Name="Holder" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="OlympLevel" Relationship="Priem2012Model.FK_OlympResultToAdditionalMark_OlympLevel" FromRole="OlympResultToAdditionalMark" ToRole="OlympLevel" />
-          <NavigationProperty Name="OlympSubject" Relationship="Priem2012Model.FK_OlympResultToAdditionalMark_OlympSubject" FromRole="OlympResultToAdditionalMark" ToRole="OlympSubject" />
-          <NavigationProperty Name="OlympType" Relationship="Priem2012Model.FK_OlympResultToAdditionalMark_OlympType" FromRole="OlympResultToAdditionalMark" ToRole="OlympType" />
-          <NavigationProperty Name="OlympValue" Relationship="Priem2012Model.FK_OlympResultToAdditionalMark_OlympValue" FromRole="OlympResultToAdditionalMark" ToRole="OlympValue" />
-          <NavigationProperty Name="OlympLevel1" Relationship="Priem2012Model.FK_OlympResultToAdditionalMark_OlympLevel1" FromRole="OlympResultToAdditionalMark" ToRole="OlympLevel" />
-          <Property Name="OlympNameId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="OlympName" Relationship="Priem2012Model.FK_OlympResultToAdditionalMark_OlympName" FromRole="OlympResultToAdditionalMark" ToRole="OlympName" />
-        </EntityType>
-        <Association Name="FK_OlympResultToAdditionalMark_OlympLevel">
-          <End Type="Priem2012Model.OlympLevel" Role="OlympLevel" Multiplicity="1" />
-          <End Type="Priem2012Model.OlympResultToAdditionalMark" Role="OlympResultToAdditionalMark" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="OlympLevel">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OlympResultToAdditionalMark">
-              <PropertyRef Name="Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OlympResultToAdditionalMark_OlympSubject">
-          <End Type="Priem2012Model.OlympSubject" Role="OlympSubject" Multiplicity="1" />
-          <End Type="Priem2012Model.OlympResultToAdditionalMark" Role="OlympResultToAdditionalMark" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OlympSubject">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OlympResultToAdditionalMark">
-              <PropertyRef Name="OlympSubjectId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OlympResultToAdditionalMark_OlympType">
-          <End Type="Priem2012Model.OlympType" Role="OlympType" Multiplicity="1" />
-          <End Type="Priem2012Model.OlympResultToAdditionalMark" Role="OlympResultToAdditionalMark" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OlympType">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OlympResultToAdditionalMark">
-              <PropertyRef Name="OlympTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OlympResultToAdditionalMark_OlympValue">
-          <End Type="Priem2012Model.OlympValue" Role="OlympValue" Multiplicity="1" />
-          <End Type="Priem2012Model.OlympResultToAdditionalMark" Role="OlympResultToAdditionalMark" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OlympValue">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OlympResultToAdditionalMark">
-              <PropertyRef Name="OlympValueId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OlympResultToAdditionalMark_OlympLevel1">
-          <End Type="Priem2012Model.OlympLevel" Role="OlympLevel" Multiplicity="1" />
-          <End Type="Priem2012Model.OlympResultToAdditionalMark" Role="OlympResultToAdditionalMark" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OlympLevel">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OlympResultToAdditionalMark">
-              <PropertyRef Name="OlympLevelId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OlympResultToAdditionalMark_OlympName">
-          <End Type="Priem2012Model.OlympName" Role="OlympName" Multiplicity="1" />
-          <End Type="Priem2012Model.OlympResultToAdditionalMark" Role="OlympResultToAdditionalMark" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OlympName">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OlympResultToAdditionalMark">
-              <PropertyRef Name="OlympNameId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="extDisEntryFromReEnterView">
           <Key>
             <PropertyRef Name="Id" />
@@ -14644,6 +14350,271 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a pri
           <Property Name="ExamsVedId" Type="Guid" Nullable="false" />
           <Property Name="MarkTypeId" Type="Int32" Nullable="false" />
         </EntityType>
+        <EntityType Name="OlympProfile">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="SubjectID_FIS" Type="Int32" />
+        </EntityType>
+        <EntityType Name="OlympName">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="Number" Type="Int32" />
+          <Property Name="IsOpen" Type="Boolean" Nullable="false" />
+          <Property Name="Holder" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Olympiads" Relationship="Priem2012Model.FK_Olympiads_OlympName" FromRole="OlympName" ToRole="Olympiads" />
+        </EntityType>
+        <EntityType Name="OlympResultToAdditionalMark">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="EntryId" Type="Guid" Nullable="false" />
+          <Property Name="OlympLevelId" Type="Int32" Nullable="false" />
+          <Property Name="OlympValueId" Type="Int32" Nullable="false" />
+          <Property Name="ExamId" Type="Int32" Nullable="false" />
+          <Property Name="AdditionalMark" Type="Int32" Nullable="false" />
+          <Property Name="MinEge" Type="Decimal" Nullable="false" Precision="3" Scale="1" />
+          <Property Name="IsOpen" Type="Boolean" Nullable="false" />
+          <Property Name="Holder" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Entry" Relationship="Priem2012Model.FK_OlympResultToAdditionalMark_Entry" FromRole="OlympResultToAdditionalMark" ToRole="Entry" />
+          <NavigationProperty Name="Exam" Relationship="Priem2012Model.FK_OlympResultToAdditionalMark_Exam" FromRole="OlympResultToAdditionalMark" ToRole="Exam" />
+          <NavigationProperty Name="OlympLevel" Relationship="Priem2012Model.FK_OlympResultToAdditionalMark_OlympLevel" FromRole="OlympResultToAdditionalMark" ToRole="OlympLevel" />
+          <NavigationProperty Name="OlympValue" Relationship="Priem2012Model.FK_OlympResultToAdditionalMark_OlympValue" FromRole="OlympResultToAdditionalMark" ToRole="OlympValue" />
+          <Property Name="OlympProfileId" Type="Int32" />
+          <Property Name="OlympSubjectId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="OlympResultToCommonBenefit">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="EntryId" Type="Guid" Nullable="false" />
+          <Property Name="OlympLevelId" Type="Int32" Nullable="false" />
+          <Property Name="OlympValueId" Type="Int32" Nullable="false" />
+          <Property Name="ExamId" Type="Int32" Nullable="false" />
+          <Property Name="MinEge" Type="Decimal" Nullable="false" Precision="3" Scale="1" />
+          <Property Name="IsOpen" Type="Boolean" Nullable="false" />
+          <Property Name="Holder" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Entry" Relationship="Priem2012Model.FK_OlympResultToCommonBenefit_Entry" FromRole="OlympResultToCommonBenefit" ToRole="Entry" />
+          <NavigationProperty Name="Exam" Relationship="Priem2012Model.FK_OlympResultToCommonBenefit_Exam" FromRole="OlympResultToCommonBenefit" ToRole="Exam" />
+          <NavigationProperty Name="OlympLevel" Relationship="Priem2012Model.FK_OlympResultToCommonBenefit_OlympLevel" FromRole="OlympResultToCommonBenefit" ToRole="OlympLevel" />
+          <NavigationProperty Name="OlympValue" Relationship="Priem2012Model.FK_OlympResultToCommonBenefit_OlympValue" FromRole="OlympResultToCommonBenefit" ToRole="OlympValue" />
+          <Property Name="OlympProfileId" Type="Int32" />
+          <Property Name="OlympSubjectId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="OlympSubject">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="NameDative" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IsOpen" Type="Boolean" Nullable="false" />
+          <Property Name="Holder" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ExamId" Type="Int32" />
+          <Property Name="IsInVseross" Type="Boolean" />
+          <Property Name="SubjectID_FIS" Type="Int32" />
+          <NavigationProperty Name="OlympBook" Relationship="Priem2012Model.fk_OlympBook_OlympSubject" FromRole="OlympSubject" ToRole="OlympBook" />
+          <NavigationProperty Name="Olympiads" Relationship="Priem2012Model.fk_Olympiads_OlympSubject" FromRole="OlympSubject" ToRole="Olympiads" />
+          <NavigationProperty Name="OlympSubjectToExam" Relationship="Priem2012Model.FK_OlympSubjectToExam_OlympSubject" FromRole="OlympSubject" ToRole="OlympSubjectToExam" />
+        </EntityType>
+        <EntityType Name="OlympType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsOpen" Type="Boolean" Nullable="false" />
+          <Property Name="Holder" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="IsVseross" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="OlympBook" Relationship="Priem2012Model.FK_OlympBook_OlympType" FromRole="OlympType" ToRole="OlympBook" />
+          <NavigationProperty Name="Olympiads" Relationship="Priem2012Model.FK_Olympiads_OlympType" FromRole="OlympType" ToRole="Olympiads" />
+        </EntityType>
+        <Association Name="FK_OlympResultToAdditionalMark_Entry">
+          <End Type="Priem2012Model.Entry" Role="Entry" Multiplicity="1" />
+          <End Type="Priem2012Model.OlympResultToAdditionalMark" Role="OlympResultToAdditionalMark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Entry">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OlympResultToAdditionalMark">
+              <PropertyRef Name="EntryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OlympResultToCommonBenefit_Entry">
+          <End Type="Priem2012Model.Entry" Role="Entry" Multiplicity="1" />
+          <End Type="Priem2012Model.OlympResultToCommonBenefit" Role="OlympResultToCommonBenefit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Entry">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OlympResultToCommonBenefit">
+              <PropertyRef Name="EntryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OlympResultToAdditionalMark_Exam">
+          <End Type="Priem2012Model.Exam" Role="Exam" Multiplicity="1" />
+          <End Type="Priem2012Model.OlympResultToAdditionalMark" Role="OlympResultToAdditionalMark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exam">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OlympResultToAdditionalMark">
+              <PropertyRef Name="ExamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OlympResultToCommonBenefit_Exam">
+          <End Type="Priem2012Model.Exam" Role="Exam" Multiplicity="1" />
+          <End Type="Priem2012Model.OlympResultToCommonBenefit" Role="OlympResultToCommonBenefit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exam">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OlympResultToCommonBenefit">
+              <PropertyRef Name="ExamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_OlympBook_OlympSubject">
+          <End Type="Priem2012Model.OlympSubject" Role="OlympSubject" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Priem2012Model.OlympBook" Role="OlympBook" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OlympSubject">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OlympBook">
+              <PropertyRef Name="OlympSubjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OlympBook_OlympType">
+          <End Type="Priem2012Model.OlympType" Role="OlympType" Multiplicity="1" />
+          <End Type="Priem2012Model.OlympBook" Role="OlympBook" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OlympType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OlympBook">
+              <PropertyRef Name="OlympTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Olympiads_OlympName">
+          <End Type="Priem2012Model.OlympName" Role="OlympName" Multiplicity="0..1" />
+          <End Type="Priem2012Model.Olympiads" Role="Olympiads" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OlympName">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Olympiads">
+              <PropertyRef Name="OlympNameId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Olympiads_OlympSubject">
+          <End Type="Priem2012Model.OlympSubject" Role="OlympSubject" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Priem2012Model.Olympiads" Role="Olympiads" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OlympSubject">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Olympiads">
+              <PropertyRef Name="OlympSubjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Olympiads_OlympType">
+          <End Type="Priem2012Model.OlympType" Role="OlympType" Multiplicity="1" />
+          <End Type="Priem2012Model.Olympiads" Role="Olympiads" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OlympType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Olympiads">
+              <PropertyRef Name="OlympTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OlympResultToAdditionalMark_OlympLevel">
+          <End Type="Priem2012Model.OlympLevel" Role="OlympLevel" Multiplicity="1" />
+          <End Type="Priem2012Model.OlympResultToAdditionalMark" Role="OlympResultToAdditionalMark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OlympLevel">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OlympResultToAdditionalMark">
+              <PropertyRef Name="OlympLevelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OlympResultToCommonBenefit_OlympLevel">
+          <End Type="Priem2012Model.OlympLevel" Role="OlympLevel" Multiplicity="1" />
+          <End Type="Priem2012Model.OlympResultToCommonBenefit" Role="OlympResultToCommonBenefit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OlympLevel">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OlympResultToCommonBenefit">
+              <PropertyRef Name="OlympLevelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OlympResultToAdditionalMark_OlympValue">
+          <End Type="Priem2012Model.OlympValue" Role="OlympValue" Multiplicity="1" />
+          <End Type="Priem2012Model.OlympResultToAdditionalMark" Role="OlympResultToAdditionalMark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OlympValue">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OlympResultToAdditionalMark">
+              <PropertyRef Name="OlympValueId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OlympResultToCommonBenefit_OlympValue">
+          <End Type="Priem2012Model.OlympValue" Role="OlympValue" Multiplicity="1" />
+          <End Type="Priem2012Model.OlympResultToCommonBenefit" Role="OlympResultToCommonBenefit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OlympValue">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OlympResultToCommonBenefit">
+              <PropertyRef Name="OlympValueId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OlympSubjectToExam_OlympSubject">
+          <End Type="Priem2012Model.OlympSubject" Role="OlympSubject" Multiplicity="1" />
+          <End Type="Priem2012Model.OlympSubjectToExam" Role="OlympSubjectToExam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OlympSubject">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OlympSubjectToExam">
+              <PropertyRef Name="OlympSubjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="extAbitAdditionalMarksSum">
+          <Key>
+            <PropertyRef Name="AbiturientId" />
+          </Key>
+          <Property Name="AbiturientId" Type="Guid" Nullable="false" />
+          <Property Name="AdditionalMarksSum" Type="Int32" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -14832,21 +14803,9 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a pri
           <EntitySetMapping Name="OlympLevel">
             <EntityTypeMapping TypeName="Priem2012Model.OlympLevel">
               <MappingFragment StoreEntitySet="OlympLevel">
+                <ScalarProperty Name="FISID" ColumnName="FISID" />
                 <ScalarProperty Name="Holder" ColumnName="Holder" />
                 <ScalarProperty Name="IsOpen" ColumnName="IsOpen" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="OlympSubject">
-            <EntityTypeMapping TypeName="Priem2012Model.OlympSubject">
-              <MappingFragment StoreEntitySet="OlympSubject">
-                <ScalarProperty Name="IsInVseross" ColumnName="IsInVseross" />
-                <ScalarProperty Name="ExamId" ColumnName="ExamId" />
-                <ScalarProperty Name="Holder" ColumnName="Holder" />
-                <ScalarProperty Name="IsOpen" ColumnName="IsOpen" />
-                <ScalarProperty Name="NameDative" ColumnName="NameDative" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
@@ -15025,6 +14984,8 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a pri
           <EntitySetMapping Name="OlympBook">
             <EntityTypeMapping TypeName="Priem2012Model.OlympBook">
               <MappingFragment StoreEntitySet="OlympBook">
+                <ScalarProperty Name="OlympProfileId" ColumnName="OlympProfileId" />
+                <ScalarProperty Name="OlympicID" ColumnName="OlympicID" />
                 <ScalarProperty Name="OlympYear" ColumnName="OlympYear" />
                 <ScalarProperty Name="Holder" ColumnName="Holder" />
                 <ScalarProperty Name="IsOpen" ColumnName="IsOpen" />
@@ -15039,6 +15000,7 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a pri
           <EntitySetMapping Name="Olympiads">
             <EntityTypeMapping TypeName="Priem2012Model.Olympiads">
               <MappingFragment StoreEntitySet="Olympiads">
+                <ScalarProperty Name="OlympProfileId" ColumnName="OlympProfileId" />
                 <ScalarProperty Name="OlympYear" ColumnName="OlympYear" />
                 <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
                 <ScalarProperty Name="Author" ColumnName="Author" />
@@ -15058,20 +15020,11 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a pri
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="OlympType">
-            <EntityTypeMapping TypeName="Priem2012Model.OlympType">
-              <MappingFragment StoreEntitySet="OlympType">
-                <ScalarProperty Name="IsVseross" ColumnName="IsVseross" />
-                <ScalarProperty Name="Holder" ColumnName="Holder" />
-                <ScalarProperty Name="IsOpen" ColumnName="IsOpen" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="extOlympBook">
             <EntityTypeMapping TypeName="Priem2012Model.extOlympBook">
               <MappingFragment StoreEntitySet="extOlympBook">
+                <ScalarProperty Name="OlympProfileName" ColumnName="OlympProfileName" />
+                <ScalarProperty Name="OlympProfileId" ColumnName="OlympProfileId" />
                 <ScalarProperty Name="OlympYear" ColumnName="OlympYear" />
                 <ScalarProperty Name="Number" ColumnName="Number" />
                 <ScalarProperty Name="OlympTypeName" ColumnName="OlympTypeName" />
@@ -15113,6 +15066,8 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a pri
           <EntitySetMapping Name="extOlympiads">
             <EntityTypeMapping TypeName="Priem2012Model.extOlympiads">
               <MappingFragment StoreEntitySet="extOlympiads">
+                <ScalarProperty Name="OlympProfileName" ColumnName="OlympProfileName" />
+                <ScalarProperty Name="OlympProfileId" ColumnName="OlympProfileId" />
                 <ScalarProperty Name="OlympValueAcr" ColumnName="OlympValueAcr" />
                 <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
                 <ScalarProperty Name="OriginDoc" ColumnName="OriginDoc" />
@@ -15160,17 +15115,6 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a pri
                 <ScalarProperty Name="OldValue" ColumnName="OldValue" />
                 <ScalarProperty Name="FieldName" ColumnName="FieldName" />
                 <ScalarProperty Name="PersonId" ColumnName="PersonId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="OlympName">
-            <EntityTypeMapping TypeName="Priem2012Model.OlympName">
-              <MappingFragment StoreEntitySet="OlympName">
-                <ScalarProperty Name="Holder" ColumnName="Holder" />
-                <ScalarProperty Name="IsOpen" ColumnName="IsOpen" />
-                <ScalarProperty Name="Number" ColumnName="Number" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -15439,6 +15383,8 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a pri
           <EntitySetMapping Name="extOlympiadsAll">
             <EntityTypeMapping TypeName="Priem2012Model.extOlympiadsAll">
               <MappingFragment StoreEntitySet="extOlympiadsAll">
+                <ScalarProperty Name="OlympProfileName" ColumnName="OlympProfileName" />
+                <ScalarProperty Name="OlympProfileId" ColumnName="OlympProfileId" />
                 <ScalarProperty Name="OlympYear" ColumnName="OlympYear" />
                 <ScalarProperty Name="OlympValueSortOrder" ColumnName="OlympValueSortOrder" />
                 <ScalarProperty Name="DocumentDate" ColumnName="DocumentDate" />
@@ -17153,20 +17099,6 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a pri
           <FunctionImportMapping FunctionImportName="PersonOtherPassport_update" FunctionName="Priem2012Model.Store.PersonOtherPassport_update" />
           <FunctionImportMapping FunctionImportName="Person_UpdateForeignNationality" FunctionName="Priem2012Model.Store.Person_UpdateForeignNationality" />
           <FunctionImportMapping FunctionImportName="GetFacultyIdsByNameFunc" FunctionName="Priem2012Model.Store.GetFacultyIdsByNameFunc" />
-          <EntitySetMapping Name="OlympResultToCommonBenefit">
-            <EntityTypeMapping TypeName="Priem2012Model.OlympResultToCommonBenefit">
-              <MappingFragment StoreEntitySet="OlympResultToCommonBenefit">
-                <ScalarProperty Name="OlympLevelId" ColumnName="OlympLevelId" />
-                <ScalarProperty Name="Holder" ColumnName="Holder" />
-                <ScalarProperty Name="IsOpen" ColumnName="IsOpen" />
-                <ScalarProperty Name="OlympValueId" ColumnName="OlympValueId" />
-                <ScalarProperty Name="OlympSubjectId" ColumnName="OlympSubjectId" />
-                <ScalarProperty Name="OlympTypeId" ColumnName="OlympTypeId" />
-                <ScalarProperty Name="EntryId" ColumnName="EntryId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="OlympResultToCommonBenefit_Delete" FunctionName="Priem2012Model.Store.OlympResultToCommonBenefit_Delete" />
           <FunctionImportMapping FunctionImportName="OlympResultToCommonBenefit_Insert" FunctionName="Priem2012Model.Store.OlympResultToCommonBenefit_Insert" />
           <FunctionImportMapping FunctionImportName="OlympResultToCommonBenefit_Update" FunctionName="Priem2012Model.Store.OlympResultToCommonBenefit_Update" />
@@ -17220,31 +17152,6 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a pri
                 <ScalarProperty Name="EgeMarkId" ColumnName="EgeMarkId" />
                 <ScalarProperty Name="EgeExamNameId" ColumnName="EgeExamNameId" />
                 <ScalarProperty Name="PersonId" ColumnName="PersonId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="extAbitAdditionalMarksSum">
-            <EntityTypeMapping TypeName="Priem2012Model.extAbitAdditionalMarksSum">
-              <MappingFragment StoreEntitySet="extAbitAdditionalMarksSum">
-                <ScalarProperty Name="AdditionalMarksSum" ColumnName="AdditionalMarksSum" />
-                <ScalarProperty Name="AbiturientId" ColumnName="AbiturientId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="OlympResultToAdditionalMark">
-            <EntityTypeMapping TypeName="Priem2012Model.OlympResultToAdditionalMark">
-              <MappingFragment StoreEntitySet="OlympResultToAdditionalMark">
-                <ScalarProperty Name="OlympNameId" ColumnName="OlympNameId" />
-                <ScalarProperty Name="Holder" ColumnName="Holder" />
-                <ScalarProperty Name="IsOpen" ColumnName="IsOpen" />
-                <ScalarProperty Name="AdditionalMark" ColumnName="AdditionalMark" />
-                <ScalarProperty Name="OlympYear" ColumnName="OlympYear" />
-                <ScalarProperty Name="OlympValueId" ColumnName="OlympValueId" />
-                <ScalarProperty Name="OlympLevelId" ColumnName="OlympLevelId" />
-                <ScalarProperty Name="OlympSubjectId" ColumnName="OlympSubjectId" />
-                <ScalarProperty Name="OlympTypeId" ColumnName="OlympTypeId" />
-                <ScalarProperty Name="EntryId" ColumnName="EntryId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -17502,6 +17409,92 @@ warning 6002: The table/view 'Priem2016_TEST.ed.qStudyLevel' does not have a pri
               <MappingFragment StoreEntitySet="ExamsVedSelectedMarkType">
                 <ScalarProperty Name="MarkTypeId" ColumnName="MarkTypeId" />
                 <ScalarProperty Name="ExamsVedId" ColumnName="ExamsVedId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OlympProfile">
+            <EntityTypeMapping TypeName="Priem2012Model.OlympProfile">
+              <MappingFragment StoreEntitySet="OlympProfile">
+                <ScalarProperty Name="SubjectID_FIS" ColumnName="SubjectID_FIS" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OlympName">
+            <EntityTypeMapping TypeName="Priem2012Model.OlympName">
+              <MappingFragment StoreEntitySet="OlympName">
+                <ScalarProperty Name="Holder" ColumnName="Holder" />
+                <ScalarProperty Name="IsOpen" ColumnName="IsOpen" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OlympResultToAdditionalMark">
+            <EntityTypeMapping TypeName="Priem2012Model.OlympResultToAdditionalMark">
+              <MappingFragment StoreEntitySet="OlympResultToAdditionalMark">
+                <ScalarProperty Name="OlympSubjectId" ColumnName="OlympSubjectId" />
+                <ScalarProperty Name="OlympProfileId" ColumnName="OlympProfileId" />
+                <ScalarProperty Name="Holder" ColumnName="Holder" />
+                <ScalarProperty Name="IsOpen" ColumnName="IsOpen" />
+                <ScalarProperty Name="MinEge" ColumnName="MinEge" />
+                <ScalarProperty Name="AdditionalMark" ColumnName="AdditionalMark" />
+                <ScalarProperty Name="ExamId" ColumnName="ExamId" />
+                <ScalarProperty Name="OlympValueId" ColumnName="OlympValueId" />
+                <ScalarProperty Name="OlympLevelId" ColumnName="OlympLevelId" />
+                <ScalarProperty Name="EntryId" ColumnName="EntryId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OlympResultToCommonBenefit">
+            <EntityTypeMapping TypeName="Priem2012Model.OlympResultToCommonBenefit">
+              <MappingFragment StoreEntitySet="OlympResultToCommonBenefit">
+                <ScalarProperty Name="OlympSubjectId" ColumnName="OlympSubjectId" />
+                <ScalarProperty Name="OlympProfileId" ColumnName="OlympProfileId" />
+                <ScalarProperty Name="Holder" ColumnName="Holder" />
+                <ScalarProperty Name="IsOpen" ColumnName="IsOpen" />
+                <ScalarProperty Name="MinEge" ColumnName="MinEge" />
+                <ScalarProperty Name="ExamId" ColumnName="ExamId" />
+                <ScalarProperty Name="OlympValueId" ColumnName="OlympValueId" />
+                <ScalarProperty Name="OlympLevelId" ColumnName="OlympLevelId" />
+                <ScalarProperty Name="EntryId" ColumnName="EntryId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OlympSubject">
+            <EntityTypeMapping TypeName="Priem2012Model.OlympSubject">
+              <MappingFragment StoreEntitySet="OlympSubject">
+                <ScalarProperty Name="SubjectID_FIS" ColumnName="SubjectID_FIS" />
+                <ScalarProperty Name="IsInVseross" ColumnName="IsInVseross" />
+                <ScalarProperty Name="ExamId" ColumnName="ExamId" />
+                <ScalarProperty Name="Holder" ColumnName="Holder" />
+                <ScalarProperty Name="IsOpen" ColumnName="IsOpen" />
+                <ScalarProperty Name="NameDative" ColumnName="NameDative" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OlympType">
+            <EntityTypeMapping TypeName="Priem2012Model.OlympType">
+              <MappingFragment StoreEntitySet="OlympType">
+                <ScalarProperty Name="IsVseross" ColumnName="IsVseross" />
+                <ScalarProperty Name="Holder" ColumnName="Holder" />
+                <ScalarProperty Name="IsOpen" ColumnName="IsOpen" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="extAbitAdditionalMarksSum">
+            <EntityTypeMapping TypeName="Priem2012Model.extAbitAdditionalMarksSum">
+              <MappingFragment StoreEntitySet="extAbitAdditionalMarksSum">
+                <ScalarProperty Name="AdditionalMarksSum" ColumnName="AdditionalMarksSum" />
+                <ScalarProperty Name="AbiturientId" ColumnName="AbiturientId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

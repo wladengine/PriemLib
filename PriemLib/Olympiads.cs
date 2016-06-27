@@ -15,11 +15,11 @@ namespace PriemLib
     public partial class Olympiads
     {
         public System.Guid Id { get; set; }
-        public Nullable<int> OlympTypeId { get; set; }
+        public int OlympTypeId { get; set; }
         public Nullable<int> OlympNameId { get; set; }
         public Nullable<int> OlympSubjectId { get; set; }
         public Nullable<int> OlympLevelId { get; set; }
-        public Nullable<int> OlympValueId { get; set; }
+        public int OlympValueId { get; set; }
         public Nullable<System.Guid> AbiturientId { get; set; }
         public bool IsOpen { get; set; }
         public string Holder { get; set; }
@@ -30,13 +30,14 @@ namespace PriemLib
         public string Author { get; set; }
         public System.DateTime DateCreated { get; set; }
         public short OlympYear { get; set; }
+        public Nullable<int> OlympProfileId { get; set; }
     
         public virtual OlympLevel OlympLevel { get; set; }
-        public virtual OlympSubject OlympSubject { get; set; }
-        public virtual OlympType OlympType { get; set; }
         public virtual OlympValue OlympValue { get; set; }
         public virtual Abiturient Abiturient { get; set; }
         public virtual OlympiadCheckedByRectorat OlympiadCheckedByRectorat { get; set; }
         public virtual OlympName OlympName { get; set; }
+        public virtual OlympSubject OlympSubject { get; set; }
+        public virtual OlympType OlympType { get; set; }
     }
 }

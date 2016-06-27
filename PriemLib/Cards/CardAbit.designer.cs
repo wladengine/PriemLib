@@ -312,6 +312,7 @@
             this.cbBenefitOlympSource.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cbBenefitOlympSource.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbBenefitOlympSource.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbBenefitOlympSource.DropDownWidth = 600;
             this.cbBenefitOlympSource.FormattingEnabled = true;
             this.cbBenefitOlympSource.Location = new System.Drawing.Point(226, 288);
             this.cbBenefitOlympSource.Name = "cbBenefitOlympSource";
@@ -377,7 +378,7 @@
             // 
             this.btnObrazProgramInEntry.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnObrazProgramInEntry.Enabled = false;
-            this.btnObrazProgramInEntry.Location = new System.Drawing.Point(494, 281);
+            this.btnObrazProgramInEntry.Location = new System.Drawing.Point(494, 242);
             this.btnObrazProgramInEntry.Name = "btnObrazProgramInEntry";
             this.btnObrazProgramInEntry.Size = new System.Drawing.Size(112, 37);
             this.btnObrazProgramInEntry.TabIndex = 126;

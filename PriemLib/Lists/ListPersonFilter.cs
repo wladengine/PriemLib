@@ -350,7 +350,7 @@ namespace PriemLib
             if (MainClass.dbType != PriemType.PriemForeigners)
                 s += " AND qAbiturient.IsForeign <> 1";
             else
-                s += " AND qAbiturient..IsForeign = 1";
+                s += " AND qAbiturient.IsForeign = 1";
             
             s += MainClass.GetStLevelFilter("ed.qAbiturient");
 

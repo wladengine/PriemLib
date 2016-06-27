@@ -164,6 +164,7 @@ namespace PriemLib
 
                     cbPrint.Items.Clear();
                     cbPrint.Items.Add("Заявление");
+                    cbPrint.Items.Add("Согласие на зачисление");
                     //cbPrint.Items.Add("Наклейка для каждого заявления");
                     cbPrint.Items.Add("Наклейка для заявления");
                     cbPrint.Items.Add("Справка");
@@ -1290,6 +1291,7 @@ namespace PriemLib
             }
 
             cbBenefitOlympSource.Visible = (CompetitionId == 1 || CompetitionId == 8);
+            cbBenefitOlympSource.Enabled = (CompetitionId == 1 || CompetitionId == 8);
 
             if (CompetitionId == 6)
             {
@@ -1343,7 +1345,7 @@ namespace PriemLib
                           .Select(u => new KeyValuePair<string, string>(u.Id.ToString(), string.Format("({0}) {1} ({2}) - {3}", u.OlympYear, u.OlympName, u.OlympSubjectName, u.OlympValueName)))
                           .ToList();
 
-                ComboServ.FillCombo(cbBenefitOlympSource, lst, false, false);
+                ComboServ.FillCombo(cbBenefitOlympSource, lst, true, false);
             }
         }
 
@@ -1508,6 +1510,62 @@ namespace PriemLib
                         return false;
                     }
 
+                    if (MainClass.dbType == PriemType.Priem && (CompetitionId == 1 || CompetitionId == 8))
+                    {
+                        if (!GuidId.HasValue)
+                        {
+                            WinFormsServ.Error("Сперва сохраните карточку!");
+                            return false;
+                        }
+
+                        if (!OlympiadId.HasValue)
+                        {
+                            WinFormsServ.Error("Требуется указание основания для предоставления общей льготы");
+                            return false;
+                        }
+                        else
+                        {
+                            var Ol = context.Olympiads.Where(x => x.Id == OlympiadId).FirstOrDefault();
+                            if (Ol == null)
+                            {
+                                WinFormsServ.Error("Не найдена олимпиада!");
+                                return false;
+                            }
+                            else
+                            {
+                                int ExId = context.OlympSubjectToExam.Where(x => x.OlympSubjectId == Ol.OlympSubjectId).Select(x => x.ExamId).DefaultIfEmpty(0).First();
+                                var lstBenefits = context.OlympResultToCommonBenefit
+                                    .Where(x => x.EntryId == EntryId && x.ExamId == ExId 
+                                        && (x.OlympLevelId == Ol.OlympLevelId || Ol.OlympLevelId == 0) 
+                                        && (x.OlympSubjectId == null ? true : x.OlympSubjectId == Ol.OlympSubjectId)
+                                        && (x.OlympProfileId == null ? true : x.OlympProfileId == Ol.OlympProfileId) 
+                                        && x.OlympValueId == Ol.OlympValueId).ToList();
+                                int iCntBenefits = lstBenefits.Count();
+                                if (iCntBenefits == 0)
+                                {
+                                    WinFormsServ.Error("Не найдено общей льготы для данной олимпиады в указанном конкурсе!");
+                                    return false;
+                                }
+                                else if (Ol.OlympTypeId > 2)
+                                {
+                                    decimal egeMin = lstBenefits.First().MinEge;
+
+                                    //проверяем мин. баллы
+                                    var balls = from ege in context.extEgeMarkMaxAbitApproved
+                                                join eee in context.EgeToExam on ege.EgeExamNameId equals eee.EgeExamNameId
+                                                where ege.AbiturientId == GuidId && eee.ExamId == ExId && ege.Value >= egeMin
+                                                select ege;
+
+                                    if (balls.Count() == 0)
+                                    {
+                                        WinFormsServ.Error("Не найдено подтверждающих баллов для общей льготы!");
+                                        return false;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
                     if (!CheckIdent(context))
                     {
                         WinFormsServ.Error("У абитуриента уже существует заявление на данный факультет, направление, профиль, форму и основу обучения!");
@@ -1578,16 +1636,18 @@ namespace PriemLib
                             return false;
                         }
                     }
-
-                    foreach (var x in lstExamInEntryBlock)
+                    int cnt = context.ExamInEntryBlockUnit.Where(x => x.ExamInEntryBlock.EntryId == EntryId).Count();
+                    if (lstExamInEntryBlock != null && cnt > 0)
                     {
-                        if (x.SelectedUnitId == Guid.Empty)
+                        foreach (var x in lstExamInEntryBlock)
                         {
-                            MessageBox.Show("Не указан(ы) экзамены по выбору", "", MessageBoxButtons.OK);
-                            break;
+                            if (x.SelectedUnitId == Guid.Empty)
+                            {
+                                MessageBox.Show("Не указан(ы) экзамены по выбору", "", MessageBoxButtons.OK);
+                                break;
+                            }
                         }
                     }
-
                     return true;
                 }
             }
@@ -1690,6 +1750,13 @@ namespace PriemLib
             
             UpdateSelectedExams(context, id);
             UpdateIsApprovedByCommision(abitBarcode, Checked);
+
+            var abit = context.Abiturient.Where(x => x.Id == id).FirstOrDefault();
+            if (abit != null)
+            {
+                abit.OlympiadId = OlympiadId;
+                context.SaveChanges();
+            }
         }
 
         protected override void OnSave()
@@ -1732,17 +1799,20 @@ namespace PriemLib
             foreach (var x in lst)
                 context.AbiturientSelectedExam.Remove(x);
 
-            foreach (var x in lstExamInEntryBlock)
+            if (lstExamInEntryBlock != null)
             {
-                if (x.SelectedUnitId != Guid.Empty)
+                foreach (var x in lstExamInEntryBlock)
                 {
-                    context.AbiturientSelectedExam.Add(new AbiturientSelectedExam()
+                    if (x.SelectedUnitId != Guid.Empty)
                     {
-                        ApplicationId = id,
-                        ExamInEntryBlockUnitId = x.SelectedUnitId,
-                    });
+                        context.AbiturientSelectedExam.Add(new AbiturientSelectedExam()
+                        {
+                            ApplicationId = id,
+                            ExamInEntryBlockUnitId = x.SelectedUnitId,
+                        });
+                    }
+
                 }
-                
             }
             context.SaveChanges();
         }
@@ -1999,14 +2069,17 @@ namespace PriemLib
                         Print.PrintApplication(chbPrint.Checked, sfd.FileName, _personId);
                     break;
                 case 1:
-                    Print.PrintStikerOne(AbitId, chbPrint.Checked);
+                    Print.PrintApplicationAgreement(AbitId, chbPrint.Checked);
                     break;
                 case 2:
+                    Print.PrintStikerOne(AbitId, chbPrint.Checked);
+                    break;
+                case 3:
                     //Print.PrintStikerAll(_personId, AbitId, chbPrint.Checked);
                     //break;
                     Print.PrintSprav(AbitId, chbPrint.Checked);
                     break;
-                case 3:
+                case 4:
                     PrintExamList();
                     break;
                 //case 4:

@@ -193,7 +193,6 @@
             this.btnRequestEge = new System.Windows.Forms.Button();
             this.chbEgeInSpbgu = new System.Windows.Forms.CheckBox();
             this.tbFBSStatus = new System.Windows.Forms.TextBox();
-            this.lblStatusPasha = new System.Windows.Forms.Label();
             this.gbEge = new System.Windows.Forms.GroupBox();
             this.btnRemoveE = new System.Windows.Forms.Button();
             this.btnCardE = new System.Windows.Forms.Button();
@@ -1904,7 +1903,6 @@
             this.tpEge.Controls.Add(this.btnRequestEge);
             this.tpEge.Controls.Add(this.chbEgeInSpbgu);
             this.tpEge.Controls.Add(this.tbFBSStatus);
-            this.tpEge.Controls.Add(this.lblStatusPasha);
             this.tpEge.Controls.Add(this.gbEge);
             this.tpEge.Controls.Add(this.btnSetStatusPasha);
             this.tpEge.Controls.Add(this.lblFBSStatus);
@@ -1947,11 +1945,9 @@
             // 
             // chbEgeInSpbgu
             // 
-            this.chbEgeInSpbgu.AutoSize = true;
-            this.chbEgeInSpbgu.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chbEgeInSpbgu.Location = new System.Drawing.Point(389, 14);
+            this.chbEgeInSpbgu.Location = new System.Drawing.Point(523, 13);
             this.chbEgeInSpbgu.Name = "chbEgeInSpbgu";
-            this.chbEgeInSpbgu.Size = new System.Drawing.Size(125, 17);
+            this.chbEgeInSpbgu.Size = new System.Drawing.Size(83, 38);
             this.chbEgeInSpbgu.TabIndex = 93;
             this.chbEgeInSpbgu.Text = "сдает ЕГЭ в СПбГУ";
             this.chbEgeInSpbgu.UseVisualStyleBackColor = true;
@@ -1960,20 +1956,11 @@
             // 
             this.tbFBSStatus.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.tbFBSStatus.Enabled = false;
-            this.tbFBSStatus.Location = new System.Drawing.Point(98, 12);
+            this.tbFBSStatus.Location = new System.Drawing.Point(318, 434);
             this.tbFBSStatus.Name = "tbFBSStatus";
             this.tbFBSStatus.ReadOnly = true;
             this.tbFBSStatus.Size = new System.Drawing.Size(127, 20);
             this.tbFBSStatus.TabIndex = 88;
-            // 
-            // lblStatusPasha
-            // 
-            this.lblStatusPasha.AutoSize = true;
-            this.lblStatusPasha.Location = new System.Drawing.Point(315, 416);
-            this.lblStatusPasha.Name = "lblStatusPasha";
-            this.lblStatusPasha.Size = new System.Drawing.Size(106, 39);
-            this.lblStatusPasha.TabIndex = 92;
-            this.lblStatusPasha.Text = "(для сертификатов \r\nзаканчивающихся \r\nна -00 и -10)";
             // 
             // gbEge
             // 
@@ -2070,7 +2057,7 @@
             // lblFBSStatus
             // 
             this.lblFBSStatus.AutoSize = true;
-            this.lblFBSStatus.Location = new System.Drawing.Point(23, 15);
+            this.lblFBSStatus.Location = new System.Drawing.Point(315, 418);
             this.lblFBSStatus.Name = "lblFBSStatus";
             this.lblFBSStatus.Size = new System.Drawing.Size(69, 13);
             this.lblFBSStatus.TabIndex = 89;
@@ -2087,9 +2074,9 @@
             // gbEgeMark
             // 
             this.gbEgeMark.Controls.Add(this.dgvExams);
-            this.gbEgeMark.Location = new System.Drawing.Point(14, 38);
+            this.gbEgeMark.Location = new System.Drawing.Point(14, 3);
             this.gbEgeMark.Name = "gbEgeMark";
-            this.gbEgeMark.Size = new System.Drawing.Size(500, 369);
+            this.gbEgeMark.Size = new System.Drawing.Size(500, 404);
             this.gbEgeMark.TabIndex = 87;
             this.gbEgeMark.TabStop = false;
             this.gbEgeMark.Text = "Оценки ЕГЭ для зачета";
@@ -2105,7 +2092,7 @@
             this.dgvExams.Location = new System.Drawing.Point(12, 19);
             this.dgvExams.Name = "dgvExams";
             this.dgvExams.RowHeadersVisible = false;
-            this.dgvExams.Size = new System.Drawing.Size(482, 344);
+            this.dgvExams.Size = new System.Drawing.Size(482, 379);
             this.dgvExams.TabIndex = 8;
             // 
             // tpSecond
@@ -3502,7 +3489,6 @@
         private System.Windows.Forms.DataGridView dgvEGE;
         private System.Windows.Forms.TextBox tbFBSStatus;
         private System.Windows.Forms.Label lblFBSStatus;
-        private System.Windows.Forms.Label lblStatusPasha;
         private System.Windows.Forms.Button btnSetStatusPasha;
         private System.Windows.Forms.TextBox tbCommentFBSPasha;
         private System.Windows.Forms.CheckBox chbEgeInSpbgu;

@@ -21,6 +21,7 @@ namespace PriemLib
             this.PayDataEntry = new HashSet<PayDataEntry>();
             this.InnerEntryInEntry = new HashSet<InnerEntryInEntry>();
             this.EntryToCompetitiveGroup = new HashSet<EntryToCompetitiveGroup>();
+            this.OlympResultToAdditionalMark = new HashSet<OlympResultToAdditionalMark>();
             this.OlympResultToCommonBenefit = new HashSet<OlympResultToCommonBenefit>();
         }
     
@@ -70,6 +71,8 @@ namespace PriemLib
         public virtual Comission Comission { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EntryToCompetitiveGroup> EntryToCompetitiveGroup { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OlympResultToAdditionalMark> OlympResultToAdditionalMark { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OlympResultToCommonBenefit> OlympResultToCommonBenefit { get; set; }
     }

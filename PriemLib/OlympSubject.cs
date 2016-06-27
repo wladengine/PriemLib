@@ -20,8 +20,6 @@ namespace PriemLib
             this.OlympBook = new HashSet<OlympBook>();
             this.Olympiads = new HashSet<Olympiads>();
             this.OlympSubjectToExam = new HashSet<OlympSubjectToExam>();
-            this.OlympResultToCommonBenefit = new HashSet<OlympResultToCommonBenefit>();
-            this.OlympResultToAdditionalMark = new HashSet<OlympResultToAdditionalMark>();
         }
     
         public int Id { get; set; }
@@ -31,6 +29,7 @@ namespace PriemLib
         public string Holder { get; set; }
         public Nullable<int> ExamId { get; set; }
         public Nullable<bool> IsInVseross { get; set; }
+        public Nullable<int> SubjectID_FIS { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OlympBook> OlympBook { get; set; }
@@ -38,9 +37,5 @@ namespace PriemLib
         public virtual ICollection<Olympiads> Olympiads { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OlympSubjectToExam> OlympSubjectToExam { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OlympResultToCommonBenefit> OlympResultToCommonBenefit { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OlympResultToAdditionalMark> OlympResultToAdditionalMark { get; set; }
     }
 }

@@ -15,17 +15,18 @@ namespace PriemLib
     public partial class OlympBook
     {
         public System.Guid Id { get; set; }
-        public Nullable<int> OlympTypeId { get; set; }
-        public Nullable<int> OlympNameId { get; set; }
-        public Nullable<int> OlympSubjectId { get; set; }
-        public Nullable<int> OlympLevelId { get; set; }
+        public int OlympTypeId { get; set; }
+        public int OlympNameId { get; set; }
+        public int OlympSubjectId { get; set; }
+        public int OlympLevelId { get; set; }
         public bool IsOpen { get; set; }
         public string Holder { get; set; }
         public int OlympYear { get; set; }
+        public string OlympicID { get; set; }
+        public int OlympProfileId { get; set; }
     
         public virtual OlympLevel OlympLevel { get; set; }
         public virtual OlympSubject OlympSubject { get; set; }
         public virtual OlympType OlympType { get; set; }
-        public virtual OlympName OlympName { get; set; }
     }
 }

@@ -27,6 +27,12 @@ namespace PriemLib
             set { ComboServ.SetComboId(cbOlympName, value); }     
         }
 
+        public int? OlympProfileId
+        {
+            get { return ComboServ.GetComboIdInt(cbOlympProfile); }
+            set { ComboServ.SetComboId(cbOlympProfile, value); }
+        }
+
         public int? OlympSubjectId
         {
             get { return ComboServ.GetComboIdInt(cbOlympSubject); }

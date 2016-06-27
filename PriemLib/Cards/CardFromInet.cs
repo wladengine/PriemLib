@@ -48,7 +48,7 @@ namespace PriemLib
             if (_abitBarc == null)
                 _closeAbit = true;
 
-            InitControls();     
+            InitControls();
         }      
 
         protected override void ExtraInit()
@@ -92,10 +92,12 @@ namespace PriemLib
                         ComboServ.FillCombo(cbCountry, HelpClass.GetComboListByTable("ed.Country", "ORDER BY Distance, Name"), true, false);
                         ComboServ.FillCombo(cbNationality, HelpClass.GetComboListByTable("ed.Country", "ORDER BY Distance, Name"), true, false);
                         ComboServ.FillCombo(cbExitClass, HelpClass.GetComboListByTable("ed.SchoolExitClass", "ORDER BY Name"), false, false);
+                        ComboServ.FillCombo(cbCountryEduc, HelpClass.GetComboListByTable("ed.Country", "ORDER BY Distance, Name"), true, false);
                     }
                     else
                     {
                         ComboServ.FillCombo(cbCountry, HelpClass.GetComboListByTable("ed.ForeignCountry", "ORDER BY Name"), true, false);
+                        ComboServ.FillCombo(cbCountryEduc, HelpClass.GetComboListByTable("ed.ForeignCountry", "ORDER BY Name"), true, false);
                         ComboServ.FillCombo(cbNationality, HelpClass.GetComboListByTable("ed.ForeignCountry", "ORDER BY Name"), true, false);
                         ComboServ.FillCombo(cbExitClass, HelpClass.GetComboListByTable("ed.SchoolExitClass", "ORDER BY Name"), false, false);
                     }
@@ -103,7 +105,6 @@ namespace PriemLib
                     ComboServ.FillCombo(cbRegion, HelpClass.GetComboListByTable("ed.Region", "ORDER BY Distance, Name"), true, false);
                     ComboServ.FillCombo(cbRegionEduc, HelpClass.GetComboListByTable("ed.Region", "ORDER BY Distance, Name"), true, false);
                     ComboServ.FillCombo(cbLanguage, HelpClass.GetComboListByTable("ed.Language"), true, false);
-                    ComboServ.FillCombo(cbCountryEduc, HelpClass.GetComboListByTable("ed.Country", "ORDER BY Distance, Name"), true, false);
                     ComboServ.FillCombo(cbHEStudyForm, HelpClass.GetComboListByTable("ed.StudyForm"), true, false);
                     ComboServ.FillCombo(cbMSStudyForm, HelpClass.GetComboListByTable("ed.StudyForm"), true, false);
                     ComboServ.FillCombo(cbSchoolType, HelpClass.GetComboListByTable("ed.SchoolType", "ORDER BY 1"), true, false);
@@ -735,7 +736,9 @@ namespace PriemLib
             if (dgvEducationDocuments.CurrentRow != null)
                 if (dgvEducationDocuments.CurrentRow.Index != _currentEducRow)
                 {
+                    SaveCurrentEducationInfo(_currentEducRow);
                     _currentEducRow = dgvEducationDocuments.CurrentRow.Index;
+                    
                     ViewEducationInfo(lstEducationInfo[_currentEducRow].Id);
                 }
         }
@@ -745,6 +748,7 @@ namespace PriemLib
 
             CountryEducId = lstEducationInfo[ind].CountryEducId;
             RegionEducId = lstEducationInfo[ind].RegionEducId;
+            ForeignCountryEducId = lstEducationInfo[ind].ForeignCountryEducId;
 
             tbEqualityDocumentNumber.Visible = CountryEducId != MainClass.countryRussiaId;
             chbEkvivEduc.Visible = CountryEducId != MainClass.countryRussiaId;
@@ -799,6 +803,48 @@ namespace PriemLib
             SchoolName = lstEducationInfo[ind].SchoolName;
             SchoolNum = lstEducationInfo[ind].SchoolNum;
             SchoolExitYear = lstEducationInfo[ind].SchoolExitYear;
+        }
+
+        private void SaveCurrentEducationInfo(int _currentEducRow)
+        {
+            if (lstEducationInfo == null)
+                lstEducationInfo = new List<Person_EducationInfo>();
+
+            if (_currentEducRow >= 0)
+            {
+                int zId = (int)dgvEducationDocuments["Id", _currentEducRow].Value;
+                int ind = lstEducationInfo.FindIndex(x => x.Id == zId);
+
+                lstEducationInfo[ind].SchoolTypeId = SchoolTypeId.Value;
+                lstEducationInfo[ind].SchoolCity = SchoolCity;
+                lstEducationInfo[ind].SchoolName = SchoolName;
+                lstEducationInfo[ind].SchoolNum = SchoolNum;
+                lstEducationInfo[ind].SchoolAVG = SchoolAVG;
+                lstEducationInfo[ind].SchoolExitYear = SchoolExitYear ?? DateTime.Now.Year;
+                lstEducationInfo[ind].SchoolExitClassId = SchoolExitClassId;
+                lstEducationInfo[ind].CountryEducId = CountryEducId.Value;
+                lstEducationInfo[ind].ForeignCountryEducId = ForeignCountryEducId.Value;
+                lstEducationInfo[ind].RegionEducId = RegionEducId.Value;
+                lstEducationInfo[ind].AttestatSeries = AttestatSeries;
+                lstEducationInfo[ind].AttestatNum = AttestatNum;
+                lstEducationInfo[ind].DiplomSeries = DiplomSeries;
+                lstEducationInfo[ind].DiplomNum = DiplomNum;
+                lstEducationInfo[ind].HEEntryYear = HEEntryYear;
+                lstEducationInfo[ind].HEExitYear = HEExitYear;
+                lstEducationInfo[ind].HEProfession = HEProfession;
+                lstEducationInfo[ind].HEQualification = HEQualification;
+                lstEducationInfo[ind].HEStudyFormId = HEStudyFormId;
+                lstEducationInfo[ind].HEWork = HEWork;
+                lstEducationInfo[ind].HighEducation = HighEducation;
+                lstEducationInfo[ind].IsEqual = IsEqual;
+                lstEducationInfo[ind].IsExcellent = IsExcellent;
+                lstEducationInfo[ind].EqualDocumentNumber = EqualDocumentNumber;
+
+                dgvEducationDocuments["School", _currentEducRow].Value = SchoolName;
+                dgvEducationDocuments["Series", _currentEducRow].Value = SchoolTypeId.Value == 1 ? AttestatSeries : DiplomSeries;
+                dgvEducationDocuments["Num", _currentEducRow].Value = SchoolTypeId.Value == 1 ? AttestatNum : DiplomNum;
+                dgvEducationDocuments.Update();
+            }
         }
 
         private void cbCountryEduc_SelectedIndexChanged(object sender, EventArgs e)
@@ -1209,6 +1255,9 @@ namespace PriemLib
                 }
             }
 
+            if (!CheckEducationDocuments())
+                return false;
+
             return true;
         }
         private bool CheckIsImported()
@@ -1430,6 +1479,69 @@ namespace PriemLib
             {
                 WinFormsServ.Error("Ошибка сохранения данных об образовании - данные не были сохранены. \n", de);
             }
+        }
+        private bool CheckEducationDocuments()
+        {
+            try
+            {
+                SaveCurrentEducationInfo(dgvEducationDocuments.CurrentRow.Index);
+
+                int _currentEducRow = 0;
+                if (dgvEducationDocuments.SelectedCells.Count != 0)
+                    _currentEducRow = dgvEducationDocuments.CurrentRow.Index;
+
+                epError.Clear();
+
+                int i = 0;
+
+                foreach (var ED in lstEducationInfo)
+                {
+                    bool bIsBad = false;
+
+                    if (ED.SchoolTypeId == 1)
+                    {
+                        if (ED.AttestatSeries.Length > 10)
+                        {
+                            epError.SetError(cbAttestatSeries, "Не более 10 символов");
+                            bIsBad = true;
+                        }
+                        if (ED.AttestatNum.Length > 20)
+                        {
+                            epError.SetError(tbAttestatNum, "Не более 20 символов");
+                            bIsBad = true;
+                        }
+                    }
+                    else
+                    {
+                        if (ED.DiplomSeries.Length > 10)
+                        {
+                            epError.SetError(tbDiplomSeries, "Не более 10 символов");
+                            bIsBad = true;
+                        }
+                        if (ED.DiplomNum.Length > 20)
+                        {
+                            epError.SetError(tbDiplomNum, "Не более 20 символов");
+                            bIsBad = true;
+                        }
+                    }
+
+                    dgvEducationDocuments.CurrentCell = dgvEducationDocuments["Num", i];
+
+                    if (bIsBad)
+                    {
+                        tcCard.SelectedIndex = 2;
+                        return false;
+                    }
+                    i++;
+                }
+            }
+            catch (Exception de)
+            {
+                WinFormsServ.Error("Ошибка проверки данных об образовании\n", de);
+                return false;
+            }
+
+            return true;
         }
 
         #endregion 

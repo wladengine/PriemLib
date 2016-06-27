@@ -69,9 +69,9 @@ namespace PriemLib
             personBarc = 0;  
 
             if (_Id != null && (MainClass.IsPasha()))
-                btnSetStatusPasha.Visible = tbCommentFBSPasha.Visible = lblStatusPasha.Visible = true;
+                btnSetStatusPasha.Visible = tbCommentFBSPasha.Visible = true;
             else
-                btnSetStatusPasha.Visible = tbCommentFBSPasha.Visible = lblStatusPasha.Visible = false;
+                btnSetStatusPasha.Visible = tbCommentFBSPasha.Visible = false;
              
             rbMale.Checked = true;
 
@@ -2446,7 +2446,5 @@ namespace PriemLib
                     new CardLangCertificate(Certid, GuidId.Value, new UpdateHandler(FillLanguageCertificates)).Show();
                 }
         }
-
-        
     }
 }

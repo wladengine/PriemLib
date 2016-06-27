@@ -19,23 +19,23 @@ namespace PriemLib
         {
             this.OlympBook = new HashSet<OlympBook>();
             this.Olympiads = new HashSet<Olympiads>();
+            this.OlympResultToAdditionalMark = new HashSet<OlympResultToAdditionalMark>();
             this.OlympResultToCommonBenefit = new HashSet<OlympResultToCommonBenefit>();
-            this.OlympResultToAdditionalMark1 = new HashSet<OlympResultToAdditionalMark>();
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
         public bool IsOpen { get; set; }
         public string Holder { get; set; }
+        public int FISID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OlympBook> OlympBook { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Olympiads> Olympiads { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OlympResultToCommonBenefit> OlympResultToCommonBenefit { get; set; }
-        public virtual OlympResultToAdditionalMark OlympResultToAdditionalMark { get; set; }
+        public virtual ICollection<OlympResultToAdditionalMark> OlympResultToAdditionalMark { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OlympResultToAdditionalMark> OlympResultToAdditionalMark1 { get; set; }
+        public virtual ICollection<OlympResultToCommonBenefit> OlympResultToCommonBenefit { get; set; }
     }
 }
