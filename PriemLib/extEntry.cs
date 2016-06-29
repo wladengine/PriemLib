@@ -61,5 +61,10 @@ namespace PriemLib
         public string FacultyCode { get; set; }
         public Nullable<int> StudyLevelGroupUpperCategoryId { get; set; }
         public string AggregateGroupAcronym { get; set; }
+        public string StudyFormFISName { get; set; }
+        public Nullable<int> LicenseProgram_FISID { get; set; }
+        public Nullable<int> StudyLevel_FISID { get; set; }
+        public Nullable<int> StudyBasis_FISID { get; set; }
+        public Nullable<int> StudyForm_FISID { get; set; }
     }
 }

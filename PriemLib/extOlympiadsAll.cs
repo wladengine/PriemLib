@@ -36,5 +36,7 @@ namespace PriemLib
         public short OlympYear { get; set; }
         public Nullable<int> OlympProfileId { get; set; }
         public string OlympProfileName { get; set; }
+        public string OlympicID { get; set; }
+        public string FIS_OlympicID { get; set; }
     }
 }

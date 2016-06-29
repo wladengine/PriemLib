@@ -26,6 +26,7 @@ namespace PriemLib
         public string Name { get; set; }
         public string Acronym { get; set; }
         public string FISName { get; set; }
+        public Nullable<int> FISID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Competition> Competition { get; set; }

@@ -228,7 +228,7 @@ AND (StudyLevel.LevelGroupId IN ({0}) OR StudyLevel.LevelGroupId IS NULL) ",
                     }
                     catch (Exception exc)
                     {
-                        WinFormsServ.Error(exc);
+                        WinFormsServ.Error("Ошибка при загрузке: ", exc);
                         tbPersonNum.Text = "";
                         tbPersonNum.Focus();
                     }

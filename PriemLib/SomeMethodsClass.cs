@@ -15,107 +15,107 @@ namespace PriemLib
 {
     public static class SomeMethodsClass
     {
-        public static void FillOlymps()
-        {
-            OpenFileDialog ofd = new OpenFileDialog();
+        //public static void FillOlymps()
+        //{
+        //    OpenFileDialog ofd = new OpenFileDialog();
 
-            ofd.Filter = "CSV|*.csv";
-            ofd.Multiselect = true;
+        //    ofd.Filter = "CSV|*.csv";
+        //    ofd.Multiselect = true;
 
-            if (!(ofd.ShowDialog() == DialogResult.OK))
-                return;
-            foreach (string fileName in ofd.FileNames)
-            {
-                using (StreamReader sr = new StreamReader(fileName, Encoding.GetEncoding(1251)))
-                {
-                    List<string[]> list = new List<string[]>();
+        //    if (!(ofd.ShowDialog() == DialogResult.OK))
+        //        return;
+        //    foreach (string fileName in ofd.FileNames)
+        //    {
+        //        using (StreamReader sr = new StreamReader(fileName, Encoding.GetEncoding(1251)))
+        //        {
+        //            List<string[]> list = new List<string[]>();
 
-                    while (!sr.EndOfStream)
-                    {
-                        string str = sr.ReadLine();
-                        char[] split = new char[] { ';' };
-                        string[] values = str.Split(split, 4);
+        //            while (!sr.EndOfStream)
+        //            {
+        //                string str = sr.ReadLine();
+        //                char[] split = new char[] { ';' };
+        //                string[] values = str.Split(split, 4);
 
-                        list.Add(values);
-                    }
+        //                list.Add(values);
+        //            }
 
-                    int i = 0;
-                    foreach (string[] val in list)
-                    {
-                        i++;
+        //            int i = 0;
+        //            foreach (string[] val in list)
+        //            {
+        //                i++;
 
-                        if (val.Length < 4)
-                        {
-                            MessageBox.Show("Строка " + i.ToString() + ": некорректный формат строки!");
-                            continue;
-                        }
+        //                if (val.Length < 4)
+        //                {
+        //                    MessageBox.Show("Строка " + i.ToString() + ": некорректный формат строки!");
+        //                    continue;
+        //                }
 
-                        string num = val[0].Trim();
-                        int j;
-                        int? numInt;
-                        if(int.TryParse(num, out j))
-                            numInt = j;
-                        else
-                            numInt = null;
+        //                string num = val[0].Trim();
+        //                int j;
+        //                int? numInt;
+        //                if(int.TryParse(num, out j))
+        //                    numInt = j;
+        //                else
+        //                    numInt = null;
                        
-                        string name = val[1].Trim();
-                        string olName = num + " - " + name;                       
+        //                string name = val[1].Trim();
+        //                string olName = num + " - " + name;                       
 
-                        using (PriemEntities context = new PriemEntities())
-                        {
-                            int? olNameId;
-                            var ol = from qq in context.OlympName
-                                       where qq.Name == olName
-                                       select qq;
+        //                using (PriemEntities context = new PriemEntities())
+        //                {
+        //                    int? olNameId;
+        //                    var ol = from qq in context.OlympName
+        //                               where qq.Name == olName
+        //                               select qq;
 
-                            if (ol != null && ol.Count() > 0)
-                                olNameId = (ol.First()).Id;
-                            else
-                            {
-                                ObjectParameter olEnt = new ObjectParameter("id", typeof(Int32));
-                                context.OlympName_Insert(olName, numInt, olEnt);
-                                olNameId = (int)olEnt.Value;
-                            }
+        //                    if (ol != null && ol.Count() > 0)
+        //                        olNameId = (ol.First()).Id;
+        //                    else
+        //                    {
+        //                        ObjectParameter olEnt = new ObjectParameter("id", typeof(Int32));
+        //                        context.OlympName_Insert(olName, numInt, olEnt);
+        //                        olNameId = (int)olEnt.Value;
+        //                    }
 
-                            string subjName = val[2].Trim();
+        //                    string subjName = val[2].Trim();
                             
-                            int? subjId;
-                            var subj = from qq in context.OlympSubject
-                                       where qq.Name == subjName
-                                       select qq;
+        //                    int? subjId;
+        //                    var subj = from qq in context.OlympSubject
+        //                               where qq.Name == subjName
+        //                               select qq;
 
-                            if (subj != null && subj.Count() > 0)
-                                subjId = (subj.First()).Id;
-                            else
-                            {
-                                ObjectParameter sbEnt = new ObjectParameter("id", typeof(Int32));
-                                context.OlympSubject_Insert(subjName, "", sbEnt);
-                                subjId = (int)sbEnt.Value;
-                            } 
+        //                    if (subj != null && subj.Count() > 0)
+        //                        subjId = (subj.First()).Id;
+        //                    else
+        //                    {
+        //                        ObjectParameter sbEnt = new ObjectParameter("id", typeof(Int32));
+        //                        context.OlympSubject_Insert(subjName, "", sbEnt);
+        //                        subjId = (int)sbEnt.Value;
+        //                    } 
 
-                            int? levId;
-                            int level;
-                            if (!int.TryParse(val[3].Trim(), out level))
-                                levId = null;
-                            else
-                                levId = level;
+        //                    int? levId;
+        //                    int level;
+        //                    if (!int.TryParse(val[3].Trim(), out level))
+        //                        levId = null;
+        //                    else
+        //                        levId = level;
 
-                            int cnt = (from ob in context.OlympBook
-                                       where ob.OlympTypeId == 4 && ob.OlympNameId == olNameId && ob.OlympSubjectId == subjId && ob.OlympLevelId == levId
-                                       select ob).Count();
+        //                    int cnt = (from ob in context.OlympBook
+        //                               where ob.OlympTypeId == 4 && ob.OlympNameId == olNameId && ob.OlympSubjectId == subjId && ob.OlympLevelId == levId
+        //                               select ob).Count();
 
-                            if (cnt > 0)
-                                continue;
+        //                    if (cnt > 0)
+        //                        continue;
                             
-                            ObjectParameter EntId = new ObjectParameter("id", typeof(Int32));
-                            context.OlympBook_Insert(4, olNameId, subjId, levId, MainClass.iPriemYear, EntId);
-                        }
-                    }
-                }
-            }
+        //                    ObjectParameter EntId = new ObjectParameter("id", typeof(Int32));
+        //                    context.OlympBook_Insert(4, olNameId,  , subjId, levId, MainClass.iPriemYear, EntId);
+        //                }
+        //            }
+        //        }
+        //    }
 
-            MessageBox.Show("Выполнено!");
-        }
+        //    MessageBox.Show("Выполнено!");
+        //}
 
         // проверка на уникальность абитуриента
         public static bool CheckThreeAbits(PriemEntities context, Guid? personId, int? LicenseProgramId)

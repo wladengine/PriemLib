@@ -1535,7 +1535,8 @@ namespace PriemLib
                             {
                                 int ExId = context.OlympSubjectToExam.Where(x => x.OlympSubjectId == Ol.OlympSubjectId).Select(x => x.ExamId).DefaultIfEmpty(0).First();
                                 var lstBenefits = context.OlympResultToCommonBenefit
-                                    .Where(x => x.EntryId == EntryId && x.ExamId == ExId 
+                                    .Where(x => x.EntryId == EntryId 
+                                        && (ExId == 0 ? true : (x.ExamId == ExId || x.ExamId == null))
                                         && (x.OlympLevelId == Ol.OlympLevelId || Ol.OlympLevelId == 0) 
                                         && (x.OlympSubjectId == null ? true : x.OlympSubjectId == Ol.OlympSubjectId)
                                         && (x.OlympProfileId == null ? true : x.OlympProfileId == Ol.OlympProfileId) 
@@ -1548,7 +1549,16 @@ namespace PriemLib
                                 }
                                 else if (Ol.OlympTypeId > 2)
                                 {
-                                    decimal egeMin = lstBenefits.First().MinEge;
+                                    if (ExId == 0)
+                                        ExId = lstBenefits.Where(x => x.ExamId.HasValue).Select(x => x.ExamId ?? 0).DefaultIfEmpty(0).First();
+
+                                    if (ExId == 0)
+                                    {
+                                        WinFormsServ.Error("Не удаётся найти в базе предмета ЕГЭ для указания общей льготы!");
+                                        return false;
+                                    }
+
+                                    decimal egeMin = lstBenefits.First().MinEge ?? 0;
 
                                     //проверяем мин. баллы
                                     var balls = from ege in context.extEgeMarkMaxAbitApproved

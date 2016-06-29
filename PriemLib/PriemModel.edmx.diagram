@@ -798,7 +798,6 @@
         <edmx:AssociationConnector Association="Priem2012Model.FK_Mark_ExamInEntryBlockUnit" />
         <edmx:AssociationConnector Association="Priem2012Model.FK_Mark_PersonAchievement" />
         <edmx:AssociationConnector Association="Priem2012Model.FK_ExamInEntryBlockUnit_Exam" />
-        <edmx:EntityTypeShape EntityType="Priem2012Model.extExamInEntry" Width="1.5" PointX="36.375" PointY="29.75" />
         <edmx:AssociationConnector Association="Priem2012Model.FK_ExamsVedHistory_ExamsVed" />
         <edmx:AssociationConnector Association="Priem2012Model.FK_ExamsVedHistory_Person" />
         <edmx:EntityTypeShape EntityType="Priem2012Model.SchoolExitClass" Width="1.5" PointX="16.375" PointY="29.75" />
@@ -833,6 +832,11 @@
         <edmx:AssociationConnector Association="Priem2012Model.FK_OlympResultToCommonBenefit_OlympValue" />
         <edmx:AssociationConnector Association="Priem2012Model.FK_OlympSubjectToExam_OlympSubject" />
         <edmx:EntityTypeShape EntityType="Priem2012Model.extAbitAdditionalMarksSum" Width="1.5" PointX="38.375" PointY="10.75" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.qOlympResultToAdditionalMark" Width="1.5" PointX="38.375" PointY="13.75" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.qOlympResultToCommonBenefit" Width="1.5" PointX="38.375" PointY="17.75" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_OlympResultToAdditionalMark_OlympType" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_OlympResultToCommonBenefit_OlympType" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.extExamInEntry" Width="1.5" PointX="36.375" PointY="29.75" />
         </edmx:Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

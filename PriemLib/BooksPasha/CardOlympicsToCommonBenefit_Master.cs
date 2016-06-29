@@ -15,6 +15,7 @@ namespace PriemLib
     public partial class CardOlympicsToCommonBenefit_Master : Form
     {
         private Guid? _EntryId;
+        private int? OlympTypeId { get { return ComboServ.GetComboIdInt(cbOlympType); } }
         private int? ExamId { get { return ComboServ.GetComboIdInt(cbExam); } }
         public int? OlympSubjectId
         {
@@ -44,8 +45,14 @@ namespace PriemLib
             _EntryId = EntryId;
             FillExam();
 
-            ComboServ.FillCombo(cbOlympProfile, HelpClass.GetComboListByTable("ed.OlympProfile"), false, true);
+            ComboServ.FillCombo(cbOlympType, HelpClass.GetComboListByTable("ed.OlympType"), false, true);
+            FillProfiles();
             FillOlympSubjects();
+        }
+
+        private void cbOlympType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FillProfiles();
         }
 
         private void FillExam()
@@ -88,16 +95,39 @@ namespace PriemLib
                 ComboServ.FillCombo(cbOlympSubject, lst, false, true);
             }
         }
+        private void FillProfiles()
+        {
+            using (PriemEntities context = new PriemEntities())
+            {
+                List<KeyValuePair<string, string>> lst =
+                    ((from ob in context.extOlympBook
+                      where OlympTypeId.HasValue ? ob.OlympTypeId == OlympTypeId : true
+                      select new
+                      {
+                          Id = ob.OlympProfileId,
+                          Name = ob.OlympProfileName,
+                      }).Distinct()).ToList().OrderBy(x => x.Name).Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name)).ToList();
+
+                ComboServ.FillCombo(cbOlympProfile, lst, false, true);
+            }
+        }
 
         private void btnCreate_Click(object sender, EventArgs e)
         {
             List<int> lstOlympLevels = new List<int>();
-            if (chbOlympLevel_1.Checked)
-                lstOlympLevels.Add(1);
-            if (chbOlympLevel_2.Checked)
-                lstOlympLevels.Add(2);
-            if (chbOlympLevel_3.Checked)
-                lstOlympLevels.Add(3);
+            if (OlympTypeId != 1 && OlympTypeId != 2)
+            {
+                if (chbOlympLevel_1.Checked)
+                    lstOlympLevels.Add(1);
+                if (chbOlympLevel_2.Checked)
+                    lstOlympLevels.Add(2);
+                if (chbOlympLevel_3.Checked)
+                    lstOlympLevels.Add(3);
+            }
+            else
+            {
+                lstOlympLevels.Add(0);
+            }
 
             List<int> lstOlympVals = new List<int>();
             if (chbOlympValue_1.Checked)
@@ -117,7 +147,7 @@ namespace PriemLib
                     && x.ProfileId == Ent.ProfileId && x.IsCrimea == Ent.IsCrimea && x.IsForeign == Ent.IsForeign).Select(x => x.Id).ToList();
 
                 var lst = context.OlympResultToCommonBenefit.Where(x => lstEntry.Contains(x.EntryId))
-                    .Select(x => new { x.OlympLevelId, x.OlympValueId, x.ExamId, x.EntryId });
+                    .Select(x => new { x.OlympLevelId, x.OlympValueId, x.ExamId, x.EntryId, x.OlympTypeId, x.OlympSubjectId, x.OlympProfileId });
                 using (TransactionScope tran = new TransactionScope())
                 {
                     foreach (int iOlLevel in lstOlympLevels)
@@ -126,11 +156,17 @@ namespace PriemLib
                         {
                             foreach (Guid EntryId in lstEntry)
                             {
-                                int iCnt = lst.Where(x => x.EntryId == EntryId && x.ExamId == ExamId && x.OlympLevelId == iOlLevel && x.OlympValueId == iOlValue).Count();
+                                int iCnt = lst.Where(x => x.EntryId == EntryId
+                                    && (ExamId.HasValue ? x.ExamId == ExamId : x.ExamId == null)
+                                    && x.OlympLevelId == iOlLevel 
+                                    && x.OlympValueId == iOlValue
+                                    && (OlympTypeId.HasValue ? x.OlympTypeId == OlympTypeId : x.OlympTypeId == null)
+                                    && (OlympProfileId.HasValue ? x.OlympProfileId == OlympProfileId : x.OlympProfileId == null)
+                                    && (OlympSubjectId.HasValue ? x.OlympSubjectId == OlympSubjectId : x.OlympSubjectId == null)).Count();
                                 if (iCnt == 0)
                                 {
                                     var idParam = new System.Data.Entity.Core.Objects.ObjectParameter("id", typeof(int));
-                                    context.OlympResultToCommonBenefit_Insert(EntryId, iOlLevel, iOlValue, ExamId, OlympProfileId, OlympSubjectId, MinEge, idParam);
+                                    context.OlympResultToCommonBenefit_Insert(EntryId, OlympTypeId, iOlLevel, iOlValue, ExamId, OlympProfileId, OlympSubjectId, MinEge, idParam);
                                 }
                             }
                         }

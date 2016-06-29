@@ -19,6 +19,8 @@ namespace PriemLib
         {
             this.OlympBook = new HashSet<OlympBook>();
             this.Olympiads = new HashSet<Olympiads>();
+            this.OlympResultToAdditionalMark = new HashSet<OlympResultToAdditionalMark>();
+            this.OlympResultToCommonBenefit = new HashSet<OlympResultToCommonBenefit>();
         }
     
         public int Id { get; set; }
@@ -31,5 +33,9 @@ namespace PriemLib
         public virtual ICollection<OlympBook> OlympBook { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Olympiads> Olympiads { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OlympResultToAdditionalMark> OlympResultToAdditionalMark { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OlympResultToCommonBenefit> OlympResultToCommonBenefit { get; set; }
     }
 }

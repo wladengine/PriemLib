@@ -165,7 +165,6 @@ namespace PriemLib
         public virtual DbSet<ExamInEntryBlockUnit> ExamInEntryBlockUnit { get; set; }
         public virtual DbSet<Mark> Mark { get; set; }
         public virtual DbSet<qMark> qMark { get; set; }
-        public virtual DbSet<extExamInEntry> extExamInEntry { get; set; }
         public virtual DbSet<SchoolExitClass> SchoolExitClass { get; set; }
         public virtual DbSet<LanguageCertificatesType> LanguageCertificatesType { get; set; }
         public virtual DbSet<PersonLanguageCertificates> PersonLanguageCertificates { get; set; }
@@ -180,6 +179,9 @@ namespace PriemLib
         public virtual DbSet<OlympSubject> OlympSubject { get; set; }
         public virtual DbSet<OlympType> OlympType { get; set; }
         public virtual DbSet<extAbitAdditionalMarksSum> extAbitAdditionalMarksSum { get; set; }
+        public virtual DbSet<qOlympResultToAdditionalMark> qOlympResultToAdditionalMark { get; set; }
+        public virtual DbSet<qOlympResultToCommonBenefit> qOlympResultToCommonBenefit { get; set; }
+        public virtual DbSet<extExamInEntry> extExamInEntry { get; set; }
     
         public virtual int RoleMember(string roleName, ObjectParameter result)
         {
@@ -1447,7 +1449,7 @@ namespace PriemLib
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("OlympBook_Delete", idParameter);
         }
     
-        public virtual int OlympBook_Insert(Nullable<int> olympTypeId, Nullable<int> olympNameId, Nullable<int> olympSubjectId, Nullable<int> olympLevelId, Nullable<int> olympYear, ObjectParameter id)
+        public virtual int OlympBook_Insert(Nullable<int> olympTypeId, Nullable<int> olympNameId, Nullable<int> olympProfileId, Nullable<int> olympSubjectId, Nullable<int> olympLevelId, Nullable<int> olympYear, ObjectParameter id)
         {
             var olympTypeIdParameter = olympTypeId.HasValue ?
                 new ObjectParameter("OlympTypeId", olympTypeId) :
@@ -1456,6 +1458,10 @@ namespace PriemLib
             var olympNameIdParameter = olympNameId.HasValue ?
                 new ObjectParameter("OlympNameId", olympNameId) :
                 new ObjectParameter("OlympNameId", typeof(int));
+    
+            var olympProfileIdParameter = olympProfileId.HasValue ?
+                new ObjectParameter("OlympProfileId", olympProfileId) :
+                new ObjectParameter("OlympProfileId", typeof(int));
     
             var olympSubjectIdParameter = olympSubjectId.HasValue ?
                 new ObjectParameter("OlympSubjectId", olympSubjectId) :
@@ -1469,7 +1475,7 @@ namespace PriemLib
                 new ObjectParameter("OlympYear", olympYear) :
                 new ObjectParameter("OlympYear", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("OlympBook_Insert", olympTypeIdParameter, olympNameIdParameter, olympSubjectIdParameter, olympLevelIdParameter, olympYearParameter, id);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("OlympBook_Insert", olympTypeIdParameter, olympNameIdParameter, olympProfileIdParameter, olympSubjectIdParameter, olympLevelIdParameter, olympYearParameter, id);
         }
     
         public virtual int EgeMark_UpdateCurMark(Nullable<bool> isCurrent, Nullable<System.Guid> id)
@@ -3556,7 +3562,7 @@ namespace PriemLib
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_ObrazProgram_Update", nameParameter, nameEngParameter, numberParameter, facultyIdParameter, licenseProgramIdParameter, idParameter);
         }
     
-        public virtual int OlympBook_Update(Nullable<int> olympTypeId, Nullable<int> olympNameId, Nullable<int> olympSubjectId, Nullable<int> olympLevelId, Nullable<int> olympYear, Nullable<System.Guid> id)
+        public virtual int OlympBook_Update(Nullable<int> olympTypeId, Nullable<int> olympNameId, Nullable<int> olympProfileId, Nullable<int> olympSubjectId, Nullable<int> olympLevelId, Nullable<int> olympYear, Nullable<System.Guid> id)
         {
             var olympTypeIdParameter = olympTypeId.HasValue ?
                 new ObjectParameter("OlympTypeId", olympTypeId) :
@@ -3565,6 +3571,10 @@ namespace PriemLib
             var olympNameIdParameter = olympNameId.HasValue ?
                 new ObjectParameter("OlympNameId", olympNameId) :
                 new ObjectParameter("OlympNameId", typeof(int));
+    
+            var olympProfileIdParameter = olympProfileId.HasValue ?
+                new ObjectParameter("OlympProfileId", olympProfileId) :
+                new ObjectParameter("OlympProfileId", typeof(int));
     
             var olympSubjectIdParameter = olympSubjectId.HasValue ?
                 new ObjectParameter("OlympSubjectId", olympSubjectId) :
@@ -3582,7 +3592,7 @@ namespace PriemLib
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(System.Guid));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("OlympBook_Update", olympTypeIdParameter, olympNameIdParameter, olympSubjectIdParameter, olympLevelIdParameter, olympYearParameter, idParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("OlympBook_Update", olympTypeIdParameter, olympNameIdParameter, olympProfileIdParameter, olympSubjectIdParameter, olympLevelIdParameter, olympYearParameter, idParameter);
         }
     
         public virtual int OlympName_Update(string olympName, Nullable<int> olympNumber, Nullable<int> id)
@@ -4471,11 +4481,15 @@ namespace PriemLib
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("OlympResultToCommonBenefit_Delete", idParameter);
         }
     
-        public virtual int OlympResultToCommonBenefit_Insert(Nullable<System.Guid> entryId, Nullable<int> olympLevelId, Nullable<int> olympValueId, Nullable<int> examId, Nullable<int> olympProfileId, Nullable<int> olympSubjectId, Nullable<decimal> minEgeValue, ObjectParameter id)
+        public virtual int OlympResultToCommonBenefit_Insert(Nullable<System.Guid> entryId, Nullable<int> olympTypeId, Nullable<int> olympLevelId, Nullable<int> olympValueId, Nullable<int> examId, Nullable<int> olympProfileId, Nullable<int> olympSubjectId, Nullable<decimal> minEgeValue, ObjectParameter id)
         {
             var entryIdParameter = entryId.HasValue ?
                 new ObjectParameter("EntryId", entryId) :
                 new ObjectParameter("EntryId", typeof(System.Guid));
+    
+            var olympTypeIdParameter = olympTypeId.HasValue ?
+                new ObjectParameter("OlympTypeId", olympTypeId) :
+                new ObjectParameter("OlympTypeId", typeof(int));
     
             var olympLevelIdParameter = olympLevelId.HasValue ?
                 new ObjectParameter("OlympLevelId", olympLevelId) :
@@ -4501,14 +4515,18 @@ namespace PriemLib
                 new ObjectParameter("MinEgeValue", minEgeValue) :
                 new ObjectParameter("MinEgeValue", typeof(decimal));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("OlympResultToCommonBenefit_Insert", entryIdParameter, olympLevelIdParameter, olympValueIdParameter, examIdParameter, olympProfileIdParameter, olympSubjectIdParameter, minEgeValueParameter, id);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("OlympResultToCommonBenefit_Insert", entryIdParameter, olympTypeIdParameter, olympLevelIdParameter, olympValueIdParameter, examIdParameter, olympProfileIdParameter, olympSubjectIdParameter, minEgeValueParameter, id);
         }
     
-        public virtual int OlympResultToCommonBenefit_Update(Nullable<System.Guid> entryId, Nullable<int> olympLevelId, Nullable<int> olympValueId, Nullable<int> examId, Nullable<int> olympProfileId, Nullable<int> olympSubjectId, Nullable<decimal> minEgeValue, Nullable<int> id)
+        public virtual int OlympResultToCommonBenefit_Update(Nullable<System.Guid> entryId, Nullable<int> olympTypeId, Nullable<int> olympLevelId, Nullable<int> olympValueId, Nullable<int> examId, Nullable<int> olympProfileId, Nullable<int> olympSubjectId, Nullable<decimal> minEgeValue, Nullable<int> id)
         {
             var entryIdParameter = entryId.HasValue ?
                 new ObjectParameter("EntryId", entryId) :
                 new ObjectParameter("EntryId", typeof(System.Guid));
+    
+            var olympTypeIdParameter = olympTypeId.HasValue ?
+                new ObjectParameter("OlympTypeId", olympTypeId) :
+                new ObjectParameter("OlympTypeId", typeof(int));
     
             var olympLevelIdParameter = olympLevelId.HasValue ?
                 new ObjectParameter("OlympLevelId", olympLevelId) :
@@ -4538,7 +4556,7 @@ namespace PriemLib
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("OlympResultToCommonBenefit_Update", entryIdParameter, olympLevelIdParameter, olympValueIdParameter, examIdParameter, olympProfileIdParameter, olympSubjectIdParameter, minEgeValueParameter, idParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("OlympResultToCommonBenefit_Update", entryIdParameter, olympTypeIdParameter, olympLevelIdParameter, olympValueIdParameter, examIdParameter, olympProfileIdParameter, olympSubjectIdParameter, minEgeValueParameter, idParameter);
         }
     
         public virtual int PersonNoticies_insert(Nullable<System.Guid> personId, string noticeText)
@@ -4580,11 +4598,15 @@ namespace PriemLib
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("OlympResultToAdditionalMark_Delete", idParameter);
         }
     
-        public virtual int OlympResultToAdditionalMark_Insert(Nullable<System.Guid> entryId, Nullable<int> olympLevelId, Nullable<int> olympValueId, Nullable<int> examId, Nullable<int> olympProfileId, Nullable<int> olympSubjectId, Nullable<int> additionalMark, Nullable<decimal> minEgeValue, ObjectParameter id)
+        public virtual int OlympResultToAdditionalMark_Insert(Nullable<System.Guid> entryId, Nullable<int> olympTypeId, Nullable<int> olympLevelId, Nullable<int> olympValueId, Nullable<int> examId, Nullable<int> olympProfileId, Nullable<int> olympSubjectId, Nullable<int> additionalMark, Nullable<decimal> minEgeValue, ObjectParameter id)
         {
             var entryIdParameter = entryId.HasValue ?
                 new ObjectParameter("EntryId", entryId) :
                 new ObjectParameter("EntryId", typeof(System.Guid));
+    
+            var olympTypeIdParameter = olympTypeId.HasValue ?
+                new ObjectParameter("OlympTypeId", olympTypeId) :
+                new ObjectParameter("OlympTypeId", typeof(int));
     
             var olympLevelIdParameter = olympLevelId.HasValue ?
                 new ObjectParameter("OlympLevelId", olympLevelId) :
@@ -4614,14 +4636,18 @@ namespace PriemLib
                 new ObjectParameter("MinEgeValue", minEgeValue) :
                 new ObjectParameter("MinEgeValue", typeof(decimal));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("OlympResultToAdditionalMark_Insert", entryIdParameter, olympLevelIdParameter, olympValueIdParameter, examIdParameter, olympProfileIdParameter, olympSubjectIdParameter, additionalMarkParameter, minEgeValueParameter, id);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("OlympResultToAdditionalMark_Insert", entryIdParameter, olympTypeIdParameter, olympLevelIdParameter, olympValueIdParameter, examIdParameter, olympProfileIdParameter, olympSubjectIdParameter, additionalMarkParameter, minEgeValueParameter, id);
         }
     
-        public virtual int OlympResultToAdditionalMark_Update(Nullable<System.Guid> entryId, Nullable<int> olympLevelId, Nullable<int> olympValueId, Nullable<int> examId, Nullable<int> olympProfileId, Nullable<int> olympSubjectId, Nullable<int> additionalMark, Nullable<decimal> minEgeValue, Nullable<int> id)
+        public virtual int OlympResultToAdditionalMark_Update(Nullable<System.Guid> entryId, Nullable<int> olympTypeId, Nullable<int> olympLevelId, Nullable<int> olympValueId, Nullable<int> examId, Nullable<int> olympProfileId, Nullable<int> olympSubjectId, Nullable<int> additionalMark, Nullable<decimal> minEgeValue, Nullable<int> id)
         {
             var entryIdParameter = entryId.HasValue ?
                 new ObjectParameter("EntryId", entryId) :
                 new ObjectParameter("EntryId", typeof(System.Guid));
+    
+            var olympTypeIdParameter = olympTypeId.HasValue ?
+                new ObjectParameter("OlympTypeId", olympTypeId) :
+                new ObjectParameter("OlympTypeId", typeof(int));
     
             var olympLevelIdParameter = olympLevelId.HasValue ?
                 new ObjectParameter("OlympLevelId", olympLevelId) :
@@ -4655,7 +4681,7 @@ namespace PriemLib
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("OlympResultToAdditionalMark_Update", entryIdParameter, olympLevelIdParameter, olympValueIdParameter, examIdParameter, olympProfileIdParameter, olympSubjectIdParameter, additionalMarkParameter, minEgeValueParameter, idParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("OlympResultToAdditionalMark_Update", entryIdParameter, olympTypeIdParameter, olympLevelIdParameter, olympValueIdParameter, examIdParameter, olympProfileIdParameter, olympSubjectIdParameter, additionalMarkParameter, minEgeValueParameter, idParameter);
         }
     
         public virtual int Person_EducationInfo_SchoolClass_update(Nullable<int> schoolExitClassId, Nullable<int> id)

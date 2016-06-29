@@ -18,7 +18,7 @@ namespace PriemLib
         public System.Guid EntryId { get; set; }
         public int ExamId { get; set; }
         public bool IsProfil { get; set; }
-        public Nullable<double> EgeMin { get; set; }
+        public Nullable<decimal> EgeMin { get; set; }
         public int ExamNameId { get; set; }
         public bool IsAdditional { get; set; }
         public string ExamName { get; set; }
@@ -34,11 +34,11 @@ namespace PriemLib
         public bool IsSecond { get; set; }
         public bool IsReduced { get; set; }
         public bool IsParallel { get; set; }
-        public string Expr1 { get; set; }
         public byte OrderNumber { get; set; }
         public bool IsCrimea { get; set; }
         public bool IsGosLine { get; set; }
         public Nullable<System.Guid> ParentExamInEntryBlockId { get; set; }
         public bool IsForeign { get; set; }
+        public System.Guid ExamInEntryBlockId { get; set; }
     }
 }

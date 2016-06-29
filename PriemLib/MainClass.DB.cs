@@ -359,11 +359,14 @@ namespace PriemLib
 
                 //инд достижения
                 qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "case when EXISTS (SELECT * FROM ed.PersonAchievement PA WHERE PA.PersonId = extPerson.Id AND PA.AchievementTypeId = 9) then 'Да' else 'Нет' end", "ИНД_Аттестат"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "case when EXISTS (SELECT * FROM ed.PersonAchievement PA WHERE PA.PersonId = extPerson.Id AND PA.AchievementTypeId = 10) then 'Да' else 'Нет' end", "ИНД_Волонтёр"));
-                qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", "case when EXISTS (SELECT * FROM ed.Olympiads OL WHERE OL.AbiturientId = qAbiturient.Id AND OL.OlympTypeId = 7 AND OL.OlympValueId = 6) then 'Да' else 'Нет' end", "ИНД_ПобРег"));
-                qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", "case when EXISTS (SELECT * FROM ed.Olympiads OL WHERE OL.AbiturientId = qAbiturient.Id AND OL.OlympTypeId = 7 AND OL.OlympValueId IN (5, 7)) then 'Да' else 'Нет' end", "ИНД_ПризРег"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "case when EXISTS (SELECT * FROM ed.PersonAchievement PA WHERE PA.PersonId = extPerson.Id AND PA.AchievementTypeId = 11) then 'Да' else 'Нет' end", "ИНД_Конкурсы"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "case when EXISTS (SELECT * FROM ed.PersonAchievement PA WHERE PA.PersonId = extPerson.Id AND PA.AchievementTypeId = 12) then 'Да' else 'Нет' end", "ИНД_Сочинение"));
+                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "case when EXISTS (SELECT * FROM ed.PersonAchievement PA WHERE PA.PersonId = extPerson.Id AND PA.AchievementTypeId = 8) then 'Да' else 'Нет' end", "ИНД_ГТО"));
+                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "case when EXISTS (SELECT * FROM ed.PersonAchievement PA WHERE PA.PersonId = extPerson.Id AND PA.AchievementTypeId = 16) then 'Да' else 'Нет' end", "ИНД_СПО"));
+                qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", "(SELECT AddSumm.AdditionalMarksSum FROM ed.extAbitAdditionalMarksSum AddSumm WHERE AddSumm.AbiturientId = qAbiturient.Id)", "ИНД_СУММ"));
+                qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", "case when EXISTS (SELECT * FROM ed.extAbitAllAdditionalAchievements OL WHERE OL.AbiturientId = qAbiturient.Id AND OL.AchievementTypeId = 11 AND OL.Mark = 4) then 'Да' else 'Нет' end", "ИНД_ПобРег"));
+                qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", "case when EXISTS (SELECT * FROM ed.extAbitAllAdditionalAchievements OL WHERE OL.AbiturientId = qAbiturient.Id AND OL.AchievementTypeId = 11 AND OL.Mark = 3) then 'Да' else 'Нет' end", "ИНД_ПризРег"));
+                qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", "case when EXISTS (SELECT * FROM ed.extAbitAllAdditionalAchievements OL WHERE OL.AbiturientId = qAbiturient.Id AND OL.AchievementTypeId = 11 AND OL.Mark = 2) then 'Да' else 'Нет' end", "ИНД_ОлСПбГУ"));
+                qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", "case when EXISTS (SELECT * FROM ed.extAbitAllAdditionalAchievements OL WHERE OL.AbiturientId = qAbiturient.Id AND OL.AchievementTypeId = 11 AND OL.Mark = 1) then 'Да' else 'Нет' end", "ИНД_ПрочРСОШ"));
+                //qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "case when EXISTS (SELECT * FROM ed.PersonAchievement PA WHERE PA.PersonId = extPerson.Id AND PA.AchievementTypeId = 11) then 'Да' else 'Нет' end", "ИНД_Конкурсы"));
 
 
                 //Протоколы

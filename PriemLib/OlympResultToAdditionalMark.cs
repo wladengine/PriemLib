@@ -18,17 +18,19 @@ namespace PriemLib
         public System.Guid EntryId { get; set; }
         public int OlympLevelId { get; set; }
         public int OlympValueId { get; set; }
-        public int ExamId { get; set; }
+        public Nullable<int> ExamId { get; set; }
         public int AdditionalMark { get; set; }
         public decimal MinEge { get; set; }
         public bool IsOpen { get; set; }
         public string Holder { get; set; }
         public Nullable<int> OlympProfileId { get; set; }
         public Nullable<int> OlympSubjectId { get; set; }
+        public Nullable<int> OlympTypeId { get; set; }
     
         public virtual Entry Entry { get; set; }
         public virtual Exam Exam { get; set; }
         public virtual OlympLevel OlympLevel { get; set; }
         public virtual OlympValue OlympValue { get; set; }
+        public virtual OlympType OlympType { get; set; }
     }
 }

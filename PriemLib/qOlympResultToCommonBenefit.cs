@@ -12,24 +12,16 @@ namespace PriemLib
     using System;
     using System.Collections.Generic;
     
-    public partial class OlympResultToCommonBenefit
+    public partial class qOlympResultToCommonBenefit
     {
-        public int Id { get; set; }
         public System.Guid EntryId { get; set; }
+        public int ExamId { get; set; }
+        public Nullable<int> OlympTypeId { get; set; }
         public int OlympLevelId { get; set; }
-        public int OlympValueId { get; set; }
-        public Nullable<int> ExamId { get; set; }
-        public Nullable<decimal> MinEge { get; set; }
-        public bool IsOpen { get; set; }
-        public string Holder { get; set; }
         public Nullable<int> OlympProfileId { get; set; }
         public Nullable<int> OlympSubjectId { get; set; }
-        public Nullable<int> OlympTypeId { get; set; }
-    
-        public virtual Entry Entry { get; set; }
-        public virtual Exam Exam { get; set; }
-        public virtual OlympLevel OlympLevel { get; set; }
-        public virtual OlympValue OlympValue { get; set; }
-        public virtual OlympType OlympType { get; set; }
+        public int OlympValueId { get; set; }
+        public Nullable<int> EgeExamNameId { get; set; }
+        public decimal MinEge { get; set; }
     }
 }

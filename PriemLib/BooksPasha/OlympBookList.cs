@@ -79,6 +79,7 @@ namespace PriemLib
                                 ob.Number,
                                 ob.OlympTypeName,
                                 ob.OlympNameName,
+                                ob.OlympProfileName,
                                 ob.OlympSubjectName,
                                 ob.OlympLevelName,
                                 ob.OlympYear
@@ -108,9 +109,11 @@ namespace PriemLib
 
             SetVisibleColumnsAndNameColumnsOrdered("OlympTypeName", "Тип", 0);
             SetVisibleColumnsAndNameColumnsOrdered("OlympNameName", "Название", 1);
-            SetVisibleColumnsAndNameColumnsOrdered("OlympSubjectName", "Предмет", 2);
-            SetVisibleColumnsAndNameColumnsOrdered("OlympLevelName", "Уровень", 3);
-            SetVisibleColumnsAndNameColumnsOrdered("OlympYear", "Год", 4);
+
+            SetVisibleColumnsAndNameColumnsOrdered("OlympProfileName", "Профиль", 2);
+            SetVisibleColumnsAndNameColumnsOrdered("OlympSubjectName", "Предмет", 3);
+            SetVisibleColumnsAndNameColumnsOrdered("OlympLevelName", "Уровень", 4);
+            SetVisibleColumnsAndNameColumnsOrdered("OlympYear", "Год", 5);
 
             Dgv.Columns["OlympTypeName"].Width = 192;
             Dgv.Columns["OlympNameName"].Width = 590;

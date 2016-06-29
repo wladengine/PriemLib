@@ -17,8 +17,13 @@ namespace PriemLib
     {
         private Guid? _EntryId;
         private bool _isReadOnly;
-
+        
         #region Fields
+        public int? OlympTypeId
+        {
+            get { return ComboServ.GetComboIdInt(cbOlympType); }
+            set { ComboServ.SetComboId(cbOlympType, value); }
+        }
         public int? OlympLevelId
         {
             get { return ComboServ.GetComboIdInt(cbOlympLevel); }
@@ -105,7 +110,8 @@ namespace PriemLib
             {
                 ComboServ.FillCombo(cbOlympLevel, HelpClass.GetComboListByTable("ed.OlympLevel"), false, false);
                 ComboServ.FillCombo(cbOlympValue, HelpClass.GetComboListByTable("ed.OlympValue"), false, false);
-                ComboServ.FillCombo(cbOlympProfile, HelpClass.GetComboListByTable("ed.OlympProfile"), false, true);
+                ComboServ.FillCombo(cbOlympType, HelpClass.GetComboListByTable("ed.OlympType"), false, true);
+                FillProfiles();
                 FillAfterOlympLevel();
                 FillOlympSubjects();
             }
@@ -123,6 +129,10 @@ namespace PriemLib
         protected override void InitHandlers()
         {
             
+        }
+        private void cbOlympType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FillProfiles();
         }
 
         private void FillAfterOlympLevel()
@@ -165,6 +175,22 @@ namespace PriemLib
                 ComboServ.FillCombo(cbOlympSubject, lst, false, true);
             }
         }
+        private void FillProfiles()
+        {
+            using (PriemEntities context = new PriemEntities())
+            {
+                List<KeyValuePair<string, string>> lst =
+                    ((from ob in context.extOlympBook
+                      where OlympTypeId.HasValue ? ob.OlympTypeId == OlympTypeId : true
+                      select new
+                      {
+                          Id = ob.OlympProfileId,
+                          Name = ob.OlympProfileName,
+                      }).Distinct()).ToList().OrderBy(x => x.Name).Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name)).ToList();
+
+                ComboServ.FillCombo(cbOlympProfile, lst, false, true);
+            }
+        }
 
         protected override void FillCard()
         {
@@ -184,11 +210,14 @@ namespace PriemLib
                     if (olymp == null)
                         return;
 
+                    OlympTypeId = olymp.OlympTypeId;
                     OlympLevelId = olymp.OlympLevelId;
                     ExamId = olymp.ExamId;
                     OlympValueId = olymp.OlympValueId;
                     MinEge = olymp.MinEge;
                     AdditionalMark = olymp.AdditionalMark;
+                    OlympSubjectId = olymp.OlympSubjectId;
+                    OlympProfileId = olymp.OlympProfileId;
                 }
             }
             catch (DataException de)
@@ -210,11 +239,11 @@ namespace PriemLib
 
         protected override void InsertRec(PriemEntities context, ObjectParameter idParam)
         {
-            context.OlympResultToAdditionalMark_Insert(_EntryId, OlympLevelId, OlympValueId, ExamId, OlympProfileId, OlympSubjectId, AdditionalMark, MinEge, idParam);
+            context.OlympResultToAdditionalMark_Insert(_EntryId, OlympTypeId, OlympLevelId, OlympValueId, ExamId, OlympProfileId, OlympSubjectId, AdditionalMark, MinEge, idParam);
         }
         protected override void UpdateRec(PriemEntities context, int id)
         {
-            context.OlympResultToAdditionalMark_Update(_EntryId, OlympLevelId, OlympValueId, ExamId, OlympProfileId, OlympSubjectId, AdditionalMark, MinEge, id);
+            context.OlympResultToAdditionalMark_Update(_EntryId, OlympTypeId, OlympLevelId, OlympValueId, ExamId, OlympProfileId, OlympSubjectId, AdditionalMark, MinEge, id);
         }
         protected override void OnSave()
         {
@@ -226,5 +255,7 @@ namespace PriemLib
             if (!_isModified)
                 this.Close();
         }
+
+        
     }
 }

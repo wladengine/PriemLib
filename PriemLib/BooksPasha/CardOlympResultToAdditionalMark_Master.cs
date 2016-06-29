@@ -16,6 +16,7 @@ namespace PriemLib
     {
         private Guid? _EntryId;
         private int? ExamId { get { return ComboServ.GetComboIdInt(cbExam); } }
+        private int? OlympTypeId { get { return ComboServ.GetComboIdInt(cbOlympType); } }
         private int? OlympProfileId { get { return ComboServ.GetComboIdInt(cbOlympProfile); } }
         private int? OlympSubjectId { get { return ComboServ.GetComboIdInt(cbOlympSubject); } }
         private int AdditionalMark
@@ -45,9 +46,15 @@ namespace PriemLib
             _EntryId = EntryId;
             FillExam();
 
-            var lst = HelpClass.GetComboListByTable("ed.OlympProfile");
-            ComboServ.FillCombo(cbOlympProfile, lst, false, true);
+            var lst = HelpClass.GetComboListByTable("ed.OlympType");
+            ComboServ.FillCombo(cbOlympType, lst, false, true);
+            FillProfiles();
             FillOlympSubjects();
+        }
+
+        private void cbOlympType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FillProfiles();
         }
 
         private void FillExam()
@@ -72,7 +79,22 @@ namespace PriemLib
                 cbExam.SelectedIndex = 0;
             }
         }
+        private void FillProfiles()
+        {
+            using (PriemEntities context = new PriemEntities())
+            {
+                List<KeyValuePair<string, string>> lst =
+                    ((from ob in context.extOlympBook
+                      where OlympTypeId.HasValue ?  ob.OlympTypeId == OlympTypeId : true
+                      select new
+                      {
+                          Id = ob.OlympProfileId,
+                          Name = ob.OlympProfileName,
+                      }).Distinct()).ToList().OrderBy(x => x.Name).Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name)).ToList();
 
+                ComboServ.FillCombo(cbOlympProfile, lst, false, true);
+            }
+        }
         private void FillOlympSubjects()
         {
             using (PriemEntities context = new PriemEntities())
@@ -95,12 +117,19 @@ namespace PriemLib
         private void btnCreate_Click(object sender, EventArgs e)
         {
             List<int> lstOlympLevels = new List<int>();
-            if (chbOlympLevel_1.Checked)
-                lstOlympLevels.Add(1);
-            if (chbOlympLevel_2.Checked)
-                lstOlympLevels.Add(2);
-            if (chbOlympLevel_3.Checked)
-                lstOlympLevels.Add(3);
+            if (OlympTypeId != 1 && OlympTypeId != 2)
+            {
+                if (chbOlympLevel_1.Checked)
+                    lstOlympLevels.Add(1);
+                if (chbOlympLevel_2.Checked)
+                    lstOlympLevels.Add(2);
+                if (chbOlympLevel_3.Checked)
+                    lstOlympLevels.Add(3);
+            }
+            else
+            {
+                lstOlympLevels.Add(0);
+            }
 
             List<int> lstOlympVals = new List<int>();
             if (chbOlympValue_1.Checked)
@@ -133,7 +162,7 @@ namespace PriemLib
                                 if (iCnt == 0)
                                 {
                                     var idParam = new System.Data.Entity.Core.Objects.ObjectParameter("id", typeof(int));
-                                    context.OlympResultToAdditionalMark_Insert(EntryId, iOlLevel, iOlValue, ExamId, OlympProfileId, OlympSubjectId, AdditionalMark, MinEge, idParam);
+                                    context.OlympResultToAdditionalMark_Insert(EntryId, OlympTypeId, iOlLevel, iOlValue, ExamId, OlympProfileId, OlympSubjectId, AdditionalMark, MinEge, idParam);
                                 }
                             }
                         }

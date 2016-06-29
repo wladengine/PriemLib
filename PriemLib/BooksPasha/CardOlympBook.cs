@@ -38,6 +38,11 @@ namespace PriemLib
             get { return ComboServ.GetComboIdInt(cbOlympName); }
             set { ComboServ.SetComboId(cbOlympName, value); }
         }
+        public int? OlympProfileId
+        {
+            get { return ComboServ.GetComboIdInt(cbOlympProfile); }
+            set { ComboServ.SetComboId(cbOlympProfile, value); }
+        }
         public int? OlympSubjectId
         {
             get { return ComboServ.GetComboIdInt(cbOlympSubject); }
@@ -72,10 +77,11 @@ namespace PriemLib
                         lstYears.Add(new KeyValuePair<string, string>(i.ToString(), i.ToString()));
                     ComboServ.FillCombo(cbOlympYear, lstYears, false, false);
                     ComboServ.FillCombo(cbOlympType, HelpClass.GetComboListByTable("ed.OlympType", "ORDER BY Id "), false, false);
+                    ComboServ.FillCombo(cbOlympProfile, HelpClass.GetComboListByTable("ed.OlympProfile", "ORDER BY Name"), false, false);
                     ComboServ.FillCombo(cbOlympName, HelpClass.GetComboListByTable("ed.OlympName", "ORDER BY Number, Name"), false, false);
                     ComboServ.FillCombo(cbOlympSubject, HelpClass.GetComboListByTable("ed.OlympSubject", "ORDER BY Name"), false, false);
-                    ComboServ.FillCombo(cbOlympLevel, HelpClass.GetComboListByTable("ed.OlympLevel", "ORDER BY Name"), false, false);                               
-                }                
+                    ComboServ.FillCombo(cbOlympLevel, HelpClass.GetComboListByTable("ed.OlympLevel", "ORDER BY Name"), false, false);
+                }
             }
             catch (Exception exc)
             {
@@ -97,10 +103,11 @@ namespace PriemLib
                                        select ec).FirstOrDefault();
 
                     if (olymp == null)
-                        return;                    
+                        return;
 
                     OlympTypeId = olymp.OlympTypeId;
                     OlympNameId = olymp.OlympNameId;
+                    OlympProfileId = olymp.OlympProfileId;
                     OlympSubjectId = olymp.OlympSubjectId;
                     OlympLevelId = olymp.OlympLevelId;
                     OlympYear = olymp.OlympYear;
@@ -122,12 +129,13 @@ namespace PriemLib
 
         protected override void InsertRec(PriemEntities context, ObjectParameter idParam)
         {
-            context.OlympBook_Insert(OlympTypeId, OlympNameId, OlympSubjectId, OlympLevelId, OlympYear, idParam);
-            string query = "INSERT INTO OlympBook (Id, OlympTypeId, OlympNameId, OlympSubjectId, OlympLevelId, OlympYear) VALUES (@Id, @OlympTypeId, @OlympNameId, @OlympSubjectId, @OlympLevelId, @OlympYear)";
+            context.OlympBook_Insert(OlympTypeId, OlympNameId, OlympProfileId, OlympSubjectId, OlympLevelId, OlympYear, idParam);
+            string query = "INSERT INTO OlympBook (Id, OlympTypeId, OlympNameId, OlympProfileId, OlympSubjectId, OlympLevelId, OlympYear) VALUES (@Id, @OlympTypeId, @OlympNameId, @OlympProfileId, @OlympSubjectId, @OlympLevelId, @OlympYear)";
             SortedList<string, object> slParams = new SortedList<string,object>();
             slParams.Add("@Id", idParam.Value);
             slParams.Add("@OlympTypeId", OlympTypeId);
             slParams.Add("@OlympNameId", OlympNameId);
+            slParams.Add("@OlympProfileId", OlympProfileId);
             slParams.Add("@OlympSubjectId", OlympSubjectId);
             slParams.Add("@OlympLevelId", OlympLevelId);
             slParams.Add("@OlympYear", OlympYear);
@@ -136,12 +144,13 @@ namespace PriemLib
 
         protected override void UpdateRec(PriemEntities context, Guid id)
         {
-            context.OlympBook_Update(OlympTypeId, OlympNameId, OlympSubjectId, OlympLevelId, OlympYear, id);
-            string query = "UPDATE OlympBook SET [OlympTypeId]=@OlympTypeId, [OlympNameId]=@OlympNameId, [OlympSubjectId]=@OlympSubjectId, [OlympLevelId]=@OlympLevelId, OlympYear=@OlympYear WHERE Id=@id";
+            context.OlympBook_Update(OlympTypeId, OlympNameId, OlympProfileId, OlympSubjectId, OlympLevelId, OlympYear, id);
+            string query = "UPDATE OlympBook SET [OlympTypeId]=@OlympTypeId, [OlympNameId]=@OlympNameId, [OlympProfileId]=@OlympProfileId, [OlympSubjectId]=@OlympSubjectId, [OlympLevelId]=@OlympLevelId, OlympYear=@OlympYear WHERE Id=@id";
             SortedList<string, object> slParams = new SortedList<string, object>();
             slParams.Add("@Id", id);
             slParams.Add("@OlympTypeId", OlympTypeId);
             slParams.Add("@OlympNameId", OlympNameId);
+            slParams.Add("@OlympProfileId", OlympProfileId);
             slParams.Add("@OlympSubjectId", OlympSubjectId);
             slParams.Add("@OlympLevelId", OlympLevelId);
             slParams.Add("@OlympYear", OlympYear);

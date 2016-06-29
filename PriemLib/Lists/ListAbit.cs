@@ -268,14 +268,14 @@ namespace PriemLib
             }
             catch (Exception ex)
             {
-                WinFormsServ.Error(ex);
+                WinFormsServ.Error("Ошибка при обновлении списка заявлений: ", ex);
             }
         }
         void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             cbFaculty.Enabled = true;
 
-            if (!e.Cancelled)
+            if (!e.Cancelled && e.Result != null)
             {
                 HelpClass.FillDataGrid(this.Dgv, (DataView)e.Result);
 

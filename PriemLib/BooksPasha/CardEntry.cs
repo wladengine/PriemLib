@@ -816,7 +816,8 @@ WHERE Id=@Id";
                              select new
                              {
                                  exEntry.Id,
-                                 ExamName = exEntry.Exam.ExamName.Name,
+                                 OlympType = exEntry.OlympTypeId == null ? "все" : exEntry.OlympType.Name,
+                                 ExamName = exEntry.ExamId == null? "нет" : exEntry.Exam.ExamName.Name,
                                  OlympLevelId = exEntry.OlympLevel.Name,
                                  OlympValue = exEntry.OlympValue.Name,
                                  exEntry.MinEge
@@ -825,6 +826,11 @@ WHERE Id=@Id";
                 dgvOlympicsToCommonBenefit.DataSource = query;
                 if (dgvOlympicsToCommonBenefit.Columns.Contains("Id"))
                     dgvOlympicsToCommonBenefit.Columns["Id"].Visible = false;
+                if (dgvOlympicsToCommonBenefit.Columns.Contains("OlympType"))
+                {
+                    dgvOlympicsToCommonBenefit.Columns["OlympType"].HeaderText = "Тип";
+                    dgvOlympicsToCommonBenefit.Columns["OlympType"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                }
                 if (dgvOlympicsToCommonBenefit.Columns.Contains("ExamName"))
                 {
                     dgvOlympicsToCommonBenefit.Columns["ExamName"].HeaderText = "Предмет";

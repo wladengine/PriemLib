@@ -681,9 +681,10 @@ warning 6002: The table/view 'Priem2016.ed.Fixieren' does not have a primary key
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EntryId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OlympTypeId" Type="int" />
           <Property Name="OlympLevelId" Type="int" Nullable="false" />
           <Property Name="OlympValueId" Type="int" Nullable="false" />
-          <Property Name="ExamId" Type="int" Nullable="false" />
+          <Property Name="ExamId" Type="int" />
           <Property Name="OlympProfileId" Type="int" />
           <Property Name="OlympSubjectId" Type="int" />
           <Property Name="AdditionalMark" Type="int" Nullable="false" />
@@ -697,12 +698,13 @@ warning 6002: The table/view 'Priem2016.ed.Fixieren' does not have a primary key
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EntryId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OlympTypeId" Type="int" />
           <Property Name="OlympLevelId" Type="int" Nullable="false" />
           <Property Name="OlympValueId" Type="int" Nullable="false" />
-          <Property Name="ExamId" Type="int" Nullable="false" />
+          <Property Name="ExamId" Type="int" />
           <Property Name="OlympProfileId" Type="int" />
           <Property Name="OlympSubjectId" Type="int" />
-          <Property Name="MinEge" Type="decimal" Precision="3" Scale="1" Nullable="false" />
+          <Property Name="MinEge" Type="decimal" Precision="3" Scale="1" />
           <Property Name="IsOpen" Type="bit" Nullable="false" />
           <Property Name="Holder" Type="nvarchar" MaxLength="150" />
         </EntityType>
@@ -1236,6 +1238,7 @@ warning 6002: The table/view 'Priem2016.ed.Privilege' does not have a primary ke
           <Property Name="Holder" Type="nvarchar" MaxLength="100" />
           <Property Name="GSGUCode" Type="nvarchar" MaxLength="50" />
           <Property Name="VSHEUGNId" Type="int" />
+          <Property Name="FIS_ID" Type="int" />
         </EntityType>
         <EntityType Name="SP_ObrazProgram">
           <Key>
@@ -1280,6 +1283,7 @@ warning 6002: The table/view 'Priem2016.ed.Privilege' does not have a primary ke
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Acronym" Type="nvarchar" MaxLength="10" />
           <Property Name="FISName" Type="nvarchar" MaxLength="50" />
+          <Property Name="FISID" Type="int" />
         </EntityType>
         <EntityType Name="StudyForm">
           <Key>
@@ -1292,6 +1296,7 @@ warning 6002: The table/view 'Priem2016.ed.Privilege' does not have a primary ke
           <Property Name="OldName" Type="nvarchar" MaxLength="50" />
           <Property Name="FISName" Type="nvarchar" MaxLength="50" />
           <Property Name="DatName" Type="nvarchar" MaxLength="50" />
+          <Property Name="FISID" Type="int" />
         </EntityType>
         <EntityType Name="StudyLevel">
           <Key>
@@ -1307,6 +1312,7 @@ warning 6002: The table/view 'Priem2016.ed.Privilege' does not have a primary ke
           <Property Name="PostName" Type="nvarchar" MaxLength="50" />
           <Property Name="ClassNum" Type="nvarchar" MaxLength="5" />
           <Property Name="Duration" Type="int" />
+          <Property Name="FISID" Type="int" />
         </EntityType>
         <EntityType Name="StudyLevelGroup">
           <Key>
@@ -1811,6 +1817,11 @@ warning 6002: The table/view 'Priem2016.ed.extEntry' does not have a primary key
           <Property Name="FacultyCode" Type="nvarchar" MaxLength="10" />
           <Property Name="StudyLevelGroupUpperCategoryId" Type="int" />
           <Property Name="AggregateGroupAcronym" Type="nvarchar" MaxLength="100" />
+          <Property Name="StudyFormFISName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LicenseProgram_FISID" Type="int" />
+          <Property Name="StudyLevel_FISID" Type="int" />
+          <Property Name="StudyBasis_FISID" Type="int" />
+          <Property Name="StudyForm_FISID" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'Priem2016.ed.extEntryProtocols' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -1980,17 +1991,17 @@ warning 6002: The table/view 'Priem2016.ed.extExamInEntry' does not have a prima
             <PropertyRef Name="IsSecond" />
             <PropertyRef Name="IsReduced" />
             <PropertyRef Name="IsParallel" />
-            <PropertyRef Name="Expr1" />
             <PropertyRef Name="OrderNumber" />
             <PropertyRef Name="IsCrimea" />
             <PropertyRef Name="IsGosLine" />
             <PropertyRef Name="IsForeign" />
+            <PropertyRef Name="ExamInEntryBlockId" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="EntryId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="ExamId" Type="int" Nullable="false" />
           <Property Name="IsProfil" Type="bit" Nullable="false" />
-          <Property Name="EgeMin" Type="float" />
+          <Property Name="EgeMin" Type="decimal" Precision="4" Scale="1" />
           <Property Name="ExamNameId" Type="int" Nullable="false" />
           <Property Name="IsAdditional" Type="bit" Nullable="false" />
           <Property Name="ExamName" Type="nvarchar" MaxLength="539" />
@@ -2006,12 +2017,12 @@ warning 6002: The table/view 'Priem2016.ed.extExamInEntry' does not have a prima
           <Property Name="IsSecond" Type="bit" Nullable="false" />
           <Property Name="IsReduced" Type="bit" Nullable="false" />
           <Property Name="IsParallel" Type="bit" Nullable="false" />
-          <Property Name="Expr1" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="OrderNumber" Type="tinyint" Nullable="false" />
           <Property Name="IsCrimea" Type="bit" Nullable="false" />
           <Property Name="IsGosLine" Type="bit" Nullable="false" />
           <Property Name="ParentExamInEntryBlockId" Type="uniqueidentifier" />
           <Property Name="IsForeign" Type="bit" Nullable="false" />
+          <Property Name="ExamInEntryBlockId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'Priem2016.ed.extExamsVed' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -2236,6 +2247,8 @@ warning 6002: The table/view 'Priem2016.ed.extOlympiadsAll' does not have a prim
           <Property Name="OlympYear" Type="smallint" Nullable="false" />
           <Property Name="OlympProfileId" Type="int" />
           <Property Name="OlympProfileName" Type="nvarchar" MaxLength="150" />
+          <Property Name="OlympicID" Type="nvarchar" MaxLength="50" />
+          <Property Name="FIS_OlympicID" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'Priem2016.ed.extPerson' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -3170,6 +3183,48 @@ warning 6002: The table/view 'Priem2016.ed.qObrazProgram' does not have a primar
           <Property Name="Number" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'Priem2016.ed.qOlympResultToAdditionalMark' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="qOlympResultToAdditionalMark">
+          <Key>
+            <PropertyRef Name="EntryId" />
+            <PropertyRef Name="ExamId" />
+            <PropertyRef Name="OlympLevelId" />
+            <PropertyRef Name="OlympValueId" />
+            <PropertyRef Name="MinEge" />
+            <PropertyRef Name="AdditionalMark" />
+          </Key>
+          <Property Name="EntryId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ExamId" Type="int" Nullable="false" />
+          <Property Name="OlympTypeId" Type="int" />
+          <Property Name="OlympLevelId" Type="int" Nullable="false" />
+          <Property Name="OlympProfileId" Type="int" />
+          <Property Name="OlympSubjectId" Type="int" />
+          <Property Name="OlympValueId" Type="int" Nullable="false" />
+          <Property Name="EgeExamNameId" Type="int" />
+          <Property Name="MinEge" Type="decimal" Precision="3" Scale="1" Nullable="false" />
+          <Property Name="AdditionalMark" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Priem2016.ed.qOlympResultToCommonBenefit' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="qOlympResultToCommonBenefit">
+          <Key>
+            <PropertyRef Name="EntryId" />
+            <PropertyRef Name="OlympLevelId" />
+            <PropertyRef Name="OlympValueId" />
+            <PropertyRef Name="MinEge" />
+            <PropertyRef Name="ExamId" />
+          </Key>
+          <Property Name="EntryId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ExamId" Type="int" Nullable="false" />
+          <Property Name="OlympTypeId" Type="int" />
+          <Property Name="OlympLevelId" Type="int" Nullable="false" />
+          <Property Name="OlympProfileId" Type="int" />
+          <Property Name="OlympSubjectId" Type="int" />
+          <Property Name="OlympValueId" Type="int" Nullable="false" />
+          <Property Name="EgeExamNameId" Type="int" />
+          <Property Name="MinEge" Type="decimal" Precision="3" Scale="1" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'Priem2016.ed.qProfile' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="qProfile">
           <Key>
@@ -4055,7 +4110,7 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_OlympResultToAdditionalMark_Exam">
-          <End Role="Exam" Type="Self.Exam" Multiplicity="1" />
+          <End Role="Exam" Type="Self.Exam" Multiplicity="0..1" />
           <End Role="OlympResultToAdditionalMark" Type="Self.OlympResultToAdditionalMark" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Exam">
@@ -4075,6 +4130,18 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
             </Principal>
             <Dependent Role="OlympResultToAdditionalMark">
               <PropertyRef Name="OlympLevelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OlympResultToAdditionalMark_OlympType">
+          <End Role="OlympType" Type="Self.OlympType" Multiplicity="0..1" />
+          <End Role="OlympResultToAdditionalMark" Type="Self.OlympResultToAdditionalMark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OlympType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OlympResultToAdditionalMark">
+              <PropertyRef Name="OlympTypeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4103,7 +4170,7 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_OlympResultToCommonBenefit_Exam">
-          <End Role="Exam" Type="Self.Exam" Multiplicity="1" />
+          <End Role="Exam" Type="Self.Exam" Multiplicity="0..1" />
           <End Role="OlympResultToCommonBenefit" Type="Self.OlympResultToCommonBenefit" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Exam">
@@ -4123,6 +4190,18 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
             </Principal>
             <Dependent Role="OlympResultToCommonBenefit">
               <PropertyRef Name="OlympLevelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OlympResultToCommonBenefit_OlympType">
+          <End Role="OlympType" Type="Self.OlympType" Multiplicity="0..1" />
+          <End Role="OlympResultToCommonBenefit" Type="Self.OlympResultToCommonBenefit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OlympType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OlympResultToCommonBenefit">
+              <PropertyRef Name="OlympTypeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -5337,6 +5416,7 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
         <Function Name="OlympBook_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ed">
           <Parameter Name="OlympTypeId" Type="int" Mode="In" />
           <Parameter Name="OlympNameId" Type="int" Mode="In" />
+          <Parameter Name="OlympProfileId" Type="int" Mode="In" />
           <Parameter Name="OlympSubjectId" Type="int" Mode="In" />
           <Parameter Name="OlympLevelId" Type="int" Mode="In" />
           <Parameter Name="OlympYear" Type="int" Mode="In" />
@@ -5345,6 +5425,7 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
         <Function Name="OlympBook_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ed">
           <Parameter Name="OlympTypeId" Type="int" Mode="In" />
           <Parameter Name="OlympNameId" Type="int" Mode="In" />
+          <Parameter Name="OlympProfileId" Type="int" Mode="In" />
           <Parameter Name="OlympSubjectId" Type="int" Mode="In" />
           <Parameter Name="OlympLevelId" Type="int" Mode="In" />
           <Parameter Name="OlympYear" Type="int" Mode="In" />
@@ -5403,6 +5484,7 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
         </Function>
         <Function Name="OlympResultToAdditionalMark_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ed">
           <Parameter Name="EntryId" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="OlympTypeId" Type="int" Mode="In" />
           <Parameter Name="OlympLevelId" Type="int" Mode="In" />
           <Parameter Name="OlympValueId" Type="int" Mode="In" />
           <Parameter Name="ExamId" Type="int" Mode="In" />
@@ -5414,6 +5496,7 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
         </Function>
         <Function Name="OlympResultToAdditionalMark_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ed">
           <Parameter Name="EntryId" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="OlympTypeId" Type="int" Mode="In" />
           <Parameter Name="OlympLevelId" Type="int" Mode="In" />
           <Parameter Name="OlympValueId" Type="int" Mode="In" />
           <Parameter Name="ExamId" Type="int" Mode="In" />
@@ -5428,6 +5511,7 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
         </Function>
         <Function Name="OlympResultToCommonBenefit_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ed">
           <Parameter Name="EntryId" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="OlympTypeId" Type="int" Mode="In" />
           <Parameter Name="OlympLevelId" Type="int" Mode="In" />
           <Parameter Name="OlympValueId" Type="int" Mode="In" />
           <Parameter Name="ExamId" Type="int" Mode="In" />
@@ -5438,6 +5522,7 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
         </Function>
         <Function Name="OlympResultToCommonBenefit_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ed">
           <Parameter Name="EntryId" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="OlympTypeId" Type="int" Mode="In" />
           <Parameter Name="OlympLevelId" Type="int" Mode="In" />
           <Parameter Name="OlympValueId" Type="int" Mode="In" />
           <Parameter Name="ExamId" Type="int" Mode="In" />
@@ -6482,7 +6567,12 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
     [extEntry].[ParentEntryId] AS [ParentEntryId], 
     [extEntry].[FacultyCode] AS [FacultyCode], 
     [extEntry].[StudyLevelGroupUpperCategoryId] AS [StudyLevelGroupUpperCategoryId], 
-    [extEntry].[AggregateGroupAcronym] AS [AggregateGroupAcronym]
+    [extEntry].[AggregateGroupAcronym] AS [AggregateGroupAcronym], 
+    [extEntry].[StudyFormFISName] AS [StudyFormFISName], 
+    [extEntry].[LicenseProgram_FISID] AS [LicenseProgram_FISID], 
+    [extEntry].[StudyLevel_FISID] AS [StudyLevel_FISID], 
+    [extEntry].[StudyBasis_FISID] AS [StudyBasis_FISID], 
+    [extEntry].[StudyForm_FISID] AS [StudyForm_FISID]
     FROM [ed].[extEntry] AS [extEntry]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="extEntryProtocols" EntityType="Self.extEntryProtocols" store:Type="Views" store:Schema="ed">
@@ -6603,12 +6693,12 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
     [extExamInEntry].[IsSecond] AS [IsSecond], 
     [extExamInEntry].[IsReduced] AS [IsReduced], 
     [extExamInEntry].[IsParallel] AS [IsParallel], 
-    [extExamInEntry].[Expr1] AS [Expr1], 
     [extExamInEntry].[OrderNumber] AS [OrderNumber], 
     [extExamInEntry].[IsCrimea] AS [IsCrimea], 
     [extExamInEntry].[IsGosLine] AS [IsGosLine], 
     [extExamInEntry].[ParentExamInEntryBlockId] AS [ParentExamInEntryBlockId], 
-    [extExamInEntry].[IsForeign] AS [IsForeign]
+    [extExamInEntry].[IsForeign] AS [IsForeign], 
+    [extExamInEntry].[ExamInEntryBlockId] AS [ExamInEntryBlockId]
     FROM [ed].[extExamInEntry] AS [extExamInEntry]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="extExamsVed" EntityType="Self.extExamsVed" store:Type="Views" store:Schema="ed">
@@ -6775,7 +6865,9 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
     [extOlympiadsAll].[OlympValueSortOrder] AS [OlympValueSortOrder], 
     [extOlympiadsAll].[OlympYear] AS [OlympYear], 
     [extOlympiadsAll].[OlympProfileId] AS [OlympProfileId], 
-    [extOlympiadsAll].[OlympProfileName] AS [OlympProfileName]
+    [extOlympiadsAll].[OlympProfileName] AS [OlympProfileName], 
+    [extOlympiadsAll].[OlympicID] AS [OlympicID], 
+    [extOlympiadsAll].[FIS_OlympicID] AS [FIS_OlympicID]
     FROM [ed].[extOlympiadsAll] AS [extOlympiadsAll]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="extPerson" EntityType="Self.extPerson" store:Type="Views" store:Schema="ed">
@@ -7428,6 +7520,33 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
     [qObrazProgram].[Number] AS [Number]
     FROM [ed].[qObrazProgram] AS [qObrazProgram]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="qOlympResultToAdditionalMark" EntityType="Self.qOlympResultToAdditionalMark" store:Type="Views" store:Schema="ed">
+            <DefiningQuery>SELECT 
+    [qOlympResultToAdditionalMark].[EntryId] AS [EntryId], 
+    [qOlympResultToAdditionalMark].[ExamId] AS [ExamId], 
+    [qOlympResultToAdditionalMark].[OlympTypeId] AS [OlympTypeId], 
+    [qOlympResultToAdditionalMark].[OlympLevelId] AS [OlympLevelId], 
+    [qOlympResultToAdditionalMark].[OlympProfileId] AS [OlympProfileId], 
+    [qOlympResultToAdditionalMark].[OlympSubjectId] AS [OlympSubjectId], 
+    [qOlympResultToAdditionalMark].[OlympValueId] AS [OlympValueId], 
+    [qOlympResultToAdditionalMark].[EgeExamNameId] AS [EgeExamNameId], 
+    [qOlympResultToAdditionalMark].[MinEge] AS [MinEge], 
+    [qOlympResultToAdditionalMark].[AdditionalMark] AS [AdditionalMark]
+    FROM [ed].[qOlympResultToAdditionalMark] AS [qOlympResultToAdditionalMark]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="qOlympResultToCommonBenefit" EntityType="Self.qOlympResultToCommonBenefit" store:Type="Views" store:Schema="ed">
+            <DefiningQuery>SELECT 
+    [qOlympResultToCommonBenefit].[EntryId] AS [EntryId], 
+    [qOlympResultToCommonBenefit].[ExamId] AS [ExamId], 
+    [qOlympResultToCommonBenefit].[OlympTypeId] AS [OlympTypeId], 
+    [qOlympResultToCommonBenefit].[OlympLevelId] AS [OlympLevelId], 
+    [qOlympResultToCommonBenefit].[OlympProfileId] AS [OlympProfileId], 
+    [qOlympResultToCommonBenefit].[OlympSubjectId] AS [OlympSubjectId], 
+    [qOlympResultToCommonBenefit].[OlympValueId] AS [OlympValueId], 
+    [qOlympResultToCommonBenefit].[EgeExamNameId] AS [EgeExamNameId], 
+    [qOlympResultToCommonBenefit].[MinEge] AS [MinEge]
+    FROM [ed].[qOlympResultToCommonBenefit] AS [qOlympResultToCommonBenefit]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="qProfile" EntityType="Self.qProfile" store:Type="Views" store:Schema="ed">
             <DefiningQuery>SELECT 
     [qProfile].[Id] AS [Id], 
@@ -7742,6 +7861,10 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
             <End Role="OlympLevel" EntitySet="OlympLevel" />
             <End Role="OlympResultToAdditionalMark" EntitySet="OlympResultToAdditionalMark" />
           </AssociationSet>
+          <AssociationSet Name="FK_OlympResultToAdditionalMark_OlympType" Association="Self.FK_OlympResultToAdditionalMark_OlympType">
+            <End Role="OlympType" EntitySet="OlympType" />
+            <End Role="OlympResultToAdditionalMark" EntitySet="OlympResultToAdditionalMark" />
+          </AssociationSet>
           <AssociationSet Name="FK_OlympResultToAdditionalMark_OlympValue" Association="Self.FK_OlympResultToAdditionalMark_OlympValue">
             <End Role="OlympValue" EntitySet="OlympValue" />
             <End Role="OlympResultToAdditionalMark" EntitySet="OlympResultToAdditionalMark" />
@@ -7756,6 +7879,10 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           </AssociationSet>
           <AssociationSet Name="FK_OlympResultToCommonBenefit_OlympLevel" Association="Self.FK_OlympResultToCommonBenefit_OlympLevel">
             <End Role="OlympLevel" EntitySet="OlympLevel" />
+            <End Role="OlympResultToCommonBenefit" EntitySet="OlympResultToCommonBenefit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OlympResultToCommonBenefit_OlympType" Association="Self.FK_OlympResultToCommonBenefit_OlympType">
+            <End Role="OlympType" EntitySet="OlympType" />
             <End Role="OlympResultToCommonBenefit" EntitySet="OlympResultToCommonBenefit" />
           </AssociationSet>
           <AssociationSet Name="FK_OlympResultToCommonBenefit_OlympValue" Association="Self.FK_OlympResultToCommonBenefit_OlympValue">
@@ -8409,6 +8536,7 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           <FunctionImport Name="OlympBook_Insert">
             <Parameter Name="OlympTypeId" Mode="In" Type="Int32" />
             <Parameter Name="OlympNameId" Mode="In" Type="Int32" />
+            <Parameter Name="OlympProfileId" Mode="In" Type="Int32" />
             <Parameter Name="OlympSubjectId" Mode="In" Type="Int32" />
             <Parameter Name="OlympLevelId" Mode="In" Type="Int32" />
             <Parameter Name="OlympYear" Mode="In" Type="Int32" />
@@ -9230,6 +9358,7 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           <FunctionImport Name="OlympBook_Update">
             <Parameter Name="OlympTypeId" Mode="In" Type="Int32" />
             <Parameter Name="OlympNameId" Mode="In" Type="Int32" />
+            <Parameter Name="OlympProfileId" Mode="In" Type="Int32" />
             <Parameter Name="OlympSubjectId" Mode="In" Type="Int32" />
             <Parameter Name="OlympLevelId" Mode="In" Type="Int32" />
             <Parameter Name="OlympYear" Mode="In" Type="Int32" />
@@ -9663,6 +9792,7 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           </FunctionImport>
           <FunctionImport Name="OlympResultToCommonBenefit_Insert">
             <Parameter Name="EntryId" Mode="In" Type="Guid" />
+            <Parameter Name="OlympTypeId" Mode="In" Type="Int32" />
             <Parameter Name="OlympLevelId" Mode="In" Type="Int32" />
             <Parameter Name="OlympValueId" Mode="In" Type="Int32" />
             <Parameter Name="ExamId" Mode="In" Type="Int32" />
@@ -9673,6 +9803,7 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           </FunctionImport>
           <FunctionImport Name="OlympResultToCommonBenefit_Update">
             <Parameter Name="EntryId" Mode="In" Type="Guid" />
+            <Parameter Name="OlympTypeId" Mode="In" Type="Int32" />
             <Parameter Name="OlympLevelId" Mode="In" Type="Int32" />
             <Parameter Name="OlympValueId" Mode="In" Type="Int32" />
             <Parameter Name="ExamId" Mode="In" Type="Int32" />
@@ -9707,6 +9838,7 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           </FunctionImport>
           <FunctionImport Name="OlympResultToAdditionalMark_Insert">
             <Parameter Name="EntryId" Mode="In" Type="Guid" />
+            <Parameter Name="OlympTypeId" Mode="In" Type="Int32" />
             <Parameter Name="OlympLevelId" Mode="In" Type="Int32" />
             <Parameter Name="OlympValueId" Mode="In" Type="Int32" />
             <Parameter Name="ExamId" Mode="In" Type="Int32" />
@@ -9718,6 +9850,7 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           </FunctionImport>
           <FunctionImport Name="OlympResultToAdditionalMark_Update">
             <Parameter Name="EntryId" Mode="In" Type="Guid" />
+            <Parameter Name="OlympTypeId" Mode="In" Type="Int32" />
             <Parameter Name="OlympLevelId" Mode="In" Type="Int32" />
             <Parameter Name="OlympValueId" Mode="In" Type="Int32" />
             <Parameter Name="ExamId" Mode="In" Type="Int32" />
@@ -9777,7 +9910,6 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
             <End Role="Exam" EntitySet="Exam" />
             <End Role="ExamInEntryBlockUnit" EntitySet="ExamInEntryBlockUnit" />
           </AssociationSet>
-          <EntitySet Name="extExamInEntry" EntityType="Priem2012Model.extExamInEntry" />
           <AssociationSet Name="FK_ExamsVedHistory_ExamsVed" Association="Priem2012Model.FK_ExamsVedHistory_ExamsVed">
             <End Role="ExamsVed" EntitySet="ExamsVed" />
             <End Role="ExamsVedHistory" EntitySet="ExamsVedHistory" />
@@ -9876,6 +10008,17 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
             <End Role="OlympSubjectToExam" EntitySet="OlympSubjectToExam" />
           </AssociationSet>
           <EntitySet Name="extAbitAdditionalMarksSum" EntityType="Priem2012Model.extAbitAdditionalMarksSum" />
+          <EntitySet Name="qOlympResultToAdditionalMark" EntityType="Priem2012Model.qOlympResultToAdditionalMark" />
+          <EntitySet Name="qOlympResultToCommonBenefit" EntityType="Priem2012Model.qOlympResultToCommonBenefit" />
+          <AssociationSet Name="FK_OlympResultToAdditionalMark_OlympType" Association="Priem2012Model.FK_OlympResultToAdditionalMark_OlympType">
+            <End Role="OlympType" EntitySet="OlympType" />
+            <End Role="OlympResultToAdditionalMark" EntitySet="OlympResultToAdditionalMark" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OlympResultToCommonBenefit_OlympType" Association="Priem2012Model.FK_OlympResultToCommonBenefit_OlympType">
+            <End Role="OlympType" EntitySet="OlympType" />
+            <End Role="OlympResultToCommonBenefit" EntitySet="OlympResultToCommonBenefit" />
+          </AssociationSet>
+          <EntitySet Name="extExamInEntry" EntityType="Priem2012Model.extExamInEntry" />
           </EntityContainer>
         <EntityType Name="AttMarks">
           <Key>
@@ -10099,6 +10242,7 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           <NavigationProperty Name="Protocol" Relationship="Priem2012Model.fk_Protocol_StudyBasis" FromRole="StudyBasis" ToRole="Protocol" />
           <Property Type="String" Name="FISName" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Entry" Relationship="Priem2012Model.FK_Entry_StudyBasis" FromRole="StudyBasis" ToRole="Entry" />
+          <Property Name="FISID" Type="Int32" />
         </EntityType>
         <EntityType Name="StudyForm">
           <Key>
@@ -10114,6 +10258,7 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           <Property Type="String" Name="FISName" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="DatName" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Entry" Relationship="Priem2012Model.FK_Entry_StudyForm" FromRole="StudyForm" ToRole="Entry" />
+          <Property Name="FISID" Type="Int32" />
         </EntityType>
         <EntityType Name="qFaculty">
           <Key>
@@ -10414,6 +10559,7 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           <Property Name="PostName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ClassNum" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
           <Property Name="Duration" Type="Int32" />
+          <Property Name="FISID" Type="Int32" />
         </EntityType>
         <Association Name="fk_Exam_ExamName">
           <End Type="Priem2012Model.ExamName" Role="ExamName" Multiplicity="1" />
@@ -11069,6 +11215,8 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           <Property Name="OlympYear" Type="Int16" Nullable="false" />
           <Property Name="OlympProfileId" Type="Int32" />
           <Property Name="OlympProfileName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="OlympicID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FIS_OlympicID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="AbitDoc">
           <Key>
@@ -12249,6 +12397,7 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           <Property Type="Int32" Name="VSHEUGNId" />
           <NavigationProperty Name="SP_AggregateGroup" Relationship="Priem2012Model.FK_SP_LicenseProgram_SP_AggregateGroup" FromRole="SP_LicenseProgram" ToRole="SP_AggregateGroup" />
           <NavigationProperty Name="Protocol" Relationship="Priem2012Model.FK_Protocol_SP_LicenseProgram" FromRole="SP_LicenseProgram" ToRole="Protocol" />
+          <Property Name="FIS_ID" Type="Int32" />
         </EntityType>
         <EntityType Name="SP_ObrazProgram">
           <Key>
@@ -12932,6 +13081,11 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           <Property Name="FacultyCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="StudyLevelGroupUpperCategoryId" Type="Int32" />
           <Property Name="AggregateGroupAcronym" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="StudyFormFISName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LicenseProgram_FISID" Type="Int32" />
+          <Property Name="StudyLevel_FISID" Type="Int32" />
+          <Property Name="StudyBasis_FISID" Type="Int32" />
+          <Property Name="StudyForm_FISID" Type="Int32" />
         </EntityType>
         <EntityType Name="ForeignCountry">
           <Key>
@@ -14154,58 +14308,6 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="extExamInEntry">
-          <Key>
-            <PropertyRef Name="Id" />
-            <PropertyRef Name="EntryId" />
-            <PropertyRef Name="ExamId" />
-            <PropertyRef Name="IsProfil" />
-            <PropertyRef Name="ExamNameId" />
-            <PropertyRef Name="IsAdditional" />
-            <PropertyRef Name="FacultyId" />
-            <PropertyRef Name="LicenseProgramId" />
-            <PropertyRef Name="ObrazProgramId" />
-            <PropertyRef Name="ProfileId" />
-            <PropertyRef Name="StudyBasisId" />
-            <PropertyRef Name="StudyFormId" />
-            <PropertyRef Name="StudyLevelId" />
-            <PropertyRef Name="StudyLevelGroupId" />
-            <PropertyRef Name="IsSecond" />
-            <PropertyRef Name="IsReduced" />
-            <PropertyRef Name="IsParallel" />
-            <PropertyRef Name="Expr1" />
-            <PropertyRef Name="OrderNumber" />
-            <PropertyRef Name="IsCrimea" />
-            <PropertyRef Name="IsGosLine" />
-            <PropertyRef Name="IsForeign" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="EntryId" Type="Guid" Nullable="false" />
-          <Property Name="ExamId" Type="Int32" Nullable="false" />
-          <Property Name="IsProfil" Type="Boolean" Nullable="false" />
-          <Property Name="EgeMin" Type="Double" />
-          <Property Name="ExamNameId" Type="Int32" Nullable="false" />
-          <Property Name="IsAdditional" Type="Boolean" Nullable="false" />
-          <Property Name="ExamName" Type="String" MaxLength="539" FixedLength="false" Unicode="true" />
-          <Property Name="FacultyId" Type="Int32" Nullable="false" />
-          <Property Name="LicenseProgramId" Type="Int32" Nullable="false" />
-          <Property Name="ObrazProgramId" Type="Int32" Nullable="false" />
-          <Property Name="ProfileId" Type="Int32" Nullable="false" />
-          <Property Name="StudyBasisId" Type="Int32" Nullable="false" />
-          <Property Name="StudyFormId" Type="Int32" Nullable="false" />
-          <Property Name="StudyLevelId" Type="Int32" Nullable="false" />
-          <Property Name="StudyLevelGroupId" Type="Int32" Nullable="false" />
-          <Property Name="ExamDefName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="IsSecond" Type="Boolean" Nullable="false" />
-          <Property Name="IsReduced" Type="Boolean" Nullable="false" />
-          <Property Name="IsParallel" Type="Boolean" Nullable="false" />
-          <Property Name="Expr1" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="OrderNumber" Type="Byte" Nullable="false" />
-          <Property Name="IsCrimea" Type="Boolean" Nullable="false" />
-          <Property Name="IsGosLine" Type="Boolean" Nullable="false" />
-          <Property Name="ParentExamInEntryBlockId" Type="Guid" />
-          <Property Name="IsForeign" Type="Boolean" Nullable="false" />
-        </EntityType>
         <Association Name="FK_ExamsVedHistory_ExamsVed">
           <End Type="Priem2012Model.ExamsVed" Role="ExamsVed" Multiplicity="1" />
           <End Type="Priem2012Model.ExamsVedHistory" Role="ExamsVedHistory" Multiplicity="*" />
@@ -14377,7 +14479,7 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           <Property Name="EntryId" Type="Guid" Nullable="false" />
           <Property Name="OlympLevelId" Type="Int32" Nullable="false" />
           <Property Name="OlympValueId" Type="Int32" Nullable="false" />
-          <Property Name="ExamId" Type="Int32" Nullable="false" />
+          <Property Name="ExamId" Type="Int32" />
           <Property Name="AdditionalMark" Type="Int32" Nullable="false" />
           <Property Name="MinEge" Type="Decimal" Nullable="false" Precision="3" Scale="1" />
           <Property Name="IsOpen" Type="Boolean" Nullable="false" />
@@ -14388,6 +14490,8 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           <NavigationProperty Name="OlympValue" Relationship="Priem2012Model.FK_OlympResultToAdditionalMark_OlympValue" FromRole="OlympResultToAdditionalMark" ToRole="OlympValue" />
           <Property Name="OlympProfileId" Type="Int32" />
           <Property Name="OlympSubjectId" Type="Int32" />
+          <Property Name="OlympTypeId" Type="Int32" />
+          <NavigationProperty Name="OlympType" Relationship="Priem2012Model.FK_OlympResultToAdditionalMark_OlympType" FromRole="OlympResultToAdditionalMark" ToRole="OlympType" />
         </EntityType>
         <EntityType Name="OlympResultToCommonBenefit">
           <Key>
@@ -14397,8 +14501,8 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           <Property Name="EntryId" Type="Guid" Nullable="false" />
           <Property Name="OlympLevelId" Type="Int32" Nullable="false" />
           <Property Name="OlympValueId" Type="Int32" Nullable="false" />
-          <Property Name="ExamId" Type="Int32" Nullable="false" />
-          <Property Name="MinEge" Type="Decimal" Nullable="false" Precision="3" Scale="1" />
+          <Property Name="ExamId" Type="Int32" />
+          <Property Name="MinEge" Type="Decimal" Precision="3" Scale="1" />
           <Property Name="IsOpen" Type="Boolean" Nullable="false" />
           <Property Name="Holder" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Entry" Relationship="Priem2012Model.FK_OlympResultToCommonBenefit_Entry" FromRole="OlympResultToCommonBenefit" ToRole="Entry" />
@@ -14407,6 +14511,8 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           <NavigationProperty Name="OlympValue" Relationship="Priem2012Model.FK_OlympResultToCommonBenefit_OlympValue" FromRole="OlympResultToCommonBenefit" ToRole="OlympValue" />
           <Property Name="OlympProfileId" Type="Int32" />
           <Property Name="OlympSubjectId" Type="Int32" />
+          <Property Name="OlympTypeId" Type="Int32" />
+          <NavigationProperty Name="OlympType" Relationship="Priem2012Model.FK_OlympResultToCommonBenefit_OlympType" FromRole="OlympResultToCommonBenefit" ToRole="OlympType" />
         </EntityType>
         <EntityType Name="OlympSubject">
           <Key>
@@ -14435,6 +14541,8 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           <Property Name="IsVseross" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="OlympBook" Relationship="Priem2012Model.FK_OlympBook_OlympType" FromRole="OlympType" ToRole="OlympBook" />
           <NavigationProperty Name="Olympiads" Relationship="Priem2012Model.FK_Olympiads_OlympType" FromRole="OlympType" ToRole="Olympiads" />
+          <NavigationProperty Name="OlympResultToAdditionalMark" Relationship="Priem2012Model.FK_OlympResultToAdditionalMark_OlympType" FromRole="OlympType" ToRole="OlympResultToAdditionalMark" />
+          <NavigationProperty Name="OlympResultToCommonBenefit" Relationship="Priem2012Model.FK_OlympResultToCommonBenefit_OlympType" FromRole="OlympType" ToRole="OlympResultToCommonBenefit" />
         </EntityType>
         <Association Name="FK_OlympResultToAdditionalMark_Entry">
           <End Type="Priem2012Model.Entry" Role="Entry" Multiplicity="1" />
@@ -14461,7 +14569,7 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_OlympResultToAdditionalMark_Exam">
-          <End Type="Priem2012Model.Exam" Role="Exam" Multiplicity="1" />
+          <End Type="Priem2012Model.Exam" Role="Exam" Multiplicity="0..1" />
           <End Type="Priem2012Model.OlympResultToAdditionalMark" Role="OlympResultToAdditionalMark" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Exam">
@@ -14473,7 +14581,7 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_OlympResultToCommonBenefit_Exam">
-          <End Type="Priem2012Model.Exam" Role="Exam" Multiplicity="1" />
+          <End Type="Priem2012Model.Exam" Role="Exam" Multiplicity="0..1" />
           <End Type="Priem2012Model.OlympResultToCommonBenefit" Role="OlympResultToCommonBenefit" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Exam">
@@ -14615,6 +14723,120 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           <Property Name="AbiturientId" Type="Guid" Nullable="false" />
           <Property Name="AdditionalMarksSum" Type="Int32" />
         </EntityType>
+        <EntityType Name="qOlympResultToAdditionalMark">
+          <Key>
+            <PropertyRef Name="EntryId" />
+            <PropertyRef Name="ExamId" />
+            <PropertyRef Name="OlympLevelId" />
+            <PropertyRef Name="OlympValueId" />
+            <PropertyRef Name="MinEge" />
+            <PropertyRef Name="AdditionalMark" />
+          </Key>
+          <Property Name="EntryId" Type="Guid" Nullable="false" />
+          <Property Name="ExamId" Type="Int32" Nullable="false" />
+          <Property Name="OlympTypeId" Type="Int32" />
+          <Property Name="OlympLevelId" Type="Int32" Nullable="false" />
+          <Property Name="OlympProfileId" Type="Int32" />
+          <Property Name="OlympSubjectId" Type="Int32" />
+          <Property Name="OlympValueId" Type="Int32" Nullable="false" />
+          <Property Name="EgeExamNameId" Type="Int32" />
+          <Property Name="MinEge" Type="Decimal" Nullable="false" Precision="3" Scale="1" />
+          <Property Name="AdditionalMark" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="qOlympResultToCommonBenefit">
+          <Key>
+            <PropertyRef Name="EntryId" />
+            <PropertyRef Name="ExamId" />
+            <PropertyRef Name="OlympLevelId" />
+            <PropertyRef Name="OlympValueId" />
+            <PropertyRef Name="MinEge" />
+          </Key>
+          <Property Name="EntryId" Type="Guid" Nullable="false" />
+          <Property Name="ExamId" Type="Int32" Nullable="false" />
+          <Property Name="OlympTypeId" Type="Int32" />
+          <Property Name="OlympLevelId" Type="Int32" Nullable="false" />
+          <Property Name="OlympProfileId" Type="Int32" />
+          <Property Name="OlympSubjectId" Type="Int32" />
+          <Property Name="OlympValueId" Type="Int32" Nullable="false" />
+          <Property Name="EgeExamNameId" Type="Int32" />
+          <Property Name="MinEge" Type="Decimal" Nullable="false" Precision="3" Scale="1" />
+        </EntityType>
+        <Association Name="FK_OlympResultToAdditionalMark_OlympType">
+          <End Type="Priem2012Model.OlympType" Role="OlympType" Multiplicity="0..1" />
+          <End Type="Priem2012Model.OlympResultToAdditionalMark" Role="OlympResultToAdditionalMark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OlympType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OlympResultToAdditionalMark">
+              <PropertyRef Name="OlympTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OlympResultToCommonBenefit_OlympType">
+          <End Type="Priem2012Model.OlympType" Role="OlympType" Multiplicity="0..1" />
+          <End Type="Priem2012Model.OlympResultToCommonBenefit" Role="OlympResultToCommonBenefit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OlympType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OlympResultToCommonBenefit">
+              <PropertyRef Name="OlympTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="extExamInEntry">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="EntryId" />
+            <PropertyRef Name="ExamId" />
+            <PropertyRef Name="IsProfil" />
+            <PropertyRef Name="ExamNameId" />
+            <PropertyRef Name="IsAdditional" />
+            <PropertyRef Name="FacultyId" />
+            <PropertyRef Name="LicenseProgramId" />
+            <PropertyRef Name="ObrazProgramId" />
+            <PropertyRef Name="ProfileId" />
+            <PropertyRef Name="StudyBasisId" />
+            <PropertyRef Name="StudyFormId" />
+            <PropertyRef Name="StudyLevelId" />
+            <PropertyRef Name="StudyLevelGroupId" />
+            <PropertyRef Name="IsSecond" />
+            <PropertyRef Name="IsReduced" />
+            <PropertyRef Name="IsParallel" />
+            <PropertyRef Name="OrderNumber" />
+            <PropertyRef Name="IsCrimea" />
+            <PropertyRef Name="IsGosLine" />
+            <PropertyRef Name="IsForeign" />
+            <PropertyRef Name="ExamInEntryBlockId" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="EntryId" Type="Guid" Nullable="false" />
+          <Property Name="ExamId" Type="Int32" Nullable="false" />
+          <Property Name="IsProfil" Type="Boolean" Nullable="false" />
+          <Property Name="EgeMin" Type="Decimal" Precision="4" Scale="1" />
+          <Property Name="ExamNameId" Type="Int32" Nullable="false" />
+          <Property Name="IsAdditional" Type="Boolean" Nullable="false" />
+          <Property Name="ExamName" Type="String" MaxLength="539" FixedLength="false" Unicode="true" />
+          <Property Name="FacultyId" Type="Int32" Nullable="false" />
+          <Property Name="LicenseProgramId" Type="Int32" Nullable="false" />
+          <Property Name="ObrazProgramId" Type="Int32" Nullable="false" />
+          <Property Name="ProfileId" Type="Int32" Nullable="false" />
+          <Property Name="StudyBasisId" Type="Int32" Nullable="false" />
+          <Property Name="StudyFormId" Type="Int32" Nullable="false" />
+          <Property Name="StudyLevelId" Type="Int32" Nullable="false" />
+          <Property Name="StudyLevelGroupId" Type="Int32" Nullable="false" />
+          <Property Name="ExamDefName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="IsSecond" Type="Boolean" Nullable="false" />
+          <Property Name="IsReduced" Type="Boolean" Nullable="false" />
+          <Property Name="IsParallel" Type="Boolean" Nullable="false" />
+          <Property Name="OrderNumber" Type="Byte" Nullable="false" />
+          <Property Name="IsCrimea" Type="Boolean" Nullable="false" />
+          <Property Name="IsGosLine" Type="Boolean" Nullable="false" />
+          <Property Name="ParentExamInEntryBlockId" Type="Guid" />
+          <Property Name="IsForeign" Type="Boolean" Nullable="false" />
+          <Property Name="ExamInEntryBlockId" Type="Guid" Nullable="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -14743,13 +14965,15 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
             <ScalarProperty Name="DatName" ColumnName="DatName" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="StudyBasis"><EntityTypeMapping TypeName="Priem2012Model.StudyBasis"><MappingFragment StoreEntitySet="StudyBasis">
-            <ScalarProperty Name="FISName" ColumnName="FISName" />
+            <ScalarProperty Name="FISID" ColumnName="FISID" />
+                <ScalarProperty Name="FISName" ColumnName="FISName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
             <ScalarProperty Name="Name" ColumnName="Name" />
             <ScalarProperty Name="Acronym" ColumnName="Acronym" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="StudyForm"><EntityTypeMapping TypeName="Priem2012Model.StudyForm"><MappingFragment StoreEntitySet="StudyForm">
-            <ScalarProperty Name="DatName" ColumnName="DatName" />
+            <ScalarProperty Name="FISID" ColumnName="FISID" />
+                <ScalarProperty Name="DatName" ColumnName="DatName" />
                 <ScalarProperty Name="FISName" ColumnName="FISName" />
                 <ScalarProperty Name="OldName" ColumnName="OldName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -14928,6 +15152,7 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           <EntitySetMapping Name="StudyLevel">
             <EntityTypeMapping TypeName="Priem2012Model.StudyLevel">
               <MappingFragment StoreEntitySet="StudyLevel">
+                <ScalarProperty Name="FISID" ColumnName="FISID" />
                 <ScalarProperty Name="Duration" ColumnName="Duration" />
                 <ScalarProperty Name="ClassNum" ColumnName="ClassNum" />
                 <ScalarProperty Name="PostName" ColumnName="PostName" />
@@ -15383,6 +15608,8 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           <EntitySetMapping Name="extOlympiadsAll">
             <EntityTypeMapping TypeName="Priem2012Model.extOlympiadsAll">
               <MappingFragment StoreEntitySet="extOlympiadsAll">
+                <ScalarProperty Name="FIS_OlympicID" ColumnName="FIS_OlympicID" />
+                <ScalarProperty Name="OlympicID" ColumnName="OlympicID" />
                 <ScalarProperty Name="OlympProfileName" ColumnName="OlympProfileName" />
                 <ScalarProperty Name="OlympProfileId" ColumnName="OlympProfileId" />
                 <ScalarProperty Name="OlympYear" ColumnName="OlympYear" />
@@ -16184,6 +16411,7 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           <EntitySetMapping Name="SP_LicenseProgram">
             <EntityTypeMapping TypeName="Priem2012Model.SP_LicenseProgram">
               <MappingFragment StoreEntitySet="SP_LicenseProgram">
+                <ScalarProperty Name="FIS_ID" ColumnName="FIS_ID" />
                 <ScalarProperty Name="VSHEUGNId" ColumnName="VSHEUGNId" />
                 <ScalarProperty Name="GSGUCode" ColumnName="GSGUCode" />
                 <ScalarProperty Name="Holder" ColumnName="Holder" />
@@ -16562,6 +16790,11 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           <EntitySetMapping Name="extEntry">
             <EntityTypeMapping TypeName="Priem2012Model.extEntry">
               <MappingFragment StoreEntitySet="extEntry">
+                <ScalarProperty Name="StudyForm_FISID" ColumnName="StudyForm_FISID" />
+                <ScalarProperty Name="StudyBasis_FISID" ColumnName="StudyBasis_FISID" />
+                <ScalarProperty Name="StudyLevel_FISID" ColumnName="StudyLevel_FISID" />
+                <ScalarProperty Name="LicenseProgram_FISID" ColumnName="LicenseProgram_FISID" />
+                <ScalarProperty Name="StudyFormFISName" ColumnName="StudyFormFISName" />
                 <ScalarProperty Name="AggregateGroupAcronym" ColumnName="AggregateGroupAcronym" />
                 <ScalarProperty Name="StudyLevelGroupUpperCategoryId" ColumnName="StudyLevelGroupUpperCategoryId" />
                 <ScalarProperty Name="FacultyCode" ColumnName="FacultyCode" />
@@ -17309,38 +17542,6 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="extExamInEntry">
-            <EntityTypeMapping TypeName="Priem2012Model.extExamInEntry">
-              <MappingFragment StoreEntitySet="extExamInEntry">
-                <ScalarProperty Name="IsForeign" ColumnName="IsForeign" />
-                <ScalarProperty Name="ParentExamInEntryBlockId" ColumnName="ParentExamInEntryBlockId" />
-                <ScalarProperty Name="IsGosLine" ColumnName="IsGosLine" />
-                <ScalarProperty Name="IsCrimea" ColumnName="IsCrimea" />
-                <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
-                <ScalarProperty Name="Expr1" ColumnName="Expr1" />
-                <ScalarProperty Name="IsParallel" ColumnName="IsParallel" />
-                <ScalarProperty Name="IsReduced" ColumnName="IsReduced" />
-                <ScalarProperty Name="IsSecond" ColumnName="IsSecond" />
-                <ScalarProperty Name="ExamDefName" ColumnName="ExamDefName" />
-                <ScalarProperty Name="StudyLevelGroupId" ColumnName="StudyLevelGroupId" />
-                <ScalarProperty Name="StudyLevelId" ColumnName="StudyLevelId" />
-                <ScalarProperty Name="StudyFormId" ColumnName="StudyFormId" />
-                <ScalarProperty Name="StudyBasisId" ColumnName="StudyBasisId" />
-                <ScalarProperty Name="ProfileId" ColumnName="ProfileId" />
-                <ScalarProperty Name="ObrazProgramId" ColumnName="ObrazProgramId" />
-                <ScalarProperty Name="LicenseProgramId" ColumnName="LicenseProgramId" />
-                <ScalarProperty Name="FacultyId" ColumnName="FacultyId" />
-                <ScalarProperty Name="ExamName" ColumnName="ExamName" />
-                <ScalarProperty Name="IsAdditional" ColumnName="IsAdditional" />
-                <ScalarProperty Name="ExamNameId" ColumnName="ExamNameId" />
-                <ScalarProperty Name="EgeMin" ColumnName="EgeMin" />
-                <ScalarProperty Name="IsProfil" ColumnName="IsProfil" />
-                <ScalarProperty Name="ExamId" ColumnName="ExamId" />
-                <ScalarProperty Name="EntryId" ColumnName="EntryId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="SchoolExitClass">
             <EntityTypeMapping TypeName="Priem2012Model.SchoolExitClass">
               <MappingFragment StoreEntitySet="SchoolExitClass">
@@ -17435,6 +17636,7 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           <EntitySetMapping Name="OlympResultToAdditionalMark">
             <EntityTypeMapping TypeName="Priem2012Model.OlympResultToAdditionalMark">
               <MappingFragment StoreEntitySet="OlympResultToAdditionalMark">
+                <ScalarProperty Name="OlympTypeId" ColumnName="OlympTypeId" />
                 <ScalarProperty Name="OlympSubjectId" ColumnName="OlympSubjectId" />
                 <ScalarProperty Name="OlympProfileId" ColumnName="OlympProfileId" />
                 <ScalarProperty Name="Holder" ColumnName="Holder" />
@@ -17452,6 +17654,7 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           <EntitySetMapping Name="OlympResultToCommonBenefit">
             <EntityTypeMapping TypeName="Priem2012Model.OlympResultToCommonBenefit">
               <MappingFragment StoreEntitySet="OlympResultToCommonBenefit">
+                <ScalarProperty Name="OlympTypeId" ColumnName="OlympTypeId" />
                 <ScalarProperty Name="OlympSubjectId" ColumnName="OlympSubjectId" />
                 <ScalarProperty Name="OlympProfileId" ColumnName="OlympProfileId" />
                 <ScalarProperty Name="Holder" ColumnName="Holder" />
@@ -17495,6 +17698,69 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
               <MappingFragment StoreEntitySet="extAbitAdditionalMarksSum">
                 <ScalarProperty Name="AdditionalMarksSum" ColumnName="AdditionalMarksSum" />
                 <ScalarProperty Name="AbiturientId" ColumnName="AbiturientId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="qOlympResultToAdditionalMark">
+            <EntityTypeMapping TypeName="Priem2012Model.qOlympResultToAdditionalMark">
+              <MappingFragment StoreEntitySet="qOlympResultToAdditionalMark">
+                <ScalarProperty Name="AdditionalMark" ColumnName="AdditionalMark" />
+                <ScalarProperty Name="MinEge" ColumnName="MinEge" />
+                <ScalarProperty Name="EgeExamNameId" ColumnName="EgeExamNameId" />
+                <ScalarProperty Name="OlympValueId" ColumnName="OlympValueId" />
+                <ScalarProperty Name="OlympSubjectId" ColumnName="OlympSubjectId" />
+                <ScalarProperty Name="OlympProfileId" ColumnName="OlympProfileId" />
+                <ScalarProperty Name="OlympLevelId" ColumnName="OlympLevelId" />
+                <ScalarProperty Name="OlympTypeId" ColumnName="OlympTypeId" />
+                <ScalarProperty Name="ExamId" ColumnName="ExamId" />
+                <ScalarProperty Name="EntryId" ColumnName="EntryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="qOlympResultToCommonBenefit">
+            <EntityTypeMapping TypeName="Priem2012Model.qOlympResultToCommonBenefit">
+              <MappingFragment StoreEntitySet="qOlympResultToCommonBenefit">
+                <ScalarProperty Name="MinEge" ColumnName="MinEge" />
+                <ScalarProperty Name="EgeExamNameId" ColumnName="EgeExamNameId" />
+                <ScalarProperty Name="OlympValueId" ColumnName="OlympValueId" />
+                <ScalarProperty Name="OlympSubjectId" ColumnName="OlympSubjectId" />
+                <ScalarProperty Name="OlympProfileId" ColumnName="OlympProfileId" />
+                <ScalarProperty Name="OlympLevelId" ColumnName="OlympLevelId" />
+                <ScalarProperty Name="OlympTypeId" ColumnName="OlympTypeId" />
+                <ScalarProperty Name="ExamId" ColumnName="ExamId" />
+                <ScalarProperty Name="EntryId" ColumnName="EntryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="extExamInEntry">
+            <EntityTypeMapping TypeName="Priem2012Model.extExamInEntry">
+              <MappingFragment StoreEntitySet="extExamInEntry">
+                <ScalarProperty Name="ExamInEntryBlockId" ColumnName="ExamInEntryBlockId" />
+                <ScalarProperty Name="IsForeign" ColumnName="IsForeign" />
+                <ScalarProperty Name="ParentExamInEntryBlockId" ColumnName="ParentExamInEntryBlockId" />
+                <ScalarProperty Name="IsGosLine" ColumnName="IsGosLine" />
+                <ScalarProperty Name="IsCrimea" ColumnName="IsCrimea" />
+                <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
+                <ScalarProperty Name="IsParallel" ColumnName="IsParallel" />
+                <ScalarProperty Name="IsReduced" ColumnName="IsReduced" />
+                <ScalarProperty Name="IsSecond" ColumnName="IsSecond" />
+                <ScalarProperty Name="ExamDefName" ColumnName="ExamDefName" />
+                <ScalarProperty Name="StudyLevelGroupId" ColumnName="StudyLevelGroupId" />
+                <ScalarProperty Name="StudyLevelId" ColumnName="StudyLevelId" />
+                <ScalarProperty Name="StudyFormId" ColumnName="StudyFormId" />
+                <ScalarProperty Name="StudyBasisId" ColumnName="StudyBasisId" />
+                <ScalarProperty Name="ProfileId" ColumnName="ProfileId" />
+                <ScalarProperty Name="ObrazProgramId" ColumnName="ObrazProgramId" />
+                <ScalarProperty Name="LicenseProgramId" ColumnName="LicenseProgramId" />
+                <ScalarProperty Name="FacultyId" ColumnName="FacultyId" />
+                <ScalarProperty Name="ExamName" ColumnName="ExamName" />
+                <ScalarProperty Name="IsAdditional" ColumnName="IsAdditional" />
+                <ScalarProperty Name="ExamNameId" ColumnName="ExamNameId" />
+                <ScalarProperty Name="EgeMin" ColumnName="EgeMin" />
+                <ScalarProperty Name="IsProfil" ColumnName="IsProfil" />
+                <ScalarProperty Name="ExamId" ColumnName="ExamId" />
+                <ScalarProperty Name="EntryId" ColumnName="EntryId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

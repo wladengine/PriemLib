@@ -288,12 +288,14 @@ namespace PriemLib
             list.Add("Программы_парал", "Параллельная программа");
 
             //индивидуальные достижения
-            list.Add("ИНД_Аттестат", "ИНД_Аттестат");
-            list.Add("ИНД_Волонтёр", "ИНД_Волонтёр");
-            list.Add("ИНД_ПобРег", "ИНД_ПобРег");
-            list.Add("ИНД_ПризРег", "ИНД_ПризРег");
-            list.Add("ИНД_Конкурсы", "ИНД_Конкурсы");
-            list.Add("ИНД_Сочинение", "ИНД_Сочинение");
+            list.Add("ИНД_Аттестат", "ИД: Аттестат");
+            list.Add("ИНД_ГТО", "ИД: ГТО");
+            list.Add("ИНД_СПО", "ИД: СПО с отличием");
+            list.Add("ИНД_ПобРег", "ИД: ПобРег");
+            list.Add("ИНД_ПризРег", "ИД: ПризРег");
+            list.Add("ИНД_ОлСПбГУ", "ИД: ОлСПбГУ");
+            list.Add("ИНД_ПрочРСОШ", "ИД: ПрочРСОШ");
+            list.Add("ИНД_СУММ", "ИД: Сумма баллов");
 
             list.Add("Город_уч_заведения", "Город уч.заведения");
             list.Add("Тип_уч_заведения", "Тип уч.заведения");
@@ -427,11 +429,12 @@ namespace PriemLib
 
             //инд достижения
             lst.Add(new FilterItem("Инд.достижения: Аттестат с отличием", FilterType.Bool, " EXISTS (SELECT * FROM ed.PersonAchievement PA WHERE PA.PersonId = extPerson.Id AND PA.AchievementTypeId = 9)", "ed.extPerson"));
-            lst.Add(new FilterItem("Инд.достижения: Волонтёр", FilterType.Bool, " EXISTS (SELECT * FROM ed.PersonAchievement PA WHERE PA.PersonId = extPerson.Id AND PA.AchievementTypeId = 10)", "ed.extPerson"));
+            lst.Add(new FilterItem("Инд.достижения: ГТО", FilterType.Bool, " EXISTS (SELECT * FROM ed.PersonAchievement PA WHERE PA.PersonId = extPerson.Id AND PA.AchievementTypeId = 8)", "ed.extPerson"));
             lst.Add(new FilterItem("Инд.достижения: Победитель рег. этапа Всеросс", FilterType.Bool, " EXISTS (SELECT * FROM ed.Olympiads OL WHERE OL.AbiturientId = qAbiturient.Id AND OL.OlympTypeId = 7 AND OL.OlympValueId = 6)", "ed.qAbiturient"));
             lst.Add(new FilterItem("Инд.достижения: Призёр рег. этапа Всеросс", FilterType.Bool, " EXISTS (SELECT * FROM ed.Olympiads OL WHERE OL.AbiturientId = qAbiturient.Id AND OL.OlympTypeId = 7 AND OL.OlympValueId IN (5, 7))", "ed.qAbiturient"));
             lst.Add(new FilterItem("Инд.достижения: Прочие конкурсы", FilterType.Bool, " EXISTS (SELECT * FROM ed.PersonAchievement PA WHERE PA.PersonId = extPerson.Id AND PA.AchievementTypeId = 11)", "ed.extPerson"));
-            lst.Add(new FilterItem("Инд.достижения: Сочинение (оценка \"зачёт\")", FilterType.Bool, " EXISTS (SELECT * FROM ed.PersonAchievement PA WHERE PA.PersonId = extPerson.Id AND PA.AchievementTypeId = 12)", "ed.extPerson"));
+            lst.Add(new FilterItem("Инд.достижения: Диплом СПО с отличием", FilterType.Bool, " EXISTS (SELECT * FROM ed.PersonAchievement PA WHERE PA.PersonId = extPerson.Id AND PA.AchievementTypeId = 16)", "ed.extPerson"));
+            lst.Add(new FilterItem("Инд.достижения: Сумма баллов", FilterType.FromTo, " (SELECT Top(1) [AdditionalMarksSum] FROM ed.extAbitAdditionalMarksSum WHERE extAbitAdditionalMarksSum.AbiturientId = qAbiturient.Id)", "ed.qAbiturient"));
 
             lst.Add(new FilterItem("Апелляция", FilterType.Bool, " EXISTS (SELECT * FROM ed.EgeMark LEFT JOIN ed.EgeCertificate ON ed.EgeMark.EgeCertificateId = ed.EgeCertificate.Id WHERE ed.EgeMark.IsAppeal>0 AND ed.EgeCertificate.PersonId = ed.extPerson.Id) ", "ed.extPerson"));
             lst.Add(new FilterItem("Из олимпиад", FilterType.Bool, " EXISTS (SELECT * FROM ed.EgeMark LEFT JOIN ed.EgeCertificate ON ed.EgeMark.EgeCertificateId = ed.EgeCertificate.Id WHERE ed.EgeMark.IsFromOlymp>0 AND ed.EgeCertificate.PersonId = ed.extPerson.Id) ", "ed.extPerson"));
@@ -681,8 +684,6 @@ namespace PriemLib
             list.Add("ИНД_Волонтёр", "ИНД_Волонтёр");
             list.Add("ИНД_ПобРег", "ИНД_ПобРег");
             list.Add("ИНД_ПризРег", "ИНД_ПризРег");
-            list.Add("ИНД_Конкурсы", "ИНД_Конкурсы");
-            list.Add("ИНД_Сочинение", "ИНД_Сочинение");
 
             list.Add("Город_уч_заведения", "Город уч.заведения");
             list.Add("Тип_уч_заведения", "Тип уч.заведения");
