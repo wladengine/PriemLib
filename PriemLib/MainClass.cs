@@ -192,7 +192,11 @@ namespace PriemLib
                 }
                 
                 //взяли конфиг
-                _config = GetConfig();
+                try
+                {
+                    _config = GetConfig();
+                }
+                catch { }
 
                 return true;
             }

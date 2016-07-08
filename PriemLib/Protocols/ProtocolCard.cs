@@ -14,6 +14,7 @@ using BDClassLib;
 using EducServLib;
 using BaseFormsLib;
 using WordOut;
+using System.Threading.Tasks;
 
 namespace PriemLib
 {
@@ -44,6 +45,7 @@ namespace PriemLib
 
         protected string sQuery = "";
         protected string sOrderby = " ORDER BY ФИО ";
+        private static bool bIsCommandWorking = false;
 
         /// <summary>
         /// Номер протокола
@@ -216,8 +218,46 @@ namespace PriemLib
         //функция заполнения грида
         protected virtual void FillGrid(DataGridView dgv, string sQuery, string sWhere, string sOrderby)
         {
-            DataSet ds = MainClass.Bdc.GetDataSet(sQuery + sWhere + sOrderby);
-            FillGrid(dgv, ds.Tables[0]);
+            BackgroundWorker bw = new BackgroundWorker();
+            bw.DoWork += async (sender, e) =>
+            {
+                while (bIsCommandWorking)
+                    System.Threading.Thread.Sleep(100);
+                ((BackgroundWorker)sender).ReportProgress(1);
+                bIsCommandWorking = true;
+                BackgroundWorker _bw = sender as BackgroundWorker;
+                Task<DataSet> task = MainClass.Bdc.GetDataSetAsync(sQuery + sWhere + sOrderby);
+                while (!task.IsCompleted)
+                {
+                    if (_bw.CancellationPending)
+                    {
+                        e.Cancel = true;
+                        //_cancel.Cancel();
+                        return;
+                    }
+
+                    System.Threading.Thread.Sleep(25);
+                }
+
+                e.Result = await task;
+            };
+            bw.RunWorkerCompleted += (sender, e) =>
+            {
+                bIsCommandWorking = false;
+                if (e.Error == null)
+                {
+                    gbLoading.Visible = false;
+                    DataSet ds = (DataSet)e.Result;
+                    FillGrid(dgv, ds.Tables[0]);
+                }
+            };
+            bw.WorkerReportsProgress = true;
+            bw.ProgressChanged += (sender, e) =>
+            {
+                if (e.ProgressPercentage == 1)
+                    gbLoading.Visible = true;
+            };
+            bw.RunWorkerAsync();
         }
 
         //функция заполнения грида

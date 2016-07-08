@@ -267,6 +267,12 @@ namespace PriemLib
                         lblWhoBackDoc.Text = "";
                     }
 
+                    HasEntryConfirm = abit.HasEntryConfirm;
+                    if (abit.HasEntryConfirm && abit.DateEntryConfirm.HasValue)
+                        dtpDateEntryConfirm.Enabled = false;
+                    else
+                        dtpDateEntryConfirm.Enabled = true;
+
                     BackDocDate = abit.BackDocDate;
                     DocDate = abit.DocDate;
                     DocInsertDate = abit.DocInsertDate;
@@ -299,6 +305,8 @@ namespace PriemLib
                     FillExams();
                     Sum = GetAbitSum(_Id);
 
+                    FillAdditionalAchievements();
+
                     inEnableProtocol = GetInEnableProtocol(context);
                     inEntryView = GetInEntryView(context);
 
@@ -312,6 +320,7 @@ namespace PriemLib
 
                         GetHasMotivationLetter();
                         GetHasEssay();
+                        GetHasPhilosophy();
                     }
 
                     GetHasInnerPriorities(context);
@@ -498,6 +507,23 @@ namespace PriemLib
             });
 
             chbHasEssay.Checked = (cnt > 0);
+        }
+        private async void GetHasPhilosophy()
+        {
+            BDClassLib.SQLClass InetDB = new BDClassLib.SQLClass();
+            InetDB.OpenDatabase(MainClass.connStringOnline);
+            //ищем среди файлов, приложенных к конкретному конкурсу (т.е. по совпадению ApplicationBarcode) и из общих файлов (где есть PersonBarcode, а ApplicationBarcode NULL)
+            string query = "SELECT COUNT(*) FROM qAbitFiles_OnlyPhilosophy WHERE (ApplicationBarcode=@ApplicationBarcode OR (PersonBarcode=@PersonBarcode AND ApplicationBarcode IS NULL))";
+            int cnt = await Task.Run(() =>
+            {
+                return (int)InetDB.GetValue(query, new SortedList<string, object>() 
+                {
+                    { "@ApplicationBarcode", QueryServ.ToNullDB(abitBarcode) }, 
+                    { "@PersonBarcode", QueryServ.ToNullDB(persBarcode) }  
+                });
+            });
+
+            chbHasPhilosophy.Checked = (cnt > 0);
         }
 
         // возвращает, есть ли человек в протоколе о допуске
@@ -1533,10 +1559,11 @@ namespace PriemLib
                             }
                             else
                             {
-                                int ExId = context.OlympSubjectToExam.Where(x => x.OlympSubjectId == Ol.OlympSubjectId).Select(x => x.ExamId).DefaultIfEmpty(0).First();
+                                List<int?> lstEx = context.OlympSubjectToExam.Where(x => x.OlympSubjectId == Ol.OlympSubjectId).Select(x => (int?)x.ExamId).ToList();
+                                bool bNoExamId = lstEx.Where(x => x != 0).Count() == 0;
                                 var lstBenefits = context.OlympResultToCommonBenefit
-                                    .Where(x => x.EntryId == EntryId 
-                                        && (ExId == 0 ? true : (x.ExamId == ExId || x.ExamId == null))
+                                    .Where(x => x.EntryId == EntryId
+                                        && (bNoExamId ? true : (lstEx.Contains(x.ExamId) || x.ExamId == null))
                                         && (x.OlympLevelId == Ol.OlympLevelId || Ol.OlympLevelId == 0) 
                                         && (x.OlympSubjectId == null ? true : x.OlympSubjectId == Ol.OlympSubjectId)
                                         && (x.OlympProfileId == null ? true : x.OlympProfileId == Ol.OlympProfileId) 
@@ -1549,10 +1576,11 @@ namespace PriemLib
                                 }
                                 else if (Ol.OlympTypeId > 2)
                                 {
-                                    if (ExId == 0)
-                                        ExId = lstBenefits.Where(x => x.ExamId.HasValue).Select(x => x.ExamId ?? 0).DefaultIfEmpty(0).First();
+                                    if (bNoExamId)
+                                        lstEx = lstBenefits.Where(x => x.ExamId.HasValue).Select(x => x.ExamId).ToList();
 
-                                    if (ExId == 0)
+                                    bNoExamId = lstEx.Where(x => x != 0).Count() == 0;
+                                    if (bNoExamId)
                                     {
                                         WinFormsServ.Error("Не удаётся найти в базе предмета ЕГЭ для указания общей льготы!");
                                         return false;
@@ -1563,7 +1591,7 @@ namespace PriemLib
                                     //проверяем мин. баллы
                                     var balls = from ege in context.extEgeMarkMaxAbitApproved
                                                 join eee in context.EgeToExam on ege.EgeExamNameId equals eee.EgeExamNameId
-                                                where ege.AbiturientId == GuidId && eee.ExamId == ExId && ege.Value >= egeMin
+                                                where ege.AbiturientId == GuidId && lstEx.Contains(eee.ExamId) && ege.Value >= egeMin
                                                 select ege;
 
                                     if (balls.Count() == 0)
@@ -1669,7 +1697,7 @@ namespace PriemLib
         }
         private bool CheckCountCompetitionEqual2(PriemEntities context)
         {
-            int cnt = context.Abiturient.Where(x => x.PersonId == _personId && x.CompetitionId == 2 && (GuidId.HasValue ? x.Id != GuidId.Value : true)).Count();
+            int cnt = context.Abiturient.Where(x => x.PersonId == _personId && x.CompetitionId == 2 && (GuidId.HasValue ? x.Id != GuidId.Value : true) && !x.BackDoc).Count();
             if (cnt > 0)
                 return false;
             else return true;
@@ -1738,6 +1766,7 @@ namespace PriemLib
             //context.Abiturient_UpdateIsCommonRussianCompetition(IsForeign, gId);
             UpdateSelectedExams(context, gId);
             UpdateIsApprovedByCommision(abitBarcode, Checked);
+            UpdateEntryConfirm(context, gId);
         }
 
         protected override void UpdateRec(PriemEntities context, Guid id)
@@ -1760,6 +1789,7 @@ namespace PriemLib
             
             UpdateSelectedExams(context, id);
             UpdateIsApprovedByCommision(abitBarcode, Checked);
+            UpdateEntryConfirm(context, id);
 
             var abit = context.Abiturient.Where(x => x.Id == id).FirstOrDefault();
             if (abit != null)
@@ -1825,6 +1855,26 @@ namespace PriemLib
                 }
             }
             context.SaveChanges();
+        }
+
+        protected void UpdateEntryConfirm(PriemEntities context, Guid id)
+        {
+            var abit = context.Abiturient.Where(x => x.Id == id).FirstOrDefault();
+            if (abit != null)
+            {
+                if (HasEntryConfirm)
+                {
+                    abit.HasEntryConfirm = true;
+                    abit.DateEntryConfirm = dtpDateEntryConfirm.Value;
+                }
+                else
+                {
+                    abit.HasEntryConfirm = false;
+                    abit.DateEntryConfirm = null;
+                }
+                context.SaveChanges();
+            }
+            
         }
 
         #endregion
@@ -2060,6 +2110,27 @@ namespace PriemLib
             catch (DataException de)
             {
                 WinFormsServ.Error("Ошибка при заполнении формы ", de);
+            }
+        }
+
+        private void FillAdditionalAchievements()
+        {
+            using (PriemEntities context = new PriemEntities())
+            {
+                var lstAch = context.extAbitAllAdditionalAchievements
+                    .Where(x => x.AbiturientId == GuidId && x.AchievementTypeId != null)
+                    .Select(x => new { x.AchievementTypeId, x.AchievementType, x.Mark })
+                    .ToArray();
+
+                dgvAdditionalAchievements.DataSource = Converter.ConvertToDataTable(lstAch);
+                dgvAdditionalAchievements.Columns["AchievementTypeId"].Visible = false;
+                dgvAdditionalAchievements.Columns["AchievementType"].HeaderText = "ИД";
+                dgvAdditionalAchievements.Columns["Mark"].HeaderText = "Балл";
+
+                tbAdditionalAchievementsMark.Text = context.extAbitAdditionalMarksSum
+                    .Where(x => x.AbiturientId == GuidId)
+                    .Select(x => x.AdditionalMarksSum ?? 0)
+                    .DefaultIfEmpty(0).First().ToString();
             }
         }
 

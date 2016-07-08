@@ -79,5 +79,8 @@ namespace PriemLib
         public bool IsCrimea { get; set; }
         public bool BackDocByAdmissionHigh { get; set; }
         public Nullable<System.Guid> OlympiadId { get; set; }
+        public Nullable<int> StudyLevelGroupUpperCategoryId { get; set; }
+        public bool HasEntryConfirm { get; set; }
+        public Nullable<System.DateTime> DateEntryConfirm { get; set; }
     }
 }

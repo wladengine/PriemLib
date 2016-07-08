@@ -14,6 +14,12 @@ namespace PriemLib
     
     public partial class Olympiads
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Olympiads()
+        {
+            this.Abiturient1 = new HashSet<Abiturient>();
+        }
+    
         public System.Guid Id { get; set; }
         public int OlympTypeId { get; set; }
         public Nullable<int> OlympNameId { get; set; }
@@ -39,5 +45,7 @@ namespace PriemLib
         public virtual OlympName OlympName { get; set; }
         public virtual OlympSubject OlympSubject { get; set; }
         public virtual OlympType OlympType { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Abiturient> Abiturient1 { get; set; }
     }
 }

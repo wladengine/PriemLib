@@ -34,7 +34,7 @@ namespace PriemLib
         {
         }
 
-        // конструктор формы открытие и создание в нашей базе        
+        // конструктор формы открытие и создание в нашей базе
         public CardPerson(string id)
             : this(id, null, null)
         {                        
@@ -1241,7 +1241,7 @@ namespace PriemLib
 
         protected override void InsertRec(PriemEntities context, ObjectParameter idParam)
         {
-            bool HasTRKI = LangCertificates.Where(x => x.LanguageCertificateTypeId == 1).Count() > 0;
+            bool HasTRKI = LangCertificates == null ? false : LangCertificates.Where(x => x.LanguageCertificateTypeId == 1).Count() > 0;
             string TRKICertificateNumber = HasTRKI ? LangCertificates.Where(x => x.LanguageCertificateTypeId == 1).Select(x => x.Number).First() : "";
 
             context.Person_insert(personBarc, PersonName, SecondName, Surname, BirthDate, BirthPlace, PassportTypeId, PassportSeries, PassportNumber,
@@ -1373,6 +1373,7 @@ namespace PriemLib
 
             try
             {
+                gbEgeLoading.Visible = true;
                 DataTable examTable = await Task.Run<DataTable>(() => GetEgeExamTable());
 
                 DataView dv = new DataView(examTable);
@@ -1384,6 +1385,10 @@ namespace PriemLib
             catch (Exception exc)
             {
                 WinFormsServ.Error("Ошибка заполения грида Ege: ", exc);
+            }
+            finally
+            {
+                gbEgeLoading.Visible = false;
             }
         }
 

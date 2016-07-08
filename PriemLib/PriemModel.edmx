@@ -84,6 +84,8 @@ warning 6002: The table/view 'Priem2016.ed._FirstWaveGreen' does not have a prim
           <Property Name="Author" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="DateCreated" Type="datetime" Nullable="false" />
           <Property Name="BackDocByAdmissionHigh" Type="bit" Nullable="false" />
+          <Property Name="HasEntryConfirm" Type="bit" Nullable="false" />
+          <Property Name="DateEntryConfirm" Type="datetime" />
         </EntityType>
         <EntityType Name="AbiturientSelectedExam">
           <Key>
@@ -468,7 +470,7 @@ warning 6002: The table/view 'Priem2016.ed.EgeToLanguage' does not have a primar
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="nvarchar" MaxLength="150" />
           <Property Name="SelectByDefault" Type="bit" Nullable="false" />
         </EntityType>
@@ -577,7 +579,7 @@ warning 6002: The table/view 'Priem2016.ed.Fixieren' does not have a primary key
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="NameEng" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="BoolType" Type="bit" Nullable="false" />
@@ -613,7 +615,7 @@ warning 6002: The table/view 'Priem2016.ed.Fixieren' does not have a primary key
           <Property Name="OlympLevelId" Type="int" Nullable="false" />
           <Property Name="OlympProfileId" Type="int" Nullable="false" />
           <Property Name="OlympSubjectId" Type="int" Nullable="false" />
-          <Property Name="OlympicID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="OlympicID" Type="nvarchar" MaxLength="50" />
           <Property Name="IsOpen" Type="bit" Nullable="false" />
           <Property Name="Holder" Type="nvarchar" MaxLength="50" />
         </EntityType>
@@ -1365,6 +1367,7 @@ warning 6002: The table/view 'Priem2016.ed.extAbit' does not have a primary key 
             <PropertyRef Name="IsForeign" />
             <PropertyRef Name="IsCrimea" />
             <PropertyRef Name="BackDocByAdmissionHigh" />
+            <PropertyRef Name="HasEntryConfirm" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="PersonId" Type="uniqueidentifier" Nullable="false" />
@@ -1439,6 +1442,9 @@ warning 6002: The table/view 'Priem2016.ed.extAbit' does not have a primary key 
           <Property Name="IsForeign" Type="bit" Nullable="false" />
           <Property Name="IsCrimea" Type="bit" Nullable="false" />
           <Property Name="BackDocByAdmissionHigh" Type="bit" Nullable="false" />
+          <Property Name="OlympiadId" Type="uniqueidentifier" />
+          <Property Name="HasEntryConfirm" Type="bit" Nullable="false" />
+          <Property Name="DateEntryConfirm" Type="datetime" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'Priem2016.ed.extAbitAdditionalMarksSum' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -1456,7 +1462,7 @@ warning 6002: The table/view 'Priem2016.ed.extAbitAllAdditionalAchievements' doe
             <PropertyRef Name="AbiturientId" />
           </Key>
           <Property Name="AbiturientId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="AchievementType" Type="nvarchar" MaxLength="206" />
+          <Property Name="AchievementType" Type="nvarchar" MaxLength="2156" />
           <Property Name="AchievementTypeId" Type="int" />
           <Property Name="Mark" Type="int" />
         </EntityType>
@@ -2878,7 +2884,6 @@ warning 6002: The table/view 'Priem2016.ed.qAbiturient' does not have a primary 
             <PropertyRef Name="StudyLevelId" />
             <PropertyRef Name="StudyLevelName" />
             <PropertyRef Name="IsSecond" />
-            <PropertyRef Name="StudyLevelGroupId" />
             
             <PropertyRef Name="WithHE" />
             <PropertyRef Name="IsReduced" />
@@ -2887,6 +2892,8 @@ warning 6002: The table/view 'Priem2016.ed.qAbiturient' does not have a primary 
             <PropertyRef Name="IsForeign" />
             <PropertyRef Name="IsCrimea" />
             <PropertyRef Name="BackDocByAdmissionHigh" />
+            <PropertyRef Name="StudyLevelGroupId" />
+            <PropertyRef Name="HasEntryConfirm" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="PersonId" Type="uniqueidentifier" Nullable="false" />
@@ -2937,7 +2944,6 @@ warning 6002: The table/view 'Priem2016.ed.qAbiturient' does not have a primary 
           <Property Name="ProgramModeShortName" Type="nvarchar" MaxLength="100" />
           <Property Name="IsSecond" Type="bit" Nullable="false" />
           <Property Name="StudyFormOldName" Type="nvarchar" MaxLength="50" />
-          <Property Name="StudyLevelGroupId" Type="int" Nullable="false" />
           <Property Name="ObrazProgramNameEx" Type="nvarchar" MaxLength="1014" Nullable="false" />
           <Property Name="WithHE" Type="bit" Nullable="false" />
           <Property Name="IsReduced" Type="bit" Nullable="false" />
@@ -2953,6 +2959,10 @@ warning 6002: The table/view 'Priem2016.ed.qAbiturient' does not have a primary 
           <Property Name="IsCrimea" Type="bit" Nullable="false" />
           <Property Name="BackDocByAdmissionHigh" Type="bit" Nullable="false" />
           <Property Name="OlympiadId" Type="uniqueidentifier" />
+          <Property Name="StudyLevelGroupUpperCategoryId" Type="int" />
+          <Property Name="StudyLevelGroupId" Type="int" Nullable="false" />
+          <Property Name="HasEntryConfirm" Type="bit" Nullable="false" />
+          <Property Name="DateEntryConfirm" Type="datetime" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'Priem2016.ed.qAbiturient_WhoSetBackDoc' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -3372,6 +3382,18 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
             </Principal>
             <Dependent Role="Abiturient">
               <PropertyRef Name="LanguageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Abiturient_Olympiads">
+          <End Role="Olympiads" Type="Self.Olympiads" Multiplicity="0..1" />
+          <End Role="Abiturient" Type="Self.Abiturient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Olympiads">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Abiturient">
+              <PropertyRef Name="OlympiadId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -6336,7 +6358,10 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
     [extAbit].[InnerEntryInEntryObrazProgramId] AS [InnerEntryInEntryObrazProgramId], 
     [extAbit].[IsForeign] AS [IsForeign], 
     [extAbit].[IsCrimea] AS [IsCrimea], 
-    [extAbit].[BackDocByAdmissionHigh] AS [BackDocByAdmissionHigh]
+    [extAbit].[BackDocByAdmissionHigh] AS [BackDocByAdmissionHigh], 
+    [extAbit].[OlympiadId] AS [OlympiadId], 
+    [extAbit].[HasEntryConfirm] AS [HasEntryConfirm], 
+    [extAbit].[DateEntryConfirm] AS [DateEntryConfirm]
     FROM [ed].[extAbit] AS [extAbit]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="extAbitAdditionalMarksSum" EntityType="Self.extAbitAdditionalMarksSum" store:Type="Views" store:Schema="ed">
@@ -7355,7 +7380,6 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
     [qAbiturient].[ProgramModeShortName] AS [ProgramModeShortName], 
     [qAbiturient].[IsSecond] AS [IsSecond], 
     [qAbiturient].[StudyFormOldName] AS [StudyFormOldName], 
-    [qAbiturient].[StudyLevelGroupId] AS [StudyLevelGroupId], 
     [qAbiturient].[ObrazProgramNameEx] AS [ObrazProgramNameEx], 
     [qAbiturient].[WithHE] AS [WithHE], 
     [qAbiturient].[IsReduced] AS [IsReduced], 
@@ -7370,7 +7394,11 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
     [qAbiturient].[IsForeign] AS [IsForeign], 
     [qAbiturient].[IsCrimea] AS [IsCrimea], 
     [qAbiturient].[BackDocByAdmissionHigh] AS [BackDocByAdmissionHigh], 
-    [qAbiturient].[OlympiadId] AS [OlympiadId]
+    [qAbiturient].[OlympiadId] AS [OlympiadId], 
+    [qAbiturient].[StudyLevelGroupUpperCategoryId] AS [StudyLevelGroupUpperCategoryId], 
+    [qAbiturient].[StudyLevelGroupId] AS [StudyLevelGroupId], 
+    [qAbiturient].[HasEntryConfirm] AS [HasEntryConfirm], 
+    [qAbiturient].[DateEntryConfirm] AS [DateEntryConfirm]
     FROM [ed].[qAbiturient] AS [qAbiturient]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="qAbiturient_WhoSetBackDoc" EntityType="Self.qAbiturient_WhoSetBackDoc" store:Type="Views" store:Schema="ed">
@@ -7623,6 +7651,10 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           </AssociationSet>
           <AssociationSet Name="FK_Abiturient_Language" Association="Self.FK_Abiturient_Language">
             <End Role="Language" EntitySet="Language" />
+            <End Role="Abiturient" EntitySet="Abiturient" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Abiturient_Olympiads" Association="Self.FK_Abiturient_Olympiads">
+            <End Role="Olympiads" EntitySet="Olympiads" />
             <End Role="Abiturient" EntitySet="Abiturient" />
           </AssociationSet>
           <AssociationSet Name="FK_Abiturient_Person" Association="Self.FK_Abiturient_Person">
@@ -10019,6 +10051,10 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
             <End Role="OlympResultToCommonBenefit" EntitySet="OlympResultToCommonBenefit" />
           </AssociationSet>
           <EntitySet Name="extExamInEntry" EntityType="Priem2012Model.extExamInEntry" />
+          <AssociationSet Name="FK_Abiturient_Olympiads" Association="Priem2012Model.FK_Abiturient_Olympiads">
+            <End Role="Olympiads" EntitySet="Olympiads" />
+            <End Role="Abiturient" EntitySet="Abiturient" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="AttMarks">
           <Key>
@@ -10654,7 +10690,7 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           <Property Type="Boolean" Name="IsOpen" Nullable="false" />
           <Property Type="String" Name="Holder" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="OlympYear" Type="Int32" Nullable="false" />
-          <Property Name="OlympicID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OlympicID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="OlympProfileId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="OlympSubject" Relationship="Priem2012Model.fk_OlympBook_OlympSubject" FromRole="OlympBook" ToRole="OlympSubject" />
           <NavigationProperty Name="OlympType" Relationship="Priem2012Model.FK_OlympBook_OlympType" FromRole="OlympBook" ToRole="OlympType" />
@@ -10699,6 +10735,7 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           <NavigationProperty Name="OlympName" Relationship="Priem2012Model.FK_Olympiads_OlympName" FromRole="Olympiads" ToRole="OlympName" />
           <NavigationProperty Name="OlympSubject" Relationship="Priem2012Model.fk_Olympiads_OlympSubject" FromRole="Olympiads" ToRole="OlympSubject" />
           <NavigationProperty Name="OlympType" Relationship="Priem2012Model.FK_Olympiads_OlympType" FromRole="Olympiads" ToRole="OlympType" />
+          <NavigationProperty Name="Abiturient1" Relationship="Priem2012Model.FK_Abiturient_Olympiads" FromRole="Olympiads" ToRole="Abiturient" />
         </EntityType>
         <Association Name="fk_Olympiads_OlympLevel">
           <End Type="Priem2012Model.OlympLevel" Role="OlympLevel" Multiplicity="0..1" />
@@ -10929,6 +10966,9 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           <Property Name="OlympiadId" Type="Guid" />
           <NavigationProperty Name="AbiturientSelectedExam" Relationship="Priem2012Model.FK_AbiturientSelectedExam_Abiturient" FromRole="Abiturient" ToRole="AbiturientSelectedExam" />
           <NavigationProperty Name="Mark" Relationship="Priem2012Model.FK_Mark_Abiturient" FromRole="Abiturient" ToRole="Mark" />
+          <Property Name="HasEntryConfirm" Type="Boolean" Nullable="false" />
+          <Property Name="DateEntryConfirm" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Olympiads1" Relationship="Priem2012Model.FK_Abiturient_Olympiads" FromRole="Abiturient" ToRole="Olympiads" />
         </EntityType>
         <EntityType Name="Protocol">
           <Key>
@@ -12719,6 +12759,7 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
             <PropertyRef Name="IsForeign" />
             <PropertyRef Name="IsCrimea" />
             <PropertyRef Name="BackDocByAdmissionHigh" />
+            <PropertyRef Name="HasEntryConfirm" />
           </Key>
           <Property Type="Guid" Name="Id" Nullable="false" />
           <Property Type="Guid" Name="PersonId" Nullable="false" />
@@ -12785,6 +12826,9 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           <Property Type="Boolean" Name="IsCrimea" Nullable="false" />
           <Property Name="BackDocByAdmissionHigh" Type="Boolean" Nullable="false" />
           <Property Name="OlympiadId" Type="Guid" />
+          <Property Name="StudyLevelGroupUpperCategoryId" Type="Int32" />
+          <Property Name="HasEntryConfirm" Type="Boolean" Nullable="false" />
+          <Property Name="DateEntryConfirm" Type="DateTime" Precision="3" />
         </EntityType>
         <Association Name="FK_Entry_SP_LicenseProgram">
           <End Type="Priem2012Model.SP_LicenseProgram" Role="SP_LicenseProgram" Multiplicity="1" />
@@ -13292,6 +13336,7 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
             <PropertyRef Name="IsForeign" />
             <PropertyRef Name="IsCrimea" />
             <PropertyRef Name="BackDocByAdmissionHigh" />
+            <PropertyRef Name="HasEntryConfirm" />
           </Key>
           <Property Type="Guid" Name="Id" Nullable="false" />
           <Property Type="Guid" Name="PersonId" Nullable="false" />
@@ -13366,6 +13411,9 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           <Property Name="IsForeign" Type="Boolean" Nullable="false" />
           <Property Name="IsCrimea" Type="Boolean" Nullable="false" />
           <Property Name="BackDocByAdmissionHigh" Type="Boolean" Nullable="false" />
+          <Property Name="OlympiadId" Type="Guid" />
+          <Property Name="HasEntryConfirm" Type="Boolean" Nullable="false" />
+          <Property Name="DateEntryConfirm" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="extPerson">
           <Key>
@@ -14083,7 +14131,7 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
             <PropertyRef Name="AbiturientId" />
           </Key>
           <Property Name="AbiturientId" Type="Guid" Nullable="false" />
-          <Property Name="AchievementType" Type="String" MaxLength="206" FixedLength="false" Unicode="true" />
+          <Property Name="AchievementType" Type="String" MaxLength="2156" FixedLength="false" Unicode="true" />
           <Property Name="AchievementTypeId" Type="Int32" />
           <Property Name="Mark" Type="Int32" />
         </EntityType>
@@ -14837,6 +14885,18 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           <Property Name="IsForeign" Type="Boolean" Nullable="false" />
           <Property Name="ExamInEntryBlockId" Type="Guid" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Abiturient_Olympiads">
+          <End Type="Priem2012Model.Olympiads" Role="Olympiads" Multiplicity="0..1" />
+          <End Type="Priem2012Model.Abiturient" Role="Abiturient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Olympiads">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Abiturient">
+              <PropertyRef Name="OlympiadId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -15420,6 +15480,8 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           <EntitySetMapping Name="Abiturient">
             <EntityTypeMapping TypeName="Priem2012Model.Abiturient">
               <MappingFragment StoreEntitySet="Abiturient">
+                <ScalarProperty Name="DateEntryConfirm" ColumnName="DateEntryConfirm" />
+                <ScalarProperty Name="HasEntryConfirm" ColumnName="HasEntryConfirm" />
                 <ScalarProperty Name="OlympiadId" ColumnName="OlympiadId" />
                 <ScalarProperty Name="BackDocByAdmissionHigh" ColumnName="BackDocByAdmissionHigh" />
                 <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
@@ -16556,6 +16618,9 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           <EntitySetMapping Name="qAbiturient">
             <EntityTypeMapping TypeName="Priem2012Model.qAbiturient">
               <MappingFragment StoreEntitySet="qAbiturient">
+                <ScalarProperty Name="DateEntryConfirm" ColumnName="DateEntryConfirm" />
+                <ScalarProperty Name="HasEntryConfirm" ColumnName="HasEntryConfirm" />
+                <ScalarProperty Name="StudyLevelGroupUpperCategoryId" ColumnName="StudyLevelGroupUpperCategoryId" />
                 <ScalarProperty Name="OlympiadId" ColumnName="OlympiadId" />
                 <ScalarProperty Name="BackDocByAdmissionHigh" ColumnName="BackDocByAdmissionHigh" />
                 <ScalarProperty Name="IsCrimea" ColumnName="IsCrimea" />
@@ -16893,6 +16958,9 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           <EntitySetMapping Name="extAbit">
             <EntityTypeMapping TypeName="Priem2012Model.extAbit">
               <MappingFragment StoreEntitySet="extAbit">
+                <ScalarProperty Name="DateEntryConfirm" ColumnName="DateEntryConfirm" />
+                <ScalarProperty Name="HasEntryConfirm" ColumnName="HasEntryConfirm" />
+                <ScalarProperty Name="OlympiadId" ColumnName="OlympiadId" />
                 <ScalarProperty Name="BackDocByAdmissionHigh" ColumnName="BackDocByAdmissionHigh" />
                 <ScalarProperty Name="IsCrimea" ColumnName="IsCrimea" />
                 <ScalarProperty Name="IsForeign" ColumnName="IsForeign" />

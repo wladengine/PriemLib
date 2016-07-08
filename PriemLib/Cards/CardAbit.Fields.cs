@@ -129,6 +129,12 @@ namespace PriemLib
             set { chbIsPaid.Checked = value; }
         }
 
+        public bool HasEntryConfirm
+        {
+            get { return chbHasEntryConfirm.Checked; }
+            set { chbHasEntryConfirm.Checked = value; }
+        }
+
         public bool BackDoc
         {
             get { return chbBackDoc.Checked; }
@@ -183,12 +189,6 @@ namespace PriemLib
         {
             get { return chbAttOriginal.Checked; }
             set { chbAttOriginal.Checked = value; }
-        }
-
-        public bool EgeDocOrigin
-        {
-            get { return chbEgeDocOriginal.Checked; }
-            set { chbEgeDocOriginal.Checked = value; }
         }
 
         public bool Checked

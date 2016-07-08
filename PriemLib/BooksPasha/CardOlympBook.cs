@@ -111,7 +111,7 @@ namespace PriemLib
                     OlympSubjectId = olymp.OlympSubjectId;
                     OlympLevelId = olymp.OlympLevelId;
                     OlympYear = olymp.OlympYear;
-                }              
+                }
             }
             catch (DataException de)
             {
@@ -125,7 +125,7 @@ namespace PriemLib
 
             if (!MainClass.IsEntryChanger())
                 btnSaveChange.Enabled = false;
-        }        
+        }
 
         protected override void InsertRec(PriemEntities context, ObjectParameter idParam)
         {

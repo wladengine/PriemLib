@@ -87,5 +87,8 @@ namespace PriemLib
         public bool IsForeign { get; set; }
         public bool IsCrimea { get; set; }
         public bool BackDocByAdmissionHigh { get; set; }
+        public Nullable<System.Guid> OlympiadId { get; set; }
+        public bool HasEntryConfirm { get; set; }
+        public Nullable<System.DateTime> DateEntryConfirm { get; set; }
     }
 }

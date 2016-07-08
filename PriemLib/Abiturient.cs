@@ -67,6 +67,8 @@ namespace PriemLib
         public System.DateTime DateCreated { get; set; }
         public bool BackDocByAdmissionHigh { get; set; }
         public Nullable<System.Guid> OlympiadId { get; set; }
+        public bool HasEntryConfirm { get; set; }
+        public Nullable<System.DateTime> DateEntryConfirm { get; set; }
     
         public virtual CelCompetition CelCompetition { get; set; }
         public virtual Competition Competition { get; set; }
@@ -92,5 +94,6 @@ namespace PriemLib
         public virtual ICollection<AbiturientSelectedExam> AbiturientSelectedExam { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Mark> Mark { get; set; }
+        public virtual Olympiads Olympiads1 { get; set; }
     }
 }

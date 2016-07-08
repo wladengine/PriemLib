@@ -549,17 +549,20 @@ namespace PriemLib
                                     exId = Guid.Parse(row.Cells["ExamInEntryId"].Value.ToString());
                                     abId = new Guid(row.Cells["Id"].Value.ToString());
 
+                                    if (!abId.HasValue || abId.Value == Guid.Empty)
+                                        continue;
+
                                     int cnt;
 
                                     cnt = (from mrk in context.Mark
                                            where mrk.AbiturientId == abId && mrk.ExamInEntryBlockUnitId == exId && mrk.IsFromEge
                                            select mrk).Count();
 
+                                    string abitFIO = context.extAbit.Where(x => x.Id == abId).Select(x => x.FIO).FirstOrDefault();
+
                                     if (cnt > 0)
                                     {
-                                        string abitFio = context.extAbit.Where(x => x.Id == abId).Select(x => x.FIO).FirstOrDefault();
-
-                                        if (MessageBox.Show(((abitFio + ": ") ?? "") + "Данное действие перекроет оценку абитуриента, зачтенную из ЕГЭ. Заменить?", "Внимание", MessageBoxButtons.YesNo) == DialogResult.No)
+                                        if (MessageBox.Show(((abitFIO + ": ") ?? "") + "Данное действие перекроет оценку абитуриента, зачтенную из ЕГЭ. Заменить?", "Внимание", MessageBoxButtons.YesNo) == DialogResult.No)
                                             continue;
                                     }
 
@@ -570,9 +573,11 @@ namespace PriemLib
                                     if (cnt > 0)
                                         context.Mark_DeleteByAbitExamId(abId, exId);
 
+                                    int iExamId = context.extExamInEntry.Where(x => x.Id == exId).Select(x => x.ExamId).DefaultIfEmpty(0).First();
                                     Guid OlympiadId = new Guid(row.Cells["OlympiadId"].Value.ToString());
 
-                                    context.Mark_Insert(abId, exId, 100, DateTime.Now, false, true, false, null, OlympiadId, null);
+                                    if (CheckOlympiadPrivelege(abId.Value, OlympiadId, iExamId, abitFIO))
+                                        context.Mark_Insert(abId, exId, 100, DateTime.Now, false, true, false, null, OlympiadId, null);
                                 }
                             }
 
@@ -587,6 +592,73 @@ namespace PriemLib
 
                 UpdateDataGrid();
             }
+        }
+
+        private bool CheckOlympiadPrivelege(Guid AbiturientId, Guid OlympiadId, int ExamId, string AbitFIO)
+        {
+            using (PriemEntities context = new PriemEntities())
+            {
+                Guid EntryId = context.Abiturient.Where(x => x.Id == AbiturientId).Select(x => x.EntryId).DefaultIfEmpty(Guid.Empty).First();
+                var Ol = context.Olympiads.Where(x => x.Id == OlympiadId).FirstOrDefault();
+                if (Ol == null)
+                {
+                    WinFormsServ.Error("Не найдена олимпиада!");
+                    return false;
+                }
+                else
+                {
+                    List<int?> lstEx = context.OlympSubjectToExam.Where(x => x.OlympSubjectId == Ol.OlympSubjectId).Select(x => (int?)x.ExamId).ToList();
+                    if (!lstEx.Contains(ExamId))
+                    {
+                        WinFormsServ.Error("Не найдено соответствия предмета олимпиады и перезачитываемого предмета!");
+                        return false;
+                    }
+
+                    bool bNoExamId = lstEx.Where(x => x != 0).Count() == 0;
+                    var lstBenefits = context.OlympResultToAdditionalMark
+                        .Where(x => x.EntryId == EntryId
+                            && x.AdditionalMark == 100
+                            && (bNoExamId ? true : (lstEx.Contains(x.ExamId) || x.ExamId == null))
+                            && (x.OlympLevelId == Ol.OlympLevelId || Ol.OlympLevelId == 0)
+                            && (x.OlympSubjectId == null ? true : x.OlympSubjectId == Ol.OlympSubjectId)
+                            && (x.OlympProfileId == null ? true : x.OlympProfileId == Ol.OlympProfileId)
+                            && x.OlympValueId == Ol.OlympValueId).ToList();
+                    int iCntBenefits = lstBenefits.Count();
+                    if (iCntBenefits == 0)
+                    {
+                        WinFormsServ.Error("Не найдено льготы для данной олимпиады в указанном конкурсе!");
+                        return false;
+                    }
+                    else if (Ol.OlympTypeId > 2)
+                    {
+                        if (bNoExamId)
+                            lstEx = lstBenefits.Where(x => x.ExamId.HasValue).Select(x => x.ExamId).ToList();
+
+                        bNoExamId = lstEx.Where(x => x != 0).Count() == 0;
+                        if (bNoExamId)
+                        {
+                            WinFormsServ.Error("Не удаётся найти в базе предмета ЕГЭ для указания льготы!");
+                            return false;
+                        }
+
+                        decimal egeMin = lstBenefits.First().MinEge;
+
+                        //проверяем мин. баллы
+                        var balls = from ege in context.extEgeMarkMaxAbitApproved
+                                    join eee in context.EgeToExam on ege.EgeExamNameId equals eee.EgeExamNameId
+                                    where ege.AbiturientId == AbiturientId && lstEx.Contains(eee.ExamId) && ege.Value >= egeMin
+                                    select ege;
+
+                        if (balls.Count() == 0)
+                        {
+                            WinFormsServ.Error("Не найдено подтверждающих баллов для льготы!");
+                            return false;
+                        }
+                    }
+                }
+            }
+
+            return true;
         }
 
         //печать

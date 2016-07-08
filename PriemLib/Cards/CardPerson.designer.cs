@@ -301,6 +301,8 @@
             this.btnAddAbit = new System.Windows.Forms.Button();
             this.btnDocs = new System.Windows.Forms.Button();
             this.sfdPrint = new System.Windows.Forms.SaveFileDialog();
+            this.gbEgeLoading = new System.Windows.Forms.GroupBox();
+            this.label71 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.epError)).BeginInit();
             this.tabCard.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -355,6 +357,7 @@
             this.gbVedList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVedList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.epErrorInput)).BeginInit();
+            this.gbEgeLoading.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnClose
@@ -2073,6 +2076,7 @@
             // 
             // gbEgeMark
             // 
+            this.gbEgeMark.Controls.Add(this.gbEgeLoading);
             this.gbEgeMark.Controls.Add(this.dgvExams);
             this.gbEgeMark.Location = new System.Drawing.Point(14, 3);
             this.gbEgeMark.Name = "gbEgeMark";
@@ -3218,6 +3222,25 @@
             this.btnDocs.Visible = false;
             this.btnDocs.Click += new System.EventHandler(this.btnDocs_Click);
             // 
+            // gbEgeLoading
+            // 
+            this.gbEgeLoading.Controls.Add(this.label71);
+            this.gbEgeLoading.Location = new System.Drawing.Point(153, 153);
+            this.gbEgeLoading.Name = "gbEgeLoading";
+            this.gbEgeLoading.Size = new System.Drawing.Size(200, 40);
+            this.gbEgeLoading.TabIndex = 9;
+            this.gbEgeLoading.TabStop = false;
+            this.gbEgeLoading.Visible = false;
+            // 
+            // label71
+            // 
+            this.label71.AutoSize = true;
+            this.label71.Location = new System.Drawing.Point(33, 16);
+            this.label71.Name = "label71";
+            this.label71.Size = new System.Drawing.Size(151, 13);
+            this.label71.TabIndex = 0;
+            this.label71.Text = "Идёт загрузка, подождите...";
+            // 
             // CardPerson
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -3320,6 +3343,8 @@
             this.gbVedList.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvVedList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.epErrorInput)).EndInit();
+            this.gbEgeLoading.ResumeLayout(false);
+            this.gbEgeLoading.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -3588,6 +3613,8 @@
         private System.Windows.Forms.Button btnCertificateAdd;
         private System.Windows.Forms.DataGridView dgvCertificates;
         private System.Windows.Forms.Button btnCertificateDelete;
+        private System.Windows.Forms.GroupBox gbEgeLoading;
+        private System.Windows.Forms.Label label71;
 
     }
 }

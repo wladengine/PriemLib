@@ -350,6 +350,19 @@ namespace PriemLib
                 ForeignCountryId = person.ForeignCountryId;
                 ForeignNationalityId = person.ForeignNationalityId;
                 RegionId = person.RegionId;
+
+                if (CountryId != MainClass.countryRussiaId)
+                {
+                    try
+                    {
+                        //Region fix
+                        int iRegionId = CommonDataProvider.GetRegionIdForCountryId(CountryId.Value);
+                        if (iRegionId != 0)
+                            RegionId = iRegionId;
+                    }
+                    catch { }
+                }
+
                 Phone = person.Phone;
                 Mobiles = person.Mobiles;
                 Email = person.Email;
@@ -750,6 +763,18 @@ namespace PriemLib
             RegionEducId = lstEducationInfo[ind].RegionEducId;
             ForeignCountryEducId = lstEducationInfo[ind].ForeignCountryEducId;
 
+            if (CountryEducId != MainClass.countryRussiaId)
+            {
+                try
+                {
+                    //Region fix
+                    int iRegionEducId = CommonDataProvider.GetRegionIdForCountryId(CountryEducId.Value);
+                    if (iRegionEducId != 0)
+                        RegionEducId = iRegionEducId;
+                }
+                catch { }
+            }
+
             tbEqualityDocumentNumber.Visible = CountryEducId != MainClass.countryRussiaId;
             chbEkvivEduc.Visible = CountryEducId != MainClass.countryRussiaId;
             IsEqual = lstEducationInfo[ind].IsEqual;
@@ -893,6 +918,7 @@ namespace PriemLib
                 }
                 catch { }
             }
+
         }
         #endregion
 

@@ -33,17 +33,17 @@ namespace PriemLib
         protected override void InitControls()
         {
             //инвалиды (extPerson.Privileges & 32 > 0) имеют право пересдать ЕГЭ по запоротому предмету (где получили меньше минимума)
-            sQuery = @"SELECT DISTINCT ed.extAbit.Sum, CurrEduc.EducDocument, ed.extAbit.Id as Id, ed.extAbit.BAckDoc as backdoc, 
-             (ed.extAbit.BAckDoc | ed.extAbit.NotEnabled | case when (NOT ed.hlpMinEgeAbiturient.Id IS NULL AND extPerson.Privileges & 32 = 0) then 'true' else 'false' end) as Red, ed.extAbit.RegNum as Рег_Номер, 
-             ed.extPerson.FIO as ФИО, 
-             ed.extPerson.EducDocument as Документ_об_образовании, 
-             ed.extPerson.PassportSeries + ' №' + ed.extPerson.PassportNumber as Паспорт, 
-             extAbit.ObrazProgramNameEx + ' ' + (Case when extAbit.ProfileId IS NULL then '' else extAbit.ProfileName end) as Направление, 
-             Competition.Name as Конкурс, extAbit.BackDoc 
-             FROM ed.extAbit INNER JOIN ed.extPerson ON extAbit.PersonId = extPerson.Id   
-             INNER JOIN ed.extPerson_EducationInfo_Current AS CurrEduc ON CurrEduc.PersonId = extPerson.Id
-             LEFT JOIN ed.hlpMinEgeAbiturient ON hlpMinEgeAbiturient.Id = extAbit.Id
-             LEFT JOIN ed.Competition ON Competition.Id = extAbit.CompetitionId";
+            sQuery = @"SELECT DISTINCT ed.extAbit.Sum, extPerson.EducDocument, ed.extAbit.Id as Id, ed.extAbit.BAckDoc as backdoc, 
+(ed.extAbit.BAckDoc | ed.extAbit.NotEnabled | case when (NOT hlpMinEgeAbiturient.Id IS NULL AND extPerson.Privileges & 32 = 0) then 'true' else 'false' end) as Red, extAbit.RegNum as Рег_Номер, 
+extPerson.FIO as ФИО, 
+extPerson.EducDocument as Документ_об_образовании, 
+extPerson.PassportSeries + ' №' + extPerson.PassportNumber as Паспорт, 
+extAbit.ObrazProgramNameEx + ' ' + (Case when extAbit.ProfileId IS NULL then '' else extAbit.ProfileName end) as Направление, 
+Competition.Name as Конкурс, extAbit.BackDoc 
+FROM ed.extAbit 
+INNER JOIN ed.extPerson ON extAbit.PersonId = extPerson.Id   
+LEFT JOIN ed.hlpMinEgeAbiturient ON hlpMinEgeAbiturient.Id = extAbit.Id
+LEFT JOIN ed.Competition ON Competition.Id = extAbit.CompetitionId";
 
             base.InitControls();
 
@@ -58,20 +58,24 @@ namespace PriemLib
         {
             base.InitAndFillGrids();
 
-            string sFilter = " /*AND extAbit.Id NOT IN (SELECT ed.hlpMinEgeAbiturient.Id FROM ed.hlpMinEgeAbiturient)*/ ";
-            sFilter = string.Format(" AND ed.extAbit.BackDoc=0 AND ed.extAbit.NotEnabled=0 AND ed.extAbit.Id NOT IN (SELECT AbiturientId FROM ed.qProtocolHistory WHERE Excluded=0 AND ProtocolId IN (SELECT Id FROM ed.qProtocol WHERE ISOld=0 AND ProtocolTypeId=1 AND FacultyId ={0} AND StudyFormId = {1} AND StudyBasisId = {2}))", 
-                _facultyId.ToString(), _studyFormId.ToString(), _studyBasisId.ToString());
+            string sFilter = string.Format(@" AND extAbit.BackDoc = 0 AND extAbit.NotEnabled = 0 
+AND extAbit.Id NOT IN 
+(
+    SELECT AbiturientId 
+    FROM ed.extEnableProtocol 
+    WHERE Excluded=0 AND FacultyId = {0} AND StudyFormId = {1} AND StudyBasisId = {2}
+)", _facultyId.ToString(), _studyFormId.ToString(), _studyBasisId.ToString());
 
             if (chbFilter.Checked)
                 sFilter += " AND ed.extAbit.Checked > 0";
 
             //сперва общий конкурс (не общ-преим), т.к. чернобыльцы негодуют - льготы есть, а в протокол не попасть
-            FillGrid(dgvRight, sQuery, GetWhereClause("ed.extAbit") + sFilter + " AND ed.extAbit.CompetitionId NOT IN (1,2,7,8)/* AND (ed.extPerson.Privileges=0  OR ed.extAbit.CompetitionId IN (5,6))*/", sOrderby);
+            FillGrid(dgvRight, sQuery, GetWhereClause("ed.extAbit") + sFilter + " AND extAbit.CompetitionId NOT IN (1,2,7,8) ", sOrderby);
 
             //заполнили левый
             if (_id != null)
             {
-                FillGrid(dgvLeft, sQuery, string.Format(" WHERE ed.extAbit.Id IN (SELECT AbiturientId FROM ed.qProtocolHistory WHERE ProtocolId = '{0}')", _id.ToString()), sOrderby);
+                FillGrid(dgvLeft, sQuery, string.Format(" WHERE extAbit.Id IN (SELECT AbiturientId FROM ed.qProtocolHistory WHERE ProtocolId = '{0}')", _id.ToString()), sOrderby);
             }
             else //новый
             {
@@ -79,7 +83,7 @@ namespace PriemLib
             }
 
             // заполнение льготников, проверенных советниками
-            string query = sQuery + GetWhereClause("ed.extAbit") + sFilter + " AND (ed.extAbit.CompetitionId IN (1,8) OR (ed.extPerson.Privileges>0 AND ed.extAbit.CompetitionId IN (2,7))) AND ed.extAbit.Checked>0 ";
+            string query = sQuery + GetWhereClause("ed.extAbit") + sFilter + " AND (extAbit.CompetitionId IN (1,8) OR (extPerson.Privileges>0 AND extAbit.CompetitionId IN (2,7))) AND ed.extAbit.Checked > 0 ";
 
             DataSet ds = MainClass.Bdc.GetDataSet(query);
 

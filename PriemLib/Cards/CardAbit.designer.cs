@@ -35,6 +35,9 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CardAbit));
             this.label36 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -88,6 +91,7 @@
             this.chbIsPaid = new System.Windows.Forms.CheckBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.gbPortfolio = new System.Windows.Forms.GroupBox();
+            this.chbHasPhilosophy = new System.Windows.Forms.CheckBox();
             this.chbHasEssay = new System.Windows.Forms.CheckBox();
             this.chbHasMotivationLetter = new System.Windows.Forms.CheckBox();
             this.btnDocInventory = new System.Windows.Forms.Button();
@@ -100,7 +104,6 @@
             this.tbEnabledProtocol = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.gbDocs = new System.Windows.Forms.GroupBox();
-            this.chbEgeDocOriginal = new System.Windows.Forms.CheckBox();
             this.chbAttOriginal = new System.Windows.Forms.CheckBox();
             this.dtDocDate = new System.Windows.Forms.DateTimePicker();
             this.label21 = new System.Windows.Forms.Label();
@@ -111,6 +114,10 @@
             this.btnRemoveO = new System.Windows.Forms.Button();
             this.dgvOlimps = new System.Windows.Forms.DataGridView();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.gbAdditionalAchievements = new System.Windows.Forms.GroupBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.tbAdditionalAchievementsMark = new System.Windows.Forms.TextBox();
+            this.dgvAdditionalAchievements = new System.Windows.Forms.DataGridView();
             this.cbLanguage = new System.Windows.Forms.ComboBox();
             this.btnDeleteMark = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
@@ -134,6 +141,10 @@
             this.lblFIO = new System.Windows.Forms.Label();
             this.btnCardPerson = new System.Windows.Forms.Button();
             this.epErrorInput = new System.Windows.Forms.ErrorProvider(this.components);
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.chbHasEntryConfirm = new System.Windows.Forms.CheckBox();
+            this.dtpDateEntryConfirm = new System.Windows.Forms.DateTimePicker();
+            this.label11 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.epError)).BeginInit();
             this.tabCard.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -146,6 +157,8 @@
             this.gbOlymps.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvOlimps)).BeginInit();
             this.tabPage3.SuspendLayout();
+            this.gbAdditionalAchievements.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAdditionalAchievements)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvExams)).BeginInit();
             this.tabPage4.SuspendLayout();
             this.gbPrint.SuspendLayout();
@@ -154,6 +167,7 @@
             this.tpExamBlock.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAppExams)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.epErrorInput)).BeginInit();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnPrev
@@ -760,6 +774,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.groupBox2);
             this.tabPage2.Controls.Add(this.gbPortfolio);
             this.tabPage2.Controls.Add(this.btnDocInventory);
             this.tabPage2.Controls.Add(this.btnDocs);
@@ -778,14 +793,26 @@
             // 
             // gbPortfolio
             // 
+            this.gbPortfolio.Controls.Add(this.chbHasPhilosophy);
             this.gbPortfolio.Controls.Add(this.chbHasEssay);
             this.gbPortfolio.Controls.Add(this.chbHasMotivationLetter);
-            this.gbPortfolio.Location = new System.Drawing.Point(17, 206);
+            this.gbPortfolio.Location = new System.Drawing.Point(17, 220);
             this.gbPortfolio.Name = "gbPortfolio";
-            this.gbPortfolio.Size = new System.Drawing.Size(293, 71);
+            this.gbPortfolio.Size = new System.Drawing.Size(293, 94);
             this.gbPortfolio.TabIndex = 43;
             this.gbPortfolio.TabStop = false;
             this.gbPortfolio.Text = "Портфолио";
+            // 
+            // chbHasPhilosophy
+            // 
+            this.chbHasPhilosophy.AutoSize = true;
+            this.chbHasPhilosophy.Enabled = false;
+            this.chbHasPhilosophy.Location = new System.Drawing.Point(6, 65);
+            this.chbHasPhilosophy.Name = "chbHasPhilosophy";
+            this.chbHasPhilosophy.Size = new System.Drawing.Size(210, 17);
+            this.chbHasPhilosophy.TabIndex = 2;
+            this.chbHasPhilosophy.Text = "Прикреплён реферат по философии";
+            this.chbHasPhilosophy.UseVisualStyleBackColor = true;
             // 
             // chbHasEssay
             // 
@@ -855,9 +882,9 @@
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.tbEnabledProtocol);
             this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Location = new System.Drawing.Point(17, 283);
+            this.groupBox1.Location = new System.Drawing.Point(17, 129);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(248, 100);
+            this.groupBox1.Size = new System.Drawing.Size(293, 85);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Протоколы";
@@ -867,7 +894,7 @@
             this.tbEntryProtocol.Location = new System.Drawing.Point(121, 52);
             this.tbEntryProtocol.Name = "tbEntryProtocol";
             this.tbEntryProtocol.ReadOnly = true;
-            this.tbEntryProtocol.Size = new System.Drawing.Size(115, 20);
+            this.tbEntryProtocol.Size = new System.Drawing.Size(153, 20);
             this.tbEntryProtocol.TabIndex = 1;
             // 
             // label7
@@ -884,7 +911,7 @@
             this.tbEnabledProtocol.Location = new System.Drawing.Point(121, 19);
             this.tbEnabledProtocol.Name = "tbEnabledProtocol";
             this.tbEnabledProtocol.ReadOnly = true;
-            this.tbEnabledProtocol.Size = new System.Drawing.Size(115, 20);
+            this.tbEnabledProtocol.Size = new System.Drawing.Size(153, 20);
             this.tbEnabledProtocol.TabIndex = 1;
             // 
             // label5
@@ -898,25 +925,14 @@
             // 
             // gbDocs
             // 
-            this.gbDocs.Controls.Add(this.chbEgeDocOriginal);
             this.gbDocs.Controls.Add(this.chbAttOriginal);
-            this.gbDocs.Location = new System.Drawing.Point(17, 129);
+            this.gbDocs.Location = new System.Drawing.Point(17, 320);
             this.gbDocs.Name = "gbDocs";
-            this.gbDocs.Size = new System.Drawing.Size(293, 71);
+            this.gbDocs.Size = new System.Drawing.Size(284, 85);
             this.gbDocs.TabIndex = 25;
             this.gbDocs.TabStop = false;
             this.gbDocs.Text = "Документы";
             this.gbDocs.Visible = false;
-            // 
-            // chbEgeDocOriginal
-            // 
-            this.chbEgeDocOriginal.AutoSize = true;
-            this.chbEgeDocOriginal.Location = new System.Drawing.Point(6, 42);
-            this.chbEgeDocOriginal.Name = "chbEgeDocOriginal";
-            this.chbEgeDocOriginal.Size = new System.Drawing.Size(281, 17);
-            this.chbEgeDocOriginal.TabIndex = 1;
-            this.chbEgeDocOriginal.Text = "Подлинники всех необходимых свидетельств ЕГЭ";
-            this.chbEgeDocOriginal.UseVisualStyleBackColor = true;
             // 
             // chbAttOriginal
             // 
@@ -1041,6 +1057,7 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.gbAdditionalAchievements);
             this.tabPage3.Controls.Add(this.cbLanguage);
             this.tabPage3.Controls.Add(this.btnDeleteMark);
             this.tabPage3.Controls.Add(this.label6);
@@ -1057,6 +1074,76 @@
             this.tabPage3.TabIndex = 1;
             this.tabPage3.Text = "Оценки";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // gbAdditionalAchievements
+            // 
+            this.gbAdditionalAchievements.Controls.Add(this.label10);
+            this.gbAdditionalAchievements.Controls.Add(this.tbAdditionalAchievementsMark);
+            this.gbAdditionalAchievements.Controls.Add(this.dgvAdditionalAchievements);
+            this.gbAdditionalAchievements.Location = new System.Drawing.Point(6, 264);
+            this.gbAdditionalAchievements.Name = "gbAdditionalAchievements";
+            this.gbAdditionalAchievements.Size = new System.Drawing.Size(605, 195);
+            this.gbAdditionalAchievements.TabIndex = 126;
+            this.gbAdditionalAchievements.TabStop = false;
+            this.gbAdditionalAchievements.Text = "Индивидуальные достижения";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(448, 162);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(80, 13);
+            this.label10.TabIndex = 11;
+            this.label10.Text = "Сумма баллов";
+            // 
+            // tbAdditionalAchievementsMark
+            // 
+            this.tbAdditionalAchievementsMark.Location = new System.Drawing.Point(534, 159);
+            this.tbAdditionalAchievementsMark.Name = "tbAdditionalAchievementsMark";
+            this.tbAdditionalAchievementsMark.ReadOnly = true;
+            this.tbAdditionalAchievementsMark.Size = new System.Drawing.Size(64, 20);
+            this.tbAdditionalAchievementsMark.TabIndex = 10;
+            // 
+            // dgvAdditionalAchievements
+            // 
+            this.dgvAdditionalAchievements.AllowUserToAddRows = false;
+            this.dgvAdditionalAchievements.AllowUserToDeleteRows = false;
+            this.dgvAdditionalAchievements.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvAdditionalAchievements.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvAdditionalAchievements.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            this.dgvAdditionalAchievements.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvAdditionalAchievements.DefaultCellStyle = dataGridViewCellStyle5;
+            this.dgvAdditionalAchievements.Location = new System.Drawing.Point(6, 19);
+            this.dgvAdditionalAchievements.MultiSelect = false;
+            this.dgvAdditionalAchievements.Name = "dgvAdditionalAchievements";
+            this.dgvAdditionalAchievements.ReadOnly = true;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvAdditionalAchievements.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            this.dgvAdditionalAchievements.RowHeadersVisible = false;
+            this.dgvAdditionalAchievements.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvAdditionalAchievements.Size = new System.Drawing.Size(593, 134);
+            this.dgvAdditionalAchievements.TabIndex = 8;
             // 
             // cbLanguage
             // 
@@ -1141,35 +1228,35 @@
             this.dgvExams.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvExams.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvExams.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvExams.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.dgvExams.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvExams.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvExams.DefaultCellStyle = dataGridViewCellStyle8;
             this.dgvExams.Location = new System.Drawing.Point(7, 6);
             this.dgvExams.MultiSelect = false;
             this.dgvExams.Name = "dgvExams";
             this.dgvExams.ReadOnly = true;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvExams.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvExams.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this.dgvExams.RowHeadersVisible = false;
             this.dgvExams.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvExams.Size = new System.Drawing.Size(604, 134);
@@ -1321,6 +1408,45 @@
             // 
             this.epErrorInput.ContainerControl = this;
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.dtpDateEntryConfirm);
+            this.groupBox2.Controls.Add(this.label11);
+            this.groupBox2.Controls.Add(this.chbHasEntryConfirm);
+            this.groupBox2.Location = new System.Drawing.Point(316, 129);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(284, 185);
+            this.groupBox2.TabIndex = 44;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Согласие на зачисление";
+            // 
+            // chbHasEntryConfirm
+            // 
+            this.chbHasEntryConfirm.AutoSize = true;
+            this.chbHasEntryConfirm.Location = new System.Drawing.Point(6, 19);
+            this.chbHasEntryConfirm.Name = "chbHasEntryConfirm";
+            this.chbHasEntryConfirm.Size = new System.Drawing.Size(261, 17);
+            this.chbHasEntryConfirm.TabIndex = 1;
+            this.chbHasEntryConfirm.Text = "Согласие на зачисление по данному конкурсу";
+            this.chbHasEntryConfirm.UseVisualStyleBackColor = true;
+            // 
+            // dtpDateEntryConfirm
+            // 
+            this.dtpDateEntryConfirm.Enabled = false;
+            this.dtpDateEntryConfirm.Location = new System.Drawing.Point(9, 56);
+            this.dtpDateEntryConfirm.Name = "dtpDateEntryConfirm";
+            this.dtpDateEntryConfirm.Size = new System.Drawing.Size(183, 20);
+            this.dtpDateEntryConfirm.TabIndex = 25;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(6, 39);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(169, 13);
+            this.label11.TabIndex = 26;
+            this.label11.Text = "Дата предоставления согласия";
+            // 
             // CardAbit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1362,6 +1488,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvOlimps)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            this.gbAdditionalAchievements.ResumeLayout(false);
+            this.gbAdditionalAchievements.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAdditionalAchievements)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvExams)).EndInit();
             this.tabPage4.ResumeLayout(false);
             this.gbPrint.ResumeLayout(false);
@@ -1371,6 +1500,8 @@
             this.tpExamBlock.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvAppExams)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.epErrorInput)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1421,7 +1552,6 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox tbEnabledProtocol;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.CheckBox chbEgeDocOriginal;
         private System.Windows.Forms.Label lblCompFromOlymp;
         private System.Windows.Forms.CheckBox chbNotEnabled;
         private System.Windows.Forms.Label label28;
@@ -1477,10 +1607,19 @@
         private System.Windows.Forms.GroupBox gbObrazProgramInEntry;
         private System.Windows.Forms.CheckBox chbIsCrimea;
         private System.Windows.Forms.Button btnSaveInnerEntryInEntry;
-        private System.Windows.Forms.Label lblBackDocByAdmissionHigh;
         private System.Windows.Forms.Button btnChangeOriginalsDestination;
         private System.Windows.Forms.ComboBox cbBenefitOlympSource;
         private System.Windows.Forms.TabPage tpExamBlock;
         private System.Windows.Forms.DataGridView dgvAppExams;
+        private System.Windows.Forms.GroupBox gbAdditionalAchievements;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox tbAdditionalAchievementsMark;
+        private System.Windows.Forms.DataGridView dgvAdditionalAchievements;
+        private System.Windows.Forms.CheckBox chbHasPhilosophy;
+        private System.Windows.Forms.Label lblBackDocByAdmissionHigh;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.DateTimePicker dtpDateEntryConfirm;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.CheckBox chbHasEntryConfirm;
     }
 }

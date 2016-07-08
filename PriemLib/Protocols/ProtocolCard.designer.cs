@@ -50,9 +50,12 @@
             this.dgvRight = new System.Windows.Forms.DataGridView();
             this.dgvLeft = new System.Windows.Forms.DataGridView();
             this.cbHeaders = new System.Windows.Forms.ComboBox();
+            this.gbLoading = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.epError)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvLeft)).BeginInit();
+            this.gbLoading.SuspendLayout();
             this.SuspendLayout();
             // 
             // chbInostr
@@ -273,11 +276,33 @@
             this.cbHeaders.TabIndex = 62;
             this.cbHeaders.Visible = false;
             // 
+            // gbLoading
+            // 
+            this.gbLoading.Controls.Add(this.label1);
+            this.gbLoading.Location = new System.Drawing.Point(264, 181);
+            this.gbLoading.Name = "gbLoading";
+            this.gbLoading.Size = new System.Drawing.Size(200, 71);
+            this.gbLoading.TabIndex = 63;
+            this.gbLoading.TabStop = false;
+            this.gbLoading.Visible = false;
+            // 
+            // label1
+            // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(27, 31);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(151, 13);
+            this.label1.TabIndex = 60;
+            this.label1.Text = "Идёт загрузка, подождите...";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // ProtocolCard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(715, 486);
+            this.Controls.Add(this.gbLoading);
             this.Controls.Add(this.cbHeaders);
             this.Controls.Add(this.chbInostr);
             this.Controls.Add(this.lblHeaderText);
@@ -305,6 +330,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.epError)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRight)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvLeft)).EndInit();
+            this.gbLoading.ResumeLayout(false);
+            this.gbLoading.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -333,5 +360,7 @@
         protected System.Windows.Forms.DataGridView dgvRight;
         protected System.Windows.Forms.DataGridView dgvLeft;
         protected System.Windows.Forms.ComboBox cbHeaders;
+        private System.Windows.Forms.GroupBox gbLoading;
+        protected System.Windows.Forms.Label label1;
     }
 }
