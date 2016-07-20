@@ -159,7 +159,7 @@ INNER JOIN ed.extExamInEntry ON extExamInEntry.EntryId = extAbit.EntryId
 INNER JOIN ed.EgeToExam ON EgeToExam.ExamId = extExamInEntry.ExamId
 INNER JOIN ed.EgeExamName ON EgeExamName.Id = EgeToExam.EgeExamNameId
 INNER JOIN ed.hlpStatMaxApprovedEgeMarks ON hlpStatMaxApprovedEgeMarks.PersonId = extAbit.PersonId AND hlpStatMaxApprovedEgeMarks.EgeExamNameId = EgeExamName.Id
-WHERE extAbit.StudyLevelGroupId=1 AND IsForeign=0 AND IsCrimea=0 AND extAbit.FacultyId=" + FacultyId.ToString() + " ";
+WHERE extAbit.StudyLevelGroupId=1 AND extAbit.IsForeign=0 AND extAbit.IsCrimea=0 AND extAbit.FacultyId=" + FacultyId.ToString() + " ";
                 where = "";
                 if (LicenseProgramId != null)
                     where += " AND extAbit.LicenseProgramId=" + LicenseProgramId.ToString();

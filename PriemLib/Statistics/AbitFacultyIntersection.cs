@@ -100,38 +100,78 @@ namespace PriemLib
         }
 
         private DataTable GetTableIntersect(int iFacultyId)
-        {
-            string query = string.Format(@"
-                SELECT qq.FacultyId, qq.FacultyName AS Факультет, COUNT(DISTINCT PersonId) AS 'Количество людей'
-                FROM ed.qAbitAll as qq
-                WHERE PersonId IN
-                (
-                    SELECT DISTINCT q.PersonId
-                    FROM ed.qAbitAll as q
-                    WHERE PersonId IN
-                    (
-	                    SELECT PersonId
-	                    FROM ed.qAbitAll
-	                    WHERE qAbitAll.FacultyId <> q.FacultyId
-	                    AND StudyLevelGroupId = @StudyLevelGroupId
-                        AND qAbitAll.BackDoc = 0
-                    )
-                    AND StudyLevelGroupId = @StudyLevelGroupId
-                    AND q.FacultyId = @FacultyId
-                    AND q.BackDoc = 0
-                    {0}
-                )
-                AND StudyLevelGroupId = @StudyLevelGroupId
-                AND FacultyId <> @FacultyId
-                AND qq.BackDoc = 0
-                GROUP BY qq.FacultyId, qq.FacultyName", LicenseProgramId == null ? "" : "AND q.LicenseProgramId=@LicenseProgramId ");
-            SortedList<string, object> sl = new SortedList<string, object>();
-            sl.Add("@FacultyId", iFacultyId);
-            sl.Add("@StudyLevelGroupId", MainClass.lstStudyLevelGroupId.First());
-            if (LicenseProgramId != null)
-                sl.Add("@LicenseProgramId", LicenseProgramId);
+        { 
+            using (PriemEntities context = new PriemEntities())
+            {
+                var FacultyNames = context.SP_Faculty.Select(x => x).ToList();
+
+                var PersonIdLst = context.qAbitAll.Where(x =>
+                MainClass.lstStudyLevelGroupId.Contains(x.StudyLevelGroupId) &&
+                x.FacultyId == iFacultyId &&
+                (LicenseProgramId.HasValue ? x.LicenseProgramId == LicenseProgramId.Value : true) &&
+                !x.BackDoc
+                ).Select(x => x.PersonId).Distinct().ToList();
+
+
+                var PersonIdlst = context.qAbitAll.Where(x =>
+                MainClass.lstStudyLevelGroupId.Contains(x.StudyLevelGroupId) &&
+                x.FacultyId != iFacultyId &&
+                PersonIdLst.Contains(x.PersonId) &&
+                !x.BackDoc
+                ).Select(x => new { x.PersonId, x.FacultyId }).Distinct().ToList().GroupBy(x => x.FacultyId).Select(x => new
+                {
+                    FacultyId = x.Key,
+                    FacultyName = FacultyNames.Where(id => id.Id == x.Key).Select(id => id.Name).FirstOrDefault(),
+                    Count = x.Count(),
+                }).ToList(); 
+
+                DataTable tbl = new DataTable();
+                tbl.Columns.Add("FacultyId", System.Type.GetType("System.Int32"));
+                tbl.Columns.Add("Факультет", System.Type.GetType("System.String")); 
+                tbl.Columns.Add("Количество людей", System.Type.GetType("System.Int32"));
+                
+                foreach (var x in PersonIdlst)
+                {
+                    DataRow rw = tbl.NewRow();
+                    rw["FacultyId"]=x.FacultyId;
+                    rw["Факультет"]= x.FacultyName;
+                    rw["Количество людей"]= x.Count;
+                    tbl.Rows.Add(rw);
+                }
+
+                return tbl;
+            }
+//            string query = string.Format(@"
+//                SELECT qq.FacultyId, qq.FacultyName AS Факультет, COUNT(DISTINCT PersonId) AS 'Количество людей'
+//                FROM ed.qAbitAll as qq
+//                WHERE PersonId IN
+//                (
+//                    SELECT DISTINCT q.PersonId
+//                    FROM ed.qAbitAll as q
+//                    WHERE PersonId IN
+//                    (
+//	                    SELECT PersonId
+//	                    FROM ed.qAbitAll
+//	                    WHERE qAbitAll.FacultyId <> q.FacultyId
+//	                    AND StudyLevelGroupId = @StudyLevelGroupId
+//                        AND qAbitAll.BackDoc = 0
+//                    )
+//                    AND StudyLevelGroupId = @StudyLevelGroupId
+//                    AND q.FacultyId = @FacultyId
+//                    AND q.BackDoc = 0
+//                    {0}
+//                )
+//                AND StudyLevelGroupId = @StudyLevelGroupId
+//                AND FacultyId <> @FacultyId
+//                AND qq.BackDoc = 0
+//                GROUP BY qq.FacultyId, qq.FacultyName", LicenseProgramId == null ? "" : "AND q.LicenseProgramId=@LicenseProgramId ");
+//            SortedList<string, object> sl = new SortedList<string, object>();
+//            sl.Add("@FacultyId", iFacultyId);
+//            sl.Add("@StudyLevelGroupId", MainClass.lstStudyLevelGroupId.First());
+//            if (LicenseProgramId != null)
+//                sl.Add("@LicenseProgramId", LicenseProgramId);
             
-            return MainClass.Bdc.GetDataSet(query, sl).Tables[0];
+//            return MainClass.Bdc.GetDataSet(query, sl).Tables[0];
         }
 
         private void dgv_CellDoubleClick(object sender, DataGridViewCellEventArgs e)

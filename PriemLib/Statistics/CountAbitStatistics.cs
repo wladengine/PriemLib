@@ -182,7 +182,7 @@ namespace PriemLib
                                {
                                    LicenseProgramId = rw.Field<int>("LicenseProgramId"),
                                    ObrazProgramId = rw.Field<int>("ObrazProgramId"),
-                                   ProfileId = rw.Field<Guid?>("ProfileId"),
+                                   ProfileId = rw.Field<int?>("ProfileId"),
                                    CNT = rw.Field<int>("CNT")
                                };
 
@@ -191,7 +191,7 @@ namespace PriemLib
                                {
                                    LicenseProgramId = rw.Field<int>("LicenseProgramId"),
                                    ObrazProgramId = rw.Field<int>("ObrazProgramId"),
-                                   ProfileId = rw.Field<Guid?>("ProfileId"),
+                                   ProfileId = rw.Field<int?>("ProfileId"),
                                    KCP = rw.Field<int>("KCP")
                                };
 
@@ -202,7 +202,7 @@ namespace PriemLib
                                  LicenseProgramName = rw.Field<string>("Profession"),
                                  ObrazProgramId = rw.Field<int>("ObrazProgramId"),
                                  ObrazProgramName = rw.Field<string>("ObrazProgram"),
-                                 ProfileId = string.IsNullOrEmpty(rw["ProfileId"].ToString()) ? (Guid?)null : rw.Field<Guid?>("ProfileId"),
+                                 ProfileId = string.IsNullOrEmpty(rw["ProfileId"].ToString()) ? (int?)null : rw.Field<int?>("ProfileId"),
                                  ProfileName = rw.Field<string>("ProfileName"),
                                  Date = rw.Field<DateTime>("Date"),
                                  CNT = rw.Field<int>("CNT")
