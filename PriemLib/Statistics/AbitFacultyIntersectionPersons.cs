@@ -493,192 +493,266 @@ namespace PriemLib
 
         private void FillGrid()
         {
-            string query = @"
-                SELECT DISTINCT extPerson.Id, extPerson.FIO, hlpStatRatingList.SUM, hlpStatRatingList.Rank, Entry.KCP, 
-                (case when q.CompetitionId IN (1,2,5,7,8) then 1 else 0 end) AS VKs,
-                (CASE when Rank <= Entry.KCP then 1 else 0 end) AS GREEN, (case when q.HasOriginals='True' then 1 else 0 end) AS Orig
-                FROM ed.qAbitAll as q
-                INNER JOIN ed.extPerson ON extPerson.Id = q.PersonId
-                INNER JOIN ed.Entry ON Entry.Id = q.EntryId
-                LEFT JOIN ed.hlpStatRatingList ON hlpStatRatingList.AbiturientId=q.Id
-                WHERE q.PersonId IN
-                (
-                    SELECT PersonId
-                    FROM ed.qAbitAll
-                    WHERE qAbitAll.FacultyId <> q.FacultyId
-                    AND qAbitAll.FacultyId = @OtherFacultyId
-                    AND StudyLevelGroupId = @StudyLevelGroupId
-                    AND qAbitAll.BackDoc = 0
-                )
-                AND StudyLevelGroupId = @StudyLevelGroupId
-                AND q.FacultyId=@FacultyId AND q.BackDoc = 0 AND q.StudyFormId=@StudyFormId AND q.StudyBasisId=@StudyBasisId AND q.CompetitionId<>6 ";
-
-            SortedList<string, object> sl = new SortedList<string, object>();
-            sl.Add("@StudyLevelGroupId", MainClass.lstStudyLevelGroupId.First());
-            sl.Add("@FacultyId", FacultyId);
-            sl.Add("@OtherFacultyId", OtherFacultyId);
-            sl.Add("@StudyFormId", StudyFormId);
-            sl.Add("@StudyBasisId", StudyBasisId);
-
-            if (LicenseProgramId.HasValue)
+            using (PriemEntities context = new PriemEntities())
             {
-                query += " AND q.LicenseProgramId=@LicenseProgramId ";
-                sl.Add("@LicenseProgramId", LicenseProgramId);
-            }
-            if (ObrazProgramId.HasValue)
-            {
-                query += " AND q.ObrazProgramId=@ObrazProgramId ";
-                sl.Add("@ObrazProgramId", ObrazProgramId);
-            }
+                List<int> Competition_Vks = new List<int>() { 1, 2, 5, 7, 8 };
 
-            NewWatch wc = new NewWatch(3);
-            wc.Show();
-            wc.SetText("Данные вашего факультета...");
-            DataTable tbl = MainClass.Bdc.GetDataSet(query + " ORDER BY FIO ", sl).Tables[0];
+                var PersonIdlst = (from qAb in context.qAbitAll
+                                   where qAb.FacultyId != FacultyId &&
+                                   qAb.FacultyId == OtherFacultyId &&
+                                   MainClass.lstStudyLevelGroupId.Contains(qAb.StudyLevelGroupId) &&
+                                   !qAb.BackDoc
+                                   select qAb.PersonId).ToList();
 
-            var Persons = from DataRow rw in tbl.Rows
-                          select new
-                          {
-                              PersonId = rw.Field<Guid>("Id"),
-                              FIO = rw.Field<string>("FIO"),
-                              SUM = rw.Field<decimal?>("SUM"),
-                              Rank = rw.Field<long>("Rank"),
-                              KCP = rw.Field<int?>("KCP") ?? 0,
-                              Green = rw.Field<int>("GREEN") == 1 ? true : false,
-                              Originals = rw.Field<int>("Orig") == 1 ? true : false,
-                              VK = rw.Field<int>("VKs") == 1 ? true : false
-                          };
+                var Persons = (from qAb in context.qAbitAll
+                               join extP in context.extPerson on qAb.PersonId equals extP.Id
+                               join ent in context.Entry on qAb.EntryId equals ent.Id
+                               join hlp in context.hlpStatRatingList on qAb.Id equals hlp.AbiturientId into _h
+                               from hlp in _h.DefaultIfEmpty()
+                               where 
+                               MainClass.lstStudyLevelGroupId.Contains(qAb.StudyLevelGroupId) &&
+                               !qAb.BackDoc &&
+                               PersonIdlst.Contains(qAb.PersonId) &&
+                               qAb.StudyFormId == StudyFormId &&
+                               qAb.StudyBasisId == StudyBasisId &&
+                               qAb.CompetitionId != 6 &&
+                               ((LicenseProgramId.HasValue) ? qAb.LicenseProgramId == LicenseProgramId : true) &&
+                               ((ObrazProgramId.HasValue) ? qAb.ObrazProgramId == ObrazProgramId : true)
+                               select new
+                               {
+                                   PersonId = extP.Id,
+                                   extP.FIO,
+                                   hlp.SUM,
+                                   hlp.Rank,
+                                   ent.KCP,
+                                   VK = Competition_Vks.Contains(qAb.CompetitionId),
+                                   Green = (hlp.Rank <= ent.KCP),
+                                   Originals = (qAb.HasOriginals),
+                               }).Distinct().OrderBy(x => x.FIO).ToList();
 
-            query = @"
-                SELECT DISTINCT extPerson.Id AS PersonId, 
-                (case when qAbitAll.CompetitionId IN (1,2,5,7,8) then 1 else 0 end) AS VKs,
-                (case when qAbitAll.HasOriginals='True' then 1 else 0 end) AS Orig,
-                qAbitAll.LicenseProgramCode + ' ' + qAbitAll.LicenseProgramName AS LP,
-                qAbitAll.ObrazProgramCrypt + ' ' + qAbitAll.ObrazProgramName AS OP,
-                qAbitAll.ProfileName,
-                hlpStatRatingList.SUM, hlpStatRatingList.Rank, Entry.KCP, (CASE when Rank <= Entry.KCP then 1 else 0 end) AS GREEN
-                FROM ed.qAbitAll
-                INNER JOIN ed.Entry ON Entry.Id = qAbitAll.EntryId
-                INNER JOIN ed.extPerson ON extPerson.Id=qAbitAll.PersonId
-                LEFT JOIN ed.hlpStatRatingList ON hlpStatRatingList.AbiturientId=qAbitAll.Id
-                WHERE qAbitAll.FacultyId=@OtherFacultyId
-                AND StudyLevelGroupId=@StudyLevelGroupId AND qAbitAll.CompetitionId<>6 AND qAbitAll.NotEnabled<>'True'
-                AND qAbitAll.BackDoc=0 AND qAbitAll.StudyBasisId=@OtherStudyBasisId AND qAbitAll.StudyFormId=@OtherStudyFormId ";
+                #region oldcode
+                //            string query = @"
+                //                SELECT DISTINCT extPerson.Id, extPerson.FIO, hlpStatRatingList.SUM, hlpStatRatingList.Rank, Entry.KCP, 
+                //                (case when q.CompetitionId IN (1,2,5,7,8) then 1 else 0 end) AS VKs,
+                //                (CASE when Rank <= Entry.KCP then 1 else 0 end) AS GREEN, (case when q.HasOriginals='True' then 1 else 0 end) AS Orig
+                //                FROM ed.qAbitAll as q
+                //                INNER JOIN ed.extPerson ON extPerson.Id = q.PersonId
+                //                INNER JOIN ed.Entry ON Entry.Id = q.EntryId
+                //                LEFT JOIN ed.hlpStatRatingList ON hlpStatRatingList.AbiturientId=q.Id
+                //                WHERE q.PersonId IN
+                //                (
+                //                    SELECT PersonId
+                //                    FROM ed.qAbitAll
+                //                    WHERE qAbitAll.FacultyId <> q.FacultyId
+                //                    AND qAbitAll.FacultyId = @OtherFacultyId
+                //                    AND StudyLevelGroupId = @StudyLevelGroupId
+                //                    AND qAbitAll.BackDoc = 0
+                //                )
+                //                AND StudyLevelGroupId = @StudyLevelGroupId
+                //                AND q.FacultyId=@FacultyId AND q.BackDoc = 0 AND q.StudyFormId=@StudyFormId AND q.StudyBasisId=@StudyBasisId AND q.CompetitionId<>6 ";
 
-            sl.Add("@OtherStudyFormId", OtherStudyFormId);
-            sl.Add("@OtherStudyBasisId", OtherStudyBasisId);
+                //            SortedList<string, object> sl = new SortedList<string, object>();
+                //            sl.Add("@StudyLevelGroupId", MainClass.lstStudyLevelGroupId.First());
+                //            sl.Add("@FacultyId", FacultyId);
+                //            sl.Add("@OtherFacultyId", OtherFacultyId);
+                //            sl.Add("@StudyFormId", StudyFormId);
+                //            sl.Add("@StudyBasisId", StudyBasisId);
 
-            if (OtherLicenseProgramId.HasValue)
-            {
-                query += " AND qAbitAll.LicenseProgramId=@OtherLicenseProgramId ";
-                sl.Add("@OtherLicenseProgramId", OtherLicenseProgramId);
-            }
-            if (OtherObrazProgramId.HasValue)
-            {
-                query += " AND qAbitAll.ObrazProgramId=@OtherObrazProgramId ";
-                sl.Add("@OtherObrazProgramId", OtherObrazProgramId);
-            }
+                //            if (LicenseProgramId.HasValue)
+                //            {
+                //                query += " AND q.LicenseProgramId=@LicenseProgramId ";
+                //                sl.Add("@LicenseProgramId", LicenseProgramId);
+                //            }
+                //            if (ObrazProgramId.HasValue)
+                //            {
+                //                query += " AND q.ObrazProgramId=@ObrazProgramId ";
+                //                sl.Add("@ObrazProgramId", ObrazProgramId);
+                //            }
+                #endregion
+                NewWatch wc = new NewWatch(3);
+                wc.Show();
+                wc.SetText("Данные вашего факультета...");
+                #region oldcode
+                //DataTable tbl = MainClass.Bdc.GetDataSet(query + " ORDER BY FIO ", sl).Tables[0];
 
-            wc.SetText("Данные сравниваемого факультета...");
-            tbl = MainClass.Bdc.GetDataSet(query, sl).Tables[0];
+                //var Persons = from DataRow rw in tbl.Rows
+                //              select new
+                //              {
+                //                  PersonId = rw.Field<Guid>("Id"),
+                //                  FIO = rw.Field<string>("FIO"),
+                //                  SUM = rw.Field<decimal?>("SUM"),
+                //                  Rank = rw.Field<long>("Rank"),
+                //                  KCP = rw.Field<int?>("KCP") ?? 0,
+                //                  Green = rw.Field<int>("GREEN") == 1 ? true : false,
+                //                  Originals = rw.Field<int>("Orig") == 1 ? true : false,
+                //                  VK = rw.Field<int>("VKs") == 1 ? true : false
+                //              };
+                #endregion
+
+                var OtherMarks = (from qAb in context.qAbitAll
+                               join extP in context.extPerson on qAb.PersonId equals extP.Id
+                               join ent in context.Entry on qAb.EntryId equals ent.Id
+                               join hlp in context.hlpStatRatingList on qAb.Id equals hlp.AbiturientId into _h
+                               from hlp in _h.DefaultIfEmpty()
+                               where MainClass.lstStudyLevelGroupId.Contains(qAb.StudyLevelGroupId) &&
+                               qAb.FacultyId == OtherFacultyId &&
+                               PersonIdlst.Contains(qAb.PersonId) &&
+                               !qAb.BackDoc &&
+                               qAb.StudyFormId == OtherStudyFormId &&
+                               qAb.StudyBasisId == OtherStudyBasisId &&
+                               qAb.CompetitionId != 6 &&
+                               ((OtherLicenseProgramId.HasValue) ? qAb.LicenseProgramId == OtherLicenseProgramId : true) &&
+                               ((OtherObrazProgramId.HasValue) ? qAb.ObrazProgramId == OtherObrazProgramId : true) &&
+                               !qAb.NotEnabled
+                               select new
+                               {
+                                   PersonId = extP.Id,
+                                   extP.FIO,
+                                   hlp.SUM,
+                                   hlp.Rank,
+                                   ent.KCP,
+                                   VK = Competition_Vks.Contains(qAb.CompetitionId),
+                                   Green = (hlp.Rank <= ent.KCP),
+                                   Originals = (qAb.HasOriginals),
+                                   LicenseProgram = qAb.LicenseProgramCode + " " + qAb.LicenseProgramName,
+                                   ObrazProgram = qAb.ObrazProgramCrypt + " " + qAb.ObrazProgramName, 
+                                  Profile= qAb.ProfileName,
+
+                               }).Distinct().OrderBy(x => x.FIO).ToList();
+                #region oldcode
+//                string query = @"
+//                SELECT DISTINCT extPerson.Id AS PersonId, 
+//                (case when qAbitAll.CompetitionId IN (1,2,5,7,8) then 1 else 0 end) AS VKs,
+//                (case when qAbitAll.HasOriginals='True' then 1 else 0 end) AS Orig,
+//                qAbitAll.LicenseProgramCode + ' ' + qAbitAll.LicenseProgramName AS LP,
+//                qAbitAll.ObrazProgramCrypt + ' ' + qAbitAll.ObrazProgramName AS OP,
+//                qAbitAll.ProfileName,
+//                hlpStatRatingList.SUM, hlpStatRatingList.Rank, Entry.KCP, (CASE when Rank <= Entry.KCP then 1 else 0 end) AS GREEN
+//                FROM ed.qAbitAll
+//                INNER JOIN ed.Entry ON Entry.Id = qAbitAll.EntryId
+//                INNER JOIN ed.extPerson ON extPerson.Id=qAbitAll.PersonId
+//                LEFT JOIN ed.hlpStatRatingList ON hlpStatRatingList.AbiturientId=qAbitAll.Id
+//                WHERE qAbitAll.FacultyId=@OtherFacultyId
+//                AND StudyLevelGroupId=@StudyLevelGroupId AND qAbitAll.CompetitionId<>6 AND qAbitAll.NotEnabled<>'True'
+//                AND qAbitAll.BackDoc=0 AND qAbitAll.StudyBasisId=@OtherStudyBasisId AND qAbitAll.StudyFormId=@OtherStudyFormId ";
+               
+//                sl.Add("@OtherStudyFormId", OtherStudyFormId);
+//                sl.Add("@OtherStudyBasisId", OtherStudyBasisId);
             
-            var OtherMarks = from DataRow rw in tbl.Rows
-                             select new
-                             {
-                                 PersonId = rw.Field<Guid>("PersonId"),
-                                 LicenseProgram = rw.Field<string>("LP"),
-                                 ObrazProgram = rw.Field<string>("OP"),
-                                 Profile = rw.Field<string>("ProfileName"),
-                                 SUM = rw.Field<decimal?>("SUM"),
-                                 Rank = rw.Field<long?>("Rank"),
-                                 KCP = rw.Field<int?>("KCP"),
-                                 Green = rw.Field<int>("GREEN") == 1 ? true : false,
-                                 Originals = rw.Field<int>("Orig") == 1 ? true : false,
-                                 VK = rw.Field<int>("VKs") == 1 ? true : false
-                             };
-
-            DataTable tblSource = new DataTable();
-
-            tblSource.Columns.Add("Id");
-            tblSource.Columns.Add("ФИО");
-            tblSource.Columns.Add("Сумма баллов у нас");
-            tblSource.Columns.Add("Рейтинг у нас", typeof(int));
-            tblSource.Columns.Add("Наш проходной (КЦ)", typeof(decimal));
-            tblSource.Columns.Add("Оригинал у нас");
-            tblSource.Columns.Add("Направление");
-            tblSource.Columns.Add("Образовательная программа");
-            tblSource.Columns.Add("Профиль");
-            tblSource.Columns.Add("Сумма баллов у них");
-            tblSource.Columns.Add("Рейтинг у них", typeof(int));
-            tblSource.Columns.Add("Их проходной (КЦ)", typeof(int));
-            tblSource.Columns.Add("Оригинал у них");
-            tblSource.Columns.Add("OurGREEN", typeof(bool));
-            tblSource.Columns.Add("TheirGREEN", typeof(bool));
-            tblSource.Columns.Add("OurVK", typeof(bool));
-            tblSource.Columns.Add("TheirVK", typeof(bool));
-            
-            wc.SetText("Построение списка...");
-            wc.SetMax(Persons.Count());
-            foreach (var p in Persons)
-            {
-                var om = OtherMarks.Where(x => x.PersonId == p.PersonId);
-
-                foreach (var mrk in om)
-                {
-                    DataRow row = tblSource.NewRow();
-
-                    row["Id"] = p.PersonId;
-                    row["ФИО"] = p.FIO;
-                    row["Сумма баллов у нас"] = p.SUM;
-                    row["Рейтинг у нас"] = p.Rank;
-                    row["OurGREEN"] = p.Green;
-                    row["OurVK"] = p.VK;
-                    row["Наш проходной (КЦ)"] = p.KCP;
-                    row["Оригинал у нас"] = p.Originals ? "Да" : "Нет";
-
-                    row["Направление"] = mrk.LicenseProgram;
-                    row["Образовательная программа"] = mrk.ObrazProgram;
-                    row["Профиль"] = mrk.Profile;
-                    
-                    row["Сумма баллов у них"] = mrk.SUM;
-                    row["Рейтинг у них"] = mrk.Rank;
-                    row["Их проходной (КЦ)"] = mrk.KCP;
-                    row["Оригинал у них"] = mrk.Originals ? "Да" : "Нет";
-
-                    row["TheirGREEN"] = mrk.Green;
-                    row["TheirVK"] = mrk.VK;
-
-                    tblSource.Rows.Add(row);
-                }
                 
-                wc.PerformStep();
+                //if (OtherLicenseProgramId.HasValue)
+                //{
+                //    query += " AND qAbitAll.LicenseProgramId=@OtherLicenseProgramId ";
+                //    sl.Add("@OtherLicenseProgramId", OtherLicenseProgramId);
+                //}
+                //if (OtherObrazProgramId.HasValue)
+                //{
+                //    query += " AND qAbitAll.ObrazProgramId=@OtherObrazProgramId ";
+                //    sl.Add("@OtherObrazProgramId", OtherObrazProgramId);
+                //}
+
+                
+                //tbl = MainClass.Bdc.GetDataSet(query, sl).Tables[0];
+
+                //var OtherMarks = from DataRow rw in tbl.Rows
+                //                 select new
+                //                 {
+                //                     PersonId = rw.Field<Guid>("PersonId"),
+                //                     LicenseProgram = rw.Field<string>("LP"),
+                //                     ObrazProgram = rw.Field<string>("OP"),
+                //                     Profile = rw.Field<string>("ProfileName"),
+                //                     SUM = rw.Field<decimal?>("SUM"),
+                //                     Rank = rw.Field<long?>("Rank"),
+                //                     KCP = rw.Field<int?>("KCP"),
+                //                     Green = rw.Field<int>("GREEN") == 1 ? true : false,
+                //                     Originals = rw.Field<int>("Orig") == 1 ? true : false,
+                //                     VK = rw.Field<int>("VKs") == 1 ? true : false
+                //                 };
+                #endregion
+wc.SetText("Данные сравниваемого факультета...");
+                DataTable tblSource = new DataTable();
+
+                tblSource.Columns.Add("Id");
+                tblSource.Columns.Add("ФИО");
+                tblSource.Columns.Add("Сумма баллов у нас");
+                tblSource.Columns.Add("Рейтинг у нас", typeof(int));
+                tblSource.Columns.Add("Наш проходной (КЦ)", typeof(decimal));
+                tblSource.Columns.Add("Оригинал у нас");
+                tblSource.Columns.Add("Направление");
+                tblSource.Columns.Add("Образовательная программа");
+                tblSource.Columns.Add("Профиль");
+                tblSource.Columns.Add("Сумма баллов у них");
+                tblSource.Columns.Add("Рейтинг у них", typeof(int));
+                tblSource.Columns.Add("Их проходной (КЦ)", typeof(int));
+                tblSource.Columns.Add("Оригинал у них");
+                tblSource.Columns.Add("OurGREEN", typeof(bool));
+                tblSource.Columns.Add("TheirGREEN", typeof(bool));
+                tblSource.Columns.Add("OurVK", typeof(bool));
+                tblSource.Columns.Add("TheirVK", typeof(bool));
+
+                wc.SetText("Построение списка...");
+                wc.SetMax(Persons.Count());
+                foreach (var p in Persons)
+                {
+                    var om = OtherMarks.Where(x => x.PersonId == p.PersonId);
+
+                    foreach (var mrk in om)
+                    {
+                        DataRow row = tblSource.NewRow();
+
+                        row["Id"] = p.PersonId;
+                        row["ФИО"] = p.FIO;
+                        row["Сумма баллов у нас"] = p.SUM;
+                        row["Рейтинг у нас"] = p.Rank;
+                        row["OurGREEN"] = p.Green;
+                        row["OurVK"] = p.VK;
+                        row["Наш проходной (КЦ)"] = p.KCP;
+                        row["Оригинал у нас"] = p.Originals ? "Да" : "Нет";
+
+                        row["Направление"] = mrk.LicenseProgram;
+                        row["Образовательная программа"] = mrk.ObrazProgram;
+                        row["Профиль"] = mrk.Profile;
+
+                        row["Сумма баллов у них"] = mrk.SUM;
+                        row["Рейтинг у них"] = mrk.Rank;
+                        row["Их проходной (КЦ)"] = mrk.KCP;
+                        row["Оригинал у них"] = mrk.Originals ? "Да" : "Нет";
+
+                        row["TheirGREEN"] = mrk.Green;
+                        row["TheirVK"] = mrk.VK;
+
+                        tblSource.Rows.Add(row);
+                    }
+
+                    wc.PerformStep();
+                }
+                tblBaseSource = tblSource;
+                wc.Close();
+
+                int iMaxYellow = Persons.Select(x => x.KCP).DefaultIfEmpty(0).Max() ?? 0;
+                int iMaxYellowOther = OtherMarks.Select(x => x.KCP ?? 0).DefaultIfEmpty(0).Max();
+
+                //int tbYell = 0;
+                //int.TryParse(tbYellow.Text, out tbYell);
+                //int tbYellOther = 0;
+                //int.TryParse(tbYellowOther.Text, out tbYellOther);
+
+                if (string.IsNullOrEmpty(tbYellow.Text))
+                    tbYellow.Text = iMaxYellow.ToString();
+                if (string.IsNullOrEmpty(tbYellowOther.Text))
+                    tbYellowOther.Text = iMaxYellowOther.ToString();
+
+                if (tbFIO.Text.Length > 0)
+                {
+                    GridSearch();
+                    return;
+                }
+
+                dgv.DataSource = tblSource;
+                GridColumnsSizeAndVisible();
+
+                lblCount.Text = tblSource.Rows.Count.ToString();
             }
-            tblBaseSource = tblSource;
-            wc.Close();
-
-            int iMaxYellow = Persons.Select(x => x.KCP).DefaultIfEmpty(0).Max();
-            int iMaxYellowOther = OtherMarks.Select(x => x.KCP ?? 0).DefaultIfEmpty(0).Max();
-
-            //int tbYell = 0;
-            //int.TryParse(tbYellow.Text, out tbYell);
-            //int tbYellOther = 0;
-            //int.TryParse(tbYellowOther.Text, out tbYellOther);
-
-            if (string.IsNullOrEmpty(tbYellow.Text))
-                tbYellow.Text = iMaxYellow.ToString();
-            if (string.IsNullOrEmpty(tbYellowOther.Text))
-                tbYellowOther.Text = iMaxYellowOther.ToString();
-
-            if (tbFIO.Text.Length > 0)
-            {
-                GridSearch();
-                return;
-            }
-
-            dgv.DataSource = tblSource;
-            GridColumnsSizeAndVisible();
-
-            lblCount.Text = tblSource.Rows.Count.ToString();
         }
 
         private void GridColumnsSizeAndVisible()

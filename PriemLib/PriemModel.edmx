@@ -2769,6 +2769,22 @@ warning 6002: The table/view 'Priem2016.ed.hlpStatistics' does not have a primar
           <Property Name="CNT" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'Priem2016.ed.hlpStatRatingList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="hlpStatRatingList">
+          <Key>
+            <PropertyRef Name="AbiturientId" />
+            <PropertyRef Name="PersonId" />
+            <PropertyRef Name="EntryId" />
+            <PropertyRef Name="IsCel" />
+          </Key>
+          <Property Name="AbiturientId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PersonId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="EntryId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="SUM" Type="decimal" Precision="38" Scale="1" />
+          <Property Name="Rank" Type="bigint" />
+          <Property Name="IsCel" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'Priem2016.ed.qAbitAll' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="qAbitAll">
           <Key>
@@ -7304,6 +7320,16 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
     [hlpStatistics].[CNT] AS [CNT]
     FROM [ed].[hlpStatistics] AS [hlpStatistics]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="hlpStatRatingList" EntityType="Self.hlpStatRatingList" store:Type="Views" store:Schema="ed">
+            <DefiningQuery>SELECT 
+    [hlpStatRatingList].[AbiturientId] AS [AbiturientId], 
+    [hlpStatRatingList].[PersonId] AS [PersonId], 
+    [hlpStatRatingList].[EntryId] AS [EntryId], 
+    [hlpStatRatingList].[SUM] AS [SUM], 
+    [hlpStatRatingList].[Rank] AS [Rank], 
+    [hlpStatRatingList].[IsCel] AS [IsCel]
+    FROM [ed].[hlpStatRatingList] AS [hlpStatRatingList]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="qAbitAll" EntityType="Self.qAbitAll" store:Type="Views" store:Schema="ed">
             <DefiningQuery>SELECT 
     [qAbitAll].[Id] AS [Id], 
@@ -10104,6 +10130,7 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
             <End Role="Olympiads" EntitySet="Olympiads" />
             <End Role="Mark" EntitySet="Mark" />
           </AssociationSet>
+          <EntitySet Name="hlpStatRatingList" EntityType="Priem2012Model.hlpStatRatingList" />
           </EntityContainer>
         <EntityType Name="AttMarks">
           <Key>
@@ -14975,6 +15002,20 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="hlpStatRatingList">
+          <Key>
+            <PropertyRef Name="AbiturientId" />
+            <PropertyRef Name="PersonId" />
+            <PropertyRef Name="EntryId" />
+            <PropertyRef Name="IsCel" />
+          </Key>
+          <Property Name="AbiturientId" Type="Guid" Nullable="false" />
+          <Property Name="PersonId" Type="Guid" Nullable="false" />
+          <Property Name="EntryId" Type="Guid" Nullable="false" />
+          <Property Name="SUM" Type="Decimal" Precision="38" Scale="1" />
+          <Property Name="Rank" Type="Int64" />
+          <Property Name="IsCel" Type="Int32" Nullable="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -17921,6 +17962,18 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
                 <ScalarProperty Name="StudyBasisId" ColumnName="StudyBasisId" />
                 <ScalarProperty Name="StudyFormId" ColumnName="StudyFormId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="hlpStatRatingList">
+            <EntityTypeMapping TypeName="Priem2012Model.hlpStatRatingList">
+              <MappingFragment StoreEntitySet="hlpStatRatingList">
+                <ScalarProperty Name="IsCel" ColumnName="IsCel" />
+                <ScalarProperty Name="Rank" ColumnName="Rank" />
+                <ScalarProperty Name="SUM" ColumnName="SUM" />
+                <ScalarProperty Name="EntryId" ColumnName="EntryId" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="AbiturientId" ColumnName="AbiturientId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

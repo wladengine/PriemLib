@@ -183,6 +183,7 @@ namespace PriemLib
         public virtual DbSet<qOlympResultToCommonBenefit> qOlympResultToCommonBenefit { get; set; }
         public virtual DbSet<extExamInEntry> extExamInEntry { get; set; }
         public virtual DbSet<extAbitMarksSumAG> extAbitMarksSumAG { get; set; }
+        public virtual DbSet<hlpStatRatingList> hlpStatRatingList { get; set; }
     
         public virtual int RoleMember(string roleName, ObjectParameter result)
         {
