@@ -83,7 +83,7 @@ AND extAbit.Id NOT IN
             }
 
             // заполнение льготников, проверенных советниками
-            string query = sQuery + GetWhereClause("ed.extAbit") + sFilter + " AND (extAbit.CompetitionId IN (1,8) OR (extPerson.Privileges>0 AND extAbit.CompetitionId IN (2,7))) AND ed.extAbit.Checked > 0 ";
+            string query = sQuery + GetWhereClause("ed.extAbit") + sFilter + " AND (extAbit.CompetitionId IN (1,8) OR (extPerson.Privileges>0 AND extAbit.CompetitionId IN (2,7))) AND extAbit.Checked > 0 ";
 
             DataSet ds = MainClass.Bdc.GetDataSet(query);
 

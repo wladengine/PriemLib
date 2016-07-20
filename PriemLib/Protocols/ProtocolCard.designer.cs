@@ -278,6 +278,7 @@
             // 
             // gbLoading
             // 
+            this.gbLoading.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.gbLoading.Controls.Add(this.label1);
             this.gbLoading.Location = new System.Drawing.Point(264, 181);
             this.gbLoading.Name = "gbLoading";

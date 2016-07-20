@@ -232,6 +232,10 @@ namespace PriemLib
                     DocumentSeries = olymp.DocumentSeries;
                     DocumentNumber = olymp.DocumentNumber;
                     DocumentDate = olymp.DocumentDate;
+
+                    bool readOnly = olymp.Abiturient1.Count() > 0 || olymp.Mark.Count() > 0;
+                    _isReadOnly = readOnly;
+                    lblReadOnly.Visible = readOnly;
                 }
             }
             catch (DataException de)
@@ -261,8 +265,30 @@ namespace PriemLib
         }
         protected override bool CheckFields()
         {
+            epError.Clear();
+            bool res = true;
+
+            if (string.IsNullOrEmpty(DocumentNumber))
+            {
+                string mes = "Не указан номер диплома. Это означает, что Вы не сможете использовать данную олимпиаду для получения льготы 1 или 2 уровня. Продолжить?";
+                var dr = MessageBox.Show(mes, "", MessageBoxButtons.YesNo);
+                if (dr == System.Windows.Forms.DialogResult.No)
+                    res = false;
+            }
+
+            if (!string.IsNullOrEmpty(DocumentSeries) && DocumentSeries.Length > 10)
+            {
+                epError.SetError(tbSeries, "Длина поля не должна превышать 10 символов");
+                res = false;
+            }
+            if (!string.IsNullOrEmpty(DocumentNumber) && DocumentNumber.Length > 20)
+            {
+                epError.SetError(tbNumber, "Длина поля не должна превышать 20 символов");
+                res = false;
+            }
+
             if (!OriginDoc)
-                return true;
+                return res;
 
             using (PriemEntities context = new PriemEntities())
             {
@@ -294,7 +320,7 @@ namespace PriemLib
                 else
                     epError.Clear();
 
-                return true;
+                return res;
             }
         }
 

@@ -33,5 +33,6 @@ namespace PriemLib
         public virtual EgeCertificate EgeCertificate { get; set; }
         public virtual ExamInEntryBlockUnit ExamInEntryBlockUnit { get; set; }
         public virtual PersonAchievement PersonAchievement { get; set; }
+        public virtual Olympiads Olympiads { get; set; }
     }
 }

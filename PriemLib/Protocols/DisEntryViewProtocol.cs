@@ -119,7 +119,7 @@ namespace PriemLib
             string sFilter = string.Empty;
             sFilter = string.Format(" AND ed.extEntryView.Id = '{0}' {1}", HeaderId, chbInostr.Checked ? " AND ed.extPerson.NationalityId <> 1 " : " AND ed.extPerson.NationalityId = 1 ");
             FillGrid(dgvRight, sQuery, GetWhereClause("ed.extAbit") + sFilter, sOrderby);
-        }        
+        }
 
         //подготовка нужного грида
         protected override void InitGrid(DataGridView dgv)

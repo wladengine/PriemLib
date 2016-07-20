@@ -32,11 +32,12 @@ namespace PriemLib
         private int? addCount;
         protected int? iStudyLevelId;
 
-        private string sQuery = @"SELECT DISTINCT extPerson.Id, extPerson.PersonNum as Ид_Номер, extPerson.FIO as ФИО, 
-                                   extPerson.EducDocument as Документ_об_Образовании, 
-                                   extPerson.PassportData as Паспорт, qAbiturient.FacultyId 
-                                   FROM ed.qAbiturient INNER JOIN ed.extPerson ON qAbiturient.PersonId = extPerson.Id 
-                                   LEFT JOIN ed.extProtocol ON extProtocol.AbiturientId = qAbiturient.Id ";
+        private string sQuery = 
+@"SELECT DISTINCT extPerson.Id, extPerson.PersonNum as Ид_Номер, extPerson.FIO as ФИО, 
+extPerson.EducDocument as Документ_об_Образовании, extPerson.PassportData as Паспорт--, qAbiturient.FacultyId 
+FROM ed.qAbiturient 
+INNER JOIN ed.extPerson ON qAbiturient.PersonId = extPerson.Id 
+LEFT JOIN ed.extProtocol ON extProtocol.AbiturientId = qAbiturient.Id ";
         public string sQueryWhere = @" WHERE qAbiturient.FacultyId = {0} AND qAbiturient.StudyLevelGroupId = {1} ";
         protected string sOrderby = " ORDER BY ФИО ";
 
@@ -231,15 +232,15 @@ FROM ed.qEntry WHERE StudyLevelGroupId = {0} AND FacultyId = {1} ORDER BY Name",
 
             //обработали форму обучения  
             if (StudyFormId != null)
-                rez += " AND ed.qAbiturient.StudyFormId = " + StudyFormId;
+                rez += " AND qAbiturient.StudyFormId = " + StudyFormId;
 
             //обработали основу обучения 
             if (StudyBasisId != null)
-                rez += " AND ed.qAbiturient.StudyBasisId = " + StudyBasisId; 
+                rez += " AND qAbiturient.StudyBasisId = " + StudyBasisId; 
             
             //Направление
             if (ObrazProgramId != null)
-                rez += " AND ed.qAbiturient.ObrazProgramId = " + ObrazProgramId;
+                rez += " AND qAbiturient.ObrazProgramId = " + ObrazProgramId;
             
             List<string> lstIds = new List<string>();
             foreach(DataGridViewRow dgrw in dgvLeft.Rows)
@@ -248,7 +249,7 @@ FROM ed.qEntry WHERE StudyLevelGroupId = {0} AND FacultyId = {1} ORDER BY Name",
             }
 
             if (lstIds.Count > 0)
-                rez += string.Format(" AND ed.extPerson.Id NOT IN ({0}) ", Util.BuildStringWithCollection(lstIds));
+                rez += string.Format(" AND extPerson.Id NOT IN ({0}) ", Util.BuildStringWithCollection(lstIds));
 
             FillGridRight(rez);                        
         }
@@ -264,34 +265,50 @@ FROM ed.qEntry WHERE StudyLevelGroupId = {0} AND FacultyId = {1} ORDER BY Name",
             string flt_notInVed = "";
             string flt_notAdd = "";
                            
-            flt_backDoc = " AND ed.qAbiturient.BackDoc = 0 ";
-            flt_enable = " AND ed.qAbiturient.NotEnabled = 0 ";
+            flt_backDoc = " AND qAbiturient.BackDoc = 0 ";
+            flt_enable = " AND qAbiturient.NotEnabled = 0 ";
             flt_protocol = " AND ProtocolTypeId = 1 AND IsOld = 0 AND Excluded = 0";
-            flt_hasExam = string.Format(@" AND ed.qAbiturient.EntryId IN (SELECT ed.ExamInEntryBlock.EntryId
+            flt_hasExam = string.Format(@" AND qAbiturient.EntryId IN (SELECT ExamInEntryBlock.EntryId
  FROM ed.ExamInEntryBlock 
- join ed.ExamInEntryBlockUnit on ed.ExamInEntryBlock.Id = ed.ExamInEntryBlockUnit.ExamInEntryBlockId
- WHERE ed.ExamInEntryBlockUnit.ExamId = {0})", examId);
+ join ed.ExamInEntryBlockUnit on ExamInEntryBlock.Id = ExamInEntryBlockUnit.ExamInEntryBlockId
+ WHERE ExamInEntryBlockUnit.ExamId = {0})", examId);
 
             flt_where = string.Format(sQueryWhere, facultyId, iStudyLevelId.HasValue? iStudyLevelId : iStudyLevelGroupId) + flt_prof;
 
             if (studyBasisId != 2)
             {
-                flt_existMark = string.Format(@" AND ed.qAbiturient.Id NOT IN 
-(SELECT ed.qMark.AbiturientId FROM ed.qMark 
-INNER JOIN ed.extExamInEntry ON ed.qMark.ExamInEntryBlockUnitId = ed.extExamInEntry.Id 
-WHERE ed.extExamInEntry.ExamId = {0} 
-AND ed.extExamInEntry.FacultyId = {1}) ", examId, facultyId);
+                flt_existMark = string.Format(@" AND 
+(
+    qAbiturient.Id NOT IN 
+    (
+        SELECT Mark.AbiturientId 
+        FROM ed.Mark 
+        INNER JOIN ed.extExamInEntry ON Mark.ExamInEntryBlockUnitId = extExamInEntry.Id 
+        WHERE extExamInEntry.ExamId = {0} 
+        AND extExamInEntry.FacultyId = {1}
+    )
+    {2}
+)", examId, facultyId, MainClass.dbType == PriemType.Priem ? @"OR extPerson.Privileges & 512 > 0 OR extPerson.Privileges & 32 > 0 
+	OR extPerson.NationalityId <> 1 OR extPerson.EgeInSPbgu = 1 " : "");
 
                 if (isAdditional)
-                    flt_notInVed = string.Format(@" AND ed.extPerson.Id NOT IN (
-Select ed.ExamsVedHistory.PersonId 
-FROM ed.ExamsVedHistory INNER JOIN ed.ExamsVed ON ed.ExamsVedHistory.ExamsVedId = ed.ExamsVed.Id 
-WHERE ((ed.ExamsVed.IsLoad = 1 AND NOT ed.ExamsVedHistory.Mark IS NULL) OR (ed.ExamsVed.IsLoad = 0)) AND ed.ExamsVed.ExamId = {0} AND ed.ExamsVed.FacultyId = {1} {2}) ", examId, facultyId, (studyBasisId == null ? "" : " AND ed.ExamsVed.StudyBasisId = " + studyBasisId));
+                    flt_notInVed = string.Format(@" AND extPerson.Id NOT IN 
+(
+    SELECT ExamsVedHistory.PersonId 
+    FROM ed.ExamsVedHistory 
+    INNER JOIN ed.ExamsVed ON ExamsVedHistory.ExamsVedId = ExamsVed.Id 
+    WHERE ((ExamsVed.IsLoad = 1 AND ExamsVedHistory.Mark IS NOT NULL) OR (ExamsVed.IsLoad = 0)) 
+    AND ExamsVed.ExamId = {0} 
+    AND ExamsVed.FacultyId = {1} {2}
+) ", examId, facultyId, (studyBasisId == null ? "" : " AND ExamsVed.StudyBasisId = " + studyBasisId));
                 else
-                    flt_notInVed = string.Format(@" AND ed.extPerson.Id NOT IN (
-Select ed.ExamsVedHistory.PersonId 
-FROM ed.ExamsVedHistory INNER JOIN ed.ExamsVed ON ed.ExamsVedHistory.ExamsVedId = ed.ExamsVed.Id 
-WHERE ((ed.ExamsVed.IsLoad = 1 AND NOT ed.ExamsVedHistory.Mark IS NULL) OR (ed.ExamsVed.IsLoad = 0)) AND ed.ExamsVed.ExamId = {0} {1}) ", examId, (studyBasisId == null ? "" : " AND ed.ExamsVed.StudyBasisId = " + studyBasisId));
+                    flt_notInVed = string.Format(@" AND extPerson.Id NOT IN (
+    SELECT ExamsVedHistory.PersonId 
+    FROM ed.ExamsVedHistory 
+    INNER JOIN ed.ExamsVed ON ExamsVedHistory.ExamsVedId = ExamsVed.Id 
+    WHERE ((ExamsVed.IsLoad = 1 AND NOT ExamsVedHistory.Mark IS NULL) OR (ExamsVed.IsLoad = 0)) 
+    AND ExamsVed.ExamId = {0} {1}
+) ", examId, (studyBasisId == null ? "" : " AND ExamsVed.StudyBasisId = " + studyBasisId));
             }
 
             if (MainClass.dbType != PriemType.PriemAG)

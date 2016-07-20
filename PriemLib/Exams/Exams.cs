@@ -203,10 +203,10 @@ namespace PriemLib
             return exams.OrderBy(c => c.ExamName);
         }        
 
-
         public static string GetFilterForNotAddExam(int? examId, int? facultyId)
         {
-            if (MainClass.dbType == PriemType.PriemMag)
+            //всех, кроме 1 курса эти ограничения не касаются
+            if (MainClass.dbType != PriemType.Priem)
                 return "";
 
             string flt_privil = string.Empty;
@@ -231,9 +231,19 @@ namespace PriemLib
 
             //return " AND (" + flt_privil + flt_ssuz + flt_underPrevYear + flt_foreignEduc + flt_second + flt_hasEge + ")";
 
-            flt_hasEge = string.Format(" ed.extPerson.Id NOT IN (SELECT PersonId FROM ed.extEgeMark LEFT JOIN ed.EgeToExam ON ed.extEgeMark.EgeExamNameId = ed.EgeToExam.EgeExamNameId LEFT JOIN ed.extExamInEntry ON ed.EgeToExam.ExamId = ed.extExamInEntry.ExamId WHERE ed.extExamInEntry.Id IN (SELECT Id FROM ed.extExamInEntry WHERE ExamId = {0} AND FacultyId = {1}) AND ed.extEgeMark.[Year] = 2012 )", examId, facultyId);
+            //У которых нет сданного предмета ЕГЭ за последние 4 года
+            flt_hasEge = string.Format(@" extPerson.Id NOT IN 
+(
+    SELECT PersonId 
+    FROM ed.extEgeMark
+    LEFT JOIN ed.EgeToExam ON extEgeMark.EgeExamNameId = EgeToExam.EgeExamNameId 
+    LEFT JOIN ed.extExamInEntry ON EgeToExam.ExamId = extExamInEntry.ExamId 
+    WHERE extExamInEntry.ExamId = {0} AND extExamInEntry.FacultyId = {1}
+    AND extEgeMark.[Year] > {2}
+)", examId, facultyId, MainClass.iPriemYear - 4);
             //flt_hasEge = " 1=1 ";
-            //flt_privil = " OR (Person.Privileges & 512 > 0 OR Person.Privileges & 32 > 0) ";
+            //инвалиды, иностранцы, люди со средним проф образованием
+            flt_privil = " OR extPerson.Privileges & 512 > 0 OR extPerson.Privileges & 32 > 0 OR extPerson.NationalityId <> 1 OR extPerson.EgeInSPbgu = 1";
             return " AND (" + flt_hasEge + flt_privil + " ) ";
         }       
 

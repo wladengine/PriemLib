@@ -132,7 +132,7 @@ namespace PriemLib
                       }).Distinct()).ToList().OrderBy(x => x.OrderNumber).Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name)).ToList();
 
                 cbExam.Enabled = true;
-                ComboServ.FillCombo(cbExam, lst, false, false);
+                ComboServ.FillCombo(cbExam, lst, false, true);
                 cbExam.SelectedIndex = 0;
             }
         }

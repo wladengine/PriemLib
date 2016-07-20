@@ -541,7 +541,7 @@ namespace PriemLib
                           {
                               PersonId = rw.Field<Guid>("Id"),
                               FIO = rw.Field<string>("FIO"),
-                              SUM = rw.Field<int?>("SUM"),
+                              SUM = rw.Field<decimal?>("SUM"),
                               Rank = rw.Field<long>("Rank"),
                               KCP = rw.Field<int?>("KCP") ?? 0,
                               Green = rw.Field<int>("GREEN") == 1 ? true : false,
@@ -589,7 +589,7 @@ namespace PriemLib
                                  LicenseProgram = rw.Field<string>("LP"),
                                  ObrazProgram = rw.Field<string>("OP"),
                                  Profile = rw.Field<string>("ProfileName"),
-                                 SUM = rw.Field<int?>("SUM"),
+                                 SUM = rw.Field<decimal?>("SUM"),
                                  Rank = rw.Field<long?>("Rank"),
                                  KCP = rw.Field<int?>("KCP"),
                                  Green = rw.Field<int>("GREEN") == 1 ? true : false,
@@ -603,7 +603,7 @@ namespace PriemLib
             tblSource.Columns.Add("ФИО");
             tblSource.Columns.Add("Сумма баллов у нас");
             tblSource.Columns.Add("Рейтинг у нас", typeof(int));
-            tblSource.Columns.Add("Наш проходной (КЦ)", typeof(int));
+            tblSource.Columns.Add("Наш проходной (КЦ)", typeof(decimal));
             tblSource.Columns.Add("Оригинал у нас");
             tblSource.Columns.Add("Направление");
             tblSource.Columns.Add("Образовательная программа");

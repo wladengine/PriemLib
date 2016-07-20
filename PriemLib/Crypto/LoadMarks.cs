@@ -336,11 +336,11 @@ namespace PriemLib
                     SortedList<string, string> slAbitsWithMark = new SortedList<string, string>();
 
                     string flt = "";
-                    flt += " AND ed.qAbiturient.BackDoc = 0 ";
-                    flt += " AND ed.qAbiturient.NotEnabled = 0 ";
-                    flt += " AND ed.qAbiturient.Id IN (SELECT AbiturientId FROM ed.extProtocol WHERE ProtocolTypeId = 1 AND IsOld = 0 AND Excluded = 0) ";
-                    flt += " AND ed.qAbiturient.StudyLevelGroupId IN (" + Util.BuildStringWithCollection(MainClass.lstStudyLevelGroupId) + ")";
-                    flt += string.Format(" AND ed.qAbiturient.EntryId IN (SELECT EntryId FROM ed.extExamInEntry WHERE ExamId = {0})", _examId);
+                    flt += " AND qAbiturient.BackDoc = 0 ";
+                    flt += " AND qAbiturient.NotEnabled = 0 ";
+                    flt += " AND qAbiturient.Id IN (SELECT AbiturientId FROM ed.extProtocol WHERE ProtocolTypeId = 1 AND IsOld = 0 AND Excluded = 0) ";
+                    flt += " AND qAbiturient.StudyLevelGroupId IN (" + Util.BuildStringWithCollection(MainClass.lstStudyLevelGroupId) + ")";
+                    flt += string.Format(" AND qAbiturient.EntryId IN (SELECT EntryId FROM ed.extExamInEntry WHERE ExamId = {0})", _examId);
 
                     string flt_fac = "";
                     //if (_isAdditional)
@@ -349,17 +349,21 @@ namespace PriemLib
                     foreach (DataGridViewRow dgvr in dgvMarks.Rows)
                     {
                         string val = dgvr.Cells["Баллы"].Value.ToString();
+                        
                         if (dgvr.Cells["Баллы"].Value == null || val.CompareTo("") == 0)
                             continue;
 
-                        string perId = dgvr.Cells["PersonId"].Value.ToString();
+                        decimal dVal = decimal.Parse(val);
+
+                        Guid gPersonId = new Guid(dgvr.Cells["PersonId"].Value.ToString());
+                        string perId = gPersonId.ToString();
 
                         if (_studybasisId == "2")
                         {
-                            DataSet dsAbit = bdc.GetDataSet(string.Format(@"SELECT ed.qAbiturient.Id, ed.qMark.Value FROM ed.qAbiturient 
-                                LEFT JOIN (ed.qMark INNER JOIN ed.extExamInEntry ON ed.qMark.ExamInEntryBlockUnitId = ed.extExamInEntry.Id) 
-                                ON ed.qMark.AbiturientId = ed.qAbiturient.Id AND ed.extExamInEntry.ExamId = {1} 
-                                WHERE ed.qAbiturient.PersonId = '{0}' AND ed.qAbiturient.StudyBasisId = 2 {2} {3}", perId, _examId, flt, flt_fac));
+                            DataSet dsAbit = bdc.GetDataSet(string.Format(@"SELECT qAbiturient.Id, Mark.Value FROM ed.qAbiturient 
+                                LEFT JOIN (ed.Mark INNER JOIN ed.extExamInEntry ON Mark.ExamInEntryBlockUnitId = extExamInEntry.Id) 
+                                ON Mark.AbiturientId = qAbiturient.Id AND extExamInEntry.ExamId = {1} 
+                                WHERE qAbiturient.PersonId = '{0}' AND qAbiturient.StudyBasisId = 2 {2} {3}", perId, _examId, flt, flt_fac));
 
                             foreach (DataRow dra in dsAbit.Tables[0].Rows)
                             {
@@ -371,13 +375,37 @@ namespace PriemLib
                         }
                         else
                         {
-                            DataSet ds = bdc.GetDataSet(string.Format("SELECT ed.qAbiturient.Id FROM ed.qAbiturient WHERE PersonId = '{0}' {1} {2} {3}", perId, flt_fac, _studybasisId == "" ? "" : " AND qAbiturient.StudyBasisId = " + _studybasisId, flt));
+                            DataSet ds = bdc.GetDataSet(string.Format("SELECT qAbiturient.Id FROM ed.qAbiturient WHERE PersonId = '{0}' {1} {2} {3}", perId, flt_fac, _studybasisId == "" ? "" : " AND qAbiturient.StudyBasisId = " + _studybasisId, flt));
                             foreach (DataRow row in ds.Tables[0].Rows)
                             {
-                                if (int.Parse(bdc.GetStringValue(string.Format("SELECT Count(ed.qMark.Id) FROM ed.qMark INNER JOIN ed.extExamInEntry ON ed.qMark.ExamInEntryBlockUnitId = ed.extExamInEntry.Id WHERE ed.extExamInEntry.ExamId = '{0}' AND AbiturientId = '{1}'", _examId, row["Id"].ToString()))) > 0)
-                                    continue;
-
-                                slNewMark.Add(row["Id"].ToString(), val);
+                                Guid AbiturientId = row.Field<Guid>("Id");
+                                int iExamId = int.Parse(_examId);
+                                var MarksList = context.Mark.Where(x => x.AbiturientId == AbiturientId && x.ExamInEntryBlockUnit.ExamId == iExamId).ToList();
+                                int cnt = MarksList.Count;
+                                if (cnt > 0)
+                                {
+                                    string Message = "Данная оценка ({0}) перекроет оценку {1}, взятую из {2}. Хотите перекрыть бОльшую оценку меньшей?";
+                                    foreach (var M in MarksList)
+                                    {
+                                        if (M.Value > dVal)
+                                        {
+                                            string Source = "";
+                                            if (M.IsFromEge)
+                                                Source = "ЕГЭ";
+                                            if (M.IsFromOlymp)
+                                                Source = "олимпиады";
+                                            if (M.IsManual)
+                                                Source = "другой ведомости";
+                                            var dr = MessageBox.Show(string.Format(Message, dVal, M.Value, Source), "", MessageBoxButtons.YesNo);
+                                            if (dr == System.Windows.Forms.DialogResult.Yes)
+                                                slNewMark.Add(row["Id"].ToString(), val);
+                                        }
+                                        else
+                                            slNewMark.Add(row["Id"].ToString(), val);
+                                    }
+                                }
+                                else
+                                    slNewMark.Add(row["Id"].ToString(), val);
                             }
                         }
                     }
@@ -401,12 +429,12 @@ namespace PriemLib
                             Guid examInEntryId = Guid.Parse(examInPr);
                             decimal val = decimal.Parse(slNewMark[abId]);
 
-                            int cnt = (from mrk in context.Mark
-                                       where mrk.ExamInEntryBlockUnitId == examInEntryId && mrk.AbiturientId == abitId
-                                       select mrk).Count();
+                            //int cnt = (from mrk in context.Mark
+                            //           where mrk.ExamInEntryBlockUnitId == examInEntryId && mrk.AbiturientId == abitId && XmlReadMode.
+                            //           select mrk).Count();
 
-                            if (cnt > 0)
-                                continue;
+                            //if (cnt > 0)
+                            //    continue;
 
                             List<string> list = Exams.GetExamIdsInEntry(drr["EntryId"].ToString());
 

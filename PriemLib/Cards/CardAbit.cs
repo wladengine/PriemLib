@@ -1299,13 +1299,12 @@ namespace PriemLib
 
                         dgvAppExams.Rows.Add(row);
                         dgvAppExams.CellValueChanged += dgvAppExams_CellValueChanged;
-
                     }
                 }
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error("Ошибка при инициализации формы FillCompetition", exc);
+                WinFormsServ.Error("Ошибка при инициализации FillSelectedExams", exc);
             }
         }
         private void UpdateAfterCompetition()
@@ -1559,6 +1558,12 @@ namespace PriemLib
                             }
                             else
                             {
+                                if (string.IsNullOrEmpty(Ol.DocumentNumber))
+                                {
+                                    WinFormsServ.Error("У олимпиады не указан номер подтверждающего документа!");
+                                    return false;
+                                }
+
                                 List<int?> lstEx = context.OlympSubjectToExam.Where(x => x.OlympSubjectId == Ol.OlympSubjectId).Select(x => (int?)x.ExamId).ToList();
                                 bool bNoExamId = lstEx.Where(x => x != 0).Count() == 0;
                                 var lstBenefits = context.OlympResultToCommonBenefit

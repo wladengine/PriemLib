@@ -18,6 +18,7 @@ namespace PriemLib
         public Olympiads()
         {
             this.Abiturient1 = new HashSet<Abiturient>();
+            this.Mark = new HashSet<Mark>();
         }
     
         public System.Guid Id { get; set; }
@@ -47,5 +48,7 @@ namespace PriemLib
         public virtual OlympType OlympType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Abiturient> Abiturient1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Mark> Mark { get; set; }
     }
 }

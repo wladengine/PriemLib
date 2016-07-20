@@ -69,22 +69,23 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tbKCPCel = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.dgvOlympResultToAdditionalMark = new System.Windows.Forms.DataGridView();
-            this.btnOpenOlympResultToAdditionalMark = new System.Windows.Forms.Button();
-            this.btnAddOlympResultToAdditionalMark = new System.Windows.Forms.Button();
-            this.btnDeleteOlympResultToAdditionalMark = new System.Windows.Forms.Button();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.gbBE = new System.Windows.Forms.GroupBox();
             this.dgvOlympicsToCommonBenefit = new System.Windows.Forms.DataGridView();
             this.btnOpenOlympicsToCommonBenefit = new System.Windows.Forms.Button();
             this.btnAddOlympicsToCommonBenefit = new System.Windows.Forms.Button();
             this.btnDeleteOlympicsToCommonBenefit = new System.Windows.Forms.Button();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.gbExams = new System.Windows.Forms.GroupBox();
             this.btnCopyExamsFromMain = new System.Windows.Forms.Button();
             this.dgvExams = new System.Windows.Forms.DataGridView();
             this.btnOpenExam = new System.Windows.Forms.Button();
             this.btnAddExam = new System.Windows.Forms.Button();
             this.btnDeleteExam = new System.Windows.Forms.Button();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.gbOlympToAddMark = new System.Windows.Forms.GroupBox();
+            this.dgvOlympResultToAdditionalMark = new System.Windows.Forms.DataGridView();
+            this.btnOpenOlympResultToAdditionalMark = new System.Windows.Forms.Button();
+            this.btnAddOlympResultToAdditionalMark = new System.Windows.Forms.Button();
+            this.btnDeleteOlympResultToAdditionalMark = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label25 = new System.Windows.Forms.Label();
@@ -106,12 +107,13 @@
             this.gbEntry.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            this.groupBox5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvOlympResultToAdditionalMark)).BeginInit();
-            this.groupBox3.SuspendLayout();
+            this.gbBE.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvOlympicsToCommonBenefit)).BeginInit();
-            this.groupBox2.SuspendLayout();
+            this.gbExams.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvExams)).BeginInit();
+            this.tabPage5.SuspendLayout();
+            this.gbOlympToAddMark.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvOlympResultToAdditionalMark)).BeginInit();
             this.tabPage3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabPage4.SuspendLayout();
@@ -232,6 +234,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tcCard.Controls.Add(this.tabPage1);
             this.tcCard.Controls.Add(this.tabPage2);
+            this.tcCard.Controls.Add(this.tabPage5);
             this.tcCard.Controls.Add(this.tabPage3);
             this.tcCard.Controls.Add(this.tabPage4);
             this.tcCard.Location = new System.Drawing.Point(12, 12);
@@ -544,96 +547,31 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.groupBox5);
-            this.tabPage2.Controls.Add(this.groupBox3);
-            this.tabPage2.Controls.Add(this.groupBox2);
+            this.tabPage2.Controls.Add(this.gbBE);
+            this.tabPage2.Controls.Add(this.gbExams);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(706, 541);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Экзамены и льготы";
+            this.tabPage2.Text = "Экзамены и льготы б/э";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // groupBox5
+            // gbBE
             // 
-            this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox5.Controls.Add(this.dgvOlympResultToAdditionalMark);
-            this.groupBox5.Controls.Add(this.btnOpenOlympResultToAdditionalMark);
-            this.groupBox5.Controls.Add(this.btnAddOlympResultToAdditionalMark);
-            this.groupBox5.Controls.Add(this.btnDeleteOlympResultToAdditionalMark);
-            this.groupBox5.Location = new System.Drawing.Point(9, 348);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(685, 164);
-            this.groupBox5.TabIndex = 88;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Бонусные баллы за олимпиаду";
-            // 
-            // dgvOlympResultToAdditionalMark
-            // 
-            this.dgvOlympResultToAdditionalMark.AllowUserToAddRows = false;
-            this.dgvOlympResultToAdditionalMark.AllowUserToResizeRows = false;
-            this.dgvOlympResultToAdditionalMark.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.gbBE.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvOlympResultToAdditionalMark.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvOlympResultToAdditionalMark.Location = new System.Drawing.Point(6, 19);
-            this.dgvOlympResultToAdditionalMark.Name = "dgvOlympResultToAdditionalMark";
-            this.dgvOlympResultToAdditionalMark.ReadOnly = true;
-            this.dgvOlympResultToAdditionalMark.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvOlympResultToAdditionalMark.Size = new System.Drawing.Size(582, 127);
-            this.dgvOlympResultToAdditionalMark.TabIndex = 36;
-            this.dgvOlympResultToAdditionalMark.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvOlympResultToAdditionalMark_CellDoubleClick);
-            // 
-            // btnOpenOlympResultToAdditionalMark
-            // 
-            this.btnOpenOlympResultToAdditionalMark.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOpenOlympResultToAdditionalMark.Location = new System.Drawing.Point(594, 19);
-            this.btnOpenOlympResultToAdditionalMark.Name = "btnOpenOlympResultToAdditionalMark";
-            this.btnOpenOlympResultToAdditionalMark.Size = new System.Drawing.Size(85, 23);
-            this.btnOpenOlympResultToAdditionalMark.TabIndex = 38;
-            this.btnOpenOlympResultToAdditionalMark.Text = "Открыть";
-            this.btnOpenOlympResultToAdditionalMark.UseVisualStyleBackColor = true;
-            this.btnOpenOlympResultToAdditionalMark.Click += new System.EventHandler(this.btnOpenOlympResultToAdditionalMark_Click);
-            // 
-            // btnAddOlympResultToAdditionalMark
-            // 
-            this.btnAddOlympResultToAdditionalMark.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddOlympResultToAdditionalMark.Location = new System.Drawing.Point(594, 71);
-            this.btnAddOlympResultToAdditionalMark.Name = "btnAddOlympResultToAdditionalMark";
-            this.btnAddOlympResultToAdditionalMark.Size = new System.Drawing.Size(85, 23);
-            this.btnAddOlympResultToAdditionalMark.TabIndex = 37;
-            this.btnAddOlympResultToAdditionalMark.Text = "Добавить";
-            this.btnAddOlympResultToAdditionalMark.UseVisualStyleBackColor = true;
-            this.btnAddOlympResultToAdditionalMark.Click += new System.EventHandler(this.btnAddOlympResultToAdditionalMark_Click);
-            // 
-            // btnDeleteOlympResultToAdditionalMark
-            // 
-            this.btnDeleteOlympResultToAdditionalMark.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDeleteOlympResultToAdditionalMark.Location = new System.Drawing.Point(594, 100);
-            this.btnDeleteOlympResultToAdditionalMark.Name = "btnDeleteOlympResultToAdditionalMark";
-            this.btnDeleteOlympResultToAdditionalMark.Size = new System.Drawing.Size(85, 23);
-            this.btnDeleteOlympResultToAdditionalMark.TabIndex = 39;
-            this.btnDeleteOlympResultToAdditionalMark.Text = "Удалить";
-            this.btnDeleteOlympResultToAdditionalMark.UseVisualStyleBackColor = true;
-            this.btnDeleteOlympResultToAdditionalMark.Click += new System.EventHandler(this.btnDeleteOlympResultToAdditionalMark_Click);
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox3.Controls.Add(this.dgvOlympicsToCommonBenefit);
-            this.groupBox3.Controls.Add(this.btnOpenOlympicsToCommonBenefit);
-            this.groupBox3.Controls.Add(this.btnAddOlympicsToCommonBenefit);
-            this.groupBox3.Controls.Add(this.btnDeleteOlympicsToCommonBenefit);
-            this.groupBox3.Location = new System.Drawing.Point(6, 178);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(688, 164);
-            this.groupBox3.TabIndex = 87;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Олимпиады для предоставления льготы";
+            this.gbBE.Controls.Add(this.dgvOlympicsToCommonBenefit);
+            this.gbBE.Controls.Add(this.btnOpenOlympicsToCommonBenefit);
+            this.gbBE.Controls.Add(this.btnAddOlympicsToCommonBenefit);
+            this.gbBE.Controls.Add(this.btnDeleteOlympicsToCommonBenefit);
+            this.gbBE.Location = new System.Drawing.Point(6, 178);
+            this.gbBE.Name = "gbBE";
+            this.gbBE.Size = new System.Drawing.Size(688, 357);
+            this.gbBE.TabIndex = 87;
+            this.gbBE.TabStop = false;
+            this.gbBE.Text = "Олимпиады для предоставления общей льготы (б/э)";
             // 
             // dgvOlympicsToCommonBenefit
             // 
@@ -647,7 +585,7 @@
             this.dgvOlympicsToCommonBenefit.Name = "dgvOlympicsToCommonBenefit";
             this.dgvOlympicsToCommonBenefit.ReadOnly = true;
             this.dgvOlympicsToCommonBenefit.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvOlympicsToCommonBenefit.Size = new System.Drawing.Size(585, 127);
+            this.dgvOlympicsToCommonBenefit.Size = new System.Drawing.Size(585, 320);
             this.dgvOlympicsToCommonBenefit.TabIndex = 36;
             this.dgvOlympicsToCommonBenefit.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvOlympicsToCommonBenefit_CellDoubleClick);
             // 
@@ -684,21 +622,21 @@
             this.btnDeleteOlympicsToCommonBenefit.UseVisualStyleBackColor = true;
             this.btnDeleteOlympicsToCommonBenefit.Click += new System.EventHandler(this.btnDeleteOlympicsToCommonBenefit_Click);
             // 
-            // groupBox2
+            // gbExams
             // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.gbExams.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Controls.Add(this.btnCopyExamsFromMain);
-            this.groupBox2.Controls.Add(this.dgvExams);
-            this.groupBox2.Controls.Add(this.btnOpenExam);
-            this.groupBox2.Controls.Add(this.btnAddExam);
-            this.groupBox2.Controls.Add(this.btnDeleteExam);
-            this.groupBox2.Location = new System.Drawing.Point(6, 6);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(688, 166);
-            this.groupBox2.TabIndex = 86;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Экзамены";
+            this.gbExams.Controls.Add(this.btnCopyExamsFromMain);
+            this.gbExams.Controls.Add(this.dgvExams);
+            this.gbExams.Controls.Add(this.btnOpenExam);
+            this.gbExams.Controls.Add(this.btnAddExam);
+            this.gbExams.Controls.Add(this.btnDeleteExam);
+            this.gbExams.Location = new System.Drawing.Point(6, 6);
+            this.gbExams.Name = "gbExams";
+            this.gbExams.Size = new System.Drawing.Size(688, 166);
+            this.gbExams.TabIndex = 86;
+            this.gbExams.TabStop = false;
+            this.gbExams.Text = "Экзамены";
             // 
             // btnCopyExamsFromMain
             // 
@@ -759,6 +697,81 @@
             this.btnDeleteExam.Text = "Удалить";
             this.btnDeleteExam.UseVisualStyleBackColor = true;
             this.btnDeleteExam.Click += new System.EventHandler(this.btnDeleteExam_Click);
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.Controls.Add(this.gbOlympToAddMark);
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(706, 541);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "Льготы 2 порядка";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // gbOlympToAddMark
+            // 
+            this.gbOlympToAddMark.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gbOlympToAddMark.Controls.Add(this.dgvOlympResultToAdditionalMark);
+            this.gbOlympToAddMark.Controls.Add(this.btnOpenOlympResultToAdditionalMark);
+            this.gbOlympToAddMark.Controls.Add(this.btnAddOlympResultToAdditionalMark);
+            this.gbOlympToAddMark.Controls.Add(this.btnDeleteOlympResultToAdditionalMark);
+            this.gbOlympToAddMark.Location = new System.Drawing.Point(6, 6);
+            this.gbOlympToAddMark.Name = "gbOlympToAddMark";
+            this.gbOlympToAddMark.Size = new System.Drawing.Size(694, 529);
+            this.gbOlympToAddMark.TabIndex = 89;
+            this.gbOlympToAddMark.TabStop = false;
+            this.gbOlympToAddMark.Text = "Бонусные баллы за олимпиаду";
+            // 
+            // dgvOlympResultToAdditionalMark
+            // 
+            this.dgvOlympResultToAdditionalMark.AllowUserToAddRows = false;
+            this.dgvOlympResultToAdditionalMark.AllowUserToResizeRows = false;
+            this.dgvOlympResultToAdditionalMark.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvOlympResultToAdditionalMark.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvOlympResultToAdditionalMark.Location = new System.Drawing.Point(6, 19);
+            this.dgvOlympResultToAdditionalMark.Name = "dgvOlympResultToAdditionalMark";
+            this.dgvOlympResultToAdditionalMark.ReadOnly = true;
+            this.dgvOlympResultToAdditionalMark.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvOlympResultToAdditionalMark.Size = new System.Drawing.Size(591, 492);
+            this.dgvOlympResultToAdditionalMark.TabIndex = 36;
+            this.dgvOlympResultToAdditionalMark.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvOlympResultToAdditionalMark_CellDoubleClick);
+            // 
+            // btnOpenOlympResultToAdditionalMark
+            // 
+            this.btnOpenOlympResultToAdditionalMark.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnOpenOlympResultToAdditionalMark.Location = new System.Drawing.Point(603, 19);
+            this.btnOpenOlympResultToAdditionalMark.Name = "btnOpenOlympResultToAdditionalMark";
+            this.btnOpenOlympResultToAdditionalMark.Size = new System.Drawing.Size(85, 23);
+            this.btnOpenOlympResultToAdditionalMark.TabIndex = 38;
+            this.btnOpenOlympResultToAdditionalMark.Text = "Открыть";
+            this.btnOpenOlympResultToAdditionalMark.UseVisualStyleBackColor = true;
+            this.btnOpenOlympResultToAdditionalMark.Click += new System.EventHandler(this.btnOpenOlympResultToAdditionalMark_Click);
+            // 
+            // btnAddOlympResultToAdditionalMark
+            // 
+            this.btnAddOlympResultToAdditionalMark.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddOlympResultToAdditionalMark.Location = new System.Drawing.Point(603, 71);
+            this.btnAddOlympResultToAdditionalMark.Name = "btnAddOlympResultToAdditionalMark";
+            this.btnAddOlympResultToAdditionalMark.Size = new System.Drawing.Size(85, 23);
+            this.btnAddOlympResultToAdditionalMark.TabIndex = 37;
+            this.btnAddOlympResultToAdditionalMark.Text = "Добавить";
+            this.btnAddOlympResultToAdditionalMark.UseVisualStyleBackColor = true;
+            this.btnAddOlympResultToAdditionalMark.Click += new System.EventHandler(this.btnAddOlympResultToAdditionalMark_Click);
+            // 
+            // btnDeleteOlympResultToAdditionalMark
+            // 
+            this.btnDeleteOlympResultToAdditionalMark.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDeleteOlympResultToAdditionalMark.Location = new System.Drawing.Point(603, 100);
+            this.btnDeleteOlympResultToAdditionalMark.Name = "btnDeleteOlympResultToAdditionalMark";
+            this.btnDeleteOlympResultToAdditionalMark.Size = new System.Drawing.Size(85, 23);
+            this.btnDeleteOlympResultToAdditionalMark.TabIndex = 39;
+            this.btnDeleteOlympResultToAdditionalMark.Text = "Удалить";
+            this.btnDeleteOlympResultToAdditionalMark.UseVisualStyleBackColor = true;
+            this.btnDeleteOlympResultToAdditionalMark.Click += new System.EventHandler(this.btnDeleteOlympResultToAdditionalMark_Click);
             // 
             // tabPage3
             // 
@@ -941,12 +954,13 @@
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.tabPage2.ResumeLayout(false);
-            this.groupBox5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvOlympResultToAdditionalMark)).EndInit();
-            this.groupBox3.ResumeLayout(false);
+            this.gbBE.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvOlympicsToCommonBenefit)).EndInit();
-            this.groupBox2.ResumeLayout(false);
+            this.gbExams.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvExams)).EndInit();
+            this.tabPage5.ResumeLayout(false);
+            this.gbOlympToAddMark.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvOlympResultToAdditionalMark)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -1015,20 +1029,21 @@
         private System.Windows.Forms.CheckBox chbIsCrimea;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.ComboBox cbCompetitionGroup;
-        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.GroupBox gbBE;
         private System.Windows.Forms.DataGridView dgvOlympicsToCommonBenefit;
         private System.Windows.Forms.Button btnOpenOlympicsToCommonBenefit;
         private System.Windows.Forms.Button btnAddOlympicsToCommonBenefit;
         private System.Windows.Forms.Button btnDeleteOlympicsToCommonBenefit;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.GroupBox groupBox5;
-        private System.Windows.Forms.DataGridView dgvOlympResultToAdditionalMark;
-        private System.Windows.Forms.Button btnOpenOlympResultToAdditionalMark;
-        private System.Windows.Forms.Button btnAddOlympResultToAdditionalMark;
-        private System.Windows.Forms.Button btnDeleteOlympResultToAdditionalMark;
+        private System.Windows.Forms.GroupBox gbExams;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.ComboBox cbParentEntry;
         private System.Windows.Forms.Button btnCopyExamsFromMain;
         private System.Windows.Forms.Button btnCopyInnerEntryInEntryFromParent;
+        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.GroupBox gbOlympToAddMark;
+        private System.Windows.Forms.DataGridView dgvOlympResultToAdditionalMark;
+        private System.Windows.Forms.Button btnOpenOlympResultToAdditionalMark;
+        private System.Windows.Forms.Button btnAddOlympResultToAdditionalMark;
+        private System.Windows.Forms.Button btnDeleteOlympResultToAdditionalMark;
     }
 }

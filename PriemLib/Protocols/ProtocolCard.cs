@@ -257,7 +257,7 @@ namespace PriemLib
                 if (e.ProgressPercentage == 1)
                     gbLoading.Visible = true;
             };
-            bw.RunWorkerAsync();
+            bw.RunWorkerAsync(sQuery + sWhere + sOrderby);
         }
 
         //функция заполнения грида

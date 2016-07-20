@@ -838,6 +838,8 @@
         <edmx:AssociationConnector Association="Priem2012Model.FK_OlympResultToCommonBenefit_OlympType" />
         <edmx:EntityTypeShape EntityType="Priem2012Model.extExamInEntry" Width="1.5" PointX="36.375" PointY="29.75" />
         <edmx:AssociationConnector Association="Priem2012Model.FK_Abiturient_Olympiads" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.extAbitMarksSumAG" Width="1.5" PointX="38.375" PointY="21.75" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_Mark_Olympiads" />
         </edmx:Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

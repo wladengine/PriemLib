@@ -348,7 +348,7 @@ namespace PriemLib
                         kcRest = (int)(((float)kcRest * 0.8f) + 0.999f);
                 }
 
-                string sQueryBody = string.Format(@"SELECT DISTINCT TOP ({0}) ed.extAbitMarksSum.TotalSum + ISNULL(extAbitAdditionalMarksSum.AdditionalMarksSum, 0) as Sum, 
+                string sQueryBody = string.Format(@"SELECT DISTINCT TOP ({0}) extAbitMarksSum.TotalSum + ISNULL(extAbitAdditionalMarksSum.AdditionalMarksSum, 0) as Sum, 
 Abiturient.Id as Id, Abiturient.BackDoc as backdoc,
 'false' as Red, Abiturient.RegNum as Рег_Номер, extPerson.FIO as ФИО,
 extPerson.EducDocument as Документ_об_образовании, 
@@ -361,9 +361,9 @@ INNER JOIN ed.extPerson ON Abiturient.PersonId = extPerson.Id
 INNER JOIN ed.extEnableProtocol ON Abiturient.Id=ed.extEnableProtocol.AbiturientId 
 LEFT JOIN ed.extAbitAdditionalMarksSum ON extAbitAdditionalMarksSum.AbiturientId = Abiturient.Id
 INNER JOIN ed._FirstWave AS _FirstWave ON Abiturient.Id = _FirstWave.AbiturientId  " +
-                    //((MainClass.dbType == PriemType.Priem) ? " INNER JOIN ed._FirstWaveGreen ON Abiturient.Id = _FirstWaveGreen.AbiturientId " : "") +
-@"LEFT JOIN ed.extAbitMarksSum ON Abiturient.Id = extAbitMarksSum.Id 
-LEFT JOIN ed.Competition ON Competition.Id = Abiturient.CompetitionId ", kcRest);
+((MainClass.dbType == PriemType.Priem ||MainClass.dbType == PriemType.PriemAG) ? " INNER JOIN ed._FirstWaveGreen ON Abiturient.Id = _FirstWaveGreen.AbiturientId " : "") +
+string.Format(@"LEFT JOIN ed.{0}extAbitMarksSum ON Abiturient.Id = extAbitMarksSum.Id 
+LEFT JOIN ed.Competition ON Competition.Id = Abiturient.CompetitionId ", MainClass.dbType == PriemType.PriemAG ? "extAbitMarksSumAG AS " : ""), kcRest);
 
                 string sQueryJoinFW = string.Empty;
 
@@ -371,7 +371,7 @@ LEFT JOIN ed.Competition ON Competition.Id = Abiturient.CompetitionId ", kcRest)
                 sFilter += " AND extEntry.ObrazProgramId = " + obProg;
                 sFilter += string.IsNullOrEmpty(spec) ? " AND extEntry.ProfileId = 0 " : " AND extEntry.ProfileId='" + spec + "'";
 
-                if (_studyBasisId == 1)
+                if (_studyBasisId == 1 && MainClass.dbType != PriemType.PriemAG)
                     sFilter += string.Format(@" AND
 (
     Abiturient.Id IN
@@ -396,6 +396,31 @@ LEFT JOIN ed.Competition ON Competition.Id = Abiturient.CompetitionId ", kcRest)
 	)
     OR Abiturient.CompetitionId IN (1, 2, 7, 8)
 )", _studyLevelGroupId);
+                else
+                    sFilter += string.Format(@" AND
+(
+    Abiturient.Id IN
+    ( 
+	    SELECT Abiturient.Id FROM ed._FirstWaveGreen 
+	    INNER JOIN ed.Abiturient ON Abiturient.Id = _FirstWaveGreen.AbiturientId
+	    WHERE NOT EXISTS 
+        (SELECT * FROM ed.hlpAbitToGoGreen WHERE hlpAbitToGoGreen.PersonId = Abiturient.PersonId AND hlpAbitToGoGreen.IsGo = 1 
+        AND hlpAbitToGoGreen.Priority < Abiturient.Priority AND hlpAbitToGoGreen.LevelGroupId = {0})
+	    UNION 
+	    SELECT Abiturient.Id FROM ed._FirstWaveYellow 
+	    INNER JOIN ed.Abiturient ON Abiturient.Id = _FirstWaveYellow.AbiturientId
+	    WHERE NOT EXISTS 
+        (SELECT * FROM ed.hlpAbitToGoGreen WHERE hlpAbitToGoGreen.PersonId = Abiturient.PersonId AND hlpAbitToGoGreen.IsGo = 1 
+        AND hlpAbitToGoGreen.Priority < Abiturient.Priority AND hlpAbitToGoGreen.LevelGroupId = {0})
+	    UNION 
+	    SELECT Abiturient.Id FROM ed._FirstWaveLast
+	    INNER JOIN ed.Abiturient ON Abiturient.Id = _FirstWaveLast.AbiturientId
+	    WHERE NOT EXISTS 
+        (SELECT * FROM ed.hlpAbitToGoGreen WHERE hlpAbitToGoGreen.PersonId = Abiturient.PersonId AND hlpAbitToGoGreen.IsGo = 1 
+        AND hlpAbitToGoGreen.Priority < Abiturient.Priority AND hlpAbitToGoGreen.LevelGroupId = {0})
+	)
+    OR Abiturient.CompetitionId IN (1, 2, 7, 8)
+)", _studyLevelGroupId, kc);
 
                 string orderBy = " ORDER BY SortNum";
 
@@ -413,7 +438,7 @@ LEFT JOIN ed.Competition ON Competition.Id = Abiturient.CompetitionId ", kcRest)
 
             dgvLeft.Rows.Clear();
             if (ids.Length > 0)
-                FillGrid(dgvLeft, sQuery, GetTotalFilter() + string.Format(" AND ed.qAbiturient.Id IN ({0}) ", ids), sOrderby);
+                FillGrid(dgvLeft, sQuery, GetTotalFilter() + string.Format(" AND qAbiturient.Id IN ({0}) ", ids), sOrderby);
             else
                 InitGrid(dgvLeft);
         }

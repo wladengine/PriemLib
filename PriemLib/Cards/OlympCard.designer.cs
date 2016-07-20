@@ -51,6 +51,7 @@ namespace PriemLib
             this.label9 = new System.Windows.Forms.Label();
             this.cbOlympProfile = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
+            this.lblReadOnly = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.epError)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -299,11 +300,23 @@ namespace PriemLib
             this.label10.TabIndex = 123;
             this.label10.Text = "Профиль олимпиады";
             // 
+            // lblReadOnly
+            // 
+            this.lblReadOnly.ForeColor = System.Drawing.Color.Red;
+            this.lblReadOnly.Location = new System.Drawing.Point(432, 147);
+            this.lblReadOnly.Name = "lblReadOnly";
+            this.lblReadOnly.Size = new System.Drawing.Size(176, 63);
+            this.lblReadOnly.TabIndex = 125;
+            this.lblReadOnly.Text = "Данная олимпиада использована в качестве льготы. Изменения в карточке не допускаю" +
+    "тся.";
+            this.lblReadOnly.Visible = false;
+            // 
             // OlympCard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(620, 346);
+            this.Controls.Add(this.lblReadOnly);
             this.Controls.Add(this.cbOlympProfile);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.cbOlympYear);
@@ -340,6 +353,7 @@ namespace PriemLib
             this.Controls.SetChildIndex(this.cbOlympYear, 0);
             this.Controls.SetChildIndex(this.label10, 0);
             this.Controls.SetChildIndex(this.cbOlympProfile, 0);
+            this.Controls.SetChildIndex(this.lblReadOnly, 0);
             ((System.ComponentModel.ISupportInitialize)(this.epError)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -372,6 +386,7 @@ namespace PriemLib
         private System.Windows.Forms.ComboBox cbOlympYear;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.ComboBox cbOlympProfile;
-        private System.Windows.Forms.Label label10;     
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label lblReadOnly;     
     }
 }

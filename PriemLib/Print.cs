@@ -12,6 +12,7 @@ using iTextSharp.text;
 using iTextSharp.text.pdf;
 
 using EducServLib;
+using Novacode;
 
 namespace PriemLib
 {
@@ -774,17 +775,17 @@ namespace PriemLib
                     string header = string.Format(@"Форма обучения: {0}
     Условия обучения: {1}", info.StudyFormName, basis);
 
-                    Paragraph p = new Paragraph(header, font);
+                    iTextSharp.text.Paragraph p = new iTextSharp.text.Paragraph(header, font);
                     document.Add(p);
 
                     float midStr = 13f;
-                    p = new Paragraph(20f);
+                    p = new iTextSharp.text.Paragraph(20f);
                     p.Add(new Phrase("ПРОТОКОЛ № ", new Font(bfTimes, 14, Font.BOLD)));
                     p.Add(new Phrase(info.Number, new Font(bfTimes, 18, Font.BOLD)));
                     p.Alignment = Element.ALIGN_CENTER;
                     document.Add(p);
 
-                    p = new Paragraph(midStr);
+                    p = new iTextSharp.text.Paragraph(midStr);
                     p.Add(new Phrase(@"заседания Приемной комиссии Санкт-Петербургского Государственного Университета
     о допуске к участию в конкурсе на основные образовательные программы ", new Font(bfTimes, 10, Font.BOLD)));
 
@@ -792,8 +793,8 @@ namespace PriemLib
                     document.Add(p);
 
                     //date
-                    p = new Paragraph(midStr);
-                    p.Add(new Paragraph(string.Format("от {0}", Util.GetDateString(info.Date, true, true)), new Font(bfTimes, 10, Font.BOLD)));
+                    p = new iTextSharp.text.Paragraph(midStr);
+                    p.Add(new iTextSharp.text.Paragraph(string.Format("от {0}", Util.GetDateString(info.Date, true, true)), new Font(bfTimes, 10, Font.BOLD)));
                     p.Alignment = Element.ALIGN_CENTER;
                     document.Add(p);
 
@@ -916,16 +917,16 @@ namespace PriemLib
         private static void AddStandartFooter(ref iTextSharp.text.Document document)
         {
             BaseFont bfTimes = BaseFont.CreateFont(string.Format(@"{0}\times.ttf", MainClass.dirTemplates), BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-            Paragraph p = new Paragraph(30f);
+            iTextSharp.text.Paragraph p = new iTextSharp.text.Paragraph(30f);
             p.KeepTogether = true;
             p.Add(new Phrase("Ответственный секретарь Приемной комиссии СПбГУ____________________________________________________________", new Font(bfTimes, 10)));
             document.Add(p);
 
-            p = new Paragraph();
+            p = new iTextSharp.text.Paragraph();
             p.Add(new Phrase("Заместитель начальника Управления по организации приема – советник проректора по направлениям___________________", new Font(bfTimes, 10)));
             document.Add(p);
 
-            p = new Paragraph();
+            p = new iTextSharp.text.Paragraph();
             p.Add(new Phrase("Ответственный секретарь комиссии по приему документов_______________________________________________________", new Font(bfTimes, 10)));
             document.Add(p);
         }
@@ -965,17 +966,17 @@ namespace PriemLib
                     string header = string.Format(@"Форма обучения: {0}
 Условия обучения: {1}", protocolInfo.StudyFormName, basis);
 
-                    Paragraph p = new Paragraph(header, font);
+                    iTextSharp.text.Paragraph p = new iTextSharp.text.Paragraph(header, font);
                     document.Add(p);
 
                     float midStr = 13f;
-                    p = new Paragraph(20f);
+                    p = new iTextSharp.text.Paragraph(20f);
                     p.Add(new Phrase("ПРОТОКОЛ № ", new Font(bfTimes, 14, Font.BOLD)));
                     p.Add(new Phrase(protocolInfo.Number, new Font(bfTimes, 18, Font.BOLD)));
                     p.Alignment = Element.ALIGN_CENTER;
                     document.Add(p);
 
-                    p = new Paragraph(midStr);
+                    p = new iTextSharp.text.Paragraph(midStr);
                     p.Add(new Phrase(@"заседания Приемной комиссии Санкт-Петербургского Государственного Университета
 об исключении из участия в конкурсе на основные образовательные программы ", new Font(bfTimes, 10, Font.BOLD)));
 
@@ -983,8 +984,8 @@ namespace PriemLib
                     document.Add(p);
 
                     //date
-                    p = new Paragraph(midStr);
-                    p.Add(new Paragraph(string.Format("от {0}", Util.GetDateString(protocolInfo.Date, true, true)), new Font(bfTimes, 10, Font.BOLD)));
+                    p = new iTextSharp.text.Paragraph(midStr);
+                    p.Add(new iTextSharp.text.Paragraph(string.Format("от {0}", Util.GetDateString(protocolInfo.Date, true, true)), new Font(bfTimes, 10, Font.BOLD)));
                     p.Alignment = Element.ALIGN_CENTER;
                     document.Add(p);
 
@@ -1051,17 +1052,17 @@ namespace PriemLib
                         document.Add(curT);
 
                     //FOOTER
-                    p = new Paragraph(30f);
+                    p = new iTextSharp.text.Paragraph(30f);
                     p.KeepTogether = true;
                     p.Add(new Phrase("Ответственный секретарь Приемной комиссии СПбГУ_______________________________________________________", new Font(bfTimes, 10)));
                     document.Add(p);
 
-                    p = new Paragraph();
+                    p = new iTextSharp.text.Paragraph();
                     p.Add(new Phrase(@"Заместитель Ответственного секретаря Приемной 
 комиссии  СПбГУ по группе основных образовательных программ_____________________________________________", new Font(bfTimes, 10)));
                     document.Add(p);
 
-                    p = new Paragraph();
+                    p = new iTextSharp.text.Paragraph();
                     p.Add(new Phrase("Ответственный по приему на основную образовательную программу___________________________________________", new Font(bfTimes, 10)));
                     document.Add(p);
 
@@ -1117,17 +1118,17 @@ namespace PriemLib
                     string header = string.Format(@"Форма обучения: {0}
 Условия обучения: {1}", info.StudyFormName, basis);
 
-                    Paragraph p = new Paragraph(header, font);
+                    iTextSharp.text.Paragraph p = new iTextSharp.text.Paragraph(header, font);
                     document.Add(p);
 
                     float midStr = 13f;
-                    p = new Paragraph(20f);
+                    p = new iTextSharp.text.Paragraph(20f);
                     p.Add(new Phrase("ПРОТОКОЛ № ", new Font(bfTimes, 14, Font.BOLD)));
                     p.Add(new Phrase(info.Number, new Font(bfTimes, 18, Font.BOLD)));
                     p.Alignment = Element.ALIGN_CENTER;
                     document.Add(p);
 
-                    p = new Paragraph(midStr);
+                    p = new iTextSharp.text.Paragraph(midStr);
                     p.Add(new Phrase(@"заседания Приемной комиссии Санкт-Петербургского Государственного Университета
 об изменении типа конкурса целевикам ", new Font(bfTimes, 10, Font.BOLD)));
 
@@ -1135,8 +1136,8 @@ namespace PriemLib
                     document.Add(p);
 
                     //date
-                    p = new Paragraph(midStr);
-                    p.Add(new Paragraph(string.Format("от {0}", Util.GetDateString(info.Date, true, true)), new Font(bfTimes, 10, Font.BOLD)));
+                    p = new iTextSharp.text.Paragraph(midStr);
+                    p.Add(new iTextSharp.text.Paragraph(string.Format("от {0}", Util.GetDateString(info.Date, true, true)), new Font(bfTimes, 10, Font.BOLD)));
                     p.Alignment = Element.ALIGN_CENTER;
                     document.Add(p);
 
@@ -1255,17 +1256,17 @@ namespace PriemLib
                     string header = string.Format(@"Форма обучения: {0}
 Условия обучения: {1}", info.StudyFormName, basis);
 
-                    Paragraph p = new Paragraph(header, font);
+                    iTextSharp.text.Paragraph p = new iTextSharp.text.Paragraph(header, font);
                     document.Add(p);
 
                     float midStr = 13f;
-                    p = new Paragraph(20f);
+                    p = new iTextSharp.text.Paragraph(20f);
                     p.Add(new Phrase("ПРОТОКОЛ № ", new Font(bfTimes, 14, Font.BOLD)));
                     p.Add(new Phrase(info.Number, new Font(bfTimes, 18, Font.BOLD)));
                     p.Alignment = Element.ALIGN_CENTER;
                     document.Add(p);
 
-                    p = new Paragraph(midStr);
+                    p = new iTextSharp.text.Paragraph(midStr);
                     p.Add(new Phrase(@"заседания Приемной комиссии Санкт-Петербургского Государственного Университета
 об изменении типа конкурса на общий ", new Font(bfTimes, 10, Font.BOLD)));
 
@@ -1273,8 +1274,8 @@ namespace PriemLib
                     document.Add(p);
 
                     //date
-                    p = new Paragraph(midStr);
-                    p.Add(new Paragraph(string.Format("от {0}", Util.GetDateString(info.Date, true, true)), new Font(bfTimes, 10, Font.BOLD)));
+                    p = new iTextSharp.text.Paragraph(midStr);
+                    p.Add(new iTextSharp.text.Paragraph(string.Format("от {0}", Util.GetDateString(info.Date, true, true)), new Font(bfTimes, 10, Font.BOLD)));
                     p.Alignment = Element.ALIGN_CENTER;
                     document.Add(p);
 
@@ -1420,32 +1421,32 @@ namespace PriemLib
 
                         float firstLineIndent = 30f;
                         //HEADER
-                        Paragraph p = new Paragraph("Правительство Российской Федерации", new Font(bfTimes, 12, Font.BOLD));
+                        iTextSharp.text.Paragraph p = new iTextSharp.text.Paragraph("Правительство Российской Федерации", new Font(bfTimes, 12, Font.BOLD));
                         p.Alignment = Element.ALIGN_CENTER;
                         document.Add(p);
 
-                        p = new Paragraph("Федеральное государственное бюджетное образовательное учреждение", new Font(bfTimes, 12));
+                        p = new iTextSharp.text.Paragraph("Федеральное государственное бюджетное образовательное учреждение", new Font(bfTimes, 12));
                         p.Alignment = Element.ALIGN_CENTER;
                         document.Add(p);
 
-                        p = new Paragraph("высшего профессионального образования", new Font(bfTimes, 12));
+                        p = new iTextSharp.text.Paragraph("высшего профессионального образования", new Font(bfTimes, 12));
                         p.Alignment = Element.ALIGN_CENTER;
                         document.Add(p);
 
-                        p = new Paragraph("САНКТ-ПЕТЕРБУРГСКИЙ ГОСУДАРСТВЕННЫЙ УНИВЕРСИТЕТ", new Font(bfTimes, 12, Font.BOLD));
+                        p = new iTextSharp.text.Paragraph("САНКТ-ПЕТЕРБУРГСКИЙ ГОСУДАРСТВЕННЫЙ УНИВЕРСИТЕТ", new Font(bfTimes, 12, Font.BOLD));
                         p.Alignment = Element.ALIGN_CENTER;
                         document.Add(p);
 
-                        p = new Paragraph("ПРЕДСТАВЛЕНИЕ", new Font(bfTimes, 20, Font.BOLD));
+                        p = new iTextSharp.text.Paragraph("ПРЕДСТАВЛЕНИЕ", new Font(bfTimes, 20, Font.BOLD));
                         p.Alignment = Element.ALIGN_CENTER;
                         document.Add(p);
 
-                        p = new Paragraph(string.Format("От {0} г. № {1}", Util.GetDateString(docDate, true, true), docNum), font);
+                        p = new iTextSharp.text.Paragraph(string.Format("От {0} г. № {1}", Util.GetDateString(docDate, true, true), docNum), font);
                         p.SpacingBefore = 10f;
                         document.Add(p);
 
-                        p = new Paragraph(10f);
-                        p.Add(new Paragraph("по " + facDat, font));
+                        p = new iTextSharp.text.Paragraph(10f);
+                        p.Add(new iTextSharp.text.Paragraph("по " + facDat, font));
 
                         string educDoc = ""; ;
 
@@ -1454,14 +1455,14 @@ namespace PriemLib
                         else
                             educDoc = "об образовании";
 
-                        p.Add(new Paragraph(string.Format("по основной {3} образовательной программе подготовки {0} на направление {1} «{2}» ", ProtocolInfo.StudyLevelNameRod, ProtocolInfo.LicenseProgramCode, ProtocolInfo.LicenseProgramName, sec), font));
-                        p.Add(new Paragraph((form + " форма обучения,").ToLower(), font));
-                        p.Add(new Paragraph(basis, font));
+                        p.Add(new iTextSharp.text.Paragraph(string.Format("по основной {3} образовательной программе подготовки {0} на направление {1} «{2}» ", ProtocolInfo.StudyLevelNameRod, ProtocolInfo.LicenseProgramCode, ProtocolInfo.LicenseProgramName, sec), font));
+                        p.Add(new iTextSharp.text.Paragraph((form + " форма обучения,").ToLower(), font));
+                        p.Add(new iTextSharp.text.Paragraph(basis, font));
                         p.IndentationLeft = 320;
                         document.Add(p);
 
-                        p = new Paragraph();
-                        p.Add(new Paragraph("О зачислении на 1 курс", font));
+                        p = new iTextSharp.text.Paragraph();
+                        p.Add(new iTextSharp.text.Paragraph("О зачислении на 1 курс", font));
                         p.SpacingBefore = 10f;
                         document.Add(p);
 
@@ -1485,13 +1486,13 @@ namespace PriemLib
                             case 5: { OrderHeaderPart2 = string.Format("Правилами приема в СПбГУ на основные образовательные программы интернатуры и ординатуры в {0} году", MainClass.iPriemYear); break; }
                         }
 
-                        p = new Paragraph(string.Format("В соответствии с Федеральным законом от 29.12.2012 № 273-ФЗ \"Об образовании в Российской Федерации\", {0}, {1}", OrderHeaderPart1, OrderHeaderPart2), font);
+                        p = new iTextSharp.text.Paragraph(string.Format("В соответствии с Федеральным законом от 29.12.2012 № 273-ФЗ \"Об образовании в Российской Федерации\", {0}, {1}", OrderHeaderPart1, OrderHeaderPart2), font);
                         p.SpacingBefore = 10f;
                         p.FirstLineIndent = firstLineIndent;
                         p.Alignment = Element.ALIGN_JUSTIFIED;
                         document.Add(p);
 
-                        p = new Paragraph(string.Format("Представить на рассмотрение Приемной комиссии СПбГУ по вопросу зачисления c 01.09.{4} года на 1 курс{2} с освоением основной{3} образовательной программы подготовки {0} по {1} форме обучения следующих граждан, успешно выдержавших вступительные испытания:", ProtocolInfo.StudyLevelNameRod, form2, list, sec, MainClass.iPriemYear), font);
+                        p = new iTextSharp.text.Paragraph(string.Format("Представить на рассмотрение Приемной комиссии СПбГУ по вопросу зачисления c 01.09.{4} года на 1 курс{2} с освоением основной{3} образовательной программы подготовки {0} по {1} форме обучения следующих граждан, успешно выдержавших вступительные испытания:", ProtocolInfo.StudyLevelNameRod, form2, list, sec, MainClass.iPriemYear), font);
                         p.SpacingBefore = 20f;
                         p.FirstLineIndent = firstLineIndent;
                         p.Alignment = Element.ALIGN_JUSTIFIED;
@@ -1516,17 +1517,17 @@ namespace PriemLib
                             string obProgId = v.ObrazProgramId.ToString();
                             if (obProgId != curObProg)
                             {
-                                p = new Paragraph();
-                                p.Add(new Paragraph(string.Format("{2}по направлению {0} \"{1}\"", v.LicenseProgramCode, v.LicenseProgramName, curObProg == "-" ? "" : "\r\n"), font));
+                                p = new iTextSharp.text.Paragraph();
+                                p.Add(new iTextSharp.text.Paragraph(string.Format("{2}по направлению {0} \"{1}\"", v.LicenseProgramCode, v.LicenseProgramName, curObProg == "-" ? "" : "\r\n"), font));
 
                                 if (!string.IsNullOrEmpty(obProg))
-                                    p.Add(new Paragraph(string.Format("по образовательной программе {0} \"{1}\"", v.ObrazProgramCrypt, obProg), font));
+                                    p.Add(new iTextSharp.text.Paragraph(string.Format("по образовательной программе {0} \"{1}\"", v.ObrazProgramCrypt, obProg), font));
 
                                 string spez = v.ProfileName;
                                 if (spez != curSpez)
                                 {
                                     if (!string.IsNullOrEmpty(spez) && spez != "нет")
-                                        p.Add(new Paragraph(string.Format("по профилю \"{0}\"", spez), font));
+                                        p.Add(new iTextSharp.text.Paragraph(string.Format("по профилю \"{0}\"", spez), font));
 
                                     curSpez = spez;
                                 }
@@ -1541,14 +1542,14 @@ namespace PriemLib
                                 string spez = v.ProfileName;
                                 if (spez != curSpez && spez != "нет")
                                 {
-                                    p = new Paragraph();
-                                    p.Add(new Paragraph(string.Format("{2}по направлению {0} \"{1}\"", v.LicenseProgramCode, v.LicenseProgramName, curObProg == "-" ? "" : "\r\n"), font));
+                                    p = new iTextSharp.text.Paragraph();
+                                    p.Add(new iTextSharp.text.Paragraph(string.Format("{2}по направлению {0} \"{1}\"", v.LicenseProgramCode, v.LicenseProgramName, curObProg == "-" ? "" : "\r\n"), font));
 
                                     if (!string.IsNullOrEmpty(obProg))
-                                        p.Add(new Paragraph(string.Format("по образовательной программе \"{0}\"", obProg), font));
+                                        p.Add(new iTextSharp.text.Paragraph(string.Format("по образовательной программе \"{0}\"", obProg), font));
 
                                     if (!string.IsNullOrEmpty(spez))
-                                        p.Add(new Paragraph(string.Format("по профилю \"{0}\"", spez), font));
+                                        p.Add(new iTextSharp.text.Paragraph(string.Format("по профилю \"{0}\"", spez), font));
 
                                     p.IndentationLeft = 40;
                                     document.Add(p);
@@ -1560,22 +1561,22 @@ namespace PriemLib
                             string header = v.EntryHeaderName;
                             if (header != curHeader)
                             {
-                                p = new Paragraph();
-                                p.Add(new Paragraph(string.Format("\r\n{0}:", header), font));
+                                p = new iTextSharp.text.Paragraph();
+                                p.Add(new iTextSharp.text.Paragraph(string.Format("\r\n{0}:", header), font));
                                 p.IndentationLeft = 40;
                                 document.Add(p);
 
                                 curHeader = header;
                             }
 
-                            p = new Paragraph();
-                            p.Add(new Paragraph(string.Format("{0}. {1} {2}", counter, v.FIO, v.TotalSum.ToString()), font));
+                            p = new iTextSharp.text.Paragraph();
+                            p.Add(new iTextSharp.text.Paragraph(string.Format("{0}. {1} {2}", counter, v.FIO, v.TotalSum.ToString()), font));
                             p.IndentationLeft = 60;
                             document.Add(p);
                         }
 
                         //FOOTER
-                        p = new Paragraph();
+                        p = new iTextSharp.text.Paragraph();
                         p.SpacingBefore = 30f;
                         p.Alignment = Element.ALIGN_JUSTIFIED;
                         p.FirstLineIndent = firstLineIndent;
@@ -1583,17 +1584,17 @@ namespace PriemLib
                         p.Add(new Phrase(string.Format(" личные заявления, протоколы вступительных испытаний, {0} документов государственного образца {1}. [{2}]", copyDoc, educDoc, FacInd), font));
                         document.Add(p);
 
-                        p = new Paragraph();
+                        p = new iTextSharp.text.Paragraph();
                         p.SpacingBefore = 30f;
                         p.KeepTogether = true;
-                        p.Add(new Paragraph("Ответственный секретарь", font));
-                        p.Add(new Paragraph("комиссии по приему документов СПбГУ                                                                                          ", font));
+                        p.Add(new iTextSharp.text.Paragraph("Ответственный секретарь", font));
+                        p.Add(new iTextSharp.text.Paragraph("комиссии по приему документов СПбГУ                                                                                          ", font));
                         document.Add(p);
 
-                        p = new Paragraph();
+                        p = new iTextSharp.text.Paragraph();
                         p.SpacingBefore = 30f;
-                        p.Add(new Paragraph("Заместитель начальника управления - ", font));
-                        p.Add(new Paragraph("советник проректора по направлениям", font));
+                        p.Add(new iTextSharp.text.Paragraph("Заместитель начальника управления - ", font));
+                        p.Add(new iTextSharp.text.Paragraph("советник проректора по направлениям", font));
                         document.Add(p);
 
                         document.Close();
@@ -2709,106 +2710,213 @@ namespace PriemLib
 
                 string dogType = dogovorInfo.DogovorTypeId.ToString();
 
-                WordDoc wd = new WordDoc(string.Format(@"{0}\Dogovor{1}.dot", MainClass.dirTemplates, dogType), !forPrint);
-
-                //вступление
-                wd.SetFields("DogovorNum", dogovorInfo.DogovorNum.ToString());
-                wd.SetFields("DogovorDate", dogovorInfo.DogovorDate.ToLongDateString());
-                
-                //проректор и студент
-                wd.SetFields("Lico", dogovorInfo.Prorector);
-                wd.SetFields("LicoDate", dogovorInfo.DateDov.ToString() + "г.");
-                wd.SetFields("LicoNum", dogovorInfo.NumberDov.ToString());
-                wd.SetFields("FIO", person.FIO);
-                wd.SetFields("Sex", (person.Sex) ? "ый" : "ая");
-
-                string programcode = abit.ObrazProgramCrypt.Trim();
-                string profcode = abit.LicenseProgramCode.Trim();
-
-                wd.SetFields("ObrazProgramName", "(" + programcode + ") " + abit.ObrazProgramName.Trim());
-                wd.SetFields("Profession", "(" + profcode + ") " + abit.LicenseProgramName);
-                wd.SetFields("StudyCourse", "1");
-                wd.SetFields("StudyFaculty", abit.FacultyName);
-                
-                string form = context.StudyForm.Where(x => x.Id == abit.StudyFormId).Select(x => x.Name).FirstOrDefault().ToLower();
-                wd.SetFields("StudyForm", form.ToLower());
-                
-                wd.SetFields("Qualification", dogovorInfo.Qualification);
-
-                //сроки обучения
-                wd.SetFields("Srok", dogovorInfo.Srok);
-
-                DateTime dStart = dogovorInfo.DateStart;
-                wd.SetFields("DateStart", dStart.ToLongDateString());
-                
-                DateTime dFinish = dogovorInfo.DateFinish;
-                wd.SetFields("DateFinish", dFinish.ToLongDateString());
-
-                //суммы обучения
-                wd.SetFields("SumTotal", dogovorInfo.SumTotal);
-                wd.SetFields("SumFirstPeriod", dogovorInfo.SumFirstPeriod);//dsRow["SumFirstPeriod"].ToString()
-                
-
-                wd.SetFields("Address1", string.Format("{0} {1}, {2}, {3}, ", person.Code, person.CountryName, person.RegionName, person.City));
-                wd.SetFields("Address2", string.Format("{0} дом {1} {2} кв. {3}", person.Street, person.House, person.Korpus == string.Empty ? "" : "корп. " + person.Korpus, person.Flat));
-
-                wd.SetFields("Passport", "серия " + person.PassportSeries + " № " + person.PassportNumber);
-                wd.SetFields("PassportAuthorDate", person.PassportDate.Value.ToShortDateString());
-                wd.SetFields("PassportAuthor", person.PassportAuthor);
-                
-                wd.SetFields("PhoneNumber", person.Phone + (String.IsNullOrEmpty(person.Mobiles) ? "" : ", доп.: " + person.Mobiles));
-
-                wd.SetFields("UniverName", dogovorInfo.UniverName);
-                wd.SetFields("UniverAddress", dogovorInfo.UniverAddress);
-                wd.SetFields("UniverINN", dogovorInfo.UniverINN);
-                wd.SetFields("Props", dogovorInfo.Props);
-
-                switch (dogType)
+                using (FileStream fs = new FileStream(string.Format(@"{0}\Dogovor{1}.docx", MainClass.dirTemplates, dogType), FileMode.Open, FileAccess.Read))
+                using (DocX doc = DocX.Load(fs))
                 {
-                    // обычный
-                    case "1":
-                        {
-                            break;
-                        }
-                    // физ лицо
-                    case "2":
-                        {
-                            wd.SetFields("CustomerLico", dogovorInfo.Customer);
-                            wd.SetFields("CustomerAddress", dogovorInfo.CustomerAddress);
-                            wd.SetFields("CustomerINN", "Паспорт: " + dogovorInfo.CustomerPassport);
-                            wd.SetFields("CustomerRS", "Выдан: " + dogovorInfo.CustomerPassportAuthor);
+                    //вступление
+                    doc.ReplaceText("&&DogovorNum", dogovorInfo.DogovorNum.ToString());
+                    doc.ReplaceText("&&DogovorDate", dogovorInfo.DogovorDate.ToLongDateString());
 
-                            break;
-                        }
-                    // мат кап
-                    case "4":
-                        {
-                            wd.SetFields("Customer", dogovorInfo.Customer);
-                            wd.SetFields("CustomerAddress", dogovorInfo.CustomerAddress);
-                            wd.SetFields("CustomerINN", dogovorInfo.CustomerPassport);
-                            wd.SetFields("CustomerRS", dogovorInfo.CustomerPassportAuthor);
+                    //проректор и студент
+                    doc.ReplaceText("&&LicoNum", dogovorInfo.NumberDov.ToString());
+                    doc.ReplaceText("&&LicoDate", dogovorInfo.DateDov.ToString() + "г.");
+                    doc.ReplaceText("&&Lico", dogovorInfo.Prorector);
+                    
+                    doc.ReplaceText("&&FIO", person.FIO);
+                    doc.ReplaceText("&&Sex", (person.Sex) ? "ый" : "ая");
 
-                            break;
-                        }
-                    // юридическое лицо
-                    case "3":
-                        {
-                            wd.SetFields("Customer", dogovorInfo.Customer);
-                            wd.SetFields("CustomerLico", dogovorInfo.CustomerLico);
-                            wd.SetFields("CustomerReason", dogovorInfo.CustomerReason);
-                            wd.SetFields("CustomerAddress", dogovorInfo.CustomerAddress);
-                            wd.SetFields("CustomerINN", "ИНН " + dogovorInfo.CustomerINN);
-                            wd.SetFields("CustomerRS", "Р/С " + dogovorInfo.CustomerRS);
+                    string programcode = abit.ObrazProgramCrypt.Trim();
+                    string profcode = abit.LicenseProgramCode.Trim();
 
-                            break;
-                        }
+                    doc.ReplaceText("&&ObrazProgramName", "(" + programcode + ") " + abit.ObrazProgramName.Trim());
+                    doc.ReplaceText("&&Profession", "(" + profcode + ") " + abit.LicenseProgramName);
+                    doc.ReplaceText("&&StudyCourse", "1");
+                    doc.ReplaceText("&&StudyFaculty", abit.FacultyName);
+
+                    string form = context.StudyForm.Where(x => x.Id == abit.StudyFormId).Select(x => x.Name).FirstOrDefault().ToLower();
+                    doc.ReplaceText("&&StudyForm", form.ToLower());
+
+                    doc.ReplaceText("&&Qualification", dogovorInfo.Qualification);
+
+                    //сроки обучения
+                    doc.ReplaceText("&&Srok", dogovorInfo.Srok);
+
+                    DateTime dStart = dogovorInfo.DateStart;
+                    doc.ReplaceText("&&DateStart", dStart.ToLongDateString());
+
+                    DateTime dFinish = dogovorInfo.DateFinish;
+                    doc.ReplaceText("&&DateFinish", dFinish.ToLongDateString());
+
+                    //суммы обучения
+                    doc.ReplaceText("&&SumTotal", dogovorInfo.SumTotal);
+                    doc.ReplaceText("&&SumFirstPeriod", dogovorInfo.SumFirstPeriod);//dsRow["SumFirstPeriod"].ToString()
+
+
+                    doc.ReplaceText("&&Address1", string.Format("{0} {1}, {2}, {3}, ", person.Code, person.CountryName, person.RegionName, person.City));
+                    doc.ReplaceText("&&Address2", string.Format("{0} дом {1} {2} кв. {3}", person.Street, person.House, person.Korpus == string.Empty ? "" : "корп. " + person.Korpus, person.Flat));
+
+                    doc.ReplaceText("&&PassportAuthorDate", person.PassportDate.Value.ToShortDateString());
+                    doc.ReplaceText("&&PassportAuthor", person.PassportAuthor);
+                    doc.ReplaceText("&&Passport", "серия " + person.PassportSeries + " № " + person.PassportNumber);
+
+                    doc.ReplaceText("&&PhoneNumber", person.Phone + (String.IsNullOrEmpty(person.Mobiles) ? "" : ", доп.: " + person.Mobiles));
+
+                    doc.ReplaceText("&&UniverName", dogovorInfo.UniverName);
+                    doc.ReplaceText("&&UniverAddress", dogovorInfo.UniverAddress);
+                    doc.ReplaceText("&&UniverINN", dogovorInfo.UniverINN);
+                    doc.ReplaceText("&&Props", dogovorInfo.Props);
+
+                    switch (dogType)
+                    {
+                        // обычный
+                        case "1":
+                            {
+                                break;
+                            }
+                        // физ лицо
+                        case "2":
+                            {
+                                doc.ReplaceText("&&CustomerLico", dogovorInfo.Customer);
+                                doc.ReplaceText("&&CustomerAddress", dogovorInfo.CustomerAddress);
+                                doc.ReplaceText("&&CustomerINN", "Паспорт: " + dogovorInfo.CustomerPassport);
+                                doc.ReplaceText("&&CustomerRS", "Выдан: " + dogovorInfo.CustomerPassportAuthor);
+
+                                break;
+                            }
+                        // мат кап
+                        case "4":
+                            {
+                                doc.ReplaceText("&&CustomerAddress", dogovorInfo.CustomerAddress);
+                                doc.ReplaceText("&&CustomerINN", dogovorInfo.CustomerPassport);
+                                doc.ReplaceText("&&CustomerRS", dogovorInfo.CustomerPassportAuthor);
+                                doc.ReplaceText("&&Customer", dogovorInfo.Customer);
+                                break;
+                            }
+                        // юридическое лицо
+                        case "3":
+                            {
+                                doc.ReplaceText("&&CustomerLico", dogovorInfo.CustomerLico);
+                                doc.ReplaceText("&&CustomerReason", dogovorInfo.CustomerReason);
+                                doc.ReplaceText("&&CustomerAddress", dogovorInfo.CustomerAddress);
+                                doc.ReplaceText("&&CustomerINN", "ИНН " + dogovorInfo.CustomerINN);
+                                doc.ReplaceText("&&CustomerRS", "Р/С " + dogovorInfo.CustomerRS);
+                                doc.ReplaceText("&&Customer", dogovorInfo.Customer);
+
+                                break;
+                            }
+                    }
+
+                    string saveFileName = string.Format(@"{0}\Dogovor_{1}.docx", MainClass.saveTempFolder, dogId);
+
+                    doc.SaveAs(saveFileName);
+
+                    System.Diagnostics.Process pr = new Process();
+                    pr.StartInfo.FileName = saveFileName;
+                    if (forPrint)
+                        pr.StartInfo.Verb = "Print";
+                    pr.Start();
                 }
 
-                if (forPrint)
-                {
-                    wd.Print();
-                    wd.Close();
-                }
+                //WordDoc wd = new WordDoc(string.Format(@"{0}\Dogovor{1}.dot", MainClass.dirTemplates, dogType), !forPrint);
+
+                ////вступление
+                //wd.SetFields("DogovorNum", dogovorInfo.DogovorNum.ToString());
+                //wd.SetFields("DogovorDate", dogovorInfo.DogovorDate.ToLongDateString());
+                
+                ////проректор и студент
+                //wd.SetFields("Lico", dogovorInfo.Prorector);
+                //wd.SetFields("LicoDate", dogovorInfo.DateDov.ToString() + "г.");
+                //wd.SetFields("LicoNum", dogovorInfo.NumberDov.ToString());
+                //wd.SetFields("FIO", person.FIO);
+                //wd.SetFields("Sex", (person.Sex) ? "ый" : "ая");
+
+                //string programcode = abit.ObrazProgramCrypt.Trim();
+                //string profcode = abit.LicenseProgramCode.Trim();
+
+                //wd.SetFields("ObrazProgramName", "(" + programcode + ") " + abit.ObrazProgramName.Trim());
+                //wd.SetFields("Profession", "(" + profcode + ") " + abit.LicenseProgramName);
+                //wd.SetFields("StudyCourse", "1");
+                //wd.SetFields("StudyFaculty", abit.FacultyName);
+                
+                //string form = context.StudyForm.Where(x => x.Id == abit.StudyFormId).Select(x => x.Name).FirstOrDefault().ToLower();
+                //wd.SetFields("StudyForm", form.ToLower());
+                
+                //wd.SetFields("Qualification", dogovorInfo.Qualification);
+
+                ////сроки обучения
+                //wd.SetFields("Srok", dogovorInfo.Srok);
+
+                //DateTime dStart = dogovorInfo.DateStart;
+                //wd.SetFields("DateStart", dStart.ToLongDateString());
+                
+                //DateTime dFinish = dogovorInfo.DateFinish;
+                //wd.SetFields("DateFinish", dFinish.ToLongDateString());
+
+                ////суммы обучения
+                //wd.SetFields("SumTotal", dogovorInfo.SumTotal);
+                //wd.SetFields("SumFirstPeriod", dogovorInfo.SumFirstPeriod);//dsRow["SumFirstPeriod"].ToString()
+                
+
+                //wd.SetFields("Address1", string.Format("{0} {1}, {2}, {3}, ", person.Code, person.CountryName, person.RegionName, person.City));
+                //wd.SetFields("Address2", string.Format("{0} дом {1} {2} кв. {3}", person.Street, person.House, person.Korpus == string.Empty ? "" : "корп. " + person.Korpus, person.Flat));
+
+                //wd.SetFields("Passport", "серия " + person.PassportSeries + " № " + person.PassportNumber);
+                //wd.SetFields("PassportAuthorDate", person.PassportDate.Value.ToShortDateString());
+                //wd.SetFields("PassportAuthor", person.PassportAuthor);
+                
+                //wd.SetFields("PhoneNumber", person.Phone + (String.IsNullOrEmpty(person.Mobiles) ? "" : ", доп.: " + person.Mobiles));
+
+                //wd.SetFields("UniverName", dogovorInfo.UniverName);
+                //wd.SetFields("UniverAddress", dogovorInfo.UniverAddress);
+                //wd.SetFields("UniverINN", dogovorInfo.UniverINN);
+                //wd.SetFields("Props", dogovorInfo.Props);
+
+                //switch (dogType)
+                //{
+                //    // обычный
+                //    case "1":
+                //        {
+                //            break;
+                //        }
+                //    // физ лицо
+                //    case "2":
+                //        {
+                //            wd.SetFields("CustomerLico", dogovorInfo.Customer);
+                //            wd.SetFields("CustomerAddress", dogovorInfo.CustomerAddress);
+                //            wd.SetFields("CustomerINN", "Паспорт: " + dogovorInfo.CustomerPassport);
+                //            wd.SetFields("CustomerRS", "Выдан: " + dogovorInfo.CustomerPassportAuthor);
+
+                //            break;
+                //        }
+                //    // мат кап
+                //    case "4":
+                //        {
+                //            wd.SetFields("Customer", dogovorInfo.Customer);
+                //            wd.SetFields("CustomerAddress", dogovorInfo.CustomerAddress);
+                //            wd.SetFields("CustomerINN", dogovorInfo.CustomerPassport);
+                //            wd.SetFields("CustomerRS", dogovorInfo.CustomerPassportAuthor);
+
+                //            break;
+                //        }
+                //    // юридическое лицо
+                //    case "3":
+                //        {
+                //            wd.SetFields("Customer", dogovorInfo.Customer);
+                //            wd.SetFields("CustomerLico", dogovorInfo.CustomerLico);
+                //            wd.SetFields("CustomerReason", dogovorInfo.CustomerReason);
+                //            wd.SetFields("CustomerAddress", dogovorInfo.CustomerAddress);
+                //            wd.SetFields("CustomerINN", "ИНН " + dogovorInfo.CustomerINN);
+                //            wd.SetFields("CustomerRS", "Р/С " + dogovorInfo.CustomerRS);
+
+                //            break;
+                //        }
+                //}
+
+                //if (forPrint)
+                //{
+                //    wd.Print();
+                //    wd.Close();
+                //}
             }
         }
 
@@ -2918,64 +3026,64 @@ namespace PriemLib
 
                     float firstLineIndent = 30f;
                     //HEADER
-                    Paragraph p = new Paragraph("ПРАВИТЕЛЬСТВО РОССИЙСКОЙ ФЕДЕРАЦИИ", new Font(bfTimes, 12, Font.BOLD));
+                    iTextSharp.text.Paragraph p = new iTextSharp.text.Paragraph("ПРАВИТЕЛЬСТВО РОССИЙСКОЙ ФЕДЕРАЦИИ", new Font(bfTimes, 12, Font.BOLD));
                     p.Alignment = Element.ALIGN_CENTER;
                     document.Add(p);
 
-                    p = new Paragraph("ФЕДЕРАЛЬНОЕ ГОСУДАРСТВЕННОЕ ОБРАЗОВАТЕЛЬНОЕ УЧРЕЖДЕНИЕ ВЫСШЕГО", new Font(bfTimes, 10));
+                    p = new iTextSharp.text.Paragraph("ФЕДЕРАЛЬНОЕ ГОСУДАРСТВЕННОЕ ОБРАЗОВАТЕЛЬНОЕ УЧРЕЖДЕНИЕ ВЫСШЕГО", new Font(bfTimes, 10));
                     p.Alignment = Element.ALIGN_CENTER;
                     document.Add(p);
 
-                    p = new Paragraph("ПРОФЕССИОНАЛЬНОГО ОБРАЗОВАНИЯ", new Font(bfTimes, 10));
+                    p = new iTextSharp.text.Paragraph("ПРОФЕССИОНАЛЬНОГО ОБРАЗОВАНИЯ", new Font(bfTimes, 10));
                     p.Alignment = Element.ALIGN_CENTER;
                     document.Add(p);
 
-                    p = new Paragraph("САНКТ-ПЕТЕРБУРГСКИЙ ГОСУДАРСТВЕННЫЙ УНИВЕРСИТЕТ", new Font(bfTimes, 12, Font.BOLD));
+                    p = new iTextSharp.text.Paragraph("САНКТ-ПЕТЕРБУРГСКИЙ ГОСУДАРСТВЕННЫЙ УНИВЕРСИТЕТ", new Font(bfTimes, 12, Font.BOLD));
                     p.Alignment = Element.ALIGN_CENTER;
                     document.Add(p);
 
-                    p = new Paragraph("(СПбГУ)", new Font(bfTimes, 12, Font.BOLD));
+                    p = new iTextSharp.text.Paragraph("(СПбГУ)", new Font(bfTimes, 12, Font.BOLD));
                     p.Alignment = Element.ALIGN_CENTER;
                     document.Add(p);
 
-                    p = new Paragraph("ПРЕДСТАВЛЕНИЕ", new Font(bfTimes, 20, Font.BOLD));
+                    p = new iTextSharp.text.Paragraph("ПРЕДСТАВЛЕНИЕ", new Font(bfTimes, 20, Font.BOLD));
                     p.Alignment = Element.ALIGN_CENTER;
                     document.Add(p);
 
-                    p = new Paragraph(10f);
-                    p.Add(new Paragraph("По " + facDat, font));
-                    p.Add(new Paragraph((form + " форма обучения").ToLower(), font));
-                    p.Add(new Paragraph(basis, font));
+                    p = new iTextSharp.text.Paragraph(10f);
+                    p.Add(new iTextSharp.text.Paragraph("По " + facDat, font));
+                    p.Add(new iTextSharp.text.Paragraph((form + " форма обучения").ToLower(), font));
+                    p.Add(new iTextSharp.text.Paragraph(basis, font));
                     p.IndentationLeft = 510;
                     document.Add(p);
 
-                    p = new Paragraph("О зачислении на 1 курс", font);
+                    p = new iTextSharp.text.Paragraph("О зачислении на 1 курс", font);
                     p.SpacingBefore = 10f;
                     document.Add(p);
 
-                    p = new Paragraph(@"В соответствии с Федеральным законом от 22.08.1996 N 125-Ф3 (ред. от 21.12.2009) «О высшем и послевузовском профессиональном образовании», Порядком приема граждан в имеющие государственную аккредитацию образовательные учреждения высшего профессионального образования, утвержденным Приказом Министерства образования и науки Российской Федерации от 21.10.2009 N 442 (ред. от 11.05.2010)", font);
+                    p = new iTextSharp.text.Paragraph(@"В соответствии с Федеральным законом от 22.08.1996 N 125-Ф3 (ред. от 21.12.2009) «О высшем и послевузовском профессиональном образовании», Порядком приема граждан в имеющие государственную аккредитацию образовательные учреждения высшего профессионального образования, утвержденным Приказом Министерства образования и науки Российской Федерации от 21.10.2009 N 442 (ред. от 11.05.2010)", font);
                     p.SpacingBefore = 10f;
                     p.Alignment = Element.ALIGN_JUSTIFIED;
                     p.FirstLineIndent = firstLineIndent;
                     document.Add(p);
 
-                    p = new Paragraph("Представляем на рассмотрение Приемной комиссии СПбГУ полный пофамильный перечень поступающих на 1 курс обучения по основным образовательным программам высшего профессионального образования:", font);
+                    p = new iTextSharp.text.Paragraph("Представляем на рассмотрение Приемной комиссии СПбГУ полный пофамильный перечень поступающих на 1 курс обучения по основным образовательным программам высшего профессионального образования:", font);
                     p.FirstLineIndent = firstLineIndent;
                     p.Alignment = Element.ALIGN_JUSTIFIED;
                     p.SpacingBefore = 20f;
                     document.Add(p);
 
-                    p = new Paragraph("по направлению " + prof, font);
+                    p = new iTextSharp.text.Paragraph("по направлению " + prof, font);
                     p.FirstLineIndent = firstLineIndent * 2;
                     document.Add(p);
 
-                    p = new Paragraph("по образовательной программе " + obProg, font);
+                    p = new iTextSharp.text.Paragraph("по образовательной программе " + obProg, font);
                     p.FirstLineIndent = firstLineIndent * 2;
                     document.Add(p);
 
                     if (!string.IsNullOrEmpty(spec))
                     {
-                        p = new Paragraph("по профилю " + spec, font);
+                        p = new iTextSharp.text.Paragraph("по профилю " + spec, font);
                         p.FirstLineIndent = firstLineIndent * 2;
                         document.Add(p);
                     }
@@ -3094,7 +3202,7 @@ namespace PriemLib
                     document.Add(t);
 
                     //FOOTER
-                    p = new Paragraph();
+                    p = new iTextSharp.text.Paragraph();
                     p.SpacingBefore = 30f;
                     p.Alignment = Element.ALIGN_JUSTIFIED;
                     p.FirstLineIndent = firstLineIndent;
@@ -3102,15 +3210,15 @@ namespace PriemLib
                     p.Add(new Phrase(" личные заявления, результаты вступительных испытаний, документы, подтверждающие право на поступление без вступительных испытаний или внеконкурсное зачисление.", font));
                     document.Add(p);
 
-                    p = new Paragraph(30f);
+                    p = new iTextSharp.text.Paragraph(30f);
                     p.KeepTogether = true;
-                    p.Add(new Paragraph("Ответственный секретарь по приему документов по группе направлений:", font));
-                    p.Add(new Paragraph("Заместитель начальника управления - советник проректора по группе направлений:", font));
+                    p.Add(new iTextSharp.text.Paragraph("Ответственный секретарь по приему документов по группе направлений:", font));
+                    p.Add(new iTextSharp.text.Paragraph("Заместитель начальника управления - советник проректора по группе направлений:", font));
                     //p.Add(new Paragraph("Ответственный секретарь приемной комиссии:", font));
 
                     document.Add(p);
 
-                    p = new Paragraph(30f);
+                    p = new iTextSharp.text.Paragraph(30f);
                     p.Add(new Phrase("В." + iFacultyId.ToString() + "." + docNum, font));
                     document.Add(p);
                     document.Close();

@@ -566,18 +566,19 @@ namespace PriemLib
                                             continue;
                                     }
 
-                                    cnt = (from mrk in context.Mark
-                                           where mrk.AbiturientId == abId && mrk.ExamInEntryBlockUnitId == exId
-                                           select mrk).Count();
-                                    
-                                    if (cnt > 0)
-                                        context.Mark_DeleteByAbitExamId(abId, exId);
-
                                     int iExamId = context.extExamInEntry.Where(x => x.Id == exId).Select(x => x.ExamId).DefaultIfEmpty(0).First();
                                     Guid OlympiadId = new Guid(row.Cells["OlympiadId"].Value.ToString());
 
                                     if (CheckOlympiadPrivelege(abId.Value, OlympiadId, iExamId, abitFIO))
+                                    {
+                                        cnt = (from mrk in context.Mark
+                                               where mrk.AbiturientId == abId && mrk.ExamInEntryBlockUnitId == exId
+                                               select mrk).Count();
+
+                                        if (cnt > 0)
+                                            context.Mark_DeleteByAbitExamId(abId, exId);
                                         context.Mark_Insert(abId, exId, 100, DateTime.Now, false, true, false, null, OlympiadId, null);
+                                    }
                                 }
                             }
 
@@ -607,6 +608,12 @@ namespace PriemLib
                 }
                 else
                 {
+                    if (string.IsNullOrEmpty(Ol.DocumentNumber))
+                    {
+                        WinFormsServ.Error("” олимпиады не указан номер подтверждающего документа!");
+                        return false;
+                    }
+
                     List<int?> lstEx = context.OlympSubjectToExam.Where(x => x.OlympSubjectId == Ol.OlympSubjectId).Select(x => (int?)x.ExamId).ToList();
                     if (!lstEx.Contains(ExamId))
                     {
@@ -644,10 +651,11 @@ namespace PriemLib
                         decimal egeMin = lstBenefits.First().MinEge;
 
                         //провер€ем мин. баллы
-                        var balls = from ege in context.extEgeMarkMaxAbitApproved
-                                    join eee in context.EgeToExam on ege.EgeExamNameId equals eee.EgeExamNameId
-                                    where ege.AbiturientId == AbiturientId && lstEx.Contains(eee.ExamId) && ege.Value >= egeMin
-                                    select ege;
+                        var balls = 
+                            (from ege in context.extEgeMarkMaxAbitApproved
+                             join eee in context.EgeToExam on ege.EgeExamNameId equals eee.EgeExamNameId
+                             where ege.AbiturientId == AbiturientId && lstEx.Contains(eee.ExamId) && ege.Value >= egeMin
+                             select ege.EgeMarkId);
 
                         if (balls.Count() == 0)
                         {

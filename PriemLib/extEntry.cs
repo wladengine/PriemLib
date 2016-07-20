@@ -66,5 +66,7 @@ namespace PriemLib
         public Nullable<int> StudyLevel_FISID { get; set; }
         public Nullable<int> StudyBasis_FISID { get; set; }
         public Nullable<int> StudyForm_FISID { get; set; }
+        public string NormativePeriod { get; set; }
+        public string QualificationName { get; set; }
     }
 }

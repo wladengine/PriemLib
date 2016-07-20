@@ -420,12 +420,14 @@ namespace PriemLib
             lst.Add(new FilterItem("Загружено cвид-во ЕГЭ 2013 года", FilterType.Bool, "EXISTS (SELECT Top(1) ed.EgeCertificate.IsImported FROM ed.EgeCertificate WHERE ed.EgeCertificate.PersonId = ed.extPerson.Id AND Year=2013 AND IsImported > 0)", "ed.extPerson"));
             lst.Add(new FilterItem("Загружено cвид-во ЕГЭ 2014 года", FilterType.Bool, "EXISTS (SELECT Top(1) ed.EgeCertificate.IsImported FROM ed.EgeCertificate WHERE ed.EgeCertificate.PersonId = ed.extPerson.Id AND Year=2014 AND IsImported > 0)", "ed.extPerson"));
             lst.Add(new FilterItem("Загружено cвид-во ЕГЭ 2015 года", FilterType.Bool, "EXISTS (SELECT Top(1) ed.EgeCertificate.IsImported FROM ed.EgeCertificate WHERE ed.EgeCertificate.PersonId = ed.extPerson.Id AND Year=2015 AND IsImported > 0)", "ed.extPerson"));
+            lst.Add(new FilterItem("Загружено cвид-во ЕГЭ 2016 года", FilterType.Bool, "EXISTS (SELECT Top(1) ed.EgeCertificate.IsImported FROM ed.EgeCertificate WHERE ed.EgeCertificate.PersonId = ed.extPerson.Id AND Year=2016 AND IsImported > 0)", "ed.extPerson"));
             lst.Add(new FilterItem("Сдавал ЕГЭ", FilterType.Bool, " EXISTS (SELECT ed.EgeCertificate.Number FROM ed.EgeCertificate WHERE ed.EgeCertificate.PersonId = ed.extPerson.Id)", "ed.extPerson"));
 
             lst.Add(new FilterItem("Есть свидетельство ЕГЭ 2012 года", FilterType.Bool, " EXISTS (SELECT ed.EgeCertificate.Number FROM ed.EgeCertificate WHERE ed.EgeCertificate.PersonId = ed.extPerson.Id AND ed.EgeCertificate.Year = 2012)", "ed.extPerson"));
             lst.Add(new FilterItem("Есть свидетельство ЕГЭ 2013 года", FilterType.Bool, " EXISTS (SELECT ed.EgeCertificate.Number FROM ed.EgeCertificate WHERE ed.EgeCertificate.PersonId = ed.extPerson.Id AND ed.EgeCertificate.Year = 2013)", "ed.extPerson"));
             lst.Add(new FilterItem("Есть свидетельство ЕГЭ 2014 года", FilterType.Bool, " EXISTS (SELECT ed.EgeCertificate.Number FROM ed.EgeCertificate WHERE ed.EgeCertificate.PersonId = ed.extPerson.Id AND ed.EgeCertificate.Year = 2014)", "ed.extPerson"));
             lst.Add(new FilterItem("Есть свидетельство ЕГЭ 2015 года", FilterType.Bool, " EXISTS (SELECT ed.EgeCertificate.Number FROM ed.EgeCertificate WHERE ed.EgeCertificate.PersonId = ed.extPerson.Id AND ed.EgeCertificate.Year = 2015)", "ed.extPerson"));
+            lst.Add(new FilterItem("Есть свидетельство ЕГЭ 2016 года", FilterType.Bool, " EXISTS (SELECT ed.EgeCertificate.Number FROM ed.EgeCertificate WHERE ed.EgeCertificate.PersonId = ed.extPerson.Id AND ed.EgeCertificate.Year = 2016)", "ed.extPerson"));
 
             //инд достижения
             lst.Add(new FilterItem("Инд.достижения: Аттестат с отличием", FilterType.Bool, " EXISTS (SELECT * FROM ed.PersonAchievement PA WHERE PA.PersonId = extPerson.Id AND PA.AchievementTypeId = 9)", "ed.extPerson"));

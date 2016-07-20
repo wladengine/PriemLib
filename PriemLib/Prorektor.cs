@@ -26,6 +26,7 @@ namespace PriemLib
         public string DateDov { get; set; }
         public string NumberDov { get; set; }
         public string NameFull { get; set; }
+        public string PassportData { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PaidData> PaidData { get; set; }

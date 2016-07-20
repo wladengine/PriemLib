@@ -433,7 +433,12 @@ namespace PriemLib
             {
                 foreach (Control crl in control.Controls)
                     crl.Enabled = false;
-            }            
+            }
+
+            gbBE.Enabled = true;
+            //gbEntry.Enabled = true;
+            gbExams.Enabled = true;
+            gbOlympToAddMark.Enabled = true;
         }
 
         protected override void InsertRec(PriemEntities context, ObjectParameter idParam)
@@ -918,6 +923,10 @@ WHERE Id=@Id";
                              join OlLevel in context.OlympLevel on exEntry.OlympLevelId equals OlLevel.Id
                              join OlValue in context.OlympValue on exEntry.OlympValueId equals OlValue.Id
                              join Ex in context.Exam on exEntry.ExamId equals Ex.Id
+                             join OlSubj in context.OlympSubject on exEntry.OlympSubjectId equals OlSubj.Id into OlSubj2
+                             from OlSubj in OlSubj2.DefaultIfEmpty()
+                             join OlProf in context.OlympProfile on exEntry.OlympProfileId equals OlProf.Id into OlProf2
+                             from OlProf in OlProf2.DefaultIfEmpty()
                              where exEntry.EntryId == GuidId
                              orderby exEntry.OlympLevelId
                              select new
@@ -927,6 +936,8 @@ WHERE Id=@Id";
                                  OlympLevelId = OlLevel.Name,
                                  OlympValue = OlValue.Name,
                                  ExamName = Ex.ExamName.Name,
+                                 OlSubject = OlSubj == null ? "нет" : OlSubj.Name,
+                                 OlProfile = OlProf == null ? "нет" : OlProf.Name,
                                  exEntry.MinEge
                              }).ToList().OrderBy(x => x.OlympLevelId).ToList();
 
@@ -953,6 +964,16 @@ WHERE Id=@Id";
                 {
                     dgvOlympResultToAdditionalMark.Columns["AdditionalMark"].HeaderText = "Баллы";
                     dgvOlympResultToAdditionalMark.Columns["AdditionalMark"].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+                }
+                if (dgvOlympResultToAdditionalMark.Columns.Contains("OlSubject"))
+                {
+                    dgvOlympResultToAdditionalMark.Columns["OlSubject"].HeaderText = "Предмет олимпиады";
+                    dgvOlympResultToAdditionalMark.Columns["OlSubject"].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+                }
+                if (dgvOlympResultToAdditionalMark.Columns.Contains("OlProfile"))
+                {
+                    dgvOlympResultToAdditionalMark.Columns["OlProfile"].HeaderText = "Профиль олимпиады";
+                    dgvOlympResultToAdditionalMark.Columns["OlProfile"].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
                 }
             }
         }
