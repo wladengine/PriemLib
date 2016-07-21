@@ -495,40 +495,50 @@ namespace PriemLib
         {
             using (PriemEntities context = new PriemEntities())
             {
+                NewWatch wc = new NewWatch(3);
+                wc.Show();
+                wc.SetText("Данные вашего факультета...");
+
                 List<int> Competition_Vks = new List<int>() { 1, 2, 5, 7, 8 };
+                var PersonsIdLst = (from qAb in context.qAbitAll
+                                    where
+                                       qAb.FacultyId == OtherFacultyId &&
+                                       qAb.FacultyId != FacultyId &&
+                                       !qAb.BackDoc &&
+                                       MainClass.lstStudyLevelGroupId.Contains(qAb.StudyLevelGroupId)
+                                    select qAb.PersonId).Distinct().ToList();
 
-                var PersonIdlst = (from qAb in context.qAbitAll
-                                   where qAb.FacultyId != FacultyId &&
-                                   qAb.FacultyId == OtherFacultyId &&
-                                   MainClass.lstStudyLevelGroupId.Contains(qAb.StudyLevelGroupId) &&
-                                   !qAb.BackDoc
-                                   select qAb.PersonId).ToList();
-
-                var Persons = (from qAb in context.qAbitAll
-                               join extP in context.extPerson on qAb.PersonId equals extP.Id
+                var Persons = (from qAb in context.Abiturient
+                               join extP in context.Person on qAb.PersonId equals extP.Id
                                join ent in context.Entry on qAb.EntryId equals ent.Id
-                               join hlp in context.hlpStatRatingList on qAb.Id equals hlp.AbiturientId into _h
-                               from hlp in _h.DefaultIfEmpty()
-                               where 
-                               MainClass.lstStudyLevelGroupId.Contains(qAb.StudyLevelGroupId) &&
+                               where
+                               PersonsIdLst.Contains(qAb.PersonId) &&
+                               ent.FacultyId == FacultyId && 
                                !qAb.BackDoc &&
-                               PersonIdlst.Contains(qAb.PersonId) &&
-                               qAb.StudyFormId == StudyFormId &&
-                               qAb.StudyBasisId == StudyBasisId &&
+                               MainClass.lstStudyLevelGroupId.Contains(ent.StudyLevel.LevelGroupId) &&
+                               ent.StudyFormId == StudyFormId &&
+                               ent.StudyBasisId == StudyBasisId &&
                                qAb.CompetitionId != 6 &&
-                               ((LicenseProgramId.HasValue) ? qAb.LicenseProgramId == LicenseProgramId : true) &&
-                               ((ObrazProgramId.HasValue) ? qAb.ObrazProgramId == ObrazProgramId : true)
+                               ((LicenseProgramId.HasValue) ? ent.LicenseProgramId == LicenseProgramId : true) &&
+                               ((ObrazProgramId.HasValue) ? ent.ObrazProgramId == ObrazProgramId : true)
                                select new
                                {
                                    PersonId = extP.Id,
-                                   extP.FIO,
-                                   hlp.SUM,
-                                   hlp.Rank,
+                                   qAb.Id,
+                                   FIO = (extP.Surname ?? "") + " " + (extP.Name ?? "") + " " + (extP.SecondName ?? ""),
                                    ent.KCP,
                                    VK = Competition_Vks.Contains(qAb.CompetitionId),
-                                   Green = (hlp.Rank <= ent.KCP),
                                    Originals = (qAb.HasOriginals),
                                }).Distinct().OrderBy(x => x.FIO).ToList();
+                var AbitsIslst = Persons.Select(x => x.Id).Distinct().ToList();
+                var PersonHlpStat = (from hlp in context.hlpStatRatingList
+                                     where AbitsIslst.Contains(hlp.AbiturientId)
+                                     select new
+                                     {
+                                         hlp.AbiturientId,
+                                         hlp.SUM,
+                                         hlp.Rank,  
+                                     }).Distinct().ToList();
 
                 #region oldcode
                 //            string query = @"
@@ -569,9 +579,7 @@ namespace PriemLib
                 //                sl.Add("@ObrazProgramId", ObrazProgramId);
                 //            }
                 #endregion
-                NewWatch wc = new NewWatch(3);
-                wc.Show();
-                wc.SetText("Данные вашего факультета...");
+                wc.PerformStep();
                 #region oldcode
                 //DataTable tbl = MainClass.Bdc.GetDataSet(query + " ORDER BY FIO ", sl).Tables[0];
 
@@ -589,36 +597,40 @@ namespace PriemLib
                 //              };
                 #endregion
 
-                var OtherMarks = (from qAb in context.qAbitAll
-                               join extP in context.extPerson on qAb.PersonId equals extP.Id
-                               join ent in context.Entry on qAb.EntryId equals ent.Id
-                               join hlp in context.hlpStatRatingList on qAb.Id equals hlp.AbiturientId into _h
-                               from hlp in _h.DefaultIfEmpty()
-                               where MainClass.lstStudyLevelGroupId.Contains(qAb.StudyLevelGroupId) &&
-                               qAb.FacultyId == OtherFacultyId &&
-                               PersonIdlst.Contains(qAb.PersonId) &&
-                               !qAb.BackDoc &&
-                               qAb.StudyFormId == OtherStudyFormId &&
-                               qAb.StudyBasisId == OtherStudyBasisId &&
-                               qAb.CompetitionId != 6 &&
-                               ((OtherLicenseProgramId.HasValue) ? qAb.LicenseProgramId == OtherLicenseProgramId : true) &&
-                               ((OtherObrazProgramId.HasValue) ? qAb.ObrazProgramId == OtherObrazProgramId : true) &&
-                               !qAb.NotEnabled
-                               select new
-                               {
-                                   PersonId = extP.Id,
-                                   extP.FIO,
-                                   hlp.SUM,
-                                   hlp.Rank,
-                                   ent.KCP,
-                                   VK = Competition_Vks.Contains(qAb.CompetitionId),
-                                   Green = (hlp.Rank <= ent.KCP),
-                                   Originals = (qAb.HasOriginals),
-                                   LicenseProgram = qAb.LicenseProgramCode + " " + qAb.LicenseProgramName,
-                                   ObrazProgram = qAb.ObrazProgramCrypt + " " + qAb.ObrazProgramName, 
-                                  Profile= qAb.ProfileName,
+                var Abits = (from qAb in context.Abiturient
+                             join ent in context.extEntry  on qAb.EntryId equals ent.Id
+                             where
+                             MainClass.lstStudyLevelGroupId.Contains(ent.StudyLevelGroupId) &&
+                             ent.FacultyId == OtherFacultyId &&
+                             ent.StudyFormId == OtherStudyFormId &&
+                             ent.StudyBasisId == OtherStudyBasisId &&
+                             ((OtherLicenseProgramId.HasValue) ? ent.LicenseProgramId == OtherLicenseProgramId : true) &&
+                             ((OtherObrazProgramId.HasValue) ? ent.ObrazProgramId == OtherObrazProgramId : true) &&
+                             !qAb.BackDoc &&
+                             qAb.CompetitionId != 6 &&
+                             !qAb.NotEnabled
+                             select new
+                             {
+                                 qAb.Id,
+                                 PersonId = qAb.PersonId,
+                                 VK = Competition_Vks.Contains(qAb.CompetitionId),
+                                 Originals = (qAb.HasOriginals),
+                                 qAb.EntryId,
+                                 ent.KCP,
+                                 LicenseProgram = ent.LicenseProgramCode + " " + ent.LicenseProgramName,
+                                 ObrazProgram = ent.ObrazProgramCrypt + " " + ent.ObrazProgramName,
+                                 Profile = ent.ProfileName, 
+                             }).Distinct().ToList();
 
-                               }).Distinct().OrderBy(x => x.FIO).ToList();
+                var AbIdlst = Abits.Select(x => x.Id).ToList();
+                var OtherMarks = (from hlp in context.hlpStatRatingList
+                                  where AbIdlst.Contains(hlp.AbiturientId)
+                                  select new
+                                  {
+                                      hlp.AbiturientId,
+                                      hlp.SUM,
+                                      hlp.Rank,
+                                  }).Distinct().ToList();
                 #region oldcode
 //                string query = @"
 //                SELECT DISTINCT extPerson.Id AS PersonId, 
@@ -669,7 +681,8 @@ namespace PriemLib
                 //                     VK = rw.Field<int>("VKs") == 1 ? true : false
                 //                 };
                 #endregion
-wc.SetText("Данные сравниваемого факультета...");
+                wc.PerformStep();
+                wc.SetText("Данные сравниваемого факультета...");
                 DataTable tblSource = new DataTable();
 
                 tblSource.Columns.Add("Id");
@@ -694,17 +707,27 @@ wc.SetText("Данные сравниваемого факультета...");
                 wc.SetMax(Persons.Count());
                 foreach (var p in Persons)
                 {
-                    var om = OtherMarks.Where(x => x.PersonId == p.PersonId);
+                    var om = Abits.Where(x => x.PersonId == p.PersonId);
 
                     foreach (var mrk in om)
                     {
                         DataRow row = tblSource.NewRow();
-
+                        var _m_hlp = OtherMarks.Where(x => x.AbiturientId == mrk.Id).FirstOrDefault();
+                        var _p_hlp = PersonHlpStat.Where(x => x.AbiturientId == p.Id).FirstOrDefault();
                         row["Id"] = p.PersonId;
                         row["ФИО"] = p.FIO;
-                        row["Сумма баллов у нас"] = p.SUM;
-                        row["Рейтинг у нас"] = p.Rank;
-                        row["OurGREEN"] = p.Green;
+                        if (_p_hlp != null)
+                        {
+                            if (_p_hlp.SUM.HasValue) row["Сумма баллов у нас"] = _p_hlp.SUM; // else  row["Сумма баллов у нас"] = (int?)null;
+                            if (_p_hlp.Rank.HasValue) row["Рейтинг у нас"] = _p_hlp.Rank; //else row["Рейтинг у нас"] = (int?)null; ;
+                            if (_p_hlp.Rank.HasValue) row["OurGREEN"] = _p_hlp.Rank <= p.KCP; else row["OurGREEN"] = false;
+                        }
+                        else
+                        {
+                            row["OurGREEN"] = false;
+                            //row["Сумма баллов у нас"] = row["Рейтинг у нас"] = DBNull.Value;
+                        }
+
                         row["OurVK"] = p.VK;
                         row["Наш проходной (КЦ)"] = p.KCP;
                         row["Оригинал у нас"] = p.Originals ? "Да" : "Нет";
@@ -713,14 +736,23 @@ wc.SetText("Данные сравниваемого факультета...");
                         row["Образовательная программа"] = mrk.ObrazProgram;
                         row["Профиль"] = mrk.Profile;
 
-                        row["Сумма баллов у них"] = mrk.SUM;
-                        row["Рейтинг у них"] = mrk.Rank;
+                        if (_m_hlp != null)
+                        {
+                            if (_m_hlp.SUM.HasValue) row["Сумма баллов у них"] = _m_hlp.SUM;// else row["Сумма баллов у них"] = (int?)null; ;
+                            if (_m_hlp.Rank.HasValue) row["Рейтинг у них"] = _m_hlp.Rank;// else row["Рейтинг у них"] = (int?)null; ;
+                            if (_m_hlp.Rank.HasValue) row["TheirGREEN"] = _m_hlp.Rank <= mrk.KCP; else row["TheirGREEN"] = false;
+                        }
+                        else
+                        {
+                            //row["Сумма баллов у них"] =   row["Рейтинг у них"] = (int?)null; 
+                            row["TheirGREEN"] = false;
+                        }
                         row["Их проходной (КЦ)"] = mrk.KCP;
                         row["Оригинал у них"] = mrk.Originals ? "Да" : "Нет";
 
-                        row["TheirGREEN"] = mrk.Green;
+                        
                         row["TheirVK"] = mrk.VK;
-
+                         
                         tblSource.Rows.Add(row);
                     }
 
@@ -730,7 +762,7 @@ wc.SetText("Данные сравниваемого факультета...");
                 wc.Close();
 
                 int iMaxYellow = Persons.Select(x => x.KCP).DefaultIfEmpty(0).Max() ?? 0;
-                int iMaxYellowOther = OtherMarks.Select(x => x.KCP ?? 0).DefaultIfEmpty(0).Max();
+                int iMaxYellowOther = Abits.Select(x => x.KCP ?? 0).DefaultIfEmpty(0).Max();
 
                 //int tbYell = 0;
                 //int.TryParse(tbYellow.Text, out tbYell);
