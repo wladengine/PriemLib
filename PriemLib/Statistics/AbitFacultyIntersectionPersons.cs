@@ -718,14 +718,14 @@ namespace PriemLib
                         row["ФИО"] = p.FIO;
                         if (_p_hlp != null)
                         {
-                            if (_p_hlp.SUM.HasValue) row["Сумма баллов у нас"] = _p_hlp.SUM; // else  row["Сумма баллов у нас"] = (int?)null;
-                            if (_p_hlp.Rank.HasValue) row["Рейтинг у нас"] = _p_hlp.Rank; //else row["Рейтинг у нас"] = (int?)null; ;
+                            if (_p_hlp.SUM.HasValue) row["Сумма баллов у нас"] = _p_hlp.SUM;  else  row["Сумма баллов у нас"] = null;
+                            if (_p_hlp.Rank.HasValue) row["Рейтинг у нас"] = _p_hlp.Rank; else row["Рейтинг у нас"] = null; ;
                             if (_p_hlp.Rank.HasValue) row["OurGREEN"] = _p_hlp.Rank <= p.KCP; else row["OurGREEN"] = false;
                         }
                         else
                         {
                             row["OurGREEN"] = false;
-                            //row["Сумма баллов у нас"] = row["Рейтинг у нас"] = DBNull.Value;
+                            row["Сумма баллов у нас"] = row["Рейтинг у нас"] = null;
                         }
 
                         row["OurVK"] = p.VK;
@@ -738,13 +738,13 @@ namespace PriemLib
 
                         if (_m_hlp != null)
                         {
-                            if (_m_hlp.SUM.HasValue) row["Сумма баллов у них"] = _m_hlp.SUM;// else row["Сумма баллов у них"] = (int?)null; ;
-                            if (_m_hlp.Rank.HasValue) row["Рейтинг у них"] = _m_hlp.Rank;// else row["Рейтинг у них"] = (int?)null; ;
+                            if (_m_hlp.SUM.HasValue) row["Сумма баллов у них"] = _m_hlp.SUM; else row["Сумма баллов у них"] = null; ;
+                            if (_m_hlp.Rank.HasValue) row["Рейтинг у них"] = _m_hlp.Rank; else row["Рейтинг у них"] = null; ;
                             if (_m_hlp.Rank.HasValue) row["TheirGREEN"] = _m_hlp.Rank <= mrk.KCP; else row["TheirGREEN"] = false;
                         }
                         else
                         {
-                            //row["Сумма баллов у них"] =   row["Рейтинг у них"] = (int?)null; 
+                            row["Сумма баллов у них"] =   row["Рейтинг у них"] = null; 
                             row["TheirGREEN"] = false;
                         }
                         row["Их проходной (КЦ)"] = mrk.KCP;
