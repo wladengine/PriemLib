@@ -86,6 +86,8 @@ warning 6002: The table/view 'Priem2016.ed._FirstWaveGreen' does not have a prim
           <Property Name="BackDocByAdmissionHigh" Type="bit" Nullable="false" />
           <Property Name="HasEntryConfirm" Type="bit" Nullable="false" />
           <Property Name="DateEntryConfirm" Type="datetime" />
+          <Property Name="HasDisabledEntryConfirm" Type="bit" Nullable="false" />
+          <Property Name="DateDisableEntryConfirm" Type="datetime" />
         </EntityType>
         <EntityType Name="AbiturientSelectedExam">
           <Key>
@@ -11047,6 +11049,8 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           <Property Name="HasEntryConfirm" Type="Boolean" Nullable="false" />
           <Property Name="DateEntryConfirm" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Olympiads1" Relationship="Priem2012Model.FK_Abiturient_Olympiads" FromRole="Abiturient" ToRole="Olympiads" />
+          <Property Name="HasDisabledEntryConfirm" Type="Boolean" Nullable="false" />
+          <Property Name="DateDisableEntryConfirm" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Protocol">
           <Key>
@@ -15600,6 +15604,8 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           <EntitySetMapping Name="Abiturient">
             <EntityTypeMapping TypeName="Priem2012Model.Abiturient">
               <MappingFragment StoreEntitySet="Abiturient">
+                <ScalarProperty Name="DateDisableEntryConfirm" ColumnName="DateDisableEntryConfirm" />
+                <ScalarProperty Name="HasDisabledEntryConfirm" ColumnName="HasDisabledEntryConfirm" />
                 <ScalarProperty Name="DateEntryConfirm" ColumnName="DateEntryConfirm" />
                 <ScalarProperty Name="HasEntryConfirm" ColumnName="HasEntryConfirm" />
                 <ScalarProperty Name="OlympiadId" ColumnName="OlympiadId" />

@@ -233,7 +233,7 @@ namespace PriemLib
                     DocumentNumber = olymp.DocumentNumber;
                     DocumentDate = olymp.DocumentDate;
 
-                    bool readOnly = olymp.Abiturient1.Count() > 0 || olymp.Mark.Count() > 0;
+                    bool readOnly = !string.IsNullOrEmpty(DocumentNumber) && (olymp.Abiturient1.Count() > 0 || olymp.Mark.Count() > 0);
                     _isReadOnly = readOnly;
                     lblReadOnly.Visible = readOnly;
                 }

@@ -135,6 +135,12 @@ namespace PriemLib
             set { chbHasEntryConfirm.Checked = value; }
         }
 
+        public bool HasDisabledEntryConfirm
+        {
+            get { return chbHasDisabledEntryConfirm.Checked; }
+            set { chbHasDisabledEntryConfirm.Checked = value; }
+        }
+
         public bool BackDoc
         {
             get { return chbBackDoc.Checked; }

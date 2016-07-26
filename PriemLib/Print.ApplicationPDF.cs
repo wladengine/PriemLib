@@ -459,7 +459,7 @@ namespace PriemLib
                                 }).ToList();
 
                 
-                var person = (from x in context.Person
+                var person = (from x in context.extPerson
                               where x.Id == PersonId
                               select new
                               {
@@ -467,42 +467,39 @@ namespace PriemLib
                                   x.Name,
                                   x.SecondName,
                                   x.Barcode,
-                                  x.Person_AdditionalInfo.HostelAbit,
+                                  x.HostelAbit,
                                   x.BirthDate,
                                   BirthPlace = x.BirthPlace ?? "",
                                   Sex = x.Sex,
-                                  Nationality = x.Nationality.Name,
-                                  Country = x.Person_Contacts.Country.Name,
-                                  PassportType = x.PassportType.Name,
+                                  Nationality = x.NationalityName,
+                                  Country = x.CountryName,
+                                  PassportType = x.PassportTypeName,
                                   x.PassportSeries,
                                   x.PassportNumber,
                                   x.PassportAuthor,
                                   x.PassportDate,
-                                  x.Person_Contacts.City,
-                                  Region = x.Person_Contacts.Region.Name,
-                                  x.Person_Contacts.Code,
-                                  x.Person_Contacts.Street,
-                                  x.Person_Contacts.House,
-                                  x.Person_Contacts.Korpus,
-                                  x.Person_Contacts.Flat,
-                                  x.Person_Contacts.Phone,
-                                  x.Person_Contacts.Mobiles,
-                                  AddInfo = x.Person_AdditionalInfo.ExtraInfo,
-                                  Parents = x.Person_AdditionalInfo.PersonInfo,
-                                  HasPrivileges = x.Person_AdditionalInfo.Privileges > 0,
-                                  SportQualificationName = x.PersonSportQualification == null ? "" : x.PersonSportQualification.SportQualification.Name,
-                                  x.Person_AdditionalInfo.HostelEduc,
-                                  x.Person_Contacts.ForeignCountry.IsRussia,
+                                  x.City,
+                                  Region = x.RegionName,
+                                  x.Code,
+                                  x.Street,
+                                  x.House,
+                                  x.Korpus,
+                                  x.Flat,
+                                  x.Phone,
+                                  x.Mobiles,
+                                  AddInfo = x.ExtraInfo,
+                                  Parents = x.PersonInfo,
+                                  HasPrivileges = x.Privileges > 0,
+                                  x.HostelEduc,
+                                  IsRussia = x.NationalityId == 1,
                                   x.HasRussianNationality,
-                                  x.Person_AdditionalInfo.HasTRKI,
-                                  x.Person_AdditionalInfo.TRKICertificateNumber,
-                                  x.Person_AdditionalInfo.StartEnglish,
-                                  x.Person_AdditionalInfo.EnglishMark,
-                                  Language = x.Person_AdditionalInfo.Language.Name,
-                                  x.Person_Contacts.Email,
-                                  x.Person_AdditionalInfo.Stag,
-                                  x.Person_AdditionalInfo.WorkPlace,
-                                  x.Person_AdditionalInfo.ScienceWork
+                                  StartEnglish = (bool?)x.StartEnglish,
+                                  x.EnglishMark,
+                                  Language = x.LanguageName,
+                                  x.Email,
+                                  x.Stag,
+                                  x.WorkPlace,
+                                  x.ScienceWork
                               }).FirstOrDefault();
 
                 var personEducation = context.Person_EducationInfo.Where(x => x.PersonId == PersonId)
@@ -575,7 +572,7 @@ namespace PriemLib
                     acrFlds.SetField("Address" + i, splitStr[i - 1]);
 
                 acrFlds.SetField("EnglishMark", person.EnglishMark.ToString());
-                if (person.StartEnglish)
+                if (person.StartEnglish ?? false)
                     acrFlds.SetField("chbEnglishYes", "1");
                 else
                     acrFlds.SetField("chbEnglishNo", "1");

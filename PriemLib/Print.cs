@@ -386,21 +386,21 @@ namespace PriemLib
                     string sForm;
 
                     if (abit.StudyFormId == 1)
-                        sForm = "дневную форму обучения";
+                        sForm = "очную форму обучения";
                     else if (abit.StudyFormId == 2)
-                        sForm = "вечернюю форму обучения";
+                        sForm = "очно-заочную форму обучения";
                     else
                         sForm = "заочную форму обучения";
 
                     wd.Fields["Section"].Text = sForm;
 
-                    string vinFac = (from f in context.qFaculty
-                                     where f.Id == abit.FacultyId
-                                     select (f.VinName == null ? "на " + f.Name : f.VinName)).FirstOrDefault().ToLower();
+                    //string vinFac = (from f in context.qFaculty
+                    //                 where f.Id == abit.FacultyId
+                    //                 select (f.VinName == null ? "на " + f.Name : f.VinName)).FirstOrDefault().ToLower();
 
-                    wd.SetFields("Faculty", vinFac);
+                    //wd.SetFields("Faculty", "");
                     wd.SetFields("FIO", person.FIO);
-                    wd.SetFields("Profession", abit.LicenseProgramName);
+                    wd.SetFields("Profession", abit.LicenseProgramCode + " " + abit.LicenseProgramName);
 
                     // оценки!!
 
@@ -2731,7 +2731,7 @@ namespace PriemLib
                     doc.ReplaceText("&&ObrazProgramName", "(" + programcode + ") " + abit.ObrazProgramName.Trim());
                     doc.ReplaceText("&&Profession", "(" + profcode + ") " + abit.LicenseProgramName);
                     doc.ReplaceText("&&StudyCourse", "1");
-                    doc.ReplaceText("&&StudyFaculty", abit.FacultyName);
+                    doc.ReplaceText("&&StudyFaculty", "");
 
                     string form = context.StudyForm.Where(x => x.Id == abit.StudyFormId).Select(x => x.Name).FirstOrDefault().ToLower();
                     doc.ReplaceText("&&StudyForm", form.ToLower());

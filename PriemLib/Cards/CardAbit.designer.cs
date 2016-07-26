@@ -90,6 +90,13 @@
             this.btnPaidData = new System.Windows.Forms.Button();
             this.chbIsPaid = new System.Windows.Forms.CheckBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.gbEntryConfirm = new System.Windows.Forms.GroupBox();
+            this.dtpDateDisableEntryConfirm = new System.Windows.Forms.DateTimePicker();
+            this.label12 = new System.Windows.Forms.Label();
+            this.chbHasDisabledEntryConfirm = new System.Windows.Forms.CheckBox();
+            this.dtpDateEntryConfirm = new System.Windows.Forms.DateTimePicker();
+            this.label11 = new System.Windows.Forms.Label();
+            this.chbHasEntryConfirm = new System.Windows.Forms.CheckBox();
             this.gbPortfolio = new System.Windows.Forms.GroupBox();
             this.chbHasPhilosophy = new System.Windows.Forms.CheckBox();
             this.chbHasEssay = new System.Windows.Forms.CheckBox();
@@ -141,15 +148,12 @@
             this.lblFIO = new System.Windows.Forms.Label();
             this.btnCardPerson = new System.Windows.Forms.Button();
             this.epErrorInput = new System.Windows.Forms.ErrorProvider(this.components);
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.chbHasEntryConfirm = new System.Windows.Forms.CheckBox();
-            this.dtpDateEntryConfirm = new System.Windows.Forms.DateTimePicker();
-            this.label11 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.epError)).BeginInit();
             this.tabCard.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.gbSecondType.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.gbEntryConfirm.SuspendLayout();
             this.gbPortfolio.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.gbDocs.SuspendLayout();
@@ -167,7 +171,6 @@
             this.tpExamBlock.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAppExams)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.epErrorInput)).BeginInit();
-            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnPrev
@@ -774,7 +777,7 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.groupBox2);
+            this.tabPage2.Controls.Add(this.gbEntryConfirm);
             this.tabPage2.Controls.Add(this.gbPortfolio);
             this.tabPage2.Controls.Add(this.btnDocInventory);
             this.tabPage2.Controls.Add(this.btnDocs);
@@ -790,6 +793,75 @@
             this.tabPage2.TabIndex = 2;
             this.tabPage2.Text = "Документы";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // gbEntryConfirm
+            // 
+            this.gbEntryConfirm.Controls.Add(this.dtpDateDisableEntryConfirm);
+            this.gbEntryConfirm.Controls.Add(this.label12);
+            this.gbEntryConfirm.Controls.Add(this.chbHasDisabledEntryConfirm);
+            this.gbEntryConfirm.Controls.Add(this.dtpDateEntryConfirm);
+            this.gbEntryConfirm.Controls.Add(this.label11);
+            this.gbEntryConfirm.Controls.Add(this.chbHasEntryConfirm);
+            this.gbEntryConfirm.Location = new System.Drawing.Point(316, 129);
+            this.gbEntryConfirm.Name = "gbEntryConfirm";
+            this.gbEntryConfirm.Size = new System.Drawing.Size(284, 185);
+            this.gbEntryConfirm.TabIndex = 44;
+            this.gbEntryConfirm.TabStop = false;
+            this.gbEntryConfirm.Text = "Согласие на зачисление";
+            // 
+            // dtpDateDisableEntryConfirm
+            // 
+            this.dtpDateDisableEntryConfirm.Enabled = false;
+            this.dtpDateDisableEntryConfirm.Location = new System.Drawing.Point(12, 128);
+            this.dtpDateDisableEntryConfirm.Name = "dtpDateDisableEntryConfirm";
+            this.dtpDateDisableEntryConfirm.Size = new System.Drawing.Size(183, 20);
+            this.dtpDateDisableEntryConfirm.TabIndex = 28;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(9, 111);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(169, 13);
+            this.label12.TabIndex = 29;
+            this.label12.Text = "Дата предоставления согласия";
+            // 
+            // chbHasDisabledEntryConfirm
+            // 
+            this.chbHasDisabledEntryConfirm.AutoSize = true;
+            this.chbHasDisabledEntryConfirm.Location = new System.Drawing.Point(9, 91);
+            this.chbHasDisabledEntryConfirm.Name = "chbHasDisabledEntryConfirm";
+            this.chbHasDisabledEntryConfirm.Size = new System.Drawing.Size(121, 17);
+            this.chbHasDisabledEntryConfirm.TabIndex = 27;
+            this.chbHasDisabledEntryConfirm.Text = "Отказ от согласия";
+            this.chbHasDisabledEntryConfirm.UseVisualStyleBackColor = true;
+            // 
+            // dtpDateEntryConfirm
+            // 
+            this.dtpDateEntryConfirm.Enabled = false;
+            this.dtpDateEntryConfirm.Location = new System.Drawing.Point(9, 56);
+            this.dtpDateEntryConfirm.Name = "dtpDateEntryConfirm";
+            this.dtpDateEntryConfirm.Size = new System.Drawing.Size(183, 20);
+            this.dtpDateEntryConfirm.TabIndex = 25;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(6, 39);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(169, 13);
+            this.label11.TabIndex = 26;
+            this.label11.Text = "Дата предоставления согласия";
+            // 
+            // chbHasEntryConfirm
+            // 
+            this.chbHasEntryConfirm.AutoSize = true;
+            this.chbHasEntryConfirm.Location = new System.Drawing.Point(6, 19);
+            this.chbHasEntryConfirm.Name = "chbHasEntryConfirm";
+            this.chbHasEntryConfirm.Size = new System.Drawing.Size(261, 17);
+            this.chbHasEntryConfirm.TabIndex = 1;
+            this.chbHasEntryConfirm.Text = "Согласие на зачисление по данному конкурсу";
+            this.chbHasEntryConfirm.UseVisualStyleBackColor = true;
             // 
             // gbPortfolio
             // 
@@ -1408,45 +1480,6 @@
             // 
             this.epErrorInput.ContainerControl = this;
             // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.dtpDateEntryConfirm);
-            this.groupBox2.Controls.Add(this.label11);
-            this.groupBox2.Controls.Add(this.chbHasEntryConfirm);
-            this.groupBox2.Location = new System.Drawing.Point(316, 129);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(284, 185);
-            this.groupBox2.TabIndex = 44;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Согласие на зачисление";
-            // 
-            // chbHasEntryConfirm
-            // 
-            this.chbHasEntryConfirm.AutoSize = true;
-            this.chbHasEntryConfirm.Location = new System.Drawing.Point(6, 19);
-            this.chbHasEntryConfirm.Name = "chbHasEntryConfirm";
-            this.chbHasEntryConfirm.Size = new System.Drawing.Size(261, 17);
-            this.chbHasEntryConfirm.TabIndex = 1;
-            this.chbHasEntryConfirm.Text = "Согласие на зачисление по данному конкурсу";
-            this.chbHasEntryConfirm.UseVisualStyleBackColor = true;
-            // 
-            // dtpDateEntryConfirm
-            // 
-            this.dtpDateEntryConfirm.Enabled = false;
-            this.dtpDateEntryConfirm.Location = new System.Drawing.Point(9, 56);
-            this.dtpDateEntryConfirm.Name = "dtpDateEntryConfirm";
-            this.dtpDateEntryConfirm.Size = new System.Drawing.Size(183, 20);
-            this.dtpDateEntryConfirm.TabIndex = 25;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(6, 39);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(169, 13);
-            this.label11.TabIndex = 26;
-            this.label11.Text = "Дата предоставления согласия";
-            // 
             // CardAbit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1477,6 +1510,8 @@
             this.gbSecondType.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.gbEntryConfirm.ResumeLayout(false);
+            this.gbEntryConfirm.PerformLayout();
             this.gbPortfolio.ResumeLayout(false);
             this.gbPortfolio.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -1500,8 +1535,6 @@
             this.tpExamBlock.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvAppExams)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.epErrorInput)).EndInit();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1617,9 +1650,12 @@
         private System.Windows.Forms.DataGridView dgvAdditionalAchievements;
         private System.Windows.Forms.CheckBox chbHasPhilosophy;
         private System.Windows.Forms.Label lblBackDocByAdmissionHigh;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox gbEntryConfirm;
         private System.Windows.Forms.DateTimePicker dtpDateEntryConfirm;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.CheckBox chbHasEntryConfirm;
+        private System.Windows.Forms.DateTimePicker dtpDateDisableEntryConfirm;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.CheckBox chbHasDisabledEntryConfirm;
     }
 }

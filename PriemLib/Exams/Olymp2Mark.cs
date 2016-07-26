@@ -415,27 +415,29 @@ namespace PriemLib
         {
             string s1 = string.Empty;
 
-            s1 += " AND ed.qAbiturient.StudyLevelGroupId IN (" + Util.BuildStringWithCollection(MainClass.lstStudyLevelGroupId) + ")";
+            s1 += "\n AND qAbiturient.StudyLevelGroupId IN (" + Util.BuildStringWithCollection(MainClass.lstStudyLevelGroupId) + ")";
+
+            s1 += "\n AND extOlympiads.OlympTypeId IN (1, 2, 3, 4) ";
 
             //обработали форму обучения  
             if (StudyFormId != null)
-                s1 += " AND ed.qAbiturient.StudyFormId = " + StudyFormId;
+                s1 += "\n AND qAbiturient.StudyFormId = " + StudyFormId;
 
             //обработали основу обучения  
             if (StudyBasisId != null)
-                s1 += " AND ed.qAbiturient.StudyBasisId = " + StudyBasisId;
+                s1 += "\n AND qAbiturient.StudyBasisId = " + StudyBasisId;
 
             //обработали факультет
             if (FacultyId != null)
-                s1 += " AND ed.qAbiturient.FacultyId = " + FacultyId;
+                s1 += "\n AND qAbiturient.FacultyId = " + FacultyId;
 
             //обработали Направление
             if (LicenseProgramId != null)
-                s1 += " AND ed.qAbiturient.LicenseProgramId = " + LicenseProgramId;
+                s1 += "\n AND qAbiturient.LicenseProgramId = " + LicenseProgramId;
 
             //обработали Образ программу
             if (ObrazProgramId != null)
-                s1 += " AND ed.qAbiturient.ObrazProgramId = " + ObrazProgramId;  
+                s1 += "\n AND qAbiturient.ObrazProgramId = " + ObrazProgramId;  
 
             return s1;
         }
@@ -443,28 +445,27 @@ namespace PriemLib
         //сбор фильтров 
         private string GetQuery()
         {
-            string extAbitTable = "";
-            switch (MainClass.dbType)
-            {
-                case PriemType.Priem: { extAbitTable = ""; break; }
-                case PriemType.PriemMag: { extAbitTable = ""; break; }
-                case PriemType.PriemSPO: { extAbitTable = ""; break; }
-                case PriemType.PriemAspirant: { extAbitTable = ""; break; }
-                default: { extAbitTable = ""; break; }
-            }
-            string sQuery = @"SELECT extOlympiads.Id AS OlympiadId, ed.qAbiturient.Id as Id, ed.qAbiturient.RegNum as Рег_Номер, extPersonTable.FIO as ФИО, 
-                        ed.Competition.Name as Тип_конкурса, OlympTypeName as Вид, OlympName AS Название, OlympLevelName AS Уровень, OlympSubjectName as Предмет,
+            
+            string sQuery = @"SELECT extOlympiads.Id AS OlympiadId, qAbiturient.Id as Id, qAbiturient.RegNum as Рег_Номер, extPersonTable.FIO as ФИО, 
+                        Competition.Name as Тип_конкурса, OlympTypeName as Вид, OlympName AS Название, OlympLevelName AS Уровень, OlympSubjectName as Предмет,
                         OlympValueName as Степень, ed.extExamInEntry.Id AS ExamInEntryId 
                         FROM ed.qAbiturient 
-                        LEFT JOIN ed.extPerson"+extAbitTable+@" as extPersonTable ON ed.qAbiturient.PersonId = extPersonTable.Id 
-                        INNER JOIN ed.extOlympiads ON ed.extOlympiads.AbiturientId = ed.qAbiturient.Id 
-                        LEFT JOIN ed.Competition ON ed.Competition.Id = ed.qAbiturient.CompetitionId 
-                        INNER JOIN ed.extExamInEntry ON qAbiturient.EntryId = ed.extExamInEntry.EntryId ";
+                        LEFT JOIN ed.extPerson as extPersonTable ON qAbiturient.PersonId = extPersonTable.Id 
+                        INNER JOIN ed.extOlympiads ON extOlympiads.AbiturientId = qAbiturient.Id 
+                        LEFT JOIN ed.Competition ON Competition.Id = qAbiturient.CompetitionId 
+                        INNER JOIN ed.extExamInEntry ON qAbiturient.EntryId = extExamInEntry.EntryId ";
 
-            sQuery += " WHERE ed.qAbiturient.BackDoc=0 " + GetFilters();
-            sQuery += string.Format(" AND ed.extExamInEntry.ExamId = {0}", ExamId);
+            sQuery += " WHERE qAbiturient.BackDoc = 0 " + GetFilters();
+            sQuery += string.Format(" AND extExamInEntry.ExamId = {0}", ExamId);
             //sQuery += string.Format(" AND NOT Exists (Select qMark.id FROM qMark INNER JOIN qAbiturient as abit ON abit.Id=qMark.AbiturientId INNER JOIN extExamInProgram ON qMark.ExamInProgramId = extExamInProgram.Id WHERE abit.id=qAbiturient.Id AND extExamInProgram.ProgramId = qAbiturient.ProgramId AND extExamInProgram.ExamNameId={0} ANd qMark.IsFromOlymp = 1) ", cbExams.Id);
-            sQuery += " AND NOT Exists (SELECT ed.qMark.Id FROM ed.qMark INNER JOIN ed.qAbiturient as abit ON abit.Id=ed.qMark.AbiturientId WHERE abit.id=ed.qAbiturient.Id AND ed.extExamInEntry.Id = ed.qMark.ExamInEntryBlockUnitId AND ed.qMark.IsFromOlymp = 1)";
+            sQuery += @"
+AND NOT EXISTS 
+(
+    SELECT Mark.Id 
+    FROM ed.Mark 
+    INNER JOIN ed.qAbiturient as abit ON abit.Id = Mark.AbiturientId 
+    WHERE abit.id = qAbiturient.Id AND extExamInEntry.Id = Mark.ExamInEntryBlockUnitId AND Mark.IsFromOlymp = 1
+)";
             string sOl = string.Empty;
 
             //обработали вид            

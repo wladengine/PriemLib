@@ -78,7 +78,7 @@ namespace PriemLib
                     ComboServ.FillCombo(cbOlympYear, lstYears, false, false);
                     ComboServ.FillCombo(cbOlympType, HelpClass.GetComboListByTable("ed.OlympType", "ORDER BY Id "), false, false);
                     ComboServ.FillCombo(cbOlympProfile, HelpClass.GetComboListByTable("ed.OlympProfile", "ORDER BY Name"), false, false);
-                    ComboServ.FillCombo(cbOlympName, HelpClass.GetComboListByTable("ed.OlympName", "ORDER BY Number, Name"), false, false);
+                    ComboServ.FillCombo(cbOlympName, HelpClass.GetComboListByTable("ed.OlympName", "ORDER BY Name"), false, false);
                     ComboServ.FillCombo(cbOlympSubject, HelpClass.GetComboListByTable("ed.OlympSubject", "ORDER BY Name"), false, false);
                     ComboServ.FillCombo(cbOlympLevel, HelpClass.GetComboListByTable("ed.OlympLevel", "ORDER BY Name"), false, false);
                 }

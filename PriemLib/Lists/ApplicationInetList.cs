@@ -328,8 +328,8 @@ namespace PriemLib
             else { 
             _sQuery = @"SELECT DISTINCT qAbiturient.CommitId AS Id, extPerson.Surname + ' ' + extPerson.Name + ' ' + extPerson.SecondName as ФИО, 
                        extPerson.BirthDate AS Дата_рождения, qAbiturient.CommitNumber AS Barcode, 
-                       (Case When EXISTS(SELECT extAbitFileNames.Id FROM extAbitFileNames WHERE extAbitFileNames.PersonId = extPerson.Id) then 'Да' else 'Нет' end) AS [Приложены файлы],
-                       (SELECT Max(extAbitFileNames.LoadDate) FROM extAbitFileNames WHERE extAbitFileNames.PersonId = extPerson.Id AND (extAbitFileNames.CommitId = qAbiturient.CommitId OR extAbitFileNames.CommitId IS NULL)) AS [Дата обновления файлов],
+                       (Case When EXISTS(SELECT extAbitFileNames_ALL.Id FROM extAbitFileNames_ALL WHERE extAbitFileNames_ALL.PersonId = extPerson.Id) then 'Да' else 'Нет' end) AS [Приложены файлы],
+                       (SELECT Max(extAbitFileNames_ALL.LoadDate) FROM extAbitFileNames_ALL WHERE extAbitFileNames_ALL.PersonId = extPerson.Id AND (extAbitFileNames_ALL.CommitId = qAbiturient.CommitId OR extAbitFileNames_ALL.CommitId IS NULL)) AS [Дата обновления файлов],
                        (CASE WHEN EXISTS(SELECT * FROM qAbitFiles_OnlyEssayMotivLetter q WHERE q.PersonId=qAbiturient.PersonId AND FileTypeId=2) THEN 'Да' ELSE 'Нет' END) AS [Мотивац письмо],
                        (CASE WHEN EXISTS(SELECT * FROM qAbitFiles_OnlyEssayMotivLetter q WHERE q.PersonId=qAbiturient.PersonId AND FileTypeId=3) THEN 'Да' ELSE 'Нет' END) AS [Эссе],
                        (CASE WHEN EXISTS(SELECT * FROM qAbitFiles_OnlyPhilosophy q WHERE q.PersonId=qAbiturient.PersonId) THEN 'Да' ELSE 'Нет' END) AS [Философия]

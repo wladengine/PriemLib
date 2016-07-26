@@ -810,6 +810,31 @@ namespace PriemLib
                 btnRemoveO.Enabled = false;
                 cbLanguage.Enabled = false;
             }
+            else
+            {
+                if (MainClass.IsFacMain() || MainClass.IsPasha())
+                {
+                    gbEntryConfirm.Enabled = true;
+
+                    chbHasEntryConfirm.Enabled = true;
+                    dtpDateEntryConfirm.Enabled = true;
+
+                    if (chbHasEntryConfirm.Checked)
+                    {
+                        chbHasEntryConfirm.Enabled = false;
+                        dtpDateEntryConfirm.Enabled = false;
+
+                        chbHasDisabledEntryConfirm.Enabled = true;
+                        dtpDateDisableEntryConfirm.Enabled = true;
+
+                        if (chbHasDisabledEntryConfirm.Checked)
+                        {
+                            chbHasDisabledEntryConfirm.Enabled = false;
+                            dtpDateDisableEntryConfirm.Enabled = false;
+                        }
+                    }
+                }
+            }
 
             if (MainClass.IsPasha())
                 dtDocDate.Enabled = true;
@@ -1601,8 +1626,13 @@ namespace PriemLib
 
                                     if (balls.Count() == 0)
                                     {
-                                        WinFormsServ.Error("Не найдено подтверждающих баллов для общей льготы!");
-                                        return false;
+                                        //проверяем прочие баллы в карточке
+                                        var abitMarks = context.qMark.Where(x => x.AbiturientId == GuidId && lstEx.Contains(x.ExamId) && x.Value >= egeMin);
+                                        if (abitMarks.Count() == 0)
+                                        {
+                                            WinFormsServ.Error("Не найдено подтверждающих баллов для общей льготы!");
+                                            return false;
+                                        }
                                     }
                                 }
                             }
@@ -1620,6 +1650,9 @@ namespace PriemLib
                         WinFormsServ.Error("Абитуриент уже участвует в конкурсах на 3 различных направлениях!");
                         return false;
                     }
+
+                    if (MainClass.dbType == PriemType.Priem)
+                        CheckTwoConfirms(context);
 
                     if (DocDate > DateTime.Now)
                     {
@@ -1760,6 +1793,47 @@ namespace PriemLib
                 return true;
         }
 
+        private bool CheckTwoConfirms(PriemEntities context)
+        {
+            if (HasEntryConfirm && !HasDisabledEntryConfirm)
+            {
+                var abits = context.Abiturient.Where(x => x.PersonId == _personId && x.Id != GuidId && x.HasEntryConfirm)
+                    .Select(x => new 
+                    { 
+                        x.HasDisabledEntryConfirm,
+                        LicenseProgramCode = x.Entry.SP_LicenseProgram.Code,
+                        LicenseProgramName = x.Entry.SP_LicenseProgram.Name,
+                        ObrazProgramName = x.Entry.SP_ObrazProgram.Name,
+                    }).ToList();
+
+                if (abits.Count == 0)
+                    return true;
+                else
+                {
+                    if (abits.Count == 1)
+                    {
+                        //if HasDisabledEntryConfirm
+                        if (abits[0].HasDisabledEntryConfirm)
+                            return true;
+                        else
+                        {
+                            string sEntry = "Направление: " + abits[0].LicenseProgramCode + " " + abits[0].LicenseProgramName
+                                + "\nОбразовательная программа:" + abits[0].ObrazProgramName;
+                            WinFormsServ.Error("У абитуриента уже есть не отозванное согласие на зачисление по конкурсу:\n" + sEntry);
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        WinFormsServ.Error("У абитуриента уже есть 2 согласия на зачисление. Больше согласий не допускается.");
+                        return false;
+                    }
+                }
+            }
+            else
+                return true;
+        }
+
         protected override void InsertRec(PriemEntities context, ObjectParameter idParam)
         {
             context.Abiturient_Insert(_personId, EntryId, CompetitionId, IsListener, false, IsPaid, BackDoc, BackDocDate, DocDate, DateTime.Now,
@@ -1877,6 +1951,18 @@ namespace PriemLib
                     abit.HasEntryConfirm = false;
                     abit.DateEntryConfirm = null;
                 }
+
+                if (HasDisabledEntryConfirm)
+                {
+                    abit.HasDisabledEntryConfirm = true;
+                    abit.DateDisableEntryConfirm = dtpDateDisableEntryConfirm.Value;
+                }
+                else
+                {
+                    abit.HasDisabledEntryConfirm = false;
+                    abit.DateDisableEntryConfirm = null;
+                }
+
                 context.SaveChanges();
             }
             
@@ -2072,7 +2158,7 @@ namespace PriemLib
                             string OlympName = "";
                             if (abMark.OlympiadId.HasValue)
                             {
-                                var Olymp = context.extOlympiads.Where(x => x.Id == abMark.OlympiadId).FirstOrDefault();
+                                var Olymp = context.extOlympiadsAll.Where(x => x.Id == abMark.OlympiadId).FirstOrDefault();
                                 if (Olymp == null)
                                     OlympName = " (олимпиада не найдена!)";
                                 else
