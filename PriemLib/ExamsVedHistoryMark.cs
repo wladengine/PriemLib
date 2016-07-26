@@ -25,6 +25,7 @@ namespace PriemLib
         public Nullable<int> ExamsVedMarkTypeId { get; set; }
         public Nullable<decimal> MarkValue { get; set; }
         public Nullable<decimal> AppealMarkValue { get; set; }
+        public Nullable<bool> MarkIsChecked { get; set; }
     
         public virtual ExamsVedMarkType ExamsVedMarkType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

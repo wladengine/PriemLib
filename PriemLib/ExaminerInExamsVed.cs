@@ -16,6 +16,7 @@ namespace PriemLib
     {
         public System.Guid ExamsVedId { get; set; }
         public string ExaminerAccount { get; set; }
+        public Nullable<bool> IsMain { get; set; }
     
         public virtual ExamsVed ExamsVed { get; set; }
     }

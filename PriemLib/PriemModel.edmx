@@ -406,6 +406,7 @@ warning 6002: The table/view 'Priem2016.ed.EgeToLanguage' does not have a primar
           </Key>
           <Property Name="ExamsVedId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="ExaminerAccount" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="IsMain" Type="bit" />
         </EntityType>
         <EntityType Name="ExamName">
           <Key>
@@ -432,6 +433,7 @@ warning 6002: The table/view 'Priem2016.ed.EgeToLanguage' does not have a primar
           <Property Name="IsAdd" Type="bit" Nullable="false" />
           <Property Name="AddCount" Type="int" />
           <Property Name="ExaminerAccount" Type="nvarchar" MaxLength="250" />
+          <Property Name="ExaminerCount" Type="int" />
         </EntityType>
         <EntityType Name="ExamsVedHistory">
           <Key>
@@ -457,6 +459,7 @@ warning 6002: The table/view 'Priem2016.ed.EgeToLanguage' does not have a primar
           <Property Name="ExamsVedMarkTypeId" Type="int" />
           <Property Name="MarkValue" Type="decimal" Precision="4" Scale="1" />
           <Property Name="AppealMarkValue" Type="decimal" Precision="4" Scale="1" />
+          <Property Name="MarkIsChecked" Type="bit" />
         </EntityType>
         <EntityType Name="ExamsVedMarkDetails">
           <Key>
@@ -467,6 +470,7 @@ warning 6002: The table/view 'Priem2016.ed.EgeToLanguage' does not have a primar
           <Property Name="ExaminerName" Type="nvarchar" MaxLength="250" />
           <Property Name="MarkValue" Type="decimal" Precision="4" Scale="1" />
           <Property Name="Date" Type="datetime" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="4000" />
         </EntityType>
         <EntityType Name="ExamsVedMarkType">
           <Key>
@@ -10953,6 +10957,7 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           <Property Type="String" Name="ExaminerAccount" MaxLength="250" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ExaminerInExamsVed" Relationship="Priem2012Model.FK_ExaminerInExamsVed_ExamsVed" FromRole="ExamsVed" ToRole="ExaminerInExamsVed" />
           <NavigationProperty Name="ExamsVedHistory" Relationship="Priem2012Model.FK_ExamsVedHistory_ExamsVed" FromRole="ExamsVed" ToRole="ExamsVedHistory" />
+          <Property Name="ExaminerCount" Type="Int32" />
         </EntityType>
         <EntityType Name="ExamsVedHistory">
           <Key>
@@ -13022,6 +13027,7 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           <Property Type="Guid" Name="ExamsVedId" Nullable="false" />
           <Property Type="String" Name="ExaminerAccount" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ExamsVed" Relationship="Priem2012Model.FK_ExaminerInExamsVed_ExamsVed" FromRole="ExaminerInExamsVed" ToRole="ExamsVed" />
+          <Property Name="IsMain" Type="Boolean" />
         </EntityType>
         <EntityType Name="EntryHeader">
           <Key>
@@ -14532,6 +14538,7 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           <Property Name="AppealMarkValue" Type="Decimal" Precision="4" Scale="1" />
           <NavigationProperty Name="ExamsVedMarkType" Relationship="Priem2012Model.FK_ExamsVedHistoryMark_ExamsVedMarkType" FromRole="ExamsVedHistoryMark" ToRole="ExamsVedMarkType" />
           <NavigationProperty Name="ExamsVedMarkDetails" Relationship="Priem2012Model.FK_ExamsVedMarkDetails_ExamsVedHistoryMark" FromRole="ExamsVedHistoryMark" ToRole="ExamsVedMarkDetails" />
+          <Property Name="MarkIsChecked" Type="Boolean" />
         </EntityType>
         <EntityType Name="ExamsVedMarkDetails">
           <Key>
@@ -14543,6 +14550,7 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           <Property Name="MarkValue" Type="Decimal" Precision="4" Scale="1" />
           <Property Name="Date" Type="DateTime" Precision="3" />
           <NavigationProperty Name="ExamsVedHistoryMark" Relationship="Priem2012Model.FK_ExamsVedMarkDetails_ExamsVedHistoryMark" FromRole="ExamsVedMarkDetails" ToRole="ExamsVedHistoryMark" />
+          <Property Name="Comment" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="ExamsVedMarkType">
           <Key>
@@ -15538,6 +15546,7 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           <EntitySetMapping Name="ExamsVed">
             <EntityTypeMapping TypeName="Priem2012Model.ExamsVed">
               <MappingFragment StoreEntitySet="ExamsVed">
+                <ScalarProperty Name="ExaminerCount" ColumnName="ExaminerCount" />
                 <ScalarProperty Name="ExaminerAccount" ColumnName="ExaminerAccount" />
                 <ScalarProperty Name="AddCount" ColumnName="AddCount" />
                 <ScalarProperty Name="IsAdd" ColumnName="IsAdd" />
@@ -16891,6 +16900,7 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           <EntitySetMapping Name="ExaminerInExamsVed">
             <EntityTypeMapping TypeName="Priem2012Model.ExaminerInExamsVed">
               <MappingFragment StoreEntitySet="ExaminerInExamsVed">
+                <ScalarProperty Name="IsMain" ColumnName="IsMain" />
                 <ScalarProperty Name="ExaminerAccount" ColumnName="ExaminerAccount" />
                 <ScalarProperty Name="ExamsVedId" ColumnName="ExamsVedId" />
               </MappingFragment>
@@ -17773,6 +17783,7 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           <EntitySetMapping Name="ExamsVedHistoryMark">
             <EntityTypeMapping TypeName="Priem2012Model.ExamsVedHistoryMark">
               <MappingFragment StoreEntitySet="ExamsVedHistoryMark">
+                <ScalarProperty Name="MarkIsChecked" ColumnName="MarkIsChecked" />
                 <ScalarProperty Name="AppealMarkValue" ColumnName="AppealMarkValue" />
                 <ScalarProperty Name="MarkValue" ColumnName="MarkValue" />
                 <ScalarProperty Name="ExamsVedMarkTypeId" ColumnName="ExamsVedMarkTypeId" />
@@ -17784,6 +17795,7 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           <EntitySetMapping Name="ExamsVedMarkDetails">
             <EntityTypeMapping TypeName="Priem2012Model.ExamsVedMarkDetails">
               <MappingFragment StoreEntitySet="ExamsVedMarkDetails">
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="MarkValue" ColumnName="MarkValue" />
                 <ScalarProperty Name="ExaminerName" ColumnName="ExaminerName" />

@@ -19,6 +19,7 @@ namespace PriemLib
         public string ExaminerName { get; set; }
         public Nullable<decimal> MarkValue { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
+        public string Comment { get; set; }
     
         public virtual ExamsVedHistoryMark ExamsVedHistoryMark { get; set; }
     }

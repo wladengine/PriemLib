@@ -33,6 +33,7 @@ namespace PriemLib
         public bool IsAdd { get; set; }
         public Nullable<int> AddCount { get; set; }
         public string ExaminerAccount { get; set; }
+        public Nullable<int> ExaminerCount { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ExaminerInExamsVed> ExaminerInExamsVed { get; set; }
