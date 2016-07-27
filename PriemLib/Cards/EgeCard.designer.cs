@@ -50,8 +50,6 @@ namespace PriemLib
             this.label45 = new System.Windows.Forms.Label();
             this.tbFBSStatus = new System.Windows.Forms.TextBox();
             this.lblIsImported = new System.Windows.Forms.Label();
-            this.btnSetStatusPasha = new System.Windows.Forms.Button();
-            this.tbCommentFBSPasha = new System.Windows.Forms.TextBox();
             this.chbNoNumber = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.epError)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvExams)).BeginInit();
@@ -60,15 +58,15 @@ namespace PriemLib
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(257, 614);
+            this.btnClose.Location = new System.Drawing.Point(298, 640);
             // 
             // btnSaveChange
             // 
-            this.btnSaveChange.Location = new System.Drawing.Point(14, 614);
+            this.btnSaveChange.Location = new System.Drawing.Point(14, 640);
             // 
             // btnSaveAsNew
             // 
-            this.btnSaveAsNew.Location = new System.Drawing.Point(209, 551);
+            this.btnSaveAsNew.Location = new System.Drawing.Point(250, 577);
             // 
             // label1
             // 
@@ -89,14 +87,14 @@ namespace PriemLib
             this.dgvExams.Location = new System.Drawing.Point(14, 271);
             this.dgvExams.Name = "dgvExams";
             this.dgvExams.RowHeadersVisible = false;
-            this.dgvExams.Size = new System.Drawing.Size(326, 303);
+            this.dgvExams.Size = new System.Drawing.Size(365, 363);
             this.dgvExams.TabIndex = 7;
             // 
             // tbNumber
             // 
             this.tbNumber.Location = new System.Drawing.Point(145, 8);
             this.tbNumber.Name = "tbNumber";
-            this.tbNumber.Size = new System.Drawing.Size(193, 20);
+            this.tbNumber.Size = new System.Drawing.Size(234, 20);
             this.tbNumber.TabIndex = 0;
             // 
             // epErrorInput
@@ -122,7 +120,7 @@ namespace PriemLib
             this.tbSurname.Enabled = false;
             this.tbSurname.Location = new System.Drawing.Point(14, 162);
             this.tbSurname.Name = "tbSurname";
-            this.tbSurname.Size = new System.Drawing.Size(102, 20);
+            this.tbSurname.Size = new System.Drawing.Size(139, 20);
             this.tbSurname.TabIndex = 4;
             // 
             // label2
@@ -139,7 +137,7 @@ namespace PriemLib
             this.tbYear.Location = new System.Drawing.Point(244, 54);
             this.tbYear.MaxLength = 4;
             this.tbYear.Name = "tbYear";
-            this.tbYear.Size = new System.Drawing.Size(94, 20);
+            this.tbYear.Size = new System.Drawing.Size(135, 20);
             this.tbYear.TabIndex = 1;
             // 
             // label3
@@ -155,7 +153,7 @@ namespace PriemLib
             // 
             this.tbPrintNumber.Location = new System.Drawing.Point(164, 80);
             this.tbPrintNumber.Name = "tbPrintNumber";
-            this.tbPrintNumber.Size = new System.Drawing.Size(174, 20);
+            this.tbPrintNumber.Size = new System.Drawing.Size(215, 20);
             this.tbPrintNumber.TabIndex = 2;
             // 
             // label4
@@ -172,7 +170,7 @@ namespace PriemLib
             this.tbName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbName.Enabled = false;
-            this.tbName.Location = new System.Drawing.Point(122, 162);
+            this.tbName.Location = new System.Drawing.Point(159, 162);
             this.tbName.Name = "tbName";
             this.tbName.Size = new System.Drawing.Size(85, 20);
             this.tbName.TabIndex = 5;
@@ -182,15 +180,15 @@ namespace PriemLib
             this.tbSecondName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbSecondName.Enabled = false;
-            this.tbSecondName.Location = new System.Drawing.Point(213, 162);
+            this.tbSecondName.Location = new System.Drawing.Point(250, 162);
             this.tbSecondName.Name = "tbSecondName";
-            this.tbSecondName.Size = new System.Drawing.Size(127, 20);
+            this.tbSecondName.Size = new System.Drawing.Size(131, 20);
             this.tbSecondName.TabIndex = 6;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(119, 146);
+            this.label6.Location = new System.Drawing.Point(156, 146);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(29, 13);
             this.label6.TabIndex = 16;
@@ -199,7 +197,7 @@ namespace PriemLib
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(210, 146);
+            this.label7.Location = new System.Drawing.Point(247, 146);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(54, 13);
             this.label7.TabIndex = 17;
@@ -254,24 +252,6 @@ namespace PriemLib
             this.lblIsImported.TabIndex = 90;
             this.lblIsImported.Text = "Загружено из ФБС";
             // 
-            // btnSetStatusPasha
-            // 
-            this.btnSetStatusPasha.Location = new System.Drawing.Point(109, 587);
-            this.btnSetStatusPasha.Name = "btnSetStatusPasha";
-            this.btnSetStatusPasha.Size = new System.Drawing.Size(120, 23);
-            this.btnSetStatusPasha.TabIndex = 91;
-            this.btnSetStatusPasha.Text = "Проверено вручную";
-            this.btnSetStatusPasha.UseVisualStyleBackColor = true;
-            this.btnSetStatusPasha.Click += new System.EventHandler(this.btnSetStatusPasha_Click);
-            // 
-            // tbCommentFBSPasha
-            // 
-            this.tbCommentFBSPasha.Location = new System.Drawing.Point(109, 616);
-            this.tbCommentFBSPasha.Name = "tbCommentFBSPasha";
-            this.tbCommentFBSPasha.Size = new System.Drawing.Size(129, 20);
-            this.tbCommentFBSPasha.TabIndex = 92;
-            this.tbCommentFBSPasha.Visible = false;
-            // 
             // chbNoNumber
             // 
             this.chbNoNumber.AutoSize = true;
@@ -286,10 +266,8 @@ namespace PriemLib
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(352, 642);
+            this.ClientSize = new System.Drawing.Size(393, 668);
             this.Controls.Add(this.chbNoNumber);
-            this.Controls.Add(this.tbCommentFBSPasha);
-            this.Controls.Add(this.btnSetStatusPasha);
             this.Controls.Add(this.lblIsImported);
             this.Controls.Add(this.label47);
             this.Controls.Add(this.tbFBSComment);
@@ -336,8 +314,6 @@ namespace PriemLib
             this.Controls.SetChildIndex(this.btnClose, 0);
             this.Controls.SetChildIndex(this.btnSaveChange, 0);
             this.Controls.SetChildIndex(this.lblIsImported, 0);
-            this.Controls.SetChildIndex(this.btnSetStatusPasha, 0);
-            this.Controls.SetChildIndex(this.tbCommentFBSPasha, 0);
             this.Controls.SetChildIndex(this.chbNoNumber, 0);
             ((System.ComponentModel.ISupportInitialize)(this.epError)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvExams)).EndInit();
@@ -369,8 +345,6 @@ namespace PriemLib
         private System.Windows.Forms.Label label45;
         private System.Windows.Forms.TextBox tbFBSStatus;
         private System.Windows.Forms.Label lblIsImported;
-        private System.Windows.Forms.Button btnSetStatusPasha;
-        private System.Windows.Forms.TextBox tbCommentFBSPasha;
         private System.Windows.Forms.CheckBox chbNoNumber;
 
     }

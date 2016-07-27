@@ -53,6 +53,11 @@ namespace PriemLib
             get { return ComboServ.GetComboIdInt(cbProfile).Value; }
             set { ComboServ.SetComboId(cbProfile, value); }
         }
+        private int EgeExamNameId
+        {
+            get { return ComboServ.GetComboIdInt(cbEgeExamName).Value; }
+            set { ComboServ.SetComboId(cbEgeExamName, value); }
+        }
         #endregion
 
         public CardInnerEntryInEntry(Guid entryId, int licenseProgramId)
@@ -111,6 +116,10 @@ namespace PriemLib
                 var Prof = context.SP_Profile.Select(x => new { x.Id, x.Name }).ToList()
                     .Select(x => new KeyValuePair<string, string>(x.Id.ToString(), x.Name)).ToList();
                 ComboServ.FillCombo(cbProfile, Prof, false, false);
+
+                var EGE = context.EgeExamName.Select(x => new { x.Id, x.Name }).ToList()
+                    .Select(x => new KeyValuePair<string, string>(x.Id.ToString(), x.Name)).ToList();
+                ComboServ.FillCombo(cbEgeExamName, EGE, true, false);
             }
         }
 
@@ -150,6 +159,7 @@ namespace PriemLib
                         Ent.ObrazProgramId = ObrazProgramId;
                         Ent.ProfileId = ProfileId;
                         Ent.KCP = KCP;
+                        Ent.EgeExamNameId = EgeExamNameId;
 
                         query = "UPDATE InnerEntryInEntry SET ObrazProgramId=@ObrazProgramId, ProfileId=@ProfileId, EntryId=@EntryId WHERE Id=@Id";
                     }

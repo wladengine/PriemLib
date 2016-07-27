@@ -56,17 +56,6 @@ namespace PriemLib
                 this.tbNumber.TextChanged += new System.EventHandler(this.tbNumber_TextChanged);
                 InitGridNew();
             }
-
-            if (MainClass.IsPasha() || MainClass.IsOwner())
-            {
-                btnSetStatusPasha.Visible = btnSetStatusPasha.Enabled = true;
-                tbCommentFBSPasha.Visible = true;
-            }
-            else
-            {
-                btnSetStatusPasha.Visible = btnSetStatusPasha.Enabled = false;
-                tbCommentFBSPasha.Visible = false;
-            }
         }
 
         protected override void FillCard()
@@ -245,11 +234,6 @@ namespace PriemLib
             tbSecondName.Enabled = chbNewFIO.Checked;
             tbSurname.Enabled = chbNewFIO.Checked;
 
-            if (MainClass.IsPasha() || MainClass.IsOwner())            
-                btnSetStatusPasha.Enabled = tbCommentFBSPasha.Enabled = true; 
-            else           
-                btnSetStatusPasha.Enabled = false;            
-
             //if (!MainClass.IsPasha())
             //{
             //    SetAllFieldsNotEnabled();
@@ -264,11 +248,6 @@ namespace PriemLib
         protected override void SetAllFieldsNotEnabled()
         {
             base.SetAllFieldsNotEnabled();
-
-            if (MainClass.IsPasha() || MainClass.IsOwner())
-                btnSetStatusPasha.Enabled = tbCommentFBSPasha.Enabled = true;
-            else
-                btnSetStatusPasha.Enabled = false;  
         }
 
         private bool CheckEge()
@@ -293,29 +272,6 @@ namespace PriemLib
                                 return false;
                             }
                         }
-
-                        // проверка что нет двух ЕГЭ по одному предмету
-                        // Паша сказал, что пусть вносят, что хотят, а потом при проверке выберем максимальную из годных
-
-                        //int res = int.Parse(_bdc.GetStringValue(string.Format("SELECT Count(*) FROM EgeMark INNER JOIN EgeCertificate ON EgeMark.EgeCertificateId = EgeCertificate.Id WHERE EgeMark.EgeExamNameId = {0} {1} AND EgeCertificate.PersonId = '{2}'", dgvExams["ExamId", i].Value.ToString(), _Id == null ? "" : " AND EgeCertificate.Id <> '" + _Id + "'", _personId)));
-                        //if (res > 0)
-                        //{
-                        //    int value = int.Parse(_bdc.GetStringValue(string.Format("SELECT MAX(Value) FROM EgeMark INNER JOIN EgeCertificate ON EgeMark.EgeCertificateId = EgeCertificate.Id WHERE EgeMark.EgeExamNameId = {0} {1} AND EgeCertificate.PersonId = '{2}'", dgvExams["ExamId", i].Value.ToString(), _Id == null ? "" : " AND EgeCertificate.Id <> '" + _Id + "'", _personId)));
-                        //    if (value >= int.Parse(balls))
-                        //    {
-                        //        dgvExams.Rows[i].Selected = true;
-                        //        WinFormsServ.Error("Баллы за этот экзамен уже есть в другом сертификате ЕГЭ этого абитуриента. \r\nВ данном сертификате баллы ниже и приняты не будут.");
-                        //        dgvExams["Баллы", i].Value = "";
-                        //        //return false;
-                        //    }
-                        //    else
-                        //    {
-                        //        WinFormsServ.Error("Баллы за этот экзамен уже есть в другом сертификате ЕГЭ этого абитуриента. \r\nНо данном сертификате баллы выше, поэтому будут приняты. Оценка в другом сертификате будет удалена.");
-                        //        // узнаём номер спорной оценки и удаляем её
-                        //        string sporId = _bdc.GetStringValue(string.Format("SELECT EgeMark.Id FROM EgeMark INNER JOIN EgeCertificate ON EgeMark.EgeCertificateId = EgeCertificate.Id WHERE EgeMark.EgeExamNameId = {0} {1} AND EgeCertificate.PersonId = '{2}'", dgvExams["ExamId", i].Value.ToString(), _Id == null ? "" : " AND EgeCertificate.Id <> '" + _Id + "'", _personId));
-                        //        _bdc.ExecuteQuery("DELETE FROM EgeMark WHERE Id = '" + sporId + "'");
-                        //    }
-                        //}
                     }
                 }
 
@@ -503,40 +459,40 @@ namespace PriemLib
                 this.Close();
         }
 
-        private void btnSetStatusPasha_Click(object sender, EventArgs e)
-        {
-            if (MainClass.IsPasha() || MainClass.IsOwner())
-            {
-                if (_Id == null)
-                    return;
+        //private void btnSetStatusPasha_Click(object sender, EventArgs e)
+        //{
+        //    if (MainClass.IsPasha() || MainClass.IsOwner())
+        //    {
+        //        if (_Id == null)
+        //            return;
 
-                using (PriemEntities context = new PriemEntities())
-                {
-                    var cert = (from ec in context.EgeCertificate
-                                where ec.Id == GuidId
-                                select ec).FirstOrDefault();
+        //        using (PriemEntities context = new PriemEntities())
+        //        {
+        //            var cert = (from ec in context.EgeCertificate
+        //                        where ec.Id == GuidId
+        //                        select ec).FirstOrDefault();
 
-                    if (cert != null)
-                    {
-                        if (MessageBox.Show(string.Format("Проставить статус 'Проверено' для свидетельства {0}?", cert.Number), "Внимание", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                        {
-                            context.EgeCertificate_UpdateFBSStatus(4, tbCommentFBSPasha.Text.Trim(), cert.Id);
-                            MessageBox.Show("Выполнено");
+        //            if (cert != null)
+        //            {
+        //                if (MessageBox.Show(string.Format("Проставить статус 'Проверено' для свидетельства {0}?", cert.Number), "Внимание", MessageBoxButtons.YesNo) == DialogResult.Yes)
+        //                {
+        //                    //context.EgeCertificate_UpdateFBSStatus(4, tbCommentFBSPasha.Text.Trim(), cert.Id);
+        //                    MessageBox.Show("Выполнено");
 
-                            var c = (from ec in context.EgeCertificate
-                                     where ec.Id == GuidId
-                                     select ec).FirstOrDefault();
+        //                    var c = (from ec in context.EgeCertificate
+        //                             where ec.Id == GuidId
+        //                             select ec).FirstOrDefault();
 
-                            FBSStatus = (from fs in context.FBSStatus where fs.Id == c.FBSStatusId select fs.Name).FirstOrDefault();
-                            FBSComment = c.FBSComment;
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show("Нет свидетельств, удовлетворяющих критериям");
-                    }
-                }
-            }       
-        }      
+        //                    FBSStatus = (from fs in context.FBSStatus where fs.Id == c.FBSStatusId select fs.Name).FirstOrDefault();
+        //                    FBSComment = c.FBSComment;
+        //                }
+        //            }
+        //            else
+        //            {
+        //                MessageBox.Show("Нет свидетельств, удовлетворяющих критериям");
+        //            }
+        //        }
+        //    }       
+        //}      
     }
 }
