@@ -61,12 +61,23 @@ namespace PriemLib
                 if (vedInfo != null)
                 {
                     tbExamsVed.Text = vedInfo.ExamName + " " + vedInfo.Date;
+                    int? Cnt = context.ExamsVed.Where(x => x.Id == ExamsVedId).Select(x=>x.ExaminerCount).FirstOrDefault();
+                    if (Cnt.HasValue)
+                        tbExaminatorCount.Text = Cnt.ToString();
+                    else
+                        tbExaminatorCount.Text = "1";
                 }
             }
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            int tmp;
+            if (!String.IsNullOrEmpty(tbExaminatorCount.Text) && !int.TryParse(tbExaminatorCount.Text, out tmp))
+            {
+                MessageBox.Show("Неверное количество экзаменаторов на одну работу","Введите целое число");
+                return;
+            }
             if (MessageBox.Show("Сохранить список экзаменаторов для ведомости?", "Сохранение", MessageBoxButtons.YesNoCancel) == System.Windows.Forms.DialogResult.Yes)
             {
                 SaveCard();
@@ -78,6 +89,15 @@ namespace PriemLib
         {
             using (PriemEntities context = new PriemEntities())
             {
+                int tmp;
+                if (!String.IsNullOrEmpty(tbExaminatorCount.Text))
+                {
+                    tmp = int.Parse(tbExaminatorCount.Text);
+                    var Examsved = context.ExamsVed.Where(x => x.Id == ExamsVedId).First();
+                    Examsved.ExaminerCount = tmp;
+                    context.SaveChanges();
+                }
+
                 context.ExamsVed_DeleteAllExaminerAccountInVed(ExamsVedId);
                 foreach (var x in lst)
                 {

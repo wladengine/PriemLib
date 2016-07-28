@@ -35,6 +35,8 @@
             this.dgv = new System.Windows.Forms.DataGridView();
             this.label2 = new System.Windows.Forms.Label();
             this.tbFIO = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.tbExaminatorCount = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.SuspendLayout();
             // 
@@ -88,7 +90,7 @@
             this.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv.Location = new System.Drawing.Point(12, 51);
             this.dgv.Name = "dgv";
-            this.dgv.Size = new System.Drawing.Size(545, 366);
+            this.dgv.Size = new System.Drawing.Size(545, 346);
             this.dgv.TabIndex = 5;
             this.dgv.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_CellContentClick);
             // 
@@ -96,7 +98,7 @@
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 423);
+            this.label2.Location = new System.Drawing.Point(12, 406);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(198, 13);
             this.label2.TabIndex = 6;
@@ -106,17 +108,38 @@
             // 
             this.tbFIO.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbFIO.Location = new System.Drawing.Point(216, 420);
+            this.tbFIO.Location = new System.Drawing.Point(216, 403);
             this.tbFIO.Name = "tbFIO";
             this.tbFIO.Size = new System.Drawing.Size(341, 20);
             this.tbFIO.TabIndex = 7;
             this.tbFIO.TextChanged += new System.EventHandler(this.tbFIO_TextChanged);
+            // 
+            // label3
+            // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(12, 432);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(233, 13);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "Количество проверяющих для одной работы";
+            // 
+            // tbExaminatorCount
+            // 
+            this.tbExaminatorCount.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbExaminatorCount.Location = new System.Drawing.Point(251, 429);
+            this.tbExaminatorCount.Name = "tbExaminatorCount";
+            this.tbExaminatorCount.Size = new System.Drawing.Size(306, 20);
+            this.tbExaminatorCount.TabIndex = 7;
             // 
             // CardExaminerInExamsVedNew
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(569, 490);
+            this.Controls.Add(this.tbExaminatorCount);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.tbFIO);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.dgv);
@@ -142,5 +165,7 @@
         private System.Windows.Forms.DataGridView dgv;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox tbFIO;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox tbExaminatorCount;
     }
 }
