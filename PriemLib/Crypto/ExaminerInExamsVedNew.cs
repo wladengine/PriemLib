@@ -69,8 +69,8 @@ namespace PriemLib
         {
             if (MessageBox.Show("Сохранить список экзаменаторов для ведомости?", "Сохранение", MessageBoxButtons.YesNoCancel) == System.Windows.Forms.DialogResult.Yes)
             {
-                //SaveCard();
-                //this.Close();
+                SaveCard();
+                this.Close();
             }
         }
 
@@ -79,30 +79,39 @@ namespace PriemLib
             using (PriemEntities context = new PriemEntities())
             {
                 context.ExamsVed_DeleteAllExaminerAccountInVed(ExamsVedId);
-
-                //foreach (string accouns in lstExaminers)
-                //{
-                //    context.ExamsVed_SetExaminerAccount(accouns, ExamsVedId);
-                //}
-                foreach (DataGridViewRow rw in dgv.Rows)
+                foreach (var x in lst)
                 {
-                    if ((bool)rw.Cells["Добавлен"].Value)
+                    var Examiner = context.ExaminerInExamsVed.Where(t => t.ExamsVedId == ExamsVedId && t.ExaminerAccount == x.RectoratLogin).FirstOrDefault();
+                    
+                    if (x.IsChecked)
                     {
-                        context.ExaminerInExamsVed.Add(new ExaminerInExamsVed()
-                            {
-                                ExamsVedId = ExamsVedId,
-                                ExaminerAccount = rw.Cells["AccountName"].Value.ToString(),
-                                IsMain = (bool)rw.Cells["IsMain"].Value,
-                            });
+                        if (Examiner == null)
+                        {
+                            context.ExaminerInExamsVed.Add(new ExaminerInExamsVed()
+                                {
+                                    ExamsVedId = ExamsVedId,
+                                    ExaminerAccount = x.RectoratLogin,
+                                    IsMain = x.IsMain,
+                                });
+                        }
+                        else
+                        {
+                            Examiner.IsMain = x.IsMain;
+                        }
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        if (Examiner != null)
+                        {
+                            context.ExaminerInExamsVed.Remove(Examiner);
+                            context.SaveChanges();
+                        }
                     }
                 }
             }
         }
 
-        private void dgv_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            
-        }
         public void PaintRow(int rowind)
         {
             if ((bool)dgv.Rows[rowind].Cells["IsMain"].Value)
@@ -146,16 +155,17 @@ namespace PriemLib
                 if (e.ColumnIndex == dgv.Columns["IsMain"].Index)
                 {
                     if (!lst[e.RowIndex].IsChecked && !lst[e.RowIndex].IsMain)
-                    {
                         lst[e.RowIndex].IsChecked = true;
-                    }
+                    
                     lst[e.RowIndex].IsMain = !lst[e.RowIndex].IsMain;
-
                     PaintRow(e.RowIndex);
                 }
                 else if (e.ColumnIndex == dgv.Columns["IsChecked"].Index)
                 {
                     lst[e.RowIndex].IsChecked = !lst[e.RowIndex].IsChecked;
+                    if (!lst[e.RowIndex].IsChecked)
+                        lst[e.RowIndex].IsMain = false;
+
                     PaintRow(e.RowIndex);
                 }
                 
@@ -181,6 +191,18 @@ namespace PriemLib
                 dgv.Columns["IsMain"].HeaderText = "Главный проверяющий";
             dgv.Update();
             dgv.ClearSelection();
+        }
+
+        private void tbFIO_TextChanged(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow rw in dgv.Rows)
+            {
+                if (rw.Cells["FIO"].Value.ToString().ToLower().Contains(tbFIO.Text.ToString().ToLower()))
+                {
+                    dgv.CurrentCell = rw.Cells["FIO"];
+                    break;
+                }
+            }
         }
     }
     public class ExaminerAccountDataSourceItem

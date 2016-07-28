@@ -34,14 +34,14 @@
             this.label1 = new System.Windows.Forms.Label();
             this.dgv = new System.Windows.Forms.DataGridView();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.tbFIO = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.SuspendLayout();
             // 
             // btnSave
             // 
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnSave.Location = new System.Drawing.Point(12, 323);
+            this.btnSave.Location = new System.Drawing.Point(12, 455);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 1;
@@ -52,7 +52,7 @@
             // btnClose
             // 
             this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClose.Location = new System.Drawing.Point(480, 323);
+            this.btnClose.Location = new System.Drawing.Point(482, 455);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(75, 23);
             this.btnClose.TabIndex = 2;
@@ -66,7 +66,7 @@
             this.tbExamsVed.Location = new System.Drawing.Point(12, 25);
             this.tbExamsVed.Name = "tbExamsVed";
             this.tbExamsVed.ReadOnly = true;
-            this.tbExamsVed.Size = new System.Drawing.Size(543, 20);
+            this.tbExamsVed.Size = new System.Drawing.Size(545, 20);
             this.tbExamsVed.TabIndex = 3;
             // 
             // label1
@@ -88,36 +88,36 @@
             this.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv.Location = new System.Drawing.Point(12, 51);
             this.dgv.Name = "dgv";
-            this.dgv.Size = new System.Drawing.Size(543, 234);
+            this.dgv.Size = new System.Drawing.Size(545, 366);
             this.dgv.TabIndex = 5;
-            this.dgv.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_CellClick);
             this.dgv.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_CellContentClick);
             // 
             // label2
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 291);
+            this.label2.Location = new System.Drawing.Point(12, 423);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(198, 13);
             this.label2.TabIndex = 6;
             this.label2.Text = "Введите ФИО для поиска по таблице";
             // 
-            // textBox1
+            // tbFIO
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.tbFIO.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(216, 288);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(339, 20);
-            this.textBox1.TabIndex = 7;
+            this.tbFIO.Location = new System.Drawing.Point(216, 420);
+            this.tbFIO.Name = "tbFIO";
+            this.tbFIO.Size = new System.Drawing.Size(341, 20);
+            this.tbFIO.TabIndex = 7;
+            this.tbFIO.TextChanged += new System.EventHandler(this.tbFIO_TextChanged);
             // 
             // CardExaminerInExamsVedNew
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(567, 358);
-            this.Controls.Add(this.textBox1);
+            this.ClientSize = new System.Drawing.Size(569, 490);
+            this.Controls.Add(this.tbFIO);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.dgv);
             this.Controls.Add(this.label1);
@@ -141,6 +141,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dgv;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox tbFIO;
     }
 }
