@@ -307,6 +307,7 @@
             this.btnToWord.TabIndex = 5;
             this.btnToWord.Text = "В Word";
             this.btnToWord.UseVisualStyleBackColor = true;
+            this.btnToWord.Click += new System.EventHandler(this.btnToWord_Click);
             // 
             // FormB
             // 

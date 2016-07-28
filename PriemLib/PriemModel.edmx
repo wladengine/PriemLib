@@ -573,6 +573,7 @@ warning 6002: The table/view 'Priem2016.ed.Fixieren' does not have a primary key
           <Property Name="EgeExamNameId" Type="int" />
           <Property Name="EgeMin" Type="int" />
           <Property Name="ParentInnerEntryInEntryId" Type="uniqueidentifier" />
+          <Property Name="ExamInEntryBlockId" Type="uniqueidentifier" />
         </EntityType>
         <EntityType Name="Language">
           <Key>
@@ -3929,6 +3930,30 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
             </Principal>
             <Dependent Role="ExamsVedMarkDetails">
               <PropertyRef Name="ExamsVedHistoryMarkId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InnerEntryInEntry_EgeExamName">
+          <End Role="EgeExamName" Type="Self.EgeExamName" Multiplicity="0..1" />
+          <End Role="InnerEntryInEntry" Type="Self.InnerEntryInEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EgeExamName">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="InnerEntryInEntry">
+              <PropertyRef Name="EgeExamNameId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InnerEntryInEntry_ExamInEntryBlock">
+          <End Role="ExamInEntryBlock" Type="Self.ExamInEntryBlock" Multiplicity="0..1" />
+          <End Role="InnerEntryInEntry" Type="Self.InnerEntryInEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExamInEntryBlock">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="InnerEntryInEntry">
+              <PropertyRef Name="ExamInEntryBlockId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -7885,6 +7910,14 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
             <End Role="ExamsVedHistoryMark" EntitySet="ExamsVedHistoryMark" />
             <End Role="ExamsVedMarkDetails" EntitySet="ExamsVedMarkDetails" />
           </AssociationSet>
+          <AssociationSet Name="FK_InnerEntryInEntry_EgeExamName" Association="Self.FK_InnerEntryInEntry_EgeExamName">
+            <End Role="EgeExamName" EntitySet="EgeExamName" />
+            <End Role="InnerEntryInEntry" EntitySet="InnerEntryInEntry" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InnerEntryInEntry_ExamInEntryBlock" Association="Self.FK_InnerEntryInEntry_ExamInEntryBlock">
+            <End Role="ExamInEntryBlock" EntitySet="ExamInEntryBlock" />
+            <End Role="InnerEntryInEntry" EntitySet="InnerEntryInEntry" />
+          </AssociationSet>
           <AssociationSet Name="FK_InnerEntryInEntry_SP_Profile" Association="Self.FK_InnerEntryInEntry_SP_Profile">
             <End Role="SP_Profile" EntitySet="SP_Profile" />
             <End Role="InnerEntryInEntry" EntitySet="InnerEntryInEntry" />
@@ -10137,6 +10170,14 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
             <End Role="Mark" EntitySet="Mark" />
           </AssociationSet>
           <EntitySet Name="hlpStatRatingList" EntityType="Priem2012Model.hlpStatRatingList" />
+          <AssociationSet Name="FK_InnerEntryInEntry_EgeExamName" Association="Priem2012Model.FK_InnerEntryInEntry_EgeExamName">
+            <End Role="EgeExamName" EntitySet="EgeExamName" />
+            <End Role="InnerEntryInEntry" EntitySet="InnerEntryInEntry" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InnerEntryInEntry_ExamInEntryBlock" Association="Priem2012Model.FK_InnerEntryInEntry_ExamInEntryBlock">
+            <End Role="ExamInEntryBlock" EntitySet="ExamInEntryBlock" />
+            <End Role="InnerEntryInEntry" EntitySet="InnerEntryInEntry" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="AttMarks">
           <Key>
@@ -10245,6 +10286,7 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           <NavigationProperty Name="EgeToExam" Relationship="Priem2012Model.FK_EgeToExam_EgeExamName" FromRole="EgeExamName" ToRole="EgeToExam" />
           <NavigationProperty Name="EgeToLanguage" Relationship="Priem2012Model.FK_EgeToLanguage_EgeExamName" FromRole="EgeExamName" ToRole="EgeToLanguage" />
           <Property Type="String" Name="FISName" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="InnerEntryInEntry" Relationship="Priem2012Model.FK_InnerEntryInEntry_EgeExamName" FromRole="EgeExamName" ToRole="InnerEntryInEntry" />
         </EntityType>
         <EntityType Name="EgeMark">
           <Key>
@@ -13327,6 +13369,9 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           <NavigationProperty Name="SP_ObrazProgram" Relationship="Priem2012Model.FK_ObrazProgramInEntry_SP_ObrazProgram" FromRole="InnerEntryInEntry" ToRole="SP_ObrazProgram" />
           <NavigationProperty Name="SP_Profile" Relationship="Priem2012Model.FK_InnerEntryInEntry_SP_Profile" FromRole="InnerEntryInEntry" ToRole="SP_Profile" />
           <Property Name="ParentInnerEntryInEntryId" Type="Guid" />
+          <Property Name="ExamInEntryBlockId" Type="Guid" />
+          <NavigationProperty Name="EgeExamName" Relationship="Priem2012Model.FK_InnerEntryInEntry_EgeExamName" FromRole="InnerEntryInEntry" ToRole="EgeExamName" />
+          <NavigationProperty Name="ExamInEntryBlock" Relationship="Priem2012Model.FK_InnerEntryInEntry_ExamInEntryBlock" FromRole="InnerEntryInEntry" ToRole="ExamInEntryBlock" />
         </EntityType>
         <Association Name="FK_ApplicationDetails_ObrazProgramInEntry">
           <End Type="Priem2012Model.InnerEntryInEntry" Role="InnerEntryInEntry" Multiplicity="1" />
@@ -14267,6 +14312,7 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           <Property Name="OrderNumber" Type="Byte" Nullable="false" />
           <NavigationProperty Name="ExamInEntryBlockUnit" Relationship="Priem2012Model.FK_ExamInEntryBlockUnit_ExamInEntryBlock" FromRole="ExamInEntryBlock" ToRole="ExamInEntryBlockUnit" />
           <Property Name="ParentExamInEntryBlockId" Type="Guid" />
+          <NavigationProperty Name="InnerEntryInEntry" Relationship="Priem2012Model.FK_InnerEntryInEntry_ExamInEntryBlock" FromRole="ExamInEntryBlock" ToRole="InnerEntryInEntry" />
         </EntityType>
         <EntityType Name="ExamInEntryBlockUnit">
           <Key>
@@ -15028,6 +15074,30 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           <Property Name="Rank" Type="Int64" />
           <Property Name="IsCel" Type="Int32" Nullable="false" />
         </EntityType>
+        <Association Name="FK_InnerEntryInEntry_EgeExamName">
+          <End Type="Priem2012Model.EgeExamName" Role="EgeExamName" Multiplicity="0..1" />
+          <End Type="Priem2012Model.InnerEntryInEntry" Role="InnerEntryInEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EgeExamName">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="InnerEntryInEntry">
+              <PropertyRef Name="EgeExamNameId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InnerEntryInEntry_ExamInEntryBlock">
+          <End Type="Priem2012Model.ExamInEntryBlock" Role="ExamInEntryBlock" Multiplicity="0..1" />
+          <End Type="Priem2012Model.InnerEntryInEntry" Role="InnerEntryInEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExamInEntryBlock">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="InnerEntryInEntry">
+              <PropertyRef Name="ExamInEntryBlockId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -17082,6 +17152,7 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           <EntitySetMapping Name="InnerEntryInEntry">
             <EntityTypeMapping TypeName="Priem2012Model.InnerEntryInEntry">
               <MappingFragment StoreEntitySet="InnerEntryInEntry">
+                <ScalarProperty Name="ExamInEntryBlockId" ColumnName="ExamInEntryBlockId" />
                 <ScalarProperty Name="ParentInnerEntryInEntryId" ColumnName="ParentInnerEntryInEntryId" />
                 <ScalarProperty Name="EgeMin" ColumnName="EgeMin" />
                 <ScalarProperty Name="EgeExamNameId" ColumnName="EgeExamNameId" />

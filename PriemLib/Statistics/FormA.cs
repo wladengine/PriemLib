@@ -17,7 +17,7 @@ namespace PriemLib
     {
         private DateTime _One = new DateTime(MainClass.iPriemYear, 07, 5, 23, 59, 59);
         private DateTime _Two = new DateTime(MainClass.iPriemYear, 07, 15, 23, 59, 59);
-        private DateTime _Three = new DateTime(MainClass.iPriemYear, 07, 25, 23, 59, 59);
+        private DateTime _Three = new DateTime(MainClass.iPriemYear, 07, 26, 23, 59, 59);
 
         private DBPriem bdcInet = new DBPriem();
         NewWatch wc;

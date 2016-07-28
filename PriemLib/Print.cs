@@ -1823,17 +1823,17 @@ namespace PriemLib
                 string Stipendia = "";
                 switch (iStudyLevelGroupId)
                 {
-                    case 1: Stipendia = "1407 рублей"; break;
-                    case 2: Stipendia = "1407 рублей"; break;
-                    case 3: Stipendia = "512 рублей"; break;
-                    case 4: Stipendia = "2769/6647 рублей"; break;
-                    case 5: Stipendia = "7053 рубля"; break;
-                    default: Stipendia = "1407 рублей"; break;
+                    case 1: Stipendia = "1485 рублей"; break;
+                    case 2: Stipendia = "1485 рублей"; break;
+                    case 3: Stipendia = "541 рубль"; break;
+                    case 4: Stipendia = "2922/7013 рублей"; break;
+                    case 5: Stipendia = "7441 рубль"; break;
+                    default: Stipendia = "1485 рублей"; break;
                 }
 
                 //платникам и всем очно-заочникам стипендия не платится
                 if (ProtocolInfo.StudyBasisId != 2 && ProtocolInfo.StudyFormId != 2)
-                    AddRowInTableOrder(string.Format("\r\n2.    Назначить лицам, указанным в п. 1 настоящего приказа, стипендию в размере {0} ежемесячно с 01.09.2015 по 31.01.2016.", Stipendia), ref td, ref curRow);
+                    AddRowInTableOrder(string.Format("\r\n2.    Назначить лицам, указанным в п. 1 настоящего приказа, стипендию в размере {0} ежемесячно с 01.09.{1} по 31.01.{2}.", Stipendia, MainClass.iPriemYear, MainClass.iPriemYear + 1), ref td, ref curRow);
             }
             catch (WordException we)
             {

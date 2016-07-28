@@ -18,6 +18,7 @@ namespace PriemLib
         public ExamInEntryBlock()
         {
             this.ExamInEntryBlockUnit = new HashSet<ExamInEntryBlockUnit>();
+            this.InnerEntryInEntry = new HashSet<InnerEntryInEntry>();
         }
     
         public System.Guid Id { get; set; }
@@ -33,5 +34,7 @@ namespace PriemLib
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ExamInEntryBlockUnit> ExamInEntryBlockUnit { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<InnerEntryInEntry> InnerEntryInEntry { get; set; }
     }
 }

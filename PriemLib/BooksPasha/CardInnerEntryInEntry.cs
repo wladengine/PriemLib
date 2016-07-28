@@ -53,10 +53,15 @@ namespace PriemLib
             get { return ComboServ.GetComboIdInt(cbProfile).Value; }
             set { ComboServ.SetComboId(cbProfile, value); }
         }
-        private int EgeExamNameId
+        private int? EgeExamNameId
         {
-            get { return ComboServ.GetComboIdInt(cbEgeExamName).Value; }
+            get { return ComboServ.GetComboIdInt(cbEgeExamName); }
             set { ComboServ.SetComboId(cbEgeExamName, value); }
+        }
+        private Guid? ExamInEntryBlockId
+        {
+            get { return ComboServ.GetComboIdGuid(cbExamInEntryBlock); }
+            set { ComboServ.SetComboId(cbExamInEntryBlock, value); }
         }
         #endregion
 
@@ -102,6 +107,9 @@ namespace PriemLib
                 UpdateCombo();
                 ObrazProgramId = z.ObrazProgramId;
                 ProfileId = z.ProfileId;
+
+                EgeExamNameId = z.EgeExamNameId;
+                ExamInEntryBlockId = z.ExamInEntryBlockId;
                 KCP = z.KCP;
             }
         }
@@ -120,6 +128,10 @@ namespace PriemLib
                 var EGE = context.EgeExamName.Select(x => new { x.Id, x.Name }).ToList()
                     .Select(x => new KeyValuePair<string, string>(x.Id.ToString(), x.Name)).ToList();
                 ComboServ.FillCombo(cbEgeExamName, EGE, true, false);
+
+                var ExamsBlock = context.ExamInEntryBlock.Where(x => x.EntryId == EntryId && x.ParentExamInEntryBlockId == null).Select(x => new { x.Id, x.Name }).ToList()
+                    .Select(x => new KeyValuePair<string, string>(x.Id.ToString(), x.Name)).ToList();
+                ComboServ.FillCombo(cbExamInEntryBlock, ExamsBlock, true, false);
             }
         }
 

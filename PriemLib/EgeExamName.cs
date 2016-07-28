@@ -20,6 +20,7 @@ namespace PriemLib
             this.EgeMark = new HashSet<EgeMark>();
             this.EgeToExam = new HashSet<EgeToExam>();
             this.EgeToLanguage = new HashSet<EgeToLanguage>();
+            this.InnerEntryInEntry = new HashSet<InnerEntryInEntry>();
         }
     
         public int Id { get; set; }
@@ -34,5 +35,7 @@ namespace PriemLib
         public virtual ICollection<EgeToExam> EgeToExam { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EgeToLanguage> EgeToLanguage { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<InnerEntryInEntry> InnerEntryInEntry { get; set; }
     }
 }

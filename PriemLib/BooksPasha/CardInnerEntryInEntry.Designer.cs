@@ -38,20 +38,22 @@
             this.cbProfile = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.cbEgeExamName = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.cbExamInEntryBlock = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.epError)).BeginInit();
             this.SuspendLayout();
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(617, 200);
+            this.btnClose.Location = new System.Drawing.Point(617, 217);
             // 
             // btnSaveChange
             // 
-            this.btnSaveChange.Location = new System.Drawing.Point(12, 166);
+            this.btnSaveChange.Location = new System.Drawing.Point(12, 183);
             // 
             // btnSaveAsNew
             // 
-            this.btnSaveAsNew.Location = new System.Drawing.Point(550, 166);
+            this.btnSaveAsNew.Location = new System.Drawing.Point(550, 183);
             // 
             // cbObrazProgram
             // 
@@ -149,11 +151,33 @@
             this.cbEgeExamName.Size = new System.Drawing.Size(561, 21);
             this.cbEgeExamName.TabIndex = 27;
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(62, 149);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(52, 13);
+            this.label6.TabIndex = 30;
+            this.label6.Text = "Экзамен";
+            // 
+            // cbExamInEntryBlock
+            // 
+            this.cbExamInEntryBlock.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbExamInEntryBlock.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbExamInEntryBlock.FormattingEnabled = true;
+            this.cbExamInEntryBlock.Location = new System.Drawing.Point(120, 146);
+            this.cbExamInEntryBlock.Name = "cbExamInEntryBlock";
+            this.cbExamInEntryBlock.Size = new System.Drawing.Size(561, 21);
+            this.cbExamInEntryBlock.TabIndex = 29;
+            // 
             // CardInnerEntryInEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(693, 201);
+            this.ClientSize = new System.Drawing.Size(693, 218);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.cbExamInEntryBlock);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.cbEgeExamName);
             this.Controls.Add(this.label4);
@@ -182,6 +206,8 @@
             this.Controls.SetChildIndex(this.label4, 0);
             this.Controls.SetChildIndex(this.cbEgeExamName, 0);
             this.Controls.SetChildIndex(this.label5, 0);
+            this.Controls.SetChildIndex(this.cbExamInEntryBlock, 0);
+            this.Controls.SetChildIndex(this.label6, 0);
             ((System.ComponentModel.ISupportInitialize)(this.epError)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -200,5 +226,7 @@
         private System.Windows.Forms.ComboBox cbProfile;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox cbEgeExamName;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ComboBox cbExamInEntryBlock;
     }
 }
