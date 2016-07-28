@@ -809,7 +809,7 @@ namespace PriemLib
         {
             if (ExamsVedId.HasValue)
             {
-                new CardExaminerInExamsVed(ExamsVedId.Value).Show();
+                new CardExaminerInExamsVedNew(ExamsVedId.Value).Show();
             }
         }
 
