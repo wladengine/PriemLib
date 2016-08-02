@@ -168,8 +168,10 @@ namespace PriemLib
                     //cbPrint.Items.Add("Наклейка для каждого заявления");
                     cbPrint.Items.Add("Наклейка для заявления");
                     cbPrint.Items.Add("Справка");
+                    cbPrint.Items.Add("Выписка из приказа");
                     if (MainClass.RightsFacMain())
                         cbPrint.Items.Add("Экзам.лист");
+                    
                     cbPrint.SelectedIndex = 0;
                     btnPrint.Enabled = false;
                 }
@@ -269,9 +271,22 @@ namespace PriemLib
 
                     HasEntryConfirm = abit.HasEntryConfirm;
                     if (abit.HasEntryConfirm && abit.DateEntryConfirm.HasValue)
+                    {
                         dtpDateEntryConfirm.Enabled = false;
+                        dtpDateEntryConfirm.Value = abit.DateEntryConfirm.Value;
+                    }
                     else
                         dtpDateEntryConfirm.Enabled = true;
+                    
+                    HasDisabledEntryConfirm = abit.HasDisabledEntryConfirm;
+
+                    if (abit.HasDisabledEntryConfirm && abit.DateDisableEntryConfirm.HasValue)
+                    {
+                        dtpDateDisableEntryConfirm.Enabled = false;
+                        dtpDateDisableEntryConfirm.Value = abit.DateDisableEntryConfirm.Value;
+                    }
+                    else
+                        dtpDateDisableEntryConfirm.Enabled = true;
 
                     BackDocDate = abit.BackDocDate;
                     DocDate = abit.DocDate;
@@ -2252,6 +2267,9 @@ namespace PriemLib
                     Print.PrintSprav(AbitId, chbPrint.Checked);
                     break;
                 case 4:
+                    PrintEntryReviev();
+                    break;
+                case 5:
                     PrintExamList();
                     break;
                 //case 4:
@@ -2275,6 +2293,23 @@ namespace PriemLib
                 }
                 else
                     WinFormsServ.Error("Невозможно создание экзаменационного листа, абитуриент не внесен в протокол о допуске");
+            }
+        }
+
+        public void PrintEntryReviev()
+        {
+            using (PriemEntities context = new PriemEntities())
+            {
+                var ev = context.extEntryView.Where(x => x.AbiturientId == GuidId).FirstOrDefault();
+                if (ev == null)
+                {
+                    MessageBox.Show("Абитуриент не зачислен по данному конкурсу", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    bool bIsRus = context.Person.Where(x => x.Id == _personId && x.NationalityId == 1).Count() > 0;
+                    Print.PrintOrderReview(ev.Id, GuidId, bIsRus);
+                }
             }
         }
 

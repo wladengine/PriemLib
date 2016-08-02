@@ -61,6 +61,12 @@ namespace PriemLib
                 
                 base.InitControls();
 
+                if (!MainClass.bEntryViewCreateEnabled)
+                {
+                    MessageBox.Show("Создание представлений к зачислению в настоящий момент запрещено администратором");
+                    btnOk.Enabled = false;
+                }
+
                 this.Text = "Представление о зачислении";
                 this.chbEnable.Text = "Добавить всех выбранных слева абитуриентов в представление о зачислении";
 
@@ -513,6 +519,23 @@ LEFT JOIN ed.Competition ON Competition.Id = Abiturient.CompetitionId ", MainCla
             }
 
             return true;
+        }
+
+        protected override bool CheckData()
+        {
+            bool bRes = base.CheckData();
+
+            using (PriemEntities context = new PriemEntities())
+            {
+                var bEntryViewCreateEnabled = "True".Equals(context.C_AppSettings.Find("bEntryViewCreateEnabled").ParamValue);
+                if (!bEntryViewCreateEnabled)
+                {
+                    MessageBox.Show("Создание представлений к зачислению в настоящий момент запрещено администратором");
+                    return false;
+                }
+            }
+
+            return bRes;
         }
 
         //предварительный просмотр

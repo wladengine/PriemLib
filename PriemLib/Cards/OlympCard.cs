@@ -251,7 +251,7 @@ namespace PriemLib
             if (_isReadOnly)
                 btnSaveChange.Enabled = false;
         }
-        protected override void  SetAllFieldsEnabled()
+        protected override void SetAllFieldsEnabled()
         {
             base.SetAllFieldsEnabled();
 

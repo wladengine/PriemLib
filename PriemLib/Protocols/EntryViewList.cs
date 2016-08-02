@@ -283,7 +283,7 @@ order by 2",
 
             Guid protocolId = (Guid)dgvViews.CurrentRow.Cells["Id"].Value;
 
-            Print.PrintOrderReview(protocolId, !chbIsForeign.Checked);
+            Print.PrintOrderReview(protocolId, null, !chbIsForeign.Checked);
         }
         private void btnCancelView_Click(object sender, EventArgs e)
         {
@@ -347,8 +347,8 @@ order by 2",
                     var protinfo = ProtocolDataProvider.GetProtocolInfo(ProtocolId, 4);
                     if (protinfo != null)
                     {
-                        var prot = ProtocolDataProvider.GetEntryViewData(ProtocolId, true);
-                        var prot_for = ProtocolDataProvider.GetEntryViewData(ProtocolId, false);
+                        var prot = ProtocolDataProvider.GetEntryViewData(ProtocolId, null, true);
+                        var prot_for = ProtocolDataProvider.GetEntryViewData(ProtocolId, null, false);
 
                         ComboServ.SetComboId(cbAdmissionProtocol, protinfo.AdmissionProtocolId);
 

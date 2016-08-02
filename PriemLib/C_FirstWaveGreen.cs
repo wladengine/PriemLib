@@ -17,5 +17,6 @@ namespace PriemLib
         public System.Guid AbiturientId { get; set; }
         public bool IsNew { get; set; }
         public Nullable<System.Guid> CalculationId { get; set; }
+        public int Position { get; set; }
     }
 }

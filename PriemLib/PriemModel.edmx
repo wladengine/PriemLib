@@ -29,10 +29,12 @@ warning 6002: The table/view 'Priem2016.ed._FirstWaveGreen' does not have a prim
           <Key>
             <PropertyRef Name="AbiturientId" />
             <PropertyRef Name="IsNew" />
+            <PropertyRef Name="Position" />
           </Key>
           <Property Name="AbiturientId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="IsNew" Type="bit" Nullable="false" />
           <Property Name="CalculationId" Type="uniqueidentifier" />
+          <Property Name="Position" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="AbitDoc">
           <Key>
@@ -2934,6 +2936,7 @@ warning 6002: The table/view 'Priem2016.ed.qAbiturient' does not have a primary 
             <PropertyRef Name="BackDocByAdmissionHigh" />
             <PropertyRef Name="StudyLevelGroupId" />
             <PropertyRef Name="HasEntryConfirm" />
+            <PropertyRef Name="HasDisabledEntryConfirm" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="PersonId" Type="uniqueidentifier" Nullable="false" />
@@ -3003,6 +3006,8 @@ warning 6002: The table/view 'Priem2016.ed.qAbiturient' does not have a primary 
           <Property Name="StudyLevelGroupId" Type="int" Nullable="false" />
           <Property Name="HasEntryConfirm" Type="bit" Nullable="false" />
           <Property Name="DateEntryConfirm" Type="datetime" />
+          <Property Name="HasDisabledEntryConfirm" Type="bit" Nullable="false" />
+          <Property Name="DateDisableEntryConfirm" Type="datetime" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'Priem2016.ed.qAbiturient_WhoSetBackDoc' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -6311,7 +6316,8 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
             <DefiningQuery>SELECT 
     [_FirstWaveGreen].[AbiturientId] AS [AbiturientId], 
     [_FirstWaveGreen].[IsNew] AS [IsNew], 
-    [_FirstWaveGreen].[CalculationId] AS [CalculationId]
+    [_FirstWaveGreen].[CalculationId] AS [CalculationId], 
+    [_FirstWaveGreen].[Position] AS [Position]
     FROM [ed].[_FirstWaveGreen] AS [_FirstWaveGreen]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="EgeToLanguage" EntityType="Self.EgeToLanguage" store:Type="Tables" store:Schema="ed">
@@ -7495,7 +7501,9 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
     [qAbiturient].[StudyLevelGroupUpperCategoryId] AS [StudyLevelGroupUpperCategoryId], 
     [qAbiturient].[StudyLevelGroupId] AS [StudyLevelGroupId], 
     [qAbiturient].[HasEntryConfirm] AS [HasEntryConfirm], 
-    [qAbiturient].[DateEntryConfirm] AS [DateEntryConfirm]
+    [qAbiturient].[DateEntryConfirm] AS [DateEntryConfirm], 
+    [qAbiturient].[HasDisabledEntryConfirm] AS [HasDisabledEntryConfirm], 
+    [qAbiturient].[DateDisableEntryConfirm] AS [DateDisableEntryConfirm]
     FROM [ed].[qAbiturient] AS [qAbiturient]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="qAbiturient_WhoSetBackDoc" EntityType="Self.qAbiturient_WhoSetBackDoc" store:Type="Views" store:Schema="ed">
@@ -11869,10 +11877,12 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           <Key>
             <PropertyRef Name="AbiturientId" />
             <PropertyRef Name="IsNew" />
+            <PropertyRef Name="Position" />
           </Key>
           <Property Type="Guid" Name="AbiturientId" Nullable="false" />
           <Property Type="Boolean" Name="IsNew" Nullable="false" />
           <Property Name="CalculationId" Type="Guid" />
+          <Property Name="Position" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="extEntryProtocols">
           <Key>
@@ -12889,6 +12899,7 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
             <PropertyRef Name="IsCrimea" />
             <PropertyRef Name="BackDocByAdmissionHigh" />
             <PropertyRef Name="HasEntryConfirm" />
+            <PropertyRef Name="HasDisabledEntryConfirm" />
           </Key>
           <Property Type="Guid" Name="Id" Nullable="false" />
           <Property Type="Guid" Name="PersonId" Nullable="false" />
@@ -12958,6 +12969,8 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           <Property Name="StudyLevelGroupUpperCategoryId" Type="Int32" />
           <Property Name="HasEntryConfirm" Type="Boolean" Nullable="false" />
           <Property Name="DateEntryConfirm" Type="DateTime" Precision="3" />
+          <Property Name="HasDisabledEntryConfirm" Type="Boolean" Nullable="false" />
+          <Property Name="DateDisableEntryConfirm" Type="DateTime" Precision="3" />
         </EntityType>
         <Association Name="FK_Entry_SP_LicenseProgram">
           <End Type="Priem2012Model.SP_LicenseProgram" Role="SP_LicenseProgram" Multiplicity="1" />
@@ -16231,6 +16244,7 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           <EntitySetMapping Name="C_FirstWaveGreen">
             <EntityTypeMapping TypeName="Priem2012Model.C_FirstWaveGreen">
               <MappingFragment StoreEntitySet="_FirstWaveGreen">
+                <ScalarProperty Name="Position" ColumnName="Position" />
                 <ScalarProperty Name="CalculationId" ColumnName="CalculationId" />
                 <ScalarProperty Name="IsNew" ColumnName="IsNew" />
                 <ScalarProperty Name="AbiturientId" ColumnName="AbiturientId" />
@@ -16823,6 +16837,8 @@ warning 6002: The table/view 'Priem2016.ed.qStudyLevel' does not have a primary 
           <EntitySetMapping Name="qAbiturient">
             <EntityTypeMapping TypeName="Priem2012Model.qAbiturient">
               <MappingFragment StoreEntitySet="qAbiturient">
+                <ScalarProperty Name="DateDisableEntryConfirm" ColumnName="DateDisableEntryConfirm" />
+                <ScalarProperty Name="HasDisabledEntryConfirm" ColumnName="HasDisabledEntryConfirm" />
                 <ScalarProperty Name="DateEntryConfirm" ColumnName="DateEntryConfirm" />
                 <ScalarProperty Name="HasEntryConfirm" ColumnName="HasEntryConfirm" />
                 <ScalarProperty Name="StudyLevelGroupUpperCategoryId" ColumnName="StudyLevelGroupUpperCategoryId" />

@@ -138,6 +138,9 @@ AND (StudyLevel.LevelGroupId IN ({0}) OR StudyLevel.LevelGroupId IS NULL) ",
             string query = "SELECT COUNT(Id) FROM Abiturient WHERE ApplicationCommitNumber=@Barcode";
             bool bHasInInetBase = (int)bdcInet.GetValue(query, new SortedList<string, object>() { { "@Barcode", fileNum } }) > 0;
 
+            query = "SELECT IsImported FROM ApplicationCommit WHERE IntNumber=@Barcode";
+            bool bIsImported = (bool)bdcInet.GetValue(query, new SortedList<string, object>() { { "@Barcode", fileNum } });
+
             //если заявления нет, то надо проверить, нет ли его в нашей базе
             if (!bHasInInetBase)
             {

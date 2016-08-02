@@ -49,6 +49,7 @@ namespace PriemLib
         public static bool bMagCheckProtocolsEnabled;
 
         public static bool bMagImportApplicationsEnabled;
+        public static bool bEntryViewCreateEnabled;
 
         public static DateTime _1k_LastEgeMarkLoadTime;
         public static DateTime dt1kursAddNabor1;
@@ -125,6 +126,9 @@ namespace PriemLib
 
                     tmp = dicSettings.ContainsKey("bMagCheckProtocolsEnabled") ? dicSettings["bMagCheckProtocolsEnabled"] : "False";
                     bMagCheckProtocolsEnabled = bool.Parse(tmp);
+
+                    tmp = dicSettings.ContainsKey("bEntryViewCreateEnabled") ? dicSettings["bEntryViewCreateEnabled"] : "False";
+                    bEntryViewCreateEnabled = bool.Parse(tmp);
 
                     tmp = dicSettings.ContainsKey("bMagImportApplicationsEnabled") ? dicSettings["bMagImportApplicationsEnabled"] : "False";
                     bMagImportApplicationsEnabled = bool.Parse(tmp);

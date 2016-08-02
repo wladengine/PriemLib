@@ -82,5 +82,7 @@ namespace PriemLib
         public Nullable<int> StudyLevelGroupUpperCategoryId { get; set; }
         public bool HasEntryConfirm { get; set; }
         public Nullable<System.DateTime> DateEntryConfirm { get; set; }
+        public bool HasDisabledEntryConfirm { get; set; }
+        public Nullable<System.DateTime> DateDisableEntryConfirm { get; set; }
     }
 }

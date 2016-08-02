@@ -21,7 +21,6 @@ namespace PriemLib
             InitializeComponent();
             ExamsVedId = _ExamsVedId;
             this.MdiParent = MainClass.mainform;
-
             
             FillCard();
         }
@@ -98,7 +97,7 @@ namespace PriemLib
                     context.SaveChanges();
                 }
 
-                context.ExamsVed_DeleteAllExaminerAccountInVed(ExamsVedId);
+                //context.ExamsVed_DeleteAllExaminerAccountInVed(ExamsVedId);
                 foreach (var x in lst)
                 {
                     var Examiner = context.ExaminerInExamsVed.Where(t => t.ExamsVedId == ExamsVedId && t.ExaminerAccount == x.RectoratLogin).FirstOrDefault();

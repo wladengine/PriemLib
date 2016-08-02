@@ -280,13 +280,24 @@ namespace PriemLib
         {
             using (PriemEntities context = new PriemEntities())
             {
+                string query = @"SELECT APP.Barcode
+FROM ApplicationCommit COMM
+INNER JOIN Application_LOG APP ON APP.CommitId = COMM.Id
+WHERE IntNumber = @Num";
+                LoadFromInet loadClass = new LoadFromInet();
+
+                DataTable tbl = loadClass.BDCInet.GetDataSet(query, new SortedList<string, object>() { { "@Num", applicationCommitNumber } }).Tables[0];
+                List<int?> lstBarcodes = tbl.Rows.Cast<DataRow>().Select(x => x.Field<int?>(0)).ToList();
+
+                loadClass.CloseDB();
+
                 string message = "Проставить отказ от участия в конкурсе по следующим позициям:";
                 int incrmntr = 1;
                 var Orig_AppList = new Guid[AppList.Count];
                 AppList.CopyTo(Orig_AppList);
                 foreach (var App in Orig_AppList)
                 {
-                    var data = context.Abiturient.Where(x => x.Id == App && !x.BackDoc).Select(x => new
+                    var data = context.Abiturient.Where(x => x.Id == App && !x.BackDoc && lstBarcodes.Contains(x.Barcode)).Select(x => new
                     {
                         LP = x.Entry.SP_LicenseProgram.Code + " " + x.Entry.SP_LicenseProgram.Name,
                         OP = x.Entry.StudyLevel.Acronym + "." + x.Entry.SP_ObrazProgram.Number + "." + MainClass.sPriemYear + " " + x.Entry.SP_ObrazProgram.Name,
@@ -309,7 +320,7 @@ namespace PriemLib
                     {
                         string persId = abit.PersonId.ToString();
 
-                        var dialogres = MessageBox.Show("Открыть карточку абитуриента?", "Внимание", MessageBoxButtons.YesNo);
+                        var dialogres = MessageBox.Show("Заявлений, доступных для отказа, не найдено. Открыть карточку абитуриента?", "Внимание", MessageBoxButtons.YesNo);
                         if (dialogres == System.Windows.Forms.DialogResult.Yes)
                             MainClass.OpenCardPerson(persId, null, null);
                     }

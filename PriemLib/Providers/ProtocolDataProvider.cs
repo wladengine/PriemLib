@@ -53,7 +53,7 @@ namespace PriemLib
                 return lst;
             }
         }
-        public static List<AbitDataInEntryView> GetEntryViewData(Guid ProtocolId, bool? isRus)
+        public static List<AbitDataInEntryView> GetEntryViewData(Guid ProtocolId, Guid? AbiturientId, bool? isRus)
         {
             using (PriemEntities ctx = new PriemEntities())
             {
@@ -73,6 +73,7 @@ namespace PriemLib
                             join celCompetition in ctx.CelCompetition on extabit.CelCompetitionId equals celCompetition.Id into celCompetition2
                             from celCompetition in celCompetition2.DefaultIfEmpty()
                             where extentryView.Id == ProtocolId && (isRus.HasValue ? (isRus.Value ? extperson.NationalityId == 1 : extperson.NationalityId != 1) : true)
+                            && (AbiturientId.HasValue ? extentryView.AbiturientId == AbiturientId.Value : true)
                             orderby celCompetition.TvorName, extabit.ObrazProgramName, extabit.ProfileName, country.NameRod, entryHeader.SortNum, extabit.FIO
                             select new
                             {
@@ -147,6 +148,7 @@ namespace PriemLib
                          join celCompetition in ctx.CelCompetition on extabit.CelCompetitionId equals celCompetition.Id into celCompetition2
                          from celCompetition in celCompetition2.DefaultIfEmpty()
                          where extentryView.Id == ProtocolId && (isRus.HasValue ? (isRus.Value ? extperson.NationalityId == 1 : extperson.NationalityId != 1) : true)
+                         && (AbiturientId.HasValue ? extentryView.AbiturientId == AbiturientId.Value : true)
                          orderby celCompetition.TvorName, extabit.ObrazProgramName, extabit.ProfileName, country.NameRod, entryHeader.SortNum, extabit.FIO
                          select new
                          {
