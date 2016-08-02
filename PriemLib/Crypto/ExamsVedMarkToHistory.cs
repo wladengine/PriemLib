@@ -203,7 +203,7 @@ namespace PriemLib
                     // если MarkValue == null ???? 
                     var Marks = (from x in context.ExamsVedHistoryMark
                                  join h in context.ExamsVedHistory on x.ExamsVedHistoryId equals h.Id
-                                 where h.ExamsVedId == VedId
+                                 where h.ExamsVedId == VedId && x.MarkValue != null
                                  select x).ToList().GroupBy(x=>x.ExamsVedHistoryId).Select(x=> new 
                                  {
                                     ExamsVedHistoryId = x.Key,
