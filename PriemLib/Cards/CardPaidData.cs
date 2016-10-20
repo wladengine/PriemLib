@@ -18,19 +18,15 @@ namespace PriemLib
     {
         private Guid? _abitId;//айди абитуриента  
         private bool _isReadOnly;
-        List <string> QualificationList = new List<string>();
 
+        List<string> QualificationList = new List<string>();
         public CardPaidData(Guid? abitId, bool isReadOnly)
         {
             InitializeComponent();
            
             _abitId = abitId;
             _isReadOnly = isReadOnly;
-            QualificationList = new List<string> { { "диплом (бакалавр)" }, { "диплом (магистр)" }, { "диплом (специалист)" } };
-            // аспирантура
-            // QualificationList = new List<string> { { "диплом" } };
-            // ординатура, интернатура
-            // QualificationList =  new List<string> { { "врач" } };
+            
             if (_abitId == null)
                 this.Close();          
                 
@@ -61,6 +57,12 @@ namespace PriemLib
                     UpdateAfterDogovorType();
                     ComboServ.FillCombo(cbProrektor, HelpClass.GetComboListByTable("ed.Prorektor"), false, false);
                     ComboServ.FillCombo(cbPayPeriod, HelpClass.GetComboListByTable("ed.PayPeriod"), false, false);
+
+                    QualificationList = context.PayDataDiplomType
+                        .Where(x => MainClass.lstStudyLevelGroupId.Contains(x.StudyLevelGroupId))
+                        .Select(x => x.Name)
+                        .ToList();
+
                     ComboServ.FillCombo(cbQualification, QualificationList, false, false);
                 }
             }

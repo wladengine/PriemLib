@@ -32,6 +32,7 @@ namespace PriemLib
         public string ClassNum { get; set; }
         public Nullable<int> Duration { get; set; }
         public Nullable<int> FISID { get; set; }
+        public string SKName { get; set; }
     
         public virtual StudyLevelGroup StudyLevelGroup { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

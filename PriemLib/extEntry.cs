@@ -68,5 +68,6 @@ namespace PriemLib
         public Nullable<int> StudyForm_FISID { get; set; }
         public string NormativePeriod { get; set; }
         public string QualificationName { get; set; }
+        public string FacultyDirectionName { get; set; }
     }
 }

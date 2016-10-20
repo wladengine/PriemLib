@@ -367,7 +367,7 @@ INNER JOIN ed.extPerson ON Abiturient.PersonId = extPerson.Id
 INNER JOIN ed.extEnableProtocol ON Abiturient.Id=ed.extEnableProtocol.AbiturientId 
 LEFT JOIN ed.extAbitAdditionalMarksSum ON extAbitAdditionalMarksSum.AbiturientId = Abiturient.Id
 INNER JOIN ed._FirstWave AS _FirstWave ON Abiturient.Id = _FirstWave.AbiturientId  " +
-(((_studyBasisId == 2 && MainClass.dbType == PriemType.Priem) || MainClass.dbType == PriemType.PriemAG) ? " INNER JOIN ed._FirstWaveGreen ON Abiturient.Id = _FirstWaveGreen.AbiturientId " : "") +
+((MainClass.dbType == PriemType.PriemAG) ? " INNER JOIN ed._FirstWaveGreen ON Abiturient.Id = _FirstWaveGreen.AbiturientId " : "") +
 string.Format(@"LEFT JOIN ed.{0}extAbitMarksSum ON Abiturient.Id = extAbitMarksSum.Id 
 LEFT JOIN ed.Competition ON Competition.Id = Abiturient.CompetitionId ", MainClass.dbType == PriemType.PriemAG ? "extAbitMarksSumAG AS " : ""), kcRest);
 
@@ -377,7 +377,7 @@ LEFT JOIN ed.Competition ON Competition.Id = Abiturient.CompetitionId ", MainCla
                 sFilter += " AND extEntry.ObrazProgramId = " + obProg;
                 sFilter += string.IsNullOrEmpty(spec) ? " AND extEntry.ProfileId = 0 " : " AND extEntry.ProfileId='" + spec + "'";
 
-                if (_studyBasisId == 1 && MainClass.dbType != PriemType.PriemAG)
+                if (MainClass.dbType != PriemType.PriemAG)
                 {
                     sFilter += string.Format(@" AND
 (
@@ -402,6 +402,11 @@ LEFT JOIN ed.Competition ON Competition.Id = Abiturient.CompetitionId ", MainCla
         AND hlpAbitToGo.Priority < Abiturient.Priority AND hlpAbitToGo.StudyLevelGroupId = {0})
 	)
     OR Abiturient.CompetitionId IN (1, 2, 7, 8)
+    OR Abiturient.IsListener = 1 
+	OR extEntry.IsSecond = 1 
+	OR extEntry.IsReduced = 1 
+	OR extEntry.IsParallel = 1 
+	OR Abiturient.IsPaid = 1
 )", _studyLevelGroupId);
                     sFilter += " AND Abiturient.HasEntryConfirm = 1 AND Abiturient.HasDisabledEntryConfirm = 0 ";
                 }

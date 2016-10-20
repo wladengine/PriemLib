@@ -184,6 +184,8 @@ namespace PriemLib
         public virtual DbSet<extExamInEntry> extExamInEntry { get; set; }
         public virtual DbSet<extAbitMarksSumAG> extAbitMarksSumAG { get; set; }
         public virtual DbSet<hlpStatRatingList> hlpStatRatingList { get; set; }
+        public virtual DbSet<PayDataDiplomType> PayDataDiplomType { get; set; }
+        public virtual DbSet<ADUserData> ADUserData { get; set; }
     
         public virtual int RoleMember(string roleName, ObjectParameter result)
         {
@@ -4697,6 +4699,19 @@ namespace PriemLib
                 new ObjectParameter("id", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Person_EducationInfo_SchoolClass_update", schoolExitClassIdParameter, idParameter);
+        }
+    
+        public virtual int Mark_updateFiveGradeValue(Nullable<System.Guid> id, Nullable<int> fiveGradeValue)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(System.Guid));
+    
+            var fiveGradeValueParameter = fiveGradeValue.HasValue ?
+                new ObjectParameter("FiveGradeValue", fiveGradeValue) :
+                new ObjectParameter("FiveGradeValue", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Mark_updateFiveGradeValue", idParameter, fiveGradeValueParameter);
         }
     }
 }

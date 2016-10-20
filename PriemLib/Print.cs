@@ -1619,8 +1619,7 @@ namespace PriemLib
         {
             try
             {
-                WordDoc wd = new WordDoc(string.Format(@"{0}\EntryOrder.dot", MainClass.dirTemplates));
-                TableDoc td = wd.Tables[0];
+                
 
                 var ProtocolInfo = ProtocolDataProvider.GetProtocolInfo(gProtocolId, 4);
 
@@ -1699,6 +1698,9 @@ namespace PriemLib
                         educDoc = "";
                         break;
                 }
+
+                WordDoc wd = new WordDoc(string.Format(@"{0}\EntryOrder{1}.dot", MainClass.dirTemplates, iStudyLevelGroupId == 5 ? "Ord" : ""));
+                TableDoc td = wd.Tables[0];
 
                 wd.SetFields("Граждан", isRus ? "граждан Российской Федерации" : "иностранных граждан");
                 wd.SetFields("Граждан2", isRus ? "граждан Российской Федерации" : "");
@@ -2114,12 +2116,22 @@ namespace PriemLib
                         foreach (var v in lst)
                         {
                             string sFileAdd = "";
+                            switch (iStudyLevelGroupId)
+                            {
+                                case 1: { sFileAdd = ""; break; }
+                                case 2: { sFileAdd = ""; break; }
+                                case 3: { sFileAdd = "SPO"; break; }
+                                case 4: { sFileAdd = "Asp"; break; }
+                                case 5: { sFileAdd = "Ord"; break; }
+                            }
+                            
                             //if (v.CompetitionId == 11 || v.CompetitionId == 12)
                             //    sFileAdd = "Crimea";
 
                             int curRow = 5, counter = 0;
 
-                            using (DocX docP = DocX.Load(string.Format(@"{0}\EntryOrderListTemplate{1}.docx", MainClass.dirTemplates, sFileAdd)))
+                            using (FileStream fsP = new FileStream(string.Format(@"{0}\EntryOrderListTemplate{1}.docx", MainClass.dirTemplates, sFileAdd), FileMode.Open, FileAccess.Read))
+                            using (DocX docP = DocX.Load(fsP))
                             {
                                  Novacode.Table td = docP.Tables[0];
 
@@ -3157,6 +3169,7 @@ namespace PriemLib
                     WinFormsServ.Error("Не найдены данные по человеку!");
                     return;
                 }
+
                 string FIO = (person.Surname ?? "") + " " + (person.Name ?? "") + " " + (person.SecondName ?? "");
                 WordDoc wd = new WordDoc(string.Format(@"{0}\DocInventory.dot", MainClass.dirTemplates), true);
 
@@ -3371,13 +3384,13 @@ namespace PriemLib
                                        Рег_Номер = extabit.RegNum,
                                        Ид_номер = extabit.PersonNum,
                                        ФИО = extabit.FIO,
-                                       Сумма_баллов = extabitMarksSum.TotalSum,
+                                       Сумма_баллов = MainClass.dbType == PriemType.PriemAspirant ? extabitMarksSum.TotalSumFiveGrade : extabitMarksSum.TotalSum,
                                        Сумма_баллов_за_ИД = extabitAddMarksSum.AdditionalMarksSum,
                                        //Кол_во_оценок = extabitMarksSum.TotalCount,
                                        Подлинники_документов = extperson.HasOriginals,
                                        Рейтинговый_коэффициент = extabit.Coefficient,
                                        Конкурс = competition.Name,
-                                       Проф_экзамен = hlpabiturientProf.Prof,
+                                       Проф_экзамен = MainClass.dbType == PriemType.PriemAspirant ? hlpabiturientProf.ProfFiveGrade : hlpabiturientProf.Prof,
                                        Доп_экзамен = hlpabiturientProfAdd.ProfAdd,
                                        //comp = competition.Id == 1 ? 1 : (competition.Id == 2 || competition.Id == 7) && extperson.Privileges > 0 ? 2 : 3,
                                        //noexamssort = competition.Id == 1 ? extabit.Coefficient : 0

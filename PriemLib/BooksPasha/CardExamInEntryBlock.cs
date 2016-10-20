@@ -59,6 +59,82 @@ namespace PriemLib
             }
             set { tbOrderNumber.Text = value.ToString(); }
         }
+
+        protected int? Grade5MarkMin
+        {
+            get
+            {
+                byte j;
+                if (byte.TryParse(tbGrade5MarkMin.Text.Trim(), out j))
+                    return j;
+                else
+                    return null;
+            }
+            set { tbGrade5MarkMin.Text = value.ToString(); }
+        }
+        protected int? Grade5MarkMax
+        {
+            get
+            {
+                byte j;
+                if (byte.TryParse(tbGrade5MarkMax.Text.Trim(), out j))
+                    return j;
+                else
+                    return null;
+            }
+            set { tbGrade5MarkMax.Text = value.ToString(); }
+        }
+
+        protected int? Grade4MarkMin
+        {
+            get
+            {
+                byte j;
+                if (byte.TryParse(tbGrade4MarkMin.Text.Trim(), out j))
+                    return j;
+                else
+                    return null;
+            }
+            set { tbGrade4MarkMin.Text = value.ToString(); }
+        }
+        protected int? Grade4MarkMax
+        {
+            get
+            {
+                byte j;
+                if (byte.TryParse(tbGrade4MarkMax.Text.Trim(), out j))
+                    return j;
+                else
+                    return null;
+            }
+            set { tbGrade4MarkMax.Text = value.ToString(); }
+        }
+
+        protected int? Grade3MarkMin
+        {
+            get
+            {
+                byte j;
+                if (byte.TryParse(tbGrade3MarkMin.Text.Trim(), out j))
+                    return j;
+                else
+                    return null;
+            }
+            set { tbGrade3MarkMin.Text = value.ToString(); }
+        }
+        protected int? Grade3MarkMax
+        {
+            get
+            {
+                byte j;
+                if (byte.TryParse(tbGrade3MarkMax.Text.Trim(), out j))
+                    return j;
+                else
+                    return null;
+            }
+            set { tbGrade3MarkMax.Text = value.ToString(); }
+        }
+
         protected Guid? ParentExamInEntryId
         {
             get { return ComboServ.GetComboIdGuid(cbParentExamInEntry); }
@@ -179,6 +255,13 @@ namespace PriemLib
                     IsCrimea = ent.IsCrimea;
                     OrderNumber = ent.OrderNumber;
                     ParentExamInEntryId = ent.ParentExamInEntryBlockId;
+
+                    Grade5MarkMax = ent.Grade5MarkMax;
+                    Grade5MarkMin = ent.Grade5MarkMin;
+                    Grade4MarkMax = ent.Grade4MarkMax;
+                    Grade4MarkMin = ent.Grade4MarkMin;
+                    Grade3MarkMax = ent.Grade3MarkMax;
+                    Grade3MarkMin = ent.Grade3MarkMin;
 
                     var lst = (from ex_unit in context.ExamInEntryBlockUnit
                                join ex in context.Exam on ex_unit.ExamId equals ex.Id
@@ -374,8 +457,17 @@ namespace PriemLib
             block.Name = BlockName;
             block.IsCrimea = IsCrimea;
             block.IsGosLine = IsGosLine;
+            block.IsProfil = IsProfil;
             block.OrderNumber = OrderNumber ?? 1;
             block.ParentExamInEntryBlockId = ParentExamInEntryId;
+
+            block.Grade5MarkMax = Grade5MarkMax;
+            block.Grade5MarkMin = Grade5MarkMin;
+            block.Grade4MarkMax = Grade4MarkMax;
+            block.Grade4MarkMin = Grade4MarkMin;
+            block.Grade3MarkMax = Grade3MarkMax;
+            block.Grade3MarkMin = Grade3MarkMin;
+
             context.SaveChanges();
 
             var gUnits = lstUnit.Select(x => x.UnitId).ToList();

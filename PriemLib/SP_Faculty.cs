@@ -32,6 +32,7 @@ namespace PriemLib
         public string DatName { get; set; }
         public string VinName { get; set; }
         public string IndexNumber { get; set; }
+        public string DirectionName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Person_AdditionalInfo> Person_AdditionalInfo { get; set; }

@@ -45,5 +45,6 @@ namespace PriemLib
         public string StudyFormRodName { get; set; }
         public System.Guid ProtocolHistoryId { get; set; }
         public bool IsForeign { get; set; }
+        public Nullable<int> StudyLevelGroupUpperCategoryId { get; set; }
     }
 }

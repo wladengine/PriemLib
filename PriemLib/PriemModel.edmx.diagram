@@ -843,6 +843,9 @@
         <edmx:EntityTypeShape EntityType="Priem2012Model.hlpStatRatingList" Width="1.5" PointX="38.375" PointY="29.75" />
         <edmx:AssociationConnector Association="Priem2012Model.FK_InnerEntryInEntry_EgeExamName" />
         <edmx:AssociationConnector Association="Priem2012Model.FK_InnerEntryInEntry_ExamInEntryBlock" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.PayDataDiplomType" Width="1.5" PointX="38.375" PointY="32.75" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_ExamInEntryBlock_Entry" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.ADUserData" Width="1.5" PointX="38.375" PointY="36" />
         </edmx:Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

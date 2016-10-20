@@ -38,7 +38,7 @@ namespace PriemLib
             InitFocusHandlers();
 
             this.CenterToParent();
-            //this.MdiParent = MainClass.mainform;
+            this.MdiParent = MainClass.mainform;
             bdc = MainClass.Bdc;
 
             lblAdd.Text = string.Empty;
@@ -107,12 +107,20 @@ namespace PriemLib
             examTable.Columns.Add(clm);
 
             clm = new DataColumn();
+            clm.ColumnName = "AppealMarkOld";
+            examTable.Columns.Add(clm);
+
+            clm = new DataColumn();
             clm.ColumnName = "Баллы (устные)";
             clm.ReadOnly = true;
             examTable.Columns.Add(clm);
 
             clm = new DataColumn();
             clm.ColumnName = "Баллы (устные) по аппеляции";
+            examTable.Columns.Add(clm);
+
+            clm = new DataColumn();
+            clm.ColumnName = "OralAppealMarkOld";
             examTable.Columns.Add(clm);
 
             using (PriemEntities context = new PriemEntities())
@@ -143,8 +151,10 @@ namespace PriemLib
                     newRow["Номер"] = pm.PersonVedNumber;
                     newRow["Баллы (письм)"] = pm.Mark;
                     newRow["Баллы(письм) по аппеляции"] = pm.AppealMark;
+                    newRow["AppealMarkOld"] = pm.AppealMark;
                     newRow["Баллы (устные)"] = pm.OralMark;
                     newRow["Баллы (устные) по аппеляции"] = pm.OralAppealMark;
+                    newRow["OralAppealMarkOld"] = pm.OralAppealMark;
                     
                     examTable.Rows.Add(newRow);
                 }
@@ -162,6 +172,9 @@ namespace PriemLib
                 dgvMarks.Columns["Баллы(письм) по аппеляции"].SortMode = DataGridViewColumnSortMode.NotSortable;
                 dgvMarks.Columns["Баллы (устные)"].SortMode = DataGridViewColumnSortMode.NotSortable;
                 dgvMarks.Columns["Баллы (устные) по аппеляции"].SortMode = DataGridViewColumnSortMode.NotSortable;
+
+                dgvMarks.Columns["AppealMarkOld"].Visible = false;
+                dgvMarks.Columns["OralAppealMarkOld"].Visible = false;
                 
                 dgvMarks.Update();
 
@@ -203,45 +216,70 @@ namespace PriemLib
                                 string valWr = dgvr.Cells["Баллы(письм) по аппеляции"].Value == null ? string.Empty : dgvr.Cells["Баллы(письм) по аппеляции"].Value.ToString();
                                 string valOr = dgvr.Cells["Баллы (устные) по аппеляции"].Value == null ? string.Empty : dgvr.Cells["Баллы (устные) по аппеляции"].Value.ToString();
 
+                                string valWrOld = dgvr.Cells["AppealMarkOld"].Value == null ? string.Empty : dgvr.Cells["AppealMarkOld"].Value.ToString();
+                                string valOrOld = dgvr.Cells["OralAppealMarkOld"].Value == null ? string.Empty : dgvr.Cells["OralAppealMarkOld"].Value.ToString();
+
                                 if (string.IsNullOrEmpty(balWr) && string.IsNullOrEmpty(balOr))
                                     continue;
-
-                                if (string.IsNullOrEmpty(valWr) && string.IsNullOrEmpty(valOr))
-                                    continue;
-
-                                Guid persId = new Guid(dgvr.Cells["PersonId"].Value.ToString());
-                                int persNum = int.Parse(dgvr.Cells["Номер"].Value.ToString());
-
-                                decimal mrkWrTmp;
-                                decimal mrkOrTmp;
 
                                 decimal? mrkWr;
                                 decimal? mrkOr;
 
-                                if (string.IsNullOrEmpty(valWr))
-                                    mrkWr = null;
-                                else if (!(decimal.TryParse(valWr, out mrkWrTmp) && mrkWrTmp >= 0 && mrkWrTmp < 101))
-                                {
-                                    dgvMarks.CurrentCell = dgvr.Cells["Баллы(письм) по аппеляции"];
-                                    WinFormsServ.Error(dgvr.Cells["ФИО"].Value.ToString() + ": неправильно введены данные");
-                                    return;
-                                }
-                                else
-                                    mrkWr = mrkWrTmp;
+                                Guid persId = new Guid(dgvr.Cells["PersonId"].Value.ToString());
+                                int persNum = int.Parse(dgvr.Cells["Номер"].Value.ToString());
 
-                                if (string.IsNullOrEmpty(valOr))
-                                    mrkOr = null;
-                                else if (!(decimal.TryParse(valOr, out mrkOrTmp) && mrkOrTmp >= 0 && mrkOrTmp < 101))
-                                {
-                                    dgvMarks.CurrentCell = dgvr.Cells["Баллы (устные) по аппеляции"];
-                                    WinFormsServ.Error(dgvr.Cells["ФИО"].Value.ToString() + ": неправильно введены данные");
-                                    return;
-                                }
+                                if (string.IsNullOrEmpty(valWr) && string.IsNullOrEmpty(valOr) && string.IsNullOrEmpty(valWrOld) && string.IsNullOrEmpty(valOrOld))
+                                    continue;
                                 else
-                                    mrkOr = mrkOrTmp;
-                               
-                                context.ExamsVedHistory_UpdateMarkAppeal(_vedId, persId, persNum, mrkWr);
-                                context.ExamsVedHistory_UpdateMarkOralAppeal(_vedId, persId, persNum, mrkOr);
+                                {
+                                    decimal mrkWrTmp;
+                                    decimal mrkOrTmp;
+
+                                    if (string.IsNullOrEmpty(valWr))
+                                        mrkWr = null;
+                                    else if (!(decimal.TryParse(valWr, out mrkWrTmp) && mrkWrTmp >= 0 && mrkWrTmp < 101))
+                                    {
+                                        dgvMarks.CurrentCell = dgvr.Cells["Баллы(письм) по аппеляции"];
+                                        WinFormsServ.Error(dgvr.Cells["ФИО"].Value.ToString() + ": неправильно введены данные");
+                                        return;
+                                    }
+                                    else
+                                        mrkWr = mrkWrTmp;
+
+                                    if (string.IsNullOrEmpty(valOr))
+                                        mrkOr = null;
+                                    else if (!(decimal.TryParse(valOr, out mrkOrTmp) && mrkOrTmp >= 0 && mrkOrTmp < 101))
+                                    {
+                                        dgvMarks.CurrentCell = dgvr.Cells["Баллы (устные) по аппеляции"];
+                                        WinFormsServ.Error(dgvr.Cells["ФИО"].Value.ToString() + ": неправильно введены данные");
+                                        return;
+                                    }
+                                    else
+                                        mrkOr = mrkOrTmp;
+
+                                    context.ExamsVedHistory_UpdateMarkAppeal(_vedId, persId, persNum, mrkWr);
+                                    context.ExamsVedHistory_UpdateMarkOralAppeal(_vedId, persId, persNum, mrkOr);
+                                }
+
+                                if (string.IsNullOrEmpty(valWr) && !string.IsNullOrEmpty(balWr))
+                                {
+                                    decimal mrkWrTmp;
+
+                                    if (string.IsNullOrEmpty(balWr))
+                                        mrkWr = null;
+                                    else if ((decimal.TryParse(balWr, out mrkWrTmp) && mrkWrTmp >= 0 && mrkWrTmp < 101))
+                                        mrkWr = mrkWrTmp;
+                                }
+
+                                if (string.IsNullOrEmpty(valOr) && !string.IsNullOrEmpty(balOr))
+                                {
+                                    decimal mrkOrTmp;
+
+                                    if (string.IsNullOrEmpty(balOr))
+                                        mrkOr = null;
+                                    else if ((decimal.TryParse(balOr, out mrkOrTmp) && mrkOrTmp >= 0 && mrkOrTmp < 101))
+                                        mrkOr = mrkOrTmp;
+                                }
 
                                 DataSet ds = bdc.GetDataSet(string.Format("SELECT Id, EntryId FROM ed.qAbiturient WHERE PersonId = '{0}' /*AND FacultyId={1}*/ {2}", persId.ToString(), _facultyId, _studybasisId == "" ? "" : " AND ed.qAbiturient.StudyBasisId = " + _studybasisId));
                                 foreach (DataRow row in ds.Tables[0].Rows)
@@ -258,11 +296,12 @@ namespace PriemLib
                                     if (mrkWr == null && mrkOr == null)
                                         sumMark = null;
                                     else
-                                        sumMark = (mrkWr ?? 0m) + (mrkOr ?? 0m); 
+                                        sumMark = (mrkWr ?? 0m) + (mrkOr ?? 0m);
 
-                                    int cnt = (from mrk in context.qMark
-                                               where mrk.ExamInEntryBlockUnitId == examInEntryId && mrk.AbiturientId == abitId
-                                               select mrk).Count();
+                                    int cnt =
+                                        (from mrk in context.Mark
+                                         where mrk.ExamInEntryBlockUnitId == examInEntryId && mrk.AbiturientId == abitId
+                                         select mrk).Count();
 
                                     if (cnt > 0)
                                     {

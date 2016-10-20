@@ -182,8 +182,9 @@ namespace PriemLib
 
                             if (!string.IsNullOrEmpty(mark))
                             {
-                                int mrk;
-                                if (int.TryParse(mark, out mrk) && mrk >= 0 && mrk < 101)
+                                mark = mark.Replace('.', ',');
+                                decimal mrk;
+                                if (decimal.TryParse(mark, out mrk) && mrk >= 0 && mrk < 101)
                                     context.Mark_Insert(abId, examInEntryId, mrk, DateTime.Now, false, false, true, null, null, null);
                                 else
                                 {

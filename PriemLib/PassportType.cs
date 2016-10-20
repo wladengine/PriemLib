@@ -24,6 +24,7 @@ namespace PriemLib
         public int Id { get; set; }
         public string Name { get; set; }
         public string FISName { get; set; }
+        public string SKName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Person> Person { get; set; }

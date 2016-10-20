@@ -40,20 +40,22 @@
             this.cbOlympYear = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.cbOlympProfile = new System.Windows.Forms.ComboBox();
+            this.tbOlympicId = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.epError)).BeginInit();
             this.SuspendLayout();
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(517, 219);
+            this.btnClose.Location = new System.Drawing.Point(517, 254);
             // 
             // btnSaveChange
             // 
-            this.btnSaveChange.Location = new System.Drawing.Point(12, 218);
+            this.btnSaveChange.Location = new System.Drawing.Point(12, 253);
             // 
             // btnSaveAsNew
             // 
-            this.btnSaveAsNew.Location = new System.Drawing.Point(380, 218);
+            this.btnSaveAsNew.Location = new System.Drawing.Point(380, 253);
             this.btnSaveAsNew.Visible = true;
             // 
             // cbOlympType
@@ -176,11 +178,29 @@
             this.cbOlympProfile.Size = new System.Drawing.Size(465, 21);
             this.cbOlympProfile.TabIndex = 130;
             // 
+            // tbOlympicId
+            // 
+            this.tbOlympicId.Location = new System.Drawing.Point(133, 201);
+            this.tbOlympicId.Name = "tbOlympicId";
+            this.tbOlympicId.Size = new System.Drawing.Size(186, 20);
+            this.tbOlympicId.TabIndex = 132;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(72, 204);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(55, 13);
+            this.label7.TabIndex = 133;
+            this.label7.Text = "OlympicID";
+            // 
             // CardOlympBook
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(610, 253);
+            this.ClientSize = new System.Drawing.Size(610, 288);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.tbOlympicId);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.cbOlympProfile);
             this.Controls.Add(this.label3);
@@ -211,6 +231,8 @@
             this.Controls.SetChildIndex(this.label3, 0);
             this.Controls.SetChildIndex(this.cbOlympProfile, 0);
             this.Controls.SetChildIndex(this.label6, 0);
+            this.Controls.SetChildIndex(this.tbOlympicId, 0);
+            this.Controls.SetChildIndex(this.label7, 0);
             ((System.ComponentModel.ISupportInitialize)(this.epError)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -231,5 +253,7 @@
         private System.Windows.Forms.ComboBox cbOlympYear;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox cbOlympProfile;
+        private System.Windows.Forms.TextBox tbOlympicId;
+        private System.Windows.Forms.Label label7;
     }
 }

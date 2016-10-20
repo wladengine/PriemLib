@@ -373,5 +373,46 @@ WHERE IntNumber = @Num";
                 }
             }
         }
+
+        public static void AddExamIndividualAchievements()
+        {
+            using (PriemEntities context = new PriemEntities())
+            {
+                var EntryList = context.ExamInEntryBlock.Where(x => x.Entry.StudyLevelId == 17).Select(x => x.EntryId).ToList();
+                var EntryListWithID = context.ExamInEntryBlock.Where(x => x.Entry.StudyLevelId == 17 && x.Name == "Индивидуальные Достижения").Select(x => x.EntryId).ToList();
+
+                var lstToEnter = EntryList.Except(EntryListWithID).Distinct().ToList();
+
+                using (TransactionScope tran = new TransactionScope())
+                {
+                    foreach (Guid EntryId in lstToEnter)
+                    {
+                        Guid ExamInEntryBlockId = Guid.NewGuid();
+
+                        context.ExamInEntryBlock.Add(new ExamInEntryBlock()
+                        {
+                            Id = ExamInEntryBlockId,
+                            EntryId = EntryId,
+                            Name = "Индивидуальные Достижения",
+                            IsCrimea = false,
+                            IsGosLine = false,
+                            OrderNumber = 0,
+                            ParentExamInEntryBlockId = null
+                        });
+
+                        context.ExamInEntryBlockUnit.Add(new ExamInEntryBlockUnit()
+                        {
+                            ExamId = 850,
+                            ExamInEntryBlockId = ExamInEntryBlockId,
+                            Id = Guid.NewGuid()
+                        });
+
+                        context.SaveChanges();
+                    }
+
+                    tran.Complete();
+                }
+            }
+        }
     }
 }

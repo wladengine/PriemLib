@@ -50,7 +50,7 @@ namespace PriemLib
             InitFocusHandlers();
 
             this.CenterToParent();
-            //this.MdiParent = MainClass.mainform;
+            this.MdiParent = MainClass.mainform;
             bdc = MainClass.Bdc;
 
             slReplaceMark = new SortedList<string, string>();
@@ -62,9 +62,10 @@ namespace PriemLib
 
             using (PriemEntities context = new PriemEntities())
             {
-                extExamsVed exVed = (from ev in context.extExamsVed
-                                     where ev.Id == _vedId
-                                     select ev).FirstOrDefault();
+                extExamsVed exVed =
+                    (from ev in context.extExamsVed
+                     where ev.Id == _vedId
+                     select ev).FirstOrDefault();
 
                 _isAdditional = exVed.IsAddVed;
                 _examId = exVed.ExamId.ToString();

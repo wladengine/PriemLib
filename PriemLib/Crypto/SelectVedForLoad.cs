@@ -67,6 +67,8 @@ namespace PriemLib
 
         private void InitControls()
         {
+            this.MdiParent = MainClass.mainform;
+
             ComboServ.FillCombo(cbFaculty, HelpClass.GetComboListByTable("ed.SP_Faculty"), false, false);
             ComboServ.FillCombo(cbStudyBasis, HelpClass.GetComboListByTable("ed.StudyBasis"), false, true);
                         
@@ -177,9 +179,9 @@ namespace PriemLib
                 Guid exVedId = new Guid(vedId);
                 
                 if (_forAppeal)
-                    new AppealMarks(exVedId).ShowDialog();
+                    new AppealMarks(exVedId).Show();
                 else
-                    new LoadMarks(exVedId).ShowDialog();
+                    new LoadMarks(exVedId).Show();
 
                 UpdateVedList();
             }

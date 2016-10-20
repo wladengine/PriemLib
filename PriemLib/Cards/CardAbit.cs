@@ -328,14 +328,19 @@ namespace PriemLib
                     context.Abiturient_UpdateIsViewed(GuidId);
                     //MainClass.DataRefresh();
 
-                    if (MainClass.dbType == PriemType.PriemMag || MainClass.dbType == PriemType.PriemAspirant || MainClass.dbType == PriemType.PriemForeigners)
+                    if (MainClass.dbType != PriemType.Priem)
                     {
                         chbHasEssay.Checked = false;
                         chbHasMotivationLetter.Checked = false;
+                        chbHasPhilosophy.Checked = false;
 
                         GetHasMotivationLetter();
                         GetHasEssay();
-                        GetHasPhilosophy();
+
+                        if (MainClass.dbType == PriemType.PriemAspirant)
+                        {
+                            GetHasPhilosophy();
+                        }
                     }
 
                     GetHasInnerPriorities(context);
@@ -2165,7 +2170,7 @@ namespace PriemLib
                         newRow["Экзамен"] = abMark.ExamName;
                         newRow["Id"] = abMark.Id;
                         if (abMark != null && abMark.Value.ToString() != "")
-                            newRow["Оценка"] = abMark.Value.ToString();
+                            newRow["Оценка"] = abMark.Value.ToString() + (abMark.FiveGradeValue.HasValue ? (" (" + abMark.FiveGradeValue.Value + ")") : "");
                         if (abMark.IsFromEge)
                             newRow["Примечание"] = "Из ЕГЭ ";
                         else if (abMark.IsFromOlymp)

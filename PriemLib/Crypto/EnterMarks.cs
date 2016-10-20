@@ -126,7 +126,8 @@ namespace PriemLib
 
             using (PriemEntities context = new PriemEntities())
             {
-                var persMark = from evh in context.ExamsVedHistory
+                var persMark = 
+                    (from evh in context.ExamsVedHistory
                                join pers in context.extPerson
                                on evh.PersonId equals pers.Id
                                where evh.ExamsVedId == _vedId
@@ -138,7 +139,7 @@ namespace PriemLib
                                    evh.PersonVedNumber,
                                    evh.Mark,
                                    evh.OralMark
-                               };                
+                               }).ToList().OrderBy(x => x.PersonVedNumber);                
 
                 foreach (var pm in persMark)
                 {

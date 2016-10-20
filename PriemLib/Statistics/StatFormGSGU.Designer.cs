@@ -31,6 +31,7 @@
             this.cbStudyLevel = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnStartImport = new System.Windows.Forms.Button();
+            this.btnForm4 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // cbStudyLevel
@@ -53,7 +54,7 @@
             // 
             // btnStartImport
             // 
-            this.btnStartImport.Location = new System.Drawing.Point(404, 23);
+            this.btnStartImport.Location = new System.Drawing.Point(404, 12);
             this.btnStartImport.Name = "btnStartImport";
             this.btnStartImport.Size = new System.Drawing.Size(75, 23);
             this.btnStartImport.TabIndex = 2;
@@ -61,11 +62,22 @@
             this.btnStartImport.UseVisualStyleBackColor = true;
             this.btnStartImport.Click += new System.EventHandler(this.btnStartImport_Click);
             // 
+            // btnForm4
+            // 
+            this.btnForm4.Location = new System.Drawing.Point(404, 42);
+            this.btnForm4.Name = "btnForm4";
+            this.btnForm4.Size = new System.Drawing.Size(75, 23);
+            this.btnForm4.TabIndex = 3;
+            this.btnForm4.Text = "Ф4 (целев.)";
+            this.btnForm4.UseVisualStyleBackColor = true;
+            this.btnForm4.Click += new System.EventHandler(this.btnForm4_Click);
+            // 
             // StatFormGSGU
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(491, 73);
+            this.ClientSize = new System.Drawing.Size(491, 77);
+            this.Controls.Add(this.btnForm4);
             this.Controls.Add(this.btnStartImport);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cbStudyLevel);
@@ -81,5 +93,6 @@
         private System.Windows.Forms.ComboBox cbStudyLevel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnStartImport;
+        private System.Windows.Forms.Button btnForm4;
     }
 }

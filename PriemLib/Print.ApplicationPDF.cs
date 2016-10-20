@@ -19,6 +19,23 @@ namespace PriemLib
                 return GetApplicationPDF_SPO(PersonId, dirPath);
             else if (MainClass.dbType == PriemType.PriemAG)
                 return GetApplicationPDF_AG(PersonId, dirPath);
+            else if (MainClass.dbType == PriemType.PriemForeigners)
+            {
+                //check StudyLevelGroupId's
+                using (PriemEntities ctx = new PriemEntities())
+                {
+                    List<int> lstLvls = ctx.qAbitAll.Where(x => x.IsForeign && x.PersonId == PersonId)
+                        .Select(x => x.StudyLevelGroupId).DefaultIfEmpty(0).Distinct().ToList();
+                    if (lstLvls.Contains(1))
+                        isMag = false;//use code below
+                    else if (lstLvls.Contains(2))
+                        isMag = true;//use code below
+                    else if (lstLvls.Contains(3))
+                        return GetApplicationPDF_SPO(PersonId, dirPath);
+                    else if (lstLvls.Contains(4) || lstLvls.Contains(5))
+                        return GetApplicationPDF_Aspirant(PersonId, dirPath);
+                }
+            }
 
             List<byte[]> lstFiles = new List<byte[]>();
             List<byte[]> lstAppendixes = new List<byte[]>();
@@ -245,7 +262,7 @@ namespace PriemLib
                     lstApps[i].InnerPrioritiesNum = incrmtr; //то пишем об этом
 
                     //и сразу же создаём приложение с описанием - потом приложим
-                    lstAppendixes.Add(GetApplicationPDF_Appendix_Mag(abitProfileList.Where(x => x.ApplicationId == lstApps[i].ApplicationId).ToList(), lstApps[i].LicenseProgramName, person.FIO, dirPath, incrmtr, isMag));
+                    lstAppendixes.Add(GetApplicationPDF_Appendix_Mag(abitProfileList.Where(x => x.ApplicationId == lstApps[i].ApplicationId).ToList(), lstApps[i].LicenseProgramName, lstApps[i].ObrazProgramName, person.FIO, dirPath, incrmtr, isMag));
                     incrmtr++;
                 }
             }
@@ -274,7 +291,7 @@ namespace PriemLib
             }
         }
 
-        public static byte[] GetApplicationPDF_Appendix_Mag(List<ShortAppcationDetails> lst, string LicenseProgramName, string FIO, string dirPath, int Num, bool bIsMag)
+        public static byte[] GetApplicationPDF_Appendix_Mag(List<ShortAppcationDetails> lst, string LicenseProgramName, string ObrazProgramName, string FIO, string dirPath, int Num, bool bIsMag)
         {
             MemoryStream ms = new MemoryStream();
             string dotName = "PriorityProfiles_Mag2014.pdf";
@@ -288,24 +305,16 @@ namespace PriemLib
             acrFlds.SetField("Num", Num.ToString());
             acrFlds.SetField("FIO", FIO);
 
-            acrFlds.SetField("ObrazProgramHead", lst.First().ObrazProgramName);
+            acrFlds.SetField("ObrazProgramHead", ObrazProgramName);
             acrFlds.SetField("LicenseProgram", LicenseProgramName);
-            acrFlds.SetField("ObrazProgram", lst.First().ObrazProgramName);
+            acrFlds.SetField("ObrazProgram", ObrazProgramName);
             int rwind = 1;
 
-            if (bIsMag)
+            foreach (var Prof in lst.OrderBy(x => x.Priority))
             {
-                foreach (var p in lst.Select(x => new { x.ProfileName, x.Priority }).Distinct().OrderBy(x => x.Priority))
-                    acrFlds.SetField("Profile" + rwind++, p.ProfileName);
-            }
-            else
-            {
-                foreach (var Prof in lst.OrderBy(x => x.Priority))
-                {
-                    //если других программ нет, то нет смысла показывать её название.
-                    bool bShowObrazProgram = lst.Where(x => x.ObrazProgramName != Prof.ObrazProgramName).Count() > 0;
-                    acrFlds.SetField("Profile" + rwind++, (bShowObrazProgram ? Prof.ObrazProgramName + " /\n" : "") + Prof.ProfileName);
-                }
+                //если других программ нет, то нет смысла показывать её название.
+                bool bShowObrazProgram = lst.Where(x => x.ObrazProgramName != Prof.ObrazProgramName).Count() > 0;
+                acrFlds.SetField("Profile" + rwind++, (bShowObrazProgram ? Prof.ObrazProgramName + " /\n" : "") + Prof.ProfileName);
             }
 
             pdfStm.FormFlattening = true;
@@ -455,7 +464,8 @@ namespace PriemLib
                                     Entry.StudyLevelId,
                                     x.Priority,
                                     x.Entry.IsForeign,
-                                    x.Entry.IsCrimea
+                                    x.Entry.IsCrimea,
+                                    x.Entry.StudyLevel.LevelGroupId
                                 }).ToList();
 
                 
@@ -517,7 +527,14 @@ namespace PriemLib
                     }).FirstOrDefault();
 
                 MemoryStream ms = new MemoryStream();
+
                 string dotName = "\\ApplicationAsp_2015.pdf";
+
+                var lsvls = abitList.Select(x => x.LevelGroupId).Distinct().ToList();
+                if (lsvls.Contains(4))
+                    dotName = "\\ApplicationAsp_2015.pdf";
+                else if (lsvls.Contains(5))
+                    dotName = "\\ApplicationOrd_2016.pdf";
 
                 byte[] templateBytes;
                 using (FileStream fs = new FileStream(dirPath + dotName, FileMode.Open, FileAccess.Read))

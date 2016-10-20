@@ -203,8 +203,8 @@ namespace PriemLib
             lst.Add(new FilterItem("Рейтинговый коэффициент", FilterType.FromTo, "ed.qAbiturient.Coefficient", "ed.qAbiturient"));
             lst.Add(new FilterItem("Подал подлинники для зачисления", FilterType.Bool, "ed.extPerson.HasOriginals", "ed.extPerson"));
             lst.Add(new FilterItem("Подал подлинники на заявление", FilterType.Bool, "ed.qAbiturient.HasOriginals", "ed.qAbiturient"));
-            lst.Add(new FilterItem("Зачислен в СПбГУ (человек)", FilterType.Bool, " EXISTS (SELECT Top(1) ed.extEntryView.Id FROM ed.extEntryView INNER JOIN ed.extAbitAspirant ON ed.extAbitAspirant.id = ed.extentryview.abiturientid WHERE ed.extAbitAspirant.PersonId = ed.extPersonAspirant.Id)", "ed.extPersonAspirant"));
-            lst.Add(new FilterItem("Зачислен в СПбГУ (заявление)", FilterType.Bool, " EXISTS (SELECT Top(1) ed.extEntryView.Id FROM ed.extEntryView WHERE ed.extEntryView.AbiturientId = ed.qAbiturient.Id)", "ed.qAbiturient"));
+            lst.Add(new FilterItem("Зачислен в СПбГУ (человек)", FilterType.Bool, " EXISTS (SELECT Top(1) extEntryView.Id FROM ed.extEntryView WHERE extEntryView.PersonId = extPerson.Id)", "ed.extPerson"));
+            lst.Add(new FilterItem("Зачислен в СПбГУ (заявление)", FilterType.Bool, " EXISTS (SELECT Top(1) extEntryView.Id FROM ed.extEntryView WHERE extEntryView.AbiturientId = qAbiturient.Id)", "ed.qAbiturient"));
             lst.Add(new FilterItem("Отчислен из СПбГУ", FilterType.Bool, " EXISTS (SELECT Top(1) ed.extProtocol.Id FROM ed.extProtocol WHERE ProtocolTypeId = 4 AND IsOld = 0 AND Excluded = 1 AND ed.extProtocol.AbiturientId = ed.qAbiturient.Id)", "ed.qAbiturient"));
             lst.Add(new FilterItem("Есть в представлении к отчислению", FilterType.Bool, " EXISTS (SELECT Top(1) ed.extDisEntryView.Id FROM ed.extDisEntryView WHERE ed.extDisEntryView.AbiturientId = ed.qAbiturient.Id)", "ed.qAbiturient"));
             lst.Add(new FilterItem("Есть в протоколе о допуске", FilterType.Bool, " EXISTS (SELECT Top(1) ed.extEnableProtocol.Id FROM ed.extEnableProtocol WHERE ed.extEnableProtocol.AbiturientId = ed.qAbiturient.Id)", "ed.qAbiturient"));

@@ -435,18 +435,7 @@ namespace PriemLib
             {
                 using (PriemEntities context = new PriemEntities())
                 {
-                    //string queryOwn = string.Format("SELECT extAbit.Id AS Id, extAbit.FacultyAcr AS Факультет, extAbit.ProfessionCode + ' ' + extAbit.Profession AS Направление, " +
-                    //                  "extAbit.ObrazProgram AS Образ_программа, extAbit.Specialization AS Профиль, " +
-                    //                  "extAbit.StudyFormAcr AS Форма_обучения, extAbit.StudyBasisAcr AS Основа_обучения " +
-                    //                  "FROM extAbit WHERE extAbit.BackDoc = 0 AND extAbit.PersonId = '{0}' ORDER BY 2, 3", _Id);
-
-                    //string queryAll = string.Format("SELECT AllAbits.Id AS Id, AllAbits.FacultyAcr AS Факультет, AllAbits.ProfessionCode + ' ' + AllAbits.Profession AS Направление, " +
-                    //                  "AllAbits.ObrazProgram AS Образ_программа, AllAbits.Specialization AS Профиль, " +
-                    //                  "AllAbits.StudyFormAcr AS Форма_обучения, AllAbits.StudyBasisAcr AS Основа_обучения " +
-                    //                  "FROM AllAbits WHERE AllAbits.BackDoc = 0 AND AllAbits.PersonId = '{0}' " +
-                    //                  "EXCEPT {1} ORDER BY 2, 3", _Id, queryOwn);
-
-                    var sourceOwn = from abit in context.qAbiturient
+                    var sourceOwn = (from abit in context.qAbiturient
                                     where !abit.BackDoc && abit.PersonId == GuidId
                                     && MainClass.lstStudyLevelGroupId.Contains(abit.StudyLevelGroupId)
                                     && (MainClass.dbType != PriemType.PriemForeigners ? abit.IsForeign == false : true)
@@ -462,7 +451,7 @@ namespace PriemLib
                                         Форма_обучения = abit.StudyBasisName,
                                         Основа_обучения = abit.StudyFormName,
                                         abit.IsViewed
-                                    };
+                                    }).ToList();
 
                     var sourceAll = (from abit in context.qAbitAll
                                     where !abit.BackDoc && abit.PersonId == GuidId
@@ -480,7 +469,7 @@ namespace PriemLib
                                         Форма_обучения = abit.StudyBasisName,
                                         Основа_обучения = abit.StudyFormName,
                                         abit.IsViewed
-                                    }).Except(sourceOwn);
+                                    }).ToList().Except(sourceOwn).ToList();
 
                     dgvApplications.DataSource = Converter.ConvertToDataTable(sourceOwn.ToArray());
                     dgvApplications.Columns["Id"].Visible = false;
@@ -957,6 +946,8 @@ namespace PriemLib
             else
                 epErrorInput.Clear();
 
+            
+
             //Для О'Коннор сделал добавку в регулярное выражение: \'
             if (!Regex.IsMatch(Surname, @"^[А-Яа-яёЁ\-\'\s]+$"))
             {
@@ -1084,9 +1075,10 @@ namespace PriemLib
                 else
                     epErrorInput.Clear();
             }
-            
+
             if (NationalityId == MainClass.countryRussiaId)
             {
+
                 if (PassportSeries.Length <= 0)
                 {
                     epErrorInput.SetError(tbPassportSeries, "Отсутствует серия паспорта абитуриента");
@@ -1099,6 +1091,17 @@ namespace PriemLib
                 if (PassportNumber.Length <= 0)
                 {
                     epErrorInput.SetError(tbPassportNumber, "Отсутствует номер паспорта абитуриента");
+                    tabCard.SelectedIndex = 0;
+                    return false;
+                }
+                else
+                    epErrorInput.Clear();
+            }
+            else
+            {
+                if (PassportTypeId == 1 || PassportTypeId == 2 || PassportTypeId == 4)
+                {
+                    epErrorInput.SetError(cbPassportType, "Для указанного типа документа должно быть российское гражданство");
                     tabCard.SelectedIndex = 0;
                     return false;
                 }
@@ -1147,6 +1150,15 @@ namespace PriemLib
             {
                 epErrorInput.SetError(tbPassportNumber, "Слишком длинное значение номера паспорта абитуриента");
                 tabCard.SelectedIndex = 0;
+                return false;
+            }
+            else
+                epErrorInput.Clear();
+
+            if (Email.Length <= 0)
+            {
+                epErrorInput.SetError(tbEmail, "Отсутствует Email абитуриента");
+                tabCard.SelectedIndex = 1;
                 return false;
             }
             else

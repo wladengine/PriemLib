@@ -43,14 +43,14 @@ namespace PriemLib
                 tbEnteredAbitsCount_B.Text = enteredCnt.Where(x => x.StudyBasisId == 1).Count().ToString();
                 tbEnteredAbitsCount_P.Text = enteredCnt.Where(x => x.StudyBasisId == 2).Count().ToString();
 
-                tbEnteredAbitsCount_30_07_B.Text = enteredCnt.Where(x => x.StudyBasisId == 1 && x.Date >= new DateTime(2015, 7, 29) && x.Date <= new DateTime(2015, 7, 31)).Count().ToString();
-                tbEnteredAbitsCount_30_07_P.Text = enteredCnt.Where(x => x.StudyBasisId == 2 && x.Date >= new DateTime(2015, 7, 29) && x.Date <= new DateTime(2015, 7, 31)).Count().ToString();
+                tbEnteredAbitsCount_30_07_B.Text = enteredCnt.Where(x => x.StudyBasisId == 1 && x.Date >= new DateTime(MainClass.iPriemYear, 7, 29) && x.Date <= new DateTime(MainClass.iPriemYear, 8, 1)).Count().ToString();
+                tbEnteredAbitsCount_30_07_P.Text = enteredCnt.Where(x => x.StudyBasisId == 2 && x.Date >= new DateTime(MainClass.iPriemYear, 7, 29) && x.Date <= new DateTime(MainClass.iPriemYear, 8, 1)).Count().ToString();
 
-                tbEnteredAbitsCount_05_08_B.Text = enteredCnt.Where(x => x.StudyBasisId == 1 && x.Date >= new DateTime(2015, 8, 3) && x.Date < new DateTime(2015, 8, 5)).Count().ToString();
-                tbEnteredAbitsCount_05_08_P.Text = enteredCnt.Where(x => x.StudyBasisId == 2 && x.Date >= new DateTime(2015, 8, 3) && x.Date < new DateTime(2015, 8, 5)).Count().ToString();
+                tbEnteredAbitsCount_05_08_B.Text = enteredCnt.Where(x => x.StudyBasisId == 1 && x.Date >= new DateTime(MainClass.iPriemYear, 8, 2) && x.Date < new DateTime(MainClass.iPriemYear, 8, 4)).Count().ToString();
+                tbEnteredAbitsCount_05_08_P.Text = enteredCnt.Where(x => x.StudyBasisId == 2 && x.Date >= new DateTime(MainClass.iPriemYear, 8, 2) && x.Date < new DateTime(MainClass.iPriemYear, 8, 4)).Count().ToString();
 
-                tbEnteredAbitsCount_30_07_05_08_B.Text = enteredCnt.Where(x => x.StudyBasisId == 1 && x.Date >= new DateTime(2015, 7, 29) && x.Date <= new DateTime(2015, 8, 4)).Count().ToString();
-                tbEnteredAbitsCount_30_07_05_08_P.Text = enteredCnt.Where(x => x.StudyBasisId == 2 && x.Date >= new DateTime(2015, 7, 29) && x.Date <= new DateTime(2015, 8, 4)).Count().ToString();
+                tbEnteredAbitsCount_30_07_05_08_B.Text = enteredCnt.Where(x => x.StudyBasisId == 1 && x.Date >= new DateTime(MainClass.iPriemYear, 7, 29) && x.Date <= new DateTime(MainClass.iPriemYear, 8, 1)).Count().ToString();
+                tbEnteredAbitsCount_30_07_05_08_P.Text = enteredCnt.Where(x => x.StudyBasisId == 2 && x.Date >= new DateTime(MainClass.iPriemYear, 7, 29) && x.Date <= new DateTime(MainClass.iPriemYear, 8, 1)).Count().ToString();
 
                 //AVG balls
                 var EgeMarks =

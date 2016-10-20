@@ -44,20 +44,33 @@
             this.label5 = new System.Windows.Forms.Label();
             this.cbParentExamInEntry = new System.Windows.Forms.ComboBox();
             this.btnTimeTable = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.tbGrade3MarkMax = new System.Windows.Forms.TextBox();
+            this.tbGrade4MarkMax = new System.Windows.Forms.TextBox();
+            this.tbGrade5MarkMax = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.tbGrade3MarkMin = new System.Windows.Forms.TextBox();
+            this.tbGrade4MarkMin = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.tbGrade5MarkMin = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.epError)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(359, 310);
+            this.btnClose.Location = new System.Drawing.Point(365, 453);
             // 
             // btnSaveChange
             // 
-            this.btnSaveChange.Location = new System.Drawing.Point(12, 310);
+            this.btnSaveChange.Location = new System.Drawing.Point(12, 424);
             // 
             // btnSaveAsNew
             // 
-            this.btnSaveAsNew.Location = new System.Drawing.Point(215, 310);
+            this.btnSaveAsNew.Location = new System.Drawing.Point(221, 453);
             // 
             // chbIsProfil
             // 
@@ -148,7 +161,6 @@
             this.lbExams.Name = "lbExams";
             this.lbExams.Size = new System.Drawing.Size(325, 121);
             this.lbExams.TabIndex = 44;
-            this.lbExams.DoubleClick += new System.EventHandler(this.lbExams_DoubleClick);
             // 
             // label4
             // 
@@ -200,7 +212,7 @@
             // btnTimeTable
             // 
             this.btnTimeTable.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnTimeTable.Location = new System.Drawing.Point(12, 339);
+            this.btnTimeTable.Location = new System.Drawing.Point(12, 453);
             this.btnTimeTable.Name = "btnTimeTable";
             this.btnTimeTable.Size = new System.Drawing.Size(160, 23);
             this.btnTimeTable.TabIndex = 50;
@@ -208,11 +220,120 @@
             this.btnTimeTable.UseVisualStyleBackColor = true;
             this.btnTimeTable.Click += new System.EventHandler(this.btnTimeTable_Click);
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.label10);
+            this.groupBox1.Controls.Add(this.label9);
+            this.groupBox1.Controls.Add(this.label8);
+            this.groupBox1.Controls.Add(this.tbGrade3MarkMax);
+            this.groupBox1.Controls.Add(this.tbGrade4MarkMax);
+            this.groupBox1.Controls.Add(this.tbGrade5MarkMax);
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.tbGrade3MarkMin);
+            this.groupBox1.Controls.Add(this.tbGrade4MarkMin);
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.tbGrade5MarkMin);
+            this.groupBox1.Location = new System.Drawing.Point(12, 298);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(428, 120);
+            this.groupBox1.TabIndex = 51;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Шкала переводов в пятибалльную систему";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(26, 87);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(16, 13);
+            this.label10.TabIndex = 52;
+            this.label10.Text = "3:";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(26, 61);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(16, 13);
+            this.label9.TabIndex = 51;
+            this.label9.Text = "4:";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(138, 16);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(27, 13);
+            this.label8.TabIndex = 50;
+            this.label8.Text = "Max";
+            // 
+            // tbGrade3MarkMax
+            // 
+            this.tbGrade3MarkMax.Location = new System.Drawing.Point(118, 84);
+            this.tbGrade3MarkMax.Name = "tbGrade3MarkMax";
+            this.tbGrade3MarkMax.Size = new System.Drawing.Size(64, 20);
+            this.tbGrade3MarkMax.TabIndex = 49;
+            // 
+            // tbGrade4MarkMax
+            // 
+            this.tbGrade4MarkMax.Location = new System.Drawing.Point(118, 58);
+            this.tbGrade4MarkMax.Name = "tbGrade4MarkMax";
+            this.tbGrade4MarkMax.Size = new System.Drawing.Size(64, 20);
+            this.tbGrade4MarkMax.TabIndex = 48;
+            // 
+            // tbGrade5MarkMax
+            // 
+            this.tbGrade5MarkMax.Location = new System.Drawing.Point(118, 32);
+            this.tbGrade5MarkMax.Name = "tbGrade5MarkMax";
+            this.tbGrade5MarkMax.Size = new System.Drawing.Size(64, 20);
+            this.tbGrade5MarkMax.TabIndex = 47;
+            this.tbGrade5MarkMax.Text = "100";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(68, 16);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(24, 13);
+            this.label7.TabIndex = 46;
+            this.label7.Text = "Min";
+            // 
+            // tbGrade3MarkMin
+            // 
+            this.tbGrade3MarkMin.Location = new System.Drawing.Point(48, 84);
+            this.tbGrade3MarkMin.Name = "tbGrade3MarkMin";
+            this.tbGrade3MarkMin.Size = new System.Drawing.Size(64, 20);
+            this.tbGrade3MarkMin.TabIndex = 45;
+            // 
+            // tbGrade4MarkMin
+            // 
+            this.tbGrade4MarkMin.Location = new System.Drawing.Point(48, 58);
+            this.tbGrade4MarkMin.Name = "tbGrade4MarkMin";
+            this.tbGrade4MarkMin.Size = new System.Drawing.Size(64, 20);
+            this.tbGrade4MarkMin.TabIndex = 44;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(26, 35);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(16, 13);
+            this.label6.TabIndex = 43;
+            this.label6.Text = "5:";
+            // 
+            // tbGrade5MarkMin
+            // 
+            this.tbGrade5MarkMin.Location = new System.Drawing.Point(48, 32);
+            this.tbGrade5MarkMin.Name = "tbGrade5MarkMin";
+            this.tbGrade5MarkMin.Size = new System.Drawing.Size(64, 20);
+            this.tbGrade5MarkMin.TabIndex = 0;
+            // 
             // CardExamInEntryBlock
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(452, 374);
+            this.ClientSize = new System.Drawing.Size(458, 488);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnTimeTable);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.cbParentExamInEntry);
@@ -251,7 +372,10 @@
             this.Controls.SetChildIndex(this.cbParentExamInEntry, 0);
             this.Controls.SetChildIndex(this.label5, 0);
             this.Controls.SetChildIndex(this.btnTimeTable, 0);
+            this.Controls.SetChildIndex(this.groupBox1, 0);
             ((System.ComponentModel.ISupportInitialize)(this.epError)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -275,5 +399,17 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox cbParentExamInEntry;
         private System.Windows.Forms.Button btnTimeTable;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox tbGrade3MarkMax;
+        private System.Windows.Forms.TextBox tbGrade4MarkMax;
+        private System.Windows.Forms.TextBox tbGrade5MarkMax;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox tbGrade3MarkMin;
+        private System.Windows.Forms.TextBox tbGrade4MarkMin;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox tbGrade5MarkMin;
     }
 }

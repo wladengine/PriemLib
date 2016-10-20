@@ -54,5 +54,6 @@ namespace PriemLib
         public System.DateTime DateOfStart { get; set; }
         public System.DateTime DateOfClose { get; set; }
         public int AggregateGroupId { get; set; }
+        public Nullable<int> StudyLevelGroupUpperCategoryId { get; set; }
     }
 }

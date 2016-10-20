@@ -60,6 +60,12 @@ namespace PriemLib
             set { ComboServ.SetComboId(cbOlympYear, value); }
         }
 
+        public string OlympicID
+        {
+            get { return tbOlympicId.Text.Trim(); }
+            set { tbOlympicId.Text = value; }
+        }
+
         protected override void ExtraInit()
         {
             base.ExtraInit();
@@ -111,6 +117,7 @@ namespace PriemLib
                     OlympSubjectId = olymp.OlympSubjectId;
                     OlympLevelId = olymp.OlympLevelId;
                     OlympYear = olymp.OlympYear;
+                    OlympicID = olymp.OlympicID;
                 }
             }
             catch (DataException de)

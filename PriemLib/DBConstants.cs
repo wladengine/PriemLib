@@ -14,6 +14,8 @@ namespace PriemLib
         //public const string CS_PRIEM = "Data Source=81.89.183.112;Initial Catalog=Priem;Integrated Security=false; user=Priem2014TestUser; password=Priem2014TestUser; Connect Timeout=10";
         public const string CS_PriemONLINE =
             "Data Source=srvpriem1.ad.pu.ru;Initial Catalog=OnlinePriem2015;Integrated Security=false; user=Priem2012User; password=2012Priem!Okay,kids;Connect Timeout=300";
+        public const string CS_PriemONLINE_Files =
+            "Data Source=srvpriem1.ad.pu.ru;Initial Catalog=OnlineAbitFiles;Integrated Security=false; user=Priem2012User; password=2012Priem!Okay,kids;Connect Timeout=300";
         public const string CS_PriemONLINE_ReadWrite =
             "Data Source=srvpriem1.ad.pu.ru;Initial Catalog=OnlinePriem2015;Integrated Security=True;Connect Timeout=10";
         public const string CS_PRIEM_FAC = "Data Source=81.89.183.112;Initial Catalog=Priem_TEST;Integrated Security=false; user=Priem2014TestUser; password=Priem2014TestUser; Connect Timeout=10";

@@ -23,6 +23,7 @@ namespace PriemLib
             this.EntryToCompetitiveGroup = new HashSet<EntryToCompetitiveGroup>();
             this.OlympResultToAdditionalMark = new HashSet<OlympResultToAdditionalMark>();
             this.OlympResultToCommonBenefit = new HashSet<OlympResultToCommonBenefit>();
+            this.ExamInEntryBlock = new HashSet<ExamInEntryBlock>();
         }
     
         public System.Guid Id { get; set; }
@@ -75,5 +76,7 @@ namespace PriemLib
         public virtual ICollection<OlympResultToAdditionalMark> OlympResultToAdditionalMark { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OlympResultToCommonBenefit> OlympResultToCommonBenefit { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ExamInEntryBlock> ExamInEntryBlock { get; set; }
     }
 }

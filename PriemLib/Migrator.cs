@@ -45,8 +45,8 @@ namespace PriemLib
 
             using (PriemEntities context = new PriemEntities())
             {
-                var src = context.StudyLevelGroup.Select(x => new { x.Id, x.Name }).ToList()
-                    .Select(x => new KeyValuePair<string, string>(x.Id.ToString(), x.Name)).ToList();
+                var src = context.StudyLevelGroup.Select(x => new { x.UpperCategoryId, x.Name }).ToList()
+                    .Select(x => new KeyValuePair<string, string>(x.UpperCategoryId.ToString(), x.Name)).ToList();
 
                 ComboServ.FillCombo(cbStudyLevelGroup, src, false, false);
             }
@@ -73,8 +73,11 @@ namespace PriemLib
             _odc.ExecuteWithTrasaction(_alQueries);
             MigrateAbits();
             //_odc.ExecuteWithTrasaction(_alQueries);
+
+            string cnt = _odc.GetStringValue("SELECT COUNT(*) FROM Abiturient");
+
             _odc.CloseDataBase();
-            MessageBox.Show("Готово!");
+            MessageBox.Show("Готово! Загружено в файл абитуриентов: " + cnt);
         }
 
         public string FacultyId
@@ -130,7 +133,7 @@ namespace PriemLib
             slSpec = new SortedList<string, string>();
 
             string query = @"SELECT DISTINCT LicenseProgramId, FacultyId, LicenseProgramCode, LicenseProgramName  
-                       FROM ed.qEntry WHERE qEntry.StudyLevelGroupId = " + StudyLevelGroupId + ((string.IsNullOrEmpty(FacultyId) ? "" : " AND ed.qEntry.FacultyId = " + FacultyId));
+                       FROM ed.qEntry WHERE qEntry.StudyLevelGroupUpperCategoryId = " + StudyLevelGroupId + ((string.IsNullOrEmpty(FacultyId) ? "" : " AND ed.qEntry.FacultyId = " + FacultyId));
 
             DataSet dsProf = _bdc.GetDataSet(query);
 
@@ -174,8 +177,11 @@ namespace PriemLib
             wc.SetText("Загрузка приказов...");
             wc.PerformStep();
 
-            string query = @"SELECT ed.OrderNumbers.*, ed.Protocol.FacultyId, ed.Protocol.StudyFormId, ed.Protocol.StudyBasisId FROM ed.OrderNumbers 
-                             INNER JOIN ed.Protocol On ed.OrderNumbers.ProtocolId = ed.Protocol.Id WHERE Protocol.StudyLevelGroupId = " + StudyLevelGroupId + " " + GetFilter("ed.Protocol");
+            string query = @"SELECT DISTINCT OrderNumbers.*, extProtocol.FacultyId, extProtocol.StudyFormId, extProtocol.StudyBasisId 
+FROM ed.OrderNumbers 
+INNER JOIN ed.extProtocol ON OrderNumbers.ProtocolId = extProtocol.Id 
+INNER JOIN ed.StudyLevelGroup ON StudyLevelGroup.Id = extProtocol.StudyLevelGroupId
+WHERE StudyLevelGroup.UpperCategoryId = " + StudyLevelGroupId + " " + GetFilter("extProtocol");
             string queryAbits;
             _slIds = new SortedList<string, long>();
             DataSet ds = _bdc.GetDataSet(query);
@@ -250,7 +256,7 @@ INNER JOIN ed.Person ON qAbiturient.PersonId = Person.Id WHERE extEntryView.Id =
                      join forNat in context.ForeignCountry on Pers.ForeignNationalityId equals forNat.Id into forNat2
                      from forNat in forNat2.DefaultIfEmpty()
 
-                     where Ab.Entry.StudyLevel.LevelGroupId == StudyLevelGroupId &&
+                     where Ab.Entry.StudyLevel.StudyLevelGroup.UpperCategoryId == StudyLevelGroupId &&
                      (iFacultyId == 0 ? true : Ab.Entry.FacultyId == iFacultyId)
                      && Ent.IsForeign == IsFor
                      //&& Ab.Entry.StudyFormId == 2
@@ -509,7 +515,7 @@ INNER JOIN ed.Person ON qAbiturient.PersonId = Person.Id WHERE extEntryView.Id =
                     slParams.Add(new KeyValuePair<string, object>("@StudyPlanNumber", (Abit.StudyPlanNumber ?? "")));
                     slParams.Add(new KeyValuePair<string, object>("@SNILS", Abit.SNILS ?? ""));
 
-                    //_odc.ExecuteQuery(s, slParams);
+                    _odc.ExecuteQuery(s, slParams);
 
                     _NewId++;
                     wc.PerformStep();
@@ -529,7 +535,7 @@ INNER JOIN ed.Person ON qAbiturient.PersonId = Person.Id WHERE extEntryView.Id =
             if (chbIsFor.Checked)
                 res += string.Format(" AND {0}.IsForeign = 1 ", table);
 
-            res += string.Format(" AND {0}.StudyLevelGroupId = {1} ", table, StudyLevelGroupId);
+            res += string.Format(" AND {0}.StudyLevelGroupUpperCategoryId = {1} ", table, StudyLevelGroupId);
 
             return res;
         }
@@ -611,6 +617,30 @@ INNER JOIN ed.Person ON qAbiturient.PersonId = Person.Id WHERE extEntryView.Id =
                     else
                         dateEnd = "31.08." + (MainClass.iPriemYear + 5).ToString();
                 }
+                else if (stLevel == "1001")
+                {
+                    course = "8";
+                    if (dtFinish.HasValue)
+                        dateEnd = dtFinish.Value.ToString("dd.MM.yyyy");
+                    else
+                        dateEnd = "31.08." + (MainClass.iPriemYear + 2).ToString();
+                }
+                else if (stLevel == "1002")
+                {
+                    course = "9";
+                    if (dtFinish.HasValue)
+                        dateEnd = dtFinish.Value.ToString("dd.MM.yyyy");
+                    else
+                        dateEnd = "31.08." + (MainClass.iPriemYear + 1).ToString();
+                }
+                else if (stLevel == "1003")
+                {
+                    course = "10";
+                    if (dtFinish.HasValue)
+                        dateEnd = dtFinish.Value.ToString("dd.MM.yyyy");
+                    else
+                        dateEnd = "31.08." + (MainClass.iPriemYear + 2).ToString();
+                }
                 else
                 {
                     course = "1";
@@ -626,6 +656,8 @@ INNER JOIN ed.Person ON qAbiturient.PersonId = Person.Id WHERE extEntryView.Id =
                     OrgCode = "197";
                 if (FacultyId == "29")
                     OrgCode = "105";
+                if (FacultyId == "39")
+                    OrgCode = "682";
 
                 string s = string.Format(
                     "INSERT INTO sList ([DOC_KIND], [DOC_SN], [DOC_S]," +
@@ -650,7 +682,7 @@ INNER JOIN ed.Person ON qAbiturient.PersonId = Person.Id WHERE extEntryView.Id =
         {
             using (PriemEntities context = new PriemEntities())
             {
-                var src = context.extEntry.Where(x => x.StudyLevelGroupId == StudyLevelGroupId).Select(x => new { x.FacultyId, x.FacultyName }).Distinct().ToList().OrderBy(x => x.FacultyName)
+                var src = context.extEntry.Where(x => x.StudyLevelGroupUpperCategoryId == StudyLevelGroupId).Select(x => new { x.FacultyId, x.FacultyName }).Distinct().ToList().OrderBy(x => x.FacultyName)
                     .Select(x => new KeyValuePair<string, string>(x.FacultyId.ToString(), x.FacultyName)).ToList();
                 ComboServ.FillCombo(cbFaculty, src, false, true);
             }

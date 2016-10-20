@@ -68,9 +68,9 @@
             this.dgvMarks.AllowUserToDeleteRows = false;
             this.dgvMarks.AllowUserToResizeColumns = false;
             this.dgvMarks.AllowUserToResizeRows = false;
-            this.dgvMarks.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvMarks.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvMarks.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dgvMarks.ColumnHeadersHeight = 55;
             this.dgvMarks.Location = new System.Drawing.Point(21, 131);
@@ -194,6 +194,7 @@
             this.Controls.Add(this.dgvMarks);
             this.Name = "AppealMarks";
             this.Text = "Аппеляционная ведомость";
+            this.TopMost = true;
             ((System.ComponentModel.ISupportInitialize)(this.dgvMarks)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

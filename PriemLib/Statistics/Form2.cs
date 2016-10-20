@@ -23,8 +23,7 @@ namespace PriemLib
         {
             using (PriemEntities context = new PriemEntities())
             {
-                string query = "SELECT SUM(KCP) AS CNT FROM ed.qEntry WHERE StudyLevelGroupId=1 AND StudyFormId='1' AND StudyBasisId='1' AND IsCrimea = 0 AND IsForeign = 0";
-                int iKCP_1k = context.extEntry.Where(x => MainClass.lstStudyLevelGroupId.Contains(x.StudyLevelGroupId) && x.StudyBasisId == 1 && x.StudyFormId == 1)
+                int iKCP_1k = context.extEntry.Where(x => MainClass.lstStudyLevelGroupId.Contains(x.StudyLevelGroupId) && x.StudyBasisId == 1 && x.StudyFormId == 1 && !x.IsCrimea && !x.IsForeign)
                     .Select(x => x.KCP ?? 0).DefaultIfEmpty(0).Sum();
                 tbKCP_1kurs.Text = iKCP_1k.ToString();
 
@@ -38,7 +37,7 @@ namespace PriemLib
                 //Подано заявлений на 1 курс, СПб
                 var q_AllAbits_SPb = context.Abiturient.Where(x => x.Entry.StudyFormId == 1 && MainClass.lstStudyLevelGroupId.Contains(x.Entry.StudyLevel.LevelGroupId)
                     && x.Person.Person_Contacts.RegionId == 1 && !x.Entry.IsForeign)
-                    .Select(x => new { x.Entry.StudyBasisId, x.PersonId }).Distinct();
+                    .Select(x => new { x.Entry.StudyBasisId, x.Id }).Distinct();
                 tbCnt_Abit_1K_B_SPB.Text = q_AllAbits_SPb.Where(x => x.StudyBasisId == 1).Count().ToString();
                 tbCnt_Abit_1K_P_SPB.Text = q_AllAbits_SPb.Where(x => x.StudyBasisId == 2).Count().ToString();
 
@@ -65,7 +64,7 @@ namespace PriemLib
                                    select new
                                    {
                                        Ent.StudyBasisId,
-                                       Ab.PersonId
+                                       Ab.Id
                                    }).Distinct();
                 int iCntStud1K_B_SPB = EntView_SPB.Where(x => x.StudyBasisId == 1).Count();
                 int iCntStud1K_P_SPB = EntView_SPB.Where(x => x.StudyBasisId == 2).Count();
@@ -85,7 +84,7 @@ namespace PriemLib
                             select new
                             {
                                 Ent.StudyBasisId,
-                                Ab.PersonId
+                                Ab.Id
                             }).Distinct();
                 tbCnt_Stud_1K_Male_B.Text = Male.Where(x => x.StudyBasisId == 1).Count().ToString();
                 tbCnt_Stud_1K_Male_P.Text = Male.Where(x => x.StudyBasisId == 2).Count().ToString();
@@ -103,7 +102,7 @@ namespace PriemLib
                                 select new
                                 {
                                     Ent.StudyBasisId,
-                                    Ab.PersonId
+                                    Ab.Id
                                 }).Distinct();
                 tbCnt_Stud_1K_Male_B_SPB.Text = Male_SPB.Where(x => x.StudyBasisId == 1).Count().ToString();
                 tbCnt_Stud_1K_Male_P_SPB.Text = Male_SPB.Where(x => x.StudyBasisId == 2).Count().ToString();
@@ -121,7 +120,7 @@ namespace PriemLib
                               select new
                               {
                                   Ent.StudyBasisId,
-                                  Ab.PersonId
+                                  Ab.Id
                               }).Distinct();
                 int iCntStud1K_School_B_Priem = School.Where(x => x.StudyBasisId == 1).Count();
                 int iCntStud1K_School_P_Priem = School.Where(x => x.StudyBasisId == 2).Count();
@@ -142,7 +141,7 @@ namespace PriemLib
                                   select new
                                   {
                                       Ent.StudyBasisId,
-                                      Ab.PersonId
+                                      Ab.Id
                                   }).Distinct();
 
                 tbCnt_Stud_1K_School_B_SPB.Text = School_SPB.Where(x => x.StudyBasisId == 1).Count().ToString();
@@ -161,7 +160,7 @@ namespace PriemLib
                             select new
                             {
                                 Ent.StudyBasisId,
-                                Ab.PersonId
+                                Ab.Id
                             }).Distinct();
                 int iCntStud1K_Prof_B_Priem = Prof.Where(x => x.StudyBasisId == 1).Count();
                 int iCntStud1K_Prof_P_Priem = Prof.Where(x => x.StudyBasisId == 2).Count();
@@ -182,7 +181,7 @@ namespace PriemLib
                                 select new
                                 {
                                     Ent.StudyBasisId,
-                                    Ab.PersonId
+                                    Ab.Id
                                 }).Distinct();
                 tbCnt_Stud_1K_Prof_B_SPB.Text = Prof_SPB.Where(x => x.StudyBasisId == 1).Count().ToString();
                 tbCnt_Stud_1K_Prof_P_SPB.Text = Prof_SPB.Where(x => x.StudyBasisId == 2).Count().ToString();
@@ -200,7 +199,7 @@ namespace PriemLib
                             select new
                             {
                                 Ent.StudyBasisId,
-                                Ab.PersonId
+                                Ab.Id
                             }).Distinct();
                 tbCnt_Stud_1K_NPO_B.Text = NPOs.Where(x => x.StudyBasisId == 1).Count().ToString();
                 tbCnt_Stud_1K_NPO_P.Text = NPOs.Where(x => x.StudyBasisId == 2).Count().ToString();
@@ -219,7 +218,7 @@ namespace PriemLib
                                select new
                                {
                                    Ent.StudyBasisId,
-                                   Ab.PersonId
+                                   Ab.Id
                                }).Distinct();
                 tbCnt_Stud_1K_NPO_B_SPB.Text = NPO_SPB.Where(x => x.StudyBasisId == 1).Count().ToString();
                 tbCnt_Stud_1K_NPO_P_SPB.Text = NPO_SPB.Where(x => x.StudyBasisId == 2).Count().ToString();
@@ -237,7 +236,7 @@ namespace PriemLib
                           select new
                           {
                               Ent.StudyBasisId,
-                              Ab.PersonId
+                              Ab.Id
                           }).Distinct();
                 tbCnt_Stud_1K_VK_B.Text = VK.Where(x => x.StudyBasisId == 1).Count().ToString();
                 tbCnt_Stud_1K_VK_P.Text = VK.Where(x => x.StudyBasisId == 2).Count().ToString();
@@ -256,7 +255,7 @@ namespace PriemLib
                               select new
                               {
                                   Ent.StudyBasisId,
-                                  Ab.PersonId
+                                  Ab.Id
                               }).Distinct();
                 tbCnt_Stud_1K_VK_B_SPB.Text = VK_SPB.Where(x => x.StudyBasisId == 1).Count().ToString();
                 tbCnt_Stud_1K_VK_P_SPB.Text = VK_SPB.Where(x => x.StudyBasisId == 2).Count().ToString();
@@ -275,7 +274,7 @@ namespace PriemLib
                              select new
                              {
                                  Ent.StudyBasisId,
-                                 Ab.PersonId
+                                 Ab.Id
                              }).Distinct();
                 tbCnt_Stud_1K_Olymp_B.Text = Olymp.Where(x => x.StudyBasisId == 1).Count().ToString();
                 tbCnt_Stud_1K_Olymp_P.Text = Olymp.Where(x => x.StudyBasisId == 2).Count().ToString();
@@ -295,7 +294,7 @@ namespace PriemLib
                                  select new
                                  {
                                      Ent.StudyBasisId,
-                                     Ab.PersonId
+                                     Ab.Id
                                  }).Distinct();
                 tbCnt_Stud_1K_Olymp_B_SPB.Text = Olymp_SPB.Where(x => x.StudyBasisId == 1).Count().ToString();
                 tbCnt_Stud_1K_Olymp_P_SPB.Text = Olymp_SPB.Where(x => x.StudyBasisId == 2).Count().ToString();
@@ -313,7 +312,7 @@ namespace PriemLib
                                   select new
                                   {
                                       Ent.StudyBasisId,
-                                      Ab.PersonId
+                                      Ab.Id
                                   }).Distinct();
                 int iForeigners1K_B = Foreigners.Where(x => x.StudyBasisId == 1).Count();
                 int iForeigners1K_P = Foreigners.Where(x => x.StudyBasisId == 2).Count();
@@ -334,7 +333,7 @@ namespace PriemLib
                             select new
                             {
                                 Ent.StudyBasisId,
-                                Ab.PersonId
+                                Ab.Id
                             }).Distinct();
                 int iUSSR1K_B = USSR.Where(x => x.StudyBasisId == 1).Count();
                 int iUSSR1K_P = USSR.Where(x => x.StudyBasisId == 2).Count();
@@ -354,7 +353,7 @@ namespace PriemLib
                 tbAVG_Ege_P.Text = balls.Where(x => x.StudyBasisId == 2).Select(x => x.Value).DefaultIfEmpty(0m).Average().ToString();
 
                 //КЦ Магистратура
-                query = "SELECT SUM(KCP) AS CNT FROM ed.qEntry WHERE StudyLevelGroupId=2 AND StudyFormId='1' AND StudyBasisId='1' AND IsCrimea = 0 AND IsForeign = 0";
+                string query = "SELECT SUM(KCP) AS CNT FROM ed.qEntry WHERE StudyLevelGroupId=2 AND StudyFormId='1' AND StudyBasisId='1' AND IsCrimea = 0 AND IsForeign = 0";
                 int iKCP_Mag = (int)MainClass.Bdc.GetValue(query);
                 tbKCP_Mag.Text = iKCP_Mag.ToString();
 

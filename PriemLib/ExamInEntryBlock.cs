@@ -31,10 +31,17 @@ namespace PriemLib
         public bool IsCrimea { get; set; }
         public byte OrderNumber { get; set; }
         public Nullable<System.Guid> ParentExamInEntryBlockId { get; set; }
+        public Nullable<int> Grade5MarkMin { get; set; }
+        public Nullable<int> Grade5MarkMax { get; set; }
+        public Nullable<int> Grade4MarkMin { get; set; }
+        public Nullable<int> Grade4MarkMax { get; set; }
+        public Nullable<int> Grade3MarkMin { get; set; }
+        public Nullable<int> Grade3MarkMax { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ExamInEntryBlockUnit> ExamInEntryBlockUnit { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<InnerEntryInEntry> InnerEntryInEntry { get; set; }
+        public virtual Entry Entry { get; set; }
     }
 }

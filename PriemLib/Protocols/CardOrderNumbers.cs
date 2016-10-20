@@ -17,12 +17,11 @@ namespace PriemLib
     {
         private DBPriem _bdc;
         private bool forUpdate;
-       
         //конструктор
         public CardOrderNumbers()
         {
-            InitializeComponent();  
-
+            InitializeComponent();
+            
             this.CenterToParent();
             this.MdiParent = MainClass.mainform;
            
@@ -201,12 +200,15 @@ namespace PriemLib
                     ent = ent.Where(c => c.StudyBasisId == StudyBasisId);
                 if (StudyFormId != null)
                     ent = ent.Where(c => c.StudyFormId == StudyFormId);
+                if (StudyLevelGroupId != null)
+                    ent = ent.Where(c => c.StudyLevelGroupId == StudyLevelGroupId);
 
                 List<KeyValuePair<string, string>> lst = ent
                     .ToList()
                     .OrderBy(x => x.LicenseProgramCode)
                     .Select(u => new KeyValuePair<string, string>(u.LicenseProgramId.ToString(), u.LicenseProgramCode + " " + u.LicenseProgramName))
                     .Distinct()
+                    .OrderBy(x => x.Value)
                     .ToList();
 
                 ComboServ.FillCombo(cbLicenseProgram, lst, false, true);
@@ -309,6 +311,27 @@ order by 2",
                 tbOrderNumFor.Text = rw["OrderNumFor"].ToString();
                 tbComissionNumber.Text = rw["ComissionNumber"].ToString();
 
+                Guid ProtocolId = Guid.Empty;
+                Guid.TryParse(protId, out ProtocolId);
+
+                var protinfo = ProtocolDataProvider.GetProtocolInfo(ProtocolId, 4);
+                if (protinfo != null)
+                {
+                    var prot = ProtocolDataProvider.GetEntryViewData(ProtocolId, null, true);
+                    var prot_for = ProtocolDataProvider.GetEntryViewData(ProtocolId, null, false);
+
+                    lblHasForeigners.Visible = prot_for.Count > 0;
+                    lblProtocolPersonsCount.Text = (prot.Count + prot_for.Count).ToString();
+
+                    List<int> lstComps = new List<int>();
+                    lstComps.AddRange(prot.Select(x => x.CompetitionId).ToList().Distinct());
+
+                    using (PriemEntities context = new PriemEntities())
+                    {
+                        var comps = context.Competition.Where(x => lstComps.Contains(x.Id)).Select(x => x.Name).ToList().DefaultIfEmpty("").Aggregate((x, tail) => x + ", " + tail);
+                        lblProtocolCompetitions.Text = comps;
+                    }
+                }
 
                 SetReadOnly();
             } 
@@ -340,7 +363,7 @@ order by 2",
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if (MainClass.IsPasha())
+            if (MainClass.IsPasha() && CheckInput())
             {
                 using (PriemEntities context = new PriemEntities())
                 {
@@ -355,6 +378,45 @@ order by 2",
                     SetReadOnly();
                 }
             }
+        }
+
+        private bool CheckInput()
+        {
+            List<string> lstProt = new List<string>();
+            if (!string.IsNullOrEmpty(tbOrderNum.Text.Trim()))
+                lstProt.Add(tbOrderNum.Text.Trim());
+            if (!string.IsNullOrEmpty(tbOrderNumFor.Text.Trim()))
+                lstProt.Add(tbOrderNumFor.Text.Trim());
+
+            Guid? protId = new Guid(dgvViews.CurrentRow.Cells["Id"].Value.ToString());
+
+            using (PriemEntities context = new PriemEntities())
+            {
+                foreach (string sProtNum in lstProt)
+                {
+                    var EVs = (from EV in context.extEntryView
+                               join Ent in context.extEntry on EV.EntryId equals Ent.Id
+                               where (EV.OrderNum == sProtNum || EV.OrderNumFor == sProtNum)
+                               && EV.Id != protId
+                               select new
+                               {
+                                   Ent.LicenseProgramCode,
+                                   Ent.LicenseProgramName,
+                                   Ent.StudyFormName,
+                                   Ent.StudyBasisName
+                               }).Distinct().ToList();
+
+                    if (EVs.Count > 0)
+                    {
+                        WinFormsServ.Error("Данный номер приказа уже указан в представлении для:\n" 
+                            + EVs.Select(x => x.LicenseProgramCode + " " + x.LicenseProgramName + " (" + x.StudyBasisName + "," + x.StudyFormName + ")").ToList().Aggregate((x, tail) => x + "\n" + tail));
+
+                        return false;
+                    }
+                }
+            }
+
+            return true;
         }
 
         private void chbIsListener_CheckedChanged(object sender, EventArgs e)
@@ -372,6 +434,21 @@ order by 2",
         private void chbIsParallel_CheckedChanged(object sender, EventArgs e)
         {
             FillStudyForm();
+        }
+
+        private void btnPrint_Click(object sender, EventArgs e)
+        {
+            if (dgvViews.CurrentRow == null)
+                return;
+
+            if (dgvViews.CurrentRow.Index < 0)
+                return;
+
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "ADOBE Pdf files|*.pdf";
+            sfd.FileName = "Представление к зачислению - " +  dgvViews.CurrentRow.Cells["Номер представления"].Value.ToString() + ".pdf";
+            if (sfd.ShowDialog() == DialogResult.OK)
+                Print.PrintEntryView(dgvViews.CurrentRow.Cells["Id"].Value.ToString(), sfd.FileName, !chbIsForeign.Checked);
         }
     }
 }

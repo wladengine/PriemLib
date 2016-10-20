@@ -63,6 +63,13 @@
             this.label10 = new System.Windows.Forms.Label();
             this.cbStudyLevelGroup = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
+            this.btnPrint = new System.Windows.Forms.Button();
+            this.lblProtocolCompetitions = new System.Windows.Forms.Label();
+            this.lblProtocolPersonsCount = new System.Windows.Forms.Label();
+            this.lblHasForeigners = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.chbIsForeign = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvViews)).BeginInit();
             this.gbOrders.SuspendLayout();
             this.gbOrdersFor.SuspendLayout();
@@ -416,11 +423,85 @@
             this.label11.TabIndex = 166;
             this.label11.Text = "Уровень";
             // 
+            // btnPrint
+            // 
+            this.btnPrint.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnPrint.Location = new System.Drawing.Point(177, 469);
+            this.btnPrint.Name = "btnPrint";
+            this.btnPrint.Size = new System.Drawing.Size(133, 23);
+            this.btnPrint.TabIndex = 168;
+            this.btnPrint.Text = "Печать представления";
+            this.btnPrint.UseVisualStyleBackColor = true;
+            this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
+            // 
+            // lblProtocolCompetitions
+            // 
+            this.lblProtocolCompetitions.AutoSize = true;
+            this.lblProtocolCompetitions.Location = new System.Drawing.Point(474, 485);
+            this.lblProtocolCompetitions.Name = "lblProtocolCompetitions";
+            this.lblProtocolCompetitions.Size = new System.Drawing.Size(13, 13);
+            this.lblProtocolCompetitions.TabIndex = 173;
+            this.lblProtocolCompetitions.Text = "0";
+            // 
+            // lblProtocolPersonsCount
+            // 
+            this.lblProtocolPersonsCount.AutoSize = true;
+            this.lblProtocolPersonsCount.Location = new System.Drawing.Point(453, 468);
+            this.lblProtocolPersonsCount.Name = "lblProtocolPersonsCount";
+            this.lblProtocolPersonsCount.Size = new System.Drawing.Size(13, 13);
+            this.lblProtocolPersonsCount.TabIndex = 172;
+            this.lblProtocolPersonsCount.Text = "0";
+            // 
+            // lblHasForeigners
+            // 
+            this.lblHasForeigners.AutoSize = true;
+            this.lblHasForeigners.Location = new System.Drawing.Point(319, 502);
+            this.lblHasForeigners.Name = "lblHasForeigners";
+            this.lblHasForeigners.Size = new System.Drawing.Size(116, 13);
+            this.lblHasForeigners.TabIndex = 171;
+            this.lblHasForeigners.Text = "ЕСТЬ ИНОСТРАНЦЫ";
+            this.lblHasForeigners.Visible = false;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(319, 485);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(149, 13);
+            this.label12.TabIndex = 170;
+            this.label12.Text = "Категории лиц в протоколе:";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(319, 468);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(128, 13);
+            this.label13.TabIndex = 169;
+            this.label13.Text = "Число лиц в протоколе:";
+            // 
+            // chbIsForeign
+            // 
+            this.chbIsForeign.AutoSize = true;
+            this.chbIsForeign.Location = new System.Drawing.Point(177, 498);
+            this.chbIsForeign.Name = "chbIsForeign";
+            this.chbIsForeign.Size = new System.Drawing.Size(112, 17);
+            this.chbIsForeign.TabIndex = 174;
+            this.chbIsForeign.Text = "для иностранцев";
+            this.chbIsForeign.UseVisualStyleBackColor = true;
+            // 
             // CardOrderNumbers
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(513, 563);
+            this.Controls.Add(this.chbIsForeign);
+            this.Controls.Add(this.lblProtocolCompetitions);
+            this.Controls.Add(this.lblProtocolPersonsCount);
+            this.Controls.Add(this.lblHasForeigners);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.label13);
+            this.Controls.Add(this.btnPrint);
             this.Controls.Add(this.cbStudyLevelGroup);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.label10);
@@ -496,5 +577,12 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ComboBox cbStudyLevelGroup;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Button btnPrint;
+        private System.Windows.Forms.Label lblProtocolCompetitions;
+        private System.Windows.Forms.Label lblProtocolPersonsCount;
+        public System.Windows.Forms.Label lblHasForeigners;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label13;
+        public System.Windows.Forms.CheckBox chbIsForeign;
     }
 }

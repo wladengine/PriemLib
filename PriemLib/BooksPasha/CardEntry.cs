@@ -9,6 +9,7 @@ using System.Windows.Forms;
 
 using EducServLib;
 using System.Data.Entity.Core.Objects;
+using System.Transactions;
 
 namespace PriemLib
 {
@@ -1052,8 +1053,8 @@ WHERE Id=@Id";
                         && x.ProfileId == CurrEnt.ProfileId
                         && x.StudyFormId == CurrEnt.StudyFormId
                         && x.StudyBasisId == CurrEnt.StudyBasisId
-                        && x.IsCrimea == IsCrimea
-                        && x.IsForeign == IsForeign
+                        //&& x.IsCrimea == IsCrimea
+                        //&& x.IsForeign == IsForeign
                         && x.IsSecond == IsSecond
                         && x.IsParallel == IsParallel
                         && x.IsReduced == IsReduced
@@ -1085,67 +1086,82 @@ WHERE Id=@Id";
                 Dictionary<Guid?, Guid?> dicExamBlock_OldToNew = new Dictionary<Guid?, Guid?>();
 
                 var lstBlocks = Exams.Select(x => new { x.BlockId, x.Name, x.OrderNumber, x.ParentBlockId }).Distinct().ToList();
-                foreach (var ExBlock in lstBlocks)
+
+                using (TransactionScope tran = new TransactionScope())
                 {
-                    //Проверяем, нет ли уже такого блока.
-                    int cnt = context.ExamInEntryBlock.Where(x => x.EntryId == CurrEnt.Id && x.Name == ExBlock.Name && x.OrderNumber == ExBlock.OrderNumber).Count();
+                    try
+                    {
+                        foreach (var ExBlock in lstBlocks)
+                        {
+                            //Проверяем, нет ли уже такого блока.
+                            int cnt = context.ExamInEntryBlock.Where(x => x.EntryId == CurrEnt.Id && x.Name == ExBlock.Name && x.OrderNumber == ExBlock.OrderNumber).Count();
 
-                    if (cnt > 0)
-                        continue;
-                    
-                    //вставка блока
-                    Guid gExBlockId = Guid.NewGuid();
+                            if (cnt > 0)
+                                continue;
 
-                    dicExamBlock_OldToNew.Add(ExBlock.BlockId, gExBlockId);
+                            //вставка блока
+                            Guid gExBlockId = Guid.NewGuid();
 
-                    Guid? ParentExamInEntryId = null;
-                    if (ExBlock.ParentBlockId.HasValue)
-                        dicExamBlock_OldToNew.TryGetValue(ExBlock.ParentBlockId, out ParentExamInEntryId);
+                            dicExamBlock_OldToNew.Add(ExBlock.BlockId, gExBlockId);
 
-                    string queryBlock = @" INSERT INTO dbo.ExamInEntryBlock ([Id], [EntryId], [Name]) VALUES (@Id, @EntryId, @Name)";
-                    string queryBlockUnit = @" INSERT INTO dbo.ExamInEntryBlockUnit ([Id], [ExamInEntryBlockId], [ExamId], EgeMin) 
+                            Guid? ParentExamInEntryId = null;
+                            if (ExBlock.ParentBlockId.HasValue)
+                                dicExamBlock_OldToNew.TryGetValue(ExBlock.ParentBlockId, out ParentExamInEntryId);
+
+                            string queryBlock = @" INSERT INTO dbo.ExamInEntryBlock ([Id], [EntryId], [Name]) VALUES (@Id, @EntryId, @Name)";
+                            string queryBlockUnit = @" INSERT INTO dbo.ExamInEntryBlockUnit ([Id], [ExamInEntryBlockId], [ExamId], EgeMin) 
                                         VALUES (@Id, @ExamInEntryBlockId, @ExamId, @EgeMin)";
 
-                    context.ExamInEntryBlock.Add(new ExamInEntryBlock()
+                            context.ExamInEntryBlock.Add(new ExamInEntryBlock()
+                            {
+                                Id = gExBlockId,
+                                EntryId = CurrEnt.Id,
+                                Name = ExBlock.Name,
+                                IsCrimea = IsCrimea,
+                                IsGosLine = IsForeign,
+                                OrderNumber = ExBlock.OrderNumber,
+                                ParentExamInEntryBlockId = ParentExamInEntryId,
+                            });
+
+                            SortedList<string, object> sl = new SortedList<string, object>();
+                            sl.Add("@Id", gExBlockId);
+                            sl.Add("@EntryId", CurrEnt.Id);
+                            sl.Add("@Name", ExBlock.Name);
+                            MainClass.BdcOnlineReadWrite.ExecuteQuery(queryBlock, sl);
+
+                            var lstExams = Exams.Where(x => x.BlockId == ExBlock.BlockId).Select(x => new { x.ExamId, x.EgeMin }).Distinct().ToList();
+                            foreach (var ExBlockUnit in lstExams)
+                            {
+                                Guid gUnitId = Guid.NewGuid();
+                                //вставка юнитов
+                                context.ExamInEntryBlockUnit.Add(new ExamInEntryBlockUnit()
+                                {
+                                    Id = gUnitId,
+                                    ExamId = ExBlockUnit.ExamId,
+                                    EgeMin = ExBlockUnit.EgeMin,
+                                    ExamInEntryBlockId = gExBlockId,
+                                });
+
+                                SortedList<string, object> _sl = new SortedList<string, object>();
+                                _sl.Add("@Id", gUnitId);
+                                _sl.Add("@ExamInEntryBlockId", gExBlockId);
+                                _sl.Add("@ExamId", ExBlockUnit.ExamId);
+                                if (ExBlockUnit.EgeMin.HasValue)
+                                    _sl.Add("@EgeMin", ExBlockUnit.EgeMin);
+                                else
+                                    _sl.Add("@EgeMin", DBNull.Value);
+
+                                MainClass.BdcOnlineReadWrite.ExecuteQuery(queryBlockUnit, _sl);
+                            }
+                        }
+
+                        context.SaveChanges();
+
+                        tran.Complete();
+                    }
+                    catch (Exception ex)
                     {
-                        Id = gExBlockId,
-                        EntryId = CurrEnt.Id,
-                        Name = ExBlock.Name,
-                        IsCrimea = IsCrimea,
-                        IsGosLine = IsForeign,
-                        OrderNumber = ExBlock.OrderNumber,
-                        ParentExamInEntryBlockId = ParentExamInEntryId,
-                    });
-
-                    SortedList<string, object> sl = new SortedList<string, object>();
-                    sl.Add("@Id", gExBlockId);
-                    sl.Add("@EntryId", CurrEnt.Id);
-                    sl.Add("@Name", ExBlock.Name);
-                    MainClass.BdcOnlineReadWrite.ExecuteQuery(queryBlock, sl);
-
-                    var lstExams = Exams.Where(x => x.BlockId == ExBlock.BlockId).Select(x => new { x.ExamId, x.EgeMin }).Distinct().ToList();
-                    foreach (var ExBlockUnit in lstExams)
-                    {
-                        Guid gUnitId = Guid.NewGuid();
-                        //вставка юнитов
-                        context.ExamInEntryBlockUnit.Add(new ExamInEntryBlockUnit()
-                        {
-                            Id = gUnitId,
-                            ExamId = ExBlockUnit.ExamId,
-                            EgeMin = ExBlockUnit.EgeMin,
-                            ExamInEntryBlockId = gExBlockId,
-                        });
-
-                        SortedList<string, object> _sl = new SortedList<string, object>();
-                        _sl.Add("@Id", gUnitId);
-                        _sl.Add("@ExamInEntryBlockId", gExBlockId);
-                        _sl.Add("@ExamId", ExBlockUnit.ExamId);
-                        if (ExBlockUnit.EgeMin.HasValue)
-                            _sl.Add("@EgeMin", ExBlockUnit.EgeMin);
-                        else
-                            _sl.Add("@EgeMin", DBNull.Value);
-
-                        MainClass.BdcOnlineReadWrite.ExecuteQuery(queryBlockUnit, _sl);
+                        WinFormsServ.Error(ex);
                     }
                 }
 
