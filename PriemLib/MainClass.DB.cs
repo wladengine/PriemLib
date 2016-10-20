@@ -286,6 +286,11 @@ namespace PriemLib
                 qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", QueryBuilder.GetBoolField("ed.qAbiturient.IsCrimea"), "Крым"));
                 qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", QueryBuilder.GetBoolField("ed.qAbiturient.IsParallel"), "Программы_парал"));
                 qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", QueryBuilder.GetBoolField("ed.qAbiturient.IsPaid"), "Оплатил"));
+
+                qBuilder.AddQueryItem(new QueryItem("ed.PaidData", "ed.PaidData.DogovorNum", "Номер_договора"));
+                qBuilder.AddQueryItem(new QueryItem("ed.PaidData", "ed.PaidData.DogovorDate", "Дата_договора"));
+                qBuilder.AddQueryItem(new QueryItem("ed.PaidData", "ed.PaidData.Customer", "Заказчик_договора"));
+
                 qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", QueryBuilder.GetBoolField("ed.qAbiturient.BackDoc"), "Забрал_док"));
                 qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", QueryBuilder.GetBoolField("ed.qAbiturient.HasOriginals"), "Подал_подлинники"));
                 qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", QueryBuilder.GetBoolField("ed.qAbiturient.Checked"), "Данные_проверены"));
@@ -470,6 +475,8 @@ WHERE ed.AbiturientSelectedExam.ApplicationId = qAbiturient.Id AND unit.ExamId =
                     qBuilder.AddTableJoint("Nationality", " LEFT JOIN ed.ForeignCountry AS Nationality ON ed.extPerson.ForeignNationalityId = Nationality.Id ");
                 else
                     qBuilder.AddTableJoint("Nationality", " LEFT JOIN ed.Country AS Nationality ON ed.extPerson.NationalityId = Nationality.Id ");
+
+                qBuilder.AddTableJoint("ed.PaidData", " LEFT JOIN ed.PaidData ON ed.qAbiturient.Id = ed.PaidData.AbiturientId ");
 
                 qBuilder.AddTableJoint("ed.Region", " LEFT JOIN ed.Region ON ed.extPerson.RegionId = ed.Region.Id ");
                 qBuilder.AddTableJoint("ed.Language", " LEFT JOIN ed.[Language] ON ed.qAbiturient.LanguageId = ed.[Language].Id ");

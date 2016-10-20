@@ -436,6 +436,7 @@ namespace PriemLib
                 using (PriemEntities context = new PriemEntities())
                 {
                     var sourceOwn = (from abit in context.qAbiturient
+                                     join comp in context.Competition on abit.CompetitionId equals comp.Id
                                     where !abit.BackDoc && abit.PersonId == GuidId
                                     && MainClass.lstStudyLevelGroupId.Contains(abit.StudyLevelGroupId)
                                     && (MainClass.dbType != PriemType.PriemForeigners ? abit.IsForeign == false : true)
@@ -443,6 +444,8 @@ namespace PriemLib
                                     select new
                                     {
                                         abit.Id,
+                                        Приор = abit.Priority,
+                                        Тип_конк = comp.Name,
                                         Факультет = abit.FacultyAcr,
                                         Направление = abit.LicenseProgramName,
                                         Образ_программа = abit.ObrazProgramCrypt,
@@ -454,6 +457,7 @@ namespace PriemLib
                                     }).ToList();
 
                     var sourceAll = (from abit in context.qAbitAll
+                                     join comp in context.Competition on abit.CompetitionId equals comp.Id
                                     where !abit.BackDoc && abit.PersonId == GuidId
                                     //&& MainClass.lstStudyLevelGroupId.Contains(abit.StudyLevelGroupId)
                                     //&& (MainClass.dbType != PriemType.PriemForeigners ? abit.IsForeign == false : true)
@@ -461,6 +465,8 @@ namespace PriemLib
                                     select new
                                     {
                                         abit.Id,
+                                        Приор = abit.Priority,
+                                        Тип_конк = comp.Name,
                                         Факультет = abit.FacultyAcr,
                                         Направление = abit.LicenseProgramName,
                                         Образ_программа = abit.ObrazProgramCrypt,
