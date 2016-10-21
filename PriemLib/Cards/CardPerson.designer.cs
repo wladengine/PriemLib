@@ -202,6 +202,8 @@
             this.lblFBSStatus = new System.Windows.Forms.Label();
             this.tbCommentFBSPasha = new System.Windows.Forms.TextBox();
             this.gbEgeMark = new System.Windows.Forms.GroupBox();
+            this.gbEgeLoading = new System.Windows.Forms.GroupBox();
+            this.label71 = new System.Windows.Forms.Label();
             this.dgvExams = new System.Windows.Forms.DataGridView();
             this.tpSecond = new System.Windows.Forms.TabPage();
             this.gbMainStudy = new System.Windows.Forms.GroupBox();
@@ -301,8 +303,7 @@
             this.btnAddAbit = new System.Windows.Forms.Button();
             this.btnDocs = new System.Windows.Forms.Button();
             this.sfdPrint = new System.Windows.Forms.SaveFileDialog();
-            this.gbEgeLoading = new System.Windows.Forms.GroupBox();
-            this.label71 = new System.Windows.Forms.Label();
+            this.btnDocsList = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.epError)).BeginInit();
             this.tabCard.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -324,6 +325,7 @@
             this.gbEge.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEGE)).BeginInit();
             this.gbEgeMark.SuspendLayout();
+            this.gbEgeLoading.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvExams)).BeginInit();
             this.tpSecond.SuspendLayout();
             this.gbMainStudy.SuspendLayout();
@@ -357,7 +359,6 @@
             this.gbVedList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVedList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.epErrorInput)).BeginInit();
-            this.gbEgeLoading.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnClose
@@ -2085,6 +2086,25 @@
             this.gbEgeMark.TabStop = false;
             this.gbEgeMark.Text = "Оценки ЕГЭ для зачета";
             // 
+            // gbEgeLoading
+            // 
+            this.gbEgeLoading.Controls.Add(this.label71);
+            this.gbEgeLoading.Location = new System.Drawing.Point(153, 153);
+            this.gbEgeLoading.Name = "gbEgeLoading";
+            this.gbEgeLoading.Size = new System.Drawing.Size(200, 40);
+            this.gbEgeLoading.TabIndex = 9;
+            this.gbEgeLoading.TabStop = false;
+            this.gbEgeLoading.Visible = false;
+            // 
+            // label71
+            // 
+            this.label71.AutoSize = true;
+            this.label71.Location = new System.Drawing.Point(33, 16);
+            this.label71.Name = "label71";
+            this.label71.Size = new System.Drawing.Size(151, 13);
+            this.label71.TabIndex = 0;
+            this.label71.Text = "Идёт загрузка, подождите...";
+            // 
             // dgvExams
             // 
             this.dgvExams.AllowUserToAddRows = false;
@@ -2703,6 +2723,7 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.btnDocsList);
             this.tabPage4.Controls.Add(this.chbApplicationPrint);
             this.tabPage4.Controls.Add(this.btnPrintApplication);
             this.tabPage4.Controls.Add(this.gbExamPass);
@@ -3222,24 +3243,14 @@
             this.btnDocs.Visible = false;
             this.btnDocs.Click += new System.EventHandler(this.btnDocs_Click);
             // 
-            // gbEgeLoading
+            // btnDocsList
             // 
-            this.gbEgeLoading.Controls.Add(this.label71);
-            this.gbEgeLoading.Location = new System.Drawing.Point(153, 153);
-            this.gbEgeLoading.Name = "gbEgeLoading";
-            this.gbEgeLoading.Size = new System.Drawing.Size(200, 40);
-            this.gbEgeLoading.TabIndex = 9;
-            this.gbEgeLoading.TabStop = false;
-            this.gbEgeLoading.Visible = false;
-            // 
-            // label71
-            // 
-            this.label71.AutoSize = true;
-            this.label71.Location = new System.Drawing.Point(33, 16);
-            this.label71.Name = "label71";
-            this.label71.Size = new System.Drawing.Size(151, 13);
-            this.label71.TabIndex = 0;
-            this.label71.Text = "Идёт загрузка, подождите...";
+            this.btnDocsList.Location = new System.Drawing.Point(400, 123);
+            this.btnDocsList.Name = "btnDocsList";
+            this.btnDocsList.Size = new System.Drawing.Size(111, 23);
+            this.btnDocsList.TabIndex = 13;
+            this.btnDocsList.Text = "Печать расписки";
+            this.btnDocsList.UseVisualStyleBackColor = true;
             // 
             // CardPerson
             // 
@@ -3297,6 +3308,8 @@
             this.gbEge.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvEGE)).EndInit();
             this.gbEgeMark.ResumeLayout(false);
+            this.gbEgeLoading.ResumeLayout(false);
+            this.gbEgeLoading.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvExams)).EndInit();
             this.tpSecond.ResumeLayout(false);
             this.gbMainStudy.ResumeLayout(false);
@@ -3343,8 +3356,6 @@
             this.gbVedList.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvVedList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.epErrorInput)).EndInit();
-            this.gbEgeLoading.ResumeLayout(false);
-            this.gbEgeLoading.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -3615,6 +3626,7 @@
         private System.Windows.Forms.Button btnCertificateDelete;
         private System.Windows.Forms.GroupBox gbEgeLoading;
         private System.Windows.Forms.Label label71;
+        private System.Windows.Forms.Button btnDocsList;
 
     }
 }
