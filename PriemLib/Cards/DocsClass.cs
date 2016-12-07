@@ -60,7 +60,7 @@ namespace PriemLib
             {
                 foreach (KeyValuePair<string, string> file in lstFiles)
                 {
-                    byte[] bt = _bdcInet.ReadFile(string.Format("SELECT FileData FROM extAbitFiles_All WHERE Id = '{0}'", file.Key));
+                    byte[] bt = _bdcInet.ReadFile(string.Format("SELECT FileData FROM FileStorage WHERE Id = '{0}'", file.Key));
 
                     string filename = file.Value.Replace(@"\", "-").Replace(@":", "-");
 

@@ -491,7 +491,7 @@ where ed.extentryview.studyformid=1 and ed.extentryview.studybasisid=1 and ed.ex
             MessageBox.Show("Метод не реализован!");
         }
 
-        public static void ExportInNewStudent()
+        public static void ExportInNewStudent(DateTime? dtMinOrderDate)
         {
             using (PriemEntities context = new PriemEntities())
             {
@@ -513,6 +513,7 @@ where ed.extentryview.studyformid=1 and ed.extentryview.studybasisid=1 and ed.ex
                      join Prof in context.SP_Profile on InEnt.ProfileId equals Prof.Id into Prof2
                      from Prof in Prof2.DefaultIfEmpty()
                      where (Ent.StudyLevelGroupId == 1 || Ent.StudyLevelGroupId == 2)
+                     && (dtMinOrderDate.HasValue ? (EV.OrderDate >= dtMinOrderDate.Value || EV.OrderDateFor >= dtMinOrderDate.Value) : true)
                      select new
                      {
                     //Персона:
@@ -550,7 +551,8 @@ where ed.extentryview.studyformid=1 and ed.extentryview.studybasisid=1 and ed.ex
                          Pers.SNILS,
                          AD.Login,
                          Pers.Phone,
-                         Pers.Email,
+                         //Pers.Email, //заменяем Email из карточки на присвоенный Email
+                         AD.Email,
                     //Паспорт:
                     //17. Тип документа (справочник)
                     //18. Серия (string(100))

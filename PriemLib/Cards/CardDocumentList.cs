@@ -102,7 +102,7 @@ namespace PriemLib
                     lst.Add(doc);
                 }
             }
-            Print.PrintDocumentList(gPersonId, lst, tbStaff.Text);
+            //Print.PrintDocumentList(gPersonId, lst, tbStaff.Text);
         }
     }
 }

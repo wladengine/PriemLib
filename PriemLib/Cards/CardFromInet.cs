@@ -253,7 +253,6 @@ namespace PriemLib
         #endregion
 
         #region Fill Card
-
         protected override void FillCard()
         {
             try
@@ -496,75 +495,7 @@ namespace PriemLib
                 WinFormsServ.Error("Ошибка при заполнении формы ", de);
             }
         }
-        private void FillFiles()
-        {
-            //List<KeyValuePair<string, string>> lstFiles = _docs.UpdateFiles();
-            //if (lstFiles == null || lstFiles.Count == 0)
-            //    return;
-
-            dgvFiles.DataSource = _docs.UpdateFilesTable();
-            if (dgvFiles.Rows.Count > 0)
-            {
-                foreach (DataGridViewColumn clm in dgvFiles.Columns)
-                    clm.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                
-                if (!dgvFiles.Columns.Contains("Открыть"))
-                {
-                    DataGridViewCheckBoxCell cl = new DataGridViewCheckBoxCell();
-                    cl.TrueValue = true;
-                    cl.FalseValue = false;
-
-                    DataGridViewCheckBoxColumn clm = new DataGridViewCheckBoxColumn();
-                    clm.CellTemplate = cl;
-                    clm.Name = "Открыть";
-                    dgvFiles.Columns.Add(clm);
-                    dgvFiles.Columns["Открыть"].DisplayIndex = 0;
-                    dgvFiles.Columns["Открыть"].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader; 
-                }
-                if (dgvFiles.Columns.Contains("Id"))
-                    dgvFiles.Columns["Id"].Visible = false;
-                if (dgvFiles.Columns.Contains("FileExtention"))
-                    dgvFiles.Columns["FileExtention"].Visible = false;
-                if (dgvFiles.Columns.Contains("IsDeleted"))
-                    dgvFiles.Columns["IsDeleted"].Visible = false;
-                dgvFiles.Columns["FileName"].HeaderText = "Файл";
-                dgvFiles.Columns["Comment"].HeaderText = "Комментарий";
-                dgvFiles.Columns["FileTypeName"].HeaderText = "Тип файла";
-                dgvFiles.Columns["FileName"].ReadOnly = true;
-                dgvFiles.Columns["Comment"].ReadOnly = true;
-                dgvFiles.Columns["FileTypeName"].ReadOnly = true;
-            }
-        }
-        private void dgvFiles_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
-        {
-            if (e.RowIndex >= 0 && e.ColumnIndex >= 0 && dgvFiles[e.ColumnIndex, e.RowIndex].Visible && (bool)dgvFiles["IsDeleted", e.RowIndex].Value)
-                e.CellStyle.BackColor = Color.OrangeRed;
-        }
-
-        private void btnOpenFile_Click(object sender, EventArgs e)
-        {
-            List<KeyValuePair<string, string>> lstFiles = new List<KeyValuePair<string, string>>();
-            lstFiles = new List<KeyValuePair<string, string>>();
-            foreach (DataGridViewRow rw in dgvFiles.Rows)
-            {
-                DataGridViewCheckBoxCell cell = rw.Cells["Открыть"] as DataGridViewCheckBoxCell;
-                if (cell.Value == cell.TrueValue)
-                {
-                    if (dgvFiles.Columns.Contains("FileName"))
-                    {
-                        string fileName = rw.Cells["FileName"].Value.ToString(); 
-                        KeyValuePair<string, string> file = new KeyValuePair<string, string>(rw.Cells["Id"].Value.ToString(), fileName);
-                        lstFiles.Add(file);
-                    }
-                }
-            }
-            _docs.OpenFile(lstFiles);
-        }
-        private void btnDocCardOpen_Click(object sender, EventArgs e)
-        {
-            if (_personBarc != null)
-                new DocCard(_personBarc.Value, null, false, MainClass.dbType == PriemType.PriemForeigners).Show();
-        }
+        #endregion
 
         #region Applications
         public void FillApplication()
@@ -708,6 +639,76 @@ namespace PriemLib
         }
         #endregion
 
+        #region Files
+        private void FillFiles()
+        {
+            //List<KeyValuePair<string, string>> lstFiles = _docs.UpdateFiles();
+            //if (lstFiles == null || lstFiles.Count == 0)
+            //    return;
+
+            dgvFiles.DataSource = _docs.UpdateFilesTable();
+            if (dgvFiles.Rows.Count > 0)
+            {
+                foreach (DataGridViewColumn clm in dgvFiles.Columns)
+                    clm.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+                if (!dgvFiles.Columns.Contains("Открыть"))
+                {
+                    DataGridViewCheckBoxCell cl = new DataGridViewCheckBoxCell();
+                    cl.TrueValue = true;
+                    cl.FalseValue = false;
+
+                    DataGridViewCheckBoxColumn clm = new DataGridViewCheckBoxColumn();
+                    clm.CellTemplate = cl;
+                    clm.Name = "Открыть";
+                    dgvFiles.Columns.Add(clm);
+                    dgvFiles.Columns["Открыть"].DisplayIndex = 0;
+                    dgvFiles.Columns["Открыть"].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                }
+                if (dgvFiles.Columns.Contains("Id"))
+                    dgvFiles.Columns["Id"].Visible = false;
+                if (dgvFiles.Columns.Contains("FileExtention"))
+                    dgvFiles.Columns["FileExtention"].Visible = false;
+                if (dgvFiles.Columns.Contains("IsDeleted"))
+                    dgvFiles.Columns["IsDeleted"].Visible = false;
+                dgvFiles.Columns["FileName"].HeaderText = "Файл";
+                dgvFiles.Columns["Comment"].HeaderText = "Комментарий";
+                dgvFiles.Columns["FileTypeName"].HeaderText = "Тип файла";
+                dgvFiles.Columns["FileName"].ReadOnly = true;
+                dgvFiles.Columns["Comment"].ReadOnly = true;
+                dgvFiles.Columns["FileTypeName"].ReadOnly = true;
+            }
+        }
+        private void dgvFiles_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0 && dgvFiles[e.ColumnIndex, e.RowIndex].Visible && (bool)dgvFiles["IsDeleted", e.RowIndex].Value)
+                e.CellStyle.BackColor = Color.OrangeRed;
+        }
+
+        private void btnOpenFile_Click(object sender, EventArgs e)
+        {
+            List<KeyValuePair<string, string>> lstFiles = new List<KeyValuePair<string, string>>();
+            lstFiles = new List<KeyValuePair<string, string>>();
+            foreach (DataGridViewRow rw in dgvFiles.Rows)
+            {
+                DataGridViewCheckBoxCell cell = rw.Cells["Открыть"] as DataGridViewCheckBoxCell;
+                if (cell.Value == cell.TrueValue)
+                {
+                    if (dgvFiles.Columns.Contains("FileName"))
+                    {
+                        string fileName = rw.Cells["FileName"].Value.ToString();
+                        KeyValuePair<string, string> file = new KeyValuePair<string, string>(rw.Cells["Id"].Value.ToString(), fileName);
+                        lstFiles.Add(file);
+                    }
+                }
+            }
+            _docs.OpenFile(lstFiles);
+        }
+        private void btnDocCardOpen_Click(object sender, EventArgs e)
+        {
+            if (_personBarc != null)
+                new DocCard(_personBarc.Value, null, false, MainClass.dbType == PriemType.PriemForeigners).Show();
+        }
         #endregion
 
         #region EducationInfo
