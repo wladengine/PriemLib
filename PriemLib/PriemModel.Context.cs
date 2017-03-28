@@ -186,6 +186,7 @@ namespace PriemLib
         public virtual DbSet<hlpStatRatingList> hlpStatRatingList { get; set; }
         public virtual DbSet<PayDataDiplomType> PayDataDiplomType { get; set; }
         public virtual DbSet<ADUserData> ADUserData { get; set; }
+        public virtual DbSet<FISSubject> FISSubject { get; set; }
     
         public virtual int RoleMember(string roleName, ObjectParameter result)
         {

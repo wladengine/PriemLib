@@ -23,9 +23,10 @@ namespace PriemLib
         public string OlympLevelName { get; set; }
         public string OlympSubjectName { get; set; }
         public string OlympTypeName { get; set; }
-        public Nullable<int> Number { get; set; }
+        public string Number { get; set; }
         public int OlympYear { get; set; }
         public int OlympProfileId { get; set; }
         public string OlympProfileName { get; set; }
+        public string OlympicID { get; set; }
     }
 }

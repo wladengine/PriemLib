@@ -38,6 +38,13 @@ namespace PriemLib
         public bool EgeInSPbgu { get; set; }
         public string Author { get; set; }
         public System.DateTime DateCreated { get; set; }
+        public bool NeedSpecialConditions { get; set; }
+        public string Parent_Surname { get; set; }
+        public string Parent_Name { get; set; }
+        public string Parent_SecondName { get; set; }
+        public string Parent_Phone { get; set; }
+        public string Parent_Email { get; set; }
+        public string Parent_Work { get; set; }
     
         public virtual Person Person { get; set; }
         public virtual SP_Faculty ExamPassFacultyFaculty { get; set; }

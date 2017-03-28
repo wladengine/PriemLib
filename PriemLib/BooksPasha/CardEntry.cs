@@ -100,13 +100,13 @@ namespace PriemLib
         public DateTime DateOfStart
         {
             //get { return dtpDateOfStart.Value.Date.AddHours(10); }
-            get { return dtpDateOfStart.Value; }
+            get { return new DateTime(dtpDateOfStart.Value.Year, dtpDateOfStart.Value.Month, dtpDateOfStart.Value.Day, dtpDateOfStart.Value.Hour, dtpDateOfStart.Value.Minute, 0); }
             set { dtpDateOfStart.Value = value; }
         }
         public DateTime DateOfClose
         {
             //get { return dtpDateOfClose.Value.Date.AddHours(18); }
-            get { return dtpDateOfClose.Value; }
+            get { return new DateTime(dtpDateOfClose.Value.Year, dtpDateOfClose.Value.Month, dtpDateOfClose.Value.Day, dtpDateOfClose.Value.Hour, dtpDateOfClose.Value.Minute, 0); }
             set { dtpDateOfClose.Value = value; }
         }
 

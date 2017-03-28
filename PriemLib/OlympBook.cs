@@ -24,6 +24,7 @@ namespace PriemLib
         public int OlympYear { get; set; }
         public string OlympicID { get; set; }
         public int OlympProfileId { get; set; }
+        public string OlympNumber { get; set; }
     
         public virtual OlympLevel OlympLevel { get; set; }
         public virtual OlympSubject OlympSubject { get; set; }

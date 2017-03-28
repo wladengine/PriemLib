@@ -228,6 +228,8 @@ namespace PriemLib
         {
             string s = string.Format("AND qAbiturient.StudyLevelGroupId IN ({0})", Util.BuildStringWithCollection(MainClass.lstStudyLevelGroupId));
 
+            s += string.Format("AND qAbiturient.CampaignYear = {0}", MainClass.iPriemYear);
+
             //ограничение
             using (PriemEntities context = new PriemEntities())
             {

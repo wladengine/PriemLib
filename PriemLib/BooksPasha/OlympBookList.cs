@@ -93,8 +93,16 @@ namespace PriemLib
                 if (olTypeYear != null)
                     query = query.Where(c => c.OlympYear == olTypeYear);
 
-                Dgv.DataSource = Converter.ConvertToDataTable(query.ToArray());
-                SetVisibleColumnsAndNameColumns();               
+                try
+                {
+                    DataTable tblSource = Converter.ConvertToDataTable(query.ToArray());
+                    Dgv.DataSource = tblSource;
+                    SetVisibleColumnsAndNameColumns();
+                }
+                catch (Exception ex)
+                {
+                    WinFormsServ.Error(ex);
+                }
             }
         }
 

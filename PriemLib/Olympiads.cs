@@ -23,8 +23,8 @@ namespace PriemLib
     
         public System.Guid Id { get; set; }
         public int OlympTypeId { get; set; }
-        public Nullable<int> OlympNameId { get; set; }
-        public Nullable<int> OlympSubjectId { get; set; }
+        public int OlympNameId { get; set; }
+        public int OlympSubjectId { get; set; }
         public Nullable<int> OlympLevelId { get; set; }
         public int OlympValueId { get; set; }
         public Nullable<System.Guid> AbiturientId { get; set; }
@@ -36,8 +36,9 @@ namespace PriemLib
         public Nullable<System.DateTime> DocumentDate { get; set; }
         public string Author { get; set; }
         public System.DateTime DateCreated { get; set; }
-        public short OlympYear { get; set; }
+        public int OlympYear { get; set; }
         public Nullable<int> OlympProfileId { get; set; }
+        public System.Guid PersonId { get; set; }
     
         public virtual OlympLevel OlympLevel { get; set; }
         public virtual OlympValue OlympValue { get; set; }

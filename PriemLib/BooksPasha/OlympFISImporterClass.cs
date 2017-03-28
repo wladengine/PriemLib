@@ -19,6 +19,7 @@ namespace PriemLib
             public int OlympSubjectID { get; set; }
             public int OlympProfileID { get; set; }
             public string OlympicID { get; set; }
+            public string OlympicNumber { get; set; }
         }
         public static void ImportDataFromXML(string fileName)
         {
@@ -34,6 +35,11 @@ namespace PriemLib
                 string OlympicName = node.SelectSingleNode("OlympicName").FirstChild.Value;
                 string Year = node.SelectSingleNode("Year").FirstChild.Value;
 
+                string OlympicNumber = null;
+                var NumNode = node.SelectSingleNode("OlympicNumber");
+                if (NumNode != null)
+                    OlympicNumber = NumNode.FirstChild.Value;
+
                 int iOlympType = 4;//прочие
 
                 if (OlympicName.Equals("Олимпиада школьников Санкт-Петербургского государственного университета", StringComparison.OrdinalIgnoreCase))
@@ -47,6 +53,7 @@ namespace PriemLib
                     string ProfileID = profNode.SelectSingleNode("ProfileID").FirstChild.Value;
                     string LevelID = profNode.SelectSingleNode("LevelID").FirstChild.Value;
                     
+                    
                     var lstSubjects = profNode.SelectNodes("Subjects/Subject");
                     if (lstSubjects.Count == 0)
                     {
@@ -56,6 +63,7 @@ namespace PriemLib
                         ol.OlympName = OlympicName;
                         ol.OlympLevelID = int.Parse(LevelID);
                         ol.OlympProfileID = int.Parse(ProfileID);
+                        ol.OlympicNumber = OlympicNumber;
 
                         ol.OlympicID = OlympicID;
                         lstToImport.Add(ol);
@@ -71,6 +79,7 @@ namespace PriemLib
                             ol.OlympLevelID = int.Parse(LevelID);
                             ol.OlympProfileID = int.Parse(ProfileID);
                             ol.OlympicID = OlympicID;
+                            ol.OlympicNumber = OlympicNumber;
 
                             string SubjectID = subjNode.SelectSingleNode("SubjectID").FirstChild.Value;
                             ol.OlympSubjectID = int.Parse(SubjectID);
@@ -85,10 +94,14 @@ namespace PriemLib
             {
                 foreach (var ol in lstToImport)
                 {
-                    int iOlympNameId = context.OlympName.Where(x => x.Name == ol.OlympName).Select(x => x.Id).DefaultIfEmpty(0).First();
+                    string OlympSubjectName = "";
 
+                    int iOlympNameId = context.OlympName.Where(x => x.Name == ol.OlympName).Select(x => x.Id).DefaultIfEmpty(0).First();
                     if (iOlympNameId == 0)
+                    {
                         WinFormsServ.Error("Не найдено соответствие названию олимпиады OlympName=" + ol.OlympName);
+                        break;
+                    }
 
                     int iOlympLevelId = context.OlympLevel.Where(x => x.FISID == ol.OlympLevelID).Select(x => x.Id).DefaultIfEmpty(0).First();
 
@@ -101,6 +114,9 @@ namespace PriemLib
                     }
                     else
                     {
+                        OlympSubjectName = context.FISSubject.Where(x => x.Id == ol.OlympSubjectID).Select(x => x.Name)
+                            .DefaultIfEmpty("название не определено, требуется дозагрузка справочника")
+                            .First();
                         //ищем по ИД предмета OlympSubject.Id в базе
                         iOlympSubjectId = context.OlympSubject.Where(x => x.SubjectID_FIS == ol.OlympSubjectID).Select(x => x.Id).DefaultIfEmpty(0).First();
                         //если такого нет, смотрим по профилю
@@ -113,14 +129,17 @@ namespace PriemLib
                     }
 
                     if (iOlympSubjectId == 0)
-                        WinFormsServ.Error("Не найдено соответствие предмету с SubjectID=" + ol.OlympSubjectID + "; ProfileID=" + ol.OlympProfileID);
+                    {
+                        WinFormsServ.Error("Не найдено соответствие предмету с SubjectID=" + ol.OlympSubjectID + "(" + OlympSubjectName + "); ProfileID=" + ol.OlympProfileID);
+                        continue;
+                    }
 
                     OlympBook OlB = context.OlympBook.Where(x => x.OlympYear == ol.OlympYear
                         && x.OlympTypeId == ol.OlympTypeID && x.OlympNameId == iOlympNameId && x.OlympLevelId == iOlympLevelId
                         && x.OlympProfileId == ol.OlympProfileID && x.OlympSubjectId == iOlympSubjectId).FirstOrDefault();
 
                     bool bInsert = false;
-                    if (OlB == null)
+                    if (OlB == null && ol.OlympYear == MainClass.iPriemYear)
                     {
                         bInsert = true;
                         OlB = new OlympBook();
@@ -133,7 +152,11 @@ namespace PriemLib
                         OlB.OlympSubjectId = iOlympSubjectId;
                     }
 
-                    OlB.OlympicID = ol.OlympicID;
+                    if (OlB != null)
+                    {
+                        OlB.OlympNumber = ol.OlympicNumber;
+                        OlB.OlympicID = ol.OlympicID;
+                    }
 
                     if (bInsert)
                         context.OlympBook.Add(OlB);
