@@ -2234,7 +2234,7 @@ namespace PriemLib
                             }
                         }
 
-                       // doc.Paragraphs.ForEach(x => x.Font(new System.Drawing.FontFamily("Times New Roman")));
+                        doc.Paragraphs.ForEach(x => x.Font(new System.Drawing.FontFamily("Times New Roman")));
 
                         string sOutFileName = string.Format(@"{0}EntryOrderList_{1}.docx", MainClass.saveTempFolder, Guid.NewGuid().ToString());
                         doc.SaveAs(sOutFileName);
@@ -2265,7 +2265,7 @@ namespace PriemLib
         {
             td.InsertRow(td.Rows[2]);
             curRow++;
-           // td.Rows[curRow].Cells[0].Paragraphs.ForEach(x => x.RemoveText(0));
+            td.Rows[curRow].Cells[0].Paragraphs.ForEach(x => x.RemoveText(0));
             td.Rows[curRow].Cells[0].Paragraphs[0].InsertText(text);
             td.Rows[curRow].Cells[0].Paragraphs[0].Font(new System.Drawing.FontFamily("Times New Roman"));
             td.Rows[curRow].Cells[0].Paragraphs[0].FontSize(12);
