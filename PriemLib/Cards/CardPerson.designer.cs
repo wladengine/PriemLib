@@ -254,6 +254,7 @@
             this.dgvOtherAppl = new System.Windows.Forms.DataGridView();
             this.dgvApplications = new System.Windows.Forms.DataGridView();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.btnDocsList = new System.Windows.Forms.Button();
             this.chbApplicationPrint = new System.Windows.Forms.CheckBox();
             this.btnPrintApplication = new System.Windows.Forms.Button();
             this.gbExamPass = new System.Windows.Forms.GroupBox();
@@ -303,7 +304,6 @@
             this.btnAddAbit = new System.Windows.Forms.Button();
             this.btnDocs = new System.Windows.Forms.Button();
             this.sfdPrint = new System.Windows.Forms.SaveFileDialog();
-            this.btnDocsList = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.epError)).BeginInit();
             this.tabCard.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -2735,6 +2735,16 @@
             this.tabPage4.Text = "Печать";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // btnDocsList
+            // 
+            this.btnDocsList.Location = new System.Drawing.Point(400, 123);
+            this.btnDocsList.Name = "btnDocsList";
+            this.btnDocsList.Size = new System.Drawing.Size(111, 23);
+            this.btnDocsList.TabIndex = 13;
+            this.btnDocsList.Text = "Печать расписки";
+            this.btnDocsList.UseVisualStyleBackColor = true;
+            this.btnDocsList.Click += new System.EventHandler(this.btnDocsList_Click);
+            // 
             // chbApplicationPrint
             // 
             this.chbApplicationPrint.AutoSize = true;
@@ -3242,15 +3252,6 @@
             this.btnDocs.UseVisualStyleBackColor = true;
             this.btnDocs.Visible = false;
             this.btnDocs.Click += new System.EventHandler(this.btnDocs_Click);
-            // 
-            // btnDocsList
-            // 
-            this.btnDocsList.Location = new System.Drawing.Point(400, 123);
-            this.btnDocsList.Name = "btnDocsList";
-            this.btnDocsList.Size = new System.Drawing.Size(111, 23);
-            this.btnDocsList.TabIndex = 13;
-            this.btnDocsList.Text = "Печать расписки";
-            this.btnDocsList.UseVisualStyleBackColor = true;
             // 
             // CardPerson
             // 

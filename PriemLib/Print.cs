@@ -2234,7 +2234,7 @@ namespace PriemLib
                             }
                         }
 
-                        doc.Paragraphs.ForEach(x => x.Font(new System.Drawing.FontFamily("Times New Roman")));
+                       // doc.Paragraphs.ForEach(x => x.Font(new System.Drawing.FontFamily("Times New Roman")));
 
                         string sOutFileName = string.Format(@"{0}EntryOrderList_{1}.docx", MainClass.saveTempFolder, Guid.NewGuid().ToString());
                         doc.SaveAs(sOutFileName);
@@ -2265,7 +2265,7 @@ namespace PriemLib
         {
             td.InsertRow(td.Rows[2]);
             curRow++;
-            td.Rows[curRow].Cells[0].Paragraphs.ForEach(x => x.RemoveText(0));
+           // td.Rows[curRow].Cells[0].Paragraphs.ForEach(x => x.RemoveText(0));
             td.Rows[curRow].Cells[0].Paragraphs[0].InsertText(text);
             td.Rows[curRow].Cells[0].Paragraphs[0].Font(new System.Drawing.FontFamily("Times New Roman"));
             td.Rows[curRow].Cells[0].Paragraphs[0].FontSize(12);
@@ -3184,6 +3184,44 @@ namespace PriemLib
                     wd.Tables[0][0, i - 1] = i.ToString() + ") " + d + "\n";
                     i++;
                 }
+            }
+        }
+
+        public static void PrintDocumentList(Guid persId , List<string> docs, string Staff)
+        {
+            try
+            {
+                using (PriemEntities context = new PriemEntities())
+                {
+                    extPerson abit = (from per in context.extPerson
+                                      where per.Id == persId
+                                      select per).FirstOrDefault();
+
+                    WordDoc wd = new WordDoc(string.Format(@"{0}\DocumentsList.dot", MainClass.dirTemplates));
+
+                    wd.SetFields("FIO", abit.FIO);
+                    string doc = "";
+                    int i = 1;
+                    foreach (string s in docs)
+                    {
+                        doc += i.ToString()+". " + s +"\n";
+                        i++;
+                    }
+                    wd.SetFields("Docs",  doc);
+                    DateTime tmp = DateTime.Now;
+                    List<string> Months = new List<string>(){ "января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря" };
+                    wd.SetFields("Date", "\"" + tmp.Day.ToString() + "\" " + Months[tmp.Month] + " " + tmp.Year.ToString() + " г.");
+                    wd.SetFields("Staff", Staff);
+
+                }
+            }
+            catch (WordException we)
+            {
+                WinFormsServ.Error(we);
+            }
+            catch (Exception exc)
+            {
+                WinFormsServ.Error(exc);
             }
         }
 

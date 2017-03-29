@@ -54,6 +54,17 @@ namespace PriemLib
                 dgv.Columns.Add("Количество", "Количество");
                 dgv.Columns["OriginalIsNeed"].Visible = false;
 
+
+                if (1 == 1)
+                {
+                    dgv.Rows.Add();
+                    dgv.Rows[dgv.Rows.Count - 1].Cells[0].Value = false;
+                    dgv.Rows[dgv.Rows.Count - 1].Cells[1].Value = "Заявление о приеме на основную образовательную программу";
+                    dgv.Rows[dgv.Rows.Count - 1].Cells[2].Value = false;
+                    dgv.Rows[dgv.Rows.Count - 1].Cells[3].Value = false;
+                    dgv.Rows[dgv.Rows.Count - 1].Cells[4].Value = "";
+                    dgv.Rows[dgv.Rows.Count - 1].Cells[5].Value = "";
+                }
                 foreach (var x in educ)
                 {
                     dgv.Rows.Add();
@@ -69,21 +80,21 @@ namespace PriemLib
                 {
                     dgv.Rows.Add();
                     dgv.Rows[dgv.Rows.Count - 1].Cells[0].Value = false;
-                    dgv.Rows[dgv.Rows.Count - 1].Cells[1].Value = "Сертификат ЕГЭ";
+                    dgv.Rows[dgv.Rows.Count - 1].Cells[1].Value = "Свидетельство ЕГЭ";
                     dgv.Rows[dgv.Rows.Count - 1].Cells[2].Value = true;
                     dgv.Rows[dgv.Rows.Count - 1].Cells[3].Value = false; 
                     dgv.Rows[dgv.Rows.Count - 1].Cells[4].Value = "";
                     dgv.Rows[dgv.Rows.Count - 1].Cells[5].Value = 1;
                 }
-                if (MainClass.dbType == PriemType.PriemMag)
+                if (1==1)
                 {
                     dgv.Rows.Add();
                     dgv.Rows[dgv.Rows.Count - 1].Cells[0].Value = false;
-                    dgv.Rows[dgv.Rows.Count - 1].Cells[1].Value = "Фотографии";
+                    dgv.Rows[dgv.Rows.Count - 1].Cells[1].Value = "Фотокарточки";
                     dgv.Rows[dgv.Rows.Count - 1].Cells[2].Value = false;
                     dgv.Rows[dgv.Rows.Count - 1].Cells[3].Value = true;
                     dgv.Rows[dgv.Rows.Count - 1].Cells[4].Value = "";
-                    dgv.Rows[dgv.Rows.Count - 1].Cells[5].Value = 2;
+                    dgv.Rows[dgv.Rows.Count - 1].Cells[5].Value = (MainClass.dbType == PriemType.Priem)? 4 : 2;
                 }
             }
         }
@@ -98,6 +109,8 @@ namespace PriemLib
                     string doc = rw.Cells[1].Value.ToString();
                     if ((bool)rw.Cells[2].Value)
                         doc += " (" + ((bool)rw.Cells[3].Value ? "оригинал" : "копия") + ")";
+                    if (!String.IsNullOrEmpty(rw.Cells[4].Value.ToString()))
+                        doc += rw.Cells[4].Value.ToString();
                     doc += ", " + rw.Cells[5].Value.ToString() + " шт.";
                     lst.Add(doc);
                 }

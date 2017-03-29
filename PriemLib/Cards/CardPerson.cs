@@ -659,6 +659,8 @@ namespace PriemLib
             btnPrintApplication.Enabled = true;
             chbApplicationPrint.Enabled = true;
 
+            btnDocsList.Enabled = true;
+
             if (MainClass.IsPasha())
             {
                 btnSetStatusPasha.Enabled = tbCommentFBSPasha.Enabled = true;
@@ -2468,6 +2470,16 @@ namespace PriemLib
                     int Certid = int.Parse(dgvCertificates.CurrentRow.Cells["Id"].Value.ToString());
                     new CardLangCertificate(Certid, GuidId.Value, new UpdateHandler(FillLanguageCertificates)).Show();
                 }
+        }
+
+        private void btnDocsList_Click(object sender, EventArgs e)
+        { 
+            if (!GuidId.HasValue)
+            {
+                WinFormsServ.Error("Сохраните сперва карточку!");
+                return;
+            } 
+            new CardDocumentList(GuidId.Value).Show();
         }
     }
 }
