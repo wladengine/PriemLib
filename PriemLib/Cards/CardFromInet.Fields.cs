@@ -202,6 +202,11 @@ namespace PriemLib
             get { return tbEmail.Text.Trim(); }
             set { tbEmail.Text = value; }
         }
+        public string AddEmail
+        {
+            get { return tbAddEmail.Text.Trim(); }
+            set { tbAddEmail.Text = value; }
+        }
         public string Code
         {
             get { return tbCode.Text.Trim(); }
@@ -465,8 +470,8 @@ namespace PriemLib
         }
         public string Stag
         {
-            get { return tbStag.Text.Trim(); }
-            set { tbStag.Text = value; }
+            get { return tbWorkStag.Text.Trim(); }
+            set { tbWorkStag.Text = value; }
         }
         public string WorkPlace
         {
@@ -592,5 +597,52 @@ namespace PriemLib
             set { chbEgeInSpbgu.Checked = value; }
         }
         
+        public int? ReturnDocumentTypeId
+        {
+            get { return rbReturnDocumentType1.Checked ? 1 : (rbReturnDocumentType1.Checked ? (int?)2 : null) ; }
+            set
+            {
+                if (value.HasValue)
+                {
+                    rbReturnDocumentType1.Checked = value == 1;
+                    rbReturnDocumentType2.Checked = value == 2;
+                }
+            }
+        }
+
+        public string Parent_Surname
+        {
+            get { return tbParent_Surname.Text.Trim(); }
+            set { tbParent_Surname.Text = value; }
+        }
+
+        public string Parent_Name
+        {
+            get { return tbParent_Surname.Text.Trim(); }
+            set { tbParent_Surname.Text = value; }
+        }
+        public string Parent_SecondName
+        {
+            get { return tbParent_Surname.Text.Trim(); }
+            set { tbParent_Surname.Text = value; }
+        }
+
+        public string Parent_Phone
+        {
+            get { return tbParent_Surname.Text.Trim(); }
+            set { tbParent_Surname.Text = value; }
+        }
+        public string Parent_Email { get; set; }
+        public string Parent_Work { get; set; }
+        public string Parent_WorkPosition { get; set; }
+
+        public string Parent2_Surname { get; set; }
+        public string Parent2_Name { get; set; }
+        public string Parent2_SecondName { get; set; }
+
+        public string Parent2_Phone { get; set; }
+        public string Parent2_Email { get; set; }
+        public string Parent2_Work { get; set; }
+        public string Parent2_WorkPosition { get; set; }
     }
 }

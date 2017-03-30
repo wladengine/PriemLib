@@ -37,6 +37,7 @@ namespace PriemLib
         public string KladrCode { get; set; }
         public string Author { get; set; }
         public System.DateTime DateCreated { get; set; }
+        public string AddEmail { get; set; }
     
         public virtual Country Country { get; set; }
         public virtual Person Person { get; set; }

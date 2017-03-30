@@ -210,7 +210,7 @@ namespace PriemLib
                         rw["OlympReasonName"] =
                             olymps.FirstOrDefault().OlympTypeId == 2 ? "Всеросс" :
                             context.OlympName.Where(x => x.Id == olymps.FirstOrDefault().OlympNameId).Select(x => x.Name).FirstOrDefault();
-                        rw["OlympSubjectName"] = olymps.FirstOrDefault().OlympSubjectId.HasValue ? olymps.FirstOrDefault().OlympSubject.Name : "";
+                        rw["OlympSubjectName"] = olymps.FirstOrDefault().OlympSubject.Name;
                     }
                     //до сюда удалять
                     var TvConk = context.extExamInEntry.Where(x => x.ExamName.Contains("творческий конкурс") && x.EntryId == AbEnt.EntryId);

@@ -1181,7 +1181,7 @@ namespace PriemLib
                     acrFlds.SetField("Profession" + i, abit.Profession);
                     acrFlds.SetField("ObrazProgram" + i, abit.ObrazProgram);
 
-                    var Exams = Util.GetExamList(abit.Id);
+                    /*var Exams = Util.GetExamList(abit.Id);
                     string ExamNames = "";
                     foreach (var x in Exams)
                     {
@@ -1194,6 +1194,7 @@ namespace PriemLib
                         acrFlds.SetField("ManualExam" + i, ExamNames);
                     else
                         acrFlds.SetField("ManualExam" + i, "нет");
+                     */
                 }
 
                 acrFlds.SetField("ClassNum", abitList.First().ClassNum.ToString());

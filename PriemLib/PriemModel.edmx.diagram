@@ -2,7 +2,7 @@
 <edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
   <edmx:Designer>
     <edmx:Diagrams>
-      <edmx:Diagram Name="PriemModel" ZoomLevel="116">
+      <edmx:Diagram Name="PriemModel" ZoomLevel="83">
         <edmx:EntityTypeShape EntityType="Priem2012Model.AttMarks" Width="1.5" PointX="6" PointY="36.375" Height="1.9210009765624996" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="Priem2012Model.AttSubject" Width="1.5" PointX="3.75" PointY="40.75" Height="1.4279589843750031" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="Priem2012Model.CelCompetition" Width="1.5" PointX="17.25" PointY="26.625" Height="1.5923063151041674" IsExpanded="true" />
@@ -747,7 +747,6 @@
         <edmx:AssociationConnector Association="Priem2012Model.FK_ObrazProgramInEntry_SP_ObrazProgram" />
         <edmx:AssociationConnector Association="Priem2012Model.FK_InnerEntryInEntry_SP_Profile" />
         <edmx:EntityTypeShape EntityType="Priem2012Model.extAbit" Width="1.5" PointX="31.75" PointY="9.75" />
-        <edmx:EntityTypeShape EntityType="Priem2012Model.extPerson" Width="1.5" PointX="31.75" PointY="25.75" />
         <edmx:EntityTypeShape EntityType="Priem2012Model.extPerson_EducationInfo" Width="1.5" PointX="32.75" PointY="0.75" />
         <edmx:EntityTypeShape EntityType="Priem2012Model.extPerson_EducationInfo_Current" Width="1.5" PointX="33.75" PointY="9.75" />
         <edmx:AssociationConnector Association="Priem2012Model.FK_Protocol_SP_Faculty" />
@@ -803,8 +802,6 @@
         <edmx:EntityTypeShape EntityType="Priem2012Model.SchoolExitClass" Width="1.5" PointX="16.375" PointY="29.75" />
         <edmx:AssociationConnector Association="Priem2012Model.FK_Person_EducationInfo_SchoolExitClass" />
         <edmx:EntityTypeShape EntityType="Priem2012Model.LanguageCertificatesType" Width="1.5" PointX="37.375" PointY="0.75" />
-        <edmx:EntityTypeShape EntityType="Priem2012Model.PersonLanguageCertificates" Width="1.5" PointX="3" PointY="52" />
-        <edmx:AssociationConnector Association="Priem2012Model.FK_PersonLanguageCertificates_Person" />
         <edmx:EntityTypeShape EntityType="Priem2012Model.ExamsVedHistoryMark" Width="1.5" PointX="39.625" PointY="4" />
         <edmx:EntityTypeShape EntityType="Priem2012Model.ExamsVedMarkDetails" Width="1.5" PointX="41.875" PointY="4" />
         <edmx:EntityTypeShape EntityType="Priem2012Model.ExamsVedMarkType" Width="1.5" PointX="37.375" PointY="4.375" />
@@ -847,6 +844,16 @@
         <edmx:AssociationConnector Association="Priem2012Model.FK_ExamInEntryBlock_Entry" />
         <edmx:EntityTypeShape EntityType="Priem2012Model.ADUserData" Width="1.5" PointX="38.375" PointY="36" />
         <edmx:EntityTypeShape EntityType="Priem2012Model.FISSubject" Width="1.5" PointX="39.375" PointY="0.75" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.PersonLanguageCertificates" Width="1.5" PointX="3.5" PointY="52.125" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_PersonLanguageCertificates_Person" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.PersonScienceWork" Width="3.25" PointX="39.375" PointY="24.75" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.ReturnDocumentType" Width="1.5" PointX="38.375" PointY="39.75" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.ScienceWorkType" Width="2.75" PointX="40.375" PointY="7.75" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_PersonScienceWork_PersonScienceWork" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_PersonScienceWork_ScienceWorkType" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_ScienceWorkType_ScienceWorkType" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.extPerson" Width="1.5" PointX="30.75" PointY="32.75" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.PersonWork" Width="1.5" PointX="33.375" PointY="30.75" />
         </edmx:Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

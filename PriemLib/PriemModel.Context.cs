@@ -138,7 +138,6 @@ namespace PriemLib
         public virtual DbSet<SP_AggregateGroup> SP_AggregateGroup { get; set; }
         public virtual DbSet<InnerEntryInEntry> InnerEntryInEntry { get; set; }
         public virtual DbSet<extAbit> extAbit { get; set; }
-        public virtual DbSet<extPerson> extPerson { get; set; }
         public virtual DbSet<extPerson_EducationInfo> extPerson_EducationInfo { get; set; }
         public virtual DbSet<extPerson_EducationInfo_Current> extPerson_EducationInfo_Current { get; set; }
         public virtual DbSet<extApplicationDetails> extApplicationDetails { get; set; }
@@ -167,7 +166,6 @@ namespace PriemLib
         public virtual DbSet<qMark> qMark { get; set; }
         public virtual DbSet<SchoolExitClass> SchoolExitClass { get; set; }
         public virtual DbSet<LanguageCertificatesType> LanguageCertificatesType { get; set; }
-        public virtual DbSet<PersonLanguageCertificates> PersonLanguageCertificates { get; set; }
         public virtual DbSet<ExamsVedHistoryMark> ExamsVedHistoryMark { get; set; }
         public virtual DbSet<ExamsVedMarkDetails> ExamsVedMarkDetails { get; set; }
         public virtual DbSet<ExamsVedMarkType> ExamsVedMarkType { get; set; }
@@ -187,6 +185,12 @@ namespace PriemLib
         public virtual DbSet<PayDataDiplomType> PayDataDiplomType { get; set; }
         public virtual DbSet<ADUserData> ADUserData { get; set; }
         public virtual DbSet<FISSubject> FISSubject { get; set; }
+        public virtual DbSet<PersonLanguageCertificates> PersonLanguageCertificates { get; set; }
+        public virtual DbSet<PersonScienceWork> PersonScienceWork { get; set; }
+        public virtual DbSet<ReturnDocumentType> ReturnDocumentType { get; set; }
+        public virtual DbSet<ScienceWorkType> ScienceWorkType { get; set; }
+        public virtual DbSet<extPerson> extPerson { get; set; }
+        public virtual DbSet<PersonWork> PersonWork { get; set; }
     
         public virtual int RoleMember(string roleName, ObjectParameter result)
         {

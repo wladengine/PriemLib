@@ -92,5 +92,7 @@ namespace PriemLib
         public string Author { get; set; }
         public System.DateTime DateCreated { get; set; }
         public Nullable<bool> HasOriginals { get; set; }
+        public string AddEmail { get; set; }
+        public Nullable<int> ReturnDocumentTypeId { get; set; }
     }
 }
