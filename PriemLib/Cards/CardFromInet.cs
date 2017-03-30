@@ -1534,7 +1534,7 @@ namespace PriemLib
         }
         private void SavePersonWork(PriemEntities context)
         {
-            foreach (DataGridViewRow rw in dgvPersonScienceWork.Rows)
+            foreach (DataGridViewRow rw in dgvPersonWork.Rows)
             {
                 string Stage = rw.Cells["Стаж"].Value.ToString();
                 string WorkPlace = rw.Cells["Место работы"].Value.ToString();
@@ -1651,9 +1651,20 @@ namespace PriemLib
         {
             try
             {
-                SaveCurrentEducationInfo(dgvEducationDocuments.CurrentRow.Index);
+                if (dgvEducationDocuments.Rows == null || dgvEducationDocuments.Rows.Count == 0)
+                {
+                    WinFormsServ.Error("Не заполнены сведения об образовании!");
+                    return false;
+                }
 
                 int _currentEducRow = 0;
+                if (dgvEducationDocuments.CurrentRow == null)
+                    _currentEducRow = 0;
+                else
+                    _currentEducRow = dgvEducationDocuments.CurrentRow.Index;
+
+                SaveCurrentEducationInfo(_currentEducRow);
+                
                 if (dgvEducationDocuments.SelectedCells.Count != 0)
                     _currentEducRow = dgvEducationDocuments.CurrentRow.Index;
 
