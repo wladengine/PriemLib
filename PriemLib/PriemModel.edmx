@@ -962,6 +962,15 @@ warning 6002: The table/view 'Priem2017.ed.PayDataEntry' does not have a primary
           <Property Name="Parent_Phone" Type="nvarchar" MaxLength="150" />
           <Property Name="Parent_Email" Type="nvarchar" MaxLength="150" />
           <Property Name="Parent_Work" Type="nvarchar" MaxLength="150" />
+          <Property Name="Parent2_Surname" Type="nvarchar" MaxLength="150" />
+          <Property Name="Parent2_Name" Type="nvarchar" MaxLength="150" />
+          <Property Name="Parent2_SecondName" Type="nvarchar" MaxLength="150" />
+          <Property Name="Parent2_Phone" Type="nvarchar" MaxLength="150" />
+          <Property Name="Parent2_Email" Type="nvarchar" MaxLength="150" />
+          <Property Name="Parent2_Work" Type="nvarchar" MaxLength="150" />
+          <Property Name="ReturnDocumentTypeId" Type="int" />
+          <Property Name="Parent_WorkPosition" Type="nvarchar" MaxLength="250" />
+          <Property Name="Parent2_WorkPosition" Type="nvarchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="Person_Contacts">
           <Key>
@@ -990,6 +999,7 @@ warning 6002: The table/view 'Priem2017.ed.PayDataEntry' does not have a primary
           <Property Name="KladrCode" Type="nvarchar" MaxLength="50" />
           <Property Name="Author" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="AddEmail" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="Person_EducationInfo">
           <Key>
@@ -1116,6 +1126,16 @@ warning 6002: The table/view 'Priem2017.ed.PayDataEntry' does not have a primary
           <Property Name="IsOpen" Type="bit" Nullable="false" />
           <Property Name="Holder" Type="nvarchar" MaxLength="150" />
         </EntityType>
+        <EntityType Name="PersonScienceWork">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PersonId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="WorkTypeId" Type="int" />
+          <Property Name="WorkInfo" Type="nvarchar(max)" />
+          <Property Name="WorkYear" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="PersonSportQualification">
           <Key>
             <PropertyRef Name="PersonId" />
@@ -1124,6 +1144,17 @@ warning 6002: The table/view 'Priem2017.ed.PayDataEntry' does not have a primary
           <Property Name="SportQualificationId" Type="int" />
           <Property Name="SportQualificationLevel" Type="nvarchar" MaxLength="50" />
           <Property Name="OtherSportQualification" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="PersonWork">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PersonId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Stage" Type="nvarchar" MaxLength="500" />
+          <Property Name="WorkPlace" Type="nvarchar" MaxLength="500" />
+          <Property Name="WorkProfession" Type="nvarchar" MaxLength="500" />
+          <Property Name="WorkSpecifications" Type="nvarchar(max)" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'Priem2017.ed.Privilege' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -1212,6 +1243,13 @@ warning 6002: The table/view 'Priem2017.ed.Privilege' does not have a primary ke
           <Property Name="RodName" Type="nvarchar" MaxLength="100" />
           <Property Name="CountryId" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="ReturnDocumentType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+        </EntityType>
         <EntityType Name="SchoolExitClass">
           <Key>
             <PropertyRef Name="Id" />
@@ -1240,6 +1278,13 @@ warning 6002: The table/view 'Priem2017.ed.Privilege' does not have a primary ke
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="FullName" Type="nvarchar" MaxLength="150" />
           <Property Name="Sort" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ScienceWorkType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Signer">
           <Key>
@@ -2346,21 +2391,21 @@ warning 6002: The table/view 'Priem2017.ed.extPerson' does not have a primary ke
             <PropertyRef Name="BirthPlace" />
             <PropertyRef Name="PassportTypeId" />
             <PropertyRef Name="Sex" />
-            
+            <PropertyRef Name="CountryId" />
             <PropertyRef Name="NationalityId" />
-            
-            
-            
-            
-            
-            
+            <PropertyRef Name="RegionId" />
+            <PropertyRef Name="HostelAbit" />
+            <PropertyRef Name="HasAssignToHostel" />
+            <PropertyRef Name="HasExamPass" />
+            <PropertyRef Name="LanguageId" />
+            <PropertyRef Name="Privileges" />
             <PropertyRef Name="FIO" />
-            
-            
-            
-            
+            <PropertyRef Name="HostelEduc" />
+            <PropertyRef Name="StartEnglish" />
+            <PropertyRef Name="EgeInSPbgu" />
+            <PropertyRef Name="HasTRKI" />
             <PropertyRef Name="HasRussianNationality" />
-            
+            <PropertyRef Name="LanguageName" />
             <PropertyRef Name="Author" />
             <PropertyRef Name="DateCreated" />
           </Key>
@@ -2442,6 +2487,8 @@ warning 6002: The table/view 'Priem2017.ed.extPerson' does not have a primary ke
           <Property Name="Author" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="DateCreated" Type="datetime" Nullable="false" />
           <Property Name="HasOriginals" Type="bit" />
+          <Property Name="AddEmail" Type="nvarchar" MaxLength="100" />
+          <Property Name="ReturnDocumentTypeId" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'Priem2017.ed.extPerson_EducationInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -4736,6 +4783,30 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PersonScienceWork_PersonScienceWork">
+          <End Role="PersonScienceWork" Type="Self.PersonScienceWork" Multiplicity="1" />
+          <End Role="PersonScienceWork1" Type="Self.PersonScienceWork" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="PersonScienceWork">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PersonScienceWork1">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonScienceWork_ScienceWorkType">
+          <End Role="ScienceWorkType" Type="Self.ScienceWorkType" Multiplicity="0..1" />
+          <End Role="PersonScienceWork" Type="Self.PersonScienceWork" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ScienceWorkType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PersonScienceWork">
+              <PropertyRef Name="WorkTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PersonSportQualification_Person">
           <End Role="Person" Type="Self.Person" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -4857,6 +4928,18 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
             </Principal>
             <Dependent Role="ProtocolHistory">
               <PropertyRef Name="ProtocolId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ScienceWorkType_ScienceWorkType">
+          <End Role="ScienceWorkType" Type="Self.ScienceWorkType" Multiplicity="1" />
+          <End Role="ScienceWorkType1" Type="Self.ScienceWorkType" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="ScienceWorkType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ScienceWorkType1">
+              <PropertyRef Name="Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -6312,16 +6395,20 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
           <EntitySet Name="PersonLanguageCertificates" EntityType="Self.PersonLanguageCertificates" Schema="ed" store:Type="Tables" />
           <EntitySet Name="PersonNoticies" EntityType="Self.PersonNoticies" Schema="ed" store:Type="Tables" />
           <EntitySet Name="PersonOtherPassport" EntityType="Self.PersonOtherPassport" Schema="ed" store:Type="Tables" />
+          <EntitySet Name="PersonScienceWork" EntityType="Self.PersonScienceWork" Schema="ed" store:Type="Tables" />
           <EntitySet Name="PersonSportQualification" EntityType="Self.PersonSportQualification" Schema="ed" store:Type="Tables" />
+          <EntitySet Name="PersonWork" EntityType="Self.PersonWork" Schema="ed" store:Type="Tables" />
           <EntitySet Name="Prorektor" EntityType="Self.Prorektor" Schema="ed" store:Type="Tables" />
           <EntitySet Name="Protocol" EntityType="Self.Protocol" Schema="ed" store:Type="Tables" />
           <EntitySet Name="ProtocolHistory" EntityType="Self.ProtocolHistory" Schema="ed" store:Type="Tables" />
           <EntitySet Name="ProtocolNumbers" EntityType="Self.ProtocolNumbers" Schema="ed" store:Type="Tables" />
           <EntitySet Name="ProtocolType" EntityType="Self.ProtocolType" Schema="ed" store:Type="Tables" />
           <EntitySet Name="Region" EntityType="Self.Region" Schema="ed" store:Type="Tables" />
+          <EntitySet Name="ReturnDocumentType" EntityType="Self.ReturnDocumentType" Schema="ed" store:Type="Tables" />
           <EntitySet Name="SchoolExitClass" EntityType="Self.SchoolExitClass" Schema="ed" store:Type="Tables" />
           <EntitySet Name="SchoolNames" EntityType="Self.SchoolNames" Schema="ed" store:Type="Tables" />
           <EntitySet Name="SchoolType" EntityType="Self.SchoolType" Schema="ed" store:Type="Tables" />
+          <EntitySet Name="ScienceWorkType" EntityType="Self.ScienceWorkType" Schema="ed" store:Type="Tables" />
           <EntitySet Name="Signer" EntityType="Self.Signer" Schema="ed" store:Type="Tables" />
           <EntitySet Name="SP_AggregateGroup" EntityType="Self.SP_AggregateGroup" Schema="ed" store:Type="Tables" />
           <EntitySet Name="SP_Faculty" EntityType="Self.SP_Faculty" Schema="ed" store:Type="Tables" />
@@ -7094,7 +7181,9 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
     [extPerson].[LanguageName] AS [LanguageName], 
     [extPerson].[Author] AS [Author], 
     [extPerson].[DateCreated] AS [DateCreated], 
-    [extPerson].[HasOriginals] AS [HasOriginals]
+    [extPerson].[HasOriginals] AS [HasOriginals], 
+    [extPerson].[AddEmail] AS [AddEmail], 
+    [extPerson].[ReturnDocumentTypeId] AS [ReturnDocumentTypeId]
     FROM [ed].[extPerson] AS [extPerson]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="extPerson_EducationInfo" EntityType="Self.extPerson_EducationInfo" store:Type="Views" store:Schema="ed">
@@ -8183,6 +8272,14 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
             <End Role="Person" EntitySet="Person" />
             <End Role="PersonOtherPassport" EntitySet="PersonOtherPassport" />
           </AssociationSet>
+          <AssociationSet Name="FK_PersonScienceWork_PersonScienceWork" Association="Self.FK_PersonScienceWork_PersonScienceWork">
+            <End Role="PersonScienceWork" EntitySet="PersonScienceWork" />
+            <End Role="PersonScienceWork1" EntitySet="PersonScienceWork" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonScienceWork_ScienceWorkType" Association="Self.FK_PersonScienceWork_ScienceWorkType">
+            <End Role="ScienceWorkType" EntitySet="ScienceWorkType" />
+            <End Role="PersonScienceWork" EntitySet="PersonScienceWork" />
+          </AssociationSet>
           <AssociationSet Name="FK_PersonSportQualification_Person" Association="Self.FK_PersonSportQualification_Person">
             <End Role="Person" EntitySet="Person" />
             <End Role="PersonSportQualification" EntitySet="PersonSportQualification" />
@@ -8222,6 +8319,10 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
           <AssociationSet Name="fk_ProtocolHistory_Protocol" Association="Self.fk_ProtocolHistory_Protocol">
             <End Role="Protocol" EntitySet="Protocol" />
             <End Role="ProtocolHistory" EntitySet="ProtocolHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ScienceWorkType_ScienceWorkType" Association="Self.FK_ScienceWorkType_ScienceWorkType">
+            <End Role="ScienceWorkType" EntitySet="ScienceWorkType" />
+            <End Role="ScienceWorkType1" EntitySet="ScienceWorkType" />
           </AssociationSet>
           <AssociationSet Name="FK_SP_LicenseProgram_SP_AggregateGroup" Association="Self.FK_SP_LicenseProgram_SP_AggregateGroup">
             <End Role="SP_AggregateGroup" EntitySet="SP_AggregateGroup" />
@@ -9791,7 +9892,6 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
             <Parameter Name="Priority" Mode="In" Type="Int32" />
             <Parameter Name="applicationId" Mode="In" Type="Guid" />
           </FunctionImport>
-          <EntitySet Name="extPerson" EntityType="Priem2012Model.extPerson" />
           <EntitySet Name="extPerson_EducationInfo" EntityType="Priem2012Model.extPerson_EducationInfo" />
           <EntitySet Name="extPerson_EducationInfo_Current" EntityType="Priem2012Model.extPerson_EducationInfo_Current" />
           <FunctionImport Name="Person_deleteAllInfo">
@@ -10094,11 +10194,6 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
             <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="LanguageCertificatesType" EntityType="Priem2012Model.LanguageCertificatesType" />
-          <EntitySet Name="PersonLanguageCertificates" EntityType="Priem2012Model.PersonLanguageCertificates" />
-          <AssociationSet Name="FK_PersonLanguageCertificates_Person" Association="Priem2012Model.FK_PersonLanguageCertificates_Person">
-            <End Role="Person" EntitySet="Person" />
-            <End Role="PersonLanguageCertificates" EntitySet="PersonLanguageCertificates" />
-          </AssociationSet>
           <EntitySet Name="ExamsVedHistoryMark" EntityType="Priem2012Model.ExamsVedHistoryMark" />
           <EntitySet Name="ExamsVedMarkDetails" EntityType="Priem2012Model.ExamsVedMarkDetails" />
           <EntitySet Name="ExamsVedMarkType" EntityType="Priem2012Model.ExamsVedMarkType" />
@@ -10214,6 +10309,28 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
           </AssociationSet>
           <EntitySet Name="ADUserData" EntityType="Priem2012Model.ADUserData" />
           <EntitySet Name="FISSubject" EntityType="Priem2012Model.FISSubject" />
+          <EntitySet Name="PersonLanguageCertificates" EntityType="Priem2012Model.PersonLanguageCertificates" />
+          <AssociationSet Name="FK_PersonLanguageCertificates_Person" Association="Priem2012Model.FK_PersonLanguageCertificates_Person">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="PersonLanguageCertificates" EntitySet="PersonLanguageCertificates" />
+          </AssociationSet>
+          <EntitySet Name="PersonScienceWork" EntityType="Priem2012Model.PersonScienceWork" />
+          <EntitySet Name="ReturnDocumentType" EntityType="Priem2012Model.ReturnDocumentType" />
+          <EntitySet Name="ScienceWorkType" EntityType="Priem2012Model.ScienceWorkType" />
+          <AssociationSet Name="FK_PersonScienceWork_PersonScienceWork" Association="Priem2012Model.FK_PersonScienceWork_PersonScienceWork">
+            <End Role="PersonScienceWork" EntitySet="PersonScienceWork" />
+            <End Role="PersonScienceWork1" EntitySet="PersonScienceWork" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonScienceWork_ScienceWorkType" Association="Priem2012Model.FK_PersonScienceWork_ScienceWorkType">
+            <End Role="ScienceWorkType" EntitySet="ScienceWorkType" />
+            <End Role="PersonScienceWork" EntitySet="PersonScienceWork" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ScienceWorkType_ScienceWorkType" Association="Priem2012Model.FK_ScienceWorkType_ScienceWorkType">
+            <End Role="ScienceWorkType" EntitySet="ScienceWorkType" />
+            <End Role="ScienceWorkType1" EntitySet="ScienceWorkType" />
+          </AssociationSet>
+          <EntitySet Name="extPerson" EntityType="Priem2012Model.extPerson" />
+          <EntitySet Name="PersonWork" EntityType="Priem2012Model.PersonWork" />
           </EntityContainer>
         <EntityType Name="AttMarks">
           <Key>
@@ -12053,6 +12170,15 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
           <Property Name="Parent_Phone" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="Parent_Email" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="Parent_Work" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Parent2_Surname" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Parent2_Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Parent2_SecondName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Parent2_Phone" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Parent2_Email" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Parent2_Work" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ReturnDocumentTypeId" Type="Int32" />
+          <Property Name="Parent_WorkPosition" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Parent2_WorkPosition" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Person_Contacts">
           <Key>
@@ -12085,6 +12211,7 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
           <NavigationProperty Name="ForeignCountry" Relationship="Priem2012Model.FK_Person_Contacts_ForeignCountry" FromRole="Person_Contacts" ToRole="ForeignCountry" />
           <Property Type="String" Name="Author" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Type="DateTime" Name="DateCreated" Nullable="false" Precision="3" />
+          <Property Name="AddEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Person_EducationInfo">
           <Key>
@@ -13613,101 +13740,6 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
           <Property Name="DateDisableEntryConfirm" Type="DateTime" Precision="3" />
           <Property Name="StudyLevelGroupUpperCategoryId" Type="Int32" />
         </EntityType>
-        <EntityType Name="extPerson">
-          <Key>
-            <PropertyRef Name="Id" />
-            <PropertyRef Name="Num" />
-            <PropertyRef Name="Name" />
-            <PropertyRef Name="Surname" />
-            <PropertyRef Name="BirthDate" />
-            <PropertyRef Name="BirthPlace" />
-            <PropertyRef Name="PassportTypeId" />
-            <PropertyRef Name="Sex" />
-            <PropertyRef Name="NationalityId" />
-            <PropertyRef Name="FIO" />
-            <PropertyRef Name="HasRussianNationality" />
-            <PropertyRef Name="Author" />
-            <PropertyRef Name="DateCreated" />
-          </Key>
-          <Property Type="Guid" Name="Id" Nullable="false" />
-          <Property Type="Int32" Name="Barcode" />
-          <Property Type="Int32" Name="Num" Nullable="false" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="SecondName" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Surname" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="BirthDate" Nullable="false" Precision="0" />
-          <Property Type="String" Name="BirthPlace" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="PassportTypeId" Nullable="false" />
-          <Property Type="String" Name="PassportSeries" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="PassportNumber" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="PassportAuthor" MaxLength="350" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="PassportDate" Precision="0" />
-          <Property Type="Boolean" Name="Sex" Nullable="false" />
-          <Property Type="Int32" Name="CountryId" Nullable="false" />
-          <Property Type="Int32" Name="NationalityId" Nullable="false" />
-          <Property Type="Int32" Name="RegionId" Nullable="false" />
-          <Property Type="String" Name="Phone" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Mobiles" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Email" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Code" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="City" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Street" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="House" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Flat" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="CodeReal" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Korpus" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="CityReal" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="StreetReal" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="HouseReal" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="KorpusReal" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="FlatReal" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Type="Boolean" Name="HostelAbit" Nullable="false" />
-          <Property Type="Boolean" Name="HasAssignToHostel" Nullable="false" />
-          <Property Type="Int32" Name="HostelFacultyId" />
-          <Property Type="Int32" Name="ExamPassFacultyId" />
-          <Property Type="Boolean" Name="HasExamPass" Nullable="false" />
-          <Property Type="Int32" Name="LanguageId" Nullable="false" />
-          <Property Type="String" Name="MSVuz" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="MSStudyFormId" />
-          <Property Type="String" Name="MSCourse" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Stag" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="WorkPlace" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="Privileges" Nullable="false" />
-          <Property Type="String" Name="PassportCode" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="PersonalCode" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="PersonInfo" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="ExtraInfo" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="ScienceWork" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="PersonNum" MaxLength="7" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="FIO" Nullable="false" MaxLength="152" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="PassportData" MaxLength="532" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="EducDocument" MaxLength="42" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="HostelFacultyAcr" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="CountryName" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="NationalityName" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="RegionName" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="HostelFacultyName" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="Boolean" Name="HostelEduc" Nullable="false" />
-          <Property Type="String" Name="KladrCode" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="SNILS" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="RegionNumber" MaxLength="2" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="ForeignNationality" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="ForeignNationalityId" />
-          <Property Type="String" Name="ForeignCountry" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="ForeignCountryId" />
-          <Property Type="Boolean" Name="StartEnglish" Nullable="false" />
-          <Property Type="Double" Name="EnglishMark" />
-          <Property Type="Boolean" Name="EgeInSPbgu" Nullable="false" />
-          <Property Type="Boolean" Name="HasTRKI" Nullable="false" />
-          <Property Type="String" Name="TRKICertificateNumber" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="Boolean" Name="HasRussianNationality" Nullable="false" />
-          <Property Type="String" Name="PassportTypeName" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="PassportTypeFISName" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="LanguageName" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Author" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="HasOriginals" Type="Boolean" />
-        </EntityType>
         <EntityType Name="extPerson_EducationInfo">
           <Key>
             <PropertyRef Name="Id" />
@@ -14618,31 +14650,6 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
           <Property Name="BoolType" Type="Boolean" Nullable="false" />
           <Property Name="ValueType" Type="Boolean" Nullable="false" />
         </EntityType>
-        <EntityType Name="PersonLanguageCertificates">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
-          <Property Name="PersonId" Type="Guid" Nullable="false" />
-          <Property Name="LanguageCertificateTypeId" Type="Int32" Nullable="false" />
-          <Property Name="Number" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="ResultValue" Type="Double" />
-          <NavigationProperty Name="Person" Relationship="Priem2012Model.FK_PersonLanguageCertificates_Person" FromRole="PersonLanguageCertificates" ToRole="Person" />
-        </EntityType>
-        <Association Name="FK_PersonLanguageCertificates_Person">
-          <End Type="Priem2012Model.Person" Role="Person" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="Priem2012Model.PersonLanguageCertificates" Role="PersonLanguageCertificates" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Person">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="PersonLanguageCertificates">
-              <PropertyRef Name="PersonId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="ExamsVedHistoryMark">
           <Key>
             <PropertyRef Name="Id" />
@@ -15206,6 +15213,213 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="PersonLanguageCertificates">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="PersonId" Type="Guid" Nullable="false" />
+          <Property Name="LanguageCertificateTypeId" Type="Int32" Nullable="false" />
+          <Property Name="Number" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ResultValue" Type="Double" />
+          <NavigationProperty Name="Person" Relationship="Priem2012Model.FK_PersonLanguageCertificates_Person" FromRole="PersonLanguageCertificates" ToRole="Person" />
+        </EntityType>
+        <Association Name="FK_PersonLanguageCertificates_Person">
+          <End Type="Priem2012Model.Person" Role="Person" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Priem2012Model.PersonLanguageCertificates" Role="PersonLanguageCertificates" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PersonLanguageCertificates">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="PersonScienceWork">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="PersonId" Type="Guid" Nullable="false" />
+          <Property Name="WorkTypeId" Type="Int32" />
+          <Property Name="WorkInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="WorkYear" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ScienceWorkType" Relationship="Priem2012Model.FK_PersonScienceWork_ScienceWorkType" FromRole="PersonScienceWork" ToRole="ScienceWorkType" />
+        </EntityType>
+        <EntityType Name="ReturnDocumentType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ScienceWorkType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PersonScienceWork" Relationship="Priem2012Model.FK_PersonScienceWork_ScienceWorkType" FromRole="ScienceWorkType" ToRole="PersonScienceWork" />
+        </EntityType>
+        <Association Name="FK_PersonScienceWork_PersonScienceWork">
+          <End Type="Priem2012Model.PersonScienceWork" Role="PersonScienceWork" Multiplicity="1" />
+          <End Type="Priem2012Model.PersonScienceWork" Role="PersonScienceWork1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="PersonScienceWork">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PersonScienceWork1">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonScienceWork_ScienceWorkType">
+          <End Type="Priem2012Model.ScienceWorkType" Role="ScienceWorkType" Multiplicity="0..1" />
+          <End Type="Priem2012Model.PersonScienceWork" Role="PersonScienceWork" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ScienceWorkType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PersonScienceWork">
+              <PropertyRef Name="WorkTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ScienceWorkType_ScienceWorkType">
+          <End Type="Priem2012Model.ScienceWorkType" Role="ScienceWorkType" Multiplicity="1" />
+          <End Type="Priem2012Model.ScienceWorkType" Role="ScienceWorkType1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="ScienceWorkType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ScienceWorkType1">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="extPerson">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Num" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="Surname" />
+            <PropertyRef Name="BirthDate" />
+            <PropertyRef Name="BirthPlace" />
+            <PropertyRef Name="PassportTypeId" />
+            <PropertyRef Name="Sex" />
+            <PropertyRef Name="CountryId" />
+            <PropertyRef Name="NationalityId" />
+            <PropertyRef Name="RegionId" />
+            <PropertyRef Name="HostelAbit" />
+            <PropertyRef Name="HasAssignToHostel" />
+            <PropertyRef Name="HasExamPass" />
+            <PropertyRef Name="LanguageId" />
+            <PropertyRef Name="Privileges" />
+            <PropertyRef Name="FIO" />
+            <PropertyRef Name="HostelEduc" />
+            <PropertyRef Name="StartEnglish" />
+            <PropertyRef Name="EgeInSPbgu" />
+            <PropertyRef Name="HasTRKI" />
+            <PropertyRef Name="HasRussianNationality" />
+            <PropertyRef Name="LanguageName" />
+            <PropertyRef Name="Author" />
+            <PropertyRef Name="DateCreated" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Barcode" Type="Int32" />
+          <Property Name="Num" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SecondName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Surname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BirthDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="BirthPlace" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PassportTypeId" Type="Int32" Nullable="false" />
+          <Property Name="PassportSeries" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="PassportNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="PassportAuthor" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="PassportDate" Type="DateTime" Precision="0" />
+          <Property Name="Sex" Type="Boolean" Nullable="false" />
+          <Property Name="CountryId" Type="Int32" Nullable="false" />
+          <Property Name="NationalityId" Type="Int32" Nullable="false" />
+          <Property Name="RegionId" Type="Int32" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Mobiles" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Code" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Street" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="House" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Flat" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="CodeReal" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Korpus" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="CityReal" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="StreetReal" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="HouseReal" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="KorpusReal" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="FlatReal" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="HostelAbit" Type="Boolean" Nullable="false" />
+          <Property Name="HasAssignToHostel" Type="Boolean" Nullable="false" />
+          <Property Name="HostelFacultyId" Type="Int32" />
+          <Property Name="ExamPassFacultyId" Type="Int32" />
+          <Property Name="HasExamPass" Type="Boolean" Nullable="false" />
+          <Property Name="LanguageId" Type="Int32" Nullable="false" />
+          <Property Name="MSVuz" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MSStudyFormId" Type="Int32" />
+          <Property Name="MSCourse" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Stag" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="WorkPlace" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Privileges" Type="Int32" Nullable="false" />
+          <Property Name="PassportCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="PersonalCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="PersonInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ExtraInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ScienceWork" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PersonNum" Type="String" MaxLength="7" FixedLength="false" Unicode="true" />
+          <Property Name="FIO" Type="String" Nullable="false" MaxLength="152" FixedLength="false" Unicode="true" />
+          <Property Name="PassportData" Type="String" MaxLength="532" FixedLength="false" Unicode="true" />
+          <Property Name="EducDocument" Type="String" MaxLength="42" FixedLength="false" Unicode="true" />
+          <Property Name="HostelFacultyAcr" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CountryName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="NationalityName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="RegionName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="HostelFacultyName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="HostelEduc" Type="Boolean" Nullable="false" />
+          <Property Name="KladrCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SNILS" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RegionNumber" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="ForeignNationality" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ForeignNationalityId" Type="Int32" />
+          <Property Name="ForeignCountry" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ForeignCountryId" Type="Int32" />
+          <Property Name="StartEnglish" Type="Boolean" Nullable="false" />
+          <Property Name="EnglishMark" Type="Double" />
+          <Property Name="EgeInSPbgu" Type="Boolean" Nullable="false" />
+          <Property Name="HasTRKI" Type="Boolean" Nullable="false" />
+          <Property Name="TRKICertificateNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HasRussianNationality" Type="Boolean" Nullable="false" />
+          <Property Name="PassportTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PassportTypeFISName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="LanguageName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Author" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="HasOriginals" Type="Boolean" />
+          <Property Name="AddEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ReturnDocumentTypeId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="PersonWork">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="PersonId" Type="Guid" Nullable="false" />
+          <Property Name="Stage" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="WorkPlace" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="WorkProfession" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="WorkSpecifications" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -16440,6 +16654,15 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
           <EntitySetMapping Name="Person_AdditionalInfo">
             <EntityTypeMapping TypeName="Priem2012Model.Person_AdditionalInfo">
               <MappingFragment StoreEntitySet="Person_AdditionalInfo">
+                <ScalarProperty Name="Parent2_WorkPosition" ColumnName="Parent2_WorkPosition" />
+                <ScalarProperty Name="Parent_WorkPosition" ColumnName="Parent_WorkPosition" />
+                <ScalarProperty Name="ReturnDocumentTypeId" ColumnName="ReturnDocumentTypeId" />
+                <ScalarProperty Name="Parent2_Work" ColumnName="Parent2_Work" />
+                <ScalarProperty Name="Parent2_Email" ColumnName="Parent2_Email" />
+                <ScalarProperty Name="Parent2_Phone" ColumnName="Parent2_Phone" />
+                <ScalarProperty Name="Parent2_SecondName" ColumnName="Parent2_SecondName" />
+                <ScalarProperty Name="Parent2_Name" ColumnName="Parent2_Name" />
+                <ScalarProperty Name="Parent2_Surname" ColumnName="Parent2_Surname" />
                 <ScalarProperty Name="Parent_Work" ColumnName="Parent_Work" />
                 <ScalarProperty Name="Parent_Email" ColumnName="Parent_Email" />
                 <ScalarProperty Name="Parent_Phone" ColumnName="Parent_Phone" />
@@ -16477,6 +16700,7 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
           <EntitySetMapping Name="Person_Contacts">
             <EntityTypeMapping TypeName="Priem2012Model.Person_Contacts">
               <MappingFragment StoreEntitySet="Person_Contacts">
+                <ScalarProperty Name="AddEmail" ColumnName="AddEmail" />
                 <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
                 <ScalarProperty Name="Author" ColumnName="Author" />
                 <ScalarProperty Name="KladrCode" ColumnName="KladrCode" />
@@ -17380,90 +17604,6 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="Abiturient_UpdateInnerEntryInEntryId" FunctionName="Priem2012Model.Store.Abiturient_UpdateInnerEntryInEntryId" />
           <FunctionImportMapping FunctionImportName="Abiturient_UpdateInnerEntryInEntryPriority" FunctionName="Priem2012Model.Store.Abiturient_UpdateInnerEntryInEntryPriority" />
-          <EntitySetMapping Name="extPerson">
-            <EntityTypeMapping TypeName="Priem2012Model.extPerson">
-              <MappingFragment StoreEntitySet="extPerson">
-                <ScalarProperty Name="HasOriginals" ColumnName="HasOriginals" />
-                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
-                <ScalarProperty Name="Author" ColumnName="Author" />
-                <ScalarProperty Name="LanguageName" ColumnName="LanguageName" />
-                <ScalarProperty Name="PassportTypeFISName" ColumnName="PassportTypeFISName" />
-                <ScalarProperty Name="PassportTypeName" ColumnName="PassportTypeName" />
-                <ScalarProperty Name="HasRussianNationality" ColumnName="HasRussianNationality" />
-                <ScalarProperty Name="TRKICertificateNumber" ColumnName="TRKICertificateNumber" />
-                <ScalarProperty Name="HasTRKI" ColumnName="HasTRKI" />
-                <ScalarProperty Name="EgeInSPbgu" ColumnName="EgeInSPbgu" />
-                <ScalarProperty Name="EnglishMark" ColumnName="EnglishMark" />
-                <ScalarProperty Name="StartEnglish" ColumnName="StartEnglish" />
-                <ScalarProperty Name="ForeignCountryId" ColumnName="ForeignCountryId" />
-                <ScalarProperty Name="ForeignCountry" ColumnName="ForeignCountry" />
-                <ScalarProperty Name="ForeignNationalityId" ColumnName="ForeignNationalityId" />
-                <ScalarProperty Name="ForeignNationality" ColumnName="ForeignNationality" />
-                <ScalarProperty Name="RegionNumber" ColumnName="RegionNumber" />
-                <ScalarProperty Name="SNILS" ColumnName="SNILS" />
-                <ScalarProperty Name="KladrCode" ColumnName="KladrCode" />
-                <ScalarProperty Name="HostelEduc" ColumnName="HostelEduc" />
-                <ScalarProperty Name="HostelFacultyName" ColumnName="HostelFacultyName" />
-                <ScalarProperty Name="RegionName" ColumnName="RegionName" />
-                <ScalarProperty Name="NationalityName" ColumnName="NationalityName" />
-                <ScalarProperty Name="CountryName" ColumnName="CountryName" />
-                <ScalarProperty Name="HostelFacultyAcr" ColumnName="HostelFacultyAcr" />
-                <ScalarProperty Name="EducDocument" ColumnName="EducDocument" />
-                <ScalarProperty Name="PassportData" ColumnName="PassportData" />
-                <ScalarProperty Name="FIO" ColumnName="FIO" />
-                <ScalarProperty Name="PersonNum" ColumnName="PersonNum" />
-                <ScalarProperty Name="ScienceWork" ColumnName="ScienceWork" />
-                <ScalarProperty Name="ExtraInfo" ColumnName="ExtraInfo" />
-                <ScalarProperty Name="PersonInfo" ColumnName="PersonInfo" />
-                <ScalarProperty Name="PersonalCode" ColumnName="PersonalCode" />
-                <ScalarProperty Name="PassportCode" ColumnName="PassportCode" />
-                <ScalarProperty Name="Privileges" ColumnName="Privileges" />
-                <ScalarProperty Name="WorkPlace" ColumnName="WorkPlace" />
-                <ScalarProperty Name="Stag" ColumnName="Stag" />
-                <ScalarProperty Name="MSCourse" ColumnName="MSCourse" />
-                <ScalarProperty Name="MSStudyFormId" ColumnName="MSStudyFormId" />
-                <ScalarProperty Name="MSVuz" ColumnName="MSVuz" />
-                <ScalarProperty Name="LanguageId" ColumnName="LanguageId" />
-                <ScalarProperty Name="HasExamPass" ColumnName="HasExamPass" />
-                <ScalarProperty Name="ExamPassFacultyId" ColumnName="ExamPassFacultyId" />
-                <ScalarProperty Name="HostelFacultyId" ColumnName="HostelFacultyId" />
-                <ScalarProperty Name="HasAssignToHostel" ColumnName="HasAssignToHostel" />
-                <ScalarProperty Name="HostelAbit" ColumnName="HostelAbit" />
-                <ScalarProperty Name="FlatReal" ColumnName="FlatReal" />
-                <ScalarProperty Name="KorpusReal" ColumnName="KorpusReal" />
-                <ScalarProperty Name="HouseReal" ColumnName="HouseReal" />
-                <ScalarProperty Name="StreetReal" ColumnName="StreetReal" />
-                <ScalarProperty Name="CityReal" ColumnName="CityReal" />
-                <ScalarProperty Name="Korpus" ColumnName="Korpus" />
-                <ScalarProperty Name="CodeReal" ColumnName="CodeReal" />
-                <ScalarProperty Name="Flat" ColumnName="Flat" />
-                <ScalarProperty Name="House" ColumnName="House" />
-                <ScalarProperty Name="Street" ColumnName="Street" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Mobiles" ColumnName="Mobiles" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="RegionId" ColumnName="RegionId" />
-                <ScalarProperty Name="NationalityId" ColumnName="NationalityId" />
-                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
-                <ScalarProperty Name="Sex" ColumnName="Sex" />
-                <ScalarProperty Name="PassportDate" ColumnName="PassportDate" />
-                <ScalarProperty Name="PassportAuthor" ColumnName="PassportAuthor" />
-                <ScalarProperty Name="PassportNumber" ColumnName="PassportNumber" />
-                <ScalarProperty Name="PassportSeries" ColumnName="PassportSeries" />
-                <ScalarProperty Name="PassportTypeId" ColumnName="PassportTypeId" />
-                <ScalarProperty Name="BirthPlace" ColumnName="BirthPlace" />
-                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
-                <ScalarProperty Name="Surname" ColumnName="Surname" />
-                <ScalarProperty Name="SecondName" ColumnName="SecondName" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Num" ColumnName="Num" />
-                <ScalarProperty Name="Barcode" ColumnName="Barcode" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="extPerson_EducationInfo">
             <EntityTypeMapping TypeName="Priem2012Model.extPerson_EducationInfo">
               <MappingFragment StoreEntitySet="extPerson_EducationInfo">
@@ -17978,17 +18118,6 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="PersonLanguageCertificates">
-            <EntityTypeMapping TypeName="Priem2012Model.PersonLanguageCertificates">
-              <MappingFragment StoreEntitySet="PersonLanguageCertificates">
-                <ScalarProperty Name="ResultValue" ColumnName="ResultValue" />
-                <ScalarProperty Name="Number" ColumnName="Number" />
-                <ScalarProperty Name="LanguageCertificateTypeId" ColumnName="LanguageCertificateTypeId" />
-                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="ExamsVedHistoryMark">
             <EntityTypeMapping TypeName="Priem2012Model.ExamsVedHistoryMark">
               <MappingFragment StoreEntitySet="ExamsVedHistoryMark">
@@ -18231,6 +18360,142 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
             <EntityTypeMapping TypeName="Priem2012Model.FISSubject">
               <MappingFragment StoreEntitySet="FISSubject">
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PersonLanguageCertificates">
+            <EntityTypeMapping TypeName="Priem2012Model.PersonLanguageCertificates">
+              <MappingFragment StoreEntitySet="PersonLanguageCertificates">
+                <ScalarProperty Name="ResultValue" ColumnName="ResultValue" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="LanguageCertificateTypeId" ColumnName="LanguageCertificateTypeId" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PersonScienceWork">
+            <EntityTypeMapping TypeName="Priem2012Model.PersonScienceWork">
+              <MappingFragment StoreEntitySet="PersonScienceWork">
+                <ScalarProperty Name="WorkYear" ColumnName="WorkYear" />
+                <ScalarProperty Name="WorkInfo" ColumnName="WorkInfo" />
+                <ScalarProperty Name="WorkTypeId" ColumnName="WorkTypeId" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReturnDocumentType">
+            <EntityTypeMapping TypeName="Priem2012Model.ReturnDocumentType">
+              <MappingFragment StoreEntitySet="ReturnDocumentType">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ScienceWorkType">
+            <EntityTypeMapping TypeName="Priem2012Model.ScienceWorkType">
+              <MappingFragment StoreEntitySet="ScienceWorkType">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="extPerson">
+            <EntityTypeMapping TypeName="Priem2012Model.extPerson">
+              <MappingFragment StoreEntitySet="extPerson">
+                <ScalarProperty Name="ReturnDocumentTypeId" ColumnName="ReturnDocumentTypeId" />
+                <ScalarProperty Name="AddEmail" ColumnName="AddEmail" />
+                <ScalarProperty Name="HasOriginals" ColumnName="HasOriginals" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="Author" ColumnName="Author" />
+                <ScalarProperty Name="LanguageName" ColumnName="LanguageName" />
+                <ScalarProperty Name="PassportTypeFISName" ColumnName="PassportTypeFISName" />
+                <ScalarProperty Name="PassportTypeName" ColumnName="PassportTypeName" />
+                <ScalarProperty Name="HasRussianNationality" ColumnName="HasRussianNationality" />
+                <ScalarProperty Name="TRKICertificateNumber" ColumnName="TRKICertificateNumber" />
+                <ScalarProperty Name="HasTRKI" ColumnName="HasTRKI" />
+                <ScalarProperty Name="EgeInSPbgu" ColumnName="EgeInSPbgu" />
+                <ScalarProperty Name="EnglishMark" ColumnName="EnglishMark" />
+                <ScalarProperty Name="StartEnglish" ColumnName="StartEnglish" />
+                <ScalarProperty Name="ForeignCountryId" ColumnName="ForeignCountryId" />
+                <ScalarProperty Name="ForeignCountry" ColumnName="ForeignCountry" />
+                <ScalarProperty Name="ForeignNationalityId" ColumnName="ForeignNationalityId" />
+                <ScalarProperty Name="ForeignNationality" ColumnName="ForeignNationality" />
+                <ScalarProperty Name="RegionNumber" ColumnName="RegionNumber" />
+                <ScalarProperty Name="SNILS" ColumnName="SNILS" />
+                <ScalarProperty Name="KladrCode" ColumnName="KladrCode" />
+                <ScalarProperty Name="HostelEduc" ColumnName="HostelEduc" />
+                <ScalarProperty Name="HostelFacultyName" ColumnName="HostelFacultyName" />
+                <ScalarProperty Name="RegionName" ColumnName="RegionName" />
+                <ScalarProperty Name="NationalityName" ColumnName="NationalityName" />
+                <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+                <ScalarProperty Name="HostelFacultyAcr" ColumnName="HostelFacultyAcr" />
+                <ScalarProperty Name="EducDocument" ColumnName="EducDocument" />
+                <ScalarProperty Name="PassportData" ColumnName="PassportData" />
+                <ScalarProperty Name="FIO" ColumnName="FIO" />
+                <ScalarProperty Name="PersonNum" ColumnName="PersonNum" />
+                <ScalarProperty Name="ScienceWork" ColumnName="ScienceWork" />
+                <ScalarProperty Name="ExtraInfo" ColumnName="ExtraInfo" />
+                <ScalarProperty Name="PersonInfo" ColumnName="PersonInfo" />
+                <ScalarProperty Name="PersonalCode" ColumnName="PersonalCode" />
+                <ScalarProperty Name="PassportCode" ColumnName="PassportCode" />
+                <ScalarProperty Name="Privileges" ColumnName="Privileges" />
+                <ScalarProperty Name="WorkPlace" ColumnName="WorkPlace" />
+                <ScalarProperty Name="Stag" ColumnName="Stag" />
+                <ScalarProperty Name="MSCourse" ColumnName="MSCourse" />
+                <ScalarProperty Name="MSStudyFormId" ColumnName="MSStudyFormId" />
+                <ScalarProperty Name="MSVuz" ColumnName="MSVuz" />
+                <ScalarProperty Name="LanguageId" ColumnName="LanguageId" />
+                <ScalarProperty Name="HasExamPass" ColumnName="HasExamPass" />
+                <ScalarProperty Name="ExamPassFacultyId" ColumnName="ExamPassFacultyId" />
+                <ScalarProperty Name="HostelFacultyId" ColumnName="HostelFacultyId" />
+                <ScalarProperty Name="HasAssignToHostel" ColumnName="HasAssignToHostel" />
+                <ScalarProperty Name="HostelAbit" ColumnName="HostelAbit" />
+                <ScalarProperty Name="FlatReal" ColumnName="FlatReal" />
+                <ScalarProperty Name="KorpusReal" ColumnName="KorpusReal" />
+                <ScalarProperty Name="HouseReal" ColumnName="HouseReal" />
+                <ScalarProperty Name="StreetReal" ColumnName="StreetReal" />
+                <ScalarProperty Name="CityReal" ColumnName="CityReal" />
+                <ScalarProperty Name="Korpus" ColumnName="Korpus" />
+                <ScalarProperty Name="CodeReal" ColumnName="CodeReal" />
+                <ScalarProperty Name="Flat" ColumnName="Flat" />
+                <ScalarProperty Name="House" ColumnName="House" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Mobiles" ColumnName="Mobiles" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="RegionId" ColumnName="RegionId" />
+                <ScalarProperty Name="NationalityId" ColumnName="NationalityId" />
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="PassportDate" ColumnName="PassportDate" />
+                <ScalarProperty Name="PassportAuthor" ColumnName="PassportAuthor" />
+                <ScalarProperty Name="PassportNumber" ColumnName="PassportNumber" />
+                <ScalarProperty Name="PassportSeries" ColumnName="PassportSeries" />
+                <ScalarProperty Name="PassportTypeId" ColumnName="PassportTypeId" />
+                <ScalarProperty Name="BirthPlace" ColumnName="BirthPlace" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="SecondName" ColumnName="SecondName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Num" ColumnName="Num" />
+                <ScalarProperty Name="Barcode" ColumnName="Barcode" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PersonWork">
+            <EntityTypeMapping TypeName="Priem2012Model.PersonWork">
+              <MappingFragment StoreEntitySet="PersonWork">
+                <ScalarProperty Name="WorkSpecifications" ColumnName="WorkSpecifications" />
+                <ScalarProperty Name="WorkProfession" ColumnName="WorkProfession" />
+                <ScalarProperty Name="WorkPlace" ColumnName="WorkPlace" />
+                <ScalarProperty Name="Stage" ColumnName="Stage" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

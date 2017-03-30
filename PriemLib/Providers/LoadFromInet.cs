@@ -55,9 +55,9 @@ namespace PriemLib
             DataSet dsEge = _bdcInet.GetDataSet(queryEge + " WHERE Person.Barcode = " + fileNum + " ORDER BY EgeMark.EgeCertificateId ");
             return dsEge.Tables[0];
         }
-        public DataTable GetLanguageCertificates(int fileNum)
+        public DataTable GetLanguageCertificates(int _Barcode)
         {
-            string queryEge = @"
+            string queryLangCert = @"
 SELECT 
 PersonLanguageCertificates.Id,
 LanguageCertificatesType.Id as LanguageCertificatesTypeId,
@@ -67,7 +67,60 @@ PersonLanguageCertificates.ResultValue as 'Результат'
 FROM dbo.PersonLanguageCertificates 
 join LanguageCertificatesType on PersonLanguageCertificates.LanguageCertificateTypeId = LanguageCertificatesType.Id
 LEFT JOIN Person ON PersonLanguageCertificates.PersonId = Person.Id";
-            DataSet dsEge = _bdcInet.GetDataSet(queryEge + " WHERE Person.Barcode = " + fileNum + " ORDER BY LanguageCertificatesType.Name ");
+            DataSet dsEge = _bdcInet.GetDataSet(queryLangCert + " WHERE Person.Barcode = " + _Barcode + " ORDER BY LanguageCertificatesType.Name ");
+            return dsEge.Tables[0];
+        }
+        public DataTable GetPersonScienceWork(int _Barcode)
+        {
+            string queryScienceWork = @"
+SELECT 
+PersonScienceWork.Id,
+ScienceWorkType.Id as ScienceWorkTypeId,
+ScienceWorkType.Name as 'Вид работы',
+PersonScienceWork.WorkYear as 'Год',
+PersonScienceWork.WorkInfo as 'Сведения' 
+FROM dbo.PersonScienceWork 
+join ScienceWorkType on PersonScienceWork.WorkTypeId = ScienceWorkType.Id
+LEFT JOIN Person ON PersonScienceWork.PersonId = Person.Id";
+            DataSet dsEge = _bdcInet.GetDataSet(queryScienceWork + " WHERE Person.Barcode = " + _Barcode + " ORDER BY PersonScienceWork.WorkYear desc, ScienceWorkType.Name");
+            return dsEge.Tables[0];
+        }
+        public DataTable GetPersonParents(int _Barcode)
+        {
+            string queryParents = @"
+SELECT 
+[Parent_Surname]
+      ,[Parent_Name]
+      ,[Parent_SecondName]
+      ,[Parent_Phone]
+      ,[Parent_Email]
+      ,[Parent_Work]
+      ,[Parent_WorkPosition]
+      ,[Parent2_Surname]
+      ,[Parent2_Name]
+      ,[Parent2_SecondName]
+      ,[Parent2_Phone]
+      ,[Parent2_Email]
+      ,[Parent2_Work]
+      ,[Parent2_WorkPosition]
+FROM dbo.PersonAddInfo
+LEFT JOIN Person ON PersonAddInfo.PersonId = Person.Id";
+            DataSet dsEge = _bdcInet.GetDataSet(queryParents + " WHERE Person.Barcode = " + _Barcode );
+            return dsEge.Tables[0];
+        }
+
+        public DataTable GetPersonWork(int _Barcode)
+        {
+            string queryWork = @"
+SELECT 
+PersonWork.Id,
+PersonWork.Stage as 'Стаж',
+PersonWork.WorkPlace as 'Место работы',
+PersonWork.WorkProfession as 'Должность',
+PersonWork.WorkSpecifications as 'Обязанности' 
+FROM dbo.PersonWork 
+LEFT JOIN Person ON PersonWork.PersonId = Person.Id";
+            DataSet dsEge = _bdcInet.GetDataSet(queryWork + " WHERE Person.Barcode = " + _Barcode + " ORDER BY PersonWork.Stage desc");
             return dsEge.Tables[0];
         }
         public extPerson GetPersonByBarcode(int fileNum)
@@ -81,7 +134,7 @@ LEFT JOIN Person ON PersonLanguageCertificates.PersonId = Person.Id";
                     Code, City, Street, House, Korpus, Flat, CodeReal, CityReal, StreetReal, HouseReal, KorpusReal, FlatReal,
                     AbitHostel AS HostelAbit, LanguageId, 
                     Parents AS PersonInfo, AddInfo AS ExtraInfo, StartEnglish, EnglishMark, AbiturientTypeId, HostelEduc, SNILS, KladrCode
-                    , HasTRKI, TRKICertificateNumber
+                    , HasTRKI, TRKICertificateNumber, AddEmail, ReturnDocumentTypeId
                     FROM extPerson
                     WHERE 0=0";
 
@@ -140,6 +193,7 @@ LEFT JOIN Person ON PersonLanguageCertificates.PersonId = Person.Id";
                 pers.Phone = row["Phone"].ToString();
                 pers.Mobiles = row["Mobiles"].ToString();
                 pers.Email = row["Email"].ToString();
+                pers.AddEmail = row["AddEmail"].ToString();
                 pers.Code = row["Code"].ToString();
                 pers.City = row["City"].ToString();
                 pers.Street = row["Street"].ToString();
@@ -168,6 +222,8 @@ LEFT JOIN Person ON PersonLanguageCertificates.PersonId = Person.Id";
                 double EnglishMark = 0d;
                 double.TryParse(row["EnglishMark"].ToString(), out EnglishMark);
                 pers.EnglishMark = EnglishMark;
+
+                pers.ReturnDocumentTypeId = (int?)row["ReturnDocumentTypeId"];
 
                 DataSet dsWork = _bdcInet.GetDataSet(string.Format(@"
                       SELECT  PersonWork.WorkPlace + ', ' + PersonWork.WorkProfession + ', ' + PersonWork.WorkSpecifications + ' стаж: ' + PersonWork.Stage AS Work,

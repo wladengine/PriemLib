@@ -200,7 +200,11 @@ namespace PriemLib
             get { return tbEmail.Text.Trim(); }
             set { tbEmail.Text = value; }
         }
-
+        public string AddEmail
+        {
+            get { return tbAddEmail.Text.Trim(); }
+            set { tbAddEmail.Text = value; }
+        }
         public string Code
         {
             get { return tbCode.Text.Trim(); }
@@ -534,13 +538,13 @@ namespace PriemLib
 
         public string Stag
         {
-            get { return tbStag.Text.Trim(); }
-            set { tbStag.Text = value; }
+            get;
+            set;
         }
         public string WorkPlace
         {
-            get { return tbWorkPlace.Text.Trim(); }
-            set { tbWorkPlace.Text = value; }
+            get;
+            set;
         }
         public string MSVuz
         {
@@ -690,7 +694,18 @@ namespace PriemLib
                         select st.FBSStatus).FirstOrDefault();                
             }
         }
-
+        public int? ReturnDocumentTypeId
+        {
+            get { return rbReturnDocumentType1.Checked ? 1 : (rbReturnDocumentType1.Checked ? (int?)2 : null); }
+            set
+            {
+                if (value.HasValue)
+                {
+                    rbReturnDocumentType1.Checked = value == 1;
+                    rbReturnDocumentType2.Checked = value == 2;
+                }
+            }
+        }
      
     }
 }

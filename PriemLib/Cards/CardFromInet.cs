@@ -120,6 +120,9 @@ namespace PriemLib
                     cbSchoolCity.SelectedIndex = -1;
                     cbHEQualification.SelectedIndex = -1;
 
+                    rbReturnDocumentType1.Text = context.ReturnDocumentType.Where(x => x.Id == 1).Select(x => x.Name).First();
+                    rbReturnDocumentType2.Text = context.ReturnDocumentType.Where(x => x.Id == 2).Select(x => x.Name).First();
+
                     ComboServ.FillCombo(cbLanguage, HelpClass.GetComboListByTable("ed.Language"), true, false);
                 }
 
@@ -365,6 +368,7 @@ namespace PriemLib
                 Phone = person.Phone;
                 Mobiles = person.Mobiles;
                 Email = person.Email;
+                AddEmail = person.AddEmail;
                 Code = person.Code;
                 City = person.City;
                 Street = person.Street;
@@ -392,9 +396,19 @@ namespace PriemLib
                 ScienceWork = person.ScienceWork;
                 StartEnglish = person.StartEnglish;
                 EnglishMark = person.EnglishMark;
+                ReturnDocumentTypeId = person.ReturnDocumentTypeId;
 
                 FillEducationData(load.GetPersonEducationDocumentsByBarcode(_personBarc.Value));
                 FillLanguageCertificates(load.GetLanguageCertificates(_personBarc.Value));
+                FillScienceWork(load.GetPersonScienceWork(_personBarc.Value));
+                FillPersonWork(load.GetPersonWork(_personBarc.Value));
+                FillPersonParents(load.GetPersonParents(_personBarc.Value));
+
+                if(DateTime.Now.AddYears(-18) >= BirthDate)
+                {
+                    tabAddInfo.TabPages.Remove(tabPersonParents);
+                }
+
                 if (MainClass.dbType == PriemType.Priem)
                 {
                     DataTable dtEge = load.GetPersonEgeByBarcode(_personBarc.Value);
@@ -639,6 +653,47 @@ namespace PriemLib
         }
         #endregion
 
+        #region AdditionalInfo
+        private void FillPersonParents(DataTable tbl)
+        {
+            tbParent_Surname.Text = tbl.Rows[0].Field<string>("Parent_Surname");
+            tbParent_Name.Text = tbl.Rows[0].Field<string>("Parent_Name");
+            tbParent_SecondName.Text = tbl.Rows[0].Field<string>("Parent_SecondName");
+            tbParent_Phone.Text = tbl.Rows[0].Field<string>("Parent_Phone");
+            tbParent_Email.Text = tbl.Rows[0].Field<string>("Parent_Email");
+            tbParent_WorkPlace.Text = tbl.Rows[0].Field<string>("Parent_Work");
+            tbParent_WorkPosition.Text = tbl.Rows[0].Field<string>("Parent_WorkPosition");
+
+            tbParent2_Surname.Text = tbl.Rows[0].Field<string>("Parent2_Surname");
+            tbParent2_Name.Text = tbl.Rows[0].Field<string>("Parent2_Name");
+            tbParent2_SecondName.Text = tbl.Rows[0].Field<string>("Parent2_SecondName");
+            tbParent2_Phone.Text = tbl.Rows[0].Field<string>("Parent2_Phone");
+            tbParent2_Email.Text = tbl.Rows[0].Field<string>("Parent2_Email");
+            tbParent2_WorkPlace.Text = tbl.Rows[0].Field<string>("Parent2_Work");
+            tbParent2_WorkPosition.Text = tbl.Rows[0].Field<string>("Parent2_WorkPosition");
+        }
+        private void dgvPersonScienceWork_CurrentCellChanged(object sender, EventArgs e)
+        {
+            if (dgvPersonScienceWork.CurrentRow != null)
+            {
+                tbScienceWork.Text = dgvPersonScienceWork.CurrentRow.Cells["Сведения"].Value.ToString();
+                tbScienceWorkYear.Text = dgvPersonScienceWork.CurrentRow.Cells["Год"].Value.ToString();
+                tbScienceWorkType.Text = dgvPersonScienceWork.CurrentRow.Cells["Вид работы"].Value.ToString();
+
+            }
+        }
+        private void dgvPersonWork_CurrentCellChanged(object sender, EventArgs e)
+        {
+            if (dgvPersonWork.CurrentRow != null)
+            {
+                tbWorkStag.Text = dgvPersonWork.CurrentRow.Cells["Стаж"].Value.ToString();
+                tbWorkPlace.Text = dgvPersonWork.CurrentRow.Cells["Место работы"].Value.ToString();
+                tbWorkProfession.Text = dgvPersonWork.CurrentRow.Cells["Должность"].Value.ToString();
+                tbWorkSpecification.Text = dgvPersonWork.CurrentRow.Cells["Обязанности"].Value.ToString();
+            }
+        }
+        #endregion
+
         #region Files
         private void FillFiles()
         {
@@ -719,6 +774,22 @@ namespace PriemLib
             foreach (string s in cols)
             if (dgvCertificates.Columns.Contains(s))
                 dgvCertificates.Columns[s].Visible = false;
+        }
+        private void FillScienceWork(DataTable tbl)
+        {
+            dgvPersonScienceWork.DataSource = tbl;
+            List<string> cols = new List<string>() { "Id" ,"ScienceWorkTypeId"};
+            foreach (string s in cols)
+                if (dgvPersonScienceWork.Columns.Contains(s))
+                    dgvPersonScienceWork.Columns[s].Visible = false;
+        }
+        private void FillPersonWork(DataTable tbl)
+        {
+            dgvPersonWork.DataSource = tbl;
+            List<string> cols = new List<string>() { "Id" };
+            foreach (string s in cols)
+                if (dgvPersonWork.Columns.Contains(s))
+                    dgvPersonWork.Columns[s].Visible = false;
         }
         private void FillEducationData(List<Person_EducationInfo> lstVals)
         {
@@ -1334,6 +1405,10 @@ namespace PriemLib
                                     SaveEducationDocuments();
                                     SaveEgeFirst();
 
+                                    SaveScienceWork(context);
+                                    SavePersonWork(context);
+                                    SaveParents(context);
+
                                     SaveLanguageCertificates(context);
 
                                     //Проверка на уже существующие заявления и сообщение при наличии
@@ -1457,6 +1532,71 @@ namespace PriemLib
             }
             context.SaveChanges();
         }
+        private void SavePersonWork(PriemEntities context)
+        {
+            foreach (DataGridViewRow rw in dgvPersonScienceWork.Rows)
+            {
+                string Stage = rw.Cells["Стаж"].Value.ToString();
+                string WorkPlace = rw.Cells["Место работы"].Value.ToString();
+                string WorkProfession = rw.Cells["Должность"].Value.ToString();
+                string WorkSpecifications = rw.Cells["Обязанности"].Value.ToString();
+
+
+                context.PersonWork.Add(new PersonWork()
+                {
+                    Id = Guid.NewGuid(),
+                    PersonId = personId.Value,
+                    Stage = Stage,
+                    WorkPlace = WorkPlace,
+                    WorkProfession = WorkProfession,
+                    WorkSpecifications = WorkSpecifications,
+                });
+                context.SaveChanges();
+            }
+        }
+        private void SaveScienceWork(PriemEntities context)
+        {
+            foreach (DataGridViewRow rw in dgvPersonScienceWork.Rows)
+            {
+                int Type = int.Parse(rw.Cells["ScienceWorkTypeId"].Value.ToString());
+                string WorkInfo = rw.Cells["Сведения"].Value.ToString();
+                string WorkYear = rw.Cells["Год"].Value.ToString();
+
+                context.PersonScienceWork.Add(new PersonScienceWork()
+                    {
+                        Id = Guid.NewGuid(),
+                        PersonId = personId.Value,
+                        WorkInfo = WorkInfo,
+                        WorkTypeId = Type,
+                        WorkYear = WorkYear,
+                    });
+                context.SaveChanges();
+            }
+        }
+        private void SaveParents(PriemEntities context)
+        {
+            var AddInfo = context.Person_AdditionalInfo.Where(x => x.PersonId == personId).FirstOrDefault();
+            if (AddInfo != null)
+            {
+                AddInfo.Parent_Surname = tbParent_Surname.Text.Trim();
+                AddInfo.Parent_Name = tbParent_Name.Text.Trim();
+                AddInfo.Parent_SecondName = tbParent_SecondName.Text.Trim();
+                AddInfo.Parent_Phone = tbParent_Phone.Text.Trim();
+                AddInfo.Parent_Email = tbParent_Email.Text.Trim();
+                AddInfo.Parent_Work = tbParent_WorkPlace.Text.Trim();
+                AddInfo.Parent_WorkPosition = tbParent_WorkPosition.Text.Trim();
+
+                AddInfo.Parent2_Surname = tbParent2_Surname.Text.Trim();
+                AddInfo.Parent2_Name = tbParent2_Name.Text.Trim();
+                AddInfo.Parent2_SecondName = tbParent2_SecondName.Text.Trim();
+                AddInfo.Parent2_Phone = tbParent2_Phone.Text.Trim();
+                AddInfo.Parent2_Email = tbParent2_Email.Text.Trim();
+                AddInfo.Parent2_Work = tbParent2_WorkPlace.Text.Trim();
+                AddInfo.Parent2_WorkPosition = tbParent2_WorkPosition.Text.Trim();
+            }
+            context.SaveChanges();
+        }
+
         private void SaveEducationDocuments()
         {
             try
@@ -1641,5 +1781,6 @@ namespace PriemLib
                 catch { }
             }
         }
+
     }
 }
