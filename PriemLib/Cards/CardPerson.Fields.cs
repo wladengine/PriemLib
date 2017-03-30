@@ -538,13 +538,13 @@ namespace PriemLib
 
         public string Stag
         {
-            get { return tbStag.Text.Trim(); }
-            set { tbStag.Text = value; }
+            get;
+            set;
         }
         public string WorkPlace
         {
-            get { return tbWorkPlace.Text.Trim(); }
-            set { tbWorkPlace.Text = value; }
+            get;
+            set;
         }
         public string MSVuz
         {

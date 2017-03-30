@@ -690,7 +690,6 @@ namespace PriemLib
                 tbWorkPlace.Text = dgvPersonWork.CurrentRow.Cells["Место работы"].Value.ToString();
                 tbWorkProfession.Text = dgvPersonWork.CurrentRow.Cells["Должность"].Value.ToString();
                 tbWorkSpecification.Text = dgvPersonWork.CurrentRow.Cells["Обязанности"].Value.ToString();
-
             }
         }
         #endregion
@@ -1579,21 +1578,21 @@ namespace PriemLib
             var AddInfo = context.Person_AdditionalInfo.Where(x => x.PersonId == personId).FirstOrDefault();
             if (AddInfo != null)
             {
-                AddInfo.Parent_Surname = tbParent_Surname.Text;
-                AddInfo.Parent_Name = tbParent_Name.Text;
-                AddInfo.Parent_SecondName = tbParent_SecondName.Text;
-                AddInfo.Parent_Phone = tbParent_Phone.Text;
-                AddInfo.Parent_Email = tbParent_Email.Text;
-                AddInfo.Parent_Work = tbParent_WorkPlace.Text;
-                AddInfo.Parent_WorkPosition = tbParent_WorkPosition.Text;
-                
-                AddInfo.Parent2_Surname = tbParent2_Surname.Text;
-                AddInfo.Parent2_Name = tbParent2_Name.Text;
-                AddInfo.Parent2_SecondName = tbParent2_SecondName.Text;
-                AddInfo.Parent2_Phone = tbParent2_Phone.Text;
-                AddInfo.Parent2_Email = tbParent2_Email.Text;
-                AddInfo.Parent2_Work = tbParent2_WorkPlace.Text;
-                AddInfo.Parent2_WorkPosition = tbParent2_WorkPosition.Text;
+                AddInfo.Parent_Surname = tbParent_Surname.Text.Trim();
+                AddInfo.Parent_Name = tbParent_Name.Text.Trim();
+                AddInfo.Parent_SecondName = tbParent_SecondName.Text.Trim();
+                AddInfo.Parent_Phone = tbParent_Phone.Text.Trim();
+                AddInfo.Parent_Email = tbParent_Email.Text.Trim();
+                AddInfo.Parent_Work = tbParent_WorkPlace.Text.Trim();
+                AddInfo.Parent_WorkPosition = tbParent_WorkPosition.Text.Trim();
+
+                AddInfo.Parent2_Surname = tbParent2_Surname.Text.Trim();
+                AddInfo.Parent2_Name = tbParent2_Name.Text.Trim();
+                AddInfo.Parent2_SecondName = tbParent2_SecondName.Text.Trim();
+                AddInfo.Parent2_Phone = tbParent2_Phone.Text.Trim();
+                AddInfo.Parent2_Email = tbParent2_Email.Text.Trim();
+                AddInfo.Parent2_Work = tbParent2_WorkPlace.Text.Trim();
+                AddInfo.Parent2_WorkPosition = tbParent2_WorkPosition.Text.Trim();
             }
             context.SaveChanges();
         }

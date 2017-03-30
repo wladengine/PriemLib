@@ -273,9 +273,6 @@
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.rbReturnDocumentType2 = new System.Windows.Forms.RadioButton();
             this.rbReturnDocumentType1 = new System.Windows.Forms.RadioButton();
-            this.btnCertificateDelete = new System.Windows.Forms.Button();
-            this.btnCertificateAdd = new System.Windows.Forms.Button();
-            this.dgvCertificates = new System.Windows.Forms.DataGridView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.chbStartEnglish = new System.Windows.Forms.CheckBox();
             this.tbEnglishMark = new System.Windows.Forms.TextBox();
@@ -283,18 +280,6 @@
             this.cbLanguage = new System.Windows.Forms.ComboBox();
             this.label28 = new System.Windows.Forms.Label();
             this.tabPage9 = new System.Windows.Forms.TabPage();
-            this.gbStag = new System.Windows.Forms.GroupBox();
-            this.label44 = new System.Windows.Forms.Label();
-            this.tbWorkPlace = new System.Windows.Forms.TextBox();
-            this.label42 = new System.Windows.Forms.Label();
-            this.tbStag = new System.Windows.Forms.TextBox();
-            this.gbMotivateText = new System.Windows.Forms.GroupBox();
-            this.tbScienceWork = new System.Windows.Forms.TextBox();
-            this.gbPersonInfo = new System.Windows.Forms.GroupBox();
-            this.label62 = new System.Windows.Forms.Label();
-            this.label61 = new System.Windows.Forms.Label();
-            this.tbPersonInfo = new System.Windows.Forms.TextBox();
-            this.tbExtraInfo = new System.Windows.Forms.TextBox();
             this.tabPage10 = new System.Windows.Forms.TabPage();
             this.btnAddNotice = new System.Windows.Forms.Button();
             this.label67 = new System.Windows.Forms.Label();
@@ -308,56 +293,66 @@
             this.btnAddAbit = new System.Windows.Forms.Button();
             this.btnDocs = new System.Windows.Forms.Button();
             this.sfdPrint = new System.Windows.Forms.SaveFileDialog();
-            this.tabAdditionalInfo = new System.Windows.Forms.TabControl();
-            this.tabPage12 = new System.Windows.Forms.TabPage();
-            this.tabPage13 = new System.Windows.Forms.TabPage();
-            this.tabPage14 = new System.Windows.Forms.TabPage();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.dgvCertificates = new System.Windows.Forms.DataGridView();
+            this.btnCertificateDelete = new System.Windows.Forms.Button();
+            this.btnCertificateAdd = new System.Windows.Forms.Button();
+            this.tabPage15 = new System.Windows.Forms.TabPage();
+            this.tbExtraInfo = new System.Windows.Forms.TextBox();
+            this.label61 = new System.Windows.Forms.Label();
+            this.tbPersonInfo = new System.Windows.Forms.TextBox();
+            this.label62 = new System.Windows.Forms.Label();
             this.tabPersonParents = new System.Windows.Forms.TabPage();
-            this.tbScienceWorkYear = new System.Windows.Forms.TextBox();
-            this.label86 = new System.Windows.Forms.Label();
-            this.label85 = new System.Windows.Forms.Label();
-            this.label84 = new System.Windows.Forms.Label();
-            this.dgvPersonScienceWork = new System.Windows.Forms.DataGridView();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.tbWorkSpecification = new System.Windows.Forms.TextBox();
-            this.label83 = new System.Windows.Forms.Label();
-            this.tbWorkProfession = new System.Windows.Forms.TextBox();
-            this.label82 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.label73 = new System.Windows.Forms.Label();
-            this.dgvPersonWork = new System.Windows.Forms.DataGridView();
-            this.label74 = new System.Windows.Forms.Label();
-            this.tbWorkStag = new System.Windows.Forms.TextBox();
-            this.label81 = new System.Windows.Forms.Label();
-            this.tbParent2_WorkPosition = new System.Windows.Forms.TextBox();
-            this.label80 = new System.Windows.Forms.Label();
-            this.tbParent_WorkPosition = new System.Windows.Forms.TextBox();
-            this.tbParent2_WorkPlace = new System.Windows.Forms.TextBox();
-            this.label75 = new System.Windows.Forms.Label();
-            this.label79 = new System.Windows.Forms.Label();
-            this.tbParent_WorkPlace = new System.Windows.Forms.TextBox();
-            this.tbParent2_Email = new System.Windows.Forms.TextBox();
-            this.label76 = new System.Windows.Forms.Label();
-            this.label78 = new System.Windows.Forms.Label();
-            this.tbParent_Email = new System.Windows.Forms.TextBox();
-            this.tbParent2_Phone = new System.Windows.Forms.TextBox();
-            this.label77 = new System.Windows.Forms.Label();
-            this.label87 = new System.Windows.Forms.Label();
-            this.tbParent_Phone = new System.Windows.Forms.TextBox();
-            this.tbParent2_SecondName = new System.Windows.Forms.TextBox();
-            this.label88 = new System.Windows.Forms.Label();
-            this.tbParent2_Name = new System.Windows.Forms.TextBox();
-            this.tbParent_SecondName = new System.Windows.Forms.TextBox();
-            this.tbParent2_Surname = new System.Windows.Forms.TextBox();
-            this.tbParent_Name = new System.Windows.Forms.TextBox();
-            this.label89 = new System.Windows.Forms.Label();
-            this.tbParent_Surname = new System.Windows.Forms.TextBox();
-            this.label90 = new System.Windows.Forms.Label();
-            this.label91 = new System.Windows.Forms.Label();
-            this.label92 = new System.Windows.Forms.Label();
-            this.label93 = new System.Windows.Forms.Label();
             this.label94 = new System.Windows.Forms.Label();
+            this.label93 = new System.Windows.Forms.Label();
+            this.label92 = new System.Windows.Forms.Label();
+            this.label91 = new System.Windows.Forms.Label();
+            this.label90 = new System.Windows.Forms.Label();
+            this.tbParent_Surname = new System.Windows.Forms.TextBox();
+            this.label89 = new System.Windows.Forms.Label();
+            this.tbParent_Name = new System.Windows.Forms.TextBox();
+            this.tbParent2_Surname = new System.Windows.Forms.TextBox();
+            this.tbParent_SecondName = new System.Windows.Forms.TextBox();
+            this.tbParent2_Name = new System.Windows.Forms.TextBox();
+            this.label88 = new System.Windows.Forms.Label();
+            this.tbParent2_SecondName = new System.Windows.Forms.TextBox();
+            this.tbParent_Phone = new System.Windows.Forms.TextBox();
+            this.label87 = new System.Windows.Forms.Label();
+            this.label77 = new System.Windows.Forms.Label();
+            this.tbParent2_Phone = new System.Windows.Forms.TextBox();
+            this.tbParent_Email = new System.Windows.Forms.TextBox();
+            this.label78 = new System.Windows.Forms.Label();
+            this.label76 = new System.Windows.Forms.Label();
+            this.tbParent2_Email = new System.Windows.Forms.TextBox();
+            this.tbParent_WorkPlace = new System.Windows.Forms.TextBox();
+            this.label79 = new System.Windows.Forms.Label();
+            this.label75 = new System.Windows.Forms.Label();
+            this.tbParent2_WorkPlace = new System.Windows.Forms.TextBox();
+            this.tbParent_WorkPosition = new System.Windows.Forms.TextBox();
+            this.label80 = new System.Windows.Forms.Label();
+            this.tbParent2_WorkPosition = new System.Windows.Forms.TextBox();
+            this.label81 = new System.Windows.Forms.Label();
+            this.tabPage14 = new System.Windows.Forms.TabPage();
+            this.tbWorkStag = new System.Windows.Forms.TextBox();
+            this.label74 = new System.Windows.Forms.Label();
+            this.dgvPersonWork = new System.Windows.Forms.DataGridView();
+            this.label73 = new System.Windows.Forms.Label();
+            this.tbWorkPlace = new System.Windows.Forms.TextBox();
+            this.label82 = new System.Windows.Forms.Label();
+            this.tbWorkProfession = new System.Windows.Forms.TextBox();
+            this.label83 = new System.Windows.Forms.Label();
+            this.tbWorkSpecification = new System.Windows.Forms.TextBox();
+            this.btnWorkSave = new System.Windows.Forms.Button();
+            this.tabPage13 = new System.Windows.Forms.TabPage();
+            this.tbScienceWork = new System.Windows.Forms.TextBox();
+            this.dgvPersonScienceWork = new System.Windows.Forms.DataGridView();
+            this.label84 = new System.Windows.Forms.Label();
+            this.label85 = new System.Windows.Forms.Label();
+            this.label86 = new System.Windows.Forms.Label();
+            this.tbScienceWorkYear = new System.Windows.Forms.TextBox();
             this.cbScienceWorkType = new System.Windows.Forms.ComboBox();
+            this.btnSaveScienceWork = new System.Windows.Forms.Button();
+            this.tabAdditionalInfo = new System.Windows.Forms.TabControl();
             ((System.ComponentModel.ISupportInitialize)(this.epError)).BeginInit();
             this.tabCard.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -402,24 +397,22 @@
             this.tcAddInfo.SuspendLayout();
             this.tabPage8.SuspendLayout();
             this.groupBox8.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvCertificates)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.tabPage9.SuspendLayout();
-            this.gbStag.SuspendLayout();
-            this.gbMotivateText.SuspendLayout();
-            this.gbPersonInfo.SuspendLayout();
             this.tabPage10.SuspendLayout();
             this.tabPage11.SuspendLayout();
             this.gbVedList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVedList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.epErrorInput)).BeginInit();
-            this.tabAdditionalInfo.SuspendLayout();
-            this.tabPage12.SuspendLayout();
-            this.tabPage13.SuspendLayout();
-            this.tabPage14.SuspendLayout();
+            this.groupBox6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCertificates)).BeginInit();
+            this.tabPage15.SuspendLayout();
             this.tabPersonParents.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvPersonScienceWork)).BeginInit();
+            this.tabPage14.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPersonWork)).BeginInit();
+            this.tabPage13.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPersonScienceWork)).BeginInit();
+            this.tabAdditionalInfo.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnClose
@@ -2954,7 +2947,7 @@
             // 
             // tabPage8
             // 
-            this.tabPage8.Controls.Add(this.tabAdditionalInfo);
+            this.tabPage8.Controls.Add(this.groupBox6);
             this.tabPage8.Controls.Add(this.groupBox8);
             this.tabPage8.Controls.Add(this.groupBox2);
             this.tabPage8.Controls.Add(this.cbLanguage);
@@ -3000,39 +2993,6 @@
             this.rbReturnDocumentType1.Text = "rbReturnDocumentType1";
             this.rbReturnDocumentType1.UseVisualStyleBackColor = true;
             // 
-            // btnCertificateDelete
-            // 
-            this.btnCertificateDelete.Location = new System.Drawing.Point(351, 228);
-            this.btnCertificateDelete.Name = "btnCertificateDelete";
-            this.btnCertificateDelete.Size = new System.Drawing.Size(103, 23);
-            this.btnCertificateDelete.TabIndex = 1;
-            this.btnCertificateDelete.Text = "Удалить";
-            this.btnCertificateDelete.UseVisualStyleBackColor = true;
-            this.btnCertificateDelete.Click += new System.EventHandler(this.btnCertificateDelete_Click);
-            // 
-            // btnCertificateAdd
-            // 
-            this.btnCertificateAdd.Location = new System.Drawing.Point(460, 228);
-            this.btnCertificateAdd.Name = "btnCertificateAdd";
-            this.btnCertificateAdd.Size = new System.Drawing.Size(116, 23);
-            this.btnCertificateAdd.TabIndex = 1;
-            this.btnCertificateAdd.Text = "Добавить";
-            this.btnCertificateAdd.UseVisualStyleBackColor = true;
-            this.btnCertificateAdd.Click += new System.EventHandler(this.btnCertificateAdd_Click);
-            // 
-            // dgvCertificates
-            // 
-            this.dgvCertificates.AllowUserToAddRows = false;
-            this.dgvCertificates.AllowUserToDeleteRows = false;
-            this.dgvCertificates.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvCertificates.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvCertificates.Location = new System.Drawing.Point(6, 6);
-            this.dgvCertificates.Name = "dgvCertificates";
-            this.dgvCertificates.ReadOnly = true;
-            this.dgvCertificates.Size = new System.Drawing.Size(570, 216);
-            this.dgvCertificates.TabIndex = 0;
-            this.dgvCertificates.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCertificates_CellDoubleClick);
-            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.chbStartEnglish);
@@ -3077,7 +3037,7 @@
             this.cbLanguage.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbLanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbLanguage.FormattingEnabled = true;
-            this.cbLanguage.Location = new System.Drawing.Point(10, 127);
+            this.cbLanguage.Location = new System.Drawing.Point(15, 160);
             this.cbLanguage.Name = "cbLanguage";
             this.cbLanguage.Size = new System.Drawing.Size(395, 21);
             this.cbLanguage.TabIndex = 123;
@@ -3085,7 +3045,7 @@
             // label28
             // 
             this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(16, 111);
+            this.label28.Location = new System.Drawing.Point(21, 144);
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(115, 13);
             this.label28.TabIndex = 122;
@@ -3093,9 +3053,7 @@
             // 
             // tabPage9
             // 
-            this.tabPage9.Controls.Add(this.gbStag);
-            this.tabPage9.Controls.Add(this.gbMotivateText);
-            this.tabPage9.Controls.Add(this.gbPersonInfo);
+            this.tabPage9.Controls.Add(this.tabAdditionalInfo);
             this.tabPage9.Location = new System.Drawing.Point(4, 22);
             this.tabPage9.Name = "tabPage9";
             this.tabPage9.Padding = new System.Windows.Forms.Padding(3);
@@ -3103,129 +3061,6 @@
             this.tabPage9.TabIndex = 1;
             this.tabPage9.Text = "Доп сведения от абитуриента";
             this.tabPage9.UseVisualStyleBackColor = true;
-            // 
-            // gbStag
-            // 
-            this.gbStag.Controls.Add(this.label44);
-            this.gbStag.Controls.Add(this.tbWorkPlace);
-            this.gbStag.Controls.Add(this.label42);
-            this.gbStag.Controls.Add(this.tbStag);
-            this.gbStag.Location = new System.Drawing.Point(6, 6);
-            this.gbStag.Name = "gbStag";
-            this.gbStag.Size = new System.Drawing.Size(592, 100);
-            this.gbStag.TabIndex = 115;
-            this.gbStag.TabStop = false;
-            this.gbStag.Text = "Трудовой стаж";
-            // 
-            // label44
-            // 
-            this.label44.AutoSize = true;
-            this.label44.Location = new System.Drawing.Point(7, 42);
-            this.label44.Name = "label44";
-            this.label44.Size = new System.Drawing.Size(140, 13);
-            this.label44.TabIndex = 6;
-            this.label44.Text = "Место работы, должность";
-            // 
-            // tbWorkPlace
-            // 
-            this.tbWorkPlace.AllowDrop = true;
-            this.tbWorkPlace.Location = new System.Drawing.Point(10, 58);
-            this.tbWorkPlace.MaxLength = 1000;
-            this.tbWorkPlace.Multiline = true;
-            this.tbWorkPlace.Name = "tbWorkPlace";
-            this.tbWorkPlace.Size = new System.Drawing.Size(576, 35);
-            this.tbWorkPlace.TabIndex = 1;
-            // 
-            // label42
-            // 
-            this.label42.AutoSize = true;
-            this.label42.Location = new System.Drawing.Point(7, 22);
-            this.label42.Name = "label42";
-            this.label42.Size = new System.Drawing.Size(86, 13);
-            this.label42.TabIndex = 3;
-            this.label42.Text = "Количество лет";
-            // 
-            // tbStag
-            // 
-            this.tbStag.Location = new System.Drawing.Point(98, 19);
-            this.tbStag.MaxLength = 100;
-            this.tbStag.Name = "tbStag";
-            this.tbStag.Size = new System.Drawing.Size(64, 20);
-            this.tbStag.TabIndex = 0;
-            // 
-            // gbMotivateText
-            // 
-            this.gbMotivateText.Controls.Add(this.tbScienceWork);
-            this.gbMotivateText.Location = new System.Drawing.Point(6, 338);
-            this.gbMotivateText.Name = "gbMotivateText";
-            this.gbMotivateText.Size = new System.Drawing.Size(592, 149);
-            this.gbMotivateText.TabIndex = 117;
-            this.gbMotivateText.TabStop = false;
-            this.gbMotivateText.Text = "Участие в научно-исследовательской работе  (max 4000 знаков)";
-            // 
-            // tbScienceWork
-            // 
-            this.tbScienceWork.AcceptsReturn = true;
-            this.tbScienceWork.AcceptsTab = true;
-            this.tbScienceWork.Location = new System.Drawing.Point(10, 19);
-            this.tbScienceWork.Multiline = true;
-            this.tbScienceWork.Name = "tbScienceWork";
-            this.tbScienceWork.Size = new System.Drawing.Size(576, 124);
-            this.tbScienceWork.TabIndex = 111;
-            // 
-            // gbPersonInfo
-            // 
-            this.gbPersonInfo.Controls.Add(this.label62);
-            this.gbPersonInfo.Controls.Add(this.label61);
-            this.gbPersonInfo.Controls.Add(this.tbPersonInfo);
-            this.gbPersonInfo.Controls.Add(this.tbExtraInfo);
-            this.gbPersonInfo.Location = new System.Drawing.Point(6, 112);
-            this.gbPersonInfo.Name = "gbPersonInfo";
-            this.gbPersonInfo.Size = new System.Drawing.Size(592, 220);
-            this.gbPersonInfo.TabIndex = 116;
-            this.gbPersonInfo.TabStop = false;
-            this.gbPersonInfo.Text = "Дополнительная информация";
-            // 
-            // label62
-            // 
-            this.label62.AutoSize = true;
-            this.label62.Location = new System.Drawing.Point(6, 89);
-            this.label62.Name = "label62";
-            this.label62.Size = new System.Drawing.Size(266, 13);
-            this.label62.TabIndex = 8;
-            this.label62.Text = "О себе дополнительно сообщаю (max 4000 знаков)";
-            // 
-            // label61
-            // 
-            this.label61.AutoSize = true;
-            this.label61.Location = new System.Drawing.Point(7, 16);
-            this.label61.Name = "label61";
-            this.label61.Size = new System.Drawing.Size(300, 13);
-            this.label61.TabIndex = 7;
-            this.label61.Text = "Лицо, с которым можно связаться в экстренных случаях";
-            // 
-            // tbPersonInfo
-            // 
-            this.tbPersonInfo.AcceptsReturn = true;
-            this.tbPersonInfo.AcceptsTab = true;
-            this.tbPersonInfo.Location = new System.Drawing.Point(10, 32);
-            this.tbPersonInfo.MaxLength = 1000;
-            this.tbPersonInfo.Multiline = true;
-            this.tbPersonInfo.Name = "tbPersonInfo";
-            this.tbPersonInfo.Size = new System.Drawing.Size(576, 54);
-            this.tbPersonInfo.TabIndex = 2;
-            // 
-            // tbExtraInfo
-            // 
-            this.tbExtraInfo.AcceptsReturn = true;
-            this.tbExtraInfo.AcceptsTab = true;
-            this.tbExtraInfo.Location = new System.Drawing.Point(6, 105);
-            this.tbExtraInfo.MaxLength = 1000;
-            this.tbExtraInfo.Multiline = true;
-            this.tbExtraInfo.Name = "tbExtraInfo";
-            this.tbExtraInfo.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbExtraInfo.Size = new System.Drawing.Size(580, 109);
-            this.tbExtraInfo.TabIndex = 1;
             // 
             // tabPage10
             // 
@@ -3353,93 +3188,128 @@
             this.btnDocs.Visible = false;
             this.btnDocs.Click += new System.EventHandler(this.btnDocs_Click);
             // 
-            // tabAdditionalInfo
+            // groupBox6
             // 
-            this.tabAdditionalInfo.Controls.Add(this.tabPage12);
-            this.tabAdditionalInfo.Controls.Add(this.tabPage13);
-            this.tabAdditionalInfo.Controls.Add(this.tabPage14);
-            this.tabAdditionalInfo.Controls.Add(this.tabPersonParents);
-            this.tabAdditionalInfo.Location = new System.Drawing.Point(6, 154);
-            this.tabAdditionalInfo.Name = "tabAdditionalInfo";
-            this.tabAdditionalInfo.SelectedIndex = 0;
-            this.tabAdditionalInfo.Size = new System.Drawing.Size(590, 330);
-            this.tabAdditionalInfo.TabIndex = 130;
+            this.groupBox6.Controls.Add(this.dgvCertificates);
+            this.groupBox6.Controls.Add(this.btnCertificateDelete);
+            this.groupBox6.Controls.Add(this.btnCertificateAdd);
+            this.groupBox6.Location = new System.Drawing.Point(12, 200);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(584, 284);
+            this.groupBox6.TabIndex = 130;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Языковые сертификаты";
             // 
-            // tabPage12
+            // dgvCertificates
             // 
-            this.tabPage12.Controls.Add(this.dgvCertificates);
-            this.tabPage12.Controls.Add(this.btnCertificateDelete);
-            this.tabPage12.Controls.Add(this.btnCertificateAdd);
-            this.tabPage12.Location = new System.Drawing.Point(4, 22);
-            this.tabPage12.Name = "tabPage12";
-            this.tabPage12.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage12.Size = new System.Drawing.Size(582, 304);
-            this.tabPage12.TabIndex = 0;
-            this.tabPage12.Text = "Языковые сертификаты";
-            this.tabPage12.UseVisualStyleBackColor = true;
+            this.dgvCertificates.AllowUserToAddRows = false;
+            this.dgvCertificates.AllowUserToDeleteRows = false;
+            this.dgvCertificates.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvCertificates.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvCertificates.Location = new System.Drawing.Point(7, 26);
+            this.dgvCertificates.Name = "dgvCertificates";
+            this.dgvCertificates.ReadOnly = true;
+            this.dgvCertificates.Size = new System.Drawing.Size(570, 216);
+            this.dgvCertificates.TabIndex = 2;
             // 
-            // tabPage13
+            // btnCertificateDelete
             // 
-            this.tabPage13.Controls.Add(this.cbScienceWorkType);
-            this.tabPage13.Controls.Add(this.tbScienceWorkYear);
-            this.tabPage13.Controls.Add(this.label86);
-            this.tabPage13.Controls.Add(this.label85);
-            this.tabPage13.Controls.Add(this.label84);
-            this.tabPage13.Controls.Add(this.dgvPersonScienceWork);
-            this.tabPage13.Controls.Add(this.textBox1);
-            this.tabPage13.Location = new System.Drawing.Point(4, 22);
-            this.tabPage13.Name = "tabPage13";
-            this.tabPage13.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage13.Size = new System.Drawing.Size(582, 304);
-            this.tabPage13.TabIndex = 1;
-            this.tabPage13.Text = "Научно-иссл. работа";
-            this.tabPage13.UseVisualStyleBackColor = true;
+            this.btnCertificateDelete.Location = new System.Drawing.Point(352, 248);
+            this.btnCertificateDelete.Name = "btnCertificateDelete";
+            this.btnCertificateDelete.Size = new System.Drawing.Size(103, 23);
+            this.btnCertificateDelete.TabIndex = 3;
+            this.btnCertificateDelete.Text = "Удалить";
+            this.btnCertificateDelete.UseVisualStyleBackColor = true;
             // 
-            // tabPage14
+            // btnCertificateAdd
             // 
-            this.tabPage14.Controls.Add(this.tbWorkSpecification);
-            this.tabPage14.Controls.Add(this.label83);
-            this.tabPage14.Controls.Add(this.tbWorkProfession);
-            this.tabPage14.Controls.Add(this.label82);
-            this.tabPage14.Controls.Add(this.textBox2);
-            this.tabPage14.Controls.Add(this.label73);
-            this.tabPage14.Controls.Add(this.dgvPersonWork);
-            this.tabPage14.Controls.Add(this.label74);
-            this.tabPage14.Controls.Add(this.tbWorkStag);
-            this.tabPage14.Location = new System.Drawing.Point(4, 22);
-            this.tabPage14.Name = "tabPage14";
-            this.tabPage14.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage14.Size = new System.Drawing.Size(582, 304);
-            this.tabPage14.TabIndex = 2;
-            this.tabPage14.Text = "Опыт работы";
-            this.tabPage14.UseVisualStyleBackColor = true;
+            this.btnCertificateAdd.Location = new System.Drawing.Point(461, 248);
+            this.btnCertificateAdd.Name = "btnCertificateAdd";
+            this.btnCertificateAdd.Size = new System.Drawing.Size(116, 23);
+            this.btnCertificateAdd.TabIndex = 4;
+            this.btnCertificateAdd.Text = "Добавить";
+            this.btnCertificateAdd.UseVisualStyleBackColor = true;
+            // 
+            // tabPage15
+            // 
+            this.tabPage15.Controls.Add(this.label62);
+            this.tabPage15.Controls.Add(this.tbPersonInfo);
+            this.tabPage15.Controls.Add(this.tbExtraInfo);
+            this.tabPage15.Controls.Add(this.label61);
+            this.tabPage15.Location = new System.Drawing.Point(4, 22);
+            this.tabPage15.Name = "tabPage15";
+            this.tabPage15.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage15.Size = new System.Drawing.Size(582, 455);
+            this.tabPage15.TabIndex = 4;
+            this.tabPage15.Text = "Дополнительные контакты";
+            this.tabPage15.UseVisualStyleBackColor = true;
+            // 
+            // tbExtraInfo
+            // 
+            this.tbExtraInfo.AcceptsReturn = true;
+            this.tbExtraInfo.AcceptsTab = true;
+            this.tbExtraInfo.Location = new System.Drawing.Point(17, 99);
+            this.tbExtraInfo.MaxLength = 1000;
+            this.tbExtraInfo.Multiline = true;
+            this.tbExtraInfo.Name = "tbExtraInfo";
+            this.tbExtraInfo.Size = new System.Drawing.Size(549, 153);
+            this.tbExtraInfo.TabIndex = 1;
+            // 
+            // label61
+            // 
+            this.label61.AutoSize = true;
+            this.label61.Location = new System.Drawing.Point(3, 10);
+            this.label61.Name = "label61";
+            this.label61.Size = new System.Drawing.Size(300, 13);
+            this.label61.TabIndex = 7;
+            this.label61.Text = "Лицо, с которым можно связаться в экстренных случаях";
+            // 
+            // tbPersonInfo
+            // 
+            this.tbPersonInfo.AcceptsReturn = true;
+            this.tbPersonInfo.AcceptsTab = true;
+            this.tbPersonInfo.Location = new System.Drawing.Point(17, 26);
+            this.tbPersonInfo.MaxLength = 1000;
+            this.tbPersonInfo.Multiline = true;
+            this.tbPersonInfo.Name = "tbPersonInfo";
+            this.tbPersonInfo.Size = new System.Drawing.Size(549, 54);
+            this.tbPersonInfo.TabIndex = 2;
+            // 
+            // label62
+            // 
+            this.label62.AutoSize = true;
+            this.label62.Location = new System.Drawing.Point(2, 83);
+            this.label62.Name = "label62";
+            this.label62.Size = new System.Drawing.Size(266, 13);
+            this.label62.TabIndex = 8;
+            this.label62.Text = "О себе дополнительно сообщаю (max 4000 знаков)";
             // 
             // tabPersonParents
             // 
             this.tabPersonParents.Controls.Add(this.label81);
             this.tabPersonParents.Controls.Add(this.tbParent2_WorkPosition);
-            this.tabPersonParents.Controls.Add(this.label80);
             this.tabPersonParents.Controls.Add(this.tbParent_WorkPosition);
             this.tabPersonParents.Controls.Add(this.tbParent2_WorkPlace);
-            this.tabPersonParents.Controls.Add(this.label75);
-            this.tabPersonParents.Controls.Add(this.label79);
             this.tabPersonParents.Controls.Add(this.tbParent_WorkPlace);
             this.tabPersonParents.Controls.Add(this.tbParent2_Email);
-            this.tabPersonParents.Controls.Add(this.label76);
-            this.tabPersonParents.Controls.Add(this.label78);
             this.tabPersonParents.Controls.Add(this.tbParent_Email);
             this.tabPersonParents.Controls.Add(this.tbParent2_Phone);
-            this.tabPersonParents.Controls.Add(this.label77);
-            this.tabPersonParents.Controls.Add(this.label87);
             this.tabPersonParents.Controls.Add(this.tbParent_Phone);
             this.tabPersonParents.Controls.Add(this.tbParent2_SecondName);
-            this.tabPersonParents.Controls.Add(this.label88);
             this.tabPersonParents.Controls.Add(this.tbParent2_Name);
             this.tabPersonParents.Controls.Add(this.tbParent_SecondName);
             this.tabPersonParents.Controls.Add(this.tbParent2_Surname);
             this.tabPersonParents.Controls.Add(this.tbParent_Name);
-            this.tabPersonParents.Controls.Add(this.label89);
             this.tabPersonParents.Controls.Add(this.tbParent_Surname);
+            this.tabPersonParents.Controls.Add(this.label80);
+            this.tabPersonParents.Controls.Add(this.label75);
+            this.tabPersonParents.Controls.Add(this.label79);
+            this.tabPersonParents.Controls.Add(this.label76);
+            this.tabPersonParents.Controls.Add(this.label78);
+            this.tabPersonParents.Controls.Add(this.label77);
+            this.tabPersonParents.Controls.Add(this.label87);
+            this.tabPersonParents.Controls.Add(this.label88);
+            this.tabPersonParents.Controls.Add(this.label89);
             this.tabPersonParents.Controls.Add(this.label90);
             this.tabPersonParents.Controls.Add(this.label91);
             this.tabPersonParents.Controls.Add(this.label92);
@@ -3448,121 +3318,282 @@
             this.tabPersonParents.Location = new System.Drawing.Point(4, 22);
             this.tabPersonParents.Name = "tabPersonParents";
             this.tabPersonParents.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPersonParents.Size = new System.Drawing.Size(582, 304);
+            this.tabPersonParents.Size = new System.Drawing.Size(582, 455);
             this.tabPersonParents.TabIndex = 3;
             this.tabPersonParents.Text = "Родители";
             this.tabPersonParents.UseVisualStyleBackColor = true;
             // 
-            // tbScienceWorkYear
+            // label94
             // 
-            this.tbScienceWorkYear.Location = new System.Drawing.Point(111, 176);
-            this.tbScienceWorkYear.Name = "tbScienceWorkYear";
-            this.tbScienceWorkYear.Size = new System.Drawing.Size(221, 20);
-            this.tbScienceWorkYear.TabIndex = 121;
+            this.label94.AutoSize = true;
+            this.label94.Location = new System.Drawing.Point(41, 24);
+            this.label94.Name = "label94";
+            this.label94.Size = new System.Drawing.Size(56, 13);
+            this.label94.TabIndex = 12;
+            this.label94.Text = "Фамилия";
             // 
-            // label86
+            // label93
             // 
-            this.label86.AutoSize = true;
-            this.label86.Location = new System.Drawing.Point(8, 205);
-            this.label86.Name = "label86";
-            this.label86.Size = new System.Drawing.Size(57, 13);
-            this.label86.TabIndex = 117;
-            this.label86.Text = "Описание";
+            this.label93.AutoSize = true;
+            this.label93.Location = new System.Drawing.Point(68, 47);
+            this.label93.Name = "label93";
+            this.label93.Size = new System.Drawing.Size(29, 13);
+            this.label93.TabIndex = 9;
+            this.label93.Text = "Имя";
             // 
-            // label85
+            // label92
             // 
-            this.label85.AutoSize = true;
-            this.label85.Location = new System.Drawing.Point(8, 179);
-            this.label85.Name = "label85";
-            this.label85.Size = new System.Drawing.Size(98, 13);
-            this.label85.TabIndex = 118;
-            this.label85.Text = "Год деятельности";
+            this.label92.AutoSize = true;
+            this.label92.Location = new System.Drawing.Point(43, 264);
+            this.label92.Name = "label92";
+            this.label92.Size = new System.Drawing.Size(56, 13);
+            this.label92.TabIndex = 4;
+            this.label92.Text = "Фамилия";
             // 
-            // label84
+            // label91
             // 
-            this.label84.AutoSize = true;
-            this.label84.Location = new System.Drawing.Point(8, 153);
-            this.label84.Name = "label84";
-            this.label84.Size = new System.Drawing.Size(99, 13);
-            this.label84.TabIndex = 119;
-            this.label84.Text = "Вид деятельности";
+            this.label91.AutoSize = true;
+            this.label91.Location = new System.Drawing.Point(43, 73);
+            this.label91.Name = "label91";
+            this.label91.Size = new System.Drawing.Size(54, 13);
+            this.label91.TabIndex = 5;
+            this.label91.Text = "Отчество";
             // 
-            // dgvPersonScienceWork
+            // label90
             // 
-            this.dgvPersonScienceWork.AllowUserToAddRows = false;
-            this.dgvPersonScienceWork.AllowUserToDeleteRows = false;
-            this.dgvPersonScienceWork.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvPersonScienceWork.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvPersonScienceWork.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvPersonScienceWork.Location = new System.Drawing.Point(5, 6);
-            this.dgvPersonScienceWork.Name = "dgvPersonScienceWork";
-            this.dgvPersonScienceWork.ReadOnly = true;
-            this.dgvPersonScienceWork.Size = new System.Drawing.Size(571, 138);
-            this.dgvPersonScienceWork.TabIndex = 116;
-            this.dgvPersonScienceWork.CurrentCellChanged += new System.EventHandler(this.dgvPersonScienceWork_CurrentCellChanged);
+            this.label90.AutoSize = true;
+            this.label90.Location = new System.Drawing.Point(70, 290);
+            this.label90.Name = "label90";
+            this.label90.Size = new System.Drawing.Size(29, 13);
+            this.label90.TabIndex = 6;
+            this.label90.Text = "Имя";
             // 
-            // textBox1
+            // tbParent_Surname
             // 
-            this.textBox1.AcceptsReturn = true;
-            this.textBox1.AcceptsTab = true;
-            this.textBox1.Location = new System.Drawing.Point(9, 221);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(557, 66);
-            this.textBox1.TabIndex = 115;
+            this.tbParent_Surname.Location = new System.Drawing.Point(103, 21);
+            this.tbParent_Surname.Name = "tbParent_Surname";
+            this.tbParent_Surname.Size = new System.Drawing.Size(428, 20);
+            this.tbParent_Surname.TabIndex = 20;
             // 
-            // tbWorkSpecification
+            // label89
             // 
-            this.tbWorkSpecification.Location = new System.Drawing.Point(9, 242);
-            this.tbWorkSpecification.MaxLength = 1000;
-            this.tbWorkSpecification.Multiline = true;
-            this.tbWorkSpecification.Name = "tbWorkSpecification";
-            this.tbWorkSpecification.Size = new System.Drawing.Size(565, 56);
-            this.tbWorkSpecification.TabIndex = 96;
+            this.label89.AutoSize = true;
+            this.label89.Location = new System.Drawing.Point(45, 316);
+            this.label89.Name = "label89";
+            this.label89.Size = new System.Drawing.Size(54, 13);
+            this.label89.TabIndex = 7;
+            this.label89.Text = "Отчество";
             // 
-            // label83
+            // tbParent_Name
             // 
-            this.label83.AutoSize = true;
-            this.label83.Location = new System.Drawing.Point(6, 226);
-            this.label83.Name = "label83";
-            this.label83.Size = new System.Drawing.Size(150, 13);
-            this.label83.TabIndex = 100;
-            this.label83.Text = "Должностные обязанности:";
+            this.tbParent_Name.Location = new System.Drawing.Point(105, 47);
+            this.tbParent_Name.Name = "tbParent_Name";
+            this.tbParent_Name.Size = new System.Drawing.Size(428, 20);
+            this.tbParent_Name.TabIndex = 22;
             // 
-            // tbWorkProfession
+            // tbParent2_Surname
             // 
-            this.tbWorkProfession.Location = new System.Drawing.Point(109, 197);
-            this.tbWorkProfession.MaxLength = 1000;
-            this.tbWorkProfession.Name = "tbWorkProfession";
-            this.tbWorkProfession.Size = new System.Drawing.Size(379, 20);
-            this.tbWorkProfession.TabIndex = 97;
+            this.tbParent2_Surname.Location = new System.Drawing.Point(105, 261);
+            this.tbParent2_Surname.Name = "tbParent2_Surname";
+            this.tbParent2_Surname.Size = new System.Drawing.Size(426, 20);
+            this.tbParent2_Surname.TabIndex = 30;
             // 
-            // label82
+            // tbParent_SecondName
             // 
-            this.label82.AutoSize = true;
-            this.label82.Location = new System.Drawing.Point(6, 200);
-            this.label82.Name = "label82";
-            this.label82.Size = new System.Drawing.Size(65, 13);
-            this.label82.TabIndex = 101;
-            this.label82.Text = "Должность";
+            this.tbParent_SecondName.Location = new System.Drawing.Point(104, 73);
+            this.tbParent_SecondName.Name = "tbParent_SecondName";
+            this.tbParent_SecondName.Size = new System.Drawing.Size(428, 20);
+            this.tbParent_SecondName.TabIndex = 23;
             // 
-            // textBox2
+            // tbParent2_Name
             // 
-            this.textBox2.Location = new System.Drawing.Point(109, 171);
-            this.textBox2.MaxLength = 1000;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(379, 20);
-            this.textBox2.TabIndex = 98;
+            this.tbParent2_Name.Location = new System.Drawing.Point(105, 287);
+            this.tbParent2_Name.Name = "tbParent2_Name";
+            this.tbParent2_Name.Size = new System.Drawing.Size(426, 20);
+            this.tbParent2_Name.TabIndex = 24;
             // 
-            // label73
+            // label88
             // 
-            this.label73.AutoSize = true;
-            this.label73.Location = new System.Drawing.Point(6, 174);
-            this.label73.Name = "label73";
-            this.label73.Size = new System.Drawing.Size(79, 13);
-            this.label73.TabIndex = 102;
-            this.label73.Text = "Место работы";
+            this.label88.AutoSize = true;
+            this.label88.Location = new System.Drawing.Point(45, 102);
+            this.label88.Name = "label88";
+            this.label88.Size = new System.Drawing.Size(52, 13);
+            this.label88.TabIndex = 8;
+            this.label88.Text = "Телефон";
+            // 
+            // tbParent2_SecondName
+            // 
+            this.tbParent2_SecondName.Location = new System.Drawing.Point(105, 313);
+            this.tbParent2_SecondName.Name = "tbParent2_SecondName";
+            this.tbParent2_SecondName.Size = new System.Drawing.Size(426, 20);
+            this.tbParent2_SecondName.TabIndex = 25;
+            // 
+            // tbParent_Phone
+            // 
+            this.tbParent_Phone.Location = new System.Drawing.Point(103, 99);
+            this.tbParent_Phone.Name = "tbParent_Phone";
+            this.tbParent_Phone.Size = new System.Drawing.Size(172, 20);
+            this.tbParent_Phone.TabIndex = 26;
+            // 
+            // label87
+            // 
+            this.label87.AutoSize = true;
+            this.label87.Location = new System.Drawing.Point(47, 342);
+            this.label87.Name = "label87";
+            this.label87.Size = new System.Drawing.Size(52, 13);
+            this.label87.TabIndex = 3;
+            this.label87.Text = "Телефон";
+            // 
+            // label77
+            // 
+            this.label77.AutoSize = true;
+            this.label77.Location = new System.Drawing.Point(309, 102);
+            this.label77.Name = "label77";
+            this.label77.Size = new System.Drawing.Size(32, 13);
+            this.label77.TabIndex = 10;
+            this.label77.Text = "Email";
+            // 
+            // tbParent2_Phone
+            // 
+            this.tbParent2_Phone.Location = new System.Drawing.Point(105, 339);
+            this.tbParent2_Phone.Name = "tbParent2_Phone";
+            this.tbParent2_Phone.Size = new System.Drawing.Size(170, 20);
+            this.tbParent2_Phone.TabIndex = 28;
+            // 
+            // tbParent_Email
+            // 
+            this.tbParent_Email.Location = new System.Drawing.Point(347, 99);
+            this.tbParent_Email.Name = "tbParent_Email";
+            this.tbParent_Email.Size = new System.Drawing.Size(185, 20);
+            this.tbParent_Email.TabIndex = 29;
+            // 
+            // label78
+            // 
+            this.label78.AutoSize = true;
+            this.label78.Location = new System.Drawing.Point(309, 342);
+            this.label78.Name = "label78";
+            this.label78.Size = new System.Drawing.Size(32, 13);
+            this.label78.TabIndex = 11;
+            this.label78.Text = "Email";
+            // 
+            // label76
+            // 
+            this.label76.AutoSize = true;
+            this.label76.Location = new System.Drawing.Point(18, 128);
+            this.label76.Name = "label76";
+            this.label76.Size = new System.Drawing.Size(79, 13);
+            this.label76.TabIndex = 16;
+            this.label76.Text = "Место работы";
+            // 
+            // tbParent2_Email
+            // 
+            this.tbParent2_Email.Location = new System.Drawing.Point(347, 339);
+            this.tbParent2_Email.Name = "tbParent2_Email";
+            this.tbParent2_Email.Size = new System.Drawing.Size(184, 20);
+            this.tbParent2_Email.TabIndex = 17;
+            // 
+            // tbParent_WorkPlace
+            // 
+            this.tbParent_WorkPlace.Location = new System.Drawing.Point(103, 125);
+            this.tbParent_WorkPlace.Name = "tbParent_WorkPlace";
+            this.tbParent_WorkPlace.Size = new System.Drawing.Size(428, 20);
+            this.tbParent_WorkPlace.TabIndex = 27;
+            // 
+            // label79
+            // 
+            this.label79.AutoSize = true;
+            this.label79.Location = new System.Drawing.Point(20, 368);
+            this.label79.Name = "label79";
+            this.label79.Size = new System.Drawing.Size(79, 13);
+            this.label79.TabIndex = 14;
+            this.label79.Text = "Место работы";
+            // 
+            // label75
+            // 
+            this.label75.AutoSize = true;
+            this.label75.Location = new System.Drawing.Point(32, 154);
+            this.label75.Name = "label75";
+            this.label75.Size = new System.Drawing.Size(65, 13);
+            this.label75.TabIndex = 15;
+            this.label75.Text = "Должность";
+            // 
+            // tbParent2_WorkPlace
+            // 
+            this.tbParent2_WorkPlace.Location = new System.Drawing.Point(105, 365);
+            this.tbParent2_WorkPlace.Name = "tbParent2_WorkPlace";
+            this.tbParent2_WorkPlace.Size = new System.Drawing.Size(426, 20);
+            this.tbParent2_WorkPlace.TabIndex = 21;
+            // 
+            // tbParent_WorkPosition
+            // 
+            this.tbParent_WorkPosition.Location = new System.Drawing.Point(103, 151);
+            this.tbParent_WorkPosition.Name = "tbParent_WorkPosition";
+            this.tbParent_WorkPosition.Size = new System.Drawing.Size(428, 20);
+            this.tbParent_WorkPosition.TabIndex = 19;
+            // 
+            // label80
+            // 
+            this.label80.AutoSize = true;
+            this.label80.Location = new System.Drawing.Point(34, 394);
+            this.label80.Name = "label80";
+            this.label80.Size = new System.Drawing.Size(65, 13);
+            this.label80.TabIndex = 13;
+            this.label80.Text = "Должность";
+            // 
+            // tbParent2_WorkPosition
+            // 
+            this.tbParent2_WorkPosition.Location = new System.Drawing.Point(105, 391);
+            this.tbParent2_WorkPosition.Name = "tbParent2_WorkPosition";
+            this.tbParent2_WorkPosition.Size = new System.Drawing.Size(426, 20);
+            this.tbParent2_WorkPosition.TabIndex = 18;
+            // 
+            // label81
+            // 
+            this.label81.AutoSize = true;
+            this.label81.Location = new System.Drawing.Point(6, 204);
+            this.label81.Name = "label81";
+            this.label81.Size = new System.Drawing.Size(565, 13);
+            this.label81.TabIndex = 31;
+            this.label81.Text = "=================================================================================" +
+    "============";
+            // 
+            // tabPage14
+            // 
+            this.tabPage14.Controls.Add(this.btnWorkSave);
+            this.tabPage14.Controls.Add(this.tbWorkSpecification);
+            this.tabPage14.Controls.Add(this.tbWorkProfession);
+            this.tabPage14.Controls.Add(this.tbWorkPlace);
+            this.tabPage14.Controls.Add(this.tbWorkStag);
+            this.tabPage14.Controls.Add(this.label83);
+            this.tabPage14.Controls.Add(this.label82);
+            this.tabPage14.Controls.Add(this.label73);
+            this.tabPage14.Controls.Add(this.dgvPersonWork);
+            this.tabPage14.Controls.Add(this.label74);
+            this.tabPage14.Location = new System.Drawing.Point(4, 22);
+            this.tabPage14.Name = "tabPage14";
+            this.tabPage14.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage14.Size = new System.Drawing.Size(582, 455);
+            this.tabPage14.TabIndex = 2;
+            this.tabPage14.Text = "Опыт работы";
+            this.tabPage14.UseVisualStyleBackColor = true;
+            // 
+            // tbWorkStag
+            // 
+            this.tbWorkStag.Enabled = false;
+            this.tbWorkStag.Location = new System.Drawing.Point(106, 187);
+            this.tbWorkStag.MaxLength = 100;
+            this.tbWorkStag.Name = "tbWorkStag";
+            this.tbWorkStag.Size = new System.Drawing.Size(64, 20);
+            this.tbWorkStag.TabIndex = 95;
+            // 
+            // label74
+            // 
+            this.label74.AutoSize = true;
+            this.label74.Location = new System.Drawing.Point(14, 190);
+            this.label74.Name = "label74";
+            this.label74.Size = new System.Drawing.Size(86, 13);
+            this.label74.TabIndex = 99;
+            this.label74.Text = "Количество лет";
             // 
             // dgvPersonWork
             // 
@@ -3572,271 +3603,184 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvPersonWork.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvPersonWork.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvPersonWork.Location = new System.Drawing.Point(9, 6);
+            this.dgvPersonWork.Location = new System.Drawing.Point(9, 19);
             this.dgvPersonWork.Name = "dgvPersonWork";
             this.dgvPersonWork.ReadOnly = true;
-            this.dgvPersonWork.Size = new System.Drawing.Size(567, 133);
+            this.dgvPersonWork.Size = new System.Drawing.Size(567, 151);
             this.dgvPersonWork.TabIndex = 103;
             // 
-            // label74
+            // label73
             // 
-            this.label74.AutoSize = true;
-            this.label74.Location = new System.Drawing.Point(6, 148);
-            this.label74.Name = "label74";
-            this.label74.Size = new System.Drawing.Size(86, 13);
-            this.label74.TabIndex = 99;
-            this.label74.Text = "Количество лет";
+            this.label73.AutoSize = true;
+            this.label73.Location = new System.Drawing.Point(14, 216);
+            this.label73.Name = "label73";
+            this.label73.Size = new System.Drawing.Size(79, 13);
+            this.label73.TabIndex = 102;
+            this.label73.Text = "Место работы";
             // 
-            // tbWorkStag
+            // tbWorkPlace
             // 
-            this.tbWorkStag.Location = new System.Drawing.Point(109, 145);
-            this.tbWorkStag.MaxLength = 100;
-            this.tbWorkStag.Name = "tbWorkStag";
-            this.tbWorkStag.Size = new System.Drawing.Size(64, 20);
-            this.tbWorkStag.TabIndex = 95;
+            this.tbWorkPlace.Enabled = false;
+            this.tbWorkPlace.Location = new System.Drawing.Point(106, 213);
+            this.tbWorkPlace.MaxLength = 1000;
+            this.tbWorkPlace.Name = "tbWorkPlace";
+            this.tbWorkPlace.Size = new System.Drawing.Size(460, 20);
+            this.tbWorkPlace.TabIndex = 98;
             // 
-            // label81
+            // label82
             // 
-            this.label81.AutoSize = true;
-            this.label81.Location = new System.Drawing.Point(11, 143);
-            this.label81.Name = "label81";
-            this.label81.Size = new System.Drawing.Size(565, 13);
-            this.label81.TabIndex = 31;
-            this.label81.Text = "=================================================================================" +
-    "============";
+            this.label82.AutoSize = true;
+            this.label82.Location = new System.Drawing.Point(14, 242);
+            this.label82.Name = "label82";
+            this.label82.Size = new System.Drawing.Size(65, 13);
+            this.label82.TabIndex = 101;
+            this.label82.Text = "Должность";
             // 
-            // tbParent2_WorkPosition
+            // tbWorkProfession
             // 
-            this.tbParent2_WorkPosition.Location = new System.Drawing.Point(107, 269);
-            this.tbParent2_WorkPosition.Name = "tbParent2_WorkPosition";
-            this.tbParent2_WorkPosition.Size = new System.Drawing.Size(426, 20);
-            this.tbParent2_WorkPosition.TabIndex = 18;
+            this.tbWorkProfession.Enabled = false;
+            this.tbWorkProfession.Location = new System.Drawing.Point(106, 239);
+            this.tbWorkProfession.MaxLength = 1000;
+            this.tbWorkProfession.Name = "tbWorkProfession";
+            this.tbWorkProfession.Size = new System.Drawing.Size(460, 20);
+            this.tbWorkProfession.TabIndex = 97;
             // 
-            // label80
+            // label83
             // 
-            this.label80.AutoSize = true;
-            this.label80.Location = new System.Drawing.Point(36, 272);
-            this.label80.Name = "label80";
-            this.label80.Size = new System.Drawing.Size(65, 13);
-            this.label80.TabIndex = 13;
-            this.label80.Text = "Должность";
+            this.label83.AutoSize = true;
+            this.label83.Location = new System.Drawing.Point(14, 272);
+            this.label83.Name = "label83";
+            this.label83.Size = new System.Drawing.Size(150, 13);
+            this.label83.TabIndex = 100;
+            this.label83.Text = "Должностные обязанности:";
             // 
-            // tbParent_WorkPosition
+            // tbWorkSpecification
             // 
-            this.tbParent_WorkPosition.Location = new System.Drawing.Point(105, 109);
-            this.tbParent_WorkPosition.Name = "tbParent_WorkPosition";
-            this.tbParent_WorkPosition.Size = new System.Drawing.Size(428, 20);
-            this.tbParent_WorkPosition.TabIndex = 19;
+            this.tbWorkSpecification.Enabled = false;
+            this.tbWorkSpecification.Location = new System.Drawing.Point(44, 288);
+            this.tbWorkSpecification.MaxLength = 1000;
+            this.tbWorkSpecification.Multiline = true;
+            this.tbWorkSpecification.Name = "tbWorkSpecification";
+            this.tbWorkSpecification.Size = new System.Drawing.Size(522, 56);
+            this.tbWorkSpecification.TabIndex = 96;
             // 
-            // tbParent2_WorkPlace
+            // btnWorkSave
             // 
-            this.tbParent2_WorkPlace.Location = new System.Drawing.Point(107, 243);
-            this.tbParent2_WorkPlace.Name = "tbParent2_WorkPlace";
-            this.tbParent2_WorkPlace.Size = new System.Drawing.Size(426, 20);
-            this.tbParent2_WorkPlace.TabIndex = 21;
+            this.btnWorkSave.Location = new System.Drawing.Point(17, 350);
+            this.btnWorkSave.Name = "btnWorkSave";
+            this.btnWorkSave.Size = new System.Drawing.Size(112, 23);
+            this.btnWorkSave.TabIndex = 104;
+            this.btnWorkSave.Text = "Изменить";
+            this.btnWorkSave.UseVisualStyleBackColor = true;
             // 
-            // label75
+            // tabPage13
             // 
-            this.label75.AutoSize = true;
-            this.label75.Location = new System.Drawing.Point(34, 112);
-            this.label75.Name = "label75";
-            this.label75.Size = new System.Drawing.Size(65, 13);
-            this.label75.TabIndex = 15;
-            this.label75.Text = "Должность";
+            this.tabPage13.Controls.Add(this.btnSaveScienceWork);
+            this.tabPage13.Controls.Add(this.cbScienceWorkType);
+            this.tabPage13.Controls.Add(this.tbScienceWorkYear);
+            this.tabPage13.Controls.Add(this.tbScienceWork);
+            this.tabPage13.Controls.Add(this.label86);
+            this.tabPage13.Controls.Add(this.label85);
+            this.tabPage13.Controls.Add(this.label84);
+            this.tabPage13.Controls.Add(this.dgvPersonScienceWork);
+            this.tabPage13.Location = new System.Drawing.Point(4, 22);
+            this.tabPage13.Name = "tabPage13";
+            this.tabPage13.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage13.Size = new System.Drawing.Size(582, 455);
+            this.tabPage13.TabIndex = 1;
+            this.tabPage13.Text = "Научно-иссл. работа";
+            this.tabPage13.UseVisualStyleBackColor = true;
             // 
-            // label79
+            // tbScienceWork
             // 
-            this.label79.AutoSize = true;
-            this.label79.Location = new System.Drawing.Point(22, 246);
-            this.label79.Name = "label79";
-            this.label79.Size = new System.Drawing.Size(79, 13);
-            this.label79.TabIndex = 14;
-            this.label79.Text = "Место работы";
+            this.tbScienceWork.AcceptsReturn = true;
+            this.tbScienceWork.AcceptsTab = true;
+            this.tbScienceWork.Enabled = false;
+            this.tbScienceWork.Location = new System.Drawing.Point(28, 248);
+            this.tbScienceWork.Multiline = true;
+            this.tbScienceWork.Name = "tbScienceWork";
+            this.tbScienceWork.Size = new System.Drawing.Size(537, 74);
+            this.tbScienceWork.TabIndex = 115;
             // 
-            // tbParent_WorkPlace
+            // dgvPersonScienceWork
             // 
-            this.tbParent_WorkPlace.Location = new System.Drawing.Point(105, 83);
-            this.tbParent_WorkPlace.Name = "tbParent_WorkPlace";
-            this.tbParent_WorkPlace.Size = new System.Drawing.Size(428, 20);
-            this.tbParent_WorkPlace.TabIndex = 27;
+            this.dgvPersonScienceWork.AllowUserToAddRows = false;
+            this.dgvPersonScienceWork.AllowUserToDeleteRows = false;
+            this.dgvPersonScienceWork.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvPersonScienceWork.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvPersonScienceWork.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvPersonScienceWork.Location = new System.Drawing.Point(5, 18);
+            this.dgvPersonScienceWork.Name = "dgvPersonScienceWork";
+            this.dgvPersonScienceWork.ReadOnly = true;
+            this.dgvPersonScienceWork.Size = new System.Drawing.Size(571, 138);
+            this.dgvPersonScienceWork.TabIndex = 116;
             // 
-            // tbParent2_Email
+            // label84
             // 
-            this.tbParent2_Email.Location = new System.Drawing.Point(349, 217);
-            this.tbParent2_Email.Name = "tbParent2_Email";
-            this.tbParent2_Email.Size = new System.Drawing.Size(184, 20);
-            this.tbParent2_Email.TabIndex = 17;
+            this.label84.AutoSize = true;
+            this.label84.Location = new System.Drawing.Point(7, 179);
+            this.label84.Name = "label84";
+            this.label84.Size = new System.Drawing.Size(99, 13);
+            this.label84.TabIndex = 119;
+            this.label84.Text = "Вид деятельности";
             // 
-            // label76
+            // label85
             // 
-            this.label76.AutoSize = true;
-            this.label76.Location = new System.Drawing.Point(20, 86);
-            this.label76.Name = "label76";
-            this.label76.Size = new System.Drawing.Size(79, 13);
-            this.label76.TabIndex = 16;
-            this.label76.Text = "Место работы";
+            this.label85.AutoSize = true;
+            this.label85.Location = new System.Drawing.Point(8, 206);
+            this.label85.Name = "label85";
+            this.label85.Size = new System.Drawing.Size(98, 13);
+            this.label85.TabIndex = 118;
+            this.label85.Text = "Год деятельности";
             // 
-            // label78
+            // label86
             // 
-            this.label78.AutoSize = true;
-            this.label78.Location = new System.Drawing.Point(311, 220);
-            this.label78.Name = "label78";
-            this.label78.Size = new System.Drawing.Size(32, 13);
-            this.label78.TabIndex = 11;
-            this.label78.Text = "Email";
+            this.label86.AutoSize = true;
+            this.label86.Location = new System.Drawing.Point(11, 232);
+            this.label86.Name = "label86";
+            this.label86.Size = new System.Drawing.Size(57, 13);
+            this.label86.TabIndex = 117;
+            this.label86.Text = "Описание";
             // 
-            // tbParent_Email
+            // tbScienceWorkYear
             // 
-            this.tbParent_Email.Location = new System.Drawing.Point(349, 57);
-            this.tbParent_Email.Name = "tbParent_Email";
-            this.tbParent_Email.Size = new System.Drawing.Size(185, 20);
-            this.tbParent_Email.TabIndex = 29;
-            // 
-            // tbParent2_Phone
-            // 
-            this.tbParent2_Phone.Location = new System.Drawing.Point(107, 217);
-            this.tbParent2_Phone.Name = "tbParent2_Phone";
-            this.tbParent2_Phone.Size = new System.Drawing.Size(170, 20);
-            this.tbParent2_Phone.TabIndex = 28;
-            // 
-            // label77
-            // 
-            this.label77.AutoSize = true;
-            this.label77.Location = new System.Drawing.Point(311, 60);
-            this.label77.Name = "label77";
-            this.label77.Size = new System.Drawing.Size(32, 13);
-            this.label77.TabIndex = 10;
-            this.label77.Text = "Email";
-            // 
-            // label87
-            // 
-            this.label87.AutoSize = true;
-            this.label87.Location = new System.Drawing.Point(49, 220);
-            this.label87.Name = "label87";
-            this.label87.Size = new System.Drawing.Size(52, 13);
-            this.label87.TabIndex = 3;
-            this.label87.Text = "Телефон";
-            // 
-            // tbParent_Phone
-            // 
-            this.tbParent_Phone.Location = new System.Drawing.Point(105, 57);
-            this.tbParent_Phone.Name = "tbParent_Phone";
-            this.tbParent_Phone.Size = new System.Drawing.Size(172, 20);
-            this.tbParent_Phone.TabIndex = 26;
-            // 
-            // tbParent2_SecondName
-            // 
-            this.tbParent2_SecondName.Location = new System.Drawing.Point(386, 188);
-            this.tbParent2_SecondName.Name = "tbParent2_SecondName";
-            this.tbParent2_SecondName.Size = new System.Drawing.Size(147, 20);
-            this.tbParent2_SecondName.TabIndex = 25;
-            // 
-            // label88
-            // 
-            this.label88.AutoSize = true;
-            this.label88.Location = new System.Drawing.Point(47, 60);
-            this.label88.Name = "label88";
-            this.label88.Size = new System.Drawing.Size(52, 13);
-            this.label88.TabIndex = 8;
-            this.label88.Text = "Телефон";
-            // 
-            // tbParent2_Name
-            // 
-            this.tbParent2_Name.Location = new System.Drawing.Point(251, 188);
-            this.tbParent2_Name.Name = "tbParent2_Name";
-            this.tbParent2_Name.Size = new System.Drawing.Size(129, 20);
-            this.tbParent2_Name.TabIndex = 24;
-            // 
-            // tbParent_SecondName
-            // 
-            this.tbParent_SecondName.Location = new System.Drawing.Point(390, 28);
-            this.tbParent_SecondName.Name = "tbParent_SecondName";
-            this.tbParent_SecondName.Size = new System.Drawing.Size(143, 20);
-            this.tbParent_SecondName.TabIndex = 23;
-            // 
-            // tbParent2_Surname
-            // 
-            this.tbParent2_Surname.Location = new System.Drawing.Point(107, 188);
-            this.tbParent2_Surname.Name = "tbParent2_Surname";
-            this.tbParent2_Surname.Size = new System.Drawing.Size(138, 20);
-            this.tbParent2_Surname.TabIndex = 30;
-            // 
-            // tbParent_Name
-            // 
-            this.tbParent_Name.Location = new System.Drawing.Point(255, 28);
-            this.tbParent_Name.Name = "tbParent_Name";
-            this.tbParent_Name.Size = new System.Drawing.Size(129, 20);
-            this.tbParent_Name.TabIndex = 22;
-            // 
-            // label89
-            // 
-            this.label89.AutoSize = true;
-            this.label89.Location = new System.Drawing.Point(383, 172);
-            this.label89.Name = "label89";
-            this.label89.Size = new System.Drawing.Size(54, 13);
-            this.label89.TabIndex = 7;
-            this.label89.Text = "Отчество";
-            // 
-            // tbParent_Surname
-            // 
-            this.tbParent_Surname.Location = new System.Drawing.Point(104, 28);
-            this.tbParent_Surname.Name = "tbParent_Surname";
-            this.tbParent_Surname.Size = new System.Drawing.Size(145, 20);
-            this.tbParent_Surname.TabIndex = 20;
-            // 
-            // label90
-            // 
-            this.label90.AutoSize = true;
-            this.label90.Location = new System.Drawing.Point(248, 172);
-            this.label90.Name = "label90";
-            this.label90.Size = new System.Drawing.Size(29, 13);
-            this.label90.TabIndex = 6;
-            this.label90.Text = "Имя";
-            // 
-            // label91
-            // 
-            this.label91.AutoSize = true;
-            this.label91.Location = new System.Drawing.Point(387, 12);
-            this.label91.Name = "label91";
-            this.label91.Size = new System.Drawing.Size(54, 13);
-            this.label91.TabIndex = 5;
-            this.label91.Text = "Отчество";
-            // 
-            // label92
-            // 
-            this.label92.AutoSize = true;
-            this.label92.Location = new System.Drawing.Point(104, 172);
-            this.label92.Name = "label92";
-            this.label92.Size = new System.Drawing.Size(56, 13);
-            this.label92.TabIndex = 4;
-            this.label92.Text = "Фамилия";
-            // 
-            // label93
-            // 
-            this.label93.AutoSize = true;
-            this.label93.Location = new System.Drawing.Point(252, 12);
-            this.label93.Name = "label93";
-            this.label93.Size = new System.Drawing.Size(29, 13);
-            this.label93.TabIndex = 9;
-            this.label93.Text = "Имя";
-            // 
-            // label94
-            // 
-            this.label94.AutoSize = true;
-            this.label94.Location = new System.Drawing.Point(102, 12);
-            this.label94.Name = "label94";
-            this.label94.Size = new System.Drawing.Size(56, 13);
-            this.label94.TabIndex = 12;
-            this.label94.Text = "Фамилия";
+            this.tbScienceWorkYear.Enabled = false;
+            this.tbScienceWorkYear.Location = new System.Drawing.Point(111, 203);
+            this.tbScienceWorkYear.Name = "tbScienceWorkYear";
+            this.tbScienceWorkYear.Size = new System.Drawing.Size(86, 20);
+            this.tbScienceWorkYear.TabIndex = 121;
             // 
             // cbScienceWorkType
             // 
             this.cbScienceWorkType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbScienceWorkType.Enabled = false;
             this.cbScienceWorkType.FormattingEnabled = true;
-            this.cbScienceWorkType.Location = new System.Drawing.Point(111, 150);
+            this.cbScienceWorkType.Location = new System.Drawing.Point(110, 176);
             this.cbScienceWorkType.Name = "cbScienceWorkType";
             this.cbScienceWorkType.Size = new System.Drawing.Size(221, 21);
             this.cbScienceWorkType.TabIndex = 122;
+            // 
+            // btnSaveScienceWork
+            // 
+            this.btnSaveScienceWork.Location = new System.Drawing.Point(11, 328);
+            this.btnSaveScienceWork.Name = "btnSaveScienceWork";
+            this.btnSaveScienceWork.Size = new System.Drawing.Size(98, 23);
+            this.btnSaveScienceWork.TabIndex = 123;
+            this.btnSaveScienceWork.Text = "Изменить";
+            this.btnSaveScienceWork.UseVisualStyleBackColor = true;
+            // 
+            // tabAdditionalInfo
+            // 
+            this.tabAdditionalInfo.Controls.Add(this.tabPage13);
+            this.tabAdditionalInfo.Controls.Add(this.tabPage14);
+            this.tabAdditionalInfo.Controls.Add(this.tabPersonParents);
+            this.tabAdditionalInfo.Controls.Add(this.tabPage15);
+            this.tabAdditionalInfo.Location = new System.Drawing.Point(6, 6);
+            this.tabAdditionalInfo.Name = "tabAdditionalInfo";
+            this.tabAdditionalInfo.SelectedIndex = 0;
+            this.tabAdditionalInfo.Size = new System.Drawing.Size(590, 481);
+            this.tabAdditionalInfo.TabIndex = 131;
             // 
             // CardPerson
             // 
@@ -3927,32 +3871,28 @@
             this.tabPage8.PerformLayout();
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvCertificates)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.tabPage9.ResumeLayout(false);
-            this.gbStag.ResumeLayout(false);
-            this.gbStag.PerformLayout();
-            this.gbMotivateText.ResumeLayout(false);
-            this.gbMotivateText.PerformLayout();
-            this.gbPersonInfo.ResumeLayout(false);
-            this.gbPersonInfo.PerformLayout();
             this.tabPage10.ResumeLayout(false);
             this.tabPage10.PerformLayout();
             this.tabPage11.ResumeLayout(false);
             this.gbVedList.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvVedList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.epErrorInput)).EndInit();
-            this.tabAdditionalInfo.ResumeLayout(false);
-            this.tabPage12.ResumeLayout(false);
-            this.tabPage13.ResumeLayout(false);
-            this.tabPage13.PerformLayout();
-            this.tabPage14.ResumeLayout(false);
-            this.tabPage14.PerformLayout();
+            this.groupBox6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCertificates)).EndInit();
+            this.tabPage15.ResumeLayout(false);
+            this.tabPage15.PerformLayout();
             this.tabPersonParents.ResumeLayout(false);
             this.tabPersonParents.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvPersonScienceWork)).EndInit();
+            this.tabPage14.ResumeLayout(false);
+            this.tabPage14.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPersonWork)).EndInit();
+            this.tabPage13.ResumeLayout(false);
+            this.tabPage13.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPersonScienceWork)).EndInit();
+            this.tabAdditionalInfo.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -4143,18 +4083,6 @@
         private System.Windows.Forms.CheckBox chbStartEnglish;
         private System.Windows.Forms.TextBox tbEnglishMark;
         private System.Windows.Forms.Label label36;
-        private System.Windows.Forms.GroupBox gbMotivateText;
-        private System.Windows.Forms.TextBox tbScienceWork;
-        private System.Windows.Forms.GroupBox gbPersonInfo;
-        private System.Windows.Forms.Label label62;
-        private System.Windows.Forms.Label label61;
-        private System.Windows.Forms.TextBox tbPersonInfo;
-        private System.Windows.Forms.TextBox tbExtraInfo;
-        private System.Windows.Forms.GroupBox gbStag;
-        private System.Windows.Forms.Label label44;
-        private System.Windows.Forms.TextBox tbWorkPlace;
-        private System.Windows.Forms.Label label42;
-        private System.Windows.Forms.TextBox tbStag;
         private System.Windows.Forms.Button btnDeleteBenefitDocument;
         private System.Windows.Forms.Button btnAddBenefitDocument;
         private System.Windows.Forms.DataGridView dgvBenefitDocument;
@@ -4217,9 +4145,6 @@
         private System.Windows.Forms.Panel pnExitClass;
         private System.Windows.Forms.ComboBox cbExitClass;
         private System.Windows.Forms.Label label70;
-        private System.Windows.Forms.Button btnCertificateAdd;
-        private System.Windows.Forms.DataGridView dgvCertificates;
-        private System.Windows.Forms.Button btnCertificateDelete;
         private System.Windows.Forms.GroupBox gbEgeLoading;
         private System.Windows.Forms.Label label71;
         private System.Windows.Forms.Button btnDocsList;
@@ -4228,56 +4153,66 @@
         private System.Windows.Forms.GroupBox groupBox8;
         private System.Windows.Forms.RadioButton rbReturnDocumentType2;
         private System.Windows.Forms.RadioButton rbReturnDocumentType1;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.DataGridView dgvCertificates;
+        private System.Windows.Forms.Button btnCertificateDelete;
+        private System.Windows.Forms.Button btnCertificateAdd;
         private System.Windows.Forms.TabControl tabAdditionalInfo;
-        private System.Windows.Forms.TabPage tabPage12;
         private System.Windows.Forms.TabPage tabPage13;
-        private System.Windows.Forms.TabPage tabPage14;
-        private System.Windows.Forms.TabPage tabPersonParents;
+        private System.Windows.Forms.Button btnSaveScienceWork;
+        private System.Windows.Forms.ComboBox cbScienceWorkType;
         private System.Windows.Forms.TextBox tbScienceWorkYear;
+        private System.Windows.Forms.TextBox tbScienceWork;
         private System.Windows.Forms.Label label86;
         private System.Windows.Forms.Label label85;
         private System.Windows.Forms.Label label84;
         private System.Windows.Forms.DataGridView dgvPersonScienceWork;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TabPage tabPage14;
+        private System.Windows.Forms.Button btnWorkSave;
         private System.Windows.Forms.TextBox tbWorkSpecification;
-        private System.Windows.Forms.Label label83;
         private System.Windows.Forms.TextBox tbWorkProfession;
+        private System.Windows.Forms.TextBox tbWorkPlace;
+        private System.Windows.Forms.TextBox tbWorkStag;
+        private System.Windows.Forms.Label label83;
         private System.Windows.Forms.Label label82;
-        private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label label73;
         private System.Windows.Forms.DataGridView dgvPersonWork;
         private System.Windows.Forms.Label label74;
-        private System.Windows.Forms.TextBox tbWorkStag;
+        private System.Windows.Forms.TabPage tabPersonParents;
         private System.Windows.Forms.Label label81;
         private System.Windows.Forms.TextBox tbParent2_WorkPosition;
-        private System.Windows.Forms.Label label80;
         private System.Windows.Forms.TextBox tbParent_WorkPosition;
         private System.Windows.Forms.TextBox tbParent2_WorkPlace;
-        private System.Windows.Forms.Label label75;
-        private System.Windows.Forms.Label label79;
         private System.Windows.Forms.TextBox tbParent_WorkPlace;
         private System.Windows.Forms.TextBox tbParent2_Email;
-        private System.Windows.Forms.Label label76;
-        private System.Windows.Forms.Label label78;
         private System.Windows.Forms.TextBox tbParent_Email;
         private System.Windows.Forms.TextBox tbParent2_Phone;
-        private System.Windows.Forms.Label label77;
-        private System.Windows.Forms.Label label87;
         private System.Windows.Forms.TextBox tbParent_Phone;
         private System.Windows.Forms.TextBox tbParent2_SecondName;
-        private System.Windows.Forms.Label label88;
         private System.Windows.Forms.TextBox tbParent2_Name;
         private System.Windows.Forms.TextBox tbParent_SecondName;
         private System.Windows.Forms.TextBox tbParent2_Surname;
         private System.Windows.Forms.TextBox tbParent_Name;
-        private System.Windows.Forms.Label label89;
         private System.Windows.Forms.TextBox tbParent_Surname;
+        private System.Windows.Forms.Label label80;
+        private System.Windows.Forms.Label label75;
+        private System.Windows.Forms.Label label79;
+        private System.Windows.Forms.Label label76;
+        private System.Windows.Forms.Label label78;
+        private System.Windows.Forms.Label label77;
+        private System.Windows.Forms.Label label87;
+        private System.Windows.Forms.Label label88;
+        private System.Windows.Forms.Label label89;
         private System.Windows.Forms.Label label90;
         private System.Windows.Forms.Label label91;
         private System.Windows.Forms.Label label92;
         private System.Windows.Forms.Label label93;
         private System.Windows.Forms.Label label94;
-        private System.Windows.Forms.ComboBox cbScienceWorkType;
+        private System.Windows.Forms.TabPage tabPage15;
+        private System.Windows.Forms.Label label62;
+        private System.Windows.Forms.TextBox tbPersonInfo;
+        private System.Windows.Forms.TextBox tbExtraInfo;
+        private System.Windows.Forms.Label label61;
 
     }
 }

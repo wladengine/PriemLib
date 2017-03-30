@@ -746,6 +746,11 @@ namespace PriemLib
 
             btnAddEducDoc.Enabled = false;
             btnDeleteEducDoc.Enabled = false;
+
+            tbWorkPlace.Enabled = tbWorkStag.Enabled = tbWorkProfession.Enabled = tbWorkSpecification.Enabled = false;
+            tbScienceWork.Enabled = tbScienceWorkYear.Enabled = cbScienceWorkType.Enabled = false;
+            WinFormsServ.SetSubControlsEnabled(tabPersonParents, false);
+
         }
         //убрать режим read-only
         protected override void SetAllFieldsEnabled()
@@ -836,8 +841,6 @@ namespace PriemLib
                 SetAllFieldsNotEnabled();
 
                 tbMobiles.Enabled = true;
-                gbStag.Enabled = true;
-                gbPersonInfo.Enabled = true;
 
                 //tbDiplomNum.Enabled = true;
                 //tbDiplomSeries.Enabled = true;
@@ -2549,28 +2552,7 @@ namespace PriemLib
         }
 
         #region AdditionalInfo
-
-        int rowPersonScienceWork = -1;
-        private void dgvPersonScienceWork_CurrentCellChanged(object sender, EventArgs e)
-        {
-            if (dgvPersonScienceWork.CurrentRow != null)
-            {
-                if (dgvPersonScienceWork.CurrentRow.Index != rowPersonScienceWork)
-                {
-                    rowPersonScienceWork = dgvPersonScienceWork.CurrentRow.Index;
-                    Guid ScienceWorkId = Guid.Parse(dgvPersonScienceWork.CurrentRow.Cells["id"].Value.ToString());
-
-                    using (PriemEntities context = new PriemEntities())
-                    {
-                        var ScienceWork = context.PersonScienceWork.Where(x => x.Id == ScienceWorkId).FirstOrDefault();
-                        tbScienceWork.Text = ScienceWork.WorkInfo;
-                        tbScienceWorkYear.Text = ScienceWork.WorkYear;
-                        cbScienceWorkType.SelectedValue = ScienceWork.WorkTypeId; 
-                    }
-                    
-                }
-            }
-        }
+ 
         private void FillPersonParents()
         {
             using (PriemEntities context = new PriemEntities())
@@ -2591,6 +2573,165 @@ namespace PriemLib
                 tbParent2_Email.Text = AddInfo.Parent2_Email;
                 tbParent2_WorkPlace.Text = AddInfo.Parent2_Work;
                 tbParent2_WorkPosition.Text = AddInfo.Parent2_WorkPosition;
+            }
+        }
+        int rowPersonScienceWork = -1;
+        Guid? PersonScienceWorkId = null;
+        private void dgvPersonScienceWork_CurrentCellChanged(object sender, EventArgs e)
+        {
+            if (dgvPersonScienceWork.CurrentRow != null)
+            {
+                if (dgvPersonScienceWork.CurrentRow.Index != rowPersonScienceWork)
+                {
+                    rowPersonScienceWork = dgvPersonScienceWork.CurrentRow.Index;
+                    PersonScienceWorkId = Guid.Parse(dgvPersonScienceWork.CurrentRow.Cells["id"].Value.ToString());
+
+                    using (PriemEntities context = new PriemEntities())
+                    {
+                        var ScienceWork = context.PersonScienceWork.Where(x => x.Id == PersonScienceWorkId).FirstOrDefault();
+                        tbScienceWork.Text = ScienceWork.WorkInfo;
+                        tbScienceWorkYear.Text = ScienceWork.WorkYear;
+                        cbScienceWorkType.SelectedValue = ScienceWork.WorkTypeId;
+                        btnSaveScienceWork.Text = "Изменить";
+                        ScienceWork_IsModified = false;
+                        tbScienceWork.Enabled = tbScienceWorkYear.Enabled = cbScienceWorkType.Enabled = false;
+                    }
+                }
+            }
+        }
+        bool ScienceWork_IsModified = false;
+        private void btnSaveScienceWork_Click(object sender, EventArgs e)
+        {
+            if (!ScienceWork_IsModified)
+            {
+                btnSaveScienceWork.Text = PersonScienceWorkId.HasValue ? "Сохранить" : "Добавить";
+                ScienceWork_IsModified = true;
+                tbScienceWork.Enabled = tbScienceWorkYear.Enabled = cbScienceWorkType.Enabled = true;
+            }
+            else
+            {
+                btnSaveScienceWork.Text = "Изменить";
+                ScienceWork_IsModified = false;
+                tbScienceWork.Enabled = tbScienceWorkYear.Enabled = cbScienceWorkType.Enabled = false;
+                if (GuidId.HasValue)
+                    using (PriemEntities context = new PriemEntities())
+                    {
+                        bool bIsNew = false;
+                        var ScW = context.PersonScienceWork.Where(x => x.Id == PersonScienceWorkId).FirstOrDefault();
+                        if (ScW == null)
+                        {
+                            PersonScienceWorkId = Guid.NewGuid();
+                            ScW = new PersonScienceWork();
+                            ScW.PersonId = GuidId.Value;
+                            ScW.Id = PersonScienceWorkId.Value;
+                            bIsNew = true;
+                        }
+                        ScW.WorkTypeId = ComboServ.GetComboIdInt(cbScienceWorkType);
+                        ScW.WorkInfo = tbScienceWork.Text.Trim();
+                        ScW.WorkYear = tbScienceWorkYear.Text.Trim();
+                        if (bIsNew)
+                            context.PersonScienceWork.Add(ScW);
+                        context.SaveChanges();
+                    }
+                else
+                {
+                    WinFormsServ.Error("Необходимо сохранить карточку");
+                }
+            }
+        }
+
+        bool Work_IsModified = false;
+        private void btnWorkSave_Click(object sender, EventArgs e)
+        {
+            if (!Work_IsModified)
+            {
+                btnWorkSave.Text = PersonWorkId.HasValue ? "Сохранить" : "Добавить";
+                Work_IsModified = true;
+                tbWorkPlace.Enabled = tbWorkStag.Enabled = tbWorkProfession.Enabled = tbWorkSpecification.Enabled = true;
+            }
+            else
+            {
+                btnWorkSave.Text = "Изменить";
+                Work_IsModified = false;
+                tbWorkPlace.Enabled = tbWorkStag.Enabled = tbWorkProfession.Enabled = tbWorkSpecification.Enabled = true;
+
+                if (GuidId.HasValue)
+                    using (PriemEntities context = new PriemEntities())
+                    {
+                        bool bIsNew = false;
+                        var ScW = context.PersonWork.Where(x => x.Id == PersonWorkId).FirstOrDefault();
+                        if (ScW == null)
+                        {
+                            PersonWorkId = Guid.NewGuid();
+                            ScW = new PersonWork();
+                            ScW.PersonId = GuidId.Value;
+                            ScW.Id = PersonWorkId.Value;
+                            bIsNew = true;
+                        }
+                        ScW.WorkPlace = tbWorkPlace.Text.Trim();
+                        ScW.WorkProfession = tbWorkProfession.Text.Trim();
+                        ScW.Stage = tbWorkStag.Text.Trim();
+                        ScW.WorkSpecifications = tbWorkSpecification.Text.Trim();
+                        if (bIsNew)
+                            context.PersonWork.Add(ScW);
+                        context.SaveChanges();
+                    }
+                else
+                {
+                    WinFormsServ.Error("Необходимо сохранить карточку");
+                }
+            }
+        }
+        int rowPersonWork = -1;
+        Guid? PersonWorkId = null;
+        private void dgvPersonWork_CurrentCellChanged(object sender, EventArgs e)
+        {
+            if (dgvPersonWork.CurrentRow != null)
+            {
+                if (dgvPersonWork.CurrentRow.Index != rowPersonWork)
+                {
+                    rowPersonWork = dgvPersonWork.CurrentRow.Index;
+                    PersonWorkId = Guid.Parse(dgvPersonWork.CurrentRow.Cells["id"].Value.ToString());
+
+                    using (PriemEntities context = new PriemEntities())
+                    {
+                        var Work = context.PersonWork.Where(x => x.Id == PersonWorkId).FirstOrDefault();
+                        tbWorkPlace.Text = Work.WorkPlace;
+                        tbWorkProfession.Text = Work.WorkProfession;
+                        tbWorkStag.Text = Work.Stage;
+                        tbWorkSpecification.Text = Work.WorkSpecifications;
+                        btnWorkSave.Text = "Изменить";
+                        Work_IsModified = false;
+                        tbWorkPlace.Enabled = tbWorkStag.Enabled = tbWorkProfession.Enabled = tbWorkSpecification.Enabled = true;
+                    }
+                }
+            }
+        }
+
+        private void SavePersonParents()
+        {
+            using (PriemEntities context = new PriemEntities())
+            {
+                var AddInfo = context.Person_AdditionalInfo.Where(x => x.PersonId == GuidId.Value).FirstOrDefault();
+                if (AddInfo!=null)
+                {
+                    AddInfo.Parent_Surname = tbParent_Surname.Text.Trim();
+                    AddInfo.Parent_Name = tbParent_Name.Text.Trim();
+                    AddInfo.Parent_SecondName = tbParent_SecondName.Text.Trim();
+                    AddInfo.Parent_Phone = tbParent_Phone.Text.Trim();
+                    AddInfo.Parent_Email = tbParent_Email.Text.Trim();
+                    AddInfo.Parent_Work = tbParent_WorkPlace.Text.Trim();
+                    AddInfo.Parent_WorkPosition = tbParent_WorkPosition.Text.Trim();
+
+                    AddInfo.Parent2_Surname = tbParent2_Surname.Text.Trim();
+                    AddInfo.Parent2_Name = tbParent2_Name.Text.Trim();
+                    AddInfo.Parent2_SecondName = tbParent2_SecondName.Text.Trim();
+                    AddInfo.Parent2_Phone = tbParent2_Phone.Text.Trim();
+                    AddInfo.Parent2_Email = tbParent2_Email.Text.Trim();
+                    AddInfo.Parent2_Work = tbParent2_WorkPlace.Text.Trim();
+                    AddInfo.Parent2_WorkPosition = tbParent2_WorkPosition.Text.Trim();
+                    context.SaveChanges();
+                }
             }
         }
         #endregion
