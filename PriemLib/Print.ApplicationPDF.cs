@@ -1118,14 +1118,14 @@ namespace PriemLib
                                       p.SchoolCity,
                                   }).OrderByDescending(x => x.ExitClass).First();
 
-                var ScienceInfo = (from p in context.PersonScienceWork
-                                   where p.PersonId == PersonId && (p.WorkTypeId == 2 || p.WorkTypeId == 7)
-                                   select new
-                                   {
-                                       TypeName = p.ScienceWorkType.Name,
-                                       WorkYear = p.WorkYear,
-                                       WorkInfo = p.WorkInfo,
-                                   }).ToList();
+                //var ScienceInfo = (from p in context.PersonScienceWork
+                //                   where p.PersonId == PersonId && (p.WorkTypeId == 2 || p.WorkTypeId == 7)
+                //                   select new
+                //                   {
+                //                       TypeName = p.ScienceWorkType.Name,
+                //                       WorkYear = p.WorkYear,
+                //                       WorkInfo = p.WorkInfo,
+                //                   }).ToList();
 
                 MemoryStream ms = new MemoryStream();
                 string dotName = "ApplicationAG_2017.pdf";
@@ -1181,19 +1181,19 @@ namespace PriemLib
                     acrFlds.SetField("Profession" + i, abit.Profession);
                     acrFlds.SetField("ObrazProgram" + i, abit.ObrazProgram);
 
-                    var Exams = Util.GetExamList(abit.Id);
-                    string ExamNames = "";
-                    foreach (var x in Exams)
-                    {
-                        if (x.ExamInBlockList.Count > 1)
-                            ExamNames += (x.ExamInBlockList.Where(ex => ex.Value.ToString() == x.SelectedExamInBlockId.ToString()).Select(ex => ex.Text).FirstOrDefault()) + ", ";
-                    }
-                    if (ExamNames.Length > 2)
-                        ExamNames = ExamNames.Substring(0, ExamNames.Length - 2);
-                    if (!string.IsNullOrEmpty(ExamNames))
-                        acrFlds.SetField("ManualExam" + i, ExamNames);
-                    else
-                        acrFlds.SetField("ManualExam" + i, "нет");
+                    //var Exams = Util.GetExamList(abit.Id);
+                    //string ExamNames = "";
+                    //foreach (var x in Exams)
+                    //{
+                    //    if (x.ExamInBlockList.Count > 1)
+                    //        ExamNames += (x.ExamInBlockList.Where(ex => ex.Value.ToString() == x.SelectedExamInBlockId.ToString()).Select(ex => ex.Text).FirstOrDefault()) + ", ";
+                    //}
+                    //if (ExamNames.Length > 2)
+                    //    ExamNames = ExamNames.Substring(0, ExamNames.Length - 2);
+                    //if (!string.IsNullOrEmpty(ExamNames))
+                    //    acrFlds.SetField("ManualExam" + i, ExamNames);
+                    //else
+                    //    acrFlds.SetField("ManualExam" + i, "нет");
                 }
 
                 acrFlds.SetField("ClassNum", abitList.First().ClassNum.ToString());
@@ -1275,12 +1275,12 @@ namespace PriemLib
                     acrFlds.SetField("OlympDiploma" + (i + 1).ToString(), Olympiads[i].OlympValue);
                 }
 
-                for (int i = 0; (i < 4) && (i < ScienceInfo.Count); i++)
-                {
-                    acrFlds.SetField("ConferenceName" + (i + 1).ToString(), ScienceInfo[i].TypeName);
-                    acrFlds.SetField("ConferenceYear" + (i + 1).ToString(), ScienceInfo[i].WorkYear);
-                    acrFlds.SetField("ConferenceName2" + (i + 1).ToString(), ScienceInfo[i].WorkInfo);
-                }
+                //for (int i = 0; (i < 4) && (i < ScienceInfo.Count); i++)
+                //{
+                //    acrFlds.SetField("ConferenceName" + (i + 1).ToString(), ScienceInfo[i].TypeName);
+                //    acrFlds.SetField("ConferenceYear" + (i + 1).ToString(), ScienceInfo[i].WorkYear);
+                //    acrFlds.SetField("ConferenceName2" + (i + 1).ToString(), ScienceInfo[i].WorkInfo);
+                //}
                 for (int i = 0; i < 3; i++)
                 {
                     acrFlds.SetField("Add" + (i + 1).ToString(), "");
