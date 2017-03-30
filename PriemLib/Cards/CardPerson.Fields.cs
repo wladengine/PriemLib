@@ -564,8 +564,8 @@ namespace PriemLib
         }
         public string ScienceWork
         {
-            get { return tbScienceWork.Text.Trim(); }
-            set { tbScienceWork.Text = value; }
+            get;
+            set;
         }
         public string ExtraInfo
         {

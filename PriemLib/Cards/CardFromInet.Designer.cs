@@ -225,6 +225,13 @@
             this.label74 = new System.Windows.Forms.Label();
             this.label52 = new System.Windows.Forms.Label();
             this.label39 = new System.Windows.Forms.Label();
+            this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.cbSportQulification = new System.Windows.Forms.ComboBox();
+            this.tbSportLevel = new System.Windows.Forms.TextBox();
+            this.tbSportQualification = new System.Windows.Forms.TextBox();
+            this.label88 = new System.Windows.Forms.Label();
+            this.label89 = new System.Windows.Forms.Label();
+            this.label87 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.cbLanguage = new System.Windows.Forms.ComboBox();
@@ -299,6 +306,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvPersonWork)).BeginInit();
             this.tabPersonAddInfo.SuspendLayout();
             this.tabPersonParents.SuspendLayout();
+            this.tabPage7.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -1801,6 +1809,7 @@
             this.tabAddInfo.Controls.Add(this.tabPersonWork);
             this.tabAddInfo.Controls.Add(this.tabPersonAddInfo);
             this.tabAddInfo.Controls.Add(this.tabPersonParents);
+            this.tabAddInfo.Controls.Add(this.tabPage7);
             this.tabAddInfo.Location = new System.Drawing.Point(8, 155);
             this.tabAddInfo.Name = "tabAddInfo";
             this.tabAddInfo.SelectedIndex = 0;
@@ -2330,6 +2339,75 @@
             this.label39.Size = new System.Drawing.Size(56, 13);
             this.label39.TabIndex = 0;
             this.label39.Text = "Фамилия";
+            // 
+            // tabPage7
+            // 
+            this.tabPage7.Controls.Add(this.cbSportQulification);
+            this.tabPage7.Controls.Add(this.tbSportLevel);
+            this.tabPage7.Controls.Add(this.tbSportQualification);
+            this.tabPage7.Controls.Add(this.label88);
+            this.tabPage7.Controls.Add(this.label89);
+            this.tabPage7.Controls.Add(this.label87);
+            this.tabPage7.Location = new System.Drawing.Point(4, 22);
+            this.tabPage7.Name = "tabPage7";
+            this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage7.Size = new System.Drawing.Size(621, 371);
+            this.tabPage7.TabIndex = 4;
+            this.tabPage7.Text = "Спорт.достижения";
+            this.tabPage7.UseVisualStyleBackColor = true;
+            // 
+            // cbSportQulification
+            // 
+            this.cbSportQulification.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbSportQulification.Enabled = false;
+            this.cbSportQulification.FormattingEnabled = true;
+            this.cbSportQulification.Location = new System.Drawing.Point(187, 19);
+            this.cbSportQulification.Name = "cbSportQulification";
+            this.cbSportQulification.Size = new System.Drawing.Size(320, 21);
+            this.cbSportQulification.TabIndex = 99;
+            // 
+            // tbSportLevel
+            // 
+            this.tbSportLevel.Location = new System.Drawing.Point(187, 46);
+            this.tbSportLevel.Name = "tbSportLevel";
+            this.tbSportLevel.ReadOnly = true;
+            this.tbSportLevel.Size = new System.Drawing.Size(320, 20);
+            this.tbSportLevel.TabIndex = 98;
+            // 
+            // tbSportQualification
+            // 
+            this.tbSportQualification.Location = new System.Drawing.Point(187, 72);
+            this.tbSportQualification.Name = "tbSportQualification";
+            this.tbSportQualification.ReadOnly = true;
+            this.tbSportQualification.Size = new System.Drawing.Size(320, 20);
+            this.tbSportQualification.TabIndex = 98;
+            // 
+            // label88
+            // 
+            this.label88.AutoSize = true;
+            this.label88.Location = new System.Drawing.Point(137, 49);
+            this.label88.Name = "label88";
+            this.label88.Size = new System.Drawing.Size(44, 13);
+            this.label88.TabIndex = 97;
+            this.label88.Text = "Разряд";
+            // 
+            // label89
+            // 
+            this.label89.AutoSize = true;
+            this.label89.Location = new System.Drawing.Point(67, 22);
+            this.label89.Name = "label89";
+            this.label89.Size = new System.Drawing.Size(114, 13);
+            this.label89.TabIndex = 96;
+            this.label89.Text = "Спорт.квалификация";
+            // 
+            // label87
+            // 
+            this.label87.AutoSize = true;
+            this.label87.Location = new System.Drawing.Point(25, 75);
+            this.label87.Name = "label87";
+            this.label87.Size = new System.Drawing.Size(156, 13);
+            this.label87.TabIndex = 96;
+            this.label87.Text = "Спорт.квалификация, разряд";
             // 
             // tabControl1
             // 
@@ -2886,6 +2964,8 @@
             this.tabPersonAddInfo.PerformLayout();
             this.tabPersonParents.ResumeLayout(false);
             this.tabPersonParents.PerformLayout();
+            this.tabPage7.ResumeLayout(false);
+            this.tabPage7.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
@@ -3159,5 +3239,12 @@
         private System.Windows.Forms.Label label82;
         private System.Windows.Forms.DataGridView dgvPersonWork;
         private System.Windows.Forms.TextBox tbScienceWorkType;
+        private System.Windows.Forms.TabPage tabPage7;
+        private System.Windows.Forms.TextBox tbSportLevel;
+        private System.Windows.Forms.TextBox tbSportQualification;
+        private System.Windows.Forms.Label label88;
+        private System.Windows.Forms.Label label87;
+        private System.Windows.Forms.ComboBox cbSportQulification;
+        private System.Windows.Forms.Label label89;
     }
 }

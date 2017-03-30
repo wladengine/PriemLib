@@ -124,6 +124,7 @@ namespace PriemLib
                     rbReturnDocumentType2.Text = context.ReturnDocumentType.Where(x => x.Id == 2).Select(x => x.Name).First();
 
                     ComboServ.FillCombo(cbLanguage, HelpClass.GetComboListByTable("ed.Language"), true, false);
+                    ComboServ.FillCombo(cbSportQulification, HelpClass.GetComboListByTable("ed.SportQulification", "order by id"), true, false);
                 }
 
                 // ЕГЭ только для 1 курса!
@@ -403,6 +404,7 @@ namespace PriemLib
                 FillScienceWork(load.GetPersonScienceWork(_personBarc.Value));
                 FillPersonWork(load.GetPersonWork(_personBarc.Value));
                 FillPersonParents(load.GetPersonParents(_personBarc.Value));
+                FillSportQualification(load.GetPersonSportQualification(_personBarc.Value));
 
                 if(DateTime.Now.AddYears(-18) >= BirthDate)
                 {
@@ -790,6 +792,12 @@ namespace PriemLib
             foreach (string s in cols)
                 if (dgvPersonWork.Columns.Contains(s))
                     dgvPersonWork.Columns[s].Visible = false;
+        }
+        private void FillSportQualification(DataTable tbl)
+        {
+            ComboServ.SetComboId(cbSportQulification, tbl.Rows[0].Field<int>("SportQualificationId"));
+            tbSportLevel.Text = tbl.Rows[0].Field<string>("SportLevel");
+            tbSportQualification.Text = tbl.Rows[0].Field<string>("SportQualification");
         }
         private void FillEducationData(List<Person_EducationInfo> lstVals)
         {
@@ -1410,7 +1418,7 @@ namespace PriemLib
                                     SaveParents(context);
 
                                     SaveLanguageCertificates(context);
-
+                                    SavePersonSportQuification(context);
                                     //Проверка на уже существующие заявления и сообщение при наличии
                                     if (!SaveApplication(personId.Value))
                                     {
@@ -1553,6 +1561,19 @@ namespace PriemLib
                 });
                 context.SaveChanges();
             }
+        }
+        private void SavePersonSportQuification(PriemEntities context)
+        {
+            context.PersonSportQualification.Add(
+                new PersonSportQualification()
+                {
+                    PersonId = GuidId.Value,
+                    OtherSportQualification  = tbSportQualification.Text,
+                    SportQualificationLevel = tbSportLevel.Text,
+                    SportQualificationId = ComboServ.GetComboIdInt(cbSportQulification)
+                });
+            context.SaveChanges();
+                
         }
         private void SaveScienceWork(PriemEntities context)
         {

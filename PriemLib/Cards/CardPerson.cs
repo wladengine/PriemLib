@@ -140,6 +140,7 @@ namespace PriemLib
                     cbHEQualification.SelectedIndex = -1;
 
                     ComboServ.FillCombo(cbScienceWorkType, HelpClass.GetComboListByTable("ed.ScienceWorkType", "ORDER BY 1"), false, false);
+                    ComboServ.FillCombo(cbSportQualification, HelpClass.GetComboListByTable("ed.SportQualification", "ORDER BY Id"), false, false);
                 }
 
                 btnDocs.Visible = true;
@@ -407,7 +408,7 @@ namespace PriemLib
                     FillPersonScienceWork();
                     FillPersonWork();
                     FillPersonParents();
-
+                    FillSportQulification();
                     //Async functions
                     GetHasOriginals();
                     GetIsPaid();
@@ -749,7 +750,6 @@ namespace PriemLib
 
             tbWorkPlace.Enabled = tbWorkStag.Enabled = tbWorkProfession.Enabled = tbWorkSpecification.Enabled = false;
             tbScienceWork.Enabled = tbScienceWorkYear.Enabled = cbScienceWorkType.Enabled = false;
-            WinFormsServ.SetSubControlsEnabled(tabPersonParents, false);
 
         }
         //убрать режим read-only
@@ -1348,6 +1348,8 @@ namespace PriemLib
             _Id = idParam.Value.ToString();
 
             SaveCurrentEducationInfo();
+            SavePersonParents();
+            SaveSportQulification();
         }
         protected override void UpdateRec(PriemEntities context, Guid id)
         {
@@ -1361,6 +1363,8 @@ namespace PriemLib
                 PassportAuthor, PassportDate, Privileges, SNILS, id);
 
             SaveCurrentEducationInfo();
+            SavePersonParents();
+            SaveSportQulification();
         }
                  
         protected override void OnSave()
@@ -2575,6 +2579,21 @@ namespace PriemLib
                 tbParent2_WorkPosition.Text = AddInfo.Parent2_WorkPosition;
             }
         }
+        
+        private void FillSportQulification()
+        {
+            using (PriemEntities context = new PriemEntities())
+            {
+                var Sport = context.PersonSportQualification.Where(x => x.PersonId == GuidId).FirstOrDefault();
+                if (Sport != null)
+                {
+                    tbSportLevel.Text = Sport.SportQualificationLevel;
+                    tbSportQualification.Text = Sport.OtherSportQualification;
+                    ComboServ.SetComboId(cbSportQualification, Sport.SportQualificationId);
+                }
+            }
+        }
+        
         int rowPersonScienceWork = -1;
         Guid? PersonScienceWorkId = null;
         private void dgvPersonScienceWork_CurrentCellChanged(object sender, EventArgs e)
@@ -2591,7 +2610,7 @@ namespace PriemLib
                         var ScienceWork = context.PersonScienceWork.Where(x => x.Id == PersonScienceWorkId).FirstOrDefault();
                         tbScienceWork.Text = ScienceWork.WorkInfo;
                         tbScienceWorkYear.Text = ScienceWork.WorkYear;
-                        cbScienceWorkType.SelectedValue = ScienceWork.WorkTypeId;
+                        ComboServ.SetComboId(cbScienceWorkType,  ScienceWork.WorkTypeId);
                         btnSaveScienceWork.Text = "Изменить";
                         ScienceWork_IsModified = false;
                         tbScienceWork.Enabled = tbScienceWorkYear.Enabled = cbScienceWorkType.Enabled = false;
@@ -2599,6 +2618,7 @@ namespace PriemLib
                 }
             }
         }
+
         bool ScienceWork_IsModified = false;
         private void btnSaveScienceWork_Click(object sender, EventArgs e)
         {
@@ -2653,7 +2673,7 @@ namespace PriemLib
             {
                 btnWorkSave.Text = "Изменить";
                 Work_IsModified = false;
-                tbWorkPlace.Enabled = tbWorkStag.Enabled = tbWorkProfession.Enabled = tbWorkSpecification.Enabled = true;
+                tbWorkPlace.Enabled = tbWorkStag.Enabled = tbWorkProfession.Enabled = tbWorkSpecification.Enabled = false;
 
                 if (GuidId.HasValue)
                     using (PriemEntities context = new PriemEntities())
@@ -2682,6 +2702,7 @@ namespace PriemLib
                 }
             }
         }
+       
         int rowPersonWork = -1;
         Guid? PersonWorkId = null;
         private void dgvPersonWork_CurrentCellChanged(object sender, EventArgs e)
@@ -2702,7 +2723,7 @@ namespace PriemLib
                         tbWorkSpecification.Text = Work.WorkSpecifications;
                         btnWorkSave.Text = "Изменить";
                         Work_IsModified = false;
-                        tbWorkPlace.Enabled = tbWorkStag.Enabled = tbWorkProfession.Enabled = tbWorkSpecification.Enabled = true;
+                        tbWorkPlace.Enabled = tbWorkStag.Enabled = tbWorkProfession.Enabled = tbWorkSpecification.Enabled = false;
                     }
                 }
             }
@@ -2710,6 +2731,7 @@ namespace PriemLib
 
         private void SavePersonParents()
         {
+            if (GuidId.HasValue)
             using (PriemEntities context = new PriemEntities())
             {
                 var AddInfo = context.Person_AdditionalInfo.Where(x => x.PersonId == GuidId.Value).FirstOrDefault();
@@ -2734,7 +2756,53 @@ namespace PriemLib
                 }
             }
         }
+
+        private void SaveSportQulification()
+        {
+            if (GuidId.HasValue)
+                using (PriemEntities context = new PriemEntities())
+                {
+                    bool isNew = false;
+                    var Sport = context.PersonSportQualification.Where(x => x.PersonId == GuidId).FirstOrDefault();
+                    if (Sport == null)
+                    {
+                        Sport = new PersonSportQualification();
+                        Sport.PersonId = GuidId.Value;
+                        isNew = true;
+                    }
+                    Sport.SportQualificationId = ComboServ.GetComboIdInt(cbSportQualification);
+                    Sport.SportQualificationLevel = tbSportLevel.Text.Trim();
+                    Sport.OtherSportQualification = tbSportQualification.Text.Trim();
+
+                    if (isNew)
+                        context.PersonSportQualification.Add(Sport);
+                    context.SaveChanges();
+                }
+        }
+
+        private void cbSportQulification_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ComboServ.GetComboIdInt(cbSportQualification) == 44)
+            {
+                tbSportLevel.Text = "";
+                tbSportLevel.ReadOnly = true;
+                tbSportQualification.ReadOnly = false;
+            }
+            else if (ComboServ.GetComboIdInt(cbSportQualification) == 0)
+            {
+                tbSportLevel.Text = tbSportQualification.Text = "";
+                tbSportQualification.ReadOnly = true;
+                tbSportLevel.ReadOnly = true;
+            }
+            else
+            {
+                tbSportQualification.Text = "";
+                tbSportQualification.ReadOnly = true;
+                tbSportLevel.ReadOnly = false;
+            }
+        }
         #endregion
+
 
     }
 }

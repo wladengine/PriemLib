@@ -108,7 +108,18 @@ LEFT JOIN Person ON PersonAddInfo.PersonId = Person.Id";
             DataSet dsEge = _bdcInet.GetDataSet(queryParents + " WHERE Person.Barcode = " + _Barcode );
             return dsEge.Tables[0];
         }
-
+        public DataTable GetPersonSportQualification(int _Barcode)
+        {
+            string querySport = @"
+SELECT 
+SportQualificationId,
+SportQualificationLevel,
+OtherSportQualification
+FROM dbo.PersonSportQualification 
+LEFT JOIN Person ON PersonSportQualification.PersonId = Person.Id";
+            DataSet dsEge = _bdcInet.GetDataSet(querySport + " WHERE Person.Barcode = " + _Barcode + " ORDER BY PersonWork.Stage desc");
+            return dsEge.Tables[0];
+        }
         public DataTable GetPersonWork(int _Barcode)
         {
             string queryWork = @"
