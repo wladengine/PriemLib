@@ -2756,6 +2756,9 @@ namespace PriemLib
                     AddInfo.Parent2_Email = tbParent2_Email.Text.Trim();
                     AddInfo.Parent2_Work = tbParent2_WorkPlace.Text.Trim();
                     AddInfo.Parent2_WorkPosition = tbParent2_WorkPosition.Text.Trim();
+
+                    AddInfo.ReturnDocumentTypeId = ReturnDocumentTypeId;
+
                     context.SaveChanges();
                 }
             }
