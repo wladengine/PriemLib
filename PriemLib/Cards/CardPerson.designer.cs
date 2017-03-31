@@ -340,6 +340,13 @@
             this.tbPersonInfo = new System.Windows.Forms.TextBox();
             this.tbExtraInfo = new System.Windows.Forms.TextBox();
             this.label61 = new System.Windows.Forms.Label();
+            this.tabPage12 = new System.Windows.Forms.TabPage();
+            this.cbSportQualification = new System.Windows.Forms.ComboBox();
+            this.tbSportLevel = new System.Windows.Forms.TextBox();
+            this.tbSportQualification = new System.Windows.Forms.TextBox();
+            this.label42 = new System.Windows.Forms.Label();
+            this.label44 = new System.Windows.Forms.Label();
+            this.label95 = new System.Windows.Forms.Label();
             this.tabPage10 = new System.Windows.Forms.TabPage();
             this.btnAddNotice = new System.Windows.Forms.Button();
             this.label67 = new System.Windows.Forms.Label();
@@ -353,13 +360,6 @@
             this.btnAddAbit = new System.Windows.Forms.Button();
             this.btnDocs = new System.Windows.Forms.Button();
             this.sfdPrint = new System.Windows.Forms.SaveFileDialog();
-            this.tabPage12 = new System.Windows.Forms.TabPage();
-            this.cbSportQualification = new System.Windows.Forms.ComboBox();
-            this.tbSportLevel = new System.Windows.Forms.TextBox();
-            this.tbSportQualification = new System.Windows.Forms.TextBox();
-            this.label42 = new System.Windows.Forms.Label();
-            this.label44 = new System.Windows.Forms.Label();
-            this.label95 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.epError)).BeginInit();
             this.tabCard.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -415,12 +415,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvPersonWork)).BeginInit();
             this.tabPersonParents.SuspendLayout();
             this.tabPage15.SuspendLayout();
+            this.tabPage12.SuspendLayout();
             this.tabPage10.SuspendLayout();
             this.tabPage11.SuspendLayout();
             this.gbVedList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVedList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.epErrorInput)).BeginInit();
-            this.tabPage12.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnClose
@@ -2991,6 +2991,7 @@
             this.dgvCertificates.ReadOnly = true;
             this.dgvCertificates.Size = new System.Drawing.Size(570, 216);
             this.dgvCertificates.TabIndex = 2;
+            this.dgvCertificates.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCertificates_CellDoubleClick);
             // 
             // btnCertificateDelete
             // 
@@ -3000,6 +3001,7 @@
             this.btnCertificateDelete.TabIndex = 3;
             this.btnCertificateDelete.Text = "Удалить";
             this.btnCertificateDelete.UseVisualStyleBackColor = true;
+            this.btnCertificateDelete.Click += new System.EventHandler(this.btnCertificateDelete_Click);
             // 
             // btnCertificateAdd
             // 
@@ -3009,6 +3011,7 @@
             this.btnCertificateAdd.TabIndex = 4;
             this.btnCertificateAdd.Text = "Добавить";
             this.btnCertificateAdd.UseVisualStyleBackColor = true;
+            this.btnCertificateAdd.Click += new System.EventHandler(this.btnCertificateAdd_Click);
             // 
             // groupBox8
             // 
@@ -3669,6 +3672,73 @@
             this.label61.TabIndex = 7;
             this.label61.Text = "Лицо, с которым можно связаться в экстренных случаях";
             // 
+            // tabPage12
+            // 
+            this.tabPage12.Controls.Add(this.cbSportQualification);
+            this.tabPage12.Controls.Add(this.tbSportLevel);
+            this.tabPage12.Controls.Add(this.tbSportQualification);
+            this.tabPage12.Controls.Add(this.label42);
+            this.tabPage12.Controls.Add(this.label44);
+            this.tabPage12.Controls.Add(this.label95);
+            this.tabPage12.Location = new System.Drawing.Point(4, 22);
+            this.tabPage12.Name = "tabPage12";
+            this.tabPage12.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage12.Size = new System.Drawing.Size(582, 455);
+            this.tabPage12.TabIndex = 5;
+            this.tabPage12.Text = "Спорт.достижения";
+            this.tabPage12.UseVisualStyleBackColor = true;
+            // 
+            // cbSportQualification
+            // 
+            this.cbSportQualification.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbSportQualification.FormattingEnabled = true;
+            this.cbSportQualification.Location = new System.Drawing.Point(187, 29);
+            this.cbSportQualification.Name = "cbSportQualification";
+            this.cbSportQualification.Size = new System.Drawing.Size(320, 21);
+            this.cbSportQualification.TabIndex = 105;
+            this.cbSportQualification.SelectedIndexChanged += new System.EventHandler(this.cbSportQulification_SelectedIndexChanged);
+            // 
+            // tbSportLevel
+            // 
+            this.tbSportLevel.Location = new System.Drawing.Point(187, 56);
+            this.tbSportLevel.Name = "tbSportLevel";
+            this.tbSportLevel.Size = new System.Drawing.Size(320, 20);
+            this.tbSportLevel.TabIndex = 103;
+            // 
+            // tbSportQualification
+            // 
+            this.tbSportQualification.Location = new System.Drawing.Point(187, 82);
+            this.tbSportQualification.Name = "tbSportQualification";
+            this.tbSportQualification.Size = new System.Drawing.Size(320, 20);
+            this.tbSportQualification.TabIndex = 104;
+            // 
+            // label42
+            // 
+            this.label42.AutoSize = true;
+            this.label42.Location = new System.Drawing.Point(137, 59);
+            this.label42.Name = "label42";
+            this.label42.Size = new System.Drawing.Size(44, 13);
+            this.label42.TabIndex = 102;
+            this.label42.Text = "Разряд";
+            // 
+            // label44
+            // 
+            this.label44.AutoSize = true;
+            this.label44.Location = new System.Drawing.Point(67, 32);
+            this.label44.Name = "label44";
+            this.label44.Size = new System.Drawing.Size(114, 13);
+            this.label44.TabIndex = 100;
+            this.label44.Text = "Спорт.квалификация";
+            // 
+            // label95
+            // 
+            this.label95.AutoSize = true;
+            this.label95.Location = new System.Drawing.Point(25, 85);
+            this.label95.Name = "label95";
+            this.label95.Size = new System.Drawing.Size(156, 13);
+            this.label95.TabIndex = 101;
+            this.label95.Text = "Спорт.квалификация, разряд";
+            // 
             // tabPage10
             // 
             this.tabPage10.Controls.Add(this.btnAddNotice);
@@ -3795,73 +3865,6 @@
             this.btnDocs.Visible = false;
             this.btnDocs.Click += new System.EventHandler(this.btnDocs_Click);
             // 
-            // tabPage12
-            // 
-            this.tabPage12.Controls.Add(this.cbSportQualification);
-            this.tabPage12.Controls.Add(this.tbSportLevel);
-            this.tabPage12.Controls.Add(this.tbSportQualification);
-            this.tabPage12.Controls.Add(this.label42);
-            this.tabPage12.Controls.Add(this.label44);
-            this.tabPage12.Controls.Add(this.label95);
-            this.tabPage12.Location = new System.Drawing.Point(4, 22);
-            this.tabPage12.Name = "tabPage12";
-            this.tabPage12.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage12.Size = new System.Drawing.Size(582, 455);
-            this.tabPage12.TabIndex = 5;
-            this.tabPage12.Text = "Спорт.достижения";
-            this.tabPage12.UseVisualStyleBackColor = true;
-            // 
-            // cbSportQulification
-            // 
-            this.cbSportQualification.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbSportQualification.FormattingEnabled = true;
-            this.cbSportQualification.Location = new System.Drawing.Point(187, 29);
-            this.cbSportQualification.Name = "cbSportQulification";
-            this.cbSportQualification.Size = new System.Drawing.Size(320, 21);
-            this.cbSportQualification.TabIndex = 105;
-            this.cbSportQualification.SelectedIndexChanged += new System.EventHandler(this.cbSportQulification_SelectedIndexChanged);
-            // 
-            // tbSportLevel
-            // 
-            this.tbSportLevel.Location = new System.Drawing.Point(187, 56);
-            this.tbSportLevel.Name = "tbSportLevel";
-            this.tbSportLevel.Size = new System.Drawing.Size(320, 20);
-            this.tbSportLevel.TabIndex = 103;
-            // 
-            // tbSportQualification
-            // 
-            this.tbSportQualification.Location = new System.Drawing.Point(187, 82);
-            this.tbSportQualification.Name = "tbSportQualification";
-            this.tbSportQualification.Size = new System.Drawing.Size(320, 20);
-            this.tbSportQualification.TabIndex = 104;
-            // 
-            // label42
-            // 
-            this.label42.AutoSize = true;
-            this.label42.Location = new System.Drawing.Point(137, 59);
-            this.label42.Name = "label42";
-            this.label42.Size = new System.Drawing.Size(44, 13);
-            this.label42.TabIndex = 102;
-            this.label42.Text = "Разряд";
-            // 
-            // label44
-            // 
-            this.label44.AutoSize = true;
-            this.label44.Location = new System.Drawing.Point(67, 32);
-            this.label44.Name = "label44";
-            this.label44.Size = new System.Drawing.Size(114, 13);
-            this.label44.TabIndex = 100;
-            this.label44.Text = "Спорт.квалификация";
-            // 
-            // label95
-            // 
-            this.label95.AutoSize = true;
-            this.label95.Location = new System.Drawing.Point(25, 85);
-            this.label95.Name = "label95";
-            this.label95.Size = new System.Drawing.Size(156, 13);
-            this.label95.TabIndex = 101;
-            this.label95.Text = "Спорт.квалификация, разряд";
-            // 
             // CardPerson
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -3967,14 +3970,14 @@
             this.tabPersonParents.PerformLayout();
             this.tabPage15.ResumeLayout(false);
             this.tabPage15.PerformLayout();
+            this.tabPage12.ResumeLayout(false);
+            this.tabPage12.PerformLayout();
             this.tabPage10.ResumeLayout(false);
             this.tabPage10.PerformLayout();
             this.tabPage11.ResumeLayout(false);
             this.gbVedList.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvVedList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.epErrorInput)).EndInit();
-            this.tabPage12.ResumeLayout(false);
-            this.tabPage12.PerformLayout();
             this.ResumeLayout(false);
 
         }

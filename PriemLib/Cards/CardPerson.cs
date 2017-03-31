@@ -27,7 +27,6 @@ namespace PriemLib
         private bool inEnableProtocol;
         private bool inEntryView;
         private List<Person_EducationInfo> lstEducationInfo;
-        private List<PersonLanguageCertificates> LangCertificates;
         
         public CardPerson()
             : this(null, null, null)
@@ -351,8 +350,10 @@ namespace PriemLib
                                      Name = t.Name,
                                      Number = x.Number,
                                      ResultType = t.BoolType,
-                                     ResultValue = x.ResultValue
+                                     ResultValue = x.ResultValue,
+                                     x.LanguageCertificateTypeId
                                 }).ToList();
+                    
                     var datasourse = (from l in lang
                                       select new
                                       {
@@ -1330,8 +1331,8 @@ namespace PriemLib
 
         protected override void InsertRec(PriemEntities context, ObjectParameter idParam)
         {
-            bool HasTRKI = LangCertificates == null ? false : LangCertificates.Where(x => x.LanguageCertificateTypeId == 1).Count() > 0;
-            string TRKICertificateNumber = HasTRKI ? LangCertificates.Where(x => x.LanguageCertificateTypeId == 1).Select(x => x.Number).First() : "";
+            bool HasTRKI = false;
+            string TRKICertificateNumber = "";
 
             context.Person_insert(personBarc, PersonName, SecondName, Surname, BirthDate, BirthPlace, PassportTypeId, PassportSeries, PassportNumber,
                 PassportAuthor, PassportDate, Sex, CountryId, NationalityId, RegionId, Phone, Mobiles, Email,
@@ -2525,13 +2526,16 @@ namespace PriemLib
             if (dgvCertificates.CurrentCell != null)
                 if (dgvCertificates.CurrentCell.RowIndex > 0)
                 {
-                    int Certid = int.Parse(dgvCertificates.CurrentRow.Cells["Id"].Value.ToString());
-                    using (PriemEntities context = new PriemEntities())
+                    if (MessageBox.Show("Удалить?", "Подтвердите удаление", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
-                        context.PersonLanguageCertificates.RemoveRange(context.PersonLanguageCertificates.Where(x => x.Id == Certid));
-                        context.SaveChanges();
+                        using (PriemEntities context = new PriemEntities())
+                        {
+                            int Certid = int.Parse(dgvCertificates.CurrentRow.Cells["Id"].Value.ToString());
+                            context.PersonLanguageCertificates.RemoveRange(context.PersonLanguageCertificates.Where(x => x.Id == Certid));
+                            context.SaveChanges();
+                        }
+                        FillLanguageCertificates();
                     }
-                    FillLanguageCertificates();
                 }
         }
 
@@ -2802,7 +2806,6 @@ namespace PriemLib
             }
         }
         #endregion
-
 
     }
 }

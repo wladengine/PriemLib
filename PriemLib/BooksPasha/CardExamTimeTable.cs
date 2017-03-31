@@ -53,7 +53,8 @@ namespace PriemLib
                 string query = @" select 
   Id, (convert(nvarchar(50), ExamDate, 6) +' (' +Address+')') as Name
   from dbo.ExamTimetable
-  where ExamInEntryBlockUnitId = @UnitId ";
+  where ExamInEntryBlockUnitId = @UnitId
+order by ExamDate ";
                 DataTable tbl = MainClass.BdcOnlineReadWrite.GetDataSet(query, new SortedList<string, object>() { { "@UnitId", UnitId.ToString() } }).Tables[0];
                 List<KeyValuePair<string, string>> lst = (from DataRow t in tbl.Rows
                                                           select new KeyValuePair<string, string>(t.Field<int>("Id").ToString(), t.Field<string>("Name"))).ToList();
@@ -80,13 +81,17 @@ namespace PriemLib
   join dbo.Entry on ExamInEntryBlock.EntryId = Entry.Id
   )
    select 
-	t.Id, (convert(nvarchar(50), t.ExamDate, 6) + ' '+t.Name +'  (' +t.Address+')') as Name 
-, (case when Exists (select * from dbo.ExamTimeTableOneDayRestriction where (ExamTimetableId1 = t.Id and ExamTimetableId2 = 26) 
-	or (ExamTimetableId2 = t.Id and ExamTimetableId1 = 26)) then '1' else '0' end) as Selected
+	t.Id
+, (convert(nvarchar(50), t.ExamDate, 6) + ' '+t.Name +'  (' +t.Address+')') as Name 
+, (case when Exists (select * from dbo.ExamTimeTableOneDayRestriction where (ExamTimetableId1 = t.Id and ExamTimetableId2 = @Id) 
+	or (ExamTimetableId2 = t.Id and ExamTimetableId1 = @Id)) then '1' else '0' end) as Selected
 	from t
   where 
-  CONVERT(date, t.ExamDate)  = (select CONVERT(date, t.ExamDate) from t where t.Id =  @Id )
-  and t.StudyLevelId = (select StudyLevelId from t where t.Id = @Id)
+ ((CONVERT(date, t.ExamDate)  = (select CONVERT(date, t.ExamDate) from t where t.Id =  @Id )  and t.StudyLevelId = (select StudyLevelId from t where t.Id = @Id))
+or
+(Exists (select * from dbo.ExamTimeTableOneDayRestriction where (ExamTimetableId1 = t.Id and ExamTimetableId2 = @Id) 
+	or (ExamTimetableId2 = t.Id and ExamTimetableId1 = @Id)))
+)
 and t.Id <> @Id;";
                 DataTable tbl = MainClass.BdcOnlineReadWrite.GetDataSet(query, new SortedList<string, object>() { { "@Id", TimetableId.ToString() } }).Tables[0];
                 var Lst = (from DataRow t in tbl.Rows
@@ -123,6 +128,7 @@ where ExamInEntryBlockUnitId = @Id ";
             dgv.DataSource = tbl;
             if (dgv.Columns.Contains("Id"))
                 dgv.Columns["Id"].Visible = false;
+            FillBaseExamTimeTable();
         }
 
         private void FillTimeTable()
@@ -181,7 +187,7 @@ where ExamInEntryBlockUnitId = @Id ";
                 if (!String.IsNullOrEmpty(Ids))
                 {
                     query = @"delete from dbo.ExamTimeTableOneDayRestriction
-                where (ExamTimetableId1 = @Id and ExamTimetableId1 in (" + Ids + @")) or (ExamTimetableId1 = @Id and ExamTimetableId1 in (" + Ids + "))";
+                where (ExamTimetableId1 = @Id and ExamTimetableId2 in (" + Ids + @")) or (ExamTimetableId1 in (" + Ids + ") and ExamTimetableId1= @Id  )";
                     MainClass.BdcOnlineReadWrite.ExecuteQuery(query, Dictionary);
                 }
                 foreach (var x in lbExamTimeTableRestriction.SelectedItems)
