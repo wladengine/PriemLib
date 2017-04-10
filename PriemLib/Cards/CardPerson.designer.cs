@@ -216,13 +216,11 @@
             this.tbMSCourse = new System.Windows.Forms.TextBox();
             this.tbMSVuz = new System.Windows.Forms.TextBox();
             this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.gbOlympiads = new System.Windows.Forms.GroupBox();
-            this.dgvOlympiads = new System.Windows.Forms.DataGridView();
             this.gbPersonAchievements = new System.Windows.Forms.GroupBox();
             this.btnDeletePersonAchievement = new System.Windows.Forms.Button();
             this.btnAddPersonAchievement = new System.Windows.Forms.Button();
             this.dgvIndividualAchievements = new System.Windows.Forms.DataGridView();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.gbAllPrivileges = new System.Windows.Forms.GroupBox();
             this.btnOpenCardBenefitDocument = new System.Windows.Forms.Button();
             this.btnDeleteBenefitDocument = new System.Windows.Forms.Button();
             this.btnAddBenefitDocument = new System.Windows.Forms.Button();
@@ -386,11 +384,9 @@
             this.tpSecond.SuspendLayout();
             this.gbMainStudy.SuspendLayout();
             this.tabPage5.SuspendLayout();
-            this.gbOlympiads.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvOlympiads)).BeginInit();
             this.gbPersonAchievements.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvIndividualAchievements)).BeginInit();
-            this.groupBox3.SuspendLayout();
+            this.gbAllPrivileges.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvBenefitDocument)).BeginInit();
             this.gbPrivileges.SuspendLayout();
             this.tabPage6.SuspendLayout();
@@ -2283,9 +2279,8 @@
             // 
             // tabPage5
             // 
-            this.tabPage5.Controls.Add(this.gbOlympiads);
             this.tabPage5.Controls.Add(this.gbPersonAchievements);
-            this.tabPage5.Controls.Add(this.groupBox3);
+            this.tabPage5.Controls.Add(this.gbAllPrivileges);
             this.tabPage5.Controls.Add(this.gbPrivileges);
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
@@ -2294,35 +2289,6 @@
             this.tabPage5.Text = "Льготы/инд. достижения";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
-            // gbOlympiads
-            // 
-            this.gbOlympiads.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.gbOlympiads.Controls.Add(this.dgvOlympiads);
-            this.gbOlympiads.Location = new System.Drawing.Point(8, 367);
-            this.gbOlympiads.Name = "gbOlympiads";
-            this.gbOlympiads.Size = new System.Drawing.Size(613, 148);
-            this.gbOlympiads.TabIndex = 14;
-            this.gbOlympiads.TabStop = false;
-            this.gbOlympiads.Text = "Олимпиады (только просмотр)";
-            // 
-            // dgvOlympiads
-            // 
-            this.dgvOlympiads.AllowUserToAddRows = false;
-            this.dgvOlympiads.AllowUserToDeleteRows = false;
-            this.dgvOlympiads.AllowUserToResizeRows = false;
-            this.dgvOlympiads.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvOlympiads.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvOlympiads.Location = new System.Drawing.Point(6, 19);
-            this.dgvOlympiads.Name = "dgvOlympiads";
-            this.dgvOlympiads.ReadOnly = true;
-            this.dgvOlympiads.RowHeadersVisible = false;
-            this.dgvOlympiads.Size = new System.Drawing.Size(601, 123);
-            this.dgvOlympiads.TabIndex = 0;
-            // 
             // gbPersonAchievements
             // 
             this.gbPersonAchievements.Controls.Add(this.btnDeletePersonAchievement);
@@ -2330,7 +2296,7 @@
             this.gbPersonAchievements.Controls.Add(this.dgvIndividualAchievements);
             this.gbPersonAchievements.Location = new System.Drawing.Point(313, 12);
             this.gbPersonAchievements.Name = "gbPersonAchievements";
-            this.gbPersonAchievements.Size = new System.Drawing.Size(308, 349);
+            this.gbPersonAchievements.Size = new System.Drawing.Size(308, 137);
             this.gbPersonAchievements.TabIndex = 13;
             this.gbPersonAchievements.TabStop = false;
             this.gbPersonAchievements.Text = "Индивидуальные достижения";
@@ -2338,7 +2304,7 @@
             // btnDeletePersonAchievement
             // 
             this.btnDeletePersonAchievement.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDeletePersonAchievement.Location = new System.Drawing.Point(227, 320);
+            this.btnDeletePersonAchievement.Location = new System.Drawing.Point(227, 108);
             this.btnDeletePersonAchievement.Name = "btnDeletePersonAchievement";
             this.btnDeletePersonAchievement.Size = new System.Drawing.Size(75, 23);
             this.btnDeletePersonAchievement.TabIndex = 2;
@@ -2349,7 +2315,7 @@
             // btnAddPersonAchievement
             // 
             this.btnAddPersonAchievement.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnAddPersonAchievement.Location = new System.Drawing.Point(6, 320);
+            this.btnAddPersonAchievement.Location = new System.Drawing.Point(6, 108);
             this.btnAddPersonAchievement.Name = "btnAddPersonAchievement";
             this.btnAddPersonAchievement.Size = new System.Drawing.Size(65, 23);
             this.btnAddPersonAchievement.TabIndex = 1;
@@ -2370,27 +2336,27 @@
             this.dgvIndividualAchievements.Name = "dgvIndividualAchievements";
             this.dgvIndividualAchievements.ReadOnly = true;
             this.dgvIndividualAchievements.RowHeadersVisible = false;
-            this.dgvIndividualAchievements.Size = new System.Drawing.Size(296, 295);
+            this.dgvIndividualAchievements.Size = new System.Drawing.Size(296, 83);
             this.dgvIndividualAchievements.TabIndex = 0;
             this.dgvIndividualAchievements.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvIndividualAchievements_CellDoubleClick);
             // 
-            // groupBox3
+            // gbAllPrivileges
             // 
-            this.groupBox3.Controls.Add(this.btnOpenCardBenefitDocument);
-            this.groupBox3.Controls.Add(this.btnDeleteBenefitDocument);
-            this.groupBox3.Controls.Add(this.btnAddBenefitDocument);
-            this.groupBox3.Controls.Add(this.dgvBenefitDocument);
-            this.groupBox3.Location = new System.Drawing.Point(8, 155);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(299, 206);
-            this.groupBox3.TabIndex = 12;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Реквизиты документов";
+            this.gbAllPrivileges.Controls.Add(this.btnOpenCardBenefitDocument);
+            this.gbAllPrivileges.Controls.Add(this.btnDeleteBenefitDocument);
+            this.gbAllPrivileges.Controls.Add(this.btnAddBenefitDocument);
+            this.gbAllPrivileges.Controls.Add(this.dgvBenefitDocument);
+            this.gbAllPrivileges.Location = new System.Drawing.Point(8, 155);
+            this.gbAllPrivileges.Name = "gbAllPrivileges";
+            this.gbAllPrivileges.Size = new System.Drawing.Size(613, 373);
+            this.gbAllPrivileges.TabIndex = 12;
+            this.gbAllPrivileges.TabStop = false;
+            this.gbAllPrivileges.Text = "Реквизиты документов";
             // 
             // btnOpenCardBenefitDocument
             // 
             this.btnOpenCardBenefitDocument.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnOpenCardBenefitDocument.Location = new System.Drawing.Point(79, 177);
+            this.btnOpenCardBenefitDocument.Location = new System.Drawing.Point(79, 344);
             this.btnOpenCardBenefitDocument.Name = "btnOpenCardBenefitDocument";
             this.btnOpenCardBenefitDocument.Size = new System.Drawing.Size(67, 23);
             this.btnOpenCardBenefitDocument.TabIndex = 3;
@@ -2401,7 +2367,7 @@
             // btnDeleteBenefitDocument
             // 
             this.btnDeleteBenefitDocument.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDeleteBenefitDocument.Location = new System.Drawing.Point(218, 177);
+            this.btnDeleteBenefitDocument.Location = new System.Drawing.Point(532, 344);
             this.btnDeleteBenefitDocument.Name = "btnDeleteBenefitDocument";
             this.btnDeleteBenefitDocument.Size = new System.Drawing.Size(75, 23);
             this.btnDeleteBenefitDocument.TabIndex = 2;
@@ -2412,7 +2378,7 @@
             // btnAddBenefitDocument
             // 
             this.btnAddBenefitDocument.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnAddBenefitDocument.Location = new System.Drawing.Point(6, 177);
+            this.btnAddBenefitDocument.Location = new System.Drawing.Point(6, 344);
             this.btnAddBenefitDocument.Name = "btnAddBenefitDocument";
             this.btnAddBenefitDocument.Size = new System.Drawing.Size(67, 23);
             this.btnAddBenefitDocument.TabIndex = 1;
@@ -2433,7 +2399,7 @@
             this.dgvBenefitDocument.Name = "dgvBenefitDocument";
             this.dgvBenefitDocument.ReadOnly = true;
             this.dgvBenefitDocument.RowHeadersVisible = false;
-            this.dgvBenefitDocument.Size = new System.Drawing.Size(287, 152);
+            this.dgvBenefitDocument.Size = new System.Drawing.Size(601, 319);
             this.dgvBenefitDocument.TabIndex = 0;
             this.dgvBenefitDocument.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvBenefitDocument_CellDoubleClick);
             // 
@@ -3928,11 +3894,9 @@
             this.gbMainStudy.ResumeLayout(false);
             this.gbMainStudy.PerformLayout();
             this.tabPage5.ResumeLayout(false);
-            this.gbOlympiads.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvOlympiads)).EndInit();
             this.gbPersonAchievements.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvIndividualAchievements)).EndInit();
-            this.groupBox3.ResumeLayout(false);
+            this.gbAllPrivileges.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvBenefitDocument)).EndInit();
             this.gbPrivileges.ResumeLayout(false);
             this.gbPrivileges.PerformLayout();
@@ -4152,7 +4116,7 @@
         private System.Windows.Forms.CheckBox chbEgeInSpbgu;
         private System.Windows.Forms.Label lblProfile;
         private System.Windows.Forms.TabPage tabPage5;
-        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.GroupBox gbAllPrivileges;
         private System.Windows.Forms.GroupBox gbPrivileges;
         private System.Windows.Forms.CheckBox chbExtPoss;
         private System.Windows.Forms.CheckBox chbRebSir;
@@ -4208,8 +4172,6 @@
         private System.Windows.Forms.Button btnSendToOnline;
         private System.Windows.Forms.Button btnOnlineEducLoad;
         private System.Windows.Forms.Button btnOtherPassports;
-        private System.Windows.Forms.GroupBox gbOlympiads;
-        private System.Windows.Forms.DataGridView dgvOlympiads;
         private System.Windows.Forms.CheckBox chbApplicationPrint;
         private System.Windows.Forms.Button btnPrintApplication;
         private System.Windows.Forms.Label lblCardAuthorInfo;

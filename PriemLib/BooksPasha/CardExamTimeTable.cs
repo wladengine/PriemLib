@@ -144,13 +144,21 @@ where ExamInEntryBlockUnitId = @Id ";
             from dbo.ExamTimeTable 
             where Id = @Id ";
                 DataTable tbl = MainClass.BdcOnlineReadWrite.GetDataSet(query, new SortedList<string, object>() { { "@Id", TimetableId.ToString() } }).Tables[0];
-                tbExamAddress.Text = tbl.Rows[0].Field<string>("Address");
-                dtpDateOfClose.Value = tbl.Rows[0].Field<DateTime>("DateOfClose");
-                dtpExamDate.Value = tbl.Rows[0].Field<DateTime>("ExamDate");
-                ComboServ.SetComboId(cbBaseExamTimeTable, tbl.Rows[0].Field<int?>("BaseExamTimeTableId"));
+                if (tbl.Rows.Count > 0)
+                {
+                    tbExamAddress.Text = tbl.Rows[0].Field<string>("Address");
+                    dtpDateOfClose.Value = tbl.Rows[0].Field<DateTime>("DateOfClose");
+                    dtpExamDate.Value = tbl.Rows[0].Field<DateTime>("ExamDate");
+                    ComboServ.SetComboId(cbBaseExamTimeTable, tbl.Rows[0].Field<int?>("BaseExamTimeTableId"));
 
-                btnSave.Text = "Обновить";
-                FillRestriction();
+                    btnSave.Text = "Обновить";
+
+                    FillRestriction();
+                }
+                else
+                {
+                    WinFormsServ.Error("Не удалось получить данные с расписания ID=" + TimetableId);
+                }
             }
         }
         private void btnSave_Click(object sender, EventArgs e)
@@ -258,5 +266,39 @@ where ExamInEntryBlockUnitId = @Id ";
             FillNew();
         }
 
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (dgv.SelectedCells.Count == 0)
+                return;
+
+            int rwInd = dgv.SelectedCells[0].RowIndex;
+            string sId = dgv["Id", rwInd].Value.ToString();
+
+            DeleteExamTimeTable(sId);
+            FillTimeTable();
+        }
+
+        private void DeleteExamTimeTable(string sId)
+        {
+            try
+            {
+                string query = @"
+DELETE FROM dbo.ExamTimeTable
+where Id = @Id";
+
+                int iID = 0;
+                int.TryParse(sId, out iID);
+
+                SortedList<string, object> Dictionary = new SortedList<string, object>();
+                Dictionary.Add("@Id", iID);
+
+                MainClass.BdcOnlineReadWrite.ExecuteQuery(query, Dictionary);
+            }
+            catch (Exception ex)
+            {
+                WinFormsServ.Error(ex);
+            }
+
+        }
     }
 }

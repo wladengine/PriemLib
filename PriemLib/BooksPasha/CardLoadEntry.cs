@@ -1248,47 +1248,6 @@ VALUES
 
                                 _bdcPriemOnline.ExecuteQuery(query, slParams);
 
-
-//                                foreach (var InEnt in lstInnerEntriesInEntry)
-//                                {
-//                                    Guid IEIE_Id = Guid.NewGuid();
-//                                    InnerEntryInEntry IEIE = new InnerEntryInEntry();
-//                                    IEIE.Id = IEIE_Id;
-//                                    IEIE.EgeExamNameId = InEnt.EgeExamNameId;
-//                                    IEIE.EgeMin = InEnt.EgeMin;
-//                                    IEIE.EntryId = gId;
-//                                    IEIE.KCP = InEnt.KCP;
-//                                    IEIE.ObrazProgramId = InEnt.ObrazProgramId;
-//                                    IEIE.ParentInnerEntryInEntryId = InEnt.ParentInnerEntryInEntryId;
-//                                    IEIE.ProfileId = InEnt.ProfileId;
-
-//                                    context.InnerEntryInEntry.Add(IEIE);
-//                                    context.SaveChanges();
-
-//                                    query = @"
-//INSERT INTO InnerEntryInEntry
-//(
-//     Id
-//    ,EntryId
-//    ,ObrazProgramId
-//    ,ProfileId
-//)
-//VALUES
-//(
-//     @Id
-//    ,@EntryId
-//    ,@ObrazProgramId
-//    ,@ProfileId
-//)";
-//                                    slParams.Clear();
-//                                    slParams.Add("@Id", IEIE_Id);
-//                                    slParams.Add("@EntryId", gId);
-//                                    slParams.Add("@ObrazProgramId", InEnt.ObrazProgramId);
-//                                    slParams.Add("@ProfileId", InEnt.ProfileId);
-
-//                                    _bdcPriemOnline.ExecuteQuery(query, slParams);
-//                                }
-
                                 tran.Complete();
                             }
                         }
@@ -1302,6 +1261,112 @@ VALUES
             finally
             {
                 pf.Close();
+            }
+        }
+
+        private void btnLoadUpdateOlympiads_Click(object sender, EventArgs e)
+        {
+            using (PriemEntities context = new PriemEntities())
+            {
+                var lstOlympName = context.OlympName.Select(x => new { x.Id, x.Name }).ToList();
+                foreach (var Ent in lstOlympName)
+                {
+                    string query = "SELECT COUNT(*) FROM OlympName WHERE Id=@Id";
+                    SortedList<string, object> slParams = new SortedList<string, object>() { { "@Id", Ent.Id }, { "@Name", Ent.Name } };
+                    int cnt = (int)MainClass.BdcOnlineReadWrite.GetValue(query, slParams);
+                    if (cnt == 0)
+                        MainClass.BdcOnlineReadWrite.ExecuteQuery("INSERT INTO OlympName (Id, Name) VALUES (@Id, @Name)", slParams);
+                    else
+                        MainClass.BdcOnlineReadWrite.ExecuteQuery("UPDATE OlympName SET Name=@Name WHERE Id=@Id", slParams);
+                }
+
+                var lstOlympSubject = context.OlympSubject.Select(x => new { x.Id, x.Name }).ToList();
+                foreach (var Ent in lstOlympSubject)
+                {
+                    string query = "SELECT COUNT(*) FROM OlympSubject WHERE Id=@Id";
+                    SortedList<string, object> slParams = new SortedList<string, object>() { { "@Id", Ent.Id }, { "@Name", Ent.Name } };
+                    int cnt = (int)MainClass.BdcOnlineReadWrite.GetValue(query, slParams);
+                    if (cnt == 0)
+                        MainClass.BdcOnlineReadWrite.ExecuteQuery("INSERT INTO OlympSubject (Id, Name) VALUES (@Id, @Name)", slParams);
+                    else
+                        MainClass.BdcOnlineReadWrite.ExecuteQuery("UPDATE OlympSubject SET Name=@Name WHERE Id=@Id", slParams);
+                }
+
+                var lstOlympProfile = context.OlympProfile.Select(x => new { x.Id, x.Name }).ToList();
+                foreach (var Ent in lstOlympProfile)
+                {
+                    string query = "SELECT COUNT(*) FROM OlympProfile WHERE Id=@Id";
+                    SortedList<string, object> slParams = new SortedList<string, object>() { { "@Id", Ent.Id }, { "@Name", Ent.Name } };
+                    int cnt = (int)MainClass.BdcOnlineReadWrite.GetValue(query, slParams);
+                    if (cnt == 0)
+                        MainClass.BdcOnlineReadWrite.ExecuteQuery("INSERT INTO OlympProfile (Id, Name) VALUES (@Id, @Name)", slParams);
+                    else
+                        MainClass.BdcOnlineReadWrite.ExecuteQuery("UPDATE OlympProfile SET Name=@Name WHERE Id=@Id", slParams);
+                }
+
+                var lstOlympBook = context.OlympBook.Select(x => new { x.Id, x.OlympLevelId, x.OlympNameId, x.OlympProfileId, x.OlympSubjectId, x.OlympTypeId, x.OlympYear }).ToList();
+                foreach (var Ent in lstOlympBook)
+                {
+                    string query = "SELECT COUNT(*) FROM OlympBook WHERE Id=@Id";
+                    SortedList<string, object> slParams = new SortedList<string, object>() { 
+                        { "@Id", Ent.Id }, 
+                        { "@OlympLevelId", Ent.OlympLevelId },
+                        { "@OlympNameId", Ent.OlympNameId },
+                        { "@OlympProfileId", Ent.OlympProfileId },
+                        { "@OlympSubjectId", Ent.OlympSubjectId },
+                        { "@OlympTypeId", Ent.OlympTypeId },
+                        { "@OlympYear", Ent.OlympYear }
+                    };
+                    int cnt = (int)MainClass.BdcOnlineReadWrite.GetValue(query, slParams);
+                    if (cnt == 0)
+                        MainClass.BdcOnlineReadWrite.ExecuteQuery(@"INSERT INTO OlympBook (Id, OlympLevelId, OlympNameId, OlympProfileId, OlympSubjectId, OlympTypeId, OlympYear) 
+VALUES (@Id, @OlympLevelId, @OlympNameId, @OlympProfileId, @OlympSubjectId, @OlympTypeId, @OlympYear)", slParams);
+                    else
+                        MainClass.BdcOnlineReadWrite.ExecuteQuery(@"UPDATE OlympBook 
+SET OlympLevelId=@OlympLevelId,
+    OlympNameId=@OlympNameId,
+    OlympProfileId=@OlympProfileId,
+    OlympSubjectId=@OlympSubjectId,
+    OlympTypeId=@OlympTypeId,
+    OlympYear=@OlympYear
+WHERE Id=@Id", slParams);
+                }
+            }
+        }
+
+        private void btnLoadUpdateExams_Click(object sender, EventArgs e)
+        {
+            using (PriemEntities context = new PriemEntities())
+            {
+                var lstExamNames = context.ExamName.Select(x => new { x.Id, x.Name }).ToList();
+                foreach (var ExName in lstExamNames)
+                {
+                    string query = "SELECT COUNT(*) FROM ExamName WHERE Id=@Id";
+                    SortedList<string, object> slParams = new SortedList<string, object>() { { "@Id", ExName.Id }, { "@Name", ExName.Name } };
+                    int cnt = (int)MainClass.BdcOnlineReadWrite.GetValue(query, slParams);
+                    if (cnt == 0)
+                        MainClass.BdcOnlineReadWrite.ExecuteQuery("INSERT INTO ExamName (Id, Name) VALUES (@Id, @Name)", slParams);
+                    else
+                        MainClass.BdcOnlineReadWrite.ExecuteQuery("UPDATE ExamName SET Name=@Name WHERE Id=@Id", slParams);
+                }
+
+                var lstExams = context.Exam.Select(x => new { x.Id, x.ExamNameId, x.IsAdditional, x.IsPortfolioAnonymPart, x.IsPortfolioCommonPart }).ToList();
+                foreach (var Exam in lstExams)
+                {
+                    string query = "SELECT COUNT(*) FROM Exam WHERE Id=@Id";
+                    SortedList<string, object> slParams = new SortedList<string, object>() {
+                        { "@Id", Exam.Id },
+                        { "@ExamNameId", Exam.ExamNameId },
+                        { "@IsPortfolio", Exam.IsPortfolioAnonymPart },
+                        { "@IsPortfolioCommonPart", Exam.IsPortfolioCommonPart },
+                        { "@IsAdditional", Exam.IsAdditional }
+                    };
+                    int cnt = (int)MainClass.BdcOnlineReadWrite.GetValue(query, slParams);
+                    if (cnt == 0)
+                        MainClass.BdcOnlineReadWrite.ExecuteQuery("INSERT INTO Exam (Id, ExamNameId, IsPortfolio) VALUES (@Id, @ExamNameId, @IsPortfolio)", slParams);
+                    else
+                        MainClass.BdcOnlineReadWrite.ExecuteQuery("UPDATE Exam SET ExamNameId=@ExamNameId, IsPortfolio=@IsPortfolio WHERE Id=@Id", slParams);
+                }
             }
         }
     }

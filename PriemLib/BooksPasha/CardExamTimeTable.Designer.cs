@@ -38,12 +38,13 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.btnAddNew = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.tbExamAddress = new System.Windows.Forms.TextBox();
             this.lbExamTimeTableRestriction = new System.Windows.Forms.ListBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.cbBaseExamTimeTable = new System.Windows.Forms.ComboBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.tbExamAddress = new System.Windows.Forms.TextBox();
+            this.btnDelete = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -77,7 +78,7 @@
             this.dgv.Name = "dgv";
             this.dgv.ReadOnly = true;
             this.dgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgv.Size = new System.Drawing.Size(522, 144);
+            this.dgv.Size = new System.Drawing.Size(522, 162);
             this.dgv.TabIndex = 1;
             this.dgv.CurrentCellChanged += new System.EventHandler(this.dgv_CurrentCellChanged);
             // 
@@ -129,7 +130,7 @@
             // btnSave
             // 
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnSave.Location = new System.Drawing.Point(6, 262);
+            this.btnSave.Location = new System.Drawing.Point(6, 271);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(127, 23);
             this.btnSave.TabIndex = 5;
@@ -166,12 +167,22 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.dtpDateOfClose);
             this.groupBox1.Controls.Add(this.dtpExamDate);
-            this.groupBox1.Location = new System.Drawing.Point(5, 8);
+            this.groupBox1.Location = new System.Drawing.Point(5, 32);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(522, 292);
+            this.groupBox1.Size = new System.Drawing.Size(522, 301);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Экзамен";
+            // 
+            // tbExamAddress
+            // 
+            this.tbExamAddress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbExamAddress.Location = new System.Drawing.Point(124, 42);
+            this.tbExamAddress.Multiline = true;
+            this.tbExamAddress.Name = "tbExamAddress";
+            this.tbExamAddress.Size = new System.Drawing.Size(392, 64);
+            this.tbExamAddress.TabIndex = 9;
             // 
             // lbExamTimeTableRestriction
             // 
@@ -231,27 +242,29 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.btnDelete);
             this.splitContainer1.Panel2.Controls.Add(this.groupBox1);
-            this.splitContainer1.Size = new System.Drawing.Size(534, 489);
-            this.splitContainer1.SplitterDistance = 178;
+            this.splitContainer1.Size = new System.Drawing.Size(534, 540);
+            this.splitContainer1.SplitterDistance = 196;
             this.splitContainer1.TabIndex = 8;
             // 
-            // tbExamAddress
+            // btnDelete
             // 
-            this.tbExamAddress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbExamAddress.Location = new System.Drawing.Point(124, 42);
-            this.tbExamAddress.Multiline = true;
-            this.tbExamAddress.Name = "tbExamAddress";
-            this.tbExamAddress.Size = new System.Drawing.Size(392, 64);
-            this.tbExamAddress.TabIndex = 9;
+            this.btnDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDelete.Location = new System.Drawing.Point(400, 3);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(127, 23);
+            this.btnDelete.TabIndex = 8;
+            this.btnDelete.Text = "Удалить выбранный";
+            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // CardExamTimeTable
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(546, 502);
+            this.ClientSize = new System.Drawing.Size(546, 553);
             this.Controls.Add(this.splitContainer1);
             this.Name = "CardExamTimeTable";
             this.Text = "ExamTimeTable";
@@ -286,5 +299,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.TextBox tbExamAddress;
+        private System.Windows.Forms.Button btnDelete;
     }
 }

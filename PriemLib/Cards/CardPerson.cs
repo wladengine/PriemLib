@@ -318,7 +318,6 @@ namespace PriemLib
             try
             {
                 UpdateEducationData();
-                UpdateOlymiads();
             }
             catch (Exception ex)
             {
@@ -447,47 +446,47 @@ namespace PriemLib
             {
                 using (PriemEntities context = new PriemEntities())
                 {
-                    var sourceOwn = (from abit in context.qAbiturient
-                                     join comp in context.Competition on abit.CompetitionId equals comp.Id
-                                    where !abit.BackDoc && abit.PersonId == GuidId
-                                    && MainClass.lstStudyLevelGroupId.Contains(abit.StudyLevelGroupId)
-                                    && (MainClass.dbType != PriemType.PriemForeigners ? abit.IsForeign == false : true)
-                                    orderby abit.Priority, abit.FacultyAcr, abit.ObrazProgramCrypt
-                                    select new
-                                    {
-                                        abit.Id,
-                                        Приор = abit.Priority,
-                                        Тип_конк = comp.Name,
-                                        Факультет = abit.FacultyAcr,
-                                        Направление = abit.LicenseProgramName,
-                                        Образ_программа = abit.ObrazProgramCrypt,
-                                        Образ_программа_шифр = (abit.IsForeign ? "(иностр) " : "") + (abit.IsCrimea ? "(крым) " : "") + abit.ObrazProgramName,
-                                        Профиль = abit.ProfileName,
-                                        Форма_обучения = abit.StudyBasisName,
-                                        Основа_обучения = abit.StudyFormName,
-                                        abit.IsViewed
-                                    }).ToList();
+                    var sourceOwn =
+                        (from abit in context.qAbiturient
+                         join comp in context.Competition on abit.CompetitionId equals comp.Id
+                         where !abit.BackDoc && abit.PersonId == GuidId
+                         && MainClass.lstStudyLevelGroupId.Contains(abit.StudyLevelGroupId)
+                         && (MainClass.dbType != PriemType.PriemForeigners ? abit.IsForeign == false : true)
+                         orderby abit.Priority, abit.FacultyAcr, abit.ObrazProgramCrypt
+                         select new
+                         {
+                             abit.Id,
+                             Приор = abit.Priority,
+                             Тип_конк = comp.Name,
+                             Факультет = abit.FacultyAcr,
+                             Направление = abit.LicenseProgramName,
+                             Образ_программа = (abit.IsForeign ? "(иностр) " : "") + abit.ObrazProgramCrypt + (abit.IsCrimea ? "(крым) " : "") + abit.ObrazProgramName,
+                             Профиль = abit.ProfileName,
+                             Форма_обучения = abit.StudyBasisName,
+                             Основа_обучения = abit.StudyFormName,
+                             abit.IsViewed
+                         }).ToList();
 
-                    var sourceAll = (from abit in context.qAbitAll
-                                     join comp in context.Competition on abit.CompetitionId equals comp.Id
-                                    where !abit.BackDoc && abit.PersonId == GuidId
-                                    //&& MainClass.lstStudyLevelGroupId.Contains(abit.StudyLevelGroupId)
-                                    //&& (MainClass.dbType != PriemType.PriemForeigners ? abit.IsForeign == false : true)
-                                    orderby abit.Priority, abit.FacultyAcr, abit.LicenseProgramName
-                                    select new
-                                    {
-                                        abit.Id,
-                                        Приор = abit.Priority,
-                                        Тип_конк = comp.Name,
-                                        Факультет = abit.FacultyAcr,
-                                        Направление = abit.LicenseProgramName,
-                                        Образ_программа = abit.ObrazProgramCrypt,
-                                        Образ_программа_шифр = (abit.IsForeign ? "(иностр) " : "") + (abit.IsCrimea ? "(крым) " : "") + abit.ObrazProgramName,
-                                        Профиль = abit.ProfileName,
-                                        Форма_обучения = abit.StudyBasisName,
-                                        Основа_обучения = abit.StudyFormName,
-                                        abit.IsViewed
-                                    }).ToList().Except(sourceOwn).ToList();
+                    var sourceAll =
+                        (from abit in context.qAbitAll
+                         join comp in context.Competition on abit.CompetitionId equals comp.Id
+                         where !abit.BackDoc && abit.PersonId == GuidId
+                         //&& MainClass.lstStudyLevelGroupId.Contains(abit.StudyLevelGroupId)
+                         //&& (MainClass.dbType != PriemType.PriemForeigners ? abit.IsForeign == false : true)
+                         orderby abit.Priority, abit.FacultyAcr, abit.LicenseProgramName
+                         select new
+                         {
+                             abit.Id,
+                             Приор = abit.Priority,
+                             Тип_конк = comp.Name,
+                             Факультет = abit.FacultyAcr,
+                             Направление = abit.LicenseProgramName,
+                             Образ_программа = (abit.IsForeign ? "(иностр) " : "") + abit.ObrazProgramCrypt + (abit.IsCrimea ? "(крым) " : "") + abit.ObrazProgramName,
+                             Профиль = abit.ProfileName,
+                             Форма_обучения = abit.StudyBasisName,
+                             Основа_обучения = abit.StudyFormName,
+                             abit.IsViewed
+                         }).ToList().Except(sourceOwn).ToList();
 
                     dgvApplications.DataSource = Converter.ConvertToDataTable(sourceOwn.ToArray());
                     dgvApplications.Columns["Id"].Visible = false;
@@ -498,11 +497,12 @@ namespace PriemLib
                     dgvOtherAppl.Columns["IsViewed"].Visible = false;
 
                     // после зачисления раскомментить
-                    var entries = (from ev in context.extEntryProtocols
-                                  join ab in context.extAbit
-                                  on ev.AbiturientId equals ab.Id
-                                  where !ab.BackDoc && ab.PersonId == GuidId
-                                  select ab).FirstOrDefault();
+                    var entries =
+                        (from ev in context.extEntryProtocols
+                         join ab in context.extAbit
+                         on ev.AbiturientId equals ab.Id
+                         where !ab.BackDoc && ab.PersonId == GuidId
+                         select ab).FirstOrDefault();
 
                     if(entries == null)                    
                         gbEnter.Visible = false;
@@ -529,15 +529,17 @@ namespace PriemLib
             {
                 using (PriemEntities context = new PriemEntities())
                 {
-                    var ScienceWork = (from x in context.PersonScienceWork
-                                       where x.PersonId == GuidId
-                                       select new
-                                       {
-                                           x.Id,
-                                           Тип_работы = x.ScienceWorkType.Name,
-                                           Год = x.WorkYear,
-                                           Сведения = x.WorkInfo
-                                       }).ToList();
+                    var ScienceWork =
+                        (from x in context.PersonScienceWork
+                         where x.PersonId == GuidId
+                         select new
+                         {
+                             x.Id,
+                             Тип_работы = x.ScienceWorkType.Name,
+                             Год = x.WorkYear,
+                             Сведения = x.WorkInfo
+                         }).ToList();
+
                     dgvPersonScienceWork.DataSource = ScienceWork;
                     foreach (DataGridViewColumn c in dgvPersonScienceWork.Columns)
                         c.HeaderText = c.Name.Replace("_", " ");
@@ -557,16 +559,18 @@ namespace PriemLib
             {
                 using (PriemEntities context = new PriemEntities())
                 {
-                    var PersonWork = (from x in context.PersonWork
-                                       where x.PersonId == GuidId
-                                       select new
-                                       {
-                                           x.Id,
-                                           Стаж = x.Stage,
-                                           Место_работы = x.WorkPlace,
-                                           Должность = x.WorkProfession,
-                                           Обязанности = x.WorkSpecifications
-                                       }).ToList();
+                    var PersonWork =
+                        (from x in context.PersonWork
+                         where x.PersonId == GuidId
+                         select new
+                         {
+                             x.Id,
+                             Стаж = x.Stage,
+                             Место_работы = x.WorkPlace,
+                             Должность = x.WorkProfession,
+                             Обязанности = x.WorkSpecifications
+                         }).ToList();
+
                     dgvPersonWork.DataSource = PersonWork;
                     foreach (DataGridViewColumn c in dgvPersonWork.Columns)
                         c.HeaderText = c.Name.Replace("_", " ");
@@ -700,7 +704,7 @@ namespace PriemLib
         #region ReadOnly & IsOpen
 
         // карточка открывается в режиме read-only
-        protected override void  SetAllFieldsNotEnabled()
+        protected override void SetAllFieldsNotEnabled()
         {
             base.SetAllFieldsNotEnabled();
             
@@ -738,7 +742,6 @@ namespace PriemLib
                 btnRequestEge.Enabled = true;
 
             WinFormsServ.SetSubControlsEnabled(gbEducationDocuments, true);
-            WinFormsServ.SetSubControlsEnabled(gbOlympiads, true);
             WinFormsServ.SetSubControlsEnabled(gbPersonAchievements, true);
             WinFormsServ.SetSubControlsEnabled(tabPage7, true);
 
@@ -2354,24 +2357,6 @@ namespace PriemLib
             }
         }
         #endregion
-
-        private void UpdateOlymiads()
-        {
-            using (PriemEntities context = new PriemEntities())
-            {
-                var src = context.extOlympiadsAll
-                    .Where(x => x.PersonId == GuidId)
-                    .Select(x => new { x.OlympTypeName, x.OlympLevelName, x.OlympName, x.OlympSubjectName, x.OlympValueName })
-                    .ToArray();
-
-                dgvOlympiads.DataSource = Converter.ConvertToDataTable(src);
-                dgvOlympiads.Columns["OlympTypeName"].HeaderText = "Тип";
-                dgvOlympiads.Columns["OlympLevelName"].HeaderText = "Уровень";
-                dgvOlympiads.Columns["OlympName"].HeaderText = "Название";
-                dgvOlympiads.Columns["OlympSubjectName"].HeaderText = "Предмет олимпиады";
-                dgvOlympiads.Columns["OlympValueName"].HeaderText = "Результат";
-            }
-        }
 
         private void btnSendToOnline_Click(object sender, EventArgs e)
         {

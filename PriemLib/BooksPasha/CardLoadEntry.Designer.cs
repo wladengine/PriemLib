@@ -36,6 +36,8 @@
             this.btnUpdateBaseDics = new System.Windows.Forms.Button();
             this.btnCopyToCrimea = new System.Windows.Forms.Button();
             this.btnCopyToForeign = new System.Windows.Forms.Button();
+            this.btnLoadUpdateOlympiads = new System.Windows.Forms.Button();
+            this.btnLoadUpdateExams = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnLoadAll
@@ -118,11 +120,33 @@
             this.btnCopyToForeign.UseVisualStyleBackColor = true;
             this.btnCopyToForeign.Click += new System.EventHandler(this.btnCopyToForeign_Click);
             // 
+            // btnLoadUpdateOlympiads
+            // 
+            this.btnLoadUpdateOlympiads.Location = new System.Drawing.Point(12, 210);
+            this.btnLoadUpdateOlympiads.Name = "btnLoadUpdateOlympiads";
+            this.btnLoadUpdateOlympiads.Size = new System.Drawing.Size(145, 23);
+            this.btnLoadUpdateOlympiads.TabIndex = 8;
+            this.btnLoadUpdateOlympiads.Text = "Обн. Олимпиады";
+            this.btnLoadUpdateOlympiads.UseVisualStyleBackColor = true;
+            this.btnLoadUpdateOlympiads.Click += new System.EventHandler(this.btnLoadUpdateOlympiads_Click);
+            // 
+            // btnLoadUpdateExams
+            // 
+            this.btnLoadUpdateExams.Location = new System.Drawing.Point(163, 210);
+            this.btnLoadUpdateExams.Name = "btnLoadUpdateExams";
+            this.btnLoadUpdateExams.Size = new System.Drawing.Size(145, 23);
+            this.btnLoadUpdateExams.TabIndex = 9;
+            this.btnLoadUpdateExams.Text = "Обн. Экзамены";
+            this.btnLoadUpdateExams.UseVisualStyleBackColor = true;
+            this.btnLoadUpdateExams.Click += new System.EventHandler(this.btnLoadUpdateExams_Click);
+            // 
             // CardLoadEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(324, 214);
+            this.ClientSize = new System.Drawing.Size(324, 275);
+            this.Controls.Add(this.btnLoadUpdateExams);
+            this.Controls.Add(this.btnLoadUpdateOlympiads);
             this.Controls.Add(this.btnCopyToForeign);
             this.Controls.Add(this.btnCopyToCrimea);
             this.Controls.Add(this.btnUpdateBaseDics);
@@ -148,5 +172,7 @@
         private System.Windows.Forms.Button btnUpdateBaseDics;
         private System.Windows.Forms.Button btnCopyToCrimea;
         private System.Windows.Forms.Button btnCopyToForeign;
+        private System.Windows.Forms.Button btnLoadUpdateOlympiads;
+        private System.Windows.Forms.Button btnLoadUpdateExams;
     }
 }
