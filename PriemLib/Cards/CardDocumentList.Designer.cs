@@ -35,7 +35,10 @@
             this.label4 = new System.Windows.Forms.Label();
             this.tbStaff = new System.Windows.Forms.TextBox();
             this.btnPrint = new System.Windows.Forms.Button();
+            this.dgvApps = new System.Windows.Forms.DataGridView();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvApps)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -64,9 +67,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv.Location = new System.Drawing.Point(12, 62);
+            this.dgv.Location = new System.Drawing.Point(12, 247);
             this.dgv.Name = "dgv";
-            this.dgv.Size = new System.Drawing.Size(754, 262);
+            this.dgv.Size = new System.Drawing.Size(754, 175);
             this.dgv.TabIndex = 2;
             // 
             // label3
@@ -82,7 +85,7 @@
             // 
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 341);
+            this.label4.Location = new System.Drawing.Point(12, 439);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(208, 13);
             this.label4.TabIndex = 4;
@@ -92,7 +95,7 @@
             // 
             this.tbStaff.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbStaff.Location = new System.Drawing.Point(226, 338);
+            this.tbStaff.Location = new System.Drawing.Point(226, 436);
             this.tbStaff.Name = "tbStaff";
             this.tbStaff.Size = new System.Drawing.Size(540, 20);
             this.tbStaff.TabIndex = 5;
@@ -100,7 +103,7 @@
             // btnPrint
             // 
             this.btnPrint.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnPrint.Location = new System.Drawing.Point(629, 364);
+            this.btnPrint.Location = new System.Drawing.Point(629, 462);
             this.btnPrint.Name = "btnPrint";
             this.btnPrint.Size = new System.Drawing.Size(137, 23);
             this.btnPrint.TabIndex = 6;
@@ -108,21 +111,46 @@
             this.btnPrint.UseVisualStyleBackColor = true;
             this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
             // 
+            // dgvApps
+            // 
+            this.dgvApps.AllowUserToAddRows = false;
+            this.dgvApps.AllowUserToDeleteRows = false;
+            this.dgvApps.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvApps.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvApps.Location = new System.Drawing.Point(12, 85);
+            this.dgvApps.Name = "dgvApps";
+            this.dgvApps.Size = new System.Drawing.Size(754, 156);
+            this.dgvApps.TabIndex = 2;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(45, 69);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(334, 13);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "Заявление о приеме на основную образовательную программу:";
+            // 
             // CardDocumentList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(778, 400);
+            this.ClientSize = new System.Drawing.Size(778, 498);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.btnPrint);
             this.Controls.Add(this.tbStaff);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
+            this.Controls.Add(this.dgvApps);
             this.Controls.Add(this.dgv);
             this.Controls.Add(this.lblFIO);
             this.Controls.Add(this.label1);
             this.Name = "CardDocumentList";
             this.Text = "CardDocumentList";
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvApps)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -137,5 +165,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox tbStaff;
         private System.Windows.Forms.Button btnPrint;
+        private System.Windows.Forms.DataGridView dgvApps;
+        private System.Windows.Forms.Label label2;
     }
 }

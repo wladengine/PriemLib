@@ -3210,7 +3210,7 @@ namespace PriemLib
                     wd.SetFields("Docs",  doc);
                     DateTime tmp = DateTime.Now;
                     List<string> Months = new List<string>(){ "января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря" };
-                    wd.SetFields("Date", "\"" + tmp.Day.ToString() + "\" " + Months[tmp.Month] + " " + tmp.Year.ToString() + " г.");
+                    wd.SetFields("Date", "\"" + tmp.Day.ToString() + "\" " + Months[tmp.Month-1] + " " + tmp.Year.ToString() + " г.");
                     wd.SetFields("Staff", Staff);
 
                 }
