@@ -124,7 +124,7 @@ namespace PriemLib
                     rbReturnDocumentType2.Text = context.ReturnDocumentType.Where(x => x.Id == 2).Select(x => x.Name).First();
 
                     ComboServ.FillCombo(cbLanguage, HelpClass.GetComboListByTable("ed.Language"), true, false);
-                    ComboServ.FillCombo(cbSportQulification, HelpClass.GetComboListByTable("ed.SportQulification", "order by id"), true, false);
+                    ComboServ.FillCombo(cbSportQulification, HelpClass.GetComboListByTable("ed.SportQualification", "order by id"), true, false);
                 }
 
                 // ЕГЭ только для 1 курса!
@@ -796,8 +796,8 @@ namespace PriemLib
         private void FillSportQualification(DataTable tbl)
         {
             ComboServ.SetComboId(cbSportQulification, tbl.Rows[0].Field<int>("SportQualificationId"));
-            tbSportLevel.Text = tbl.Rows[0].Field<string>("SportLevel");
-            tbSportQualification.Text = tbl.Rows[0].Field<string>("SportQualification");
+            tbSportLevel.Text = tbl.Rows[0].Field<string>("SportQualificationLevel");
+            tbSportQualification.Text = tbl.Rows[0].Field<string>("OtherSportQualification");
         }
         private void FillEducationData(List<Person_EducationInfo> lstVals)
         {

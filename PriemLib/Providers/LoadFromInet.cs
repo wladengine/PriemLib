@@ -117,7 +117,7 @@ SportQualificationLevel,
 OtherSportQualification
 FROM dbo.PersonSportQualification 
 LEFT JOIN Person ON PersonSportQualification.PersonId = Person.Id";
-            DataSet dsEge = _bdcInet.GetDataSet(querySport + " WHERE Person.Barcode = " + _Barcode + " ORDER BY PersonWork.Stage desc");
+            DataSet dsEge = _bdcInet.GetDataSet(querySport + " WHERE Person.Barcode = " + _Barcode + " ORDER BY 2");
             return dsEge.Tables[0];
         }
         public DataTable GetPersonWork(int _Barcode)
