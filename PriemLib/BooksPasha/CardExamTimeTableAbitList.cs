@@ -286,7 +286,7 @@ where 1=1  ";
                                       {
                                           ex.Id,
                                           exn.Name
-                                      }).Distinct().ToList().Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name)).ToList();
+                                      }).Distinct().OrderBy(x=>x.Name).ToList().Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name)).ToList();
                     
                     ComboServ.FillCombo(cbExamenUnit, blocks, false, true);
                 }
