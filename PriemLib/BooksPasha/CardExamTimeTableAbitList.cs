@@ -399,7 +399,7 @@ join dbo.ExamInEntryBlockUnitTimetable
 where ExamInEntryBlockUnitTimetable.ExamInEntryBlockUnitId = ApplicationSelectedExam.ExamInEntryBlockUnitId
 )
   
-  " + (checkBox1.Checked ? @" and NOT (ExamInEntryBlockUnit.ExamId = 345 and Entry.StudyLevelId = 1003)" : "") +
+  " + (checkBox1.Checked ? @" and NOT (ExamInEntryBlockUnit.ExamId = 862 and Entry.StudyLevelId = 1003)" : "") +
 @" order by 2, 3, 4
 ";
             LoadFromInet load = new LoadFromInet();

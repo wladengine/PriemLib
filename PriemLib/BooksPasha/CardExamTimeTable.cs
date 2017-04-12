@@ -349,5 +349,20 @@ where Id = @Id";
             }
 
         }
+
+        private void btnExaminEntryBlockUnitTTAdd_Click(object sender, EventArgs e)
+        {
+            SortedList<string, object> Dictionary = new SortedList<string, object>();
+            Dictionary.Add("@ExamInEntryBlockUnitId", UnitId);
+            Dictionary.Add("@ExamBaseTimetableId", ComboServ.GetComboIdInt(cbExamInEntryBlockUnitTimetable));
+
+            string query = @"insert into  dbo.ExamInEntryBlockUnitTimetable
+                (ExamInEntryBlockUnitId, ExamBaseTimetableId) 
+        VALUES (@ExamInEntryBlockUnitId, @ExamBaseTimetableId)";
+            
+            MainClass.BdcOnlineReadWrite.ExecuteQuery(query, Dictionary);
+
+            FillDataGrid();
+        }
     }
 }

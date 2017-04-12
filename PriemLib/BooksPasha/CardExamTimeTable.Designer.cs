@@ -44,13 +44,13 @@
             this.cbBaseExamTimeTable = new System.Windows.Forms.ComboBox();
             this.btnDelete = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cbSubject = new System.Windows.Forms.ComboBox();
             this.dgvExamBaseTimetable = new System.Windows.Forms.DataGridView();
             this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.btnExaminEntryBlockUnitTTAdd = new System.Windows.Forms.Button();
             this.cbExamInEntryBlockUnitTimetable = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.cbSubject = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvExamBaseTimetable)).BeginInit();
@@ -243,6 +243,19 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Редактирование расписания сдачи предмета";
             // 
+            // cbSubject
+            // 
+            this.cbSubject.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbSubject.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbSubject.Enabled = false;
+            this.cbSubject.FormattingEnabled = true;
+            this.cbSubject.Location = new System.Drawing.Point(15, 39);
+            this.cbSubject.Name = "cbSubject";
+            this.cbSubject.Size = new System.Drawing.Size(450, 21);
+            this.cbSubject.TabIndex = 0;
+            this.cbSubject.SelectedIndexChanged += new System.EventHandler(this.cbUnitList_SelectedIndexChanged);
+            // 
             // dgvExamBaseTimetable
             // 
             this.dgvExamBaseTimetable.AllowUserToAddRows = false;
@@ -265,6 +278,15 @@
             this.label7.TabIndex = 10;
             this.label7.Text = "Создать новый день сдачи";
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(12, 23);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(52, 13);
+            this.label8.TabIndex = 4;
+            this.label8.Text = "Предмет";
+            // 
             // btnExaminEntryBlockUnitTTAdd
             // 
             this.btnExaminEntryBlockUnitTTAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -274,6 +296,7 @@
             this.btnExaminEntryBlockUnitTTAdd.TabIndex = 10;
             this.btnExaminEntryBlockUnitTTAdd.Text = "Добавить";
             this.btnExaminEntryBlockUnitTTAdd.UseVisualStyleBackColor = true;
+            this.btnExaminEntryBlockUnitTTAdd.Click += new System.EventHandler(this.btnExaminEntryBlockUnitTTAdd_Click);
             // 
             // cbExamInEntryBlockUnitTimetable
             // 
@@ -294,28 +317,6 @@
             this.label6.Size = new System.Drawing.Size(210, 13);
             this.label6.TabIndex = 12;
             this.label6.Text = "Добавить в расписание экзамена дату:";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(12, 23);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(52, 13);
-            this.label8.TabIndex = 4;
-            this.label8.Text = "Предмет";
-            // 
-            // cbSubject
-            // 
-            this.cbSubject.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbSubject.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbSubject.Enabled = false;
-            this.cbSubject.FormattingEnabled = true;
-            this.cbSubject.Location = new System.Drawing.Point(15, 39);
-            this.cbSubject.Name = "cbSubject";
-            this.cbSubject.Size = new System.Drawing.Size(450, 21);
-            this.cbSubject.TabIndex = 0;
-            this.cbSubject.SelectedIndexChanged += new System.EventHandler(this.cbUnitList_SelectedIndexChanged);
             // 
             // CardExamTimeTable
             // 

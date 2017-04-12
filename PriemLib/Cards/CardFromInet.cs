@@ -1418,7 +1418,7 @@ namespace PriemLib
                                     SaveParents(context);
 
                                     SaveLanguageCertificates(context);
-                                    SavePersonSportQuification(context);
+                                    SavePersonSportQuification(context, personId.Value);
                                     //Проверка на уже существующие заявления и сообщение при наличии
                                     if (!SaveApplication(personId.Value))
                                     {
@@ -1562,12 +1562,12 @@ namespace PriemLib
                 context.SaveChanges();
             }
         }
-        private void SavePersonSportQuification(PriemEntities context)
+        private void SavePersonSportQuification(PriemEntities context, Guid PersonId)
         {
             context.PersonSportQualification.Add(
                 new PersonSportQualification()
                 {
-                    PersonId = GuidId.Value,
+                    PersonId = PersonId,
                     OtherSportQualification  = tbSportQualification.Text,
                     SportQualificationLevel = tbSportLevel.Text,
                     SportQualificationId = ComboServ.GetComboIdInt(cbSportQulification)
