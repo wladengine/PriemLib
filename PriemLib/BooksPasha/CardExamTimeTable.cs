@@ -16,10 +16,14 @@ namespace PriemLib
     public partial class CardExamTimeTable : Form
     {
         List<ExamenBlockUnit> lstUnit;
+
+        int? ExamId { get; set; }
         Guid? UnitId
         {
             get { return ComboServ.GetComboIdGuid(cbUnitList); }
-            set { ComboServ.SetComboId(cbUnitList, value); }
+            set {
+                ComboServ.SetComboId(cbUnitList, value);
+            }
         }
         int? TimetableId; 
 
@@ -29,6 +33,13 @@ namespace PriemLib
             this.MdiParent = MainClass.mainform;
             this.Text = "Расписание экзаменов";
             lstUnit = l;
+            
+            
+            cbUnitList.DisplayMember = "Value";
+            cbUnitList.ValueMember = "Key";
+            cbSubject.DisplayMember = "Value";
+            cbSubject.ValueMember = "Key";
+
             FillCard();
         }
 
@@ -39,10 +50,16 @@ namespace PriemLib
                                            lst.UnitId.ToString(),
                                            lst.ExamUnitName
                                        )).ToList();
-            cbUnitList.DisplayMember = "Value" ;
-            cbUnitList.ValueMember = "Key";
+            
+
+            cbSubject.DataSource = (from lst in lstUnit
+                                       select new KeyValuePair<string, string>(
+                                           lst.UnitId.ToString(),
+                                           lst.ExamUnitName
+                                       )).ToList(); 
             lbExamTimeTableRestriction.DisplayMember = "Value";
             lbExamTimeTableRestriction.ValueMember = "Key";
+            ExamId = lstUnit.Where(x => x.UnitId == UnitId).Select(x => x.ExamId).First();
         }
         private void FillBaseExamTimeTable()
         {
@@ -52,17 +69,17 @@ namespace PriemLib
             {
                 string query = @" select 
   Id, (convert(nvarchar(50), ExamDate, 6) +' (' +Address+')') as Name
-  from dbo.ExamTimetable
-  where ExamInEntryBlockUnitId = @UnitId
-order by ExamDate ";
-                DataTable tbl = MainClass.BdcOnlineReadWrite.GetDataSet(query, new SortedList<string, object>() { { "@UnitId", UnitId.ToString() } }).Tables[0];
+  from dbo.ExamBaseTimetable
+  where ExamBaseTimetable.ExamId = @ExamId
+order by ExamDate";
+                DataTable tbl = MainClass.BdcOnlineReadWrite.GetDataSet(query, new SortedList<string, object>() { { "@ExamId", ExamId.ToString() } }).Tables[0];
                 List<KeyValuePair<string, string>> lst = (from DataRow t in tbl.Rows
                                                           select new KeyValuePair<string, string>(t.Field<int>("Id").ToString(), t.Field<string>("Name"))).ToList();
 
                 ComboServ.FillCombo(cbBaseExamTimeTable, lst, true, false);
             }
         }
-        private void FillRestriction()
+      /*  private void FillRestriction()
         {
             if (!UnitId.HasValue)
             {
@@ -72,10 +89,10 @@ order by ExamDate ";
             {
                 string query = @"with t as (
   select 
-	ExamTimetable.Id,  ExamDate , ExamName.Name , ExamTimeTable.Address, Entry.StudyLevelId 
-  from dbo.ExamTimetable 
-  join dbo.ExamInEntryBlockUnit on ExamInEntryBlockUnit.Id = ExamTimetable.ExamInEntryBlockUnitId
-  join dbo.Exam on ExamInEntryBlockUnit.ExamId = Exam.Id
+	ExamBaseTimetable.Id,  ExamBaseTimetable.ExamDate , ExamName.Name , ExamTimeTable.Address, Entry.StudyLevelId 
+  from dbo.ExamBaseTimetable 
+  join dbo.ExamInEntryBlockUnit on ExamInEntryBlockUnit.Id = @UnitId
+  join dbo.Exam on ExamBaseTimetable.ExamId = Exam.Id
   join dbo.ExamName on ExamName.Id = Exam.ExamNameId
   join dbo.ExamInEntryBlock on ExamInEntryBlock.Id = ExamInEntryBlockUnit.ExamInEntryBlockId
   join dbo.Entry on ExamInEntryBlock.EntryId = Entry.Id
@@ -113,24 +130,40 @@ and t.Id <> @Id;";
                         lbExamTimeTableRestriction.SelectedItems.Add(x);
                 }
             }
-        }
+        }*/
         private void FillDataGrid()
         {
             string query = @"select 
-Id
+uTT.Id
 , ExamDate as 'Дата экзамена'
 , Address as 'Место проведения'
 , DateOfClose as 'Дата окончания регистрации'
-from dbo.ExamTimeTable 
-where ExamInEntryBlockUnitId = @Id ";
+from dbo.ExamInEntryBlockUnitTimetable uTT
+join dbo.ExamBasetimetable bTT on bTT.Id = uTT.ExamBaseTimeTableId
+where uTT.ExamInEntryBlockUnitId = @Id ";
             DataTable tbl = MainClass.BdcOnlineReadWrite.GetDataSet(query, new SortedList<string, object>() { { "@Id", UnitId.ToString() } }).Tables[0];
 
             dgv.DataSource = tbl;
             if (dgv.Columns.Contains("Id"))
                 dgv.Columns["Id"].Visible = false;
-            FillBaseExamTimeTable();
         }
+        private void FillDataGridBaseTimetable()
+        {
+            string query = @"select 
+bTT.Id
+, ExamDate as 'Дата экзамена'
+, Address as 'Место проведения'
+, DateOfClose as 'Дата окончания регистрации'
+from dbo.ExamBasetimetable bTT  
+where bTT.ExamId = @Id 
+and bTT.ExamDate > '01-01-" + MainClass.sPriemYear + @"'";
+            DataTable tbl = MainClass.BdcOnlineReadWrite.GetDataSet(query, new SortedList<string, object>() { { "@Id", ExamId.ToString() } }).Tables[0];
 
+            dgvExamBaseTimetable.DataSource = tbl;
+            if (dgvExamBaseTimetable.Columns.Contains("Id"))
+                dgvExamBaseTimetable.Columns["Id"].Visible = false;
+            FillBaseExamTimeTable(); 
+        }
         private void FillTimeTable()
         {
             if (TimetableId != null)
@@ -140,8 +173,8 @@ where ExamInEntryBlockUnitId = @Id ";
             , ExamDate  
             , Address  
             , DateOfClose 
-            , BaseExamTimeTableId
-            from dbo.ExamTimeTable 
+
+            from dbo.ExamBaseTimeTable 
             where Id = @Id ";
                 DataTable tbl = MainClass.BdcOnlineReadWrite.GetDataSet(query, new SortedList<string, object>() { { "@Id", TimetableId.ToString() } }).Tables[0];
                 if (tbl.Rows.Count > 0)
@@ -149,11 +182,11 @@ where ExamInEntryBlockUnitId = @Id ";
                     tbExamAddress.Text = tbl.Rows[0].Field<string>("Address");
                     dtpDateOfClose.Value = tbl.Rows[0].Field<DateTime>("DateOfClose");
                     dtpExamDate.Value = tbl.Rows[0].Field<DateTime>("ExamDate");
-                    ComboServ.SetComboId(cbBaseExamTimeTable, tbl.Rows[0].Field<int?>("BaseExamTimeTableId"));
+                    ComboServ.SetComboId(cbBaseExamTimeTable, -1);
 
                     btnSave.Text = "Обновить";
 
-                    FillRestriction();
+                    //FillRestriction();
                 }
                 else
                 {
@@ -163,79 +196,98 @@ where ExamInEntryBlockUnitId = @Id ";
         }
         private void btnSave_Click(object sender, EventArgs e)
         {
-            int? BaseExamTimeTableId = ComboServ.GetComboIdInt(cbBaseExamTimeTable);
             SortedList<string, object> Dictionary = new SortedList<string, object>();
             if (TimetableId.HasValue)
                 Dictionary.Add( "@Id", TimetableId);
             Dictionary.Add("@ExamDate", dtpExamDate.Value);
             Dictionary.Add("@Address", tbExamAddress.Text);
             Dictionary.Add("@DateOfClose", dtpDateOfClose.Value);
-            if (BaseExamTimeTableId.HasValue)
-                Dictionary.Add("@BaseExamTimeTableId", BaseExamTimeTableId.Value);
-            else
-                Dictionary.Add("@BaseExamTimeTableId", DBNull.Value);
+            
 
             if (TimetableId.HasValue)
             {
-                string query = @"update dbo.ExamTimeTable
+                string query = @"update dbo.ExamBaseTimeTable
                 set ExamDate=@ExamDate, 
                 Address=@Address, 
-                DateOfClose= @DateOfClose,
-                BaseExamTimeTableId = @BaseExamTimeTableId
+                DateOfClose= @DateOfClose
                 where Id = @Id ";
                 MainClass.BdcOnlineReadWrite.ExecuteQuery(query, Dictionary);
 
-                string Ids = "";
-                foreach (var x in lbExamTimeTableRestriction.Items)
-                {
-                    KeyValuePair<string, string> kvp = (KeyValuePair<string, string>)x;
-                    Ids += kvp.Key + ",";
-                }
-                Ids = Ids.Length > 0 ? Ids.Substring(0, Ids.Length - 1) : Ids;
-                if (!String.IsNullOrEmpty(Ids))
-                {
-                    query = @"delete from dbo.ExamTimeTableOneDayRestriction
-                where (ExamTimetableId1 = @Id and ExamTimetableId2 in (" + Ids + @")) or (ExamTimetableId1 in (" + Ids + ") and ExamTimetableId1= @Id  )";
-                    MainClass.BdcOnlineReadWrite.ExecuteQuery(query, Dictionary);
-                }
-                foreach (var x in lbExamTimeTableRestriction.SelectedItems)
-                {
-                    KeyValuePair<string, string> kvp = (KeyValuePair<string, string>)x;
-                    int kvpId = int.Parse(kvp.Key);
-                    query = @"  
-    IF NOT EXISTS 
-    (   SELECT  1
-        FROM    dbo.ExamTimeTableOneDayRestriction 
-        WHERE   (ExamTimetableId1 = @Id1 and ExamTimetableId2 = @Id) 
-	or (ExamTimetableId2 = @Id1 and ExamTimetableId1 = @Id) 
-    )
-    BEGIN
-        INSERT dbo.ExamTimeTableOneDayRestriction  (ExamTimetableId1, ExamTimetableId2) 
-        VALUES (@Id1, @Id) 
-    END;";
-                    MainClass.BdcOnlineReadWrite.ExecuteQuery(query, new SortedList<string, object>() { { "@Id1", kvpId }, { "@Id", TimetableId } });
-                }
+//                string Ids = "";
+//                foreach (var x in lbExamTimeTableRestriction.Items)
+//                {
+//                    KeyValuePair<string, string> kvp = (KeyValuePair<string, string>)x;
+//                    Ids += kvp.Key + ",";
+//                }
+//                Ids = Ids.Length > 0 ? Ids.Substring(0, Ids.Length - 1) : Ids;
+//                if (!String.IsNullOrEmpty(Ids))
+//                {
+//                    query = @"delete from dbo.ExamTimeTableOneDayRestriction
+//                where (ExamTimetableId1 = @Id and ExamTimetableId2 in (" + Ids + @")) or (ExamTimetableId1 in (" + Ids + ") and ExamTimetableId1= @Id  )";
+//                    MainClass.BdcOnlineReadWrite.ExecuteQuery(query, Dictionary);
+//                }
+//                foreach (var x in lbExamTimeTableRestriction.SelectedItems)
+//                {
+//                    KeyValuePair<string, string> kvp = (KeyValuePair<string, string>)x;
+//                    int kvpId = int.Parse(kvp.Key);
+//                    query = @"  
+//    IF NOT EXISTS 
+//    (   SELECT  1
+//        FROM    dbo.ExamTimeTableOneDayRestriction 
+//        WHERE   (ExamTimetableId1 = @Id1 and ExamTimetableId2 = @Id) 
+//	or (ExamTimetableId2 = @Id1 and ExamTimetableId1 = @Id) 
+//    )
+//    BEGIN
+//        INSERT dbo.ExamTimeTableOneDayRestriction  (ExamTimetableId1, ExamTimetableId2) 
+//        VALUES (@Id1, @Id) 
+//    END;";
+//                    MainClass.BdcOnlineReadWrite.ExecuteQuery(query, new SortedList<string, object>() { { "@Id1", kvpId }, { "@Id", TimetableId } });
+//                }
             }
             else
             {
-                string query = @"insert into  dbo.ExamTimeTable
-                (ExamDate, Address, DateOfClose, ExamInEntryBlockUnitId, BaseExamTimeTableId) VALUES (@ExamDate, @Address, @DateOfClose, @ExamInEntryBlockUnitId, @BaseExamTimeTableId)";
+                string query = @"insert into  dbo.ExamBaseTimeTable
+                (ExamDate, Address, DateOfClose, ExamId) 
+        VALUES (@ExamDate, @Address, @DateOfClose, @ExamId)";
 
-                Dictionary.Add("@ExamInEntryBlockUnitId", UnitId);
+                Dictionary.Add("@ExamId", ExamId);
                 MainClass.BdcOnlineReadWrite.ExecuteQuery(query, Dictionary);
             }
             FillDataGrid();
+            FillDataGridBaseTimetable();
         }
 
         private void cbUnitList_SelectedIndexChanged(object sender, EventArgs e)
         {
+            ComboServ.SetComboId(cbSubject, UnitId);
             FillDataGrid();
+            FillDataGridBaseTimetable();
+            
+            ExamId = lstUnit.Where(x => x.UnitId == UnitId).Select(x => x.ExamId).First();
+
+            string query = @"select 
+            bTT.Id
+            , ExamDate as 'Дата экзамена'
+            , Address as 'Место проведения'
+            , DateOfClose as 'Дата окончания регистрации'
+            from dbo.ExamBasetimetable bTT  
+            where bTT.ExamId = @Id 
+            and bTT.ExamDate > '01-01-"+MainClass.sPriemYear+@"'
+            and bTT.Id not in (select ExamBaseTimetableID from dbo.ExamInEntryBlockUnitTimetable where ExamInEntryBlockUnitId = @UnitId)
+";
+            DataTable tbl = MainClass.BdcOnlineReadWrite.GetDataSet(query, new SortedList<string, object>() { { "@Id", ExamId.ToString() }, { "@UnitId", UnitId.ToString() } }).Tables[0];
+
+            cbExamInEntryBlockUnitTimetable.DataSource = (from DataRow t in tbl.Rows
+                                                          select new KeyValuePair<string, string>(t.Field<int>("Id").ToString(),
+                                                              t.Field<DateTime>("Дата экзамена").ToShortDateString() + " в " +t.Field<DateTime>("Дата экзамена").ToShortTimeString() + ", " + t.Field<string>("Место проведения"))).ToList();
+            cbExamInEntryBlockUnitTimetable.DisplayMember = "Value";
+            cbExamInEntryBlockUnitTimetable.ValueMember = "Key";
         }
 
-        private void dgv_CurrentCellChanged(object sender, EventArgs e)
+        private void dgvExamBaseTimetable_CurrentCellChanged(object sender, EventArgs e)
         {
-            if (dgv.CurrentCell != null)
-                TimetableId = int.Parse(dgv.CurrentRow.Cells["Id"].Value.ToString());
+            if (dgvExamBaseTimetable.CurrentCell != null)
+                TimetableId = int.Parse(dgvExamBaseTimetable.CurrentRow.Cells["Id"].Value.ToString());
 
             FillTimeTable();
         }
@@ -252,17 +304,14 @@ where ExamInEntryBlockUnitId = @Id ";
             dtpExamDate.Value = DateTime.Now.AddMonths(1);
             dtpDateOfClose.Value = DateTime.Now.AddMonths(1);
             FillBaseExamTimeTable();
-            FillRestriction();
-        }
-
-        private void CardExamTimeTable_Load(object sender, EventArgs e)
-        {
-
+            //FillRestriction();
         }
 
         private void CardExamTimeTable_Shown(object sender, EventArgs e)
         {
             dgv.ClearSelection();
+            dgvExamBaseTimetable.ClearSelection();
+
             FillNew();
         }
 

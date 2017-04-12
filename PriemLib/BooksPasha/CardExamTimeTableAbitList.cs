@@ -17,6 +17,7 @@ namespace PriemLib
 {
     public partial class CardExamTimeTableAbitList : Form
     {
+        #region Fields
         int? StudyLevelId
         {
             get { return ComboServ.GetComboIdInt(cbStudyLevel); }
@@ -61,6 +62,9 @@ namespace PriemLib
             }
             set { ComboServ.SetComboId(cbExamenUnit, value); }
         }
+
+
+        #endregion
         public CardExamTimeTableAbitList()
         {
             InitializeComponent();
@@ -95,23 +99,29 @@ namespace PriemLib
         private void FillDataGrid()
         {
             string query = @"
-SELECT  Application.Id
+SELECT distinct Person.Id
 , Person.Surname as 'Фамилия'
 , Person.Name as  'Имя'
 , Person.SecondName as  'Отчество'
 , ExamName.Name as 'Экзамен'
-,Entry.StudyLevelName as 'Уровень'
-, Entry.LicenseProgramName as 'Профиль'
-, ExamTimetable.ExamDate as 'Дата экзамена'
-, ExamTimetable.Address as 'Место проведения'
-, ApplicationSelectedExam.RegistrationDate as 'Дата регистрации на экзамен'
+, Entry.StudyLevelName as 'Уровень'
+" +(chbHideObProgram.Checked? "": @", Entry.LicenseProgramName as 'Профиль' ")+@"
+, ExamBaseTimetable.ExamDate as 'Дата экзамена'
+, ExamBaseTimetable.Address as 'Место проведения'
+, ApplicationSelectedTimetable.RegistrationDate as 'Дата регистрации на экзамен'
+
   FROM dbo.Application
   join dbo.Person on Person.Id = Application.PersonId
+
   join dbo.ApplicationSelectedExam on Application.Id = ApplicationSelectedExam.ApplicationId
-  join dbo.ExamTimetable on ExamTimetable.Id = ApplicationSelectedExam.ExamTimetableId
+
+  join dbo.ApplicationSelectedTimetable on Application.CommitId = ApplicationSelectedTimetable.CommitId
+  join dbo.ExamBaseTimetable on ExamBaseTimetable.Id = ApplicationSelectedTimetable.ExamBaseTimetableId
+
   join dbo.ExamInEntryBlockUnit on ApplicationSelectedExam.ExamInEntryBlockUnitId = ExamInEntryBlockUnit.Id
-join dbo.ExamInEntryBlock on ExamInEntryBlockUnit.ExamInEntryBlockId = ExamInEntryBlock.Id
-  join dbo.Exam on ExamInEntryBlockUnit.ExamId = Exam.id
+  join dbo.ExamInEntryBlock on ExamInEntryBlockUnit.ExamInEntryBlockId = ExamInEntryBlock.Id  
+
+  join dbo.Exam on ExamBaseTimetable.ExamId = Exam.id
   join dbo.ExamName on ExamName.Id = ExamNameId
   join dbo.Entry on Entry.Id = Application.EntryId
 
@@ -121,12 +131,12 @@ where 1=1  ";
             if (TimeTableId.HasValue)
             {
                 dic.Add("@TTid", TimeTableId);
-                query += @" and Month(ExamTimetable.Examdate) = @TTid ";
+                query += @" and Month(ExamBaseTimetable.Examdate) = @TTid ";
             }
             if (!String.IsNullOrEmpty(ExamenUnitId))
             {
                 dic.Add("@UnitId", ExamenUnitId);
-                query += " and ExamName.Name = @UnitId ";
+                query += " and Exam.Id = @UnitId ";
             }
             else if (!String.IsNullOrEmpty(ExamenBlockId))
             {
@@ -234,17 +244,7 @@ where 1=1  ";
                           && (StudyLevelId.HasValue ? ent.StudyLevelId == StudyLevelId : true)
                           orderby ent.ProfileName
                           select ent.Id).Distinct().ToList();
-                    //if (lst.Count() == 1) 
-                    //{
-                    //    var blocks = (from bl in context.ExamInEntryBlock
-                    //                  where lst.Contains(bl.EntryId) && bl.ParentExamInEntryBlockId == null 
-                    //                  select new
-                    //                  {
-                    //                      bl.Id, bl.Name
-                    //                  }).ToList().Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name)).ToList();
-                    //    ComboServ.FillCombo(cbExamenBlock, blocks, false, true);
-                    //} 
-                    //else 
+                     
                         if (lst.Count() > 0)
                     {
                         var blocks = (from bl in context.ExamInEntryBlock
@@ -284,8 +284,9 @@ where 1=1  ";
                                   && (StudyLevelId.HasValue ? ent.StudyLevelId == StudyLevelId : true)
                                       select new
                                       {
+                                          ex.Id,
                                           exn.Name
-                                      }).Distinct().ToList().Select(u => new KeyValuePair<string, string>(u.Name, u.Name)).ToList();
+                                      }).Distinct().ToList().Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name)).ToList();
                     
                     ComboServ.FillCombo(cbExamenUnit, blocks, false, true);
                 }
@@ -302,12 +303,13 @@ where 1=1  ";
                 string query = @"select distinct
  MONTH(ExamDate) as [Key]
 , DATENAME(month, ExamDate) +', ' + Address as [Value]
-from dbo.ExamTimeTable 
-join dbo.ExamInEntryBlockUnit on ExamInEntryBlockUnit.Id  = ExamTimeTable.ExamInEntryBlockUnitId
-join dbo.Exam on Exam.Id = ExamInEntryBlockUnit.ExamId
-join dbo.ExamName on ExamName.Id = Exam.ExamNameId
+from dbo.ExamBaseTimeTable 
+join dbo.ExamInEntryBlockUnitTimetable TT on TT.ExamBaseTimetableId = ExamBaseTimeTable.Id
+join dbo.ExamInEntryBlockUnit on ExamInEntryBlockUnit.Id  = TT.ExamInEntryBlockUnitId
+ 
 " + (!String.IsNullOrEmpty(ExamenUnitId) ? @"
-where ExamName.Name = @Id " : "");
+where ExamDate > '01-01-"+MainClass.sPriemYear+ @"'  and 
+ExamBaseTimeTable.ExamId = @Id " : "");
 
                 LoadFromInet load = new LoadFromInet();
                 SortedList<string, object> dic = new SortedList<string, object>();
@@ -381,18 +383,23 @@ Person.Id
   FROM [dbo].[Application]
   join dbo.Person on Person.Id = Application.PersonId
   join dbo.[User] on [User].Id = Person.Id
-  join dbo.ApplicationSelectedExam on Application.Id = ApplicationId
-  join dbo.ExamTimetable on ApplicationSelectedExam.ExamInEntryBlockUnitId = ExamTimetable.ExamInEntryBlockUnitId
+  
+  join dbo.ApplicationSelectedExam on Application.id = ApplicationSelectedexam.ApplicationId
   join dbo.ExamInEntryBlockUnit on ApplicationSelectedExam.ExamInEntryBlockUnitId = ExamInEntryBlockUnit.Id
+  
+  join dbo.Entry on Entry.Id = Application.EntryId
   join dbo.Exam on Exam.Id = ExamInEntryBlockUnit.ExamId
   join dbo.ExamName on ExamName.Id = Exam.ExamNameId
- join dbo.ExamInEntryBlock on ExamInEntryBlock.Id = ExamInEntryBlockId
-  join dbo.Entry on Entry.Id = ExamInEntryBlock.EntryId
   where Application.Barcode in (select Barcode from dbo.ApplicationAddedToProtocol)
-  and ApplicationSelectedExam.ExamTimetableId is null 
-  and ExamTimetable.DateOfClose > '26-04-2016'
+  and 
+NOT EXISTS ( select * from  dbo.ApplicationSelectedTimetable 
+join dbo.ExamInEntryBlockUnitTimetable 
+ on (Application.CommitId = ApplicationSelectedTimetable.CommitId and 
+     ExamInEntryBlockUnitTimetable.ExamBaseTimetableId = ApplicationSelectedTimetable.ExamBaseTimetableId ) 
+where ExamInEntryBlockUnitTimetable.ExamInEntryBlockUnitId = ApplicationSelectedExam.ExamInEntryBlockUnitId
+)
   
-" + (checkBox1.Checked ? @" and NOT (ExamId = 345 and Entry.StudyLevelId = 1003)" : "" )+
+  " + (checkBox1.Checked ? @" and NOT (ExamInEntryBlockUnit.ExamId = 345 and Entry.StudyLevelId = 1003)" : "") +
 @" order by 2, 3, 4
 ";
             LoadFromInet load = new LoadFromInet();

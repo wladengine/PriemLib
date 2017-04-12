@@ -49,11 +49,12 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.btnFillNotRegistered = new System.Windows.Forms.Button();
-            this.dgvNotRegistered = new System.Windows.Forms.DataGridView();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.lblCount2 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.btnFillNotRegistered = new System.Windows.Forms.Button();
+            this.dgvNotRegistered = new System.Windows.Forms.DataGridView();
+            this.chbHideObProgram = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -268,6 +269,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.chbHideObProgram);
             this.tabPage1.Controls.Add(this.lblCount);
             this.tabPage1.Controls.Add(this.cbStudyLevel);
             this.tabPage1.Controls.Add(this.label8);
@@ -309,6 +311,37 @@
             this.tabPage2.Text = "Не зарегистрированные";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // lblCount2
+            // 
+            this.lblCount2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblCount2.AutoSize = true;
+            this.lblCount2.Location = new System.Drawing.Point(679, 500);
+            this.lblCount2.Name = "lblCount2";
+            this.lblCount2.Size = new System.Drawing.Size(13, 13);
+            this.lblCount2.TabIndex = 11;
+            this.lblCount2.Text = "0";
+            // 
+            // label10
+            // 
+            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(604, 500);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(69, 13);
+            this.label10.TabIndex = 10;
+            this.label10.Text = "Количество:";
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(13, 500);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(225, 17);
+            this.checkBox1.TabIndex = 9;
+            this.checkBox1.Text = "Скрывать Русский язык для 10 класса";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
             // btnFillNotRegistered
             // 
             this.btnFillNotRegistered.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -335,36 +368,17 @@
             this.dgvNotRegistered.Size = new System.Drawing.Size(747, 440);
             this.dgvNotRegistered.TabIndex = 5;
             // 
-            // checkBox1
+            // chbHideObProgram
             // 
-            this.checkBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(13, 500);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(225, 17);
-            this.checkBox1.TabIndex = 9;
-            this.checkBox1.Text = "Скрывать Русский язык для 10 класса";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // lblCount2
-            // 
-            this.lblCount2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblCount2.AutoSize = true;
-            this.lblCount2.Location = new System.Drawing.Point(679, 500);
-            this.lblCount2.Name = "lblCount2";
-            this.lblCount2.Size = new System.Drawing.Size(13, 13);
-            this.lblCount2.TabIndex = 11;
-            this.lblCount2.Text = "0";
-            // 
-            // label10
-            // 
-            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(604, 500);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(69, 13);
-            this.label10.TabIndex = 10;
-            this.label10.Text = "Количество:";
+            this.chbHideObProgram.AutoSize = true;
+            this.chbHideObProgram.Checked = true;
+            this.chbHideObProgram.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chbHideObProgram.Location = new System.Drawing.Point(514, 226);
+            this.chbHideObProgram.Name = "chbHideObProgram";
+            this.chbHideObProgram.Size = new System.Drawing.Size(123, 17);
+            this.chbHideObProgram.TabIndex = 8;
+            this.chbHideObProgram.Text = "Скрывать профиль";
+            this.chbHideObProgram.UseVisualStyleBackColor = true;
             // 
             // CardExamTimeTableAbitList
             // 
@@ -414,5 +428,6 @@
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Label lblCount2;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.CheckBox chbHideObProgram;
     }
 }
