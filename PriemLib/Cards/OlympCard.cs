@@ -16,20 +16,20 @@ namespace PriemLib
 {
     public partial class OlympCard : BookCard
     {
-        private Guid? _abitId;
+        private Guid? _personId;
         private bool _isReadOnly;    
         
         // конструктор пустой формы
-        public OlympCard(Guid? abitId)
-            : this(null, abitId, false)
+        public OlympCard(Guid? persId)
+            : this(null, persId, false)
         {
         }  
 
         // конструктор формы для изменения
-        public OlympCard(string olId, Guid? abitId, bool isReadOnly)
+        public OlympCard(string olId, Guid? persId, bool isReadOnly)
         {
             InitializeComponent();                      
-            _abitId = abitId;
+            _personId = persId;
             _Id = olId;
             _isReadOnly = isReadOnly;           
 
@@ -293,7 +293,7 @@ namespace PriemLib
             using (PriemEntities context = new PriemEntities())
             {
                 Guid? persId = (from ab in context.extAbit
-                                where ab.Id == _abitId
+                                where ab.Id == _personId
                                 select ab.PersonId).FirstOrDefault();
                 int cnt;
 
@@ -326,7 +326,7 @@ namespace PriemLib
 
         protected override void InsertRec(PriemEntities context, ObjectParameter idParam)
         {
-            context.Olympiads_Insert(OlympTypeId, OlympNameId, OlympProfileId, OlympSubjectId, OlympLevelId, OlympValueId, OlympYear, OriginDoc, _abitId, DocumentSeries, DocumentNumber, DocumentDate, idParam);
+            context.Olympiads_Insert(OlympTypeId, OlympNameId, OlympProfileId, OlympSubjectId, OlympLevelId, OlympValueId, OlympYear, OriginDoc, _personId, DocumentSeries, DocumentNumber, DocumentDate, idParam);
         }
         protected override void UpdateRec(PriemEntities context, Guid id)
         {

@@ -174,6 +174,14 @@ warning 6002: The table/view 'Priem2017.ed._FirstWaveGreen' does not have a prim
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
+        <EntityType Name="BenefitDocument">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BenefitDocumentTypeId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="150" Nullable="false" />
+        </EntityType>
         <EntityType Name="BenefitDocumentType">
           <Key>
             <PropertyRef Name="Id" />
@@ -1053,10 +1061,11 @@ warning 6002: The table/view 'Priem2017.ed.PayDataEntry' does not have a primary
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="PersonId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="BenefitDocumentTypeId" Type="int" Nullable="false" />
+          <Property Name="BenefitDocumentId" Type="int" Nullable="false" />
+          <Property Name="DisabilityTypeId" Type="int" />
           <Property Name="Series" Type="nvarchar" MaxLength="50" />
           <Property Name="Number" Type="nvarchar" MaxLength="50" />
           <Property Name="Date" Type="date" />
-          <Property Name="DisabilityTypeId" Type="int" />
           <Property Name="HasOriginals" Type="bit" Nullable="false" />
           <Property Name="OriginalsDate" Type="date" />
           <Property Name="IsOpen" Type="bit" Nullable="false" />
@@ -3663,6 +3672,18 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_BenefitDocument_BenefitDocumentType">
+          <End Role="BenefitDocumentType" Type="Self.BenefitDocumentType" Multiplicity="1" />
+          <End Role="BenefitDocument" Type="Self.BenefitDocument" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BenefitDocumentType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BenefitDocument">
+              <PropertyRef Name="BenefitDocumentTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_DocInventory_AbitDoc">
           <End Role="AbitDoc" Type="Self.AbitDoc" Multiplicity="1" />
           <End Role="DocInventory" Type="Self.DocInventory" Multiplicity="*" />
@@ -4703,6 +4724,18 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PersonBenefitDocument_BenefitDocument">
+          <End Role="BenefitDocument" Type="Self.BenefitDocument" Multiplicity="1" />
+          <End Role="PersonBenefitDocument" Type="Self.PersonBenefitDocument" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BenefitDocument">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PersonBenefitDocument">
+              <PropertyRef Name="BenefitDocumentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PersonBenefitDocument_BenefitDocumentType">
           <End Role="BenefitDocumentType" Type="Self.BenefitDocumentType" Multiplicity="1" />
           <End Role="PersonBenefitDocument" Type="Self.PersonBenefitDocument" Multiplicity="*" />
@@ -5650,7 +5683,7 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
           <Parameter Name="OlympValueId" Type="int" Mode="In" />
           <Parameter Name="OlympYear" Type="int" Mode="In" />
           <Parameter Name="OriginDoc" Type="bit" Mode="In" />
-          <Parameter Name="AbiturientId" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="PersonId" Type="uniqueidentifier" Mode="In" />
           <Parameter Name="DocumentSeries" Type="nvarchar" Mode="In" />
           <Parameter Name="DocumentNumber" Type="nvarchar" Mode="In" />
           <Parameter Name="DocumentDate" Type="date" Mode="In" />
@@ -6132,6 +6165,7 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
         <Function Name="PersonBenefitDocument_insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ed">
           <Parameter Name="PersonId" Type="uniqueidentifier" Mode="In" />
           <Parameter Name="BenefitDocumentTypeId" Type="int" Mode="In" />
+          <Parameter Name="BenefitDocumentId" Type="int" Mode="In" />
           <Parameter Name="Series" Type="nvarchar" Mode="In" />
           <Parameter Name="Number" Type="nvarchar" Mode="In" />
           <Parameter Name="Date" Type="date" Mode="In" />
@@ -6142,6 +6176,7 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
         </Function>
         <Function Name="PersonBenefitDocument_update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ed">
           <Parameter Name="BenefitDocumentTypeId" Type="int" Mode="In" />
+          <Parameter Name="BenefitDocumentId" Type="int" Mode="In" />
           <Parameter Name="Series" Type="nvarchar" Mode="In" />
           <Parameter Name="Number" Type="nvarchar" Mode="In" />
           <Parameter Name="Date" Type="date" Mode="In" />
@@ -6330,6 +6365,7 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
           <EntitySet Name="ApplicationVersionDetails" EntityType="Self.ApplicationVersionDetails" Schema="ed" store:Type="Tables" />
           <EntitySet Name="AttMarks" EntityType="Self.AttMarks" Schema="ed" store:Type="Tables" />
           <EntitySet Name="AttSubject" EntityType="Self.AttSubject" Schema="ed" store:Type="Tables" />
+          <EntitySet Name="BenefitDocument" EntityType="Self.BenefitDocument" Schema="ed" store:Type="Tables" />
           <EntitySet Name="BenefitDocumentType" EntityType="Self.BenefitDocumentType" Schema="ed" store:Type="Tables" />
           <EntitySet Name="CelCompetition" EntityType="Self.CelCompetition" Schema="ed" store:Type="Tables" />
           <EntitySet Name="ChangeType" EntityType="Self.ChangeType" Schema="ed" store:Type="Tables" />
@@ -7916,6 +7952,10 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
             <End Role="Person" EntitySet="Person" />
             <End Role="AttMarks" EntitySet="AttMarks" />
           </AssociationSet>
+          <AssociationSet Name="FK_BenefitDocument_BenefitDocumentType" Association="Self.FK_BenefitDocument_BenefitDocumentType">
+            <End Role="BenefitDocumentType" EntitySet="BenefitDocumentType" />
+            <End Role="BenefitDocument" EntitySet="BenefitDocument" />
+          </AssociationSet>
           <AssociationSet Name="fk_DocInventory_AbitDoc" Association="Self.fk_DocInventory_AbitDoc">
             <End Role="AbitDoc" EntitySet="AbitDoc" />
             <End Role="DocInventory" EntitySet="DocInventory" />
@@ -8247,6 +8287,10 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
           <AssociationSet Name="FK_PersonAchievement_Person" Association="Self.FK_PersonAchievement_Person">
             <End Role="Person" EntitySet="Person" />
             <End Role="PersonAchievement" EntitySet="PersonAchievement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonBenefitDocument_BenefitDocument" Association="Self.FK_PersonBenefitDocument_BenefitDocument">
+            <End Role="BenefitDocument" EntitySet="BenefitDocument" />
+            <End Role="PersonBenefitDocument" EntitySet="PersonBenefitDocument" />
           </AssociationSet>
           <AssociationSet Name="FK_PersonBenefitDocument_BenefitDocumentType" Association="Self.FK_PersonBenefitDocument_BenefitDocumentType">
             <End Role="BenefitDocumentType" EntitySet="BenefitDocumentType" />
@@ -8762,7 +8806,7 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
             <Parameter Name="OlympValueId" Mode="In" Type="Int32" />
             <Parameter Name="OlympYear" Mode="In" Type="Int32" />
             <Parameter Name="OriginDoc" Mode="In" Type="Boolean" />
-            <Parameter Name="AbiturientId" Mode="In" Type="Guid" />
+            <Parameter Name="PersonId" Mode="In" Type="Guid" />
             <Parameter Name="DocumentSeries" Mode="In" Type="String" />
             <Parameter Name="DocumentNumber" Mode="In" Type="String" />
             <Parameter Name="DocumentDate" Mode="In" Type="DateTime" />
@@ -9432,6 +9476,7 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
           <FunctionImport Name="PersonBenefitDocument_insert">
             <Parameter Name="PersonId" Mode="In" Type="Guid" />
             <Parameter Name="BenefitDocumentTypeId" Mode="In" Type="Int32" />
+            <Parameter Name="BenefitDocumentId" Mode="In" Type="Int32" />
             <Parameter Name="Series" Mode="In" Type="String" />
             <Parameter Name="Number" Mode="In" Type="String" />
             <Parameter Name="Date" Mode="In" Type="DateTime" />
@@ -9442,6 +9487,7 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
           </FunctionImport>
           <FunctionImport Name="PersonBenefitDocument_update">
             <Parameter Name="BenefitDocumentTypeId" Mode="In" Type="Int32" />
+            <Parameter Name="BenefitDocumentId" Mode="In" Type="Int32" />
             <Parameter Name="Series" Mode="In" Type="String" />
             <Parameter Name="Number" Mode="In" Type="String" />
             <Parameter Name="Date" Mode="In" Type="DateTime" />
@@ -10331,6 +10377,15 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
           </AssociationSet>
           <EntitySet Name="extPerson" EntityType="Priem2012Model.extPerson" />
           <EntitySet Name="PersonWork" EntityType="Priem2012Model.PersonWork" />
+          <EntitySet Name="BenefitDocument" EntityType="Priem2012Model.BenefitDocument" />
+          <AssociationSet Name="FK_BenefitDocument_BenefitDocumentType" Association="Priem2012Model.FK_BenefitDocument_BenefitDocumentType">
+            <End Role="BenefitDocumentType" EntitySet="BenefitDocumentType" />
+            <End Role="BenefitDocument" EntitySet="BenefitDocument" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonBenefitDocument_BenefitDocument" Association="Priem2012Model.FK_PersonBenefitDocument_BenefitDocument">
+            <End Role="BenefitDocument" EntitySet="BenefitDocument" />
+            <End Role="PersonBenefitDocument" EntitySet="PersonBenefitDocument" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="AttMarks">
           <Key>
@@ -12439,6 +12494,7 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="String" Name="Name" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="PersonBenefitDocument" Relationship="Priem2012Model.FK_PersonBenefitDocument_BenefitDocumentType" FromRole="BenefitDocumentType" ToRole="PersonBenefitDocument" />
+          <NavigationProperty Name="BenefitDocument" Relationship="Priem2012Model.FK_BenefitDocument_BenefitDocumentType" FromRole="BenefitDocumentType" ToRole="BenefitDocument" />
         </EntityType>
         <EntityType Name="PersonBenefitDocument">
           <Key>
@@ -12460,6 +12516,8 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
           <Property Type="String" Name="Holder" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="C_Author" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Type="DateTime" Name="DateCreated" Nullable="false" Precision="3" />
+          <Property Name="BenefitDocumentId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="BenefitDocument" Relationship="Priem2012Model.FK_PersonBenefitDocument_BenefitDocument" FromRole="PersonBenefitDocument" ToRole="BenefitDocument" />
         </EntityType>
         <Association Name="FK_PersonBenefitDocument_BenefitDocumentType">
           <End Type="Priem2012Model.BenefitDocumentType" Role="BenefitDocumentType" Multiplicity="1" />
@@ -15421,6 +15479,40 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
           <Property Name="WorkProfession" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="WorkSpecifications" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="BenefitDocument">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="BenefitDocumentTypeId" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="BenefitDocumentType" Relationship="Priem2012Model.FK_BenefitDocument_BenefitDocumentType" FromRole="BenefitDocument" ToRole="BenefitDocumentType" />
+          <NavigationProperty Name="PersonBenefitDocument" Relationship="Priem2012Model.FK_PersonBenefitDocument_BenefitDocument" FromRole="BenefitDocument" ToRole="PersonBenefitDocument" />
+        </EntityType>
+        <Association Name="FK_BenefitDocument_BenefitDocumentType">
+          <End Type="Priem2012Model.BenefitDocumentType" Role="BenefitDocumentType" Multiplicity="1" />
+          <End Type="Priem2012Model.BenefitDocument" Role="BenefitDocument" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BenefitDocumentType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BenefitDocument">
+              <PropertyRef Name="BenefitDocumentTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonBenefitDocument_BenefitDocument">
+          <End Type="Priem2012Model.BenefitDocument" Role="BenefitDocument" Multiplicity="1" />
+          <End Type="Priem2012Model.PersonBenefitDocument" Role="PersonBenefitDocument" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BenefitDocument">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PersonBenefitDocument">
+              <PropertyRef Name="BenefitDocumentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -16772,6 +16864,7 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
           <EntitySetMapping Name="PersonBenefitDocument">
             <EntityTypeMapping TypeName="Priem2012Model.PersonBenefitDocument">
               <MappingFragment StoreEntitySet="PersonBenefitDocument">
+                <ScalarProperty Name="BenefitDocumentId" ColumnName="BenefitDocumentId" />
                 <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
                 <ScalarProperty Name="C_Author" ColumnName="_Author" />
                 <ScalarProperty Name="Holder" ColumnName="Holder" />
@@ -18496,6 +18589,15 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
                 <ScalarProperty Name="WorkPlace" ColumnName="WorkPlace" />
                 <ScalarProperty Name="Stage" ColumnName="Stage" />
                 <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BenefitDocument">
+            <EntityTypeMapping TypeName="Priem2012Model.BenefitDocument">
+              <MappingFragment StoreEntitySet="BenefitDocument">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="BenefitDocumentTypeId" ColumnName="BenefitDocumentTypeId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

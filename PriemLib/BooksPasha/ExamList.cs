@@ -53,7 +53,7 @@ namespace PriemLib
         protected override void OpenCard(string itemId)
         {
             CardExam crd = new CardExam(itemId);
-            crd.ToUpdateList += new UpdateListHandler(UpdateDataGrid);
+            crd.ToUpdateList += UpdateDataGrid;
             crd.Show();            
         }
 

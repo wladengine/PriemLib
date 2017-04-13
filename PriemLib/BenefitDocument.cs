@@ -12,21 +12,20 @@ namespace PriemLib
     using System;
     using System.Collections.Generic;
     
-    public partial class BenefitDocumentType
+    public partial class BenefitDocument
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public BenefitDocumentType()
+        public BenefitDocument()
         {
             this.PersonBenefitDocument = new HashSet<PersonBenefitDocument>();
-            this.BenefitDocument = new HashSet<BenefitDocument>();
         }
     
         public int Id { get; set; }
+        public int BenefitDocumentTypeId { get; set; }
         public string Name { get; set; }
     
+        public virtual BenefitDocumentType BenefitDocumentType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PersonBenefitDocument> PersonBenefitDocument { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BenefitDocument> BenefitDocument { get; set; }
     }
 }

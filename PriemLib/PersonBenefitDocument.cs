@@ -28,8 +28,10 @@ namespace PriemLib
         public string Holder { get; set; }
         public string C_Author { get; set; }
         public System.DateTime DateCreated { get; set; }
+        public int BenefitDocumentId { get; set; }
     
         public virtual BenefitDocumentType BenefitDocumentType { get; set; }
         public virtual Person Person { get; set; }
+        public virtual BenefitDocument BenefitDocument { get; set; }
     }
 }

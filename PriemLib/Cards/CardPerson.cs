@@ -1614,7 +1614,7 @@ namespace PriemLib
             if (CheckCardForNewAndSave())
             {
                 crd = new EgeCard(GuidId);
-                crd.ToUpdateList += new UpdateListHandler(UpdateDataGridEge);
+                crd.ToUpdateList += UpdateDataGridEge;
                 crd.ShowDialog();
             }
         }
@@ -1635,7 +1635,7 @@ namespace PriemLib
                 if (egeId != "")
                 {
                     EgeCard crd = new EgeCard(egeId, GuidId, GetReadOnlyEge());
-                    crd.ToUpdateList += new UpdateListHandler(UpdateDataGridEge);
+                    crd.ToUpdateList += UpdateDataGridEge;
                     crd.ShowDialog();
                 }
             }
@@ -1840,8 +1840,8 @@ namespace PriemLib
         {
             if (CheckCardForNewAndSave())
             {
-                var crd = new CardBenefitDocument(null, GuidId.Value, null, this);
-                crd.ToUpdateList += new UpdateListHandler(UpdateGridBenefits);
+                var crd = new CardBenefintDocument_Select(GuidId.Value);
+                crd.ToUpdateList += UpdateGridBenefits;
                 crd.Show();
             }
         }
@@ -1854,16 +1854,60 @@ namespace PriemLib
                 var src =
                     (from PBD in context.PersonBenefitDocument
                      where PBD.PersonId == GuidId
-                     select new { Id = PBD.Id, PBD.BenefitDocumentType.Name, PBD.Series, PBD.Number, PBD.HasOriginals }).ToList().
-                     Select(x => new { x.Id, Name = x.Name, x.Series, x.Number, HasOriginals = x.HasOriginals ? "да" : "нет" });
+                     select new
+                     {
+                         Id = PBD.Id,
+                         TYPE = PBD.BenefitDocumentTypeId.ToString(),
+                         BenefitDocument = PBD.BenefitDocument.Name,
+                         PBD.Series,
+                         PBD.Number,
+                         PBD.HasOriginals
+                     }).ToList().
+                     Select(x => new
+                     {
+                         x.Id,
+                         x.TYPE,
+                         BenefitDocument = x.BenefitDocument,
+                         DocumentSeries = x.Series,
+                         DocumentNumber = x.Number,
+                         HasOriginals = x.HasOriginals ? "да" : "нет"
+                     });
 
-                dgvBenefitDocument.DataSource = Converter.ConvertToDataTable(src.ToArray());
+                var srcOl = 
+                    (from OL in context.Olympiads
+                     where OL.PersonId == GuidId
+                     select new
+                     {
+                         Id = OL.Id,
+                         TYPE = "OLYMP",
+                         BenefitDocument = "(" + OL.OlympName.Name + ") " + OL.OlympSubject.Name + " " + OL.OlympValue.Name,
+                         OL.DocumentSeries,
+                         OL.DocumentNumber,
+                         HasOriginals = OL.OriginDoc
+                     }).ToList().
+                     Select(x => new
+                     {
+                         x.Id,
+                         x.TYPE,
+                         BenefitDocument = x.BenefitDocument,
+                         x.DocumentSeries,
+                         x.DocumentNumber,
+                         HasOriginals = x.HasOriginals ? "да" : "нет"
+                     });
+
+                dgvBenefitDocument.DataSource = Converter.ConvertToDataTable(src.Union(srcOl).ToArray());
             }
+
             dgvBenefitDocument.Columns["Id"].Visible = false;
-            dgvBenefitDocument.Columns["Name"].HeaderText = "Тип док-та";
-            dgvBenefitDocument.Columns["Series"].HeaderText = "Серия";
-            dgvBenefitDocument.Columns["Number"].HeaderText = "Номер";
+            dgvBenefitDocument.Columns["TYPE"].Visible = false;
+            dgvBenefitDocument.Columns["BenefitDocument"].HeaderText = "Документ";
+            dgvBenefitDocument.Columns["BenefitDocument"].Width = 350;
+            dgvBenefitDocument.Columns["DocumentSeries"].HeaderText = "Серия";
+            dgvBenefitDocument.Columns["DocumentSeries"].Width = 70;
+            dgvBenefitDocument.Columns["DocumentNumber"].HeaderText = "Номер";
+            dgvBenefitDocument.Columns["DocumentNumber"].Width = 70;
             dgvBenefitDocument.Columns["HasOriginals"].HeaderText = "Оригиналы";
+            dgvBenefitDocument.Columns["HasOriginals"].Width = 70;
         }
         private void btnDeleteBenefitDocument_Click(object sender, EventArgs e)
         {
@@ -1873,10 +1917,15 @@ namespace PriemLib
             int rwInd = dgvBenefitDocument.SelectedCells[0].RowIndex;
             if (MessageBox.Show("Удалить запись?", "Внимание", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
             {
+                
                 using (PriemEntities context = new PriemEntities())
                 {
                     Guid gId = (Guid)dgvBenefitDocument["Id", rwInd].Value;
-                    context.PersonBenefitDocument_delete(gId);
+                    string sTYPE = dgvBenefitDocument["TYPE", rwInd].Value.ToString();
+                    if (sTYPE.Equals("Olymp", StringComparison.OrdinalIgnoreCase))
+                        context.Olympiads_Delete(gId);
+                    else
+                        context.PersonBenefitDocument_delete(gId);
                 }
                 UpdateGridBenefits();
             }
@@ -1895,9 +1944,21 @@ namespace PriemLib
             {
                 int rwInd = dgvBenefitDocument.CurrentCell.RowIndex;
                 string sId = dgvBenefitDocument["Id", rwInd].Value.ToString();
+                string sTYPE = dgvBenefitDocument["TYPE", rwInd].Value.ToString();
                 if (!string.IsNullOrEmpty(sId))
                 {
-                    var crd = new CardBenefitDocument(sId, GuidId.Value, rwInd, this);
+                    BookCard crd;
+                    int tmp;
+                    if (int.TryParse(sTYPE, out tmp))
+                    {
+                        if (tmp == 1)
+                            crd = new CardDisabilityDocument(sId, GuidId.Value);
+                        else
+                            crd = new CardBenefitDocument(sId, GuidId.Value, tmp);
+                    }
+                    else
+                        crd = new OlympCard(sId, GuidId, _isModified);
+
                     crd.ToUpdateList += UpdateGridBenefits;
                     crd.Show();
                 }

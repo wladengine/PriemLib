@@ -2037,7 +2037,7 @@ namespace PriemLib
                         if (SaveClick())
                         {
                             OlympCard crd = new OlympCard(GuidId);
-                            crd.ToUpdateList += new UpdateListHandler(UpdateDataGridOlymp);
+                            crd.ToUpdateList += UpdateDataGridOlymp;
                             crd.Show();
                         }
                     }
@@ -2050,7 +2050,7 @@ namespace PriemLib
             else
             {
                 OlympCard crd = new OlympCard(GuidId);
-                crd.ToUpdateList += new UpdateListHandler(UpdateDataGridOlymp);
+                crd.ToUpdateList += UpdateDataGridOlymp;
                 crd.Show();
             }
         }
@@ -2068,7 +2068,7 @@ namespace PriemLib
                 if (olId != "")
                 {
                     OlympCard crd = new OlympCard(olId, GuidId, GetReadOnlyOlymps());
-                    crd.ToUpdateList += new UpdateListHandler(UpdateDataGridOlymp);
+                    crd.ToUpdateList += UpdateDataGridOlymp;
                     crd.Show();
                 }
             }

@@ -268,13 +268,13 @@ namespace PriemLib
             if (string.IsNullOrEmpty(itemId) && iSLId.HasValue)
             {
                 CardEntry crd = new CardEntry(iSLId.Value);
-                crd.ToUpdateList += new UpdateListHandler(UpdateDataGrid);
+                crd.ToUpdateList += UpdateDataGrid;
                 crd.Show();
             }
             else
             {
                 CardEntry crd = new CardEntry(itemId);
-                crd.ToUpdateList += new UpdateListHandler(UpdateDataGrid);
+                crd.ToUpdateList += UpdateDataGrid;
                 crd.Show();
             }
         }

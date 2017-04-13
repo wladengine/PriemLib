@@ -19,7 +19,7 @@ namespace PriemLib
     public partial class BookCard : BaseCard
     {
         protected DBPriem _bdc;
-        public event UpdateListHandler ToUpdateList;
+        public event Action ToUpdateList;
 
         public BookCard()
         {

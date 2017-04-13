@@ -854,6 +854,9 @@
         <edmx:AssociationConnector Association="Priem2012Model.FK_ScienceWorkType_ScienceWorkType" />
         <edmx:EntityTypeShape EntityType="Priem2012Model.extPerson" Width="1.5" PointX="30.75" PointY="32.75" />
         <edmx:EntityTypeShape EntityType="Priem2012Model.PersonWork" Width="1.5" PointX="33.375" PointY="30.75" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.BenefitDocument" Width="1.5" PointX="33.375" PointY="33.75" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_BenefitDocument_BenefitDocumentType" />
+        <edmx:AssociationConnector Association="Priem2012Model.FK_PersonBenefitDocument_BenefitDocument" />
         </edmx:Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

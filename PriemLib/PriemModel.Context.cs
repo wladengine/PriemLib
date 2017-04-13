@@ -191,6 +191,7 @@ namespace PriemLib
         public virtual DbSet<ScienceWorkType> ScienceWorkType { get; set; }
         public virtual DbSet<extPerson> extPerson { get; set; }
         public virtual DbSet<PersonWork> PersonWork { get; set; }
+        public virtual DbSet<BenefitDocument> BenefitDocument { get; set; }
     
         public virtual int RoleMember(string roleName, ObjectParameter result)
         {
@@ -1343,7 +1344,7 @@ namespace PriemLib
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ProtocolHistory_Insert", abiturientIdParameter, protocolIdParameter, excludedParameter, excludeProtocolIdParameter, entryHeaderIdParameter, id);
         }
     
-        public virtual int Olympiads_Insert(Nullable<int> olympTypeId, Nullable<int> olympNameId, Nullable<int> olympProfileId, Nullable<int> olympSubjectId, Nullable<int> olympLevelId, Nullable<int> olympValueId, Nullable<int> olympYear, Nullable<bool> originDoc, Nullable<System.Guid> abiturientId, string documentSeries, string documentNumber, Nullable<System.DateTime> documentDate, ObjectParameter id)
+        public virtual int Olympiads_Insert(Nullable<int> olympTypeId, Nullable<int> olympNameId, Nullable<int> olympProfileId, Nullable<int> olympSubjectId, Nullable<int> olympLevelId, Nullable<int> olympValueId, Nullable<int> olympYear, Nullable<bool> originDoc, Nullable<System.Guid> personId, string documentSeries, string documentNumber, Nullable<System.DateTime> documentDate, ObjectParameter id)
         {
             var olympTypeIdParameter = olympTypeId.HasValue ?
                 new ObjectParameter("OlympTypeId", olympTypeId) :
@@ -1377,9 +1378,9 @@ namespace PriemLib
                 new ObjectParameter("OriginDoc", originDoc) :
                 new ObjectParameter("OriginDoc", typeof(bool));
     
-            var abiturientIdParameter = abiturientId.HasValue ?
-                new ObjectParameter("AbiturientId", abiturientId) :
-                new ObjectParameter("AbiturientId", typeof(System.Guid));
+            var personIdParameter = personId.HasValue ?
+                new ObjectParameter("PersonId", personId) :
+                new ObjectParameter("PersonId", typeof(System.Guid));
     
             var documentSeriesParameter = documentSeries != null ?
                 new ObjectParameter("DocumentSeries", documentSeries) :
@@ -1393,7 +1394,7 @@ namespace PriemLib
                 new ObjectParameter("DocumentDate", documentDate) :
                 new ObjectParameter("DocumentDate", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Olympiads_Insert", olympTypeIdParameter, olympNameIdParameter, olympProfileIdParameter, olympSubjectIdParameter, olympLevelIdParameter, olympValueIdParameter, olympYearParameter, originDocParameter, abiturientIdParameter, documentSeriesParameter, documentNumberParameter, documentDateParameter, id);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Olympiads_Insert", olympTypeIdParameter, olympNameIdParameter, olympProfileIdParameter, olympSubjectIdParameter, olympLevelIdParameter, olympValueIdParameter, olympYearParameter, originDocParameter, personIdParameter, documentSeriesParameter, documentNumberParameter, documentDateParameter, id);
         }
     
         public virtual int Olympiads_Update(Nullable<int> olympTypeId, Nullable<int> olympNameId, Nullable<int> olympProfileId, Nullable<int> olympSubjectId, Nullable<int> olympLevelId, Nullable<int> olympValueId, Nullable<int> olympYear, Nullable<bool> originDoc, string documentSeries, string documentNumber, Nullable<System.DateTime> documentDate, Nullable<System.Guid> id)
@@ -3027,7 +3028,7 @@ namespace PriemLib
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("PersonBenefitDocument_delete", idParameter);
         }
     
-        public virtual int PersonBenefitDocument_insert(Nullable<System.Guid> personId, Nullable<int> benefitDocumentTypeId, string series, string number, Nullable<System.DateTime> date, string author, Nullable<bool> hasOriginals, Nullable<int> disabilityTypeId, ObjectParameter id)
+        public virtual int PersonBenefitDocument_insert(Nullable<System.Guid> personId, Nullable<int> benefitDocumentTypeId, Nullable<int> benefitDocumentId, string series, string number, Nullable<System.DateTime> date, string author, Nullable<bool> hasOriginals, Nullable<int> disabilityTypeId, ObjectParameter id)
         {
             var personIdParameter = personId.HasValue ?
                 new ObjectParameter("PersonId", personId) :
@@ -3036,6 +3037,10 @@ namespace PriemLib
             var benefitDocumentTypeIdParameter = benefitDocumentTypeId.HasValue ?
                 new ObjectParameter("BenefitDocumentTypeId", benefitDocumentTypeId) :
                 new ObjectParameter("BenefitDocumentTypeId", typeof(int));
+    
+            var benefitDocumentIdParameter = benefitDocumentId.HasValue ?
+                new ObjectParameter("BenefitDocumentId", benefitDocumentId) :
+                new ObjectParameter("BenefitDocumentId", typeof(int));
     
             var seriesParameter = series != null ?
                 new ObjectParameter("Series", series) :
@@ -3061,14 +3066,18 @@ namespace PriemLib
                 new ObjectParameter("DisabilityTypeId", disabilityTypeId) :
                 new ObjectParameter("DisabilityTypeId", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("PersonBenefitDocument_insert", personIdParameter, benefitDocumentTypeIdParameter, seriesParameter, numberParameter, dateParameter, authorParameter, hasOriginalsParameter, disabilityTypeIdParameter, id);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("PersonBenefitDocument_insert", personIdParameter, benefitDocumentTypeIdParameter, benefitDocumentIdParameter, seriesParameter, numberParameter, dateParameter, authorParameter, hasOriginalsParameter, disabilityTypeIdParameter, id);
         }
     
-        public virtual int PersonBenefitDocument_update(Nullable<int> benefitDocumentTypeId, string series, string number, Nullable<System.DateTime> date, string author, Nullable<bool> hasOriginals, Nullable<int> disabilityTypeId, Nullable<System.Guid> id)
+        public virtual int PersonBenefitDocument_update(Nullable<int> benefitDocumentTypeId, Nullable<int> benefitDocumentId, string series, string number, Nullable<System.DateTime> date, string author, Nullable<bool> hasOriginals, Nullable<int> disabilityTypeId, Nullable<System.Guid> id)
         {
             var benefitDocumentTypeIdParameter = benefitDocumentTypeId.HasValue ?
                 new ObjectParameter("BenefitDocumentTypeId", benefitDocumentTypeId) :
                 new ObjectParameter("BenefitDocumentTypeId", typeof(int));
+    
+            var benefitDocumentIdParameter = benefitDocumentId.HasValue ?
+                new ObjectParameter("BenefitDocumentId", benefitDocumentId) :
+                new ObjectParameter("BenefitDocumentId", typeof(int));
     
             var seriesParameter = series != null ?
                 new ObjectParameter("Series", series) :
@@ -3098,7 +3107,7 @@ namespace PriemLib
                 new ObjectParameter("Id", id) :
                 new ObjectParameter("Id", typeof(System.Guid));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("PersonBenefitDocument_update", benefitDocumentTypeIdParameter, seriesParameter, numberParameter, dateParameter, authorParameter, hasOriginalsParameter, disabilityTypeIdParameter, idParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("PersonBenefitDocument_update", benefitDocumentTypeIdParameter, benefitDocumentIdParameter, seriesParameter, numberParameter, dateParameter, authorParameter, hasOriginalsParameter, disabilityTypeIdParameter, idParameter);
         }
     
         public virtual int OlympiadCheckedByRectorat_Insert(Nullable<System.Guid> id)

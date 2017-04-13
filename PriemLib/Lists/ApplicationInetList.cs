@@ -458,7 +458,7 @@ namespace PriemLib
                         tbAbitBarcode.Text = string.Empty;
 
                         CardFromInet crd = new CardFromInet(null, code, false);
-                        crd.ToUpdateList += new UpdateListHandler(UpdateDataGrid);
+                        crd.ToUpdateList += UpdateDataGrid;
                         crd.Show();
                     }
                 }

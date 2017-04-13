@@ -642,7 +642,7 @@ WHERE Id=@Id";
         private void OpenCardExam(Guid? entryId, string id, bool isForModified)
         {
             CardExamInEntryBlock crd = new CardExamInEntryBlock(entryId, id, isForModified);
-            crd.ToUpdateList += new UpdateListHandler(UpdateExams);
+            crd.ToUpdateList += UpdateExams;
             crd.Show();
         }
 
@@ -869,7 +869,7 @@ WHERE Id=@Id";
         private void OpenOlympicsToCommonBenefit(Guid? entryId, string id, bool isForModified)
         {
             CardOlympicsToCommonBenefit crd = new CardOlympicsToCommonBenefit(id, entryId, isForModified);
-            crd.ToUpdateList += new UpdateListHandler(UpdateOlympicsToCommonBenefit);
+            crd.ToUpdateList += UpdateOlympicsToCommonBenefit;
             crd.Show();
         }
         private void btnOpenOlympicsToCommonBenefit_Click(object sender, EventArgs e)
@@ -1029,7 +1029,7 @@ WHERE Id=@Id";
         private void OpenOlympResultToAdditionalMark(Guid? entryId, string id, bool isForModified)
         {
             CardOlympResultToAdditionalMark crd = new CardOlympResultToAdditionalMark(id, entryId, isForModified);
-            crd.ToUpdateList += new UpdateListHandler(UpdateOlympResultToAdditionalMark);
+            crd.ToUpdateList += UpdateOlympResultToAdditionalMark;
             crd.Show();
         }
         #endregion

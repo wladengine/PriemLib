@@ -225,7 +225,7 @@ AND (StudyLevel.LevelGroupId IN ({0}) OR StudyLevel.LevelGroupId IS NULL) ",
                             //если заявлений нет, то это чисто новое заявление
                             //но даже если они есть, то пусть догружают
                             CardFromInet crd = new CardFromInet(null, fileNum, false);
-                            crd.ToUpdateList += new UpdateListHandler(UpdateDataGrid);
+                            crd.ToUpdateList += UpdateDataGrid;
                             crd.Show();
                         }
                     }
