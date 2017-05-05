@@ -16,6 +16,7 @@ namespace PriemLib
     {
         public System.Guid Id { get; set; }
         public System.Guid AbiturientId { get; set; }
+        public System.Guid ExamInEntryBlockUnitId { get; set; }
         public decimal Value { get; set; }
         public Nullable<System.DateTime> PassDate { get; set; }
         public bool IsFromEge { get; set; }
@@ -25,14 +26,10 @@ namespace PriemLib
         public Nullable<System.Guid> OlympiadId { get; set; }
         public Nullable<System.Guid> EgeCertificateId { get; set; }
         public Nullable<byte> FiveGradeValue { get; set; }
-        public bool IsFromAchievement { get; set; }
-        public Nullable<System.Guid> PersonAchievementId { get; set; }
-        public System.Guid ExamInEntryBlockUnitId { get; set; }
     
         public virtual Abiturient Abiturient { get; set; }
         public virtual EgeCertificate EgeCertificate { get; set; }
         public virtual ExamInEntryBlockUnit ExamInEntryBlockUnit { get; set; }
-        public virtual PersonAchievement PersonAchievement { get; set; }
         public virtual Olympiads Olympiads { get; set; }
     }
 }

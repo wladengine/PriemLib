@@ -26,8 +26,8 @@ namespace PriemLib
         public Nullable<decimal> EgeMin { get; set; }
     
         public virtual ExamInEntryBlock ExamInEntryBlock { get; set; }
+        public virtual Exam Exam { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Mark> Mark { get; set; }
-        public virtual Exam Exam { get; set; }
     }
 }

@@ -643,8 +643,6 @@ warning 6002: The table/view 'Priem2017.ed.Fixieren' does not have a primary key
           <Property Name="OlympiadId" Type="uniqueidentifier" />
           <Property Name="EgeCertificateId" Type="uniqueidentifier" />
           <Property Name="FiveGradeValue" Type="tinyint" />
-          <Property Name="IsFromAchievement" Type="bit" Nullable="false" />
-          <Property Name="PersonAchievementId" Type="uniqueidentifier" />
         </EntityType>
         <EntityType Name="OlympBook">
           <Key>
@@ -3309,7 +3307,7 @@ warning 6002: The table/view 'Priem2017.ed.qMark' does not have a primary key de
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="AbiturientId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="ExamInEntryBlockUnitId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="Value" Type="decimal" Precision="4" Scale="1" Nullable="false" />
+          <Property Name="Value" Type="decimal" Precision="5" Scale="2" Nullable="false" />
           <Property Name="PassDate" Type="smalldatetime" />
           <Property Name="IsFromEge" Type="bit" Nullable="false" />
           <Property Name="IsFromOlymp" Type="bit" Nullable="false" />
@@ -4117,20 +4115,6 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
             </Principal>
             <Dependent Role="Mark">
               <PropertyRef Name="OlympiadId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Mark_PersonAchievement">
-          <End Role="PersonAchievement" Type="Self.PersonAchievement" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Mark" Type="Self.Mark" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PersonAchievement">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Mark">
-              <PropertyRef Name="PersonAchievementId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -8096,10 +8080,6 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
             <End Role="Olympiads" EntitySet="Olympiads" />
             <End Role="Mark" EntitySet="Mark" />
           </AssociationSet>
-          <AssociationSet Name="FK_Mark_PersonAchievement" Association="Self.FK_Mark_PersonAchievement">
-            <End Role="PersonAchievement" EntitySet="PersonAchievement" />
-            <End Role="Mark" EntitySet="Mark" />
-          </AssociationSet>
           <AssociationSet Name="FK_ObrazProgramInEntry_Entry" Association="Self.FK_ObrazProgramInEntry_Entry">
             <End Role="Entry" EntitySet="Entry" />
             <End Role="InnerEntryInEntry" EntitySet="InnerEntryInEntry" />
@@ -10200,24 +10180,7 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
             <End Role="ExamInEntryBlock" EntitySet="ExamInEntryBlock" />
             <End Role="ExamInEntryBlockUnit" EntitySet="ExamInEntryBlockUnit" />
           </AssociationSet>
-          <EntitySet Name="Mark" EntityType="Priem2012Model.Mark" />
           <EntitySet Name="qMark" EntityType="Priem2012Model.qMark" />
-          <AssociationSet Name="FK_Mark_Abiturient" Association="Priem2012Model.FK_Mark_Abiturient">
-            <End Role="Abiturient" EntitySet="Abiturient" />
-            <End Role="Mark" EntitySet="Mark" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Mark_EgeCertificate" Association="Priem2012Model.FK_Mark_EgeCertificate">
-            <End Role="EgeCertificate" EntitySet="EgeCertificate" />
-            <End Role="Mark" EntitySet="Mark" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Mark_ExamInEntryBlockUnit" Association="Priem2012Model.FK_Mark_ExamInEntryBlockUnit">
-            <End Role="ExamInEntryBlockUnit" EntitySet="ExamInEntryBlockUnit" />
-            <End Role="Mark" EntitySet="Mark" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Mark_PersonAchievement" Association="Priem2012Model.FK_Mark_PersonAchievement">
-            <End Role="PersonAchievement" EntitySet="PersonAchievement" />
-            <End Role="Mark" EntitySet="Mark" />
-          </AssociationSet>
           <AssociationSet Name="FK_ExamInEntryBlockUnit_Exam" Association="Priem2012Model.FK_ExamInEntryBlockUnit_Exam">
             <End Role="Exam" EntitySet="Exam" />
             <End Role="ExamInEntryBlockUnit" EntitySet="ExamInEntryBlockUnit" />
@@ -10331,10 +10294,6 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
             <End Role="Abiturient" EntitySet="Abiturient" />
           </AssociationSet>
           <EntitySet Name="extAbitMarksSumAG" EntityType="Priem2012Model.extAbitMarksSumAG" />
-          <AssociationSet Name="FK_Mark_Olympiads" Association="Priem2012Model.FK_Mark_Olympiads">
-            <End Role="Olympiads" EntitySet="Olympiads" />
-            <End Role="Mark" EntitySet="Mark" />
-          </AssociationSet>
           <EntitySet Name="hlpStatRatingList" EntityType="Priem2012Model.hlpStatRatingList" />
           <AssociationSet Name="FK_InnerEntryInEntry_EgeExamName" Association="Priem2012Model.FK_InnerEntryInEntry_EgeExamName">
             <End Role="EgeExamName" EntitySet="EgeExamName" />
@@ -10385,6 +10344,23 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
           <AssociationSet Name="FK_PersonBenefitDocument_BenefitDocument" Association="Priem2012Model.FK_PersonBenefitDocument_BenefitDocument">
             <End Role="BenefitDocument" EntitySet="BenefitDocument" />
             <End Role="PersonBenefitDocument" EntitySet="PersonBenefitDocument" />
+          </AssociationSet>
+          <EntitySet Name="Mark" EntityType="Priem2012Model.Mark" />
+          <AssociationSet Name="FK_Mark_Abiturient" Association="Priem2012Model.FK_Mark_Abiturient">
+            <End Role="Abiturient" EntitySet="Abiturient" />
+            <End Role="Mark" EntitySet="Mark" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mark_EgeCertificate" Association="Priem2012Model.FK_Mark_EgeCertificate">
+            <End Role="EgeCertificate" EntitySet="EgeCertificate" />
+            <End Role="Mark" EntitySet="Mark" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mark_ExamInEntryBlockUnit" Association="Priem2012Model.FK_Mark_ExamInEntryBlockUnit">
+            <End Role="ExamInEntryBlockUnit" EntitySet="ExamInEntryBlockUnit" />
+            <End Role="Mark" EntitySet="Mark" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mark_Olympiads" Association="Priem2012Model.FK_Mark_Olympiads">
+            <End Role="Olympiads" EntitySet="Olympiads" />
+            <End Role="Mark" EntitySet="Mark" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="AttMarks">
@@ -11073,8 +11049,8 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
           <NavigationProperty Name="OlympSubject" Relationship="Priem2012Model.fk_Olympiads_OlympSubject" FromRole="Olympiads" ToRole="OlympSubject" />
           <NavigationProperty Name="OlympType" Relationship="Priem2012Model.FK_Olympiads_OlympType" FromRole="Olympiads" ToRole="OlympType" />
           <NavigationProperty Name="Abiturient1" Relationship="Priem2012Model.FK_Abiturient_Olympiads" FromRole="Olympiads" ToRole="Abiturient" />
-          <NavigationProperty Name="Mark" Relationship="Priem2012Model.FK_Mark_Olympiads" FromRole="Olympiads" ToRole="Mark" />
           <Property Name="PersonId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="Mark" Relationship="Priem2012Model.FK_Mark_Olympiads" FromRole="Olympiads" ToRole="Mark" />
         </EntityType>
         <Association Name="fk_Olympiads_OlympLevel">
           <End Type="Priem2012Model.OlympLevel" Role="OlympLevel" Multiplicity="0..1" />
@@ -11306,12 +11282,12 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
           <NavigationProperty Name="ProtocolHistory" Relationship="Priem2012Model.fk_ProtocolHistory_Abiturient" FromRole="Abiturient" ToRole="ProtocolHistory" />
           <Property Name="OlympiadId" Type="Guid" />
           <NavigationProperty Name="AbiturientSelectedExam" Relationship="Priem2012Model.FK_AbiturientSelectedExam_Abiturient" FromRole="Abiturient" ToRole="AbiturientSelectedExam" />
-          <NavigationProperty Name="Mark" Relationship="Priem2012Model.FK_Mark_Abiturient" FromRole="Abiturient" ToRole="Mark" />
           <Property Name="HasEntryConfirm" Type="Boolean" Nullable="false" />
           <Property Name="DateEntryConfirm" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Olympiads1" Relationship="Priem2012Model.FK_Abiturient_Olympiads" FromRole="Abiturient" ToRole="Olympiads" />
           <Property Name="HasDisabledEntryConfirm" Type="Boolean" Nullable="false" />
           <Property Name="DateDisableEntryConfirm" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Mark" Relationship="Priem2012Model.FK_Mark_Abiturient" FromRole="Abiturient" ToRole="Mark" />
         </EntityType>
         <EntityType Name="Protocol">
           <Key>
@@ -14123,7 +14099,6 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
           <NavigationProperty Name="Person" Relationship="Priem2012Model.FK_PersonAchievement_Person" FromRole="PersonAchievement" ToRole="Person" />
           <Property Type="String" Name="Author" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Type="DateTime" Name="DateCreated" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Mark" Relationship="Priem2012Model.FK_Mark_PersonAchievement" FromRole="PersonAchievement" ToRole="Mark" />
         </EntityType>
         <Association Name="FK_PersonAchievement_AchievementType">
           <End Type="Priem2012Model.AchievementType" Role="AchievementType" Multiplicity="1" />
@@ -14483,8 +14458,8 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
           <Property Name="ExamId" Type="Int32" Nullable="false" />
           <Property Name="EgeMin" Type="Decimal" Precision="4" Scale="1" />
           <NavigationProperty Name="ExamInEntryBlock" Relationship="Priem2012Model.FK_ExamInEntryBlockUnit_ExamInEntryBlock" FromRole="ExamInEntryBlockUnit" ToRole="ExamInEntryBlock" />
-          <NavigationProperty Name="Mark" Relationship="Priem2012Model.FK_Mark_ExamInEntryBlockUnit" FromRole="ExamInEntryBlockUnit" ToRole="Mark" />
           <NavigationProperty Name="Exam" Relationship="Priem2012Model.FK_ExamInEntryBlockUnit_Exam" FromRole="ExamInEntryBlockUnit" ToRole="Exam" />
+          <NavigationProperty Name="Mark" Relationship="Priem2012Model.FK_Mark_ExamInEntryBlockUnit" FromRole="ExamInEntryBlockUnit" ToRole="Mark" />
         </EntityType>
         <Association Name="FK_AbiturientSelectedExam_Abiturient">
           <End Type="Priem2012Model.Abiturient" Role="Abiturient" Multiplicity="1">
@@ -14514,30 +14489,6 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Mark">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="AbiturientId" Type="Guid" Nullable="false" />
-          <Property Name="Value" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
-          <Property Name="PassDate" Type="DateTime" Precision="0" />
-          <Property Name="IsFromEge" Type="Boolean" Nullable="false" />
-          <Property Name="IsFromOlymp" Type="Boolean" Nullable="false" />
-          <Property Name="IsManual" Type="Boolean" Nullable="false" />
-          <Property Name="ExamVedId" Type="Guid" />
-          <Property Name="OlympiadId" Type="Guid" />
-          <Property Name="EgeCertificateId" Type="Guid" />
-          <Property Name="FiveGradeValue" Type="Byte" />
-          <Property Name="IsFromAchievement" Type="Boolean" Nullable="false" />
-          <Property Name="PersonAchievementId" Type="Guid" />
-          <Property Name="ExamInEntryBlockUnitId" Type="Guid" Nullable="false" />
-          <NavigationProperty Name="Abiturient" Relationship="Priem2012Model.FK_Mark_Abiturient" FromRole="Mark" ToRole="Abiturient" />
-          <NavigationProperty Name="EgeCertificate" Relationship="Priem2012Model.FK_Mark_EgeCertificate" FromRole="Mark" ToRole="EgeCertificate" />
-          <NavigationProperty Name="ExamInEntryBlockUnit" Relationship="Priem2012Model.FK_Mark_ExamInEntryBlockUnit" FromRole="Mark" ToRole="ExamInEntryBlockUnit" />
-          <NavigationProperty Name="PersonAchievement" Relationship="Priem2012Model.FK_Mark_PersonAchievement" FromRole="Mark" ToRole="PersonAchievement" />
-          <NavigationProperty Name="Olympiads" Relationship="Priem2012Model.FK_Mark_Olympiads" FromRole="Mark" ToRole="Olympiads" />
-        </EntityType>
         <EntityType Name="qMark">
           <Key>
             <PropertyRef Name="Id" />
@@ -14561,7 +14512,7 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
           <Property Name="Id" Type="Guid" Nullable="false" />
           <Property Name="AbiturientId" Type="Guid" Nullable="false" />
           <Property Name="ExamInEntryBlockUnitId" Type="Guid" Nullable="false" />
-          <Property Name="Value" Type="Decimal" Nullable="false" Precision="4" Scale="1" />
+          <Property Name="Value" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
           <Property Name="PassDate" Type="DateTime" Precision="0" />
           <Property Name="IsFromEge" Type="Boolean" Nullable="false" />
           <Property Name="IsFromOlymp" Type="Boolean" Nullable="false" />
@@ -14583,62 +14534,6 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
           <Property Name="StudyBasisId" Type="Int32" Nullable="false" />
           <Property Name="ParentExamInEntryBlockId" Type="Guid" />
         </EntityType>
-        <Association Name="FK_Mark_Abiturient">
-          <End Type="Priem2012Model.Abiturient" Role="Abiturient" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="Priem2012Model.Mark" Role="Mark" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Abiturient">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Mark">
-              <PropertyRef Name="AbiturientId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Mark_EgeCertificate">
-          <End Type="Priem2012Model.EgeCertificate" Role="EgeCertificate" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="Priem2012Model.Mark" Role="Mark" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EgeCertificate">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Mark">
-              <PropertyRef Name="EgeCertificateId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Mark_ExamInEntryBlockUnit">
-          <End Type="Priem2012Model.ExamInEntryBlockUnit" Role="ExamInEntryBlockUnit" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="Priem2012Model.Mark" Role="Mark" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ExamInEntryBlockUnit">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Mark">
-              <PropertyRef Name="ExamInEntryBlockUnitId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Mark_PersonAchievement">
-          <End Type="Priem2012Model.PersonAchievement" Role="PersonAchievement" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="Priem2012Model.Mark" Role="Mark" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PersonAchievement">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Mark">
-              <PropertyRef Name="PersonAchievementId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ExamInEntryBlockUnit_Exam">
           <End Type="Priem2012Model.Exam" Role="Exam" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -15183,18 +15078,6 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
           <Property Name="TotalSum" Type="Decimal" Precision="38" Scale="1" />
           <Property Name="TotalCount" Type="Int32" />
         </EntityType>
-        <Association Name="FK_Mark_Olympiads">
-          <End Type="Priem2012Model.Olympiads" Role="Olympiads" Multiplicity="0..1" />
-          <End Type="Priem2012Model.Mark" Role="Mark" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Olympiads">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Mark">
-              <PropertyRef Name="OlympiadId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="hlpStatRatingList">
           <Key>
             <PropertyRef Name="AbiturientId" />
@@ -15510,6 +15393,79 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
             </Principal>
             <Dependent Role="PersonBenefitDocument">
               <PropertyRef Name="BenefitDocumentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Mark">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="AbiturientId" Type="Guid" Nullable="false" />
+          <Property Name="ExamInEntryBlockUnitId" Type="Guid" Nullable="false" />
+          <Property Name="Value" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
+          <Property Name="PassDate" Type="DateTime" Precision="0" />
+          <Property Name="IsFromEge" Type="Boolean" Nullable="false" />
+          <Property Name="IsFromOlymp" Type="Boolean" Nullable="false" />
+          <Property Name="IsManual" Type="Boolean" Nullable="false" />
+          <Property Name="ExamVedId" Type="Guid" />
+          <Property Name="OlympiadId" Type="Guid" />
+          <Property Name="EgeCertificateId" Type="Guid" />
+          <Property Name="FiveGradeValue" Type="Byte" />
+          <NavigationProperty Name="Abiturient" Relationship="Priem2012Model.FK_Mark_Abiturient" FromRole="Mark" ToRole="Abiturient" />
+          <NavigationProperty Name="EgeCertificate" Relationship="Priem2012Model.FK_Mark_EgeCertificate" FromRole="Mark" ToRole="EgeCertificate" />
+          <NavigationProperty Name="ExamInEntryBlockUnit" Relationship="Priem2012Model.FK_Mark_ExamInEntryBlockUnit" FromRole="Mark" ToRole="ExamInEntryBlockUnit" />
+          <NavigationProperty Name="Olympiads" Relationship="Priem2012Model.FK_Mark_Olympiads" FromRole="Mark" ToRole="Olympiads" />
+        </EntityType>
+        <Association Name="FK_Mark_Abiturient">
+          <End Type="Priem2012Model.Abiturient" Role="Abiturient" Multiplicity="1" />
+          <End Type="Priem2012Model.Mark" Role="Mark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Abiturient">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Mark">
+              <PropertyRef Name="AbiturientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mark_EgeCertificate">
+          <End Type="Priem2012Model.EgeCertificate" Role="EgeCertificate" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Priem2012Model.Mark" Role="Mark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EgeCertificate">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Mark">
+              <PropertyRef Name="EgeCertificateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mark_ExamInEntryBlockUnit">
+          <End Type="Priem2012Model.ExamInEntryBlockUnit" Role="ExamInEntryBlockUnit" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Priem2012Model.Mark" Role="Mark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExamInEntryBlockUnit">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Mark">
+              <PropertyRef Name="ExamInEntryBlockUnitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mark_Olympiads">
+          <End Type="Priem2012Model.Olympiads" Role="Olympiads" Multiplicity="0..1" />
+          <End Type="Priem2012Model.Mark" Role="Mark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Olympiads">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Mark">
+              <PropertyRef Name="OlympiadId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -18140,26 +18096,6 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Mark">
-            <EntityTypeMapping TypeName="Priem2012Model.Mark">
-              <MappingFragment StoreEntitySet="Mark">
-                <ScalarProperty Name="ExamInEntryBlockUnitId" ColumnName="ExamInEntryBlockUnitId" />
-                <ScalarProperty Name="PersonAchievementId" ColumnName="PersonAchievementId" />
-                <ScalarProperty Name="IsFromAchievement" ColumnName="IsFromAchievement" />
-                <ScalarProperty Name="FiveGradeValue" ColumnName="FiveGradeValue" />
-                <ScalarProperty Name="EgeCertificateId" ColumnName="EgeCertificateId" />
-                <ScalarProperty Name="OlympiadId" ColumnName="OlympiadId" />
-                <ScalarProperty Name="ExamVedId" ColumnName="ExamVedId" />
-                <ScalarProperty Name="IsManual" ColumnName="IsManual" />
-                <ScalarProperty Name="IsFromOlymp" ColumnName="IsFromOlymp" />
-                <ScalarProperty Name="IsFromEge" ColumnName="IsFromEge" />
-                <ScalarProperty Name="PassDate" ColumnName="PassDate" />
-                <ScalarProperty Name="Value" ColumnName="Value" />
-                <ScalarProperty Name="AbiturientId" ColumnName="AbiturientId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="qMark">
             <EntityTypeMapping TypeName="Priem2012Model.qMark">
               <MappingFragment StoreEntitySet="qMark">
@@ -18598,6 +18534,24 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
               <MappingFragment StoreEntitySet="BenefitDocument">
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="BenefitDocumentTypeId" ColumnName="BenefitDocumentTypeId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Mark">
+            <EntityTypeMapping TypeName="Priem2012Model.Mark">
+              <MappingFragment StoreEntitySet="Mark">
+                <ScalarProperty Name="FiveGradeValue" ColumnName="FiveGradeValue" />
+                <ScalarProperty Name="EgeCertificateId" ColumnName="EgeCertificateId" />
+                <ScalarProperty Name="OlympiadId" ColumnName="OlympiadId" />
+                <ScalarProperty Name="ExamVedId" ColumnName="ExamVedId" />
+                <ScalarProperty Name="IsManual" ColumnName="IsManual" />
+                <ScalarProperty Name="IsFromOlymp" ColumnName="IsFromOlymp" />
+                <ScalarProperty Name="IsFromEge" ColumnName="IsFromEge" />
+                <ScalarProperty Name="PassDate" ColumnName="PassDate" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="ExamInEntryBlockUnitId" ColumnName="ExamInEntryBlockUnitId" />
+                <ScalarProperty Name="AbiturientId" ColumnName="AbiturientId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -14,12 +14,6 @@ namespace PriemLib
     
     public partial class PersonAchievement
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public PersonAchievement()
-        {
-            this.Mark = new HashSet<Mark>();
-        }
-    
         public System.Guid Id { get; set; }
         public System.Guid PersonId { get; set; }
         public int AchievementTypeId { get; set; }
@@ -30,7 +24,5 @@ namespace PriemLib
     
         public virtual AchievementType AchievementType { get; set; }
         public virtual Person Person { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Mark> Mark { get; set; }
     }
 }

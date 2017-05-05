@@ -162,7 +162,6 @@ namespace PriemLib
         public virtual DbSet<AbiturientSelectedExam> AbiturientSelectedExam { get; set; }
         public virtual DbSet<ExamInEntryBlock> ExamInEntryBlock { get; set; }
         public virtual DbSet<ExamInEntryBlockUnit> ExamInEntryBlockUnit { get; set; }
-        public virtual DbSet<Mark> Mark { get; set; }
         public virtual DbSet<qMark> qMark { get; set; }
         public virtual DbSet<SchoolExitClass> SchoolExitClass { get; set; }
         public virtual DbSet<LanguageCertificatesType> LanguageCertificatesType { get; set; }
@@ -192,6 +191,7 @@ namespace PriemLib
         public virtual DbSet<extPerson> extPerson { get; set; }
         public virtual DbSet<PersonWork> PersonWork { get; set; }
         public virtual DbSet<BenefitDocument> BenefitDocument { get; set; }
+        public virtual DbSet<Mark> Mark { get; set; }
     
         public virtual int RoleMember(string roleName, ObjectParameter result)
         {

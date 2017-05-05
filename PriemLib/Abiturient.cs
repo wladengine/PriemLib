@@ -94,8 +94,8 @@ namespace PriemLib
         public virtual ICollection<ProtocolHistory> ProtocolHistory { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AbiturientSelectedExam> AbiturientSelectedExam { get; set; }
+        public virtual Olympiads Olympiads1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Mark> Mark { get; set; }
-        public virtual Olympiads Olympiads1 { get; set; }
     }
 }
