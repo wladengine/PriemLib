@@ -745,6 +745,10 @@ namespace PriemLib
             WinFormsServ.SetSubControlsEnabled(gbPersonAchievements, true);
             WinFormsServ.SetSubControlsEnabled(tabPage7, true);
 
+            WinFormsServ.SetSubControlsEnabled(gbAllPrivileges, true);
+            btnAddBenefitDocument.Enabled = false;
+            btnDeleteBenefitDocument.Enabled = false;
+
             btnAddPersonAchievement.Enabled = !inEntryView && !MainClass.IsReadOnly();
             btnDeletePersonAchievement.Enabled = !inEntryView && !MainClass.IsReadOnly();
             dgvIndividualAchievements.Enabled = !inEntryView && !MainClass.IsReadOnly();
@@ -794,10 +798,7 @@ namespace PriemLib
                 btnGetExamPass.Enabled = true;              
           
             WinFormsServ.SetSubControlsEnabled(gbEge, true);
-            //if (MainClass.IsPasha())         
-            //    btnAddE.Enabled = btnRemoveE.Enabled = true;
-            //else
-            //    btnAddE.Enabled = btnRemoveE.Enabled = false; 
+            WinFormsServ.SetSubControlsEnabled(gbAllPrivileges, true);
             
             btnAttMarks.Enabled = true;            
 
@@ -1880,7 +1881,7 @@ namespace PriemLib
                      {
                          Id = OL.Id,
                          TYPE = "OLYMP",
-                         BenefitDocument = "(" + OL.OlympName.Name + ") " + OL.OlympSubject.Name + " " + OL.OlympValue.Name,
+                         BenefitDocument = OL.OlympName.Name + " (" + OL.OlympSubject.Name + ") - " + OL.OlympValue.Name,
                          OL.DocumentSeries,
                          OL.DocumentNumber,
                          HasOriginals = OL.OriginDoc
@@ -2564,7 +2565,7 @@ namespace PriemLib
         private void btnCertificateAdd_Click(object sender, EventArgs e)
         {
             if (GuidId.HasValue)
-                new CardLangCertificate(null, GuidId.Value, new UpdateHandler(FillLanguageCertificates)).Show();
+                new CardLangCertificate(null, GuidId.Value, FillLanguageCertificates).Show();
         }
 
         private void btnCertificateDelete_Click(object sender, EventArgs e)
@@ -2591,7 +2592,7 @@ namespace PriemLib
                 if (dgvCertificates.CurrentCell.RowIndex > 0)
                 {
                     int Certid = int.Parse(dgvCertificates.CurrentRow.Cells["Id"].Value.ToString());
-                    new CardLangCertificate(Certid, GuidId.Value, new UpdateHandler(FillLanguageCertificates)).Show();
+                    new CardLangCertificate(Certid, GuidId.Value, FillLanguageCertificates).Show();
                 }
         }
 
@@ -2855,6 +2856,5 @@ namespace PriemLib
             }
         }
         #endregion
-
     }
 }

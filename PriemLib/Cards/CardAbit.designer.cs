@@ -35,9 +35,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CardAbit));
             this.label36 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -114,12 +111,6 @@
             this.chbAttOriginal = new System.Windows.Forms.CheckBox();
             this.dtDocDate = new System.Windows.Forms.DateTimePicker();
             this.label21 = new System.Windows.Forms.Label();
-            this.tpOlymps = new System.Windows.Forms.TabPage();
-            this.gbOlymps = new System.Windows.Forms.GroupBox();
-            this.btnAddO = new System.Windows.Forms.Button();
-            this.btnCardO = new System.Windows.Forms.Button();
-            this.btnRemoveO = new System.Windows.Forms.Button();
-            this.dgvOlimps = new System.Windows.Forms.DataGridView();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.gbAdditionalAchievements = new System.Windows.Forms.GroupBox();
             this.label10 = new System.Windows.Forms.Label();
@@ -157,9 +148,6 @@
             this.gbPortfolio.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.gbDocs.SuspendLayout();
-            this.tpOlymps.SuspendLayout();
-            this.gbOlymps.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvOlimps)).BeginInit();
             this.tabPage3.SuspendLayout();
             this.gbAdditionalAchievements.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAdditionalAchievements)).BeginInit();
@@ -257,7 +245,6 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabCard.Controls.Add(this.tabPage1);
             this.tabCard.Controls.Add(this.tabPage2);
-            this.tabCard.Controls.Add(this.tpOlymps);
             this.tabCard.Controls.Add(this.tabPage3);
             this.tabCard.Controls.Add(this.tabPage4);
             this.tabCard.Controls.Add(this.tpEntry);
@@ -1032,101 +1019,6 @@
             this.label21.TabIndex = 24;
             this.label21.Text = "Дата подачи документов";
             // 
-            // tpOlymps
-            // 
-            this.tpOlymps.Controls.Add(this.gbOlymps);
-            this.tpOlymps.Location = new System.Drawing.Point(4, 22);
-            this.tpOlymps.Name = "tpOlymps";
-            this.tpOlymps.Size = new System.Drawing.Size(617, 527);
-            this.tpOlymps.TabIndex = 4;
-            this.tpOlymps.Text = "Олимпиады";
-            this.tpOlymps.UseVisualStyleBackColor = true;
-            // 
-            // gbOlymps
-            // 
-            this.gbOlymps.Controls.Add(this.btnAddO);
-            this.gbOlymps.Controls.Add(this.btnCardO);
-            this.gbOlymps.Controls.Add(this.btnRemoveO);
-            this.gbOlymps.Controls.Add(this.dgvOlimps);
-            this.gbOlymps.Location = new System.Drawing.Point(7, 12);
-            this.gbOlymps.Name = "gbOlymps";
-            this.gbOlymps.Size = new System.Drawing.Size(607, 291);
-            this.gbOlymps.TabIndex = 8;
-            this.gbOlymps.TabStop = false;
-            this.gbOlymps.Text = "Олимпиады";
-            // 
-            // btnAddO
-            // 
-            this.btnAddO.Location = new System.Drawing.Point(6, 231);
-            this.btnAddO.Name = "btnAddO";
-            this.btnAddO.Size = new System.Drawing.Size(91, 23);
-            this.btnAddO.TabIndex = 0;
-            this.btnAddO.Text = "Добавить";
-            this.btnAddO.UseVisualStyleBackColor = true;
-            this.btnAddO.Click += new System.EventHandler(this.btnAddO_Click);
-            // 
-            // btnCardO
-            // 
-            this.btnCardO.Location = new System.Drawing.Point(6, 260);
-            this.btnCardO.Name = "btnCardO";
-            this.btnCardO.Size = new System.Drawing.Size(91, 23);
-            this.btnCardO.TabIndex = 1;
-            this.btnCardO.Text = "Карточка";
-            this.btnCardO.UseVisualStyleBackColor = true;
-            this.btnCardO.Click += new System.EventHandler(this.btnCardO_Click);
-            // 
-            // btnRemoveO
-            // 
-            this.btnRemoveO.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRemoveO.Location = new System.Drawing.Point(510, 231);
-            this.btnRemoveO.Name = "btnRemoveO";
-            this.btnRemoveO.Size = new System.Drawing.Size(91, 23);
-            this.btnRemoveO.TabIndex = 2;
-            this.btnRemoveO.Text = "Удалить";
-            this.btnRemoveO.UseVisualStyleBackColor = true;
-            this.btnRemoveO.Click += new System.EventHandler(this.btnRemoveO_Click);
-            // 
-            // dgvOlimps
-            // 
-            this.dgvOlimps.AllowUserToAddRows = false;
-            this.dgvOlimps.AllowUserToDeleteRows = false;
-            this.dgvOlimps.AllowUserToResizeRows = false;
-            this.dgvOlimps.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvOlimps.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.dgvOlimps.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvOlimps.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dgvOlimps.Location = new System.Drawing.Point(6, 19);
-            this.dgvOlimps.Name = "dgvOlimps";
-            this.dgvOlimps.ReadOnly = true;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvOlimps.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.dgvOlimps.RowHeadersVisible = false;
-            this.dgvOlimps.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvOlimps.Size = new System.Drawing.Size(595, 206);
-            this.dgvOlimps.TabIndex = 0;
-            this.dgvOlimps.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvOlimps_CellDoubleClick);
-            // 
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.gbAdditionalAchievements);
@@ -1183,35 +1075,35 @@
             this.dgvAdditionalAchievements.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvAdditionalAchievements.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvAdditionalAchievements.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvAdditionalAchievements.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvAdditionalAchievements.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvAdditionalAchievements.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvAdditionalAchievements.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvAdditionalAchievements.Location = new System.Drawing.Point(6, 19);
             this.dgvAdditionalAchievements.MultiSelect = false;
             this.dgvAdditionalAchievements.Name = "dgvAdditionalAchievements";
             this.dgvAdditionalAchievements.ReadOnly = true;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvAdditionalAchievements.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvAdditionalAchievements.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvAdditionalAchievements.RowHeadersVisible = false;
             this.dgvAdditionalAchievements.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvAdditionalAchievements.Size = new System.Drawing.Size(593, 134);
@@ -1300,35 +1192,35 @@
             this.dgvExams.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvExams.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvExams.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvExams.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvExams.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvExams.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvExams.DefaultCellStyle = dataGridViewCellStyle5;
             this.dgvExams.Location = new System.Drawing.Point(7, 6);
             this.dgvExams.MultiSelect = false;
             this.dgvExams.Name = "dgvExams";
             this.dgvExams.ReadOnly = true;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvExams.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvExams.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.dgvExams.RowHeadersVisible = false;
             this.dgvExams.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvExams.Size = new System.Drawing.Size(604, 134);
@@ -1456,11 +1348,13 @@
             // 
             // lblFIO
             // 
+            this.lblFIO.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lblFIO.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lblFIO.ForeColor = System.Drawing.Color.SteelBlue;
             this.lblFIO.Location = new System.Drawing.Point(100, 9);
             this.lblFIO.Name = "lblFIO";
-            this.lblFIO.Size = new System.Drawing.Size(347, 20);
+            this.lblFIO.Size = new System.Drawing.Size(524, 20);
             this.lblFIO.TabIndex = 30;
             this.lblFIO.Text = "ФИО";
             this.lblFIO.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -1518,9 +1412,6 @@
             this.groupBox1.PerformLayout();
             this.gbDocs.ResumeLayout(false);
             this.gbDocs.PerformLayout();
-            this.tpOlymps.ResumeLayout(false);
-            this.gbOlymps.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvOlimps)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             this.gbAdditionalAchievements.ResumeLayout(false);
@@ -1601,12 +1492,6 @@
         private System.Windows.Forms.Button btnDeleteMark;
         private System.Windows.Forms.Button btnAddFix;
         private System.Windows.Forms.Button btnAddGreen;
-        private System.Windows.Forms.TabPage tpOlymps;
-        private System.Windows.Forms.GroupBox gbOlymps;
-        private System.Windows.Forms.Button btnAddO;
-        private System.Windows.Forms.Button btnCardO;
-        private System.Windows.Forms.Button btnRemoveO;
-        private System.Windows.Forms.DataGridView dgvOlimps;
         private System.Windows.Forms.TextBox tbPriority;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox tbCelCompetitionText;

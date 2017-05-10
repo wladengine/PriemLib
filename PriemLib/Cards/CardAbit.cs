@@ -315,7 +315,6 @@ namespace PriemLib
                     abitBarcode = abit.Barcode;
 
                     FillProtocols(context);
-                    UpdateDataGridOlymp();
 
                     FillExams();
                     Sum = GetAbitSum(_Id);
@@ -602,14 +601,6 @@ namespace PriemLib
         protected override void SetReadOnlyFieldsAfterFill()
         {
             base.SetReadOnlyFieldsAfterFill();
-
-            //if (_Id == null)
-            //    chbHasOriginals.Enabled = false;
-
-            //if (MainClass.IsFacMain() || MainClass.IsPasha())
-            //    btnChangeOriginalsDestination.Enabled = true;
-            //else
-            //    btnChangeOriginalsDestination.Enabled = false;
         }
         protected override void SetAllFieldsNotEnabled()
         {
@@ -623,10 +614,6 @@ namespace PriemLib
             btnPrint.Enabled = true;
 
             btnDocs.Enabled = true;
-
-            WinFormsServ.SetSubControlsEnabled(gbOlymps, true);
-            btnAddO.Enabled = false;
-            btnRemoveO.Enabled = false;
 
             if (MainClass.IsPasha())
             {
@@ -658,9 +645,6 @@ namespace PriemLib
             dtDocInsertDate.Enabled = false;
             tbSum.Enabled = false;
             btnDeleteMark.Enabled = false;
-
-            //if (MainClass.dbType != PriemType.PriemMag)
-            WinFormsServ.SetSubControlsEnabled(gbOlymps, true);
 
             cbFaculty.Enabled = false;
             btnDocInventory.Enabled = true;
@@ -695,8 +679,6 @@ namespace PriemLib
 
             tpExamBlock.Enabled = true;
             dgvAppExams.Enabled = true;
-
-            btnAddO.Enabled = true;
 
             btnClose.Enabled = true;
             btnSaveChange.Enabled = true;
@@ -757,9 +739,6 @@ namespace PriemLib
                 chbBackDoc.Enabled = true;
             }
 
-            if (MainClass.IsPasha() || (MainClass.RightsSov_SovMain_FacMain() && !inEnableProtocol))
-                btnRemoveO.Enabled = (dgvOlimps.RowCount == 0 ? false : true);
-
             if (inEnableProtocol)
             {
                 chbChecked.Enabled = false;
@@ -774,12 +753,6 @@ namespace PriemLib
                 gbSecondType.Enabled = false;
                 cbStudyForm.Enabled = false;
                 cbStudyBasis.Enabled = false;
-
-                if (MainClass.RightsFaculty())
-                    btnCardO.Enabled = false;
-
-                if (MainClass.IsPasha())
-                    btnRemoveO.Enabled = true;
             }
 
             // больше нельзя изменять конкурс
@@ -826,8 +799,6 @@ namespace PriemLib
                 cbStudyForm.Enabled = false;
                 cbStudyBasis.Enabled = false;
 
-                btnAddO.Enabled = false;
-                btnRemoveO.Enabled = false;
                 cbLanguage.Enabled = false;
             }
             else
@@ -1986,138 +1957,6 @@ namespace PriemLib
                 context.SaveChanges();
             }
             
-        }
-
-        #endregion
-
-        // Грид Олимпиады
-        #region Olymps
-
-        // обновление грида олимпиад
-        public void UpdateDataGridOlymp()
-        {
-            try
-            {
-                using (PriemEntities context = new PriemEntities())
-                {
-                    var source = from ec in context.extOlympiads
-                                 where ec.AbiturientId == GuidId
-                                 select new
-                                 {
-                                     ec.Id,
-                                     Вид = ec.OlympTypeName,
-                                     Уровень = ec.OlympLevelId == null ? "нет" : ec.OlympLevelName,
-                                     Название = ec.OlympNameId == null ? ec.OlympName : ec.OlympSubjectName,
-                                     Предмет = ec.OlympSubjectName ?? "",
-                                     Диплом = ec.OlympValueName
-                                 };
-
-                    dgvOlimps.DataSource = Converter.ConvertToDataTable(source.ToArray());
-                    dgvOlimps.Columns["Id"].Visible = false;
-
-                    btnCardO.Enabled = dgvOlimps.RowCount != 0;
-                    if (MainClass.IsPasha() || (MainClass.RightsSov_SovMain_FacMain() && !inEnableProtocol))
-                        btnRemoveO.Enabled = dgvOlimps.RowCount != 0;
-                }
-            }
-            catch (Exception exc)
-            {
-                WinFormsServ.Error("Ошибка  заполения грида Olymps: ", exc);
-            }
-        }
-
-        private void btnAddO_Click(object sender, EventArgs e)
-        {
-            if (_Id == null)
-            {
-                if (MessageBox.Show("Данное действие приведет к сохранению записи, продолжить?", "Сохранить", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                {
-                    try
-                    {
-                        if (SaveClick())
-                        {
-                            OlympCard crd = new OlympCard(GuidId);
-                            crd.ToUpdateList += UpdateDataGridOlymp;
-                            crd.Show();
-                        }
-                    }
-                    catch (Exception exc)
-                    {
-                        WinFormsServ.Error("Ошибка сохранения данных", exc);
-                    }
-                }
-            }
-            else
-            {
-                OlympCard crd = new OlympCard(GuidId);
-                crd.ToUpdateList += UpdateDataGridOlymp;
-                crd.Show();
-            }
-        }
-
-        private void btnCardO_Click(object sender, EventArgs e)
-        {
-            OpenCardOlymp();
-        }
-
-        private void OpenCardOlymp()
-        {
-            if (dgvOlimps.CurrentCell != null && dgvOlimps.CurrentCell.RowIndex > -1)
-            {
-                string olId = dgvOlimps.Rows[dgvOlimps.CurrentCell.RowIndex].Cells["Id"].Value.ToString();
-                if (olId != "")
-                {
-                    OlympCard crd = new OlympCard(olId, GuidId, GetReadOnlyOlymps());
-                    crd.ToUpdateList += UpdateDataGridOlymp;
-                    crd.Show();
-                }
-            }
-        }
-
-        private bool GetReadOnlyOlymps()
-        {
-            if (!_isModified)
-                return true;
-
-            if (MainClass.RightsFaculty())
-                return true;
-            else if (MainClass.IsPasha() || MainClass.IsOwner())
-                return false;
-
-
-            if (inEntryView)
-                return true;
-
-            //// закрываем уже всем на изменение кроме огр набора            
-            //if (!MainClass.HasAddRightsForPriem(FacultyId, ProfessionId, ObrazProgramId, SpecializationId, StudyFormId, StudyBasisId))
-            //    return true;
-
-            return false;
-        }
-
-        private void dgvOlimps_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            OpenCardOlymp();
-        }
-
-        private void btnRemoveO_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show("Удалить запись?", "Удаление", MessageBoxButtons.YesNo) == DialogResult.Yes)
-            {
-                Guid sId = (Guid)dgvOlimps.CurrentRow.Cells["Id"].Value;
-                try
-                {
-                    using (PriemEntities context = new PriemEntities())
-                    {
-                        context.Olympiads_Delete(sId);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    WinFormsServ.Error("Ошибка удаления данных", ex);
-                }
-                UpdateDataGridOlymp();
-            }
         }
 
         #endregion

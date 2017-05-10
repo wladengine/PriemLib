@@ -358,6 +358,7 @@
             this.btnAddAbit = new System.Windows.Forms.Button();
             this.btnDocs = new System.Windows.Forms.Button();
             this.sfdPrint = new System.Windows.Forms.SaveFileDialog();
+            this.cbExtPossType = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.epError)).BeginInit();
             this.tabCard.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -2405,6 +2406,7 @@
             // 
             // gbPrivileges
             // 
+            this.gbPrivileges.Controls.Add(this.cbExtPossType);
             this.gbPrivileges.Controls.Add(this.chbExtPoss);
             this.gbPrivileges.Controls.Add(this.chbRebSir);
             this.gbPrivileges.Controls.Add(this.chbStag);
@@ -2426,9 +2428,9 @@
             this.chbExtPoss.AutoSize = true;
             this.chbExtPoss.Location = new System.Drawing.Point(143, 88);
             this.chbExtPoss.Name = "chbExtPoss";
-            this.chbExtPoss.Size = new System.Drawing.Size(118, 30);
+            this.chbExtPoss.Size = new System.Drawing.Size(48, 17);
             this.chbExtPoss.TabIndex = 8;
-            this.chbExtPoss.Text = "огр. возможности\r\nздоровья";
+            this.chbExtPoss.Text = "ОВЗ";
             this.chbExtPoss.UseVisualStyleBackColor = true;
             // 
             // chbRebSir
@@ -3831,6 +3833,15 @@
             this.btnDocs.Visible = false;
             this.btnDocs.Click += new System.EventHandler(this.btnDocs_Click);
             // 
+            // cbExtPossType
+            // 
+            this.cbExtPossType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbExtPossType.FormattingEnabled = true;
+            this.cbExtPossType.Location = new System.Drawing.Point(143, 107);
+            this.cbExtPossType.Name = "cbExtPossType";
+            this.cbExtPossType.Size = new System.Drawing.Size(150, 21);
+            this.cbExtPossType.TabIndex = 120;
+            // 
             // CardPerson
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -3845,10 +3856,10 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Персональная карточка абитуриента";
             this.Click += new System.EventHandler(this.CardPerson_Click);
-            this.Controls.SetChildIndex(this.btnSaveAsNew, 0);
             this.Controls.SetChildIndex(this.btnAddAbit, 0);
             this.Controls.SetChildIndex(this.btnDocs, 0);
             this.Controls.SetChildIndex(this.tabCard, 0);
+            this.Controls.SetChildIndex(this.btnSaveAsNew, 0);
             this.Controls.SetChildIndex(this.btnNext, 0);
             this.Controls.SetChildIndex(this.btnPrev, 0);
             this.Controls.SetChildIndex(this.btnSaveChange, 0);
@@ -4267,6 +4278,7 @@
         private System.Windows.Forms.Label label42;
         private System.Windows.Forms.Label label44;
         private System.Windows.Forms.Label label95;
+        private System.Windows.Forms.ComboBox cbExtPossType;
 
     }
 }

@@ -16,11 +16,11 @@ namespace PriemLib
     {
         long? _Id;
         Guid PersonId;
-        UpdateHandler _hdl;
+        Action _hdl;
 
         public List<KeyValuePair<int, bool>> cbBooltype;
 
-        public CardLangCertificate(long? id, Guid persId, UpdateHandler h)
+        public CardLangCertificate(long? id, Guid persId, Action h)
         {
             InitializeComponent();
             _Id = id;
