@@ -94,5 +94,6 @@ namespace PriemLib
         public Nullable<bool> HasOriginals { get; set; }
         public string AddEmail { get; set; }
         public Nullable<int> ReturnDocumentTypeId { get; set; }
+        public Nullable<int> ExtPossId { get; set; }
     }
 }

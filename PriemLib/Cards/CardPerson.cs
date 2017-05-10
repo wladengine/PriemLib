@@ -113,7 +113,7 @@ namespace PriemLib
                         ComboServ.FillCombo(cbNationality, HelpClass.GetComboListByTable("ed.Country", "ORDER BY Distance, Name"), false, false);
                         ComboServ.FillCombo(cbCountryEduc, HelpClass.GetComboListByTable("ed.Country", "ORDER BY Distance, Name"), false, false);
                         ComboServ.FillCombo(cbExitClass, HelpClass.GetComboListByTable("ed.SchoolExitClass", "ORDER BY Name"), false, false);
-
+                        ComboServ.FillCombo(cbExtPoss, HelpClass.GetComboListByTable("ed.ExtPoss", "ORDER BY Code"), false, false);
                     }
                     UpdateAfterCountry();
                     ComboServ.FillCombo(cbLanguage, HelpClass.GetComboListByTable("ed.Language"), false, false);
@@ -307,6 +307,7 @@ namespace PriemLib
             MSCourse = person.MSCourse;
             MSStudyFormId = person.MSStudyFormId;
             Privileges = person.Privileges;
+            ExtPossId = person.ExtPossId;
             ExtraInfo = person.ExtraInfo;
             PersonInfo = person.PersonInfo;
             ScienceWork = person.ScienceWork;
@@ -1264,6 +1265,19 @@ namespace PriemLib
             else
                 epErrorInput.Clear();
 
+            if (chbExtPoss.Checked && !ExtPossId.HasValue)
+            {
+                epErrorInput.SetError(cbExtPoss, "Не указана категория лиц с ОВЗ!");
+                if (MainClass.dbType == PriemType.Priem)
+                    tabCard.SelectedIndex = 5;
+                else
+                    tabCard.SelectedIndex = 3;
+
+                return false;
+            }
+            else
+                epErrorInput.Clear();
+
             if (!CheckEducationInfoFields())
             {
                 //если нет док-тов об образовании, то пропускать ошибку
@@ -1354,7 +1368,7 @@ namespace PriemLib
 
             SaveCurrentEducationInfo();
             SavePersonParents();
-            SaveSportQulification();
+            SaveSportQualification();
         }
         protected override void UpdateRec(PriemEntities context, Guid id)
         {
@@ -1369,7 +1383,7 @@ namespace PriemLib
 
             SaveCurrentEducationInfo();
             SavePersonParents();
-            SaveSportQulification();
+            SaveSportQualification();
         }
                  
         protected override void OnSave()
@@ -2805,13 +2819,14 @@ namespace PriemLib
                     AddInfo.Parent2_WorkPosition = tbParent2_WorkPosition.Text.Trim();
 
                     AddInfo.ReturnDocumentTypeId = ReturnDocumentTypeId;
+                    AddInfo.ExtPossId = ExtPossId;
 
                     context.SaveChanges();
                 }
             }
         }
 
-        private void SaveSportQulification()
+        private void SaveSportQualification()
         {
             if (GuidId.HasValue)
                 using (PriemEntities context = new PriemEntities())
@@ -2856,5 +2871,11 @@ namespace PriemLib
             }
         }
         #endregion
+
+        private void chbExtPoss_CheckedChanged(object sender, EventArgs e)
+        {
+            cbExtPoss.Visible = chbExtPoss.Checked;
+            //cbExtPossType.Enabled = chbExtPoss.Checked;
+        }
     }
 }

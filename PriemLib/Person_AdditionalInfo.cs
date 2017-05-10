@@ -54,6 +54,7 @@ namespace PriemLib
         public Nullable<int> ReturnDocumentTypeId { get; set; }
         public string Parent_WorkPosition { get; set; }
         public string Parent2_WorkPosition { get; set; }
+        public Nullable<int> ExtPossId { get; set; }
     
         public virtual Person Person { get; set; }
         public virtual SP_Faculty ExamPassFacultyFaculty { get; set; }

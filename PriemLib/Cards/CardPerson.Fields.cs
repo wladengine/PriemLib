@@ -706,6 +706,16 @@ namespace PriemLib
                 }
             }
         }
-     
+        public int? ExtPossId
+        {
+            get 
+            { 
+                return chbExtPoss.Checked ? ComboServ.GetComboIdInt(cbExtPoss) : null;
+            }
+            set
+            {
+                ComboServ.SetComboId(cbExtPoss, value);
+            }
+        }
     }
 }

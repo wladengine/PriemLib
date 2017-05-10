@@ -977,6 +977,7 @@ warning 6002: The table/view 'Priem2017.ed.PayDataEntry' does not have a primary
           <Property Name="ReturnDocumentTypeId" Type="int" />
           <Property Name="Parent_WorkPosition" Type="nvarchar" MaxLength="250" />
           <Property Name="Parent2_WorkPosition" Type="nvarchar" MaxLength="250" />
+          <Property Name="ExtPossId" Type="int" />
         </EntityType>
         <EntityType Name="Person_Contacts">
           <Key>
@@ -2496,6 +2497,7 @@ warning 6002: The table/view 'Priem2017.ed.extPerson' does not have a primary ke
           <Property Name="HasOriginals" Type="bit" />
           <Property Name="AddEmail" Type="nvarchar" MaxLength="100" />
           <Property Name="ReturnDocumentTypeId" Type="int" />
+          <Property Name="ExtPossId" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'Priem2017.ed.extPerson_EducationInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -7203,7 +7205,8 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
     [extPerson].[DateCreated] AS [DateCreated], 
     [extPerson].[HasOriginals] AS [HasOriginals], 
     [extPerson].[AddEmail] AS [AddEmail], 
-    [extPerson].[ReturnDocumentTypeId] AS [ReturnDocumentTypeId]
+    [extPerson].[ReturnDocumentTypeId] AS [ReturnDocumentTypeId], 
+    [extPerson].[ExtPossId] AS [ExtPossId]
     FROM [ed].[extPerson] AS [extPerson]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="extPerson_EducationInfo" EntityType="Self.extPerson_EducationInfo" store:Type="Views" store:Schema="ed">
@@ -12210,6 +12213,7 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
           <Property Name="ReturnDocumentTypeId" Type="Int32" />
           <Property Name="Parent_WorkPosition" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="Parent2_WorkPosition" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ExtPossId" Type="Int32" />
         </EntityType>
         <EntityType Name="Person_Contacts">
           <Key>
@@ -15350,6 +15354,7 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
           <Property Name="HasOriginals" Type="Boolean" />
           <Property Name="AddEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="ReturnDocumentTypeId" Type="Int32" />
+          <Property Name="ExtPossId" Type="Int32" />
         </EntityType>
         <EntityType Name="PersonWork">
           <Key>
@@ -16702,6 +16707,7 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
           <EntitySetMapping Name="Person_AdditionalInfo">
             <EntityTypeMapping TypeName="Priem2012Model.Person_AdditionalInfo">
               <MappingFragment StoreEntitySet="Person_AdditionalInfo">
+                <ScalarProperty Name="ExtPossId" ColumnName="ExtPossId" />
                 <ScalarProperty Name="Parent2_WorkPosition" ColumnName="Parent2_WorkPosition" />
                 <ScalarProperty Name="Parent_WorkPosition" ColumnName="Parent_WorkPosition" />
                 <ScalarProperty Name="ReturnDocumentTypeId" ColumnName="ReturnDocumentTypeId" />
@@ -18434,6 +18440,7 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
           <EntitySetMapping Name="extPerson">
             <EntityTypeMapping TypeName="Priem2012Model.extPerson">
               <MappingFragment StoreEntitySet="extPerson">
+                <ScalarProperty Name="ExtPossId" ColumnName="ExtPossId" />
                 <ScalarProperty Name="ReturnDocumentTypeId" ColumnName="ReturnDocumentTypeId" />
                 <ScalarProperty Name="AddEmail" ColumnName="AddEmail" />
                 <ScalarProperty Name="HasOriginals" ColumnName="HasOriginals" />

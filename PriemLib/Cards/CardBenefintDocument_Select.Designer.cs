@@ -78,7 +78,7 @@
             this.Name = "CardBenefintDocument_Select";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "CardBenefintDocument_Select";
+            this.Text = "Выберите тип документа";
             this.ResumeLayout(false);
             this.PerformLayout();
 

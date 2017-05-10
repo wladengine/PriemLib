@@ -226,6 +226,7 @@
             this.btnAddBenefitDocument = new System.Windows.Forms.Button();
             this.dgvBenefitDocument = new System.Windows.Forms.DataGridView();
             this.gbPrivileges = new System.Windows.Forms.GroupBox();
+            this.cbExtPoss = new System.Windows.Forms.ComboBox();
             this.chbExtPoss = new System.Windows.Forms.CheckBox();
             this.chbRebSir = new System.Windows.Forms.CheckBox();
             this.chbStag = new System.Windows.Forms.CheckBox();
@@ -358,7 +359,6 @@
             this.btnAddAbit = new System.Windows.Forms.Button();
             this.btnDocs = new System.Windows.Forms.Button();
             this.sfdPrint = new System.Windows.Forms.SaveFileDialog();
-            this.cbExtPossType = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.epError)).BeginInit();
             this.tabCard.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -430,7 +430,7 @@
             // 
             // btnSaveAsNew
             // 
-            this.btnSaveAsNew.Location = new System.Drawing.Point(459, 572);
+            this.btnSaveAsNew.Location = new System.Drawing.Point(361, 601);
             // 
             // tabCard
             // 
@@ -2295,9 +2295,9 @@
             this.gbPersonAchievements.Controls.Add(this.btnDeletePersonAchievement);
             this.gbPersonAchievements.Controls.Add(this.btnAddPersonAchievement);
             this.gbPersonAchievements.Controls.Add(this.dgvIndividualAchievements);
-            this.gbPersonAchievements.Location = new System.Drawing.Point(313, 12);
+            this.gbPersonAchievements.Location = new System.Drawing.Point(332, 12);
             this.gbPersonAchievements.Name = "gbPersonAchievements";
-            this.gbPersonAchievements.Size = new System.Drawing.Size(308, 137);
+            this.gbPersonAchievements.Size = new System.Drawing.Size(289, 137);
             this.gbPersonAchievements.TabIndex = 13;
             this.gbPersonAchievements.TabStop = false;
             this.gbPersonAchievements.Text = "Индивидуальные достижения";
@@ -2305,9 +2305,9 @@
             // btnDeletePersonAchievement
             // 
             this.btnDeletePersonAchievement.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDeletePersonAchievement.Location = new System.Drawing.Point(227, 108);
+            this.btnDeletePersonAchievement.Location = new System.Drawing.Point(215, 108);
             this.btnDeletePersonAchievement.Name = "btnDeletePersonAchievement";
-            this.btnDeletePersonAchievement.Size = new System.Drawing.Size(75, 23);
+            this.btnDeletePersonAchievement.Size = new System.Drawing.Size(68, 23);
             this.btnDeletePersonAchievement.TabIndex = 2;
             this.btnDeletePersonAchievement.Text = "Удалить";
             this.btnDeletePersonAchievement.UseVisualStyleBackColor = true;
@@ -2337,7 +2337,7 @@
             this.dgvIndividualAchievements.Name = "dgvIndividualAchievements";
             this.dgvIndividualAchievements.ReadOnly = true;
             this.dgvIndividualAchievements.RowHeadersVisible = false;
-            this.dgvIndividualAchievements.Size = new System.Drawing.Size(296, 83);
+            this.dgvIndividualAchievements.Size = new System.Drawing.Size(277, 83);
             this.dgvIndividualAchievements.TabIndex = 0;
             this.dgvIndividualAchievements.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvIndividualAchievements_CellDoubleClick);
             // 
@@ -2406,7 +2406,7 @@
             // 
             // gbPrivileges
             // 
-            this.gbPrivileges.Controls.Add(this.cbExtPossType);
+            this.gbPrivileges.Controls.Add(this.cbExtPoss);
             this.gbPrivileges.Controls.Add(this.chbExtPoss);
             this.gbPrivileges.Controls.Add(this.chbRebSir);
             this.gbPrivileges.Controls.Add(this.chbStag);
@@ -2418,10 +2418,21 @@
             this.gbPrivileges.Controls.Add(this.chbSir);
             this.gbPrivileges.Location = new System.Drawing.Point(8, 12);
             this.gbPrivileges.Name = "gbPrivileges";
-            this.gbPrivileges.Size = new System.Drawing.Size(299, 137);
+            this.gbPrivileges.Size = new System.Drawing.Size(318, 137);
             this.gbPrivileges.TabIndex = 11;
             this.gbPrivileges.TabStop = false;
             this.gbPrivileges.Text = "Льготы";
+            // 
+            // cbExtPoss
+            // 
+            this.cbExtPoss.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbExtPoss.DropDownWidth = 500;
+            this.cbExtPoss.FormattingEnabled = true;
+            this.cbExtPoss.Location = new System.Drawing.Point(143, 107);
+            this.cbExtPoss.Name = "cbExtPoss";
+            this.cbExtPoss.Size = new System.Drawing.Size(150, 21);
+            this.cbExtPoss.TabIndex = 120;
+            this.cbExtPoss.Visible = false;
             // 
             // chbExtPoss
             // 
@@ -2432,6 +2443,7 @@
             this.chbExtPoss.TabIndex = 8;
             this.chbExtPoss.Text = "ОВЗ";
             this.chbExtPoss.UseVisualStyleBackColor = true;
+            this.chbExtPoss.CheckedChanged += new System.EventHandler(this.chbExtPoss_CheckedChanged);
             // 
             // chbRebSir
             // 
@@ -3833,15 +3845,6 @@
             this.btnDocs.Visible = false;
             this.btnDocs.Click += new System.EventHandler(this.btnDocs_Click);
             // 
-            // cbExtPossType
-            // 
-            this.cbExtPossType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbExtPossType.FormattingEnabled = true;
-            this.cbExtPossType.Location = new System.Drawing.Point(143, 107);
-            this.cbExtPossType.Name = "cbExtPossType";
-            this.cbExtPossType.Size = new System.Drawing.Size(150, 21);
-            this.cbExtPossType.TabIndex = 120;
-            // 
             // CardPerson
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -4278,7 +4281,7 @@
         private System.Windows.Forms.Label label42;
         private System.Windows.Forms.Label label44;
         private System.Windows.Forms.Label label95;
-        private System.Windows.Forms.ComboBox cbExtPossType;
+        private System.Windows.Forms.ComboBox cbExtPoss;
 
     }
 }

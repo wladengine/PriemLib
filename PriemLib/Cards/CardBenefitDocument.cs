@@ -74,6 +74,7 @@ namespace PriemLib
 
             InitControls();
             _tableName = "ed.PersonBenefitDocument";
+            _title = "Льгота";
         }
 
         protected override void ExtraInit()

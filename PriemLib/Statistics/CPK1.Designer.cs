@@ -42,7 +42,8 @@
             this.label5 = new System.Windows.Forms.Label();
             this.rbMainPriem = new System.Windows.Forms.RadioButton();
             this.rbForeigners = new System.Windows.Forms.RadioButton();
-            this.rbCrimea = new System.Windows.Forms.RadioButton();
+            this.label2 = new System.Windows.Forms.Label();
+            this.cbStudyLevelGroup = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -55,11 +56,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvData.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
             this.dgvData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvData.Location = new System.Drawing.Point(12, 62);
+            this.dgvData.Location = new System.Drawing.Point(12, 92);
             this.dgvData.Name = "dgvData";
             this.dgvData.ReadOnly = true;
             this.dgvData.RowHeadersVisible = false;
-            this.dgvData.Size = new System.Drawing.Size(1058, 427);
+            this.dgvData.Size = new System.Drawing.Size(1058, 397);
             this.dgvData.TabIndex = 0;
             // 
             // btnWord
@@ -88,9 +89,9 @@
             // 
             this.cbFaculty.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbFaculty.FormattingEnabled = true;
-            this.cbFaculty.Location = new System.Drawing.Point(15, 25);
+            this.cbFaculty.Location = new System.Drawing.Point(15, 65);
             this.cbFaculty.Name = "cbFaculty";
-            this.cbFaculty.Size = new System.Drawing.Size(226, 21);
+            this.cbFaculty.Size = new System.Drawing.Size(237, 21);
             this.cbFaculty.TabIndex = 37;
             this.cbFaculty.SelectedIndexChanged += new System.EventHandler(this.cbFaculty_SelectedIndexChanged);
             // 
@@ -98,7 +99,7 @@
             // 
             this.cbStudyForm.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbStudyForm.FormattingEnabled = true;
-            this.cbStudyForm.Location = new System.Drawing.Point(258, 25);
+            this.cbStudyForm.Location = new System.Drawing.Point(289, 25);
             this.cbStudyForm.Name = "cbStudyForm";
             this.cbStudyForm.Size = new System.Drawing.Size(143, 21);
             this.cbStudyForm.TabIndex = 39;
@@ -108,7 +109,7 @@
             // 
             this.cbStudyBasis.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbStudyBasis.FormattingEnabled = true;
-            this.cbStudyBasis.Location = new System.Drawing.Point(407, 25);
+            this.cbStudyBasis.Location = new System.Drawing.Point(288, 65);
             this.cbStudyBasis.Name = "cbStudyBasis";
             this.cbStudyBasis.Size = new System.Drawing.Size(146, 21);
             this.cbStudyBasis.TabIndex = 40;
@@ -125,7 +126,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(12, 49);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(63, 13);
             this.label1.TabIndex = 42;
@@ -134,7 +135,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(255, 9);
+            this.label3.Location = new System.Drawing.Point(286, 9);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(93, 13);
             this.label3.TabIndex = 44;
@@ -143,7 +144,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(404, 9);
+            this.label4.Location = new System.Drawing.Point(285, 49);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(94, 13);
             this.label4.TabIndex = 45;
@@ -163,7 +164,7 @@
             // 
             this.rbMainPriem.AutoSize = true;
             this.rbMainPriem.Checked = true;
-            this.rbMainPriem.Location = new System.Drawing.Point(559, 26);
+            this.rbMainPriem.Location = new System.Drawing.Point(460, 26);
             this.rbMainPriem.Name = "rbMainPriem";
             this.rbMainPriem.Size = new System.Drawing.Size(110, 17);
             this.rbMainPriem.TabIndex = 47;
@@ -175,7 +176,7 @@
             // rbForeigners
             // 
             this.rbForeigners.AutoSize = true;
-            this.rbForeigners.Location = new System.Drawing.Point(675, 26);
+            this.rbForeigners.Location = new System.Drawing.Point(460, 49);
             this.rbForeigners.Name = "rbForeigners";
             this.rbForeigners.Size = new System.Drawing.Size(88, 17);
             this.rbForeigners.TabIndex = 48;
@@ -183,23 +184,32 @@
             this.rbForeigners.UseVisualStyleBackColor = true;
             this.rbForeigners.CheckedChanged += new System.EventHandler(this.rbForeigners_CheckedChanged);
             // 
-            // rbCrimea
+            // label2
             // 
-            this.rbCrimea.AutoSize = true;
-            this.rbCrimea.Location = new System.Drawing.Point(769, 26);
-            this.rbCrimea.Name = "rbCrimea";
-            this.rbCrimea.Size = new System.Drawing.Size(54, 17);
-            this.rbCrimea.TabIndex = 49;
-            this.rbCrimea.Text = "Крым";
-            this.rbCrimea.UseVisualStyleBackColor = true;
-            this.rbCrimea.CheckedChanged += new System.EventHandler(this.rbCrimea_CheckedChanged);
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(9, 9);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(42, 13);
+            this.label2.TabIndex = 50;
+            this.label2.Text = "Группа";
+            // 
+            // cbStudyLevelGroup
+            // 
+            this.cbStudyLevelGroup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbStudyLevelGroup.FormattingEnabled = true;
+            this.cbStudyLevelGroup.Location = new System.Drawing.Point(12, 25);
+            this.cbStudyLevelGroup.Name = "cbStudyLevelGroup";
+            this.cbStudyLevelGroup.Size = new System.Drawing.Size(237, 21);
+            this.cbStudyLevelGroup.TabIndex = 49;
+            this.cbStudyLevelGroup.SelectedIndexChanged += new System.EventHandler(this.cbStudyLevelGroup_SelectedIndexChanged);
             // 
             // CPK1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1082, 530);
-            this.Controls.Add(this.rbCrimea);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.cbStudyLevelGroup);
             this.Controls.Add(this.rbForeigners);
             this.Controls.Add(this.rbMainPriem);
             this.Controls.Add(this.label5);
@@ -237,7 +247,8 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.RadioButton rbMainPriem;
         private System.Windows.Forms.RadioButton rbForeigners;
-        private System.Windows.Forms.RadioButton rbCrimea;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox cbStudyLevelGroup;
 
     }
 }

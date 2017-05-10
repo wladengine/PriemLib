@@ -28,34 +28,58 @@ namespace PriemLib
             public string ConcB { get; set; }
             public string ConcP { get; set; }
         }
-        private int iStudyLevelGroupId;
+        private int StudyLevelGroupId
+        {
+            get { return ComboServ.GetComboIdInt(cbStudyLevelGroup) ?? 0; }
+        }
 
         public CPK1()
         {
             InitializeComponent();
             this.MdiParent = MainClass.mainform;
-            iStudyLevelGroupId = MainClass.lstStudyLevelGroupId.First();
+            //iStudyLevelGroupId = MainClass.lstStudyLevelGroupId.First();
 
             InitGrid();
-            LoadFaculties();
+            LoadGroups();
             //дальше автоматом подгрузятся остальные комбы и сформируется грид
+        }
+
+        private void LoadGroups()
+        {
+            using (PriemEntities context = new PriemEntities())
+            {
+                var lst =
+                    (from ent in context.extEntry
+                     where MainClass.lstStudyLevelGroupId.Contains(ent.StudyLevelGroupId)
+                     select new
+                     {
+                         ent.StudyLevelGroupId,
+                         ent.StudyLevelGroupName,
+                     }).Distinct()
+                     .ToList()
+                     .Select(x => new KeyValuePair<string, string>(x.StudyLevelGroupId.ToString(), x.StudyLevelGroupName))
+                     .ToList();
+
+                ComboServ.FillCombo(cbStudyLevelGroup, lst, false, false);
+            }
         }
 
         private void LoadFaculties()
         {
             using (PriemEntities context = new PriemEntities())
             {
-                var facs = (from ent in context.qEntry
-                            join sl in context.StudyLevel
-                            on ent.StudyLevelId equals sl.Id
-                            where MainClass.lstStudyLevelGroupId.Contains(sl.LevelGroupId)
-                            select new
-                            {
-                                ent.StudyBasisId,
-                                ent.StudyFormId,
-                                Id = ent.FacultyId,
-                                Name = ent.FacultyName
-                            });
+                var facs =
+                    (from ent in context.qEntry
+                     join sl in context.StudyLevel
+                     on ent.StudyLevelId equals sl.Id
+                     where MainClass.lstStudyLevelGroupId.Contains(sl.LevelGroupId)
+                     select new
+                     {
+                         ent.StudyBasisId,
+                         ent.StudyFormId,
+                         Id = ent.FacultyId,
+                         Name = ent.FacultyName
+                     });
 
                 int? iStudyFormId = GetStudyFormId();
                 int? iStudyBasisId = GetStudyBasisId();
@@ -158,7 +182,7 @@ namespace PriemLib
 
             string query = "SELECT COUNT(Id) FROM ed.qEntry WHERE StudyLevelGroupId=@SLGId ";
             SortedList<string, object> dic = new SortedList<string, object>();
-            dic.Add("@SLGId", iStudyLevelGroupId);
+            dic.Add("@SLGId", StudyLevelGroupId);
             if (iFacultyId != null)
             {
                 query += " AND FacultyId=@FacultyId ";
@@ -178,6 +202,10 @@ namespace PriemLib
             return (int)MainClass.Bdc.GetValue(query, dic);
         }
 
+        private void cbStudyLevelGroup_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LoadFaculties();
+        }
         private void cbFaculty_SelectedIndexChanged(object sender, EventArgs e)
         {
             LoadStudyForms();
@@ -209,7 +237,7 @@ namespace PriemLib
             using (PriemEntities context = new PriemEntities())
             {
                 var q_lp = from ent in context.qEntry
-                           where ent.StudyLevelGroupId == iStudyLevelGroupId
+                           where ent.StudyLevelGroupId == StudyLevelGroupId
                          select new
                          {
                              ent.FacultyId,
@@ -231,8 +259,6 @@ namespace PriemLib
                     ForeignCrimeaFilter = " AND IsForeign=0 AND IsCrimea=0 ";
                 if (rbForeigners.Checked)
                     ForeignCrimeaFilter = " AND IsForeign=1 AND IsCrimea=0 ";
-                if (rbCrimea.Checked)
-                    ForeignCrimeaFilter = " AND IsForeign=0 AND IsCrimea=1 ";
 
                 var LicensePrograms = q_lp.Select(x => new { x.LicenseProgramId, x.LicenseProgramCode, x.LicenseProgramName }).Distinct().OrderBy(x => x.LicenseProgramCode);
                 foreach (var lProgram in LicensePrograms)
@@ -246,7 +272,7 @@ namespace PriemLib
                     SortedList<string, object> sl = new SortedList<string, object>();
                     sl.Add("@LicenseProgramId", lProgram.LicenseProgramId);
                     sl.Add("@Date", dtpDate.Value.Date );
-                    sl.Add("@SLGId", iStudyLevelGroupId );
+                    sl.Add("@SLGId", StudyLevelGroupId );
                     sl.Add("@FacultyId", iFacultyId ?? 0 );
                     if (iStudyFormId.HasValue)
                         sl.Add("@StudyFormId", iStudyFormId);
@@ -290,8 +316,7 @@ namespace PriemLib
 
                     var q_op = (from ent in context.qEntry
                                 where ent.LicenseProgramId == lProgram.LicenseProgramId
-                                && ent.StudyLevelGroupId == iStudyLevelGroupId
-                                && ent.IsCrimea == rbCrimea.Checked
+                                && ent.StudyLevelGroupId == StudyLevelGroupId
                                 && ent.IsForeign == rbForeigners.Checked
                                 select new
                                 {
@@ -355,9 +380,8 @@ namespace PriemLib
                         var q_prof = (from ent in context.qEntry
                                     where ent.LicenseProgramId == lProgram.LicenseProgramId
                                     && ent.ObrazProgramId == oProgram.ObrazProgramId
-                                    && ent.StudyLevelGroupId == iStudyLevelGroupId
+                                    && ent.StudyLevelGroupId == StudyLevelGroupId
                                     && ent.ProfileId != null
-                                    && ent.IsCrimea == rbCrimea.Checked
                                     && ent.IsForeign == rbForeigners.Checked
                                     select new
                                     {
@@ -607,12 +631,6 @@ namespace PriemLib
         {
             //для предотвращения двойного обновления грида
             if (rbForeigners.Checked)
-                FillGrid();
-        }
-        private void rbCrimea_CheckedChanged(object sender, EventArgs e)
-        {
-            //для предотвращения двойного обновления грида
-            if (rbCrimea.Checked)
                 FillGrid();
         }
     }

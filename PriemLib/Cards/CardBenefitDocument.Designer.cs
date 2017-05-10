@@ -71,6 +71,7 @@
             this.cbBenefitDocumentType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cbBenefitDocumentType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbBenefitDocumentType.DropDownWidth = 500;
             this.cbBenefitDocumentType.FormattingEnabled = true;
             this.cbBenefitDocumentType.Location = new System.Drawing.Point(101, 46);
             this.cbBenefitDocumentType.Name = "cbBenefitDocumentType";
@@ -160,6 +161,7 @@
             this.cbBenefitDocument.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cbBenefitDocument.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbBenefitDocument.DropDownWidth = 500;
             this.cbBenefitDocument.FormattingEnabled = true;
             this.cbBenefitDocument.Location = new System.Drawing.Point(101, 73);
             this.cbBenefitDocument.Name = "cbBenefitDocument";
