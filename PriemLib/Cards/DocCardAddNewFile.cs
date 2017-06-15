@@ -26,7 +26,7 @@ namespace PriemLib
         private int PersonBarcode;
         private DBPriem _bdcInet;
 
-        public event UpdateListHandler ToUpdateList;
+        public event Action ToUpdateList;
 
         public DocCardAddNewFile(string _type, int _personBarcode)
         {

@@ -3267,7 +3267,7 @@ namespace PriemLib
                               select entry.StudyLevel.Acronym + "." + entry.SP_ObrazProgram.Number + "." + MainClass.sPriemYear + " " + entry.SP_ObrazProgram.Name).FirstOrDefault();
 
                     spec = (from entry in ctx.Entry
-                            where iProfileId.HasValue ? entry.ProfileId == iProfileId : entry.ProfileId == null
+                            where iProfileId.HasValue ? entry.ProfileId == iProfileId : true
                             select entry.SP_Profile.Name).FirstOrDefault();
                 }
 

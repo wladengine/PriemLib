@@ -173,7 +173,7 @@ namespace PriemLib
                                               && ab.IsReduced == abit.IsReduced && ab.IsParallel == abit.IsParallel && ab.IsSecond == abit.IsSecond
                                               && ab.FacultyId == abit.FacultyId && ab.LicenseProgramId == abit.LicenseProgramId
                                               && ab.ObrazProgramId == abit.ObrazProgramId
-                                              && (abit.ProfileId == null ? ab.ProfileId == null : ab.ProfileId == abit.ProfileId)
+                                              && ab.ProfileId == abit.ProfileId
                                               && ab.StudyFormId == abit.StudyFormId
                                               && ab.StudyBasisId == 2
                                               select ab;

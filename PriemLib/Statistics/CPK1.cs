@@ -381,7 +381,6 @@ namespace PriemLib
                                     where ent.LicenseProgramId == lProgram.LicenseProgramId
                                     && ent.ObrazProgramId == oProgram.ObrazProgramId
                                     && ent.StudyLevelGroupId == StudyLevelGroupId
-                                    && ent.ProfileId != null
                                     && ent.IsForeign == rbForeigners.Checked
                                     select new
                                     {

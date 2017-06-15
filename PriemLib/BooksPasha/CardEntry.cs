@@ -1208,28 +1208,22 @@ WHERE Id=@Id";
                         x.ObrazProgramId,
                         x.ProfileId,
                         x.KCP,
+                        x.EgeExamNameId,
                     }).ToList();
 
                 Dictionary<Guid?, Guid?> dicInnerEntInEnt_OldToNew = new Dictionary<Guid?, Guid?>();
 
                 foreach (var vInnEnt in lstInnerEnts)
                 {
-                    int cnt = context.InnerEntryInEntry
+                    var lst = context.InnerEntryInEntry
                         .Where(x => x.EntryId == GuidId && x.ObrazProgramId == vInnEnt.ObrazProgramId && x.ProfileId == vInnEnt.ProfileId)
-                        .Count();
+                        .Select(x => x.Id)
+                        .ToList();
 
-                    if (cnt == 0)
-                    {
-                        var zz = new InnerEntryInEntry();
-                        zz.Id = Guid.NewGuid();
-                        zz.EntryId = GuidId.Value;
-                        zz.ObrazProgramId = vInnEnt.ObrazProgramId;
-                        zz.ProfileId = vInnEnt.ProfileId;
-                        zz.KCP = vInnEnt.KCP;
-                        context.InnerEntryInEntry.Add(zz);
-
-                        context.SaveChanges();
-                    }
+                    if (lst.Count == 0)
+                        EntryProvider.InnerEntryInEntry_Insert(GuidId.Value, vInnEnt.ObrazProgramId, vInnEnt.ProfileId, vInnEnt.KCP, vInnEnt.EgeExamNameId);
+                    else if (lst.Count() == 1)
+                        EntryProvider.InnerEntryInEntry_Update(lst[0], GuidId.Value, vInnEnt.ObrazProgramId, vInnEnt.ProfileId, vInnEnt.KCP, vInnEnt.EgeExamNameId);
                 }
             }
         }

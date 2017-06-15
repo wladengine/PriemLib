@@ -117,7 +117,7 @@ AND (StudyLevel.LevelGroupId IN ({0}) OR StudyLevel.LevelGroupId IS NULL) ",
                 return;
             }
 
-            if (barcText.Length == 6)
+            if (barcText.Length == 7)
             {
                 if (barcText.StartsWith("2") && MainClass.dbType == PriemType.Priem)
                 {
@@ -139,7 +139,7 @@ AND (StudyLevel.LevelGroupId IN ({0}) OR StudyLevel.LevelGroupId IS NULL) ",
             bool bHasInInetBase = (int)bdcInet.GetValue(query, new SortedList<string, object>() { { "@Barcode", fileNum } }) > 0;
 
             query = "SELECT IsImported FROM ApplicationCommit WHERE IntNumber=@Barcode";
-            bool bIsImported = (bool)bdcInet.GetValue(query, new SortedList<string, object>() { { "@Barcode", fileNum } });
+            bool bIsImported = (bool?)bdcInet.GetValue(query, new SortedList<string, object>() { { "@Barcode", fileNum } }) ?? false;
 
             //если заявления нет, то надо проверить, нет ли его в нашей базе
             if (!bHasInInetBase)

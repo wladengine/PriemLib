@@ -14,8 +14,6 @@ using System.Data.Entity.Core.Objects;
 
 namespace PriemLib
 {
-    public delegate void UpdateListHandler();
-
     public partial class BookCard : BaseCard
     {
         protected DBPriem _bdc;

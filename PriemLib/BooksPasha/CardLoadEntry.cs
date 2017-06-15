@@ -55,7 +55,7 @@ namespace PriemLib
                 {
                     Guid entryId = (Guid)dr["Id"];
 
-                    List<int> lst = new List<int>() { 16, 17, 18 };//только 1 курс и магистратура - СПО не трогаем
+                    List<int> lst = new List<int>() { 16/*, 17*/, 18 };//только 1 курс и магистратура - СПО не трогаем
 
                     int cntEnt = (from ent in context.Entry
                                   where ent.Id == entryId

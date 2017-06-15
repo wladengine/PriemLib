@@ -232,13 +232,13 @@ namespace PriemLib
             //Заявления
             lst.Add(new FilterItem("Крым", FilterType.Bool, "ed.qAbiturient.IsCrimea", "ed.qAbiturient"));
 
-            lst.Add(new FilterItem("Только одно заявление на университет", FilterType.Bool, " (SELECT Count(Id) FROM ed.qAbiturient WHERE PersonId = ed.qAbiturient.PersonId) = 1 ", "ed.qAbiturient"));
-            lst.Add(new FilterItem("Только одно заявление на ваш факультет", FilterType.Bool, " (SELECT Count(Id) FROM ed.qAbiturient AS ab WHERE ab.PersonId = ed.qAbiturient.PersonId AND ab.FacultyId = ed.qAbiturient.FacultyId) = 1 ", "ed.qAbiturient"));
-            lst.Add(new FilterItem("Только дневное на ваш факультет", FilterType.Bool, " ( NOT EXISTS (SELECT * FROM ed.qAbiturient ab WHERE ab.PersonId = ed.qAbiturient.PersonId and ab.StudyFormId <> 1)) ", "ed.qAbiturient"));
-            lst.Add(new FilterItem("Только вечернее на ваш факультет", FilterType.Bool, " ( NOT EXISTS (SELECT * FROM ed.qAbiturient ab WHERE ab.PersonId = ed.qAbiturient.PersonId and  ab.StudyFormId <> 2)) ", "ed.qAbiturient"));
-            lst.Add(new FilterItem("Только заочное на ваш факультет", FilterType.Bool, " ( NOT EXISTS (SELECT * FROM ed.qAbiturient ab WHERE ab.PersonId = ed.qAbiturient.PersonId and  ab.StudyFormId <> 3)) ", "ed.qAbiturient"));
-            lst.Add(new FilterItem("Только бюджет на ваш факультет", FilterType.Bool, " ( NOT EXISTS (SELECT * FROM ed.qAbiturient ab WHERE ab.PersonId = ed.qAbiturient.PersonId and  ab.StudyBasisId <> 1)) ", "ed.qAbiturient"));
-            lst.Add(new FilterItem("Только платно на ваш факультет", FilterType.Bool, " ( NOT EXISTS (SELECT * FROM ed.qAbiturient ab WHERE ab.PersonId = ed.qAbiturient.PersonId and  ab.StudyBasisId <> 2)) ", "ed.qAbiturient"));
+            lst.Add(new FilterItem("Только одно заявление на университет", FilterType.Bool, " (SELECT Count(Id) FROM ed.qAbiturient WHERE PersonId = qAbiturient.PersonId) = 1 ", "ed.qAbiturient"));
+            lst.Add(new FilterItem("Только одно заявление на ваш факультет", FilterType.Bool, " (SELECT Count(Id) FROM ed.qAbiturient AS ab WHERE ab.PersonId = qAbiturient.PersonId AND ab.FacultyId = ed.qAbiturient.FacultyId) = 1 ", "ed.qAbiturient"));
+            lst.Add(new FilterItem("Только дневное на ваш факультет", FilterType.Bool, " ( NOT EXISTS (SELECT * FROM ed.qAbiturient ab WHERE ab.PersonId = qAbiturient.PersonId AND ab.StudyFormId <> 1)) ", "ed.qAbiturient"));
+            lst.Add(new FilterItem("Только вечернее на ваш факультет", FilterType.Bool, " ( NOT EXISTS (SELECT * FROM ed.qAbiturient ab WHERE ab.PersonId = qAbiturient.PersonId AND ab.StudyFormId <> 2)) ", "ed.qAbiturient"));
+            lst.Add(new FilterItem("Только заочное на ваш факультет", FilterType.Bool, " ( NOT EXISTS (SELECT * FROM ed.qAbiturient ab WHERE ab.PersonId = qAbiturient.PersonId AND ab.StudyFormId <> 3)) ", "ed.qAbiturient"));
+            lst.Add(new FilterItem("Только бюджет на ваш факультет", FilterType.Bool, " ( NOT EXISTS (SELECT * FROM ed.qAbiturient ab WHERE ab.PersonId = qAbiturient.PersonId AND ab.StudyBasisId <> 1)) ", "ed.qAbiturient"));
+            lst.Add(new FilterItem("Только платно на ваш факультет", FilterType.Bool, " ( NOT EXISTS (SELECT * FROM ed.qAbiturient ab WHERE ab.PersonId = qAbiturient.PersonId AND ab.StudyBasisId <> 2)) ", "ed.qAbiturient"));
 
             return lst;
         }
@@ -326,6 +326,8 @@ namespace PriemLib
             list.Add("Загружено_Свид-во_ЕГЭ_2013", "Загружено свид-во ЕГЭ 2013 года");
             list.Add("Загружено_Свид-во_ЕГЭ_2014", "Загружено свид-во ЕГЭ 2014 года");
             list.Add("Загружено_Свид-во_ЕГЭ_2015", "Загружено свид-во ЕГЭ 2015 года");
+            list.Add("Загружено_Свид-во_ЕГЭ_2016", "Загружено свид-во ЕГЭ 2016 года");
+            list.Add("Загружено_Свид-во_ЕГЭ_2017", "Загружено свид-во ЕГЭ 2017 года");
 
             list.Add("ЕГЭ_англ.яз", "ЕГЭ англ.яз");
             list.Add("ЕГЭ_русск.язык", "ЕГЭ русск.язык");
@@ -426,6 +428,7 @@ namespace PriemLib
             lst.Add(new FilterItem("Загружено cвид-во ЕГЭ 2014 года", FilterType.Bool, "EXISTS (SELECT Top(1) ed.EgeCertificate.IsImported FROM ed.EgeCertificate WHERE ed.EgeCertificate.PersonId = ed.extPerson.Id AND Year=2014 AND IsImported > 0)", "ed.extPerson"));
             lst.Add(new FilterItem("Загружено cвид-во ЕГЭ 2015 года", FilterType.Bool, "EXISTS (SELECT Top(1) ed.EgeCertificate.IsImported FROM ed.EgeCertificate WHERE ed.EgeCertificate.PersonId = ed.extPerson.Id AND Year=2015 AND IsImported > 0)", "ed.extPerson"));
             lst.Add(new FilterItem("Загружено cвид-во ЕГЭ 2016 года", FilterType.Bool, "EXISTS (SELECT Top(1) ed.EgeCertificate.IsImported FROM ed.EgeCertificate WHERE ed.EgeCertificate.PersonId = ed.extPerson.Id AND Year=2016 AND IsImported > 0)", "ed.extPerson"));
+            lst.Add(new FilterItem("Загружено cвид-во ЕГЭ 2017 года", FilterType.Bool, "EXISTS (SELECT Top(1) ed.EgeCertificate.IsImported FROM ed.EgeCertificate WHERE ed.EgeCertificate.PersonId = ed.extPerson.Id AND Year=2017 AND IsImported > 0)", "ed.extPerson"));
             lst.Add(new FilterItem("Сдавал ЕГЭ", FilterType.Bool, " EXISTS (SELECT ed.EgeCertificate.Number FROM ed.EgeCertificate WHERE ed.EgeCertificate.PersonId = ed.extPerson.Id)", "ed.extPerson"));
 
             lst.Add(new FilterItem("Есть свидетельство ЕГЭ 2012 года", FilterType.Bool, " EXISTS (SELECT ed.EgeCertificate.Number FROM ed.EgeCertificate WHERE ed.EgeCertificate.PersonId = ed.extPerson.Id AND ed.EgeCertificate.Year = 2012)", "ed.extPerson"));
@@ -433,6 +436,7 @@ namespace PriemLib
             lst.Add(new FilterItem("Есть свидетельство ЕГЭ 2014 года", FilterType.Bool, " EXISTS (SELECT ed.EgeCertificate.Number FROM ed.EgeCertificate WHERE ed.EgeCertificate.PersonId = ed.extPerson.Id AND ed.EgeCertificate.Year = 2014)", "ed.extPerson"));
             lst.Add(new FilterItem("Есть свидетельство ЕГЭ 2015 года", FilterType.Bool, " EXISTS (SELECT ed.EgeCertificate.Number FROM ed.EgeCertificate WHERE ed.EgeCertificate.PersonId = ed.extPerson.Id AND ed.EgeCertificate.Year = 2015)", "ed.extPerson"));
             lst.Add(new FilterItem("Есть свидетельство ЕГЭ 2016 года", FilterType.Bool, " EXISTS (SELECT ed.EgeCertificate.Number FROM ed.EgeCertificate WHERE ed.EgeCertificate.PersonId = ed.extPerson.Id AND ed.EgeCertificate.Year = 2016)", "ed.extPerson"));
+            lst.Add(new FilterItem("Есть свидетельство ЕГЭ 2017 года", FilterType.Bool, " EXISTS (SELECT ed.EgeCertificate.Number FROM ed.EgeCertificate WHERE ed.EgeCertificate.PersonId = ed.extPerson.Id AND ed.EgeCertificate.Year = 2017)", "ed.extPerson"));
 
             //инд достижения
             lst.Add(new FilterItem("Инд.достижения: Аттестат с отличием", FilterType.Bool, " EXISTS (SELECT * FROM ed.PersonAchievement PA WHERE PA.PersonId = extPerson.Id AND PA.AchievementTypeId = 9)", "ed.extPerson"));

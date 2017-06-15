@@ -797,7 +797,7 @@ namespace PriemLib
                         x.SchoolName,
                         x.IsEqual,
                         x.EqualDocumentNumber,
-                        CountryEduc = x.CountryEducId != null ? x.Country.Name : "",
+                        CountryEduc = x.Country.Name,
                         x.CountryEducId,
                         x.SchoolTypeId,
                         EducationDocumentSeries = x.SchoolTypeId == 1 ? x.AttestatSeries : x.DiplomSeries,

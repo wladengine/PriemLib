@@ -388,20 +388,20 @@ namespace PriemLib
 
                 MainClass.BdcOnlineReadWrite.ExecuteQuery(queryBlockUnit, _sl);
             }
-            
-            IEnumerable<Entry> ents = from ent in context.Entry
-                                      where
-                                      ent.FacultyId == curEnt.FacultyId
-                                      && ent.LicenseProgramId == curEnt.LicenseProgramId
-                                      && ent.ObrazProgramId == curEnt.ObrazProgramId
-                                      && (curEnt.ProfileId == null ? ent.ProfileId == null : ent.ProfileId == curEnt.ProfileId)
-                                      && ent.Id != curEnt.Id
-                                      && ent.IsCrimea == curEnt.IsCrimea
-                                      && ent.IsForeign == curEnt.IsForeign
-                                      && ent.IsParallel == curEnt.IsParallel
-                                      && ent.IsReduced == curEnt.IsReduced
-                                      && ent.IsSecond == curEnt.IsSecond
-                                      select ent;
+
+            IEnumerable<Entry> ents =
+                from ent in context.Entry
+                where ent.FacultyId == curEnt.FacultyId
+                && ent.LicenseProgramId == curEnt.LicenseProgramId
+                && ent.ObrazProgramId == curEnt.ObrazProgramId
+                && ent.ProfileId == curEnt.ProfileId
+                && ent.Id != curEnt.Id
+                && ent.IsCrimea == curEnt.IsCrimea
+                && ent.IsForeign == curEnt.IsForeign
+                && ent.IsParallel == curEnt.IsParallel
+                && ent.IsReduced == curEnt.IsReduced
+                && ent.IsSecond == curEnt.IsSecond
+                select ent;
 
             if (!chbToAllStudyBasis.Checked)
                 ents = ents.Where(c => c.StudyBasisId == curEnt.StudyBasisId);

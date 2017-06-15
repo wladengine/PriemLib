@@ -1374,7 +1374,7 @@ namespace PriemLib
             {
                 List<KeyValuePair<string, string>> lst =
                         ((from Ol in context.extOlympiadsAll
-                          where Ol.AbiturientId == GuidId
+                          where Ol.PersonId == _personId
                           select new
                           {
                               Id = Ol.Id,
@@ -1665,7 +1665,7 @@ namespace PriemLib
                     {
                         if (!BackDoc)
                         {
-                            var priorcnt = context.Abiturient.Where(x => x.PersonId == _personId && !x.BackDoc && x.Entry.IsForeign == IsForeign && MainClass.lstStudyLevelGroupId.Contains(x.Entry.StudyLevel.LevelGroupId) && x.Priority == Priority && (GuidId.HasValue ? x.Id != GuidId.Value : true)).Count();
+                            int priorcnt = context.Abiturient.Where(x => x.PersonId == _personId && !x.BackDoc && x.Entry.IsForeign == IsForeign && MainClass.lstStudyLevelGroupId.Contains(x.Entry.StudyLevel.LevelGroupId) && x.Priority == Priority && (GuidId.HasValue ? x.Id != GuidId.Value : true)).Count();
                             if (priorcnt > 0)
                             {
                                 epErrorInput.SetError(tbPriority, "У абитуриента уже имеется заявление с заданным приоритетом");
@@ -1993,23 +1993,31 @@ namespace PriemLib
                     clm.ColumnName = "Примечание";
                     examTable.Columns.Add(clm);
 
-                    IEnumerable<qMark> marks = from mrk in context.qMark
-                                               where mrk.AbiturientId == GuidId
-                                               select mrk;
+                    var lstMarks =
+                        (from mrk in context.Mark
+                        join ex in context.extExamInEntry on mrk.ExamInEntryBlockUnitId equals ex.Id
+                        where mrk.AbiturientId == GuidId
+                        select new
+                        {
+                            mrk.Id,
+                            mrk.Value,
+                            ex.ExamName,
+                            mrk.IsFromEge,
+                            mrk.IsFromOlymp,
+                            mrk.OlympiadId,
+                            mrk.IsManual,
+                            mrk.ExamInEntryBlockUnitId,
+                            mrk.ExamVedId
+                        });
 
-                    //sQuery = string.Format("SELECT qMark.Id, qMark.Value AS Mark, ExamName.Name AS 'Экзамен', ExamName.IsAdditional, qMark.ExamInProgramId, qMark.IsFromOlymp, 
-                    //qMark.IsFromEge, qMark.IsManual, qMark.ExamVedId 
-                    //    FROM qMark LEFT JOIN (ExamInProgram LEFT JOIN ExamName ON ExamInProgram.ExamNameId = ExamName.Id) ON qMark.ExamInProgramId = ExamInProgram.Id 
-                    //WHERE qMark.AbiturientId = '{0}' ", _Id);
-
-                    foreach (qMark abMark in marks)
+                    foreach (var abMark in lstMarks)
                     {
                         DataRow newRow;
                         newRow = examTable.NewRow();
                         newRow["Экзамен"] = abMark.ExamName;
                         newRow["Id"] = abMark.Id;
                         if (abMark != null && abMark.Value.ToString() != "")
-                            newRow["Оценка"] = abMark.Value.ToString() + (abMark.FiveGradeValue.HasValue ? (" (" + abMark.FiveGradeValue.Value + ")") : "");
+                            newRow["Оценка"] = abMark.Value.ToString();
                         if (abMark.IsFromEge)
                             newRow["Примечание"] = "Из ЕГЭ ";
                         else if (abMark.IsFromOlymp)
@@ -2017,18 +2025,11 @@ namespace PriemLib
                             string OlympName = "";
                             if (abMark.OlympiadId.HasValue)
                             {
-                                var Olymp = context.extOlympiadsAll.Where(x => x.Id == abMark.OlympiadId).FirstOrDefault();
+                                var Olymp = context.extOlympiads.Where(x => x.Id == abMark.OlympiadId).FirstOrDefault();
                                 if (Olymp == null)
                                     OlympName = " (олимпиада не найдена!)";
                                 else
-                                {
-                                    if (Olymp.AbiturientId != GuidId)
-                                        OlympName = " (олимпиада не принадлежит заявлению!)";
-                                    else
-                                    {
-                                        OlympName = " (" + Olymp.OlympTypeName + "; " + Olymp.OlympName + "; " + Olymp.OlympSubjectName + "; " + Olymp.OlympValueName + ";)";
-                                    }
-                                }
+                                    OlympName = " (" + Olymp.OlympName + "; " + Olymp.OlympSubjectName + "; " + Olymp.OlympValueName + ";)";
                             }
                             else
                                 OlympName = " (олимпиада не указана!)";
@@ -2039,7 +2040,7 @@ namespace PriemLib
                             newRow["Примечание"] = "Ручной ввод";
                         else if (abMark.ExamVedId != null && MainClass.IsPasha())
                         {
-                            string vedNum = _bdc.GetStringValue(string.Format("SELECT ed.extExamsVed.Number FROM ed.extExamsVed WHERE Id = '{0}'", abMark.ExamVedId.ToString()));
+                            string vedNum = _bdc.GetStringValue(string.Format("SELECT extExamsVed.Number FROM ed.extExamsVed WHERE Id = '{0}'", abMark.ExamVedId.ToString()));
                             newRow["Примечание"] = "Ведомость № " + vedNum;
                         }
 
@@ -2278,7 +2279,7 @@ namespace PriemLib
                                    where fv.StudyLevelGroupId == abit.StudyLevelGroupId && fv.IsReduced == abit.IsReduced && fv.IsParallel == abit.IsParallel && fv.IsSecond == abit.IsSecond
                                    && fv.FacultyId == abit.FacultyId && fv.LicenseProgramId == abit.LicenseProgramId
                                    && fv.ObrazProgramId == abit.ObrazProgramId
-                                   && (abit.ProfileId == null ? fv.ProfileId == null : fv.ProfileId == abit.ProfileId)
+                                   && fv.ProfileId == abit.ProfileId
                                    && fv.StudyFormId == abit.StudyFormId
                                    && fv.StudyBasisId == abit.StudyBasisId
                                    && fv.IsCel == (abit.CompetitionId == 6)
