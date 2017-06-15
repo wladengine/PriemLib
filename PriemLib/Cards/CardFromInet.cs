@@ -125,12 +125,13 @@ namespace PriemLib
 
                     ComboServ.FillCombo(cbLanguage, HelpClass.GetComboListByTable("ed.Language"), true, false);
                     ComboServ.FillCombo(cbSportQulification, HelpClass.GetComboListByTable("ed.SportQualification", "order by id"), true, false);
+
                 }
 
                 // ЕГЭ только для 1 курса!
                 if (MainClass.dbType != PriemType.Priem)
                 {
-                    tpEge.Parent = null;
+                   // tpEge.Parent = null;
                     tpSecond.Parent = null;
                 }
 
@@ -405,6 +406,7 @@ namespace PriemLib
                 FillPersonWork(load.GetPersonWork(_personBarc.Value));
                 FillPersonParents(load.GetPersonParents(_personBarc.Value));
                 FillSportQualification(load.GetPersonSportQualification(_personBarc.Value));
+                FillCategoryForManualExam(load.GetPassEgeManualExamsCategory(_personBarc.Value), load.GetEgeManualExams(_personBarc.Value));
 
                 if(DateTime.Now.AddYears(-18) >= BirthDate)
                 {
@@ -1419,6 +1421,8 @@ namespace PriemLib
 
                                     SaveLanguageCertificates(context);
                                     SavePersonSportQuification(context, personId.Value);
+                                    SaveEgeManualExams(context);
+
                                     //Проверка на уже существующие заявления и сообщение при наличии
                                     if (!SaveApplication(personId.Value))
                                     {
@@ -1536,6 +1540,28 @@ namespace PriemLib
                         LanguageCertificateTypeId = Type,
                         Number = Number,
                         ResultValue = Result,
+                    });
+            }
+            context.SaveChanges();
+        }
+        private void SaveEgeManualExams(PriemEntities context)
+        {
+            bool? PassExamInSpbu = chbPassExamInSpbu.Checked; 
+            var AddInfo = context.Person_AdditionalInfo.Where(x => x.PersonId == personId).FirstOrDefault();
+            if (AddInfo != null)
+            {
+                AddInfo.PassExamInSpbu = PassExamInSpbu;
+                AddInfo.CategoryId = _CategoryId;
+            }
+            context.SaveChanges();
+            foreach (DataGridViewRow rw in dgvEgeManualExam.Rows)
+            {
+                int ExamId = (int)rw.Cells["ExamId"].Value;
+                if (context.PersonManualExams.Where(x => x.PersonId == GuidId && ExamId == ExamId).Select(x => x).Count() == 0)
+                    context.PersonManualExams.Add(new PersonManualExams()
+                    {
+                        PersonId = personId,
+                        ExamId = ExamId,
                     });
             }
             context.SaveChanges();
@@ -1816,5 +1842,83 @@ namespace PriemLib
             }
         }
 
+
+        int? _CategoryId;
+        Dictionary<RadioButton, int> RadioButtonCategory;
+        private void FillCategoryForManualExam(DataTable tbl_p, DataTable tbl_ex)
+        {
+            RadioButtonCategory = new Dictionary<RadioButton, int>();
+            using (PriemEntities context = new PriemEntities())
+            {
+                bool PassExamInSpbu = tbl_p.Rows[0].Field<bool?>("PassExamInSpbu") ?? false;
+                _CategoryId = tbl_p.Rows[0].Field<int?>("CategoryId");
+                chbPassExamInSpbu.Checked = PassExamInSpbu;
+               
+                    var Cat = context.PersonCategoryForManualExams.ToList();
+                    Panel p = this.pnCategoryForManualExam;
+                    int Height = 3;
+                    const int max_char = 45;
+                    foreach (var cat in Cat)
+                    {
+                        RadioButton b = new RadioButton();
+                        b.AutoSize = true;
+                        string oldname = cat.Name;
+
+                        int len = 0;
+                        int strcnt = 1;
+                        string name = "";
+                        while (oldname != "")
+                        {
+                            if (oldname.IndexOf(' ') > 0)
+                            {
+                                if ((len + oldname.IndexOf(' ')) > max_char)
+                                {
+                                    name += '\n'; len = 0; strcnt++;
+                                }
+                                len += oldname.IndexOf(' ');
+                                name += oldname.Substring(0, oldname.IndexOf(' ') + 1);
+                                oldname = oldname.Substring(oldname.IndexOf(' ') + 1);
+                            }
+                            else
+                            {
+                                if ((len + oldname.Length) > max_char)
+                                {
+                                    name += '\n'; strcnt++;
+                                }
+                                name += oldname;
+                                oldname = "";
+                            }
+                        }
+                        b.Text = name;
+                        if (_CategoryId == cat.Id)
+                        {
+                            b.Checked = true;
+                            
+                        }
+                        b.CheckAlign = ContentAlignment.TopLeft;
+                        RadioButtonCategory.Add(b, cat.Id);
+                        b.CheckedChanged += SetCategory;
+                        b.Location = new Point(4, Height);
+                        Height += 14 * strcnt + 5;
+
+                        p.Controls.Add(b);
+                    }
+
+                    var exams = (from DataRow rw in tbl_ex.Rows
+                                 select new
+                                 {
+                                     ExamId = rw.Field<int>("ExamId"),
+                                     Предмет = rw.Field<string>("Name"),
+                                 }).ToList();
+                    dgvEgeManualExam.DataSource = exams;
+                    if (dgvEgeManualExam.Columns.Contains("ExamId"))
+                        dgvEgeManualExam.Columns["ExamId"].Visible = false;
+                
+            }
+        }
+        private void SetCategory(object sender, EventArgs e)
+        {
+            _CategoryId = RadioButtonCategory[(RadioButton)sender];
+        }
     }
 }

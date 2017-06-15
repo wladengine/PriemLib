@@ -120,6 +120,28 @@ LEFT JOIN Person ON PersonSportQualification.PersonId = Person.Id";
             DataSet dsEge = _bdcInet.GetDataSet(querySport + " WHERE Person.Barcode = " + _Barcode + " ORDER BY 2");
             return dsEge.Tables[0];
         }
+        public DataTable GetPassEgeManualExamsCategory(int _Barcode)
+        {
+            string querySport = @"
+SELECT 
+PassExamInSpbu ,CategoryId
+FROM dbo.PersonAddInfo
+LEFT JOIN Person ON PersonAddInfo.PersonId = Person.Id";
+            DataSet dsEge = _bdcInet.GetDataSet(querySport + " WHERE Person.Barcode = " + _Barcode + " ORDER BY 2");
+            return dsEge.Tables[0];
+        }
+        public DataTable GetEgeManualExams(int _Barcode)
+        {
+            string querySport = @"
+SELECT 
+PersonManualExams.ExamId,
+EgeExam.Name
+FROM dbo.PersonManualExams
+join dbo.EgeExam on EgeExam.Id = PersonManualExams.ExamId
+LEFT JOIN Person ON PersonManualExams.PersonId = Person.Id";
+            DataSet dsEge = _bdcInet.GetDataSet(querySport + " WHERE Person.Barcode = " + _Barcode + " ORDER BY 2");
+            return dsEge.Tables[0];
+        }
         public DataTable GetPersonWork(int _Barcode)
         {
             string queryWork = @"

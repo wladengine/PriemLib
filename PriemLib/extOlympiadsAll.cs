@@ -16,8 +16,8 @@ namespace PriemLib
     {
         public System.Guid Id { get; set; }
         public int OlympTypeId { get; set; }
-        public Nullable<int> OlympNameId { get; set; }
-        public Nullable<int> OlympSubjectId { get; set; }
+        public int OlympNameId { get; set; }
+        public int OlympSubjectId { get; set; }
         public Nullable<int> OlympLevelId { get; set; }
         public int OlympValueId { get; set; }
         public Nullable<System.Guid> AbiturientId { get; set; }

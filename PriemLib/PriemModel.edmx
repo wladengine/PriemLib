@@ -978,6 +978,8 @@ warning 6002: The table/view 'Priem2017.ed.PayDataEntry' does not have a primary
           <Property Name="Parent_WorkPosition" Type="nvarchar" MaxLength="250" />
           <Property Name="Parent2_WorkPosition" Type="nvarchar" MaxLength="250" />
           <Property Name="ExtPossId" Type="int" />
+          <Property Name="PassExamInSpbu" Type="bit" />
+          <Property Name="CategoryId" Type="int" />
         </EntityType>
         <EntityType Name="Person_Contacts">
           <Key>
@@ -1073,6 +1075,13 @@ warning 6002: The table/view 'Priem2017.ed.PayDataEntry' does not have a primary
           <Property Name="_Author" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="DateCreated" Type="datetime" Nullable="false" />
         </EntityType>
+        <EntityType Name="PersonCategoryForManualExams">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="1500" />
+        </EntityType>
         <EntityType Name="PersonChanges">
           <Key>
             <PropertyRef Name="Id" />
@@ -1107,6 +1116,14 @@ warning 6002: The table/view 'Priem2017.ed.PayDataEntry' does not have a primary
           <Property Name="LanguageCertificateTypeId" Type="int" Nullable="false" />
           <Property Name="Number" Type="nvarchar" MaxLength="150" />
           <Property Name="ResultValue" Type="float" />
+        </EntityType>
+        <EntityType Name="PersonManualExams">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PersonId" Type="uniqueidentifier" />
+          <Property Name="ExamId" Type="int" />
         </EntityType>
         <EntityType Name="PersonNoticies">
           <Key>
@@ -2324,6 +2341,8 @@ warning 6002: The table/view 'Priem2017.ed.extOlympiads' does not have a primary
             
             
             
+            
+            
             <PropertyRef Name="OriginDoc" />
             <PropertyRef Name="OlympLevelName" />
             <PropertyRef Name="OlympValueName" />
@@ -2333,8 +2352,8 @@ warning 6002: The table/view 'Priem2017.ed.extOlympiads' does not have a primary
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="OlympTypeId" Type="int" Nullable="false" />
-          <Property Name="OlympNameId" Type="int" />
-          <Property Name="OlympSubjectId" Type="int" />
+          <Property Name="OlympNameId" Type="int" Nullable="false" />
+          <Property Name="OlympSubjectId" Type="int" Nullable="false" />
           <Property Name="OlympLevelId" Type="int" />
           <Property Name="OlympValueId" Type="int" Nullable="false" />
           <Property Name="AbiturientId" Type="uniqueidentifier" />
@@ -2348,7 +2367,7 @@ warning 6002: The table/view 'Priem2017.ed.extOlympiads' does not have a primary
           <Property Name="SortOrder" Type="int" />
           <Property Name="OlympValueAcr" Type="nvarchar" MaxLength="50" />
           <Property Name="OlympProfileId" Type="int" />
-          <Property Name="OlympProfileName" Type="nvarchar" MaxLength="150" />
+          <Property Name="OlympProfileName" Type="nvarchar" MaxLength="250" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'Priem2017.ed.extOlympiadsAll' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -2358,13 +2377,15 @@ warning 6002: The table/view 'Priem2017.ed.extOlympiadsAll' does not have a prim
             
             
             
+            
+            
             <PropertyRef Name="OriginDoc" />
             <PropertyRef Name="OlympYear" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="OlympTypeId" Type="int" Nullable="false" />
-          <Property Name="OlympNameId" Type="int" />
-          <Property Name="OlympSubjectId" Type="int" />
+          <Property Name="OlympNameId" Type="int" Nullable="false" />
+          <Property Name="OlympSubjectId" Type="int" Nullable="false" />
           <Property Name="OlympLevelId" Type="int" />
           <Property Name="OlympValueId" Type="int" Nullable="false" />
           <Property Name="AbiturientId" Type="uniqueidentifier" />
@@ -2380,9 +2401,9 @@ warning 6002: The table/view 'Priem2017.ed.extOlympiadsAll' does not have a prim
           <Property Name="DocumentNumber" Type="nvarchar" MaxLength="50" />
           <Property Name="DocumentDate" Type="date" />
           <Property Name="OlympValueSortOrder" Type="int" />
-          <Property Name="OlympYear" Type="smallint" Nullable="false" />
+          <Property Name="OlympYear" Type="int" Nullable="false" />
           <Property Name="OlympProfileId" Type="int" />
-          <Property Name="OlympProfileName" Type="nvarchar" MaxLength="150" />
+          <Property Name="OlympProfileName" Type="nvarchar" MaxLength="250" />
           <Property Name="OlympicID" Type="nvarchar" MaxLength="50" />
           <Property Name="FIS_OlympicID" Type="nvarchar" MaxLength="50" />
           <Property Name="OlympLevel_FISID" Type="int" />
@@ -4762,6 +4783,18 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PersonManualExams_EgeExamName">
+          <End Role="EgeExamName" Type="Self.EgeExamName" Multiplicity="0..1" />
+          <End Role="PersonManualExams" Type="Self.PersonManualExams" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EgeExamName">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PersonManualExams">
+              <PropertyRef Name="ExamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PersonNoticies_Person">
           <End Role="Person" Type="Self.Person" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -6412,9 +6445,11 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
           <EntitySet Name="Person_EducationInfo" EntityType="Self.Person_EducationInfo" Schema="ed" store:Type="Tables" />
           <EntitySet Name="PersonAchievement" EntityType="Self.PersonAchievement" Schema="ed" store:Type="Tables" />
           <EntitySet Name="PersonBenefitDocument" EntityType="Self.PersonBenefitDocument" Schema="ed" store:Type="Tables" />
+          <EntitySet Name="PersonCategoryForManualExams" EntityType="Self.PersonCategoryForManualExams" Schema="ed" store:Type="Tables" />
           <EntitySet Name="PersonChanges" EntityType="Self.PersonChanges" Schema="ed" store:Type="Tables" />
           <EntitySet Name="PersonEgeRequest" EntityType="Self.PersonEgeRequest" Schema="ed" store:Type="Tables" />
           <EntitySet Name="PersonLanguageCertificates" EntityType="Self.PersonLanguageCertificates" Schema="ed" store:Type="Tables" />
+          <EntitySet Name="PersonManualExams" EntityType="Self.PersonManualExams" Schema="ed" store:Type="Tables" />
           <EntitySet Name="PersonNoticies" EntityType="Self.PersonNoticies" Schema="ed" store:Type="Tables" />
           <EntitySet Name="PersonOtherPassport" EntityType="Self.PersonOtherPassport" Schema="ed" store:Type="Tables" />
           <EntitySet Name="PersonScienceWork" EntityType="Self.PersonScienceWork" Schema="ed" store:Type="Tables" />
@@ -8286,6 +8321,10 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
           <AssociationSet Name="FK_PersonLanguageCertificates_Person" Association="Self.FK_PersonLanguageCertificates_Person">
             <End Role="Person" EntitySet="Person" />
             <End Role="PersonLanguageCertificates" EntitySet="PersonLanguageCertificates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonManualExams_EgeExamName" Association="Self.FK_PersonManualExams_EgeExamName">
+            <End Role="EgeExamName" EntitySet="EgeExamName" />
+            <End Role="PersonManualExams" EntitySet="PersonManualExams" />
           </AssociationSet>
           <AssociationSet Name="FK_PersonNoticies_Person" Association="Self.FK_PersonNoticies_Person">
             <End Role="Person" EntitySet="Person" />
@@ -10365,6 +10404,12 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
             <End Role="Olympiads" EntitySet="Olympiads" />
             <End Role="Mark" EntitySet="Mark" />
           </AssociationSet>
+          <EntitySet Name="PersonCategoryForManualExams" EntityType="Priem2012Model.PersonCategoryForManualExams" />
+          <EntitySet Name="PersonManualExams" EntityType="Priem2012Model.PersonManualExams" />
+          <AssociationSet Name="FK_PersonManualExams_EgeExamName" Association="Priem2012Model.FK_PersonManualExams_EgeExamName">
+            <End Role="EgeExamName" EntitySet="EgeExamName" />
+            <End Role="PersonManualExams" EntitySet="PersonManualExams" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="AttMarks">
           <Key>
@@ -10474,6 +10519,7 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
           <NavigationProperty Name="EgeToLanguage" Relationship="Priem2012Model.FK_EgeToLanguage_EgeExamName" FromRole="EgeExamName" ToRole="EgeToLanguage" />
           <Property Type="String" Name="FISName" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="InnerEntryInEntry" Relationship="Priem2012Model.FK_InnerEntryInEntry_EgeExamName" FromRole="EgeExamName" ToRole="InnerEntryInEntry" />
+          <NavigationProperty Name="PersonManualExams" Relationship="Priem2012Model.FK_PersonManualExams_EgeExamName" FromRole="EgeExamName" ToRole="PersonManualExams" />
         </EntityType>
         <EntityType Name="EgeMark">
           <Key>
@@ -11134,8 +11180,8 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
           </Key>
           <Property Type="Guid" Name="Id" Nullable="false" />
           <Property Type="Int32" Name="OlympTypeId" Nullable="false" />
-          <Property Type="Int32" Name="OlympNameId" />
-          <Property Type="Int32" Name="OlympSubjectId" />
+          <Property Type="Int32" Name="OlympNameId" Nullable="false" />
+          <Property Type="Int32" Name="OlympSubjectId" Nullable="false" />
           <Property Type="Int32" Name="OlympLevelId" />
           <Property Type="Int32" Name="OlympValueId" Nullable="false" />
           <Property Type="Guid" Name="AbiturientId" />
@@ -11149,7 +11195,7 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
           <Property Type="Int32" Name="SortOrder" />
           <Property Type="String" Name="OlympValueAcr" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="OlympProfileId" Type="Int32" />
-          <Property Name="OlympProfileName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="OlympProfileName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="ProtocolNumbers">
           <Key>
@@ -11557,8 +11603,8 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
           </Key>
           <Property Type="Guid" Name="Id" Nullable="false" />
           <Property Type="Int32" Name="OlympTypeId" Nullable="false" />
-          <Property Type="Int32" Name="OlympNameId" />
-          <Property Type="Int32" Name="OlympSubjectId" />
+          <Property Type="Int32" Name="OlympNameId" Nullable="false" />
+          <Property Type="Int32" Name="OlympSubjectId" Nullable="false" />
           <Property Type="Int32" Name="OlympLevelId" />
           <Property Type="Int32" Name="OlympValueId" Nullable="false" />
           <Property Type="Guid" Name="AbiturientId" />
@@ -11576,7 +11622,7 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
           <Property Type="Int32" Name="OlympValueSortOrder" />
           <Property Name="OlympYear" Type="Int16" Nullable="false" />
           <Property Name="OlympProfileId" Type="Int32" />
-          <Property Name="OlympProfileName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="OlympProfileName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="OlympicID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="FIS_OlympicID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="OlympLevel_FISID" Type="Int32" />
@@ -12214,6 +12260,8 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
           <Property Name="Parent_WorkPosition" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="Parent2_WorkPosition" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="ExtPossId" Type="Int32" />
+          <Property Name="PassExamInSpbu" Type="Boolean" />
+          <Property Name="CategoryId" Type="Int32" />
         </EntityType>
         <EntityType Name="Person_Contacts">
           <Key>
@@ -15474,6 +15522,34 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="PersonCategoryForManualExams">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="1500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="PersonManualExams">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="PersonId" Type="Guid" />
+          <Property Name="ExamId" Type="Int32" />
+          <NavigationProperty Name="EgeExamName" Relationship="Priem2012Model.FK_PersonManualExams_EgeExamName" FromRole="PersonManualExams" ToRole="EgeExamName" />
+        </EntityType>
+        <Association Name="FK_PersonManualExams_EgeExamName">
+          <End Type="Priem2012Model.EgeExamName" Role="EgeExamName" Multiplicity="0..1" />
+          <End Type="Priem2012Model.PersonManualExams" Role="PersonManualExams" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EgeExamName">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PersonManualExams">
+              <PropertyRef Name="ExamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -16707,6 +16783,8 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
           <EntitySetMapping Name="Person_AdditionalInfo">
             <EntityTypeMapping TypeName="Priem2012Model.Person_AdditionalInfo">
               <MappingFragment StoreEntitySet="Person_AdditionalInfo">
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="PassExamInSpbu" ColumnName="PassExamInSpbu" />
                 <ScalarProperty Name="ExtPossId" ColumnName="ExtPossId" />
                 <ScalarProperty Name="Parent2_WorkPosition" ColumnName="Parent2_WorkPosition" />
                 <ScalarProperty Name="Parent_WorkPosition" ColumnName="Parent_WorkPosition" />
@@ -18559,6 +18637,23 @@ warning 6002: The table/view 'Priem2017.ed.qStudyLevel' does not have a primary 
                 <ScalarProperty Name="Value" ColumnName="Value" />
                 <ScalarProperty Name="ExamInEntryBlockUnitId" ColumnName="ExamInEntryBlockUnitId" />
                 <ScalarProperty Name="AbiturientId" ColumnName="AbiturientId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PersonCategoryForManualExams">
+            <EntityTypeMapping TypeName="Priem2012Model.PersonCategoryForManualExams">
+              <MappingFragment StoreEntitySet="PersonCategoryForManualExams">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PersonManualExams">
+            <EntityTypeMapping TypeName="Priem2012Model.PersonManualExams">
+              <MappingFragment StoreEntitySet="PersonManualExams">
+                <ScalarProperty Name="ExamId" ColumnName="ExamId" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -192,6 +192,8 @@ namespace PriemLib
         public virtual DbSet<PersonWork> PersonWork { get; set; }
         public virtual DbSet<BenefitDocument> BenefitDocument { get; set; }
         public virtual DbSet<Mark> Mark { get; set; }
+        public virtual DbSet<PersonCategoryForManualExams> PersonCategoryForManualExams { get; set; }
+        public virtual DbSet<PersonManualExams> PersonManualExams { get; set; }
     
         public virtual int RoleMember(string roleName, ObjectParameter result)
         {
