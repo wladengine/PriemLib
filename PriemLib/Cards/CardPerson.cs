@@ -147,7 +147,7 @@ namespace PriemLib
                 // магистратура!
                 if (MainClass.dbType != PriemType.Priem)
                 {
-                   // tpEge.Parent = null;
+                    tpEge.Parent = null;
                     tpSecond.Parent = null;
                 }
                 else if (MainClass.dbType == PriemType.Priem)

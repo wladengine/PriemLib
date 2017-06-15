@@ -131,7 +131,7 @@ namespace PriemLib
                 // ЕГЭ только для 1 курса!
                 if (MainClass.dbType != PriemType.Priem)
                 {
-                   // tpEge.Parent = null;
+                    tpEge.Parent = null;
                     tpSecond.Parent = null;
                 }
 
