@@ -329,12 +329,12 @@ namespace PriemLib
             }
             else { 
             _sQuery = @"SELECT DISTINCT qAbiturient.CommitId AS Id, extPerson.Surname + ' ' + extPerson.Name + ' ' + extPerson.SecondName as ФИО, 
-                       extPerson.BirthDate AS Дата_рождения, qAbiturient.CommitNumber AS Barcode, 
+                       extPerson.BirthDate AS Дата_рождения, qAbiturient.CommitNumber AS Barcode, extPerson.Email,
                        (Case When EXISTS(SELECT extAbitFileNames_ALL.Id FROM extAbitFileNames_ALL WHERE extAbitFileNames_ALL.PersonId = extPerson.Id) then 'Да' else 'Нет' end) AS [Приложены файлы],
                        (SELECT Max(extAbitFileNames_ALL.LoadDate) FROM extAbitFileNames_ALL WHERE extAbitFileNames_ALL.PersonId = extPerson.Id AND (extAbitFileNames_ALL.CommitId = qAbiturient.CommitId OR extAbitFileNames_ALL.CommitId IS NULL)) AS [Дата обновления файлов],
                        (CASE WHEN EXISTS(SELECT * FROM qAbitFiles_OnlyEssayMotivLetter q WHERE q.PersonId=qAbiturient.PersonId AND FileTypeId=2) THEN 'Да' ELSE 'Нет' END) AS [Мотивац письмо],
-                       (CASE WHEN EXISTS(SELECT * FROM qAbitFiles_OnlyEssayMotivLetter q WHERE q.PersonId=qAbiturient.PersonId AND FileTypeId=3) THEN 'Да' ELSE 'Нет' END) AS [Эссе],
-                       (CASE WHEN EXISTS(SELECT * FROM qAbitFiles_OnlyPhilosophy q WHERE q.PersonId=qAbiturient.PersonId) THEN 'Да' ELSE 'Нет' END) AS [Философия]
+                       (CASE WHEN EXISTS(SELECT * FROM qAbitFiles_OnlyEssayMotivLetter q WHERE q.PersonId=qAbiturient.PersonId AND FileTypeId=3) THEN 'Да' ELSE 'Нет' END) AS [Эссе]
+                       --,(CASE WHEN EXISTS(SELECT * FROM qAbitFiles_OnlyPhilosophy q WHERE q.PersonId=qAbiturient.PersonId) THEN 'Да' ELSE 'Нет' END) AS [Философия]
                        FROM qAbiturient INNER JOIN extPerson ON qAbiturient.PersonId = extPerson.Id
                        WHERE qAbiturient.IsImported = 0 AND SemesterId = 1 AND Enabled = 1 AND IsCommited = 1 AND IsVisible = 1 AND qAbiturient.IsForeign = 0";
 }

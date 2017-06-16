@@ -70,7 +70,7 @@
             // 
             // btnCard
             // 
-            this.btnCard.Location = new System.Drawing.Point(649, 484);
+            this.btnCard.Location = new System.Drawing.Point(801, 484);
             // 
             // btnRemove
             // 
@@ -82,7 +82,7 @@
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(649, 513);
+            this.btnClose.Location = new System.Drawing.Point(801, 513);
             // 
             // label1
             // 
@@ -96,7 +96,7 @@
             // btnUpdate
             // 
             this.btnUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnUpdate.Location = new System.Drawing.Point(649, 171);
+            this.btnUpdate.Location = new System.Drawing.Point(801, 171);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(75, 23);
             this.btnUpdate.TabIndex = 42;
@@ -142,6 +142,7 @@
             this.dgvAbiturients.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvAbiturients.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -172,7 +173,7 @@
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgvAbiturients.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvAbiturients.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvAbiturients.Size = new System.Drawing.Size(712, 253);
+            this.dgvAbiturients.Size = new System.Drawing.Size(864, 253);
             this.dgvAbiturients.TabIndex = 38;
             this.dgvAbiturients.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvAbiturients_CellFormatting);
             // 
@@ -355,7 +356,7 @@
             // 
             this.gbWait.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.gbWait.Controls.Add(this.lblWait);
-            this.gbWait.Location = new System.Drawing.Point(281, 295);
+            this.gbWait.Location = new System.Drawing.Point(357, 295);
             this.gbWait.Name = "gbWait";
             this.gbWait.Size = new System.Drawing.Size(200, 36);
             this.gbWait.TabIndex = 132;
@@ -387,7 +388,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(734, 546);
+            this.ClientSize = new System.Drawing.Size(886, 546);
             this.Controls.Add(this.btnSetInvisible);
             this.Controls.Add(this.gbWait);
             this.Controls.Add(this.btnPrintToExcel);
