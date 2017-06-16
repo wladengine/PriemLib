@@ -15,7 +15,7 @@ namespace PriemLib
     public partial class CardChangeOriginalsPlace : Form
     {
         private Guid AbiturientId;
-        public event UpdateListHandler OnUpdated;
+        public event Action OnUpdated;
         public CardChangeOriginalsPlace(Guid _AbiturientId)
         {
             InitializeComponent();

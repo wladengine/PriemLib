@@ -99,7 +99,14 @@ namespace PriemLib
                 if ((MainClass.IsCryptoMain() || MainClass.IsPasha()) && !exVed.IsLoad)
                     btnLoad.Visible = true;
                 else
+                {
                     btnLoad.Visible = false;
+                    if (MainClass.IsPasha())
+                    {
+                        btnReloadMarksIfIsLoad.Visible = true;
+                    }
+                }
+                    
 
                 if (MainClass.IsPasha())
                     btnPrintVed.Enabled = true;
@@ -393,9 +400,11 @@ namespace PriemLib
                                             string Source = "";
                                             if (M.IsFromEge)
                                                 Source = "ЕГЭ";
-                                            if (M.IsFromOlymp)
+                                            else if (M.IsFromOlymp)
                                                 Source = "олимпиады";
-                                            if (M.IsManual)
+                                            else if (M.IsManual)
+                                                Source = "ведомости ручного ввода";
+                                            else
                                                 Source = "другой ведомости";
                                             var dr = MessageBox.Show(string.Format(Message, dVal, M.Value, Source), "", MessageBoxButtons.YesNo);
                                             if (dr == System.Windows.Forms.DialogResult.Yes)
@@ -421,26 +430,17 @@ namespace PriemLib
                     //{
                         foreach (string abId in slNewMark.Keys)
                         {
-                            DataSet dss = bdc.GetDataSet(string.Format("SELECT Id, EntryId FROM ed.qAbiturient WHERE Id = '{0}' ", abId));
+                            DataSet dss = bdc.GetDataSet(string.Format("SELECT Id, EntryId FROM ed.Abiturient WHERE Id = '{0}' ", abId));
                             DataRow drr = dss.Tables[0].Rows[0];
 
                             string examInPr = Exams.GetExamInEntryId(_examId, drr["EntryId"].ToString());
-
-                            Guid abitId = new Guid(abId);
-                            Guid examInEntryId = Guid.Parse(examInPr);
-                            decimal val = decimal.Parse(slNewMark[abId]);
-
-                            //int cnt = (from mrk in context.Mark
-                            //           where mrk.ExamInEntryBlockUnitId == examInEntryId && mrk.AbiturientId == abitId && XmlReadMode.
-                            //           select mrk).Count();
-
-                            //if (cnt > 0)
-                            //    continue;
-
                             List<string> list = Exams.GetExamIdsInEntry(drr["EntryId"].ToString());
-
                             if (list.Contains(_examId))
                             {
+                                Guid abitId = new Guid(abId);
+                                Guid examInEntryId = Guid.Parse(examInPr);
+                                decimal val = decimal.Parse(slNewMark[abId]);
+
                                 context.Mark_Insert(abitId, examInEntryId, val, _dateExam, false, false, false, _vedId, null, null);
                                 marksCount++;
                             }
@@ -448,7 +448,7 @@ namespace PriemLib
 
                         foreach (string abId in slReplaceMark.Keys)
                         {
-                            DataSet dss = bdc.GetDataSet(string.Format("SELECT Id, EntryId FROM ed.qAbiturient WHERE Id = '{0}' ", abId));
+                            DataSet dss = bdc.GetDataSet(string.Format("SELECT Id, EntryId FROM ed.Abiturient WHERE Id = '{0}' ", abId));
                             DataRow drr = dss.Tables[0].Rows[0];
 
                             string examInPr = Exams.GetExamInEntryId(_examId, drr["EntryId"].ToString());

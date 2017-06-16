@@ -46,7 +46,6 @@ namespace PriemLib
                            join p in context.Person
                            on x.PersonId equals p.Id
                            where MainClass.lstStudyLevelGroupId.Contains(x.StudyLevelGroupId)
-                           && p.Person_Contacts.RegionId != null
                            select new
                            {
                                p.Person_Contacts.Region.Id,

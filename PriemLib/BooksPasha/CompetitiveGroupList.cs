@@ -47,7 +47,7 @@ namespace PriemLib
                      from EntToCompGroup in EntToCompGroup2.DefaultIfEmpty()
                      join E in context.Entry on EntToCompGroup.EntryId equals E.Id into E2
                      from E in E2.DefaultIfEmpty()
-                     where (StudyLevelId.HasValue ? E.StudyLevelId == StudyLevelId : E.StudyLevelId == null)
+                     where (StudyLevelId.HasValue ? E.StudyLevelId == StudyLevelId : true)
                      select new
                      {
                          CompGroup.Id,

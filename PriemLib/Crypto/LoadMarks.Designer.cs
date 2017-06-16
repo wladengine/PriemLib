@@ -42,6 +42,7 @@
             this.btnLoad = new System.Windows.Forms.Button();
             this.btnView = new System.Windows.Forms.Button();
             this.lblAdd = new System.Windows.Forms.Label();
+            this.btnReloadMarksIfIsLoad = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMarks)).BeginInit();
             this.SuspendLayout();
             // 
@@ -202,11 +203,24 @@
             this.lblAdd.TabIndex = 57;
             this.lblAdd.Text = "доп";
             // 
+            // btnReloadMarksIfIsLoad
+            // 
+            this.btnReloadMarksIfIsLoad.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnReloadMarksIfIsLoad.Location = new System.Drawing.Point(588, 67);
+            this.btnReloadMarksIfIsLoad.Name = "btnReloadMarksIfIsLoad";
+            this.btnReloadMarksIfIsLoad.Size = new System.Drawing.Size(151, 36);
+            this.btnReloadMarksIfIsLoad.TabIndex = 58;
+            this.btnReloadMarksIfIsLoad.Text = "Перегрузить оценки";
+            this.btnReloadMarksIfIsLoad.UseVisualStyleBackColor = true;
+            this.btnReloadMarksIfIsLoad.Visible = false;
+            this.btnReloadMarksIfIsLoad.Click += new System.EventHandler(this.btnLoad_Click);
+            // 
             // LoadMarks
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(751, 555);
+            this.Controls.Add(this.btnReloadMarksIfIsLoad);
             this.Controls.Add(this.lblAdd);
             this.Controls.Add(this.btnDoubleLanguage);
             this.Controls.Add(this.btnLoad);
@@ -246,5 +260,6 @@
         private System.Windows.Forms.Button btnLoad;
         private System.Windows.Forms.Button btnView;
         private System.Windows.Forms.Label lblAdd;
+        private System.Windows.Forms.Button btnReloadMarksIfIsLoad;
     }
 }

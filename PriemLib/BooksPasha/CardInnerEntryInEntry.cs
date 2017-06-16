@@ -16,7 +16,7 @@ namespace PriemLib
     public partial class CardInnerEntryInEntry : BaseCard
     {
         #region Fields
-        public event UpdateListHandler ToUpdateList;
+        public event Action ToUpdateList;
         private Guid? GuidId;
         private Guid EntryId;
         private int _licenseProgramId;
@@ -148,48 +148,13 @@ namespace PriemLib
         {
             try
             {
-                using (TransactionScope tran = new TransactionScope())
-                using (PriemEntities context = new PriemEntities())
-                {
-                    string query = "";
-                    if (!GuidId.HasValue)
-                    {
-                        GuidId = Guid.NewGuid();
-                        context.InnerEntryInEntry.Add(new InnerEntryInEntry() { Id = GuidId.Value, ObrazProgramId = ObrazProgramId, ProfileId = ProfileId, KCP = KCP, EntryId = EntryId });
+                if (GuidId.HasValue)
+                    EntryProvider.InnerEntryInEntry_Update(GuidId.Value, EntryId, ObrazProgramId, ProfileId, KCP, EgeExamNameId);
+                else
+                    GuidId = EntryProvider.InnerEntryInEntry_Insert(EntryId, ObrazProgramId, ProfileId, KCP, EgeExamNameId);
 
-                        query = "INSERT INTO InnerEntryInEntry (Id, ObrazProgramId, ProfileId, EntryId) VALUES (@Id, @ObrazProgramId, @ProfileId, @EntryId)";
-                    }
-                    else
-                    {
-                        var Ent = context.InnerEntryInEntry.Where(x => x.Id == GuidId).FirstOrDefault();
-                        if (Ent == null)
-                        {
-                            WinFormsServ.Error("Не найдена запись в таблице InnerEntryInEntry!");
-                            return false;
-                        }
-
-                        Ent.ObrazProgramId = ObrazProgramId;
-                        Ent.ProfileId = ProfileId;
-                        Ent.KCP = KCP;
-                        Ent.EgeExamNameId = EgeExamNameId;
-
-                        query = "UPDATE InnerEntryInEntry SET ObrazProgramId=@ObrazProgramId, ProfileId=@ProfileId, EntryId=@EntryId WHERE Id=@Id";
-                    }
-
-                    context.SaveChanges();
-                    
-                    SortedList<string, object> slParams = new SortedList<string, object>();
-                    slParams.Add("@Id", GuidId.Value);
-                    slParams.Add("@ObrazProgramId", ObrazProgramId);
-                    slParams.Add("@EntryId", EntryId);
-                    slParams.Add("@ProfileId", ProfileId);
-                    MainClass.BdcOnlineReadWrite.ExecuteQuery(query, slParams);
-
-                    tran.Complete();
-                }
-
-                if (ToUpdateList != null)
-                    ToUpdateList();
+                //кинуть событие, если не null
+                ToUpdateList?.Invoke();
 
                 return true;
             }

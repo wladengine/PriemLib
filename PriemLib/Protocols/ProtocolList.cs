@@ -75,10 +75,10 @@ LEFT JOIN ed.Protocol ON Protocol.Id =  ProtocolHistory.ProtocolId ";
         protected virtual void InitControls()
         {
             InitFocusHandlers();
-            drh = new DataRefreshHandler(UpdateDataGrid);
+            //drh = new DataRefreshHandler(UpdateDataGrid);
             prh = new ProtocolRefreshHandler(UpdateProtocolList);
             prh += new ProtocolRefreshHandler(SelectLastProtocol);
-            MainClass.AddHandler(drh);
+            //MainClass.AddHandler(drh);
             MainClass.AddProtocolHandler(prh);
 
             Dgv = dgvProtocols;
@@ -217,7 +217,7 @@ LEFT JOIN ed.Protocol ON Protocol.Id =  ProtocolHistory.ProtocolId ";
                                      }).ToList().Select(x => new KeyValuePair<string, string>(x.Id.ToString(), x.Number)).ToList();
 
                     ComboServ.FillCombo(cbProtocolNum, protocols, true, false);
-                } 
+                }
             }
             catch (Exception ex)
             {

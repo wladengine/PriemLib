@@ -160,7 +160,7 @@ namespace PriemLib
             if (isLoad)           
                 fontColor = Color.Red;            
             else            
-                fontColor = Color.Black;              
+                fontColor = Color.Black;
             
             e.Graphics.DrawString(VedText, new Font("Microsoft San Serif", 8, FontStyle.Regular), new SolidBrush(fontColor), e.Bounds);
             e.DrawFocusRectangle();

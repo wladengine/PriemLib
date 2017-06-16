@@ -122,7 +122,6 @@ namespace PriemLib
                             where MainClass.lstStudyLevelGroupId.Contains(ab.StudyLevelGroupId)
                             && FacultyId.HasValue ? ab.FacultyId == FacultyId.Value : true
                             && StudyBasisId.HasValue ? ab.StudyBasisId == StudyBasisId.Value : true
-                            && p.Person_Contacts.RegionId != null
                             select new
                             {
                                 p.Person_Contacts.Region.Id,

@@ -20,7 +20,7 @@ namespace PriemLib
                                        where ent.IsSecond == IsReduced
                                         && ent.LicenseProgramId == LicenseProgramId
                                         && ent.ObrazProgramId == ObrazProgramId
-                                        && (ProfileId == null ? ent.ProfileId == null : ent.ProfileId == ProfileId)
+                                        && (ProfileId == null ? true : ent.ProfileId == ProfileId)
                                         && ent.StudyFormId == StudyFormId
                                         && ent.StudyBasisId == StudyBasisId
                                        select ent.Id).FirstOrDefault();
