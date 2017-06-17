@@ -453,7 +453,7 @@ namespace PriemLib
                          join Ex in context.Exam on ExBlockUnit.ExamId equals Ex.Id
                          join ExName in context.ExamName on Ex.ExamNameId equals ExName.Id
                          where lstBlocksToSelect.Contains(ExBlockUnit.ExamInEntryBlockId)
-                         select new { Ex.Id, ExName.Name }).ToList();
+                         select new { Ex.Id, ExName.Name }).ToList().Distinct();
                     foreach (var Ex in lstExams)
                     {
                         qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", @"case when EXISTS (SELECT * 
