@@ -215,3 +215,4 @@ $RECYCLE.BIN/
 PriemLib.sln
 PriemLib/App.Config
 PriemLib/PriemLib.csproj
+PriemLib/PriemModel.Designer.cs

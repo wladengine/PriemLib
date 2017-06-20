@@ -154,7 +154,8 @@ namespace PriemLib
                     GuidId = EntryProvider.InnerEntryInEntry_Insert(EntryId, ObrazProgramId, ProfileId, KCP, EgeExamNameId);
 
                 //кинуть событие, если не null
-                ToUpdateList?.Invoke();
+                if (ToUpdateList!=null)
+                    ToUpdateList.Invoke();
 
                 return true;
             }
