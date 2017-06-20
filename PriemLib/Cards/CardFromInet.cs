@@ -1268,14 +1268,14 @@ namespace PriemLib
             else
                 epError.Clear();
 
-            if (tbScienceWork.Text.Length >= 2000)
-            {
-                epError.SetError(tbScienceWork, "Длина поля превышает 2000 символов. Укажите только самое основное.");
-                tabCard.SelectedIndex = MainClass.dbType == PriemType.Priem ? 4 : 3;
-                return false;
-            }
-            else
-                epError.Clear();
+            //if (tbScienceWork.Text.Length >= 2000)
+            //{
+            //    epError.SetError(tbScienceWork, "Длина поля превышает 2000 символов. Укажите только самое основное.");
+            //    tabCard.SelectedIndex = MainClass.dbType == PriemType.Priem ? 4 : 3;
+            //    return false;
+            //}
+            //else
+            //    epError.Clear();
 
             if (tbExtraInfo.Text.Length >= 1000)
             {
@@ -1295,14 +1295,14 @@ namespace PriemLib
             else
                 epError.Clear();
 
-            if (tbWorkPlace.Text.Length > 1000)
-            {
-                epError.SetError(tbWorkPlace, "Длина поля превышает 1000 символов. Укажите только самое основное.");
-                tabCard.SelectedIndex = MainClass.dbType == PriemType.Priem ? 4 : 3;
-                return false;
-            }
-            else
-                epError.Clear();
+            //if (tbWorkPlace.Text.Length > 1000)
+            //{
+            //    epError.SetError(tbWorkPlace, "Длина поля превышает 1000 символов. Укажите только самое основное.");
+            //    tabCard.SelectedIndex = MainClass.dbType == PriemType.Priem ? 4 : 3;
+            //    return false;
+            //}
+            //else
+            //    epError.Clear();
 
             if (!CheckIdent())
             {

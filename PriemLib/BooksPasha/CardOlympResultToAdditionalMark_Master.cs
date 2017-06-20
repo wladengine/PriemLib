@@ -149,7 +149,7 @@ namespace PriemLib
                     && x.ProfileId == Ent.ProfileId && x.IsCrimea == Ent.IsCrimea && x.IsForeign == Ent.IsForeign).Select(x => x.Id).ToList();
 
                 var lst = context.OlympResultToAdditionalMark.Where(x => lstEntry.Contains(x.EntryId))
-                    .Select(x => new { x.OlympLevelId, x.OlympValueId, x.ExamId, x.EntryId });
+                    .Select(x => new { x.OlympLevelId, x.OlympValueId, x.ExamId, x.EntryId, x.OlympSubjectId, x.OlympProfileId });
                 using (TransactionScope tran = new TransactionScope())
                 {
                     foreach (int iOlLevel in lstOlympLevels)
@@ -158,7 +158,8 @@ namespace PriemLib
                         {
                             foreach (Guid EntryId in lstEntry)
                             {
-                                int iCnt = lst.Where(x => x.EntryId == EntryId && x.ExamId == ExamId && x.OlympLevelId == iOlLevel && x.OlympValueId == iOlValue).Count();
+                                int iCnt = lst.Where(x => x.EntryId == EntryId && x.ExamId == ExamId && x.OlympLevelId == iOlLevel && x.OlympValueId == iOlValue 
+                                    && x.OlympSubjectId == OlympSubjectId && x.OlympProfileId == OlympProfileId).Count();
                                 if (iCnt == 0)
                                 {
                                     var idParam = new System.Data.Entity.Core.Objects.ObjectParameter("id", typeof(int));
