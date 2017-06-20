@@ -399,50 +399,35 @@ namespace PriemLib
                     //select new { Id = rwx["Id"], Name = rwx["Name"] };
 
                     foreach (var ex in dicExams)
-                        qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", string.Format("(select Sum(qMark.Value) FROM ed.qMark INNER JOIN ed.extExamInEntry ON ed.qMark.ExamInEntryBlockUnitId =ed.extExamInEntry.Id WHERE AbiturientId = ed.qAbiturient.Id AND ed.extExamInEntry.ExamId={0})", ex.ExamId), ex.ExamName));
+                        qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", string.Format("(select Sum(Mark.Value) FROM ed.Mark INNER JOIN ed.extExamInEntry ON Mark.ExamInEntryBlockUnitId = extExamInEntry.Id WHERE AbiturientId = qAbiturient.Id AND extExamInEntry.ExamId={0})", ex.ExamId), ex.ExamName));
                 }
                 // Оценки из аттестата
-                //
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select Min (ed.AttMarks.value) as mark FROM ed.AttMarks WHERE ed.AttMarks.PersonId = ed.extPerson.Id AND AttSubjectId=	1)", "Аттестат_алгебра"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select Min (ed.AttMarks.value) as mark FROM ed.AttMarks WHERE ed.AttMarks.PersonId = ed.extPerson.Id AND AttSubjectId=	2)", "Аттестат_англ_язык"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select Min (ed.AttMarks.value) as mark FROM ed.AttMarks WHERE ed.AttMarks.PersonId = ed.extPerson.Id AND AttSubjectId=	3)", "Аттестат_астрономия"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select Min (ed.AttMarks.value) as mark FROM ed.AttMarks WHERE ed.AttMarks.PersonId = ed.extPerson.Id AND AttSubjectId=	4)", "Аттестат_биология"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select Min (ed.AttMarks.value) as mark FROM ed.AttMarks WHERE ed.AttMarks.PersonId = ed.extPerson.Id AND AttSubjectId=	5)", "Аттестат_вселенная_чел"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select Min (ed.AttMarks.value) as mark FROM ed.AttMarks WHERE ed.AttMarks.PersonId = ed.extPerson.Id AND AttSubjectId=	6)", "Аттестат_вс_история"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select Min (ed.AttMarks.value) as mark FROM ed.AttMarks WHERE ed.AttMarks.PersonId = ed.extPerson.Id AND AttSubjectId=	7)", "Аттестат_география"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select Min (ed.AttMarks.value) as mark FROM ed.AttMarks WHERE ed.AttMarks.PersonId = ed.extPerson.Id AND AttSubjectId=	8)", "Аттестат_геометрия"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select Min (ed.AttMarks.value) as mark FROM ed.AttMarks WHERE ed.AttMarks.PersonId = ed.extPerson.Id AND AttSubjectId=	9)", "Аттестат_информатика"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select Min (ed.AttMarks.value) as mark FROM ed.AttMarks WHERE ed.AttMarks.PersonId = ed.extPerson.Id AND AttSubjectId=	10)", "Аттестат_история_Спб"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select Min (ed.AttMarks.value) as mark FROM ed.AttMarks WHERE ed.AttMarks.PersonId = ed.extPerson.Id AND AttSubjectId=	11)", "Аттестат_ист_России"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select Min (ed.AttMarks.value) as mark FROM ed.AttMarks WHERE ed.AttMarks.PersonId = ed.extPerson.Id AND AttSubjectId=	12)", "Аттестат_литература"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select Min (ed.AttMarks.value) as mark FROM ed.AttMarks WHERE ed.AttMarks.PersonId = ed.extPerson.Id AND AttSubjectId=	13)", "Аттестат_мировая_худ_культура"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select Min (ed.AttMarks.value) as mark FROM ed.AttMarks WHERE ed.AttMarks.PersonId = ed.extPerson.Id AND AttSubjectId=	14)", "Аттестат_обществознание"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select Min (ed.AttMarks.value) as mark FROM ed.AttMarks WHERE ed.AttMarks.PersonId = ed.extPerson.Id AND AttSubjectId=	15)", "Аттестат_ОБЖ"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select Min (ed.AttMarks.value) as mark FROM ed.AttMarks WHERE ed.AttMarks.PersonId = ed.extPerson.Id AND AttSubjectId=	16)", "Аттестат_русск_язык"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select Min (ed.AttMarks.value) as mark FROM ed.AttMarks WHERE ed.AttMarks.PersonId = ed.extPerson.Id AND AttSubjectId=	17)", "Аттестат_технология"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select Min (ed.AttMarks.value) as mark FROM ed.AttMarks WHERE ed.AttMarks.PersonId = ed.extPerson.Id AND AttSubjectId=	18)", "Аттестат_физика"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select Min (ed.AttMarks.value) as mark FROM ed.AttMarks WHERE ed.AttMarks.PersonId = ed.extPerson.Id AND AttSubjectId=	19)", "Аттестат_физ_культура"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select Min (ed.AttMarks.value) as mark FROM ed.AttMarks WHERE ed.AttMarks.PersonId = ed.extPerson.Id AND AttSubjectId=	20)", "Аттестат_химия"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select Min (ed.AttMarks.value) as mark FROM ed.AttMarks WHERE ed.AttMarks.PersonId = ed.extPerson.Id AND AttSubjectId=	21)", "Аттестат_экология"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select Min (ed.AttMarks.value) as mark FROM ed.AttMarks WHERE ed.AttMarks.PersonId = ed.extPerson.Id AND AttSubjectId=	22)", "Аттестат_немецкий_язык"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select Min (ed.AttMarks.value) as mark FROM ed.AttMarks WHERE ed.AttMarks.PersonId = ed.extPerson.Id AND AttSubjectId=	23)", "Аттестат_испанский_язык"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select Min (ed.AttMarks.value) as mark FROM ed.AttMarks WHERE ed.AttMarks.PersonId = ed.extPerson.Id AND AttSubjectId=	24)", "Аттестат_французский_язык"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select Min (ed.AttMarks.value) as mark FROM ed.AttMarks WHERE ed.AttMarks.PersonId = ed.extPerson.Id AND AttSubjectId=	25)", "Аттестат_итальянский_язык"));
-
-                // Экзамены по выбору
-//                DataTable tbl = _bdc.GetDataSet(@"
-//with t as (
-//SELECT distinct block.id
-//  FROM ed.ExamInEntryBlock block
-//  join ed.ExamInEntryBlockUnit unit on block.Id = unit.ExamInEntryBlockId
-// Group by block.Id
-// Having COUNT(unit.Id) > 1 
-// )  
-// select distinct Exam.Id, ExamName.Name
-// from t
-//  join ed.ExamInEntryBlockUnit unit on t.Id = unit.ExamInEntryBlockId
-//  join ed.Exam on Exam.Id = unit.ExamId
-//  join ed.ExamName on ExamName.Id = Exam.ExamNameId").Tables[0];
+                //qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select Min (AttMarks.value) as mark FROM ed.AttMarks WHERE ed.AttMarks.PersonId = ed.extPerson.Id AND AttSubjectId=	1)", "Аттестат_алгебра"));
+                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MIN(Value) FROM ed.AttMarks WHERE AttMarks.PersonId = extPerson.Id AND AttSubjectId = 1)", "Аттестат_алгебра"));
+                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MIN(Value) FROM ed.AttMarks WHERE AttMarks.PersonId = extPerson.Id AND AttSubjectId = 2)", "Аттестат_англ_язык"));
+                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MIN(Value) FROM ed.AttMarks WHERE AttMarks.PersonId = extPerson.Id AND AttSubjectId = 3)", "Аттестат_астрономия"));
+                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MIN(Value) FROM ed.AttMarks WHERE AttMarks.PersonId = extPerson.Id AND AttSubjectId = 4)", "Аттестат_биология"));
+                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MIN(Value) FROM ed.AttMarks WHERE AttMarks.PersonId = extPerson.Id AND AttSubjectId = 5)", "Аттестат_вселенная_чел"));
+                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MIN(Value) FROM ed.AttMarks WHERE AttMarks.PersonId = extPerson.Id AND AttSubjectId = 6)", "Аттестат_вс_история"));
+                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MIN(Value) FROM ed.AttMarks WHERE AttMarks.PersonId = extPerson.Id AND AttSubjectId = 7)", "Аттестат_география"));
+                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MIN(Value) FROM ed.AttMarks WHERE AttMarks.PersonId = extPerson.Id AND AttSubjectId = 8)", "Аттестат_геометрия"));
+                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MIN(Value) FROM ed.AttMarks WHERE AttMarks.PersonId = extPerson.Id AND AttSubjectId = 9)", "Аттестат_информатика"));
+                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MIN(Value) FROM ed.AttMarks WHERE AttMarks.PersonId = extPerson.Id AND AttSubjectId = 10)", "Аттестат_история_Спб"));
+                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MIN(Value) FROM ed.AttMarks WHERE AttMarks.PersonId = extPerson.Id AND AttSubjectId = 11)", "Аттестат_ист_России"));
+                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MIN(Value) FROM ed.AttMarks WHERE AttMarks.PersonId = extPerson.Id AND AttSubjectId = 12)", "Аттестат_литература"));
+                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MIN(Value) FROM ed.AttMarks WHERE AttMarks.PersonId = extPerson.Id AND AttSubjectId = 13)", "Аттестат_мировая_худ_культура"));
+                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MIN(Value) FROM ed.AttMarks WHERE AttMarks.PersonId = extPerson.Id AND AttSubjectId = 14)", "Аттестат_обществознание"));
+                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MIN(Value) FROM ed.AttMarks WHERE AttMarks.PersonId = extPerson.Id AND AttSubjectId = 15)", "Аттестат_ОБЖ"));
+                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MIN(Value) FROM ed.AttMarks WHERE AttMarks.PersonId = extPerson.Id AND AttSubjectId = 16)", "Аттестат_русск_язык"));
+                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MIN(Value) FROM ed.AttMarks WHERE AttMarks.PersonId = extPerson.Id AND AttSubjectId = 17)", "Аттестат_технология"));
+                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MIN(Value) FROM ed.AttMarks WHERE AttMarks.PersonId = extPerson.Id AND AttSubjectId = 18)", "Аттестат_физика"));
+                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MIN(Value) FROM ed.AttMarks WHERE AttMarks.PersonId = extPerson.Id AND AttSubjectId = 19)", "Аттестат_физ_культура"));
+                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MIN(Value) FROM ed.AttMarks WHERE AttMarks.PersonId = extPerson.Id AND AttSubjectId = 20)", "Аттестат_химия"));
+                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MIN(Value) FROM ed.AttMarks WHERE AttMarks.PersonId = extPerson.Id AND AttSubjectId = 21)", "Аттестат_экология"));
+                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MIN(Value) FROM ed.AttMarks WHERE AttMarks.PersonId = extPerson.Id AND AttSubjectId = 22)", "Аттестат_немецкий_язык"));
+                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MIN(Value) FROM ed.AttMarks WHERE AttMarks.PersonId = extPerson.Id AND AttSubjectId = 23)", "Аттестат_испанский_язык"));
+                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MIN(Value) FROM ed.AttMarks WHERE AttMarks.PersonId = extPerson.Id AND AttSubjectId = 24)", "Аттестат_французский_язык"));
+                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MIN(Value) FROM ed.AttMarks WHERE AttMarks.PersonId = extPerson.Id AND AttSubjectId = 25)", "Аттестат_итальянский_язык"));
 
                 using (PriemEntities context = new PriemEntities())
                 {
