@@ -30,6 +30,7 @@ namespace PriemLib
         public Nullable<int> ExamId { get; set; }
         public Nullable<bool> IsInVseross { get; set; }
         public Nullable<int> SubjectID_FIS { get; set; }
+        public string PrintNameShort { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OlympBook> OlympBook { get; set; }

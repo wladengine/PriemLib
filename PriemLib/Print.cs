@@ -265,7 +265,6 @@ namespace PriemLib
 
                     using (FileStream fs = new FileStream(string.Format(@"{0}\ExamList.pdf", MainClass.dirTemplates), FileMode.Open, FileAccess.Read))
                     {
-
                         byte[] bytes = new byte[fs.Length];
                         fs.Read(bytes, 0, bytes.Length);
                         fs.Close();
@@ -354,7 +353,6 @@ namespace PriemLib
                     }
                 }
             }
-
             catch (Exception exc)
             {
                 WinFormsServ.Error(exc);
@@ -456,99 +454,204 @@ namespace PriemLib
             {
                 using (PriemEntities context = new PriemEntities())
                 {
-                    //AbiturientClass abit = AbiturientClass.GetInstanceFromDBForPrint(abitId);
                     var abit = context.extAbit.Where(x => x.Id == abitId).First();
-                    //PersonClass person = PersonClass.GetInstanceFromDBForPrint(abit.PersonId);
                     var person = context.extPerson.Where(x => x.Id == abit.PersonId).First();
                     var currEduc = context.extPerson_EducationInfo_Current.Where(x => x.PersonId == abit.PersonId).FirstOrDefault();
 
-                    WordDoc wd = new WordDoc(string.Format(@"{0}\{1}.dot", MainClass.dirTemplates, dotName), !forPrint);
+                    //WordDoc wd = new WordDoc(string.Format(@"{0}\{1}.dot", MainClass.dirTemplates, dotName), !forPrint);
 
-                    wd.SetFields("Faculty", abit.FacultyName);
-                    wd.SetFields("Num", abit.PersonNum + @"\" + abit.RegNum);
-                    wd.SetFields("Surname", person.Surname);
-                    wd.SetFields("Name", person.Name);
-                    wd.SetFields("SecondName", person.SecondName);
-                    wd.SetFields("Profession", "(" + abit.LicenseProgramCode + ") " + abit.LicenseProgramName + ", " + abit.ObrazProgramName);
-                    wd.SetFields("Specialization", abit.ProfileName);
-                    wd.SetFields("Citizen", person.NationalityName);
-                    wd.SetFields("Phone", person.Phone + "; " + person.Mobiles);
-                    wd.SetFields("Email", person.Email);
+                    //wd.SetFields("Faculty", abit.FacultyName);
+                    //wd.SetFields("Num", abit.PersonNum + @"\" + abit.RegNum);
+                    //wd.SetFields("Surname", person.Surname);
+                    //wd.SetFields("Name", person.Name);
+                    //wd.SetFields("SecondName", person.SecondName);
+                    //wd.SetFields("Profession", "(" + abit.LicenseProgramCode + ") " + abit.LicenseProgramName + ", " + abit.ObrazProgramName);
+                    //wd.SetFields("Specialization", abit.ProfileName);
+                    //wd.SetFields("Citizen", person.NationalityName);
+                    //wd.SetFields("Phone", person.Phone + "; " + person.Mobiles);
+                    //wd.SetFields("Email", person.Email);
 
-                    for (int i = 1; i < 3; i++)
+                    //for (int i = 1; i < 3; i++)
+                    //{
+                    //    if (i != abit.StudyFormId)
+                    //        wd.Shapes["StudyForm" + i].Delete();
+                    //}
+
+                    //for (int i = 1; i < 3; i++)
+                    //{
+                    //    if (i != abit.StudyBasisId)
+                    //        wd.Shapes["StudyBasis" + i].Delete();
+                    //}
+
+                    //wd.Shapes["Comp1"].Visible = false;
+                    //wd.Shapes["Comp2"].Visible = false;
+                    //wd.Shapes["Comp3"].Visible = false;
+                    //wd.Shapes["Comp4"].Visible = false;
+                    //wd.Shapes["Comp5"].Visible = false;
+                    //wd.Shapes["Comp6"].Visible = false;
+
+                    //wd.Shapes["Comp" + abit.CompetitionId.ToString()].Visible = true;
+                    //wd.Shapes["HasAssignToHostel"].Visible = person.HasAssignToHostel;
+
+                    //if (abit.CompetitionId == 6 && abit.OtherCompetitionId.HasValue)
+                    //    wd.Shapes["Comp" + abit.CompetitionId.ToString()].Visible = true;
+
+                    //if (MainClass.dbType != PriemType.PriemMag)
+                    //{
+                    //    string sPrevYear = DateTime.Now.AddYears(-1).Year.ToString();
+                    //    string sCurrYear = DateTime.Now.Year.ToString();
+                    //    string egePrevYear = context.EgeCertificate.Where(x => x.PersonId == person.Id && x.Year == sPrevYear).Select(x => x.Number).FirstOrDefault();
+                    //    string egeCurYear = context.EgeCertificate.Where(x => x.PersonId == person.Id && x.Year == sCurrYear).Select(x => x.Number).FirstOrDefault();
+
+                    //    wd.SetFields("EgeNamePrevYear", egePrevYear);
+                    //    wd.SetFields("EgeNameCurYear", egeCurYear);
+
+                    //    int j = 1;
+
+                    //    using (PriemEntities ctx = new PriemEntities())
+                    //    {
+                    //        var lst = (from olympiads in ctx.Olympiads
+                    //                   join olympValue in ctx.OlympValue on olympiads.OlympValueId equals olympValue.Id into olympValue2
+                    //                   from olympValue in olympValue2.DefaultIfEmpty()
+                    //                   join olympSubject in ctx.OlympSubject on olympiads.OlympSubjectId equals olympSubject.Id into olympSubject2
+                    //                   from olympSubject in olympSubject2.DefaultIfEmpty()
+                    //                   join olympType in ctx.OlympType on olympiads.OlympTypeId equals olympType.Id into eolympType2
+                    //                   from olympType in eolympType2.DefaultIfEmpty()
+                    //                   where olympiads.AbiturientId == abitId
+                    //                   select new
+                    //                   {
+                    //                       Id = olympiads.Id,
+                    //                       Тип = olympType.Name,
+                    //                       Предмет = olympSubject.Name,
+                    //                       OlympValueId = olympValue.Id,
+                    //                       Степень = olympValue.Name
+                    //                   }).ToList().Distinct();
+
+                    //        foreach (var v in lst)
+                    //        {
+                    //            wd.SetFields("Level" + j, v.Тип);
+                    //            wd.SetFields("Value" + j, v.Степень);
+                    //            wd.SetFields("Subject" + j, v.Предмет);
+                    //            j++;
+                    //        }
+                    //    }
+                    //}
+                    //else
+                    //    if (currEduc.DiplomSeries != "" || currEduc.DiplomNum != "")
+                    //        wd.SetFields("DocEduc", string.Format("диплом серия {0} № {1}", currEduc.DiplomSeries, currEduc.DiplomNum));
+
+                    //if (forPrint)
+                    //{
+                    //    wd.Print();
+                    //    wd.Close();
+                    //}
+
+                    FileStream fileS = null;
+                    string savePath = string.Format(@"{0}\{1}.pdf", MainClass.saveTempFolder, "Sticker_" + abit.Id.ToString());
+
+                    using (FileStream fs = new FileStream(string.Format(@"{0}\{1}.pdf", MainClass.dirTemplates, dotName), FileMode.Open, FileAccess.Read))
                     {
-                        if (i != abit.StudyFormId)
-                            wd.Shapes["StudyForm" + i].Delete();
-                    }
+                        byte[] bytes = new byte[fs.Length];
+                        fs.Read(bytes, 0, bytes.Length);
+                        fs.Close();
 
-                    for (int i = 1; i < 3; i++)
-                    {
-                        if (i != abit.StudyBasisId)
-                            wd.Shapes["StudyBasis" + i].Delete();
-                    }
+                        PdfReader pdfRd = new PdfReader(bytes);
 
-                    wd.Shapes["Comp1"].Visible = false;
-                    wd.Shapes["Comp2"].Visible = false;
-                    wd.Shapes["Comp3"].Visible = false;
-                    wd.Shapes["Comp4"].Visible = false;
-                    wd.Shapes["Comp5"].Visible = false;
-                    wd.Shapes["Comp6"].Visible = false;
-
-                    wd.Shapes["Comp" + abit.CompetitionId.ToString()].Visible = true;
-                    wd.Shapes["HasAssignToHostel"].Visible = person.HasAssignToHostel;
-
-                    if (abit.CompetitionId == 6 && abit.OtherCompetitionId.HasValue)
-                        wd.Shapes["Comp" + abit.CompetitionId.ToString()].Visible = true;
-
-                    if (MainClass.dbType != PriemType.PriemMag)
-                    {
-                        string sPrevYear = DateTime.Now.AddYears(-1).Year.ToString();
-                        string sCurrYear = DateTime.Now.Year.ToString();
-                        string egePrevYear = context.EgeCertificate.Where(x => x.PersonId == person.Id && x.Year == sPrevYear).Select(x => x.Number).FirstOrDefault();
-                        string egeCurYear = context.EgeCertificate.Where(x => x.PersonId == person.Id && x.Year == sCurrYear).Select(x => x.Number).FirstOrDefault();
-
-                        wd.SetFields("EgeNamePrevYear", egePrevYear);
-                        wd.SetFields("EgeNameCurYear", egeCurYear);
-
-                        int j = 1;
-
-                        using (PriemEntities ctx = new PriemEntities())
+                        try
                         {
-                            var lst = (from olympiads in ctx.Olympiads
-                                       join olympValue in ctx.OlympValue on olympiads.OlympValueId equals olympValue.Id into olympValue2
-                                       from olympValue in olympValue2.DefaultIfEmpty()
-                                       join olympSubject in ctx.OlympSubject on olympiads.OlympSubjectId equals olympSubject.Id into olympSubject2
-                                       from olympSubject in olympSubject2.DefaultIfEmpty()
-                                       join olympType in ctx.OlympType on olympiads.OlympTypeId equals olympType.Id into eolympType2
-                                       from olympType in eolympType2.DefaultIfEmpty()
-                                       where olympiads.AbiturientId == abitId
-                                       select new
-                                       {
-                                           Id = olympiads.Id,
-                                           Тип = olympType.Name,
-                                           Предмет = olympSubject.Name,
-                                           OlympValueId = olympValue.Id,
-                                           Степень = olympValue.Name
-                                       }).ToList().Distinct();
+                            fileS = new FileStream(string.Format(savePath), FileMode.Create);
+                        }
+                        catch
+                        {
+                            if (fileS != null)
+                                fileS.Dispose();
+                            WinFormsServ.Error("Пожалуйста, закройте открытые файлы pdf");
+                            return;
+                        }
 
-                            foreach (var v in lst)
+                        PdfStamper pdfStm = new PdfStamper(pdfRd, fileS);
+                        AcroFields acrFlds = pdfStm.AcroFields;
+
+                        acrFlds.SetField("Faculty", abit.FacultyName);
+                        acrFlds.SetField("Num", abit.PersonNum + @"\" + abit.RegNum);
+                        acrFlds.SetField("Profession", "(" + abit.LicenseProgramCode + ") " + abit.LicenseProgramName + ", " + abit.ObrazProgramName);
+                        acrFlds.SetField("Specialization", abit.ProfileName);
+                        acrFlds.SetField("Citizen", person.NationalityName);
+                        acrFlds.SetField("Phone", person.Phone + "; " + person.Mobiles);
+                        acrFlds.SetField("Email", person.Email);
+
+                        acrFlds.SetField("Surname", person.Surname);
+                        acrFlds.SetField("Name", person.Name);
+                        acrFlds.SetField("SecondName", person.SecondName);
+
+                        acrFlds.SetField("chbStudyForm" + abit.StudyFormId, "1");
+                        acrFlds.SetField("chbStudyBasis" + abit.StudyBasisId, "1");
+                        acrFlds.SetField("Comp" + abit.CompetitionId, "1");
+
+                        if (MainClass.dbType != PriemType.PriemMag)
+                        {
+                            string sPrevYear = DateTime.Now.AddYears(-1).Year.ToString();
+                            string sCurrYear = DateTime.Now.Year.ToString();
+                            string egePrevYear = context.EgeCertificate.Where(x => x.PersonId == person.Id && x.Year == sPrevYear).Select(x => x.Number).FirstOrDefault();
+                            string egeCurYear = context.EgeCertificate.Where(x => x.PersonId == person.Id && x.Year == sCurrYear).Select(x => x.Number).FirstOrDefault();
+
+                            acrFlds.SetField("EgeNamePrevYear", egePrevYear);
+                            acrFlds.SetField("EgeNameCurYear", egeCurYear);
+
+                            int j = 1;
+
+                            using (PriemEntities ctx = new PriemEntities())
                             {
-                                wd.SetFields("Level" + j, v.Тип);
-                                wd.SetFields("Value" + j, v.Степень);
-                                wd.SetFields("Subject" + j, v.Предмет);
-                                j++;
+                                var lst = (from olympiads in ctx.Olympiads
+                                           join olympValue in ctx.OlympValue on olympiads.OlympValueId equals olympValue.Id into olympValue2
+                                           from olympValue in olympValue2.DefaultIfEmpty()
+                                           join olympSubject in ctx.OlympSubject on olympiads.OlympSubjectId equals olympSubject.Id into olympSubject2
+                                           from olympSubject in olympSubject2.DefaultIfEmpty()
+                                           join olympLevel in ctx.OlympLevel on olympiads.OlympLevelId equals olympLevel.Id into olympLevel2
+                                           from olympLevel in olympLevel2.DefaultIfEmpty()
+                                           where olympiads.PersonId == abit.PersonId
+                                           select new
+                                           {
+                                               Id = olympiads.Id,
+                                               Lvl = olympLevel.PrintNameShort,
+                                               Предмет = olympSubject.PrintNameShort,
+                                               Степень = olympValue.PrintNameShort
+                                           }).ToList().Distinct();
+
+                                foreach (var v in lst)
+                                {
+                                    acrFlds.SetField("Level" + j, v.Lvl);
+                                    acrFlds.SetField("Value" + j, v.Степень);
+                                    acrFlds.SetField("Subject" + j, v.Предмет);
+                                    j++;
+                                }
                             }
                         }
-                    }
-                    else
-                        if (currEduc.DiplomSeries != "" || currEduc.DiplomNum != "")
-                            wd.SetFields("DocEduc", string.Format("диплом серия {0} № {1}", currEduc.DiplomSeries, currEduc.DiplomNum));
+                        else if (currEduc.DiplomSeries != "" || currEduc.DiplomNum != "")
+                            acrFlds.SetField("DocEduc", string.Format("диплом серия {0} № {1}", currEduc.DiplomSeries, currEduc.DiplomNum));
 
-                    if (forPrint)
-                    {
-                        wd.Print();
-                        wd.Close();
+
+                        pdfStm.FormFlattening = true;
+                        pdfStm.Close();
+                        pdfRd.Close();
+
+                        fileS.Close();
+
+                        Process pr = new Process();
+                        if (forPrint)
+                        {
+                            pr.StartInfo.Verb = "Print";
+                            pr.StartInfo.FileName = string.Format(savePath);
+                            pr.Start();
+                        }
+                        else
+                        {
+                            pr.StartInfo.Verb = "Open";
+                            pr.StartInfo.FileName = string.Format(savePath);
+                            pr.Start();
+                        }
                     }
+
                 }
             }
             catch (WordException we)
@@ -560,101 +663,101 @@ namespace PriemLib
                 WinFormsServ.Error(exc);
             }
         }
-        public static void PrintStikerAll(Guid? personId, Guid? abitId, bool forPrint)
-        {
-            string dotName;
+        //public static void PrintStikerAll(Guid? personId, Guid? abitId, bool forPrint)
+        //{
+        //    string dotName;
 
-            if (MainClass.dbType == PriemType.PriemMag)
-                dotName = "StikerAllMag";
-            else
-                dotName = "StikerAll";
+        //    if (MainClass.dbType == PriemType.PriemMag)
+        //        dotName = "StikerAllMag";
+        //    else
+        //        dotName = "StikerAll";
 
-            try
-            {
-                using (PriemEntities context = new PriemEntities())
-                {
-                    var person = context.extPerson.Where(x => x.Id == personId).First();
-                    var currEduc = context.extPerson_EducationInfo_Current.Where(x => x.PersonId == personId).FirstOrDefault();
+        //    try
+        //    {
+        //        using (PriemEntities context = new PriemEntities())
+        //        {
+        //            var person = context.extPerson.Where(x => x.Id == personId).First();
+        //            var currEduc = context.extPerson_EducationInfo_Current.Where(x => x.PersonId == personId).FirstOrDefault();
 
-                    WordDoc wd = new WordDoc(string.Format(@"{0}\{1}.dot", MainClass.dirTemplates, dotName), !forPrint);
+        //            WordDoc wd = new WordDoc(string.Format(@"{0}\{1}.dot", MainClass.dirTemplates, dotName), !forPrint);
 
-                    wd.SetFields("Num", context.extAbit.Where(x => x.PersonId == person.Id).Select(x => x.PersonNum).First());
-                    wd.SetFields("Surname", person.Surname);
-                    wd.SetFields("Name", person.Name);
-                    wd.SetFields("SecondName", person.SecondName);
-                    wd.SetFields("Citizen", person.NationalityName);
-                    wd.SetFields("Phone", person.Phone + "; " + person.Mobiles);
-                    wd.SetFields("Email", person.Email);
+        //            wd.SetFields("Num", context.extAbit.Where(x => x.PersonId == person.Id).Select(x => x.PersonNum).First());
+        //            wd.SetFields("Surname", person.Surname);
+        //            wd.SetFields("Name", person.Name);
+        //            wd.SetFields("SecondName", person.SecondName);
+        //            wd.SetFields("Citizen", person.NationalityName);
+        //            wd.SetFields("Phone", person.Phone + "; " + person.Mobiles);
+        //            wd.SetFields("Email", person.Email);
 
-                    wd.Shapes["Comp1"].Visible = false;
-                    wd.Shapes["Comp2"].Visible = false;
-                    wd.Shapes["Comp3"].Visible = false;
-                    wd.Shapes["Comp4"].Visible = false;
-                    wd.Shapes["Comp5"].Visible = false;
-                    wd.Shapes["Comp6"].Visible = false;
+        //            wd.Shapes["Comp1"].Visible = false;
+        //            wd.Shapes["Comp2"].Visible = false;
+        //            wd.Shapes["Comp3"].Visible = false;
+        //            wd.Shapes["Comp4"].Visible = false;
+        //            wd.Shapes["Comp5"].Visible = false;
+        //            wd.Shapes["Comp6"].Visible = false;
 
-                    wd.Shapes["HasAssignToHostel"].Visible = person.HasAssignToHostel;
+        //            wd.Shapes["HasAssignToHostel"].Visible = person.HasAssignToHostel;
 
-                    if (MainClass.dbType != PriemType.PriemMag)
-                    {
-                        string sPrevYear = DateTime.Now.AddYears(-1).Year.ToString();
-                        string sCurrYear = DateTime.Now.Year.ToString();
-                        string egePrevYear = context.EgeCertificate.Where(x => x.PersonId == person.Id && x.Year == sPrevYear).Select(x => x.Number).FirstOrDefault();
-                        string egeCurYear = context.EgeCertificate.Where(x => x.PersonId == person.Id && x.Year == sCurrYear).Select(x => x.Number).FirstOrDefault();
+        //            if (MainClass.dbType != PriemType.PriemMag)
+        //            {
+        //                string sPrevYear = DateTime.Now.AddYears(-1).Year.ToString();
+        //                string sCurrYear = DateTime.Now.Year.ToString();
+        //                string egePrevYear = context.EgeCertificate.Where(x => x.PersonId == person.Id && x.Year == sPrevYear).Select(x => x.Number).FirstOrDefault();
+        //                string egeCurYear = context.EgeCertificate.Where(x => x.PersonId == person.Id && x.Year == sCurrYear).Select(x => x.Number).FirstOrDefault();
 
-                        wd.SetFields("EgeNamePrevYear", egePrevYear);
-                        wd.SetFields("EgeNameCurYear", egeCurYear);
+        //                wd.SetFields("EgeNamePrevYear", egePrevYear);
+        //                wd.SetFields("EgeNameCurYear", egeCurYear);
 
-                        int j = 1;
+        //                int j = 1;
 
-                        using (PriemEntities ctx = new PriemEntities())
-                        {
-                            var lst = (from olympiads in ctx.Olympiads
-                                       join olympValue in ctx.OlympValue on olympiads.OlympValueId equals olympValue.Id into olympValue2
-                                       from olympValue in olympValue2.DefaultIfEmpty()
-                                       join olympSubject in ctx.OlympSubject on olympiads.OlympSubjectId equals olympSubject.Id into olympSubject2
-                                       from olympSubject in olympSubject2.DefaultIfEmpty()
-                                       join olympType in ctx.OlympType on olympiads.OlympTypeId equals olympType.Id into eolympType2
-                                       from olympType in eolympType2.DefaultIfEmpty()
-                                       where olympiads.AbiturientId == abitId
-                                       select new
-                                       {
-                                           Id = olympiads.Id,
-                                           Тип = olympType.Name,
-                                           Предмет = olympSubject.Name,
-                                           OlympValueId = olympValue.Id,
-                                           Степень = olympValue.Name
-                                       }).ToList().Distinct();
+        //                using (PriemEntities ctx = new PriemEntities())
+        //                {
+        //                    var lst = (from olympiads in ctx.Olympiads
+        //                               join olympValue in ctx.OlympValue on olympiads.OlympValueId equals olympValue.Id into olympValue2
+        //                               from olympValue in olympValue2.DefaultIfEmpty()
+        //                               join olympSubject in ctx.OlympSubject on olympiads.OlympSubjectId equals olympSubject.Id into olympSubject2
+        //                               from olympSubject in olympSubject2.DefaultIfEmpty()
+        //                               join olympType in ctx.OlympType on olympiads.OlympTypeId equals olympType.Id into eolympType2
+        //                               from olympType in eolympType2.DefaultIfEmpty()
+        //                               where olympiads.AbiturientId == abitId
+        //                               select new
+        //                               {
+        //                                   Id = olympiads.Id,
+        //                                   Тип = olympType.Name,
+        //                                   Предмет = olympSubject.Name,
+        //                                   OlympValueId = olympValue.Id,
+        //                                   Степень = olympValue.Name
+        //                               }).ToList().Distinct();
 
-                            foreach (var v in lst)
-                            {
-                                wd.SetFields("Level" + j, v.Тип);
-                                wd.SetFields("Value" + j, v.Степень);
-                                wd.SetFields("Subject" + j, v.Предмет);
-                                j++;
-                            }
-                        }
-                    }
-                    else
-                        if (currEduc != null && (currEduc.DiplomSeries != "" || currEduc.DiplomNum != ""))
-                            wd.SetFields("DocEduc", string.Format("диплом серия {0} № {1}", currEduc.DiplomSeries, currEduc.DiplomNum));
+        //                    foreach (var v in lst)
+        //                    {
+        //                        wd.SetFields("Level" + j, v.Тип);
+        //                        wd.SetFields("Value" + j, v.Степень);
+        //                        wd.SetFields("Subject" + j, v.Предмет);
+        //                        j++;
+        //                    }
+        //                }
+        //            }
+        //            else
+        //                if (currEduc != null && (currEduc.DiplomSeries != "" || currEduc.DiplomNum != ""))
+        //                    wd.SetFields("DocEduc", string.Format("диплом серия {0} № {1}", currEduc.DiplomSeries, currEduc.DiplomNum));
 
-                    if (forPrint)
-                    {
-                        wd.Print();
-                        wd.Close();
-                    }
-                }
-            }
-            catch (WordException we)
-            {
-                WinFormsServ.Error(we);
-            }
-            catch (Exception exc)
-            {
-                WinFormsServ.Error(exc);
-            }
-        }
+        //            if (forPrint)
+        //            {
+        //                wd.Print();
+        //                wd.Close();
+        //            }
+        //        }
+        //    }
+        //    catch (WordException we)
+        //    {
+        //        WinFormsServ.Error(we);
+        //    }
+        //    catch (Exception exc)
+        //    {
+        //        WinFormsServ.Error(exc);
+        //    }
+        //}
 
         public static void PrintApplication(bool forPrint, string savePath, Guid? PersonId)
         {

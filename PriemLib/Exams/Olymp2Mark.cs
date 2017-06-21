@@ -451,7 +451,7 @@ namespace PriemLib
                         OlympValueName as Степень, ed.extExamInEntry.Id AS ExamInEntryId 
                         FROM ed.qAbiturient 
                         LEFT JOIN ed.extPerson as extPersonTable ON qAbiturient.PersonId = extPersonTable.Id 
-                        INNER JOIN ed.extOlympiads ON extOlympiads.AbiturientId = qAbiturient.Id 
+                        INNER JOIN ed.extOlympiads ON extOlympiads.PersonId = qAbiturient.PersonId
                         LEFT JOIN ed.Competition ON Competition.Id = qAbiturient.CompetitionId 
                         INNER JOIN ed.extExamInEntry ON qAbiturient.EntryId = extExamInEntry.EntryId ";
 

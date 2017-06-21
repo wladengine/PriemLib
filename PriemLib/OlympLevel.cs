@@ -28,6 +28,7 @@ namespace PriemLib
         public bool IsOpen { get; set; }
         public string Holder { get; set; }
         public int FISID { get; set; }
+        public string PrintNameShort { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OlympBook> OlympBook { get; set; }

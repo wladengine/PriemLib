@@ -28,6 +28,7 @@ namespace PriemLib
         public string Acronym { get; set; }
         public bool IsOpen { get; set; }
         public string Holder { get; set; }
+        public string PrintNameShort { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Olympiads> Olympiads { get; set; }

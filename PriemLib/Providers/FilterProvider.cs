@@ -412,12 +412,12 @@ namespace PriemLib
             lst.Add(new FilterItem("Статус ФБС", FilterType.Multi, "(SELECT FBSStatusId FROM ed.extFBSStatus WHERE ed.extFBSStatus.PersonId = ed.extPerson.Id)", "ed.extPerson", "SELECT Id, Name FROM ed.FBSStatus WHERE Id <> 3"));
 
             //олимпиады
-            lst.Add(new FilterItem("Международная олимпиада", FilterType.Bool, " EXISTS (SELECT * FROM ed.Olympiads WHERE ed.Olympiads.AbiturientId = ed.qAbiturient.Id AND ed.Olympiads.OlympTypeId=1 ) ", "ed.qAbiturient"));
-            lst.Add(new FilterItem("Всероссийская олимпиада", FilterType.Bool, " EXISTS (SELECT * FROM ed.Olympiads WHERE ed.Olympiads.AbiturientId = ed.qAbiturient.Id AND ed.Olympiads.OlympTypeId=2 ) ", "ed.qAbiturient"));
-            lst.Add(new FilterItem("Олимпиада СПбГУ", FilterType.Bool, " EXISTS (SELECT * FROM ed.Olympiads WHERE ed.Olympiads.AbiturientId = ed.qAbiturient.Id AND ed.Olympiads.OlympTypeId=3 ) ", "ed.qAbiturient"));
-            lst.Add(new FilterItem("Другие олимпиады школьников", FilterType.Bool, " EXISTS (SELECT * FROM ed.Olympiads WHERE ed.Olympiads.AbiturientId = ed.qAbiturient.Id AND ed.Olympiads.OlympTypeId=4 ) ", "ed.qAbiturient"));
+            lst.Add(new FilterItem("Международная олимпиада", FilterType.Bool, " EXISTS (SELECT * FROM ed.Olympiads WHERE Olympiads.PersonId = qAbiturient.PersonId AND Olympiads.OlympTypeId=1 ) ", "ed.qAbiturient"));
+            lst.Add(new FilterItem("Всероссийская олимпиада", FilterType.Bool, " EXISTS (SELECT * FROM ed.Olympiads WHERE Olympiads.PersonId = qAbiturient.PersonId AND Olympiads.OlympTypeId=2 ) ", "ed.qAbiturient"));
+            lst.Add(new FilterItem("Олимпиада СПбГУ", FilterType.Bool, " EXISTS (SELECT * FROM ed.Olympiads WHERE Olympiads.AbiturientId = qAbiturient.PersonId AND Olympiads.OlympTypeId=3 ) ", "ed.qAbiturient"));
+            lst.Add(new FilterItem("Другие олимпиады школьников", FilterType.Bool, " EXISTS (SELECT * FROM ed.Olympiads WHERE Olympiads.PersonId = qAbiturient.PersonId AND Olympiads.OlympTypeId=4 ) ", "ed.qAbiturient"));
 
-            lst.Add(new FilterItem("Степень диплома олимпиады", FilterType.Multi, "(SELECT MAX(OlympValueId) FROM ed.Olympiads WHERE ed.Olympiads.AbiturientId = ed.qAbiturient.Id)", "ed.qAbiturient", " SELECT Id, Name FROM ed.OlympValue "));
+            lst.Add(new FilterItem("Степень диплома олимпиады", FilterType.Multi, "(SELECT MAX(OlympValueId) FROM ed.Olympiads WHERE Olympiads.PersonId = qAbiturient.PersonId)", "ed.qAbiturient", " SELECT Id, Name FROM ed.OlympValue "));
 
             //ЕГЭ
             lst.Add(new FilterItem("Номер свидетельства ЕГЭ 2011 года", FilterType.FromTo, " (SELECT Top(1) ed.EgeCertificate.Number FROM ed.EgeCertificate WHERE ed.EgeCertificate.PersonId = ed.extPerson.Id AND ed.EgeCertificate.Year = 2011)", "ed.extPerson"));
@@ -441,8 +441,8 @@ namespace PriemLib
             //инд достижения
             lst.Add(new FilterItem("Инд.достижения: Аттестат с отличием", FilterType.Bool, " EXISTS (SELECT * FROM ed.PersonAchievement PA WHERE PA.PersonId = extPerson.Id AND PA.AchievementTypeId = 9)", "ed.extPerson"));
             lst.Add(new FilterItem("Инд.достижения: ГТО", FilterType.Bool, " EXISTS (SELECT * FROM ed.PersonAchievement PA WHERE PA.PersonId = extPerson.Id AND PA.AchievementTypeId = 8)", "ed.extPerson"));
-            lst.Add(new FilterItem("Инд.достижения: Победитель рег. этапа Всеросс", FilterType.Bool, " EXISTS (SELECT * FROM ed.Olympiads OL WHERE OL.AbiturientId = qAbiturient.Id AND OL.OlympTypeId = 7 AND OL.OlympValueId = 6)", "ed.qAbiturient"));
-            lst.Add(new FilterItem("Инд.достижения: Призёр рег. этапа Всеросс", FilterType.Bool, " EXISTS (SELECT * FROM ed.Olympiads OL WHERE OL.AbiturientId = qAbiturient.Id AND OL.OlympTypeId = 7 AND OL.OlympValueId IN (5, 7))", "ed.qAbiturient"));
+            lst.Add(new FilterItem("Инд.достижения: Победитель рег. этапа Всеросс", FilterType.Bool, " EXISTS (SELECT * FROM ed.Olympiads OL WHERE OL.PersonId = qAbiturient.PersonId AND OL.OlympTypeId = 7 AND OL.OlympValueId = 6)", "ed.qAbiturient"));
+            lst.Add(new FilterItem("Инд.достижения: Призёр рег. этапа Всеросс", FilterType.Bool, " EXISTS (SELECT * FROM ed.Olympiads OL WHERE OL.PersonId = qAbiturient.PersonId AND OL.OlympTypeId = 7 AND OL.OlympValueId IN (5, 7))", "ed.qAbiturient"));
             lst.Add(new FilterItem("Инд.достижения: Прочие конкурсы", FilterType.Bool, " EXISTS (SELECT * FROM ed.PersonAchievement PA WHERE PA.PersonId = extPerson.Id AND PA.AchievementTypeId = 11)", "ed.extPerson"));
             lst.Add(new FilterItem("Инд.достижения: Диплом СПО с отличием", FilterType.Bool, " EXISTS (SELECT * FROM ed.PersonAchievement PA WHERE PA.PersonId = extPerson.Id AND PA.AchievementTypeId = 16)", "ed.extPerson"));
             lst.Add(new FilterItem("Инд.достижения: Сумма баллов", FilterType.FromTo, " (SELECT Top(1) [AdditionalMarksSum] FROM ed.extAbitAdditionalMarksSum WHERE extAbitAdditionalMarksSum.AbiturientId = qAbiturient.Id)", "ed.qAbiturient"));
@@ -528,9 +528,9 @@ namespace PriemLib
             lst.Add(new FilterItem("Профиль", FilterType.Multi, "ed.qAbiturient.ProfileId", "ed.qAbiturient", " SELECT DISTINCT ed.qProfile.Id, ed.qProfile.Name AS Name FROM ed.qProfile "));
 
             //олимпиады
-            lst.Add(new FilterItem("Студенческая олимпиада", FilterType.Bool, " EXISTS (SELECT * FROM ed.Olympiads WHERE ed.Olympiads.AbiturientId = ed.qAbiturient.Id AND ed.Olympiads.OlympTypeId=5 ) ", "ed.qAbiturient"));
-            lst.Add(new FilterItem("Прочие инт. достижения", FilterType.Bool, " EXISTS (SELECT * FROM ed.Olympiads WHERE ed.Olympiads.AbiturientId = ed.qAbiturient.Id AND ed.Olympiads.OlympTypeId=6 ) ", "ed.qAbiturient"));
-            lst.Add(new FilterItem("Степень диплома", FilterType.Multi, "(SELECT MAX(OlympValueId) FROM ed.Olympiads WHERE ed.Olympiads.AbiturientId = ed.qAbiturient.Id)", "ed.qAbiturient", " SELECT Id, Name FROM ed.OlympValue "));
+            lst.Add(new FilterItem("Студенческая олимпиада", FilterType.Bool, " EXISTS (SELECT * FROM ed.Olympiads WHERE Olympiads.PersonId = qAbiturient.PersonId AND Olympiads.OlympTypeId=5 ) ", "ed.qAbiturient"));
+            lst.Add(new FilterItem("Прочие инт. достижения", FilterType.Bool, " EXISTS (SELECT * FROM ed.Olympiads WHERE Olympiads.PersonId = qAbiturient.PersonId AND Olympiads.OlympTypeId=6 ) ", "ed.qAbiturient"));
+            lst.Add(new FilterItem("Степень диплома", FilterType.Multi, "(SELECT MAX(OlympValueId) FROM ed.Olympiads WHERE Olympiads.PersonId = qAbiturient.PersonId)", "ed.qAbiturient", " SELECT Id, Name FROM ed.OlympValue "));
 
             return lst;
         }
@@ -831,10 +831,10 @@ WHERE ed.Abiturient.BackDoc = 0 AND ed.Abiturient.PersonId = ed.extPerson.Id)", 
             //lst.Add(new FilterItem("Статус ФБС", FilterType.Multi, "(SELECT FBSStatusId FROM ed.extFBSStatus WHERE ed.extFBSStatus.PersonId = ed.extPerson.Id)", "ed.extPerson", "SELECT Id, Name FROM ed.FBSStatus WHERE Id <> 3"));
 
             //олимпиады
-            lst.Add(new FilterItem("Международная олимпиада", FilterType.Bool, " EXISTS (SELECT * FROM ed.Olympiads WHERE ed.Olympiads.AbiturientId = ed.qAbiturient.Id AND ed.Olympiads.OlympTypeId=1 ) ", "ed.qAbiturient"));
-            lst.Add(new FilterItem("Всероссийская олимпиада", FilterType.Bool, " EXISTS (SELECT * FROM ed.Olympiads WHERE ed.Olympiads.AbiturientId = ed.qAbiturient.Id AND ed.Olympiads.OlympTypeId=2 ) ", "ed.qAbiturient"));
-            lst.Add(new FilterItem("Олимпиада СПбГУ", FilterType.Bool, " EXISTS (SELECT * FROM ed.Olympiads WHERE ed.Olympiads.AbiturientId = ed.qAbiturient.Id AND ed.Olympiads.OlympTypeId=3 ) ", "ed.qAbiturient"));
-            lst.Add(new FilterItem("Другие олимпиады школьников", FilterType.Bool, " EXISTS (SELECT * FROM ed.Olympiads WHERE ed.Olympiads.AbiturientId = ed.qAbiturient.Id AND ed.Olympiads.OlympTypeId=4 ) ", "ed.qAbiturient"));
+            lst.Add(new FilterItem("Международная олимпиада", FilterType.Bool, " EXISTS (SELECT * FROM ed.Olympiads WHERE Olympiads.PersonId = qAbiturient.PersonId AND Olympiads.OlympTypeId=1 ) ", "ed.qAbiturient"));
+            lst.Add(new FilterItem("Всероссийская олимпиада", FilterType.Bool, " EXISTS (SELECT * FROM ed.Olympiads WHERE Olympiads.PersonId = qAbiturient.PersonId AND Olympiads.OlympTypeId=2 ) ", "ed.qAbiturient"));
+            lst.Add(new FilterItem("Олимпиада СПбГУ", FilterType.Bool, " EXISTS (SELECT * FROM ed.Olympiads WHERE Olympiads.PersonId = qAbiturient.PersonId AND Olympiads.OlympTypeId=3 ) ", "ed.qAbiturient"));
+            lst.Add(new FilterItem("Другие олимпиады школьников", FilterType.Bool, " EXISTS (SELECT * FROM ed.Olympiads WHERE Olympiads.PersonId = qAbiturient.PersonId AND Olympiads.OlympTypeId=4 ) ", "ed.qAbiturient"));
 
             lst.Add(new FilterItem("Степень диплома олимпиады", FilterType.Multi, "(SELECT MAX(OlympValueId) FROM ed.Olympiads WHERE ed.Olympiads.AbiturientId = ed.qAbiturient.Id)", "ed.qAbiturient", " SELECT Id, Name FROM ed.OlympValue "));
 
@@ -856,8 +856,8 @@ WHERE ed.Abiturient.BackDoc = 0 AND ed.Abiturient.PersonId = ed.extPerson.Id)", 
             //инд достижения
             lst.Add(new FilterItem("Инд.достижения: Аттестат с отличием", FilterType.Bool, " EXISTS (SELECT * FROM ed.PersonAchievement PA WHERE PA.PersonId = extPerson.Id AND PA.AchievementTypeId = 9)", "ed.extPerson"));
             lst.Add(new FilterItem("Инд.достижения: Волонтёр", FilterType.Bool, " EXISTS (SELECT * FROM ed.PersonAchievement PA WHERE PA.PersonId = extPerson.Id AND PA.AchievementTypeId = 10)", "ed.extPerson"));
-            lst.Add(new FilterItem("Инд.достижения: Победитель рег. этапа Всеросс", FilterType.Bool, " EXISTS (SELECT * FROM ed.Olympiads OL WHERE OL.AbiturientId = qAbiturient.Id AND OL.OlympTypeId = 7 AND OL.OlympValueId = 6)", "ed.qAbiturient"));
-            lst.Add(new FilterItem("Инд.достижения: Призёр рег. этапа Всеросс", FilterType.Bool, " EXISTS (SELECT * FROM ed.Olympiads OL WHERE OL.AbiturientId = qAbiturient.Id AND OL.OlympTypeId = 7 AND OL.OlympValueId IN (5, 7))", "ed.qAbiturient"));
+            lst.Add(new FilterItem("Инд.достижения: Победитель рег. этапа Всеросс", FilterType.Bool, " EXISTS (SELECT * FROM ed.Olympiads OL WHERE OL.PersonId = qAbiturient.PersonId AND OL.OlympTypeId = 7 AND OL.OlympValueId = 6)", "ed.qAbiturient"));
+            lst.Add(new FilterItem("Инд.достижения: Призёр рег. этапа Всеросс", FilterType.Bool, " EXISTS (SELECT * FROM ed.Olympiads OL WHERE OL.PersonId = qAbiturient.PersonId AND OL.OlympTypeId = 7 AND OL.OlympValueId IN (5, 7))", "ed.qAbiturient"));
             lst.Add(new FilterItem("Инд.достижения: Прочие конкурсы", FilterType.Bool, " EXISTS (SELECT * FROM ed.PersonAchievement PA WHERE PA.PersonId = extPerson.Id AND PA.AchievementTypeId = 11)", "ed.extPerson"));
             lst.Add(new FilterItem("Инд.достижения: Сочинение (оценка \"зачёт\")", FilterType.Bool, " EXISTS (SELECT * FROM ed.PersonAchievement PA WHERE PA.PersonId = extPerson.Id AND PA.AchievementTypeId = 12)", "ed.extPerson"));
 

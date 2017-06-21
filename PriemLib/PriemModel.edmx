@@ -700,6 +700,7 @@
           <Property Name="IsOpen" Type="bit" Nullable="false" />
           <Property Name="Holder" Type="nvarchar" MaxLength="150" />
           <Property Name="FISID" Type="int" Nullable="false" />
+          <Property Name="PrintNameShort" Type="nvarchar" MaxLength="5" />
         </EntityType>
         <EntityType Name="OlympName">
           <Key>
@@ -764,6 +765,7 @@
           <Property Name="ExamId" Type="int" />
           <Property Name="IsInVseross" Type="bit" />
           <Property Name="SubjectID_FIS" Type="int" />
+          <Property Name="PrintNameShort" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="OlympSubjectToExam">
           <Key>
@@ -793,6 +795,7 @@
           <Property Name="Acronym" Type="nvarchar" MaxLength="50" />
           <Property Name="IsOpen" Type="bit" Nullable="false" />
           <Property Name="Holder" Type="nvarchar" MaxLength="150" />
+          <Property Name="PrintNameShort" Type="nvarchar" MaxLength="15" />
         </EntityType>
         <EntityType Name="OrderNumbers">
           <Key>
@@ -10759,6 +10762,7 @@
           <Property Name="FISID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="OlympResultToAdditionalMark" Relationship="Priem2012Model.FK_OlympResultToAdditionalMark_OlympLevel" FromRole="OlympLevel" ToRole="OlympResultToAdditionalMark" />
           <NavigationProperty Name="OlympResultToCommonBenefit" Relationship="Priem2012Model.FK_OlympResultToCommonBenefit_OlympLevel" FromRole="OlympLevel" ToRole="OlympResultToCommonBenefit" />
+          <Property Name="PrintNameShort" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="OlympValue">
           <Key>
@@ -10773,6 +10777,7 @@
           <Property Type="String" Name="Holder" MaxLength="150" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="OlympResultToAdditionalMark" Relationship="Priem2012Model.FK_OlympResultToAdditionalMark_OlympValue" FromRole="OlympValue" ToRole="OlympResultToAdditionalMark" />
           <NavigationProperty Name="OlympResultToCommonBenefit" Relationship="Priem2012Model.FK_OlympResultToCommonBenefit_OlympValue" FromRole="OlympValue" ToRole="OlympResultToCommonBenefit" />
+          <Property Name="PrintNameShort" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="PaidData">
           <Key>
@@ -14798,6 +14803,7 @@
           <NavigationProperty Name="OlympBook" Relationship="Priem2012Model.fk_OlympBook_OlympSubject" FromRole="OlympSubject" ToRole="OlympBook" />
           <NavigationProperty Name="Olympiads" Relationship="Priem2012Model.fk_Olympiads_OlympSubject" FromRole="OlympSubject" ToRole="Olympiads" />
           <NavigationProperty Name="OlympSubjectToExam" Relationship="Priem2012Model.FK_OlympSubjectToExam_OlympSubject" FromRole="OlympSubject" ToRole="OlympSubjectToExam" />
+          <Property Name="PrintNameShort" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="OlympType">
           <Key>
@@ -15743,6 +15749,7 @@
           <EntitySetMapping Name="OlympLevel">
             <EntityTypeMapping TypeName="Priem2012Model.OlympLevel">
               <MappingFragment StoreEntitySet="OlympLevel">
+                <ScalarProperty Name="PrintNameShort" ColumnName="PrintNameShort" />
                 <ScalarProperty Name="FISID" ColumnName="FISID" />
                 <ScalarProperty Name="Holder" ColumnName="Holder" />
                 <ScalarProperty Name="IsOpen" ColumnName="IsOpen" />
@@ -15754,6 +15761,7 @@
           <EntitySetMapping Name="OlympValue">
             <EntityTypeMapping TypeName="Priem2012Model.OlympValue">
               <MappingFragment StoreEntitySet="OlympValue">
+                <ScalarProperty Name="PrintNameShort" ColumnName="PrintNameShort" />
                 <ScalarProperty Name="Holder" ColumnName="Holder" />
                 <ScalarProperty Name="IsOpen" ColumnName="IsOpen" />
                 <ScalarProperty Name="Acronym" ColumnName="Acronym" />
@@ -18330,6 +18338,7 @@
           <EntitySetMapping Name="OlympSubject">
             <EntityTypeMapping TypeName="Priem2012Model.OlympSubject">
               <MappingFragment StoreEntitySet="OlympSubject">
+                <ScalarProperty Name="PrintNameShort" ColumnName="PrintNameShort" />
                 <ScalarProperty Name="SubjectID_FIS" ColumnName="SubjectID_FIS" />
                 <ScalarProperty Name="IsInVseross" ColumnName="IsInVseross" />
                 <ScalarProperty Name="ExamId" ColumnName="ExamId" />
