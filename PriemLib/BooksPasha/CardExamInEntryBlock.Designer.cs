@@ -156,6 +156,8 @@
             // 
             // lbExams
             // 
+            this.lbExams.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lbExams.FormattingEnabled = true;
             this.lbExams.Location = new System.Drawing.Point(12, 77);
             this.lbExams.Name = "lbExams";
@@ -173,6 +175,7 @@
             // 
             // btnExamUnitAdd
             // 
+            this.btnExamUnitAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnExamUnitAdd.Location = new System.Drawing.Point(343, 77);
             this.btnExamUnitAdd.Name = "btnExamUnitAdd";
             this.btnExamUnitAdd.Size = new System.Drawing.Size(97, 23);
@@ -183,6 +186,7 @@
             // 
             // btnExamUnitDelete
             // 
+            this.btnExamUnitDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnExamUnitDelete.Location = new System.Drawing.Point(343, 106);
             this.btnExamUnitDelete.Name = "btnExamUnitDelete";
             this.btnExamUnitDelete.Size = new System.Drawing.Size(97, 23);

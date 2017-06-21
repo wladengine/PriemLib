@@ -95,7 +95,6 @@
             this.label11 = new System.Windows.Forms.Label();
             this.chbHasEntryConfirm = new System.Windows.Forms.CheckBox();
             this.gbPortfolio = new System.Windows.Forms.GroupBox();
-            this.chbHasPhilosophy = new System.Windows.Forms.CheckBox();
             this.chbHasEssay = new System.Windows.Forms.CheckBox();
             this.chbHasMotivationLetter = new System.Windows.Forms.CheckBox();
             this.btnDocInventory = new System.Windows.Forms.Button();
@@ -852,7 +851,6 @@
             // 
             // gbPortfolio
             // 
-            this.gbPortfolio.Controls.Add(this.chbHasPhilosophy);
             this.gbPortfolio.Controls.Add(this.chbHasEssay);
             this.gbPortfolio.Controls.Add(this.chbHasMotivationLetter);
             this.gbPortfolio.Location = new System.Drawing.Point(17, 220);
@@ -861,17 +859,6 @@
             this.gbPortfolio.TabIndex = 43;
             this.gbPortfolio.TabStop = false;
             this.gbPortfolio.Text = "Портфолио";
-            // 
-            // chbHasPhilosophy
-            // 
-            this.chbHasPhilosophy.AutoSize = true;
-            this.chbHasPhilosophy.Enabled = false;
-            this.chbHasPhilosophy.Location = new System.Drawing.Point(6, 65);
-            this.chbHasPhilosophy.Name = "chbHasPhilosophy";
-            this.chbHasPhilosophy.Size = new System.Drawing.Size(210, 17);
-            this.chbHasPhilosophy.TabIndex = 2;
-            this.chbHasPhilosophy.Text = "Прикреплён реферат по философии";
-            this.chbHasPhilosophy.UseVisualStyleBackColor = true;
             // 
             // chbHasEssay
             // 
@@ -1533,7 +1520,6 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox tbAdditionalAchievementsMark;
         private System.Windows.Forms.DataGridView dgvAdditionalAchievements;
-        private System.Windows.Forms.CheckBox chbHasPhilosophy;
         private System.Windows.Forms.Label lblBackDocByAdmissionHigh;
         private System.Windows.Forms.GroupBox gbEntryConfirm;
         private System.Windows.Forms.DateTimePicker dtpDateEntryConfirm;

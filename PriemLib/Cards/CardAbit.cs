@@ -331,15 +331,9 @@ namespace PriemLib
                     {
                         chbHasEssay.Checked = false;
                         chbHasMotivationLetter.Checked = false;
-                        chbHasPhilosophy.Checked = false;
 
                         GetHasMotivationLetter();
                         GetHasEssay();
-
-                        if (MainClass.dbType == PriemType.PriemAspirant)
-                        {
-                            GetHasPhilosophy();
-                        }
                     }
 
                     GetHasInnerPriorities(context);
@@ -526,23 +520,6 @@ namespace PriemLib
             });
 
             chbHasEssay.Checked = (cnt > 0);
-        }
-        private async void GetHasPhilosophy()
-        {
-            BDClassLib.SQLClass InetDB = new BDClassLib.SQLClass();
-            InetDB.OpenDatabase(MainClass.connStringOnline);
-            //ищем среди файлов, приложенных к конкретному конкурсу (т.е. по совпадению ApplicationBarcode) и из общих файлов (где есть PersonBarcode, а ApplicationBarcode NULL)
-            string query = "SELECT COUNT(*) FROM qAbitFiles_OnlyPhilosophy WHERE (ApplicationBarcode=@ApplicationBarcode OR (PersonBarcode=@PersonBarcode AND ApplicationBarcode IS NULL))";
-            int cnt = await Task.Run(() =>
-            {
-                return (int)InetDB.GetValue(query, new SortedList<string, object>() 
-                {
-                    { "@ApplicationBarcode", QueryServ.ToNullDB(abitBarcode) }, 
-                    { "@PersonBarcode", QueryServ.ToNullDB(persBarcode) }  
-                });
-            });
-
-            chbHasPhilosophy.Checked = (cnt > 0);
         }
 
         // возвращает, есть ли человек в протоколе о допуске
@@ -1370,11 +1347,15 @@ namespace PriemLib
             if (!GuidId.HasValue)
                 return;
 
+            bool bIsAG = MainClass.dbType == PriemType.PriemAG;
+            List<int> lstOlympLevels = new List<int> { 1, 2, 3, 4 };
+
             using (PriemEntities context = new PriemEntities())
             {
                 List<KeyValuePair<string, string>> lst =
                         ((from Ol in context.extOlympiadsAll
                           where Ol.PersonId == _personId
+                          && (bIsAG ? true : lstOlympLevels.Contains(Ol.OlympTypeId))
                           select new
                           {
                               Id = Ol.Id,

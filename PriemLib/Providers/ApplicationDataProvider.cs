@@ -94,16 +94,16 @@ namespace PriemLib
                 {
                     if (PersonPriveleges.Where(x => x.Contains("сирота")).Count() > 0)
                     {
-                        lstDocType.Add(new List<int>() { 4 });
+                        lstDocType.Add(new List<int>() { 5 });
                     }
                     if (PersonPriveleges.Where(x => x.Contains("инвалид")).Count() > 0)
                     {
                         lstDocType.Add(new List<int>() { 1, 2 });
-                        lstDocType.Add(new List<int>() { 3 });
+                        //lstDocType.Add(new List<int>() { 3 });
                     }
                     if (PersonPriveleges.Where(x => x.Contains("сирота")).Count() == 0 && PersonPriveleges.Where(x => x.Contains("инвалид")).Count() == 0)
                     {
-                        lstDocType.Add(new List<int>() { 1, 2, 3, 4 });
+                        lstDocType.Add(new List<int>() { 1, 2, 3, 5 });
                     }
                 }
 

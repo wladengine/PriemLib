@@ -462,7 +462,7 @@ namespace PriemLib
                              Тип_конк = comp.Name,
                              Факультет = abit.FacultyAcr,
                              Направление = abit.LicenseProgramName,
-                             Образ_программа = (abit.IsForeign ? "(иностр) " : "") + abit.ObrazProgramCrypt + (abit.IsCrimea ? "(крым) " : "") + abit.ObrazProgramName,
+                             Образ_программа = (abit.IsForeign ? "(иностр) " : "") + abit.ObrazProgramCrypt + (abit.IsCrimea ? "(крым) " : "") + " " + abit.ObrazProgramName,
                              Профиль = abit.ProfileName,
                              Форма_обучения = abit.StudyBasisName,
                              Основа_обучения = abit.StudyFormName,
@@ -473,8 +473,6 @@ namespace PriemLib
                         (from abit in context.qAbitAll
                          join comp in context.Competition on abit.CompetitionId equals comp.Id
                          where !abit.BackDoc && abit.PersonId == GuidId
-                         //&& MainClass.lstStudyLevelGroupId.Contains(abit.StudyLevelGroupId)
-                         //&& (MainClass.dbType != PriemType.PriemForeigners ? abit.IsForeign == false : true)
                          orderby abit.Priority, abit.FacultyAcr, abit.LicenseProgramName
                          select new
                          {
@@ -483,7 +481,7 @@ namespace PriemLib
                              Тип_конк = comp.Name,
                              Факультет = abit.FacultyAcr,
                              Направление = abit.LicenseProgramName,
-                             Образ_программа = (abit.IsForeign ? "(иностр) " : "") + abit.ObrazProgramCrypt + (abit.IsCrimea ? "(крым) " : "") + abit.ObrazProgramName,
+                             Образ_программа = (abit.IsForeign ? "(иностр) " : "") + abit.ObrazProgramCrypt + (abit.IsCrimea ? "(крым)" : "") + " " + abit.ObrazProgramName,
                              Профиль = abit.ProfileName,
                              Форма_обучения = abit.StudyBasisName,
                              Основа_обучения = abit.StudyFormName,
