@@ -273,6 +273,15 @@ FROM ed.qEntry WHERE StudyLevelGroupId = {0} AND FacultyId = {1} ORDER BY Name",
  join ed.ExamInEntryBlockUnit on ExamInEntryBlock.Id = ExamInEntryBlockUnit.ExamInEntryBlockId
  WHERE ExamInEntryBlockUnit.ExamId = {0})", examId);
 
+            if (MainClass.dbType == PriemType.Priem && !isAdditional && examId.HasValue)
+            {
+                using (PriemEntities context = new PriemEntities())
+                {
+                    List<int> EgeExamNameId = context.EgeToExam.Where(x => x.ExamId == examId.Value).Select(x => x.EgeExamNameId).DefaultIfEmpty(0).ToList();
+                    flt_hasExam += string.Format(" AND qAbiturient.PersonId IN (SELECT PersonId FROM ed.PersonManualExams WHERE PersonManualExams.ExamId IN ({0})) ", Util.BuildStringWithCollection(EgeExamNameId));
+                }
+            }
+
             flt_where = string.Format(sQueryWhere, facultyId, iStudyLevelId.HasValue? iStudyLevelId : iStudyLevelGroupId) + flt_prof;
 
             if (studyBasisId != 2)

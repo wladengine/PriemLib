@@ -91,7 +91,7 @@ AND (StudyLevel.LevelGroupId IN ({0}) OR StudyLevel.LevelGroupId IS NULL) ",
             this.Width = 628;
             dgvAbiturients.Columns["PersonNum"].Width = 70;
             dgvAbiturients.Columns["FIO"].Width = 246;
-            dgvAbiturients.Columns["EducDocument"].Width += 10;
+            dgvAbiturients.Columns["EducDocument"].Width = 110;
 
             SetVisibleColumnsAndNameColumnsOrdered("PersonNum", "Ид_номер", 0);
             SetVisibleColumnsAndNameColumnsOrdered("FIO", "ФИО", 1);
