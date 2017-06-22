@@ -458,6 +458,7 @@ namespace PriemLib
                     var person = context.extPerson.Where(x => x.Id == abit.PersonId).First();
                     var currEduc = context.extPerson_EducationInfo_Current.Where(x => x.PersonId == abit.PersonId).FirstOrDefault();
 
+                    #region comment
                     //WordDoc wd = new WordDoc(string.Format(@"{0}\{1}.dot", MainClass.dirTemplates, dotName), !forPrint);
 
                     //wd.SetFields("Faculty", abit.FacultyName);
@@ -545,6 +546,7 @@ namespace PriemLib
                     //    wd.Print();
                     //    wd.Close();
                     //}
+#endregion
 
                     FileStream fileS = null;
                     string savePath = string.Format(@"{0}\{1}.pdf", MainClass.saveTempFolder, "Sticker_" + abit.Id.ToString());
@@ -574,8 +576,19 @@ namespace PriemLib
 
                         acrFlds.SetField("Faculty", abit.FacultyName);
                         acrFlds.SetField("Num", abit.PersonNum + @"\" + abit.RegNum);
+
                         acrFlds.SetField("Profession", "(" + abit.LicenseProgramCode + ") " + abit.LicenseProgramName + ", " + abit.ObrazProgramName);
                         acrFlds.SetField("Specialization", abit.ProfileName);
+
+                        string[] ProffsplitStr = GetSplittedStrings("(" + abit.LicenseProgramCode + ") " + abit.LicenseProgramName, 15, 20, 2);
+                        for (int i = 1; i <= 2; i++)
+                            acrFlds.SetField("Proffession" + i, ProffsplitStr[i - 1]);
+
+                       
+                        string[] SpecsplitStr = GetSplittedStrings(abit.ObrazProgramName, 15, 20, 2);
+                        for (int i = 1; i <= 2; i++)
+                            acrFlds.SetField("Specialization" + i, SpecsplitStr[i - 1]);
+
                         acrFlds.SetField("Citizen", person.NationalityName);
                         acrFlds.SetField("Phone", person.Phone + "; " + person.Mobiles);
                         acrFlds.SetField("Email", person.Email);
@@ -628,7 +641,11 @@ namespace PriemLib
                             }
                         }
                         else if (currEduc.DiplomSeries != "" || currEduc.DiplomNum != "")
-                            acrFlds.SetField("DocEduc", string.Format("диплом серия {0} № {1}", currEduc.DiplomSeries, currEduc.DiplomNum));
+                        {
+                            string[] DocEducsplitStr = GetSplittedStrings(string.Format("диплом серия {0} №{1}", currEduc.DiplomSeries, currEduc.DiplomNum), 15, 15, 2);
+                            for (int i = 1; i <= 2; i++)
+                                acrFlds.SetField("DocEduc" + i, DocEducsplitStr[i - 1]);
+                        }
 
 
                         pdfStm.FormFlattening = true;
