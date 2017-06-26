@@ -61,7 +61,8 @@ namespace PriemLib
 
         protected override void InitControls()
         {
-            InitFocusHandlers();
+            //не понятно, зачем это было надо, но без него работает явно лучше
+            //InitFocusHandlers();
 
             ExtraInit();
             FillCard();
@@ -101,10 +102,7 @@ namespace PriemLib
             if (MainClass.dbType == PriemType.PriemMag)
                 gbSecondType.Visible = false;
             else if (MainClass.dbType == PriemType.PriemAG)
-            {
                 chbIsForeign.Visible = false;
-                chbIsCrimea.Visible = false;
-            }
 
             try
             {
@@ -118,15 +116,7 @@ namespace PriemLib
                     ComboServ.FillCombo(cbLanguage, HelpClass.GetComboListByTable("ed.Language"), true, false);
                     ComboServ.FillCombo(cbCelCompetition, HelpClass.GetComboListByTable("ed.CelCompetition"), true, false);
 
-                    FillLicenseProgram();
-                    FillObrazProgram();
-                    FillProfile();
-                    FillFaculty();
-                    FillStudyForm();
-                    FillStudyBasis();
-                    FillCompetition();
-                   
-                    UpdateInnerPrioritiesAfterStudyBasis();
+                    FillCompetition(context);
 
                     cbOtherCompetition.Visible = false;
                     lblCompetitionAddInfo.Visible = false;
@@ -143,10 +133,8 @@ namespace PriemLib
                     chbChecked.Enabled = false;
                     chbNotEnabled.Checked = false;
                     dtDocInsertDate.Enabled = false;
-                    btnDocInventory.Visible = false;
 
                     btnDocs.Visible = true;
-                    //gbSecondType.Visible = false;
                     btnDocInventory.Visible = true;
 
                     if (MainClass.IsPasha())
@@ -171,7 +159,7 @@ namespace PriemLib
                     cbPrint.Items.Add("Выписка из приказа");
                     if (MainClass.RightsFacMain())
                         cbPrint.Items.Add("Экзам.лист");
-                    
+
                     cbPrint.SelectedIndex = 0;
                     btnPrint.Enabled = false;
                 }
@@ -202,13 +190,10 @@ namespace PriemLib
                         return;
                     }
 
-                    UpdateFIO();
+                    UpdateFIO(context);
                     persBarcode = context.Person.Where(x => x.Id == _personId).Select(x => x.Barcode).FirstOrDefault();
 
-                    qAbiturient abit = (from ab in context.qAbiturient
-                                        where ab.Id == GuidId
-                                        select ab).FirstOrDefault();
-
+                    var abit = context.qAbiturient.Where(x => x.Id == GuidId).FirstOrDefault();
                     if (abit == null)
                     {
                         WinFormsServ.Error("Не найдена запись в базе");
@@ -223,31 +208,20 @@ namespace PriemLib
                     IsReduced = abit.IsReduced;
                     IsParallel = abit.IsParallel;
                     IsForeign = abit.IsForeign;
-                    IsCrimea = abit.IsCrimea;
-
-                    FillLicenseProgram();
 
                     LicenseProgramId = abit.LicenseProgramId;
-                    FillObrazProgram();
-
                     ObrazProgramId = abit.ObrazProgramId;
-                    FillProfile();
-
                     ProfileId = abit.ProfileId;
-                    FillFaculty();
-
                     FacultyId = abit.FacultyId;
-                    FillStudyForm();
-
                     StudyFormId = abit.StudyFormId;
-                    FillStudyBasis();
-
                     StudyBasisId = abit.StudyBasisId;
-                    FillCompetition();
 
+                    UpdateEntryData(context, abit.EntryId);
+
+                    FillCompetition(context);
                     CompetitionId = abit.CompetitionId;
 
-                    UpdateBenefitOlympSource();
+                    UpdateBenefitOlympSource(context);
                     OlympiadId = abit.OlympiadId;
 
                     OtherCompetitionId = abit.OtherCompetitionId;
@@ -277,7 +251,7 @@ namespace PriemLib
                     }
                     else
                         dtpDateEntryConfirm.Enabled = true;
-                    
+
                     HasDisabledEntryConfirm = abit.HasDisabledEntryConfirm;
 
                     if (abit.HasDisabledEntryConfirm && abit.DateDisableEntryConfirm.HasValue)
@@ -316,16 +290,16 @@ namespace PriemLib
 
                     FillProtocols(context);
 
-                    FillExams();
-                    Sum = GetAbitSum(_Id);
+                    FillExams(context);
+                    Sum = GetAbitSum(context);
 
-                    FillAdditionalAchievements();
+                    FillAdditionalAchievements(context);
 
                     inEnableProtocol = GetInEnableProtocol(context);
                     inEntryView = GetInEntryView(context);
 
-                    context.Abiturient_UpdateIsViewed(GuidId);
-                    //MainClass.DataRefresh();
+                    if (!abit.IsViewed)
+                        context.Abiturient_UpdateIsViewed(GuidId);
 
                     if (MainClass.dbType != PriemType.Priem)
                     {
@@ -340,10 +314,8 @@ namespace PriemLib
 
                     if (InnerEntryInEntryId.HasValue)
                         InnerEntryInEntryId = abit.InnerEntryInEntryId;
-                    //if (ProfileInObrazProgramInEntryId.HasValue)
-                    //    ProfileInObrazProgramInEntryId = abit.ProfileInObrazProgramInEntryId;
 
-                    FillSelectedExams();
+                    FillSelectedExams(context);
                 }
             }
             catch (Exception ex)
@@ -352,56 +324,67 @@ namespace PriemLib
             }
         }
 
+        private void UpdateEntryData(Guid _EntryId)
+        {
+            using (PriemEntities context = new PriemEntities())
+            {
+                UpdateEntryData(context, _EntryId);
+            }
+        }
+        private void UpdateEntryData(PriemEntities context, Guid _EntryId)
+        {
+            extEntry ent = context.extEntry.Where(x => x.Id == _EntryId).FirstOrDefault();
+            if (ent != null)
+            {
+                tbLicenseProgram.Text = string.Format("({0}) {1}", ent.LicenseProgramCode, ent.LicenseProgramName);
+                tbObrazProgram.Text = string.Format("({0}) {1}", ent.ObrazProgramCrypt, ent.ObrazProgramName);
+                tbFaculty.Text = ent.FacultyName;
+                tbProfile.Text = ent.ProfileName;
+                tbStudyForm.Text = ent.StudyFormName;
+                tbStudyBasis.Text = ent.StudyBasisName;
+
+                this.EntryId = _EntryId;
+            }
+        }
+
         private void GetWhoSetHasOriginals()
         {
-            //var _who = context.qAbiturient_WhoSetHasOriginals.Where(x => x.Id == GuidId).FirstOrDefault();
-            //if (_who == null)
-            //    return;
-
             BackgroundWorker bw_whoSetOriginals = new BackgroundWorker();
-            bw_whoSetOriginals.DoWork += bw_whoSetOriginals_DoWork;
-            bw_whoSetOriginals.RunWorkerCompleted += bw_whoSetOriginals_RunWorkerCompleted;
+            bw_whoSetOriginals.DoWork += (sender, e) => {
+                Guid _Id = (Guid)e.Argument;
+                using (PriemEntities context = new PriemEntities())
+                {
+                    e.Result = context.qAbiturient_WhoSetHasOriginals.Where(x => x.Id == _Id).FirstOrDefault();
+                }
+            };
+            bw_whoSetOriginals.RunWorkerCompleted += (sender, e) =>
+            {
+                dynamic _who = e.Result;
+                if (_who == null)
+                    return;
+
+                string who = "", whoFac = "", whoDate = "";
+                try
+                {
+                    who = _who.UserId;
+                    whoFac = _who.FacultyName;
+                    whoDate = _who.ActionTime.ToShortDateString() + " " + _who.ActionTime.ToShortTimeString();
+                    who = MainClass.GetADUserName(who);
+                }
+                catch { lblHasOriginalsUser.Visible = false; }
+
+                if (!string.IsNullOrEmpty(who))
+                {
+                    lblHasOriginalsUser.Text = "Проставлено: " + who + " (" + whoDate + " " + whoFac + ")";
+                    lblHasOriginalsUser.Visible = true;
+                }
+            };
 
             bw_whoSetOriginals.RunWorkerAsync(GuidId);
         }
 
-        void bw_whoSetOriginals_DoWork(object sender, DoWorkEventArgs e)
-        {
-            Guid _Id = (Guid)e.Argument;
-            using (PriemEntities context = new PriemEntities())
-            {
-                e.Result = context.qAbiturient_WhoSetHasOriginals.Where(x => x.Id == _Id).FirstOrDefault();
-            }
-        }
-        void bw_whoSetOriginals_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            dynamic _who = e.Result;
-            if (_who == null)
-                return;
-
-            string who = "", whoFac = "", whoDate = "";
-            try
-            {
-                who = _who.UserId;
-                whoFac = _who.FacultyName;
-                whoDate = _who.ActionTime.ToShortDateString() + " " + _who.ActionTime.ToShortTimeString();
-                who = MainClass.GetADUserName(who);
-            }
-            catch { lblHasOriginalsUser.Visible = false; }
-
-            if (!string.IsNullOrEmpty(who))
-            {
-                lblHasOriginalsUser.Text = "Проставлено: " + who + " (" + whoDate + " " + whoFac + ")";
-                lblHasOriginalsUser.Visible = true;
-            }
-        }
-
         private void GetWhoSetBackDoc()
         {
-            //var _who = context.qAbiturient_WhoSetBackDoc.Where(x => x.Id == GuidId).FirstOrDefault();
-            //if (_who == null)
-            //    return;
-
             BackgroundWorker bw_whoBackDoc = new BackgroundWorker();
             bw_whoBackDoc.DoWork += bw_whoBackDoc_DoWork;
             bw_whoBackDoc.RunWorkerCompleted += bw_whoBackDoc_RunWorkerCompleted;
@@ -415,7 +398,7 @@ namespace PriemLib
                 e.Result = new qAbiturient_WhoSetBackDoc();
                 return;
             }
-            
+
             try
             {
                 Guid _Id = (Guid)e.Argument;
@@ -452,15 +435,12 @@ namespace PriemLib
             }
         }
 
-        private string GetAbitSum(string abitId)
+        private string GetAbitSum(PriemEntities context)
         {
-            if (string.IsNullOrEmpty(abitId))
+            if (!GuidId.HasValue)
                 return null;
 
-            using (PriemEntities context = new PriemEntities())
-            {
-                return context.extAbitMarksSum.Where(x => x.Id == GuidId).Select(x => x.TotalSum).DefaultIfEmpty(0).First().ToString();
-            }
+            return context.extAbitMarksSum.Where(x => x.Id == GuidId).Select(x => x.TotalSum).DefaultIfEmpty(0).First().ToString();
         }
 
         // если подал подлинники на одно заявления - то писать об этом
@@ -494,9 +474,9 @@ namespace PriemLib
             string query = "SELECT COUNT(*) FROM qAbitFiles_OnlyEssayMotivLetter WHERE (ApplicationBarcode=@ApplicationBarcode OR (PersonBarcode=@PersonBarcode AND ApplicationBarcode IS NULL)) AND FileTypeId=2";
             int cnt = await Task.Run(() =>
             {
-                return (int)InetDB.GetValue(query, new SortedList<string, object>() 
+                return (int)InetDB.GetValue(query, new SortedList<string, object>()
                 {
-                    { "@ApplicationBarcode", QueryServ.ToNullDB(abitBarcode) }, 
+                    { "@ApplicationBarcode", QueryServ.ToNullDB(abitBarcode) },
                     { "@PersonBarcode", QueryServ.ToNullDB(persBarcode) }
                 });
             });
@@ -512,10 +492,10 @@ namespace PriemLib
             string query = "SELECT COUNT(*) FROM qAbitFiles_OnlyEssayMotivLetter WHERE (ApplicationBarcode=@ApplicationBarcode OR (PersonBarcode=@PersonBarcode AND ApplicationBarcode IS NULL)) AND FileTypeId=3";
             int cnt = await Task.Run(() =>
             {
-                return (int)InetDB.GetValue(query, new SortedList<string, object>() 
+                return (int)InetDB.GetValue(query, new SortedList<string, object>()
                 {
-                    { "@ApplicationBarcode", QueryServ.ToNullDB(abitBarcode) }, 
-                    { "@PersonBarcode", QueryServ.ToNullDB(persBarcode) }  
+                    { "@ApplicationBarcode", QueryServ.ToNullDB(abitBarcode) },
+                    { "@PersonBarcode", QueryServ.ToNullDB(persBarcode) }
                 });
             });
 
@@ -609,7 +589,7 @@ namespace PriemLib
         protected override void SetAllFieldsEnabled()
         {
             base.SetAllFieldsEnabled();
-                        
+
             tbPriority.Enabled = true;
             tbRegNum.Enabled = false;
             if (StudyBasisId == 2)
@@ -623,11 +603,10 @@ namespace PriemLib
             tbSum.Enabled = false;
             btnDeleteMark.Enabled = false;
 
-            cbFaculty.Enabled = false;
             btnDocInventory.Enabled = true;
             if (StudyBasisId == 1 && MainClass.dbType == PriemType.Priem)
                 btnChangePriority.Enabled = true;
-            
+
             tpExamBlock.Enabled = true;
             dgvAppExams.Enabled = true;
         }
@@ -645,7 +624,6 @@ namespace PriemLib
             chbIsPaid.Enabled = true;
             cbLanguage.Enabled = true;
             chbIsForeign.Enabled = true;
-            chbIsCrimea.Enabled = true;
             cbCelCompetition.Enabled = true;
             tbCelCompetitionText.Enabled = true;
             chbIsListener.Enabled = true;
@@ -670,18 +648,12 @@ namespace PriemLib
                 if (chbHasOriginals.Checked)
                     chbHasOriginals.Enabled = true;
 
+                btnChangeEntry.Enabled = true;
+
                 cbCompetition.Enabled = true;
                 cbOtherCompetition.Enabled = true;
                 chbChecked.Enabled = true;
                 chbNotEnabled.Enabled = true;
-
-                cbLicenseProgram.Enabled = true;
-                cbObrazProgram.Enabled = true;
-                cbProfile.Enabled = true;
-                cbFaculty.Enabled = true;
-                gbSecondType.Enabled = true;
-                cbStudyForm.Enabled = true;
-                cbStudyBasis.Enabled = true;
 
                 if (CompetitionId == 1 || CompetitionId == 2 || CompetitionId == 7 || CompetitionId == 8)
                     chbChecked.Enabled = false;
@@ -694,13 +666,7 @@ namespace PriemLib
                 chbChecked.Enabled = true;
                 chbNotEnabled.Enabled = true;
 
-                cbLicenseProgram.Enabled = true;
-                cbObrazProgram.Enabled = true;
-                cbProfile.Enabled = true;
-                cbFaculty.Enabled = true;
-                gbSecondType.Enabled = true;
-                cbStudyForm.Enabled = true;
-                cbStudyBasis.Enabled = true;
+                btnChangeEntry.Enabled = true;
 
                 if (chbBackDoc.Checked)
                     chbBackDoc.Enabled = true;
@@ -723,37 +689,16 @@ namespace PriemLib
                 dtDocDate.Enabled = false;
                 cbCompetition.Enabled = false;
 
-                cbLicenseProgram.Enabled = false;
-                cbObrazProgram.Enabled = false;
-                cbProfile.Enabled = false;
-                cbFaculty.Enabled = false;
-                gbSecondType.Enabled = false;
-                cbStudyForm.Enabled = false;
-                cbStudyBasis.Enabled = false;
+                btnChangeEntry.Enabled = false;
             }
 
-            // больше нельзя изменять конкурс
-            cbLicenseProgram.Enabled = false;
-            cbObrazProgram.Enabled = false;
-            cbProfile.Enabled = false;
-            cbFaculty.Enabled = false;
-            gbSecondType.Enabled = false;
-            cbStudyForm.Enabled = false;
-            cbStudyBasis.Enabled = false;
+            //всем остальным нельзя изменять конкурс
+            btnChangeEntry.Enabled = false;
 
-            //
             if (!inEnableProtocol)
             {
                 if (MainClass.IsFacMain() || MainClass.IsPasha())
-                {
-                    cbLicenseProgram.Enabled = true;
-                    cbObrazProgram.Enabled = true;
-                    cbProfile.Enabled = true;
-                    cbFaculty.Enabled = true;
-                    gbSecondType.Enabled = true;
-                    cbStudyForm.Enabled = true;
-                    cbStudyBasis.Enabled = true;
-                }
+                    btnChangeEntry.Enabled = true;
             }
             if (inEntryView)
             {
@@ -768,13 +713,7 @@ namespace PriemLib
                 chbBackDoc.Enabled = false;
                 dtBackDocDate.Enabled = false;
 
-                cbLicenseProgram.Enabled = false;
-                cbObrazProgram.Enabled = false;
-                cbProfile.Enabled = false;
-                cbFaculty.Enabled = false;
-                gbSecondType.Enabled = false;
-                cbStudyForm.Enabled = false;
-                cbStudyBasis.Enabled = false;
+                btnChangeEntry.Enabled = false;
 
                 cbLanguage.Enabled = false;
             }
@@ -819,486 +758,12 @@ namespace PriemLib
         //инициализация обработчиков мегакомбов
         protected override void InitHandlers()
         {
-            chbIsReduced.CheckedChanged += new EventHandler(chbIsReduced_CheckedChanged);
-            chbIsParallel.CheckedChanged += new EventHandler(chbIsParallel_CheckedChanged);
-            chbIsSecond.CheckedChanged += new EventHandler(chbIsSecond_CheckedChanged);
-            cbLicenseProgram.SelectedIndexChanged += new EventHandler(cbLicenseProgram_SelectedIndexChanged);
-            cbObrazProgram.SelectedIndexChanged += new EventHandler(cbObrazProgram_SelectedIndexChanged);
-            cbProfile.SelectedIndexChanged += new EventHandler(cbProfile_SelectedIndexChanged);
-            cbStudyForm.SelectedIndexChanged += new EventHandler(cbStudyForm_SelectedIndexChanged);
-            cbStudyBasis.SelectedIndexChanged += new EventHandler(cbStudyBasis_SelectedIndexChanged);
-            chbHasOriginals.CheckedChanged += new System.EventHandler(chbHasOriginals_CheckedChanged);
-            chbIsForeign.CheckedChanged += chbIsForeign_CheckedChanged;
-            chbIsCrimea.CheckedChanged += chbIsCrimea_CheckedChanged;
+            chbHasOriginals.CheckedChanged += chbHasOriginals_CheckedChanged;
         }
 
-        protected override void NullHandlers()
-        {
-            chbIsReduced.CheckedChanged -= new EventHandler(chbIsReduced_CheckedChanged);
-            chbIsParallel.CheckedChanged -= new EventHandler(chbIsParallel_CheckedChanged);
-            chbIsSecond.CheckedChanged -= new EventHandler(chbIsSecond_CheckedChanged);
-            cbLicenseProgram.SelectedIndexChanged -= new EventHandler(cbLicenseProgram_SelectedIndexChanged);
-            cbObrazProgram.SelectedIndexChanged -= new EventHandler(cbObrazProgram_SelectedIndexChanged);
-            cbProfile.SelectedIndexChanged -= new EventHandler(cbProfile_SelectedIndexChanged);
-            cbStudyForm.SelectedIndexChanged -= new EventHandler(cbStudyForm_SelectedIndexChanged);
-            cbStudyBasis.SelectedIndexChanged -= new EventHandler(cbStudyBasis_SelectedIndexChanged);
-            chbHasOriginals.CheckedChanged -= new System.EventHandler(chbHasOriginals_CheckedChanged);
-        }
-
-        void chbIsCrimea_CheckedChanged(object sender, EventArgs e)
-        {
-            if (!GuidId.HasValue)
-                FillLicenseProgram();
-            else
-            {
-                if (!inEnableProtocol && !inEntryView)
-                {
-                    cbLicenseProgram.Enabled = true;
-                    cbObrazProgram.Enabled = true;
-                    cbProfile.Enabled = true;
-                    cbStudyForm.Enabled = true;
-                    cbStudyBasis.Enabled = true;
-
-                    int? LPId = LicenseProgramId;
-                    int? OPId = ObrazProgramId;
-                    int? ProfId = ProfileId;
-                    int? StF = StudyFormId;
-                    int? StB = StudyBasisId;
-                    FillLicenseProgram();
-                    LicenseProgramId = LPId;
-                    ObrazProgramId = OPId;
-                    ProfileId = ProfId;
-                    StudyFormId = StF;
-                    StudyBasisId = StB;
-                }
-                else
-                {
-                    if (inEntryView)
-                        WinFormsServ.Error("Данное заявление находится в представлении к зачислению!");
-                    else if (inEnableProtocol)
-                        WinFormsServ.Error("Данное заявление находится в протоколе о допуске!");
-                }
-            }
-        }
-        void chbIsForeign_CheckedChanged(object sender, EventArgs e)
-        {
-            if (!GuidId.HasValue)
-                FillLicenseProgram();
-            else
-            {
-                if (!inEnableProtocol && !inEntryView)
-                {
-                    cbLicenseProgram.Enabled = true;
-                    cbObrazProgram.Enabled = true;
-                    cbProfile.Enabled = true;
-                    cbStudyForm.Enabled = true;
-                    cbStudyBasis.Enabled = true;
-                    int? LPId = LicenseProgramId;
-                    int? OPId = ObrazProgramId;
-                    int? ProfId = ProfileId;
-                    int? StF = StudyFormId;
-                    int? StB = StudyBasisId;
-                    FillLicenseProgram();
-                    LicenseProgramId = LPId;
-                    ObrazProgramId = OPId;
-                    ProfileId = ProfId;
-                    StudyFormId = StF;
-                    StudyBasisId = StB;
-                }
-                else
-                {
-                    if (inEntryView)
-                        WinFormsServ.Error("Данное заявление находится в представлении к зачислению!");
-                    else if (inEnableProtocol)
-                        WinFormsServ.Error("Данное заявление находится в протоколе о допуске!");
-                }
-            }
-        }
-        void chbIsSecond_CheckedChanged(object sender, EventArgs e)
-        {
-            FillLicenseProgram();
-        }
-        void chbIsParallel_CheckedChanged(object sender, EventArgs e)
-        {
-            FillLicenseProgram();
-        }
-        void chbIsReduced_CheckedChanged(object sender, EventArgs e)
-        {
-            FillLicenseProgram();
-        }
-        void cbLicenseProgram_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            FillObrazProgram();
-        }
-        void cbObrazProgram_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            FillProfile();
-            FillFaculty();
-            FillStudyForm();
-            FillStudyBasis();
-        }
-        void cbProfile_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            FillFaculty();
-            FillStudyForm();
-            FillStudyBasis();
-        }
-        void cbStudyForm_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            FillStudyBasis();
-        }
-        void cbStudyBasis_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            FillCompetition();
-        }
         void cbCompetition_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateAfterCompetition();
-        }
-
-        private IEnumerable<qEntry> GetEntry(PriemEntities context)
-        {
-            IEnumerable<qEntry> entry = MainClass.GetEntry(context);
-
-            entry = entry.Where(c => c.IsReduced == IsReduced);
-            entry = entry.Where(c => c.IsParallel == IsParallel);
-            entry = entry.Where(c => c.IsSecond == IsSecond);
-            entry = entry.Where(c => c.IsForeign == IsForeign);
-            entry = entry.Where(c => c.IsCrimea == IsCrimea);
-
-            return entry;
-        }
-
-        private void FillLicenseProgram()
-        {
-            try
-            {
-                using (PriemEntities context = new PriemEntities())
-                {
-                    List<KeyValuePair<string, string>> lst =
-                        ((from ent in GetEntry(context)
-                          orderby ent.LicenseProgramName
-                          select new
-                          {
-                              Id = ent.LicenseProgramId,
-                              Name = ent.LicenseProgramName,
-                              Code = ent.LicenseProgramCode
-                          }).Distinct()).ToList().Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name + ' ' + u.Code)).ToList();
-
-                    ComboServ.FillCombo(cbLicenseProgram, lst, false, false);
-                }
-            }
-            catch (Exception exc)
-            {
-                WinFormsServ.Error("Ошибка при инициализации формы FillLicenseProgram", exc);
-            }
-        }
-        private void FillObrazProgram()
-        {
-            try
-            {
-                using (PriemEntities context = new PriemEntities())
-                {
-                    List<KeyValuePair<string, string>> lst =
-                        ((from ent in GetEntry(context)
-                          where ent.LicenseProgramId == LicenseProgramId
-                          orderby ent.ObrazProgramName
-                          select new
-                          {
-                              Id = ent.ObrazProgramId,
-                              Name = ent.ObrazProgramName,
-                              Crypt = ent.ObrazProgramCrypt
-                          }).Distinct()).ToList().Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name + ' ' + u.Crypt)).ToList();
-
-                    ComboServ.FillCombo(cbObrazProgram, lst, false, false);
-                }
-            }
-            catch (Exception exc)
-            {
-                WinFormsServ.Error("Ошибка при инициализации формы FillObrazProgram", exc);
-            }
-        }
-        private void FillProfile()
-        {
-            try
-            {
-                using (PriemEntities context = new PriemEntities())
-                {
-                    List<KeyValuePair<string, string>> lst =
-                        ((from ent in GetEntry(context)
-                          where ent.LicenseProgramId == LicenseProgramId && ent.ObrazProgramId == ObrazProgramId
-                          orderby ent.ProfileName
-                          select new
-                          {
-                              Id = ent.ProfileId,
-                              Name = ent.ProfileName
-                          }).Distinct()).ToList().Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name)).ToList();
-
-                    if (lst.Count() > 0)
-                    {
-                        if (ObrazProgramId == 39)
-                            ComboServ.FillCombo(cbProfile, lst, true, false);
-                        else
-                            ComboServ.FillCombo(cbProfile, lst, false, false);
-                        cbProfile.Enabled = true;
-                    }
-                    else
-                    {
-                        ComboServ.FillCombo(cbProfile, new List<KeyValuePair<string, string>>(), true, false);
-                        cbProfile.Enabled = false;
-                    }
-                }
-            }
-            catch (Exception exc)
-            {
-                WinFormsServ.Error("Ошибка при инициализации формы FillProfile", exc);
-            }
-        }
-        private void FillFaculty()
-        {
-            try
-            {
-                using (PriemEntities context = new PriemEntities())
-                {
-                    List<KeyValuePair<string, string>> lst =
-                        ((from ent in GetEntry(context)
-                          where ent.LicenseProgramId == LicenseProgramId
-                          && ent.ObrazProgramId == ObrazProgramId
-                          && (ProfileId == null ? ent.ProfileId == 0 : ent.ProfileId == ProfileId)
-                          select new
-                          {
-                              Id = ent.FacultyId,
-                              Name = ent.FacultyName
-                          }).Distinct()).ToList().Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name)).ToList();
-
-                    ComboServ.FillCombo(cbFaculty, lst, false, false);
-                }
-            }
-            catch (Exception exc)
-            {
-                WinFormsServ.Error("Ошибка при инициализации формы FillFaculty", exc);
-            }
-        }
-        private void FillStudyForm()
-        {
-            try
-            {
-                using (PriemEntities context = new PriemEntities())
-                {
-                    List<KeyValuePair<string, string>> lst =
-                        ((from ent in GetEntry(context)
-                          where
-                          ent.LicenseProgramId == LicenseProgramId
-                          && ent.ObrazProgramId == ObrazProgramId
-                          && (ProfileId == null ? ent.ProfileId == 0 : ent.ProfileId == ProfileId)
-                          && ent.FacultyId == FacultyId
-                          orderby ent.StudyFormName
-                          select new
-                          {
-                              Id = ent.StudyFormId,
-                              Name = ent.StudyFormName
-                          }).Distinct()).ToList().Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name)).ToList();
-
-                    ComboServ.FillCombo(cbStudyForm, lst, false, false);
-                }
-            }
-            catch (Exception exc)
-            {
-                WinFormsServ.Error("Ошибка при инициализации формы FillStudyForm", exc);
-            }
-        }
-        private void FillStudyBasis()
-        {
-            try
-            {
-                using (PriemEntities context = new PriemEntities())
-                {
-                    List<KeyValuePair<string, string>> lst =
-                        ((from ent in GetEntry(context)
-                          where ent.LicenseProgramId == LicenseProgramId
-                          && ent.ObrazProgramId == ObrazProgramId
-                          && (ProfileId == null ? ent.ProfileId == 0 : ent.ProfileId == ProfileId)
-                          && ent.FacultyId == FacultyId
-                          && ent.StudyFormId == StudyFormId
-                          orderby ent.StudyBasisName
-                          select new
-                          {
-                              Id = ent.StudyBasisId,
-                              Name = ent.StudyBasisName
-                          }).Distinct()).ToList().Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name)).ToList();
-
-                    ComboServ.FillCombo(cbStudyBasis, lst, false, false);
-                }
-            }
-            catch (Exception exc)
-            {
-                WinFormsServ.Error("Ошибка при инициализации формы FillStudyBasis", exc);
-            }
-        }
-        private void UpdateInnerPrioritiesAfterStudyBasis()
-        {
-            var EntId = EntryId;
-            if (!EntId.HasValue)
-                return;
-            using (PriemEntities context = new PriemEntities())
-            {
-                var opInEntry = context.InnerEntryInEntry
-                    .Where(x => x.EntryId == EntId);
-
-                if (opInEntry.Count() > 0)
-                {
-
-                }
-            }
-        }
-        private void FillCompetition()
-        {
-            try
-            {
-                using (PriemEntities context = new PriemEntities())
-                {
-                    List<KeyValuePair<string, string>>
-                        lst = ((from cp in context.Competition
-                                where cp.StudyBasisId == StudyBasisId && (cp.Id < 6 || cp.Id == 9)
-                                select new
-                                {
-                                    cp.Id,
-                                    cp.Name
-                                }).Distinct()).ToList().Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name)).ToList();
-                    ComboServ.FillCombo(cbOtherCompetition, lst, true, false);
-
-                    lst = ((from cp in context.Competition
-                            where cp.StudyBasisId == StudyBasisId
-                            orderby cp.Name
-                            select new
-                            {
-                                cp.Id,
-                                cp.Name
-                            }).Distinct()).ToList().Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name)).ToList();
-
-                    ComboServ.FillCombo(cbCompetition, lst, false, false);
-
-                    if (StudyBasisId == 1)
-                    {
-                        chbIsListener.Checked = false;
-                        chbIsListener.Enabled = false;
-                        chbIsPaid.Checked = false;
-                        chbIsPaid.Enabled = false;
-                        btnPaidData.Enabled = false;
-                        ComboServ.SetComboId(cbCompetition, 4);
-                    }
-                    else
-                    {
-                        chbIsListener.Enabled = true;
-                        chbIsPaid.Enabled = true;
-                        btnPaidData.Enabled = true;
-                        ComboServ.SetComboId(cbCompetition, 3);
-                    }
-                }
-            }
-            catch (Exception exc)
-            {
-                WinFormsServ.Error("Ошибка при инициализации формы FillCompetition", exc);
-            }
-        }
-        private void FillSelectedExams()
-        {
-            try
-            {
-                using (PriemEntities context = new PriemEntities())
-                {
-                    var block = (from b in context.ExamInEntryBlock
-                                 join u in context.ExamInEntryBlockUnit on b.Id equals u.ExamInEntryBlockId
-                                 join ex in context.Exam on u.ExamId equals ex.Id
-                                 join exname in context.ExamName on ex.ExamNameId equals exname.Id
-                                 where b.EntryId == EntryId && b.ParentExamInEntryBlockId == null
-                                 select new { b.Id, b.Name, unitId = u.Id , unitname = exname.Name,}).ToList();
-
-                    var _block = (from b in block
-                                   group b by b.Id into ex
-                                   where ex.Count() > 1
-                                   select new
-                                  {
-                                      Id = ex.Key,
-                                      Name = ex.Select(x => x.Name).FirstOrDefault(),
-                                  }).ToList();
-
-                    lstExamInEntryBlock = new List<ExamenBlock>();
-                    HasManualExams = _block.Count != 0;
-
-                    if (!HasManualExams)
-                    {
-                        if (tabCard.TabPages.Contains(tpExamBlock))
-                            tabCard.TabPages.Remove(tpExamBlock);
-                        return;
-                    }
-
-                    if (!tabCard.TabPages.Contains(tpExamBlock))
-                            tabCard.TabPages.Add(tpExamBlock);
-                    
-
-                    dgvAppExams.Columns.Add("Id", "Id");
-                    dgvAppExams.Columns["Id"].Visible = false;
-                    dgvAppExams.Columns["Id"].CellTemplate = new DataGridViewTextBoxCell();
-
-                    dgvAppExams.Columns.Add("Name", "Название");
-                    dgvAppExams.Columns["Name"].CellTemplate = new DataGridViewTextBoxCell();
-
-
-                    DataGridViewComboBoxColumn column1 = new DataGridViewComboBoxColumn();
-                    DataGridViewComboBoxCell cell1 = new DataGridViewComboBoxCell();
-                    cell1.DisplayMember = "Value";
-                    cell1.ValueMember = "Key";
-                    column1.HeaderText = "Список экзаменов";
-                    column1.Name = "ExamsList";
-                    column1.CellTemplate = cell1;
-                    column1.Width = 250; 
-                    dgvAppExams.Columns.Add(column1);
-
-                    foreach (var b in _block)
-                    {
-                        var lst = (from bl in block
-                                   where bl.Id == b.Id
-                                   select new KeyValuePair<Guid, string>(bl.unitId, bl.unitname)).ToList();
-
-                        Guid SelectedUnitId = (from abit in context.AbiturientSelectedExam
-                                         join u in context.ExamInEntryBlockUnit on abit.ExamInEntryBlockUnitId equals u.Id
-                                         where abit.ApplicationId == GuidId && u.ExamInEntryBlockId == b.Id
-                                         select abit.ExamInEntryBlockUnitId
-                                            ).FirstOrDefault();
-
-                        lstExamInEntryBlock.Add(new ExamenBlock()
-                        {
-                            BlockId = b.Id,
-                            BlockName = b.Name,
-                            UnitList = lst,
-                            SelectedUnitId = SelectedUnitId,
-                        });
-
-                        dgvAppExams.CellValueChanged -= dgvAppExams_CellValueChanged;
-
-                        DataGridViewRow row = new DataGridViewRow();
-                        row.CreateCells(dgvAppExams);
-                        int icol = dgvAppExams.Columns.IndexOf(dgvAppExams.Columns["Id"]);
-                        row.Cells[icol].Value = b.Id;
-                        icol = dgvAppExams.Columns.IndexOf(dgvAppExams.Columns["Name"]);
-                        row.Cells[icol].Value = b.Name;
-                        icol = dgvAppExams.Columns.IndexOf(dgvAppExams.Columns["ExamsList"]);
-                        
-                        DataGridViewComboBoxCell comboCell = row.Cells[icol] as DataGridViewComboBoxCell;
-                        comboCell.DataSource = lst;
-                        if (SelectedUnitId != Guid.Empty)
-                            row.Cells[icol].Value = SelectedUnitId;
-
-                        dgvAppExams.Rows.Add(row);
-                        dgvAppExams.CellValueChanged += dgvAppExams_CellValueChanged;
-                    }
-                }
-            }
-            catch (Exception exc)
-            {
-                WinFormsServ.Error("Ошибка при инициализации FillSelectedExams", exc);
-            }
         }
         private void UpdateAfterCompetition()
         {
@@ -1342,7 +807,168 @@ namespace PriemLib
             }
         }
 
+        private void FillCompetition()
+        {
+            using (PriemEntities context = new PriemEntities())
+            {
+                FillCompetition(context);
+            }
+        }
+        private void FillCompetition(PriemEntities context)
+        {
+            try
+            {
+                var compList = ((from cp in context.Competition
+                                 where cp.StudyBasisId == StudyBasisId
+                                 orderby cp.Name
+                                 select new
+                                 {
+                                     cp.Id,
+                                     cp.Name
+                                 }).Distinct()).ToList();
+
+                var lst = compList.Where(cp => cp.Id < 6 || cp.Id == 9).Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name)).ToList();
+                ComboServ.FillCombo(cbOtherCompetition, lst, true, false);
+
+                lst = compList.Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name)).ToList();
+                ComboServ.FillCombo(cbCompetition, lst, false, false);
+
+                if (StudyBasisId == 1)
+                {
+                    chbIsListener.Checked = false;
+                    chbIsListener.Enabled = false;
+                    chbIsPaid.Checked = false;
+                    chbIsPaid.Enabled = false;
+                    btnPaidData.Enabled = false;
+                    ComboServ.SetComboId(cbCompetition, 4);
+                }
+                else
+                {
+                    chbIsListener.Enabled = true;
+                    chbIsPaid.Enabled = true;
+                    btnPaidData.Enabled = true;
+                    ComboServ.SetComboId(cbCompetition, 3);
+                }
+            }
+            catch (Exception exc)
+            {
+                WinFormsServ.Error("Ошибка при инициализации формы FillCompetition", exc);
+            }
+        }
+
+        private void FillSelectedExams()
+        {
+            using (PriemEntities context = new PriemEntities())
+            {
+                FillSelectedExams(context);
+            }
+        }
+        private void FillSelectedExams(PriemEntities context)
+        {
+            try
+            {
+                var block = (from b in context.ExamInEntryBlock
+                             join u in context.ExamInEntryBlockUnit on b.Id equals u.ExamInEntryBlockId
+                             join ex in context.Exam on u.ExamId equals ex.Id
+                             join exname in context.ExamName on ex.ExamNameId equals exname.Id
+                             where b.EntryId == EntryId && b.ParentExamInEntryBlockId == null
+                             select new { b.Id, b.Name, unitId = u.Id, unitname = exname.Name, }).ToList();
+
+                var _block = (from b in block
+                              group b by b.Id into ex
+                              where ex.Count() > 1
+                              select new
+                              {
+                                  Id = ex.Key,
+                                  Name = ex.Select(x => x.Name).FirstOrDefault(),
+                              }).ToList();
+
+                lstExamInEntryBlock = new List<ExamenBlock>();
+                HasManualExams = _block.Count != 0;
+
+                if (!HasManualExams)
+                {
+                    if (tabCard.TabPages.Contains(tpExamBlock))
+                        tabCard.TabPages.Remove(tpExamBlock);
+                    return;
+                }
+
+                if (!tabCard.TabPages.Contains(tpExamBlock))
+                    tabCard.TabPages.Add(tpExamBlock);
+
+
+                dgvAppExams.Columns.Add("Id", "Id");
+                dgvAppExams.Columns["Id"].Visible = false;
+                dgvAppExams.Columns["Id"].CellTemplate = new DataGridViewTextBoxCell();
+
+                dgvAppExams.Columns.Add("Name", "Название");
+                dgvAppExams.Columns["Name"].CellTemplate = new DataGridViewTextBoxCell();
+
+
+                DataGridViewComboBoxColumn column1 = new DataGridViewComboBoxColumn();
+                DataGridViewComboBoxCell cell1 = new DataGridViewComboBoxCell();
+                cell1.DisplayMember = "Value";
+                cell1.ValueMember = "Key";
+                column1.HeaderText = "Список экзаменов";
+                column1.Name = "ExamsList";
+                column1.CellTemplate = cell1;
+                column1.Width = 250;
+                dgvAppExams.Columns.Add(column1);
+
+                foreach (var b in _block)
+                {
+                    var lst = (from bl in block
+                               where bl.Id == b.Id
+                               select new KeyValuePair<Guid, string>(bl.unitId, bl.unitname)).ToList();
+
+                    Guid SelectedUnitId =
+                        (from abit in context.AbiturientSelectedExam
+                         join u in context.ExamInEntryBlockUnit on abit.ExamInEntryBlockUnitId equals u.Id
+                         where abit.ApplicationId == GuidId 
+                         && u.ExamInEntryBlockId == b.Id
+                         select abit.ExamInEntryBlockUnitId).FirstOrDefault();
+
+                    lstExamInEntryBlock.Add(new ExamenBlock()
+                    {
+                        BlockId = b.Id,
+                        BlockName = b.Name,
+                        UnitList = lst,
+                        SelectedUnitId = SelectedUnitId,
+                    });
+
+                    dgvAppExams.CellValueChanged -= dgvAppExams_CellValueChanged;
+
+                    DataGridViewRow row = new DataGridViewRow();
+                    row.CreateCells(dgvAppExams);
+                    int icol = dgvAppExams.Columns.IndexOf(dgvAppExams.Columns["Id"]);
+                    row.Cells[icol].Value = b.Id;
+                    icol = dgvAppExams.Columns.IndexOf(dgvAppExams.Columns["Name"]);
+                    row.Cells[icol].Value = b.Name;
+                    icol = dgvAppExams.Columns.IndexOf(dgvAppExams.Columns["ExamsList"]);
+
+                    DataGridViewComboBoxCell comboCell = row.Cells[icol] as DataGridViewComboBoxCell;
+                    comboCell.DataSource = lst;
+                    if (SelectedUnitId != Guid.Empty)
+                        row.Cells[icol].Value = SelectedUnitId;
+
+                    dgvAppExams.Rows.Add(row);
+                    dgvAppExams.CellValueChanged += dgvAppExams_CellValueChanged;
+                }
+            }
+            catch (Exception exc)
+            {
+                WinFormsServ.Error("Ошибка при инициализации FillSelectedExams", exc);
+            }
+        }
+
         private void UpdateBenefitOlympSource()
+        {
+            using (PriemEntities context = new PriemEntities())
+            {
+                UpdateBenefitOlympSource(context);
+            }
+        }
+        private void UpdateBenefitOlympSource(PriemEntities context)
         {
             if (!GuidId.HasValue)
                 return;
@@ -1350,29 +976,33 @@ namespace PriemLib
             bool bIsAG = MainClass.dbType == PriemType.PriemAG;
             List<int> lstOlympLevels = new List<int> { 1, 2, 3, 4 };
 
-            using (PriemEntities context = new PriemEntities())
-            {
-                List<KeyValuePair<string, string>> lst =
-                        ((from Ol in context.extOlympiadsAll
-                          where Ol.PersonId == _personId
-                          && (bIsAG ? true : lstOlympLevels.Contains(Ol.OlympTypeId))
-                          select new
-                          {
-                              Id = Ol.Id,
-                              Ol.OlympName,
-                              Ol.OlympSubjectName,
-                              Ol.OlympValueName,
-                              Ol.OlympYear
-                          }).Distinct()).ToList()
-                          .Select(u => new KeyValuePair<string, string>(u.Id.ToString(), string.Format("({0}) {1} ({2}) - {3}", u.OlympYear, u.OlympName, u.OlympSubjectName, u.OlympValueName)))
-                          .ToList();
+            List<KeyValuePair<string, string>> lst =
+                    ((from Ol in context.extOlympiadsAll
+                      where Ol.PersonId == _personId
+                      && (bIsAG ? true : lstOlympLevels.Contains(Ol.OlympTypeId))
+                      select new
+                      {
+                          Id = Ol.Id,
+                          Ol.OlympName,
+                          Ol.OlympSubjectName,
+                          Ol.OlympValueName,
+                          Ol.OlympYear
+                      }).Distinct()).ToList()
+                      .Select(u => new KeyValuePair<string, string>(u.Id.ToString(), string.Format("({0}) {1} ({2}) - {3}", u.OlympYear, u.OlympName, u.OlympSubjectName, u.OlympValueName)))
+                      .ToList();
 
-                ComboServ.FillCombo(cbBenefitOlympSource, lst, true, false);
-            }
+            ComboServ.FillCombo(cbBenefitOlympSource, lst, true, false);
         }
 
         // строка с ФИО если поменялись данные личной карточки
         private void UpdateFIO()
+        {
+            using (PriemEntities context = new PriemEntities())
+            {
+                UpdateFIO(context);
+            }
+        }
+        private void UpdateFIO(PriemEntities context)
         {
             try
             {
@@ -1380,13 +1010,11 @@ namespace PriemLib
                     lblFIO.Text = string.Empty;
                 else
                 {
-                    using (PriemEntities context = new PriemEntities())
-                    {
-                        lblFIO.Text = (from per in context.extPersonAll
-                                       where per.Id == _personId
-                                       select per.FIO).FirstOrDefault();
 
-                    }
+                    lblFIO.Text = (from per in context.extPersonAll
+                                   where per.Id == _personId
+                                   select per.FIO).FirstOrDefault();
+
                 }
             }
             catch (Exception ex)
@@ -1434,7 +1062,7 @@ namespace PriemLib
                     }
 
                     if (MessageBox.Show(string.Format("Вы уверены, что абитуриент отказался от участия в конкурсе на образовательную программу \"{0}\", форму обучения \"{1}\", основу обучения \"{2}\"?????", 
-                        cbObrazProgram.Text, cbStudyForm.Text, cbStudyBasis.Text), "Внимание!", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        tbObrazProgram.Text, tbStudyForm.Text, tbStudyBasis.Text), "Внимание!", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
                         chbBackDoc.ForeColor = System.Drawing.Color.Red;
                         dtBackDocDate.Enabled = true;
@@ -1479,7 +1107,7 @@ namespace PriemLib
                 {
                     if (LicenseProgramId == null || ObrazProgramId == null || FacultyId == null || StudyFormId == null || StudyBasisId == null)
                     {
-                        epErrorInput.SetError(cbLicenseProgram, "Прием документов на данную программу не осуществляется!");
+                        epErrorInput.SetError(tbLicenseProgram, "Прием документов на данную программу не осуществляется!");
                         tabCard.SelectedIndex = 0;
                         return false;
                     }
@@ -1488,7 +1116,7 @@ namespace PriemLib
 
                     if (EntryId == null)
                     {
-                        epErrorInput.SetError(cbLicenseProgram, "Прием документов на данную программу не осуществляется!");
+                        epErrorInput.SetError(tbLicenseProgram, "Прием документов на данную программу не осуществляется!");
                         tabCard.SelectedIndex = 0;
                         return false;
                     }
@@ -1500,21 +1128,12 @@ namespace PriemLib
                     {
                         if (!CheckIsClosed(context))
                         {
-                            epErrorInput.SetError(cbLicenseProgram, "Прием документов на данную программу закрыт!");
+                            epErrorInput.SetError(tbLicenseProgram, "Прием документов на данную программу закрыт!");
                             tabCard.SelectedIndex = 0;
                             return false;
                         }
                         else
                             epErrorInput.Clear();
-
-                        //if (!_bdc.HasAddRightsForPriem(FacultyId, ProfessionId, ObrazProgramId, SpecializationId, StudyFormId, StudyBasisId))               
-                        //{
-                        //    epErrorInput.SetError(cbFaculty, "Прием документов на данную программу закрыт (по кц)!");
-                        //    tabCard.SelectedIndex = 0;
-                        //    return false;
-                        //}
-                        //else
-                        //    epErrorInput.Clear();
                     }
 
                     if (EntryId == Guid.Empty)
@@ -1945,99 +1564,104 @@ namespace PriemLib
         // Грид Экзамены
         private void FillExams()
         {
+            using (PriemEntities context = new PriemEntities())
+            {
+                FillExams(context);
+            }
+        }
+        private void FillExams(PriemEntities context)
+        {
             try
             {
-                using (PriemEntities context = new PriemEntities())
+                DataTable examTable = new DataTable();
+
+                DataColumn clm;
+                clm = new DataColumn();
+                clm.ColumnName = "ExamInEntryId";
+                clm.DataType = typeof(Guid);
+                examTable.Columns.Add(clm);
+
+                clm = new DataColumn();
+                clm.ColumnName = "Id";
+                clm.DataType = typeof(Guid);
+                examTable.Columns.Add(clm);
+
+                clm = new DataColumn();
+                clm.ColumnName = "Экзамен";
+                examTable.Columns.Add(clm);
+
+                clm = new DataColumn();
+                clm.ColumnName = "Оценка";
+                examTable.Columns.Add(clm);
+
+                clm = new DataColumn();
+                clm.ColumnName = "Примечание";
+                examTable.Columns.Add(clm);
+
+                var lstMarks =
+                    (from mrk in context.Mark
+                     join ex in context.extExamInEntry on mrk.ExamInEntryBlockUnitId equals ex.Id
+                     where mrk.AbiturientId == GuidId
+                     select new
+                     {
+                         mrk.Id,
+                         mrk.Value,
+                         ex.ExamName,
+                         mrk.IsFromEge,
+                         mrk.IsFromOlymp,
+                         mrk.OlympiadId,
+                         mrk.IsManual,
+                         mrk.ExamInEntryBlockUnitId,
+                         mrk.ExamVedId
+                     });
+
+                foreach (var abMark in lstMarks)
                 {
-                    DataTable examTable = new DataTable();
-
-                    DataColumn clm;
-                    clm = new DataColumn();
-                    clm.ColumnName = "ExamInEntryId";
-                    clm.DataType = typeof(Guid);
-                    examTable.Columns.Add(clm);
-
-                    clm = new DataColumn();
-                    clm.ColumnName = "Id";
-                    clm.DataType = typeof(Guid);
-                    examTable.Columns.Add(clm);
-
-                    clm = new DataColumn();
-                    clm.ColumnName = "Экзамен";
-                    examTable.Columns.Add(clm);
-
-                    clm = new DataColumn();
-                    clm.ColumnName = "Оценка";
-                    examTable.Columns.Add(clm);
-
-                    clm = new DataColumn();
-                    clm.ColumnName = "Примечание";
-                    examTable.Columns.Add(clm);
-
-                    var lstMarks =
-                        (from mrk in context.Mark
-                        join ex in context.extExamInEntry on mrk.ExamInEntryBlockUnitId equals ex.Id
-                        where mrk.AbiturientId == GuidId
-                        select new
-                        {
-                            mrk.Id,
-                            mrk.Value,
-                            ex.ExamName,
-                            mrk.IsFromEge,
-                            mrk.IsFromOlymp,
-                            mrk.OlympiadId,
-                            mrk.IsManual,
-                            mrk.ExamInEntryBlockUnitId,
-                            mrk.ExamVedId
-                        });
-
-                    foreach (var abMark in lstMarks)
+                    DataRow newRow;
+                    newRow = examTable.NewRow();
+                    newRow["Экзамен"] = abMark.ExamName;
+                    newRow["Id"] = abMark.Id;
+                    if (abMark != null && abMark.Value.ToString() != "")
+                        newRow["Оценка"] = abMark.Value.ToString();
+                    if (abMark.IsFromEge)
+                        newRow["Примечание"] = "Из ЕГЭ ";
+                    else if (abMark.IsFromOlymp)
                     {
-                        DataRow newRow;
-                        newRow = examTable.NewRow();
-                        newRow["Экзамен"] = abMark.ExamName;
-                        newRow["Id"] = abMark.Id;
-                        if (abMark != null && abMark.Value.ToString() != "")
-                            newRow["Оценка"] = abMark.Value.ToString();
-                        if (abMark.IsFromEge)
-                            newRow["Примечание"] = "Из ЕГЭ ";
-                        else if (abMark.IsFromOlymp)
+                        string OlympName = "";
+                        if (abMark.OlympiadId.HasValue)
                         {
-                            string OlympName = "";
-                            if (abMark.OlympiadId.HasValue)
-                            {
-                                var Olymp = context.extOlympiads.Where(x => x.Id == abMark.OlympiadId).FirstOrDefault();
-                                if (Olymp == null)
-                                    OlympName = " (олимпиада не найдена!)";
-                                else
-                                    OlympName = " (" + Olymp.OlympName + "; " + Olymp.OlympSubjectName + "; " + Olymp.OlympValueName + ";)";
-                            }
+                            var Olymp = context.extOlympiads.Where(x => x.Id == abMark.OlympiadId).FirstOrDefault();
+                            if (Olymp == null)
+                                OlympName = " (олимпиада не найдена!)";
                             else
-                                OlympName = " (олимпиада не указана!)";
-
-                            newRow["Примечание"] = "Олимпиада" + OlympName;
+                                OlympName = " (" + Olymp.OlympName + "; " + Olymp.OlympSubjectName + "; " + Olymp.OlympValueName + ";)";
                         }
-                        else if (abMark.IsManual)
-                            newRow["Примечание"] = "Ручной ввод";
-                        else if (abMark.ExamVedId != null && MainClass.IsPasha())
-                        {
-                            string vedNum = _bdc.GetStringValue(string.Format("SELECT extExamsVed.Number FROM ed.extExamsVed WHERE Id = '{0}'", abMark.ExamVedId.ToString()));
-                            newRow["Примечание"] = "Ведомость № " + vedNum;
-                        }
+                        else
+                            OlympName = " (олимпиада не указана!)";
 
-                        newRow["ExamInEntryId"] = abMark.ExamInEntryBlockUnitId;
-                        examTable.Rows.Add(newRow);
+                        newRow["Примечание"] = "Олимпиада" + OlympName;
+                    }
+                    else if (abMark.IsManual)
+                        newRow["Примечание"] = "Ручной ввод";
+                    else if (abMark.ExamVedId != null && MainClass.IsPasha())
+                    {
+                        string vedNum = _bdc.GetStringValue(string.Format("SELECT extExamsVed.Number FROM ed.extExamsVed WHERE Id = '{0}'", abMark.ExamVedId.ToString()));
+                        newRow["Примечание"] = "Ведомость № " + vedNum;
                     }
 
-                    DataView dv = new DataView(examTable);
-                    dv.AllowNew = false;
-
-                    dgvExams.DataSource = dv;
-                    dgvExams.ReadOnly = true;
-                    dgvExams.Columns["ExamInEntryId"].Visible = false;
-                    dgvExams.Columns["Id"].Visible = false;
-                    dgvExams.Update();
+                    newRow["ExamInEntryId"] = abMark.ExamInEntryBlockUnitId;
+                    examTable.Rows.Add(newRow);
                 }
+
+                DataView dv = new DataView(examTable);
+                dv.AllowNew = false;
+
+                dgvExams.DataSource = dv;
+                dgvExams.ReadOnly = true;
+                dgvExams.Columns["ExamInEntryId"].Visible = false;
+                dgvExams.Columns["Id"].Visible = false;
+                dgvExams.Update();
+
             }
             catch (DataException de)
             {
@@ -2045,25 +1669,22 @@ namespace PriemLib
             }
         }
 
-        private void FillAdditionalAchievements()
+        private void FillAdditionalAchievements(PriemEntities context)
         {
-            using (PriemEntities context = new PriemEntities())
-            {
-                var lstAch = context.extAbitAllAdditionalAchievements
-                    .Where(x => x.AbiturientId == GuidId && x.AchievementTypeId != null)
-                    .Select(x => new { x.AchievementTypeId, x.AchievementType, x.Mark })
-                    .ToArray();
+            var lstAch = context.extAbitAllAdditionalAchievements
+                .Where(x => x.AbiturientId == GuidId && x.AchievementTypeId != null)
+                .Select(x => new { x.AchievementTypeId, x.AchievementType, x.Mark })
+                .ToArray();
 
-                dgvAdditionalAchievements.DataSource = Converter.ConvertToDataTable(lstAch);
-                dgvAdditionalAchievements.Columns["AchievementTypeId"].Visible = false;
-                dgvAdditionalAchievements.Columns["AchievementType"].HeaderText = "ИД";
-                dgvAdditionalAchievements.Columns["Mark"].HeaderText = "Балл";
+            dgvAdditionalAchievements.DataSource = Converter.ConvertToDataTable(lstAch);
+            dgvAdditionalAchievements.Columns["AchievementTypeId"].Visible = false;
+            dgvAdditionalAchievements.Columns["AchievementType"].HeaderText = "ИД";
+            dgvAdditionalAchievements.Columns["Mark"].HeaderText = "Балл";
 
-                tbAdditionalAchievementsMark.Text = context.extAbitAdditionalMarksSum
-                    .Where(x => x.AbiturientId == GuidId)
-                    .Select(x => x.AdditionalMarksSum ?? 0)
-                    .DefaultIfEmpty(0).First().ToString();
-            }
+            tbAdditionalAchievementsMark.Text = context.extAbitAdditionalMarksSum
+                .Where(x => x.AbiturientId == GuidId)
+                .Select(x => x.AdditionalMarksSum ?? 0)
+                .DefaultIfEmpty(0).First().ToString();
         }
 
         // Печать документов
@@ -2229,10 +1850,10 @@ namespace PriemLib
                             catch (Exception ex)
                             {
                                 WinFormsServ.Error("Ошибка удаления данных", ex);
-                                goto Next;
+                                continue;
                             }
-                        Next: ;
                         }
+
                         FillExams();
                     }
                 }
@@ -2367,12 +1988,11 @@ namespace PriemLib
                     if (!tabCard.TabPages.Contains(tpEntry))
                     {
                         tabCard.TabPages.Add(tpEntry);
-                        FillObrazProgramInEntry();
+                        FillObrazProgramInEntry(context);
                         WinFormsServ.SetSubControlsEnabled(gbObrazProgramInEntry, true);
                     }
                 }
             }
-
         }
 
         private void btnObrazProgramInEntry_Click(object sender, EventArgs e)
@@ -2384,20 +2004,17 @@ namespace PriemLib
             }
         }
 
-        private void FillObrazProgramInEntry()
+        private void FillObrazProgramInEntry(PriemEntities context)
         {
-            using (PriemEntities context = new PriemEntities())
-            {
-                List<KeyValuePair<string, string>> ObrazProgramInEntryList =
-                                (from ent in context.InnerEntryInEntry
-                                 join SP_ObrazProgr in context.SP_ObrazProgram on ent.ObrazProgramId equals SP_ObrazProgr.Id
-                                 join SP_Prof in context.SP_Profile on ent.ProfileId equals SP_Prof.Id
-                                 where ent.EntryId == EntryId
-                                 select new { ent.Id, Name = "ОП: " + SP_ObrazProgr.Name + "; Профиль: " + SP_Prof.Name }).ToList()
-                                 .Select(x=> new KeyValuePair<string, string>(x.Id.ToString(), x.Name)).Distinct()
-                                 .ToList();
-                ComboServ.FillCombo(cbInnerEntryInEntry, ObrazProgramInEntryList, false, false);
-            }
+            List<KeyValuePair<string, string>> ObrazProgramInEntryList =
+                            (from ent in context.InnerEntryInEntry
+                             join SP_ObrazProgr in context.SP_ObrazProgram on ent.ObrazProgramId equals SP_ObrazProgr.Id
+                             join SP_Prof in context.SP_Profile on ent.ProfileId equals SP_Prof.Id
+                             where ent.EntryId == EntryId
+                             select new { ent.Id, Name = "ОП: " + SP_ObrazProgr.Name + "; Профиль: " + SP_Prof.Name }).ToList()
+                             .Select(x => new KeyValuePair<string, string>(x.Id.ToString(), x.Name)).Distinct()
+                             .ToList();
+            ComboServ.FillCombo(cbInnerEntryInEntry, ObrazProgramInEntryList, false, false);
         }
 
         private void btnSaveInnerEntryInEntry_Click(object sender, EventArgs e)
@@ -2430,6 +2047,19 @@ namespace PriemLib
 
             var bl = lstExamInEntryBlock.Where(x => x.BlockId == BlockId).First();
             bl.SelectedUnitId = ExamsList;
+        }
+
+        private void btnChangeEntry_Click(object sender, EventArgs e)
+        {
+            CardSelectEntry crd;
+            if (EntryId.HasValue) 
+                crd = new CardSelectEntry(EntryId.Value);
+            else
+                crd = new CardSelectEntry();
+
+            crd.EntrySelected += (entId) => { UpdateEntryData(entId); };
+            crd.Show();
+            crd.Focus();
         }
     }
 }

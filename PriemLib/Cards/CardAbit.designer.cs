@@ -44,10 +44,16 @@
             this.lblLicenseprogram = new System.Windows.Forms.Label();
             this.tabCard = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.btnChangeEntry = new System.Windows.Forms.Button();
+            this.tbStudyBasis = new System.Windows.Forms.TextBox();
+            this.tbStudyForm = new System.Windows.Forms.TextBox();
+            this.tbFaculty = new System.Windows.Forms.TextBox();
+            this.tbProfile = new System.Windows.Forms.TextBox();
+            this.tbObrazProgram = new System.Windows.Forms.TextBox();
+            this.tbLicenseProgram = new System.Windows.Forms.TextBox();
             this.cbBenefitOlympSource = new System.Windows.Forms.ComboBox();
             this.btnChangeOriginalsDestination = new System.Windows.Forms.Button();
             this.lblBackDocByAdmissionHigh = new System.Windows.Forms.Label();
-            this.chbIsCrimea = new System.Windows.Forms.CheckBox();
             this.chbIsForeign = new System.Windows.Forms.CheckBox();
             this.lblWhoBackDoc = new System.Windows.Forms.Label();
             this.btnObrazProgramInEntry = new System.Windows.Forms.Button();
@@ -60,12 +66,6 @@
             this.cbOtherCompetition = new System.Windows.Forms.ComboBox();
             this.cbCelCompetition = new System.Windows.Forms.ComboBox();
             this.cbCompetition = new System.Windows.Forms.ComboBox();
-            this.cbStudyBasis = new System.Windows.Forms.ComboBox();
-            this.cbFaculty = new System.Windows.Forms.ComboBox();
-            this.cbStudyForm = new System.Windows.Forms.ComboBox();
-            this.cbObrazProgram = new System.Windows.Forms.ComboBox();
-            this.cbProfile = new System.Windows.Forms.ComboBox();
-            this.cbLicenseProgram = new System.Windows.Forms.ComboBox();
             this.lblObrazProgram = new System.Windows.Forms.Label();
             this.tbCelCompetitionText = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
@@ -257,10 +257,16 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.btnChangeEntry);
+            this.tabPage1.Controls.Add(this.tbStudyBasis);
+            this.tabPage1.Controls.Add(this.tbStudyForm);
+            this.tabPage1.Controls.Add(this.tbFaculty);
+            this.tabPage1.Controls.Add(this.tbProfile);
+            this.tabPage1.Controls.Add(this.tbObrazProgram);
+            this.tabPage1.Controls.Add(this.tbLicenseProgram);
             this.tabPage1.Controls.Add(this.cbBenefitOlympSource);
             this.tabPage1.Controls.Add(this.btnChangeOriginalsDestination);
             this.tabPage1.Controls.Add(this.lblBackDocByAdmissionHigh);
-            this.tabPage1.Controls.Add(this.chbIsCrimea);
             this.tabPage1.Controls.Add(this.chbIsForeign);
             this.tabPage1.Controls.Add(this.lblWhoBackDoc);
             this.tabPage1.Controls.Add(this.btnObrazProgramInEntry);
@@ -270,12 +276,6 @@
             this.tabPage1.Controls.Add(this.cbOtherCompetition);
             this.tabPage1.Controls.Add(this.cbCelCompetition);
             this.tabPage1.Controls.Add(this.cbCompetition);
-            this.tabPage1.Controls.Add(this.cbStudyBasis);
-            this.tabPage1.Controls.Add(this.cbFaculty);
-            this.tabPage1.Controls.Add(this.cbStudyForm);
-            this.tabPage1.Controls.Add(this.cbObrazProgram);
-            this.tabPage1.Controls.Add(this.cbProfile);
-            this.tabPage1.Controls.Add(this.cbLicenseProgram);
             this.tabPage1.Controls.Add(this.lblObrazProgram);
             this.tabPage1.Controls.Add(this.tbCelCompetitionText);
             this.tabPage1.Controls.Add(this.label8);
@@ -310,6 +310,72 @@
             this.tabPage1.Text = "Основное";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // btnChangeEntry
+            // 
+            this.btnChangeEntry.Location = new System.Drawing.Point(494, 207);
+            this.btnChangeEntry.Name = "btnChangeEntry";
+            this.btnChangeEntry.Size = new System.Drawing.Size(112, 30);
+            this.btnChangeEntry.TabIndex = 140;
+            this.btnChangeEntry.Text = "Изменить конкурс";
+            this.btnChangeEntry.UseVisualStyleBackColor = true;
+            this.btnChangeEntry.Click += new System.EventHandler(this.btnChangeEntry_Click);
+            // 
+            // tbStudyBasis
+            // 
+            this.tbStudyBasis.Location = new System.Drawing.Point(108, 238);
+            this.tbStudyBasis.Name = "tbStudyBasis";
+            this.tbStudyBasis.ReadOnly = true;
+            this.tbStudyBasis.Size = new System.Drawing.Size(271, 20);
+            this.tbStudyBasis.TabIndex = 139;
+            // 
+            // tbStudyForm
+            // 
+            this.tbStudyForm.Location = new System.Drawing.Point(108, 212);
+            this.tbStudyForm.Name = "tbStudyForm";
+            this.tbStudyForm.ReadOnly = true;
+            this.tbStudyForm.Size = new System.Drawing.Size(271, 20);
+            this.tbStudyForm.TabIndex = 138;
+            // 
+            // tbFaculty
+            // 
+            this.tbFaculty.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbFaculty.Location = new System.Drawing.Point(108, 170);
+            this.tbFaculty.Name = "tbFaculty";
+            this.tbFaculty.ReadOnly = true;
+            this.tbFaculty.Size = new System.Drawing.Size(498, 20);
+            this.tbFaculty.TabIndex = 137;
+            // 
+            // tbProfile
+            // 
+            this.tbProfile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbProfile.Location = new System.Drawing.Point(108, 144);
+            this.tbProfile.Name = "tbProfile";
+            this.tbProfile.ReadOnly = true;
+            this.tbProfile.Size = new System.Drawing.Size(498, 20);
+            this.tbProfile.TabIndex = 136;
+            // 
+            // tbObrazProgram
+            // 
+            this.tbObrazProgram.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbObrazProgram.Location = new System.Drawing.Point(108, 118);
+            this.tbObrazProgram.Name = "tbObrazProgram";
+            this.tbObrazProgram.ReadOnly = true;
+            this.tbObrazProgram.Size = new System.Drawing.Size(498, 20);
+            this.tbObrazProgram.TabIndex = 135;
+            // 
+            // tbLicenseProgram
+            // 
+            this.tbLicenseProgram.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbLicenseProgram.Location = new System.Drawing.Point(108, 92);
+            this.tbLicenseProgram.Name = "tbLicenseProgram";
+            this.tbLicenseProgram.ReadOnly = true;
+            this.tbLicenseProgram.Size = new System.Drawing.Size(498, 20);
+            this.tbLicenseProgram.TabIndex = 134;
+            // 
             // cbBenefitOlympSource
             // 
             this.cbBenefitOlympSource.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
@@ -325,7 +391,6 @@
             // 
             // btnChangeOriginalsDestination
             // 
-            this.btnChangeOriginalsDestination.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnChangeOriginalsDestination.Enabled = false;
             this.btnChangeOriginalsDestination.Location = new System.Drawing.Point(276, 392);
             this.btnChangeOriginalsDestination.Name = "btnChangeOriginalsDestination";
@@ -338,7 +403,6 @@
             // 
             // lblBackDocByAdmissionHigh
             // 
-            this.lblBackDocByAdmissionHigh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblBackDocByAdmissionHigh.AutoSize = true;
             this.lblBackDocByAdmissionHigh.Location = new System.Drawing.Point(136, 482);
             this.lblBackDocByAdmissionHigh.Name = "lblBackDocByAdmissionHigh";
@@ -347,17 +411,9 @@
             this.lblBackDocByAdmissionHigh.Text = "(Зачислен(а) на более приоритетный конкурс)";
             this.lblBackDocByAdmissionHigh.Visible = false;
             // 
-            // chbIsCrimea
-            // 
-            this.chbIsCrimea.Location = new System.Drawing.Point(389, 239);
-            this.chbIsCrimea.Name = "chbIsCrimea";
-            this.chbIsCrimea.Size = new System.Drawing.Size(78, 21);
-            this.chbIsCrimea.TabIndex = 130;
-            this.chbIsCrimea.Text = "Крым";
-            this.chbIsCrimea.UseVisualStyleBackColor = true;
-            // 
             // chbIsForeign
             // 
+            this.chbIsForeign.Enabled = false;
             this.chbIsForeign.Location = new System.Drawing.Point(389, 207);
             this.chbIsForeign.Name = "chbIsForeign";
             this.chbIsForeign.Size = new System.Drawing.Size(99, 30);
@@ -367,7 +423,6 @@
             // 
             // lblWhoBackDoc
             // 
-            this.lblWhoBackDoc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblWhoBackDoc.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lblWhoBackDoc.Location = new System.Drawing.Point(3, 416);
             this.lblWhoBackDoc.Name = "lblWhoBackDoc";
@@ -379,9 +434,8 @@
             // 
             // btnObrazProgramInEntry
             // 
-            this.btnObrazProgramInEntry.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnObrazProgramInEntry.Enabled = false;
-            this.btnObrazProgramInEntry.Location = new System.Drawing.Point(494, 242);
+            this.btnObrazProgramInEntry.Location = new System.Drawing.Point(494, 272);
             this.btnObrazProgramInEntry.Name = "btnObrazProgramInEntry";
             this.btnObrazProgramInEntry.Size = new System.Drawing.Size(112, 37);
             this.btnObrazProgramInEntry.TabIndex = 126;
@@ -402,7 +456,6 @@
             // 
             // lblHasOriginalsUser
             // 
-            this.lblHasOriginalsUser.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblHasOriginalsUser.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lblHasOriginalsUser.Location = new System.Drawing.Point(300, 416);
             this.lblHasOriginalsUser.Name = "lblHasOriginalsUser";
@@ -427,6 +480,7 @@
             // chbIsSecond
             // 
             this.chbIsSecond.AutoSize = true;
+            this.chbIsSecond.Enabled = false;
             this.chbIsSecond.Location = new System.Drawing.Point(343, 16);
             this.chbIsSecond.Name = "chbIsSecond";
             this.chbIsSecond.Size = new System.Drawing.Size(137, 17);
@@ -437,6 +491,7 @@
             // chbIsParallel
             // 
             this.chbIsParallel.AutoSize = true;
+            this.chbIsParallel.Enabled = false;
             this.chbIsParallel.Location = new System.Drawing.Point(175, 16);
             this.chbIsParallel.Name = "chbIsParallel";
             this.chbIsParallel.Size = new System.Drawing.Size(162, 17);
@@ -447,6 +502,7 @@
             // chbIsReduced
             // 
             this.chbIsReduced.AutoSize = true;
+            this.chbIsReduced.Enabled = false;
             this.chbIsReduced.Location = new System.Drawing.Point(6, 16);
             this.chbIsReduced.Name = "chbIsReduced";
             this.chbIsReduced.Size = new System.Drawing.Size(159, 17);
@@ -488,72 +544,6 @@
             this.cbCompetition.TabIndex = 121;
             this.cbCompetition.SelectedIndexChanged += new System.EventHandler(this.cbCompetition_SelectedIndexChanged);
             // 
-            // cbStudyBasis
-            // 
-            this.cbStudyBasis.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.cbStudyBasis.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cbStudyBasis.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbStudyBasis.FormattingEnabled = true;
-            this.cbStudyBasis.Location = new System.Drawing.Point(108, 239);
-            this.cbStudyBasis.Name = "cbStudyBasis";
-            this.cbStudyBasis.Size = new System.Drawing.Size(271, 21);
-            this.cbStudyBasis.TabIndex = 120;
-            // 
-            // cbFaculty
-            // 
-            this.cbFaculty.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.cbFaculty.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cbFaculty.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbFaculty.FormattingEnabled = true;
-            this.cbFaculty.Location = new System.Drawing.Point(108, 173);
-            this.cbFaculty.Name = "cbFaculty";
-            this.cbFaculty.Size = new System.Drawing.Size(498, 21);
-            this.cbFaculty.TabIndex = 119;
-            // 
-            // cbStudyForm
-            // 
-            this.cbStudyForm.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.cbStudyForm.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cbStudyForm.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbStudyForm.FormattingEnabled = true;
-            this.cbStudyForm.Location = new System.Drawing.Point(108, 212);
-            this.cbStudyForm.Name = "cbStudyForm";
-            this.cbStudyForm.Size = new System.Drawing.Size(271, 21);
-            this.cbStudyForm.TabIndex = 118;
-            // 
-            // cbObrazProgram
-            // 
-            this.cbObrazProgram.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.cbObrazProgram.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cbObrazProgram.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbObrazProgram.FormattingEnabled = true;
-            this.cbObrazProgram.Location = new System.Drawing.Point(108, 119);
-            this.cbObrazProgram.Name = "cbObrazProgram";
-            this.cbObrazProgram.Size = new System.Drawing.Size(498, 21);
-            this.cbObrazProgram.TabIndex = 117;
-            // 
-            // cbProfile
-            // 
-            this.cbProfile.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.cbProfile.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cbProfile.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbProfile.FormattingEnabled = true;
-            this.cbProfile.Location = new System.Drawing.Point(108, 146);
-            this.cbProfile.Name = "cbProfile";
-            this.cbProfile.Size = new System.Drawing.Size(498, 21);
-            this.cbProfile.TabIndex = 116;
-            // 
-            // cbLicenseProgram
-            // 
-            this.cbLicenseProgram.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.cbLicenseProgram.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cbLicenseProgram.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbLicenseProgram.FormattingEnabled = true;
-            this.cbLicenseProgram.Location = new System.Drawing.Point(108, 92);
-            this.cbLicenseProgram.Name = "cbLicenseProgram";
-            this.cbLicenseProgram.Size = new System.Drawing.Size(498, 21);
-            this.cbLicenseProgram.TabIndex = 115;
-            // 
             // lblObrazProgram
             // 
             this.lblObrazProgram.AutoSize = true;
@@ -569,7 +559,7 @@
             // 
             this.tbCelCompetitionText.Location = new System.Drawing.Point(226, 334);
             this.tbCelCompetitionText.Name = "tbCelCompetitionText";
-            this.tbCelCompetitionText.Size = new System.Drawing.Size(93, 20);
+            this.tbCelCompetitionText.Size = new System.Drawing.Size(209, 20);
             this.tbCelCompetitionText.TabIndex = 111;
             // 
             // label8
@@ -599,7 +589,6 @@
             // 
             // lblOtherOriginals
             // 
-            this.lblOtherOriginals.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblOtherOriginals.AutoSize = true;
             this.lblOtherOriginals.Location = new System.Drawing.Point(223, 396);
             this.lblOtherOriginals.Name = "lblOtherOriginals";
@@ -609,7 +598,6 @@
             // 
             // chbHasOriginals
             // 
-            this.chbHasOriginals.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chbHasOriginals.AutoSize = true;
             this.chbHasOriginals.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.chbHasOriginals.ForeColor = System.Drawing.Color.Red;
@@ -687,7 +675,7 @@
             // 
             this.chbIsListener.AutoSize = true;
             this.chbIsListener.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chbIsListener.Location = new System.Drawing.Point(526, 214);
+            this.chbIsListener.Location = new System.Drawing.Point(526, 322);
             this.chbIsListener.Name = "chbIsListener";
             this.chbIsListener.Size = new System.Drawing.Size(80, 17);
             this.chbIsListener.TabIndex = 8;
@@ -738,7 +726,6 @@
             // 
             // btnPaidData
             // 
-            this.btnPaidData.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnPaidData.Enabled = false;
             this.btnPaidData.Location = new System.Drawing.Point(494, 367);
             this.btnPaidData.Name = "btnPaidData";
@@ -750,7 +737,6 @@
             // 
             // chbIsPaid
             // 
-            this.chbIsPaid.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chbIsPaid.AutoSize = true;
             this.chbIsPaid.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.chbIsPaid.Location = new System.Drawing.Point(485, 345);
@@ -1486,12 +1472,6 @@
         private System.Windows.Forms.ComboBox cbOtherCompetition;
         private System.Windows.Forms.ComboBox cbCelCompetition;
         private System.Windows.Forms.ComboBox cbCompetition;
-        private System.Windows.Forms.ComboBox cbStudyBasis;
-        private System.Windows.Forms.ComboBox cbFaculty;
-        private System.Windows.Forms.ComboBox cbStudyForm;
-        private System.Windows.Forms.ComboBox cbObrazProgram;
-        private System.Windows.Forms.ComboBox cbProfile;
-        private System.Windows.Forms.ComboBox cbLicenseProgram;
         private System.Windows.Forms.ComboBox cbLanguage;
         private System.Windows.Forms.Button btnDocs;
         private System.Windows.Forms.GroupBox gbSecondType;
@@ -1510,7 +1490,6 @@
         private System.Windows.Forms.TabPage tpEntry;
         private System.Windows.Forms.ComboBox cbInnerEntryInEntry;
         private System.Windows.Forms.GroupBox gbObrazProgramInEntry;
-        private System.Windows.Forms.CheckBox chbIsCrimea;
         private System.Windows.Forms.Button btnSaveInnerEntryInEntry;
         private System.Windows.Forms.Button btnChangeOriginalsDestination;
         private System.Windows.Forms.ComboBox cbBenefitOlympSource;
@@ -1528,5 +1507,12 @@
         private System.Windows.Forms.DateTimePicker dtpDateDisableEntryConfirm;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.CheckBox chbHasDisabledEntryConfirm;
+        private System.Windows.Forms.TextBox tbStudyBasis;
+        private System.Windows.Forms.TextBox tbStudyForm;
+        private System.Windows.Forms.TextBox tbFaculty;
+        private System.Windows.Forms.TextBox tbProfile;
+        private System.Windows.Forms.TextBox tbObrazProgram;
+        private System.Windows.Forms.TextBox tbLicenseProgram;
+        private System.Windows.Forms.Button btnChangeEntry;
     }
 }

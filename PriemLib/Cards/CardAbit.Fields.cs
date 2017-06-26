@@ -8,83 +8,37 @@ using EducServLib;
 namespace PriemLib
 {
     public partial class CardAbit
-    { 
-        public Guid? EntryId
-        {
-            get 
-            {
-                try
-                {
-                    using (PriemEntities context = new PriemEntities())
-                    {
-                        Guid? entId = (from ent in context.qEntry
-                                       where ent.IsSecond == IsSecond && ent.IsParallel == IsParallel && ent.IsReduced == IsReduced
-                                       && ent.LicenseProgramId == LicenseProgramId
-                                       && ent.ObrazProgramId == ObrazProgramId
-                                       && (ProfileId == null ? ent.ProfileId == 0 : ent.ProfileId == ProfileId)
-                                       && ent.StudyFormId == StudyFormId
-                                       && ent.StudyBasisId == StudyBasisId
-                                       && ent.IsCrimea == IsCrimea
-                                       && ent.IsForeign == IsForeign
-                                       select ent.Id).FirstOrDefault();
-                        return entId;
-                    }
-                }
-                catch
-                {
-                    return null;
-                }
-            }            
-        }
+    {
+        public Guid? EntryId { get; set; }
         
         public int? FacultyId
         {
-            get { return ComboServ.GetComboIdInt(cbFaculty); }
-            set { ComboServ.SetComboId(cbFaculty, value); }
+            get; set;
         }
 
         public int? LicenseProgramId
         {
-            get { return ComboServ.GetComboIdInt(cbLicenseProgram); }
-            set { ComboServ.SetComboId(cbLicenseProgram, value); }
+            get; set;
         }
 
         public int? ObrazProgramId
         {
-            get { return ComboServ.GetComboIdInt(cbObrazProgram); }
-            set { ComboServ.SetComboId(cbObrazProgram, value); }
+            get; set;
         }
 
-        public int? ProfileId
+        public int ProfileId
         {
-            get 
-            {
-                return ComboServ.GetComboIdInt(cbProfile);
-                //string prId = ComboServ.GetComboId(cbProfile);
-                //if(string.IsNullOrEmpty(prId))
-                //    return null;
-                //else
-                //    return new Guid(prId);
-            }
-            set 
-            { 
-                if(value == null)
-                    ComboServ.SetComboId(cbProfile, (string)null); 
-                else
-                    ComboServ.SetComboId(cbProfile, value.ToString()); 
-            }
+            get; set;
         }
 
         public int? StudyFormId
         {
-            get { return ComboServ.GetComboIdInt(cbStudyForm);  }
-            set { ComboServ.SetComboId(cbStudyForm, value); }
+            get; set;
         }
 
         public int? StudyBasisId
         {
-            get { return ComboServ.GetComboIdInt(cbStudyBasis); }
-            set { ComboServ.SetComboId(cbStudyBasis, value); }
+            get; set;
         }
 
         public int? CompetitionId
@@ -304,11 +258,6 @@ namespace PriemLib
         {
             get { return chbIsForeign.Checked; }
             set { chbIsForeign.Checked = value; }
-        }
-        public bool IsCrimea
-        {
-            get { return chbIsCrimea.Checked; }
-            set { chbIsCrimea.Checked = value; }
         }
 
         public int? Priority

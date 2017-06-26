@@ -600,8 +600,6 @@
             // 
             // cbRegion
             // 
-            this.cbRegion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.cbRegion.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cbRegion.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbRegion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -613,8 +611,6 @@
             // 
             // cbCountry
             // 
-            this.cbCountry.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.cbCountry.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cbCountry.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbCountry.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -627,8 +623,6 @@
             // 
             // cbNationality
             // 
-            this.cbNationality.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.cbNationality.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cbNationality.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbNationality.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
