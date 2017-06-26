@@ -190,27 +190,32 @@
             this.tbHEEntryYear = new System.Windows.Forms.TextBox();
             this.tbHEProfession = new System.Windows.Forms.TextBox();
             this.tpEge = new System.Windows.Forms.TabPage();
-            this.groupBox9 = new System.Windows.Forms.GroupBox();
-            this.chbPassExamInSpbu = new System.Windows.Forms.CheckBox();
-            this.pnCategoryForManualExam = new System.Windows.Forms.Panel();
-            this.dgvEgeManualExam = new System.Windows.Forms.DataGridView();
+            this.tcEge = new System.Windows.Forms.TabControl();
+            this.tpEGE_Ege = new System.Windows.Forms.TabPage();
+            this.gbEgeMark = new System.Windows.Forms.GroupBox();
+            this.gbEgeLoading = new System.Windows.Forms.GroupBox();
+            this.label71 = new System.Windows.Forms.Label();
+            this.dgvExams = new System.Windows.Forms.DataGridView();
             this.lblHasRequestFinished = new System.Windows.Forms.Label();
-            this.lblHasRequest = new System.Windows.Forms.Label();
-            this.btnRequestEge = new System.Windows.Forms.Button();
-            this.chbEgeInSpbgu = new System.Windows.Forms.CheckBox();
-            this.tbFBSStatus = new System.Windows.Forms.TextBox();
             this.gbEge = new System.Windows.Forms.GroupBox();
             this.btnRemoveE = new System.Windows.Forms.Button();
             this.btnCardE = new System.Windows.Forms.Button();
             this.btnAddE = new System.Windows.Forms.Button();
             this.dgvEGE = new System.Windows.Forms.DataGridView();
-            this.btnSetStatusPasha = new System.Windows.Forms.Button();
+            this.lblHasRequest = new System.Windows.Forms.Label();
             this.lblFBSStatus = new System.Windows.Forms.Label();
+            this.btnRequestEge = new System.Windows.Forms.Button();
             this.tbCommentFBSPasha = new System.Windows.Forms.TextBox();
-            this.gbEgeMark = new System.Windows.Forms.GroupBox();
-            this.gbEgeLoading = new System.Windows.Forms.GroupBox();
-            this.label71 = new System.Windows.Forms.Label();
-            this.dgvExams = new System.Windows.Forms.DataGridView();
+            this.chbEgeInSpbgu = new System.Windows.Forms.CheckBox();
+            this.btnSetStatusPasha = new System.Windows.Forms.Button();
+            this.tbFBSStatus = new System.Windows.Forms.TextBox();
+            this.tpEGE_ManualExam = new System.Windows.Forms.TabPage();
+            this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.btnRemoveManualExam = new System.Windows.Forms.Button();
+            this.btnAddManualExam = new System.Windows.Forms.Button();
+            this.chbPassExamInSpbu = new System.Windows.Forms.CheckBox();
+            this.pnCategoryForManualExam = new System.Windows.Forms.Panel();
+            this.dgvEgeManualExam = new System.Windows.Forms.DataGridView();
             this.tpSecond = new System.Windows.Forms.TabPage();
             this.gbMainStudy = new System.Windows.Forms.GroupBox();
             this.cbMSStudyForm = new System.Windows.Forms.ComboBox();
@@ -381,13 +386,16 @@
             this.pnExitClass.SuspendLayout();
             this.gbFinishStudy.SuspendLayout();
             this.tpEge.SuspendLayout();
-            this.groupBox9.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvEgeManualExam)).BeginInit();
-            this.gbEge.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvEGE)).BeginInit();
+            this.tcEge.SuspendLayout();
+            this.tpEGE_Ege.SuspendLayout();
             this.gbEgeMark.SuspendLayout();
             this.gbEgeLoading.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvExams)).BeginInit();
+            this.gbEge.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvEGE)).BeginInit();
+            this.tpEGE_ManualExam.SuspendLayout();
+            this.groupBox9.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvEgeManualExam)).BeginInit();
             this.tpSecond.SuspendLayout();
             this.gbMainStudy.SuspendLayout();
             this.tabPage5.SuspendLayout();
@@ -1986,17 +1994,7 @@
             // 
             // tpEge
             // 
-            this.tpEge.Controls.Add(this.groupBox9);
-            this.tpEge.Controls.Add(this.lblHasRequestFinished);
-            this.tpEge.Controls.Add(this.lblHasRequest);
-            this.tpEge.Controls.Add(this.btnRequestEge);
-            this.tpEge.Controls.Add(this.chbEgeInSpbgu);
-            this.tpEge.Controls.Add(this.tbFBSStatus);
-            this.tpEge.Controls.Add(this.gbEge);
-            this.tpEge.Controls.Add(this.btnSetStatusPasha);
-            this.tpEge.Controls.Add(this.lblFBSStatus);
-            this.tpEge.Controls.Add(this.tbCommentFBSPasha);
-            this.tpEge.Controls.Add(this.gbEgeMark);
+            this.tpEge.Controls.Add(this.tcEge);
             this.tpEge.Location = new System.Drawing.Point(4, 22);
             this.tpEge.Name = "tpEge";
             this.tpEge.Size = new System.Drawing.Size(624, 531);
@@ -2004,99 +2002,91 @@
             this.tpEge.Text = "ЕГЭ";
             this.tpEge.UseVisualStyleBackColor = true;
             // 
-            // groupBox9
+            // tcEge
             // 
-            this.groupBox9.Controls.Add(this.chbPassExamInSpbu);
-            this.groupBox9.Controls.Add(this.pnCategoryForManualExam);
-            this.groupBox9.Controls.Add(this.dgvEgeManualExam);
-            this.groupBox9.Location = new System.Drawing.Point(8, 270);
-            this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(613, 137);
-            this.groupBox9.TabIndex = 97;
-            this.groupBox9.TabStop = false;
-            this.groupBox9.Text = "Экзамены ";
+            this.tcEge.Controls.Add(this.tpEGE_Ege);
+            this.tcEge.Controls.Add(this.tpEGE_ManualExam);
+            this.tcEge.Location = new System.Drawing.Point(8, 4);
+            this.tcEge.Name = "tcEge";
+            this.tcEge.SelectedIndex = 0;
+            this.tcEge.Size = new System.Drawing.Size(613, 524);
+            this.tcEge.TabIndex = 98;
             // 
-            // chbPassExamInSpbu
+            // tpEGE_Ege
             // 
-            this.chbPassExamInSpbu.AutoSize = true;
-            this.chbPassExamInSpbu.Location = new System.Drawing.Point(12, 23);
-            this.chbPassExamInSpbu.Name = "chbPassExamInSpbu";
-            this.chbPassExamInSpbu.Size = new System.Drawing.Size(223, 17);
-            this.chbPassExamInSpbu.TabIndex = 2;
-            this.chbPassExamInSpbu.Text = "Планирую сдавать экзамены в СПбГУ";
-            this.chbPassExamInSpbu.UseVisualStyleBackColor = true;
+            this.tpEGE_Ege.Controls.Add(this.gbEgeMark);
+            this.tpEGE_Ege.Controls.Add(this.lblHasRequestFinished);
+            this.tpEGE_Ege.Controls.Add(this.gbEge);
+            this.tpEGE_Ege.Controls.Add(this.lblHasRequest);
+            this.tpEGE_Ege.Controls.Add(this.lblFBSStatus);
+            this.tpEGE_Ege.Controls.Add(this.btnRequestEge);
+            this.tpEGE_Ege.Controls.Add(this.tbCommentFBSPasha);
+            this.tpEGE_Ege.Controls.Add(this.chbEgeInSpbgu);
+            this.tpEGE_Ege.Controls.Add(this.btnSetStatusPasha);
+            this.tpEGE_Ege.Controls.Add(this.tbFBSStatus);
+            this.tpEGE_Ege.Location = new System.Drawing.Point(4, 22);
+            this.tpEGE_Ege.Name = "tpEGE_Ege";
+            this.tpEGE_Ege.Padding = new System.Windows.Forms.Padding(3);
+            this.tpEGE_Ege.Size = new System.Drawing.Size(605, 498);
+            this.tpEGE_Ege.TabIndex = 0;
+            this.tpEGE_Ege.Text = "ЕГЭ";
+            this.tpEGE_Ege.UseVisualStyleBackColor = true;
             // 
-            // pnCategoryForManualExam
+            // gbEgeMark
             // 
-            this.pnCategoryForManualExam.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.gbEgeMark.Controls.Add(this.gbEgeLoading);
+            this.gbEgeMark.Controls.Add(this.dgvExams);
+            this.gbEgeMark.Location = new System.Drawing.Point(6, 6);
+            this.gbEgeMark.Name = "gbEgeMark";
+            this.gbEgeMark.Size = new System.Drawing.Size(500, 365);
+            this.gbEgeMark.TabIndex = 87;
+            this.gbEgeMark.TabStop = false;
+            this.gbEgeMark.Text = "Оценки ЕГЭ для зачета";
+            // 
+            // gbEgeLoading
+            // 
+            this.gbEgeLoading.Controls.Add(this.label71);
+            this.gbEgeLoading.Location = new System.Drawing.Point(153, 153);
+            this.gbEgeLoading.Name = "gbEgeLoading";
+            this.gbEgeLoading.Size = new System.Drawing.Size(200, 40);
+            this.gbEgeLoading.TabIndex = 9;
+            this.gbEgeLoading.TabStop = false;
+            this.gbEgeLoading.Visible = false;
+            // 
+            // label71
+            // 
+            this.label71.AutoSize = true;
+            this.label71.Location = new System.Drawing.Point(33, 16);
+            this.label71.Name = "label71";
+            this.label71.Size = new System.Drawing.Size(151, 13);
+            this.label71.TabIndex = 0;
+            this.label71.Text = "Идёт загрузка, подождите...";
+            // 
+            // dgvExams
+            // 
+            this.dgvExams.AllowUserToAddRows = false;
+            this.dgvExams.AllowUserToDeleteRows = false;
+            this.dgvExams.AllowUserToResizeRows = false;
+            this.dgvExams.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pnCategoryForManualExam.AutoScroll = true;
-            this.pnCategoryForManualExam.Location = new System.Drawing.Point(248, 19);
-            this.pnCategoryForManualExam.Name = "pnCategoryForManualExam";
-            this.pnCategoryForManualExam.Size = new System.Drawing.Size(359, 109);
-            this.pnCategoryForManualExam.TabIndex = 1;
-            // 
-            // dgvEgeManualExam
-            // 
-            this.dgvEgeManualExam.AllowUserToAddRows = false;
-            this.dgvEgeManualExam.AllowUserToDeleteRows = false;
-            this.dgvEgeManualExam.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.dgvEgeManualExam.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvEgeManualExam.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvEgeManualExam.Location = new System.Drawing.Point(12, 46);
-            this.dgvEgeManualExam.Name = "dgvEgeManualExam";
-            this.dgvEgeManualExam.ReadOnly = true;
-            this.dgvEgeManualExam.Size = new System.Drawing.Size(226, 83);
-            this.dgvEgeManualExam.TabIndex = 0;
+            this.dgvExams.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dgvExams.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dgvExams.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvExams.Location = new System.Drawing.Point(12, 19);
+            this.dgvExams.Name = "dgvExams";
+            this.dgvExams.RowHeadersVisible = false;
+            this.dgvExams.Size = new System.Drawing.Size(482, 340);
+            this.dgvExams.TabIndex = 8;
             // 
             // lblHasRequestFinished
             // 
-            this.lblHasRequestFinished.Location = new System.Drawing.Point(520, 107);
+            this.lblHasRequestFinished.Location = new System.Drawing.Point(509, 100);
             this.lblHasRequestFinished.Name = "lblHasRequestFinished";
             this.lblHasRequestFinished.Size = new System.Drawing.Size(90, 31);
             this.lblHasRequestFinished.TabIndex = 96;
             this.lblHasRequestFinished.Text = "Запрос в ФИС ЕГЭ выполнен";
             this.lblHasRequestFinished.Visible = false;
-            // 
-            // lblHasRequest
-            // 
-            this.lblHasRequest.Location = new System.Drawing.Point(520, 107);
-            this.lblHasRequest.Name = "lblHasRequest";
-            this.lblHasRequest.Size = new System.Drawing.Size(90, 43);
-            this.lblHasRequest.TabIndex = 95;
-            this.lblHasRequest.Text = "Отправлен запрос в ФИС ЕГЭ";
-            this.lblHasRequest.Visible = false;
-            // 
-            // btnRequestEge
-            // 
-            this.btnRequestEge.Location = new System.Drawing.Point(520, 57);
-            this.btnRequestEge.Name = "btnRequestEge";
-            this.btnRequestEge.Size = new System.Drawing.Size(90, 47);
-            this.btnRequestEge.TabIndex = 94;
-            this.btnRequestEge.Text = "Запросить данные ФИС ЕГЭ";
-            this.btnRequestEge.UseVisualStyleBackColor = true;
-            this.btnRequestEge.Click += new System.EventHandler(this.btnRequestEge_Click);
-            // 
-            // chbEgeInSpbgu
-            // 
-            this.chbEgeInSpbgu.Location = new System.Drawing.Point(523, 13);
-            this.chbEgeInSpbgu.Name = "chbEgeInSpbgu";
-            this.chbEgeInSpbgu.Size = new System.Drawing.Size(83, 38);
-            this.chbEgeInSpbgu.TabIndex = 93;
-            this.chbEgeInSpbgu.Text = "сдает ЕГЭ в СПбГУ";
-            this.chbEgeInSpbgu.UseVisualStyleBackColor = true;
-            // 
-            // tbFBSStatus
-            // 
-            this.tbFBSStatus.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.tbFBSStatus.Enabled = false;
-            this.tbFBSStatus.Location = new System.Drawing.Point(318, 434);
-            this.tbFBSStatus.Name = "tbFBSStatus";
-            this.tbFBSStatus.ReadOnly = true;
-            this.tbFBSStatus.Size = new System.Drawing.Size(127, 20);
-            this.tbFBSStatus.TabIndex = 88;
             // 
             // gbEge
             // 
@@ -2104,7 +2094,7 @@
             this.gbEge.Controls.Add(this.btnCardE);
             this.gbEge.Controls.Add(this.btnAddE);
             this.gbEge.Controls.Add(this.dgvEGE);
-            this.gbEge.Location = new System.Drawing.Point(8, 413);
+            this.gbEge.Location = new System.Drawing.Point(6, 377);
             this.gbEge.Name = "gbEge";
             this.gbEge.Size = new System.Drawing.Size(301, 115);
             this.gbEge.TabIndex = 7;
@@ -2179,9 +2169,54 @@
             this.dgvEGE.TabIndex = 0;
             this.dgvEGE.DoubleClick += new System.EventHandler(this.dgvEGE_DoubleClick);
             // 
+            // lblHasRequest
+            // 
+            this.lblHasRequest.Location = new System.Drawing.Point(509, 100);
+            this.lblHasRequest.Name = "lblHasRequest";
+            this.lblHasRequest.Size = new System.Drawing.Size(90, 43);
+            this.lblHasRequest.TabIndex = 95;
+            this.lblHasRequest.Text = "Отправлен запрос в ФИС ЕГЭ";
+            this.lblHasRequest.Visible = false;
+            // 
+            // lblFBSStatus
+            // 
+            this.lblFBSStatus.AutoSize = true;
+            this.lblFBSStatus.Location = new System.Drawing.Point(313, 377);
+            this.lblFBSStatus.Name = "lblFBSStatus";
+            this.lblFBSStatus.Size = new System.Drawing.Size(69, 13);
+            this.lblFBSStatus.TabIndex = 89;
+            this.lblFBSStatus.Text = "Статус ФБС";
+            // 
+            // btnRequestEge
+            // 
+            this.btnRequestEge.Location = new System.Drawing.Point(509, 50);
+            this.btnRequestEge.Name = "btnRequestEge";
+            this.btnRequestEge.Size = new System.Drawing.Size(90, 47);
+            this.btnRequestEge.TabIndex = 94;
+            this.btnRequestEge.Text = "Запросить данные ФИС ЕГЭ";
+            this.btnRequestEge.UseVisualStyleBackColor = true;
+            this.btnRequestEge.Click += new System.EventHandler(this.btnRequestEge_Click);
+            // 
+            // tbCommentFBSPasha
+            // 
+            this.tbCommentFBSPasha.Location = new System.Drawing.Point(313, 458);
+            this.tbCommentFBSPasha.Name = "tbCommentFBSPasha";
+            this.tbCommentFBSPasha.Size = new System.Drawing.Size(129, 20);
+            this.tbCommentFBSPasha.TabIndex = 91;
+            this.tbCommentFBSPasha.Visible = false;
+            // 
+            // chbEgeInSpbgu
+            // 
+            this.chbEgeInSpbgu.Location = new System.Drawing.Point(512, 6);
+            this.chbEgeInSpbgu.Name = "chbEgeInSpbgu";
+            this.chbEgeInSpbgu.Size = new System.Drawing.Size(83, 38);
+            this.chbEgeInSpbgu.TabIndex = 93;
+            this.chbEgeInSpbgu.Text = "сдает ЕГЭ в СПбГУ";
+            this.chbEgeInSpbgu.UseVisualStyleBackColor = true;
+            // 
             // btnSetStatusPasha
             // 
-            this.btnSetStatusPasha.Location = new System.Drawing.Point(315, 458);
+            this.btnSetStatusPasha.Location = new System.Drawing.Point(313, 417);
             this.btnSetStatusPasha.Name = "btnSetStatusPasha";
             this.btnSetStatusPasha.Size = new System.Drawing.Size(129, 35);
             this.btnSetStatusPasha.TabIndex = 90;
@@ -2190,69 +2225,95 @@
             this.btnSetStatusPasha.Visible = false;
             this.btnSetStatusPasha.Click += new System.EventHandler(this.btnSetStatusPasha_Click);
             // 
-            // lblFBSStatus
+            // tbFBSStatus
             // 
-            this.lblFBSStatus.AutoSize = true;
-            this.lblFBSStatus.Location = new System.Drawing.Point(315, 418);
-            this.lblFBSStatus.Name = "lblFBSStatus";
-            this.lblFBSStatus.Size = new System.Drawing.Size(69, 13);
-            this.lblFBSStatus.TabIndex = 89;
-            this.lblFBSStatus.Text = "Статус ФБС";
+            this.tbFBSStatus.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.tbFBSStatus.Enabled = false;
+            this.tbFBSStatus.Location = new System.Drawing.Point(316, 393);
+            this.tbFBSStatus.Name = "tbFBSStatus";
+            this.tbFBSStatus.ReadOnly = true;
+            this.tbFBSStatus.Size = new System.Drawing.Size(127, 20);
+            this.tbFBSStatus.TabIndex = 88;
             // 
-            // tbCommentFBSPasha
+            // tpEGE_ManualExam
             // 
-            this.tbCommentFBSPasha.Location = new System.Drawing.Point(315, 499);
-            this.tbCommentFBSPasha.Name = "tbCommentFBSPasha";
-            this.tbCommentFBSPasha.Size = new System.Drawing.Size(129, 20);
-            this.tbCommentFBSPasha.TabIndex = 91;
-            this.tbCommentFBSPasha.Visible = false;
+            this.tpEGE_ManualExam.Controls.Add(this.groupBox9);
+            this.tpEGE_ManualExam.Location = new System.Drawing.Point(4, 22);
+            this.tpEGE_ManualExam.Name = "tpEGE_ManualExam";
+            this.tpEGE_ManualExam.Padding = new System.Windows.Forms.Padding(3);
+            this.tpEGE_ManualExam.Size = new System.Drawing.Size(605, 498);
+            this.tpEGE_ManualExam.TabIndex = 1;
+            this.tpEGE_ManualExam.Text = "Экзамены";
+            this.tpEGE_ManualExam.UseVisualStyleBackColor = true;
             // 
-            // gbEgeMark
+            // groupBox9
             // 
-            this.gbEgeMark.Controls.Add(this.gbEgeLoading);
-            this.gbEgeMark.Controls.Add(this.dgvExams);
-            this.gbEgeMark.Location = new System.Drawing.Point(14, 3);
-            this.gbEgeMark.Name = "gbEgeMark";
-            this.gbEgeMark.Size = new System.Drawing.Size(500, 248);
-            this.gbEgeMark.TabIndex = 87;
-            this.gbEgeMark.TabStop = false;
-            this.gbEgeMark.Text = "Оценки ЕГЭ для зачета";
+            this.groupBox9.Controls.Add(this.btnRemoveManualExam);
+            this.groupBox9.Controls.Add(this.btnAddManualExam);
+            this.groupBox9.Controls.Add(this.chbPassExamInSpbu);
+            this.groupBox9.Controls.Add(this.pnCategoryForManualExam);
+            this.groupBox9.Controls.Add(this.dgvEgeManualExam);
+            this.groupBox9.Location = new System.Drawing.Point(6, 6);
+            this.groupBox9.Name = "groupBox9";
+            this.groupBox9.Size = new System.Drawing.Size(593, 486);
+            this.groupBox9.TabIndex = 97;
+            this.groupBox9.TabStop = false;
+            this.groupBox9.Text = "Экзамены ";
             // 
-            // gbEgeLoading
+            // btnRemoveManualExam
             // 
-            this.gbEgeLoading.Controls.Add(this.label71);
-            this.gbEgeLoading.Location = new System.Drawing.Point(153, 153);
-            this.gbEgeLoading.Name = "gbEgeLoading";
-            this.gbEgeLoading.Size = new System.Drawing.Size(200, 40);
-            this.gbEgeLoading.TabIndex = 9;
-            this.gbEgeLoading.TabStop = false;
-            this.gbEgeLoading.Visible = false;
+            this.btnRemoveManualExam.Location = new System.Drawing.Point(163, 454);
+            this.btnRemoveManualExam.Name = "btnRemoveManualExam";
+            this.btnRemoveManualExam.Size = new System.Drawing.Size(75, 23);
+            this.btnRemoveManualExam.TabIndex = 3;
+            this.btnRemoveManualExam.Text = "Удалить";
+            this.btnRemoveManualExam.UseVisualStyleBackColor = true;
+            this.btnRemoveManualExam.Click += new System.EventHandler(this.btnRemoveManualExam_Click);
             // 
-            // label71
+            // btnAddManualExam
             // 
-            this.label71.AutoSize = true;
-            this.label71.Location = new System.Drawing.Point(33, 16);
-            this.label71.Name = "label71";
-            this.label71.Size = new System.Drawing.Size(151, 13);
-            this.label71.TabIndex = 0;
-            this.label71.Text = "Идёт загрузка, подождите...";
+            this.btnAddManualExam.Location = new System.Drawing.Point(12, 454);
+            this.btnAddManualExam.Name = "btnAddManualExam";
+            this.btnAddManualExam.Size = new System.Drawing.Size(75, 23);
+            this.btnAddManualExam.TabIndex = 0;
+            this.btnAddManualExam.Text = "Добавить";
+            this.btnAddManualExam.UseVisualStyleBackColor = true;
+            this.btnAddManualExam.Click += new System.EventHandler(this.btnAddManualExam_Click);
             // 
-            // dgvExams
+            // chbPassExamInSpbu
             // 
-            this.dgvExams.AllowUserToAddRows = false;
-            this.dgvExams.AllowUserToDeleteRows = false;
-            this.dgvExams.AllowUserToResizeRows = false;
-            this.dgvExams.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.chbPassExamInSpbu.AutoSize = true;
+            this.chbPassExamInSpbu.Location = new System.Drawing.Point(12, 23);
+            this.chbPassExamInSpbu.Name = "chbPassExamInSpbu";
+            this.chbPassExamInSpbu.Size = new System.Drawing.Size(223, 17);
+            this.chbPassExamInSpbu.TabIndex = 2;
+            this.chbPassExamInSpbu.Text = "Планирую сдавать экзамены в СПбГУ";
+            this.chbPassExamInSpbu.UseVisualStyleBackColor = true;
+            // 
+            // pnCategoryForManualExam
+            // 
+            this.pnCategoryForManualExam.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvExams.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dgvExams.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.dgvExams.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvExams.Location = new System.Drawing.Point(12, 19);
-            this.dgvExams.Name = "dgvExams";
-            this.dgvExams.RowHeadersVisible = false;
-            this.dgvExams.Size = new System.Drawing.Size(482, 223);
-            this.dgvExams.TabIndex = 8;
+            this.pnCategoryForManualExam.AutoScroll = true;
+            this.pnCategoryForManualExam.Location = new System.Drawing.Point(248, 19);
+            this.pnCategoryForManualExam.Name = "pnCategoryForManualExam";
+            this.pnCategoryForManualExam.Size = new System.Drawing.Size(339, 458);
+            this.pnCategoryForManualExam.TabIndex = 1;
+            // 
+            // dgvEgeManualExam
+            // 
+            this.dgvEgeManualExam.AllowUserToAddRows = false;
+            this.dgvEgeManualExam.AllowUserToDeleteRows = false;
+            this.dgvEgeManualExam.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.dgvEgeManualExam.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvEgeManualExam.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvEgeManualExam.Location = new System.Drawing.Point(12, 46);
+            this.dgvEgeManualExam.Name = "dgvEgeManualExam";
+            this.dgvEgeManualExam.ReadOnly = true;
+            this.dgvEgeManualExam.Size = new System.Drawing.Size(226, 402);
+            this.dgvEgeManualExam.TabIndex = 0;
             // 
             // tpSecond
             // 
@@ -3954,16 +4015,19 @@
             this.gbFinishStudy.ResumeLayout(false);
             this.gbFinishStudy.PerformLayout();
             this.tpEge.ResumeLayout(false);
-            this.tpEge.PerformLayout();
-            this.groupBox9.ResumeLayout(false);
-            this.groupBox9.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvEgeManualExam)).EndInit();
-            this.gbEge.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvEGE)).EndInit();
+            this.tcEge.ResumeLayout(false);
+            this.tpEGE_Ege.ResumeLayout(false);
+            this.tpEGE_Ege.PerformLayout();
             this.gbEgeMark.ResumeLayout(false);
             this.gbEgeLoading.ResumeLayout(false);
             this.gbEgeLoading.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvExams)).EndInit();
+            this.gbEge.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvEGE)).EndInit();
+            this.tpEGE_ManualExam.ResumeLayout(false);
+            this.groupBox9.ResumeLayout(false);
+            this.groupBox9.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvEgeManualExam)).EndInit();
             this.tpSecond.ResumeLayout(false);
             this.gbMainStudy.ResumeLayout(false);
             this.gbMainStudy.PerformLayout();
@@ -4346,6 +4410,10 @@
         private System.Windows.Forms.CheckBox chbPassExamInSpbu;
         private System.Windows.Forms.Panel pnCategoryForManualExam;
         private System.Windows.Forms.DataGridView dgvEgeManualExam;
-
+        private System.Windows.Forms.TabControl tcEge;
+        private System.Windows.Forms.TabPage tpEGE_Ege;
+        private System.Windows.Forms.TabPage tpEGE_ManualExam;
+        private System.Windows.Forms.Button btnRemoveManualExam;
+        private System.Windows.Forms.Button btnAddManualExam;
     }
 }

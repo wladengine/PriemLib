@@ -177,6 +177,8 @@ namespace PriemLib
                 btnDocs.Enabled = false;
             }
 
+            tcEge.Enabled = true;
+
             WinFormsServ.SetSubControlsEnabled(gbPashaTechInfo, MainClass.IsPasha());
         }
         
@@ -727,6 +729,7 @@ namespace PriemLib
                 btnAddAbit.Enabled = true;
 
             btnDocs.Enabled = true;
+            tcEge.Enabled = true;
 
             btnPrintApplication.Enabled = true;
             chbApplicationPrint.Enabled = true;
@@ -834,7 +837,7 @@ namespace PriemLib
                 //tbAttestatNum.Enabled = false;
                 //cbAttestatSeries.Enabled = false;
 
-                gbPrivileges.Enabled = false;
+                //gbPrivileges.Enabled = false;
 
                 //временная добавка, ибо очень уж просили               
                 //btnAttMarks.Enabled = true;
@@ -2865,10 +2868,10 @@ namespace PriemLib
                     foreach (DataGridViewRow rw in dgvEgeManualExam.Rows)
                     {
                         int ExamId = (int)rw.Cells["ExamId"].Value;
-                        if (context.PersonManualExams.Where(x=>x.PersonId == GuidId && ExamId == ExamId).Select(x=>x).Count() == 0)
+                        if (context.PersonManualExams.Where(x => x.PersonId == GuidId && x.ExamId == ExamId).Select(x => x).Count() == 0)
                             context.PersonManualExams.Add(new PersonManualExams()
                             {
-                                PersonId = GuidId,
+                                PersonId = GuidId.Value,
                                 ExamId = ExamId,
                             });
                     }
@@ -2968,21 +2971,71 @@ namespace PriemLib
                     p.Controls.Add(b);
                 }
 
+                UpdateGridPersonManualExams();
+            }
+        }
+        private void UpdateGridPersonManualExams()
+        {
+            using (PriemEntities context = new PriemEntities())
+            {
                 var exams = context.PersonManualExams.Where(x => x.PersonId == GuidId)
                     .Select(x => new
-                {
-                    ExamId = x.ExamId,
-                    Предмет = x.EgeExamName.Name,
-                }).ToList();
+                    {
+                        ExamId = x.ExamId,
+                        Предмет = x.EgeExamName.Name,
+                    }).ToList();
                 dgvEgeManualExam.DataSource = exams;
                 if (dgvEgeManualExam.Columns.Contains("ExamId"))
                     dgvEgeManualExam.Columns["ExamId"].Visible = false;
-
             }
         }
         private void SetCategory(object sender, EventArgs e)
         {
             _CategoryId = RadioButtonCategory[(RadioButton)sender];
+        }
+
+        private void btnAddManualExam_Click(object sender, EventArgs e)
+        {
+            CardSelectEgeExamName crd = new CardSelectEgeExamName();
+            crd.EgeExamNameSelected += (Ege) => {
+                using (PriemEntities context = new PriemEntities())
+                {
+                    int cnt = context.PersonManualExams.Where(x => x.PersonId == GuidId && x.ExamId == Ege).Count();
+                    if (cnt == 0)
+                    {
+                        context.PersonManualExams.Add(new PersonManualExams() { PersonId = GuidId.Value, ExamId = Ege });
+                        context.SaveChanges();
+
+                        UpdateGridPersonManualExams();
+                    }
+                }
+            };
+            crd.Show();
+        }
+
+        private void btnRemoveManualExam_Click(object sender, EventArgs e)
+        {
+            if (dgvEgeManualExam.SelectedCells.Count > 0)
+            {
+                int rwInd = dgvEgeManualExam.SelectedCells[0].RowIndex;
+                int ExamId = (int)dgvEgeManualExam["ExamId", rwInd].Value;
+
+                var dr = MessageBox.Show("Удалить запись?", "Удаление", MessageBoxButtons.YesNo);
+                if (dr == DialogResult.Yes)
+                {
+                    using (PriemEntities context = new PriemEntities())
+                    {
+                        var ent = context.PersonManualExams.Where(x => x.PersonId == GuidId && x.ExamId == ExamId).FirstOrDefault();
+                        if (ent != null)
+                        {
+                            context.PersonManualExams.Remove(ent);
+                            context.SaveChanges();
+                        }
+                    }
+                }
+
+                UpdateGridPersonManualExams();
+            }
         }
     }
 }

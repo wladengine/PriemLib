@@ -277,8 +277,19 @@ FROM ed.qEntry WHERE StudyLevelGroupId = {0} AND FacultyId = {1} ORDER BY Name",
             {
                 using (PriemEntities context = new PriemEntities())
                 {
-                    List<int> EgeExamNameId = context.EgeToExam.Where(x => x.ExamId == examId.Value).Select(x => x.EgeExamNameId).DefaultIfEmpty(0).ToList();
-                    flt_hasExam += string.Format(" AND qAbiturient.PersonId IN (SELECT PersonId FROM ed.PersonManualExams WHERE PersonManualExams.ExamId IN ({0})) ", Util.BuildStringWithCollection(EgeExamNameId));
+                    bool isProfExam = context.Exam.Where(x => x.Id == examId.Value).Select(x => x.IsAdditional)
+                        .DefaultIfEmpty(false)
+                        .First();
+                    if (!isProfExam)
+                    {
+                        flt_hasExam += string.Format(@" AND qAbiturient.PersonId IN 
+(
+    SELECT PersonId 
+    FROM ed.PersonManualExams
+    INNER JOIN ed.EgeToExam ON EgeToExam.EgeExamNameId = PersonManualExams.ExamId
+    WHERE EgeToExam.ExamId = {0}
+) ", examId.Value);
+                    }
                 }
             }
 

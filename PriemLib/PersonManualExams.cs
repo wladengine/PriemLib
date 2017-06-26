@@ -15,8 +15,8 @@ namespace PriemLib
     public partial class PersonManualExams
     {
         public int Id { get; set; }
-        public Nullable<System.Guid> PersonId { get; set; }
-        public Nullable<int> ExamId { get; set; }
+        public System.Guid PersonId { get; set; }
+        public int ExamId { get; set; }
     
         public virtual EgeExamName EgeExamName { get; set; }
     }

@@ -1125,8 +1125,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="PersonId" Type="uniqueidentifier" />
-          <Property Name="ExamId" Type="int" />
+          <Property Name="PersonId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ExamId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="PersonNoticies">
           <Key>
@@ -4787,7 +4787,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PersonManualExams_EgeExamName">
-          <End Role="EgeExamName" Type="Self.EgeExamName" Multiplicity="0..1" />
+          <End Role="EgeExamName" Type="Self.EgeExamName" Multiplicity="1" />
           <End Role="PersonManualExams" Type="Self.PersonManualExams" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="EgeExamName">
@@ -15540,12 +15540,12 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
-          <Property Name="PersonId" Type="Guid" />
-          <Property Name="ExamId" Type="Int32" />
+          <Property Name="PersonId" Type="Guid" Nullable="false" />
+          <Property Name="ExamId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="EgeExamName" Relationship="Priem2012Model.FK_PersonManualExams_EgeExamName" FromRole="PersonManualExams" ToRole="EgeExamName" />
         </EntityType>
         <Association Name="FK_PersonManualExams_EgeExamName">
-          <End Type="Priem2012Model.EgeExamName" Role="EgeExamName" Multiplicity="0..1" />
+          <End Type="Priem2012Model.EgeExamName" Role="EgeExamName" Multiplicity="1" />
           <End Type="Priem2012Model.PersonManualExams" Role="PersonManualExams" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="EgeExamName">

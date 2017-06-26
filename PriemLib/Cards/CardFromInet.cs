@@ -1546,7 +1546,10 @@ namespace PriemLib
         }
         private void SaveEgeManualExams(PriemEntities context)
         {
-            bool? PassExamInSpbu = chbPassExamInSpbu.Checked; 
+            if (!personId.HasValue)
+                return;
+
+            bool? PassExamInSpbu = chbPassExamInSpbu.Checked;
             var AddInfo = context.Person_AdditionalInfo.Where(x => x.PersonId == personId).FirstOrDefault();
             if (AddInfo != null)
             {
@@ -1557,10 +1560,10 @@ namespace PriemLib
             foreach (DataGridViewRow rw in dgvEgeManualExam.Rows)
             {
                 int ExamId = (int)rw.Cells["ExamId"].Value;
-                if (context.PersonManualExams.Where(x => x.PersonId == GuidId && ExamId == ExamId).Select(x => x).Count() == 0)
+                if (context.PersonManualExams.Where(x => x.PersonId == GuidId && x.ExamId == ExamId).Select(x => x).Count() == 0)
                     context.PersonManualExams.Add(new PersonManualExams()
                     {
-                        PersonId = personId,
+                        PersonId = personId.Value,
                         ExamId = ExamId,
                     });
             }
