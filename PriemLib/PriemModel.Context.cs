@@ -120,7 +120,6 @@ namespace PriemLib
         public virtual DbSet<ApplicationVersionDetails> ApplicationVersionDetails { get; set; }
         public virtual DbSet<Comission> Comission { get; set; }
         public virtual DbSet<Entry> Entry { get; set; }
-        public virtual DbSet<qAbiturient> qAbiturient { get; set; }
         public virtual DbSet<qAbiturient_WhoSetHasOriginals> qAbiturient_WhoSetHasOriginals { get; set; }
         public virtual DbSet<qAbiturient_WhoSetBackDoc> qAbiturient_WhoSetBackDoc { get; set; }
         public virtual DbSet<hlpAbiturientActionLog> hlpAbiturientActionLog { get; set; }
@@ -137,7 +136,6 @@ namespace PriemLib
         public virtual DbSet<ForeignCountry> ForeignCountry { get; set; }
         public virtual DbSet<SP_AggregateGroup> SP_AggregateGroup { get; set; }
         public virtual DbSet<InnerEntryInEntry> InnerEntryInEntry { get; set; }
-        public virtual DbSet<extAbit> extAbit { get; set; }
         public virtual DbSet<extPerson_EducationInfo> extPerson_EducationInfo { get; set; }
         public virtual DbSet<extPerson_EducationInfo_Current> extPerson_EducationInfo_Current { get; set; }
         public virtual DbSet<extApplicationDetails> extApplicationDetails { get; set; }
@@ -194,6 +192,8 @@ namespace PriemLib
         public virtual DbSet<Mark> Mark { get; set; }
         public virtual DbSet<PersonCategoryForManualExams> PersonCategoryForManualExams { get; set; }
         public virtual DbSet<PersonManualExams> PersonManualExams { get; set; }
+        public virtual DbSet<extAbit> extAbit { get; set; }
+        public virtual DbSet<qAbiturient> qAbiturient { get; set; }
     
         public virtual int RoleMember(string roleName, ObjectParameter result)
         {

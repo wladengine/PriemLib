@@ -60,7 +60,7 @@
           <Property Name="DocInsertDate" Type="smalldatetime" Nullable="false" />
           <Property Name="Checked" Type="bit" Nullable="false" />
           <Property Name="NotEnabled" Type="bit" Nullable="false" />
-          <Property Name="Sum" Type="int" />
+          <Property Name="Sum" Type="decimal" Precision="6" Scale="2" />
           <Property Name="Coefficient" Type="float" />
           <Property Name="OtherCompetitionId" Type="int" />
           <Property Name="CelCompetitionId" Type="int" />
@@ -1460,7 +1460,7 @@
             <PropertyRef Name="Id" />
             <PropertyRef Name="PersonId" />
             <PropertyRef Name="EntryId" />
-            
+            <PropertyRef Name="CompetitionId" />
             <PropertyRef Name="IsListener" />
             <PropertyRef Name="IsPaid" />
             <PropertyRef Name="BackDoc" />
@@ -1469,7 +1469,7 @@
             <PropertyRef Name="Checked" />
             <PropertyRef Name="NotEnabled" />
             <PropertyRef Name="CompFromOlymp" />
-            
+            <PropertyRef Name="LanguageId" />
             <PropertyRef Name="HasOriginals" />
             <PropertyRef Name="FacultyId" />
             <PropertyRef Name="LicenseProgramId" />
@@ -1512,7 +1512,7 @@
           <Property Name="Checked" Type="bit" Nullable="false" />
           <Property Name="NotEnabled" Type="bit" Nullable="false" />
           <Property Name="Coefficient" Type="float" />
-          <Property Name="Sum" Type="int" />
+          <Property Name="Sum" Type="decimal" Precision="6" Scale="2" />
           <Property Name="OtherCompetitionId" Type="int" />
           <Property Name="CelCompetitionId" Type="int" />
           <Property Name="CelCompetitionText" Type="nvarchar" MaxLength="50" />
@@ -3033,25 +3033,25 @@
         <EntityType Name="qAbiturient">
           <Key>
             <PropertyRef Name="Id" />
-            
-            
-            
+            <PropertyRef Name="PersonId" />
+            <PropertyRef Name="EntryId" />
+            <PropertyRef Name="CompetitionId" />
             <PropertyRef Name="IsListener" />
             <PropertyRef Name="IsPaid" />
             <PropertyRef Name="BackDoc" />
-            
-            
+            <PropertyRef Name="DocDate" />
+            <PropertyRef Name="DocInsertDate" />
             <PropertyRef Name="Checked" />
             <PropertyRef Name="NotEnabled" />
             <PropertyRef Name="CompFromOlymp" />
-            
+            <PropertyRef Name="LanguageId" />
             <PropertyRef Name="HasOriginals" />
             <PropertyRef Name="FacultyId" />
             <PropertyRef Name="LicenseProgramId" />
             <PropertyRef Name="LicenseProgramName" />
             <PropertyRef Name="ObrazProgramId" />
             <PropertyRef Name="ObrazProgramName" />
-            
+            <PropertyRef Name="ProfileId" />
             <PropertyRef Name="StudyBasisId" />
             <PropertyRef Name="StudyBasisName" />
             <PropertyRef Name="StudyFormId" />
@@ -3059,7 +3059,7 @@
             <PropertyRef Name="StudyLevelId" />
             <PropertyRef Name="StudyLevelName" />
             <PropertyRef Name="IsSecond" />
-            
+            <PropertyRef Name="ObrazProgramNameEx" />
             <PropertyRef Name="WithHE" />
             <PropertyRef Name="IsReduced" />
             <PropertyRef Name="IsParallel" />
@@ -3085,7 +3085,7 @@
           <Property Name="Checked" Type="bit" Nullable="false" />
           <Property Name="NotEnabled" Type="bit" Nullable="false" />
           <Property Name="Coefficient" Type="float" />
-          <Property Name="Sum" Type="int" />
+          <Property Name="Sum" Type="decimal" Precision="6" Scale="2" />
           <Property Name="OtherCompetitionId" Type="int" />
           <Property Name="CelCompetitionId" Type="int" />
           <Property Name="CelCompetitionText" Type="nvarchar" MaxLength="50" />
@@ -9779,7 +9779,6 @@
             <End Role="Entry" EntitySet="Entry" />
             <End Role="PayDataEntry" EntitySet="PayDataEntry" />
           </AssociationSet>
-          <EntitySet Name="qAbiturient" EntityType="Priem2012Model.qAbiturient" />
           <AssociationSet Name="FK_Entry_SP_LicenseProgram" Association="Priem2012Model.FK_Entry_SP_LicenseProgram">
             <End Role="SP_LicenseProgram" EntitySet="SP_LicenseProgram" />
             <End Role="Entry" EntitySet="Entry" />
@@ -9953,7 +9952,6 @@
             <End Role="SP_Profile" EntitySet="SP_Profile" />
             <End Role="InnerEntryInEntry" EntitySet="InnerEntryInEntry" />
           </AssociationSet>
-          <EntitySet Name="extAbit" EntityType="Priem2012Model.extAbit" />
           <FunctionImport Name="Abiturient_UpdateInnerEntryInEntryId">
             <Parameter Name="InnerEntryInEntryId" Mode="In" Type="Guid" />
             <Parameter Name="id" Mode="In" Type="Guid" />
@@ -10413,6 +10411,8 @@
             <End Role="EgeExamName" EntitySet="EgeExamName" />
             <End Role="PersonManualExams" EntitySet="PersonManualExams" />
           </AssociationSet>
+          <EntitySet Name="extAbit" EntityType="Priem2012Model.extAbit" />
+          <EntitySet Name="qAbiturient" EntityType="Priem2012Model.qAbiturient" />
           </EntityContainer>
         <EntityType Name="AttMarks">
           <Key>
@@ -13131,110 +13131,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="qAbiturient">
-          <Key>
-            <PropertyRef Name="Id" />
-            <PropertyRef Name="IsListener" />
-            <PropertyRef Name="IsPaid" />
-            <PropertyRef Name="BackDoc" />
-            <PropertyRef Name="Checked" />
-            <PropertyRef Name="NotEnabled" />
-            <PropertyRef Name="CompFromOlymp" />
-            <PropertyRef Name="HasOriginals" />
-            <PropertyRef Name="FacultyId" />
-            <PropertyRef Name="LicenseProgramId" />
-            <PropertyRef Name="LicenseProgramName" />
-            <PropertyRef Name="ObrazProgramId" />
-            <PropertyRef Name="ObrazProgramName" />
-            <PropertyRef Name="StudyBasisId" />
-            <PropertyRef Name="StudyBasisName" />
-            <PropertyRef Name="StudyFormId" />
-            <PropertyRef Name="StudyFormName" />
-            <PropertyRef Name="StudyLevelId" />
-            <PropertyRef Name="StudyLevelName" />
-            <PropertyRef Name="IsSecond" />
-            <PropertyRef Name="StudyLevelGroupId" />
-            <PropertyRef Name="WithHE" />
-            <PropertyRef Name="IsReduced" />
-            <PropertyRef Name="IsParallel" />
-            <PropertyRef Name="IsViewed" />
-            <PropertyRef Name="IsForeign" />
-            <PropertyRef Name="IsCrimea" />
-            <PropertyRef Name="BackDocByAdmissionHigh" />
-            <PropertyRef Name="HasEntryConfirm" />
-            <PropertyRef Name="HasDisabledEntryConfirm" />
-          </Key>
-          <Property Type="Guid" Name="Id" Nullable="false" />
-          <Property Type="Guid" Name="PersonId" Nullable="false" />
-          <Property Type="String" Name="RegNum" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="Guid" Name="EntryId" Nullable="false" />
-          <Property Type="Int32" Name="CompetitionId" Nullable="false" />
-          <Property Type="Boolean" Name="IsListener" Nullable="false" />
-          <Property Type="Boolean" Name="IsPaid" Nullable="false" />
-          <Property Type="Boolean" Name="BackDoc" Nullable="false" />
-          <Property Type="DateTime" Name="BackDocDate" Precision="0" />
-          <Property Type="DateTime" Name="DocDate" Precision="0" Nullable="false" />
-          <Property Type="DateTime" Name="DocInsertDate" Precision="0" Nullable="false" />
-          <Property Type="Boolean" Name="Checked" Nullable="false" />
-          <Property Type="Boolean" Name="NotEnabled" Nullable="false" />
-          <Property Type="Double" Name="Coefficient" />
-          <Property Type="Int32" Name="Sum" />
-          <Property Type="Int32" Name="OtherCompetitionId" />
-          <Property Type="Int32" Name="CelCompetitionId" />
-          <Property Type="String" Name="CelCompetitionText" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="Boolean" Name="CompFromOlymp" Nullable="false" />
-          <Property Type="Int32" Name="LanguageId" Nullable="false" />
-          <Property Type="Boolean" Name="HasOriginals" Nullable="false" />
-          <Property Type="String" Name="StudyNumber" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="Double" Name="SessionAVG" />
-          <Property Type="Int32" Name="StudentStatus" />
-          <Property Type="Int32" Name="Priority" />
-          <Property Type="Int32" Name="Barcode" />
-          <Property Type="Int32" Name="FacultyId" Nullable="false" />
-          <Property Type="String" Name="FacultyName" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="FacultyAcr" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="LicenseProgramId" Nullable="false" />
-          <Property Type="String" Name="LicenseProgramName" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="LicenseProgramCode" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="ObrazProgramId" Nullable="false" />
-          <Property Type="String" Name="ObrazProgramName" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="ObrazProgramNumber" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="ObrazProgramCrypt" MaxLength="66" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="ProfileId" Nullable="false" />
-          <Property Type="String" Name="ProfileName" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="StudyBasisId" Nullable="false" />
-          <Property Type="String" Name="StudyBasisName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="StudyFormId" Nullable="false" />
-          <Property Type="String" Name="StudyFormName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="StudyLevelId" Nullable="false" />
-          <Property Type="String" Name="StudyLevelName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="Guid" Name="StudyPlanId" />
-          <Property Type="String" Name="StudyPlanNumber" MaxLength="64" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="ProgramModeShortName" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="Boolean" Name="IsSecond" Nullable="false" />
-          <Property Type="String" Name="StudyFormOldName" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="StudyLevelGroupId" Nullable="false" />
-          <Property Type="String" Name="ObrazProgramNameEx" MaxLength="1014" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Type="Boolean" Name="WithHE" Nullable="false" />
-          <Property Type="Boolean" Name="IsReduced" Nullable="false" />
-          <Property Type="Boolean" Name="IsParallel" Nullable="false" />
-          <Property Type="String" Name="StudyBasisFISName" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="StudyFormFISName" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="ObrazProgramPrintName" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Type="Guid" Name="CommitId" />
-          <Property Type="Int32" Name="CommitNumber" />
-          <Property Type="Boolean" Name="IsViewed" Nullable="false" />
-          <Property Type="Guid" Name="InnerEntryInEntryId" />
-          <Property Type="Boolean" Name="IsForeign" Nullable="false" />
-          <Property Type="Boolean" Name="IsCrimea" Nullable="false" />
-          <Property Name="BackDocByAdmissionHigh" Type="Boolean" Nullable="false" />
-          <Property Name="OlympiadId" Type="Guid" />
-          <Property Name="StudyLevelGroupUpperCategoryId" Type="Int32" />
-          <Property Name="HasEntryConfirm" Type="Boolean" Nullable="false" />
-          <Property Name="DateEntryConfirm" Type="DateTime" Precision="3" />
-          <Property Name="HasDisabledEntryConfirm" Type="Boolean" Nullable="false" />
-          <Property Name="DateDisableEntryConfirm" Type="DateTime" Precision="3" />
-        </EntityType>
         <Association Name="FK_Entry_SP_LicenseProgram">
           <End Type="Priem2012Model.SP_LicenseProgram" Role="SP_LicenseProgram" Multiplicity="1" />
           <End Type="Priem2012Model.Entry" Role="Entry" Multiplicity="*" />
@@ -13710,127 +13606,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="extAbit">
-          <Key>
-            <PropertyRef Name="Id" />
-            <PropertyRef Name="PersonId" />
-            <PropertyRef Name="EntryId" />
-            <PropertyRef Name="IsListener" />
-            <PropertyRef Name="IsPaid" />
-            <PropertyRef Name="BackDoc" />
-            <PropertyRef Name="DocDate" />
-            <PropertyRef Name="DocInsertDate" />
-            <PropertyRef Name="Checked" />
-            <PropertyRef Name="NotEnabled" />
-            <PropertyRef Name="CompFromOlymp" />
-            <PropertyRef Name="HasOriginals" />
-            <PropertyRef Name="FacultyId" />
-            <PropertyRef Name="LicenseProgramId" />
-            <PropertyRef Name="LicenseProgramName" />
-            <PropertyRef Name="ObrazProgramId" />
-            <PropertyRef Name="ObrazProgramName" />
-            <PropertyRef Name="ProfileId" />
-            <PropertyRef Name="StudyBasisId" />
-            <PropertyRef Name="StudyBasisName" />
-            <PropertyRef Name="StudyFormId" />
-            <PropertyRef Name="StudyFormName" />
-            <PropertyRef Name="StudyLevelId" />
-            <PropertyRef Name="StudyLevelName" />
-            <PropertyRef Name="IsSecond" />
-            <PropertyRef Name="Name" />
-            <PropertyRef Name="Surname" />
-            <PropertyRef Name="StudyLevelGroupId" />
-            <PropertyRef Name="FIO" />
-            <PropertyRef Name="ObrazProgramNameEx" />
-            <PropertyRef Name="WithHE" />
-            <PropertyRef Name="IsReduced" />
-            <PropertyRef Name="IsParallel" />
-            <PropertyRef Name="IsForeign" />
-            <PropertyRef Name="IsCrimea" />
-            <PropertyRef Name="BackDocByAdmissionHigh" />
-            <PropertyRef Name="HasEntryConfirm" />
-            <PropertyRef Name="HasDisabledEntryConfirm" />
-          </Key>
-          <Property Type="Guid" Name="Id" Nullable="false" />
-          <Property Type="Guid" Name="PersonId" Nullable="false" />
-          <Property Type="String" Name="RegNum" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="Guid" Name="EntryId" Nullable="false" />
-          <Property Type="Int32" Name="CompetitionId" Nullable="false" />
-          <Property Type="Boolean" Name="IsListener" Nullable="false" />
-          <Property Type="Boolean" Name="IsPaid" Nullable="false" />
-          <Property Type="Boolean" Name="BackDoc" Nullable="false" />
-          <Property Type="DateTime" Name="BackDocDate" Precision="0" />
-          <Property Type="DateTime" Name="DocDate" Nullable="false" Precision="0" />
-          <Property Type="DateTime" Name="DocInsertDate" Nullable="false" Precision="0" />
-          <Property Type="Boolean" Name="Checked" Nullable="false" />
-          <Property Type="Boolean" Name="NotEnabled" Nullable="false" />
-          <Property Type="Double" Name="Coefficient" />
-          <Property Type="Int32" Name="Sum" />
-          <Property Type="Int32" Name="OtherCompetitionId" />
-          <Property Type="Int32" Name="CelCompetitionId" />
-          <Property Type="String" Name="CelCompetitionText" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="Boolean" Name="CompFromOlymp" Nullable="false" />
-          <Property Type="Int32" Name="LanguageId" Nullable="false" />
-          <Property Type="Boolean" Name="HasOriginals" Nullable="false" />
-          <Property Type="String" Name="StudyNumber" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="StudentStatus" />
-          <Property Type="Double" Name="SessionAVG" />
-          <Property Type="Int32" Name="Priority" />
-          <Property Type="Int32" Name="Barcode" />
-          <Property Type="Int32" Name="FacultyId" Nullable="false" />
-          <Property Type="String" Name="FacultyAcr" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="LicenseProgramId" Nullable="false" />
-          <Property Type="String" Name="LicenseProgramName" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="FacultyName" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="LicenseProgramCode" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="ObrazProgramId" Nullable="false" />
-          <Property Type="String" Name="ObrazProgramName" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="ObrazProgramNumber" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="ObrazProgramCrypt" MaxLength="66" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="ProfileId" Nullable="false" />
-          <Property Type="String" Name="ProfileName" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="StudyBasisId" Nullable="false" />
-          <Property Type="String" Name="StudyBasisName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="StudyFormId" Nullable="false" />
-          <Property Type="String" Name="StudyFormName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="StudyLevelId" Nullable="false" />
-          <Property Type="String" Name="StudyLevelName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="Guid" Name="StudyPlanId" />
-          <Property Type="String" Name="StudyPlanNumber" MaxLength="64" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="ProgramModeShortName" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="Boolean" Name="IsSecond" Nullable="false" />
-          <Property Type="String" Name="PersonNum" MaxLength="7" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="SecondName" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Surname" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="StudyFormOldName" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="LanguageName" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="StudyLevelGroupId" Nullable="false" />
-          <Property Type="String" Name="FIO" Nullable="false" MaxLength="152" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="PassportData" MaxLength="532" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="ObrazProgramNameEx" Nullable="false" MaxLength="1014" FixedLength="false" Unicode="true" />
-          <Property Type="Boolean" Name="WithHE" Nullable="false" />
-          <Property Type="Boolean" Name="IsReduced" Nullable="false" />
-          <Property Type="Boolean" Name="IsParallel" Nullable="false" />
-          <Property Type="String" Name="StudyBasisFISName" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="StudyFormFISName" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="Guid" Name="CommitId" />
-          <Property Type="Int32" Name="CommitNumber" />
-          <Property Type="Guid" Name="InnerEntryInEntryId" />
-          <Property Type="Int32" Name="InnerEntryInEntryObrazProgramId" />
-          <Property Type="String" Name="InnerEntryInEntryProfileName" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="InnerEntryInEntryObrazProgramCrypt" MaxLength="66" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="InnerEntryInEntryObrazProgramName" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Name="IsForeign" Type="Boolean" Nullable="false" />
-          <Property Name="IsCrimea" Type="Boolean" Nullable="false" />
-          <Property Name="BackDocByAdmissionHigh" Type="Boolean" Nullable="false" />
-          <Property Name="OlympiadId" Type="Guid" />
-          <Property Name="HasEntryConfirm" Type="Boolean" Nullable="false" />
-          <Property Name="DateEntryConfirm" Type="DateTime" Precision="3" />
-          <Property Name="HasDisabledEntryConfirm" Type="Boolean" Nullable="false" />
-          <Property Name="DateDisableEntryConfirm" Type="DateTime" Precision="3" />
-          <Property Name="StudyLevelGroupUpperCategoryId" Type="Int32" />
-        </EntityType>
         <EntityType Name="extPerson_EducationInfo">
           <Key>
             <PropertyRef Name="Id" />
@@ -15556,6 +15331,241 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="extAbit">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="PersonId" />
+            <PropertyRef Name="EntryId" />
+            <PropertyRef Name="CompetitionId" />
+            <PropertyRef Name="IsListener" />
+            <PropertyRef Name="IsPaid" />
+            <PropertyRef Name="BackDoc" />
+            <PropertyRef Name="DocDate" />
+            <PropertyRef Name="DocInsertDate" />
+            <PropertyRef Name="Checked" />
+            <PropertyRef Name="NotEnabled" />
+            <PropertyRef Name="CompFromOlymp" />
+            <PropertyRef Name="LanguageId" />
+            <PropertyRef Name="HasOriginals" />
+            <PropertyRef Name="FacultyId" />
+            <PropertyRef Name="LicenseProgramId" />
+            <PropertyRef Name="LicenseProgramName" />
+            <PropertyRef Name="ObrazProgramId" />
+            <PropertyRef Name="ObrazProgramName" />
+            <PropertyRef Name="ProfileId" />
+            <PropertyRef Name="StudyBasisId" />
+            <PropertyRef Name="StudyBasisName" />
+            <PropertyRef Name="StudyFormId" />
+            <PropertyRef Name="StudyFormName" />
+            <PropertyRef Name="StudyLevelId" />
+            <PropertyRef Name="StudyLevelName" />
+            <PropertyRef Name="IsSecond" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="Surname" />
+            <PropertyRef Name="StudyLevelGroupId" />
+            <PropertyRef Name="FIO" />
+            <PropertyRef Name="ObrazProgramNameEx" />
+            <PropertyRef Name="WithHE" />
+            <PropertyRef Name="IsReduced" />
+            <PropertyRef Name="IsParallel" />
+            <PropertyRef Name="IsForeign" />
+            <PropertyRef Name="IsCrimea" />
+            <PropertyRef Name="BackDocByAdmissionHigh" />
+            <PropertyRef Name="HasEntryConfirm" />
+            <PropertyRef Name="HasDisabledEntryConfirm" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="PersonId" Type="Guid" Nullable="false" />
+          <Property Name="RegNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EntryId" Type="Guid" Nullable="false" />
+          <Property Name="CompetitionId" Type="Int32" Nullable="false" />
+          <Property Name="IsListener" Type="Boolean" Nullable="false" />
+          <Property Name="IsPaid" Type="Boolean" Nullable="false" />
+          <Property Name="BackDoc" Type="Boolean" Nullable="false" />
+          <Property Name="BackDocDate" Type="DateTime" Precision="0" />
+          <Property Name="DocDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DocInsertDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Checked" Type="Boolean" Nullable="false" />
+          <Property Name="NotEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="Coefficient" Type="Double" />
+          <Property Name="Sum" Type="Decimal" Precision="6" Scale="2" />
+          <Property Name="OtherCompetitionId" Type="Int32" />
+          <Property Name="CelCompetitionId" Type="Int32" />
+          <Property Name="CelCompetitionText" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CompFromOlymp" Type="Boolean" Nullable="false" />
+          <Property Name="LanguageId" Type="Int32" Nullable="false" />
+          <Property Name="HasOriginals" Type="Boolean" Nullable="false" />
+          <Property Name="StudyNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StudentStatus" Type="Int32" />
+          <Property Name="SessionAVG" Type="Double" />
+          <Property Name="Priority" Type="Int32" />
+          <Property Name="Barcode" Type="Int32" />
+          <Property Name="FacultyId" Type="Int32" Nullable="false" />
+          <Property Name="FacultyAcr" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LicenseProgramId" Type="Int32" Nullable="false" />
+          <Property Name="LicenseProgramName" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="FacultyName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LicenseProgramCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="ObrazProgramId" Type="Int32" Nullable="false" />
+          <Property Name="ObrazProgramName" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="ObrazProgramNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ObrazProgramCrypt" Type="String" MaxLength="66" FixedLength="false" Unicode="true" />
+          <Property Name="ProfileId" Type="Int32" Nullable="false" />
+          <Property Name="ProfileName" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="StudyBasisId" Type="Int32" Nullable="false" />
+          <Property Name="StudyBasisName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StudyFormId" Type="Int32" Nullable="false" />
+          <Property Name="StudyFormName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StudyLevelId" Type="Int32" Nullable="false" />
+          <Property Name="StudyLevelName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StudyPlanId" Type="Guid" />
+          <Property Name="StudyPlanNumber" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="ProgramModeShortName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IsSecond" Type="Boolean" Nullable="false" />
+          <Property Name="PersonNum" Type="String" MaxLength="7" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SecondName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Surname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StudyFormOldName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LanguageName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StudyLevelGroupId" Type="Int32" Nullable="false" />
+          <Property Name="FIO" Type="String" Nullable="false" MaxLength="152" FixedLength="false" Unicode="true" />
+          <Property Name="PassportData" Type="String" MaxLength="532" FixedLength="false" Unicode="true" />
+          <Property Name="ObrazProgramNameEx" Type="String" Nullable="false" MaxLength="1014" FixedLength="false" Unicode="true" />
+          <Property Name="WithHE" Type="Boolean" Nullable="false" />
+          <Property Name="IsReduced" Type="Boolean" Nullable="false" />
+          <Property Name="IsParallel" Type="Boolean" Nullable="false" />
+          <Property Name="StudyBasisFISName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StudyFormFISName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CommitId" Type="Guid" />
+          <Property Name="CommitNumber" Type="Int32" />
+          <Property Name="InnerEntryInEntryId" Type="Guid" />
+          <Property Name="InnerEntryInEntryProfileName" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="InnerEntryInEntryObrazProgramCrypt" Type="String" MaxLength="66" FixedLength="false" Unicode="true" />
+          <Property Name="InnerEntryInEntryObrazProgramName" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="InnerEntryInEntryObrazProgramId" Type="Int32" />
+          <Property Name="IsForeign" Type="Boolean" Nullable="false" />
+          <Property Name="IsCrimea" Type="Boolean" Nullable="false" />
+          <Property Name="BackDocByAdmissionHigh" Type="Boolean" Nullable="false" />
+          <Property Name="OlympiadId" Type="Guid" />
+          <Property Name="HasEntryConfirm" Type="Boolean" Nullable="false" />
+          <Property Name="DateEntryConfirm" Type="DateTime" Precision="3" />
+          <Property Name="HasDisabledEntryConfirm" Type="Boolean" Nullable="false" />
+          <Property Name="DateDisableEntryConfirm" Type="DateTime" Precision="3" />
+          <Property Name="StudyLevelGroupUpperCategoryId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="qAbiturient">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="PersonId" />
+            <PropertyRef Name="EntryId" />
+            <PropertyRef Name="CompetitionId" />
+            <PropertyRef Name="IsListener" />
+            <PropertyRef Name="IsPaid" />
+            <PropertyRef Name="BackDoc" />
+            <PropertyRef Name="DocDate" />
+            <PropertyRef Name="DocInsertDate" />
+            <PropertyRef Name="Checked" />
+            <PropertyRef Name="NotEnabled" />
+            <PropertyRef Name="CompFromOlymp" />
+            <PropertyRef Name="LanguageId" />
+            <PropertyRef Name="HasOriginals" />
+            <PropertyRef Name="FacultyId" />
+            <PropertyRef Name="LicenseProgramId" />
+            <PropertyRef Name="LicenseProgramName" />
+            <PropertyRef Name="ObrazProgramId" />
+            <PropertyRef Name="ObrazProgramName" />
+            <PropertyRef Name="ProfileId" />
+            <PropertyRef Name="StudyBasisId" />
+            <PropertyRef Name="StudyBasisName" />
+            <PropertyRef Name="StudyFormId" />
+            <PropertyRef Name="StudyFormName" />
+            <PropertyRef Name="StudyLevelId" />
+            <PropertyRef Name="StudyLevelName" />
+            <PropertyRef Name="IsSecond" />
+            <PropertyRef Name="ObrazProgramNameEx" />
+            <PropertyRef Name="WithHE" />
+            <PropertyRef Name="IsReduced" />
+            <PropertyRef Name="IsParallel" />
+            <PropertyRef Name="IsViewed" />
+            <PropertyRef Name="IsForeign" />
+            <PropertyRef Name="IsCrimea" />
+            <PropertyRef Name="BackDocByAdmissionHigh" />
+            <PropertyRef Name="StudyLevelGroupId" />
+            <PropertyRef Name="HasEntryConfirm" />
+            <PropertyRef Name="HasDisabledEntryConfirm" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="PersonId" Type="Guid" Nullable="false" />
+          <Property Name="RegNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EntryId" Type="Guid" Nullable="false" />
+          <Property Name="CompetitionId" Type="Int32" Nullable="false" />
+          <Property Name="IsListener" Type="Boolean" Nullable="false" />
+          <Property Name="IsPaid" Type="Boolean" Nullable="false" />
+          <Property Name="BackDoc" Type="Boolean" Nullable="false" />
+          <Property Name="BackDocDate" Type="DateTime" Precision="0" />
+          <Property Name="DocDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DocInsertDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Checked" Type="Boolean" Nullable="false" />
+          <Property Name="NotEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="Coefficient" Type="Double" />
+          <Property Name="Sum" Type="Decimal" Precision="6" Scale="2" />
+          <Property Name="OtherCompetitionId" Type="Int32" />
+          <Property Name="CelCompetitionId" Type="Int32" />
+          <Property Name="CelCompetitionText" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CompFromOlymp" Type="Boolean" Nullable="false" />
+          <Property Name="LanguageId" Type="Int32" Nullable="false" />
+          <Property Name="HasOriginals" Type="Boolean" Nullable="false" />
+          <Property Name="StudyNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SessionAVG" Type="Double" />
+          <Property Name="StudentStatus" Type="Int32" />
+          <Property Name="Priority" Type="Int32" />
+          <Property Name="Barcode" Type="Int32" />
+          <Property Name="FacultyId" Type="Int32" Nullable="false" />
+          <Property Name="FacultyName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FacultyAcr" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LicenseProgramId" Type="Int32" Nullable="false" />
+          <Property Name="LicenseProgramName" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="LicenseProgramCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="ObrazProgramId" Type="Int32" Nullable="false" />
+          <Property Name="ObrazProgramName" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="ObrazProgramNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ObrazProgramCrypt" Type="String" MaxLength="66" FixedLength="false" Unicode="true" />
+          <Property Name="ProfileId" Type="Int32" Nullable="false" />
+          <Property Name="ProfileName" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="StudyBasisId" Type="Int32" Nullable="false" />
+          <Property Name="StudyBasisName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StudyFormId" Type="Int32" Nullable="false" />
+          <Property Name="StudyFormName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StudyLevelId" Type="Int32" Nullable="false" />
+          <Property Name="StudyLevelName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StudyPlanId" Type="Guid" />
+          <Property Name="StudyPlanNumber" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="ProgramModeShortName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IsSecond" Type="Boolean" Nullable="false" />
+          <Property Name="StudyFormOldName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ObrazProgramNameEx" Type="String" Nullable="false" MaxLength="1014" FixedLength="false" Unicode="true" />
+          <Property Name="WithHE" Type="Boolean" Nullable="false" />
+          <Property Name="IsReduced" Type="Boolean" Nullable="false" />
+          <Property Name="IsParallel" Type="Boolean" Nullable="false" />
+          <Property Name="StudyBasisFISName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StudyFormFISName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ObrazProgramPrintName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="CommitId" Type="Guid" />
+          <Property Name="CommitNumber" Type="Int32" />
+          <Property Name="IsViewed" Type="Boolean" Nullable="false" />
+          <Property Name="InnerEntryInEntryId" Type="Guid" />
+          <Property Name="IsForeign" Type="Boolean" Nullable="false" />
+          <Property Name="IsCrimea" Type="Boolean" Nullable="false" />
+          <Property Name="BackDocByAdmissionHigh" Type="Boolean" Nullable="false" />
+          <Property Name="OlympiadId" Type="Guid" />
+          <Property Name="StudyLevelGroupUpperCategoryId" Type="Int32" />
+          <Property Name="StudyLevelGroupId" Type="Int32" Nullable="false" />
+          <Property Name="HasEntryConfirm" Type="Boolean" Nullable="false" />
+          <Property Name="DateEntryConfirm" Type="DateTime" Precision="3" />
+          <Property Name="HasDisabledEntryConfirm" Type="Boolean" Nullable="false" />
+          <Property Name="DateDisableEntryConfirm" Type="DateTime" Precision="3" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -17311,82 +17321,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="qAbiturient">
-            <EntityTypeMapping TypeName="Priem2012Model.qAbiturient">
-              <MappingFragment StoreEntitySet="qAbiturient">
-                <ScalarProperty Name="DateDisableEntryConfirm" ColumnName="DateDisableEntryConfirm" />
-                <ScalarProperty Name="HasDisabledEntryConfirm" ColumnName="HasDisabledEntryConfirm" />
-                <ScalarProperty Name="DateEntryConfirm" ColumnName="DateEntryConfirm" />
-                <ScalarProperty Name="HasEntryConfirm" ColumnName="HasEntryConfirm" />
-                <ScalarProperty Name="StudyLevelGroupUpperCategoryId" ColumnName="StudyLevelGroupUpperCategoryId" />
-                <ScalarProperty Name="OlympiadId" ColumnName="OlympiadId" />
-                <ScalarProperty Name="BackDocByAdmissionHigh" ColumnName="BackDocByAdmissionHigh" />
-                <ScalarProperty Name="IsCrimea" ColumnName="IsCrimea" />
-                <ScalarProperty Name="IsForeign" ColumnName="IsForeign" />
-                <ScalarProperty Name="InnerEntryInEntryId" ColumnName="InnerEntryInEntryId" />
-                <ScalarProperty Name="IsViewed" ColumnName="IsViewed" />
-                <ScalarProperty Name="CommitNumber" ColumnName="CommitNumber" />
-                <ScalarProperty Name="CommitId" ColumnName="CommitId" />
-                <ScalarProperty Name="ObrazProgramPrintName" ColumnName="ObrazProgramPrintName" />
-                <ScalarProperty Name="StudyFormFISName" ColumnName="StudyFormFISName" />
-                <ScalarProperty Name="StudyBasisFISName" ColumnName="StudyBasisFISName" />
-                <ScalarProperty Name="IsParallel" ColumnName="IsParallel" />
-                <ScalarProperty Name="IsReduced" ColumnName="IsReduced" />
-                <ScalarProperty Name="WithHE" ColumnName="WithHE" />
-                <ScalarProperty Name="ObrazProgramNameEx" ColumnName="ObrazProgramNameEx" />
-                <ScalarProperty Name="StudyLevelGroupId" ColumnName="StudyLevelGroupId" />
-                <ScalarProperty Name="StudyFormOldName" ColumnName="StudyFormOldName" />
-                <ScalarProperty Name="IsSecond" ColumnName="IsSecond" />
-                <ScalarProperty Name="ProgramModeShortName" ColumnName="ProgramModeShortName" />
-                <ScalarProperty Name="StudyPlanNumber" ColumnName="StudyPlanNumber" />
-                <ScalarProperty Name="StudyPlanId" ColumnName="StudyPlanId" />
-                <ScalarProperty Name="StudyLevelName" ColumnName="StudyLevelName" />
-                <ScalarProperty Name="StudyLevelId" ColumnName="StudyLevelId" />
-                <ScalarProperty Name="StudyFormName" ColumnName="StudyFormName" />
-                <ScalarProperty Name="StudyFormId" ColumnName="StudyFormId" />
-                <ScalarProperty Name="StudyBasisName" ColumnName="StudyBasisName" />
-                <ScalarProperty Name="StudyBasisId" ColumnName="StudyBasisId" />
-                <ScalarProperty Name="ProfileName" ColumnName="ProfileName" />
-                <ScalarProperty Name="ProfileId" ColumnName="ProfileId" />
-                <ScalarProperty Name="ObrazProgramCrypt" ColumnName="ObrazProgramCrypt" />
-                <ScalarProperty Name="ObrazProgramNumber" ColumnName="ObrazProgramNumber" />
-                <ScalarProperty Name="ObrazProgramName" ColumnName="ObrazProgramName" />
-                <ScalarProperty Name="ObrazProgramId" ColumnName="ObrazProgramId" />
-                <ScalarProperty Name="LicenseProgramCode" ColumnName="LicenseProgramCode" />
-                <ScalarProperty Name="LicenseProgramName" ColumnName="LicenseProgramName" />
-                <ScalarProperty Name="LicenseProgramId" ColumnName="LicenseProgramId" />
-                <ScalarProperty Name="FacultyAcr" ColumnName="FacultyAcr" />
-                <ScalarProperty Name="FacultyName" ColumnName="FacultyName" />
-                <ScalarProperty Name="FacultyId" ColumnName="FacultyId" />
-                <ScalarProperty Name="Barcode" ColumnName="Barcode" />
-                <ScalarProperty Name="Priority" ColumnName="Priority" />
-                <ScalarProperty Name="StudentStatus" ColumnName="StudentStatus" />
-                <ScalarProperty Name="SessionAVG" ColumnName="SessionAVG" />
-                <ScalarProperty Name="StudyNumber" ColumnName="StudyNumber" />
-                <ScalarProperty Name="HasOriginals" ColumnName="HasOriginals" />
-                <ScalarProperty Name="LanguageId" ColumnName="LanguageId" />
-                <ScalarProperty Name="CompFromOlymp" ColumnName="CompFromOlymp" />
-                <ScalarProperty Name="CelCompetitionText" ColumnName="CelCompetitionText" />
-                <ScalarProperty Name="CelCompetitionId" ColumnName="CelCompetitionId" />
-                <ScalarProperty Name="OtherCompetitionId" ColumnName="OtherCompetitionId" />
-                <ScalarProperty Name="Sum" ColumnName="Sum" />
-                <ScalarProperty Name="Coefficient" ColumnName="Coefficient" />
-                <ScalarProperty Name="NotEnabled" ColumnName="NotEnabled" />
-                <ScalarProperty Name="Checked" ColumnName="Checked" />
-                <ScalarProperty Name="DocInsertDate" ColumnName="DocInsertDate" />
-                <ScalarProperty Name="DocDate" ColumnName="DocDate" />
-                <ScalarProperty Name="BackDocDate" ColumnName="BackDocDate" />
-                <ScalarProperty Name="BackDoc" ColumnName="BackDoc" />
-                <ScalarProperty Name="IsPaid" ColumnName="IsPaid" />
-                <ScalarProperty Name="IsListener" ColumnName="IsListener" />
-                <ScalarProperty Name="CompetitionId" ColumnName="CompetitionId" />
-                <ScalarProperty Name="EntryId" ColumnName="EntryId" />
-                <ScalarProperty Name="RegNum" ColumnName="RegNum" />
-                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="Abiturient_UpdateIsViewed" FunctionName="Priem2012Model.Store.Abiturient_UpdateIsViewed" />
           <FunctionImportMapping FunctionImportName="CheckAbitIdentWithGosLine" FunctionName="Priem2012Model.Store.CheckAbitIdentWithGosLine" />
           <FunctionImportMapping FunctionImportName="CheckAbitIdentWithIdAndGosLine" FunctionName="Priem2012Model.Store.CheckAbitIdentWithIdAndGosLine" />
@@ -17654,91 +17588,6 @@
                 <ScalarProperty Name="ProfileId" ColumnName="ProfileId" />
                 <ScalarProperty Name="ObrazProgramId" ColumnName="ObrazProgramId" />
                 <ScalarProperty Name="EntryId" ColumnName="EntryId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="extAbit">
-            <EntityTypeMapping TypeName="Priem2012Model.extAbit">
-              <MappingFragment StoreEntitySet="extAbit">
-                <ScalarProperty Name="StudyLevelGroupUpperCategoryId" ColumnName="StudyLevelGroupUpperCategoryId" />
-                <ScalarProperty Name="DateDisableEntryConfirm" ColumnName="DateDisableEntryConfirm" />
-                <ScalarProperty Name="HasDisabledEntryConfirm" ColumnName="HasDisabledEntryConfirm" />
-                <ScalarProperty Name="DateEntryConfirm" ColumnName="DateEntryConfirm" />
-                <ScalarProperty Name="HasEntryConfirm" ColumnName="HasEntryConfirm" />
-                <ScalarProperty Name="OlympiadId" ColumnName="OlympiadId" />
-                <ScalarProperty Name="BackDocByAdmissionHigh" ColumnName="BackDocByAdmissionHigh" />
-                <ScalarProperty Name="IsCrimea" ColumnName="IsCrimea" />
-                <ScalarProperty Name="IsForeign" ColumnName="IsForeign" />
-                <ScalarProperty Name="InnerEntryInEntryObrazProgramName" ColumnName="InnerEntryInEntryObrazProgramName" />
-                <ScalarProperty Name="InnerEntryInEntryObrazProgramCrypt" ColumnName="InnerEntryInEntryObrazProgramCrypt" />
-                <ScalarProperty Name="InnerEntryInEntryProfileName" ColumnName="InnerEntryInEntryProfileName" />
-                <ScalarProperty Name="InnerEntryInEntryObrazProgramId" ColumnName="InnerEntryInEntryObrazProgramId" />
-                <ScalarProperty Name="InnerEntryInEntryId" ColumnName="InnerEntryInEntryId" />
-                <ScalarProperty Name="CommitNumber" ColumnName="CommitNumber" />
-                <ScalarProperty Name="CommitId" ColumnName="CommitId" />
-                <ScalarProperty Name="StudyFormFISName" ColumnName="StudyFormFISName" />
-                <ScalarProperty Name="StudyBasisFISName" ColumnName="StudyBasisFISName" />
-                <ScalarProperty Name="IsParallel" ColumnName="IsParallel" />
-                <ScalarProperty Name="IsReduced" ColumnName="IsReduced" />
-                <ScalarProperty Name="WithHE" ColumnName="WithHE" />
-                <ScalarProperty Name="ObrazProgramNameEx" ColumnName="ObrazProgramNameEx" />
-                <ScalarProperty Name="PassportData" ColumnName="PassportData" />
-                <ScalarProperty Name="FIO" ColumnName="FIO" />
-                <ScalarProperty Name="StudyLevelGroupId" ColumnName="StudyLevelGroupId" />
-                <ScalarProperty Name="LanguageName" ColumnName="LanguageName" />
-                <ScalarProperty Name="StudyFormOldName" ColumnName="StudyFormOldName" />
-                <ScalarProperty Name="Surname" ColumnName="Surname" />
-                <ScalarProperty Name="SecondName" ColumnName="SecondName" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="PersonNum" ColumnName="PersonNum" />
-                <ScalarProperty Name="IsSecond" ColumnName="IsSecond" />
-                <ScalarProperty Name="ProgramModeShortName" ColumnName="ProgramModeShortName" />
-                <ScalarProperty Name="StudyPlanNumber" ColumnName="StudyPlanNumber" />
-                <ScalarProperty Name="StudyPlanId" ColumnName="StudyPlanId" />
-                <ScalarProperty Name="StudyLevelName" ColumnName="StudyLevelName" />
-                <ScalarProperty Name="StudyLevelId" ColumnName="StudyLevelId" />
-                <ScalarProperty Name="StudyFormName" ColumnName="StudyFormName" />
-                <ScalarProperty Name="StudyFormId" ColumnName="StudyFormId" />
-                <ScalarProperty Name="StudyBasisName" ColumnName="StudyBasisName" />
-                <ScalarProperty Name="StudyBasisId" ColumnName="StudyBasisId" />
-                <ScalarProperty Name="ProfileName" ColumnName="ProfileName" />
-                <ScalarProperty Name="ProfileId" ColumnName="ProfileId" />
-                <ScalarProperty Name="ObrazProgramCrypt" ColumnName="ObrazProgramCrypt" />
-                <ScalarProperty Name="ObrazProgramNumber" ColumnName="ObrazProgramNumber" />
-                <ScalarProperty Name="ObrazProgramName" ColumnName="ObrazProgramName" />
-                <ScalarProperty Name="ObrazProgramId" ColumnName="ObrazProgramId" />
-                <ScalarProperty Name="LicenseProgramCode" ColumnName="LicenseProgramCode" />
-                <ScalarProperty Name="FacultyName" ColumnName="FacultyName" />
-                <ScalarProperty Name="LicenseProgramName" ColumnName="LicenseProgramName" />
-                <ScalarProperty Name="LicenseProgramId" ColumnName="LicenseProgramId" />
-                <ScalarProperty Name="FacultyAcr" ColumnName="FacultyAcr" />
-                <ScalarProperty Name="FacultyId" ColumnName="FacultyId" />
-                <ScalarProperty Name="Barcode" ColumnName="Barcode" />
-                <ScalarProperty Name="Priority" ColumnName="Priority" />
-                <ScalarProperty Name="SessionAVG" ColumnName="SessionAVG" />
-                <ScalarProperty Name="StudentStatus" ColumnName="StudentStatus" />
-                <ScalarProperty Name="StudyNumber" ColumnName="StudyNumber" />
-                <ScalarProperty Name="HasOriginals" ColumnName="HasOriginals" />
-                <ScalarProperty Name="LanguageId" ColumnName="LanguageId" />
-                <ScalarProperty Name="CompFromOlymp" ColumnName="CompFromOlymp" />
-                <ScalarProperty Name="CelCompetitionText" ColumnName="CelCompetitionText" />
-                <ScalarProperty Name="CelCompetitionId" ColumnName="CelCompetitionId" />
-                <ScalarProperty Name="OtherCompetitionId" ColumnName="OtherCompetitionId" />
-                <ScalarProperty Name="Sum" ColumnName="Sum" />
-                <ScalarProperty Name="Coefficient" ColumnName="Coefficient" />
-                <ScalarProperty Name="NotEnabled" ColumnName="NotEnabled" />
-                <ScalarProperty Name="Checked" ColumnName="Checked" />
-                <ScalarProperty Name="DocInsertDate" ColumnName="DocInsertDate" />
-                <ScalarProperty Name="DocDate" ColumnName="DocDate" />
-                <ScalarProperty Name="BackDocDate" ColumnName="BackDocDate" />
-                <ScalarProperty Name="BackDoc" ColumnName="BackDoc" />
-                <ScalarProperty Name="IsPaid" ColumnName="IsPaid" />
-                <ScalarProperty Name="IsListener" ColumnName="IsListener" />
-                <ScalarProperty Name="CompetitionId" ColumnName="CompetitionId" />
-                <ScalarProperty Name="EntryId" ColumnName="EntryId" />
-                <ScalarProperty Name="RegNum" ColumnName="RegNum" />
-                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -18662,6 +18511,167 @@
             <EntityTypeMapping TypeName="Priem2012Model.PersonManualExams">
               <MappingFragment StoreEntitySet="PersonManualExams">
                 <ScalarProperty Name="ExamId" ColumnName="ExamId" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="extAbit">
+            <EntityTypeMapping TypeName="Priem2012Model.extAbit">
+              <MappingFragment StoreEntitySet="extAbit">
+                <ScalarProperty Name="StudyLevelGroupUpperCategoryId" ColumnName="StudyLevelGroupUpperCategoryId" />
+                <ScalarProperty Name="DateDisableEntryConfirm" ColumnName="DateDisableEntryConfirm" />
+                <ScalarProperty Name="HasDisabledEntryConfirm" ColumnName="HasDisabledEntryConfirm" />
+                <ScalarProperty Name="DateEntryConfirm" ColumnName="DateEntryConfirm" />
+                <ScalarProperty Name="HasEntryConfirm" ColumnName="HasEntryConfirm" />
+                <ScalarProperty Name="OlympiadId" ColumnName="OlympiadId" />
+                <ScalarProperty Name="BackDocByAdmissionHigh" ColumnName="BackDocByAdmissionHigh" />
+                <ScalarProperty Name="IsCrimea" ColumnName="IsCrimea" />
+                <ScalarProperty Name="IsForeign" ColumnName="IsForeign" />
+                <ScalarProperty Name="InnerEntryInEntryObrazProgramId" ColumnName="InnerEntryInEntryObrazProgramId" />
+                <ScalarProperty Name="InnerEntryInEntryObrazProgramName" ColumnName="InnerEntryInEntryObrazProgramName" />
+                <ScalarProperty Name="InnerEntryInEntryObrazProgramCrypt" ColumnName="InnerEntryInEntryObrazProgramCrypt" />
+                <ScalarProperty Name="InnerEntryInEntryProfileName" ColumnName="InnerEntryInEntryProfileName" />
+                <ScalarProperty Name="InnerEntryInEntryId" ColumnName="InnerEntryInEntryId" />
+                <ScalarProperty Name="CommitNumber" ColumnName="CommitNumber" />
+                <ScalarProperty Name="CommitId" ColumnName="CommitId" />
+                <ScalarProperty Name="StudyFormFISName" ColumnName="StudyFormFISName" />
+                <ScalarProperty Name="StudyBasisFISName" ColumnName="StudyBasisFISName" />
+                <ScalarProperty Name="IsParallel" ColumnName="IsParallel" />
+                <ScalarProperty Name="IsReduced" ColumnName="IsReduced" />
+                <ScalarProperty Name="WithHE" ColumnName="WithHE" />
+                <ScalarProperty Name="ObrazProgramNameEx" ColumnName="ObrazProgramNameEx" />
+                <ScalarProperty Name="PassportData" ColumnName="PassportData" />
+                <ScalarProperty Name="FIO" ColumnName="FIO" />
+                <ScalarProperty Name="StudyLevelGroupId" ColumnName="StudyLevelGroupId" />
+                <ScalarProperty Name="LanguageName" ColumnName="LanguageName" />
+                <ScalarProperty Name="StudyFormOldName" ColumnName="StudyFormOldName" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="SecondName" ColumnName="SecondName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="PersonNum" ColumnName="PersonNum" />
+                <ScalarProperty Name="IsSecond" ColumnName="IsSecond" />
+                <ScalarProperty Name="ProgramModeShortName" ColumnName="ProgramModeShortName" />
+                <ScalarProperty Name="StudyPlanNumber" ColumnName="StudyPlanNumber" />
+                <ScalarProperty Name="StudyPlanId" ColumnName="StudyPlanId" />
+                <ScalarProperty Name="StudyLevelName" ColumnName="StudyLevelName" />
+                <ScalarProperty Name="StudyLevelId" ColumnName="StudyLevelId" />
+                <ScalarProperty Name="StudyFormName" ColumnName="StudyFormName" />
+                <ScalarProperty Name="StudyFormId" ColumnName="StudyFormId" />
+                <ScalarProperty Name="StudyBasisName" ColumnName="StudyBasisName" />
+                <ScalarProperty Name="StudyBasisId" ColumnName="StudyBasisId" />
+                <ScalarProperty Name="ProfileName" ColumnName="ProfileName" />
+                <ScalarProperty Name="ProfileId" ColumnName="ProfileId" />
+                <ScalarProperty Name="ObrazProgramCrypt" ColumnName="ObrazProgramCrypt" />
+                <ScalarProperty Name="ObrazProgramNumber" ColumnName="ObrazProgramNumber" />
+                <ScalarProperty Name="ObrazProgramName" ColumnName="ObrazProgramName" />
+                <ScalarProperty Name="ObrazProgramId" ColumnName="ObrazProgramId" />
+                <ScalarProperty Name="LicenseProgramCode" ColumnName="LicenseProgramCode" />
+                <ScalarProperty Name="FacultyName" ColumnName="FacultyName" />
+                <ScalarProperty Name="LicenseProgramName" ColumnName="LicenseProgramName" />
+                <ScalarProperty Name="LicenseProgramId" ColumnName="LicenseProgramId" />
+                <ScalarProperty Name="FacultyAcr" ColumnName="FacultyAcr" />
+                <ScalarProperty Name="FacultyId" ColumnName="FacultyId" />
+                <ScalarProperty Name="Barcode" ColumnName="Barcode" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="SessionAVG" ColumnName="SessionAVG" />
+                <ScalarProperty Name="StudentStatus" ColumnName="StudentStatus" />
+                <ScalarProperty Name="StudyNumber" ColumnName="StudyNumber" />
+                <ScalarProperty Name="HasOriginals" ColumnName="HasOriginals" />
+                <ScalarProperty Name="LanguageId" ColumnName="LanguageId" />
+                <ScalarProperty Name="CompFromOlymp" ColumnName="CompFromOlymp" />
+                <ScalarProperty Name="CelCompetitionText" ColumnName="CelCompetitionText" />
+                <ScalarProperty Name="CelCompetitionId" ColumnName="CelCompetitionId" />
+                <ScalarProperty Name="OtherCompetitionId" ColumnName="OtherCompetitionId" />
+                <ScalarProperty Name="Sum" ColumnName="Sum" />
+                <ScalarProperty Name="Coefficient" ColumnName="Coefficient" />
+                <ScalarProperty Name="NotEnabled" ColumnName="NotEnabled" />
+                <ScalarProperty Name="Checked" ColumnName="Checked" />
+                <ScalarProperty Name="DocInsertDate" ColumnName="DocInsertDate" />
+                <ScalarProperty Name="DocDate" ColumnName="DocDate" />
+                <ScalarProperty Name="BackDocDate" ColumnName="BackDocDate" />
+                <ScalarProperty Name="BackDoc" ColumnName="BackDoc" />
+                <ScalarProperty Name="IsPaid" ColumnName="IsPaid" />
+                <ScalarProperty Name="IsListener" ColumnName="IsListener" />
+                <ScalarProperty Name="CompetitionId" ColumnName="CompetitionId" />
+                <ScalarProperty Name="EntryId" ColumnName="EntryId" />
+                <ScalarProperty Name="RegNum" ColumnName="RegNum" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="qAbiturient">
+            <EntityTypeMapping TypeName="Priem2012Model.qAbiturient">
+              <MappingFragment StoreEntitySet="qAbiturient">
+                <ScalarProperty Name="DateDisableEntryConfirm" ColumnName="DateDisableEntryConfirm" />
+                <ScalarProperty Name="HasDisabledEntryConfirm" ColumnName="HasDisabledEntryConfirm" />
+                <ScalarProperty Name="DateEntryConfirm" ColumnName="DateEntryConfirm" />
+                <ScalarProperty Name="HasEntryConfirm" ColumnName="HasEntryConfirm" />
+                <ScalarProperty Name="StudyLevelGroupId" ColumnName="StudyLevelGroupId" />
+                <ScalarProperty Name="StudyLevelGroupUpperCategoryId" ColumnName="StudyLevelGroupUpperCategoryId" />
+                <ScalarProperty Name="OlympiadId" ColumnName="OlympiadId" />
+                <ScalarProperty Name="BackDocByAdmissionHigh" ColumnName="BackDocByAdmissionHigh" />
+                <ScalarProperty Name="IsCrimea" ColumnName="IsCrimea" />
+                <ScalarProperty Name="IsForeign" ColumnName="IsForeign" />
+                <ScalarProperty Name="InnerEntryInEntryId" ColumnName="InnerEntryInEntryId" />
+                <ScalarProperty Name="IsViewed" ColumnName="IsViewed" />
+                <ScalarProperty Name="CommitNumber" ColumnName="CommitNumber" />
+                <ScalarProperty Name="CommitId" ColumnName="CommitId" />
+                <ScalarProperty Name="ObrazProgramPrintName" ColumnName="ObrazProgramPrintName" />
+                <ScalarProperty Name="StudyFormFISName" ColumnName="StudyFormFISName" />
+                <ScalarProperty Name="StudyBasisFISName" ColumnName="StudyBasisFISName" />
+                <ScalarProperty Name="IsParallel" ColumnName="IsParallel" />
+                <ScalarProperty Name="IsReduced" ColumnName="IsReduced" />
+                <ScalarProperty Name="WithHE" ColumnName="WithHE" />
+                <ScalarProperty Name="ObrazProgramNameEx" ColumnName="ObrazProgramNameEx" />
+                <ScalarProperty Name="StudyFormOldName" ColumnName="StudyFormOldName" />
+                <ScalarProperty Name="IsSecond" ColumnName="IsSecond" />
+                <ScalarProperty Name="ProgramModeShortName" ColumnName="ProgramModeShortName" />
+                <ScalarProperty Name="StudyPlanNumber" ColumnName="StudyPlanNumber" />
+                <ScalarProperty Name="StudyPlanId" ColumnName="StudyPlanId" />
+                <ScalarProperty Name="StudyLevelName" ColumnName="StudyLevelName" />
+                <ScalarProperty Name="StudyLevelId" ColumnName="StudyLevelId" />
+                <ScalarProperty Name="StudyFormName" ColumnName="StudyFormName" />
+                <ScalarProperty Name="StudyFormId" ColumnName="StudyFormId" />
+                <ScalarProperty Name="StudyBasisName" ColumnName="StudyBasisName" />
+                <ScalarProperty Name="StudyBasisId" ColumnName="StudyBasisId" />
+                <ScalarProperty Name="ProfileName" ColumnName="ProfileName" />
+                <ScalarProperty Name="ProfileId" ColumnName="ProfileId" />
+                <ScalarProperty Name="ObrazProgramCrypt" ColumnName="ObrazProgramCrypt" />
+                <ScalarProperty Name="ObrazProgramNumber" ColumnName="ObrazProgramNumber" />
+                <ScalarProperty Name="ObrazProgramName" ColumnName="ObrazProgramName" />
+                <ScalarProperty Name="ObrazProgramId" ColumnName="ObrazProgramId" />
+                <ScalarProperty Name="LicenseProgramCode" ColumnName="LicenseProgramCode" />
+                <ScalarProperty Name="LicenseProgramName" ColumnName="LicenseProgramName" />
+                <ScalarProperty Name="LicenseProgramId" ColumnName="LicenseProgramId" />
+                <ScalarProperty Name="FacultyAcr" ColumnName="FacultyAcr" />
+                <ScalarProperty Name="FacultyName" ColumnName="FacultyName" />
+                <ScalarProperty Name="FacultyId" ColumnName="FacultyId" />
+                <ScalarProperty Name="Barcode" ColumnName="Barcode" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="StudentStatus" ColumnName="StudentStatus" />
+                <ScalarProperty Name="SessionAVG" ColumnName="SessionAVG" />
+                <ScalarProperty Name="StudyNumber" ColumnName="StudyNumber" />
+                <ScalarProperty Name="HasOriginals" ColumnName="HasOriginals" />
+                <ScalarProperty Name="LanguageId" ColumnName="LanguageId" />
+                <ScalarProperty Name="CompFromOlymp" ColumnName="CompFromOlymp" />
+                <ScalarProperty Name="CelCompetitionText" ColumnName="CelCompetitionText" />
+                <ScalarProperty Name="CelCompetitionId" ColumnName="CelCompetitionId" />
+                <ScalarProperty Name="OtherCompetitionId" ColumnName="OtherCompetitionId" />
+                <ScalarProperty Name="Sum" ColumnName="Sum" />
+                <ScalarProperty Name="Coefficient" ColumnName="Coefficient" />
+                <ScalarProperty Name="NotEnabled" ColumnName="NotEnabled" />
+                <ScalarProperty Name="Checked" ColumnName="Checked" />
+                <ScalarProperty Name="DocInsertDate" ColumnName="DocInsertDate" />
+                <ScalarProperty Name="DocDate" ColumnName="DocDate" />
+                <ScalarProperty Name="BackDocDate" ColumnName="BackDocDate" />
+                <ScalarProperty Name="BackDoc" ColumnName="BackDoc" />
+                <ScalarProperty Name="IsPaid" ColumnName="IsPaid" />
+                <ScalarProperty Name="IsListener" ColumnName="IsListener" />
+                <ScalarProperty Name="CompetitionId" ColumnName="CompetitionId" />
+                <ScalarProperty Name="EntryId" ColumnName="EntryId" />
+                <ScalarProperty Name="RegNum" ColumnName="RegNum" />
                 <ScalarProperty Name="PersonId" ColumnName="PersonId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>

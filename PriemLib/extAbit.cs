@@ -28,7 +28,7 @@ namespace PriemLib
         public bool Checked { get; set; }
         public bool NotEnabled { get; set; }
         public Nullable<double> Coefficient { get; set; }
-        public Nullable<int> Sum { get; set; }
+        public Nullable<decimal> Sum { get; set; }
         public Nullable<int> OtherCompetitionId { get; set; }
         public Nullable<int> CelCompetitionId { get; set; }
         public string CelCompetitionText { get; set; }
@@ -80,10 +80,10 @@ namespace PriemLib
         public Nullable<System.Guid> CommitId { get; set; }
         public Nullable<int> CommitNumber { get; set; }
         public Nullable<System.Guid> InnerEntryInEntryId { get; set; }
-        public Nullable<int> InnerEntryInEntryObrazProgramId { get; set; }
         public string InnerEntryInEntryProfileName { get; set; }
         public string InnerEntryInEntryObrazProgramCrypt { get; set; }
         public string InnerEntryInEntryObrazProgramName { get; set; }
+        public Nullable<int> InnerEntryInEntryObrazProgramId { get; set; }
         public bool IsForeign { get; set; }
         public bool IsCrimea { get; set; }
         public bool BackDocByAdmissionHigh { get; set; }

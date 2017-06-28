@@ -291,7 +291,7 @@ namespace PriemLib
                     FillProtocols(context);
 
                     FillExams(context);
-                    Sum = GetAbitSum(context);
+                    Sum = (abit.Sum ?? 0).ToString(); //GetAbitSum(context);
 
                     FillAdditionalAchievements(context);
 

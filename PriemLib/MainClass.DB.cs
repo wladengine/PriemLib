@@ -337,21 +337,36 @@ namespace PriemLib
                 qBuilder.AddQueryItem(new QueryItem("ed.Abiturient_FetchValues", "Abiturient_FetchValues.MarkOrderNumber4", "Балл_Четвертый_предмет_ВИ"));
                 qBuilder.AddQueryItem(new QueryItem("ed.Abiturient_FetchValues", "Abiturient_FetchValues.MarkOrderNumber5", "Балл_Пятый_предмет_ВИ"));
 
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MAX (EgeMark.value) as mark FROM ed.EgeMark INNER JOIN ed.EgeCertificate ON EgeMark.EgeCertificateId = EgeCertificate.Id WHERE EgeCertificate.PersonId = extPerson.Id AND EgeExamNameId=5)", "ЕГЭ_русск.язык"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MAX (EgeMark.value) as mark FROM ed.EgeMark INNER JOIN ed.EgeCertificate ON EgeMark.EgeCertificateId = EgeCertificate.Id WHERE EgeCertificate.PersonId = extPerson.Id AND EgeExamNameId=4)", "ЕГЭ_математика"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MAX (EgeMark.value) as mark FROM ed.EgeMark INNER JOIN ed.EgeCertificate ON EgeMark.EgeCertificateId = EgeCertificate.Id WHERE EgeCertificate.PersonId = extPerson.Id AND EgeExamNameId=2)", "ЕГЭ_физика"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MAX (EgeMark.value) as mark FROM ed.EgeMark INNER JOIN ed.EgeCertificate ON EgeMark.EgeCertificateId = EgeCertificate.Id WHERE EgeCertificate.PersonId = extPerson.Id AND EgeExamNameId=8)", "ЕГЭ_химия"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MAX (EgeMark.value) as mark FROM ed.EgeMark INNER JOIN ed.EgeCertificate ON EgeMark.EgeCertificateId = EgeCertificate.Id WHERE EgeCertificate.PersonId = extPerson.Id AND EgeExamNameId=3)", "ЕГЭ_биология"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MAX (EgeMark.value) as mark FROM ed.EgeMark INNER JOIN ed.EgeCertificate ON EgeMark.EgeCertificateId = EgeCertificate.Id WHERE EgeCertificate.PersonId = extPerson.Id AND EgeExamNameId=1)", "ЕГЭ_история"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MAX (EgeMark.value) as mark FROM ed.EgeMark INNER JOIN ed.EgeCertificate ON EgeMark.EgeCertificateId = EgeCertificate.Id WHERE EgeCertificate.PersonId = extPerson.Id AND EgeExamNameId=7)", "ЕГЭ_география"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MAX (EgeMark.value) as mark FROM ed.EgeMark INNER JOIN ed.EgeCertificate ON EgeMark.EgeCertificateId = EgeCertificate.Id WHERE EgeCertificate.PersonId = extPerson.Id AND EgeExamNameId=11)", "ЕГЭ_англ.яз"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MAX (EgeMark.value) as mark FROM ed.EgeMark INNER JOIN ed.EgeCertificate ON EgeMark.EgeCertificateId = EgeCertificate.Id WHERE EgeCertificate.PersonId = extPerson.Id AND EgeExamNameId=12)", "ЕГЭ_немец.язык"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MAX (EgeMark.value) as mark FROM ed.EgeMark INNER JOIN ed.EgeCertificate ON EgeMark.EgeCertificateId = EgeCertificate.Id WHERE EgeCertificate.PersonId = extPerson.Id AND EgeExamNameId=13)", "ЕГЭ_франц.язык"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MAX (EgeMark.value) as mark FROM ed.EgeMark INNER JOIN ed.EgeCertificate ON EgeMark.EgeCertificateId = EgeCertificate.Id WHERE EgeCertificate.PersonId = extPerson.Id AND EgeExamNameId=9)", "ЕГЭ_обществознание"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MAX (EgeMark.value) as mark FROM ed.EgeMark INNER JOIN ed.EgeCertificate ON EgeMark.EgeCertificateId = EgeCertificate.Id WHERE EgeCertificate.PersonId = extPerson.Id AND EgeExamNameId=6)", "ЕГЭ_литература"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MAX (EgeMark.value) as mark FROM ed.EgeMark INNER JOIN ed.EgeCertificate ON EgeMark.EgeCertificateId = EgeCertificate.Id WHERE EgeCertificate.PersonId = extPerson.Id AND EgeExamNameId=14)", "ЕГЭ_испан.язык"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MAX (EgeMark.value) as mark FROM ed.EgeMark INNER JOIN ed.EgeCertificate ON EgeMark.EgeCertificateId = EgeCertificate.Id WHERE EgeCertificate.PersonId = extPerson.Id AND EgeExamNameId=10)", "ЕГЭ_информатика"));
-                qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MAX (EgeMark.value) as mark FROM ed.EgeMark INNER JOIN ed.EgeCertificate ON EgeMark.EgeCertificateId = EgeCertificate.Id WHERE EgeCertificate.PersonId = extPerson.Id AND EgeExamNameId=15)", "ЕГЭ_Сочинение"));
+                qBuilder.AddQueryItem(new QueryItem("ed.Person_FetchValues", "Person_FetchValues.EGE_Rus", "ЕГЭ_русск.язык"));
+                qBuilder.AddQueryItem(new QueryItem("ed.Person_FetchValues", "Person_FetchValues.EGE_Math", "ЕГЭ_математика"));
+                qBuilder.AddQueryItem(new QueryItem("ed.Person_FetchValues", "Person_FetchValues.EGE_Fiz", "ЕГЭ_физика"));
+                qBuilder.AddQueryItem(new QueryItem("ed.Person_FetchValues", "Person_FetchValues.EGE_Chem", "ЕГЭ_химия"));
+                qBuilder.AddQueryItem(new QueryItem("ed.Person_FetchValues", "Person_FetchValues.EGE_Bio", "ЕГЭ_биология"));
+                qBuilder.AddQueryItem(new QueryItem("ed.Person_FetchValues", "Person_FetchValues.EGE_Ist", "ЕГЭ_история"));
+                qBuilder.AddQueryItem(new QueryItem("ed.Person_FetchValues", "Person_FetchValues.EGE_Geogr", "ЕГЭ_география"));
+                qBuilder.AddQueryItem(new QueryItem("ed.Person_FetchValues", "Person_FetchValues.EGE_Eng", "ЕГЭ_англ.яз"));
+                qBuilder.AddQueryItem(new QueryItem("ed.Person_FetchValues", "Person_FetchValues.EGE_Nem", "ЕГЭ_немец.язык"));
+                qBuilder.AddQueryItem(new QueryItem("ed.Person_FetchValues", "Person_FetchValues.EGE_Fran", "ЕГЭ_франц.язык"));
+                qBuilder.AddQueryItem(new QueryItem("ed.Person_FetchValues", "Person_FetchValues.EGE_Obsh", "ЕГЭ_обществознание"));
+                qBuilder.AddQueryItem(new QueryItem("ed.Person_FetchValues", "Person_FetchValues.EGE_Lit", "ЕГЭ_литература"));
+                qBuilder.AddQueryItem(new QueryItem("ed.Person_FetchValues", "Person_FetchValues.EGE_Esp", "ЕГЭ_испан.язык"));
+                qBuilder.AddQueryItem(new QueryItem("ed.Person_FetchValues", "Person_FetchValues.EGE_Inform", "ЕГЭ_информатика"));
+
+                //qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MAX(EgeMark.value) as mark FROM ed.EgeMark INNER JOIN ed.EgeCertificate ON EgeMark.EgeCertificateId = EgeCertificate.Id WHERE EgeCertificate.PersonId = extPerson.Id AND EgeExamNameId=5)", "ЕГЭ_русск.язык"));
+                //qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MAX(EgeMark.value) as mark FROM ed.EgeMark INNER JOIN ed.EgeCertificate ON EgeMark.EgeCertificateId = EgeCertificate.Id WHERE EgeCertificate.PersonId = extPerson.Id AND EgeExamNameId=4)", "ЕГЭ_математика"));
+                //qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MAX(EgeMark.value) as mark FROM ed.EgeMark INNER JOIN ed.EgeCertificate ON EgeMark.EgeCertificateId = EgeCertificate.Id WHERE EgeCertificate.PersonId = extPerson.Id AND EgeExamNameId=2)", "ЕГЭ_физика"));
+                //qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MAX(EgeMark.value) as mark FROM ed.EgeMark INNER JOIN ed.EgeCertificate ON EgeMark.EgeCertificateId = EgeCertificate.Id WHERE EgeCertificate.PersonId = extPerson.Id AND EgeExamNameId=8)", "ЕГЭ_химия"));
+                //qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MAX(EgeMark.value) as mark FROM ed.EgeMark INNER JOIN ed.EgeCertificate ON EgeMark.EgeCertificateId = EgeCertificate.Id WHERE EgeCertificate.PersonId = extPerson.Id AND EgeExamNameId=3)", "ЕГЭ_биология"));
+                //qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MAX(EgeMark.value) as mark FROM ed.EgeMark INNER JOIN ed.EgeCertificate ON EgeMark.EgeCertificateId = EgeCertificate.Id WHERE EgeCertificate.PersonId = extPerson.Id AND EgeExamNameId=1)", "ЕГЭ_история"));
+                //qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MAX(EgeMark.value) as mark FROM ed.EgeMark INNER JOIN ed.EgeCertificate ON EgeMark.EgeCertificateId = EgeCertificate.Id WHERE EgeCertificate.PersonId = extPerson.Id AND EgeExamNameId=7)", "ЕГЭ_география"));
+                //qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MAX(EgeMark.value) as mark FROM ed.EgeMark INNER JOIN ed.EgeCertificate ON EgeMark.EgeCertificateId = EgeCertificate.Id WHERE EgeCertificate.PersonId = extPerson.Id AND EgeExamNameId=11)", "ЕГЭ_англ.яз"));
+                //qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MAX(EgeMark.value) as mark FROM ed.EgeMark INNER JOIN ed.EgeCertificate ON EgeMark.EgeCertificateId = EgeCertificate.Id WHERE EgeCertificate.PersonId = extPerson.Id AND EgeExamNameId=12)", "ЕГЭ_немец.язык"));
+                //qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MAX(EgeMark.value) as mark FROM ed.EgeMark INNER JOIN ed.EgeCertificate ON EgeMark.EgeCertificateId = EgeCertificate.Id WHERE EgeCertificate.PersonId = extPerson.Id AND EgeExamNameId=13)", "ЕГЭ_франц.язык"));
+                //qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MAX(EgeMark.value) as mark FROM ed.EgeMark INNER JOIN ed.EgeCertificate ON EgeMark.EgeCertificateId = EgeCertificate.Id WHERE EgeCertificate.PersonId = extPerson.Id AND EgeExamNameId=9)", "ЕГЭ_обществознание"));
+                //qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MAX(EgeMark.value) as mark FROM ed.EgeMark INNER JOIN ed.EgeCertificate ON EgeMark.EgeCertificateId = EgeCertificate.Id WHERE EgeCertificate.PersonId = extPerson.Id AND EgeExamNameId=6)", "ЕГЭ_литература"));
+                //qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MAX(EgeMark.value) as mark FROM ed.EgeMark INNER JOIN ed.EgeCertificate ON EgeMark.EgeCertificateId = EgeCertificate.Id WHERE EgeCertificate.PersonId = extPerson.Id AND EgeExamNameId=14)", "ЕГЭ_испан.язык"));
+                //qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MAX(EgeMark.value) as mark FROM ed.EgeMark INNER JOIN ed.EgeCertificate ON EgeMark.EgeCertificateId = EgeCertificate.Id WHERE EgeCertificate.PersonId = extPerson.Id AND EgeExamNameId=10)", "ЕГЭ_информатика"));
+                //qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "(select MAX(EgeMark.value) as mark FROM ed.EgeMark INNER JOIN ed.EgeCertificate ON EgeMark.EgeCertificateId = EgeCertificate.Id WHERE EgeCertificate.PersonId = extPerson.Id AND EgeExamNameId=15)", "ЕГЭ_Сочинение"));
 
                 //Олимпиады
                 //qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "case when(SELECT count(*) FROM Olympiads WHERE OlympLevelId=1 and Olympiads.AbiturientId=ed.qAbiturient.id)>0 then 'Да' else 'Нет' end", "Международная"));
@@ -383,7 +398,6 @@ namespace PriemLib
                 qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", "case when EXISTS (SELECT * FROM ed.extAbitAllAdditionalAchievements OL WHERE OL.AbiturientId = qAbiturient.Id AND OL.AchievementTypeId = 11 AND OL.Mark = 1) then 'Да' else 'Нет' end", "ИНД_ПрочРСОШ"));
                 //qBuilder.AddQueryItem(new QueryItem("ed.extPerson", "case when EXISTS (SELECT * FROM ed.PersonAchievement PA WHERE PA.PersonId = extPerson.Id AND PA.AchievementTypeId = 11) then 'Да' else 'Нет' end", "ИНД_Конкурсы"));
 
-
                 //Протоколы
                 qBuilder.AddQueryItem(new QueryItem("ed.extEnableProtocol", "ed.extEnableProtocol.Number", "Протокол_о_допуске"));
                 qBuilder.AddQueryItem(new QueryItem("ed.extEntryView", "ed.extEntryView.Number", "Представление"));
@@ -394,7 +408,8 @@ namespace PriemLib
                 qBuilder.AddQueryItem(new QueryItem("ed.extEntryView", "ed.extEntryView.OrderDateFor", "Дата_приказа_о_зачислении_иностр"));
 
                 //Сумма баллов
-                qBuilder.AddQueryItem(new QueryItem("ed.extAbitMarksSum", "extAbitMarksSum.TotalSum", "Сумма_баллов"));
+                //qBuilder.AddQueryItem(new QueryItem("ed.extAbitMarksSum", "extAbitMarksSum.TotalSum", "Сумма_баллов"));
+                qBuilder.AddQueryItem(new QueryItem("ed.qAbiturient", "qAbiturient.Sum", "Сумма_баллов"));
 
                 //экзамены 
                 //DataSet dsExams = _bdc.GetDataSet("SELECT DISTINCT ed.extExamInEntry.ExamId AS Id, ed.extExamInEntry.ExamName AS Name FROM ed.extExamInEntry");
@@ -479,6 +494,7 @@ WHERE ed.AbiturientSelectedExam.ApplicationId = qAbiturient.Id AND unit.ExamId =
                 qBuilder.AddTableJoint("HostelFaculty", " LEFT JOIN ed.SP_Faculty AS HostelFaculty ON ed.extPerson.HostelFacultyId = HostelFaculty.Id ");
                 qBuilder.AddTableJoint("ed.extFBSStatus", " LEFT JOIN ed.extFBSStatus ON ed.extFBSStatus.PersonId = ed.extPerson.Id ");
                 qBuilder.AddTableJoint("ed.Abiturient_FetchValues", " LEFT JOIN ed.Abiturient_FetchValues ON Abiturient_FetchValues.AbiturientId = qAbiturient.Id ");
+                qBuilder.AddTableJoint("ed.Person_FetchValues", " LEFT JOIN ed.Person_FetchValues ON Person_FetchValues.Id = qAbiturient.PersonId ");
 
                 qBuilder.AddTableJoint("ed.SP_Faculty", " LEFT JOIN ed.SP_Faculty ON ed.SP_Faculty.Id = ed.qAbiturient.FacultyId ");
                 qBuilder.AddTableJoint("ed.SP_LicenseProgram", " LEFT JOIN ed.SP_LicenseProgram ON ed.SP_LicenseProgram.Id = ed.qAbiturient.LicenseProgramId ");

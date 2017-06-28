@@ -28,7 +28,7 @@ namespace PriemLib
         public bool Checked { get; set; }
         public bool NotEnabled { get; set; }
         public Nullable<double> Coefficient { get; set; }
-        public Nullable<int> Sum { get; set; }
+        public Nullable<decimal> Sum { get; set; }
         public Nullable<int> OtherCompetitionId { get; set; }
         public Nullable<int> CelCompetitionId { get; set; }
         public string CelCompetitionText { get; set; }
@@ -63,7 +63,6 @@ namespace PriemLib
         public string ProgramModeShortName { get; set; }
         public bool IsSecond { get; set; }
         public string StudyFormOldName { get; set; }
-        public int StudyLevelGroupId { get; set; }
         public string ObrazProgramNameEx { get; set; }
         public bool WithHE { get; set; }
         public bool IsReduced { get; set; }
@@ -80,6 +79,7 @@ namespace PriemLib
         public bool BackDocByAdmissionHigh { get; set; }
         public Nullable<System.Guid> OlympiadId { get; set; }
         public Nullable<int> StudyLevelGroupUpperCategoryId { get; set; }
+        public int StudyLevelGroupId { get; set; }
         public bool HasEntryConfirm { get; set; }
         public Nullable<System.DateTime> DateEntryConfirm { get; set; }
         public bool HasDisabledEntryConfirm { get; set; }
