@@ -18,8 +18,8 @@ namespace PriemLib
         public SP_LicenseProgram()
         {
             this.SP_ObrazProgram = new HashSet<SP_ObrazProgram>();
-            this.Entry = new HashSet<Entry>();
             this.Protocol = new HashSet<Protocol>();
+            this.Entry = new HashSet<Entry>();
         }
     
         public int Id { get; set; }
@@ -41,10 +41,10 @@ namespace PriemLib
         public virtual StudyLevel StudyLevel { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SP_ObrazProgram> SP_ObrazProgram { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Entry> Entry { get; set; }
         public virtual SP_AggregateGroup SP_AggregateGroup { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Protocol> Protocol { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Entry> Entry { get; set; }
     }
 }

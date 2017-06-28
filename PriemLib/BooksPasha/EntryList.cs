@@ -190,9 +190,6 @@ namespace PriemLib
                 //иностранцы    
                 query = query.Where(c => c.IsForeign == chbIsForeign.Checked);
 
-                //Крым    
-                query = query.Where(c => c.IsCrimea == chbIsCrimea.Checked);
-
                 //даты начала/окончания
                 if (dtpDateStartFrom.Checked)
                 {

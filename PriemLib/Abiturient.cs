@@ -89,7 +89,6 @@ namespace PriemLib
         public virtual ICollection<ApplicationDetails> ApplicationDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ApplicationVersion> ApplicationVersion { get; set; }
-        public virtual Entry Entry { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProtocolHistory> ProtocolHistory { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -97,5 +96,6 @@ namespace PriemLib
         public virtual Olympiads Olympiads1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Mark> Mark { get; set; }
+        public virtual Entry Entry { get; set; }
     }
 }

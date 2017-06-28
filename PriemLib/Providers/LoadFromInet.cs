@@ -454,7 +454,6 @@ WHERE IsCommited = 1 AND IntNumber=@CommitId";
                                   IsApprovedByComission = rw.Field<bool>("IsUpdatedByComission"),
                                   ApproverName = rw.Field<string>("ApproverName"),
                                   lstInnerEntryInEntry = new List<ShortInnerEntryInEntry>(),
-                                  IsCrimea = rw.Field<bool>("IsCrimea"),
                               }).ToList();
 
                 //ObrazProgramInEntry

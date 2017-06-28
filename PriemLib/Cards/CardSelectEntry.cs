@@ -30,7 +30,6 @@ namespace PriemLib
                                        && (ProfileId == null ? ent.ProfileId == 0 : ent.ProfileId == ProfileId)
                                        && ent.StudyFormId == StudyFormId
                                        && ent.StudyBasisId == StudyBasisId
-                                       && ent.IsCrimea == IsCrimea
                                        && ent.IsForeign == IsForeign
                                        select ent.Id).FirstOrDefault();
                         return entId;
@@ -106,13 +105,8 @@ namespace PriemLib
             get { return chbIsForeign.Checked; }
             set { chbIsForeign.Checked = value; }
         }
-        public bool IsCrimea
-        {
-            get { return chbIsCrimea.Checked; }
-            set { chbIsCrimea.Checked = value; }
-        }
         #endregion
-
+        
         public event Action<Guid> EntrySelected;
         public CardSelectEntry()
         {
@@ -134,6 +128,26 @@ namespace PriemLib
             FillFaculty();
             FillStudyForm();
             FillStudyBasis();
+        }
+
+        private void SetEntryValues(Guid EntryId)
+        {
+            using (PriemEntities context = new PriemEntities())
+            {
+                var entry = context.Entry.Where(x => x.Id == EntryId).FirstOrDefault();
+                if (entry != null)
+                {
+                    IsSecond = entry.IsSecond;
+                    IsReduced = entry.IsReduced;
+                    IsParallel = entry.IsParallel;
+                    IsForeign = entry.IsForeign;
+                    LicenseProgramId = entry.LicenseProgramId;
+                    ObrazProgramId = entry.ObrazProgramId;
+                    ProfileId = entry.ProfileId;
+                    StudyFormId = entry.StudyFormId;
+                    StudyBasisId = entry.StudyBasisId;
+                }
+            }
         }
 
         protected override void SetReadOnlyFields()
@@ -171,29 +185,8 @@ namespace PriemLib
             cbProfile.SelectedIndexChanged += cbProfile_SelectedIndexChanged;
             cbStudyForm.SelectedIndexChanged += cbStudyForm_SelectedIndexChanged;
             chbIsForeign.CheckedChanged += chbIsForeign_CheckedChanged;
-            chbIsCrimea.CheckedChanged += chbIsCrimea_CheckedChanged;
         }
 
-        void chbIsCrimea_CheckedChanged(object sender, EventArgs e)
-        {
-            cbLicenseProgram.Enabled = true;
-            cbObrazProgram.Enabled = true;
-            cbProfile.Enabled = true;
-            cbStudyForm.Enabled = true;
-            cbStudyBasis.Enabled = true;
-
-            int? LPId = LicenseProgramId;
-            int? OPId = ObrazProgramId;
-            int? ProfId = ProfileId;
-            int? StF = StudyFormId;
-            int? StB = StudyBasisId;
-            FillLicenseProgram();
-            LicenseProgramId = LPId;
-            ObrazProgramId = OPId;
-            ProfileId = ProfId;
-            StudyFormId = StF;
-            StudyBasisId = StB;
-        }
         void chbIsForeign_CheckedChanged(object sender, EventArgs e)
         {
 
@@ -256,7 +249,6 @@ namespace PriemLib
             entry = entry.Where(c => c.IsParallel == IsParallel);
             entry = entry.Where(c => c.IsSecond == IsSecond);
             entry = entry.Where(c => c.IsForeign == IsForeign);
-            entry = entry.Where(c => c.IsCrimea == IsCrimea);
 
             return entry;
         }
@@ -439,15 +431,15 @@ namespace PriemLib
             using (PriemEntities context = new PriemEntities())
             {
                 Guid entId = (from ent in context.qEntry
-                               where ent.IsSecond == IsSecond && ent.IsParallel == IsParallel && ent.IsReduced == IsReduced
-                               && ent.LicenseProgramId == LicenseProgramId
-                               && ent.ObrazProgramId == ObrazProgramId
-                               && (ProfileId == null ? ent.ProfileId == 0 : ent.ProfileId == ProfileId)
-                               && ent.StudyFormId == StudyFormId
-                               && ent.StudyBasisId == StudyBasisId
-                               && ent.IsCrimea == IsCrimea
-                               && ent.IsForeign == IsForeign
-                               select ent.Id).DefaultIfEmpty(Guid.Empty).FirstOrDefault();
+                              where ent.IsSecond == IsSecond && ent.IsParallel == IsParallel && ent.IsReduced == IsReduced
+                              && ent.LicenseProgramId == LicenseProgramId
+                              && ent.ObrazProgramId == ObrazProgramId
+                              && (ProfileId == null ? ent.ProfileId == 0 : ent.ProfileId == ProfileId)
+                              && ent.StudyFormId == StudyFormId
+                              && ent.StudyBasisId == StudyBasisId
+                              && ent.IsForeign == IsForeign
+                              select ent.Id).DefaultIfEmpty(Guid.Empty).FirstOrDefault();
+
                 if (entId != Guid.Empty)
                     return entId;
                 else

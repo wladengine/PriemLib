@@ -56,7 +56,6 @@ namespace PriemLib
             Priority = _competition.Priority;
             DocDate = _competition.DocDate;
             IsForeign = _competition.IsForeign;
-            IsCrimea = _competition.IsCrimea;
 
             InitHandlers();
 
@@ -182,12 +181,13 @@ namespace PriemLib
                 {
                     List<KeyValuePair<string, string>> lst =
                         ((from ent in GetEntry(context)
+                          join qOP in context.qObrazProgram on ent.ObrazProgramId equals qOP.Id
                           where ent.LicenseProgramId == LicenseProgramId
                           select new
                           {
                               Id = ent.ObrazProgramId,
-                              Name = ent.SP_ObrazProgram.Name,
-                              Crypt = ent.StudyLevel.Acronym + "." + ent.SP_ObrazProgram.Number + "." + MainClass.sPriemYear
+                              Name = qOP.Name,
+                              Crypt = qOP.Crypt
                           }).Distinct()).ToList().Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name + ' ' + u.Crypt)).ToList();
 
                     ComboServ.FillCombo(cbObrazProgram, lst, false, false);
@@ -485,7 +485,6 @@ namespace PriemLib
 
                 _competition.DocInsertDate = DocInsertDate ?? DateTime.Now;
                 _competition.IsForeign = IsForeign;
-                _competition.IsCrimea = IsCrimea;
                 _competition.IsListener = IsListener;
                 _competition.IsReduced = IsReduced;
 

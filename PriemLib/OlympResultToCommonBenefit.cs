@@ -26,10 +26,10 @@ namespace PriemLib
         public Nullable<int> OlympSubjectId { get; set; }
         public Nullable<int> OlympTypeId { get; set; }
     
-        public virtual Entry Entry { get; set; }
         public virtual Exam Exam { get; set; }
         public virtual OlympLevel OlympLevel { get; set; }
         public virtual OlympValue OlympValue { get; set; }
         public virtual OlympType OlympType { get; set; }
+        public virtual Entry Entry { get; set; }
     }
 }

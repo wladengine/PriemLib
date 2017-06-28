@@ -24,14 +24,13 @@ namespace PriemLib
         {
             using (PriemEntities context = new PriemEntities())
             {
-                int kcp_b = context.Entry.Where(x => x.StudyLevel.LevelGroupId == 1 && x.StudyFormId == 1 && x.IsCrimea).Select(x => x.KCP ?? 0).DefaultIfEmpty(0).Sum();
+                int kcp_b = context.Entry.Where(x => x.StudyLevel.LevelGroupId == 1 && x.StudyFormId == 1).Select(x => x.KCP ?? 0).DefaultIfEmpty(0).Sum();
                 tbKCP_1kBudzh.Text = kcp_b.ToString();
 
                 var enteredCnt = from Entered in context.extEntryView
                                  join Abit in context.Abiturient on Entered.AbiturientId equals Abit.Id
                                  where Abit.Entry.StudyLevel.LevelGroupId == 1 && Abit.Entry.StudyFormId == 1
                                  && Entered.Date <= dtpDate.Value
-                                 && Abit.Entry.IsCrimea
                                  select new
                                  {
                                      Abit.CompetitionId,

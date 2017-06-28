@@ -627,7 +627,6 @@ namespace PriemLib
 
                 LstCompetitions[ind].DocInsertDate = comp.DocInsertDate;
                 LstCompetitions[ind].IsForeign = comp.IsForeign;
-                LstCompetitions[ind].IsCrimea = comp.IsCrimea;
                 LstCompetitions[ind].IsListener = comp.IsListener;
                 LstCompetitions[ind].IsReduced = comp.IsReduced;
 

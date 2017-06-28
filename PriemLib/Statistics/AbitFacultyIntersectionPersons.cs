@@ -218,17 +218,15 @@ namespace PriemLib
         {
             using (PriemEntities context = new PriemEntities())
             {
-                var src = (from x in context.Entry
-                           join y in context.StudyLevel
-                           on x.StudyLevelId equals y.Id
-                           where MainClass.lstStudyLevelGroupId.Contains(y.LevelGroupId) && x.FacultyId == FacultyId
-                           orderby x.SP_ObrazProgram.Number
+                var src = (from x in context.extEntry
+                           where MainClass.lstStudyLevelGroupId.Contains(x.StudyLevelGroupId) && x.FacultyId == FacultyId
+                           orderby x.ObrazProgramNumber
                            select new
                            {
                                x.LicenseProgramId,
                                x.ObrazProgramId,
-                               ObrazProgramName = x.SP_ObrazProgram.Name,
-                               ObrazProgramCrypt = x.StudyLevel.Acronym + "." + x.SP_ObrazProgram.Number + "." + MainClass.sPriemYear
+                               x.ObrazProgramName,
+                               x.ObrazProgramCrypt
                            }).Distinct();
                 if (LicenseProgramId.HasValue)
                     src = src.Where(x => x.LicenseProgramId == LicenseProgramId);
@@ -318,17 +316,15 @@ namespace PriemLib
         {
             using (PriemEntities context = new PriemEntities())
             {
-                var src = (from x in context.Entry
-                           join y in context.StudyLevel
-                           on x.StudyLevelId equals y.Id
-                           where MainClass.lstStudyLevelGroupId.Contains(y.LevelGroupId) && x.FacultyId == OtherFacultyId
-                           orderby x.SP_ObrazProgram.Number
+                var src = (from x in context.extEntry
+                           where MainClass.lstStudyLevelGroupId.Contains(x.StudyLevelGroupId) && x.FacultyId == OtherFacultyId
+                           orderby x.ObrazProgramNumber
                            select new
                            {
                                x.LicenseProgramId,
                                x.ObrazProgramId,
-                               ObrazProgramName = x.SP_ObrazProgram.Name,
-                               ObrazProgramCrypt = x.StudyLevel.Acronym + "." + x.SP_ObrazProgram.Number + "." + MainClass.sPriemYear
+                               x.ObrazProgramName,
+                               x.ObrazProgramCrypt
                            }).Distinct();
                 if (OtherLicenseProgramId.HasValue)
                     src = src.Where(x => x.LicenseProgramId == OtherLicenseProgramId);

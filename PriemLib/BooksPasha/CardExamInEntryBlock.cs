@@ -396,7 +396,6 @@ namespace PriemLib
                 && ent.ObrazProgramId == curEnt.ObrazProgramId
                 && ent.ProfileId == curEnt.ProfileId
                 && ent.Id != curEnt.Id
-                && ent.IsCrimea == curEnt.IsCrimea
                 && ent.IsForeign == curEnt.IsForeign
                 && ent.IsParallel == curEnt.IsParallel
                 && ent.IsReduced == curEnt.IsReduced

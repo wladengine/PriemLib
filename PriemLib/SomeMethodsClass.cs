@@ -297,14 +297,18 @@ WHERE IntNumber = @Num";
                 AppList.CopyTo(Orig_AppList);
                 foreach (var App in Orig_AppList)
                 {
-                    var data = context.Abiturient.Where(x => x.Id == App && !x.BackDoc && lstBarcodes.Contains(x.Barcode)).Select(x => new
-                    {
-                        LP = x.Entry.SP_LicenseProgram.Code + " " + x.Entry.SP_LicenseProgram.Name,
-                        OP = x.Entry.StudyLevel.Acronym + "." + x.Entry.SP_ObrazProgram.Number + "." + MainClass.sPriemYear + " " + x.Entry.SP_ObrazProgram.Name,
-                        Prof = x.Entry.SP_Profile.Name,
-                        StudyForm = x.Entry.StudyForm.Acronym,
-                        StudyBasis = x.Entry.StudyBasis.Acronym
-                    }).FirstOrDefault();
+                    var data =
+                        (from Ab in context.Abiturient
+                         join ent in context.extEntry on Ab.EntryId equals ent.Id
+                         where Ab.Id == App && !Ab.BackDoc && lstBarcodes.Contains(Ab.Barcode)
+                         select new
+                         {
+                             LP = ent.LicenseProgramCode + " " + ent.LicenseProgramName,
+                             OP = ent.ObrazProgramCrypt + " " + ent.ObrazProgramName,
+                             Prof = ent.ProfileName,
+                             StudyForm = ent.StudyFormName,
+                             StudyBasis = ent.StudyBasisName
+                         }).FirstOrDefault();
 
                     if (data == null)//бред, конечно, но кто знает
                         AppList.Remove(App);

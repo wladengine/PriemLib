@@ -50,7 +50,7 @@ namespace PriemLib
                 int rowNum = 0;
                 var ListLP = context.Entry
                     .Where(x => x.KCP.HasValue && x.KCP > 0 && x.StudyLevel.LevelGroupId == 1
-                        && (StudyLevelId.HasValue ? x.StudyLevel.Id == StudyLevelId : true) && !x.IsForeign && !x.IsCrimea)
+                        && (StudyLevelId.HasValue ? x.StudyLevel.Id == StudyLevelId : true) && !x.IsForeign)
                     .Select(x => new { x.StudyFormId, x.StudyBasisId, x.LicenseProgramId, x.SP_LicenseProgram.GSGUCode, x.SP_LicenseProgram.Name, x.SP_LicenseProgram.Code, x.StudyLevel.LevelGroupId })
                     .Distinct().ToList();
                 ProgressForm pf = new ProgressForm();
@@ -117,7 +117,7 @@ namespace PriemLib
                         node.InnerText = dtLast.ToString("yyyy-MM-dd HH:mm:ss");
 
                         //КЦП общие (без учёта Крыма)
-                        int KCP = context.Entry.Where(x => x.LicenseProgramId == LP.LicenseProgramId && x.StudyFormId == LP.StudyFormId && x.StudyBasisId == LP.StudyBasisId && !x.IsCrimea && !x.IsForeign)
+                        int KCP = context.Entry.Where(x => x.LicenseProgramId == LP.LicenseProgramId && x.StudyFormId == LP.StudyFormId && x.StudyBasisId == LP.StudyBasisId && !x.IsForeign)
                             .Select(x => x.KCP).ToList().Select(x => x ?? 0).Sum();
 
                         //зачислено на крымские места
@@ -125,10 +125,10 @@ namespace PriemLib
                             .Where(x => x.LicenseProgramId == LP.LicenseProgramId && x.StudyFormId == LP.StudyFormId && x.StudyBasisId == LP.StudyBasisId && x.IsCrimea && !x.IsForeign)
                             .Count();
 
-                        int KCPQuota = context.Entry.Where(x => x.LicenseProgramId == LP.LicenseProgramId && x.StudyFormId == LP.StudyFormId && x.StudyBasisId == LP.StudyBasisId && !x.IsCrimea && !x.IsForeign)
+                        int KCPQuota = context.Entry.Where(x => x.LicenseProgramId == LP.LicenseProgramId && x.StudyFormId == LP.StudyFormId && x.StudyBasisId == LP.StudyBasisId && !x.IsForeign)
                             .Select(x => x.KCPQuota).ToList().Select(x => x ?? 0).Sum();
 
-                        int KCPCel = context.Entry.Where(x => x.LicenseProgramId == LP.LicenseProgramId && x.StudyFormId == LP.StudyFormId && x.StudyBasisId == LP.StudyBasisId && !x.IsCrimea && !x.IsForeign)
+                        int KCPCel = context.Entry.Where(x => x.LicenseProgramId == LP.LicenseProgramId && x.StudyFormId == LP.StudyFormId && x.StudyBasisId == LP.StudyBasisId && !x.IsForeign)
                             .Select(x => x.KCPCel).ToList().Select(x => x ?? 0).Sum();
                         //Всего мест для приёма граждан
                         //1.4 Всего
@@ -142,13 +142,13 @@ namespace PriemLib
                         node.InnerText = KCPCel.ToString();
 
                         //КЦП выделенные (Крым)
-                        KCP = context.Entry.Where(x => x.LicenseProgramId == LP.LicenseProgramId && x.StudyFormId == LP.StudyFormId && x.StudyBasisId == LP.StudyBasisId && x.IsCrimea && !x.IsForeign)
+                        KCP = context.Entry.Where(x => x.LicenseProgramId == LP.LicenseProgramId && x.StudyFormId == LP.StudyFormId && x.StudyBasisId == LP.StudyBasisId && !x.IsForeign)
                             .Select(x => x.KCP).ToList().Select(x => x ?? 0).Sum();
 
-                        KCPQuota = context.Entry.Where(x => x.LicenseProgramId == LP.LicenseProgramId && x.StudyFormId == LP.StudyFormId && x.StudyBasisId == LP.StudyBasisId && x.IsCrimea && !x.IsForeign)
+                        KCPQuota = context.Entry.Where(x => x.LicenseProgramId == LP.LicenseProgramId && x.StudyFormId == LP.StudyFormId && x.StudyBasisId == LP.StudyBasisId && !x.IsForeign)
                             .Select(x => x.KCPQuota).ToList().Select(x => x ?? 0).Sum();
 
-                        KCPCel = context.Entry.Where(x => x.LicenseProgramId == LP.LicenseProgramId && x.StudyFormId == LP.StudyFormId && x.StudyBasisId == LP.StudyBasisId && x.IsCrimea && !x.IsForeign)
+                        KCPCel = context.Entry.Where(x => x.LicenseProgramId == LP.LicenseProgramId && x.StudyFormId == LP.StudyFormId && x.StudyBasisId == LP.StudyBasisId && !x.IsForeign)
                             .Select(x => x.KCPCel).ToList().Select(x => x ?? 0).Sum();
                         //Всего мест для приёма граждан
                         //1.7 Всего
@@ -164,23 +164,23 @@ namespace PriemLib
                         //Количество поданных заявлений
                         var AbitList = context.Abiturient
                             .Where(x => x.Entry.LicenseProgramId == LP.LicenseProgramId && x.Entry.StudyFormId == LP.StudyFormId && x.Entry.StudyBasisId == LP.StudyBasisId && !x.Entry.IsForeign)
-                            .Select(x => new { x.Id, x.CompetitionId, x.Entry.IsCrimea, x.DocInsertDate }).ToList();
+                            .Select(x => new { x.Id, x.CompetitionId, x.DocInsertDate }).ToList();
 
                         //количество поданных заявлений
                         //на выделенные места (Крым)
                         //для организаций, расположенных за пределами Крыма и Севастополя (на 14.07.2016)
                         //1.10 Всего
-                        int CountAbit = AbitList.Where(x => x.DocInsertDate < new DateTime(2016, 7, 15)).Where(x => x.IsCrimea).Count();
+                        int CountAbit = AbitList.Where(x => x.DocInsertDate < new DateTime(2016, 7, 15)).Count();
                         node = rwNode.AppendChild(doc.CreateNode(XmlNodeType.Element, "p1_10", ""));
                         node.InnerText = CountAbit.ToString();
                         //1.11 из них квотники
                         int CountAbit_VK = AbitList.Where(x => x.DocInsertDate < new DateTime(2016, 7, 15))
-                            .Where(x => x.IsCrimea).Where(x => (x.CompetitionId == 2 || x.CompetitionId == 7)).Count();
+                            .Where(x => (x.CompetitionId == 2 || x.CompetitionId == 7)).Count();
                         node = rwNode.AppendChild(doc.CreateNode(XmlNodeType.Element, "p1_11", ""));
                         node.InnerText = CountAbit_VK.ToString();
                         //1.12 из них целевики
                         int CountAbit_Cel = AbitList.Where(x => x.DocInsertDate < new DateTime(2016, 7, 15))
-                            .Where(x => x.IsCrimea).Where(x => (x.CompetitionId == 6)).Count();
+                            .Where(x => (x.CompetitionId == 6)).Count();
                         node = rwNode.AppendChild(doc.CreateNode(XmlNodeType.Element, "p1_12", ""));
                         node.InnerText = CountAbit_Cel.ToString();
                         //для организаций, расположенных в пределах Крыма и Севастополя (на 09.08.2016)
@@ -197,17 +197,17 @@ namespace PriemLib
                         //на общие места (не Крым) на 26.07.2016
                         //1.16 всего
                         CountAbit = AbitList.Where(x => x.DocInsertDate < new DateTime(2016, 7, 27))
-                            .Where(x => !x.IsCrimea).Count();
+                            .Count();
                         node = rwNode.AppendChild(doc.CreateNode(XmlNodeType.Element, "p1_16", ""));
                         node.InnerText = CountAbit.ToString();
                         //1.17 квотники
                         CountAbit_VK = AbitList.Where(x => x.DocInsertDate < new DateTime(2016, 7, 27))
-                            .Where(x => !x.IsCrimea).Where(x => (x.CompetitionId == 2 || x.CompetitionId == 7)).Count();
+                            .Where(x => (x.CompetitionId == 2 || x.CompetitionId == 7)).Count();
                         node = rwNode.AppendChild(doc.CreateNode(XmlNodeType.Element, "p1_17", ""));
                         node.InnerText = CountAbit_VK.ToString();
                         //1.18 целевики
                         CountAbit_Cel = AbitList.Where(x => x.DocInsertDate < new DateTime(2016, 7, 27))
-                            .Where(x => !x.IsCrimea).Where(x => (x.CompetitionId == 6)).Count();
+                            .Where(x => (x.CompetitionId == 6)).Count();
                         node = rwNode.AppendChild(doc.CreateNode(XmlNodeType.Element, "p1_18", ""));
                         node.InnerText = CountAbit_Cel.ToString();
 
@@ -280,37 +280,37 @@ namespace PriemLib
                         node.InnerText = "0";
 
                         //1.23 зачислено б/э (всеросс + международные олимпиады)
-                        int cnt_BE = ExV.Where(x => x.IsBE && (x.OlympTypeId == 1 || x.OlympTypeId == 2)).Count();
+                        int cnt_BE = ExV.Where(x => x.IsBE == true && (x.OlympTypeId == 1 || x.OlympTypeId == 2)).Count();
                         node = rwNode.AppendChild(doc.CreateNode(XmlNodeType.Element, "p1_23", ""));
                         node.InnerText = cnt_BE.ToString();
 
                         //1.24 зачислено б/э (всеукр)
-                        cnt_BE = ExV.Where(x => x.IsBE && x.OlympTypeId == 8).Count();
+                        cnt_BE = ExV.Where(x => x.IsBE == true && x.OlympTypeId == 8).Count();
                         node = rwNode.AppendChild(doc.CreateNode(XmlNodeType.Element, "p1_24", ""));
                         node.InnerText = cnt_BE.ToString();
 
                         //1.25 зачислено б/э (олимпиады РСОШ)
-                        cnt_BE = ExV.Where(x => x.IsBE && (x.OlympTypeId == 4 || x.OlympTypeId == 3)).Count();
+                        cnt_BE = ExV.Where(x => x.IsBE == true && (x.OlympTypeId == 4 || x.OlympTypeId == 3)).Count();
                         node = rwNode.AppendChild(doc.CreateNode(XmlNodeType.Element, "p1_25", ""));
                         node.InnerText = cnt_BE.ToString();
 
                         //1.26 зачисленных абитуриентов в/к
-                        int cnt_VK = ExV.Where(x => x.IsQuota).Count();
+                        int cnt_VK = ExV.Where(x => x.IsQuota == true).Count();
                         node = rwNode.AppendChild(doc.CreateNode(XmlNodeType.Element, "p1_26", ""));
                         node.InnerText = cnt_VK.ToString();
 
                         //1.27 зачисленных абитуриентов цел
-                        int cnt_Сel = ExV.Where(x => x.Date <= dtZeroWaveLast && x.Date >= dtZeroWaveFirst && x.IsCel).Count();
+                        int cnt_Сel = ExV.Where(x => x.Date <= dtZeroWaveLast && x.Date >= dtZeroWaveFirst && x.IsCel == true).Count();
                         node = rwNode.AppendChild(doc.CreateNode(XmlNodeType.Element, "p1_27", ""));
                         node.InnerText = cnt_Сel.ToString();
 
                         //1.28 зачисленных абитуриентов по общему конкурсу, всего
-                        int cnt_NoPriv = ExV.Where(x => !x.IsBE && !x.IsCel && !x.IsQuota).Count();
+                        int cnt_NoPriv = ExV.Where(x => x.IsBE == false && x.IsCel == false && x.IsQuota == false).Count();
                         node = rwNode.AppendChild(doc.CreateNode(XmlNodeType.Element, "p1_28", ""));
                         node.InnerText = cnt_NoPriv.ToString();
 
                         //1.29 зачисленных абитуриентов по общему конкурсу, имеющих 100 баллов из олимпиад (всеросс - междунар)
-                        int cnt_NoPriv_100B = ExV.Where(x => !x.IsBE && !x.IsCel && !x.IsQuota && x.CntMarkFromOlympVseross > 0).Count();
+                        int cnt_NoPriv_100B = ExV.Where(x => x.IsBE == false && x.IsCel == false && x.IsQuota == false && x.CntMarkFromOlympVseross > 0).Count();
                         node = rwNode.AppendChild(doc.CreateNode(XmlNodeType.Element, "p1_29", ""));
                         node.InnerText = cnt_NoPriv_100B.ToString();
 
@@ -320,7 +320,7 @@ namespace PriemLib
                         node.InnerText = "0";
 
                         //1.31 зачисленных абитуриентов по общему конкурсу, имеющих 100 баллов из олимпиад (всеукр)
-                        cnt_NoPriv_100B = ExV.Where(x => !x.IsBE && !x.IsCel && !x.IsQuota && x.CntMarkFromOlympVseukr > 0).Count();
+                        cnt_NoPriv_100B = ExV.Where(x => x.IsBE == false && x.IsCel == false && x.IsQuota == false && x.CntMarkFromOlympVseukr > 0).Count();
                         node = rwNode.AppendChild(doc.CreateNode(XmlNodeType.Element, "p1_31", ""));
                         node.InnerText = cnt_NoPriv_100B.ToString();
 
@@ -330,7 +330,7 @@ namespace PriemLib
                         node.InnerText = "0";
 
                         //1.33 зачисленных абитуриентов по общему конкурсу, имеющих 100 баллов из олимпиад (РСОШ)
-                        cnt_NoPriv_100B = ExV.Where(x => !x.IsBE && !x.IsCel && !x.IsQuota && x.CntMarkFromOlympRSOSH > 0).Count();
+                        cnt_NoPriv_100B = ExV.Where(x => x.IsBE == false && x.IsCel == false && x.IsQuota == false && x.CntMarkFromOlympRSOSH > 0).Count();
                         node = rwNode.AppendChild(doc.CreateNode(XmlNodeType.Element, "p1_33", ""));
                         node.InnerText = cnt_NoPriv_100B.ToString();
 
@@ -345,7 +345,7 @@ namespace PriemLib
                         node.InnerText = "0";
 
                         //1.36 зачисленных абитуриентов по общему конкурсу на крымские места
-                        cnt_NoPriv = ExV.Where(x => !x.IsBE && !x.IsCel && !x.IsQuota && x.IsCrimea).Count();
+                        cnt_NoPriv = ExV.Where(x => x.IsBE == false && x.IsCel == false && x.IsQuota == false).Count();
                         node = rwNode.AppendChild(doc.CreateNode(XmlNodeType.Element, "p1_36", ""));
                         node.InnerText = cnt_NoPriv.ToString();
 
@@ -358,13 +358,13 @@ namespace PriemLib
                         node.InnerText = LP.LevelGroupId < 4 ? "0" : KCP.ToString();
 
                         //1.38 целевая квота
-                        KCPCel = context.Entry.Where(x => x.LicenseProgramId == LP.LicenseProgramId && x.StudyFormId == LP.StudyFormId && x.StudyBasisId == LP.StudyBasisId && !x.IsCrimea && !x.IsForeign)
+                        KCPCel = context.Entry.Where(x => x.LicenseProgramId == LP.LicenseProgramId && x.StudyFormId == LP.StudyFormId && x.StudyBasisId == LP.StudyBasisId && !x.IsForeign)
                             .Select(x => x.KCPCel).ToList().Select(x => x ?? 0).Sum();
                         node = rwNode.AppendChild(doc.CreateNode(XmlNodeType.Element, "p1_38", ""));
                         node.InnerText = LP.LevelGroupId < 4 ? "0" : KCPCel.ToString();
 
                         //1.39 крымские места
-                        int KCPCrimea = context.Entry.Where(x => x.LicenseProgramId == LP.LicenseProgramId && x.StudyFormId == LP.StudyFormId && x.StudyBasisId == LP.StudyBasisId && x.IsCrimea && !x.IsForeign)
+                        int KCPCrimea = context.Entry.Where(x => x.LicenseProgramId == LP.LicenseProgramId && x.StudyFormId == LP.StudyFormId && x.StudyBasisId == LP.StudyBasisId  && !x.IsForeign)
                             .Select(x => x.KCP).ToList().Select(x => x ?? 0).Sum();
                         node = rwNode.AppendChild(doc.CreateNode(XmlNodeType.Element, "p1_39", ""));
                         node.InnerText = LP.LevelGroupId < 4 ? "0" : KCPCrimea.ToString();
@@ -380,7 +380,7 @@ namespace PriemLib
                         node.InnerText = LP.LevelGroupId < 4 ? "0" : cnt_Сel.ToString();
 
                         //1.42 подано заявлений на крым
-                        cnt_EntAll = AbitList.Where(x => x.IsCrimea).Count();
+                        cnt_EntAll = AbitList.Count();
                         node = rwNode.AppendChild(doc.CreateNode(XmlNodeType.Element, "p1_42", ""));
                         node.InnerText = LP.LevelGroupId < 4 ? "0" : cnt_EntAll.ToString();
 
@@ -392,7 +392,7 @@ namespace PriemLib
                         node.InnerText = LP.LevelGroupId < 4 ? "0" : cnt_EntAll.ToString();
 
                         //1.44 зачислено на целевые места
-                        cnt_Сel = ExV.Where(x => x.IsCel).Count();
+                        cnt_Сel = ExV.Where(x => x.IsCel == true).Count();
                         node = rwNode.AppendChild(doc.CreateNode(XmlNodeType.Element, "p1_44", ""));
                         node.InnerText = LP.LevelGroupId < 4 ? "0" : cnt_Сel.ToString();
 
@@ -405,19 +405,19 @@ namespace PriemLib
 
                         //часть 2. Сведения о среднем балле зачисленных (бак-спец)
                         //2.0 всего зачисленных б/э
-                        int Cnt1K = ExV.Where(x => x.LevelGroupId == 1 && x.IsBE).Count() + ExV_Crimea.Where(x => x.LevelGroupId == 1 && x.IsBE).Count();
+                        int Cnt1K = ExV.Where(x => x.LevelGroupId == 1 && x.IsBE == true).Count() + ExV_Crimea.Where(x => x.LevelGroupId == 1 && x.IsBE == true).Count();
                         node = rwNode.AppendChild(doc.CreateNode(XmlNodeType.Element, "p2_0", ""));
                         node.InnerText = Cnt1K.ToString();
 
                         //2.1 зачисленных в/к, поступающих по ЕГЭ
-                        Cnt1K = ExV.Where(x => x.LevelGroupId == 1 && x.IsQuota).Count() + ExV_Crimea.Where(x => x.LevelGroupId == 1 && x.IsQuota).Count();
+                        Cnt1K = ExV.Where(x => x.LevelGroupId == 1 && x.IsQuota == true).Count() + ExV_Crimea.Where(x => x.LevelGroupId == 1 && x.IsQuota == true).Count();
                         int Cnt1K_NoEge =
                             (from EV in context.extEntryView
                              join Ab in context.Abiturient on EV.AbiturientId equals Ab.Id
                              join Mrk in context.Mark on Ab.Id equals Mrk.AbiturientId
                              where EV.LicenseProgramId == LP.LicenseProgramId && EV.StudyFormId == LP.StudyFormId
                              && EV.StudyBasisId == LP.StudyBasisId && !Mrk.IsFromEge && !Mrk.IsFromOlymp
-                             && EV.IsQuota
+                             && EV.IsQuota == true
                              select Ab.PersonId).Distinct().Count();
                         node = rwNode.AppendChild(doc.CreateNode(XmlNodeType.Element, "p2_1", ""));
                         node.InnerText = (Cnt1K - Cnt1K_NoEge).ToString();
@@ -427,14 +427,14 @@ namespace PriemLib
                         node.InnerText = Cnt1K_NoEge.ToString();
 
                         //2.3 целевиков по ЕГЭ
-                        Cnt1K = ExV.Where(x => x.LevelGroupId == 1 && x.IsCel).Count() + ExV_Crimea.Where(x => x.LevelGroupId == 1 && x.IsCel).Count();
+                        Cnt1K = ExV.Where(x => x.LevelGroupId == 1 && x.IsCel == true).Count() + ExV_Crimea.Where(x => x.LevelGroupId == 1 && x.IsCel == true).Count();
                         Cnt1K_NoEge =
                             (from EV in context.extEntryView
                              join Ab in context.Abiturient on EV.AbiturientId equals Ab.Id
                              join Mrk in context.Mark on Ab.Id equals Mrk.AbiturientId
                              where EV.LicenseProgramId == LP.LicenseProgramId && EV.StudyFormId == LP.StudyFormId
                              && EV.StudyBasisId == LP.StudyBasisId && !Mrk.IsFromEge && !Mrk.IsFromOlymp
-                             && EV.IsCel
+                             && EV.IsCel == true
                              select Ab.PersonId).Distinct().Count();
                         node = rwNode.AppendChild(doc.CreateNode(XmlNodeType.Element, "p2_3", ""));
                         node.InnerText = (Cnt1K - Cnt1K_NoEge).ToString();
@@ -445,8 +445,8 @@ namespace PriemLib
 
                         //по общему конкурсу
                         //2.5 всего
-                        Cnt1K = ExV.Where(x => x.LevelGroupId == 1 && !x.IsCel && !x.IsBE && !x.IsQuota).Count()
-                            + ExV_Crimea.Where(x => x.LevelGroupId == 1 && !x.IsCel && !x.IsBE && !x.IsQuota).Count();
+                        Cnt1K = ExV.Where(x => x.LevelGroupId == 1 && x.IsCel == false && x.IsBE == false && x.IsQuota == false).Count()
+                            + ExV_Crimea.Where(x => x.LevelGroupId == 1 && x.IsCel == false && x.IsBE == false && x.IsQuota == false).Count();
                         node = rwNode.AppendChild(doc.CreateNode(XmlNodeType.Element, "p2_5", ""));
                         node.InnerText = Cnt1K.ToString();
 
@@ -456,7 +456,7 @@ namespace PriemLib
                              join Mrk in context.Mark on Ab.Id equals Mrk.AbiturientId
                              where EV.LicenseProgramId == LP.LicenseProgramId 
                              && EV.StudyFormId == LP.StudyFormId && EV.StudyBasisId == LP.StudyBasisId
-                             && !EV.IsCel && !EV.IsBE && !EV.IsQuota 
+                             && EV.IsCel == false && EV.IsBE == false && EV.IsQuota == false
                              && !Mrk.IsFromEge && !Mrk.IsFromOlymp && !Mrk.ExamInEntryBlockUnit.Exam.IsAdditional
                              select Ab.PersonId).Distinct().Count();
 
@@ -466,7 +466,7 @@ namespace PriemLib
                              join Mrk in context.Mark on Ab.Id equals Mrk.AbiturientId
                              where EV.LicenseProgramId == LP.LicenseProgramId 
                              && EV.StudyFormId == LP.StudyFormId && EV.StudyBasisId == LP.StudyBasisId
-                             && !EV.IsCel && !EV.IsBE && !EV.IsQuota
+                             && EV.IsCel == false && EV.IsBE == false && EV.IsQuota == false
                              && !Mrk.IsFromEge && Mrk.IsFromOlymp && !Mrk.ExamInEntryBlockUnit.Exam.IsAdditional
                              select Ab.PersonId).Distinct().Count();
 
@@ -476,7 +476,7 @@ namespace PriemLib
                              join Mrk in context.Mark on Ab.Id equals Mrk.AbiturientId
                              where EV.LicenseProgramId == LP.LicenseProgramId
                              && EV.StudyFormId == LP.StudyFormId && EV.StudyBasisId == LP.StudyBasisId
-                             && !EV.IsCel && !EV.IsBE && !EV.IsQuota
+                             && EV.IsCel == false && EV.IsBE == false && EV.IsQuota == false
                              && !Mrk.IsFromEge && !Mrk.ExamInEntryBlockUnit.Exam.IsAdditional
                              select Ab.PersonId).Distinct().Count();
 
@@ -501,8 +501,7 @@ namespace PriemLib
                              join Mrk in context.Mark on Ab.Id equals Mrk.AbiturientId
                              where EV.LicenseProgramId == LP.LicenseProgramId && EV.StudyFormId == LP.StudyFormId
                              && EV.StudyBasisId == LP.StudyBasisId
-                             && !EV.IsCel && !EV.IsBE && EV.IsQuota && !Mrk.ExamInEntryBlockUnit.Exam.IsAdditional
-                             && !Ab.Entry.IsCrimea
+                             && EV.IsCel == false && EV.IsBE == false && EV.IsQuota == true && !Mrk.ExamInEntryBlockUnit.Exam.IsAdditional
                              select Mrk.Value).DefaultIfEmpty(0m).Average();
                         node = rwNode.AppendChild(doc.CreateNode(XmlNodeType.Element, "p2_10", ""));
                         node.InnerText = AvgBall.ToString();
@@ -514,8 +513,7 @@ namespace PriemLib
                              join Mrk in context.Mark on Ab.Id equals Mrk.AbiturientId
                              where EV.LicenseProgramId == LP.LicenseProgramId && EV.StudyFormId == LP.StudyFormId
                              && EV.StudyBasisId == LP.StudyBasisId
-                             && EV.IsCel && !EV.IsBE && !EV.IsQuota && !Mrk.ExamInEntryBlockUnit.Exam.IsAdditional
-                             && !Ab.Entry.IsCrimea
+                             && EV.IsCel == true && EV.IsBE == false && EV.IsQuota == false && !Mrk.ExamInEntryBlockUnit.Exam.IsAdditional
                              select Mrk.Value).DefaultIfEmpty(0m).Average();
                         node = rwNode.AppendChild(doc.CreateNode(XmlNodeType.Element, "p2_11", ""));
                         node.InnerText = AvgBall.ToString();
@@ -527,8 +525,7 @@ namespace PriemLib
                              join Mrk in context.Mark on Ab.Id equals Mrk.AbiturientId
                              where EV.LicenseProgramId == LP.LicenseProgramId && EV.StudyFormId == LP.StudyFormId
                              && EV.StudyBasisId == LP.StudyBasisId && !Mrk.IsFromOlymp
-                             && !EV.IsCel && !EV.IsBE && !EV.IsQuota && !Mrk.ExamInEntryBlockUnit.Exam.IsAdditional
-                             && !Ab.Entry.IsCrimea
+                             && EV.IsCel == false && EV.IsBE == false && EV.IsQuota == false && !Mrk.ExamInEntryBlockUnit.Exam.IsAdditional
                              select Mrk.Value).DefaultIfEmpty(0m).Average();
                         node = rwNode.AppendChild(doc.CreateNode(XmlNodeType.Element, "p2_12", ""));
                         node.InnerText = AvgBall.ToString();
@@ -540,8 +537,7 @@ namespace PriemLib
                              join Mrk in context.Mark on Ab.Id equals Mrk.AbiturientId
                              where EV.LicenseProgramId == LP.LicenseProgramId && EV.StudyFormId == LP.StudyFormId
                              && EV.StudyBasisId == LP.StudyBasisId
-                             && !EV.IsCel && !EV.IsBE && !EV.IsQuota && !Mrk.ExamInEntryBlockUnit.Exam.IsAdditional
-                             && !Ab.Entry.IsCrimea
+                             && EV.IsCel == false && EV.IsBE == false && EV.IsQuota == false && !Mrk.ExamInEntryBlockUnit.Exam.IsAdditional
                              select Mrk.Value).DefaultIfEmpty(0m).Average();
                         node = rwNode.AppendChild(doc.CreateNode(XmlNodeType.Element, "p2_13", ""));
                         node.InnerText = AvgBall.ToString();
@@ -553,8 +549,7 @@ namespace PriemLib
                              join Mrk in context.Mark on Ab.Id equals Mrk.AbiturientId
                              where EV.LicenseProgramId == LP.LicenseProgramId && EV.StudyFormId == LP.StudyFormId
                              && EV.StudyBasisId == LP.StudyBasisId && !Mrk.IsFromOlymp
-                             && !EV.IsCel && !EV.IsBE && !EV.IsQuota
-                             && !Ab.Entry.IsCrimea
+                             && EV.IsCel == false && EV.IsBE == false && EV.IsQuota == false
                              select Mrk.Value).DefaultIfEmpty(0m).Average();
                         node = rwNode.AppendChild(doc.CreateNode(XmlNodeType.Element, "p2_14", ""));
                         node.InnerText = AvgBall.ToString();
@@ -566,8 +561,7 @@ namespace PriemLib
                              join Mrk in context.Mark on Ab.Id equals Mrk.AbiturientId
                              where EV.LicenseProgramId == LP.LicenseProgramId && EV.StudyFormId == LP.StudyFormId
                              && EV.StudyBasisId == LP.StudyBasisId
-                             && !EV.IsCel && !EV.IsBE && !EV.IsQuota
-                             && !Ab.Entry.IsCrimea
+                             && EV.IsCel == false && EV.IsBE == false && EV.IsQuota == false
                              select Mrk.Value).DefaultIfEmpty(0m).Average();
                         node = rwNode.AppendChild(doc.CreateNode(XmlNodeType.Element, "p2_15", ""));
                         node.InnerText = AvgBall.ToString();
@@ -581,8 +575,7 @@ namespace PriemLib
                              from MrkAdd in MrkAdd2.DefaultIfEmpty()
                              where EV.LicenseProgramId == LP.LicenseProgramId && EV.StudyFormId == LP.StudyFormId
                              && EV.StudyBasisId == LP.StudyBasisId
-                             && !EV.IsCel && !EV.IsBE && !EV.IsQuota
-                             && !Ab.Entry.IsCrimea
+                             && EV.IsCel == false && EV.IsBE == false && EV.IsQuota == false
                              select new { Mrk.Id, Mrk.TotalSum, Mrk.TotalCount, MrkAdd.AdditionalMarksSum })
                              .ToList()
                              .Where(x => x.TotalCount != 0 && x.TotalCount.HasValue)
@@ -624,8 +617,7 @@ namespace PriemLib
                              join Mrk in context.extAbitAllAdditionalAchievements on Ab.Id equals Mrk.AbiturientId
                              where EV.LicenseProgramId == LP.LicenseProgramId && EV.StudyFormId == LP.StudyFormId
                              && EV.StudyBasisId == LP.StudyBasisId
-                             && !EV.IsCel && !EV.IsBE && !EV.IsQuota
-                             && !Ab.Entry.IsCrimea
+                             && EV.IsCel == false && EV.IsBE == false && EV.IsQuota == false
                              && Mrk.AchievementTypeId <= 8
                              select Mrk.Mark)
                              .ToList()
@@ -641,8 +633,7 @@ namespace PriemLib
                              join Mrk in context.extAbitAllAdditionalAchievements on Ab.Id equals Mrk.AbiturientId
                              where EV.LicenseProgramId == LP.LicenseProgramId && EV.StudyFormId == LP.StudyFormId
                              && EV.StudyBasisId == LP.StudyBasisId
-                             && !EV.IsCel && !EV.IsBE && !EV.IsQuota
-                             && !Ab.Entry.IsCrimea
+                             && EV.IsCel == false && EV.IsBE == false && EV.IsQuota == false
                              && Mrk.AchievementTypeId == 9
                              select Mrk.Mark)
                              .ToList()
@@ -658,8 +649,7 @@ namespace PriemLib
                              join Mrk in context.extAbitAllAdditionalAchievements on Ab.Id equals Mrk.AbiturientId
                              where EV.LicenseProgramId == LP.LicenseProgramId && EV.StudyFormId == LP.StudyFormId
                              && EV.StudyBasisId == LP.StudyBasisId
-                             && !EV.IsCel && !EV.IsBE && !EV.IsQuota
-                             && !Ab.Entry.IsCrimea
+                             && EV.IsCel == false && EV.IsBE == false && EV.IsQuota == false
                              && Mrk.AchievementTypeId == 16
                              select Mrk.Mark)
                              .ToList()
@@ -675,8 +665,7 @@ namespace PriemLib
                              join Mrk in context.extAbitAllAdditionalAchievements on Ab.Id equals Mrk.AbiturientId
                              where EV.LicenseProgramId == LP.LicenseProgramId && EV.StudyFormId == LP.StudyFormId
                              && EV.StudyBasisId == LP.StudyBasisId
-                             && !EV.IsCel && !EV.IsBE && !EV.IsQuota
-                             && !Ab.Entry.IsCrimea
+                             && EV.IsCel == false && EV.IsBE == false && EV.IsQuota == false
                              && Mrk.AchievementTypeId == 10
                              select Mrk.Mark)
                              .ToList()
@@ -693,8 +682,7 @@ namespace PriemLib
                              join Mrk in context.extAbitAllAdditionalAchievements on Ab.Id equals Mrk.AbiturientId
                              where EV.LicenseProgramId == LP.LicenseProgramId && EV.StudyFormId == LP.StudyFormId
                              && EV.StudyBasisId == LP.StudyBasisId
-                             && !EV.IsCel && !EV.IsBE && !EV.IsQuota
-                             && !Ab.Entry.IsCrimea
+                             && EV.IsCel == false && EV.IsBE == false && EV.IsQuota == false
                              && Mrk.AchievementTypeId == 11
                              select Mrk.Mark)
                              .ToList()
@@ -711,8 +699,7 @@ namespace PriemLib
                              join Mrk in context.extAbitAllAdditionalAchievements on Ab.Id equals Mrk.AbiturientId
                              where EV.LicenseProgramId == LP.LicenseProgramId && EV.StudyFormId == LP.StudyFormId
                              && EV.StudyBasisId == LP.StudyBasisId
-                             && !EV.IsCel && !EV.IsBE && !EV.IsQuota
-                             && !Ab.Entry.IsCrimea
+                             && EV.IsCel == false && EV.IsBE == false && EV.IsQuota == false
                              && Mrk.AchievementTypeId == 12
                              select Mrk.Mark)
                              .ToList()
@@ -730,8 +717,7 @@ namespace PriemLib
                              join Mrk in context.extAbitAllAdditionalAchievements on Ab.Id equals Mrk.AbiturientId
                              where EV.LicenseProgramId == LP.LicenseProgramId && EV.StudyFormId == LP.StudyFormId
                              && EV.StudyBasisId == LP.StudyBasisId
-                             && !EV.IsCel && !EV.IsBE && !EV.IsQuota
-                             && !Ab.Entry.IsCrimea
+                             && EV.IsCel == false && EV.IsBE == false && EV.IsQuota == false
                              && Mrk.AchievementTypeId <= 8
                              select Mrk.Mark)
                              .ToList()
@@ -746,8 +732,7 @@ namespace PriemLib
                              join Mrk in context.extAbitAllAdditionalAchievements on Ab.Id equals Mrk.AbiturientId
                              where EV.LicenseProgramId == LP.LicenseProgramId && EV.StudyFormId == LP.StudyFormId
                              && EV.StudyBasisId == LP.StudyBasisId
-                             && !EV.IsCel && !EV.IsBE && !EV.IsQuota
-                             && !Ab.Entry.IsCrimea
+                             && EV.IsCel == false && EV.IsBE == false && EV.IsQuota == false
                              && Mrk.AchievementTypeId == 9
                              select Mrk.Mark)
                              .ToList()
@@ -763,8 +748,7 @@ namespace PriemLib
                              join Mrk in context.extAbitAllAdditionalAchievements on Ab.Id equals Mrk.AbiturientId
                              where EV.LicenseProgramId == LP.LicenseProgramId && EV.StudyFormId == LP.StudyFormId
                              && EV.StudyBasisId == LP.StudyBasisId
-                             && !EV.IsCel && !EV.IsBE && !EV.IsQuota
-                             && !Ab.Entry.IsCrimea
+                             && EV.IsCel == false && EV.IsBE == false && EV.IsQuota == false
                              && Mrk.AchievementTypeId == 16
                              select Mrk.Mark)
                              .ToList()
@@ -780,8 +764,7 @@ namespace PriemLib
                              join Mrk in context.extAbitAllAdditionalAchievements on Ab.Id equals Mrk.AbiturientId
                              where EV.LicenseProgramId == LP.LicenseProgramId && EV.StudyFormId == LP.StudyFormId
                              && EV.StudyBasisId == LP.StudyBasisId
-                             && !EV.IsCel && !EV.IsBE && !EV.IsQuota
-                             && !Ab.Entry.IsCrimea
+                             && EV.IsCel == false && EV.IsBE == false && EV.IsQuota == false
                              && Mrk.AchievementTypeId == 10
                              select Mrk.Mark)
                              .ToList()
@@ -797,8 +780,7 @@ namespace PriemLib
                              join Mrk in context.extAbitAllAdditionalAchievements on Ab.Id equals Mrk.AbiturientId
                              where EV.LicenseProgramId == LP.LicenseProgramId && EV.StudyFormId == LP.StudyFormId
                              && EV.StudyBasisId == LP.StudyBasisId
-                             && !EV.IsCel && !EV.IsBE && !EV.IsQuota
-                             && !Ab.Entry.IsCrimea
+                             && EV.IsCel == false && EV.IsBE == false && EV.IsQuota == false
                              && Mrk.AchievementTypeId == 11
                              select Mrk.Mark)
                              .ToList()
@@ -814,8 +796,7 @@ namespace PriemLib
                              join Mrk in context.extAbitAllAdditionalAchievements on Ab.Id equals Mrk.AbiturientId
                              where EV.LicenseProgramId == LP.LicenseProgramId && EV.StudyFormId == LP.StudyFormId
                              && EV.StudyBasisId == LP.StudyBasisId
-                             && !EV.IsCel && !EV.IsBE && !EV.IsQuota
-                             && !Ab.Entry.IsCrimea
+                             && EV.IsCel == false && EV.IsBE == false && EV.IsQuota == false
                              && Mrk.AchievementTypeId == 12
                              select Mrk.Mark)
                              .ToList()
@@ -1067,8 +1048,7 @@ namespace PriemLib
                              join Mrk in context.Mark on Ab.Id equals Mrk.AbiturientId
                              where EV.LicenseProgramId == LP.LicenseProgramId && EV.StudyFormId == LP.StudyFormId
                              && EV.StudyBasisId == LP.StudyBasisId
-                             && !EV.IsCel && !EV.IsBE && EV.IsQuota
-                             && !Ab.Entry.IsCrimea
+                             && EV.IsCel == false && EV.IsBE == false && EV.IsQuota == true
                              && ((Ab.Person.Person_AdditionalInfo.Privileges & 32) == 1
                              || ((Ab.Person.Person_AdditionalInfo.Privileges & 512) == 1))
                              select Mrk.Value).DefaultIfEmpty(0m).Average();
@@ -1081,8 +1061,7 @@ namespace PriemLib
                              join Mrk in context.Mark on Ab.Id equals Mrk.AbiturientId
                              where EV.LicenseProgramId == LP.LicenseProgramId && EV.StudyFormId == LP.StudyFormId
                              && EV.StudyBasisId == LP.StudyBasisId
-                             && !EV.IsCel && !EV.IsBE && !EV.IsQuota
-                             && !Ab.Entry.IsCrimea
+                             && EV.IsCel == false && EV.IsBE == false && EV.IsQuota == false
                              && ((Ab.Person.Person_AdditionalInfo.Privileges & 32) == 1
                              || ((Ab.Person.Person_AdditionalInfo.Privileges & 512) == 1))
                              select Mrk.Value).DefaultIfEmpty(0m).Average();
@@ -1096,8 +1075,7 @@ namespace PriemLib
                              join Mrk in context.Mark on Ab.Id equals Mrk.AbiturientId
                              where EV.LicenseProgramId == LP.LicenseProgramId && EV.StudyFormId == LP.StudyFormId
                              && EV.StudyBasisId == LP.StudyBasisId
-                             && !EV.IsCel && !EV.IsBE && EV.IsQuota
-                             && !Ab.Entry.IsCrimea
+                             && EV.IsCel == false && EV.IsBE == false && EV.IsQuota == true
                              && ((Ab.Person.Person_AdditionalInfo.Privileges & 1) == 1
                              || ((Ab.Person.Person_AdditionalInfo.Privileges & 256) == 1))
                              select Mrk.Value).DefaultIfEmpty(0m).Average();
@@ -1110,8 +1088,7 @@ namespace PriemLib
                              join Mrk in context.Mark on Ab.Id equals Mrk.AbiturientId
                              where EV.LicenseProgramId == LP.LicenseProgramId && EV.StudyFormId == LP.StudyFormId
                              && EV.StudyBasisId == LP.StudyBasisId
-                             && !EV.IsCel && !EV.IsBE && !EV.IsQuota
-                             && !Ab.Entry.IsCrimea
+                             && EV.IsCel == false && EV.IsBE == false && EV.IsQuota == false
                              && ((Ab.Person.Person_AdditionalInfo.Privileges & 1) == 1
                              || ((Ab.Person.Person_AdditionalInfo.Privileges & 256) == 1))
                              select Mrk.Value).DefaultIfEmpty(0m).Average();
@@ -1646,7 +1623,7 @@ namespace PriemLib
                     (from extAb in context.extAbit
                      join LP in context.SP_LicenseProgram on extAb.LicenseProgramId equals LP.Id
                      where extAb.CompetitionId == 6 && extAb.StudyLevelGroupId != 3
-                     && (StudyLevelId.HasValue ? extAb.StudyLevelId == StudyLevelId : true) && !extAb.IsForeign && !extAb.IsCrimea
+                     && (StudyLevelId.HasValue ? extAb.StudyLevelId == StudyLevelId : true) && !extAb.IsForeign
                      select new
                      {
                          extAb.StudyNumber,

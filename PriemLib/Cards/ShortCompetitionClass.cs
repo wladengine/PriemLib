@@ -50,7 +50,6 @@ namespace PriemLib
         public bool IsReduced { get; set; }
         public bool IsSecond { get; set; }
         public bool IsForeign { get; set; }
-        public bool IsCrimea { get; set; }
 
         public int Barcode { get; set; }
 
@@ -84,7 +83,6 @@ namespace PriemLib
                         && x.StudyFormId == StudyFormId
                         && x.StudyBasisId == StudyBasisId
                         && x.ProfileId == ProfileId
-                        && x.IsCrimea == IsCrimea
                         && x.IsForeign == IsForeign
                         );
 

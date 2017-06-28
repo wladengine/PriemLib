@@ -2865,7 +2865,7 @@ namespace PriemLib
             }
         }
 
-        public static void PrintRatingProtocol(int? iStudyFormId, int? iStudyBasisId, int? iFacultyId, int? iLicenseProgramId, int? iObrazProgramId, int? iProfileId, bool isCel, bool isCrimea, 
+        public static void PrintRatingProtocol(int? iStudyFormId, int? iStudyBasisId, int? iFacultyId, int? iLicenseProgramId, int? iObrazProgramId, int? iProfileId, bool isCel,
             int plan, string savePath, bool isSecond, bool isReduced, bool isParallel, bool isQuota)
         {
             FileStream fileS = null;
@@ -2883,7 +2883,7 @@ namespace PriemLib
                 {
                     fixId = (from fixierenView in ctx.FixierenView
                              where fixierenView.StudyFormId == iStudyFormId && fixierenView.StudyBasisId == iStudyBasisId && fixierenView.FacultyId == iFacultyId && fixierenView.LicenseProgramId == iLicenseProgramId &&
-                             fixierenView.ObrazProgramId == iObrazProgramId && (iProfileId.HasValue ? fixierenView.ProfileId == iProfileId : true) && fixierenView.IsCel == isCel && fixierenView.IsCrimea == isCrimea && fixierenView.IsSecond == isSecond && fixierenView.IsParallel == isParallel && fixierenView.IsReduced == isReduced && fixierenView.IsQuota == isQuota
+                             fixierenView.ObrazProgramId == iObrazProgramId && (iProfileId.HasValue ? fixierenView.ProfileId == iProfileId : true) && fixierenView.IsCel == isCel && fixierenView.IsSecond == isSecond && fixierenView.IsParallel == isParallel && fixierenView.IsReduced == isReduced && fixierenView.IsQuota == isQuota
                              select fixierenView.Id).FirstOrDefault();
 
                     docNum = (from fixierenView in ctx.FixierenView
@@ -2902,9 +2902,9 @@ namespace PriemLib
                             where entry.LicenseProgramId == iLicenseProgramId
                             select entry.SP_LicenseProgram.Code + " " + entry.SP_LicenseProgram.Name).FirstOrDefault();
 
-                    obProg = (from entry in ctx.Entry
-                              where entry.ObrazProgramId == iObrazProgramId
-                              select entry.StudyLevel.Acronym + "." + entry.SP_ObrazProgram.Number + "." + MainClass.sPriemYear + " " + entry.SP_ObrazProgram.Name).FirstOrDefault();
+                    obProg = (from OP in ctx.qObrazProgram
+                              where OP.Id == iObrazProgramId
+                              select OP.Crypt + " " + OP.Name).FirstOrDefault();
 
                     spec = (from entry in ctx.Entry
                             where iProfileId.HasValue ? entry.ProfileId == iProfileId : true
@@ -3234,7 +3234,6 @@ namespace PriemLib
         public int StudyFormId { get; set; }
         public int StudyBasisId { get; set; }
 
-        public bool IsCrimea { get; set; }
         public bool IsForeign { get; set; }
     }
 }

@@ -58,7 +58,7 @@ namespace PriemLib
         public string StudyFormName { get; set; }
         public int StudyLevelId { get; set; }
         public string StudyLevelName { get; set; }
-        public System.Guid StudyPlanId { get; set; }
+        public Nullable<System.Guid> StudyPlanId { get; set; }
         public string StudyPlanNumber { get; set; }
         public string ProgramModeShortName { get; set; }
         public bool IsSecond { get; set; }

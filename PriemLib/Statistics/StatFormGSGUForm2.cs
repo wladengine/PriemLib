@@ -95,16 +95,15 @@ namespace PriemLib
                             node.InnerText = cnt.ToString();
                         
                         // p2-1 Всего по общему конкурсу
-                            int cntCommonComp = EV.Where(x => !x.IsCrimea && !x.IsCel && !x.IsQuota && !x.IsBE).Count();
+                            int cntCommonComp = EV.Where(x => x.IsCel == false && x.IsQuota == false && x.IsBE == false).Count();
                             node = rwNode.AppendChild(doc.CreateNode(XmlNodeType.Element, "p2_1", ""));
                             node.InnerText = cntCommonComp.ToString();
-
 
                             var AbitOlympList =
                                 (from ev in EV
                                  join mark in context.Mark on ev.AbiturientId equals mark.AbiturientId
                                  where mark.IsFromOlymp == true
-                                 && !ev.IsCel && !ev.IsQuota && !ev.IsCrimea && !ev.IsBE
+                                 && ev.IsCel == false && ev.IsQuota == false && ev.IsBE == false
                                  select mark.AbiturientId).Distinct();
 
                         // p2-2 по общему конкурсу, имеющих результаты ЕГЭ 
@@ -112,7 +111,8 @@ namespace PriemLib
                             int cntCommonCompWithEGE =
                                 (from ev in EV
                                  join mark in context.Mark on ev.AbiturientId equals mark.AbiturientId
-                                 where mark.IsFromEge == true && !AbitOlympList.Contains(mark.AbiturientId) && !ev.IsCel && !ev.IsQuota && !ev.IsCrimea && !ev.IsBE
+                                 where mark.IsFromEge == true && !AbitOlympList.Contains(mark.AbiturientId) 
+                                    && ev.IsCel == false && ev.IsQuota == false && ev.IsBE == false
                                  select mark.AbiturientId).Distinct().Count();
 
                             node = rwNode.AppendChild(doc.CreateNode(XmlNodeType.Element, "p2_2", ""));
@@ -126,7 +126,7 @@ namespace PriemLib
                                  && exEV.LicenseProgramId == LP.LicenseProgramId
                                  && exEV.StudyFormId == LP.StudyFormId
                                  && exEV.StudyBasisId == LP.StudyBasisId
-                                 && !exEV.IsCrimea && !exEV.IsCel && !exEV.IsQuota && !exEV.IsBE
+                                 && exEV.IsCel == false && exEV.IsQuota == false && exEV.IsBE == false
                                  select exEV.AbiturientId).Distinct().Count();
                             node = rwNode.AppendChild(doc.CreateNode(XmlNodeType.Element, "p2_3", ""));
                             node.InnerText = cntOlympLike100Balls.ToString();
@@ -135,14 +135,15 @@ namespace PriemLib
                                     (from ev in EV
                                      join mark in context.Mark on ev.AbiturientId equals mark.AbiturientId
                                      where mark.IsFromEge == true
-                                     && !ev.IsCel && !ev.IsQuota && !ev.IsCrimea && !ev.IsBE
+                                     && ev.IsCel == false && ev.IsQuota == false && ev.IsBE == false
                                      select mark.AbiturientId).Distinct();
 
                         // p2-4 по общему конкурсу, не имеющих результаты ЕГЭ (абитуриенты, сдававшие вступительные испытания, форма которых определяется вузом самостоятельно)
                             int cntCommonCompWithoutEGE =
                                 (from ev in EV
                                  join mark in context.Mark on ev.AbiturientId equals mark.AbiturientId
-                                 where !AbitEgeList.Contains(mark.AbiturientId) && !ev.IsCel && !ev.IsQuota && !ev.IsCrimea && !ev.IsBE
+                                 where !AbitEgeList.Contains(mark.AbiturientId) 
+                                    && ev.IsCel == false && ev.IsQuota == false && ev.IsBE == false
                                  select mark.AbiturientId).Distinct().Count();
 
                             node = rwNode.AppendChild(doc.CreateNode(XmlNodeType.Element, "p2_4", ""));
@@ -157,7 +158,7 @@ namespace PriemLib
                                  join ent in context.extExamInEntry on ev.EntryId equals ent.EntryId
                                  join exam in context.Exam on ent.ExamId equals exam.Id
                                  where mark.IsFromEge == true && !AbitOlympList.Contains(mark.AbiturientId)
-                                 && !ev.IsQuota && !ev.IsCrimea && !ev.IsBE && !ev.IsCel 
+                                 && ev.IsQuota == false && ev.IsBE == false && ev.IsCel == false
                                  && exam.IsAdditional == true
                                  select mark.AbiturientId).Distinct().Count();
 
@@ -168,7 +169,8 @@ namespace PriemLib
                             int cntCelCompWithEGE =
                                 (from ev in EV
                                  join mark in context.Mark on ev.AbiturientId equals mark.AbiturientId
-                                 where mark.IsFromEge == true && ev.IsCel && !ev.IsQuota && !ev.IsCrimea && !ev.IsBE
+                                 where mark.IsFromEge == true 
+                                    && ev.IsCel == true && ev.IsQuota == false && ev.IsBE == false
                                  select mark.AbiturientId).Distinct().Count();
 
                             node = rwNode.AppendChild(doc.CreateNode(XmlNodeType.Element, "p3_1", ""));
@@ -177,7 +179,8 @@ namespace PriemLib
                             int cntCelCompWithoutEGE =
                                 (from ev in EV
                                  join mark in context.Mark on ev.AbiturientId equals mark.AbiturientId
-                                 where !AbitEgeList.Contains(mark.AbiturientId) && ev.IsCel && !ev.IsQuota && !ev.IsCrimea && !ev.IsBE
+                                 where !AbitEgeList.Contains(mark.AbiturientId) 
+                                    && ev.IsCel == true && ev.IsQuota == false && ev.IsBE == false
                                  select mark.AbiturientId).Distinct().Count();
 
                             node = rwNode.AppendChild(doc.CreateNode(XmlNodeType.Element, "p3_2", ""));
@@ -186,7 +189,8 @@ namespace PriemLib
                             int cntQuotaCompWithEGE =
                                 (from ev in EV
                                  join mark in context.Mark on ev.AbiturientId equals mark.AbiturientId
-                                 where mark.IsFromEge == true && !ev.IsCel && ev.IsQuota && !ev.IsCrimea && !ev.IsBE
+                                 where mark.IsFromEge == true 
+                                    && ev.IsCel == false && ev.IsQuota == true && ev.IsBE == false
                                  select mark.AbiturientId).Distinct().Count();
 
                             node = rwNode.AppendChild(doc.CreateNode(XmlNodeType.Element, "p4_1", ""));
@@ -196,7 +200,7 @@ namespace PriemLib
                                 (from ev in EV
                                  join mark in context.Mark on ev.AbiturientId equals mark.AbiturientId
                                  where !AbitEgeList.Contains(mark.AbiturientId)
-                                 && !ev.IsCel && ev.IsQuota && !ev.IsCrimea && !ev.IsBE
+                                    && ev.IsCel == false && ev.IsQuota == true && ev.IsBE == false
                                  select mark.AbiturientId).Distinct().Count();
 
                             node = rwNode.AppendChild(doc.CreateNode(XmlNodeType.Element, "p4_2", ""));
@@ -205,7 +209,7 @@ namespace PriemLib
                             // общеобразовательным предметам и сформированных в порядве, определяемом Минобрнауки РФ, чемпионы и призеры Олимпийских игр,
                             // Параолимпийских игр, Сурдлимпийских игр, зачисленные без вступительных испытаний
 
-                            int OlympCount = EV.Where(x => x.IsBE).Count();
+                            int OlympCount = EV.Where(x => x.IsBE == true).Count();
                             node = rwNode.AppendChild(doc.CreateNode(XmlNodeType.Element, "p5", ""));
                             node.InnerText = (OlympCount).ToString(); 
 
@@ -217,7 +221,7 @@ namespace PriemLib
                                  join ent in context.extExamInEntry on ev.EntryId equals ent.EntryId
                                  join exam in context.Exam on ent.ExamId equals exam.Id 
                                  where !AbitOlympList.Contains(ev.AbiturientId)
-                                 && !ev.IsCel && !ev.IsQuota && !ev.IsCrimea && !ev.IsBE
+                                 && ev.IsCel == false && ev.IsQuota == false && ev.IsBE == false
                                  && exam.IsAdditional == false
                                  select (int)mark.Value).DefaultIfEmpty(0).Average();
                             node = rwNode.AppendChild(doc.CreateNode(XmlNodeType.Element, "p6_1", ""));
@@ -230,7 +234,7 @@ namespace PriemLib
                                  join ent in context.extExamInEntry on ev.EntryId equals ent.EntryId
                                  join exam in context.Exam on ent.ExamId equals exam.Id
                                  where AbitOlympList.Contains(ev.AbiturientId)
-                                 && !ev.IsCel && !ev.IsQuota && !ev.IsCrimea && !ev.IsBE
+                                 && ev.IsCel == false && ev.IsQuota == false && ev.IsBE == false
                                  && exam.IsAdditional == false
                                  select (int)mark.Value).DefaultIfEmpty(0).Average();
                             node = rwNode.AppendChild(doc.CreateNode(XmlNodeType.Element, "p6_2", ""));
@@ -241,7 +245,7 @@ namespace PriemLib
                             double AVGMarkEGEWithAddExam =
                                 (from ev in EV
                                  join mark in context.Mark on ev.AbiturientId equals mark.AbiturientId
-                                 where !ev.IsCel && !ev.IsQuota && !ev.IsCrimea && !ev.IsBE
+                                 where ev.IsCel == false && ev.IsQuota == false && ev.IsBE == false
                                  && !AbitOlympList.Contains(ev.AbiturientId)
                                  select (int)mark.Value).DefaultIfEmpty(0).Average();
                             node = rwNode.AppendChild(doc.CreateNode(XmlNodeType.Element, "p6_3", ""));
@@ -251,7 +255,7 @@ namespace PriemLib
                             double AVGMarkEGEWithOlympWithAddExam =
                                 (from ev in EV
                                  join mark in context.Mark on ev.AbiturientId equals mark.AbiturientId
-                                 where !ev.IsCel && !ev.IsQuota && !ev.IsCrimea && !ev.IsBE
+                                 where ev.IsCel == false && ev.IsQuota == false && ev.IsBE == false
                                  && AbitOlympList.Contains(ev.AbiturientId)
                                  select (int)mark.Value).DefaultIfEmpty(0).Average();
                             node = rwNode.AppendChild(doc.CreateNode(XmlNodeType.Element, "p6_4", ""));
@@ -264,7 +268,7 @@ namespace PriemLib
                                  join mark in context.Mark on ev.AbiturientId equals mark.AbiturientId
                                  join ent in context.extExamInEntry on ev.EntryId equals ent.EntryId
                                  join exam in context.Exam on ent.ExamId equals exam.Id 
-                                 where ev.IsCel && !ev.IsQuota && !ev.IsCrimea && !ev.IsBE
+                                 where ev.IsCel == true && ev.IsQuota == false && ev.IsBE == false
                                  && exam.IsAdditional == false
                                  select (int)mark.Value).DefaultIfEmpty(0).Average();
                             node = rwNode.AppendChild(doc.CreateNode(XmlNodeType.Element, "p7_1", ""));
@@ -276,7 +280,7 @@ namespace PriemLib
                                  join mark in context.Mark on ev.AbiturientId equals mark.AbiturientId
                                  join ent in context.extExamInEntry on ev.EntryId equals ent.EntryId
                                  join exam in context.Exam on ent.ExamId equals exam.Id 
-                                 where !ev.IsCel && ev.IsQuota && !ev.IsCrimea && !ev.IsBE
+                                 where ev.IsCel == false && ev.IsQuota == true && ev.IsBE == false
                                  && exam.IsAdditional == false
                                  select (int)mark.Value).DefaultIfEmpty(0).Average();
                             node = rwNode.AppendChild(doc.CreateNode(XmlNodeType.Element, "p7_2", ""));
@@ -286,7 +290,7 @@ namespace PriemLib
                             int MinMark =
                                 (from ev in EV
                                  join mark in context.Mark on ev.AbiturientId equals mark.AbiturientId
-                                 where !ev.IsCel && !ev.IsQuota && !ev.IsCrimea && !ev.IsBE
+                                 where ev.IsCel == false && ev.IsQuota == false && ev.IsBE == false
                                  select new { mark.Value, mark.AbiturientId })
                                  .GroupBy(x => x.AbiturientId)
                                  .Select(x => x.Where(y => y.AbiturientId == x.Key).Select(y => (int)y.Value).DefaultIfEmpty(0).Sum()

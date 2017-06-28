@@ -118,7 +118,7 @@ namespace PriemLib
                     node.InnerText = cnt.ToString();
 
                     // p3-2 из них на целевые места
-                    cnt = EV.Where(x => x.IsCel).Count();
+                    cnt = EV.Where(x => x.IsCel == true).Count();
                     node = rwNode.AppendChild(doc.CreateNode(XmlNodeType.Element, "p3_2", ""));
                     node.InnerText = cnt.ToString();
                     
@@ -126,7 +126,7 @@ namespace PriemLib
                     int MinMark =
                         (from ev in EV
                          join mark in context.Mark on ev.AbiturientId equals mark.AbiturientId
-                         where !ev.IsCel && !ev.IsQuota && !ev.IsCrimea && !ev.IsBE
+                         where ev.IsCel == false && ev.IsQuota == false && ev.IsBE == false
                          select new { FiveGradeValue = (int?)mark.FiveGradeValue, mark.AbiturientId })
                          .GroupBy(x => x.AbiturientId).DefaultIfEmpty()
                          .Select(x => x.Where(y => y.AbiturientId == x.Key).Select(y => y.FiveGradeValue ?? 0).DefaultIfEmpty(0).Sum())

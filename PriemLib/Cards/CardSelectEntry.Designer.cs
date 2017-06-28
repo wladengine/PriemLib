@@ -44,10 +44,10 @@
             this.cbStudyForm = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label37 = new System.Windows.Forms.Label();
-            this.chbIsCrimea = new System.Windows.Forms.CheckBox();
             this.chbIsForeign = new System.Windows.Forms.CheckBox();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.epError)).BeginInit();
             this.gbSecondType.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -219,15 +219,6 @@
             this.label37.TabIndex = 134;
             this.label37.Text = "Форма обучения";
             // 
-            // chbIsCrimea
-            // 
-            this.chbIsCrimea.Location = new System.Drawing.Point(389, 210);
-            this.chbIsCrimea.Name = "chbIsCrimea";
-            this.chbIsCrimea.Size = new System.Drawing.Size(78, 21);
-            this.chbIsCrimea.TabIndex = 139;
-            this.chbIsCrimea.Text = "Крым";
-            this.chbIsCrimea.UseVisualStyleBackColor = true;
-            // 
             // chbIsForeign
             // 
             this.chbIsForeign.Location = new System.Drawing.Point(389, 178);
@@ -264,7 +255,6 @@
             this.ClientSize = new System.Drawing.Size(625, 290);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
-            this.Controls.Add(this.chbIsCrimea);
             this.Controls.Add(this.chbIsForeign);
             this.Controls.Add(this.cbStudyBasis);
             this.Controls.Add(this.cbStudyForm);
@@ -279,8 +269,29 @@
             this.Controls.Add(this.cbLicenseProgram);
             this.Controls.Add(this.lblLicenseprogram);
             this.Controls.Add(this.gbSecondType);
+            this.Location = new System.Drawing.Point(0, 0);
             this.Name = "CardSelectEntry";
             this.Text = "CardSelectEntry";
+            this.Controls.SetChildIndex(this.gbSecondType, 0);
+            this.Controls.SetChildIndex(this.lblLicenseprogram, 0);
+            this.Controls.SetChildIndex(this.cbLicenseProgram, 0);
+            this.Controls.SetChildIndex(this.lblObrazProgram, 0);
+            this.Controls.SetChildIndex(this.cbObrazProgram, 0);
+            this.Controls.SetChildIndex(this.lblProfile, 0);
+            this.Controls.SetChildIndex(this.label36, 0);
+            this.Controls.SetChildIndex(this.cbProfile, 0);
+            this.Controls.SetChildIndex(this.cbFaculty, 0);
+            this.Controls.SetChildIndex(this.label37, 0);
+            this.Controls.SetChildIndex(this.label3, 0);
+            this.Controls.SetChildIndex(this.cbStudyForm, 0);
+            this.Controls.SetChildIndex(this.cbStudyBasis, 0);
+            this.Controls.SetChildIndex(this.chbIsForeign, 0);
+            this.Controls.SetChildIndex(this.btnOK, 0);
+            this.Controls.SetChildIndex(this.btnCancel, 0);
+            this.Controls.SetChildIndex(this.btnSaveChange, 0);
+            this.Controls.SetChildIndex(this.btnClose, 0);
+            this.Controls.SetChildIndex(this.btnSaveAsNew, 0);
+            ((System.ComponentModel.ISupportInitialize)(this.epError)).EndInit();
             this.gbSecondType.ResumeLayout(false);
             this.gbSecondType.PerformLayout();
             this.ResumeLayout(false);
@@ -306,7 +317,6 @@
         private System.Windows.Forms.ComboBox cbStudyForm;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label37;
-        private System.Windows.Forms.CheckBox chbIsCrimea;
         private System.Windows.Forms.CheckBox chbIsForeign;
         private System.Windows.Forms.Button btnOK;
         private System.Windows.Forms.Button btnCancel;

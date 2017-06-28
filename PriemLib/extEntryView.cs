@@ -45,9 +45,9 @@ namespace PriemLib
         public System.Guid ProtocolHistoryId { get; set; }
         public System.Guid PersonId { get; set; }
         public bool IsCrimea { get; set; }
-        public bool IsQuota { get; set; }
-        public bool IsCel { get; set; }
-        public bool IsBE { get; set; }
+        public Nullable<bool> IsQuota { get; set; }
+        public Nullable<bool> IsCel { get; set; }
+        public Nullable<bool> IsBE { get; set; }
         public bool IsForeign { get; set; }
         public Nullable<int> Priority { get; set; }
         public bool EntryIsForeign { get; set; }

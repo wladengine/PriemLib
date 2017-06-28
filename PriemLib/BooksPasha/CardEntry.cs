@@ -56,11 +56,6 @@ namespace PriemLib
             get { return chbIsForeign.Checked; }
             set { chbIsForeign.Checked = value; }
         }
-        public bool IsCrimea
-        {
-            get { return chbIsCrimea.Checked; }
-            set { chbIsCrimea.Checked = value; }
-        }
         public int? AggregateGroupId
         {
             get { return ComboServ.GetComboIdInt(cbAggregateGroup); }
@@ -296,10 +291,10 @@ namespace PriemLib
 
                 var src3 = context.extEntry
                     .Where(x => x.LicenseProgramId == LicenseProgramId && x.ObrazProgramId == ObrazProgramId && !x.IsForeign)
-                    .Select(x => new { x.Id, x.LicenseProgramCode, x.ObrazProgramCrypt, x.ProfileName, x.StudyFormName, x.StudyBasisName, x.IsCrimea, x.IsParallel, x.IsReduced, x.IsSecond })
+                    .Select(x => new { x.Id, x.LicenseProgramCode, x.ObrazProgramCrypt, x.ProfileName, x.StudyFormName, x.StudyBasisName, x.IsParallel, x.IsReduced, x.IsSecond })
                     .ToList().Distinct()
                     .Select(x => new KeyValuePair<string, string>(x.Id.ToString(), "(" + x.LicenseProgramCode + ") [" + x.ObrazProgramCrypt + "] " + x.ProfileName + " " + x.StudyFormName + " " 
-                        + x.StudyBasisName + (x.IsCrimea ? " (крым)" : "") + (x.IsSecond ? " (для лиц с ВО)" : "") + (x.IsReduced ? " (сокр)" : "") + (x.IsParallel ? " (паралл)" : "")))
+                        + x.StudyBasisName + (x.IsSecond ? " (для лиц с ВО)" : "") + (x.IsReduced ? " (сокр)" : "") + (x.IsParallel ? " (паралл)" : "")))
                     .ToList();
 
                 ComboServ.FillCombo(cbParentEntry, src3, true, false);
@@ -352,7 +347,6 @@ namespace PriemLib
                     IsReduced = ent.IsReduced;
                     IsParallel = ent.IsParallel;
                     IsForeign = ent.IsForeign;
-                    IsCrimea = ent.IsCrimea;
 
                     tbKCPCel.Text = ent.KCPCel.ToString();
                     KCPQuota = ent.KCPQuota;
@@ -467,7 +461,6 @@ namespace PriemLib
             Entry.DateOfClose = DateOfClose;
             Entry.CommissionId = ComissionId;
             Entry.IsForeign = IsForeign;
-            Entry.IsCrimea = IsCrimea;
             
             context.Entry.Add(Entry);
 
@@ -506,7 +499,6 @@ DateOfStart, DateOfClose, ComissionId, IsForeign, IsCrimea) VALUES
             sl.Add("@IsReduced", IsReduced);
             sl.Add("@IsSecond", IsSecond);
             sl.Add("@IsForeign", IsForeign);
-            sl.Add("@IsCrimea", IsCrimea);
 
             sl.AddVal("@DateOfStart", DateOfStart);
             sl.AddVal("@DateOfClose", DateOfClose);
@@ -520,7 +512,7 @@ DateOfStart, DateOfClose, ComissionId, IsForeign, IsCrimea) VALUES
             context.Entry_UpdateCEl(GuidId, KCPCel);
             context.Entry_UpdateKC(GuidId, KCP, KCPQuota);
             context.Entry_Update(GuidId, StudyLevelId, StudyFormId, StudyBasisId, FacultyId, false, IsParallel, IsReduced, IsSecond, tbStudyPlan.Text.Trim(),
-                DateOfStart, DateOfClose, ComissionId, IsForeign, IsCrimea);
+                DateOfStart, DateOfClose, ComissionId, IsForeign, isCrimea: false);
 
             if (CompetitionGroupId.HasValue)
             {
@@ -589,7 +581,6 @@ WHERE Id=@Id";
 
                 sl.AddVal("@ComissionId", ComissionId);
                 sl.AddVal("@IsForeign", IsForeign);
-                sl.AddVal("@IsCrimea", IsCrimea);
 
                 sl.AddVal("@LicenseProgramId", LicenseProgramId);
                 sl.AddVal("@ObrazProgramId", ObrazProgramId);
@@ -1047,7 +1038,7 @@ WHERE Id=@Id";
 
                 Guid? ParentEntryId = context.extEntry
                     .Where(x => x.Id != this.GuidId
-                        && !x.IsCrimea && !x.IsForeign
+                        && !x.IsForeign
                         && x.LicenseProgramId == CurrEnt.LicenseProgramId
                         && x.ObrazProgramId == CurrEnt.ObrazProgramId
                         && x.ProfileId == CurrEnt.ProfileId
@@ -1117,7 +1108,6 @@ WHERE Id=@Id";
                                 Id = gExBlockId,
                                 EntryId = CurrEnt.Id,
                                 Name = ExBlock.Name,
-                                IsCrimea = IsCrimea,
                                 IsGosLine = IsForeign,
                                 OrderNumber = ExBlock.OrderNumber,
                                 ParentExamInEntryBlockId = ParentExamInEntryId,
@@ -1182,12 +1172,11 @@ WHERE Id=@Id";
 
                 Guid? ParentEntryId = context.extEntry
                     .Where(x => x.Id != this.GuidId
-                        && !x.IsCrimea && !x.IsForeign
+                        && !x.IsForeign
                         && x.LicenseProgramId == CurrEnt.LicenseProgramId
                         && x.ObrazProgramId == CurrEnt.ObrazProgramId
                         && x.ProfileId == CurrEnt.ProfileId
                         && x.StudyFormId == CurrEnt.StudyFormId
-                        && x.IsCrimea == IsCrimea
                         && x.IsForeign == IsForeign
                         && x.IsSecond == IsSecond
                         && x.IsParallel == IsParallel

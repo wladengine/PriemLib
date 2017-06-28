@@ -25,6 +25,9 @@ namespace PriemLib
             using (PriemEntities context = new PriemEntities())
             {
                 var src = (from x in context.Olympiads
+                           join Abit in context.Abiturient on x.PersonId equals Abit.PersonId
+                           join Pers in context.Person on Abit.PersonId equals Pers.Id
+                           join ent in context.extEntry on Abit.EntryId equals ent.Id
                            where true//(x.OlympTypeId == 2 || x.OlympTypeId == 3)
                            && (chbShowChecked.Checked ? true : (x.OlympiadCheckedByRectorat == null))
                            && x.Abiturient.CompetitionId == 1
@@ -33,19 +36,14 @@ namespace PriemLib
                                x.Id,
                                x.AbiturientId,
                                IsNotChecked = x.OlympiadCheckedByRectorat == null ? 1 : 0,
-                               x.Abiturient.Person.Surname,
-                               x.Abiturient.Person.Name,
-                               x.Abiturient.Person.SecondName,
-                               LicenseProgramCode = x.Abiturient.Entry.SP_LicenseProgram.Code,
-                               LicenseProgramName = x.Abiturient.Entry.SP_LicenseProgram.Name,
-                               ObrazProgramCrypt = x.Abiturient.Entry.StudyLevel.Acronym + "." + x.Abiturient.Entry.SP_ObrazProgram.Number + "." + MainClass.sPriemYear,
-                               ObrazProgramName = x.Abiturient.Entry.SP_ObrazProgram.Name,
-                               ProfileName = x.Abiturient.Entry.SP_Profile.Name,
-                               //x.Abiturient.Entry.LicenseProgramCode,
-                               //x.Abiturient.Entry.LicenseProgramName,
-                               //x.Abiturient.Entry.ObrazProgramCrypt,
-                               //x.Abiturient.Entry.ObrazProgramName,
-                               //x.Abiturient.Entry.ProfileName,
+                               Pers.Surname,
+                               Pers.Name,
+                               Pers.SecondName,
+                               LicenseProgramCode = ent.LicenseProgramCode,
+                               LicenseProgramName = ent.LicenseProgramName,
+                               ObrazProgramCrypt = ent.ObrazProgramCrypt,
+                               ObrazProgramName = ent.ObrazProgramName,
+                               ProfileName = ent.ProfileName,
                                OlympType = x.OlympType.Name,
                                OlympValue = x.OlympValue.Name,
                                OlympSubject = x.OlympSubject.Name,

@@ -168,22 +168,23 @@ namespace PriemLib
             using (PriemEntities context = new PriemEntities())
             {
                 var data = (from x in context.PayDataEntry
-                            join Faculty in context.SP_Faculty on x.Entry.FacultyId equals Faculty.Id
-                            where (StudyFormId.HasValue ? x.Entry.StudyFormId == StudyFormId : true)
-                            && (StudyLevelId.HasValue ? x.Entry.StudyLevelId == StudyLevelId : true)
-                            && (FacultyId.HasValue ? x.Entry.FacultyId == FacultyId : true)
-                            && (LicenseProgramId.HasValue ? x.Entry.LicenseProgramId == LicenseProgramId : true)
+                            join ent in context.extEntry on x.EntryId equals ent.Id
+                            join P in context.Prorektor on x.ProrektorId equals P.Id
+                            where (StudyFormId.HasValue ? ent.StudyFormId == StudyFormId : true)
+                            && (StudyLevelId.HasValue ? ent.StudyLevelId == StudyLevelId : true)
+                            && (FacultyId.HasValue ? ent.FacultyId == FacultyId : true)
+                            && (LicenseProgramId.HasValue ? ent.LicenseProgramId == LicenseProgramId : true)
                             select new
                             {
                                 x.EntryId,
-                                Faculty = Faculty.Name,
-                                LicenseProgramCode = x.Entry.SP_LicenseProgram.Code,
-                                LicenseProgramName = x.Entry.SP_LicenseProgram.Name,
-                                ObrazProgramCrypt = x.Entry.StudyLevel.Acronym + "." + x.Entry.SP_ObrazProgram.Number + "." + MainClass.sPriemYear,
-                                ObrazProgramName = x.Entry.SP_ObrazProgram.Name,
-                                ProfileName = x.Entry.SP_Profile.Name,
-                                StudyForm = x.Entry.StudyForm.Name,
-                                Prorektor = x.Prorektor.Name
+                                Faculty = ent.FacultyName,
+                                LicenseProgramCode = ent.LicenseProgramCode,
+                                LicenseProgramName = ent.LicenseProgramName,
+                                ObrazProgramCrypt = ent.ObrazProgramCrypt,
+                                ObrazProgramName = ent.ObrazProgramName,
+                                ProfileName = ent.ProfileName,
+                                StudyForm = ent.StudyFormName,
+                                Prorektor = P.Name
                             }).ToList()
                             .Select(x =>
                                new

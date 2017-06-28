@@ -34,10 +34,10 @@ namespace PriemLib
                         int incrmntr = 1;
                         foreach (var app_entry in notUsedApplications)
                         {
-                            var entry = context.Entry.Where(x => x.Id == app_entry).FirstOrDefault();
-                            str += "\n" + incrmntr++ + ")" + entry.SP_LicenseProgram.Code + " " + entry.SP_LicenseProgram.Name + "; "
-                                + entry.StudyLevel.Acronym + "." + entry.SP_ObrazProgram.Number + " " + entry.SP_ObrazProgram.Name +
-                                ";\nПрофиль:" + entry.SP_Profile.Name + ";" + entry.StudyForm.Acronym + ";" + entry.StudyBasis.Acronym;
+                            var entry = context.extEntry.Where(x => x.Id == app_entry).FirstOrDefault();
+                            str += "\n" + incrmntr++ + ")" + entry.LicenseProgramCode + " " + entry.LicenseProgramName + "; "
+                                + entry.ObrazProgramCrypt + " " + entry.ObrazProgramName +
+                                ";\nПрофиль:" + entry.ProfileName + ";" + entry.StudyFormName + ";" + entry.StudyBasisName;
                         }
 
                         dr = MessageBox.Show(str, "Внимание!", MessageBoxButtons.YesNo);

@@ -28,7 +28,7 @@ namespace PriemLib
             {
                 List<KeyValuePair<string, string>> lst =
                     (from x in context.qEntry
-                     where x.StudyLevelGroupId == 1 && !x.IsForeign && !x.IsCrimea
+                     where x.StudyLevelGroupId == 1 && !x.IsForeign
                      select new { x.FacultyId, x.FacultyName }
                      ).Distinct().ToList().Select(x => new KeyValuePair<string, string>(x.FacultyId.ToString(), x.FacultyName)).Distinct().ToList();
                 ComboServ.FillCombo(cbFaculty, lst, false, false);
@@ -40,7 +40,7 @@ namespace PriemLib
             {
                 List<KeyValuePair<string, string>> lst =
                     (from x in context.qEntry
-                     where x.StudyLevelGroupId == 1 && x.FacultyId == FacultyId && !x.IsForeign && !x.IsCrimea
+                     where x.StudyLevelGroupId == 1 && x.FacultyId == FacultyId && !x.IsForeign
                      select new { x.LicenseProgramId, x.LicenseProgramCode, x.LicenseProgramName }
                      ).Distinct().ToList().Select(x => new KeyValuePair<string, string>(x.LicenseProgramId.ToString(), x.LicenseProgramCode + " " + x.LicenseProgramName)).Distinct().ToList();
                 ComboServ.FillCombo(cbLicenseProgram, lst, false, true);
@@ -51,7 +51,7 @@ namespace PriemLib
             using (PriemEntities context = new PriemEntities())
             {
                 var OP = from x in context.qEntry
-                         where x.StudyLevelGroupId == 1 && x.FacultyId == FacultyId && !x.IsForeign && !x.IsCrimea
+                         where x.StudyLevelGroupId == 1 && x.FacultyId == FacultyId && !x.IsForeign
                          select new { x.LicenseProgramId, x.ObrazProgramId, x.ObrazProgramName };
                 if (LicenseProgramId != null)
                     OP = OP.Where(x => x.LicenseProgramId == LicenseProgramId);
@@ -66,7 +66,7 @@ namespace PriemLib
             using (PriemEntities context = new PriemEntities())
             {
                 var Prof = from x in context.qEntry
-                           where x.StudyLevelGroupId == 1 && x.FacultyId == FacultyId && !x.IsForeign && !x.IsCrimea
+                           where x.StudyLevelGroupId == 1 && x.FacultyId == FacultyId && !x.IsForeign
                            select new { x.LicenseProgramId, x.ObrazProgramId, x.ProfileId, x.ProfileName };
                 if (LicenseProgramId != null)
                     Prof = Prof.Where(x => x.LicenseProgramId == LicenseProgramId);
@@ -83,7 +83,7 @@ namespace PriemLib
             using (PriemEntities context = new PriemEntities())
             {
                 var SF = from x in context.qEntry
-                         where x.StudyLevelGroupId == 1 && x.FacultyId == FacultyId && !x.IsForeign && !x.IsCrimea
+                         where x.StudyLevelGroupId == 1 && x.FacultyId == FacultyId && !x.IsForeign
                          select new { x.LicenseProgramId, x.ObrazProgramId, x.ProfileId, x.StudyFormId, x.StudyFormName };
                 if (LicenseProgramId != null)
                     SF = SF.Where(x => x.LicenseProgramId == LicenseProgramId);
@@ -102,7 +102,7 @@ namespace PriemLib
             using (PriemEntities context = new PriemEntities())
             {
                 var SB = from x in context.qEntry
-                         where x.StudyLevelGroupId == 1 && x.FacultyId == FacultyId && !x.IsForeign && !x.IsCrimea
+                         where x.StudyLevelGroupId == 1 && x.FacultyId == FacultyId && !x.IsForeign
                          select new { x.LicenseProgramId, x.ObrazProgramId, x.ProfileId, x.StudyFormId, x.StudyBasisId, x.StudyBasisName };
                 if (LicenseProgramId != null)
                     SB = SB.Where(x => x.LicenseProgramId == LicenseProgramId);

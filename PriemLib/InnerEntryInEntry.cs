@@ -35,10 +35,10 @@ namespace PriemLib
         public virtual ICollection<ApplicationDetails> ApplicationDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ApplicationVersionDetails> ApplicationVersionDetails { get; set; }
-        public virtual Entry Entry { get; set; }
         public virtual SP_ObrazProgram SP_ObrazProgram { get; set; }
         public virtual SP_Profile SP_Profile { get; set; }
         public virtual EgeExamName EgeExamName { get; set; }
         public virtual ExamInEntryBlock ExamInEntryBlock { get; set; }
+        public virtual Entry Entry { get; set; }
     }
 }

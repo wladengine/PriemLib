@@ -17,8 +17,8 @@ namespace PriemLib
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public SP_Profile()
         {
-            this.Entry = new HashSet<Entry>();
             this.InnerEntryInEntry = new HashSet<InnerEntryInEntry>();
+            this.Entry = new HashSet<Entry>();
         }
     
         public int Id { get; set; }
@@ -30,8 +30,8 @@ namespace PriemLib
         public string Holder { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Entry> Entry { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<InnerEntryInEntry> InnerEntryInEntry { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Entry> Entry { get; set; }
     }
 }

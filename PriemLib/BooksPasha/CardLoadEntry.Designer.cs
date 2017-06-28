@@ -34,7 +34,6 @@
             this.btnUpdateKCP = new System.Windows.Forms.Button();
             this.btnOnlineLoadUpdate = new System.Windows.Forms.Button();
             this.btnUpdateBaseDics = new System.Windows.Forms.Button();
-            this.btnCopyToCrimea = new System.Windows.Forms.Button();
             this.btnCopyToForeign = new System.Windows.Forms.Button();
             this.btnLoadUpdateOlympiads = new System.Windows.Forms.Button();
             this.btnLoadUpdateExams = new System.Windows.Forms.Button();
@@ -100,16 +99,6 @@
             this.btnUpdateBaseDics.UseVisualStyleBackColor = true;
             this.btnUpdateBaseDics.Click += new System.EventHandler(this.btnUpdateBaseDics_Click);
             // 
-            // btnCopyToCrimea
-            // 
-            this.btnCopyToCrimea.Location = new System.Drawing.Point(12, 152);
-            this.btnCopyToCrimea.Name = "btnCopyToCrimea";
-            this.btnCopyToCrimea.Size = new System.Drawing.Size(296, 23);
-            this.btnCopyToCrimea.TabIndex = 6;
-            this.btnCopyToCrimea.Text = "Скопировать в КРЫМ";
-            this.btnCopyToCrimea.UseVisualStyleBackColor = true;
-            this.btnCopyToCrimea.Click += new System.EventHandler(this.btnCopyToCrimea_Click);
-            // 
             // btnCopyToForeign
             // 
             this.btnCopyToForeign.Location = new System.Drawing.Point(16, 181);
@@ -148,7 +137,6 @@
             this.Controls.Add(this.btnLoadUpdateExams);
             this.Controls.Add(this.btnLoadUpdateOlympiads);
             this.Controls.Add(this.btnCopyToForeign);
-            this.Controls.Add(this.btnCopyToCrimea);
             this.Controls.Add(this.btnUpdateBaseDics);
             this.Controls.Add(this.btnOnlineLoadUpdate);
             this.Controls.Add(this.btnUpdateKCP);
@@ -170,7 +158,6 @@
         private System.Windows.Forms.Button btnUpdateKCP;
         private System.Windows.Forms.Button btnOnlineLoadUpdate;
         private System.Windows.Forms.Button btnUpdateBaseDics;
-        private System.Windows.Forms.Button btnCopyToCrimea;
         private System.Windows.Forms.Button btnCopyToForeign;
         private System.Windows.Forms.Button btnLoadUpdateOlympiads;
         private System.Windows.Forms.Button btnLoadUpdateExams;

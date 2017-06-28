@@ -74,7 +74,6 @@ namespace PriemLib
         public virtual DbSet<ExamsVedRoomHistory> ExamsVedRoomHistory { get; set; }
         public virtual DbSet<Abiturient> Abiturient { get; set; }
         public virtual DbSet<Protocol> Protocol { get; set; }
-        public virtual DbSet<qAbitAll> qAbitAll { get; set; }
         public virtual DbSet<qProtocol> qProtocol { get; set; }
         public virtual DbSet<qProtocolHistory> qProtocolHistory { get; set; }
         public virtual DbSet<extOlympiadsAll> extOlympiadsAll { get; set; }
@@ -87,11 +86,9 @@ namespace PriemLib
         public virtual DbSet<Fixieren> Fixieren { get; set; }
         public virtual DbSet<FixierenView> FixierenView { get; set; }
         public virtual DbSet<extAbitMarksSum> extAbitMarksSum { get; set; }
-        public virtual DbSet<extEntryView> extEntryView { get; set; }
         public virtual DbSet<extProtocol> extProtocol { get; set; }
         public virtual DbSet<extEnableProtocol> extEnableProtocol { get; set; }
         public virtual DbSet<extDisEntryView> extDisEntryView { get; set; }
-        public virtual DbSet<qEntry> qEntry { get; set; }
         public virtual DbSet<C_FirstWaveGreen> C_FirstWaveGreen { get; set; }
         public virtual DbSet<extEntryProtocols> extEntryProtocols { get; set; }
         public virtual DbSet<CompetitiveGroup> CompetitiveGroup { get; set; }
@@ -119,7 +116,6 @@ namespace PriemLib
         public virtual DbSet<ApplicationVersion> ApplicationVersion { get; set; }
         public virtual DbSet<ApplicationVersionDetails> ApplicationVersionDetails { get; set; }
         public virtual DbSet<Comission> Comission { get; set; }
-        public virtual DbSet<Entry> Entry { get; set; }
         public virtual DbSet<qAbiturient_WhoSetHasOriginals> qAbiturient_WhoSetHasOriginals { get; set; }
         public virtual DbSet<qAbiturient_WhoSetBackDoc> qAbiturient_WhoSetBackDoc { get; set; }
         public virtual DbSet<hlpAbiturientActionLog> hlpAbiturientActionLog { get; set; }
@@ -132,7 +128,6 @@ namespace PriemLib
         public virtual DbSet<OlympSubjectToExam> OlympSubjectToExam { get; set; }
         public virtual DbSet<qAbiturient_WhoSetIsPaid> qAbiturient_WhoSetIsPaid { get; set; }
         public virtual DbSet<Signer> Signer { get; set; }
-        public virtual DbSet<extEntry> extEntry { get; set; }
         public virtual DbSet<ForeignCountry> ForeignCountry { get; set; }
         public virtual DbSet<SP_AggregateGroup> SP_AggregateGroup { get; set; }
         public virtual DbSet<InnerEntryInEntry> InnerEntryInEntry { get; set; }
@@ -192,8 +187,13 @@ namespace PriemLib
         public virtual DbSet<Mark> Mark { get; set; }
         public virtual DbSet<PersonCategoryForManualExams> PersonCategoryForManualExams { get; set; }
         public virtual DbSet<PersonManualExams> PersonManualExams { get; set; }
+        public virtual DbSet<Entry> Entry { get; set; }
         public virtual DbSet<extAbit> extAbit { get; set; }
+        public virtual DbSet<extEntry> extEntry { get; set; }
+        public virtual DbSet<extEntryView> extEntryView { get; set; }
+        public virtual DbSet<qAbitAll> qAbitAll { get; set; }
         public virtual DbSet<qAbiturient> qAbiturient { get; set; }
+        public virtual DbSet<qEntry> qEntry { get; set; }
     
         public virtual int RoleMember(string roleName, ObjectParameter result)
         {

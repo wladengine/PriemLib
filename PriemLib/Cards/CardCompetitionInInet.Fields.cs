@@ -116,11 +116,6 @@ namespace PriemLib
             get { return chbIsForeign.Checked; }
             set { chbIsForeign.Checked = value; }
         }
-        public bool IsCrimea
-        {
-            get { return chbIsCrimea.Checked; }
-            set { chbIsCrimea.Checked = value; }
-        }
 
         public DateTime? DocDate
         {

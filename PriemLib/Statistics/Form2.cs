@@ -23,7 +23,7 @@ namespace PriemLib
         {
             using (PriemEntities context = new PriemEntities())
             {
-                int iKCP_1k = context.extEntry.Where(x => MainClass.lstStudyLevelGroupId.Contains(x.StudyLevelGroupId) && x.StudyBasisId == 1 && x.StudyFormId == 1 && !x.IsCrimea && !x.IsForeign)
+                int iKCP_1k = context.extEntry.Where(x => MainClass.lstStudyLevelGroupId.Contains(x.StudyLevelGroupId) && x.StudyBasisId == 1 && x.StudyFormId == 1 && !x.IsForeign)
                     .Select(x => x.KCP ?? 0).DefaultIfEmpty(0).Sum();
                 tbKCP_1kurs.Text = iKCP_1k.ToString();
 
@@ -231,8 +231,8 @@ namespace PriemLib
                           join PersEduc in context.Person_EducationInfo on Pers.Id equals PersEduc.PersonId
                           where Ab.Entry.StudyFormId == 1
                           && Ab.Entry.StudyLevel.LevelGroupId == 1
-                          && !Ent.IsForeign
-                          && extEntView.IsQuota
+                          && Ent.IsForeign == false
+                          && extEntView.IsQuota == true
                           select new
                           {
                               Ent.StudyBasisId,
@@ -249,9 +249,9 @@ namespace PriemLib
                               join PersEduc in context.Person_EducationInfo on Pers.Id equals PersEduc.PersonId
                               where Ab.Entry.StudyFormId == 1
                               && Ab.Entry.StudyLevel.LevelGroupId == 1
-                              && !Ent.IsForeign
                               && Pers.Person_Contacts.RegionId == 1
-                              && extEntView.IsQuota
+                              && Ent.IsForeign == false
+                              && extEntView.IsQuota == true
                               select new
                               {
                                   Ent.StudyBasisId,

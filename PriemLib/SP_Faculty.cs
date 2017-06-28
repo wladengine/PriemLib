@@ -20,8 +20,8 @@ namespace PriemLib
             this.Person_AdditionalInfo = new HashSet<Person_AdditionalInfo>();
             this.Person_AdditionalInfo1 = new HashSet<Person_AdditionalInfo>();
             this.SP_ObrazProgram = new HashSet<SP_ObrazProgram>();
-            this.Entry = new HashSet<Entry>();
             this.Protocol = new HashSet<Protocol>();
+            this.Entry = new HashSet<Entry>();
         }
     
         public int Id { get; set; }
@@ -41,8 +41,8 @@ namespace PriemLib
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SP_ObrazProgram> SP_ObrazProgram { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Entry> Entry { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Protocol> Protocol { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Entry> Entry { get; set; }
     }
 }

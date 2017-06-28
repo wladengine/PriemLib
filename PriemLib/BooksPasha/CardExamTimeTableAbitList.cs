@@ -176,7 +176,6 @@ where 1=1  ";
             entry = entry.Where(c => c.IsParallel == false);
             entry = entry.Where(c => c.IsSecond == false);
             entry = entry.Where(c => c.IsForeign == false);
-            entry = entry.Where(c => c.IsCrimea == false);
 
             return entry;
         }

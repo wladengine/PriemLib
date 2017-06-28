@@ -65,7 +65,6 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.chbIsForeign = new System.Windows.Forms.CheckBox();
             this.btnHasInnerObrazProgram = new System.Windows.Forms.Button();
-            this.chbIsCrimea = new System.Windows.Forms.CheckBox();
             this.btnAppExams = new System.Windows.Forms.Button();
             this.gbDocs.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.epError)).BeginInit();
@@ -456,17 +455,6 @@
             this.btnHasInnerObrazProgram.Visible = false;
             this.btnHasInnerObrazProgram.Click += new System.EventHandler(this.btnHasInnerObrazProgram_Click);
             // 
-            // chbIsCrimea
-            // 
-            this.chbIsCrimea.AutoSize = true;
-            this.chbIsCrimea.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chbIsCrimea.Location = new System.Drawing.Point(276, 44);
-            this.chbIsCrimea.Name = "chbIsCrimea";
-            this.chbIsCrimea.Size = new System.Drawing.Size(55, 17);
-            this.chbIsCrimea.TabIndex = 194;
-            this.chbIsCrimea.Text = "Крым";
-            this.chbIsCrimea.UseVisualStyleBackColor = true;
-            // 
             // btnAppExams
             // 
             this.btnAppExams.Location = new System.Drawing.Point(366, 384);
@@ -484,7 +472,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(476, 529);
             this.Controls.Add(this.btnAppExams);
-            this.Controls.Add(this.chbIsCrimea);
             this.Controls.Add(this.btnHasInnerObrazProgram);
             this.Controls.Add(this.chbIsForeign);
             this.Controls.Add(this.btnSave);
@@ -567,7 +554,6 @@
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.CheckBox chbIsForeign;
         private System.Windows.Forms.Button btnHasInnerObrazProgram;
-        private System.Windows.Forms.CheckBox chbIsCrimea;
         private System.Windows.Forms.Button btnAppExams;
     }
 }

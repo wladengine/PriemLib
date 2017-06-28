@@ -49,7 +49,6 @@
             this.cbAggregateGroup = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.chbIsCrimea = new System.Windows.Forms.CheckBox();
             this.chbIsForeign = new System.Windows.Forms.CheckBox();
             this.chbIsSecond = new System.Windows.Forms.CheckBox();
             this.chbIsParallel = new System.Windows.Forms.CheckBox();
@@ -357,7 +356,6 @@
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.chbIsCrimea);
             this.groupBox4.Controls.Add(this.chbIsForeign);
             this.groupBox4.Controls.Add(this.chbIsSecond);
             this.groupBox4.Controls.Add(this.chbIsParallel);
@@ -369,20 +367,10 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Реализация";
             // 
-            // chbIsCrimea
-            // 
-            this.chbIsCrimea.AutoSize = true;
-            this.chbIsCrimea.Location = new System.Drawing.Point(6, 42);
-            this.chbIsCrimea.Name = "chbIsCrimea";
-            this.chbIsCrimea.Size = new System.Drawing.Size(55, 17);
-            this.chbIsCrimea.TabIndex = 71;
-            this.chbIsCrimea.Text = "Крым";
-            this.chbIsCrimea.UseVisualStyleBackColor = true;
-            // 
             // chbIsForeign
             // 
             this.chbIsForeign.AutoSize = true;
-            this.chbIsForeign.Location = new System.Drawing.Point(126, 42);
+            this.chbIsForeign.Location = new System.Drawing.Point(6, 42);
             this.chbIsForeign.Name = "chbIsForeign";
             this.chbIsForeign.Size = new System.Drawing.Size(110, 17);
             this.chbIsForeign.TabIndex = 70;
@@ -1026,7 +1014,6 @@
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.CheckBox chbIsForeign;
-        private System.Windows.Forms.CheckBox chbIsCrimea;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.ComboBox cbCompetitionGroup;
         private System.Windows.Forms.GroupBox gbBE;

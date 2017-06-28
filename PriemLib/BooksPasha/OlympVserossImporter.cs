@@ -46,7 +46,7 @@ namespace PriemLib
                             WinFormsServ.Error("Не найдено соответствие программе " + ol.ObrazProgramName);
 
                         var lstEntry = context.Entry
-                            .Where(x => x.LicenseProgramId == iLicenseProgramId && x.ObrazProgramId == iObrazProgramId && !x.IsForeign && !x.IsCrimea)
+                            .Where(x => x.LicenseProgramId == iLicenseProgramId && x.ObrazProgramId == iObrazProgramId && !x.IsForeign)
                             .Select(x => x.Id)
                             .ToList();
 

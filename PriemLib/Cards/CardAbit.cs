@@ -1388,14 +1388,17 @@ namespace PriemLib
         {
             if (HasEntryConfirm && !HasDisabledEntryConfirm)
             {
-                var abits = context.Abiturient.Where(x => x.PersonId == _personId && x.Id != GuidId && x.HasEntryConfirm)
-                    .Select(x => new 
-                    { 
-                        x.HasDisabledEntryConfirm,
-                        LicenseProgramCode = x.Entry.SP_LicenseProgram.Code,
-                        LicenseProgramName = x.Entry.SP_LicenseProgram.Name,
-                        ObrazProgramName = x.Entry.SP_ObrazProgram.Name,
-                    }).ToList();
+                var abits =
+                    (from Ab in context.Abiturient
+                     join ent in context.extEntry on Ab.EntryId equals ent.Id
+                     where Ab.PersonId == _personId && Ab.Id != GuidId && Ab.HasEntryConfirm
+                     select new
+                     {
+                         Ab.HasDisabledEntryConfirm,
+                         LicenseProgramCode = ent.LicenseProgramCode,
+                         LicenseProgramName = ent.LicenseProgramName,
+                         ObrazProgramName = ent.ObrazProgramName,
+                     }).ToList();
 
                 if (abits.Count == 0)
                     return true;

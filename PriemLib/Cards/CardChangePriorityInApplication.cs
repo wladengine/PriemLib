@@ -37,17 +37,19 @@ namespace PriemLib
                 Guid PersonId = context.Abiturient.Where(x => x.Id == _ApplicationId).Select(x => x.PersonId).DefaultIfEmpty(Guid.Empty).First();
                 if (PersonId != Guid.Empty)
                 {
-                    var data = context.Abiturient
-                        .Where(x => x.PersonId == PersonId && MainClass.lstStudyLevelGroupId.Contains(x.Entry.StudyLevel.LevelGroupId) && !x.Entry.IsForeign && x.Entry.StudyBasisId == 1 && !x.BackDoc)
-                        .Select(x => new
-                        {
-                            x.Id,
-                            x.Priority,
-                            LicenseProgram = x.Entry.SP_LicenseProgram.Code + " " + x.Entry.SP_LicenseProgram.Name,
-                            ObrazProgram = x.Entry.StudyLevel.Acronym + "." + x.Entry.SP_ObrazProgram.Number + "." + MainClass.sPriemYear + " " + x.Entry.SP_ObrazProgram.Name,
-                            Profile = x.Entry.SP_Profile.Name,
-                            StudyForm = x.Entry.StudyForm.Name,
-                        }).OrderBy(x => x.Priority).ToArray();
+                    var data =
+                        (from Ab in context.Abiturient
+                         join ent in context.extEntry on Ab.EntryId equals ent.Id
+                         where Ab.PersonId == PersonId && MainClass.lstStudyLevelGroupId.Contains(ent.StudyLevelGroupId) && !ent.IsForeign && ent.StudyBasisId == 1 && !Ab.BackDoc
+                         select new
+                         {
+                             Ab.Id,
+                             Ab.Priority,
+                             LicenseProgram = ent.LicenseProgramCode + " " + ent.LicenseProgramName,
+                             ObrazProgram = ent.ObrazProgramCrypt + " " + ent.ObrazProgramName,
+                             Profile = ent.ProfileName,
+                             StudyForm = ent.StudyFormName,
+                         }).OrderBy(x => x.Priority).ToArray();
 
                     tblPrior = Converter.ConvertToDataTable(data);
 

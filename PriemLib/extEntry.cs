@@ -69,5 +69,10 @@ namespace PriemLib
         public string NormativePeriod { get; set; }
         public string QualificationName { get; set; }
         public string FacultyDirectionName { get; set; }
+        public string ExamName1 { get; set; }
+        public string ExamName2 { get; set; }
+        public string ExamName3 { get; set; }
+        public string ExamName4 { get; set; }
+        public string ExamName5 { get; set; }
     }
 }

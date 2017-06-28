@@ -17,7 +17,6 @@ namespace PriemLib
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public SP_ObrazProgram()
         {
-            this.Entry = new HashSet<Entry>();
             this.InnerEntryInEntry = new HashSet<InnerEntryInEntry>();
         }
     
@@ -34,8 +33,6 @@ namespace PriemLib
     
         public virtual SP_LicenseProgram SP_LicenseProgram { get; set; }
         public virtual SP_Faculty SP_Faculty { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Entry> Entry { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<InnerEntryInEntry> InnerEntryInEntry { get; set; }
     }

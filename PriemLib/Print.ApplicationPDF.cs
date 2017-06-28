@@ -250,7 +250,6 @@ namespace PriemLib
                     StudyBasisId = x.StudyBasisId,
                     StudyFormId = x.StudyFormId,
                     HasInnerPriorities = abitProfileList.Where(y => y.ApplicationId == x.ApplicationId).Count() > 0,
-                    IsCrimea = x.IsCrimea,
                     IsForeign = x.IsForeign
                 }).ToList();
 
@@ -345,9 +344,7 @@ namespace PriemLib
                 acrFlds.SetField("StudyBasis" + p.StudyBasisId.ToString() + rwind.ToString(), "1");
 
                 string sQuota = "";
-                if (p.IsCrimea)
-                    sQuota = "в рамках квоты мест для лиц, постоянно проживающих в Крыму";
-                else if (p.IsForeign)
+                if (p.IsForeign)
                     sQuota = "в рамках квоты мест для обучения иностранных граждан и лиц без гражданства";
                 acrFlds.SetField("QuotaType" + rwind.ToString(), sQuota);
 
@@ -464,7 +461,6 @@ namespace PriemLib
                                     Entry.StudyLevelId,
                                     x.Priority,
                                     x.Entry.IsForeign,
-                                    x.Entry.IsCrimea,
                                     x.Entry.StudyLevel.LevelGroupId
                                 }).ToList();
 

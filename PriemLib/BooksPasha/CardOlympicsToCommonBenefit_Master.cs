@@ -144,7 +144,7 @@ namespace PriemLib
                     return;
 
                 var lstEntry = context.Entry.Where(x => x.LicenseProgramId == Ent.LicenseProgramId && x.ObrazProgramId == Ent.ObrazProgramId
-                    && x.ProfileId == Ent.ProfileId && x.IsCrimea == Ent.IsCrimea && x.IsForeign == Ent.IsForeign).Select(x => x.Id).ToList();
+                    && x.ProfileId == Ent.ProfileId && x.IsForeign == Ent.IsForeign).Select(x => x.Id).ToList();
 
                 var lst = context.OlympResultToCommonBenefit.Where(x => lstEntry.Contains(x.EntryId))
                     .Select(x => new { x.OlympLevelId, x.OlympValueId, x.ExamId, x.EntryId, x.OlympTypeId, x.OlympSubjectId, x.OlympProfileId });

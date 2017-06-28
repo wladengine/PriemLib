@@ -164,7 +164,6 @@ namespace PriemLib
                          StudyLevelId = Ent.StudyLevelId,
                          Priority = x.Priority,
                          IsForeign = x.Entry.IsForeign,
-                         IsCrimea = x.Entry.IsCrimea,
                          ComissionId = Ent.CommissionId,
                          ComissionAddress = Ent.CommissionId.HasValue ? Ent.Comission.Name : ""
                      }).OrderBy(x => x.Priority).ToList();
@@ -206,7 +205,6 @@ namespace PriemLib
         public int? Priority { get; set; }
 
         public bool IsForeign { get; set; }
-        public bool IsCrimea { get; set; }
 
         public int FacultyId { get; set; }
         public string FacultyName { get; set; }
