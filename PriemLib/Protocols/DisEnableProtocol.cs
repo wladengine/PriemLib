@@ -27,19 +27,19 @@ namespace PriemLib
         //дополнительная инициализация
         protected override void InitControls()
         {
-            sQuery = @"SELECT DISTINCT ed.extAbit.Sum, ed.extPerson.EducDocument, ed.extAbit.Id as Id, ed.extAbit.BAckDoc as backdoc, 
-             (ed.extAbit.BAckDoc | ed.extAbit.NotEnabled ) as Red, ed.extAbit.RegNum as Рег_Номер,
-             ed.extPerson.FIO as ФИО, 
-             ed.extPerson.EducDocument as Документ_об_образовании, 
-             ed.extPerson.PassportSeries + ' №' + ed.extPerson.PassportNumber as Паспорт, 
-             extAbit.ObrazProgramNameEx + ' ' + (Case when extAbit.ProfileId IS NULL then '' else extAbit.ProfileName end) as Направление, 
-             Competition.NAme as Конкурс, extAbit.BackDoc 
-             FROM ed.extAbit INNER JOIN ed.extPerson ON ed.extAbit.PersonId = ed.extPerson.Id
-             LEFT JOIN ed.Competition ON ed.Competition.Id = ed.extAbit.CompetitionId
-             INNER JOIN ed.extProtocol ON ed.extProtocol.AbiturientId = ed.extAbit.Id";
+            sQuery = @"SELECT DISTINCT qAbiturient.Sum, extPerson.EducDocument, qAbiturient.Id as Id, qAbiturient.BackDoc as backdoc, 
+             (qAbiturient.BackDoc | qAbiturient.NotEnabled) as Red, qAbiturient.RegNum as Рег_Номер,
+             extPerson.FIO as ФИО, 
+             extPerson.EducDocument as Документ_об_образовании, 
+             extPerson.PassportSeries + ' №' + extPerson.PassportNumber as Паспорт, 
+             qAbiturient.ObrazProgramNameEx + ' ' + (CASE WHEN qAbiturient.ProfileId IS NULL THEN '' ELSE qAbiturient.ProfileName END) as Направление, 
+             Competition.NAme as Конкурс, qAbiturient.BackDoc 
+             FROM ed.qAbiturient INNER JOIN ed.extPerson ON qAbiturient.PersonId = extPerson.Id
+             LEFT JOIN ed.Competition ON Competition.Id = qAbiturient.CompetitionId
+             INNER JOIN ed.extProtocol ON extProtocol.AbiturientId = qAbiturient.Id";
 
              // case when (NOT ed.hlpMinEgeAbiturient.Id IS NULL) then 'true' else 'false' end//
-             //LEFT JOIN ed.hlpMinEgeAbiturient ON ed.hlpMinEgeAbiturient.Id = ed.extAbit.Id      
+             //LEFT JOIN ed.hlpMinEgeAbiturient ON ed.hlpMinEgeAbiturient.Id = ed.qAbiturient.Id      
 
             base.InitControls();
 
@@ -55,17 +55,17 @@ namespace PriemLib
             base.InitAndFillGrids();
 
             string sFilter = string.Empty;
-            sFilter = string.Format(" AND ed.extProtocol.Excluded=0 AND ed.extProtocol.ISOld=0 AND extProtocol.ProtocolTypeId=1 AND extProtocol.FacultyId ={0} AND extProtocol.StudyFormId = {1} AND extProtocol.StudyBasisId = {2} ", 
+            sFilter = string.Format(" AND extProtocol.Excluded=0 AND extProtocol.IsOld=0 AND extProtocol.ProtocolTypeId=1 AND extProtocol.FacultyId ={0} AND extProtocol.StudyFormId = {1} AND extProtocol.StudyBasisId = {2} ", 
                 _facultyId.ToString(), _studyFormId.ToString(), _studyBasisId.ToString());
 
             if (!MainClass.RightsSov_SovMain())
-                sFilter += " AND ed.extAbit.CompetitionId NOT IN (1,2,7,8) ";
-            FillGrid(dgvRight, sQuery, GetWhereClause("ed.extAbit") + sFilter, sOrderby);
+                sFilter += " AND qAbiturient.CompetitionId NOT IN (1, 2, 7, 8) ";
+            FillGrid(dgvRight, sQuery, GetWhereClause("ed.qAbiturient") + sFilter, sOrderby);
 
             //заполнили левый
             if (_id != null)
             {
-                sFilter = string.Format(" WHERE ed.extAbit.Id IN (SELECT AbiturientId FROM ed.extProtocol WHERE ProtocolId = '{0}')", _id);
+                sFilter = string.Format(" WHERE qAbiturient.Id IN (SELECT AbiturientId FROM ed.extProtocol WHERE ProtocolId = '{0}')", _id);
                 FillGrid(dgvLeft, sQuery, sFilter, sOrderby);
             }
             else //новый

@@ -33,17 +33,18 @@ namespace PriemLib
         protected override void InitControls()
         {
             //инвалиды (extPerson.Privileges & 32 > 0) имеют право пересдать ЕГЭ по запоротому предмету (где получили меньше минимума)
-            sQuery = @"SELECT DISTINCT ed.extAbit.Sum, extPerson.EducDocument, ed.extAbit.Id as Id, ed.extAbit.BAckDoc as backdoc, 
-(ed.extAbit.BAckDoc | ed.extAbit.NotEnabled | case when (NOT hlpMinEgeAbiturient.Id IS NULL AND extPerson.Privileges & 32 = 0) then 'true' else 'false' end) as Red, extAbit.RegNum as Рег_Номер, 
+            sQuery = @"SELECT DISTINCT qAbiturient.Sum, extPerson.EducDocument, qAbiturient.Id as Id, qAbiturient.BAckDoc as backdoc, 
+(qAbiturient.BAckDoc | qAbiturient.NotEnabled | case when (NOT hlpMinEgeAbiturient.Id IS NULL AND extPerson.Privileges & 32 = 0) then 'true' else 'false' end) as Red, 
+qAbiturient.RegNum as Рег_Номер, 
 extPerson.FIO as ФИО, 
 extPerson.EducDocument as Документ_об_образовании, 
 extPerson.PassportSeries + ' №' + extPerson.PassportNumber as Паспорт, 
-extAbit.ObrazProgramNameEx + ' ' + (Case when extAbit.ProfileId IS NULL then '' else extAbit.ProfileName end) as Направление, 
-Competition.Name as Конкурс, extAbit.BackDoc 
-FROM ed.extAbit 
-INNER JOIN ed.extPerson ON extAbit.PersonId = extPerson.Id   
-LEFT JOIN ed.hlpMinEgeAbiturient ON hlpMinEgeAbiturient.Id = extAbit.Id
-LEFT JOIN ed.Competition ON Competition.Id = extAbit.CompetitionId";
+qAbiturient.ObrazProgramNameEx + ' ' + (Case when qAbiturient.ProfileId IS NULL then '' else qAbiturient.ProfileName end) as Направление, 
+Competition.Name as Конкурс, qAbiturient.BackDoc 
+FROM ed.qAbiturient 
+INNER JOIN ed.extPerson ON qAbiturient.PersonId = extPerson.Id   
+LEFT JOIN ed.hlpMinEgeAbiturient ON hlpMinEgeAbiturient.Id = qAbiturient.Id
+LEFT JOIN ed.Competition ON Competition.Id = qAbiturient.CompetitionId";
 
             base.InitControls();
 
@@ -58,8 +59,8 @@ LEFT JOIN ed.Competition ON Competition.Id = extAbit.CompetitionId";
         {
             base.InitAndFillGrids();
 
-            string sFilter = string.Format(@" AND extAbit.BackDoc = 0 AND extAbit.NotEnabled = 0 
-AND extAbit.Id NOT IN 
+            string sFilter = string.Format(@" AND qAbiturient.BackDoc = 0 AND qAbiturient.NotEnabled = 0 
+AND qAbiturient.Id NOT IN 
 (
     SELECT AbiturientId 
     FROM ed.extEnableProtocol 
@@ -67,15 +68,15 @@ AND extAbit.Id NOT IN
 )", _facultyId.ToString(), _studyFormId.ToString(), _studyBasisId.ToString());
 
             if (chbFilter.Checked)
-                sFilter += " AND ed.extAbit.Checked > 0";
+                sFilter += " AND qAbiturient.Checked > 0";
 
             //сперва общий конкурс (не общ-преим), т.к. чернобыльцы негодуют - льготы есть, а в протокол не попасть
-            FillGrid(dgvRight, sQuery, GetWhereClause("ed.extAbit") + sFilter + " AND extAbit.CompetitionId NOT IN (1,2,7,8) ", sOrderby);
+            FillGrid(dgvRight, sQuery, GetWhereClause("ed.qAbiturient") + sFilter + " AND qAbiturient.CompetitionId NOT IN (1,2,7,8) ", sOrderby);
 
             //заполнили левый
             if (_id != null)
             {
-                FillGrid(dgvLeft, sQuery, string.Format(" WHERE extAbit.Id IN (SELECT AbiturientId FROM ed.qProtocolHistory WHERE ProtocolId = '{0}')", _id.ToString()), sOrderby);
+                FillGrid(dgvLeft, sQuery, string.Format(" WHERE qAbiturient.Id IN (SELECT AbiturientId FROM ed.qProtocolHistory WHERE ProtocolId = '{0}')", _id.ToString()), sOrderby);
             }
             else //новый
             {
@@ -83,7 +84,7 @@ AND extAbit.Id NOT IN
             }
 
             // заполнение льготников, проверенных советниками
-            string query = sQuery + GetWhereClause("ed.extAbit") + sFilter + " AND (extAbit.CompetitionId IN (1,8) OR (extPerson.Privileges>0 AND extAbit.CompetitionId IN (2,7))) AND extAbit.Checked > 0 ";
+            string query = sQuery + GetWhereClause("ed.qAbiturient") + sFilter + " AND (qAbiturient.CompetitionId IN (1,8) OR (extPerson.Privileges>0 AND qAbiturient.CompetitionId IN (2,7))) AND qAbiturient.Checked > 0 ";
 
             DataSet ds = MainClass.Bdc.GetDataSet(query);
 
