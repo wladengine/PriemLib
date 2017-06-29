@@ -31,8 +31,6 @@
             this.chbIsProfil = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.chbToAllStudyBasis = new System.Windows.Forms.CheckBox();
-            this.chbCrimea = new System.Windows.Forms.CheckBox();
-            this.chbGosLine = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
             this.tbOrderNumber = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -56,6 +54,7 @@
             this.tbGrade4MarkMin = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.tbGrade5MarkMin = new System.Windows.Forms.TextBox();
+            this.chbIsNotInTotalSum = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.epError)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -101,26 +100,6 @@
             this.chbToAllStudyBasis.TabIndex = 35;
             this.chbToAllStudyBasis.Text = "размножить \r\nна основы обучения";
             this.chbToAllStudyBasis.UseVisualStyleBackColor = true;
-            // 
-            // chbCrimea
-            // 
-            this.chbCrimea.AutoSize = true;
-            this.chbCrimea.Location = new System.Drawing.Point(12, 233);
-            this.chbCrimea.Name = "chbCrimea";
-            this.chbCrimea.Size = new System.Drawing.Size(55, 17);
-            this.chbCrimea.TabIndex = 36;
-            this.chbCrimea.Text = "Крым";
-            this.chbCrimea.UseVisualStyleBackColor = true;
-            // 
-            // chbGosLine
-            // 
-            this.chbGosLine.AutoSize = true;
-            this.chbGosLine.Location = new System.Drawing.Point(73, 233);
-            this.chbGosLine.Name = "chbGosLine";
-            this.chbGosLine.Size = new System.Drawing.Size(74, 17);
-            this.chbGosLine.TabIndex = 37;
-            this.chbGosLine.Text = "Гослиния";
-            this.chbGosLine.UseVisualStyleBackColor = true;
             // 
             // label3
             // 
@@ -332,11 +311,22 @@
             this.tbGrade5MarkMin.Size = new System.Drawing.Size(64, 20);
             this.tbGrade5MarkMin.TabIndex = 0;
             // 
+            // chbIsNotInTotalSum
+            // 
+            this.chbIsNotInTotalSum.AutoSize = true;
+            this.chbIsNotInTotalSum.Location = new System.Drawing.Point(12, 233);
+            this.chbIsNotInTotalSum.Name = "chbIsNotInTotalSum";
+            this.chbIsNotInTotalSum.Size = new System.Drawing.Size(197, 17);
+            this.chbIsNotInTotalSum.TabIndex = 52;
+            this.chbIsNotInTotalSum.Text = "Не входит в общую сумму баллов";
+            this.chbIsNotInTotalSum.UseVisualStyleBackColor = true;
+            // 
             // CardExamInEntryBlock
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(458, 488);
+            this.Controls.Add(this.chbIsNotInTotalSum);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnTimeTable);
             this.Controls.Add(this.label5);
@@ -349,8 +339,6 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.tbOrderNumber);
-            this.Controls.Add(this.chbGosLine);
-            this.Controls.Add(this.chbCrimea);
             this.Controls.Add(this.chbToAllStudyBasis);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.chbIsProfil);
@@ -363,8 +351,6 @@
             this.Controls.SetChildIndex(this.chbIsProfil, 0);
             this.Controls.SetChildIndex(this.label2, 0);
             this.Controls.SetChildIndex(this.chbToAllStudyBasis, 0);
-            this.Controls.SetChildIndex(this.chbCrimea, 0);
-            this.Controls.SetChildIndex(this.chbGosLine, 0);
             this.Controls.SetChildIndex(this.tbOrderNumber, 0);
             this.Controls.SetChildIndex(this.label3, 0);
             this.Controls.SetChildIndex(this.label1, 0);
@@ -377,6 +363,7 @@
             this.Controls.SetChildIndex(this.label5, 0);
             this.Controls.SetChildIndex(this.btnTimeTable, 0);
             this.Controls.SetChildIndex(this.groupBox1, 0);
+            this.Controls.SetChildIndex(this.chbIsNotInTotalSum, 0);
             ((System.ComponentModel.ISupportInitialize)(this.epError)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -390,8 +377,6 @@
         private System.Windows.Forms.CheckBox chbIsProfil;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.CheckBox chbToAllStudyBasis;
-        private System.Windows.Forms.CheckBox chbCrimea;
-        private System.Windows.Forms.CheckBox chbGosLine;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox tbOrderNumber;
         private System.Windows.Forms.Label label1;
@@ -415,5 +400,6 @@
         private System.Windows.Forms.TextBox tbGrade4MarkMin;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox tbGrade5MarkMin;
+        private System.Windows.Forms.CheckBox chbIsNotInTotalSum;
     }
 }

@@ -343,6 +343,20 @@ namespace PriemLib
                 tbStudyForm.Text = ent.StudyFormName;
                 tbStudyBasis.Text = ent.StudyBasisName;
 
+                LicenseProgramId = ent.LicenseProgramId;
+                ObrazProgramId = ent.ObrazProgramId;
+                ProfileId = ent.ProfileId;
+                FacultyId = ent.FacultyId;
+                StudyFormId = ent.StudyFormId;
+                StudyBasisId = ent.StudyBasisId;
+
+                IsForeign = ent.IsForeign;
+                IsParallel = ent.IsParallel;
+                IsReduced = ent.IsReduced;
+                IsSecond = ent.IsSecond;
+
+                FillCompetition(context);
+
                 this.EntryId = _EntryId;
             }
         }
@@ -678,6 +692,7 @@ namespace PriemLib
 
             if (MainClass.IsPasha())
             {
+                cbCompetition.Enabled = true;
                 chbHasOriginals.Enabled = true;
                 chbBackDoc.Enabled = true;
             }

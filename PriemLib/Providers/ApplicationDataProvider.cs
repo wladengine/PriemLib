@@ -142,8 +142,8 @@ namespace PriemLib
             {
                 List<ApplicationData> abitList =
                     (from x in context.Abiturient
-                     join Ent in context.Entry on x.EntryId equals Ent.Id
-                     where MainClass.lstStudyLevelGroupId.Contains(Ent.StudyLevel.StudyLevelGroup.Id)
+                     join Ent in context.extEntry on x.EntryId equals Ent.Id
+                     where MainClass.lstStudyLevelGroupId.Contains(Ent.StudyLevelGroupId)
                      //&& x.Entry.IsForeign == false
                      && x.PersonId == PersonId
                      && x.BackDoc == false
@@ -152,20 +152,20 @@ namespace PriemLib
                          ApplicationId = x.Id,
                          PersonId = x.PersonId,
                          Barcode = x.Barcode,
-                         FacultyName = Ent.SP_Faculty.Name,
-                         LicenseProgramName = Ent.SP_LicenseProgram.Name,
-                         LicenseProgramCode = Ent.SP_LicenseProgram.Code,
-                         ObrazProgramCrypt = Ent.StudyLevel.Acronym + "." + Ent.SP_ObrazProgram.Number + "." + MainClass.sPriemYear,
-                         ObrazProgramName = Ent.SP_ObrazProgram.Name,
-                         ProfileName = Ent.SP_Profile.Name,
+                         FacultyName = Ent.FacultyName,
+                         LicenseProgramName = Ent.LicenseProgramName,
+                         LicenseProgramCode = Ent.LicenseProgramCode,
+                         ObrazProgramCrypt = Ent.ObrazProgramCrypt,
+                         ObrazProgramName = Ent.ObrazProgramName,
+                         ProfileName = Ent.ProfileName,
                          StudyFormId = Ent.StudyFormId,
-                         StudyFormName = Ent.StudyForm.Name,
+                         StudyFormName = Ent.StudyFormName,
                          StudyBasisId = Ent.StudyBasisId,
                          StudyLevelId = Ent.StudyLevelId,
                          Priority = x.Priority,
                          IsForeign = x.Entry.IsForeign,
-                         ComissionId = Ent.CommissionId,
-                         ComissionAddress = Ent.CommissionId.HasValue ? Ent.Comission.Name : ""
+                         //ComissionId = Ent.CommissionId,
+                         //ComissionAddress = Ent.CommissionId.HasValue ? Ent.Comission.Name : ""
                      }).OrderBy(x => x.Priority).ToList();
 
                 return abitList;

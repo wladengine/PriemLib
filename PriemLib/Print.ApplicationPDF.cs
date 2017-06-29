@@ -169,7 +169,7 @@ namespace PriemLib
 
             int comInd = 1;
             foreach (var comission in abitList.Select(x => x.ComissionAddress).Distinct().ToList())
-                acrFlds.SetField("Comission" + comInd++, comission.ToString());
+                acrFlds.SetField("Comission" + comInd++, comission ?? "");
 
             pdfStm.FormFlattening = true;
             pdfStm.Close();

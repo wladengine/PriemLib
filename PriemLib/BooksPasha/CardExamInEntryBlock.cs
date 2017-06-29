@@ -32,21 +32,18 @@ namespace PriemLib
             get { return chbIsProfil.Checked; }
             set { chbIsProfil.Checked = value; }
         }
-        protected bool IsGosLine
+        protected bool IsNotInTotalSum
         {
-            get { return chbGosLine.Checked; }
-            set { chbGosLine.Checked = value; }
+            get { return chbIsNotInTotalSum.Checked; }
+            set { chbIsNotInTotalSum.Checked = value; }
         }
+
         protected string BlockName
         {
             get { return tbBlockName.Text.Trim(); }
             set { tbBlockName.Text = value.Trim(); }
         }
-        protected bool IsCrimea
-        {
-            get { return chbCrimea.Checked; }
-            set { chbCrimea.Checked = value; }
-        }
+        
         protected byte? OrderNumber
         {
             get
@@ -246,13 +243,14 @@ namespace PriemLib
             {
                 using (PriemEntities context = new PriemEntities())
                 {
-                    ExamInEntryBlock ent = (from ex in context.ExamInEntryBlock
-                                           where ex.Id == gId
-                                           select ex).FirstOrDefault();
+                    ExamInEntryBlock ent =
+                        (from ex in context.ExamInEntryBlock
+                         where ex.Id == gId
+                         select ex).FirstOrDefault();
+
                     BlockName = ent.Name;
                     IsProfil = ent.IsProfil;
-                    IsGosLine = ent.IsGosLine;
-                    IsCrimea = ent.IsCrimea;
+                    IsNotInTotalSum = ent.IsNotInTotalSum;
                     OrderNumber = ent.OrderNumber;
                     ParentExamInEntryId = ent.ParentExamInEntryBlockId;
 
@@ -357,8 +355,7 @@ namespace PriemLib
                 Id = entId,
                 EntryId = curEnt.Id,
                 Name = BlockName,
-                IsCrimea = IsCrimea,
-                IsGosLine = IsGosLine,
+                IsNotInTotalSum = IsNotInTotalSum,
                 OrderNumber = OrderNumber ?? 1,
                 ParentExamInEntryBlockId = ParentExamInEntryId,
             });
@@ -412,8 +409,7 @@ namespace PriemLib
                     Id = blId,
                     EntryId = e.Id,
                     Name = BlockName,
-                    IsCrimea = IsCrimea,
-                    IsGosLine = IsGosLine,
+                    IsNotInTotalSum = IsNotInTotalSum,
                     OrderNumber = OrderNumber ?? 1,
                 });
                 SortedList<string, object> sl_ = new SortedList<string, object>();
@@ -454,8 +450,7 @@ namespace PriemLib
             }
             ExamInEntryBlock block = context.ExamInEntryBlock.Where(x => x.Id == gId).First();
             block.Name = BlockName;
-            block.IsCrimea = IsCrimea;
-            block.IsGosLine = IsGosLine;
+            block.IsNotInTotalSum = IsNotInTotalSum;
             block.IsProfil = IsProfil;
             block.OrderNumber = OrderNumber ?? 1;
             block.ParentExamInEntryBlockId = ParentExamInEntryId;

@@ -415,6 +415,7 @@
           <Property Name="Grade4MarkMax" Type="int" />
           <Property Name="Grade3MarkMin" Type="int" />
           <Property Name="Grade3MarkMax" Type="int" />
+          <Property Name="IsNotInTotalSum" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="ExamInEntryBlockUnit">
           <Key>
@@ -2158,6 +2159,7 @@
             <PropertyRef Name="IsGosLine" />
             <PropertyRef Name="IsForeign" />
             <PropertyRef Name="ExamInEntryBlockId" />
+            <PropertyRef Name="IsNotInTotalSum" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="EntryId" Type="uniqueidentifier" Nullable="false" />
@@ -2185,6 +2187,7 @@
           <Property Name="ParentExamInEntryBlockId" Type="uniqueidentifier" />
           <Property Name="IsForeign" Type="bit" Nullable="false" />
           <Property Name="ExamInEntryBlockId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="IsNotInTotalSum" Type="bit" Nullable="false" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
 предупреждение 6002: В таблице или представлении "Priem2017.ed.extExamsVed" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
@@ -2929,7 +2932,7 @@
           <Property Name="AbiturientId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="PersonId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="EntryId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="SUM" Type="decimal" Precision="38" Scale="2" />
+          <Property Name="SUM" Type="decimal" Precision="13" Scale="2" />
           <Property Name="Rank" Type="bigint" />
           <Property Name="IsCel" Type="int" Nullable="false" />
         </EntityType>
@@ -6999,7 +7002,8 @@
     [extExamInEntry].[IsGosLine] AS [IsGosLine], 
     [extExamInEntry].[ParentExamInEntryBlockId] AS [ParentExamInEntryBlockId], 
     [extExamInEntry].[IsForeign] AS [IsForeign], 
-    [extExamInEntry].[ExamInEntryBlockId] AS [ExamInEntryBlockId]
+    [extExamInEntry].[ExamInEntryBlockId] AS [ExamInEntryBlockId], 
+    [extExamInEntry].[IsNotInTotalSum] AS [IsNotInTotalSum]
     FROM [ed].[extExamInEntry] AS [extExamInEntry]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="extExamsVed" EntityType="Self.extExamsVed" store:Type="Views" store:Schema="ed">
@@ -13794,6 +13798,7 @@
           <Property Name="Grade3MarkMin" Type="Int32" />
           <Property Name="Grade3MarkMax" Type="Int32" />
           <NavigationProperty Name="Entry" Relationship="Priem2012Model.FK_ExamInEntryBlock_Entry" FromRole="ExamInEntryBlock" ToRole="Entry" />
+          <Property Name="IsNotInTotalSum" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="ExamInEntryBlockUnit">
           <Key>
@@ -14349,6 +14354,7 @@
             <PropertyRef Name="IsGosLine" />
             <PropertyRef Name="IsForeign" />
             <PropertyRef Name="ExamInEntryBlockId" />
+            <PropertyRef Name="IsNotInTotalSum" />
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" />
           <Property Name="EntryId" Type="Guid" Nullable="false" />
@@ -14376,6 +14382,7 @@
           <Property Name="ParentExamInEntryBlockId" Type="Guid" />
           <Property Name="IsForeign" Type="Boolean" Nullable="false" />
           <Property Name="ExamInEntryBlockId" Type="Guid" Nullable="false" />
+          <Property Name="IsNotInTotalSum" Type="Boolean" Nullable="false" />
         </EntityType>
         <Association Name="FK_Abiturient_Olympiads">
           <End Type="Priem2012Model.Olympiads" Role="Olympiads" Multiplicity="0..1" />
@@ -14411,7 +14418,7 @@
           <Property Name="AbiturientId" Type="Guid" Nullable="false" />
           <Property Name="PersonId" Type="Guid" Nullable="false" />
           <Property Name="EntryId" Type="Guid" Nullable="false" />
-          <Property Name="SUM" Type="Decimal" Precision="38" Scale="2" />
+          <Property Name="SUM" Type="Decimal" Precision="13" Scale="2" />
           <Property Name="Rank" Type="Int64" />
           <Property Name="IsCel" Type="Int32" Nullable="false" />
         </EntityType>
@@ -17778,6 +17785,7 @@
           <EntitySetMapping Name="ExamInEntryBlock">
             <EntityTypeMapping TypeName="Priem2012Model.ExamInEntryBlock">
               <MappingFragment StoreEntitySet="ExamInEntryBlock">
+                <ScalarProperty Name="IsNotInTotalSum" ColumnName="IsNotInTotalSum" />
                 <ScalarProperty Name="Grade3MarkMax" ColumnName="Grade3MarkMax" />
                 <ScalarProperty Name="Grade3MarkMin" ColumnName="Grade3MarkMin" />
                 <ScalarProperty Name="Grade4MarkMax" ColumnName="Grade4MarkMax" />
@@ -18022,6 +18030,7 @@
           <EntitySetMapping Name="extExamInEntry">
             <EntityTypeMapping TypeName="Priem2012Model.extExamInEntry">
               <MappingFragment StoreEntitySet="extExamInEntry">
+                <ScalarProperty Name="IsNotInTotalSum" ColumnName="IsNotInTotalSum" />
                 <ScalarProperty Name="ExamInEntryBlockId" ColumnName="ExamInEntryBlockId" />
                 <ScalarProperty Name="IsForeign" ColumnName="IsForeign" />
                 <ScalarProperty Name="ParentExamInEntryBlockId" ColumnName="ParentExamInEntryBlockId" />

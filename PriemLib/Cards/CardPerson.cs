@@ -884,14 +884,15 @@ namespace PriemLib
                 btnRemoveE.Enabled = false; 
             }
 
-            if (MainClass.RightsSov_SovMain())
+            if (MainClass.RightsSov_SovMain() || MainClass.IsPasha())
             {
                 cbPassportType.Enabled = true;
                 tbPassportAuthor.Enabled = true;
                 tbPassportNumber.Enabled = true;
                 tbPassportSeries.Enabled = true;
-
                 dtPassportDate.Enabled = true;
+
+                gbPrivileges.Enabled = true;
 
                 //tbAttestatNum.Enabled = true;
                 //cbAttestatSeries.Enabled = true;

@@ -40,5 +40,6 @@ namespace PriemLib
         public Nullable<System.Guid> ParentExamInEntryBlockId { get; set; }
         public bool IsForeign { get; set; }
         public System.Guid ExamInEntryBlockId { get; set; }
+        public bool IsNotInTotalSum { get; set; }
     }
 }

@@ -508,6 +508,7 @@ WHERE ed.AbiturientSelectedExam.ApplicationId = qAbiturient.Id AND unit.ExamId =
                 qBuilder.AddTableJoint("ed.OtherCompetition", " LEFT JOIN ed.Competition AS OtherCompetition ON qAbiturient.OtherCompetitionId = OtherCompetition.Id ");
                 qBuilder.AddTableJoint("ed.CelCompetition", " LEFT JOIN ed.CelCompetition ON qAbiturient.CelCompetitionId = CelCompetition.Id ");
 
+                qBuilder.AddTableJoint("ed.extInnerEntryInEntry", " LEFT JOIN ed.extInnerEntryInEntry ON extInnerEntryInEntry.Id = qAbiturient.InnerEntryInEntryId ");
                 qBuilder.AddTableJoint("ed.extEnableProtocol", " LEFT JOIN ed.extEnableProtocol ON extEnableProtocol.AbiturientId = qAbiturient.Id ");
                 qBuilder.AddTableJoint("ed.extEntryView", " LEFT JOIN ed.extEntryView ON extEntryView.AbiturientId = qAbiturient.Id ");
                 qBuilder.AddTableJoint("ed.extEntry", " INNER JOIN ed.extEntry ON extEntry.Id = qAbiturient.EntryId ");

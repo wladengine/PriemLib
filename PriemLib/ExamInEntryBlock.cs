@@ -37,6 +37,7 @@ namespace PriemLib
         public Nullable<int> Grade4MarkMax { get; set; }
         public Nullable<int> Grade3MarkMin { get; set; }
         public Nullable<int> Grade3MarkMax { get; set; }
+        public bool IsNotInTotalSum { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ExamInEntryBlockUnit> ExamInEntryBlockUnit { get; set; }

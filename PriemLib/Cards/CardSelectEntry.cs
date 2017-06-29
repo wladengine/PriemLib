@@ -118,6 +118,7 @@ namespace PriemLib
         {
             InitializeComponent();
             InitControls();
+            SetEntryValues(EntryId);
         }
 
         protected override void ExtraInit()
@@ -141,9 +142,15 @@ namespace PriemLib
                     IsReduced = entry.IsReduced;
                     IsParallel = entry.IsParallel;
                     IsForeign = entry.IsForeign;
+                    FillLicenseProgram();
                     LicenseProgramId = entry.LicenseProgramId;
+                    FillObrazProgram();
                     ObrazProgramId = entry.ObrazProgramId;
+                    FillProfile();
                     ProfileId = entry.ProfileId;
+                    FillFaculty();
+                    FillStudyForm();
+                    FacultyId = entry.FacultyId;
                     StudyFormId = entry.StudyFormId;
                     StudyBasisId = entry.StudyBasisId;
                 }
@@ -189,7 +196,6 @@ namespace PriemLib
 
         void chbIsForeign_CheckedChanged(object sender, EventArgs e)
         {
-
             cbLicenseProgram.Enabled = true;
             cbObrazProgram.Enabled = true;
             cbProfile.Enabled = true;
@@ -226,9 +232,6 @@ namespace PriemLib
         void cbObrazProgram_SelectedIndexChanged(object sender, EventArgs e)
         {
             FillProfile();
-            //FillFaculty();
-            //FillStudyForm();
-            //FillStudyBasis();
         }
         void cbProfile_SelectedIndexChanged(object sender, EventArgs e)
         {
