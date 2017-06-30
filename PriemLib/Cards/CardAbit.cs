@@ -220,7 +220,7 @@ namespace PriemLib
 
                     FillCompetition(context);
                     CompetitionId = abit.CompetitionId;
-
+                    UpdateAfterCompetition();
                     UpdateBenefitOlympSource(context);
                     OlympiadId = abit.OlympiadId;
 
@@ -349,6 +349,9 @@ namespace PriemLib
                 FacultyId = ent.FacultyId;
                 StudyFormId = ent.StudyFormId;
                 StudyBasisId = ent.StudyBasisId;
+
+                chbIsListener.Visible = StudyBasisId == 2;
+                chbIsPaid.Visible = StudyBasisId == 2;
 
                 IsForeign = ent.IsForeign;
                 IsParallel = ent.IsParallel;
@@ -1330,6 +1333,18 @@ namespace PriemLib
                             }
                         }
                     }
+
+                    if (HasOriginals && _personId.HasValue)
+                    {
+                        int cnt_origs = context.Abiturient.Where(x => x.PersonId == _personId.Value && x.HasOriginals == true && x.BackDoc == false).Count();
+                        if (cnt_origs > 0)
+                        {
+                            epError.SetError(chbHasOriginals, "!");
+                            WinFormsServ.Error("Оригиналы документов уже находятся на другом конкурсе");
+                            return false;
+                        }
+                    }
+
                     return true;
                 }
             }

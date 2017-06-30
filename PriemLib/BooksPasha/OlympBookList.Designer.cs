@@ -33,6 +33,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.cbOlympYear = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.tbName = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvOlymps)).BeginInit();
             this.SuspendLayout();
             // 
@@ -42,10 +44,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvOlymps.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvOlymps.Location = new System.Drawing.Point(12, 56);
+            this.dgvOlymps.Location = new System.Drawing.Point(12, 91);
             this.dgvOlymps.Name = "dgvOlymps";
             this.dgvOlymps.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvOlymps.Size = new System.Drawing.Size(553, 281);
+            this.dgvOlymps.Size = new System.Drawing.Size(553, 246);
             this.dgvOlymps.TabIndex = 25;
             // 
             // cbOlympType
@@ -92,11 +94,32 @@
             this.label2.TabIndex = 131;
             this.label2.Text = "Год олимпиады";
             // 
+            // tbName
+            // 
+            this.tbName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbName.Location = new System.Drawing.Point(12, 65);
+            this.tbName.Name = "tbName";
+            this.tbName.Size = new System.Drawing.Size(553, 20);
+            this.tbName.TabIndex = 133;
+            this.tbName.TextChanged += new System.EventHandler(this.tbName_TextChanged);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(9, 49);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(107, 13);
+            this.label3.TabIndex = 134;
+            this.label3.Text = "Поиск по названию";
+            // 
             // OlympBookList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(577, 407);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.tbName);
             this.Controls.Add(this.cbOlympYear);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.cbOlympType);
@@ -114,6 +137,8 @@
             this.Controls.SetChildIndex(this.cbOlympType, 0);
             this.Controls.SetChildIndex(this.label2, 0);
             this.Controls.SetChildIndex(this.cbOlympYear, 0);
+            this.Controls.SetChildIndex(this.tbName, 0);
+            this.Controls.SetChildIndex(this.label3, 0);
             ((System.ComponentModel.ISupportInitialize)(this.dgvOlymps)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -127,5 +152,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cbOlympYear;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox tbName;
+        private System.Windows.Forms.Label label3;
     }
 }

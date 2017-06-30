@@ -14,6 +14,7 @@ namespace PriemLib
 {
     public partial class OlympBookList : BookList
     {
+        private DataTable _tblSource;
         public OlympBookList()
         {
             InitializeComponent();
@@ -95,9 +96,10 @@ namespace PriemLib
 
                 try
                 {
-                    DataTable tblSource = Converter.ConvertToDataTable(query.ToArray());
-                    Dgv.DataSource = tblSource;
+                    _tblSource = Converter.ConvertToDataTable(query.ToArray());
+                    Dgv.DataSource = _tblSource;
                     SetVisibleColumnsAndNameColumns();
+                    UpdateFilters();
                 }
                 catch (Exception ex)
                 {
@@ -139,6 +141,16 @@ namespace PriemLib
                 Guid gId = new Guid(sId);
                 context.OlympBook_Delete(gId);
             }
+        }
+
+        private void tbName_TextChanged(object sender, EventArgs e)
+        {
+            UpdateFilters();
+        }
+
+        private void UpdateFilters()
+        {
+            WinFormsServ.FilterGrid(ref dgvOlymps, new Dictionary<string, string>() { { "OlympNameName", tbName.Text.Trim() } }, _tblSource);
         }
     }
 }
