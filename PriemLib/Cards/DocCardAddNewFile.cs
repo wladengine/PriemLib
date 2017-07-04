@@ -105,13 +105,12 @@ namespace PriemLib
                 if (Type == "PersonFile")
                 {
                     sl.Add("@FileId", Guid.NewGuid());
-
-                    _bdcInet.ExecuteQuery(@"INSERT INTO 
-PersonFile (Id, PersonId, FileName, FileExtention, FileSize, Comment, LoadDate, PersonFileTypeId) 
-VALUES (@FileId, @PersonId, @FileName, @FileExtention, @FileSize, @Comment, @LoadDate, @PersonFileTypeId)", sl);
                     _bdcInet.ExecuteQuery(@"INSERT INTO 
 FileStorage (Id, FileData) 
 VALUES (@FileId, @FileData)", sl);
+                    _bdcInet.ExecuteQuery(@"INSERT INTO 
+PersonFile (Id, PersonId, FileName, FileExtention, FileSize, Comment, LoadDate, PersonFileTypeId) 
+VALUES (@FileId, @PersonId, @FileName, @FileExtention, @FileSize, @Comment, @LoadDate, @PersonFileTypeId)", sl);
                 }
 
                 if (ToUpdateList != null)

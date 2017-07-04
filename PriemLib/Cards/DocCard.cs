@@ -27,6 +27,7 @@ namespace PriemLib
             _docs = new DocsClass(_personBarc, _abitBarc, bShowAllFiles);
             _upd = upd;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
+            this.MdiParent = MainClass.mainform;
             InitControls();
         }
 
