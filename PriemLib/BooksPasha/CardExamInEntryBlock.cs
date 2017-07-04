@@ -663,7 +663,7 @@ namespace PriemLib
         }
         private void dgvOlymps_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex > 0)
+            if (e.RowIndex >= 0)
                 OpenCardOlympiad(e.RowIndex);
         }
         private void OpenCardOlympiad(int? rowIndex)
