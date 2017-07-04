@@ -33,6 +33,8 @@ namespace PriemLib
             InitializeComponent();
             Type = _type;
             PersonBarcode = _personBarcode;
+            this.Text = "Добавление нового файла";
+            this.MdiParent = MainClass.mainform;
 
             _bdcInet = new DBPriem();
             try
@@ -102,8 +104,14 @@ namespace PriemLib
 
                 if (Type == "PersonFile")
                 {
-                    _bdcInet.ExecuteQuery(@"INSERT INTO PersonFile (Id, PersonId, FileName, FileExtention, FileSize, FileData, Comment, LoadDate, PersonFileTypeId) 
-VALUES (NEWID(), @PersonId, @FileName, @FileExtention, @FileSize, @FileData, @Comment, @LoadDate, @PersonFileTypeId)", sl);
+                    sl.Add("@FileId", Guid.NewGuid());
+
+                    _bdcInet.ExecuteQuery(@"INSERT INTO 
+PersonFile (Id, PersonId, FileName, FileExtention, FileSize, Comment, LoadDate, PersonFileTypeId) 
+VALUES (@FileId, @PersonId, @FileName, @FileExtention, @FileSize, @Comment, @LoadDate, @PersonFileTypeId)", sl);
+                    _bdcInet.ExecuteQuery(@"INSERT INTO 
+FileStorage (Id, FileData) 
+VALUES (@FileId, @FileData)", sl);
                 }
 
                 if (ToUpdateList != null)
