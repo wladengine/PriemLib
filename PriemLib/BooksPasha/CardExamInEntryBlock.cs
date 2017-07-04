@@ -13,7 +13,6 @@ using EducServLib;
 
 namespace PriemLib
 {
-
     public partial class CardExamInEntryBlock : BookCard
     {
         #region Fields
@@ -57,92 +56,34 @@ namespace PriemLib
             set { tbOrderNumber.Text = value.ToString(); }
         }
 
-        protected int? Grade5MarkMin
-        {
-            get
-            {
-                byte j;
-                if (byte.TryParse(tbGrade5MarkMin.Text.Trim(), out j))
-                    return j;
-                else
-                    return null;
-            }
-            set { tbGrade5MarkMin.Text = value.ToString(); }
-        }
-        protected int? Grade5MarkMax
-        {
-            get
-            {
-                byte j;
-                if (byte.TryParse(tbGrade5MarkMax.Text.Trim(), out j))
-                    return j;
-                else
-                    return null;
-            }
-            set { tbGrade5MarkMax.Text = value.ToString(); }
-        }
-
-        protected int? Grade4MarkMin
-        {
-            get
-            {
-                byte j;
-                if (byte.TryParse(tbGrade4MarkMin.Text.Trim(), out j))
-                    return j;
-                else
-                    return null;
-            }
-            set { tbGrade4MarkMin.Text = value.ToString(); }
-        }
-        protected int? Grade4MarkMax
-        {
-            get
-            {
-                byte j;
-                if (byte.TryParse(tbGrade4MarkMax.Text.Trim(), out j))
-                    return j;
-                else
-                    return null;
-            }
-            set { tbGrade4MarkMax.Text = value.ToString(); }
-        }
-
-        protected int? Grade3MarkMin
-        {
-            get
-            {
-                byte j;
-                if (byte.TryParse(tbGrade3MarkMin.Text.Trim(), out j))
-                    return j;
-                else
-                    return null;
-            }
-            set { tbGrade3MarkMin.Text = value.ToString(); }
-        }
-        protected int? Grade3MarkMax
-        {
-            get
-            {
-                byte j;
-                if (byte.TryParse(tbGrade3MarkMax.Text.Trim(), out j))
-                    return j;
-                else
-                    return null;
-            }
-            set { tbGrade3MarkMax.Text = value.ToString(); }
-        }
-
         protected Guid? ParentExamInEntryId
         {
             get { return ComboServ.GetComboIdGuid(cbParentExamInEntry); }
             set { ComboServ.SetComboId(cbParentExamInEntry, value); }
         }
         protected List<ExamenBlockUnit> lstUnit;
-        protected UnitListUpdateHandler _hndl;
+        protected Action<ExamenBlockUnit> _hndl;
+
+        protected int? OlympTypeId
+        {
+            get { return ComboServ.GetComboIdInt(cbOlympType); }
+            set { ComboServ.SetComboId(cbOlympType, value); }
+        }
+        protected int? OlympLevelId
+        {
+            get { return ComboServ.GetComboIdInt(cbOlympLevel); }
+            set { ComboServ.SetComboId(cbOlympLevel, value); }
+        }
+        protected int? OlympYear
+        {
+            get { return ComboServ.GetComboIdInt(cbOlympYear); }
+            set { ComboServ.SetComboId(cbOlympYear, value); }
+        }
         #endregion
 
         private bool _isForModified;
         private Guid? _entryId;
+        private DataTable _tblSource;
 
         public CardExamInEntryBlock(Guid? entryId, string id, bool isForModified)
             : base(id)
@@ -207,12 +148,39 @@ namespace PriemLib
                           .Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name))
                           .ToList();
                     ComboServ.FillCombo(cbParentExamInEntry, lst, true, false);
+
+                    lst = context.OlympLevel.Select(x => new { x.Id, x.Name })
+                        .ToList()
+                        .Select(x => new KeyValuePair<string, string>(x.Id.ToString(), x.Name))
+                        .ToList();
+                    ComboServ.FillCombo(cbOlympLevel, lst, false, true);
+
+                    lst = context.OlympType.Select(x => new { x.Id, x.Name })
+                        .ToList()
+                        .Select(x => new KeyValuePair<string, string>(x.Id.ToString(), x.Name))
+                        .ToList();
+                    ComboServ.FillCombo(cbOlympType, lst, false, true);
+
+                    lst = context.OlympBook.Select(x => new { Id = x.OlympYear, Name = x.OlympYear })
+                        .Distinct()
+                        .ToList()
+                        .Select(x => new KeyValuePair<string, string>(x.Id.ToString(), x.Name.ToString()))
+                        .ToList();
+                    ComboServ.FillCombo(cbOlympYear, lst, false, true);
                 }
             }
             catch (Exception exc)
             {
                 WinFormsServ.Error("Ошибка при инициализации формы ", exc);
             }
+        }
+        protected override void InitHandlers()
+        {
+            cbOlympType.SelectedIndexChanged += (a, b) => { UpdateGridOlymps(); };
+            cbOlympLevel.SelectedIndexChanged += (a, b) => { UpdateGridOlymps(); };
+            cbOlympYear.SelectedIndexChanged += (a, b) => { UpdateGridOlymps(); };
+            tbOlympName.TextChanged += (a, b) => { ApplyFiltersToGridOlymp(); };
+            tbOlympSubject.TextChanged += (a, b) => { ApplyFiltersToGridOlymp(); };
         }
 
         void CardExamInEntryBlock_Shown(object sender, EventArgs e)
@@ -223,6 +191,11 @@ namespace PriemLib
         {
             base.SetAllFieldsEnabled();
         }
+        protected override void SetAllFieldsNotEnabled()
+        {
+            base.SetAllFieldsNotEnabled();
+            tc.Enabled = true;
+        }
         protected override void SetReadOnlyFieldsAfterFill()
         {
             base.SetReadOnlyFieldsAfterFill();
@@ -230,7 +203,8 @@ namespace PriemLib
             if (!MainClass.IsEntryChanger())
                 btnSaveChange.Enabled = false;
             btnTimeTable.Enabled = true;
-        }     
+        }
+
 
         protected override void FillCard()
         {
@@ -254,13 +228,6 @@ namespace PriemLib
                     OrderNumber = ent.OrderNumber;
                     ParentExamInEntryId = ent.ParentExamInEntryBlockId;
 
-                    Grade5MarkMax = ent.Grade5MarkMax;
-                    Grade5MarkMin = ent.Grade5MarkMin;
-                    Grade4MarkMax = ent.Grade4MarkMax;
-                    Grade4MarkMin = ent.Grade4MarkMin;
-                    Grade3MarkMax = ent.Grade3MarkMax;
-                    Grade3MarkMin = ent.Grade3MarkMin;
-
                     var lst = (from ex_unit in context.ExamInEntryBlockUnit
                                join ex in context.Exam on ex_unit.ExamId equals ex.Id
                                join ex_name in context.ExamName on ex.ExamNameId equals ex_name.Id
@@ -273,6 +240,8 @@ namespace PriemLib
                                    ExamUnitName = ex_name.Name,
                                }).ToList();
                     lstUnit = lst;
+
+                    UpdateGridOlymps();
                 }
             }
             catch (Exception exc)
@@ -280,6 +249,77 @@ namespace PriemLib
                 WinFormsServ.Error("Ошибка при заполнении формы ", exc);
             }
         }
+
+        private void UpdateGridOlymps()
+        {
+            var obj = new {
+                OlympTypeId = OlympTypeId,
+                OlympLevelId = OlympLevelId,
+                OlympYear = OlympYear
+            };
+
+            GridAsync.UpdateGridAsync(dgvOlymps, (sender, e) =>
+            {
+                using (PriemEntities context = new PriemEntities())
+                {
+                    dynamic arg = e.Argument;
+                    int? _OlympTypeId = arg.OlympTypeId;
+                    int? _OlympLevelId = arg.OlympLevelId;
+                    int? _OlympYear = arg.OlympYear;
+                    var data =
+                        (from Res in context.OlympResultToMaxMark
+                         join OL in context.extOlympBook on Res.OlympBookId equals OL.Id
+                         join OlympVal in context.OlympValue on Res.OlympValueId equals OlympVal.Id
+                         where Res.ExamInEntryBlockId == GuidId
+                         && (_OlympTypeId.HasValue ? OL.OlympTypeId == _OlympTypeId : true)
+                         && (_OlympLevelId.HasValue ? OL.OlympLevelId == _OlympLevelId : true)
+                         && (_OlympYear.HasValue ? OL.OlympYear == _OlympYear : true)
+                         select new
+                         {
+                             Res.Id,
+                             OL.OlympYear,
+                             OlympLevel = OL.OlympLevelName,
+                             OlympName = OL.OlympNameName,
+                             OlympProfile = OL.OlympProfileName,
+                             OlympSubject = OL.OlympSubjectName,
+                             OlympValue = OlympVal.Name,
+                             Res.MinEge
+                         }).OrderBy(x => x.OlympName).ThenBy(x => x.OlympSubject).ThenBy(x => x.OlympValue).ThenBy(x => x.OlympYear);
+
+                    _tblSource = Converter.ConvertToDataTable(data.ToArray());
+                    e.Result = _tblSource;
+                }
+            }, () =>
+            {
+                dgvOlymps.Columns["Id"].Visible = false;
+                dgvOlymps.Columns["OlympYear"].HeaderText = "Год";
+                dgvOlymps.Columns["OlympYear"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                dgvOlymps.Columns["OlympLevel"].HeaderText = "Уровень";
+                dgvOlymps.Columns["OlympLevel"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                dgvOlymps.Columns["OlympName"].HeaderText = "Название";
+                dgvOlymps.Columns["OlympProfile"].HeaderText = "Профиль олимпиады";
+                dgvOlymps.Columns["OlympSubject"].HeaderText = "Предмет олимпиады";
+                dgvOlymps.Columns["OlympValue"].HeaderText = "Статус";
+                dgvOlymps.Columns["OlympValue"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                dgvOlymps.Columns["MinEge"].HeaderText = "Мин. ЕГЭ";
+                dgvOlymps.Columns["MinEge"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+
+                lblCountOlymps.Text = dgvOlymps.Rows.Count.ToString();
+                ApplyFiltersToGridOlymp();
+            }, obj);
+        }
+        private void ApplyFiltersToGridOlymp()
+        {
+            var dic = new Dictionary<string, string>();
+            if (!string.IsNullOrEmpty(tbOlympName.Text.Trim()))
+                dic.Add("OlympName", tbOlympName.Text.Trim());
+            if (!string.IsNullOrEmpty(tbOlympSubject.Text.Trim()))
+                dic.Add("OlympSubject", tbOlympSubject.Text.Trim());
+
+            if (dic.Count > 0)
+                lblCountOlymps.Text = WinFormsServ.FilterGrid(ref dgvOlymps, dic, _tblSource).ToString();
+        }
+
         protected override bool CheckFields()
         {
             epError.Clear();
@@ -455,13 +495,6 @@ namespace PriemLib
             block.OrderNumber = OrderNumber ?? 1;
             block.ParentExamInEntryBlockId = ParentExamInEntryId;
 
-            block.Grade5MarkMax = Grade5MarkMax;
-            block.Grade5MarkMin = Grade5MarkMin;
-            block.Grade4MarkMax = Grade4MarkMax;
-            block.Grade4MarkMin = Grade4MarkMin;
-            block.Grade3MarkMax = Grade3MarkMax;
-            block.Grade3MarkMin = Grade3MarkMin;
-
             context.SaveChanges();
 
             var gUnits = lstUnit.Select(x => x.UnitId).ToList();
@@ -612,6 +645,45 @@ namespace PriemLib
         {
             if (lstUnit.Count>0)
                 new CardExamTimeTable(lstUnit).Show();
+        }
+
+        private void btnAddOlympiad_Click(object sender, EventArgs e)
+        {
+            OpenCardOlympiad(null);
+        }
+        private void btnOpenOlympiad_Click(object sender, EventArgs e)
+        {
+            if (dgvOlymps.SelectedCells.Count == 0)
+                return;
+            OpenCardOlympiad(dgvOlymps.SelectedCells[0].RowIndex);
+        }
+        private void btnDeleteOlympiad_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void dgvOlymps_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex > 0)
+                OpenCardOlympiad(e.RowIndex);
+        }
+        private void OpenCardOlympiad(int? rowIndex)
+        {
+            if (!GuidId.HasValue)
+                return;
+
+            CardOlympResultToMaxMark crd;
+            if (!rowIndex.HasValue)
+            {
+                crd = new CardOlympResultToMaxMark(null, GuidId.Value);
+            }
+            else
+            {
+                string sId = dgvOlymps["Id", rowIndex.Value].Value.ToString();
+                crd = new CardOlympResultToMaxMark(sId, GuidId.Value);
+            }
+
+            crd.ToUpdateList += UpdateGridOlymps;
+            crd.Show();
         }
     }
 }

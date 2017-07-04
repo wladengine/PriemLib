@@ -194,6 +194,7 @@ namespace PriemLib
         public virtual DbSet<qAbitAll> qAbitAll { get; set; }
         public virtual DbSet<qAbiturient> qAbiturient { get; set; }
         public virtual DbSet<qEntry> qEntry { get; set; }
+        public virtual DbSet<OlympResultToMaxMark> OlympResultToMaxMark { get; set; }
     
         public virtual int RoleMember(string roleName, ObjectParameter result)
         {
@@ -1346,7 +1347,7 @@ namespace PriemLib
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ProtocolHistory_Insert", abiturientIdParameter, protocolIdParameter, excludedParameter, excludeProtocolIdParameter, entryHeaderIdParameter, id);
         }
     
-        public virtual int Olympiads_Insert(Nullable<int> olympTypeId, Nullable<int> olympNameId, Nullable<int> olympProfileId, Nullable<int> olympSubjectId, Nullable<int> olympLevelId, Nullable<int> olympValueId, Nullable<int> olympYear, Nullable<bool> originDoc, Nullable<System.Guid> personId, string documentSeries, string documentNumber, Nullable<System.DateTime> documentDate, ObjectParameter id)
+        public virtual int Olympiads_Insert(Nullable<int> olympTypeId, Nullable<int> olympNameId, Nullable<int> olympProfileId, Nullable<int> olympSubjectId, Nullable<int> olympLevelId, Nullable<int> olympValueId, Nullable<int> olympYear, Nullable<bool> originDoc, Nullable<System.Guid> personId, string documentSeries, string documentNumber, Nullable<System.DateTime> documentDate, Nullable<System.Guid> olympBookId, ObjectParameter id)
         {
             var olympTypeIdParameter = olympTypeId.HasValue ?
                 new ObjectParameter("OlympTypeId", olympTypeId) :
@@ -1396,10 +1397,14 @@ namespace PriemLib
                 new ObjectParameter("DocumentDate", documentDate) :
                 new ObjectParameter("DocumentDate", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Olympiads_Insert", olympTypeIdParameter, olympNameIdParameter, olympProfileIdParameter, olympSubjectIdParameter, olympLevelIdParameter, olympValueIdParameter, olympYearParameter, originDocParameter, personIdParameter, documentSeriesParameter, documentNumberParameter, documentDateParameter, id);
+            var olympBookIdParameter = olympBookId.HasValue ?
+                new ObjectParameter("OlympBookId", olympBookId) :
+                new ObjectParameter("OlympBookId", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Olympiads_Insert", olympTypeIdParameter, olympNameIdParameter, olympProfileIdParameter, olympSubjectIdParameter, olympLevelIdParameter, olympValueIdParameter, olympYearParameter, originDocParameter, personIdParameter, documentSeriesParameter, documentNumberParameter, documentDateParameter, olympBookIdParameter, id);
         }
     
-        public virtual int Olympiads_Update(Nullable<int> olympTypeId, Nullable<int> olympNameId, Nullable<int> olympProfileId, Nullable<int> olympSubjectId, Nullable<int> olympLevelId, Nullable<int> olympValueId, Nullable<int> olympYear, Nullable<bool> originDoc, string documentSeries, string documentNumber, Nullable<System.DateTime> documentDate, Nullable<System.Guid> id)
+        public virtual int Olympiads_Update(Nullable<int> olympTypeId, Nullable<int> olympNameId, Nullable<int> olympProfileId, Nullable<int> olympSubjectId, Nullable<int> olympLevelId, Nullable<int> olympValueId, Nullable<int> olympYear, Nullable<bool> originDoc, string documentSeries, string documentNumber, Nullable<System.DateTime> documentDate, Nullable<System.Guid> olympBookId, Nullable<System.Guid> id)
         {
             var olympTypeIdParameter = olympTypeId.HasValue ?
                 new ObjectParameter("OlympTypeId", olympTypeId) :
@@ -1445,11 +1450,15 @@ namespace PriemLib
                 new ObjectParameter("DocumentDate", documentDate) :
                 new ObjectParameter("DocumentDate", typeof(System.DateTime));
     
+            var olympBookIdParameter = olympBookId.HasValue ?
+                new ObjectParameter("OlympBookId", olympBookId) :
+                new ObjectParameter("OlympBookId", typeof(System.Guid));
+    
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(System.Guid));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Olympiads_Update", olympTypeIdParameter, olympNameIdParameter, olympProfileIdParameter, olympSubjectIdParameter, olympLevelIdParameter, olympValueIdParameter, olympYearParameter, originDocParameter, documentSeriesParameter, documentNumberParameter, documentDateParameter, idParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Olympiads_Update", olympTypeIdParameter, olympNameIdParameter, olympProfileIdParameter, olympSubjectIdParameter, olympLevelIdParameter, olympValueIdParameter, olympYearParameter, originDocParameter, documentSeriesParameter, documentNumberParameter, documentDateParameter, olympBookIdParameter, idParameter);
         }
     
         public virtual int OlympBook_Delete(Nullable<System.Guid> id)

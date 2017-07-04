@@ -66,12 +66,11 @@ namespace PriemLib
 
         protected override void InitHandlers()
         {
-            cbOlympType.SelectedIndexChanged += new EventHandler(cbOlympType_SelectedIndexChanged);
+            cbOlympType.SelectedIndexChanged += cbOlympType_SelectedIndexChanged;
             cbOlympYear.SelectedIndexChanged += cbOlympYear_SelectedIndexChanged;
-            cbOlympName.SelectedIndexChanged += new EventHandler(cbOlympName_SelectedIndexChanged);
-            cbOlympProfile.SelectedIndexChanged += new EventHandler(cbOlympProfile_SelectedIndexChanged);
-            cbOlympSubject.SelectedIndexChanged += new EventHandler(cbOlympSubject_SelectedIndexChanged);
-            
+            cbOlympName.SelectedIndexChanged += cbOlympName_SelectedIndexChanged;
+            cbOlympProfile.SelectedIndexChanged += cbOlympProfile_SelectedIndexChanged;
+            cbOlympSubject.SelectedIndexChanged += cbOlympSubject_SelectedIndexChanged;
         }
 
         void cbOlympYear_SelectedIndexChanged(object sender, EventArgs e)
@@ -326,11 +325,13 @@ namespace PriemLib
 
         protected override void InsertRec(PriemEntities context, ObjectParameter idParam)
         {
-            context.Olympiads_Insert(OlympTypeId, OlympNameId, OlympProfileId, OlympSubjectId, OlympLevelId, OlympValueId, OlympYear, OriginDoc, _personId, DocumentSeries, DocumentNumber, DocumentDate, idParam);
+            Guid OlympBookId = OlympProvider.GetOlympBookId(OlympYear.Value, OlympTypeId.Value, OlympNameId.Value, OlympProfileId.Value, OlympSubjectId.Value);
+            context.Olympiads_Insert(OlympTypeId, OlympNameId, OlympProfileId, OlympSubjectId, OlympLevelId, OlympValueId, OlympYear, OriginDoc, _personId, DocumentSeries, DocumentNumber, DocumentDate, OlympBookId, idParam);
         }
         protected override void UpdateRec(PriemEntities context, Guid id)
         {
-            context.Olympiads_Update(OlympTypeId, OlympNameId, OlympProfileId, OlympSubjectId, OlympLevelId, OlympValueId, OlympYear, OriginDoc, DocumentSeries, DocumentNumber, DocumentDate, id);
+            Guid OlympBookId = OlympProvider.GetOlympBookId(OlympYear.Value, OlympTypeId.Value, OlympNameId.Value, OlympProfileId.Value, OlympSubjectId.Value);
+            context.Olympiads_Update(OlympTypeId, OlympNameId, OlympProfileId, OlympSubjectId, OlympLevelId, OlympValueId, OlympYear, OriginDoc, DocumentSeries, DocumentNumber, DocumentDate, OlympBookId, id);
         }
 
         protected override void OnSave()

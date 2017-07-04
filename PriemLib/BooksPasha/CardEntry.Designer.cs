@@ -711,6 +711,7 @@
             this.gbOlympToAddMark.TabIndex = 89;
             this.gbOlympToAddMark.TabStop = false;
             this.gbOlympToAddMark.Text = "Бонусные баллы за олимпиаду";
+            this.gbOlympToAddMark.Visible = false;
             // 
             // dgvOlympResultToAdditionalMark
             // 

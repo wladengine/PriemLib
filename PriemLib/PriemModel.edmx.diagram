@@ -855,6 +855,7 @@
         <edmx:AssociationConnector Association="Priem2012Model.FK_OlympResultToAdditionalMark_Entry" />
         <edmx:AssociationConnector Association="Priem2012Model.FK_OlympResultToCommonBenefit_Entry" />
         <edmx:AssociationConnector Association="Priem2012Model.FK_PayDataStudyPlan_Entry" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.OlympResultToMaxMark" Width="1.5" PointX="4.75" PointY="11.75" />
         </edmx:Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

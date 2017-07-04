@@ -446,14 +446,23 @@ namespace PriemLib
         private string GetQuery()
         {
             
-            string sQuery = @"SELECT extOlympiads.Id AS OlympiadId, qAbiturient.Id as Id, qAbiturient.RegNum as Рег_Номер, extPersonTable.FIO as ФИО, 
-                        Competition.Name as Тип_конкурса, OlympTypeName as Вид, OlympName AS Название, OlympLevelName AS Уровень, OlympSubjectName as Предмет,
-                        OlympValueName as Степень, ed.extExamInEntry.Id AS ExamInEntryId 
-                        FROM ed.qAbiturient 
-                        LEFT JOIN ed.extPerson as extPersonTable ON qAbiturient.PersonId = extPersonTable.Id 
-                        INNER JOIN ed.extOlympiads ON extOlympiads.PersonId = qAbiturient.PersonId
-                        LEFT JOIN ed.Competition ON Competition.Id = qAbiturient.CompetitionId 
-                        INNER JOIN ed.extExamInEntry ON qAbiturient.EntryId = extExamInEntry.EntryId ";
+            string sQuery = @"
+    SELECT extOlympiads.Id AS OlympiadId, 
+    qAbiturient.Id as Id, 
+    qAbiturient.RegNum as Рег_Номер, 
+    extPersonTable.FIO as ФИО, 
+    Competition.Name as Тип_конкурса, 
+    OlympTypeName as Вид, 
+    OlympName AS Название, 
+    OlympLevelName AS Уровень, 
+    OlympSubjectName as Предмет,
+    OlympValueName as Степень, 
+    extExamInEntry.Id AS ExamInEntryId 
+    FROM ed.qAbiturient 
+    LEFT JOIN ed.extPerson as extPersonTable ON qAbiturient.PersonId = extPersonTable.Id 
+    INNER JOIN ed.extOlympiads ON extOlympiads.PersonId = qAbiturient.PersonId
+    LEFT JOIN ed.Competition ON Competition.Id = qAbiturient.CompetitionId 
+    INNER JOIN ed.extExamInEntry ON qAbiturient.EntryId = extExamInEntry.EntryId ";
 
             sQuery += " WHERE qAbiturient.BackDoc = 0 " + GetFilters();
             sQuery += string.Format(" AND extExamInEntry.ExamId = {0}", ExamId);
@@ -470,23 +479,23 @@ AND NOT EXISTS
 
             //обработали вид            
             if (OlympTypeId != null)
-                sOl += " AND ed.extOlympiads.OlympTypeId = " + OlympTypeId;
+                sOl += " AND extOlympiads.OlympTypeId = " + OlympTypeId;
 
             //обработали уровень            
             if (OlympLevelId != null)
-                sOl += " AND ed.extOlympiads.OlympLevelId = " + OlympLevelId;
+                sOl += " AND extOlympiads.OlympLevelId = " + OlympLevelId;
 
             //обработали предмет            
             if (OlympSubjectId != null)
-                sOl += " AND ed.extOlympiads.OlympSubjectId = " + OlympSubjectId;
+                sOl += " AND extOlympiads.OlympSubjectId = " + OlympSubjectId;
 
             //обработали значение            
             if (OlympValueId != null)
-                sOl += " AND ed.extOlympiads.OlympValueId  = " + OlympValueId;
+                sOl += " AND extOlympiads.OlympValueId  = " + OlympValueId;
 
             //обработали название            
             if (OlympNameId != null)
-                sOl += " AND ed.extOlympiads.OlympNameId  = " + OlympNameId;
+                sOl += " AND extOlympiads.OlympNameId  = " + OlympNameId;
 
             sQuery += sOl;
 
@@ -601,6 +610,7 @@ AND NOT EXISTS
             using (PriemEntities context = new PriemEntities())
             {
                 Guid EntryId = context.Abiturient.Where(x => x.Id == AbiturientId).Select(x => x.EntryId).DefaultIfEmpty(Guid.Empty).First();
+                Guid ExamInEntryBlockId = context.extExamInEntry.Where(x => x.ExamId == ExamId && x.EntryId == EntryId).Select(x => x.ExamInEntryBlockId).DefaultIfEmpty(Guid.Empty).First();
                 var Ol = context.Olympiads.Where(x => x.Id == OlympiadId).FirstOrDefault();
                 if (Ol == null)
                 {
@@ -615,50 +625,46 @@ AND NOT EXISTS
                         return false;
                     }
 
-                    List<int?> lstEx = context.OlympSubjectToExam.Where(x => x.OlympSubjectId == Ol.OlympSubjectId).Select(x => (int?)x.ExamId).ToList();
-                    if (!lstEx.Contains(ExamId))
-                    {
-                        WinFormsServ.Error("Не найдено соответствия предмета олимпиады и перезачитываемого предмета!");
-                        return false;
-                    }
+                    var lstBenefits =
+                        (from OlRes in context.OlympResultToMaxMark
+                         where OlRes.ExamInEntryBlockId == ExamInEntryBlockId 
+                            && OlRes.OlympBookId == Ol.OlympBookId && OlRes.OlympValueId == Ol.OlympValueId
+                         select new
+                         {
+                             ExamId = (int?)OlRes.EgeExamId,
+                             OlRes.MinEge
+                         }).ToList();
 
-                    bool bNoExamId = lstEx.Where(x => x != 0).Count() == 0;
-                    var lstBenefits = context.OlympResultToAdditionalMark
-                        .Where(x => x.EntryId == EntryId
-                            && x.AdditionalMark == 100
-                            && (bNoExamId ? true : (lstEx.Contains(x.ExamId) || x.ExamId == null))
-                            && (x.OlympLevelId == Ol.OlympLevelId || Ol.OlympLevelId == 0)
-                            && (x.OlympSubjectId == null ? true : x.OlympSubjectId == Ol.OlympSubjectId)
-                            && (x.OlympProfileId == null ? true : x.OlympProfileId == Ol.OlympProfileId)
-                            && x.OlympValueId == Ol.OlympValueId).ToList();
                     int iCntBenefits = lstBenefits.Count();
                     if (iCntBenefits == 0)
                     {
-                        WinFormsServ.Error("Не найдено льготы для данной олимпиады в указанном конкурсе!");
+                        WinFormsServ.Error("Не найдено льготы по выбранному предмету для данной олимпиады в указанном конкурсе!");
                         return false;
                     }
                     else if (Ol.OlympTypeId > 2)
                     {
-                        if (bNoExamId)
-                            lstEx = lstBenefits.Where(x => x.ExamId.HasValue).Select(x => x.ExamId).ToList();
-
-                        bNoExamId = lstEx.Where(x => x != 0).Count() == 0;
-                        if (bNoExamId)
-                        {
-                            WinFormsServ.Error("Не удаётся найти в базе предмета ЕГЭ для указания льготы!");
-                            return false;
-                        }
-
-                        decimal egeMin = lstBenefits.First().MinEge;
+                        var lstEx = lstBenefits.Select(x => x.ExamId).Distinct().ToList();
 
                         //проверяем мин. баллы
-                        var balls = 
+                        var balls =
                             (from ege in context.extEgeMarkMaxAbitApproved
                              join eee in context.EgeToExam on ege.EgeExamNameId equals eee.EgeExamNameId
-                             where ege.AbiturientId == AbiturientId && lstEx.Contains(eee.ExamId) && ege.Value >= egeMin
-                             select ege.EgeMarkId);
+                             where ege.AbiturientId == AbiturientId && lstEx.Contains(eee.ExamId) //&& ege.Value >= egeMin
+                             select new
+                             {
+                                 eee.ExamId,
+                                 ege.Value
+                             });
 
-                        if (balls.Count() == 0)
+                        bool bHasPassEge = false;
+                        foreach (var b in balls)
+                        {
+                            decimal egeMin = lstBenefits.Where(x => x.ExamId == b.ExamId).Select(x => x.MinEge).First();
+                            if (egeMin < b.Value)
+                                bHasPassEge = true;
+                        }
+
+                        if (!bHasPassEge)
                         {
                             WinFormsServ.Error("Не найдено подтверждающих баллов для льготы!");
                             return false;

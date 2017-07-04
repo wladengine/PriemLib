@@ -32,5 +32,10 @@ namespace PriemLib
         public string OlympValueAcr { get; set; }
         public Nullable<int> OlympProfileId { get; set; }
         public string OlympProfileName { get; set; }
+        public Nullable<System.Guid> OlympBookId { get; set; }
+        public string DocumentSeries { get; set; }
+        public string DocumentNumber { get; set; }
+        public Nullable<System.DateTime> DocumentDate { get; set; }
+        public int OlympYear { get; set; }
     }
 }

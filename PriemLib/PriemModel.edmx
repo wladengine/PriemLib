@@ -696,6 +696,7 @@
           <Property Name="Holder" Type="nvarchar" MaxLength="50" />
           <Property Name="Author" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="OlympBookId" Type="uniqueidentifier" />
         </EntityType>
         <EntityType Name="OlympLevel">
           <Key>
@@ -756,6 +757,19 @@
           <Property Name="OlympProfileId" Type="int" />
           <Property Name="OlympSubjectId" Type="int" />
           <Property Name="MinEge" Type="decimal" Precision="3" Scale="1" />
+          <Property Name="IsOpen" Type="bit" Nullable="false" />
+          <Property Name="Holder" Type="nvarchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="OlympResultToMaxMark">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ExamInEntryBlockId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OlympBookId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OlympValueId" Type="int" Nullable="false" />
+          <Property Name="EgeExamId" Type="int" Nullable="false" />
+          <Property Name="MinEge" Type="decimal" Precision="3" Scale="1" Nullable="false" />
           <Property Name="IsOpen" Type="bit" Nullable="false" />
           <Property Name="Holder" Type="nvarchar" MaxLength="150" />
         </EntityType>
@@ -2357,6 +2371,7 @@
             
             
             <PropertyRef Name="OriginDoc" />
+            <PropertyRef Name="OlympYear" />
             <PropertyRef Name="OlympLevelName" />
             <PropertyRef Name="OlympValueName" />
             <PropertyRef Name="OlympName" />
@@ -2381,6 +2396,11 @@
           <Property Name="OlympValueAcr" Type="nvarchar" MaxLength="50" />
           <Property Name="OlympProfileId" Type="int" />
           <Property Name="OlympProfileName" Type="nvarchar" MaxLength="250" />
+          <Property Name="OlympBookId" Type="uniqueidentifier" />
+          <Property Name="DocumentSeries" Type="nvarchar" MaxLength="50" />
+          <Property Name="DocumentNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="DocumentDate" Type="date" />
+          <Property Name="OlympYear" Type="int" Nullable="false" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
 предупреждение 6002: В таблице или представлении "Priem2017.ed.extOlympiadsAll" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
@@ -4301,66 +4321,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_OlympResultToAdditionalMark_Entry">
-          <End Role="Entry" Type="Self.Entry" Multiplicity="1" />
-          <End Role="OlympResultToAdditionalMark" Type="Self.OlympResultToAdditionalMark" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Entry">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OlympResultToAdditionalMark">
-              <PropertyRef Name="EntryId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OlympResultToAdditionalMark_Exam">
-          <End Role="Exam" Type="Self.Exam" Multiplicity="0..1" />
-          <End Role="OlympResultToAdditionalMark" Type="Self.OlympResultToAdditionalMark" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Exam">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OlympResultToAdditionalMark">
-              <PropertyRef Name="ExamId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OlympResultToAdditionalMark_OlympLevel">
-          <End Role="OlympLevel" Type="Self.OlympLevel" Multiplicity="1" />
-          <End Role="OlympResultToAdditionalMark" Type="Self.OlympResultToAdditionalMark" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OlympLevel">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OlympResultToAdditionalMark">
-              <PropertyRef Name="OlympLevelId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OlympResultToAdditionalMark_OlympType">
-          <End Role="OlympType" Type="Self.OlympType" Multiplicity="0..1" />
-          <End Role="OlympResultToAdditionalMark" Type="Self.OlympResultToAdditionalMark" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OlympType">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OlympResultToAdditionalMark">
-              <PropertyRef Name="OlympTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OlympResultToAdditionalMark_OlympValue">
-          <End Role="OlympValue" Type="Self.OlympValue" Multiplicity="1" />
-          <End Role="OlympResultToAdditionalMark" Type="Self.OlympResultToAdditionalMark" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OlympValue">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OlympResultToAdditionalMark">
-              <PropertyRef Name="OlympValueId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_OlympResultToCommonBenefit_Entry">
           <End Role="Entry" Type="Self.Entry" Multiplicity="1" />
           <End Role="OlympResultToCommonBenefit" Type="Self.OlympResultToCommonBenefit" Multiplicity="*" />
@@ -5718,6 +5678,7 @@
           <Parameter Name="DocumentSeries" Type="nvarchar" Mode="In" />
           <Parameter Name="DocumentNumber" Type="nvarchar" Mode="In" />
           <Parameter Name="DocumentDate" Type="date" Mode="In" />
+          <Parameter Name="OlympBookId" Type="uniqueidentifier" Mode="In" />
           <Parameter Name="id" Type="uniqueidentifier" Mode="InOut" />
         </Function>
         <Function Name="Olympiads_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ed">
@@ -5732,6 +5693,7 @@
           <Parameter Name="DocumentSeries" Type="nvarchar" Mode="In" />
           <Parameter Name="DocumentNumber" Type="nvarchar" Mode="In" />
           <Parameter Name="DocumentDate" Type="date" Mode="In" />
+          <Parameter Name="OlympBookId" Type="uniqueidentifier" Mode="In" />
           <Parameter Name="id" Type="uniqueidentifier" Mode="In" />
         </Function>
         <Function Name="OlympName_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ed">
@@ -6442,6 +6404,7 @@
           <EntitySet Name="OlympProfile" EntityType="Self.OlympProfile" Schema="ed" store:Type="Tables" />
           <EntitySet Name="OlympResultToAdditionalMark" EntityType="Self.OlympResultToAdditionalMark" Schema="ed" store:Type="Tables" />
           <EntitySet Name="OlympResultToCommonBenefit" EntityType="Self.OlympResultToCommonBenefit" Schema="ed" store:Type="Tables" />
+          <EntitySet Name="OlympResultToMaxMark" EntityType="Self.OlympResultToMaxMark" Schema="ed" store:Type="Tables" />
           <EntitySet Name="OlympSubject" EntityType="Self.OlympSubject" Schema="ed" store:Type="Tables" />
           <EntitySet Name="OlympSubjectToExam" EntityType="Self.OlympSubjectToExam" Schema="ed" store:Type="Tables" />
           <EntitySet Name="OlympType" EntityType="Self.OlympType" Schema="ed" store:Type="Tables" />
@@ -7145,7 +7108,12 @@
     [extOlympiads].[SortOrder] AS [SortOrder], 
     [extOlympiads].[OlympValueAcr] AS [OlympValueAcr], 
     [extOlympiads].[OlympProfileId] AS [OlympProfileId], 
-    [extOlympiads].[OlympProfileName] AS [OlympProfileName]
+    [extOlympiads].[OlympProfileName] AS [OlympProfileName], 
+    [extOlympiads].[OlympBookId] AS [OlympBookId], 
+    [extOlympiads].[DocumentSeries] AS [DocumentSeries], 
+    [extOlympiads].[DocumentNumber] AS [DocumentNumber], 
+    [extOlympiads].[DocumentDate] AS [DocumentDate], 
+    [extOlympiads].[OlympYear] AS [OlympYear]
     FROM [ed].[extOlympiads] AS [extOlympiads]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="extOlympiadsAll" EntityType="Self.extOlympiadsAll" store:Type="Views" store:Schema="ed">
@@ -8180,26 +8148,6 @@
             <End Role="OlympValue" EntitySet="OlympValue" />
             <End Role="Olympiads" EntitySet="Olympiads" />
           </AssociationSet>
-          <AssociationSet Name="FK_OlympResultToAdditionalMark_Entry" Association="Self.FK_OlympResultToAdditionalMark_Entry">
-            <End Role="Entry" EntitySet="Entry" />
-            <End Role="OlympResultToAdditionalMark" EntitySet="OlympResultToAdditionalMark" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OlympResultToAdditionalMark_Exam" Association="Self.FK_OlympResultToAdditionalMark_Exam">
-            <End Role="Exam" EntitySet="Exam" />
-            <End Role="OlympResultToAdditionalMark" EntitySet="OlympResultToAdditionalMark" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OlympResultToAdditionalMark_OlympLevel" Association="Self.FK_OlympResultToAdditionalMark_OlympLevel">
-            <End Role="OlympLevel" EntitySet="OlympLevel" />
-            <End Role="OlympResultToAdditionalMark" EntitySet="OlympResultToAdditionalMark" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OlympResultToAdditionalMark_OlympType" Association="Self.FK_OlympResultToAdditionalMark_OlympType">
-            <End Role="OlympType" EntitySet="OlympType" />
-            <End Role="OlympResultToAdditionalMark" EntitySet="OlympResultToAdditionalMark" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OlympResultToAdditionalMark_OlympValue" Association="Self.FK_OlympResultToAdditionalMark_OlympValue">
-            <End Role="OlympValue" EntitySet="OlympValue" />
-            <End Role="OlympResultToAdditionalMark" EntitySet="OlympResultToAdditionalMark" />
-          </AssociationSet>
           <AssociationSet Name="FK_OlympResultToCommonBenefit_Entry" Association="Self.FK_OlympResultToCommonBenefit_Entry">
             <End Role="Entry" EntitySet="Entry" />
             <End Role="OlympResultToCommonBenefit" EntitySet="OlympResultToCommonBenefit" />
@@ -8850,6 +8798,7 @@
             <Parameter Name="DocumentSeries" Mode="In" Type="String" />
             <Parameter Name="DocumentNumber" Mode="In" Type="String" />
             <Parameter Name="DocumentDate" Mode="In" Type="DateTime" />
+            <Parameter Name="OlympBookId" Mode="In" Type="Guid" />
             <Parameter Name="id" Mode="InOut" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="Olympiads_Update">
@@ -8864,6 +8813,7 @@
             <Parameter Name="DocumentSeries" Mode="In" Type="String" />
             <Parameter Name="DocumentNumber" Mode="In" Type="String" />
             <Parameter Name="DocumentDate" Mode="In" Type="DateTime" />
+            <Parameter Name="OlympBookId" Mode="In" Type="Guid" />
             <Parameter Name="id" Mode="In" Type="Guid" />
           </FunctionImport>
           <EntitySet Name="OlympBook" EntityType="Priem2012Model.OlympBook" />
@@ -10424,6 +10374,7 @@
             <End Role="Entry" EntitySet="Entry" />
             <End Role="PayDataEntry" EntitySet="PayDataEntry" />
           </AssociationSet>
+          <EntitySet Name="OlympResultToMaxMark" EntityType="Priem2012Model.OlympResultToMaxMark" />
           </EntityContainer>
         <EntityType Name="AttMarks">
           <Key>
@@ -11116,6 +11067,7 @@
           <NavigationProperty Name="Abiturient1" Relationship="Priem2012Model.FK_Abiturient_Olympiads" FromRole="Olympiads" ToRole="Abiturient" />
           <Property Name="PersonId" Type="Guid" Nullable="false" />
           <NavigationProperty Name="Mark" Relationship="Priem2012Model.FK_Mark_Olympiads" FromRole="Olympiads" ToRole="Mark" />
+          <Property Name="OlympBookId" Type="Guid" />
         </EntityType>
         <Association Name="fk_Olympiads_OlympLevel">
           <End Type="Priem2012Model.OlympLevel" Role="OlympLevel" Multiplicity="0..1" />
@@ -11193,6 +11145,7 @@
             <PropertyRef Name="OlympSubjectName" />
             <PropertyRef Name="OlympTypeName" />
             <PropertyRef Name="OriginDoc" />
+            <PropertyRef Name="OlympYear" />
           </Key>
           <Property Type="Guid" Name="Id" Nullable="false" />
           <Property Type="Int32" Name="OlympTypeId" Nullable="false" />
@@ -11212,6 +11165,11 @@
           <Property Type="String" Name="OlympValueAcr" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="OlympProfileId" Type="Int32" />
           <Property Name="OlympProfileName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="OlympBookId" Type="Guid" />
+          <Property Name="DocumentSeries" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DocumentNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DocumentDate" Type="DateTime" Precision="0" />
+          <Property Name="OlympYear" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="ProtocolNumbers">
           <Key>
@@ -15596,6 +15554,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="OlympResultToMaxMark">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="ExamInEntryBlockId" Type="Guid" Nullable="false" />
+          <Property Name="OlympBookId" Type="Guid" Nullable="false" />
+          <Property Name="OlympValueId" Type="Int32" Nullable="false" />
+          <Property Name="EgeExamId" Type="Int32" Nullable="false" />
+          <Property Name="MinEge" Type="Decimal" Nullable="false" Precision="3" Scale="1" />
+          <Property Name="IsOpen" Type="Boolean" Nullable="false" />
+          <Property Name="Holder" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -15991,6 +15962,7 @@
           <EntitySetMapping Name="Olympiads">
             <EntityTypeMapping TypeName="Priem2012Model.Olympiads">
               <MappingFragment StoreEntitySet="Olympiads">
+                <ScalarProperty Name="OlympBookId" ColumnName="OlympBookId" />
                 <ScalarProperty Name="PersonId" ColumnName="PersonId" />
                 <ScalarProperty Name="OlympProfileId" ColumnName="OlympProfileId" />
                 <ScalarProperty Name="OlympYear" ColumnName="OlympYear" />
@@ -16059,6 +16031,11 @@
           <EntitySetMapping Name="extOlympiads">
             <EntityTypeMapping TypeName="Priem2012Model.extOlympiads">
               <MappingFragment StoreEntitySet="extOlympiads">
+                <ScalarProperty Name="OlympYear" ColumnName="OlympYear" />
+                <ScalarProperty Name="DocumentDate" ColumnName="DocumentDate" />
+                <ScalarProperty Name="DocumentNumber" ColumnName="DocumentNumber" />
+                <ScalarProperty Name="DocumentSeries" ColumnName="DocumentSeries" />
+                <ScalarProperty Name="OlympBookId" ColumnName="OlympBookId" />
                 <ScalarProperty Name="OlympProfileName" ColumnName="OlympProfileName" />
                 <ScalarProperty Name="OlympProfileId" ColumnName="OlympProfileId" />
                 <ScalarProperty Name="OlympValueAcr" ColumnName="OlympValueAcr" />
@@ -18715,6 +18692,20 @@
                 <ScalarProperty Name="LicenseProgramName" ColumnName="LicenseProgramName" />
                 <ScalarProperty Name="LicenseProgramId" ColumnName="LicenseProgramId" />
                 <ScalarProperty Name="FacultyId" ColumnName="FacultyId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OlympResultToMaxMark">
+            <EntityTypeMapping TypeName="Priem2012Model.OlympResultToMaxMark">
+              <MappingFragment StoreEntitySet="OlympResultToMaxMark">
+                <ScalarProperty Name="Holder" ColumnName="Holder" />
+                <ScalarProperty Name="IsOpen" ColumnName="IsOpen" />
+                <ScalarProperty Name="MinEge" ColumnName="MinEge" />
+                <ScalarProperty Name="EgeExamId" ColumnName="EgeExamId" />
+                <ScalarProperty Name="OlympValueId" ColumnName="OlympValueId" />
+                <ScalarProperty Name="OlympBookId" ColumnName="OlympBookId" />
+                <ScalarProperty Name="ExamInEntryBlockId" ColumnName="ExamInEntryBlockId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
