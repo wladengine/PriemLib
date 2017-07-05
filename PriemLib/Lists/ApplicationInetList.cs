@@ -380,27 +380,22 @@ namespace PriemLib
                     }
 
                     int code;
-                    if (!int.TryParse(barcText, out code))
-                    {
-                        WinFormsServ.Error("Не распознан баркод!");
-                        return;
-                    }
+                    int.TryParse(barcText, out code);
                     if (code == 0)
                     {
                         WinFormsServ.Error("Не распознан баркод!");
                         return;
                     }
 
-                    if (code >= 100000 && code < 199999)
+                    string query = "SELECT TOP 1 StudyLevelGroupId FROM [Abiturient] WHERE ApplicationCommitNumber=@Number";
+                    int SLgrId = (int?)BdcInet.GetValue(query, new SortedList<string, object>() { { "@Number", code } }) ?? 0;
+                    if (SLgrId == 1)
                     {
                         WinFormsServ.Error("Указан баркод поступающего в бакалавриат!");
                         return;
                     }
 
-                    if (code > 99999)
-                        code = code % 100000;
-
-                    string query = "SELECT COUNT(*) FROM [Abiturient] WHERE ApplicationCommitNumber=@Number";
+                    query = "SELECT COUNT(*) FROM [Abiturient] WHERE ApplicationCommitNumber=@Number";
                     int cnt = (int)BdcInet.GetValue(query, new SortedList<string, object>() { { "@Number", code } });
 
                     if (cnt == 0)

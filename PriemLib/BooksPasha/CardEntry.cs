@@ -479,9 +479,9 @@ namespace PriemLib
 
             string query = @"INSERT INTO [_Entry] 
 (Id, StudyLevelId, LicenseProgramId, ObrazProgramId, ProfileId, StudyFormId, StudyBasisId, FacultyId, SemesterId, CampaignYear,
-DateOfStart, DateOfClose, ComissionId, IsForeign, IsCrimea) VALUES
+DateOfStart, DateOfClose, ComissionId, IsForeign) VALUES
 (@Id, @StudyLevelId, @LicenseProgramId, @ObrazProgramId, @ProfileId, @StudyFormId, @StudyBasisId, @FacultyId, @SemesterId, @CampaignYear,
-@DateOfStart, @DateOfClose, @ComissionId, @IsForeign, @IsCrimea)";
+@DateOfStart, @DateOfClose, @ComissionId, @IsForeign)";
             SortedList<string, object> sl = new SortedList<string, object>();
             sl.Add("@Id", Id);
 
@@ -559,7 +559,6 @@ SET
     CampaignYear=@CampaignYear,
     ComissionId=@ComissionId,
     IsForeign=@IsForeign,
-    IsCrimea=@IsCrimea,
     LicenseProgramId=@LicenseProgramId,
     ObrazProgramId=@ObrazProgramId,
     ProfileId=@ProfileId

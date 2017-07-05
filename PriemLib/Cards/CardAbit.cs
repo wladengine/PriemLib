@@ -1336,7 +1336,7 @@ namespace PriemLib
 
                     if (HasOriginals && _personId.HasValue)
                     {
-                        int cnt_origs = context.Abiturient.Where(x => x.PersonId == _personId.Value && x.HasOriginals == true && x.BackDoc == false).Count();
+                        int cnt_origs = context.Abiturient.Where(x => x.PersonId == _personId.Value && x.HasOriginals == true && x.BackDoc == false && x.Id != GuidId).Count();
                         if (cnt_origs > 0)
                         {
                             epError.SetError(chbHasOriginals, "!");
@@ -1631,6 +1631,11 @@ namespace PriemLib
                 clm.ColumnName = "Примечание";
                 examTable.Columns.Add(clm);
 
+                var lstExamInEntry = context.extExamInEntry
+                    .Where(x => x.EntryId == EntryId && x.ParentExamInEntryBlockId == null)
+                    .Select(x => new { x.Id, x.ExamName })
+                    .ToList();
+
                 var lstMarks =
                     (from mrk in context.Mark
                      join ex in context.extExamInEntry on mrk.ExamInEntryBlockUnitId equals ex.Id
@@ -1648,41 +1653,50 @@ namespace PriemLib
                          mrk.ExamVedId
                      });
 
-                foreach (var abMark in lstMarks)
+                foreach (var exam in lstExamInEntry)
                 {
                     DataRow newRow;
                     newRow = examTable.NewRow();
-                    newRow["Экзамен"] = abMark.ExamName;
-                    newRow["Id"] = abMark.Id;
-                    if (abMark != null && abMark.Value.ToString() != "")
-                        newRow["Оценка"] = abMark.Value.ToString();
-                    if (abMark.IsFromEge)
-                        newRow["Примечание"] = "Из ЕГЭ ";
-                    else if (abMark.IsFromOlymp)
+                    newRow["Экзамен"] = exam.ExamName;
+                    newRow["ExamInEntryId"] = exam.Id;
+
+                    var abMark = lstMarks.Where(x => x.ExamInEntryBlockUnitId == exam.Id).FirstOrDefault();
+                    if (abMark != null)
                     {
-                        string OlympName = "";
-                        if (abMark.OlympiadId.HasValue)
+                        newRow["Id"] = abMark.Id;
+                        if (abMark != null && abMark.Value.ToString() != "")
+                            newRow["Оценка"] = abMark.Value.ToString();
+                        if (abMark.IsFromEge)
+                            newRow["Примечание"] = "Из ЕГЭ ";
+                        else if (abMark.IsFromOlymp)
                         {
-                            var Olymp = context.extOlympiads.Where(x => x.Id == abMark.OlympiadId).FirstOrDefault();
-                            if (Olymp == null)
-                                OlympName = " (олимпиада не найдена!)";
+                            string OlympName = "";
+                            if (abMark.OlympiadId.HasValue)
+                            {
+                                var Olymp = context.extOlympiads.Where(x => x.Id == abMark.OlympiadId).FirstOrDefault();
+                                if (Olymp == null)
+                                    OlympName = " (олимпиада не найдена!)";
+                                else
+                                    OlympName = " (" + Olymp.OlympName + "; " + Olymp.OlympSubjectName + "; " + Olymp.OlympValueName + ";)";
+                            }
                             else
-                                OlympName = " (" + Olymp.OlympName + "; " + Olymp.OlympSubjectName + "; " + Olymp.OlympValueName + ";)";
+                                OlympName = " (олимпиада не указана!)";
+
+                            newRow["Примечание"] = "Олимпиада" + OlympName;
                         }
-                        else
-                            OlympName = " (олимпиада не указана!)";
-
-                        newRow["Примечание"] = "Олимпиада" + OlympName;
+                        else if (abMark.IsManual)
+                            newRow["Примечание"] = "Ручной ввод";
+                        else if (abMark.ExamVedId != null && MainClass.IsPasha())
+                        {
+                            string vedNum = _bdc.GetStringValue(string.Format("SELECT extExamsVed.Number FROM ed.extExamsVed WHERE Id = '{0}'", abMark.ExamVedId.ToString()));
+                            newRow["Примечание"] = "Ведомость № " + vedNum;
+                        }
                     }
-                    else if (abMark.IsManual)
-                        newRow["Примечание"] = "Ручной ввод";
-                    else if (abMark.ExamVedId != null && MainClass.IsPasha())
+                    else
                     {
-                        string vedNum = _bdc.GetStringValue(string.Format("SELECT extExamsVed.Number FROM ed.extExamsVed WHERE Id = '{0}'", abMark.ExamVedId.ToString()));
-                        newRow["Примечание"] = "Ведомость № " + vedNum;
+                        newRow["Оценка"] = "Ещё нет оценки";
                     }
 
-                    newRow["ExamInEntryId"] = abMark.ExamInEntryBlockUnitId;
                     examTable.Rows.Add(newRow);
                 }
 

@@ -234,6 +234,9 @@ namespace PriemLib
 
                     bool readOnly = !string.IsNullOrEmpty(DocumentNumber) && (olymp.Abiturient1.Count() > 0 || olymp.Mark.Count() > 0);
                     _isReadOnly = readOnly;
+                    if (MainClass.IsPasha())
+                        _isReadOnly = false;
+
                     lblReadOnly.Visible = readOnly;
                 }
             }
