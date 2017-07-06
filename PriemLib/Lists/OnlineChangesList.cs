@@ -662,7 +662,7 @@ FROM qAbiturient WHERE IsImported = 1 AND Barcode > 0 {0} ", GetFilterString("qA
                         // новые документы
                         case 4:
                             {
-                                new DocCard(persBarcode, abitBarcode, true, MainClass.dbType == PriemType.PriemForeigners).ShowDialog();
+                                new DocCard(persBarcode, abitBarcode, true, MainClass.dbType == PriemType.PriemForeigners).Show();
                                 break;
                             }
                     }

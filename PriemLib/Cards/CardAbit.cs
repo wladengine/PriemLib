@@ -452,14 +452,6 @@ namespace PriemLib
             }
         }
 
-        private string GetAbitSum(PriemEntities context)
-        {
-            if (!GuidId.HasValue)
-                return null;
-
-            return context.extAbitMarksSum.Where(x => x.Id == GuidId).Select(x => x.TotalSum).DefaultIfEmpty(0).First().ToString();
-        }
-
         // если подал подлинники на одно заявления - то писать об этом
         private void FillLockOrigin(PriemEntities context)
         {

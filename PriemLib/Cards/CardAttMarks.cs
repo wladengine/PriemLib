@@ -155,7 +155,7 @@ namespace PriemLib
                 if (filter.Length != 0)
                 {
                     filter = filter.Substring(0, filter.Length - 2);
-                    ComboServ.FillCombo(cbSubjects, HelpClass.GetComboListByQuery(string.Format("SELECT AttSubject.Name, Cast(AttSubject.Id as nvarchar(100)) AS Id FROM AttSubject WHERE AttSubject.Name NOT IN ({0})", filter)), true, false);                    
+                    ComboServ.FillCombo(cbSubjects, HelpClass.GetComboListByQuery(string.Format("SELECT AttSubject.Name, Cast(AttSubject.Id as nvarchar(100)) AS Id FROM ed.AttSubject WHERE AttSubject.Name NOT IN ({0})", filter)), true, false);                    
                 }
                 if (cbSubjects.SelectedIndex == -1)
                     btnAdd.Enabled = false;

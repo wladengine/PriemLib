@@ -61,6 +61,7 @@
           <Property Name="Checked" Type="bit" Nullable="false" />
           <Property Name="NotEnabled" Type="bit" Nullable="false" />
           <Property Name="Sum" Type="decimal" Precision="6" Scale="2" />
+          <Property Name="MarksCount" Type="int" Nullable="false" />
           <Property Name="Coefficient" Type="float" />
           <Property Name="OtherCompetitionId" Type="int" />
           <Property Name="CelCompetitionId" Type="int" />
@@ -108,6 +109,7 @@
           <Property Name="IsOpen" Type="bit" Nullable="false" />
           <Property Name="Holder" Type="nvarchar" MaxLength="150" />
           <Property Name="Mark" Type="int" />
+          <Property Name="StudyLevelGroupId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="AdmissionProtocol">
           <Key>
@@ -696,7 +698,7 @@
           <Property Name="Holder" Type="nvarchar" MaxLength="50" />
           <Property Name="Author" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="DateCreated" Type="datetime" Nullable="false" />
-          <Property Name="OlympBookId" Type="uniqueidentifier" />
+          <Property Name="OlympBookId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <EntityType Name="OlympLevel">
           <Key>
@@ -1065,6 +1067,27 @@
           <Property Name="Author" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="DateCreated" Type="datetime" Nullable="false" />
           <Property Name="SchoolExitClassId" Type="int" />
+        </EntityType>
+        <EntityType Name="Person_FetchValues">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CurrentEducationInfoId" Type="int" />
+          <Property Name="EGE_Rus" Type="int" />
+          <Property Name="EGE_Math" Type="int" />
+          <Property Name="EGE_Fiz" Type="int" />
+          <Property Name="EGE_Chem" Type="int" />
+          <Property Name="EGE_Bio" Type="int" />
+          <Property Name="EGE_Ist" Type="int" />
+          <Property Name="EGE_Geogr" Type="int" />
+          <Property Name="EGE_Eng" Type="int" />
+          <Property Name="EGE_Nem" Type="int" />
+          <Property Name="EGE_Fran" Type="int" />
+          <Property Name="EGE_Obsh" Type="int" />
+          <Property Name="EGE_Lit" Type="int" />
+          <Property Name="EGE_Esp" Type="int" />
+          <Property Name="EGE_Inform" Type="int" />
         </EntityType>
         <EntityType Name="PersonAchievement">
           <Key>
@@ -1619,34 +1642,7 @@
           <Property Name="Mark" Type="int" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Priem2017.ed.extAbitMarksSum" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
-        <EntityType Name="extAbitMarksSum">
-          <Key>
-            <PropertyRef Name="Id" />
-            <PropertyRef Name="StudyFormId" />
-            <PropertyRef Name="StudyBasisId" />
-          </Key>
-          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="StudyFormId" Type="int" Nullable="false" />
-          <Property Name="StudyBasisId" Type="int" Nullable="false" />
-          <Property Name="TotalSum" Type="decimal" Precision="38" Scale="2" />
-          <Property Name="TotalSumFiveGrade" Type="int" />
-          <Property Name="TotalCount" Type="int" />
-        </EntityType>
-        <!--Ошибки, обнаруженные при создании:
 предупреждение 6002: В таблице или представлении "Priem2017.ed.extAbitMarksSumAG" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
-        <EntityType Name="extAbitMarksSumAG">
-          <Key>
-            <PropertyRef Name="Id" />
-            <PropertyRef Name="StudyFormId" />
-            <PropertyRef Name="StudyBasisId" />
-          </Key>
-          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="StudyFormId" Type="int" Nullable="false" />
-          <Property Name="StudyBasisId" Type="int" Nullable="false" />
-          <Property Name="TotalSum" Type="decimal" Precision="38" Scale="1" />
-          <Property Name="TotalCount" Type="int" />
-        </EntityType>
         <!--Ошибки, обнаруженные при создании:
 предупреждение 6002: В таблице или представлении "Priem2017.ed.extApplicationDetails" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="extApplicationDetails">
@@ -2894,15 +2890,6 @@
           <Property Name="PersonId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="EgeExamNameId" Type="int" Nullable="false" />
           <Property Name="EgeMarkId" Type="uniqueidentifier" />
-        </EntityType>
-        <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Priem2017.ed.hlpPersonMaxEducationInfoId" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
-        <EntityType Name="hlpPersonMaxEducationInfoId">
-          <Key>
-            <PropertyRef Name="PersonId" />
-          </Key>
-          <Property Name="PersonId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="Id" Type="int" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
 предупреждение 6002: В таблице или представлении "Priem2017.ed.hlpStatistics" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
@@ -6418,6 +6405,7 @@
           <EntitySet Name="Person_AdditionalInfo" EntityType="Self.Person_AdditionalInfo" Schema="ed" store:Type="Tables" />
           <EntitySet Name="Person_Contacts" EntityType="Self.Person_Contacts" Schema="ed" store:Type="Tables" />
           <EntitySet Name="Person_EducationInfo" EntityType="Self.Person_EducationInfo" Schema="ed" store:Type="Tables" />
+          <EntitySet Name="Person_FetchValues" EntityType="Self.Person_FetchValues" Schema="ed" store:Type="Tables" />
           <EntitySet Name="PersonAchievement" EntityType="Self.PersonAchievement" Schema="ed" store:Type="Tables" />
           <EntitySet Name="PersonBenefitDocument" EntityType="Self.PersonBenefitDocument" Schema="ed" store:Type="Tables" />
           <EntitySet Name="PersonCategoryForManualExams" EntityType="Self.PersonCategoryForManualExams" Schema="ed" store:Type="Tables" />
@@ -6602,25 +6590,6 @@
     [extAbitAllAdditionalAchievements].[AchievementTypeId] AS [AchievementTypeId], 
     [extAbitAllAdditionalAchievements].[Mark] AS [Mark]
     FROM [ed].[extAbitAllAdditionalAchievements] AS [extAbitAllAdditionalAchievements]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="extAbitMarksSum" EntityType="Self.extAbitMarksSum" store:Type="Views" store:Schema="ed">
-            <DefiningQuery>SELECT 
-    [extAbitMarksSum].[Id] AS [Id], 
-    [extAbitMarksSum].[StudyFormId] AS [StudyFormId], 
-    [extAbitMarksSum].[StudyBasisId] AS [StudyBasisId], 
-    [extAbitMarksSum].[TotalSum] AS [TotalSum], 
-    [extAbitMarksSum].[TotalSumFiveGrade] AS [TotalSumFiveGrade], 
-    [extAbitMarksSum].[TotalCount] AS [TotalCount]
-    FROM [ed].[extAbitMarksSum] AS [extAbitMarksSum]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="extAbitMarksSumAG" EntityType="Self.extAbitMarksSumAG" store:Type="Views" store:Schema="ed">
-            <DefiningQuery>SELECT 
-    [extAbitMarksSumAG].[Id] AS [Id], 
-    [extAbitMarksSumAG].[StudyFormId] AS [StudyFormId], 
-    [extAbitMarksSumAG].[StudyBasisId] AS [StudyBasisId], 
-    [extAbitMarksSumAG].[TotalSum] AS [TotalSum], 
-    [extAbitMarksSumAG].[TotalCount] AS [TotalCount]
-    FROM [ed].[extAbitMarksSumAG] AS [extAbitMarksSumAG]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="extApplicationDetails" EntityType="Self.extApplicationDetails" store:Type="Views" store:Schema="ed">
             <DefiningQuery>SELECT 
@@ -7489,12 +7458,6 @@
     [hlpEgeMarkMaxApproved].[EgeExamNameId] AS [EgeExamNameId], 
     [hlpEgeMarkMaxApproved].[EgeMarkId] AS [EgeMarkId]
     FROM [ed].[hlpEgeMarkMaxApproved] AS [hlpEgeMarkMaxApproved]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="hlpPersonMaxEducationInfoId" EntityType="Self.hlpPersonMaxEducationInfoId" store:Type="Views" store:Schema="ed">
-            <DefiningQuery>SELECT 
-    [hlpPersonMaxEducationInfoId].[PersonId] AS [PersonId], 
-    [hlpPersonMaxEducationInfoId].[Id] AS [Id]
-    FROM [ed].[hlpPersonMaxEducationInfoId] AS [hlpPersonMaxEducationInfoId]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="hlpStatistics" EntityType="Self.hlpStatistics" store:Type="Views" store:Schema="ed">
             <DefiningQuery>SELECT 
@@ -9323,7 +9286,6 @@
             <Parameter Name="IsForeign" Mode="In" Type="Boolean" />
             <Parameter Name="id" Mode="InOut" Type="Guid" />
           </FunctionImport>
-          <EntitySet Name="extAbitMarksSum" EntityType="Priem2012Model.extAbitMarksSum" />
           <EntitySet Name="extProtocol" EntityType="Priem2012Model.extProtocol" />
           <EntitySet Name="extEnableProtocol" EntityType="Priem2012Model.extEnableProtocol" />
           <FunctionImport Name="Abiturient_UpdateBackDocByDisEntry">
@@ -9895,7 +9857,6 @@
             <End Role="Protocol" EntitySet="Protocol" />
           </AssociationSet>
           <EntitySet Name="extApplicationDetails" EntityType="Priem2012Model.extApplicationDetails" />
-          <EntitySet Name="hlpPersonMaxEducationInfoId" EntityType="Priem2012Model.hlpPersonMaxEducationInfoId" />
           <EntitySet Name="PersonSportQualification" EntityType="Priem2012Model.PersonSportQualification" />
           <EntitySet Name="SportQualification" EntityType="Priem2012Model.SportQualification" />
           <AssociationSet Name="FK_PersonSportQualification_SportQualification" Association="Priem2012Model.FK_PersonSportQualification_SportQualification">
@@ -10240,7 +10201,6 @@
             <End Role="Olympiads" EntitySet="Olympiads" />
             <End Role="Abiturient" EntitySet="Abiturient" />
           </AssociationSet>
-          <EntitySet Name="extAbitMarksSumAG" EntityType="Priem2012Model.extAbitMarksSumAG" />
           <EntitySet Name="hlpStatRatingList" EntityType="Priem2012Model.hlpStatRatingList" />
           <AssociationSet Name="FK_InnerEntryInEntry_EgeExamName" Association="Priem2012Model.FK_InnerEntryInEntry_EgeExamName">
             <End Role="EgeExamName" EntitySet="EgeExamName" />
@@ -10375,6 +10335,7 @@
             <End Role="PayDataEntry" EntitySet="PayDataEntry" />
           </AssociationSet>
           <EntitySet Name="OlympResultToMaxMark" EntityType="Priem2012Model.OlympResultToMaxMark" />
+          <EntitySet Name="Person_FetchValues" EntityType="Priem2012Model.Person_FetchValues" />
           </EntityContainer>
         <EntityType Name="AttMarks">
           <Key>
@@ -11067,7 +11028,7 @@
           <NavigationProperty Name="Abiturient1" Relationship="Priem2012Model.FK_Abiturient_Olympiads" FromRole="Olympiads" ToRole="Abiturient" />
           <Property Name="PersonId" Type="Guid" Nullable="false" />
           <NavigationProperty Name="Mark" Relationship="Priem2012Model.FK_Mark_Olympiads" FromRole="Olympiads" ToRole="Mark" />
-          <Property Name="OlympBookId" Type="Guid" />
+          <Property Name="OlympBookId" Type="Guid" Nullable="false" />
         </EntityType>
         <Association Name="fk_Olympiads_OlympLevel">
           <End Type="Priem2012Model.OlympLevel" Role="OlympLevel" Multiplicity="0..1" />
@@ -11311,6 +11272,7 @@
           <Property Name="DateDisableEntryConfirm" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Mark" Relationship="Priem2012Model.FK_Mark_Abiturient" FromRole="Abiturient" ToRole="Mark" />
           <NavigationProperty Name="Entry" Relationship="Priem2012Model.FK_Abiturient_Entry" FromRole="Abiturient" ToRole="Entry" />
+          <Property Name="MarksCount" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Protocol">
           <Key>
@@ -11751,19 +11713,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="extAbitMarksSum">
-          <Key>
-            <PropertyRef Name="Id" />
-            <PropertyRef Name="StudyFormId" />
-            <PropertyRef Name="StudyBasisId" />
-          </Key>
-          <Property Type="Guid" Name="Id" Nullable="false" />
-          <Property Type="Decimal" Name="TotalSum" Precision="38" Scale="2" />
-          <Property Type="Int32" Name="TotalCount" />
-          <Property Type="Int32" Name="StudyFormId" Nullable="false" />
-          <Property Type="Int32" Name="StudyBasisId" Nullable="false" />
-          <Property Type="Int32" Name="TotalSumFiveGrade" />
-        </EntityType>
         <EntityType Name="extProtocol">
           <Key>
             <PropertyRef Name="Id" />
@@ -13253,13 +13202,6 @@
           <Property Type="Int32" Name="ProfileId" Nullable="false" />
           <Property Type="String" Name="ProfileName" MaxLength="1000" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="hlpPersonMaxEducationInfoId">
-          <Key>
-            <PropertyRef Name="PersonId" />
-          </Key>
-          <Property Type="Guid" Name="PersonId" Nullable="false" />
-          <Property Type="Int32" Name="Id" />
-        </EntityType>
         <EntityType Name="PersonSportQualification">
           <Key>
             <PropertyRef Name="PersonId" />
@@ -13407,6 +13349,7 @@
           <Property Type="String" Name="Holder" MaxLength="150" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="PersonAchievement" Relationship="Priem2012Model.FK_PersonAchievement_AchievementType" FromRole="AchievementType" ToRole="PersonAchievement" />
           <Property Name="Mark" Type="Int32" />
+          <Property Name="StudyLevelGroupId" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="PersonAchievement">
           <Key>
@@ -14354,18 +14297,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="extAbitMarksSumAG">
-          <Key>
-            <PropertyRef Name="Id" />
-            <PropertyRef Name="StudyFormId" />
-            <PropertyRef Name="StudyBasisId" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="StudyFormId" Type="Int32" Nullable="false" />
-          <Property Name="StudyBasisId" Type="Int32" Nullable="false" />
-          <Property Name="TotalSum" Type="Decimal" Precision="38" Scale="1" />
-          <Property Name="TotalCount" Type="Int32" />
-        </EntityType>
         <EntityType Name="hlpStatRatingList">
           <Key>
             <PropertyRef Name="AbiturientId" />
@@ -15567,6 +15498,27 @@
           <Property Name="IsOpen" Type="Boolean" Nullable="false" />
           <Property Name="Holder" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="Person_FetchValues">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="CurrentEducationInfoId" Type="Int32" />
+          <Property Name="EGE_Rus" Type="Int32" />
+          <Property Name="EGE_Math" Type="Int32" />
+          <Property Name="EGE_Fiz" Type="Int32" />
+          <Property Name="EGE_Chem" Type="Int32" />
+          <Property Name="EGE_Bio" Type="Int32" />
+          <Property Name="EGE_Ist" Type="Int32" />
+          <Property Name="EGE_Geogr" Type="Int32" />
+          <Property Name="EGE_Eng" Type="Int32" />
+          <Property Name="EGE_Nem" Type="Int32" />
+          <Property Name="EGE_Fran" Type="Int32" />
+          <Property Name="EGE_Obsh" Type="Int32" />
+          <Property Name="EGE_Lit" Type="Int32" />
+          <Property Name="EGE_Esp" Type="Int32" />
+          <Property Name="EGE_Inform" Type="Int32" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -16166,6 +16118,7 @@
           <EntitySetMapping Name="Abiturient">
             <EntityTypeMapping TypeName="Priem2012Model.Abiturient">
               <MappingFragment StoreEntitySet="Abiturient">
+                <ScalarProperty Name="MarksCount" ColumnName="MarksCount" />
                 <ScalarProperty Name="DateDisableEntryConfirm" ColumnName="DateDisableEntryConfirm" />
                 <ScalarProperty Name="HasDisabledEntryConfirm" ColumnName="HasDisabledEntryConfirm" />
                 <ScalarProperty Name="DateEntryConfirm" ColumnName="DateEntryConfirm" />
@@ -16450,18 +16403,6 @@
           <FunctionImportMapping FunctionImportName="FirstWaveGreen_INSERT" FunctionName="Priem2012Model.Store.FirstWaveGreen_INSERT" />
           <FunctionImportMapping FunctionImportName="FirstWaveGreen_DeleteByAbId" FunctionName="Priem2012Model.Store.FirstWaveGreen_DeleteByAbId" />
           <FunctionImportMapping FunctionImportName="Protocol_InsertAll" FunctionName="Priem2012Model.Store.Protocol_InsertAll" />
-          <EntitySetMapping Name="extAbitMarksSum">
-            <EntityTypeMapping TypeName="Priem2012Model.extAbitMarksSum">
-              <MappingFragment StoreEntitySet="extAbitMarksSum">
-                <ScalarProperty Name="TotalSumFiveGrade" ColumnName="TotalSumFiveGrade" />
-                <ScalarProperty Name="StudyBasisId" ColumnName="StudyBasisId" />
-                <ScalarProperty Name="StudyFormId" ColumnName="StudyFormId" />
-                <ScalarProperty Name="TotalCount" ColumnName="TotalCount" />
-                <ScalarProperty Name="TotalSum" ColumnName="TotalSum" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="extProtocol">
             <EntityTypeMapping TypeName="Priem2012Model.extProtocol">
               <MappingFragment StoreEntitySet="extProtocol">
@@ -17448,14 +17389,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="hlpPersonMaxEducationInfoId">
-            <EntityTypeMapping TypeName="Priem2012Model.hlpPersonMaxEducationInfoId">
-              <MappingFragment StoreEntitySet="hlpPersonMaxEducationInfoId">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="PersonSportQualification">
             <EntityTypeMapping TypeName="Priem2012Model.PersonSportQualification">
               <MappingFragment StoreEntitySet="PersonSportQualification">
@@ -17566,6 +17499,7 @@
           <EntitySetMapping Name="AchievementType">
             <EntityTypeMapping TypeName="Priem2012Model.AchievementType">
               <MappingFragment StoreEntitySet="AchievementType">
+                <ScalarProperty Name="StudyLevelGroupId" ColumnName="StudyLevelGroupId" />
                 <ScalarProperty Name="Mark" ColumnName="Mark" />
                 <ScalarProperty Name="Holder" ColumnName="Holder" />
                 <ScalarProperty Name="IsOpen" ColumnName="IsOpen" />
@@ -18033,17 +17967,6 @@
                 <ScalarProperty Name="IsProfil" ColumnName="IsProfil" />
                 <ScalarProperty Name="ExamId" ColumnName="ExamId" />
                 <ScalarProperty Name="EntryId" ColumnName="EntryId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="extAbitMarksSumAG">
-            <EntityTypeMapping TypeName="Priem2012Model.extAbitMarksSumAG">
-              <MappingFragment StoreEntitySet="extAbitMarksSumAG">
-                <ScalarProperty Name="TotalCount" ColumnName="TotalCount" />
-                <ScalarProperty Name="TotalSum" ColumnName="TotalSum" />
-                <ScalarProperty Name="StudyBasisId" ColumnName="StudyBasisId" />
-                <ScalarProperty Name="StudyFormId" ColumnName="StudyFormId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -18706,6 +18629,28 @@
                 <ScalarProperty Name="OlympValueId" ColumnName="OlympValueId" />
                 <ScalarProperty Name="OlympBookId" ColumnName="OlympBookId" />
                 <ScalarProperty Name="ExamInEntryBlockId" ColumnName="ExamInEntryBlockId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Person_FetchValues">
+            <EntityTypeMapping TypeName="Priem2012Model.Person_FetchValues">
+              <MappingFragment StoreEntitySet="Person_FetchValues">
+                <ScalarProperty Name="EGE_Inform" ColumnName="EGE_Inform" />
+                <ScalarProperty Name="EGE_Esp" ColumnName="EGE_Esp" />
+                <ScalarProperty Name="EGE_Lit" ColumnName="EGE_Lit" />
+                <ScalarProperty Name="EGE_Obsh" ColumnName="EGE_Obsh" />
+                <ScalarProperty Name="EGE_Fran" ColumnName="EGE_Fran" />
+                <ScalarProperty Name="EGE_Nem" ColumnName="EGE_Nem" />
+                <ScalarProperty Name="EGE_Eng" ColumnName="EGE_Eng" />
+                <ScalarProperty Name="EGE_Geogr" ColumnName="EGE_Geogr" />
+                <ScalarProperty Name="EGE_Ist" ColumnName="EGE_Ist" />
+                <ScalarProperty Name="EGE_Bio" ColumnName="EGE_Bio" />
+                <ScalarProperty Name="EGE_Chem" ColumnName="EGE_Chem" />
+                <ScalarProperty Name="EGE_Fiz" ColumnName="EGE_Fiz" />
+                <ScalarProperty Name="EGE_Math" ColumnName="EGE_Math" />
+                <ScalarProperty Name="EGE_Rus" ColumnName="EGE_Rus" />
+                <ScalarProperty Name="CurrentEducationInfoId" ColumnName="CurrentEducationInfoId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

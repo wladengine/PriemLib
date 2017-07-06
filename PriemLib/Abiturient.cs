@@ -71,6 +71,7 @@ namespace PriemLib
         public Nullable<System.DateTime> DateEntryConfirm { get; set; }
         public bool HasDisabledEntryConfirm { get; set; }
         public Nullable<System.DateTime> DateDisableEntryConfirm { get; set; }
+        public int MarksCount { get; set; }
     
         public virtual CelCompetition CelCompetition { get; set; }
         public virtual Competition Competition { get; set; }

@@ -65,10 +65,6 @@ namespace PriemLib
                      join Faculty in context.SP_Faculty on Abit.Entry.FacultyId equals Faculty.Id
                      join Olymp in context.Olympiads on Abit.Id equals Olymp.AbiturientId
                      join _extEntryView in context.extEntryView on Abit.Id equals _extEntryView.AbiturientId
-
-                     join AbitSum in context.extAbitMarksSum on Abit.Id equals AbitSum.Id into AbitSum2
-                     from AbitSum in AbitSum2.DefaultIfEmpty()
-
                      where Abit.Entry.StudyLevel.LevelGroupId == 1
                      && Olymp.OlympValueId > 4 && Abit.Entry.StudyBasisId == 1 && Abit.Entry.StudyFormId == 1
                      select new
@@ -85,7 +81,7 @@ namespace PriemLib
                          StudyForm = Abit.Entry.StudyForm.Name,
                          StudyBasis = Abit.Entry.StudyBasis.Name,
                          Abit.Entry.StudyBasisId,
-                         MarksSum = AbitSum.TotalSum,
+                         MarksSum = Abit.Sum,
                          Abit.CompetitionId
                      }).Distinct();
 

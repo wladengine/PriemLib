@@ -85,7 +85,6 @@ namespace PriemLib
         public virtual DbSet<EgeToLanguage> EgeToLanguage { get; set; }
         public virtual DbSet<Fixieren> Fixieren { get; set; }
         public virtual DbSet<FixierenView> FixierenView { get; set; }
-        public virtual DbSet<extAbitMarksSum> extAbitMarksSum { get; set; }
         public virtual DbSet<extProtocol> extProtocol { get; set; }
         public virtual DbSet<extEnableProtocol> extEnableProtocol { get; set; }
         public virtual DbSet<extDisEntryView> extDisEntryView { get; set; }
@@ -134,7 +133,6 @@ namespace PriemLib
         public virtual DbSet<extPerson_EducationInfo> extPerson_EducationInfo { get; set; }
         public virtual DbSet<extPerson_EducationInfo_Current> extPerson_EducationInfo_Current { get; set; }
         public virtual DbSet<extApplicationDetails> extApplicationDetails { get; set; }
-        public virtual DbSet<hlpPersonMaxEducationInfoId> hlpPersonMaxEducationInfoId { get; set; }
         public virtual DbSet<PersonSportQualification> PersonSportQualification { get; set; }
         public virtual DbSet<SportQualification> SportQualification { get; set; }
         public virtual DbSet<extForeignPerson> extForeignPerson { get; set; }
@@ -172,7 +170,6 @@ namespace PriemLib
         public virtual DbSet<qOlympResultToAdditionalMark> qOlympResultToAdditionalMark { get; set; }
         public virtual DbSet<qOlympResultToCommonBenefit> qOlympResultToCommonBenefit { get; set; }
         public virtual DbSet<extExamInEntry> extExamInEntry { get; set; }
-        public virtual DbSet<extAbitMarksSumAG> extAbitMarksSumAG { get; set; }
         public virtual DbSet<hlpStatRatingList> hlpStatRatingList { get; set; }
         public virtual DbSet<PayDataDiplomType> PayDataDiplomType { get; set; }
         public virtual DbSet<ADUserData> ADUserData { get; set; }
@@ -195,6 +192,7 @@ namespace PriemLib
         public virtual DbSet<qAbiturient> qAbiturient { get; set; }
         public virtual DbSet<qEntry> qEntry { get; set; }
         public virtual DbSet<OlympResultToMaxMark> OlympResultToMaxMark { get; set; }
+        public virtual DbSet<Person_FetchValues> Person_FetchValues { get; set; }
     
         public virtual int RoleMember(string roleName, ObjectParameter result)
         {

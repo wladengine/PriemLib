@@ -390,7 +390,7 @@ namespace PriemLib
 ed.extAbit.Id as Id, 
 extPerson.PersonNum as Èה_םמלונ, 
 ed.extAbit.RegNum as Ðוד_םמלונ, 
-ed.extAbitMarksSum.TotalSum AS Sum, 
+ed.extAbit.Sum AS Sum, 
 ed.extPerson.FIO as ÔÈÎ, 
 ed.extAbit.ObrazProgramCrypt + ' ' +(Case when NOT ed.extAbit.ProfileId IS NULL then ed.extAbit.ProfileName else ed.extAbit.ObrazProgramName end) as Spec, 
 ed.extAbit.StudyFormName AS StudyForm, 
@@ -399,7 +399,6 @@ Competition.Name AS CompName
 FROM ed.extAbit 
 LEFT JOIN ed.extPerson ON ed.extAbit.PersonId = ed.extPerson.Id 
 LEFT JOIN ed.Competition ON ed.extAbit.CompetitionId = ed.Competition.Id 
-LEFT JOIN ed.extAbitMarksSum ON ed.extAbitMarksSum.Id = ed.extAbit.Id 
 --LEFT JOIN ed.qMark ON qMark.AbiturientId = extAbit.Id
 {0}
 ORDER BY ÔÈÎ", abitFilters);

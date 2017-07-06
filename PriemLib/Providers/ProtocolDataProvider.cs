@@ -64,8 +64,6 @@ namespace PriemLib
                             join extperson in ctx.extPerson on extabit.PersonId equals extperson.Id
                             join country in ctx.Country on extperson.NationalityId equals country.Id
                             join competition in ctx.Competition on extabit.CompetitionId equals competition.Id
-                            join extabitMarksSum in ctx.extAbitMarksSumAG on extabit.Id equals extabitMarksSum.Id into extabitMarksSum2
-                            from extabitMarksSum in extabitMarksSum2.DefaultIfEmpty()
                             join addMarks in ctx.extAbitAdditionalMarksSum on extabit.Id equals addMarks.AbiturientId into addMarks2
                             from addMarks in addMarks2.DefaultIfEmpty()
                             join entryHeader in ctx.EntryHeader on extentryView.EntryHeaderId equals entryHeader.Id into entryHeader2
@@ -80,7 +78,7 @@ namespace PriemLib
                                 AbiturientId = extabit.Id,
                                 extabit.RegNum,
                                 extabit.PersonNum,
-                                TotalSum = (extabit.CompetitionId == 8 || extabit.CompetitionId == 1) ? null : extabitMarksSum.TotalSum,
+                                TotalSum = (extabit.CompetitionId == 8 || extabit.CompetitionId == 1) ? null : extabit.Sum,
                                 TotalSumFiveGrade = (int?)null,
                                 addMarks = addMarks.AdditionalMarksSum,
                                 extabit.FIO,
@@ -139,8 +137,6 @@ namespace PriemLib
                          join extperson in ctx.extPerson on extabit.PersonId equals extperson.Id
                          join country in ctx.Country on extperson.NationalityId equals country.Id
                          join competition in ctx.Competition on extabit.CompetitionId equals competition.Id
-                         join extabitMarksSum in ctx.extAbitMarksSum on extabit.Id equals extabitMarksSum.Id into extabitMarksSum2
-                         from extabitMarksSum in extabitMarksSum2.DefaultIfEmpty()
                          join addMarks in ctx.extAbitAdditionalMarksSum on extabit.Id equals addMarks.AbiturientId into addMarks2
                          from addMarks in addMarks2.DefaultIfEmpty()
                          join entryHeader in ctx.EntryHeader on extentryView.EntryHeaderId equals entryHeader.Id into entryHeader2
@@ -155,8 +151,7 @@ namespace PriemLib
                              AbiturientId = extabit.Id,
                              extabit.RegNum,
                              extabit.PersonNum,
-                             TotalSum = (extabit.CompetitionId == 8 || extabit.CompetitionId == 1) ? null : extabitMarksSum.TotalSum,
-                             TotalSumFiveGrade = (extabit.CompetitionId == 8 || extabit.CompetitionId == 1) ? null : extabitMarksSum.TotalSumFiveGrade,
+                             TotalSum = (extabit.CompetitionId == 8 || extabit.CompetitionId == 1) ? null : extabit.Sum,
                              addMarks = addMarks.AdditionalMarksSum,
                              extabit.FIO,
                              CelCompName = celCompetition.TvorName,
@@ -185,7 +180,7 @@ namespace PriemLib
                              AbiturientId = x.AbiturientId,
                              RegNum = x.RegNum,
                              PersonNum = x.PersonNum,
-                             TotalSum = (x.StudyLevelGroupId == 4 ? x.TotalSumFiveGrade : x.TotalSum) + (x.addMarks ?? 0),
+                             TotalSum = x.TotalSum + (x.addMarks ?? 0),
                              FIO = x.FIO,
                              CelCompName = x.CelCompName,
                              LicenseProgramName = x.LicenseProgramName,

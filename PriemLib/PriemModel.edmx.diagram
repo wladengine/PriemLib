@@ -400,7 +400,6 @@
           <edmx:ConnectorPoint PointX="7.90625" PointY="20.598742234374996" />
           <edmx:ConnectorPoint PointX="8.25" PointY="20.598742234374996" />
         </edmx:AssociationConnector>
-        <edmx:EntityTypeShape EntityType="Priem2012Model.extAbitMarksSum" Width="1.5" PointX="14.75" PointY="4.75" Height="1.7566536458333317" />
         <edmx:EntityTypeShape EntityType="Priem2012Model.extProtocol" Width="1.5" PointX="16.75" PointY="0.75" Height="5.7009895833333317" />
         <edmx:EntityTypeShape EntityType="Priem2012Model.extEnableProtocol" Width="1.5" PointX="9.75" PointY="15.75" Height="4.0575162760416674" />
         <edmx:EntityTypeShape EntityType="Priem2012Model.extDisEntryView" Width="1.5" PointX="16.75" PointY="8.75" Height="4.3862109375" />
@@ -735,7 +734,6 @@
         <edmx:AssociationConnector Association="Priem2012Model.FK_Protocol_SP_Faculty" />
         <edmx:AssociationConnector Association="Priem2012Model.FK_Protocol_SP_LicenseProgram" />
         <edmx:EntityTypeShape EntityType="Priem2012Model.extApplicationDetails" Width="1.5" PointX="1.7454591904512884" PointY="29.135059310651876" />
-        <edmx:EntityTypeShape EntityType="Priem2012Model.hlpPersonMaxEducationInfoId" Width="1.5" PointX="5.0530107603655248" PointY="0.71549055013595642" />
         <edmx:EntityTypeShape EntityType="Priem2012Model.PersonSportQualification" Width="1.5" PointX="4.4095504881858592" PointY="6.2666183292244648" />
         <edmx:EntityTypeShape EntityType="Priem2012Model.SportQualification" Width="1.5" PointX="7.75" PointY="19.25" />
         <edmx:AssociationConnector Association="Priem2012Model.FK_PersonSportQualification_SportQualification" />
@@ -809,7 +807,6 @@
         <edmx:AssociationConnector Association="Priem2012Model.FK_OlympResultToCommonBenefit_OlympType" />
         <edmx:EntityTypeShape EntityType="Priem2012Model.extExamInEntry" Width="1.5" PointX="36.375" PointY="29.75" />
         <edmx:AssociationConnector Association="Priem2012Model.FK_Abiturient_Olympiads" />
-        <edmx:EntityTypeShape EntityType="Priem2012Model.extAbitMarksSumAG" Width="1.5" PointX="38.375" PointY="21.75" />
         <edmx:EntityTypeShape EntityType="Priem2012Model.hlpStatRatingList" Width="1.5" PointX="38.375" PointY="29.75" />
         <edmx:AssociationConnector Association="Priem2012Model.FK_InnerEntryInEntry_EgeExamName" />
         <edmx:AssociationConnector Association="Priem2012Model.FK_InnerEntryInEntry_ExamInEntryBlock" />
@@ -856,6 +853,7 @@
         <edmx:AssociationConnector Association="Priem2012Model.FK_OlympResultToCommonBenefit_Entry" />
         <edmx:AssociationConnector Association="Priem2012Model.FK_PayDataStudyPlan_Entry" />
         <edmx:EntityTypeShape EntityType="Priem2012Model.OlympResultToMaxMark" Width="1.5" PointX="4.75" PointY="11.75" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.Person_FetchValues" Width="1.5" PointX="35.375" PointY="43.75" />
         </edmx:Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

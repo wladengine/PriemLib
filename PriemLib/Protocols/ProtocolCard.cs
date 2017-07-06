@@ -336,6 +336,11 @@ namespace PriemLib
         private void Protocol_Resize(object sender, EventArgs e)
         {
             int width = (this.Width - 90 - 11 * 2) / 2;
+            
+            int height = this.Height - 190;
+            dgvLeft.Height = height;
+            dgvRight.Height = height;
+
             dgvLeft.Width = dgvRight.Width = width;
             dgvLeft.Location = new Point(12, 56);
             dgvRight.Location = new Point(90 + width, 56);

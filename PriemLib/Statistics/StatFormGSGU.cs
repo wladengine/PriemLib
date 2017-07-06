@@ -570,17 +570,16 @@ namespace PriemLib
                         AvgBall =
                             (from EV in context.extEntryView
                              join Ab in context.Abiturient on EV.AbiturientId equals Ab.Id
-                             join Mrk in context.extAbitMarksSum on Ab.Id equals Mrk.Id
                              join MrkAdd in context.extAbitAdditionalMarksSum on Ab.Id equals MrkAdd.AbiturientId into MrkAdd2
                              from MrkAdd in MrkAdd2.DefaultIfEmpty()
                              where EV.LicenseProgramId == LP.LicenseProgramId && EV.StudyFormId == LP.StudyFormId
                              && EV.StudyBasisId == LP.StudyBasisId
                              && EV.IsCel == false && EV.IsBE == false && EV.IsQuota == false
-                             select new { Mrk.Id, Mrk.TotalSum, Mrk.TotalCount, MrkAdd.AdditionalMarksSum })
+                             select new { Ab.Id, Ab.Sum, Ab.MarksCount, MrkAdd.AdditionalMarksSum })
                              .ToList()
-                             .Where(x => x.TotalCount != 0 && x.TotalCount.HasValue)
-                             .Select(x => new { x.Id, TotalMark = (x.TotalSum ?? 0m) + ((decimal?)x.AdditionalMarksSum ?? 0m), x.TotalCount })
-                             .Select(x => x.TotalMark / x.TotalCount.Value)
+                             .Where(x => x.MarksCount != 0)
+                             .Select(x => new { x.Id, TotalMark = (x.Sum ?? 0m) + ((decimal?)x.AdditionalMarksSum ?? 0m), x.MarksCount })
+                             .Select(x => x.TotalMark / x.MarksCount)
                              .DefaultIfEmpty(0m)
                              .Min();
 

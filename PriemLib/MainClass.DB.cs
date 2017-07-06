@@ -512,7 +512,7 @@ WHERE ed.AbiturientSelectedExam.ApplicationId = qAbiturient.Id AND unit.ExamId =
                 qBuilder.AddTableJoint("ed.extEnableProtocol", " LEFT JOIN ed.extEnableProtocol ON extEnableProtocol.AbiturientId = qAbiturient.Id ");
                 qBuilder.AddTableJoint("ed.extEntryView", " LEFT JOIN ed.extEntryView ON extEntryView.AbiturientId = qAbiturient.Id ");
                 qBuilder.AddTableJoint("ed.extEntry", " INNER JOIN ed.extEntry ON extEntry.Id = qAbiturient.EntryId ");
-                qBuilder.AddTableJoint("ed.extAbitMarksSum", " LEFT JOIN ed.extAbitMarksSum ON ed.extAbitMarksSum.Id = ed.qAbiturient.Id ");
+                //qBuilder.AddTableJoint("ed.extAbitMarksSum", " LEFT JOIN ed.extAbitMarksSum ON ed.extAbitMarksSum.Id = ed.qAbiturient.Id ");
                 qBuilder.AddTableJoint("ed.AbiturientSelectedExam", " LEFT JOIN ed.AbiturientSelectedExam ON ed.AbiturientSelectedExam.ApplicationId = ed.qAbiturient.Id LEFT JOIN ed.ExamInEntryBlockUnit on ExamInEntryBlockUnit.Id = ExamInEntryBlockUnitId LEFT JOIN ed.Exam on Exam.Id = ExamInEntryBlockUnit.ExamId ");
 
             }

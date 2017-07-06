@@ -39,7 +39,7 @@ namespace PriemLib
         public int OlympYear { get; set; }
         public Nullable<int> OlympProfileId { get; set; }
         public System.Guid PersonId { get; set; }
-        public Nullable<System.Guid> OlympBookId { get; set; }
+        public System.Guid OlympBookId { get; set; }
     
         public virtual OlympLevel OlympLevel { get; set; }
         public virtual OlympValue OlympValue { get; set; }

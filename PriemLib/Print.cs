@@ -2149,15 +2149,13 @@ namespace PriemLib
                                join extperson in ctx.extPerson on extabit.PersonId equals extperson.Id
                                join country in ctx.Country on extperson.NationalityId equals country.Id
                                join competition in ctx.Competition on extabit.CompetitionId equals competition.Id
-                               join extabitMarksSum in ctx.extAbitMarksSum on extabit.Id equals extabitMarksSum.Id into extabitMarksSum2
-                               from extabitMarksSum in extabitMarksSum2.DefaultIfEmpty()
                                join extAbitAddMarksSum in ctx.extAbitAdditionalMarksSum on extabit.Id equals extAbitAddMarksSum.AbiturientId into extAbitAddMarksSum2
                                from extAbitAddMarksSum in extAbitAddMarksSum2.DefaultIfEmpty()
                                where extdisEntryView.Id == gProtocolId && MainClass.lstStudyLevelGroupId.Contains(extdisEntryView.StudyLevelGroupId) && (isRus ? extperson.NationalityId == 1 : extperson.NationalityId != 1)
                                orderby extabit.ProfileName, country.NameRod, extperson.FIO
                                select new
                                {
-                                   TotalSum = extabitMarksSum.TotalSum,
+                                   TotalSum = extabit.Sum,
                                    extAbitAddMarksSum.AdditionalMarksSum,
                                    ФИО = extabit.FIO,
                                    extabit.CompetitionId
@@ -2278,15 +2276,13 @@ namespace PriemLib
                                join extperson in ctx.extPerson on extabit.PersonId equals extperson.Id
                                join country in ctx.Country on extperson.NationalityId equals country.Id
                                join competition in ctx.Competition on extabit.CompetitionId equals competition.Id
-                               join extabitMarksSum in ctx.extAbitMarksSum on extabit.Id equals extabitMarksSum.Id into extabitMarksSum2
-                               from extabitMarksSum in extabitMarksSum2.DefaultIfEmpty()
                                join extAbitAddMarksSum in ctx.extAbitAdditionalMarksSum on extabit.Id equals extAbitAddMarksSum.AbiturientId into extAbitAddMarksSum2
                                from extAbitAddMarksSum in extAbitAddMarksSum2.DefaultIfEmpty()
                                where extdisEntryView.Id == gProtocolId && MainClass.lstStudyLevelGroupId.Contains(extdisEntryView.StudyLevelGroupId)
                                orderby extabit.ProfileName, country.NameRod, extperson.FIO
                                select new
                                {
-                                   TotalSum = extabitMarksSum.TotalSum,
+                                   TotalSum = extabit.Sum,
                                    extAbitAddMarksSum.AdditionalMarksSum,
                                    ФИО = extabit.FIO,
                                    extabit.CompetitionId,
@@ -2447,15 +2443,13 @@ namespace PriemLib
                                join extperson in ctx.extPerson on extabit.PersonId equals extperson.Id
                                join country in ctx.Country on extperson.NationalityId equals country.Id
                                join competition in ctx.Competition on extabit.CompetitionId equals competition.Id
-                               join extabitMarksSum in ctx.extAbitMarksSum on extabit.Id equals extabitMarksSum.Id into extabitMarksSum2
-                               from extabitMarksSum in extabitMarksSum2.DefaultIfEmpty()
                                join extAbitAddMarksSum in ctx.extAbitAdditionalMarksSum on extabit.Id equals extAbitAddMarksSum.AbiturientId into extAbitAddMarksSum2
                                from extAbitAddMarksSum in extAbitAddMarksSum2.DefaultIfEmpty()
                                where extdisEntryView.Id == gProtocolId && MainClass.lstStudyLevelGroupId.Contains(extdisEntryView.StudyLevelGroupId) && (isRus ? extperson.NationalityId == 1 : extperson.NationalityId != 1)
                                orderby extabit.ProfileName, country.NameRod, extperson.FIO
                                select new
                                {
-                                   TotalSum = extabitMarksSum.TotalSum,
+                                   TotalSum = extabit.Sum,
                                    extAbitAddMarksSum.AdditionalMarksSum,
                                    ФИО = extabit.FIO,
                                    extabit.CompetitionId
@@ -2560,15 +2554,13 @@ namespace PriemLib
                                join extperson in ctx.extPerson on extabit.PersonId equals extperson.Id
                                join country in ctx.Country on extperson.NationalityId equals country.Id
                                join competition in ctx.Competition on extabit.CompetitionId equals competition.Id
-                               join extabitMarksSum in ctx.extAbitMarksSum on extabit.Id equals extabitMarksSum.Id into extabitMarksSum2
-                               from extabitMarksSum in extabitMarksSum2.DefaultIfEmpty()
                                join extAbitAddMarksSum in ctx.extAbitAdditionalMarksSum on extabit.Id equals extAbitAddMarksSum.AbiturientId into extAbitAddMarksSum2
                                from extAbitAddMarksSum in extAbitAddMarksSum2.DefaultIfEmpty()
                                where extdisEntryView.Id == gProtocolId && MainClass.lstStudyLevelGroupId.Contains(extdisEntryView.StudyLevelGroupId)
                                orderby extabit.ProfileName, country.NameRod, extperson.FIO
                                select new
                                {
-                                   TotalSum = extabitMarksSum.TotalSum,
+                                   TotalSum = extabit.Sum,
                                    extAbitAddMarksSum.AdditionalMarksSum,
                                    ФИО = extabit.FIO,
                                    extabit.CompetitionId,
@@ -3048,9 +3040,6 @@ namespace PriemLib
                                    from hlpabiturientProfAdd in hlpabiturientProfAdd2.DefaultIfEmpty()
                                    join hlpabiturientProf in ctx.hlpAbiturientProf on extabit.Id equals hlpabiturientProf.Id into hlpabiturientProf2
                                    from hlpabiturientProf in hlpabiturientProf2.DefaultIfEmpty()
-                                   join extabitMarksSum in ctx.extAbitMarksSum on extabit.Id equals extabitMarksSum.Id into extabitMarksSum2
-                                   from extabitMarksSum in extabitMarksSum2.DefaultIfEmpty()
-
                                    join extabitAddMarksSum in ctx.extAbitAdditionalMarksSum on extabit.Id equals extabitAddMarksSum.AbiturientId into extabitAddMarksSum2
                                    from extabitAddMarksSum in extabitAddMarksSum2.DefaultIfEmpty()
 
@@ -3062,7 +3051,7 @@ namespace PriemLib
                                        Рег_Номер = extabit.RegNum,
                                        Ид_номер = extabit.PersonNum,
                                        ФИО = extabit.FIO,
-                                       Сумма_баллов = MainClass.dbType == PriemType.PriemAspirant ? extabitMarksSum.TotalSumFiveGrade : extabitMarksSum.TotalSum,
+                                       Сумма_баллов = extabit.Sum,
                                        Сумма_баллов_за_ИД = extabitAddMarksSum.AdditionalMarksSum,
                                        //Кол_во_оценок = extabitMarksSum.TotalCount,
                                        Подлинники_документов = extperson.HasOriginals,

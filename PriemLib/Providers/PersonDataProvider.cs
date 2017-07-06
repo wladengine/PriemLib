@@ -233,7 +233,7 @@ namespace PriemLib
             using (PriemEntities context = new PriemEntities())
             {
                 return (from EI in context.extPerson_EducationInfo
-                        join Curr in context.hlpPersonMaxEducationInfoId on EI.Id equals Curr.Id
+                        join F in context.Person_FetchValues on EI.Id equals F.CurrentEducationInfoId
                         where EI.PersonId == PersonId
                         select EI).FirstOrDefault();
             }
@@ -246,7 +246,7 @@ namespace PriemLib
             using (PriemEntities context = new PriemEntities())
             {
                 return (from EI in context.extPerson_EducationInfo
-                        join Curr in context.hlpPersonMaxEducationInfoId on EI.Id equals Curr.Id
+                        join F in context.Person_FetchValues on EI.Id equals F.CurrentEducationInfoId
                         where EI.PersonId == PersonId
                         select EI).FirstOrDefault();
             }
@@ -259,7 +259,7 @@ namespace PriemLib
             using (PriemEntities context = new PriemEntities())
             {
                 return (from EI in context.extPerson_EducationInfo
-                        join Curr in context.hlpPersonMaxEducationInfoId on EI.Id equals Curr.Id
+                        join F in context.Person_FetchValues on EI.Id equals F.CurrentEducationInfoId
                         where EI.PersonId == PersonId
                         select EI).FirstOrDefault();
             }
@@ -272,7 +272,7 @@ namespace PriemLib
             using (PriemEntities context = new PriemEntities())
             {
                 return (from EI in context.extPerson_EducationInfo
-                        join Curr in context.hlpPersonMaxEducationInfoId on EI.Id equals Curr.Id
+                        join F in context.Person_FetchValues on EI.Id equals F.CurrentEducationInfoId
                         where EI.PersonId == PersonId
                         select EI).FirstOrDefault();
             }
