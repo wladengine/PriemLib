@@ -169,9 +169,9 @@ namespace PriemLib
             this.dgvAbitList.AllowUserToDeleteRows = false;
             this.dgvAbitList.AllowUserToOrderColumns = true;
             this.dgvAbitList.AllowUserToResizeRows = false;
-            this.dgvAbitList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvAbitList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvAbitList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dgvAbitList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvAbitList.Location = new System.Drawing.Point(13, 234);
@@ -258,6 +258,7 @@ namespace PriemLib
             this.cbLicenseProgram.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cbLicenseProgram.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbLicenseProgram.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbLicenseProgram.DropDownWidth = 350;
             this.cbLicenseProgram.FormattingEnabled = true;
             this.cbLicenseProgram.Location = new System.Drawing.Point(12, 71);
             this.cbLicenseProgram.Name = "cbLicenseProgram";
@@ -269,6 +270,7 @@ namespace PriemLib
             this.cbObrazProgram.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cbObrazProgram.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbObrazProgram.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbObrazProgram.DropDownWidth = 500;
             this.cbObrazProgram.FormattingEnabled = true;
             this.cbObrazProgram.Location = new System.Drawing.Point(278, 71);
             this.cbObrazProgram.Name = "cbObrazProgram";
@@ -291,6 +293,7 @@ namespace PriemLib
             this.cbOlympName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cbOlympName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbOlympName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbOlympName.DropDownWidth = 700;
             this.cbOlympName.FormattingEnabled = true;
             this.cbOlympName.Location = new System.Drawing.Point(194, 114);
             this.cbOlympName.Name = "cbOlympName";
@@ -311,6 +314,7 @@ namespace PriemLib
             this.cbOlympSubject.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cbOlympSubject.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbOlympSubject.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbOlympSubject.DropDownWidth = 450;
             this.cbOlympSubject.FormattingEnabled = true;
             this.cbOlympSubject.Location = new System.Drawing.Point(520, 114);
             this.cbOlympSubject.Name = "cbOlympSubject";

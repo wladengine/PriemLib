@@ -293,6 +293,9 @@ LEFT JOIN ed.Protocol ON Protocol.Id =  ProtocolHistory.ProtocolId ";
             //подчистили строки
             dgvProtocols.Rows.Clear();
 
+            if (dgvProtocols.Columns.Count == 0)
+                InitGrid();
+
             //обработали номер            
             string sFilters = string.Format(" AND ProtocolHistory.ProtocolId = '{0}'", ProtocolNumId.ToString());
 

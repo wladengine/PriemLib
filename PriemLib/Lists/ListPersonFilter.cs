@@ -272,7 +272,13 @@ namespace PriemLib
                         if (sorted && dgvAbitList.Columns.Contains(sortedColumn))
                             dgvAbitList.Sort(dgvAbitList.Columns[sortedColumn], order);
                         if (index >= 0 && index <= dgvAbitList.Rows.Count)
-                            dgvAbitList.CurrentCell = dgvAbitList[1, index];
+                        {
+                            try
+                            {
+                                dgvAbitList.CurrentCell = dgvAbitList[1, index];
+                            }
+                            catch { }
+                        }
                     }
                 }
                 else
