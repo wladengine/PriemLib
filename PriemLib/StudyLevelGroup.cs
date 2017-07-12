@@ -24,6 +24,7 @@ namespace PriemLib
         public string Name { get; set; }
         public string Acronym { get; set; }
         public Nullable<int> UpperCategoryId { get; set; }
+        public string NameRod { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StudyLevel> StudyLevel { get; set; }

@@ -327,6 +327,7 @@
             // 
             // gbProtocolInfo
             // 
+            this.gbProtocolInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.gbProtocolInfo.Controls.Add(this.lblProtocolCompetitions);
             this.gbProtocolInfo.Controls.Add(this.lblProtocolPersonsCount);
             this.gbProtocolInfo.Controls.Add(this.lblHasForeigners);

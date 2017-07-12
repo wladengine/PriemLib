@@ -18,11 +18,17 @@ namespace PriemLib
         public DBPriem _bdc;
         private string sQuery;
         protected ProtocolRefreshHandler prh = null;
+        private Action<Guid, bool, bool> PrintOrderHandler;
 
-        public EntryViewList()
+        //Добавил в конструктор ссылку на функцию печати приказа (для конфигурируемости под разные приложения)
+        public EntryViewList(Action<Guid, bool, bool> _PrintOrderHandler = null)
         {            
             this.CenterToParent();
             this.MdiParent = MainClass.mainform;
+            if (_PrintOrderHandler == null)
+                _PrintOrderHandler = Print.PrintOrder;
+
+            PrintOrderHandler = _PrintOrderHandler;
 
             //this.sQuery = string.Format("SELECT DISTINCT Person.Id, {0} as Ид_номер, Person.Surname AS Фамилия, Person.Name AS Имя, Person.SecondName AS Отчество, Person.BirthDate AS Дата_рождения " +
             //                       "FROM Person INNER JOIN ExamsVedHistory ON ExamsVedHistory.PersonId = Person.Id ", MainClass.GetStringPersonNumber());
@@ -88,7 +94,7 @@ namespace PriemLib
             cbLicenseProgram.SelectedIndexChanged += new EventHandler(cbLicenseProgram_SelectedIndexChanged);              
 
             prh = new ProtocolRefreshHandler(UpdateDataGrid);
-            MainClass.AddProtocolHandler(prh);          
+            MainClass.AddProtocolHandler(prh);
         }
 
         public void cbFaculty_SelectedIndexChanged(object sender, EventArgs e)
@@ -271,7 +277,8 @@ order by 2",
 
             Guid protocolId = (Guid)dgvViews.CurrentRow.Cells["Id"].Value;
 
-            Print.PrintOrder(protocolId, !chbIsForeign.Checked, chbCel.Checked);
+            PrintOrderHandler(protocolId, !chbIsForeign.Checked, chbCel.Checked);
+            //Print.PrintOrder(protocolId, !chbIsForeign.Checked, chbCel.Checked);
         }
         protected virtual void btnOrderReview_Click(object sender, EventArgs e)
         {

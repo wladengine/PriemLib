@@ -1424,6 +1424,8 @@
           <Property Name="GSGUCode" Type="nvarchar" MaxLength="50" />
           <Property Name="VSHEUGNId" Type="int" />
           <Property Name="FIS_ID" Type="int" />
+          <Property Name="NameDat" Type="nvarchar" MaxLength="50" />
+          <Property Name="NormativePeriodRod" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="SP_ObrazProgram">
           <Key>
@@ -1508,6 +1510,7 @@
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Acronym" Type="nvarchar" MaxLength="10" />
           <Property Name="UpperCategoryId" Type="int" />
+          <Property Name="NameRod" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
 предупреждение 6002: В таблице или представлении "Priem2017.ed.extAbit" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
@@ -12465,6 +12468,7 @@
           <Property Type="String" Name="Acronym" MaxLength="10" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="StudyLevel" Relationship="Priem2012Model.FK_StudyLevel_StudyLevelGroup" FromRole="StudyLevelGroup" ToRole="StudyLevel" />
           <Property Name="UpperCategoryId" Type="Int32" />
+          <Property Name="NameRod" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="OlympiadCheckedByRectorat">
           <Key>
@@ -12618,6 +12622,8 @@
           <NavigationProperty Name="Protocol" Relationship="Priem2012Model.FK_Protocol_SP_LicenseProgram" FromRole="SP_LicenseProgram" ToRole="Protocol" />
           <Property Name="FIS_ID" Type="Int32" />
           <NavigationProperty Name="Entry" Relationship="Priem2012Model.FK_Entry_SP_LicenseProgram" FromRole="SP_LicenseProgram" ToRole="Entry" />
+          <Property Name="NameDat" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NormativePeriodRod" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="SP_ObrazProgram">
           <Key>
@@ -16957,6 +16963,7 @@
           <EntitySetMapping Name="StudyLevelGroup">
             <EntityTypeMapping TypeName="Priem2012Model.StudyLevelGroup">
               <MappingFragment StoreEntitySet="StudyLevelGroup">
+                <ScalarProperty Name="NameRod" ColumnName="NameRod" />
                 <ScalarProperty Name="UpperCategoryId" ColumnName="UpperCategoryId" />
                 <ScalarProperty Name="Acronym" ColumnName="Acronym" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -17089,6 +17096,8 @@
           <EntitySetMapping Name="SP_LicenseProgram">
             <EntityTypeMapping TypeName="Priem2012Model.SP_LicenseProgram">
               <MappingFragment StoreEntitySet="SP_LicenseProgram">
+                <ScalarProperty Name="NormativePeriodRod" ColumnName="NormativePeriodRod" />
+                <ScalarProperty Name="NameDat" ColumnName="NameDat" />
                 <ScalarProperty Name="FIS_ID" ColumnName="FIS_ID" />
                 <ScalarProperty Name="VSHEUGNId" ColumnName="VSHEUGNId" />
                 <ScalarProperty Name="GSGUCode" ColumnName="GSGUCode" />
