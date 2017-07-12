@@ -12,12 +12,17 @@ namespace PriemLib
     using System;
     using System.Collections.Generic;
     
-    public partial class extAbitAllAdditionalAchievements
+    public partial class MarkFromAchievement
     {
+        public System.Guid Id { get; set; }
         public System.Guid AbiturientId { get; set; }
-        public string AchievementType { get; set; }
-        public Nullable<int> AchievementTypeId { get; set; }
-        public Nullable<int> Mark { get; set; }
-        public Nullable<System.Guid> Id { get; set; }
+        public int AchievementTypeId { get; set; }
+        public Nullable<System.Guid> OlympiadId { get; set; }
+        public int Value { get; set; }
+        public System.DateTime DateCreated { get; set; }
+        public string CreateAuthor { get; set; }
+    
+        public virtual Abiturient Abiturient { get; set; }
+        public virtual Olympiads Olympiads { get; set; }
     }
 }

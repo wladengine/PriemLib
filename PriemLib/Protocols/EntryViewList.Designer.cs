@@ -188,6 +188,7 @@
             // 
             // chbIsForeign
             // 
+            this.chbIsForeign.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chbIsForeign.Location = new System.Drawing.Point(139, 524);
             this.chbIsForeign.Name = "chbIsForeign";
             this.chbIsForeign.Size = new System.Drawing.Size(94, 31);

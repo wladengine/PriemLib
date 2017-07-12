@@ -112,6 +112,7 @@
             this.label21 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.gbAdditionalAchievements = new System.Windows.Forms.GroupBox();
+            this.btnAddAbiturientAchievement = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.tbAdditionalAchievementsMark = new System.Windows.Forms.TextBox();
             this.dgvAdditionalAchievements = new System.Windows.Forms.DataGridView();
@@ -138,6 +139,7 @@
             this.lblFIO = new System.Windows.Forms.Label();
             this.btnCardPerson = new System.Windows.Forms.Button();
             this.epErrorInput = new System.Windows.Forms.ErrorProvider(this.components);
+            this.btnDeleteAbiturientAchievement = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.epError)).BeginInit();
             this.tabCard.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -1014,6 +1016,8 @@
             // 
             // gbAdditionalAchievements
             // 
+            this.gbAdditionalAchievements.Controls.Add(this.btnDeleteAbiturientAchievement);
+            this.gbAdditionalAchievements.Controls.Add(this.btnAddAbiturientAchievement);
             this.gbAdditionalAchievements.Controls.Add(this.label10);
             this.gbAdditionalAchievements.Controls.Add(this.tbAdditionalAchievementsMark);
             this.gbAdditionalAchievements.Controls.Add(this.dgvAdditionalAchievements);
@@ -1023,6 +1027,16 @@
             this.gbAdditionalAchievements.TabIndex = 126;
             this.gbAdditionalAchievements.TabStop = false;
             this.gbAdditionalAchievements.Text = "Индивидуальные достижения";
+            // 
+            // btnAddAbiturientAchievement
+            // 
+            this.btnAddAbiturientAchievement.Location = new System.Drawing.Point(6, 159);
+            this.btnAddAbiturientAchievement.Name = "btnAddAbiturientAchievement";
+            this.btnAddAbiturientAchievement.Size = new System.Drawing.Size(91, 23);
+            this.btnAddAbiturientAchievement.TabIndex = 90;
+            this.btnAddAbiturientAchievement.Text = "Добавить ИД";
+            this.btnAddAbiturientAchievement.UseVisualStyleBackColor = true;
+            this.btnAddAbiturientAchievement.Click += new System.EventHandler(this.btnAddAbiturientAchievement_Click);
             // 
             // label10
             // 
@@ -1347,6 +1361,16 @@
             // 
             this.epErrorInput.ContainerControl = this;
             // 
+            // btnDeleteAbiturientAchievement
+            // 
+            this.btnDeleteAbiturientAchievement.Location = new System.Drawing.Point(103, 159);
+            this.btnDeleteAbiturientAchievement.Name = "btnDeleteAbiturientAchievement";
+            this.btnDeleteAbiturientAchievement.Size = new System.Drawing.Size(91, 23);
+            this.btnDeleteAbiturientAchievement.TabIndex = 91;
+            this.btnDeleteAbiturientAchievement.Text = "Удалить ИД";
+            this.btnDeleteAbiturientAchievement.UseVisualStyleBackColor = true;
+            this.btnDeleteAbiturientAchievement.Click += new System.EventHandler(this.btnDeleteAbiturientAchievement_Click);
+            // 
             // CardAbit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1514,5 +1538,7 @@
         private System.Windows.Forms.TextBox tbObrazProgram;
         private System.Windows.Forms.TextBox tbLicenseProgram;
         private System.Windows.Forms.Button btnChangeEntry;
+        private System.Windows.Forms.Button btnAddAbiturientAchievement;
+        private System.Windows.Forms.Button btnDeleteAbiturientAchievement;
     }
 }

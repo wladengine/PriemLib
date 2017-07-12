@@ -2675,110 +2675,133 @@ namespace PriemLib
 
                 string dogType = dogovorInfo.DogovorTypeId.ToString();
 
-                using (FileStream fs = new FileStream(string.Format(@"{0}\Dogovor{1}.docx", MainClass.dirTemplates, dogType), FileMode.Open, FileAccess.Read))
-                using (DocX doc = DocX.Load(fs))
+                try
                 {
-                    //вступление
-                    doc.ReplaceText("&&DogovorNum", dogovorInfo.DogovorNum.ToString());
-                    doc.ReplaceText("&&DogovorDate", dogovorInfo.DogovorDate.ToLongDateString());
-
-                    //проректор и студент
-                    doc.ReplaceText("&&LicoNum", dogovorInfo.NumberDov.ToString());
-                    doc.ReplaceText("&&LicoDate", dogovorInfo.DateDov.ToString() + "г.");
-                    doc.ReplaceText("&&Lico", dogovorInfo.Prorector);
-                    
-                    doc.ReplaceText("&&FIO", person.FIO);
-                    doc.ReplaceText("&&Sex", (person.Sex) ? "ый" : "ая");
-
-                    string programcode = abit.ObrazProgramCrypt.Trim();
-                    string profcode = abit.LicenseProgramCode.Trim();
-
-                    doc.ReplaceText("&&ObrazProgramName", "(" + programcode + ") " + abit.ObrazProgramName.Trim());
-                    doc.ReplaceText("&&Profession", "(" + profcode + ") " + abit.LicenseProgramName);
-                    doc.ReplaceText("&&StudyCourse", "1");
-                    doc.ReplaceText("&&StudyFaculty", "");
-
-                    string form = context.StudyForm.Where(x => x.Id == abit.StudyFormId).Select(x => x.Name).FirstOrDefault().ToLower();
-                    doc.ReplaceText("&&StudyForm", form.ToLower());
-
-                    doc.ReplaceText("&&Qualification", dogovorInfo.Qualification);
-
-                    //сроки обучения
-                    doc.ReplaceText("&&Srok", dogovorInfo.Srok);
-
-                    DateTime dStart = dogovorInfo.DateStart;
-                    doc.ReplaceText("&&DateStart", dStart.ToLongDateString());
-
-                    DateTime dFinish = dogovorInfo.DateFinish;
-                    doc.ReplaceText("&&DateFinish", dFinish.ToLongDateString());
-
-                    //суммы обучения
-                    doc.ReplaceText("&&SumTotal", dogovorInfo.SumTotal);
-                    doc.ReplaceText("&&SumFirstPeriod", dogovorInfo.SumFirstPeriod);
-
-                    doc.ReplaceText("&&Address1", string.Format("{0} {1}, {2}, {3}, ", person.Code, person.CountryName, person.RegionName, person.City));
-                    doc.ReplaceText("&&Address2", string.Format("{0} дом {1} {2} кв. {3}", person.Street, person.House, person.Korpus == string.Empty ? "" : "корп. " + person.Korpus, person.Flat));
-
-                    doc.ReplaceText("&&PassportAuthorDate", person.PassportDate.Value.ToShortDateString());
-                    doc.ReplaceText("&&PassportAuthor", person.PassportAuthor);
-                    doc.ReplaceText("&&Passport", "серия " + person.PassportSeries + " № " + person.PassportNumber);
-
-                    doc.ReplaceText("&&PhoneNumber", person.Phone + (String.IsNullOrEmpty(person.Mobiles) ? "" : ", доп.: " + person.Mobiles));
-
-                    doc.ReplaceText("&&UniverName", dogovorInfo.UniverName);
-                    doc.ReplaceText("&&UniverAddress", dogovorInfo.UniverAddress);
-                    doc.ReplaceText("&&UniverINN", dogovorInfo.UniverINN);
-                    doc.ReplaceText("&&Props", dogovorInfo.Props);
-
-                    switch (dogType)
+                    using (FileStream fs = new FileStream(string.Format(@"{0}\Dogovor{1}.docx", MainClass.dirTemplates, dogType), FileMode.Open, FileAccess.Read))
+                    using (DocX doc = DocX.Load(fs))
                     {
-                        // обычный
-                        case "1":
-                            {
-                                break;
-                            }
-                        // физ лицо
-                        case "2":
-                            {
-                                doc.ReplaceText("&&CustomerLico", dogovorInfo.Customer);
-                                doc.ReplaceText("&&CustomerAddress", dogovorInfo.CustomerAddress);
-                                doc.ReplaceText("&&CustomerINN", "Паспорт: " + dogovorInfo.CustomerPassport);
-                                doc.ReplaceText("&&CustomerRS", "Выдан: " + dogovorInfo.CustomerPassportAuthor);
+                        //вступление
+                        doc.ReplaceText("&&DogovorNum", dogovorInfo.DogovorNum.ToString());
+                        doc.ReplaceText("&&DogovorDate", dogovorInfo.DogovorDate.ToLongDateString());
 
-                                break;
-                            }
-                        // мат кап
-                        case "4":
-                            {
-                                doc.ReplaceText("&&CustomerAddress", dogovorInfo.CustomerAddress);
-                                doc.ReplaceText("&&CustomerINN", dogovorInfo.CustomerPassport);
-                                doc.ReplaceText("&&CustomerRS", dogovorInfo.CustomerPassportAuthor);
-                                doc.ReplaceText("&&Customer", dogovorInfo.Customer);
-                                break;
-                            }
-                        // юридическое лицо
-                        case "3":
-                            {
-                                doc.ReplaceText("&&CustomerLico", dogovorInfo.CustomerLico);
-                                doc.ReplaceText("&&CustomerReason", dogovorInfo.CustomerReason);
-                                doc.ReplaceText("&&CustomerAddress", dogovorInfo.CustomerAddress);
-                                doc.ReplaceText("&&CustomerINN", "ИНН " + dogovorInfo.CustomerINN);
-                                doc.ReplaceText("&&CustomerRS", "Р/С " + dogovorInfo.CustomerRS);
-                                doc.ReplaceText("&&Customer", dogovorInfo.Customer);
+                        //проректор и студент
+                        doc.ReplaceText("&&LicoNum", dogovorInfo.NumberDov.ToString());
+                        doc.ReplaceText("&&LicoDate", dogovorInfo.DateDov.ToString() + "г.");
+                        doc.ReplaceText("&&Lico", dogovorInfo.Prorector);
 
-                                break;
-                            }
+                        doc.ReplaceText("&&FIO", person.FIO);
+                        doc.ReplaceText("&&Sex", (person.Sex) ? "ый" : "ая");
+
+                        string programcode = abit.ObrazProgramCrypt.Trim();
+                        string profcode = abit.LicenseProgramCode.Trim();
+
+                        doc.ReplaceText("&&ObrazProgramName", "(" + programcode + ") " + abit.ObrazProgramName.Trim());
+                        doc.ReplaceText("&&Profession", "(" + profcode + ") " + abit.LicenseProgramName);
+                        doc.ReplaceText("&&StudyCourse", "1");
+                        doc.ReplaceText("&&StudyFaculty", "");
+
+                        string form = context.StudyForm.Where(x => x.Id == abit.StudyFormId).Select(x => x.Name).FirstOrDefault().ToLower();
+                        doc.ReplaceText("&&StudyForm", form.ToLower());
+
+                        doc.ReplaceText("&&Qualification", dogovorInfo.Qualification);
+
+                        //сроки обучения
+                        doc.ReplaceText("&&Srok", dogovorInfo.Srok);
+
+                        DateTime dStart = dogovorInfo.DateStart;
+                        doc.ReplaceText("&&DateStart", dStart.ToLongDateString());
+
+                        DateTime dFinish = dogovorInfo.DateFinish;
+                        doc.ReplaceText("&&DateFinish", dFinish.ToLongDateString());
+
+                        //суммы обучения
+                        doc.ReplaceText("&&SumTotal", dogovorInfo.SumTotal);
+                        doc.ReplaceText("&&SumFirstPeriod", dogovorInfo.SumFirstPeriod);
+
+                        doc.ReplaceText("&&Address1", string.Format("{0} {1}, {2}, {3}, ", person.Code, person.CountryName, person.RegionName, person.City));
+                        doc.ReplaceText("&&Address2", string.Format("{0} дом {1} {2} кв. {3}", person.Street, person.House, person.Korpus == string.Empty ? "" : "корп. " + person.Korpus, person.Flat));
+
+                        doc.ReplaceText("&&PassportAuthorDate", person.PassportDate.Value.ToShortDateString());
+                        doc.ReplaceText("&&PassportAuthor", person.PassportAuthor);
+                        doc.ReplaceText("&&Passport", "серия " + person.PassportSeries + " № " + person.PassportNumber);
+
+                        doc.ReplaceText("&&PhoneNumber", person.Phone + (String.IsNullOrEmpty(person.Mobiles) ? "" : ", доп.: " + person.Mobiles));
+
+                        doc.ReplaceText("&&UniverName", dogovorInfo.UniverName);
+                        doc.ReplaceText("&&UniverAddress", dogovorInfo.UniverAddress);
+                        doc.ReplaceText("&&UniverINN", dogovorInfo.UniverINN);
+                        doc.ReplaceText("&&Props", dogovorInfo.Props);
+
+                        switch (dogType)
+                        {
+                            // обычный
+                            case "1":
+                                {
+                                    break;
+                                }
+                            // физ лицо
+                            case "2":
+                                {
+                                    doc.ReplaceText("&&CustomerLico", dogovorInfo.Customer);
+                                    doc.ReplaceText("&&CustomerAddress", dogovorInfo.CustomerAddress);
+                                    doc.ReplaceText("&&CustomerINN", "Паспорт: " + dogovorInfo.CustomerPassport);
+                                    doc.ReplaceText("&&CustomerRS", "Выдан: " + dogovorInfo.CustomerPassportAuthor);
+
+                                    break;
+                                }
+                            // мат кап
+                            case "4":
+                                {
+                                    doc.ReplaceText("&&CustomerAddress", dogovorInfo.CustomerAddress);
+                                    doc.ReplaceText("&&CustomerINN", dogovorInfo.CustomerPassport);
+                                    doc.ReplaceText("&&CustomerRS", dogovorInfo.CustomerPassportAuthor);
+                                    doc.ReplaceText("&&Customer", dogovorInfo.Customer);
+                                    break;
+                                }
+                            // юридическое лицо
+                            case "3":
+                                {
+                                    doc.ReplaceText("&&CustomerLico", dogovorInfo.CustomerLico);
+                                    doc.ReplaceText("&&CustomerReason", dogovorInfo.CustomerReason);
+                                    doc.ReplaceText("&&CustomerAddress", dogovorInfo.CustomerAddress);
+                                    doc.ReplaceText("&&CustomerINN", "ИНН " + dogovorInfo.CustomerINN);
+                                    doc.ReplaceText("&&CustomerRS", "Р/С " + dogovorInfo.CustomerRS);
+                                    doc.ReplaceText("&&Customer", dogovorInfo.Customer);
+
+                                    break;
+                                }
+                        }
+
+                        string saveFileName = string.Format(@"{0}\Dogovor_{1}.docx", MainClass.saveTempFolder, dogId);
+
+                        //пытаемся сохранить (ловим ошибки при сохранении)
+                        try
+                        {
+                            doc.SaveAs(saveFileName);
+                        }
+                        catch (Exception ex)
+                        {
+                            WinFormsServ.Error("Ошибка при сохранении файла:", ex);
+                        }
+                        //пытаемся открыть (ловим ошибки при открытии)
+                        try
+                        {
+                            System.Diagnostics.Process pr = new Process();
+                            pr.StartInfo.FileName = saveFileName;
+                            if (forPrint)
+                                pr.StartInfo.Verb = "Print";
+                            pr.Start();
+                        }
+                        catch (Exception ex)
+                        {
+                            WinFormsServ.Error("Ошибка при открытии файла:", ex);
+                        }
+
                     }
-
-                    string saveFileName = string.Format(@"{0}\Dogovor_{1}.docx", MainClass.saveTempFolder, dogId);
-
-                    doc.SaveAs(saveFileName);
-
-                    System.Diagnostics.Process pr = new Process();
-                    pr.StartInfo.FileName = saveFileName;
-                    if (forPrint)
-                        pr.StartInfo.Verb = "Print";
-                    pr.Start();
+                }
+                catch (Exception ex)
+                {
+                    WinFormsServ.Error("Ошибка при создании файла:", ex);
                 }
             }
         }

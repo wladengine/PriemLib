@@ -19,6 +19,7 @@ namespace PriemLib
         {
             this.Abiturient1 = new HashSet<Abiturient>();
             this.Mark = new HashSet<Mark>();
+            this.MarkFromAchievement = new HashSet<MarkFromAchievement>();
         }
     
         public System.Guid Id { get; set; }
@@ -52,5 +53,7 @@ namespace PriemLib
         public virtual ICollection<Abiturient> Abiturient1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Mark> Mark { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MarkFromAchievement> MarkFromAchievement { get; set; }
     }
 }

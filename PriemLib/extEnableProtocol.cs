@@ -22,7 +22,7 @@ namespace PriemLib
         public int StudyLevelGroupId { get; set; }
         public Nullable<int> LicenseProgramId { get; set; }
         public Nullable<int> FacultyId { get; set; }
-        public Nullable<int> StudyFormId { get; set; }
+        public int StudyFormId { get; set; }
         public Nullable<int> StudyBasisId { get; set; }
         public string Number { get; set; }
         public System.DateTime Date { get; set; }
@@ -33,5 +33,6 @@ namespace PriemLib
         public bool IsSecond { get; set; }
         public bool IsListener { get; set; }
         public string ProtocolTypeName { get; set; }
+        public Nullable<int> StudyLevelGroupUpperCategoryId { get; set; }
     }
 }

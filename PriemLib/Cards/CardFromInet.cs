@@ -1459,6 +1459,26 @@ namespace PriemLib
             }
         }
 
+        private bool CheckApplications()
+        {
+            //проверка на соответствие конкурсов в заявлении
+            bool bRet = true;
+
+            using (PriemEntities context = new PriemEntities())
+            {
+                foreach (var z in LstCompetitions)
+                {
+                    int cnt = context.Competition.Where(x => x.Id == z.CompetitionId && x.StudyBasisId == z.StudyBasisId).Count();
+                    if (cnt == 0)
+                    {
+                        WinFormsServ.Error("Для типа конкурса " + z.CompetitionName + " не найдено доступных значений в основе обучения " + z.StudyBasisName);
+                        bRet = false;
+                    }
+                }
+            }
+
+            return bRet;
+        }
         private bool SaveApplication(Guid PersonId)
         {
             if (_closeAbit)
@@ -1469,6 +1489,9 @@ namespace PriemLib
 
             //if (!CheckFieldsAbit())
             //    return false;
+
+            if (!CheckApplications())
+                return false;
 
             try
             {

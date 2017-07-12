@@ -110,6 +110,7 @@
           <Property Name="Holder" Type="nvarchar" MaxLength="150" />
           <Property Name="Mark" Type="int" />
           <Property Name="StudyLevelGroupId" Type="int" Nullable="false" />
+          <Property Name="NeedOlympiadToAccept" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="AdmissionProtocol">
           <Key>
@@ -651,6 +652,18 @@
           <Property Name="OlympiadId" Type="uniqueidentifier" />
           <Property Name="EgeCertificateId" Type="uniqueidentifier" />
           <Property Name="FiveGradeValue" Type="tinyint" />
+        </EntityType>
+        <EntityType Name="MarkFromAchievement">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AbiturientId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AchievementTypeId" Type="int" Nullable="false" />
+          <Property Name="OlympiadId" Type="uniqueidentifier" />
+          <Property Name="Value" Type="int" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="CreateAuthor" Type="nvarchar" MaxLength="150" Nullable="false" />
         </EntityType>
         <EntityType Name="OlympBook">
           <Key>
@@ -1636,13 +1649,12 @@
           <Key>
             <PropertyRef Name="AbiturientId" />
           </Key>
+          <Property Name="Id" Type="uniqueidentifier" />
           <Property Name="AbiturientId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="AchievementType" Type="nvarchar" MaxLength="2156" />
           <Property Name="AchievementTypeId" Type="int" />
           <Property Name="Mark" Type="int" />
         </EntityType>
-        <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Priem2017.ed.extAbitMarksSumAG" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <!--Ошибки, обнаруженные при создании:
 предупреждение 6002: В таблице или представлении "Priem2017.ed.extApplicationDetails" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="extApplicationDetails">
@@ -1883,6 +1895,7 @@
             
             
             
+            
             <PropertyRef Name="IsOld" />
             
             
@@ -1896,7 +1909,7 @@
           <Property Name="StudyLevelGroupId" Type="int" Nullable="false" />
           <Property Name="LicenseProgramId" Type="int" />
           <Property Name="FacultyId" Type="int" />
-          <Property Name="StudyFormId" Type="int" />
+          <Property Name="StudyFormId" Type="int" Nullable="false" />
           <Property Name="StudyBasisId" Type="int" />
           <Property Name="Number" Type="nvarchar" MaxLength="15" />
           <Property Name="Date" Type="datetime" Nullable="false" />
@@ -1907,6 +1920,7 @@
           <Property Name="IsSecond" Type="bit" Nullable="false" />
           <Property Name="IsListener" Type="bit" Nullable="false" />
           <Property Name="ProtocolTypeName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="StudyLevelGroupUpperCategoryId" Type="int" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
 предупреждение 6002: В таблице или представлении "Priem2017.ed.extEntry" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
@@ -2097,6 +2111,7 @@
           <Property Name="IsForeign" Type="bit" Nullable="false" />
           <Property Name="Priority" Type="int" />
           <Property Name="EntryIsForeign" Type="bit" Nullable="false" />
+          <Property Name="StudyLevelGroupUpperCategoryId" Type="int" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
 предупреждение 6002: В таблице или представлении "Priem2017.ed.extEntryView_ForDisEntered" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
@@ -2410,6 +2425,7 @@
             
             <PropertyRef Name="OriginDoc" />
             <PropertyRef Name="OlympYear" />
+            <PropertyRef Name="OlympBookId" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="OlympTypeId" Type="int" Nullable="false" />
@@ -2436,6 +2452,7 @@
           <Property Name="OlympicID" Type="nvarchar" MaxLength="50" />
           <Property Name="FIS_OlympicID" Type="nvarchar" MaxLength="50" />
           <Property Name="OlympLevel_FISID" Type="int" />
+          <Property Name="OlympBookId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
 предупреждение 6002: В таблице или представлении "Priem2017.ed.extPerson" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
@@ -2996,7 +3013,7 @@
           <Property Name="Checked" Type="bit" Nullable="false" />
           <Property Name="NotEnabled" Type="bit" Nullable="false" />
           <Property Name="Coefficient" Type="float" />
-          <Property Name="Sum" Type="int" />
+          <Property Name="Sum" Type="decimal" Precision="6" Scale="2" />
           <Property Name="OtherCompetitionId" Type="int" />
           <Property Name="CelCompetitionId" Type="int" />
           <Property Name="CelCompetitionText" Type="nvarchar" MaxLength="50" />
@@ -3043,6 +3060,7 @@
           <Property Name="IsViewed" Type="bit" Nullable="false" />
           <Property Name="IsForeign" Type="bit" Nullable="false" />
           <Property Name="IsCrimea" Type="bit" Nullable="false" />
+          <Property Name="StudyLevelGroupUpperCategoryId" Type="int" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
 предупреждение 6002: В таблице или представлении "Priem2017.ed.qAbiturient" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
@@ -3086,6 +3104,7 @@
             <PropertyRef Name="StudyLevelGroupId" />
             <PropertyRef Name="HasEntryConfirm" />
             <PropertyRef Name="HasDisabledEntryConfirm" />
+            <PropertyRef Name="MarksCount" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="PersonId" Type="uniqueidentifier" Nullable="false" />
@@ -3157,6 +3176,7 @@
           <Property Name="DateEntryConfirm" Type="datetime" />
           <Property Name="HasDisabledEntryConfirm" Type="bit" Nullable="false" />
           <Property Name="DateDisableEntryConfirm" Type="datetime" />
+          <Property Name="MarksCount" Type="int" Nullable="false" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
 предупреждение 6002: В таблице или представлении "Priem2017.ed.qAbiturient_WhoSetBackDoc" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
@@ -4156,6 +4176,30 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Mark">
+              <PropertyRef Name="OlympiadId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MarkFromAchievement_Abiturient">
+          <End Role="Abiturient" Type="Self.Abiturient" Multiplicity="1" />
+          <End Role="MarkFromAchievement" Type="Self.MarkFromAchievement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Abiturient">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MarkFromAchievement">
+              <PropertyRef Name="AbiturientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MarkFromAchievement_Olympiads">
+          <End Role="Olympiads" Type="Self.Olympiads" Multiplicity="0..1" />
+          <End Role="MarkFromAchievement" Type="Self.MarkFromAchievement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Olympiads">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MarkFromAchievement">
               <PropertyRef Name="OlympiadId" />
             </Dependent>
           </ReferentialConstraint>
@@ -6383,6 +6427,7 @@
           <EntitySet Name="Language" EntityType="Self.Language" Schema="ed" store:Type="Tables" />
           <EntitySet Name="LanguageCertificatesType" EntityType="Self.LanguageCertificatesType" Schema="ed" store:Type="Tables" />
           <EntitySet Name="Mark" EntityType="Self.Mark" Schema="ed" store:Type="Tables" />
+          <EntitySet Name="MarkFromAchievement" EntityType="Self.MarkFromAchievement" Schema="ed" store:Type="Tables" />
           <EntitySet Name="OlympBook" EntityType="Self.OlympBook" Schema="ed" store:Type="Tables" />
           <EntitySet Name="OlympiadCheckedByRectorat" EntityType="Self.OlympiadCheckedByRectorat" Schema="ed" store:Type="Tables" />
           <EntitySet Name="Olympiads" EntityType="Self.Olympiads" Schema="ed" store:Type="Tables" />
@@ -6585,6 +6630,7 @@
           </EntitySet>
           <EntitySet Name="extAbitAllAdditionalAchievements" EntityType="Self.extAbitAllAdditionalAchievements" store:Type="Views" store:Schema="ed">
             <DefiningQuery>SELECT 
+    [extAbitAllAdditionalAchievements].[Id] AS [Id], 
     [extAbitAllAdditionalAchievements].[AbiturientId] AS [AbiturientId], 
     [extAbitAllAdditionalAchievements].[AchievementType] AS [AchievementType], 
     [extAbitAllAdditionalAchievements].[AchievementTypeId] AS [AchievementTypeId], 
@@ -6744,7 +6790,8 @@
     [extEnableProtocol].[ParentProtocolId] AS [ParentProtocolId], 
     [extEnableProtocol].[IsSecond] AS [IsSecond], 
     [extEnableProtocol].[IsListener] AS [IsListener], 
-    [extEnableProtocol].[ProtocolTypeName] AS [ProtocolTypeName]
+    [extEnableProtocol].[ProtocolTypeName] AS [ProtocolTypeName], 
+    [extEnableProtocol].[StudyLevelGroupUpperCategoryId] AS [StudyLevelGroupUpperCategoryId]
     FROM [ed].[extEnableProtocol] AS [extEnableProtocol]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="extEntry" EntityType="Self.extEntry" store:Type="Views" store:Schema="ed">
@@ -6873,7 +6920,8 @@
     [extEntryView].[IsBE] AS [IsBE], 
     [extEntryView].[IsForeign] AS [IsForeign], 
     [extEntryView].[Priority] AS [Priority], 
-    [extEntryView].[EntryIsForeign] AS [EntryIsForeign]
+    [extEntryView].[EntryIsForeign] AS [EntryIsForeign], 
+    [extEntryView].[StudyLevelGroupUpperCategoryId] AS [StudyLevelGroupUpperCategoryId]
     FROM [ed].[extEntryView] AS [extEntryView]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="extEntryView_ForDisEntered" EntityType="Self.extEntryView_ForDisEntered" store:Type="Views" store:Schema="ed">
@@ -7111,7 +7159,8 @@
     [extOlympiadsAll].[OlympProfileName] AS [OlympProfileName], 
     [extOlympiadsAll].[OlympicID] AS [OlympicID], 
     [extOlympiadsAll].[FIS_OlympicID] AS [FIS_OlympicID], 
-    [extOlympiadsAll].[OlympLevel_FISID] AS [OlympLevel_FISID]
+    [extOlympiadsAll].[OlympLevel_FISID] AS [OlympLevel_FISID], 
+    [extOlympiadsAll].[OlympBookId] AS [OlympBookId]
     FROM [ed].[extOlympiadsAll] AS [extOlympiadsAll]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="extPerson" EntityType="Self.extPerson" store:Type="Views" store:Schema="ed">
@@ -7553,7 +7602,8 @@
     [qAbitAll].[Name] AS [Name], 
     [qAbitAll].[IsViewed] AS [IsViewed], 
     [qAbitAll].[IsForeign] AS [IsForeign], 
-    [qAbitAll].[IsCrimea] AS [IsCrimea]
+    [qAbitAll].[IsCrimea] AS [IsCrimea], 
+    [qAbitAll].[StudyLevelGroupUpperCategoryId] AS [StudyLevelGroupUpperCategoryId]
     FROM [ed].[qAbitAll] AS [qAbitAll]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="qAbiturient" EntityType="Self.qAbiturient" store:Type="Views" store:Schema="ed">
@@ -7627,7 +7677,8 @@
     [qAbiturient].[HasEntryConfirm] AS [HasEntryConfirm], 
     [qAbiturient].[DateEntryConfirm] AS [DateEntryConfirm], 
     [qAbiturient].[HasDisabledEntryConfirm] AS [HasDisabledEntryConfirm], 
-    [qAbiturient].[DateDisableEntryConfirm] AS [DateDisableEntryConfirm]
+    [qAbiturient].[DateDisableEntryConfirm] AS [DateDisableEntryConfirm], 
+    [qAbiturient].[MarksCount] AS [MarksCount]
     FROM [ed].[qAbiturient] AS [qAbiturient]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="qAbiturient_WhoSetBackDoc" EntityType="Self.qAbiturient_WhoSetBackDoc" store:Type="Views" store:Schema="ed">
@@ -8066,6 +8117,14 @@
           <AssociationSet Name="FK_Mark_Olympiads" Association="Self.FK_Mark_Olympiads">
             <End Role="Olympiads" EntitySet="Olympiads" />
             <End Role="Mark" EntitySet="Mark" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MarkFromAchievement_Abiturient" Association="Self.FK_MarkFromAchievement_Abiturient">
+            <End Role="Abiturient" EntitySet="Abiturient" />
+            <End Role="MarkFromAchievement" EntitySet="MarkFromAchievement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MarkFromAchievement_Olympiads" Association="Self.FK_MarkFromAchievement_Olympiads">
+            <End Role="Olympiads" EntitySet="Olympiads" />
+            <End Role="MarkFromAchievement" EntitySet="MarkFromAchievement" />
           </AssociationSet>
           <AssociationSet Name="FK_ObrazProgramInEntry_Entry" Association="Self.FK_ObrazProgramInEntry_Entry">
             <End Role="Entry" EntitySet="Entry" />
@@ -10336,6 +10395,15 @@
           </AssociationSet>
           <EntitySet Name="OlympResultToMaxMark" EntityType="Priem2012Model.OlympResultToMaxMark" />
           <EntitySet Name="Person_FetchValues" EntityType="Priem2012Model.Person_FetchValues" />
+          <EntitySet Name="MarkFromAchievement" EntityType="Priem2012Model.MarkFromAchievement" />
+          <AssociationSet Name="FK_MarkFromAchievement_Abiturient" Association="Priem2012Model.FK_MarkFromAchievement_Abiturient">
+            <End Role="Abiturient" EntitySet="Abiturient" />
+            <End Role="MarkFromAchievement" EntitySet="MarkFromAchievement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MarkFromAchievement_Olympiads" Association="Priem2012Model.FK_MarkFromAchievement_Olympiads">
+            <End Role="Olympiads" EntitySet="Olympiads" />
+            <End Role="MarkFromAchievement" EntitySet="MarkFromAchievement" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="AttMarks">
           <Key>
@@ -11029,6 +11097,7 @@
           <Property Name="PersonId" Type="Guid" Nullable="false" />
           <NavigationProperty Name="Mark" Relationship="Priem2012Model.FK_Mark_Olympiads" FromRole="Olympiads" ToRole="Mark" />
           <Property Name="OlympBookId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="MarkFromAchievement" Relationship="Priem2012Model.FK_MarkFromAchievement_Olympiads" FromRole="Olympiads" ToRole="MarkFromAchievement" />
         </EntityType>
         <Association Name="fk_Olympiads_OlympLevel">
           <End Type="Priem2012Model.OlympLevel" Role="OlympLevel" Multiplicity="0..1" />
@@ -11273,6 +11342,7 @@
           <NavigationProperty Name="Mark" Relationship="Priem2012Model.FK_Mark_Abiturient" FromRole="Abiturient" ToRole="Mark" />
           <NavigationProperty Name="Entry" Relationship="Priem2012Model.FK_Abiturient_Entry" FromRole="Abiturient" ToRole="Entry" />
           <Property Name="MarksCount" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="MarkFromAchievement" Relationship="Priem2012Model.FK_MarkFromAchievement_Abiturient" FromRole="Abiturient" ToRole="MarkFromAchievement" />
         </EntityType>
         <EntityType Name="Protocol">
           <Key>
@@ -11445,6 +11515,7 @@
             <PropertyRef Name="Id" />
             <PropertyRef Name="OriginDoc" />
             <PropertyRef Name="OlympYear" />
+            <PropertyRef Name="OlympBookId" />
           </Key>
           <Property Type="Guid" Name="Id" Nullable="false" />
           <Property Type="Int32" Name="OlympTypeId" Nullable="false" />
@@ -11471,6 +11542,7 @@
           <Property Name="OlympicID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="FIS_OlympicID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="OlympLevel_FISID" Type="Int32" />
+          <Property Name="OlympBookId" Type="Guid" Nullable="false" />
         </EntityType>
         <EntityType Name="AbitDoc">
           <Key>
@@ -11774,7 +11846,7 @@
           <Property Type="Int32" Name="StudyLevelGroupId" Nullable="false" />
           <Property Type="Int32" Name="LicenseProgramId" />
           <Property Type="Int32" Name="FacultyId" />
-          <Property Type="Int32" Name="StudyFormId" />
+          <Property Type="Int32" Name="StudyFormId" Nullable="false" />
           <Property Type="Int32" Name="StudyBasisId" />
           <Property Type="String" Name="Number" MaxLength="15" FixedLength="false" Unicode="true" />
           <Property Type="DateTime" Name="Date" Precision="3" Nullable="false" />
@@ -11785,6 +11857,7 @@
           <Property Type="Boolean" Name="IsSecond" Nullable="false" />
           <Property Type="Boolean" Name="IsListener" Nullable="false" />
           <Property Type="String" Name="ProtocolTypeName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StudyLevelGroupUpperCategoryId" Type="Int32" />
         </EntityType>
         <EntityType Name="extDisEntryView">
           <Key>
@@ -13350,6 +13423,7 @@
           <NavigationProperty Name="PersonAchievement" Relationship="Priem2012Model.FK_PersonAchievement_AchievementType" FromRole="AchievementType" ToRole="PersonAchievement" />
           <Property Name="Mark" Type="Int32" />
           <Property Name="StudyLevelGroupId" Type="Int32" Nullable="false" />
+          <Property Name="NeedOlympiadToAccept" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="PersonAchievement">
           <Key>
@@ -13648,6 +13722,7 @@
           <Property Name="AchievementType" Type="String" MaxLength="2156" FixedLength="false" Unicode="true" />
           <Property Name="AchievementTypeId" Type="Int32" />
           <Property Name="Mark" Type="Int32" />
+          <Property Name="Id" Type="Guid" />
         </EntityType>
         <EntityType Name="AdmissionProtocol">
           <Key>
@@ -15029,6 +15104,7 @@
           <Property Name="IsForeign" Type="Boolean" Nullable="false" />
           <Property Name="Priority" Type="Int32" />
           <Property Name="EntryIsForeign" Type="Boolean" Nullable="false" />
+          <Property Name="StudyLevelGroupUpperCategoryId" Type="Int32" />
         </EntityType>
         <EntityType Name="qAbitAll">
           <Key>
@@ -15128,6 +15204,7 @@
           <Property Name="IsViewed" Type="Boolean" Nullable="false" />
           <Property Name="IsForeign" Type="Boolean" Nullable="false" />
           <Property Name="IsCrimea" Type="Boolean" Nullable="false" />
+          <Property Name="StudyLevelGroupUpperCategoryId" Type="Int32" />
         </EntityType>
         <EntityType Name="qAbiturient">
           <Key>
@@ -15169,6 +15246,7 @@
             <PropertyRef Name="StudyLevelGroupId" />
             <PropertyRef Name="HasEntryConfirm" />
             <PropertyRef Name="HasDisabledEntryConfirm" />
+            <PropertyRef Name="MarksCount" />
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" />
           <Property Name="PersonId" Type="Guid" Nullable="false" />
@@ -15240,6 +15318,7 @@
           <Property Name="DateEntryConfirm" Type="DateTime" Precision="3" />
           <Property Name="HasDisabledEntryConfirm" Type="Boolean" Nullable="false" />
           <Property Name="DateDisableEntryConfirm" Type="DateTime" Precision="3" />
+          <Property Name="MarksCount" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="qEntry">
           <Key>
@@ -15519,6 +15598,44 @@
           <Property Name="EGE_Esp" Type="Int32" />
           <Property Name="EGE_Inform" Type="Int32" />
         </EntityType>
+        <EntityType Name="MarkFromAchievement">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="AbiturientId" Type="Guid" Nullable="false" />
+          <Property Name="AchievementTypeId" Type="Int32" Nullable="false" />
+          <Property Name="OlympiadId" Type="Guid" />
+          <Property Name="Value" Type="Int32" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreateAuthor" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Abiturient" Relationship="Priem2012Model.FK_MarkFromAchievement_Abiturient" FromRole="MarkFromAchievement" ToRole="Abiturient" />
+          <NavigationProperty Name="Olympiads" Relationship="Priem2012Model.FK_MarkFromAchievement_Olympiads" FromRole="MarkFromAchievement" ToRole="Olympiads" />
+        </EntityType>
+        <Association Name="FK_MarkFromAchievement_Abiturient">
+          <End Type="Priem2012Model.Abiturient" Role="Abiturient" Multiplicity="1" />
+          <End Type="Priem2012Model.MarkFromAchievement" Role="MarkFromAchievement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Abiturient">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MarkFromAchievement">
+              <PropertyRef Name="AbiturientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MarkFromAchievement_Olympiads">
+          <End Type="Priem2012Model.Olympiads" Role="Olympiads" Multiplicity="0..1" />
+          <End Type="Priem2012Model.MarkFromAchievement" Role="MarkFromAchievement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Olympiads">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MarkFromAchievement">
+              <PropertyRef Name="OlympiadId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -16244,6 +16361,7 @@
           <EntitySetMapping Name="extOlympiadsAll">
             <EntityTypeMapping TypeName="Priem2012Model.extOlympiadsAll">
               <MappingFragment StoreEntitySet="extOlympiadsAll">
+                <ScalarProperty Name="OlympBookId" ColumnName="OlympBookId" />
                 <ScalarProperty Name="OlympLevel_FISID" ColumnName="OlympLevel_FISID" />
                 <ScalarProperty Name="FIS_OlympicID" ColumnName="FIS_OlympicID" />
                 <ScalarProperty Name="OlympicID" ColumnName="OlympicID" />
@@ -16444,6 +16562,7 @@
           <EntitySetMapping Name="extEnableProtocol">
             <EntityTypeMapping TypeName="Priem2012Model.extEnableProtocol">
               <MappingFragment StoreEntitySet="extEnableProtocol">
+                <ScalarProperty Name="StudyLevelGroupUpperCategoryId" ColumnName="StudyLevelGroupUpperCategoryId" />
                 <ScalarProperty Name="ProtocolTypeName" ColumnName="ProtocolTypeName" />
                 <ScalarProperty Name="IsListener" ColumnName="IsListener" />
                 <ScalarProperty Name="IsSecond" ColumnName="IsSecond" />
@@ -17499,6 +17618,7 @@
           <EntitySetMapping Name="AchievementType">
             <EntityTypeMapping TypeName="Priem2012Model.AchievementType">
               <MappingFragment StoreEntitySet="AchievementType">
+                <ScalarProperty Name="NeedOlympiadToAccept" ColumnName="NeedOlympiadToAccept" />
                 <ScalarProperty Name="StudyLevelGroupId" ColumnName="StudyLevelGroupId" />
                 <ScalarProperty Name="Mark" ColumnName="Mark" />
                 <ScalarProperty Name="Holder" ColumnName="Holder" />
@@ -17660,6 +17780,7 @@
           <EntitySetMapping Name="extAbitAllAdditionalAchievements">
             <EntityTypeMapping TypeName="Priem2012Model.extAbitAllAdditionalAchievements">
               <MappingFragment StoreEntitySet="extAbitAllAdditionalAchievements">
+                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Mark" ColumnName="Mark" />
                 <ScalarProperty Name="AchievementTypeId" ColumnName="AchievementTypeId" />
                 <ScalarProperty Name="AchievementType" ColumnName="AchievementType" />
@@ -18389,6 +18510,7 @@
           <EntitySetMapping Name="extEntryView">
             <EntityTypeMapping TypeName="Priem2012Model.extEntryView">
               <MappingFragment StoreEntitySet="extEntryView">
+                <ScalarProperty Name="StudyLevelGroupUpperCategoryId" ColumnName="StudyLevelGroupUpperCategoryId" />
                 <ScalarProperty Name="EntryIsForeign" ColumnName="EntryIsForeign" />
                 <ScalarProperty Name="Priority" ColumnName="Priority" />
                 <ScalarProperty Name="IsForeign" ColumnName="IsForeign" />
@@ -18432,6 +18554,7 @@
           <EntitySetMapping Name="qAbitAll">
             <EntityTypeMapping TypeName="Priem2012Model.qAbitAll">
               <MappingFragment StoreEntitySet="qAbitAll">
+                <ScalarProperty Name="StudyLevelGroupUpperCategoryId" ColumnName="StudyLevelGroupUpperCategoryId" />
                 <ScalarProperty Name="IsCrimea" ColumnName="IsCrimea" />
                 <ScalarProperty Name="IsForeign" ColumnName="IsForeign" />
                 <ScalarProperty Name="IsViewed" ColumnName="IsViewed" />
@@ -18499,6 +18622,7 @@
           <EntitySetMapping Name="qAbiturient">
             <EntityTypeMapping TypeName="Priem2012Model.qAbiturient">
               <MappingFragment StoreEntitySet="qAbiturient">
+                <ScalarProperty Name="MarksCount" ColumnName="MarksCount" />
                 <ScalarProperty Name="DateDisableEntryConfirm" ColumnName="DateDisableEntryConfirm" />
                 <ScalarProperty Name="HasDisabledEntryConfirm" ColumnName="HasDisabledEntryConfirm" />
                 <ScalarProperty Name="DateEntryConfirm" ColumnName="DateEntryConfirm" />
@@ -18651,6 +18775,19 @@
                 <ScalarProperty Name="EGE_Math" ColumnName="EGE_Math" />
                 <ScalarProperty Name="EGE_Rus" ColumnName="EGE_Rus" />
                 <ScalarProperty Name="CurrentEducationInfoId" ColumnName="CurrentEducationInfoId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MarkFromAchievement">
+            <EntityTypeMapping TypeName="Priem2012Model.MarkFromAchievement">
+              <MappingFragment StoreEntitySet="MarkFromAchievement">
+                <ScalarProperty Name="CreateAuthor" ColumnName="CreateAuthor" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="OlympiadId" ColumnName="OlympiadId" />
+                <ScalarProperty Name="AchievementTypeId" ColumnName="AchievementTypeId" />
+                <ScalarProperty Name="AbiturientId" ColumnName="AbiturientId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

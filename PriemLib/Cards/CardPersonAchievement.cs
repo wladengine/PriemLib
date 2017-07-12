@@ -64,7 +64,9 @@ namespace PriemLib
 
             try
             {
-                ComboServ.FillCombo(cbAchievementType, HelpClass.GetComboListByTable("ed.AchievementType"), true, false);
+                string sTypesQuery = string.Format("ed.AchievementType WHERE AchievementType.StudyLevelGroupId IN ({0})", Util.BuildStringWithCollection(MainClass.lstStudyLevelGroupId));
+                var lstTypes = HelpClass.GetComboListByTable(sTypesQuery);
+                ComboServ.FillCombo(cbAchievementType, lstTypes, true, false);
             }
             catch (Exception exc)
             {

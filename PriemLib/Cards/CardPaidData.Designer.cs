@@ -284,11 +284,11 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(58, 254);
+            this.label13.Location = new System.Drawing.Point(84, 254);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(176, 13);
+            this.label13.Size = new System.Drawing.Size(157, 13);
             this.label13.TabIndex = 81;
-            this.label13.Text = "Сумма оплаты за первый период";
+            this.label13.Text = "Сумма оплаты за первый год";
             // 
             // groupBox2
             // 

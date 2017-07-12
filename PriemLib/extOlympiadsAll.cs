@@ -39,5 +39,6 @@ namespace PriemLib
         public string OlympicID { get; set; }
         public string FIS_OlympicID { get; set; }
         public Nullable<int> OlympLevel_FISID { get; set; }
+        public System.Guid OlympBookId { get; set; }
     }
 }

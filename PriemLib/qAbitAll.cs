@@ -75,5 +75,6 @@ namespace PriemLib
         public bool IsViewed { get; set; }
         public bool IsForeign { get; set; }
         public bool IsCrimea { get; set; }
+        public Nullable<int> StudyLevelGroupUpperCategoryId { get; set; }
     }
 }

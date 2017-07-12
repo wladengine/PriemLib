@@ -65,6 +65,13 @@ namespace PriemLib
             }
             set { tbMinEge.Text = value.ToString(); }
         }
+
+        private int? _yearOld;
+        private int? _typeOld;
+        private int? _nameOld;
+        private int? _profileOld;
+        private int? _subjectOld;
+
         #endregion
 
         private Guid _ExamInEntryBlockId;
@@ -143,7 +150,9 @@ namespace PriemLib
         protected override void InitHandlers()
         {
             cbOlympType.SelectedIndexChanged += (a, b) => { UpdateAfterType(); };
-            cbOlympYear.SelectedIndexChanged += (a, b) => { UpdateAfterType(); };
+            cbOlympYear.SelectedIndexChanged += (a, b) => {
+                UpdateAfterType();
+            };
             cbOlympName.SelectedIndexChanged += (a, b) => { FillAfterOlympName(); };
             cbOlympProfile.SelectedIndexChanged += (a, b) => { FillAfterOlympProfile(); };
             cbOlympSubject.SelectedIndexChanged += (a, b) => { FillAfterOlympSubject(); }; ;
@@ -165,12 +174,17 @@ namespace PriemLib
                       })
                       .Distinct())
                       .ToList()
+                      .OrderBy(x => x.Name)
                       .Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name))
                       .ToList();
 
                 cbOlympName.Enabled = true;
                 ComboServ.FillCombo(cbOlympName, lst, false, false);
-                cbOlympName.SelectedIndex = 0;
+
+                if (_nameOld.HasValue)
+                    OlympNameId = _nameOld;
+                else
+                    cbOlympName.SelectedIndex = 0;
 
                 FillAfterOlympName();
                 FillAfterOlympSubject();
@@ -189,6 +203,8 @@ namespace PriemLib
                 if (!OlympTypeId.HasValue)
                     return;
 
+                _nameOld = OlympNameId;
+
                 List<KeyValuePair<string, string>> lst =
                     ((from ob in context.extOlympBook
                       where ob.OlympTypeId == OlympTypeId && ob.OlympNameId == OlympNameId
@@ -201,7 +217,10 @@ namespace PriemLib
 
                 cbOlympProfile.Enabled = true;
                 ComboServ.FillCombo(cbOlympProfile, lst, false, false);
-                cbOlympProfile.SelectedIndex = 0;
+                if (_profileOld.HasValue)
+                    OlympProfileId = _profileOld;
+                else
+                    cbOlympProfile.SelectedIndex = 0;
             }
         }
         private void FillAfterOlympProfile()
@@ -210,6 +229,8 @@ namespace PriemLib
             {
                 if (!OlympTypeId.HasValue)
                     return;
+
+                _profileOld = OlympProfileId;
 
                 List<KeyValuePair<string, string>> lst =
                     ((from ob in context.extOlympBook
@@ -223,13 +244,17 @@ namespace PriemLib
 
                 cbOlympSubject.Enabled = true;
                 ComboServ.FillCombo(cbOlympSubject, lst, false, false);
-                cbOlympSubject.SelectedIndex = 0;
+                if (_subjectOld.HasValue)
+                    OlympSubjectId = _subjectOld;
+                else
+                    cbOlympSubject.SelectedIndex = 0;
             }
         }
         private void FillAfterOlympSubject()
         {
             using (PriemEntities context = new PriemEntities())
             {
+                _subjectOld = OlympSubjectId;
                 List<KeyValuePair<string, string>> lst =
                         ((from ob in context.extOlympBook
                           where ob.OlympTypeId == OlympTypeId && ob.OlympNameId == OlympNameId
@@ -275,15 +300,22 @@ namespace PriemLib
                 }
 
                 OlympTypeId = olymp.OlympTypeId;
+                _typeOld = olymp.OlympTypeId;
                 OlympYear = olymp.OlympYear;
+                _yearOld = olymp.OlympYear;
                 UpdateAfterType();
 
                 if (OlympTypeId != 1 || OlympTypeId != 2)
+                {
                     OlympNameId = olymp.OlympNameId;
+                    _nameOld = olymp.OlympNameId;
+                }
                 FillAfterOlympName();
                 OlympProfileId = olymp.OlympProfileId;
+                _profileOld = olymp.OlympProfileId;
                 FillAfterOlympProfile();
                 OlympSubjectId = olymp.OlympSubjectId;
+                _subjectOld = olymp.OlympSubjectId;
                 FillAfterOlympSubject();
                 if (OlympTypeId != 1 || OlympTypeId != 2)
                     OlympLevelId = olymp.OlympLevelId;

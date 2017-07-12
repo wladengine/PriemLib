@@ -99,10 +99,18 @@ namespace PriemLib
                 tabCard.TabPages.Remove(tpEntry);
             abitBarcode = 0;
 
+            if (MainClass.dbType == PriemType.Priem)
+            {
+                btnAddAbiturientAchievement.Visible = false;
+                btnDeleteAbiturientAchievement.Visible = false;
+            }
+                
             if (MainClass.dbType == PriemType.PriemMag)
                 gbSecondType.Visible = false;
             else if (MainClass.dbType == PriemType.PriemAG)
                 chbIsForeign.Visible = false;
+
+            btnDeleteAbiturientAchievement.Visible = MainClass.IsFacMain() || MainClass.IsPasha();
 
             try
             {
@@ -594,6 +602,8 @@ namespace PriemLib
                 btnChangeOriginalsDestination.Enabled = true;
             else
                 btnChangeOriginalsDestination.Enabled = false;
+
+            gbAdditionalAchievements.Enabled = true;
         }
         protected override void SetAllFieldsEnabled()
         {
@@ -666,6 +676,9 @@ namespace PriemLib
 
                 if (CompetitionId == 1 || CompetitionId == 2 || CompetitionId == 7 || CompetitionId == 8)
                     chbChecked.Enabled = false;
+
+                btnAddAbiturientAchievement.Enabled = true;
+                btnDeleteAbiturientAchievement.Enabled = true;
             }
 
             if (MainClass.RightsSov_SovMain())
@@ -690,6 +703,8 @@ namespace PriemLib
                 cbCompetition.Enabled = true;
                 chbHasOriginals.Enabled = true;
                 chbBackDoc.Enabled = true;
+                btnAddAbiturientAchievement.Enabled = true;
+                btnDeleteAbiturientAchievement.Enabled = true;
             }
 
             if (inEnableProtocol)
@@ -726,11 +741,16 @@ namespace PriemLib
                 btnChangeEntry.Enabled = false;
 
                 cbLanguage.Enabled = false;
+                btnAddAbiturientAchievement.Enabled = false;
+                btnDeleteAbiturientAchievement.Enabled = false;
             }
             else
             {
                 if (MainClass.IsFacMain() || MainClass.IsPasha())
                 {
+                    btnAddAbiturientAchievement.Enabled = true;
+                    btnDeleteAbiturientAchievement.Enabled = true;
+
                     gbEntryConfirm.Enabled = true;
 
                     chbHasEntryConfirm.Enabled = true;
@@ -1625,8 +1645,9 @@ namespace PriemLib
 
                 var lstExamInEntry = context.extExamInEntry
                     .Where(x => x.EntryId == EntryId && x.ParentExamInEntryBlockId == null)
-                    .Select(x => new { x.Id, x.ExamName })
-                    .ToList();
+                    .Select(x => new { x.Id, x.ExamName, x.OrderNumber })
+                    .ToList()
+                    .OrderBy(x => x.OrderNumber);
 
                 var lstMarks =
                     (from mrk in context.Mark
@@ -1649,7 +1670,7 @@ namespace PriemLib
                 {
                     DataRow newRow;
                     newRow = examTable.NewRow();
-                    newRow["Экзамен"] = exam.ExamName;
+                    newRow["Экзамен"] = "[" + exam.OrderNumber + "] " + exam.ExamName;
                     newRow["ExamInEntryId"] = exam.Id;
 
                     var abMark = lstMarks.Where(x => x.ExamInEntryBlockUnitId == exam.Id).FirstOrDefault();
@@ -1707,15 +1728,15 @@ namespace PriemLib
                 WinFormsServ.Error("Ошибка при заполнении формы ", de);
             }
         }
-
         private void FillAdditionalAchievements(PriemEntities context)
         {
             var lstAch = context.extAbitAllAdditionalAchievements
                 .Where(x => x.AbiturientId == GuidId && x.AchievementTypeId != null)
-                .Select(x => new { x.AchievementTypeId, x.AchievementType, x.Mark })
+                .Select(x => new { x.Id, x.AchievementTypeId, x.AchievementType, x.Mark })
                 .ToArray();
 
             dgvAdditionalAchievements.DataSource = Converter.ConvertToDataTable(lstAch);
+            dgvAdditionalAchievements.Columns["Id"].Visible = false;
             dgvAdditionalAchievements.Columns["AchievementTypeId"].Visible = false;
             dgvAdditionalAchievements.Columns["AchievementType"].HeaderText = "ИД";
             dgvAdditionalAchievements.Columns["Mark"].HeaderText = "Балл";
@@ -2099,6 +2120,64 @@ namespace PriemLib
             crd.EntrySelected += (entId) => { UpdateEntryData(entId); };
             crd.Show();
             crd.Focus();
+        }
+
+        private void btnDeleteAbiturientAchievement_Click(object sender, EventArgs e)
+        {
+            if (MainClass.IsFacMain() || MainClass.IsPasha())
+            {
+                if (dgvAdditionalAchievements.SelectedCells.Count == 0)
+                    return;
+
+                int iRowInd = dgvAdditionalAchievements.SelectedCells[0].RowIndex;
+                string sId = dgvAdditionalAchievements["Id", iRowInd].Value.ToString();
+                if (string.IsNullOrEmpty(sId))
+                    return;
+
+                Guid gId = Guid.Empty;
+                if (!Guid.TryParse(sId, out gId))
+                    return;
+
+                using (PriemEntities context = new PriemEntities())
+                {
+                    var ent = context.MarkFromAchievement.Where(x => x.Id == gId).FirstOrDefault();
+                    if (ent != null)
+                    {
+                        string Message = "Вы уверены, что хотите удалить балл за указанное ИД?";
+                        var dr = MessageBox.Show(Message, "", MessageBoxButtons.YesNo);
+                        if (dr == DialogResult.Yes)
+                        {
+                            context.MarkFromAchievement.Remove(ent);
+                            context.SaveChanges();
+
+                            FillAdditionalAchievements(context);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                WinFormsServ.Error("Данный функционал доступен только для ответственных секретарей и администратора");
+            }
+        }
+
+        private void btnAddAbiturientAchievement_Click(object sender, EventArgs e)
+        {
+            if (!GuidId.HasValue)
+            {
+                WinFormsServ.Error("Сперва сохраните карточку!");
+                return;
+            }
+
+            Cards.CardAddMarkFromAchievement crd = new Cards.CardAddMarkFromAchievement(GuidId.Value);
+            crd.OK += () =>
+            {
+                using (PriemEntities context = new PriemEntities())
+                {
+                    FillAdditionalAchievements(context);
+                }
+            };
+            crd.Show();
         }
     }
 }

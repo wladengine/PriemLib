@@ -649,12 +649,12 @@ AND NOT EXISTS
                         var balls =
                             (from ege in context.extEgeMarkMaxAbitApproved
                              join eee in context.EgeToExam on ege.EgeExamNameId equals eee.EgeExamNameId
-                             where ege.AbiturientId == AbiturientId && lstEx.Contains(eee.ExamId) //&& ege.Value >= egeMin
+                             where ege.AbiturientId == AbiturientId && lstEx.Contains(eee.ExamId)
                              select new
                              {
                                  eee.ExamId,
                                  ege.Value
-                             });
+                             }).ToList();
 
                         bool bHasPassEge = false;
                         foreach (var b in balls)

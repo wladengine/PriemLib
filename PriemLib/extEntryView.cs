@@ -51,5 +51,6 @@ namespace PriemLib
         public bool IsForeign { get; set; }
         public Nullable<int> Priority { get; set; }
         public bool EntryIsForeign { get; set; }
+        public Nullable<int> StudyLevelGroupUpperCategoryId { get; set; }
     }
 }

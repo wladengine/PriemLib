@@ -71,7 +71,9 @@ namespace PriemLib
                 btnSetStatusPasha.Visible = tbCommentFBSPasha.Visible = true;
             else
                 btnSetStatusPasha.Visible = tbCommentFBSPasha.Visible = false;
-             
+
+            gbPersonAchievements.Visible = MainClass.dbType == PriemType.Priem;
+
             rbMale.Checked = true;
 
             gbAtt.Visible = true;
@@ -1943,7 +1945,66 @@ namespace PriemLib
                     Guid gId = (Guid)dgvBenefitDocument["Id", rwInd].Value;
                     string sTYPE = dgvBenefitDocument["TYPE", rwInd].Value.ToString();
                     if (sTYPE.Equals("Olymp", StringComparison.OrdinalIgnoreCase))
-                        context.Olympiads_Delete(gId);
+                    {
+                        var lstMarks =
+                            (from Mrk in context.Mark
+                             join Ol in context.Olympiads on Mrk.OlympiadId equals Ol.Id
+                             join Ex in context.extExamInEntry on Mrk.ExamInEntryBlockUnitId equals Ex.Id
+                             join Ent in context.extEntry on Ex.EntryId equals Ent.Id
+                             where Ol.Id == gId
+                             select new
+                             {
+                                 LP = "(" + Ent.LicenseProgramCode + ") " + Ent.LicenseProgramName,
+                                 OP = Ent.ObrazProgramName,
+                                 Prof = Ent.ProfileName,
+                                 Ent.StudyFormName,
+                                 Ent.StudyBasisName,
+                                 Ex.ExamName
+                             }).ToList();
+
+                        if (lstMarks.Count > 0)
+                        {
+                            string lstMarkErrors = lstMarks
+                                .Select(x => "\n" + x.ExamName + "\n" + x.LP + "\n" + x.OP + "\n" + x.StudyBasisName + ", " + x.StudyFormName)
+                                .Aggregate((x, tail) => x + "\n" + tail);
+
+                            WinFormsServ.Error("Невозможно удалить олимпиаду, т.к. она использована в качестве 100 баллов в следующих экзаменах:\n" + lstMarkErrors);
+                            return;
+                        }
+
+                        var lstEnts =
+                            (from Ab in context.Abiturient
+                             join Ol in context.Olympiads on Ab.OlympiadId equals Ol.Id
+                             join Ent in context.extEntry on Ab.EntryId equals Ent.Id
+                             where Ol.Id == gId
+                             select new
+                             {
+                                 LP = "(" + Ent.LicenseProgramCode + ") " + Ent.LicenseProgramName,
+                                 OP = Ent.ObrazProgramName,
+                                 Prof = Ent.ProfileName,
+                                 Ent.StudyFormName,
+                                 Ent.StudyBasisName,
+                             }).ToList();
+
+                        if (lstEnts.Count > 0)
+                        {
+                            string lstMarkErrors = lstEnts
+                                .Select(x => "\n" + x.LP + "\n" + x.OP + "\n" + x.StudyBasisName + ", " + x.StudyFormName)
+                                .Aggregate((x, tail) => x + "\n" + tail);
+
+                            WinFormsServ.Error("Невозможно удалить олимпиаду, т.к. она использована в качестве льготы б/э следующих конкурсах:\n" + lstMarkErrors);
+                            return;
+                        }
+
+                        try
+                        {
+                            context.Olympiads_Delete(gId);
+                        }
+                        catch (Exception ex)
+                        {
+                            WinFormsServ.Error("Не удалось удалить олимпиаду:", ex);
+                        }
+                    }
                     else
                         context.PersonBenefitDocument_delete(gId);
                 }

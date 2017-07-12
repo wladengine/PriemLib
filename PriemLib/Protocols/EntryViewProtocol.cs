@@ -354,7 +354,7 @@ namespace PriemLib
                         kcRest = (int)(((float)kcRest * 0.8f) + 0.999f);
                 }
 
-                string sQueryBody = string.Format(@"SELECT DISTINCT TOP ({0}) extAbitMarksSum.TotalSum + ISNULL(extAbitAdditionalMarksSum.AdditionalMarksSum, 0) as Sum, 
+                string sQueryBody = string.Format(@"SELECT DISTINCT TOP ({0}) Abiturient.Sum + ISNULL(extAbitAdditionalMarksSum.AdditionalMarksSum, 0) as Sum, 
 Abiturient.Id as Id, Abiturient.BackDoc as backdoc,
 'false' as Red, Abiturient.RegNum as Рег_Номер, extPerson.FIO as ФИО,
 extPerson.EducDocument as Документ_об_образовании, 
@@ -367,9 +367,7 @@ INNER JOIN ed.extPerson ON Abiturient.PersonId = extPerson.Id
 INNER JOIN ed.extEnableProtocol ON Abiturient.Id=ed.extEnableProtocol.AbiturientId 
 LEFT JOIN ed.extAbitAdditionalMarksSum ON extAbitAdditionalMarksSum.AbiturientId = Abiturient.Id
 INNER JOIN ed._FirstWave AS _FirstWave ON Abiturient.Id = _FirstWave.AbiturientId  " +
-((MainClass.dbType == PriemType.PriemAG) ? " INNER JOIN ed._FirstWaveGreen ON Abiturient.Id = _FirstWaveGreen.AbiturientId " : "") +
-string.Format(@"LEFT JOIN ed.{0}extAbitMarksSum ON Abiturient.Id = extAbitMarksSum.Id 
-LEFT JOIN ed.Competition ON Competition.Id = Abiturient.CompetitionId ", MainClass.dbType == PriemType.PriemAG ? "extAbitMarksSumAG AS " : ""), kcRest);
+"LEFT JOIN ed.Competition ON Competition.Id = Abiturient.CompetitionId ", kcRest);
 
                 string sQueryJoinFW = string.Empty;
 
@@ -418,20 +416,14 @@ LEFT JOIN ed.Competition ON Competition.Id = Abiturient.CompetitionId ", MainCla
 	    SELECT Abiturient.Id FROM ed._FirstWaveGreen 
 	    INNER JOIN ed.Abiturient ON Abiturient.Id = _FirstWaveGreen.AbiturientId
 	    WHERE NOT EXISTS 
-        (SELECT * FROM ed.hlpAbitToGoGreen WHERE hlpAbitToGoGreen.PersonId = Abiturient.PersonId AND hlpAbitToGoGreen.IsGo = 1 
-        AND hlpAbitToGoGreen.Priority < Abiturient.Priority AND hlpAbitToGoGreen.LevelGroupId = {0})
+        (SELECT * FROM ed.hlpAbitToGo WHERE hlpAbitToGo.PersonId = Abiturient.PersonId AND hlpAbitToGo.IsGo = 1 
+        AND hlpAbitToGo.Priority < Abiturient.Priority AND hlpAbitToGo.LevelGroupId = {0})
 	    UNION 
 	    SELECT Abiturient.Id FROM ed._FirstWaveYellow 
 	    INNER JOIN ed.Abiturient ON Abiturient.Id = _FirstWaveYellow.AbiturientId
 	    WHERE NOT EXISTS 
-        (SELECT * FROM ed.hlpAbitToGoGreen WHERE hlpAbitToGoGreen.PersonId = Abiturient.PersonId AND hlpAbitToGoGreen.IsGo = 1 
-        AND hlpAbitToGoGreen.Priority < Abiturient.Priority AND hlpAbitToGoGreen.LevelGroupId = {0})
-	    UNION 
-	    SELECT Abiturient.Id FROM ed._FirstWaveLast
-	    INNER JOIN ed.Abiturient ON Abiturient.Id = _FirstWaveLast.AbiturientId
-	    WHERE NOT EXISTS 
-        (SELECT * FROM ed.hlpAbitToGoGreen WHERE hlpAbitToGoGreen.PersonId = Abiturient.PersonId AND hlpAbitToGoGreen.IsGo = 1 
-        AND hlpAbitToGoGreen.Priority < Abiturient.Priority AND hlpAbitToGoGreen.LevelGroupId = {0})
+        (SELECT * FROM ed.hlpAbitToGo WHERE hlpAbitToGo.PersonId = Abiturient.PersonId AND hlpAbitToGo.IsGo = 1 
+        AND hlpAbitToGo.Priority < Abiturient.Priority AND hlpAbitToGo.LevelGroupId = {0})
 	)
     OR Abiturient.CompetitionId IN (1, 2, 7, 8)
 )", _studyLevelGroupId, kc);

@@ -26,6 +26,7 @@ namespace PriemLib
         public string Holder { get; set; }
         public Nullable<int> Mark { get; set; }
         public int StudyLevelGroupId { get; set; }
+        public bool NeedOlympiadToAccept { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PersonAchievement> PersonAchievement { get; set; }

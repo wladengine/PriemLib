@@ -81,7 +81,7 @@ namespace PriemLib
             FillLicenseProgram();
             UpdateDataGrid();
 
-
+            cbStudyLevelGroup.SelectedIndexChanged += (a, b) => { FillStudyForm(); };
             cbFaculty.SelectedIndexChanged += new EventHandler(cbFaculty_SelectedIndexChanged);
             cbStudyForm.SelectedIndexChanged += new EventHandler(cbStudyForm_SelectedIndexChanged);
             cbStudyBasis.SelectedIndexChanged += new EventHandler(cbStudyBasis_SelectedIndexChanged);
@@ -183,7 +183,7 @@ namespace PriemLib
             {
                 var ent = MainClass.GetEntry(context).Where(c => c.FacultyId == FacultyId);
 
-                ent = ent.Where(c => c.IsSecond == IsSecond && c.IsReduced == IsReduced && c.IsParallel == IsParallel);
+                ent = ent.Where(c => c.IsSecond == IsSecond && c.IsReduced == IsReduced && c.IsParallel == IsParallel && c.StudyLevelGroupId == StudyLevelGroupId);
 
                 if (StudyBasisId != null)
                     ent = ent.Where(c => c.StudyBasisId == StudyBasisId);
