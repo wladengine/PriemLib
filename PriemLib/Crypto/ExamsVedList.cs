@@ -46,17 +46,17 @@ namespace PriemLib
         //дополнительная инициализация контролов
         private void InitControls()
         {
-            InitFocusHandlers();			
-            bdc = MainClass.Bdc;
-
-            if (MainClass.dbType != PriemType.Priem)
-                btnSetExaminerAccount.Visible = true;
-            else
-                btnSetExaminerAccount.Visible = false;
-            btnSelectMarkTypes.Visible = ExamsVedId.HasValue;
-
             try
             {
+                InitFocusHandlers();
+                bdc = MainClass.Bdc;
+
+                if (MainClass.dbType != PriemType.Priem)
+                    btnSetExaminerAccount.Visible = true;
+                else
+                    btnSetExaminerAccount.Visible = false;
+                btnSelectMarkTypes.Visible = ExamsVedId.HasValue;
+
                 btnDeleteFromVed.Visible = btnDeleteFromVed.Enabled = false;
                 btnUnload.Visible = btnUnload.Enabled = false;
 
@@ -252,7 +252,7 @@ namespace PriemLib
 
         //обновление грида
         public virtual void UpdateDataGrid()
-        {            
+        {
             //скрыли/показали кнопку, если надо            
             if (ExamsVedId == null)
             {
@@ -313,7 +313,7 @@ namespace PriemLib
             }
             dgvList.Columns["Number"].DisplayIndex = 0; 
 
-            HelpClass.FillDataGrid(dgvList, bdc, sQuery, sFilters, sOrderby);                       
+            HelpClass.FillDataGrid(dgvList, bdc, sQuery, sFilters, sOrderby);
         }
 
         //закрытие

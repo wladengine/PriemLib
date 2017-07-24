@@ -58,6 +58,7 @@ namespace PriemLib
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.btnCheckOlymp = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAbitList)).BeginInit();
             this.SuspendLayout();
             // 
@@ -390,11 +391,23 @@ namespace PriemLib
             this.label5.TabIndex = 149;
             this.label5.Text = "Предмет";
             // 
+            // btnCheckOlymp
+            // 
+            this.btnCheckOlymp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCheckOlymp.Location = new System.Drawing.Point(685, 551);
+            this.btnCheckOlymp.Name = "btnCheckOlymp";
+            this.btnCheckOlymp.Size = new System.Drawing.Size(75, 23);
+            this.btnCheckOlymp.TabIndex = 159;
+            this.btnCheckOlymp.Text = "Проверить";
+            this.btnCheckOlymp.UseVisualStyleBackColor = true;
+            this.btnCheckOlymp.Click += new System.EventHandler(this.btnCheckOlymp_Click);
+            // 
             // Olymp2Mark
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(945, 584);
+            this.Controls.Add(this.btnCheckOlymp);
             this.Controls.Add(this.cbOlympName);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.cbOlympSubject);
@@ -461,6 +474,7 @@ namespace PriemLib
             this.Controls.SetChildIndex(this.cbOlympSubject, 0);
             this.Controls.SetChildIndex(this.label10, 0);
             this.Controls.SetChildIndex(this.cbOlympName, 0);
+            this.Controls.SetChildIndex(this.btnCheckOlymp, 0);
             ((System.ComponentModel.ISupportInitialize)(this.dgvAbitList)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -497,6 +511,7 @@ namespace PriemLib
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label5;        
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button btnCheckOlymp;
     }
 }

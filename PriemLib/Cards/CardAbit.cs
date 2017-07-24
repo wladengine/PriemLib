@@ -98,12 +98,6 @@ namespace PriemLib
             if (tabCard.TabPages.Contains(tpEntry))
                 tabCard.TabPages.Remove(tpEntry);
             abitBarcode = 0;
-
-            if (MainClass.dbType == PriemType.Priem)
-            {
-                btnAddAbiturientAchievement.Visible = false;
-                btnDeleteAbiturientAchievement.Visible = false;
-            }
                 
             if (MainClass.dbType == PriemType.PriemMag)
                 gbSecondType.Visible = false;
@@ -170,6 +164,12 @@ namespace PriemLib
 
                     cbPrint.SelectedIndex = 0;
                     btnPrint.Enabled = false;
+                }
+
+                if (MainClass.dbType == PriemType.Priem)
+                {
+                    btnAddAbiturientAchievement.Visible = false;
+                    btnDeleteAbiturientAchievement.Visible = false;
                 }
             }
             catch (Exception exc)
@@ -538,31 +538,22 @@ namespace PriemLib
                            where ph.AbiturientId == GuidId
                            select ph).Count();
 
-            if (cntProt > 0)
-            {
-                //if (!tabCard.TabPages.Contains(tpEntry))
-                //   tabCard.TabPages.Add(tpEntry);
-                return true;
-            }
-            else
-            {
-                //if (tabCard.TabPages.Contains(tpEntry))
-                //    tabCard.TabPages.Remove(tpEntry);
-                return false;
-            }
+            return cntProt > 0;
         }
 
         private void FillProtocols(PriemEntities context)
         {
             try
             {
-                tbEnabledProtocol.Text = Util.ToStr((from ph in context.extProtocol
-                                                     where ph.ProtocolTypeId == 1 && !ph.IsOld && !ph.Excluded && ph.AbiturientId == GuidId
-                                                     select ph.Number).FirstOrDefault());
+                tbEnabledProtocol.Text =
+                    Util.ToStr((from ph in context.extProtocol
+                                where ph.ProtocolTypeId == 1 && !ph.IsOld && !ph.Excluded && ph.AbiturientId == GuidId
+                                select ph.Number).FirstOrDefault());
 
-                tbEntryProtocol.Text = Util.ToStr((from ph in context.extEntryView
-                                                   where ph.AbiturientId == GuidId
-                                                   select ph.Number).FirstOrDefault());
+                tbEntryProtocol.Text =
+                    Util.ToStr((from ph in context.extEntryView
+                                where ph.AbiturientId == GuidId
+                                select ph.Number).FirstOrDefault());
             }
             catch (Exception exc)
             {

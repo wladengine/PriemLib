@@ -383,14 +383,16 @@ namespace PriemLib
                         }
                         else
                         {
-                            DataSet ds = bdc.GetDataSet(string.Format("SELECT qAbiturient.Id FROM ed.qAbiturient WHERE PersonId = '{0}' {1} {2} {3}", perId, flt_fac, _studybasisId == "" ? "" : " AND qAbiturient.StudyBasisId = " + _studybasisId, flt));
+                            DataSet ds = bdc.GetDataSet(string.Format("SELECT qAbiturient.Id, qAbiturient.PersonId FROM ed.qAbiturient WHERE PersonId = '{0}' {1} {2} {3}", perId, flt_fac, _studybasisId == "" ? "" : " AND qAbiturient.StudyBasisId = " + _studybasisId, flt));
                             foreach (DataRow row in ds.Tables[0].Rows)
                             {
                                 Guid AbiturientId = row.Field<Guid>("Id");
+                                Guid PersonId = row.Field<Guid>("PersonId");
                                 int iExamId = int.Parse(_examId);
                                 var MarksList = context.Mark.Where(x => x.AbiturientId == AbiturientId && x.ExamInEntryBlockUnit.ExamId == iExamId).ToList();
                                 int cnt = MarksList.Count;
-                                if (cnt > 0)
+                                bool examsSelected = context.PersonManualExams.Where(x => x.PersonId == PersonId && x.ExamId == iExamId).Count() > 0;
+                                if (cnt > 0 && !examsSelected)
                                 {
                                     string Message = "Данная оценка ({0}) перекроет оценку {1}, взятую из {2}. Хотите перекрыть бОльшую оценку меньшей?";
                                     foreach (var M in MarksList)

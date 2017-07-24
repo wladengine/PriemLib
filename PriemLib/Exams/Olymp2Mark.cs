@@ -526,7 +526,6 @@ AND NOT EXISTS
 
         private void btnOk_Click(object sender, EventArgs e)
         {
-
             Guid? exId;
             Guid? abId;
             List<Guid?> lstIds = new List<Guid?>();
@@ -660,7 +659,7 @@ AND NOT EXISTS
                         foreach (var b in balls)
                         {
                             decimal egeMin = lstBenefits.Where(x => x.ExamId == b.ExamId).Select(x => x.MinEge).First();
-                            if (egeMin < b.Value)
+                            if (b.Value >= egeMin)
                                 bHasPassEge = true;
                         }
 
@@ -740,6 +739,31 @@ AND NOT EXISTS
             catch (Exception ex)
             {
                 WinFormsServ.Error("Ошибка при выводе в Word: ", ex);
+            }
+        }
+
+        private void btnCheckOlymp_Click(object sender, EventArgs e)
+        {
+            if (dgvAbitList.SelectedCells.Count == 0)
+                return;
+
+            int iRw = dgvAbitList.SelectedCells[0].RowIndex;
+            var row = dgvAbitList.Rows[iRw];
+
+            Guid exId = Guid.Parse(row.Cells["ExamInEntryId"].Value.ToString()); ;
+            Guid abId = new Guid(row.Cells["Id"].Value.ToString());
+
+            if (abId == Guid.Empty)
+                return;
+            using (PriemEntities context = new PriemEntities())
+            {
+                string abitFIO = context.extAbit.Where(x => x.Id == abId).Select(x => x.FIO).FirstOrDefault();
+
+                int iExamId = context.extExamInEntry.Where(x => x.Id == exId).Select(x => x.ExamId).DefaultIfEmpty(0).First();
+                Guid OlympiadId = new Guid(row.Cells["OlympiadId"].Value.ToString());
+
+                if (CheckOlympiadPrivelege(abId, OlympiadId, iExamId, abitFIO))
+                    MessageBox.Show("Проверка пройдена успешно");
             }
         }
     }

@@ -55,8 +55,14 @@ namespace PriemLib
 
                     ComboServ.FillCombo(cbOlympType, HelpClass.GetComboListByTable("ed.OlympType", "ORDER BY Id"), false, false);
                     UpdateAfterType();
-                    ComboServ.FillCombo(cbOlympValue, HelpClass.GetComboListByTable("ed.OlympValue"), false, false);                    
-                }                
+                    ComboServ.FillCombo(cbOlympValue, HelpClass.GetComboListByTable("ed.OlympValue"), false, false);
+
+                    if (MainClass.IsPasha())
+                    {
+                        lblOlympicID.Visible = true;
+                        tbOlympicID.Visible = true;
+                    }
+                }
             }
             catch (Exception exc)
             {
@@ -141,7 +147,9 @@ namespace PriemLib
                       {
                           Id = ob.OlympProfileId,
                           Name = ob.OlympProfileName
-                      }).Distinct()).ToList().Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name)).ToList();
+                      }).Distinct()).ToList()
+                      .OrderBy(x => x.Name)
+                      .Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name)).ToList();
 
                 cbOlympProfile.Enabled = true;
                 ComboServ.FillCombo(cbOlympProfile, lst, false, false);
@@ -163,7 +171,9 @@ namespace PriemLib
                       {
                           Id = ob.OlympSubjectId,
                           Name = ob.OlympSubjectName
-                      }).Distinct()).ToList().Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name)).ToList();
+                      }).Distinct()).ToList()
+                      .OrderBy(x => x.Name)
+                      .Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name)).ToList();
 
                 cbOlympSubject.Enabled = true;
                 ComboServ.FillCombo(cbOlympSubject, lst, false, false);
@@ -174,16 +184,17 @@ namespace PriemLib
         {
             using (PriemEntities context = new PriemEntities())
             {
-                List<KeyValuePair<string, string>> lst =
-                        ((from ob in context.extOlympBook
-                          where ob.OlympTypeId == OlympTypeId && ob.OlympNameId == OlympNameId
-                          && ob.OlympSubjectId == OlympSubjectId && ob.OlympProfileId == OlympProfileId
-                          && ob.OlympYear == OlympYear
-                          select new
-                          {
-                              Id = ob.OlympLevelId,
-                              Name = ob.OlympLevelName
-                          }).Distinct()).ToList().Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name)).ToList();
+                var OL = ((from ob in context.extOlympBook
+                           where ob.OlympTypeId == OlympTypeId && ob.OlympNameId == OlympNameId
+                           && ob.OlympSubjectId == OlympSubjectId && ob.OlympProfileId == OlympProfileId
+                           && ob.OlympYear == OlympYear
+                           select new
+                           {
+                               Id = ob.OlympLevelId,
+                               Name = ob.OlympLevelName,
+                               ob.OlympicID
+                           }).Distinct()).ToList();
+                List<KeyValuePair<string, string>> lst = OL.Select(u => new KeyValuePair<string, string>(u.Id.ToString(), u.Name)).ToList();
 
                 cbOlympLevel.Enabled = true;
                 ComboServ.FillCombo(cbOlympLevel, lst, false, false);
@@ -193,6 +204,10 @@ namespace PriemLib
                 {
                     cbOlympLevel.Enabled = false;
                 }
+
+                tbOlympicID.Text = OL.Select(x => x.OlympicID).Distinct().FirstOrDefault();
+                if (OL.Select(x => x.OlympicID).Distinct().Count() > 1)
+                    tbOlympicID.Text += "++";
             }
         }
 

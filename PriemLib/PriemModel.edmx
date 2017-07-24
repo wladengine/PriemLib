@@ -1081,6 +1081,16 @@
           <Property Name="DateCreated" Type="datetime" Nullable="false" />
           <Property Name="SchoolExitClassId" Type="int" />
         </EntityType>
+        <EntityType Name="Person_FetchEgeMarkMaxApprovedValues">
+          <Key>
+            <PropertyRef Name="OrdId" />
+          </Key>
+          <Property Name="OrdId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PersonId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="EgeExamNameId" Type="int" Nullable="false" />
+          <Property Name="EgeMarkId" Type="uniqueidentifier" />
+          <Property Name="EgeMarkValue" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Person_FetchValues">
           <Key>
             <PropertyRef Name="Id" />
@@ -6453,6 +6463,7 @@
           <EntitySet Name="Person_AdditionalInfo" EntityType="Self.Person_AdditionalInfo" Schema="ed" store:Type="Tables" />
           <EntitySet Name="Person_Contacts" EntityType="Self.Person_Contacts" Schema="ed" store:Type="Tables" />
           <EntitySet Name="Person_EducationInfo" EntityType="Self.Person_EducationInfo" Schema="ed" store:Type="Tables" />
+          <EntitySet Name="Person_FetchEgeMarkMaxApprovedValues" EntityType="Self.Person_FetchEgeMarkMaxApprovedValues" Schema="ed" store:Type="Tables" />
           <EntitySet Name="Person_FetchValues" EntityType="Self.Person_FetchValues" Schema="ed" store:Type="Tables" />
           <EntitySet Name="PersonAchievement" EntityType="Self.PersonAchievement" Schema="ed" store:Type="Tables" />
           <EntitySet Name="PersonBenefitDocument" EntityType="Self.PersonBenefitDocument" Schema="ed" store:Type="Tables" />
@@ -10407,6 +10418,7 @@
             <End Role="Olympiads" EntitySet="Olympiads" />
             <End Role="MarkFromAchievement" EntitySet="MarkFromAchievement" />
           </AssociationSet>
+          <EntitySet Name="Person_FetchEgeMarkMaxApprovedValues" EntityType="Priem2012Model.Person_FetchEgeMarkMaxApprovedValues" />
           </EntityContainer>
         <EntityType Name="AttMarks">
           <Key>
@@ -15642,6 +15654,16 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Person_FetchEgeMarkMaxApprovedValues">
+          <Key>
+            <PropertyRef Name="OrdId" />
+          </Key>
+          <Property Name="OrdId" Type="Int32" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="PersonId" Type="Guid" Nullable="false" />
+          <Property Name="EgeExamNameId" Type="Int32" Nullable="false" />
+          <Property Name="EgeMarkId" Type="Guid" />
+          <Property Name="EgeMarkValue" Type="Int32" Nullable="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -18798,6 +18820,17 @@
                 <ScalarProperty Name="AchievementTypeId" ColumnName="AchievementTypeId" />
                 <ScalarProperty Name="AbiturientId" ColumnName="AbiturientId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Person_FetchEgeMarkMaxApprovedValues">
+            <EntityTypeMapping TypeName="Priem2012Model.Person_FetchEgeMarkMaxApprovedValues">
+              <MappingFragment StoreEntitySet="Person_FetchEgeMarkMaxApprovedValues">
+                <ScalarProperty Name="EgeMarkValue" ColumnName="EgeMarkValue" />
+                <ScalarProperty Name="EgeMarkId" ColumnName="EgeMarkId" />
+                <ScalarProperty Name="EgeExamNameId" ColumnName="EgeExamNameId" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="OrdId" ColumnName="OrdId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

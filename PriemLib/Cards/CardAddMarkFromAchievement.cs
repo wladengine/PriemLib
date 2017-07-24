@@ -52,7 +52,9 @@ namespace PriemLib.Cards
         {
             using (PriemEntities context = new PriemEntities())
             {
-                var src = context.AchievementType.Where(x => MainClass.lstStudyLevelGroupId.Contains(x.StudyLevelGroupId))
+                int iSLG = context.qAbitAll.Where(x => x.Id == _AbiturientId).Select(x => x.StudyLevelGroupId).DefaultIfEmpty(0).FirstOrDefault();
+                
+                var src = context.AchievementType.Where(x => iSLG == 0 ? MainClass.lstStudyLevelGroupId.Contains(x.StudyLevelGroupId) : x.StudyLevelGroupId == iSLG)
                     .Select(x => new { x.Id, x.Name, x.Mark })
                     .ToList()
                     .Select(x => new KeyValuePair<string, string>(x.Id.ToString(), x.Name + " (MAX " + x.Mark + ")"))
@@ -104,7 +106,7 @@ namespace PriemLib.Cards
                     }
                     if (Ach.NeedOlympiadToAccept && !OlympiadId.HasValue)
                     {
-                        epError.SetError(cbAchievementType, "не указано обязательное значение!");
+                        epError.SetError(cbOlympiad, "не указано обязательное значение!");
                         bRet = false;
                     }
                     if (Mark == 0)

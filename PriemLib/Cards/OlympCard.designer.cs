@@ -41,6 +41,8 @@ namespace PriemLib
             this.cbOlympType = new System.Windows.Forms.ComboBox();
             this.chbOriginDoc = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.tbOlympicID = new System.Windows.Forms.TextBox();
+            this.lblOlympicID = new System.Windows.Forms.Label();
             this.dtpDate = new System.Windows.Forms.DateTimePicker();
             this.label8 = new System.Windows.Forms.Label();
             this.tbNumber = new System.Windows.Forms.TextBox();
@@ -192,6 +194,8 @@ namespace PriemLib
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.tbOlympicID);
+            this.groupBox1.Controls.Add(this.lblOlympicID);
             this.groupBox1.Controls.Add(this.dtpDate);
             this.groupBox1.Controls.Add(this.chbOriginDoc);
             this.groupBox1.Controls.Add(this.label8);
@@ -205,6 +209,25 @@ namespace PriemLib
             this.groupBox1.TabIndex = 120;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Реквизиты документа";
+            // 
+            // tbOlympicID
+            // 
+            this.tbOlympicID.Location = new System.Drawing.Point(439, 45);
+            this.tbOlympicID.Name = "tbOlympicID";
+            this.tbOlympicID.ReadOnly = true;
+            this.tbOlympicID.Size = new System.Drawing.Size(100, 20);
+            this.tbOlympicID.TabIndex = 121;
+            this.tbOlympicID.Visible = false;
+            // 
+            // lblOlympicID
+            // 
+            this.lblOlympicID.AutoSize = true;
+            this.lblOlympicID.Location = new System.Drawing.Point(378, 49);
+            this.lblOlympicID.Name = "lblOlympicID";
+            this.lblOlympicID.Size = new System.Drawing.Size(55, 13);
+            this.lblOlympicID.TabIndex = 120;
+            this.lblOlympicID.Text = "OlympicID";
+            this.lblOlympicID.Visible = false;
             // 
             // dtpDate
             // 
@@ -387,6 +410,8 @@ namespace PriemLib
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.ComboBox cbOlympProfile;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label lblReadOnly;     
+        private System.Windows.Forms.Label lblReadOnly;
+        private System.Windows.Forms.TextBox tbOlympicID;
+        private System.Windows.Forms.Label lblOlympicID;
     }
 }

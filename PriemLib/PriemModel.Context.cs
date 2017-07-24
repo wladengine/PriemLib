@@ -194,6 +194,7 @@ namespace PriemLib
         public virtual DbSet<OlympResultToMaxMark> OlympResultToMaxMark { get; set; }
         public virtual DbSet<Person_FetchValues> Person_FetchValues { get; set; }
         public virtual DbSet<MarkFromAchievement> MarkFromAchievement { get; set; }
+        public virtual DbSet<Person_FetchEgeMarkMaxApprovedValues> Person_FetchEgeMarkMaxApprovedValues { get; set; }
     
         public virtual int RoleMember(string roleName, ObjectParameter result)
         {

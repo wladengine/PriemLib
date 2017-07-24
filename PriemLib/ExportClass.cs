@@ -13,6 +13,7 @@ using System.Data.SqlClient;
 using System.Linq;
 
 using EducServLib;
+using System.Transactions;
 
 namespace PriemLib
 {
@@ -22,87 +23,131 @@ namespace PriemLib
         {
             if (!MainClass.IsPasha())
                 return;
-            
+
+            ProgressForm pf = new ProgressForm();
             using (PriemEntities context = new PriemEntities())
             {
-                // префиксы
-                // 1 - бакалавриат
-                // 2 - магистратура
-                // 3 - СПО
-                // 4 - иностранцы
-                // 5 - аспиранты
-                for (int SLGr = 1; SLGr <= 5; SLGr++)
+                try
                 {
-                    //взять максимум номера, если еще ничего не назначено
-                    int SLG = SLGr;
-                    if (SLG == 5) //ORD -> ASP == 4
-                        SLG = 4;
+                    List<KeyValuePair<int, Dictionary<Guid, string>>>
+                        lst = new List<KeyValuePair<int, Dictionary<Guid, string>>>();
 
-                    string num =
-                        (from ab in context.qAbitAll
-                         where ab.StudyLevelGroupId == SLG && !ab.IsForeign
-                         select ab.StudyNumber).Max();
-
-                    string numFor =
-                        (from ab in context.qAbitAll
-                         where ab.IsForeign
-                         select ab.StudyNumber).Max();
-
-                    var abits =
-                        (from ab in context.extAbit
-                         join ev in context.extEntryView
-                         on ab.Id equals ev.AbiturientId
-                         where ab.StudyLevelGroupId == SLGr && (ab.StudyNumber == null || ab.StudyNumber.Length == 0)
-                         && !ab.IsForeign
-                         orderby ab.FacultyId, ab.FIO
-                         select ab.Id).ToList();
-
-                    var foreignAbits =
-                        (from ab in context.extAbit
-                         join ev in context.extEntryView
-                         on ab.Id equals ev.AbiturientId
-                         where ab.StudyLevelGroupId == SLGr && (ab.StudyNumber == null || ab.StudyNumber.Length == 0)
-                         && ab.IsForeign
-                         orderby ab.FacultyId, ab.FIO
-                         select ab.Id).ToList();
-
-                    List<Guid> lstAbits = abits.Except(foreignAbits).ToList();
-
-                    int stNum = 0;
-                    if (num != null && num.Length != 0)
-                        stNum = int.Parse(num.Substring(3));
-
-                    int stNumFor = 0;
-                    if (numFor != null && numFor.Length != 0)
-                        stNumFor = int.Parse(numFor.Substring(3));
-
-                    stNum++;
-                    stNumFor++;
-
-                    int Pref = SLGr;
-                    if (Pref == 4) // ASP&ORD = 5
-                        Pref = 5;
-
-                    foreach (Guid abitId in lstAbits)
+                    pf.Show();
+                    for (int SLGr = 1; SLGr <= 5; SLGr++)
                     {
-                        string sNum = "0000" + stNum.ToString();
-                        sNum = sNum.Substring(sNum.Length - 4, 4);
-                        sNum = (MainClass.iPriemYear % 100).ToString() + Pref + sNum;
+                        pf.SetProgressText("Загрузка данных...");
+                        pf.PrBarValue = 0;
 
-                        context.Abiturient_UpdateStudyNumber(sNum, abitId);
+                        Dictionary<Guid, string> dic = new Dictionary<Guid, string>();
+                        // префиксы
+                        // 1 - бакалавриат
+                        // 2 - магистратура
+                        // 3 - СПО
+                        // 4 - иностранцы
+                        // 5 - аспиранты
+
+                        //взять максимум номера, если еще ничего не назначено
+                        int SLG = SLGr;
+                        if (SLG == 5) //ORD -> ASP == 4
+                            SLG = 4;
+
+                        string num =
+                            (from ab in context.qAbitAll
+                             where ab.StudyLevelGroupId == SLG && !ab.IsForeign
+                             select ab.StudyNumber).Max();
+
+                        string numFor =
+                            (from ab in context.qAbitAll
+                             where ab.IsForeign
+                             select ab.StudyNumber).Max();
+
+                        var abits =
+                            (from ab in context.extAbit
+                             join ev in context.extEntryView
+                             on ab.Id equals ev.AbiturientId
+                             where ab.StudyLevelGroupId == SLGr && (ab.StudyNumber == null || ab.StudyNumber.Length == 0)
+                             && !ab.IsForeign
+                             orderby ab.FacultyId, ab.FIO
+                             select ab.Id).ToList();
+
+                        pf.MaxPrBarValue = abits.Count;
+
+                        var foreignAbits =
+                            (from ab in context.extAbit
+                             join ev in context.extEntryView
+                             on ab.Id equals ev.AbiturientId
+                             where ab.StudyLevelGroupId == SLGr && (ab.StudyNumber == null || ab.StudyNumber.Length == 0)
+                             && ab.IsForeign
+                             orderby ab.FacultyId, ab.FIO
+                             select ab.Id).ToList();
+
+                        List<Guid> lstAbits = abits.Except(foreignAbits).ToList();
+
+                        int stNum = 0;
+                        if (num != null && num.Length != 0)
+                            stNum = int.Parse(num.Substring(3));
+
+                        int stNumFor = 0;
+                        if (numFor != null && numFor.Length != 0)
+                            stNumFor = int.Parse(numFor.Substring(3));
+
                         stNum++;
+                        stNumFor++;
+
+                        int Pref = SLGr;
+                        if (Pref == 4) // ASP&ORD = 5
+                            Pref = 5;
+
+                        foreach (Guid abitId in lstAbits)
+                        {
+                            string sNum = "0000" + stNum.ToString();
+                            sNum = sNum.Substring(sNum.Length - 4, 4);
+                            sNum = (MainClass.iPriemYear % 100).ToString() + Pref + sNum;
+
+                            //context.Abiturient_UpdateStudyNumber(sNum, abitId);
+                            dic.Add(abitId, sNum);
+                            pf.PerformStep();
+                            stNum++;
+                        }
+
+                        foreach (Guid abitId in foreignAbits)
+                        {
+                            string sNum = "0000" + stNumFor.ToString();
+                            sNum = sNum.Substring(sNum.Length - 4, 4);
+                            sNum = (MainClass.iPriemYear % 100).ToString() + "4" + sNum;
+
+                            //context.Abiturient_UpdateStudyNumber(sNum, abitId);
+                            dic.Add(abitId, sNum);
+                            pf.PerformStep();
+                            stNumFor++;
+                        }
                     }
 
-                    foreach (Guid abitId in foreignAbits)
+                    using (TransactionScope tran = new TransactionScope())
                     {
-                        string sNum = "0000" + stNumFor.ToString();
-                        sNum = sNum.Substring(sNum.Length - 4, 4);
-                        sNum = (MainClass.iPriemYear % 100).ToString() + "4" + sNum;
+                        foreach (var x in lst)
+                        {
+                            pf.SetProgressText("Раздача номеров...");
+                            pf.PrBarValue = 0;
+                            pf.MaxPrBarValue = x.Value.Count;
 
-                        context.Abiturient_UpdateStudyNumber(sNum, abitId);
-                        stNumFor++;
+                            foreach (var ab in x.Value)
+                            {
+                                context.Abiturient_UpdateStudyNumber(ab.Value, ab.Key);
+                                pf.PerformStep();
+                            }
+                        }
                     }
                 }
+                catch (Exception ex)
+                {
+                    WinFormsServ.Error(ex);
+                }
+                finally
+                {
+                    pf.Close();
+                }
+                
 
                 MessageBox.Show("Done");
             }
@@ -582,7 +627,7 @@ where ed.extentryview.studyformid=1 and ed.extentryview.studybasisid=1 and ed.ex
                     //36. Семестр (справочник) – всегда первый
                     //37. Форма обучения (справочник) - дневное, вечернее, заочное
                          FacultyName = Ent.FacultyDirectionName,
-                         ObrazProgramCrypt = Abit.InnerEntryInEntryId == null ? Ent.ObrazProgramCrypt : OP.Crypt,
+                         ObrazProgramCrypt = Abit.InnerEntryInEntryId == null ? Ent.ObrazProgramNumber : OP.Number,
                          ProfileName = Abit.InnerEntryInEntryId == null ? Ent.ProfileName : Prof.Name,
                          Ent.LicenseProgramCode,
                          Ent.LicenseProgramName,
@@ -643,7 +688,7 @@ where ed.extentryview.studyformid=1 and ed.extentryview.studybasisid=1 and ed.ex
                 tbl.Columns.Add("ObrazProgramNumber");
                 tbl.Columns.Add("Profile");
                 tbl.Columns.Add("DirectionCode");
-                tbl.Columns.Add("SpecializationCode");
+                //tbl.Columns.Add("SpecializationCode");
                 tbl.Columns.Add("EntryYear");
                 tbl.Columns.Add("EntryLine");
                 tbl.Columns.Add("StudyLevel");
@@ -696,7 +741,7 @@ where ed.extentryview.studyformid=1 and ed.extentryview.studybasisid=1 and ed.ex
                     rw["ObrazProgramNumber"] = ent.ObrazProgramCrypt;
                     rw["Profile"] = ent.ProfileName == "нет" ? null : ent.ProfileName;
                     rw["DirectionCode"] = ent.LicenseProgramCode;
-                    rw["SpecializationCode"] = ent.LicenseProgramCode;
+                    //rw["SpecializationCode"] = ent.LicenseProgramCode;
                     rw["EntryYear"] = MainClass.iPriemYear;
                     //rw["EntryLine"] = ent.StudyBasisId == 2 ? "контракт" : (ent.IsForeign ? "гослиния" : "равный прием");
                     rw["EntryLine"] = ent.StudyBasisId == 2 ? "контракт" : (ent.IsForeign ? "гослиния" : "госбюджет");

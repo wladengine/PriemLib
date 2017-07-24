@@ -1535,13 +1535,9 @@ namespace PriemLib
                 clm.DataType = typeof(int);
                 examTable.Columns.Add(clm);
 
-                clm = new DataColumn();
-                clm.ColumnName = "Зачетная";
-                clm.DataType = typeof(bool);
-                examTable.Columns.Add(clm);
 
                 clm = new DataColumn();
-                clm.ColumnName = "Номер_сертификата";
+                clm.ColumnName = "Номер сертификата";
                 examTable.Columns.Add(clm);
 
                 var examNames =
@@ -1559,19 +1555,23 @@ namespace PriemLib
 
                 // оценки
                 var egeMarks =
-                    from em in context.extEgeMarkMax
+                    from em in context.Person_FetchEgeMarkMaxApprovedValues
+                    join mrk in context.EgeMark on em.EgeMarkId equals mrk.Id
+                    join cer in context.EgeCertificate on mrk.EgeCertificateId equals cer.Id
                     where em.PersonId == GuidId
-                    select new { em.EgeExamNameId, em.Value, em.Number, em.IsCurrent };
+                    select new { em.EgeExamNameId, em.EgeMarkValue, cer.Year, cer.Number };
 
                 foreach (var eMark in egeMarks)
                 {
                     for (int i = 0; i < examTable.Rows.Count; i++)
                     {
+                        int iCerYear = 0;
+                        int.TryParse(eMark.Year, out iCerYear);
+
                         if (examTable.Rows[i]["ExamId"].ToString() == eMark.EgeExamNameId.ToString())
                         {
-                            examTable.Rows[i]["Баллы"] = eMark.Value;
-                            examTable.Rows[i]["Номер_сертификата"] = eMark.Number;
-                            examTable.Rows[i]["Зачетная"] = eMark.IsCurrent;
+                            examTable.Rows[i]["Баллы"] = eMark.EgeMarkValue;
+                            examTable.Rows[i]["Номер сертификата"] = iCerYear < 2014 ? eMark.Number : "Свидетельство ЕГЭ " + eMark.Year + " года";
                         }
                     }
                 }

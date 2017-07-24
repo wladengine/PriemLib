@@ -280,7 +280,7 @@ FROM ed.qEntry WHERE StudyLevelGroupId = {0} AND FacultyId = {1} ORDER BY Name",
                     bool isProfExam = context.Exam.Where(x => x.Id == examId.Value).Select(x => x.IsAdditional)
                         .DefaultIfEmpty(false)
                         .First();
-                    if (!isProfExam)
+                    if (!isProfExam && !isAddVed)
                     {
                         flt_hasExam += string.Format(@" AND qAbiturient.PersonId IN 
 (

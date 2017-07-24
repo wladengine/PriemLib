@@ -857,6 +857,7 @@
         <edmx:EntityTypeShape EntityType="Priem2012Model.MarkFromAchievement" Width="1.5" PointX="32" PointY="27.25" />
         <edmx:AssociationConnector Association="Priem2012Model.FK_MarkFromAchievement_Abiturient" />
         <edmx:AssociationConnector Association="Priem2012Model.FK_MarkFromAchievement_Olympiads" />
+        <edmx:EntityTypeShape EntityType="Priem2012Model.Person_FetchEgeMarkMaxApprovedValues" Width="1.5" PointX="4.375" PointY="15.75" />
         </edmx:Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

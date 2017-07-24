@@ -46,9 +46,11 @@ namespace PriemLib
 
         private void GetKC()
         {
-            string query = "SELECT SUM(KCP) AS KC FROM ed.qEntry WHERE StudyLevelGroupId=@SLGId AND StudyFormId='1' AND IsForeign=0 AND IsCrimea=0";
-            MainClass.Bdc.GetValue(query, new SortedList<string, object>() { { "@SLGId", MainClass.lstStudyLevelGroupId.First() } });
-            tbKC.Text = MainClass.Bdc.GetValue(query, new SortedList<string, object>() { { "@SLGId", MainClass.lstStudyLevelGroupId.First() } }).ToString();
+            string query = "SELECT SUM(KCP) AS KC FROM ed.qEntry WHERE StudyLevelGroupId=@SLGId AND StudyFormId=1 AND StudyBasisId=1 AND IsForeign=0 AND IsCrimea=0";
+            int sum = (int?)MainClass.Bdc.GetValue(query, new SortedList<string, object>() { { "@SLGId", MainClass.lstStudyLevelGroupId.First() } }) ?? 0;
+            tbKC.Text = sum.ToString();
+
+            
         }
 
         #region Fills
