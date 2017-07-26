@@ -139,6 +139,7 @@
             this.btnCancel.TabIndex = 44;
             this.btnCancel.Text = "Закрыть";
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // dgvMarks
             // 

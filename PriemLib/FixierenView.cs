@@ -34,7 +34,6 @@ namespace PriemLib
         public bool IsCel { get; set; }
         public Nullable<int> DocNum { get; set; }
         public bool Locked { get; set; }
-        public bool IsCrimea { get; set; }
         public bool IsQuota { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

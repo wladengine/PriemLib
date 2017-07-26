@@ -272,7 +272,16 @@ namespace PriemLib
             if (string.IsNullOrEmpty(entryId))
                 return null;
 
-            return MainClass.Bdc.GetStringValue(string.Format("SELECT DISTINCT ed.extExamInEntry.Id FROM ed.extExamInEntry WHERE ExamId = {0} AND EntryId = '{1}' ", examId, entryId));
+            string sExamInEntryId = MainClass.Bdc.GetStringValue(string.Format("SELECT DISTINCT extExamInEntry.Id FROM ed.extExamInEntry WHERE ExamId = {0} AND EntryId = '{1}' ", examId, entryId));
+            if (string.IsNullOrEmpty(sExamInEntryId))
+            {
+                sExamInEntryId = MainClass.Bdc.GetStringValue(string.Format(@"SELECT extExamInEntry.Id 
+	FROM ed.extExamInEntry 
+	INNER JOIN ed.Exam ON Exam.Id = extExamInEntry.ExamId
+	WHERE EntryId = '{1}' AND Exam.AlternateExamId = {0}", examId, entryId));
+            }
+
+            return sExamInEntryId;
         }
 
         public static List<string> GetExamIdsInEntry(string facultyId, string licenseProgramId, string obrazProgramId, string profileId, string stFormId, string stBasisId, bool isSecond, bool isParallel, bool isReduced)
@@ -290,7 +299,15 @@ namespace PriemLib
             if (string.IsNullOrEmpty(entryId))
                 return lst;
 
-            DataSet ds = MainClass.Bdc.GetDataSet(string.Format("SELECT ed.extExamInEntry.ExamId FROM ed.extExamInEntry WHERE  ed.extExamInEntry.EntryId = '{0}' ", entryId));
+            DataSet ds = MainClass.Bdc.GetDataSet(string.Format(@"SELECT extExamInEntry.ExamId
+FROM ed.extExamInEntry 
+WHERE extExamInEntry.EntryId = '{0}'
+UNION
+SELECT Exam.AlternateExamId
+FROM ed.extExamInEntry 
+INNER JOIN ed.Exam ON Exam.Id = extExamInEntry.ExamId
+WHERE extExamInEntry.EntryId = '{0}'
+AND Exam.AlternateExamId IS NOT NULL", entryId));
             foreach (DataRow dr in ds.Tables[0].Rows)
             {
                 lst.Add(dr["ExamId"].ToString());

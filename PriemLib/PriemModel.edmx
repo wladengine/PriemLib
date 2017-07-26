@@ -397,6 +397,7 @@
           <Property Name="Holder" Type="nvarchar" MaxLength="50" />
           <Property Name="IsPortfolioCommonPart" Type="bit" Nullable="false" />
           <Property Name="IsPortfolioAnonymPart" Type="bit" Nullable="false" />
+          <Property Name="AlternateExamId" Type="int" />
         </EntityType>
         <EntityType Name="ExamInEntryBlock">
           <Key>
@@ -589,7 +590,6 @@
           <Property Name="IsCel" Type="bit" Nullable="false" />
           <Property Name="DocNum" Type="int" />
           <Property Name="Locked" Type="bit" Nullable="false" />
-          <Property Name="IsCrimea" Type="bit" Nullable="false" />
           <Property Name="IsQuota" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="ForeignCountry">
@@ -5529,7 +5529,6 @@
         <Function Name="FirstWave_DELETE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ed">
           <Parameter Name="EntryId" Type="uniqueidentifier" Mode="In" />
           <Parameter Name="IsCel" Type="bit" Mode="In" />
-          <Parameter Name="IsCrimea" Type="bit" Mode="In" />
           <Parameter Name="IsQuota" Type="bit" Mode="In" />
         </Function>
         <Function Name="FirstWave_DELETE_DogEntryBack" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ed" />
@@ -5587,7 +5586,6 @@
           <Parameter Name="IsCel" Type="bit" Mode="In" />
           <Parameter Name="DocNum" Type="int" Mode="In" />
           <Parameter Name="Locked" Type="bit" Mode="In" />
-          <Parameter Name="IsCrimea" Type="bit" Mode="In" />
           <Parameter Name="IsQuota" Type="bit" Mode="In" />
           <Parameter Name="id" Type="uniqueidentifier" Mode="InOut" />
         </Function>
@@ -9298,7 +9296,6 @@
             <Parameter Name="IsCel" Mode="In" Type="Boolean" />
             <Parameter Name="DocNum" Mode="In" Type="Int32" />
             <Parameter Name="Locked" Mode="In" Type="Boolean" />
-            <Parameter Name="IsCrimea" Mode="In" Type="Boolean" />
             <Parameter Name="IsQuota" Mode="In" Type="Boolean" />
             <Parameter Name="id" Mode="InOut" Type="Guid" />
           </FunctionImport>
@@ -9320,7 +9317,6 @@
           <FunctionImport Name="FirstWave_DELETE">
             <Parameter Name="EntryId" Mode="In" Type="Guid" />
             <Parameter Name="IsCel" Mode="In" Type="Boolean" />
-            <Parameter Name="IsCrimea" Mode="In" Type="Boolean" />
             <Parameter Name="IsQuota" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="FirstWave_INSERT">
@@ -10925,6 +10921,7 @@
           <NavigationProperty Name="ExamInEntryBlockUnit" Relationship="Priem2012Model.FK_ExamInEntryBlockUnit_Exam" FromRole="Exam" ToRole="ExamInEntryBlockUnit" />
           <NavigationProperty Name="OlympResultToAdditionalMark" Relationship="Priem2012Model.FK_OlympResultToAdditionalMark_Exam" FromRole="Exam" ToRole="OlympResultToAdditionalMark" />
           <NavigationProperty Name="OlympResultToCommonBenefit" Relationship="Priem2012Model.FK_OlympResultToCommonBenefit_Exam" FromRole="Exam" ToRole="OlympResultToCommonBenefit" />
+          <Property Name="AlternateExamId" Type="Int32" />
         </EntityType>
         <EntityType Name="qStudyLevel">
           <Key>
@@ -11785,7 +11782,6 @@
           <Property Type="Int32" Name="DocNum" />
           <Property Type="Boolean" Name="Locked" Nullable="false" />
           <NavigationProperty Name="Fixieren" Relationship="Priem2012Model.FK_Fixieren_FixierenView" FromRole="FixierenView" ToRole="Fixieren" />
-          <Property Type="Boolean" Name="IsCrimea" Nullable="false" />
           <Property Type="Boolean" Name="IsQuota" Nullable="false" />
         </EntityType>
         <Association Name="FK_Fixieren_FixierenView">
@@ -15946,6 +15942,7 @@
           <EntitySetMapping Name="Exam">
             <EntityTypeMapping TypeName="Priem2012Model.Exam">
               <MappingFragment StoreEntitySet="Exam">
+                <ScalarProperty Name="AlternateExamId" ColumnName="AlternateExamId" />
                 <ScalarProperty Name="IsPortfolioAnonymPart" ColumnName="IsPortfolioAnonymPart" />
                 <ScalarProperty Name="IsPortfolioCommonPart" ColumnName="IsPortfolioCommonPart" />
                 <ScalarProperty Name="Holder" ColumnName="Holder" />
@@ -16519,7 +16516,6 @@
             <EntityTypeMapping TypeName="Priem2012Model.FixierenView">
               <MappingFragment StoreEntitySet="FixierenView">
                 <ScalarProperty Name="IsQuota" ColumnName="IsQuota" />
-                <ScalarProperty Name="IsCrimea" ColumnName="IsCrimea" />
                 <ScalarProperty Name="Locked" ColumnName="Locked" />
                 <ScalarProperty Name="DocNum" ColumnName="DocNum" />
                 <ScalarProperty Name="IsCel" ColumnName="IsCel" />

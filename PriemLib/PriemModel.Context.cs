@@ -2573,7 +2573,7 @@ namespace PriemLib
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("FixierenView_Delete", idParameter);
         }
     
-        public virtual int FixierenView_Insert(Nullable<int> studyLevelGroupId, Nullable<int> facultyId, Nullable<int> licenseProgramId, Nullable<int> obrazProgramId, Nullable<int> profileId, Nullable<int> studyBasisId, Nullable<int> studyFormId, Nullable<bool> isSecond, Nullable<bool> isReduced, Nullable<bool> isParallel, Nullable<bool> isCel, Nullable<int> docNum, Nullable<bool> locked, Nullable<bool> isCrimea, Nullable<bool> isQuota, ObjectParameter id)
+        public virtual int FixierenView_Insert(Nullable<int> studyLevelGroupId, Nullable<int> facultyId, Nullable<int> licenseProgramId, Nullable<int> obrazProgramId, Nullable<int> profileId, Nullable<int> studyBasisId, Nullable<int> studyFormId, Nullable<bool> isSecond, Nullable<bool> isReduced, Nullable<bool> isParallel, Nullable<bool> isCel, Nullable<int> docNum, Nullable<bool> locked, Nullable<bool> isQuota, ObjectParameter id)
         {
             var studyLevelGroupIdParameter = studyLevelGroupId.HasValue ?
                 new ObjectParameter("StudyLevelGroupId", studyLevelGroupId) :
@@ -2627,15 +2627,11 @@ namespace PriemLib
                 new ObjectParameter("Locked", locked) :
                 new ObjectParameter("Locked", typeof(bool));
     
-            var isCrimeaParameter = isCrimea.HasValue ?
-                new ObjectParameter("IsCrimea", isCrimea) :
-                new ObjectParameter("IsCrimea", typeof(bool));
-    
             var isQuotaParameter = isQuota.HasValue ?
                 new ObjectParameter("IsQuota", isQuota) :
                 new ObjectParameter("IsQuota", typeof(bool));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("FixierenView_Insert", studyLevelGroupIdParameter, facultyIdParameter, licenseProgramIdParameter, obrazProgramIdParameter, profileIdParameter, studyBasisIdParameter, studyFormIdParameter, isSecondParameter, isReducedParameter, isParallelParameter, isCelParameter, docNumParameter, lockedParameter, isCrimeaParameter, isQuotaParameter, id);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("FixierenView_Insert", studyLevelGroupIdParameter, facultyIdParameter, licenseProgramIdParameter, obrazProgramIdParameter, profileIdParameter, studyBasisIdParameter, studyFormIdParameter, isSecondParameter, isReducedParameter, isParallelParameter, isCelParameter, docNumParameter, lockedParameter, isQuotaParameter, id);
         }
     
         public virtual int FixierenView_UpdateLocked(Nullable<int> studyLevelGroupId, Nullable<int> facultyId, Nullable<int> licenseProgramId, Nullable<int> obrazProgramId, Nullable<int> profileId, Nullable<int> studyBasisId, Nullable<int> studyFormId, Nullable<bool> isSecond, Nullable<bool> isReduced, Nullable<bool> isParallel, Nullable<bool> isCel, Nullable<bool> isCrimea, Nullable<bool> locked)
@@ -2695,7 +2691,7 @@ namespace PriemLib
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("FixierenView_UpdateLocked", studyLevelGroupIdParameter, facultyIdParameter, licenseProgramIdParameter, obrazProgramIdParameter, profileIdParameter, studyBasisIdParameter, studyFormIdParameter, isSecondParameter, isReducedParameter, isParallelParameter, isCelParameter, isCrimeaParameter, lockedParameter);
         }
     
-        public virtual int FirstWave_DELETE(Nullable<System.Guid> entryId, Nullable<bool> isCel, Nullable<bool> isCrimea, Nullable<bool> isQuota)
+        public virtual int FirstWave_DELETE(Nullable<System.Guid> entryId, Nullable<bool> isCel, Nullable<bool> isQuota)
         {
             var entryIdParameter = entryId.HasValue ?
                 new ObjectParameter("EntryId", entryId) :
@@ -2705,15 +2701,11 @@ namespace PriemLib
                 new ObjectParameter("IsCel", isCel) :
                 new ObjectParameter("IsCel", typeof(bool));
     
-            var isCrimeaParameter = isCrimea.HasValue ?
-                new ObjectParameter("IsCrimea", isCrimea) :
-                new ObjectParameter("IsCrimea", typeof(bool));
-    
             var isQuotaParameter = isQuota.HasValue ?
                 new ObjectParameter("IsQuota", isQuota) :
                 new ObjectParameter("IsQuota", typeof(bool));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("FirstWave_DELETE", entryIdParameter, isCelParameter, isCrimeaParameter, isQuotaParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("FirstWave_DELETE", entryIdParameter, isCelParameter, isQuotaParameter);
         }
     
         public virtual int FirstWave_INSERT(Nullable<System.Guid> abiturientId, Nullable<int> sortNum)

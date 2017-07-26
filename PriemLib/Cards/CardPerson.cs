@@ -845,11 +845,13 @@ namespace PriemLib
                 //btnAttMarks.Enabled = true;
 
                 btnRemoveE.Enabled = false;
+                gbHostel.Enabled = true;
             }
             if (inEnableProtocol && MainClass.RightsFaculty())
             {
                 SetAllFieldsNotEnabled();
-
+                //попросили разрешить выдавать тех.секретарям направления на поселение
+                gbHostel.Enabled = true;
                 tbMobiles.Enabled = true;
 
                 //tbDiplomNum.Enabled = true;
@@ -2620,25 +2622,38 @@ namespace PriemLib
             using (PriemEntities context = new PriemEntities())
             {
                 var src =
-                    from VedHist in context.ExamsVedHistory
-                    join Ved in context.ExamsVed on VedHist.ExamsVedId equals Ved.Id
-                    join Fac in context.SP_Faculty on Ved.FacultyId equals Fac.Id
-                    join Ex in context.Exam on Ved.ExamId equals Ex.Id
-                    join ExName in context.ExamName on Ex.ExamNameId equals ExName.Id
-                    where VedHist.PersonId == GuidId
-                    select new
-                    {
-                        Ved.Id,
-                        Fac = Fac.Name,
-                        ExName.Name,
-                        Ved.Number
-                    };
+                    (from VedHist in context.ExamsVedHistory
+                     join Ved in context.ExamsVed on VedHist.ExamsVedId equals Ved.Id
+                     join Fac in context.SP_Faculty on Ved.FacultyId equals Fac.Id
+                     join Ex in context.Exam on Ved.ExamId equals Ex.Id
+                     join ExName in context.ExamName on Ex.ExamNameId equals ExName.Id
+                     where VedHist.PersonId == GuidId
+                     select new
+                     {
+                         Ved.Id,
+                         Fac = Fac.Name,
+                         ExName.Name,
+                         Ved.Number,
+                         VedHist.Mark,
+                         VedHist.OralMark,
+                         VedHist.AppealMark,
+                         VedHist.OralAppealMark,
+                         Ved.IsLoad,
+                     }).ToList().Select(x => new
+                     {
+                         x.Id,
+                         x.Fac,
+                         x.Name,
+                         x.Number,
+                         Mark = x.IsLoad ? ((x.AppealMark ?? x.Mark) + (x.OralAppealMark ?? x.OralMark ?? 0)).ToString() : "зашифровано"
+                    });
 
                 dgvVedList.DataSource = Converter.ConvertToDataTable(src.ToArray());
                 dgvVedList.Columns["Id"].Visible = false;
                 dgvVedList.Columns["Fac"].HeaderText = "Подразделение";
                 dgvVedList.Columns["Name"].HeaderText = "Экзамен";
                 dgvVedList.Columns["Number"].HeaderText = "Номер ведомости";
+                dgvVedList.Columns["Mark"].HeaderText = "Оценка";
             }
         }
 

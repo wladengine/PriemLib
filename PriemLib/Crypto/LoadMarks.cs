@@ -334,6 +334,7 @@ namespace PriemLib
 
         private void btnLoad_Click(object sender, EventArgs e)
         {
+            ProgressForm pf = new ProgressForm();
             //загружает оценки из ведомости в карточки заявлений
             try
             {
@@ -348,16 +349,29 @@ namespace PriemLib
                     flt += " AND qAbiturient.NotEnabled = 0 ";
                     flt += " AND qAbiturient.Id IN (SELECT AbiturientId FROM ed.extProtocol WHERE ProtocolTypeId = 1 AND IsOld = 0 AND Excluded = 0) ";
                     flt += " AND qAbiturient.StudyLevelGroupId IN (" + Util.BuildStringWithCollection(MainClass.lstStudyLevelGroupId) + ")";
-                    flt += string.Format(" AND qAbiturient.EntryId IN (SELECT EntryId FROM ed.extExamInEntry WHERE ExamId = {0})", _examId);
+                    flt += string.Format(@" AND qAbiturient.EntryId IN 
+(
+    SELECT EntryId 
+	FROM ed.extExamInEntry 
+	INNER JOIN ed.Exam ON 
+	(
+		Exam.Id = extExamInEntry.ExamId OR 
+		Exam.AlternateExamId = extExamInEntry.ExamId
+	)
+	WHERE Exam.Id = {0} OR Exam.AlternateExamId = {0}
+)", _examId);
 
                     string flt_fac = "";
                     //if (_isAdditional)
                     //    flt_fac = " AND qAbiturient.FacultyId = " + _facultyId;
-
+                    pf.Show();
+                    pf.SetProgressText("Проверка данных...");
+                    pf.MaxPrBarValue = dgvMarks.Rows.Count;
                     foreach (DataGridViewRow dgvr in dgvMarks.Rows)
                     {
+                        pf.PerformStep();
                         string val = dgvr.Cells["Баллы"].Value.ToString();
-                        
+
                         if (dgvr.Cells["Баллы"].Value == null || val.CompareTo("") == 0)
                             continue;
 
@@ -383,7 +397,9 @@ namespace PriemLib
                         }
                         else
                         {
-                            DataSet ds = bdc.GetDataSet(string.Format("SELECT qAbiturient.Id, qAbiturient.PersonId FROM ed.qAbiturient WHERE PersonId = '{0}' {1} {2} {3}", perId, flt_fac, _studybasisId == "" ? "" : " AND qAbiturient.StudyBasisId = " + _studybasisId, flt));
+                            string qS = string.Format(@"SELECT qAbiturient.Id, qAbiturient.PersonId FROM ed.qAbiturient WHERE PersonId = '{0}' {1} {2} {3}", 
+                                perId, flt_fac, _studybasisId == "" ? "" : " AND qAbiturient.StudyBasisId = " + _studybasisId, flt);
+                            DataSet ds = bdc.GetDataSet(qS);
                             foreach (DataRow row in ds.Tables[0].Rows)
                             {
                                 Guid AbiturientId = row.Field<Guid>("Id");
@@ -428,53 +444,59 @@ namespace PriemLib
                         frm.ShowDialog();
                     }
 
+                    pf.SetProgressText("Запись данных...");
+                    pf.PrBarValue = 0;
+                    pf.MaxPrBarValue = slNewMark.Count + slReplaceMark.Count;
+
                     //using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.RequiresNew))
                     //{
-                        foreach (string abId in slNewMark.Keys)
+                    foreach (string abId in slNewMark.Keys)
+                    {
+                        pf.PerformStep();
+                        DataSet dss = bdc.GetDataSet(string.Format("SELECT Id, EntryId FROM ed.Abiturient WHERE Id = '{0}' ", abId));
+                        DataRow drr = dss.Tables[0].Rows[0];
+
+                        string examInPr = Exams.GetExamInEntryId(_examId, drr["EntryId"].ToString());
+                        List<string> list = Exams.GetExamIdsInEntry(drr["EntryId"].ToString());
+                        if (list.Contains(_examId))
                         {
-                            DataSet dss = bdc.GetDataSet(string.Format("SELECT Id, EntryId FROM ed.Abiturient WHERE Id = '{0}' ", abId));
-                            DataRow drr = dss.Tables[0].Rows[0];
+                            Guid abitId = new Guid(abId);
+                            Guid examInEntryId = Guid.Parse(examInPr);
+                            decimal val = decimal.Parse(slNewMark[abId]);
 
-                            string examInPr = Exams.GetExamInEntryId(_examId, drr["EntryId"].ToString());
-                            List<string> list = Exams.GetExamIdsInEntry(drr["EntryId"].ToString());
-                            if (list.Contains(_examId))
-                            {
-                                Guid abitId = new Guid(abId);
-                                Guid examInEntryId = Guid.Parse(examInPr);
-                                decimal val = decimal.Parse(slNewMark[abId]);
-
-                                context.Mark_Insert(abitId, examInEntryId, val, _dateExam, false, false, false, _vedId, null, null);
-                                marksCount++;
-                            }
+                            context.Mark_Insert(abitId, examInEntryId, val, _dateExam, false, false, false, _vedId, null, null);
+                            marksCount++;
                         }
+                    }
 
-                        foreach (string abId in slReplaceMark.Keys)
+                    foreach (string abId in slReplaceMark.Keys)
+                    {
+                        pf.PerformStep();
+                        DataSet dss = bdc.GetDataSet(string.Format("SELECT Id, EntryId FROM ed.Abiturient WHERE Id = '{0}' ", abId));
+                        DataRow drr = dss.Tables[0].Rows[0];
+
+                        string examInPr = Exams.GetExamInEntryId(_examId, drr["EntryId"].ToString());
+                        List<string> list = Exams.GetExamIdsInEntry(drr["EntryId"].ToString());
+                        if (list.Contains(_examId))
                         {
-                            DataSet dss = bdc.GetDataSet(string.Format("SELECT Id, EntryId FROM ed.Abiturient WHERE Id = '{0}' ", abId));
-                            DataRow drr = dss.Tables[0].Rows[0];
+                            Guid abitId = new Guid(abId);
+                            Guid examInEntryId = Guid.Parse(examInPr);
+                            decimal val = decimal.Parse(slReplaceMark[abId]);
 
-                            string examInPr = Exams.GetExamInEntryId(_examId, drr["EntryId"].ToString());
-                            List<string> list = Exams.GetExamIdsInEntry(drr["EntryId"].ToString());
-                            if (list.Contains(_examId))
-                            {
-                                Guid abitId = new Guid(abId);
-                                Guid examInEntryId = Guid.Parse(examInPr);
-                                decimal val = decimal.Parse(slReplaceMark[abId]);
+                            context.Mark_DeleteByAbitExamId(abitId, examInEntryId);
+                            context.Mark_Insert(abitId, examInEntryId, val, _dateExam, false, false, false, _vedId, null, null);
 
-                                context.Mark_DeleteByAbitExamId(abitId, examInEntryId);
-                                context.Mark_Insert(abitId, examInEntryId, val, _dateExam, false, false, false, _vedId, null, null);
-
-                                marksCount++;
-                            }
+                            marksCount++;
                         }
+                    }
 
-                        context.ExamsVed_UpdateLoad(true, _vedId);
+                    context.ExamsVed_UpdateLoad(true, _vedId);
 
-                       // transaction.Complete();
+                    // transaction.Complete();
 
-                        lblIsLoad.Text = "Загружена";
-                        btnLoad.Enabled = false;
-                   // }
+                    lblIsLoad.Text = "Загружена";
+                    btnLoad.Enabled = false;
+                    // }
 
                     MessageBox.Show(marksCount + " записей добавлено.", "Выполнено");
                 }
@@ -482,6 +504,10 @@ namespace PriemLib
             catch(Exception exc)
             {
                 WinFormsServ.Error(exc);
+            }
+            finally
+            {
+                pf.Close();
             }
         }
 
@@ -572,6 +598,11 @@ namespace PriemLib
             ////btnLoad.Enabled = false;
 
             //MessageBox.Show(marksCount + " записей добавлено.", "Выполнено");
-        }                    
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

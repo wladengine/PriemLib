@@ -32,6 +32,7 @@ namespace PriemLib
         public string Holder { get; set; }
         public bool IsPortfolioCommonPart { get; set; }
         public bool IsPortfolioAnonymPart { get; set; }
+        public Nullable<int> AlternateExamId { get; set; }
     
         public virtual ExamName ExamName { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
