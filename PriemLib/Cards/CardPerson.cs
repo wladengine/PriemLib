@@ -1561,7 +1561,7 @@ namespace PriemLib
                     join mrk in context.EgeMark on em.EgeMarkId equals mrk.Id
                     join cer in context.EgeCertificate on mrk.EgeCertificateId equals cer.Id
                     where em.PersonId == GuidId
-                    select new { em.EgeExamNameId, em.EgeMarkValue, cer.Year, cer.Number };
+                    select new { em.EgeExamNameId, em.EgeMarkValue, cer.Year, cer.Number, cer.FBSStatusId };
 
                 foreach (var eMark in egeMarks)
                 {
@@ -1573,7 +1573,19 @@ namespace PriemLib
                         if (examTable.Rows[i]["ExamId"].ToString() == eMark.EgeExamNameId.ToString())
                         {
                             examTable.Rows[i]["Баллы"] = eMark.EgeMarkValue;
-                            examTable.Rows[i]["Номер сертификата"] = iCerYear < 2014 ? eMark.Number : "Свидетельство ЕГЭ " + eMark.Year + " года";
+
+                            string serNum = iCerYear < 2014 ? eMark.Number : "Свидетельство ЕГЭ " + eMark.Year + " года";
+                            string cerStatus = "";
+                            switch (eMark.FBSStatusId)
+                            {
+                                case 0: cerStatus = " (Не проверялся)"; break;
+                                case 1: cerStatus = " (Проверено)"; break;
+                                case 2: cerStatus = " (Не прошёл проверку)"; break;
+                                case 3: cerStatus = " (Двойная оценка)"; break;
+                                case 4: cerStatus = " (Проверено)"; break;
+                            }
+
+                            examTable.Rows[i]["Номер сертификата"] = serNum + cerStatus;
                         }
                     }
                 }
@@ -1586,6 +1598,7 @@ namespace PriemLib
         {
             dgvExams.Columns["Баллы"].ValueType = typeof(int);
             dgvExams.Columns["ExamId"].Visible = false;
+            dgvExams.Columns["Баллы"].Width = 10;
             dgvExams.ReadOnly = true;
         }
         private void UpdateDataGridEge()

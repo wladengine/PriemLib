@@ -1565,7 +1565,7 @@ namespace PriemLib
 
                     string StudyBasis = string.Empty;
                     string form = string.Empty;
-                    string form2 = string.Empty;
+                    string StudyFormRod = string.Empty;
                     string sLicenseProgramName = string.Empty;
                     string sLicenseProgramCode = string.Empty;
                     string sStudyLevelNameRod = string.Empty;
@@ -1607,7 +1607,7 @@ namespace PriemLib
 
                         var SF = ctx.StudyForm.Where(x => x.Id == ProtocolInfo.StudyFormId).Select(x => new { x.Name, x.RodName }).FirstOrDefault();
                         form = SF.Name + " форма обучения";
-                        form2 = "по " + SF.RodName + " форме";
+                        StudyFormRod = SF.RodName;
 
                         var adm = (from protocol in ctx.Protocol
                                    join admProt in ctx.AdmissionProtocol on protocol.AdmissionProtocolId equals admProt.Id
@@ -1647,7 +1647,7 @@ namespace PriemLib
                     doc.ReplaceText("&Documents&", Documents ?? "");
                     doc.ReplaceText("&StudyBasis&", StudyBasis ?? "");
                     doc.ReplaceText("&Year&", MainClass.sPriemYear);
-                    doc.ReplaceText("&StudyForm&", form ?? "");
+                    doc.ReplaceText("&StudyForm&", StudyFormRod ?? "");
                     doc.ReplaceText("&Listener&", list);
                     doc.ReplaceText("&Reduced&", sec);
                     doc.ReplaceText("&FacultyInd&", FacultyIndexNumber ?? "");
@@ -1694,6 +1694,11 @@ namespace PriemLib
                                        LicenseProgramCode = extabit.LicenseProgramCode,
                                        ProfileName = extabit.ProfileName,
                                        ObrazProgram = extabit.ObrazProgramName,
+                                       extabit.ObrazProgramCrypt,
+                                       extabit.InnerEntryInEntryObrazProgramCrypt,
+                                       extabit.InnerEntryInEntryObrazProgramName,
+                                       extabit.InnerEntryInEntryProfileName,
+                                       extabit.InnerEntryInEntryObrazProgramId,
                                        ObrazProgramId = extabit.ObrazProgramId,
                                        EntryHeaderId = entryHeader.Id,
                                        SortNum = entryHeader.SortNum,
@@ -1712,18 +1717,22 @@ namespace PriemLib
                                            CelCompName = x.CelCompName,
                                            LicenseProgramName = x.LicenseProgramName,
                                            LicenseProgramCode = x.LicenseProgramCode,
-                                           ProfileName = x.ProfileName,
-                                           ObrazProgram = x.ObrazProgram.Replace("(очно-заочная)", "").Replace(" ВВ", ""),
-                                           ObrazProgramId = x.ObrazProgramId,
+                                           ProfileName = string.IsNullOrEmpty(x.InnerEntryInEntryProfileName) ? x.ProfileName : x.InnerEntryInEntryProfileName,
+                                           ObrazProgram =  string.IsNullOrEmpty(x.InnerEntryInEntryObrazProgramName) ? 
+                                                x.ObrazProgramCrypt + " " + x.ObrazProgram.Replace("(очно-заочная)", "").Replace(" ВВ", "") : 
+                                                x.InnerEntryInEntryObrazProgramCrypt + " " + x.InnerEntryInEntryObrazProgramName,
+                                           ObrazProgramId = x.InnerEntryInEntryObrazProgramId ?? x.ObrazProgramId,
                                            EntryHeaderId = x.EntryHeaderId,
                                            SortNum = x.SortNum,
                                            EntryHeaderName = x.EntryHeaderName,
                                            NameRod = x.NameRod
                                        }
-                                   );
+                                   ).OrderBy(x => x.ObrazProgram).ThenBy(x => x.ProfileName).ThenBy(x => x.ФИО);
 
                         int pos = 0;
                         bool bFirstRun = true;
+                        string curLPHeader = "-";
+                        string curProfileName = "нет";
                         foreach (var v in lst)
                         {
                             pos++;
@@ -1741,6 +1750,7 @@ namespace PriemLib
                                 }
                             }
 
+                            string LP = v.LicenseProgramName;
                             string ObrazProgramId = v.ObrazProgramId.ToString();
                             string obProg = v.ObrazProgram;
 
@@ -1752,6 +1762,13 @@ namespace PriemLib
                                     curRow++;
                                     td.Rows[curRow].Cells[0].Paragraphs[0].InsertText(string.Format("\t{0}:", header), false, baseFormatting);
                                     curHeader = header;
+                                }
+                                if (curLPHeader != LP)
+                                {
+                                    td.InsertRow(baseRow);
+                                    curRow++;
+                                    td.Rows[curRow].Cells[0].Paragraphs[0].InsertText(string.Format("\tпо направлению подготовки {0} \"{1}\"", v.LicenseProgramCode, LP), false, baseFormatting);
+                                    curLPHeader = LP;
                                 }
                                 if (ObrazProgramId != curObProg)
                                 {
@@ -1765,8 +1782,35 @@ namespace PriemLib
                                         td.InsertRow(baseRow);
                                         curRow++;
                                         td.Rows[curRow].Cells[0].Paragraphs[0].InsertText(string.Format("\tпо {0} \"{1}\"", naprobProgRod, obProg), false, baseFormatting);
+
+                                        string profileName = v.ProfileName;
+                                        if (profileName != curProfileName)
+                                        {
+                                            if (!string.IsNullOrEmpty(profileName) && profileName != "нет")
+                                            {
+                                                td.InsertRow(baseRow);
+                                                curRow++;
+                                                td.Rows[curRow].Cells[0].Paragraphs[0].InsertText(string.Format("\tпо профилю \"{0}\"", profileName), false, baseFormatting);
+                                            }
+                                            curProfileName = profileName;
+                                        }
                                     }
                                     curObProg = ObrazProgramId;
+                                }
+                                else
+                                {
+                                    string profileName = v.ProfileName;
+                                    if (profileName != curProfileName)
+                                    {
+                                        if (!string.IsNullOrEmpty(profileName) && profileName != "нет")
+                                        {
+                                            td.InsertRow(baseRow);
+                                            curRow++;
+                                            td.Rows[curRow].Cells[0].Paragraphs[0].InsertText(string.Format("\tпо профилю \"{0}\"", profileName), false, baseFormatting);
+                                        }
+
+                                        curProfileName = profileName;
+                                    }
                                 }
                             }
 
@@ -2173,9 +2217,6 @@ namespace PriemLib
             //                    case 4: { sFileAdd = "Asp"; break; }
             //                    case 5: { sFileAdd = "Ord"; break; }
             //                }
-                            
-            //                //if (v.CompetitionId == 11 || v.CompetitionId == 12)
-            //                //    sFileAdd = "Crimea";
 
             //                int curRow = 5, counter = 0;
 
@@ -2435,11 +2476,6 @@ namespace PriemLib
                     wd.SetFields("Граждан2", isRus ? "граждан Российской Федерации" : "");
                     wd.SetFields("Стипендия", (ProtocolInfo.StudyBasisId == 2 || ProtocolInfo.StudyFormId == 2) ? "" : "\r\nи назначении стипендии");
                     wd.SetFields("Стипендия2", (ProtocolInfo.StudyBasisId == 2 || ProtocolInfo.StudyFormId == 2) ? "" : " и назначении стипендии");
-                    //wd.SetFields("Факультет", facDat);
-                    //wd.SetFields("Форма", form);
-                    //wd.SetFields("Основа", basis);
-                    //wd.SetFields("БакСпец", StudyLevelName);
-                    //wd.SetFields("НапрСпец", string.Format(" направлению {0} «{1}»", LicenseProgramCode, LicenseProgramName));
                     wd.SetFields("ПриказОт", docDate);
                     wd.SetFields("ПриказНомер", docNum);
                     wd.SetFields("ПриказОт2", docDate);

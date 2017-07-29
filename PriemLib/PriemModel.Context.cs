@@ -2634,7 +2634,7 @@ namespace PriemLib
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("FixierenView_Insert", studyLevelGroupIdParameter, facultyIdParameter, licenseProgramIdParameter, obrazProgramIdParameter, profileIdParameter, studyBasisIdParameter, studyFormIdParameter, isSecondParameter, isReducedParameter, isParallelParameter, isCelParameter, docNumParameter, lockedParameter, isQuotaParameter, id);
         }
     
-        public virtual int FixierenView_UpdateLocked(Nullable<int> studyLevelGroupId, Nullable<int> facultyId, Nullable<int> licenseProgramId, Nullable<int> obrazProgramId, Nullable<int> profileId, Nullable<int> studyBasisId, Nullable<int> studyFormId, Nullable<bool> isSecond, Nullable<bool> isReduced, Nullable<bool> isParallel, Nullable<bool> isCel, Nullable<bool> isCrimea, Nullable<bool> locked)
+        public virtual int FixierenView_UpdateLocked(Nullable<int> studyLevelGroupId, Nullable<int> facultyId, Nullable<int> licenseProgramId, Nullable<int> obrazProgramId, Nullable<int> profileId, Nullable<int> studyBasisId, Nullable<int> studyFormId, Nullable<bool> isSecond, Nullable<bool> isReduced, Nullable<bool> isParallel, Nullable<bool> isCel, Nullable<bool> locked)
         {
             var studyLevelGroupIdParameter = studyLevelGroupId.HasValue ?
                 new ObjectParameter("StudyLevelGroupId", studyLevelGroupId) :
@@ -2680,15 +2680,11 @@ namespace PriemLib
                 new ObjectParameter("IsCel", isCel) :
                 new ObjectParameter("IsCel", typeof(bool));
     
-            var isCrimeaParameter = isCrimea.HasValue ?
-                new ObjectParameter("IsCrimea", isCrimea) :
-                new ObjectParameter("IsCrimea", typeof(bool));
-    
             var lockedParameter = locked.HasValue ?
                 new ObjectParameter("Locked", locked) :
                 new ObjectParameter("Locked", typeof(bool));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("FixierenView_UpdateLocked", studyLevelGroupIdParameter, facultyIdParameter, licenseProgramIdParameter, obrazProgramIdParameter, profileIdParameter, studyBasisIdParameter, studyFormIdParameter, isSecondParameter, isReducedParameter, isParallelParameter, isCelParameter, isCrimeaParameter, lockedParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("FixierenView_UpdateLocked", studyLevelGroupIdParameter, facultyIdParameter, licenseProgramIdParameter, obrazProgramIdParameter, profileIdParameter, studyBasisIdParameter, studyFormIdParameter, isSecondParameter, isReducedParameter, isParallelParameter, isCelParameter, lockedParameter);
         }
     
         public virtual int FirstWave_DELETE(Nullable<System.Guid> entryId, Nullable<bool> isCel, Nullable<bool> isQuota)

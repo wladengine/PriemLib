@@ -201,22 +201,65 @@ namespace PriemLib
                 foreach (Guid VedId in gExamsVed)
                 {
                     // если MarkValue == null ???? 
-                    var Marks = (from x in context.ExamsVedHistoryMark
-                                 join h in context.ExamsVedHistory on x.ExamsVedHistoryId equals h.Id
-                                 where h.ExamsVedId == VedId && x.MarkValue != null
-                                 select x).ToList().GroupBy(x=>x.ExamsVedHistoryId).Select(x=> new 
-                                 {
-                                    ExamsVedHistoryId = x.Key,
-                                    MarkSum = x.Sum(t=>t.MarkValue??0),
-                                 }).ToList();
-                    foreach (var Mark in Marks)
+                    //var Marks = (from x in context.ExamsVedHistoryMark
+                    //             join h in context.ExamsVedHistory on x.ExamsVedHistoryId equals h.Id
+                    //             where h.ExamsVedId == VedId && x.MarkValue != null
+                    //             select x).ToList().GroupBy(x => x.ExamsVedHistoryId).Select(x => new
+                    //             {
+                    //                 ExamsVedHistoryId = x.Key,
+                    //                 MarkSum = x.Sum(t => t.MarkValue ?? 0),
+                    //             }).ToList();
+
+                    //foreach (var Mark in Marks)
+                    //{
+                    //    ExamsVedHistory H = context.ExamsVedHistory.Where(x => x.Id == Mark.ExamsVedHistoryId).First();
+                    //    H.Mark = Mark.MarkSum;
+                    //    context.SaveChanges();
+                    //}
+
+                    var MarksRawData = (from x in context.ExamsVedHistoryMark
+                                        join h in context.ExamsVedHistory on x.ExamsVedHistoryId equals h.Id
+                                        where h.ExamsVedId == VedId && x.MarkValue != null
+                                        select new
+                                        {
+                                            x.ExamsVedHistoryId,
+                                            x.ExamsVedMarkTypeId,
+                                            x.MarkValue,
+                                        }).ToList();
+
+                    var PersonList = MarksRawData.Select(x => x.ExamsVedHistoryId).Distinct().ToList();
+                    var lstTypes = MarksRawData.Where(x => x.ExamsVedMarkTypeId != null).Select(x => x.ExamsVedMarkTypeId.Value).Distinct().OrderBy(x => x).ToList();
+                    bool HasTwoMarks = lstTypes.Count == 2;
+                    int iFirst = 0, iSecond = 0;
+                    if (HasTwoMarks)
                     {
-                        ExamsVedHistory H = context.ExamsVedHistory.Where(x => x.Id == Mark.ExamsVedHistoryId).First();
-                        H.Mark = Mark.MarkSum;
-                        context.SaveChanges();
+                        iFirst = lstTypes[0];
+                        iSecond = lstTypes[1];
+                    }
+                    foreach (Guid HistId in PersonList)
+                    {
+                        ExamsVedHistory H = context.ExamsVedHistory.Where(x => x.Id == HistId).FirstOrDefault();
+                        if (H != null)
+                        {
+                            if (HasTwoMarks)
+                            {
+                                var Mrks = MarksRawData.Where(x => x.ExamsVedHistoryId == HistId).ToList();
+                                if (Mrks.Count > 0)
+                                    H.Mark = Mrks.Where(x => x.ExamsVedMarkTypeId == iFirst).Select(x => x.MarkValue ?? 0).FirstOrDefault();
+                                if (Mrks.Count > 1)
+                                    H.OralMark = Mrks.Where(x => x.ExamsVedMarkTypeId == iSecond).Select(x => x.MarkValue ?? 0).FirstOrDefault();
+                            }
+                            else
+                            {
+                                H.Mark = MarksRawData.Where(x => x.ExamsVedHistoryId == HistId).Select(x => x.MarkValue ?? 0).Sum();
+                            }
+                            context.SaveChanges();
+                        }
                     }
                 }
             }
+
+            MessageBox.Show("OK");
         }
     }
 }

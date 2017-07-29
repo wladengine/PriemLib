@@ -30,6 +30,7 @@ namespace PriemLib
             lst.Add(new KeyValuePair<string, string>("BenefitDocument6", "Диплом в области спорта"));
             lst.Add(new KeyValuePair<string, string>("BenefitDocument7", "Документ, подтверждающий принадлежность к соотечественникам"));
             lst.Add(new KeyValuePair<string, string>("BenefitDocument8", "Документ, подтверждающий принадлежность к ветеранам боевых действий"));
+            lst.Add(new KeyValuePair<string, string>("BenefitDocument9", "Документы для ординатуры"));
 
             ComboServ.FillCombo(cbBenefitDocumentType, lst, false, false);
         }
@@ -48,6 +49,7 @@ namespace PriemLib
                 case "BenefitDocument6": { crd = new CardBenefitDocument(null, _personId, 6); break; }
                 case "BenefitDocument7": { crd = new CardBenefitDocument(null, _personId, 7); break; }
                 case "BenefitDocument8": { crd = new CardBenefitDocument(null, _personId, 8); break; }
+                case "BenefitDocument9": { crd = new CardBenefitDocument(null, _personId, 9); break; }
                 default: { crd = new OlympCard(_personId); break; }
             }
 

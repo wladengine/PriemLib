@@ -12,6 +12,7 @@ using System.DirectoryServices.AccountManagement;
 
 using BaseFormsLib;
 using EducServLib;
+using System.Threading.Tasks;
 
 namespace PriemLib
 {    
@@ -86,6 +87,10 @@ namespace PriemLib
             try
             {
                 _bdc = new DBPriem();
+
+                if (!_bdc.Ping(connString))
+                    return false;
+
                 _bdc.OpenDatabase(connString);
 
                 //открываем коннект

@@ -5601,7 +5601,6 @@
           <Parameter Name="IsReduced" Type="bit" Mode="In" />
           <Parameter Name="IsParallel" Type="bit" Mode="In" />
           <Parameter Name="IsCel" Type="bit" Mode="In" />
-          <Parameter Name="IsCrimea" Type="bit" Mode="In" />
           <Parameter Name="Locked" Type="bit" Mode="In" />
         </Function>
         <Function Name="FixierenViewBackup2_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ed">
@@ -9311,7 +9310,6 @@
             <Parameter Name="IsReduced" Mode="In" Type="Boolean" />
             <Parameter Name="IsParallel" Mode="In" Type="Boolean" />
             <Parameter Name="IsCel" Mode="In" Type="Boolean" />
-            <Parameter Name="IsCrimea" Mode="In" Type="Boolean" />
             <Parameter Name="Locked" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="FirstWave_DELETE">

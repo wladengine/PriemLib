@@ -208,42 +208,10 @@ namespace PriemLib
             return GetWhereClause("extEntry") + sFilter;
         }
                 
-        //int GetTotalCount()
-        //{            
-        //    string query = string.Format("SELECT DISTINCT Count(qAbiturient.Id) " +
-        //    " FROM qAbiturient INNER JOIN PErson ON ed.qAbiturientPErsonId = Person.Id " +
-        //    " INNER JOIN extEnableProtocol ON ed.qAbiturientId=extEnableProtocol.AbiturientId " +
-        //    " INNER JOIN _FirstWaveGreenBackup ON ed.qAbiturientId=_FirstWaveGreenBackup.AbiturientId " +
-        //    " INNER JOIN extAbitMarksSum ON ed.qAbiturientId=extAbitMarksSum.Id " +
-        //    " LEFT JOIN Specialization ON Specialization.Id = ed.qAbiturientSpecializationId LEFT JOIN StudyBasis ON StudyBasis.Id = ed.qAbiturientStudyBasisId " +
-        //    " LEFT JOIN StudyForm ON StudyForm.Id = ed.qAbiturientStudyFormId LEFT JOIN Profession ON Profession.Id = ed.qAbiturientProfessionId " +
-        //    " LEFT JOIN Competition ON Competition.Id = ed.qAbiturientCompetitionId ", MainClass.GetStringAbitNumber("qAbiturient"));
-
-        //    return (int)MainClass.Bdc.GetValue(query + GetTotalFilter(false));
-        //}
-
         protected override void InitAndFillGrids()
         {
             base.InitAndFillGrids();            
-            /*
-            FillGrid(dgvRight, sQuery, GetTotalFilter() , sOrderby);
-                        
-            //заполнили левый
-            if (_id!=null)
-            {
-                string sFilter = string.Format(" WHERE ed.qAbiturientId IN (SELECT AbiturientId FROM qProtocolHistory WHERE ProtocolId = '{0}')", _id);
-                FillGrid(dgvLeft, sQuery, sFilter, sOrderby);
-            }
-            else //новый
-            {
-                InitGrid(dgvLeft);
-            }
             
-            //блокируем редактирование кроме первого столбца
-            for (int i = 1; i < dgvLeft.ColumnCount; i++)
-                dgvLeft.Columns[i].ReadOnly = true;
-
-            dgvLeft.Update();    */
             UpdateLeft();
             UpdateRight();
         }
@@ -255,7 +223,6 @@ namespace PriemLib
 
             dgv.Columns["Pasport"].Visible = false;
             dgv.Columns["Attestat"].Visible = false;
-
         }
 
         string GetSelectedIdList()
@@ -274,8 +241,15 @@ namespace PriemLib
 
         void UpdateGrids()
         {
-            UpdateLeft();
-            UpdateRight();
+            try
+            {
+                UpdateLeft();
+                UpdateRight();
+            }
+            catch (Exception ex)
+            {
+                WinFormsServ.Error(ex);
+            }
         }
 
         void UpdateRight()
@@ -440,23 +414,37 @@ INNER JOIN ed._FirstWave AS _FirstWave ON Abiturient.Id = _FirstWave.AbiturientI
 
         void UpdateLeft()
         { 
-            string ids = Util.BuildStringWithCollection(lstSelected[HeaderId]);
+            try
+            {
+                string ids = Util.BuildStringWithCollection(lstSelected[HeaderId]);
 
-            dgvLeft.Rows.Clear();
-            if (ids.Length > 0)
-                FillGrid(dgvLeft, sQuery, GetTotalFilter() + string.Format(" AND qAbiturient.Id IN ({0}) ", ids), sOrderby);
-            else
-                InitGrid(dgvLeft);
+                dgvLeft.Rows.Clear();
+                if (ids.Length > 0)
+                    FillGrid(dgvLeft, sQuery, GetTotalFilter() + string.Format(" AND qAbiturient.Id IN ({0}) ", ids), sOrderby);
+                else
+                    InitGrid(dgvLeft);
+            }
+            catch (Exception ex)
+            {
+                WinFormsServ.Error(ex);
+            }
         }
 
         protected override void OnMoved()
         {
-            base.OnMoved();
+            try
+            {
+                base.OnMoved();
 
-            List<string> curList = lstSelected[HeaderId];
-            curList.Clear();
-            foreach (DataGridViewRow row in dgvLeft.Rows)
-                curList.Add("'" + row.Cells["Id"].Value.ToString() + "'");
+                List<string> curList = lstSelected[HeaderId];
+                curList.Clear();
+                foreach (DataGridViewRow row in dgvLeft.Rows)
+                    curList.Add("'" + row.Cells["Id"].Value.ToString() + "'");
+            }
+            catch (Exception ex)
+            {
+                WinFormsServ.Error(ex);
+            }
         }
 
         //сохранение
@@ -465,20 +453,6 @@ INNER JOIN ed._FirstWave AS _FirstWave ON Abiturient.Id = _FirstWave.AbiturientI
             //проверка данных
             if (!CheckData())
                 return false;            
-            /*
-            int total = GetTotalCount();
-
-            int selected = 0;
-
-            foreach (List<string> lst in lstSelected)
-                selected += lst.Count;
-
-            if (selected != total)
-            {
-                MessageBox.Show("Выберите формулировку для всех абитуриентов, имеющих право на зачисления, из зеленый зоны волны!", "Внимание");
-                return false;
-            }
-            */
             try
             {
                 using (PriemEntities context = new PriemEntities())
@@ -520,19 +494,27 @@ INNER JOIN ed._FirstWave AS _FirstWave ON Abiturient.Id = _FirstWave.AbiturientI
 
         protected override bool CheckData()
         {
-            bool bRes = base.CheckData();
-
-            using (PriemEntities context = new PriemEntities())
+            try
             {
-                var bEntryViewCreateEnabled = "True".Equals(context.C_AppSettings.Find("bEntryViewCreateEnabled").ParamValue);
-                if (!bEntryViewCreateEnabled)
-                {
-                    MessageBox.Show("Создание представлений к зачислению в настоящий момент запрещено администратором");
-                    return false;
-                }
-            }
+                bool bRes = base.CheckData();
 
-            return bRes;
+                using (PriemEntities context = new PriemEntities())
+                {
+                    var bEntryViewCreateEnabled = "True".Equals(context.C_AppSettings.Find("bEntryViewCreateEnabled").ParamValue);
+                    if (!bEntryViewCreateEnabled)
+                    {
+                        MessageBox.Show("Создание представлений к зачислению в настоящий момент запрещено администратором");
+                        return false;
+                    }
+                }
+
+                return bRes;
+            }
+            catch (Exception ex)
+            {
+                WinFormsServ.Error(ex);
+                return false;
+            }
         }
 
         //предварительный просмотр
