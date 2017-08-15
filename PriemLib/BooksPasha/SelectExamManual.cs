@@ -20,7 +20,7 @@ namespace PriemLib
         {
             InitializeComponent();
             InitControls();            
-        }  
+        }
 
         //дополнительная инициализация контролов
         private void InitControls()
@@ -70,7 +70,7 @@ namespace PriemLib
                 
                 foreach (int iSLGId in MainClass.lstStudyLevelGroupId)
                 {
-                    var ent = Exams.GetExamsWithFilters(context, iSLGId, FacultyId, null, null, null, null, StudyBasisId, null, null, null);
+                    var ent = Exams.GetExamsWithFilters(context, iSLGId, FacultyId, null, null, null, null, StudyBasisId, null, null, null, true);
                     lst.AddRange(ent.ToList().Select(u => new KeyValuePair<string, string>(u.ExamId.ToString(), u.ExamName)).Distinct().ToList());
                 }
 

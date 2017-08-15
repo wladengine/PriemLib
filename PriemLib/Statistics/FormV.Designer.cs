@@ -120,7 +120,7 @@
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(160, 13);
             this.label12.TabIndex = 23;
-            this.label12.Text = "По приказам от 04.08.2015 (5)";
+            this.label12.Text = "По приказам от 04.08.2017 (5)";
             // 
             // label10
             // 
@@ -179,7 +179,7 @@
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(160, 13);
             this.label6.TabIndex = 15;
-            this.label6.Text = "По приказам от 29.07.2015 (4)";
+            this.label6.Text = "По приказам от 29.07.2017 (4)";
             // 
             // label5
             // 

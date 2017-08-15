@@ -1,8 +1,12 @@
-﻿using System;
+﻿using EducServLib;
+using Novacode;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -23,7 +27,7 @@ namespace PriemLib
         {
             using (PriemEntities context = new PriemEntities())
             {
-                int iKCP_1k = context.extEntry.Where(x => MainClass.lstStudyLevelGroupId.Contains(x.StudyLevelGroupId) && x.StudyBasisId == 1 && x.StudyFormId == 1 && !x.IsForeign)
+                int iKCP_1k = context.extEntry.Where(x =>x.StudyLevelGroupId == 1 && x.StudyBasisId == 1 && x.StudyFormId == 1 && !x.IsForeign)
                     .Select(x => x.KCP ?? 0).DefaultIfEmpty(0).Sum();
                 tbKCP_1kurs.Text = iKCP_1k.ToString();
 
@@ -112,7 +116,7 @@ namespace PriemLib
                               join extEntView in context.extEntryView on Ab.Id equals extEntView.AbiturientId
                               join Ent in context.Entry on Ab.EntryId equals Ent.Id
                               join Pers in context.Person on Ab.PersonId equals Pers.Id
-                              join PersEduc in context.Person_EducationInfo on Pers.Id equals PersEduc.PersonId
+                              join PersEduc in context.extPerson_EducationInfo_Current on Pers.Id equals PersEduc.PersonId
                               where Ab.Entry.StudyFormId == 1
                               && Ab.Entry.StudyLevel.LevelGroupId == 1
                               && PersEduc.SchoolTypeId == 1
@@ -132,7 +136,7 @@ namespace PriemLib
                                   join extEntView in context.extEntryView on Ab.Id equals extEntView.AbiturientId
                                   join Ent in context.Entry on Ab.EntryId equals Ent.Id
                                   join Pers in context.Person on Ab.PersonId equals Pers.Id
-                                  join PersEduc in context.Person_EducationInfo on Pers.Id equals PersEduc.PersonId
+                                  join PersEduc in context.extPerson_EducationInfo_Current on Pers.Id equals PersEduc.PersonId
                                   where Ab.Entry.StudyFormId == 1
                                   && Ab.Entry.StudyLevel.LevelGroupId == 1
                                   && PersEduc.SchoolTypeId == 1
@@ -147,15 +151,15 @@ namespace PriemLib
                 tbCnt_Stud_1K_School_B_SPB.Text = School_SPB.Where(x => x.StudyBasisId == 1).Count().ToString();
                 tbCnt_Stud_1K_School_P_SPB.Text = School_SPB.Where(x => x.StudyBasisId == 2).Count().ToString();
 
-                //имеющих среднее и высшее профессиональное образование, всего
+                //имеющих среднее профессиональное образование, всего
                 var Prof = (from Ab in context.Abiturient
                             join extEntView in context.extEntryView on Ab.Id equals extEntView.AbiturientId
                             join Ent in context.Entry on Ab.EntryId equals Ent.Id
                             join Pers in context.Person on Ab.PersonId equals Pers.Id
-                            join PersEduc in context.Person_EducationInfo on Pers.Id equals PersEduc.PersonId
+                            join PersEduc in context.extPerson_EducationInfo_Current on Pers.Id equals PersEduc.PersonId
                             where Ab.Entry.StudyFormId == 1
                             && Ab.Entry.StudyLevel.LevelGroupId == 1
-                            && PersEduc.SchoolTypeId != 1 && PersEduc.SchoolTypeId != 3
+                            && PersEduc.SchoolTypeId != 1 && PersEduc.SchoolTypeId != 4
                             && !Ent.IsForeign
                             select new
                             {
@@ -167,15 +171,15 @@ namespace PriemLib
                 tbCnt_Stud_1K_Prof_B.Text = iCntStud1K_Prof_B_Priem.ToString();
                 tbCnt_Stud_1K_Prof_P.Text = iCntStud1K_Prof_P_Priem.ToString();
 
-                //имеющих среднее и высшее профессиональное образование, СПб
+                //имеющих среднее профессиональное образование, СПб
                 var Prof_SPB = (from Ab in context.Abiturient
                                 join extEntView in context.extEntryView on Ab.Id equals extEntView.AbiturientId
                                 join Ent in context.Entry on Ab.EntryId equals Ent.Id
                                 join Pers in context.Person on Ab.PersonId equals Pers.Id
-                                join PersEduc in context.Person_EducationInfo on Pers.Id equals PersEduc.PersonId
+                                join PersEduc in context.extPerson_EducationInfo_Current on Pers.Id equals PersEduc.PersonId
                                 where Ab.Entry.StudyFormId == 1
                                 && Ab.Entry.StudyLevel.LevelGroupId == 1
-                                && PersEduc.SchoolTypeId != 1 && PersEduc.SchoolTypeId != 3
+                                && PersEduc.SchoolTypeId != 1 && PersEduc.SchoolTypeId != 4
                                 && !Ent.IsForeign
                                 && Pers.Person_Contacts.RegionId == 1
                                 select new
@@ -186,15 +190,15 @@ namespace PriemLib
                 tbCnt_Stud_1K_Prof_B_SPB.Text = Prof_SPB.Where(x => x.StudyBasisId == 1).Count().ToString();
                 tbCnt_Stud_1K_Prof_P_SPB.Text = Prof_SPB.Where(x => x.StudyBasisId == 2).Count().ToString();
 
-                //имеющих НПО, всего
+                //имеющих высшее профессиональное образование, всего
                 var NPOs = (from Ab in context.Abiturient
                             join extEntView in context.extEntryView on Ab.Id equals extEntView.AbiturientId
                             join Ent in context.Entry on Ab.EntryId equals Ent.Id
                             join Pers in context.Person on Ab.PersonId equals Pers.Id
-                            join PersEduc in context.Person_EducationInfo on Pers.Id equals PersEduc.PersonId
+                            join PersEduc in context.extPerson_EducationInfo_Current on Pers.Id equals PersEduc.PersonId
                             where Ab.Entry.StudyFormId == 1
                             && Ab.Entry.StudyLevel.LevelGroupId == 1
-                            && PersEduc.SchoolTypeId == 3
+                            && PersEduc.SchoolTypeId == 4
                             && !Ent.IsForeign
                             select new
                             {
@@ -204,15 +208,15 @@ namespace PriemLib
                 tbCnt_Stud_1K_NPO_B.Text = NPOs.Where(x => x.StudyBasisId == 1).Count().ToString();
                 tbCnt_Stud_1K_NPO_P.Text = NPOs.Where(x => x.StudyBasisId == 2).Count().ToString();
 
-                //имеющих НПО, СПб
+                //имеющих высшее профессиональное образование, СПб
                 var NPO_SPB = (from Ab in context.Abiturient
                                join extEntView in context.extEntryView on Ab.Id equals extEntView.AbiturientId
                                join Ent in context.Entry on Ab.EntryId equals Ent.Id
                                join Pers in context.Person on Ab.PersonId equals Pers.Id
-                               join PersEduc in context.Person_EducationInfo on Pers.Id equals PersEduc.PersonId
+                               join PersEduc in context.extPerson_EducationInfo_Current on Pers.Id equals PersEduc.PersonId
                                where Ab.Entry.StudyFormId == 1
                                && Ab.Entry.StudyLevel.LevelGroupId == 1
-                               && PersEduc.SchoolTypeId == 3
+                               && PersEduc.SchoolTypeId == 4
                                && !Ent.IsForeign
                                && Pers.Person_Contacts.RegionId == 1
                                select new
@@ -262,7 +266,7 @@ namespace PriemLib
 
                 //зачисленных олимпиадников, всего
                 var Olymp = (from Ab in context.Abiturient
-                             join Ol in context.Olympiads on Ab.Id equals Ol.AbiturientId
+                             join Ol in context.Olympiads on Ab.OlympiadId equals Ol.Id
                              join extEntView in context.extEntryView on Ab.Id equals extEntView.AbiturientId
                              join Ent in context.Entry on Ab.EntryId equals Ent.Id
                              join Pers in context.Person on Ab.PersonId equals Pers.Id
@@ -271,6 +275,7 @@ namespace PriemLib
                              && Ab.Entry.StudyLevel.LevelGroupId == 1
                              && !Ent.IsForeign
                              && Ol.OlympValueId > 4 && (Ol.OlympTypeId == 3 || Ol.OlympTypeId == 4)
+                             && extEntView.IsBE == true
                              select new
                              {
                                  Ent.StudyBasisId,
@@ -281,7 +286,7 @@ namespace PriemLib
 
                 //зачисленных олимпиадников, СПб
                 var Olymp_SPB = (from Ab in context.Abiturient
-                                 join Ol in context.Olympiads on Ab.Id equals Ol.AbiturientId
+                                 join Ol in context.Olympiads on Ab.OlympiadId equals Ol.Id
                                  join extEntView in context.extEntryView on Ab.Id equals extEntView.AbiturientId
                                  join Ent in context.Entry on Ab.EntryId equals Ent.Id
                                  join Pers in context.Person on Ab.PersonId equals Pers.Id
@@ -291,6 +296,7 @@ namespace PriemLib
                                  && !Ent.IsForeign
                                  && Ol.OlympValueId > 4 && (Ol.OlympTypeId == 3 || Ol.OlympTypeId == 4)
                                  && Pers.Person_Contacts.RegionId == 1
+                                 && extEntView.IsBE == true
                                  select new
                                  {
                                      Ent.StudyBasisId,
@@ -349,8 +355,8 @@ namespace PriemLib
                      select new { mrk.Value, extEv.StudyBasisId }).ToList();
 
                 //Средний балл ЕГЭ
-                tbAVG_Ege_B.Text = balls.Where(x => x.StudyBasisId == 1).Select(x => x.Value).DefaultIfEmpty(0m).Average().ToString();
-                tbAVG_Ege_P.Text = balls.Where(x => x.StudyBasisId == 2).Select(x => x.Value).DefaultIfEmpty(0m).Average().ToString();
+                tbAVG_Ege_B.Text = Math.Round(balls.Where(x => x.StudyBasisId == 1).Select(x => x.Value).DefaultIfEmpty(0m).Average(), 3).ToString();
+                tbAVG_Ege_P.Text = Math.Round(balls.Where(x => x.StudyBasisId == 2).Select(x => x.Value).DefaultIfEmpty(0m).Average(), 3).ToString();
 
                 //КЦ Магистратура
                 string query = "SELECT SUM(KCP) AS CNT FROM ed.qEntry WHERE StudyLevelGroupId=2 AND StudyFormId='1' AND StudyBasisId='1' AND IsCrimea = 0 AND IsForeign = 0";
@@ -380,66 +386,86 @@ WHERE extAbit.StudyLevelGroupId=2 AND extAbit.StudyFormId=1 AND extAbit.StudyBas
         {
             try
             {
-                WordDoc doc = new WordDoc(MainClass.dirTemplates + "\\Form2.dot", true);
-                doc.SetFields("KCP_1KURS", tbKCP_1kurs.Text);
+                string sFileName = Path.Combine(MainClass.dirTemplates, "Form2.docx");
+                if (!File.Exists(sFileName))
+                {
+                    WinFormsServ.Error("Файл шаблона не найден");
+                    return;
+                }
 
-                doc.SetFields("CNT_ABIT_1K_B", tbCnt_Abit_1K_B.Text);
-                doc.SetFields("CNT_ABIT_1K_P", tbCnt_Abit_1K_P.Text);
-                doc.SetFields("CNT_ABIT_1K_B_SPB", tbCnt_Abit_1K_B_SPB.Text);
-                doc.SetFields("CNT_ABIT_1K_P_SPB", tbCnt_Abit_1K_P_SPB.Text);
+                using (FileStream fs = new FileStream(sFileName, FileMode.Open, FileAccess.Read))
+                using (DocX doc = DocX.Load(fs))
+                {
+                    doc.ReplaceText("&KCP 1KURS&", tbKCP_1kurs.Text);
 
-                doc.SetFields("CNT_STUD_1K_ALL", tbCnt_Stud_1K_All.Text);
-                doc.SetFields("CNT_STUD_1K_ALL_SPB", tbCnt_Stud_1K_All_SPB.Text);
+                    doc.ReplaceText("&CNT ABIT 1K B&", tbCnt_Abit_1K_B.Text);
+                    doc.ReplaceText("&CNT ABIT 1K P&", tbCnt_Abit_1K_P.Text);
+                    doc.ReplaceText("&CNT ABIT 1K B SPB&", tbCnt_Abit_1K_B_SPB.Text);
+                    doc.ReplaceText("&CNT ABIT 1K P SPB&", tbCnt_Abit_1K_P_SPB.Text);
 
-                doc.SetFields("CNT_STUD_1K_B", tbCnt_Stud_1K_B.Text);
-                doc.SetFields("CNT_STUD_1K_P", tbCnt_Stud_1K_P.Text);
+                    doc.ReplaceText("&CNT STUD 1K ALL&", tbCnt_Stud_1K_All.Text);
+                    doc.ReplaceText("&CNT STUD 1K ALL SPB&", tbCnt_Stud_1K_All_SPB.Text);
 
-                doc.SetFields("CNT_STUD_1K_B_SPB", tbCnt_Stud_1K_B_SPB.Text);
-                doc.SetFields("CNT_STUD_1K_P_SPB", tbCnt_Stud_1K_P_SPB.Text);
+                    doc.ReplaceText("&CNT STUD 1K B&", tbCnt_Stud_1K_B.Text);
+                    doc.ReplaceText("&CNT STUD 1K P&", tbCnt_Stud_1K_P.Text);
+                    doc.ReplaceText("&CNT STUD 1K B SPB&", tbCnt_Stud_1K_B_SPB.Text);
+                    doc.ReplaceText("&CNT STUD 1K P SPB&", tbCnt_Stud_1K_P_SPB.Text);
 
-                doc.SetFields("CNT_STUD_1K_MALE_B", tbCnt_Stud_1K_Male_B.Text);
-                doc.SetFields("CNT_STUD_1K_MALE_P", tbCnt_Stud_1K_Male_P.Text);
-                doc.SetFields("CNT_STUD_1K_MALE_B_SPB", tbCnt_Stud_1K_Male_B_SPB.Text);
-                doc.SetFields("CNT_STUD_1K_MALE_P_SPB", tbCnt_Stud_1K_Male_P_SPB.Text);
+                    doc.ReplaceText("&CNT STUD 1K MALE B&", tbCnt_Stud_1K_Male_B.Text);
+                    doc.ReplaceText("&CNT STUD 1K MALE P&", tbCnt_Stud_1K_Male_P.Text);
+                    doc.ReplaceText("&CNT STUD 1K MALE B SPB&", tbCnt_Stud_1K_Male_B_SPB.Text);
+                    doc.ReplaceText("&CNT STUD 1K MALE P SPB&", tbCnt_Stud_1K_Male_P_SPB.Text);
 
-                doc.SetFields("CNT_STUD_1K_SCHOOL_B", tbCnt_Stud_1K_School_B.Text);
-                doc.SetFields("CNT_STUD_1K_SCHOOL_P", tbCnt_Stud_1K_School_P.Text);
-                doc.SetFields("CNT_STUD_1K_SCHOOL_B_SPB", tbCnt_Stud_1K_School_B_SPB.Text);
-                doc.SetFields("CNT_STUD_1K_SCHOOL_P_SPB", tbCnt_Stud_1K_School_P_SPB.Text);
+                    doc.ReplaceText("&CNT STUD 1K SCHOOL B&", tbCnt_Stud_1K_School_B.Text);
+                    doc.ReplaceText("&CNT STUD 1K SCHOOL P&", tbCnt_Stud_1K_School_P.Text);
+                    doc.ReplaceText("&CNT STUD 1K SCHOOL B SPB&", tbCnt_Stud_1K_School_B_SPB.Text);
+                    doc.ReplaceText("&CNT STUD 1K SCHOOL P SPB&", tbCnt_Stud_1K_School_P_SPB.Text);
 
-                doc.SetFields("CNT_STUD_1K_PROF_B", tbCnt_Stud_1K_Prof_B.Text);
-                doc.SetFields("CNT_STUD_1K_PROF_P", tbCnt_Stud_1K_Prof_P.Text);
-                doc.SetFields("CNT_STUD_1K_PROF_B_SPB", tbCnt_Stud_1K_Prof_B_SPB.Text);
-                doc.SetFields("CNT_STUD_1K_PROF_P_SPB", tbCnt_Stud_1K_Prof_P_SPB.Text);
+                    doc.ReplaceText("&CNT STUD 1K PROF B&", tbCnt_Stud_1K_Prof_B.Text);
+                    doc.ReplaceText("&CNT STUD 1K PROF P&", tbCnt_Stud_1K_Prof_P.Text);
+                    doc.ReplaceText("&CNT STUD 1K PROF B SPB&", tbCnt_Stud_1K_Prof_B_SPB.Text);
+                    doc.ReplaceText("&CNT STUD 1K PROF P SPB&", tbCnt_Stud_1K_Prof_P_SPB.Text);
 
-                doc.SetFields("CNT_STUD_1K_NPO_B", tbCnt_Stud_1K_NPO_B.Text);
-                doc.SetFields("CNT_STUD_1K_NPO_P", tbCnt_Stud_1K_NPO_P.Text);
-                doc.SetFields("CNT_STUD_1K_NPO_B_SPB", tbCnt_Stud_1K_NPO_B_SPB.Text);
-                doc.SetFields("CNT_STUD_1K_NPO_P_SPB", tbCnt_Stud_1K_NPO_P_SPB.Text);
+                    doc.ReplaceText("&CNT STUD 1K NPO B&", tbCnt_Stud_1K_NPO_B.Text);
+                    doc.ReplaceText("&CNT STUD 1K NPO P&", tbCnt_Stud_1K_NPO_P.Text);
+                    doc.ReplaceText("&CNT STUD 1K NPO B SPB&", tbCnt_Stud_1K_NPO_B_SPB.Text);
+                    doc.ReplaceText("&CNT STUD 1K NPO P SPB&", tbCnt_Stud_1K_NPO_P_SPB.Text);
 
-                doc.SetFields("CNT_STUD_1K_VK_B", tbCnt_Stud_1K_VK_B.Text);
-                doc.SetFields("CNT_STUD_1K_VK_P", tbCnt_Stud_1K_VK_P.Text);
-                doc.SetFields("CNT_STUD_1K_VK_B_SPB", tbCnt_Stud_1K_VK_B_SPB.Text);
-                doc.SetFields("CNT_STUD_1K_VK_P_SPB", tbCnt_Stud_1K_VK_P_SPB.Text);
+                    doc.ReplaceText("&CNT STUD 1K VK B&", tbCnt_Stud_1K_VK_B.Text);
+                    doc.ReplaceText("&CNT STUD 1K VK P&", tbCnt_Stud_1K_VK_P.Text);
+                    doc.ReplaceText("&CNT STUD 1K VK B SPB&", tbCnt_Stud_1K_VK_B_SPB.Text);
+                    doc.ReplaceText("&CNT STUD 1K VK P SPB&", tbCnt_Stud_1K_VK_P_SPB.Text);
 
-                doc.SetFields("CNT_STUD_1K_OLYMP_B", tbCnt_Stud_1K_Olymp_B.Text);
-                doc.SetFields("CNT_STUD_1K_OLYMP_P", tbCnt_Stud_1K_Olymp_P.Text);
-                doc.SetFields("CNT_STUD_1K_OLYMP_B_SPB", tbCnt_Stud_1K_Olymp_B_SPB.Text);
-                doc.SetFields("CNT_STUD_1K_OLYMP_P_SPB", tbCnt_Stud_1K_Olymp_P_SPB.Text);
+                    doc.ReplaceText("&CNT STUD 1K OLYMP B&", tbCnt_Stud_1K_Olymp_B.Text);
+                    doc.ReplaceText("&CNT STUD 1K OLYMP P&", tbCnt_Stud_1K_Olymp_P.Text);
+                    doc.ReplaceText("&CNT STUD 1K OLYMP B SPB&", tbCnt_Stud_1K_Olymp_B_SPB.Text);
+                    doc.ReplaceText("&CNT STUD 1K OLYMP P SPB&", tbCnt_Stud_1K_Olymp_P_SPB.Text);
 
-                doc.SetFields("CNT_STUD_1K_FOREIGN_B", tbCnt_Stud_1K_Foreign_B.Text);
-                doc.SetFields("CNT_STUD_1K_FOREIGN_P", tbCnt_Stud_1K_Foreign_P.Text);
+                    doc.ReplaceText("&CNT STUD 1K FOREIGN B&", tbCnt_Stud_1K_Foreign_B.Text);
+                    doc.ReplaceText("&CNT STUD 1K FOREIGN P&", tbCnt_Stud_1K_Foreign_P.Text);
 
-                doc.SetFields("CNT_STUD_1K_USSR_B", tbCnt_Stud_1K_USSR_B.Text);
-                doc.SetFields("CNT_STUD_1K_USSR_P", tbCnt_Stud_1K_USSR_P.Text);
+                    doc.ReplaceText("&CNT STUD 1K USSR B&", tbCnt_Stud_1K_USSR_B.Text);
+                    doc.ReplaceText("&CNT STUD 1K USSR P&", tbCnt_Stud_1K_USSR_P.Text);
 
-                doc.SetFields("KCP_MAG", tbKCP_Mag.Text);
-                doc.SetFields("CNT_STUD_MAG", tbCnt_Stud_MAG_All.Text);
-                doc.SetFields("CNT_STUD_MAG_SPB", tbCnt_Stud_MAG_All_SPB.Text);
+                    doc.ReplaceText("&AVG EGE B&", tbAVG_Ege_B.Text);
+                    doc.ReplaceText("&AVG EGE P&", tbAVG_Ege_P.Text);
+
+                    doc.ReplaceText("&KCP MAG&", tbKCP_Mag.Text);
+                    doc.ReplaceText("&CNT STUD MAG&", tbCnt_Stud_MAG_All.Text);
+                    doc.ReplaceText("&CNT STUD MAG SPB&", tbCnt_Stud_MAG_All_SPB.Text);
+
+                    string outFileName = Path.Combine(MainClass.saveTempFolder, "Form2" + Guid.NewGuid() + ".docx");
+                    doc.SaveAs(outFileName);
+
+                    Process p = new Process();
+                    p.StartInfo.FileName = outFileName;
+                    p.StartInfo.Verb = "Open";
+                    p.Start();
+                }
             }
-            catch
+            catch (Exception ex)
             {
-
+                WinFormsServ.Error(ex);
             }
         }
     }

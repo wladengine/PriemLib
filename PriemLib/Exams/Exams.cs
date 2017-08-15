@@ -30,10 +30,12 @@ namespace PriemLib
             return lst;
         }  
  
-        public static IEnumerable<extExamInEntry> GetExamsWithFilters(PriemEntities context, int iStudyLevelGroupId, int? facultyId, int? licenseProgramId, int? obrazProgramId, int? profileId, int? stFormId, int? stBasisId, bool? isSecond, bool? isReduced, bool? isParallel)
+        public static IEnumerable<extExamInEntry> GetExamsWithFilters(PriemEntities context, int iStudyLevelGroupId, int? facultyId, int? licenseProgramId, int? obrazProgramId, int? profileId, int? stFormId, int? stBasisId, bool? isSecond, bool? isReduced, bool? isParallel, bool bMakeAllExams = false)
         {
-            var lst = (from x in context.ExamInEntryBlock
-                       select x.ParentExamInEntryBlockId).ToList();
+            List<Guid> lst = 
+                (from x in context.ExamInEntryBlock
+                 where x.ParentExamInEntryBlockId != null
+                 select x.ParentExamInEntryBlockId.Value).ToList();
 
             IEnumerable<extExamInEntry> exams =
                 (from Unit in context.ExamInEntryBlockUnit
@@ -41,7 +43,7 @@ namespace PriemLib
                 join ExName in context.ExamName on Ex.ExamNameId equals ExName.Id
                 join Block in context.ExamInEntryBlock on Unit.ExamInEntryBlockId equals Block.Id
                 join extEnt in context.extEntry on Block.EntryId equals extEnt.Id
-                where extEnt.StudyLevelGroupId == iStudyLevelGroupId && !lst.Contains(Block.Id)
+                where extEnt.StudyLevelGroupId == iStudyLevelGroupId && (bMakeAllExams ? true : !lst.Contains(Block.Id))
                 select new
                 {
                     EgeMin = Unit.EgeMin,

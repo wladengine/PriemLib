@@ -552,7 +552,7 @@
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(183, 26);
             this.label8.TabIndex = 10;
-            this.label8.Text = "имеющих среднее и высшее профессиональное образование:";
+            this.label8.Text = "имеющих среднее профессиональное образование:";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label9
@@ -561,7 +561,7 @@
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(177, 26);
             this.label9.TabIndex = 11;
-            this.label9.Text = "имеющих начальное профессиональное образование:";
+            this.label9.Text = "имеющих высшее профессиональное образование:";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label10

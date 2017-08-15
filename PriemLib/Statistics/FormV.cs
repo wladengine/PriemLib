@@ -27,27 +27,27 @@ namespace PriemLib
                 tbKCP_1kBudzh.Text = kcp_b.ToString();
 
                 var enteredCnt = (from Entered in context.extEntryView
-                                 join Abit in context.Abiturient on Entered.AbiturientId equals Abit.Id
-                                 where Abit.Entry.StudyLevel.LevelGroupId == 1 && Abit.Entry.StudyFormId == 1
-                                 && Entered.Date <= dtpDate.Value
-                                 select new
-                                 {
-                                     Abit.CompetitionId,
-                                     Abit.Entry.StudyBasisId,
-                                     Abit.Id,
-                                     Entered.Date
-                                 }).ToList();
+                                  join Abit in context.Abiturient on Entered.AbiturientId equals Abit.Id
+                                  where Abit.Entry.StudyLevel.LevelGroupId == 1 && Abit.Entry.StudyFormId == 1
+                                  && Entered.Date <= dtpDate.Value
+                                  select new
+                                  {
+                                      Abit.CompetitionId,
+                                      Abit.Entry.StudyBasisId,
+                                      Abit.Id,
+                                      Entered.Date
+                                  }).ToList();
 
                 tbEnteredAbits_count.Text = enteredCnt.Count().ToString();
 
                 tbEnteredAbitsCount_B.Text = enteredCnt.Where(x => x.StudyBasisId == 1).Count().ToString();
                 tbEnteredAbitsCount_P.Text = enteredCnt.Where(x => x.StudyBasisId == 2).Count().ToString();
 
-                tbEnteredAbitsCount_30_07_B.Text = enteredCnt.Where(x => x.StudyBasisId == 1 && x.Date >= new DateTime(MainClass.iPriemYear, 7, 29) && x.Date <= new DateTime(MainClass.iPriemYear, 8, 1)).Count().ToString();
-                tbEnteredAbitsCount_30_07_P.Text = enteredCnt.Where(x => x.StudyBasisId == 2 && x.Date >= new DateTime(MainClass.iPriemYear, 7, 29) && x.Date <= new DateTime(MainClass.iPriemYear, 8, 1)).Count().ToString();
+                tbEnteredAbitsCount_30_07_B.Text = enteredCnt.Where(x => x.StudyBasisId == 1 && x.Date >= new DateTime(MainClass.iPriemYear, 7, 28) && x.Date < new DateTime(MainClass.iPriemYear, 8, 1)).Count().ToString();
+                tbEnteredAbitsCount_30_07_P.Text = enteredCnt.Where(x => x.StudyBasisId == 2 && x.Date >= new DateTime(MainClass.iPriemYear, 7, 28) && x.Date < new DateTime(MainClass.iPriemYear, 8, 1)).Count().ToString();
 
-                tbEnteredAbitsCount_05_08_B.Text = enteredCnt.Where(x => x.StudyBasisId == 1 && x.Date >= new DateTime(MainClass.iPriemYear, 8, 2) && x.Date < new DateTime(MainClass.iPriemYear, 8, 4)).Count().ToString();
-                tbEnteredAbitsCount_05_08_P.Text = enteredCnt.Where(x => x.StudyBasisId == 2 && x.Date >= new DateTime(MainClass.iPriemYear, 8, 2) && x.Date < new DateTime(MainClass.iPriemYear, 8, 4)).Count().ToString();
+                tbEnteredAbitsCount_05_08_B.Text = enteredCnt.Where(x => x.StudyBasisId == 1 && x.Date >= new DateTime(MainClass.iPriemYear, 8, 1) && x.Date < new DateTime(MainClass.iPriemYear, 8, 4)).Count().ToString();
+                tbEnteredAbitsCount_05_08_P.Text = enteredCnt.Where(x => x.StudyBasisId == 2 && x.Date >= new DateTime(MainClass.iPriemYear, 8, 1) && x.Date < new DateTime(MainClass.iPriemYear, 8, 4)).Count().ToString();
 
                 tbEnteredAbitsCount_30_07_05_08_B.Text = enteredCnt.Where(x => x.StudyBasisId == 1 && x.Date >= new DateTime(MainClass.iPriemYear, 7, 29) && x.Date <= new DateTime(MainClass.iPriemYear, 8, 1)).Count().ToString();
                 tbEnteredAbitsCount_30_07_05_08_P.Text = enteredCnt.Where(x => x.StudyBasisId == 2 && x.Date >= new DateTime(MainClass.iPriemYear, 7, 29) && x.Date <= new DateTime(MainClass.iPriemYear, 8, 1)).Count().ToString();

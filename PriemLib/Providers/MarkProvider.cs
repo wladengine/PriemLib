@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EducServLib;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,11 +11,12 @@ namespace PriemLib
 {
     public static class MarkProvider
     {
-        public static void LoadExamsResultsToParentExam()
+        public static void LoadExamsResultsToParentExam(bool updateExistingMarks)
         {
             int insertCount = 0;
+            int updCount = 0;
             int missCount = 0;
-            
+
             using (PriemEntities context = new PriemEntities())
             {
                 var MarksData =
@@ -24,7 +26,7 @@ namespace PriemLib
                      join PAR in context.extExamInEntry on EIE.ParentExamInEntryBlockId equals PAR.ExamInEntryBlockId
                      where MainClass.lstStudyLevelGroupId.Contains(abb.StudyLevelGroupId)
                      && EIE.ParentExamInEntryBlockId != null
-                     && EIE.FacultyId != 3
+                     //&& EIE.FacultyId == 35
                      select new
                      {
                          Mrk.AbiturientId,
@@ -46,87 +48,106 @@ namespace PriemLib
                      }).ToList();
 
                 var Abits = MarksData.Select(x => new { x.AbiturientId, x.Id, x.ExamName }).Distinct().ToList();
+                ProgressForm pf = new ProgressForm();
+                pf.Show();
+                pf.MaxPrBarValue = Abits.Count;
 
-                using (TransactionScope tran = new TransactionScope())
+                using (var tran = context.Database.BeginTransaction())
                 {
-                    foreach (var MrkEnt in Abits)
+                    try
                     {
-                        var MarksForAbit = MarksData.Where(x => x.AbiturientId == MrkEnt.AbiturientId && x.Id == MrkEnt.Id).ToList();
-                        //decimal sum = (MarksData.Where(x => x.AbiturientId == MrkEnt.AbiturientId && x.Id == MrkEnt.Id && (x.ExamName.Contains('1') || x.ExamName.Contains('2'))).Select(x => x.Value).Sum() / 2) +
-                        //    MarksData.Where(x => x.AbiturientId == MrkEnt.AbiturientId && x.Id == MrkEnt.Id && x.ExamName.Contains('3')).Select(x => x.Value).Sum();
-                        decimal sum = MarksData.Where(x => x.AbiturientId == MrkEnt.AbiturientId && x.Id == MrkEnt.Id).Select(x => x.Value).Sum();
-
-                        if (MarksForAbit.Where(x => x.ExamName.Contains('1')).Select(x => x.Value).Sum() == 0)
-                            sum = 0;
-
-                        if (sum > 100)
-                            sum = 100;
-
-                        int cnt = MarksExistsVals.Where(x => x.AbiturientId == MrkEnt.AbiturientId && x.Id == MrkEnt.Id).Count();
-                        if (cnt == 0)
+                        foreach (var MrkEnt in Abits)
                         {
-                            context.Mark_Insert(MrkEnt.AbiturientId, MrkEnt.Id, sum, DateTime.Now, false, false, false, null, null, null);
-                            insertCount++;
+                            var MarksForAbit = MarksData.Where(x => x.AbiturientId == MrkEnt.AbiturientId && x.Id == MrkEnt.Id).ToList();
+                            //decimal sum = (MarksData.Where(x => x.AbiturientId == MrkEnt.AbiturientId && x.Id == MrkEnt.Id && (x.ExamName.Contains('1') || x.ExamName.Contains('2'))).Select(x => x.Value).Sum() / 2) +
+                            //    MarksData.Where(x => x.AbiturientId == MrkEnt.AbiturientId && x.Id == MrkEnt.Id && x.ExamName.Contains('3')).Select(x => x.Value).Sum();
+                            decimal sum = MarksData.Where(x => x.AbiturientId == MrkEnt.AbiturientId && x.Id == MrkEnt.Id).Select(x => x.Value).Sum();
+
+                            //if (MarksForAbit.Where(x => x.ExamName.Contains('1')).Select(x => x.Value).Sum() == 0)
+                            //    sum = 0;
+
+                            if (sum > 100)
+                                sum = 100;
+
+                            int cnt = MarksExistsVals.Where(x => x.AbiturientId == MrkEnt.AbiturientId && x.Id == MrkEnt.Id).Count();
+                            if (cnt == 0)
+                            {
+                                context.Mark_Insert(MrkEnt.AbiturientId, MrkEnt.Id, sum, DateTime.Now, false, false, false, null, null, null);
+                                insertCount++;
+                            }
+                            else if (updateExistingMarks)
+                            {
+                                context.Mark_updateByAbVedId(MrkEnt.AbiturientId, MrkEnt.Id, sum, DateTime.Now, null);
+                                updCount++;
+                            }
+                            else
+                                missCount++;
+
+                            pf.PerformStep();
                         }
-                        else
-                        {
-                            context.Mark_updateByAbVedId(MrkEnt.AbiturientId, MrkEnt.Id, sum, DateTime.Now, null);
-                        }
-                            //missCount++;
+
+                        tran.Commit();
                     }
-
-                    tran.Complete();
+                    catch (Exception ex)
+                    {
+                        WinFormsServ.Error(ex);
+                        tran.Rollback();
+                    }
+                    finally
+                    {
+                        pf.Close();
+                    }
                 }
             }
 
-            MessageBox.Show("Загружено: " + insertCount + "; Пропущено (уже есть оценка):" + missCount);
+            MessageBox.Show("Загружено: " + insertCount + "; Пропущено (уже есть оценка): " + missCount + "; Обновлено: " + updCount);
         }
 
         public static void UpdateFiveGradeMarks()
         {
-            using (PriemEntities context = new PriemEntities())
-            {
-                var lstMarks =
-                    (from Mrk in context.Mark
-                     join Ex in context.extExamInEntry on Mrk.ExamInEntryBlockUnitId equals Ex.Id
-                     join Bl in context.ExamInEntryBlock on Ex.ExamInEntryBlockId equals Bl.Id
-                     where MainClass.lstStudyLevelGroupId.Contains(Ex.StudyLevelGroupId)
-                     && Bl.Grade3MarkMax != null
-                     && Bl.Grade3MarkMin != null
-                     && Bl.Grade4MarkMax != null
-                     && Bl.Grade4MarkMin != null
-                     && Bl.Grade5MarkMax != null
-                     && Bl.Grade5MarkMin != null
-                     select new
-                     {
-                         Mrk.Id,
-                         Mrk.Value,
-                         Bl.Grade3MarkMax,
-                         Bl.Grade3MarkMin,
-                         Bl.Grade4MarkMax,
-                         Bl.Grade4MarkMin,
-                         Bl.Grade5MarkMax,
-                         Bl.Grade5MarkMin,
-                     }).ToList();
+            //using (PriemEntities context = new PriemEntities())
+            //{
+            //    var lstMarks =
+            //        (from Mrk in context.Mark
+            //         join Ex in context.extExamInEntry on Mrk.ExamInEntryBlockUnitId equals Ex.Id
+            //         join Bl in context.ExamInEntryBlock on Ex.ExamInEntryBlockId equals Bl.Id
+            //         where MainClass.lstStudyLevelGroupId.Contains(Ex.StudyLevelGroupId)
+            //         && Bl.Grade3MarkMax != null
+            //         && Bl.Grade3MarkMin != null
+            //         && Bl.Grade4MarkMax != null
+            //         && Bl.Grade4MarkMin != null
+            //         && Bl.Grade5MarkMax != null
+            //         && Bl.Grade5MarkMin != null
+            //         select new
+            //         {
+            //             Mrk.Id,
+            //             Mrk.Value,
+            //             Bl.Grade3MarkMax,
+            //             Bl.Grade3MarkMin,
+            //             Bl.Grade4MarkMax,
+            //             Bl.Grade4MarkMin,
+            //             Bl.Grade5MarkMax,
+            //             Bl.Grade5MarkMin,
+            //         }).ToList();
 
-                using (TransactionScope tran = new TransactionScope())
-                {
-                    foreach (var Mark in lstMarks)
-                    {
-                        int iFiveGradeVal = 2;
-                        if (Mark.Value >= Mark.Grade5MarkMin)
-                            iFiveGradeVal = 5;
-                        else if (Mark.Value >= Mark.Grade4MarkMin)
-                            iFiveGradeVal = 4;
-                        else if (Mark.Value >= Mark.Grade3MarkMin)
-                            iFiveGradeVal = 3;
+            //    using (TransactionScope tran = new TransactionScope())
+            //    {
+            //        foreach (var Mark in lstMarks)
+            //        {
+            //            int iFiveGradeVal = 2;
+            //            if (Mark.Value >= Mark.Grade5MarkMin)
+            //                iFiveGradeVal = 5;
+            //            else if (Mark.Value >= Mark.Grade4MarkMin)
+            //                iFiveGradeVal = 4;
+            //            else if (Mark.Value >= Mark.Grade3MarkMin)
+            //                iFiveGradeVal = 3;
 
-                        context.Mark_updateFiveGradeValue(Mark.Id, iFiveGradeVal);
-                    }
+            //            context.Mark_updateFiveGradeValue(Mark.Id, iFiveGradeVal);
+            //        }
 
-                    tran.Complete();
-                }
-            }
+            //        tran.Complete();
+            //    }
+            //}
 
             MessageBox.Show("OK");
         }

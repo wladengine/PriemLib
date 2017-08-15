@@ -39,7 +39,7 @@ namespace PriemLib
           
             _title = "Данные по договору";
             _tableName = "ed.PaidData";
-            this.MdiParent = null;
+            //this.MdiParent = null;
 
             try
             {

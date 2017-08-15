@@ -91,6 +91,7 @@
           <Property Name="DateEntryConfirm" Type="datetime" />
           <Property Name="HasDisabledEntryConfirm" Type="bit" Nullable="false" />
           <Property Name="DateDisableEntryConfirm" Type="datetime" />
+          <Property Name="NoConfirm" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="AbiturientSelectedExam">
           <Key>
@@ -3011,6 +3012,8 @@
             <PropertyRef Name="IsViewed" />
             <PropertyRef Name="IsForeign" />
             <PropertyRef Name="IsCrimea" />
+            <PropertyRef Name="HasEntryConfirm" />
+            <PropertyRef Name="HasDisabledEntryConfirm" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="PersonId" Type="uniqueidentifier" Nullable="false" />
@@ -3074,6 +3077,10 @@
           <Property Name="IsForeign" Type="bit" Nullable="false" />
           <Property Name="IsCrimea" Type="bit" Nullable="false" />
           <Property Name="StudyLevelGroupUpperCategoryId" Type="int" />
+          <Property Name="HasEntryConfirm" Type="bit" Nullable="false" />
+          <Property Name="DateEntryConfirm" Type="datetime" />
+          <Property Name="HasDisabledEntryConfirm" Type="bit" Nullable="false" />
+          <Property Name="DateDisableEntryConfirm" Type="datetime" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
 предупреждение 6002: В таблице или представлении "Priem2017.ed.qAbiturient" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
@@ -3118,6 +3125,7 @@
             <PropertyRef Name="HasEntryConfirm" />
             <PropertyRef Name="HasDisabledEntryConfirm" />
             <PropertyRef Name="MarksCount" />
+            <PropertyRef Name="NoConfirm" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="PersonId" Type="uniqueidentifier" Nullable="false" />
@@ -3190,6 +3198,7 @@
           <Property Name="HasDisabledEntryConfirm" Type="bit" Nullable="false" />
           <Property Name="DateDisableEntryConfirm" Type="datetime" />
           <Property Name="MarksCount" Type="int" Nullable="false" />
+          <Property Name="NoConfirm" Type="bit" Nullable="false" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
 предупреждение 6002: В таблице или представлении "Priem2017.ed.qAbiturient_WhoSetBackDoc" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
@@ -7614,7 +7623,11 @@
     [qAbitAll].[IsViewed] AS [IsViewed], 
     [qAbitAll].[IsForeign] AS [IsForeign], 
     [qAbitAll].[IsCrimea] AS [IsCrimea], 
-    [qAbitAll].[StudyLevelGroupUpperCategoryId] AS [StudyLevelGroupUpperCategoryId]
+    [qAbitAll].[StudyLevelGroupUpperCategoryId] AS [StudyLevelGroupUpperCategoryId], 
+    [qAbitAll].[HasEntryConfirm] AS [HasEntryConfirm], 
+    [qAbitAll].[DateEntryConfirm] AS [DateEntryConfirm], 
+    [qAbitAll].[HasDisabledEntryConfirm] AS [HasDisabledEntryConfirm], 
+    [qAbitAll].[DateDisableEntryConfirm] AS [DateDisableEntryConfirm]
     FROM [ed].[qAbitAll] AS [qAbitAll]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="qAbiturient" EntityType="Self.qAbiturient" store:Type="Views" store:Schema="ed">
@@ -7689,7 +7702,8 @@
     [qAbiturient].[DateEntryConfirm] AS [DateEntryConfirm], 
     [qAbiturient].[HasDisabledEntryConfirm] AS [HasDisabledEntryConfirm], 
     [qAbiturient].[DateDisableEntryConfirm] AS [DateDisableEntryConfirm], 
-    [qAbiturient].[MarksCount] AS [MarksCount]
+    [qAbiturient].[MarksCount] AS [MarksCount], 
+    [qAbiturient].[NoConfirm] AS [NoConfirm]
     FROM [ed].[qAbiturient] AS [qAbiturient]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="qAbiturient_WhoSetBackDoc" EntityType="Self.qAbiturient_WhoSetBackDoc" store:Type="Views" store:Schema="ed">
@@ -11353,6 +11367,7 @@
           <NavigationProperty Name="Entry" Relationship="Priem2012Model.FK_Abiturient_Entry" FromRole="Abiturient" ToRole="Entry" />
           <Property Name="MarksCount" Type="Int32" Nullable="false" />
           <NavigationProperty Name="MarkFromAchievement" Relationship="Priem2012Model.FK_MarkFromAchievement_Abiturient" FromRole="Abiturient" ToRole="MarkFromAchievement" />
+          <Property Name="NoConfirm" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Protocol">
           <Key>
@@ -15154,6 +15169,8 @@
             <PropertyRef Name="IsViewed" />
             <PropertyRef Name="IsForeign" />
             <PropertyRef Name="IsCrimea" />
+            <PropertyRef Name="HasEntryConfirm" />
+            <PropertyRef Name="HasDisabledEntryConfirm" />
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" />
           <Property Name="PersonId" Type="Guid" Nullable="false" />
@@ -15217,6 +15234,10 @@
           <Property Name="IsForeign" Type="Boolean" Nullable="false" />
           <Property Name="IsCrimea" Type="Boolean" Nullable="false" />
           <Property Name="StudyLevelGroupUpperCategoryId" Type="Int32" />
+          <Property Name="HasEntryConfirm" Type="Boolean" Nullable="false" />
+          <Property Name="DateEntryConfirm" Type="DateTime" Precision="3" />
+          <Property Name="HasDisabledEntryConfirm" Type="Boolean" Nullable="false" />
+          <Property Name="DateDisableEntryConfirm" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="qAbiturient">
           <Key>
@@ -15259,6 +15280,7 @@
             <PropertyRef Name="HasEntryConfirm" />
             <PropertyRef Name="HasDisabledEntryConfirm" />
             <PropertyRef Name="MarksCount" />
+            <PropertyRef Name="NoConfirm" />
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" />
           <Property Name="PersonId" Type="Guid" Nullable="false" />
@@ -15331,6 +15353,7 @@
           <Property Name="HasDisabledEntryConfirm" Type="Boolean" Nullable="false" />
           <Property Name="DateDisableEntryConfirm" Type="DateTime" Precision="3" />
           <Property Name="MarksCount" Type="Int32" Nullable="false" />
+          <Property Name="NoConfirm" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="qEntry">
           <Key>
@@ -16258,6 +16281,7 @@
           <EntitySetMapping Name="Abiturient">
             <EntityTypeMapping TypeName="Priem2012Model.Abiturient">
               <MappingFragment StoreEntitySet="Abiturient">
+                <ScalarProperty Name="NoConfirm" ColumnName="NoConfirm" />
                 <ScalarProperty Name="MarksCount" ColumnName="MarksCount" />
                 <ScalarProperty Name="DateDisableEntryConfirm" ColumnName="DateDisableEntryConfirm" />
                 <ScalarProperty Name="HasDisabledEntryConfirm" ColumnName="HasDisabledEntryConfirm" />
@@ -18579,6 +18603,10 @@
           <EntitySetMapping Name="qAbitAll">
             <EntityTypeMapping TypeName="Priem2012Model.qAbitAll">
               <MappingFragment StoreEntitySet="qAbitAll">
+                <ScalarProperty Name="DateDisableEntryConfirm" ColumnName="DateDisableEntryConfirm" />
+                <ScalarProperty Name="HasDisabledEntryConfirm" ColumnName="HasDisabledEntryConfirm" />
+                <ScalarProperty Name="DateEntryConfirm" ColumnName="DateEntryConfirm" />
+                <ScalarProperty Name="HasEntryConfirm" ColumnName="HasEntryConfirm" />
                 <ScalarProperty Name="StudyLevelGroupUpperCategoryId" ColumnName="StudyLevelGroupUpperCategoryId" />
                 <ScalarProperty Name="IsCrimea" ColumnName="IsCrimea" />
                 <ScalarProperty Name="IsForeign" ColumnName="IsForeign" />
@@ -18647,6 +18675,7 @@
           <EntitySetMapping Name="qAbiturient">
             <EntityTypeMapping TypeName="Priem2012Model.qAbiturient">
               <MappingFragment StoreEntitySet="qAbiturient">
+                <ScalarProperty Name="NoConfirm" ColumnName="NoConfirm" />
                 <ScalarProperty Name="MarksCount" ColumnName="MarksCount" />
                 <ScalarProperty Name="DateDisableEntryConfirm" ColumnName="DateDisableEntryConfirm" />
                 <ScalarProperty Name="HasDisabledEntryConfirm" ColumnName="HasDisabledEntryConfirm" />

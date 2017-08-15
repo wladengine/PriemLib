@@ -35,6 +35,13 @@ namespace PriemLib
             InitControls();
         }
 
+        protected override void ExtraInit()
+        {
+            if (_bdc != null)
+                if (!MainClass.IsEntryChanger() || !MainClass.IsFacMain())
+                    btnSave.Enabled = false;
+        }
+
         void dgv_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex > 0)

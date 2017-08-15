@@ -57,6 +57,7 @@ namespace PriemLib.Cards
                 var src = context.AchievementType.Where(x => iSLG == 0 ? MainClass.lstStudyLevelGroupId.Contains(x.StudyLevelGroupId) : x.StudyLevelGroupId == iSLG)
                     .Select(x => new { x.Id, x.Name, x.Mark })
                     .ToList()
+                    .OrderBy(x => x.Name).ThenBy(x => x.Mark)
                     .Select(x => new KeyValuePair<string, string>(x.Id.ToString(), x.Name + " (MAX " + x.Mark + ")"))
                     .ToList();
 

@@ -88,6 +88,8 @@
             this.chbIsPaid = new System.Windows.Forms.CheckBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.gbEntryConfirm = new System.Windows.Forms.GroupBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.chbNoConfirm = new System.Windows.Forms.CheckBox();
             this.dtpDateDisableEntryConfirm = new System.Windows.Forms.DateTimePicker();
             this.label12 = new System.Windows.Forms.Label();
             this.chbHasDisabledEntryConfirm = new System.Windows.Forms.CheckBox();
@@ -112,6 +114,7 @@
             this.label21 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.gbAdditionalAchievements = new System.Windows.Forms.GroupBox();
+            this.btnDeleteAbiturientAchievement = new System.Windows.Forms.Button();
             this.btnAddAbiturientAchievement = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.tbAdditionalAchievementsMark = new System.Windows.Forms.TextBox();
@@ -139,7 +142,6 @@
             this.lblFIO = new System.Windows.Forms.Label();
             this.btnCardPerson = new System.Windows.Forms.Button();
             this.epErrorInput = new System.Windows.Forms.ErrorProvider(this.components);
-            this.btnDeleteAbiturientAchievement = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.epError)).BeginInit();
             this.tabCard.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -770,6 +772,8 @@
             // 
             // gbEntryConfirm
             // 
+            this.gbEntryConfirm.Controls.Add(this.label13);
+            this.gbEntryConfirm.Controls.Add(this.chbNoConfirm);
             this.gbEntryConfirm.Controls.Add(this.dtpDateDisableEntryConfirm);
             this.gbEntryConfirm.Controls.Add(this.label12);
             this.gbEntryConfirm.Controls.Add(this.chbHasDisabledEntryConfirm);
@@ -778,10 +782,29 @@
             this.gbEntryConfirm.Controls.Add(this.chbHasEntryConfirm);
             this.gbEntryConfirm.Location = new System.Drawing.Point(316, 129);
             this.gbEntryConfirm.Name = "gbEntryConfirm";
-            this.gbEntryConfirm.Size = new System.Drawing.Size(284, 185);
+            this.gbEntryConfirm.Size = new System.Drawing.Size(284, 242);
             this.gbEntryConfirm.TabIndex = 44;
             this.gbEntryConfirm.TabStop = false;
             this.gbEntryConfirm.Text = "Согласие на зачисление";
+            // 
+            // label13
+            // 
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label13.Location = new System.Drawing.Point(9, 179);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(186, 35);
+            this.label13.TabIndex = 31;
+            this.label13.Text = "игнорировать наличие оригиналов при расчёте рейтинга";
+            // 
+            // chbNoConfirm
+            // 
+            this.chbNoConfirm.AutoSize = true;
+            this.chbNoConfirm.Location = new System.Drawing.Point(9, 159);
+            this.chbNoConfirm.Name = "chbNoConfirm";
+            this.chbNoConfirm.Size = new System.Drawing.Size(164, 17);
+            this.chbNoConfirm.TabIndex = 30;
+            this.chbNoConfirm.Text = "Несогласие на зачисление";
+            this.chbNoConfirm.UseVisualStyleBackColor = true;
             // 
             // dtpDateDisableEntryConfirm
             // 
@@ -841,9 +864,9 @@
             // 
             this.gbPortfolio.Controls.Add(this.chbHasEssay);
             this.gbPortfolio.Controls.Add(this.chbHasMotivationLetter);
-            this.gbPortfolio.Location = new System.Drawing.Point(17, 220);
+            this.gbPortfolio.Location = new System.Drawing.Point(17, 243);
             this.gbPortfolio.Name = "gbPortfolio";
-            this.gbPortfolio.Size = new System.Drawing.Size(293, 94);
+            this.gbPortfolio.Size = new System.Drawing.Size(293, 74);
             this.gbPortfolio.TabIndex = 43;
             this.gbPortfolio.TabStop = false;
             this.gbPortfolio.Text = "Портфолио";
@@ -918,51 +941,53 @@
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Location = new System.Drawing.Point(17, 129);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(293, 85);
+            this.groupBox1.Size = new System.Drawing.Size(293, 108);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Протоколы";
             // 
             // tbEntryProtocol
             // 
-            this.tbEntryProtocol.Location = new System.Drawing.Point(121, 52);
+            this.tbEntryProtocol.Location = new System.Drawing.Point(6, 72);
             this.tbEntryProtocol.Name = "tbEntryProtocol";
             this.tbEntryProtocol.ReadOnly = true;
-            this.tbEntryProtocol.Size = new System.Drawing.Size(153, 20);
+            this.tbEntryProtocol.Size = new System.Drawing.Size(281, 20);
             this.tbEntryProtocol.TabIndex = 1;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(6, 47);
+            this.label7.Location = new System.Drawing.Point(6, 56);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(89, 26);
+            this.label7.Size = new System.Drawing.Size(159, 13);
             this.label7.TabIndex = 0;
-            this.label7.Text = "Представление \r\nк зачислению";
+            this.label7.Text = "Представление к зачислению";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // tbEnabledProtocol
             // 
-            this.tbEnabledProtocol.Location = new System.Drawing.Point(121, 19);
+            this.tbEnabledProtocol.Location = new System.Drawing.Point(6, 32);
             this.tbEnabledProtocol.Name = "tbEnabledProtocol";
             this.tbEnabledProtocol.ReadOnly = true;
-            this.tbEnabledProtocol.Size = new System.Drawing.Size(153, 20);
+            this.tbEnabledProtocol.Size = new System.Drawing.Size(281, 20);
             this.tbEnabledProtocol.TabIndex = 1;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 22);
+            this.label5.Location = new System.Drawing.Point(6, 16);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(109, 13);
             this.label5.TabIndex = 0;
             this.label5.Text = "Протокол о допуске";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // gbDocs
             // 
             this.gbDocs.Controls.Add(this.chbAttOriginal);
-            this.gbDocs.Location = new System.Drawing.Point(17, 320);
+            this.gbDocs.Location = new System.Drawing.Point(17, 323);
             this.gbDocs.Name = "gbDocs";
-            this.gbDocs.Size = new System.Drawing.Size(284, 85);
+            this.gbDocs.Size = new System.Drawing.Size(293, 48);
             this.gbDocs.TabIndex = 25;
             this.gbDocs.TabStop = false;
             this.gbDocs.Text = "Документы";
@@ -1027,6 +1052,16 @@
             this.gbAdditionalAchievements.TabIndex = 126;
             this.gbAdditionalAchievements.TabStop = false;
             this.gbAdditionalAchievements.Text = "Индивидуальные достижения";
+            // 
+            // btnDeleteAbiturientAchievement
+            // 
+            this.btnDeleteAbiturientAchievement.Location = new System.Drawing.Point(103, 159);
+            this.btnDeleteAbiturientAchievement.Name = "btnDeleteAbiturientAchievement";
+            this.btnDeleteAbiturientAchievement.Size = new System.Drawing.Size(91, 23);
+            this.btnDeleteAbiturientAchievement.TabIndex = 91;
+            this.btnDeleteAbiturientAchievement.Text = "Удалить ИД";
+            this.btnDeleteAbiturientAchievement.UseVisualStyleBackColor = true;
+            this.btnDeleteAbiturientAchievement.Click += new System.EventHandler(this.btnDeleteAbiturientAchievement_Click);
             // 
             // btnAddAbiturientAchievement
             // 
@@ -1361,16 +1396,6 @@
             // 
             this.epErrorInput.ContainerControl = this;
             // 
-            // btnDeleteAbiturientAchievement
-            // 
-            this.btnDeleteAbiturientAchievement.Location = new System.Drawing.Point(103, 159);
-            this.btnDeleteAbiturientAchievement.Name = "btnDeleteAbiturientAchievement";
-            this.btnDeleteAbiturientAchievement.Size = new System.Drawing.Size(91, 23);
-            this.btnDeleteAbiturientAchievement.TabIndex = 91;
-            this.btnDeleteAbiturientAchievement.Text = "Удалить ИД";
-            this.btnDeleteAbiturientAchievement.UseVisualStyleBackColor = true;
-            this.btnDeleteAbiturientAchievement.Click += new System.EventHandler(this.btnDeleteAbiturientAchievement_Click);
-            // 
             // CardAbit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1540,5 +1565,7 @@
         private System.Windows.Forms.Button btnChangeEntry;
         private System.Windows.Forms.Button btnAddAbiturientAchievement;
         private System.Windows.Forms.Button btnDeleteAbiturientAchievement;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.CheckBox chbNoConfirm;
     }
 }

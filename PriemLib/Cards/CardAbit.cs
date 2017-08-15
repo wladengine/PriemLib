@@ -270,6 +270,8 @@ namespace PriemLib
                     else
                         dtpDateDisableEntryConfirm.Enabled = true;
 
+                    NoConfirm = abit.NoConfirm;
+
                     BackDocDate = abit.BackDocDate;
                     DocDate = abit.DocDate;
                     DocInsertDate = abit.DocInsertDate;
@@ -550,10 +552,38 @@ namespace PriemLib
                                 where ph.ProtocolTypeId == 1 && !ph.IsOld && !ph.Excluded && ph.AbiturientId == GuidId
                                 select ph.Number).FirstOrDefault());
 
-                tbEntryProtocol.Text =
-                    Util.ToStr((from ph in context.extEntryView
-                                where ph.AbiturientId == GuidId
-                                select ph.Number).FirstOrDefault());
+                var entryProt = (from ph in context.extEntryView_ForDisEntered
+                                 join Ab in context.Abiturient on ph.AbiturientId equals Ab.Id
+                                 join P in context.Person on Ab.PersonId equals P.Id
+                                 where ph.AbiturientId == GuidId
+                                 select new
+                                 {
+                                     ph.Date,
+                                     ph.OrderNum,
+                                     ph.OrderNumFor,
+                                     ph.OrderDate,
+                                     ph.OrderDateFor,
+                                     ph.Excluded,
+                                     P.NationalityId,
+                                     ph.Number
+                                 }).OrderByDescending(x => x.Date).FirstOrDefault();
+
+                if (entryProt != null)
+                {
+                    bool isRus = entryProt.NationalityId == 1;
+                    string order = isRus ? (entryProt.OrderNum ?? "") : (entryProt.OrderNumFor ?? "");
+                    DateTime? dt = isRus ? entryProt.OrderDate : entryProt.OrderDateFor;
+                    if (dt.HasValue)
+                        order += " от " + dt.Value.ToShortDateString();
+
+                    if (entryProt.Excluded)
+                        order += " ИСКЛЮЧЁН";
+
+                    if (string.IsNullOrEmpty(order.Trim()))
+                        order = entryProt.Number + " от " + entryProt.Date.ToShortDateString();
+
+                    tbEntryProtocol.Text = order;
+                }
             }
             catch (Exception exc)
             {
@@ -1264,7 +1294,8 @@ namespace PriemLib
                     }
 
                     if (MainClass.dbType == PriemType.Priem)
-                        CheckTwoConfirms(context);
+                        if (!CheckTwoConfirms(context))
+                            return false;
 
                     if (DocDate > DateTime.Now)
                     {
@@ -1286,15 +1317,24 @@ namespace PriemLib
                     {
                         if (!BackDoc)
                         {
-                            int priorcnt = context.Abiturient.Where(x => x.PersonId == _personId && !x.BackDoc && x.Entry.IsForeign == IsForeign && MainClass.lstStudyLevelGroupId.Contains(x.Entry.StudyLevel.LevelGroupId) && x.Priority == Priority && (GuidId.HasValue ? x.Id != GuidId.Value : true)).Count();
-                            if (priorcnt > 0)
+                            if (EntryId != null)
                             {
-                                epErrorInput.SetError(tbPriority, "У абитуриента уже имеется заявление с заданным приоритетом");
-                                tabCard.SelectedIndex = 0;
-                                return false;
+                                int iStudyLevelGroupId = context.extEntry.Where(x => MainClass.lstStudyLevelGroupId.Contains(x.StudyLevelGroupId) && x.Id == EntryId)
+                                    .Select(x => x.StudyLevelGroupId).DefaultIfEmpty(MainClass.lstStudyLevelGroupId.First()).First();
+                                int priorcnt = context.Abiturient.Where(x => x.PersonId == _personId && !x.BackDoc && x.Entry.IsForeign == IsForeign 
+                                    && x.Entry.StudyLevel.LevelGroupId == iStudyLevelGroupId 
+                                    && x.Priority == Priority 
+                                    && (GuidId.HasValue ? x.Id != GuidId.Value : true)).Count();
+                                if (priorcnt > 0)
+                                {
+                                    epErrorInput.SetError(tbPriority, "У абитуриента уже имеется заявление с заданным приоритетом");
+                                    tabCard.SelectedIndex = 0;
+                                    return false;
+                                }
+                                else
+                                    epErrorInput.Clear();
                             }
-                            else
-                                epErrorInput.Clear();
+                            
                         }
                     }
                     else
@@ -1419,12 +1459,12 @@ namespace PriemLib
 
         private bool CheckTwoConfirms(PriemEntities context)
         {
-            if (HasEntryConfirm && !HasDisabledEntryConfirm)
+            if (StudyBasisId == 1 && HasEntryConfirm && !HasDisabledEntryConfirm)
             {
                 var abits =
                     (from Ab in context.Abiturient
                      join ent in context.extEntry on Ab.EntryId equals ent.Id
-                     where Ab.PersonId == _personId && Ab.Id != GuidId && Ab.HasEntryConfirm
+                     where Ab.PersonId == _personId && Ab.Id != GuidId && Ab.HasEntryConfirm && Ab.Entry.StudyBasisId == 1
                      select new
                      {
                          Ab.HasDisabledEntryConfirm,
@@ -1590,6 +1630,8 @@ namespace PriemLib
                     abit.DateDisableEntryConfirm = null;
                 }
 
+                abit.NoConfirm = NoConfirm;
+
                 context.SaveChanges();
             }
             
@@ -1636,7 +1678,13 @@ namespace PriemLib
 
                 var lstExamInEntry = context.extExamInEntry
                     .Where(x => x.EntryId == EntryId && x.ParentExamInEntryBlockId == null)
-                    .Select(x => new { x.Id, x.ExamName, x.OrderNumber })
+                    .Select(x => new { x.Id, x.ExamName, x.OrderNumber, IsChild = false })
+                    .ToList()
+                    .OrderBy(x => x.OrderNumber);
+
+                var lstChildExamsInEntry = context.extExamInEntry
+                    .Where(x => x.EntryId == EntryId && x.ParentExamInEntryBlockId != null)
+                    .Select(x => new { x.Id, x.ExamName, x.OrderNumber, IsChild = true })
                     .ToList()
                     .OrderBy(x => x.OrderNumber);
 
@@ -1657,11 +1705,18 @@ namespace PriemLib
                          mrk.ExamVedId
                      });
 
-                foreach (var exam in lstExamInEntry)
+                var lstAllExams = lstExamInEntry.Union(lstChildExamsInEntry).ToList().OrderBy(x => x.OrderNumber).ThenBy(x => x.IsChild ? 1 : 0).ThenBy(x => x.ExamName);
+
+                foreach (var exam in lstAllExams)
                 {
                     DataRow newRow;
                     newRow = examTable.NewRow();
-                    newRow["Экзамен"] = "[" + exam.OrderNumber + "] " + exam.ExamName;
+                    string examName = "";
+                    if (exam.IsChild)
+                        examName = "   - " + exam.ExamName;
+                    else
+                        examName = "[" + exam.OrderNumber + "] " + exam.ExamName;
+                    newRow["Экзамен"] = examName;
                     newRow["ExamInEntryId"] = exam.Id;
 
                     var abMark = lstMarks.Where(x => x.ExamInEntryBlockUnitId == exam.Id).FirstOrDefault();

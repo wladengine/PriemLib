@@ -1172,6 +1172,39 @@ namespace PriemLib
                     epError.Clear();
             }
 
+            if (NationalityId == MainClass.countryRussiaId)
+            {
+
+                if (PassportSeries.Length <= 0)
+                {
+                    epError.SetError(tbPassportSeries, "Отсутствует серия паспорта абитуриента");
+                    tabCard.SelectedIndex = 0;
+                    return false;
+                }
+                else
+                    epError.Clear();
+
+                if (PassportNumber.Length <= 0)
+                {
+                    epError.SetError(tbPassportNumber, "Отсутствует номер паспорта абитуриента");
+                    tabCard.SelectedIndex = 0;
+                    return false;
+                }
+                else
+                    epError.Clear();
+            }
+            else
+            {
+                if (PassportTypeId == 1 || PassportTypeId == 2 || PassportTypeId == 4)
+                {
+                    epError.SetError(cbPassportType, "Для указанного типа документа должно быть российское гражданство");
+                    tabCard.SelectedIndex = 0;
+                    return false;
+                }
+                else
+                    epError.Clear();
+            }
+
             if (!NationalityId.HasValue)
             {
                 epError.SetError(cbNationality, "Не указано гражданство!");

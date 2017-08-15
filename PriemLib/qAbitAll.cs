@@ -76,5 +76,9 @@ namespace PriemLib
         public bool IsForeign { get; set; }
         public bool IsCrimea { get; set; }
         public Nullable<int> StudyLevelGroupUpperCategoryId { get; set; }
+        public bool HasEntryConfirm { get; set; }
+        public Nullable<System.DateTime> DateEntryConfirm { get; set; }
+        public bool HasDisabledEntryConfirm { get; set; }
+        public Nullable<System.DateTime> DateDisableEntryConfirm { get; set; }
     }
 }

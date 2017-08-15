@@ -414,7 +414,7 @@ namespace PriemLib
             //олимпиады
             lst.Add(new FilterItem("Международная олимпиада", FilterType.Bool, " EXISTS (SELECT * FROM ed.Olympiads WHERE Olympiads.PersonId = qAbiturient.PersonId AND Olympiads.OlympTypeId=1 ) ", "ed.qAbiturient"));
             lst.Add(new FilterItem("Всероссийская олимпиада", FilterType.Bool, " EXISTS (SELECT * FROM ed.Olympiads WHERE Olympiads.PersonId = qAbiturient.PersonId AND Olympiads.OlympTypeId=2 ) ", "ed.qAbiturient"));
-            lst.Add(new FilterItem("Олимпиада СПбГУ", FilterType.Bool, " EXISTS (SELECT * FROM ed.Olympiads WHERE Olympiads.AbiturientId = qAbiturient.PersonId AND Olympiads.OlympTypeId=3 ) ", "ed.qAbiturient"));
+            lst.Add(new FilterItem("Олимпиада СПбГУ", FilterType.Bool, " EXISTS (SELECT * FROM ed.Olympiads WHERE Olympiads.PersonId = qAbiturient.PersonId AND Olympiads.OlympTypeId=3 ) ", "ed.qAbiturient"));
             lst.Add(new FilterItem("Другие олимпиады школьников", FilterType.Bool, " EXISTS (SELECT * FROM ed.Olympiads WHERE Olympiads.PersonId = qAbiturient.PersonId AND Olympiads.OlympTypeId=4 ) ", "ed.qAbiturient"));
 
             lst.Add(new FilterItem("Степень диплома олимпиады", FilterType.Multi, "(SELECT MAX(OlympValueId) FROM ed.Olympiads WHERE Olympiads.PersonId = qAbiturient.PersonId)", "ed.qAbiturient", " SELECT Id, Name FROM ed.OlympValue "));

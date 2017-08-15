@@ -88,6 +88,11 @@ namespace PriemLib
             get { return chbHasEntryConfirm.Checked; }
             set { chbHasEntryConfirm.Checked = value; }
         }
+        public bool NoConfirm
+        {
+            get { return chbNoConfirm.Checked; }
+            set { chbNoConfirm.Checked = value; }
+        }
 
         public bool HasDisabledEntryConfirm
         {

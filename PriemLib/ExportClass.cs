@@ -100,8 +100,8 @@ namespace PriemLib
 
                         foreach (Guid abitId in lstAbits)
                         {
-                            string sNum = "0000" + stNum.ToString();
-                            sNum = sNum.Substring(sNum.Length - 4, 4);
+                            string sNum = stNum.ToString("D4");//"0000" + stNum.ToString();
+                            //sNum = sNum.Substring(sNum.Length - 4, 4);
                             sNum = (MainClass.iPriemYear % 100).ToString() + Pref + sNum;
 
                             //context.Abiturient_UpdateStudyNumber(sNum, abitId);
@@ -121,21 +121,33 @@ namespace PriemLib
                             pf.PerformStep();
                             stNumFor++;
                         }
+
+                        lst.Add(new KeyValuePair<int, Dictionary<Guid, string>>(Pref, dic));
                     }
 
-                    using (TransactionScope tran = new TransactionScope())
+                    using (var tran = context.Database.BeginTransaction())
                     {
-                        foreach (var x in lst)
+                        try
                         {
-                            pf.SetProgressText("Раздача номеров...");
-                            pf.PrBarValue = 0;
-                            pf.MaxPrBarValue = x.Value.Count;
-
-                            foreach (var ab in x.Value)
+                            foreach (var x in lst)
                             {
-                                context.Abiturient_UpdateStudyNumber(ab.Value, ab.Key);
-                                pf.PerformStep();
+                                pf.SetProgressText("Раздача номеров...");
+                                pf.PrBarValue = 0;
+                                pf.MaxPrBarValue = x.Value.Count;
+
+                                foreach (var ab in x.Value)
+                                {
+                                    context.Abiturient_UpdateStudyNumber(ab.Value, ab.Key);
+                                    pf.PerformStep();
+                                }
                             }
+
+                            tran.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            WinFormsServ.Error(ex);
+                            tran.Rollback();
                         }
                     }
                 }

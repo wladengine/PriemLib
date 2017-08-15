@@ -37,7 +37,7 @@
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(464, 423);
+            this.btnClose.Location = new System.Drawing.Point(446, 423);
             // 
             // btnFilters
             // 
@@ -54,7 +54,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(561, 460);
+            this.ClientSize = new System.Drawing.Size(543, 460);
             this.Controls.Add(this.btnFilters);
             this.Name = "ListAbitRatingKofGroupChanging";
             this.Text = "ListAbitRatingKofGroupChanging";

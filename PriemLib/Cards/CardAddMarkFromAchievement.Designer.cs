@@ -39,13 +39,27 @@
             ((System.ComponentModel.ISupportInitialize)(this.epError)).BeginInit();
             this.SuspendLayout();
             // 
+            // btnClose
+            // 
+            this.btnClose.Location = new System.Drawing.Point(528, 367);
+            // 
+            // btnSaveChange
+            // 
+            this.btnSaveChange.Location = new System.Drawing.Point(12, 366);
+            // 
+            // btnSaveAsNew
+            // 
+            this.btnSaveAsNew.Location = new System.Drawing.Point(391, 366);
+            // 
             // cbAchievementType
             // 
+            this.cbAchievementType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cbAchievementType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbAchievementType.FormattingEnabled = true;
             this.cbAchievementType.Location = new System.Drawing.Point(107, 9);
             this.cbAchievementType.Name = "cbAchievementType";
-            this.cbAchievementType.Size = new System.Drawing.Size(460, 21);
+            this.cbAchievementType.Size = new System.Drawing.Size(568, 21);
             this.cbAchievementType.TabIndex = 0;
             // 
             // label1
@@ -59,7 +73,8 @@
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(481, 93);
+            this.btnAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAdd.Location = new System.Drawing.Point(589, 93);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(86, 23);
             this.btnAdd.TabIndex = 2;
@@ -78,11 +93,13 @@
             // 
             // cbOlympiad
             // 
+            this.cbOlympiad.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cbOlympiad.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbOlympiad.FormattingEnabled = true;
             this.cbOlympiad.Location = new System.Drawing.Point(107, 36);
             this.cbOlympiad.Name = "cbOlympiad";
-            this.cbOlympiad.Size = new System.Drawing.Size(460, 21);
+            this.cbOlympiad.Size = new System.Drawing.Size(568, 21);
             this.cbOlympiad.TabIndex = 3;
             // 
             // tbMark
@@ -115,7 +132,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(579, 128);
+            this.ClientSize = new System.Drawing.Size(687, 130);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.tbMark);
@@ -124,6 +141,7 @@
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cbAchievementType);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
             this.Location = new System.Drawing.Point(0, 0);
             this.Name = "CardAddMarkFromAchievement";
             this.Text = "CardAddMarkFromAchievement";
