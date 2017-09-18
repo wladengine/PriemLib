@@ -509,6 +509,8 @@ namespace PriemLib
             list.Add("Квалификация", "Квалификация");
             list.Add("Место_предыдущего_образования_маг", "Место предыдущего образования (для маг)");
 
+            list.Add("ИД:сумма", "ИД: Сумма баллов");
+
             return list;
         }
         protected override List<FilterItem> GetOtherFilterList(DBPriem _bdc)
@@ -653,6 +655,8 @@ namespace PriemLib
 
             list.Add("Квалификация", "Квалификация");
             list.Add("Место_предыдущего_образования_маг", "Место предыдущего образования (для маг)");
+
+            list.Add("ИД:сумма", "ИД: Сумма баллов");
 
             return list;
         }

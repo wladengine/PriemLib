@@ -359,26 +359,37 @@ namespace PriemLib
                 tbAVG_Ege_P.Text = Math.Round(balls.Where(x => x.StudyBasisId == 2).Select(x => x.Value).DefaultIfEmpty(0m).Average(), 3).ToString();
 
                 //КЦ Магистратура
-                string query = "SELECT SUM(KCP) AS CNT FROM ed.qEntry WHERE StudyLevelGroupId=2 AND StudyFormId='1' AND StudyBasisId='1' AND IsCrimea = 0 AND IsForeign = 0";
+                string query = "SELECT SUM(KCP) AS CNT FROM ed.extEntry WHERE StudyLevelGroupId=2 AND StudyFormId='1' AND StudyBasisId='1' AND IsCrimea = 0 AND IsForeign = 0";
                 int iKCP_Mag = (int)MainClass.Bdc.GetValue(query);
                 tbKCP_Mag.Text = iKCP_Mag.ToString();
 
                 //Зачислено бюджет магистратура
-                query = @"SELECT COUNT(extAbit.Id) 
-FROM ed.extAbit 
-INNER JOIN ed.extEntryView ON extEntryView.AbiturientId=extAbit.Id 
-WHERE extAbit.StudyLevelGroupId=2 AND extAbit.StudyFormId=1 AND extAbit.StudyBasisId=1";
+                query = @"SELECT COUNT(Abiturient.Id) 
+FROM ed.Abiturient 
+INNER JOIN ed.extEntry ON extEntry.Id = Abiturient.EntryId
+INNER JOIN ed.extEntryView ON extEntryView.AbiturientId=Abiturient.Id 
+WHERE extEntry.StudyLevelGroupId=2 AND extEntry.StudyFormId=1 AND extEntry.StudyBasisId=1 AND extEntry.IsForeign = 0";
                 int iCNT_Mag = (int)MainClass.Bdc.GetValue(query);
-                tbCnt_Stud_MAG_All.Text = iCNT_Mag.ToString();
+                tbCnt_Stud_MAG_All_B.Text = iCNT_Mag.ToString();
 
                 //Зачислено бюджет магистратура СПб
-                query = @"SELECT COUNT(extAbit.Id) 
-FROM ed.extAbit 
-INNER JOIN ed.extEntryView ON extEntryView.AbiturientId=extAbit.Id
-INNER JOIN ed.extPerson ON extPerson.Id=extAbit.PersonId
-WHERE extAbit.StudyLevelGroupId=2 AND extAbit.StudyFormId=1 AND extAbit.StudyBasisId=1 AND extPerson.RegionId = 1";
+                query = @"SELECT COUNT(Abiturient.Id) 
+FROM ed.Abiturient 
+INNER JOIN ed.extEntry ON extEntry.Id = Abiturient.EntryId
+INNER JOIN ed.extEntryView ON extEntryView.AbiturientId=Abiturient.Id
+INNER JOIN ed.extPerson ON extPerson.Id=Abiturient.PersonId
+WHERE extEntry.StudyLevelGroupId=2 AND extEntry.StudyFormId=1 AND extEntry.StudyBasisId=1 AND extEntry.IsForeign = 0 AND extPerson.RegionId = 1";
                 int iCNT_Mag_SPB = (int)MainClass.Bdc.GetValue(query);
                 tbCnt_Stud_MAG_All_SPB.Text = iCNT_Mag_SPB.ToString();
+
+                //Зачислено платное магистратура
+                query = @"SELECT COUNT(Abiturient.Id) 
+FROM ed.Abiturient 
+INNER JOIN ed.extEntry ON extEntry.Id = Abiturient.EntryId
+INNER JOIN ed.extEntryView ON extEntryView.AbiturientId=Abiturient.Id 
+WHERE extEntry.StudyLevelGroupId=2 AND extEntry.StudyFormId=1 AND extEntry.StudyBasisId=2 AND extEntry.IsForeign = 0";
+                int iCNT_Mag_P = (int)MainClass.Bdc.GetValue(query);
+                tbCnt_Stud_MAG_All_P.Text = iCNT_Mag_P.ToString();
             }
         }
 
@@ -451,8 +462,9 @@ WHERE extAbit.StudyLevelGroupId=2 AND extAbit.StudyFormId=1 AND extAbit.StudyBas
                     doc.ReplaceText("&AVG EGE P&", tbAVG_Ege_P.Text);
 
                     doc.ReplaceText("&KCP MAG&", tbKCP_Mag.Text);
-                    doc.ReplaceText("&CNT STUD MAG&", tbCnt_Stud_MAG_All.Text);
+                    doc.ReplaceText("&CNT STUD MAG&", tbCnt_Stud_MAG_All_B.Text);
                     doc.ReplaceText("&CNT STUD MAG SPB&", tbCnt_Stud_MAG_All_SPB.Text);
+                    doc.ReplaceText("&CNT STUD MAG P&", tbCnt_Stud_MAG_All_P.Text);
 
                     string outFileName = Path.Combine(MainClass.saveTempFolder, "Form2" + Guid.NewGuid() + ".docx");
                     doc.SaveAs(outFileName);

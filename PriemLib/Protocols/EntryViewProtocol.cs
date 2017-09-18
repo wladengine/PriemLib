@@ -380,7 +380,8 @@ INNER JOIN ed._FirstWave AS _FirstWave ON Abiturient.Id = _FirstWave.AbiturientI
 	OR extEntry.IsParallel = 1 
 	OR Abiturient.IsPaid = 1
 )", _studyLevelGroupId);
-                    sFilter += " AND Abiturient.HasEntryConfirm = 1 AND Abiturient.HasDisabledEntryConfirm = 0 ";
+                    if (_studyLevelGroupId == 1 || _studyLevelGroupId == 2)
+                        sFilter += " AND Abiturient.HasEntryConfirm = 1 AND Abiturient.HasDisabledEntryConfirm = 0 ";
                 }
                 else
                     sFilter += string.Format(@" AND

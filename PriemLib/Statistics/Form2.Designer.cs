@@ -86,13 +86,15 @@
             this.label13 = new System.Windows.Forms.Label();
             this.tbKCP_Mag = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
-            this.tbCnt_Stud_MAG_All = new System.Windows.Forms.TextBox();
+            this.tbCnt_Stud_MAG_All_B = new System.Windows.Forms.TextBox();
             this.textBox46 = new System.Windows.Forms.TextBox();
             this.tbCnt_Stud_MAG_All_SPB = new System.Windows.Forms.TextBox();
             this.textBox48 = new System.Windows.Forms.TextBox();
             this.btnClose = new System.Windows.Forms.Button();
             this.btnWord = new System.Windows.Forms.Button();
             this.label15 = new System.Windows.Forms.Label();
+            this.tbCnt_Stud_MAG_All_P = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -617,13 +619,13 @@
             this.label14.TabIndex = 16;
             this.label14.Text = "КЦ приёма (магистратура)";
             // 
-            // tbCnt_Stud_MAG_All
+            // tbCnt_Stud_MAG_All_B
             // 
-            this.tbCnt_Stud_MAG_All.Location = new System.Drawing.Point(207, 453);
-            this.tbCnt_Stud_MAG_All.Name = "tbCnt_Stud_MAG_All";
-            this.tbCnt_Stud_MAG_All.ReadOnly = true;
-            this.tbCnt_Stud_MAG_All.Size = new System.Drawing.Size(144, 20);
-            this.tbCnt_Stud_MAG_All.TabIndex = 18;
+            this.tbCnt_Stud_MAG_All_B.Location = new System.Drawing.Point(207, 453);
+            this.tbCnt_Stud_MAG_All_B.Name = "tbCnt_Stud_MAG_All_B";
+            this.tbCnt_Stud_MAG_All_B.ReadOnly = true;
+            this.tbCnt_Stud_MAG_All_B.Size = new System.Drawing.Size(144, 20);
+            this.tbCnt_Stud_MAG_All_B.TabIndex = 18;
             // 
             // textBox46
             // 
@@ -677,17 +679,36 @@
             this.label15.Text = "Средний бал ЕГЭ зачисленных в стобалльной системе";
             this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // tbCnt_Stud_MAG_All_P
+            // 
+            this.tbCnt_Stud_MAG_All_P.Location = new System.Drawing.Point(207, 479);
+            this.tbCnt_Stud_MAG_All_P.Name = "tbCnt_Stud_MAG_All_P";
+            this.tbCnt_Stud_MAG_All_P.ReadOnly = true;
+            this.tbCnt_Stud_MAG_All_P.Size = new System.Drawing.Size(144, 20);
+            this.tbCnt_Stud_MAG_All_P.TabIndex = 25;
+            // 
+            // label16
+            // 
+            this.label16.Location = new System.Drawing.Point(31, 476);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(164, 28);
+            this.label16.TabIndex = 26;
+            this.label16.Text = "Зачислено на платные места (магистратура)";
+            this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(531, 546);
+            this.Controls.Add(this.label16);
+            this.Controls.Add(this.tbCnt_Stud_MAG_All_P);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.btnWord);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.tbCnt_Stud_MAG_All_SPB);
             this.Controls.Add(this.textBox48);
-            this.Controls.Add(this.tbCnt_Stud_MAG_All);
+            this.Controls.Add(this.tbCnt_Stud_MAG_All_B);
             this.Controls.Add(this.textBox46);
             this.Controls.Add(this.tbKCP_Mag);
             this.Controls.Add(this.label14);
@@ -776,7 +797,7 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox tbKCP_Mag;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.TextBox tbCnt_Stud_MAG_All;
+        private System.Windows.Forms.TextBox tbCnt_Stud_MAG_All_B;
         private System.Windows.Forms.TextBox textBox46;
         private System.Windows.Forms.TextBox tbCnt_Stud_MAG_All_SPB;
         private System.Windows.Forms.TextBox textBox48;
@@ -785,5 +806,7 @@
         private System.Windows.Forms.TextBox tbAVG_Ege_P;
         private System.Windows.Forms.TextBox tbAVG_Ege_B;
         private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.TextBox tbCnt_Stud_MAG_All_P;
+        private System.Windows.Forms.Label label16;
     }
 }

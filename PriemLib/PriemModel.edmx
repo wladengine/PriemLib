@@ -185,6 +185,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="BenefitDocumentTypeId" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="FISID" Type="int" />
         </EntityType>
         <EntityType Name="BenefitDocumentType">
           <Key>
@@ -1387,7 +1388,7 @@
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" />
-          <Property Name="Position" Type="nvarchar" MaxLength="100" />
+          <Property Name="Position" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="SP_AggregateGroup">
           <Key>
@@ -1512,6 +1513,7 @@
           <Property Name="Duration" Type="int" />
           <Property Name="FISID" Type="int" />
           <Property Name="SKName" Type="nvarchar" MaxLength="150" />
+          <Property Name="LevelTypeName" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="StudyLevelGroup">
           <Key>
@@ -3751,18 +3753,6 @@
             </Principal>
             <Dependent Role="AttMarks">
               <PropertyRef Name="PersonId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_BenefitDocument_BenefitDocumentType">
-          <End Role="BenefitDocumentType" Type="Self.BenefitDocumentType" Multiplicity="1" />
-          <End Role="BenefitDocument" Type="Self.BenefitDocument" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="BenefitDocumentType">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="BenefitDocument">
-              <PropertyRef Name="BenefitDocumentTypeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -7999,10 +7989,6 @@
             <End Role="Person" EntitySet="Person" />
             <End Role="AttMarks" EntitySet="AttMarks" />
           </AssociationSet>
-          <AssociationSet Name="FK_BenefitDocument_BenefitDocumentType" Association="Self.FK_BenefitDocument_BenefitDocumentType">
-            <End Role="BenefitDocumentType" EntitySet="BenefitDocumentType" />
-            <End Role="BenefitDocument" EntitySet="BenefitDocument" />
-          </AssociationSet>
           <AssociationSet Name="fk_DocInventory_AbitDoc" Association="Self.fk_DocInventory_AbitDoc">
             <End Role="AbitDoc" EntitySet="AbitDoc" />
             <End Role="DocInventory" EntitySet="DocInventory" />
@@ -10977,6 +10963,7 @@
           <Property Name="FISID" Type="Int32" />
           <Property Name="SKName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Entry" Relationship="Priem2012Model.FK_Entry_StudyLevel" FromRole="StudyLevel" ToRole="Entry" />
+          <Property Name="LevelTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="fk_Exam_ExamName">
           <End Type="Priem2012Model.ExamName" Role="ExamName" Multiplicity="1" />
@@ -12996,7 +12983,7 @@
           </Key>
           <Property Type="Int32" Name="Id" Nullable="false" />
           <Property Type="String" Name="Name" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Position" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Position" MaxLength="500" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="OrderNumbers" Relationship="Priem2012Model.FK_OrderNumbers_Signer" FromRole="Signer" ToRole="OrderNumbers" />
         </EntityType>
         <Association Name="FK_OrderNumbers_Signer">
@@ -14681,6 +14668,7 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="BenefitDocumentType" Relationship="Priem2012Model.FK_BenefitDocument_BenefitDocumentType" FromRole="BenefitDocument" ToRole="BenefitDocumentType" />
           <NavigationProperty Name="PersonBenefitDocument" Relationship="Priem2012Model.FK_PersonBenefitDocument_BenefitDocument" FromRole="BenefitDocument" ToRole="PersonBenefitDocument" />
+          <Property Name="FISID" Type="Int32" />
         </EntityType>
         <Association Name="FK_BenefitDocument_BenefitDocumentType">
           <End Type="Priem2012Model.BenefitDocumentType" Role="BenefitDocumentType" Multiplicity="1" />
@@ -16002,6 +15990,7 @@
           <EntitySetMapping Name="StudyLevel">
             <EntityTypeMapping TypeName="Priem2012Model.StudyLevel">
               <MappingFragment StoreEntitySet="StudyLevel">
+                <ScalarProperty Name="LevelTypeName" ColumnName="LevelTypeName" />
                 <ScalarProperty Name="SKName" ColumnName="SKName" />
                 <ScalarProperty Name="FISID" ColumnName="FISID" />
                 <ScalarProperty Name="Duration" ColumnName="Duration" />
@@ -18324,6 +18313,7 @@
           <EntitySetMapping Name="BenefitDocument">
             <EntityTypeMapping TypeName="Priem2012Model.BenefitDocument">
               <MappingFragment StoreEntitySet="BenefitDocument">
+                <ScalarProperty Name="FISID" ColumnName="FISID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="BenefitDocumentTypeId" ColumnName="BenefitDocumentTypeId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />

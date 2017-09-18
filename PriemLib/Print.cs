@@ -1553,11 +1553,12 @@ namespace PriemLib
         {
             try
             {
-                using (FileStream fs = new FileStream(string.Format(@"{0}\EntryOrder.docx", MainClass.dirTemplates), FileMode.Open, FileAccess.Read))
+                var ProtocolInfo = ProtocolDataProvider.GetProtocolInfo(gProtocolId, 4);
+                string sTempFileName = Path.Combine(MainClass.dirTemplates, string.Format("EntryOrder{0}.docx", ProtocolInfo.StudyLevelGroupId == 5 ? "_Ord" : ""));
+
+                using (FileStream fs = new FileStream(sTempFileName, FileMode.Open, FileAccess.Read))
                 using (DocX doc = DocX.Load(fs))
                 {
-                    var ProtocolInfo = ProtocolDataProvider.GetProtocolInfo(gProtocolId, 4);
-
                     var td = doc.Tables[1];
 
                     string docNum;
@@ -1569,6 +1570,7 @@ namespace PriemLib
                     string sLicenseProgramName = string.Empty;
                     string sLicenseProgramCode = string.Empty;
                     string sStudyLevelNameRod = string.Empty;
+                    string sLevelTypeName = string.Empty;
                     int iStudyLevelGroupId = MainClass.lstStudyLevelGroupId.First();
                     string FacultyIndexNumber = ProtocolInfo.FacultyIndexNumber;
                     Tuple<string, DateTime> tAdmProt = null;
@@ -1608,6 +1610,8 @@ namespace PriemLib
                         var SF = ctx.StudyForm.Where(x => x.Id == ProtocolInfo.StudyFormId).Select(x => new { x.Name, x.RodName }).FirstOrDefault();
                         form = SF.Name + " форма обучения";
                         StudyFormRod = SF.RodName;
+
+                        sLevelTypeName = ctx.StudyLevel.Where(x => x.Id == ProtocolInfo.StudyLevelId).Select(x => x.LevelTypeName).FirstOrDefault();
 
                         var adm = (from protocol in ctx.Protocol
                                    join admProt in ctx.AdmissionProtocol on protocol.AdmissionProtocolId equals admProt.Id
@@ -1651,6 +1655,7 @@ namespace PriemLib
                     doc.ReplaceText("&Listener&", list);
                     doc.ReplaceText("&Reduced&", sec);
                     doc.ReplaceText("&FacultyInd&", FacultyIndexNumber ?? "");
+                    doc.ReplaceText("&LevelTypeName&", sLevelTypeName ?? "");
 
                     string dateAdm = tAdmProt == null ? "НЕТ ДАТЫ" : tAdmProt.Item2.ToShortDateString();
                     string numAdm = tAdmProt == null ? "НЕТ НОМЕРА" : tAdmProt.Item1;
@@ -1663,8 +1668,6 @@ namespace PriemLib
                     string curHeader = "-";
                     string curMotivation = "-";
                     string Motivation = string.Empty;
-                    string naprobProgRod = "";
-                    naprobProgRod = "образовательной программе";
 
                     var baseRow = td.Rows[0];
                     var baseFormatting = new Formatting() { FontFamily = new System.Drawing.FontFamily("Times New Roman"), Size = 12 };
@@ -1741,6 +1744,8 @@ namespace PriemLib
                         {
                             pos++;
                             string header = v.EntryHeaderName;
+                            if (ProtocolInfo.StudyLevelGroupId == 3)
+                                header = "-";
 
                             if (!isCel && !bFirstRun)
                             {
@@ -1771,7 +1776,11 @@ namespace PriemLib
                                 {
                                     td.InsertRow(baseRow);
                                     curRow++;
-                                    td.Rows[curRow].Cells[0].Paragraphs[0].InsertText(string.Format("\tпо направлению подготовки {0} \"{1}\"", v.LicenseProgramCode, LP), false, baseFormatting);
+
+                                    string spec = "направлению подготовки";
+                                    if (iStudyLevelGroupId == 5 || sLicenseProgramCode.IndexOf(".05.") >= 0)
+                                        spec = "специальности";
+                                    td.Rows[curRow].Cells[0].Paragraphs[0].InsertText(string.Format("\tпо {0} {1} \"{2}\"", spec, v.LicenseProgramCode, LP), false, baseFormatting);
                                     curLPHeader = LP;
                                 }
                                 if (ObrazProgramId != curObProg)
@@ -1785,7 +1794,7 @@ namespace PriemLib
                                         }
                                         td.InsertRow(baseRow);
                                         curRow++;
-                                        td.Rows[curRow].Cells[0].Paragraphs[0].InsertText(string.Format("\tпо {0} \"{1}\"", naprobProgRod, obProg), false, baseFormatting);
+                                        td.Rows[curRow].Cells[0].Paragraphs[0].InsertText(string.Format("\tпо образовательной программе \"{0}\"", obProg), false, baseFormatting);
 
                                         string profileName = v.ProfileName;
                                         if (profileName != curProfileName)
@@ -1835,6 +1844,7 @@ namespace PriemLib
                             }
 
                             bFirstRun = false;
+                            bool bShowBalls = ProtocolInfo.StudyLevelGroupId != 3;
 
                             string balls = v.TotalSum;
                             string ballToStr = " балл";
@@ -1860,7 +1870,7 @@ namespace PriemLib
 
                             td.InsertRow(baseRow);
                             curRow++;
-                            td.Rows[curRow].Cells[0].Paragraphs[0].InsertText(string.Format("\t\t1.{0}. {1} {2} ", pos, v.ФИО + ',', balls + ballToStr), false, baseFormatting);
+                            td.Rows[curRow].Cells[0].Paragraphs[0].InsertText(string.Format("\t\t1.{0}. {1} {2} ", pos, v.ФИО + (bShowBalls ? "," : ""), (bShowBalls ? balls + ballToStr : "")), false, baseFormatting);
                         }
                     }
 
@@ -1887,6 +1897,12 @@ namespace PriemLib
                         curRow++;
                         string StipendiaInfo = string.Format("\r\n2.    Назначить лицам, указанным в п. 1 настоящего приказа, стипендию в размере {0} ежемесячно с 01.09.{1} по 31.01.{2}.", 
                             Stipendia, MainClass.iPriemYear, MainClass.iPriemYear + 1);
+                        if (ProtocolInfo.StudyLevelGroupId == 3)
+                        {
+                            StipendiaInfo = 
+                                string.Format("\r\n2.    Назначить лицам, указанным в п. 1 настоящего приказа, стипендию в размере {0} ежемесячно с 01.09.{1} по 31.12.{1}.", 
+                                                Stipendia, MainClass.iPriemYear);
+                        }
                         td.Rows[curRow].Cells[0].Paragraphs[0].InsertText(StipendiaInfo, false, baseFormatting);
                         //AddRowInTableOrder(StipendiaInfo, ref td, ref curRow);
                     }
@@ -1905,233 +1921,6 @@ namespace PriemLib
             {
                 WinFormsServ.Error(exc);
             }
-
-            //try
-            //{
-            //    var ProtocolInfo = ProtocolDataProvider.GetProtocolInfo(gProtocolId, 4);
-
-            //    string docNum;
-            //    DateTime? docDate;
-
-            //    string basis = string.Empty;
-            //    string basis2 = string.Empty;
-            //    string form = string.Empty;
-            //    string form2 = string.Empty;
-            //    string sLicenseProgramName = string.Empty;
-            //    string sLicenseProgramCode = string.Empty;
-            //    string sStudyLevelNameRod = string.Empty;
-            //    int iStudyLevelGroupId = MainClass.lstStudyLevelGroupId.First();
-            //    string FacultyIndexNumber = ProtocolInfo.FacultyIndexNumber;
-
-            //    using (PriemEntities ctx = new PriemEntities())
-            //    {
-            //        docNum = (from protocol in ctx.Protocol
-            //                  join AdmProt in ctx.AdmissionProtocol on protocol.AdmissionProtocolId equals AdmProt.Id
-            //                  where protocol.Id == gProtocolId
-            //                  select AdmProt.Number).DefaultIfEmpty("НЕ УКАЗАН").FirstOrDefault();
-
-            //        docDate = (from protocol in ctx.Protocol
-            //                   join AdmProt in ctx.AdmissionProtocol on protocol.AdmissionProtocolId equals AdmProt.Id
-            //                   where protocol.Id == gProtocolId
-            //                   select AdmProt.Date).FirstOrDefault();
-
-            //        sLicenseProgramName =
-            //            (from entry in ctx.extEntry
-            //             join extentryView in ctx.extEntryView on entry.LicenseProgramId equals extentryView.LicenseProgramId
-            //             where extentryView.Id == gProtocolId
-            //             select entry.LicenseProgramName).FirstOrDefault();
-
-            //        sLicenseProgramCode =
-            //            (from entry in ctx.extEntry
-            //             join extentryView in ctx.extEntryView on entry.LicenseProgramId equals extentryView.LicenseProgramId
-            //             where extentryView.Id == gProtocolId
-            //             select entry.LicenseProgramCode).FirstOrDefault();
-
-            //        sStudyLevelNameRod =
-            //            (from entry in ctx.Entry
-            //             join extentryView in ctx.extEntryView on entry.LicenseProgramId equals extentryView.LicenseProgramId
-            //             where extentryView.Id == gProtocolId
-            //             select entry.StudyLevel.NameRod).FirstOrDefault();
-
-            //        iStudyLevelGroupId = ProtocolInfo.StudyLevelGroupId;
-
-            //        var SF = ctx.StudyForm.Where(x => x.Id == ProtocolInfo.StudyFormId).Select(x => new { x.Name, x.RodName }).FirstOrDefault();
-            //        form = SF.Name + " форма обучения";
-            //        form2 = "по " + SF.RodName + " форме";
-            //    }
-
-            //    string educDoc = "", list = "", sec = "";
-
-            //    if (ProtocolInfo.IsListener)
-            //        list = " в качестве слушателя";
-            //    if (ProtocolInfo.IsSecond)
-            //        sec += " (для лиц с ВО)";
-            //    if (ProtocolInfo.IsParallel)
-            //        sec += " (параллельное обучение)";
-            //    if (ProtocolInfo.IsReduced)
-            //        sec += " (сокращенной)";
-
-            //    string dogovorDoc = "";
-            //    switch (ProtocolInfo.StudyBasisId)
-            //    {
-            //        case 1:
-            //            basis2 = "обучения за счет бюджетных ассигнований федерального бюджета";
-            //            dogovorDoc = "";
-            //            educDoc = ", оригиналы документа установленного образца об образовании";
-            //            break;
-            //        case 2:
-            //            basis2 = "обучения по договорам об образовании";
-            //            dogovorDoc = ", договоры об образовании";
-            //            educDoc = "";
-            //            break;
-            //    }
-
-            //    WordDoc wd = new WordDoc(string.Format(@"{0}\EntryOrder{1}.dot", MainClass.dirTemplates, iStudyLevelGroupId == 5 ? "Ord" : ""));
-            //    TableDoc td = wd.Tables[0];
-
-            //    wd.SetFields("Граждан", isRus ? "граждан Российской Федерации" : "иностранных граждан");
-            //    wd.SetFields("Граждан2", isRus ? "граждан Российской Федерации" : "");
-            //    wd.SetFields("Стипендия", (ProtocolInfo.StudyBasisId == 2 || ProtocolInfo.StudyFormId == 2) ? "" : "и назначении стипендии");
-            //    wd.SetFields("Форма2", form2);
-            //    wd.SetFields("Основа2", basis2);
-            //    wd.SetFields("БакСпецРод", sStudyLevelNameRod);
-            //    wd.SetFields("Слушатель", list);
-            //    wd.SetFields("Сокращ", sec);
-
-            //    wd.SetFields("ДатаПриказа", docDate.HasValue ? docDate.Value.ToShortDateString() : "НЕТ ДАТЫ");
-            //    wd.SetFields("НомерПриказа", docNum);
-            //    wd.SetFields("FacultyInd", FacultyIndexNumber);
-
-            //    wd.SetFields("DogovorDoc", dogovorDoc);
-            //    wd.SetFields("EducDoc", educDoc);
-
-            //    int curRow = 4, counter = 0;
-            //    string curProfileName = "нет";
-            //    string curObrazProgramId = "-";
-            //    string curHeader = "-";
-            //    string curCountry = "-";
-            //    string curLPHeader = "-";
-            //    string curMotivation = "-";
-            //    string Motivation = string.Empty;
-
-            //    var lst = ProtocolDataProvider.GetEntryViewData(gProtocolId, null, isRus);
-            //    bool bFirstRun = true;
-            //    foreach (var v in lst)
-            //    {
-            //        ++counter;
-
-            //        string header = v.EntryHeaderName;
-
-            //        if (!isCel && !bFirstRun)
-            //        {
-            //            if (header != curHeader)
-            //            {
-            //                AddRowInTableOrder(header, ref td, ref curRow);
-            //                curHeader = header;
-            //            }
-            //        }
-
-            //        bFirstRun = false;
-
-            //        string LP = v.LicenseProgramName;
-            //        if (curLPHeader != LP)
-            //        {
-            //            AddRowInTableOrder(string.Format("{2}\tпо направлению подготовки {0} \"{1}\"", v.LicenseProgramCode, LP, curObrazProgramId == "-" ? "" : "\r\n"), ref td, ref curRow);
-            //            curLPHeader = LP;
-            //        }
-
-            //        string ObrazProgramId = v.ObrazProgramId.ToString();
-            //        if (ObrazProgramId != curObrazProgramId)
-            //        {
-            //            if (!string.IsNullOrEmpty(v.ObrazProgram))
-            //                AddRowInTableOrder(string.Format("\tпо образовательной программе {0} \"{1}\"", v.ObrazProgramCrypt, v.ObrazProgram), ref td, ref curRow);
-
-            //            string profileName = v.ProfileName;
-            //            if (!string.IsNullOrEmpty(profileName) && profileName != "нет")
-            //                AddRowInTableOrder(string.Format("\tпо профилю \"{0}\"", profileName), ref td, ref curRow);
-
-            //            curProfileName = profileName;
-            //            curObrazProgramId = ObrazProgramId;
-
-            //            if (!isCel)
-            //            {
-            //                if (header != curHeader)
-            //                {
-            //                    AddRowInTableOrder(string.Format("\t{0}:", header), ref td, ref curRow);
-            //                    curHeader = header;
-            //                }
-            //            }
-            //        }
-            //        else
-            //        {
-            //            string profileName = v.ProfileName;
-            //            if (profileName != curProfileName)
-            //            {
-            //                if (!string.IsNullOrEmpty(profileName) && profileName != "нет")
-            //                    AddRowInTableOrder(string.Format("\tпо профилю \"{0}\"", profileName), ref td, ref curRow);
-
-            //                curProfileName = profileName;
-            //                if (!isCel)
-            //                    AddRowInTableOrder(string.Format("\t{0}:", header), ref td, ref curRow);
-            //            }
-            //        }
-
-            //        if (!isRus)
-            //        {
-            //            string country = v.CountryNameRod;
-            //            if (country != curCountry)
-            //            {
-            //                AddRowInTableOrder(string.Format("\r\n граждан {0}:", country), ref td, ref curRow);
-            //                curCountry = country;
-            //            }
-            //        }
-
-            //        string balls = v.TotalSum.HasValue ? v.TotalSum.Value.ToString() : "";
-            //        string ballToStr = GetBallsToStr(balls);
-
-            //        if (isCel && curMotivation == "-")
-            //            curMotivation = string.Format("ОСНОВАНИЕ: договор об организации целевого приема с {0} от … № …, Протокол заседания Приемной комиссии СПбГУ от ДАТА № ..., личное заявление, оригинал документа государственного образца об образовании.", v.CelCompName);
-            //        string tmpMotiv = curMotivation;
-            //        Motivation = string.Format("ОСНОВАНИЕ: договор об организации целевого приема с {0} от … № …, Протокол заседания Приемной комиссии СПбГУ от ДАТА № ..., личное заявление, оригинал документа государственного образца об образовании.", v.CelCompName);
-
-            //        if (isCel && curMotivation != Motivation)
-            //        {
-            //            string CelCompText = v.CelCompName;
-            //            Motivation = string.Format("ОСНОВАНИЕ: договор об организации целевого приема с {0} от … № …, Протокол заседания Приемной комиссии СПбГУ от ДАТА № .., личное заявление, оригинал документа государственного образца об образовании.", CelCompText);
-            //            curMotivation = Motivation;
-            //        }
-            //        else
-            //            Motivation = string.Empty;
-
-            //        AddRowInTableOrder(string.Format("\t\t1.{0}. {1} {2} {3}", counter, v.FIO, balls + ballToStr, (string.IsNullOrEmpty(Motivation) ? "" : ("\n\n\t\t" + tmpMotiv + "\n"))), ref td, ref curRow);
-            //    }
-
-            //    if (!string.IsNullOrEmpty(curMotivation) && isCel)
-            //        td[0, curRow] += "\n\t\t" + curMotivation + "\n";
-
-            //    string Stipendia = "";
-            //    switch (iStudyLevelGroupId)
-            //    {
-            //        case 1: Stipendia = "1485 рублей"; break;
-            //        case 2: Stipendia = "1485 рублей"; break;
-            //        case 3: Stipendia = "541 рубль"; break;
-            //        case 4: Stipendia = "2922/7013 рублей"; break;
-            //        case 5: Stipendia = "7441 рубль"; break;
-            //        default: Stipendia = "1485 рублей"; break;
-            //    }
-
-            //    //платникам и всем очно-заочникам стипендия не платится
-            //    if (ProtocolInfo.StudyBasisId != 2 && ProtocolInfo.StudyFormId != 2)
-            //        AddRowInTableOrder(string.Format("\r\n2.    Назначить лицам, указанным в п. 1 настоящего приказа, стипендию в размере {0} ежемесячно с 01.09.{1} по 31.01.{2}.", Stipendia, MainClass.iPriemYear, MainClass.iPriemYear + 1), ref td, ref curRow);
-            //}
-            //catch (WordException we)
-            //{
-            //    WinFormsServ.Error(we);
-            //}
-            //catch (Exception exc)
-            //{
-            //    WinFormsServ.Error(exc);
-            //}
         }
         public static void PrintOrderReview(Guid gProtocolId, Guid? AbiturientId, bool isRus)
         {
@@ -2307,6 +2096,8 @@ namespace PriemLib
                                 }
 
                                 string balls = v.TotalSum.ToString();
+                                if (ProtocolInfo.StudyLevelGroupId == 3)
+                                    balls = "";
                                 AddRowInTableOrder(string.Format("\t\t{0} {1}", v.FIO, balls + GetBallsToStr(balls)), ref td, ref curRow);
 
                                 string Stipendia = "";

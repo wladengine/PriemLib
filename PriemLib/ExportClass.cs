@@ -33,6 +33,8 @@ namespace PriemLib
                         lst = new List<KeyValuePair<int, Dictionary<Guid, string>>>();
 
                     pf.Show();
+
+                    //Сначала всех бюджетников
                     for (int SLGr = 1; SLGr <= 5; SLGr++)
                     {
                         pf.SetProgressText("Загрузка данных...");
@@ -51,48 +53,43 @@ namespace PriemLib
                         if (SLG == 5) //ORD -> ASP == 4
                             SLG = 4;
 
+                        List<int> lstSLG = new List<int>();
+                        lstSLG.Add(SLG);
+                        if (SLG == 4)
+                            lstSLG.Add(5);
+
                         string num =
                             (from ab in context.qAbitAll
-                             where ab.StudyLevelGroupId == SLG && !ab.IsForeign
-                             select ab.StudyNumber).Max();
-
-                        string numFor =
-                            (from ab in context.qAbitAll
-                             where ab.IsForeign
+                             where lstSLG.Contains(ab.StudyLevelGroupId) && !ab.IsForeign
                              select ab.StudyNumber).Max();
 
                         var abits =
                             (from ab in context.extAbit
                              join ev in context.extEntryView
                              on ab.Id equals ev.AbiturientId
-                             where ab.StudyLevelGroupId == SLGr && (ab.StudyNumber == null || ab.StudyNumber.Length == 0)
+                             where lstSLG.Contains(ab.StudyLevelGroupId) && (ab.StudyNumber == null || ab.StudyNumber.Length == 0)
                              && !ab.IsForeign
                              orderby ab.FacultyId, ab.FIO
                              select ab.Id).ToList();
 
                         pf.MaxPrBarValue = abits.Count;
 
-                        var foreignAbits =
+                        var _foreignAbits =
                             (from ab in context.extAbit
                              join ev in context.extEntryView
                              on ab.Id equals ev.AbiturientId
-                             where ab.StudyLevelGroupId == SLGr && (ab.StudyNumber == null || ab.StudyNumber.Length == 0)
+                             where lstSLG.Contains(ab.StudyLevelGroupId) && (ab.StudyNumber == null || ab.StudyNumber.Length == 0)
                              && ab.IsForeign
                              orderby ab.FacultyId, ab.FIO
                              select ab.Id).ToList();
 
-                        List<Guid> lstAbits = abits.Except(foreignAbits).ToList();
+                        List<Guid> lstAbits = abits.Except(_foreignAbits).ToList();
 
                         int stNum = 0;
                         if (num != null && num.Length != 0)
                             stNum = int.Parse(num.Substring(3));
 
-                        int stNumFor = 0;
-                        if (numFor != null && numFor.Length != 0)
-                            stNumFor = int.Parse(numFor.Substring(3));
-
                         stNum++;
-                        stNumFor++;
 
                         int Pref = SLGr;
                         if (Pref == 4) // ASP&ORD = 5
@@ -100,30 +97,49 @@ namespace PriemLib
 
                         foreach (Guid abitId in lstAbits)
                         {
-                            string sNum = stNum.ToString("D4");//"0000" + stNum.ToString();
-                            //sNum = sNum.Substring(sNum.Length - 4, 4);
+                            string sNum = stNum.ToString("D4");
                             sNum = (MainClass.iPriemYear % 100).ToString() + Pref + sNum;
 
-                            //context.Abiturient_UpdateStudyNumber(sNum, abitId);
                             dic.Add(abitId, sNum);
                             pf.PerformStep();
                             stNum++;
                         }
 
-                        foreach (Guid abitId in foreignAbits)
-                        {
-                            string sNum = "0000" + stNumFor.ToString();
-                            sNum = sNum.Substring(sNum.Length - 4, 4);
-                            sNum = (MainClass.iPriemYear % 100).ToString() + "4" + sNum;
-
-                            //context.Abiturient_UpdateStudyNumber(sNum, abitId);
-                            dic.Add(abitId, sNum);
-                            pf.PerformStep();
-                            stNumFor++;
-                        }
-
                         lst.Add(new KeyValuePair<int, Dictionary<Guid, string>>(Pref, dic));
                     }
+
+                    Dictionary<Guid, string> dicFor = new Dictionary<Guid, string>();
+                    var foreignAbits =
+                            (from ab in context.extAbit
+                             join ev in context.extEntryView
+                             on ab.Id equals ev.AbiturientId
+                             where ab.IsForeign &&(ab.StudyNumber == null || ab.StudyNumber.Length == 0)
+                             orderby ab.FacultyId, ab.FIO
+                             select ab.Id).ToList();
+
+                    string numFor = (from ab in context.qAbitAll
+                                     where ab.IsForeign
+                                     select ab.StudyNumber).Max();
+
+                    int stNumFor = 0;
+                    if (numFor != null && numFor.Length != 0)
+                        stNumFor = int.Parse(numFor.Substring(3));
+
+                    stNumFor++;
+
+                    foreach (Guid abitId in foreignAbits)
+                    {
+                        string sNum = "0000" + stNumFor.ToString();
+                        sNum = sNum.Substring(sNum.Length - 4, 4);
+                        sNum = (MainClass.iPriemYear % 100).ToString() + "4" + sNum;
+
+                        //context.Abiturient_UpdateStudyNumber(sNum, abitId);
+                        dicFor.Add(abitId, sNum);
+                        pf.PerformStep();
+                        stNumFor++;
+                    }
+
+                    lst.Add(new KeyValuePair<int, Dictionary<Guid, string>>(0, dicFor));
 
                     using (var tran = context.Database.BeginTransaction())
                     {

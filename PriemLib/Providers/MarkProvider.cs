@@ -156,7 +156,12 @@ namespace PriemLib
         {
             using (PriemEntities context = new PriemEntities())
             {
-                var lstMarksB =
+                ProgressForm pf = new ProgressForm();
+                pf.Show();
+                pf.SetProgressText("Получение данных...");
+                try
+                {
+                    var lstMarksB =
                     (from Mrk in context.Mark
                      join exInEnt in context.extExamInEntry on Mrk.ExamInEntryBlockUnitId equals exInEnt.Id
                      where exInEnt.StudyBasisId == 1
@@ -172,60 +177,63 @@ namespace PriemLib
                          Mrk.Value
                      }).ToList();
 
-                var lstMarksP =
-                    (from Mrk in context.Mark
-                     join exInEnt in context.extExamInEntry on Mrk.ExamInEntryBlockUnitId equals exInEnt.Id
-                     where exInEnt.StudyBasisId == 2
-                     select new
-                     {
-                         Mrk.Abiturient.PersonId,
-                         exInEnt.ExamId,
-                         exInEnt.LicenseProgramId,
-                         exInEnt.ObrazProgramId,
-                         exInEnt.ProfileId,
-                         exInEnt.StudyFormId,
-                         exInEnt.StudyLevelGroupId,
-                         Mrk.Value
-                     }).ToList();
+                    var lstMarksP =
+                        (from Mrk in context.Mark
+                         join exInEnt in context.extExamInEntry on Mrk.ExamInEntryBlockUnitId equals exInEnt.Id
+                         where exInEnt.StudyBasisId == 2
+                         select new
+                         {
+                             Mrk.Abiturient.PersonId,
+                             exInEnt.ExamId,
+                             exInEnt.LicenseProgramId,
+                             exInEnt.ObrazProgramId,
+                             exInEnt.ProfileId,
+                             exInEnt.StudyFormId,
+                             exInEnt.StudyLevelGroupId,
+                             Mrk.Value
+                         }).ToList();
 
-                var lstAbits = context.qAbitAll.Where(x => x.StudyBasisId == 2).Select(x => new
-                {
-                    x.Id,
-                    x.PersonId,
-                    x.LicenseProgramId,
-                    x.ObrazProgramId,
-                    x.ProfileId,
-                    x.StudyFormId,
-                    x.StudyLevelGroupId
-                }).ToList().OrderBy(x => x.PersonId).ThenBy(x => x.LicenseProgramId).ThenBy(x => x.ObrazProgramId).ThenBy(x => x.ProfileId);
-
-                var lstPersonWithDog = lstAbits.Select(x => x.PersonId).Distinct().ToList();
-
-                var lstMarkToInsert = lstMarksB.Except(lstMarksP).ToList().Where(x => lstPersonWithDog.Contains(x.PersonId)).ToList();
-
-                var examsP = context.extExamInEntry
-                    .Where(x => x.StudyBasisId == 2)
-                    .Select(exInEnt => new
+                    var lstAbits = context.qAbitAll.Where(x => x.StudyBasisId == 2).Select(x => new
                     {
-                        exInEnt.Id,
-                        exInEnt.ExamId,
-                        exInEnt.LicenseProgramId,
-                        exInEnt.ObrazProgramId,
-                        exInEnt.ProfileId,
-                        exInEnt.StudyFormId,
-                        exInEnt.StudyLevelGroupId
-                    }).ToList();
+                        x.Id,
+                        x.PersonId,
+                        x.LicenseProgramId,
+                        x.ObrazProgramId,
+                        x.ProfileId,
+                        x.StudyFormId,
+                        x.StudyLevelGroupId
+                    }).ToList().OrderBy(x => x.PersonId).ThenBy(x => x.LicenseProgramId).ThenBy(x => x.ObrazProgramId).ThenBy(x => x.ProfileId);
 
-                int cntInsertAbits = 0;
-                int cntMissAbits = 0;
+                    var lstPersonWithDog = lstAbits.Select(x => x.PersonId).Distinct().ToList();
 
-                int cntInsertMarks = 0;
-                int cntMissMarks = 0;
+                    var lstMarkToInsert = lstMarksB.Except(lstMarksP).ToList().Where(x => lstPersonWithDog.Contains(x.PersonId)).ToList();
 
-                //using (TransactionScope tran = new TransactionScope())
-                //{
+                    var examsP = context.extExamInEntry
+                        .Where(x => x.StudyBasisId == 2)
+                        .Select(exInEnt => new
+                        {
+                            exInEnt.Id,
+                            exInEnt.ExamId,
+                            exInEnt.LicenseProgramId,
+                            exInEnt.ObrazProgramId,
+                            exInEnt.ProfileId,
+                            exInEnt.StudyFormId,
+                            exInEnt.StudyLevelGroupId
+                        }).ToList();
+
+                    int cntInsertAbits = 0;
+                    int cntMissAbits = 0;
+
+                    int cntInsertMarks = 0;
+                    int cntMissMarks = 0;
+
+                    pf.SetProgressText("Обработка данных...");
+                    pf.MaxPrBarValue = lstMarkToInsert.Count;
+                    //using (TransactionScope tran = new TransactionScope())
+                    //{
                     foreach (var M in lstMarkToInsert)
                     {
+                        pf.PerformStep();
                         Guid ExamInEntryBlockId = examsP
                             .Where(x => x.ExamId == M.ExamId
                                 && x.LicenseProgramId == M.LicenseProgramId
@@ -263,7 +271,16 @@ namespace PriemLib
                     //tran.Complete();
 
                     MessageBox.Show("Загружено оценок: " + cntInsertMarks + ", не найдено оценок: " + cntMissMarks + ", не найдено абитуриентов: " + cntMissAbits);
-                //}
+                    //}
+                }
+                catch (Exception ex)
+                {
+                    WinFormsServ.Error(ex);
+                }
+                finally
+                {
+                    pf.Close();
+                }
             }
         }
     }

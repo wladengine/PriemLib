@@ -231,6 +231,7 @@ namespace PriemLib
             string query = string.Format(@"SELECT DISTINCT Id, Number as 'Номер представления' 
 FROM ed.extEntryView 
 WHERE StudyFormId={0} AND StudyBasisId = {1} AND FacultyId = {2} {3} AND IsListener = {4} AND IsSecond = {5} AND IsReduced = {6} AND IsParallel = {7} AND StudyLevelGroupId = {8}
+AND IsForeign = {9}
 order by 2", 
                                StudyFormId, 
                                StudyBasisId, 
@@ -240,7 +241,8 @@ order by 2",
                                QueryServ.StringParseFromBool(IsSecond), 
                                QueryServ.StringParseFromBool(IsReduced), 
                                QueryServ.StringParseFromBool(IsParallel),
-                               StudyLevelGroupId);
+                               StudyLevelGroupId,
+                               MainClass.dbType == PriemType.PriemForeigners ? "1" : "0");
             HelpClass.FillDataGrid(dgvViews, _bdc, query, "");  
 
             dgvViews.Columns["Номер представления"].Width = 149;

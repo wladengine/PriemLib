@@ -159,7 +159,7 @@ namespace PriemLib
                     cbPrint.Items.Add("Наклейка для заявления");
                     cbPrint.Items.Add("Справка");
                     cbPrint.Items.Add("Выписка из приказа");
-                    if (MainClass.RightsFacMain())
+                    //if (MainClass.RightsFacMain())
                         cbPrint.Items.Add("Экзам.лист");
 
                     cbPrint.SelectedIndex = 0;
@@ -547,10 +547,15 @@ namespace PriemLib
         {
             try
             {
-                tbEnabledProtocol.Text =
-                    Util.ToStr((from ph in context.extProtocol
-                                where ph.ProtocolTypeId == 1 && !ph.IsOld && !ph.Excluded && ph.AbiturientId == GuidId
-                                select ph.Number).FirstOrDefault());
+                var enableProt = context.extProtocol
+                    .Where(x => x.ProtocolTypeId == 1 && !x.IsOld && !x.Excluded && x.AbiturientId == GuidId)
+                    .Select(x => new { x.Number, x.Date })
+                    .FirstOrDefault();
+
+                if (enableProt != null)
+                    tbEnabledProtocol.Text = Util.ToStr(enableProt.Number) + " от " + enableProt.Date.ToString("dd.MM.yyyy");
+                else
+                    tbEnabledProtocol.Text = "нет";
 
                 var entryProt = (from ph in context.extEntryView_ForDisEntered
                                  join Ab in context.Abiturient on ph.AbiturientId equals Ab.Id
@@ -584,6 +589,8 @@ namespace PriemLib
 
                     tbEntryProtocol.Text = order;
                 }
+                else
+                    tbEntryProtocol.Text = "";
             }
             catch (Exception exc)
             {
@@ -1461,6 +1468,13 @@ namespace PriemLib
         {
             if (StudyBasisId == 1 && HasEntryConfirm && !HasDisabledEntryConfirm)
             {
+                bool bHasOriginals = context.extPerson.Where(x => x.Id == _personId).Select(x => x.HasOriginals ?? false).DefaultIfEmpty(false).First();
+                if (!bHasOriginals && !HasOriginals)
+                {
+                    WinFormsServ.Error("Допускается проставлять согласие только если получены оригиналы документов");
+                    return false;
+                }
+
                 var abits =
                     (from Ab in context.Abiturient
                      join ent in context.extEntry on Ab.EntryId equals ent.Id
@@ -1832,21 +1846,18 @@ namespace PriemLib
 
         public void PrintExamList()
         {
-            if (MainClass.RightsFacMain())
-            {
-                Guid? AbitId = Guid.Parse(_Id);
+            Guid? AbitId = Guid.Parse(_Id);
 
-                if (tbEnabledProtocol.Text.Trim() != string.Empty)
-                {
-                    SaveFileDialog sfd = new SaveFileDialog();
-                    sfd.FileName = lblFIO.Text + " - Экзаменационный лист.pdf";
-                    sfd.Filter = "ADOBE Pdf files|*.pdf";
-                    if (sfd.ShowDialog() == DialogResult.OK)
-                        Print.PrintExamList(AbitId, chbPrint.Checked, sfd.FileName);
-                }
-                else
-                    WinFormsServ.Error("Невозможно создание экзаменационного листа, абитуриент не внесен в протокол о допуске");
+            if (tbEnabledProtocol.Text.Trim() != string.Empty)
+            {
+                SaveFileDialog sfd = new SaveFileDialog();
+                sfd.FileName = lblFIO.Text + " - Экзаменационный лист.pdf";
+                sfd.Filter = "ADOBE Pdf files|*.pdf";
+                if (sfd.ShowDialog() == DialogResult.OK)
+                    Print.PrintExamList(AbitId, chbPrint.Checked, sfd.FileName);
             }
+            else
+                WinFormsServ.Error("Невозможно создание экзаменационного листа, абитуриент не внесен в протокол о допуске");
         }
 
         public void PrintEntryReviev()
